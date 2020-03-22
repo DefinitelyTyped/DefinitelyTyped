@@ -1,10 +1,11 @@
 import {
     FirehoseRecordTransformationStatus,
-    FirehoseTransformationHandler, FirehoseTransformationResult,
+    FirehoseTransformationHandler,
+    FirehoseTransformationResult,
     KinesisStreamHandler,
     KinesisStreamRecord,
     KinesisStreamRecordPayload,
-} from "aws-lambda";
+} from 'aws-lambda';
 
 const handler: KinesisStreamHandler = async (event, context, callback) => {
     let kinesisStreamRecord: KinesisStreamRecord;

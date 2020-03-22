@@ -49,8 +49,22 @@ declare namespace DiLite {
     }
 
     interface StrategyEnum {
-        proto<TObject, TType>(name: string, object: TObject, type: TType, args: any, ctx: CreateContext, dependencies: any): TObject;
-        singleton<TObject, TType>(name: string, object: TObject, type: TType, args: any, ctx?: CreateContext, dependencies?: any): TObject;
+        proto<TObject, TType>(
+            name: string,
+            object: TObject,
+            type: TType,
+            args: any,
+            ctx: CreateContext,
+            dependencies: any,
+        ): TObject;
+        singleton<TObject, TType>(
+            name: string,
+            object: TObject,
+            type: TType,
+            args: any,
+            ctx?: CreateContext,
+            dependencies?: any,
+        ): TObject;
     }
 
     interface FactoryEnum {
@@ -63,7 +77,7 @@ declare namespace DiLite {
     }
 }
 
-declare module "di-lite" {
+declare module 'di-lite' {
     export = di;
 }
 declare var di: DiLite.DiLiteStatic;

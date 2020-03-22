@@ -6,17 +6,11 @@
 
 /// <reference types="node" />
 
-import { Readable } from "stream";
-import { EventEmitter } from "events";
+import { Readable } from 'stream';
+import { EventEmitter } from 'events';
 export type ConsumerCallback = (payload: any, runtime: Flow) => void;
 
-export type Primitive =
-    | boolean
-    | number
-    | string
-    | symbol
-    | null
-    | undefined;
+export type Primitive = boolean | number | string | symbol | null | undefined;
 
 export interface State {
     queue: string[];
@@ -53,27 +47,21 @@ export class Flow {
     consume(topic: string | ReadonlyArray<string>, callback: ConsumerCallback): this;
     consume(topic: string): Promise<any>;
     consume(
-        topics: ReadonlyArray<string>
+        topics: ReadonlyArray<string>,
     ): Promise<{
         [key: string]: string;
     }>;
-    consumeStream(
-        topic: string,
-        callback: (stream: ReadableStream) => void
-    ): this;
+    consumeStream(topic: string, callback: (stream: ReadableStream) => void): this;
     consumeStream(topic: string): ReadableStream;
     getReader(
-        topic: string
+        topic: string,
     ): {
         next(): Promise<any>;
     };
     define(topics: string | ReadonlyArray<string>): StageContext;
-    define(
-        topic: string,
-        data: Promise<Primitive> | DefinitionFunction | object | Primitive
-      ): this;
+    define(topic: string, data: Promise<Primitive> | DefinitionFunction | object | Primitive): this;
     catch(callback: (err: any) => void): this;
-    timeout(topics: string |  ReadonlyArray<string>, ms: number): this;
+    timeout(topics: string | ReadonlyArray<string>, ms: number): this;
     state(): State;
 }
 

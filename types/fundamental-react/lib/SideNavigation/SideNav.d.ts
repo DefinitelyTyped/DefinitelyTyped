@@ -1,5 +1,5 @@
-import * as React from "react";
-import { IconGlyph } from "../Icon/Icon";
+import * as React from 'react';
+import { IconGlyph } from '../Icon/Icon';
 
 export type SideNavProps = {
     className?: string;
@@ -38,9 +38,9 @@ export type SideNavListItemProps = {
 } & React.HTMLAttributes<Element>;
 
 declare class SideNav extends React.Component<SideNavProps> {
-    static displayName: "SideNav";
-    static List: React.ComponentClass<SideNavListProps> & {displayName: "SideNav.List"};
-    static ListItem: React.ComponentClass<SideNavListItemProps> & {displayName: "SideNav.ListItem"};
+    static displayName: 'SideNav';
+    static List: React.ComponentClass<SideNavListProps> & { displayName: 'SideNav.List' };
+    static ListItem: React.ComponentClass<SideNavListItemProps> & { displayName: 'SideNav.ListItem' };
 }
 
 export default SideNav;

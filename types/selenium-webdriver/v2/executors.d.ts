@@ -8,4 +8,8 @@ import * as webdriver from './index';
  *     client to use.
  * @returns {!./lib/command.Executor} The new command executor.
  */
-export function createExecutor(url: string | webdriver.promise.Promise<string>, opt_agent?: string, opt_proxy?: string): webdriver.Executor;
+export function createExecutor(
+    url: string | webdriver.promise.Promise<string>,
+    opt_agent?: string,
+    opt_proxy?: string,
+): webdriver.Executor;

@@ -29,8 +29,14 @@ declare namespace JQueryFarbtastic {
 }
 
 interface JQueryStatic {
-    farbtastic(placeholder: JQueryFarbtastic.Placeholder, callback: JQueryFarbtastic.Callback): JQueryFarbtastic.Farbtastic;
-    farbtastic(placeholder: JQueryFarbtastic.Placeholder, options: JQueryFarbtastic.Options): JQueryFarbtastic.Farbtastic;
+    farbtastic(
+        placeholder: JQueryFarbtastic.Placeholder,
+        callback: JQueryFarbtastic.Callback,
+    ): JQueryFarbtastic.Farbtastic;
+    farbtastic(
+        placeholder: JQueryFarbtastic.Placeholder,
+        options: JQueryFarbtastic.Options,
+    ): JQueryFarbtastic.Farbtastic;
     farbtastic(placeholder: JQueryFarbtastic.Placeholder): JQueryFarbtastic.Farbtastic;
 }
 

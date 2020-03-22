@@ -15,7 +15,7 @@ declare class SonicBoom extends EventEmitter {
      * relative protocol is enabled. Default: process.stdout
      * @returns a new sonic-boom instance
      */
-    constructor(fileDescriptor: string | number, minLength?: number, sync?: boolean)
+    constructor(fileDescriptor: string | number, minLength?: number, sync?: boolean);
 
     /**
      * Writes the string to the file. It will return false to signal the producer to slow down.

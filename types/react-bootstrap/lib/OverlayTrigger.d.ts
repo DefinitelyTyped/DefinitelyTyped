@@ -24,5 +24,5 @@ declare namespace OverlayTrigger {
         trigger?: string | string[];
     }
 }
-declare class OverlayTrigger extends React.Component<OverlayTrigger.OverlayTriggerProps> { }
+declare class OverlayTrigger extends React.Component<OverlayTrigger.OverlayTriggerProps> {}
 export = OverlayTrigger;

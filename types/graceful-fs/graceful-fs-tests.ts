@@ -22,7 +22,7 @@ const fseGrace = gfs.gracefulify(fse);
 fseGrace.lutimes; // $ExpectType typeof lutimes
 
 fs.lutimes(buf, str, str);
-fs.lutimes(buf, str, str, err => {
+fs.lutimes(buf, str, str, (err) => {
     err; // $ExpectType ErrnoException | null
 });
 fs.lutimesSync(buf, str, str);

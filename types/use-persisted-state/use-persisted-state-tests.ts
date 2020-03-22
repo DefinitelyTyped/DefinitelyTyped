@@ -32,14 +32,14 @@ createPersistedState(); // $ExpectError
 /**
  * The `key` argument must be of type `string`.
  */
-createPersistedState(1);               // $ExpectError
-createPersistedState({});              // $ExpectError
+createPersistedState(1); // $ExpectError
+createPersistedState({}); // $ExpectError
 createPersistedState(Symbol.iterator); // $ExpectError
-createPersistedState(undefined);       // $ExpectError
+createPersistedState(undefined); // $ExpectError
 
 /**
  * The `provider` argument, when passed, must partially implement `Storage`.
  */
-createPersistedState('myKey', { });                               // $ExpectError
+createPersistedState('myKey', {}); // $ExpectError
 createPersistedState('myKey', { getItem: localStorage.getItem }); // $ExpectError
 createPersistedState('myKey', { setItem: localStorage.setItem }); // $ExpectError

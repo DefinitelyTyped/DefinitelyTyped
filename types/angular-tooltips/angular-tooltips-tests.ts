@@ -2,9 +2,7 @@ import * as angular from 'angular';
 import * as angularTooltips from 'angular-tooltips';
 
 angular
-    .module('test.angular-tooltips', [
-        angularTooltips
-    ])
+    .module('test.angular-tooltips', [angularTooltips])
     .config((tooltipsConfProvider: angularTooltips.TooltipsConfProvider) => {
         tooltipsConfProvider.configure({
             side: 'left',
@@ -16,6 +14,6 @@ angular
             size: 'small',
             speed: 'slow',
             tooltipTemplateUrlCache: true,
-            show: false
+            show: false,
         });
     });

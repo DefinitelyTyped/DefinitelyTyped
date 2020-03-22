@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-export * from "./concatenate";
-export * from "./concatenateToResponse";
-export * from "./isSupported";
-export * from "./strategy";
+export * from './concatenate';
+export * from './concatenateToResponse';
+export * from './isSupported';
+export * from './strategy';
 
-export * from "./types/StreamSource";
+export * from './types/StreamSource';

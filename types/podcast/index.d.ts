@@ -35,7 +35,7 @@ declare namespace Podcast {
         itunesExplicit?: boolean;
         itunesCategory?: FeedItunesCategory[];
         itunesImage?: string;
-        itunesType?: "episodic" | "serial";
+        itunesType?: 'episodic' | 'serial';
         customNamespaces?: object;
         customElements?: object[];
     }

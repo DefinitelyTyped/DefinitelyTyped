@@ -4,7 +4,7 @@ import { assertType } from './lib/assert';
 const o = Ember.Object.create();
 assertType<object>(o);
 
-const o1 = Ember.Object.create({x: 9});
+const o1 = Ember.Object.create({ x: 9 });
 assertType<number>(o1.x);
 
 const obj = Ember.Object.create({ a: 1 }, { b: 2 }, { c: 3 });
@@ -13,9 +13,9 @@ assertType<number>(obj.a);
 assertType<number>(obj.c);
 
 export class Person extends Ember.Object.extend({
-    fullName: Ember.computed('firstName', 'lastName', function() {
+    fullName: Ember.computed('firstName', 'lastName', function () {
         return [this.firstName + this.lastName].join(' ');
-    })
+    }),
 }) {
     firstName: string;
     lastName: string;
@@ -31,7 +31,7 @@ const p2b = Person.create({}, { firstName: 'string' });
 const p2c = Person.create({}, {}, { firstName: 'string' });
 
 export class PersonWithNumberName extends Person.extend({
-  fullName: 6
+    fullName: 6,
 }) {}
 
 const p4 = new PersonWithNumberName();

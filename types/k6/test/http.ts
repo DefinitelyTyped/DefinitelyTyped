@@ -130,31 +130,31 @@ request('post', address, {}, {}, 5); // $ExpectError
 // batch
 batch(); // $ExpectError
 batch(5); // $ExpectError
-batch([ address ], 5); // $ExpectError
+batch([address], 5); // $ExpectError
 
 // batch(Array)
 responsesArray = batch([]);
-responsesArrayDefault = batch([ address ]);
-responsesArrayDefault = batch([ address, address, address ]);
+responsesArrayDefault = batch([address]);
+responsesArrayDefault = batch([address, address, address]);
 responsesArrayDefault = batch([
-    [ 'GET', address ],
-    [ 'POST', address, 'hello' ],
-    [ 'POST', address, { title: 'Hello' }, {} ]
+    ['GET', address],
+    ['POST', address, 'hello'],
+    ['POST', address, { title: 'Hello' }, {}],
 ]);
 responsesArrayBinary = batch([
-    [ 'GET', address, null, { responseType: 'binary' } ],
-    [ 'GET', address, null, { responseType: 'binary' } ],
-    [ 'GET', address, null, { responseType: 'binary' } ]
+    ['GET', address, null, { responseType: 'binary' }],
+    ['GET', address, null, { responseType: 'binary' }],
+    ['GET', address, null, { responseType: 'binary' }],
 ]);
 responsesArrayNone = batch([
-    [ 'GET', address, null, { responseType: 'none' } ],
-    [ 'GET', address, null, { responseType: 'none' } ],
-    [ 'GET', address, null, { responseType: 'none' } ]
+    ['GET', address, null, { responseType: 'none' }],
+    ['GET', address, null, { responseType: 'none' }],
+    ['GET', address, null, { responseType: 'none' }],
 ]);
 responsesArrayText = batch([
-    [ 'GET', address, null, { responseType: 'text' } ],
-    [ 'GET', address, null, { responseType: 'text' } ],
-    [ 'GET', address, null, { responseType: 'text' } ]
+    ['GET', address, null, { responseType: 'text' }],
+    ['GET', address, null, { responseType: 'text' }],
+    ['GET', address, null, { responseType: 'text' }],
 ]);
 /*
 Incorrectly passes due to https://github.com/microsoft/TypeScript/issues/32070
@@ -169,25 +169,25 @@ responsesArrayText = batch([
 ]);
 */
 responsesArray = batch([
-    [ 'GET', address, null, { responseType: 'binary' } ],
-    [ 'GET', address, null, { responseType: 'none' } ],
-    [ 'GET', address, null, { responseType: 'text' } ]
+    ['GET', address, null, { responseType: 'binary' }],
+    ['GET', address, null, { responseType: 'none' }],
+    ['GET', address, null, { responseType: 'text' }],
 ]);
-responsesArrayDefault = batch([ { method: 'GET', url: address } ]);
+responsesArrayDefault = batch([{ method: 'GET', url: address }]);
 responsesArrayDefault = batch([
     { method: 'GET', url: address },
     { method: 'GET', url: address },
-    { method: 'GET', url: address }
+    { method: 'GET', url: address },
 ]);
 responsesArrayBinary = batch([
     { method: 'GET', url: address, params: { responseType: 'binary' } },
     { method: 'GET', url: address, params: { responseType: 'binary' } },
-    { method: 'GET', url: address, params: { responseType: 'binary' } }
+    { method: 'GET', url: address, params: { responseType: 'binary' } },
 ]);
 responsesArray = batch([
     { method: 'GET', url: address, params: { responseType: 'binary' } },
     { method: 'GET', url: address, params: { responseType: 'none' } },
-    { method: 'GET', url: address, params: { responseType: 'text' } }
+    { method: 'GET', url: address, params: { responseType: 'text' } },
 ]);
 
 // batch(object)
@@ -196,56 +196,56 @@ responsesMapDefault = batch({ home: address });
 responsesMapDefault = batch({
     home: address,
     about: address,
-    forum: address
+    forum: address,
 });
 responsesMapBinary = batch({
-    home: [ 'GET', address, null, { responseType: 'binary' } ],
-    about: [ 'GET', address, null, { responseType: 'binary' } ],
-    forum: [ 'GET', address, null, { responseType: 'binary' } ]
+    home: ['GET', address, null, { responseType: 'binary' }],
+    about: ['GET', address, null, { responseType: 'binary' }],
+    forum: ['GET', address, null, { responseType: 'binary' }],
 });
 responsesMapNone = batch({
-    home: [ 'GET', address, null, { responseType: 'none' } ],
-    about: [ 'GET', address, null, { responseType: 'none' } ],
-    forum: [ 'GET', address, null, { responseType: 'none' } ]
+    home: ['GET', address, null, { responseType: 'none' }],
+    about: ['GET', address, null, { responseType: 'none' }],
+    forum: ['GET', address, null, { responseType: 'none' }],
 });
 responsesMapText = batch({
-    home: [ 'GET', address, null, { responseType: 'text' } ],
-    about: [ 'GET', address, null, { responseType: 'text' } ],
-    forum: [ 'GET', address, null, { responseType: 'text' } ]
+    home: ['GET', address, null, { responseType: 'text' }],
+    about: ['GET', address, null, { responseType: 'text' }],
+    forum: ['GET', address, null, { responseType: 'text' }],
 });
 // $ExpectError
 responsesMapBinary = batch({
-    home: [ 'GET', address, null, { responseType: 'binary' } ],
-    about: [ 'GET', address, null, { responseType: 'none' } ],
-    forum: [ 'GET', address, null, { responseType: 'text' } ]
+    home: ['GET', address, null, { responseType: 'binary' }],
+    about: ['GET', address, null, { responseType: 'none' }],
+    forum: ['GET', address, null, { responseType: 'text' }],
 });
 responsesMap = batch({
-    home: [ 'GET', address, null, { responseType: 'binary' } ],
-    about: [ 'GET', address, null, { responseType: 'none' } ],
-    forum: [ 'GET', address, null, { responseType: 'text' } ]
+    home: ['GET', address, null, { responseType: 'binary' }],
+    about: ['GET', address, null, { responseType: 'none' }],
+    forum: ['GET', address, null, { responseType: 'text' }],
 });
 responsesMapDefault = batch({ home: { method: 'GET', url: address } });
 responsesMapDefault = batch({
     home: { method: 'GET', url: address },
     about: { method: 'GET', url: address },
-    forum: { method: 'GET', url: address }
+    forum: { method: 'GET', url: address },
 });
 responsesMapText = batch({
     home: { method: 'GET', url: address, params: { responseType: 'text' } },
     about: { method: 'GET', url: address, params: { responseType: 'text' } },
-    forum: { method: 'GET', url: address, params: { responseType: 'text' } }
+    forum: { method: 'GET', url: address, params: { responseType: 'text' } },
 });
 responsesMap = batch({
     home: { method: 'GET', url: address, params: { responseType: 'binary' } },
     about: { method: 'GET', url: address, params: { responseType: 'none' } },
-    forum: { method: 'GET', url: address, params: { responseType: 'text' } }
+    forum: { method: 'GET', url: address, params: { responseType: 'text' } },
 });
 
 // file
 file(); // $ExpectError
 file(5); // $ExpectError
 fileData = file('important data');
-fileData = file([ 1, 2, 3 ]);
+fileData = file([1, 2, 3]);
 file('', 5); // $ExpectError
 fileData = file('important data', 'data.txt');
 file('important data', 'data.txt', 5); // $ExpectError
@@ -255,7 +255,7 @@ post(address, {
     recipient: 'research-lab-XIII',
     data: file('important data', 'data.txt'),
     summary: file('short digest', 'summary.txt'),
-    analysis: file('thorough analysis', 'analysis.txt')
+    analysis: file('thorough analysis', 'analysis.txt'),
 });
 
 // Response.clickLink
@@ -265,7 +265,7 @@ response.clickLink(5); // $ExpectError
 responseDefault = response.clickLink({});
 responseBinary = response.clickLink({
     selector: 'div.menu span#home',
-    params: { responseType: 'binary' }
+    params: { responseType: 'binary' },
 });
 response.clickLink({}, 5); // $ExpectError
 
@@ -292,10 +292,10 @@ responseText = response.submitForm({
     formSelector: 'div.input form',
     fields: {
         title: 'How to train your dragon',
-        body: 'This post shares my years of experience training dragons.'
+        body: 'This post shares my years of experience training dragons.',
     },
     submitSelector: 'div.input form button.submit',
-    params: { responseType: 'text' }
+    params: { responseType: 'text' },
 });
 response.submitForm({}, 5); // $ExpectError
 

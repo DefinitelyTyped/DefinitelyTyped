@@ -18,16 +18,16 @@ import { Link } from 'd3-shape';
 // the Sankey layout generator. The latter are reflected in the SankeyNode and SankeyLink interfaces provided
 // by the definitions file
 interface SNodeExtra {
-  name: string;
+    name: string;
 }
 
 interface SNodeExtraCustomId {
-  nodeId: string;
-  name: string;
+    nodeId: string;
+    name: string;
 }
 
 interface SLinkExtra {
-  uom: string;
+    uom: string;
 }
 
 // For convenience
@@ -37,118 +37,146 @@ type SLink = d3Sankey.SankeyLink<SNodeExtra, SLinkExtra>;
 type SLinkCustomId = d3Sankey.SankeyLink<SNodeExtraCustomId, SLinkExtra>;
 
 interface DAG {
-  customNodes: SNode[];
-  customLinks: SLink[];
+    customNodes: SNode[];
+    customLinks: SLink[];
 }
 
 interface DAGCustomId {
-  customNodes: SNodeCustomId[];
-  customLinks: SLinkCustomId[];
+    customNodes: SNodeCustomId[];
+    customLinks: SLinkCustomId[];
 }
 
 const graphDefault: DAG = {
-  customNodes: [{
-    name: "node0"
-  }, {
-    name: "node1"
-  }, {
-    name: "node2"
-  }, {
-    name: "node3"
-  }, {
-    name: "node4"
-  }],
-  customLinks: [{
-    source: 0,
-    target: 2,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 1,
-    target: 2,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 1,
-    target: 3,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 0,
-    target: 4,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 2,
-    target: 3,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 2,
-    target: 4,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 3,
-    target: 4,
-    value: 4,
-    uom: 'Widget(s)'
-  }]
+    customNodes: [
+        {
+            name: 'node0',
+        },
+        {
+            name: 'node1',
+        },
+        {
+            name: 'node2',
+        },
+        {
+            name: 'node3',
+        },
+        {
+            name: 'node4',
+        },
+    ],
+    customLinks: [
+        {
+            source: 0,
+            target: 2,
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 1,
+            target: 2,
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 1,
+            target: 3,
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 0,
+            target: 4,
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 2,
+            target: 3,
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 2,
+            target: 4,
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 3,
+            target: 4,
+            value: 4,
+            uom: 'Widget(s)',
+        },
+    ],
 };
 
 const graphCustomId: DAGCustomId = {
-  customNodes: [{
-    nodeId: "n0",
-    name: "node0"
-  }, {
-    nodeId: "n1",
-    name: "node1"
-  }, {
-    nodeId: "n2",
-    name: "node2"
-  }, {
-    nodeId: "n3",
-    name: "node3"
-  }, {
-    nodeId: "n4",
-    name: "node4"
-  }],
-  customLinks: [{
-    source: "n0",
-    target: "n2",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n1",
-    target: "n2",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n1",
-    target: "n3",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n0",
-    target: "n4",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n2",
-    target: "n3",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n2",
-    target: "n4",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n3",
-    target: "n4",
-    value: 4,
-    uom: 'Widget(s)'
-  }]
+    customNodes: [
+        {
+            nodeId: 'n0',
+            name: 'node0',
+        },
+        {
+            nodeId: 'n1',
+            name: 'node1',
+        },
+        {
+            nodeId: 'n2',
+            name: 'node2',
+        },
+        {
+            nodeId: 'n3',
+            name: 'node3',
+        },
+        {
+            nodeId: 'n4',
+            name: 'node4',
+        },
+    ],
+    customLinks: [
+        {
+            source: 'n0',
+            target: 'n2',
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 'n1',
+            target: 'n2',
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 'n1',
+            target: 'n3',
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 'n0',
+            target: 'n4',
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 'n2',
+            target: 'n3',
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 'n2',
+            target: 'n4',
+            value: 2,
+            uom: 'Widget(s)',
+        },
+        {
+            source: 'n3',
+            target: 'n4',
+            value: 4,
+            uom: 'Widget(s)',
+        },
+    ],
 };
 
 let sNodes: SNode[];
@@ -170,7 +198,11 @@ let sGraph: d3Sankey.SankeyGraph<SNodeExtra, SLinkExtra>;
 
 const slgDefault: d3Sankey.SankeyLayout<d3Sankey.SankeyGraph<{}, {}>, {}, {}> = d3Sankey.sankey();
 let slgDAG: d3Sankey.SankeyLayout<DAG, SNodeExtra, SLinkExtra> = d3Sankey.sankey<DAG, SNodeExtra, SLinkExtra>();
-let slgDAGCustomId: d3Sankey.SankeyLayout<DAGCustomId, SNodeExtraCustomId, SLinkExtra> = d3Sankey.sankey<DAGCustomId, SNodeExtraCustomId, SLinkExtra>();
+let slgDAGCustomId: d3Sankey.SankeyLayout<DAGCustomId, SNodeExtraCustomId, SLinkExtra> = d3Sankey.sankey<
+    DAGCustomId,
+    SNodeExtraCustomId,
+    SLinkExtra
+>();
 
 // ---------------------------------------------------------------------------
 // NodeWidth
@@ -205,7 +237,10 @@ num = slgDAG.nodePadding();
 // Set -----------------------------------------------------------------------
 
 // test return type for chainability
-slgDAG = slgDAG.extent([[0, 0], [1200, 800]]);
+slgDAG = slgDAG.extent([
+    [0, 0],
+    [1200, 800],
+]);
 
 // Get -----------------------------------------------------------------------
 
@@ -244,8 +279,8 @@ num = slgDAG.iterations();
 // Set -----------------------------------------------------------------------
 
 slgDAGCustomId = slgDAGCustomId.nodeId((d) => {
-  const node: SNodeCustomId = d;
-  return d.nodeId;
+    const node: SNodeCustomId = d;
+    return d.nodeId;
 });
 
 // Get -----------------------------------------------------------------------
@@ -274,9 +309,9 @@ num = d3Sankey.sankeyJustify(testNode, 10);
 
 // Test custom
 slgDAG = slgDAG.nodeAlign((node, maxN) => {
-  const n: SNode = node;
-  const mN: number = maxN;
-  return node.depth || 0;
+    const n: SNode = node;
+    const mN: number = maxN;
+    return node.depth || 0;
 });
 
 // Get -----------------------------------------------------------------------
@@ -295,7 +330,7 @@ nodeAlignmentFn = slgDAG.nodeAlign();
 slgDAG = slgDAG.nodes(graphDefault.customNodes);
 
 // Use accessor function and test return type for chainability
-slgDAG = slgDAG.nodes(d => d.customNodes);
+slgDAG = slgDAG.nodes((d) => d.customNodes);
 
 // Get -----------------------------------------------------------------------
 
@@ -311,7 +346,7 @@ const nodesAccessor: (d: DAG) => SNode[] = slgDAG.nodes();
 slgDAG = slgDAG.links(graphDefault.customLinks);
 
 // Use accessor function and test return type for chainability
-slgDAG = slgDAG.links(d => d.customLinks);
+slgDAG = slgDAG.links((d) => d.customLinks);
 
 // Get -----------------------------------------------------------------------
 
@@ -323,7 +358,7 @@ const linksAccessor: (d: DAG) => SLink[] = slgDAG.links();
 
 sGraph = slgDAG(graphDefault);
 // With additional arguments, although here unused.
-sGraph = slgDAG(graphDefault, "foo", 50);
+sGraph = slgDAG(graphDefault, 'foo', 50);
 
 // ---------------------------------------------------------------------------
 // Update Layout

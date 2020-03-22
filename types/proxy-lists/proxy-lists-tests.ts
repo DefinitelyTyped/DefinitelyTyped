@@ -1,5 +1,5 @@
-import * as ProxyLists from "proxy-lists";
-import { EventEmitter } from "events";
+import * as ProxyLists from 'proxy-lists';
+import { EventEmitter } from 'events';
 
 const options: ProxyLists.Options = {
     filterMode: 'strict',
@@ -12,18 +12,18 @@ const options: ProxyLists.Options = {
     series: false,
     ipTypes: ['ipv4'],
     defaultRequestOptions: {
-		method: "GET"
-	}
+        method: 'GET',
+    },
 };
 
 // `gettingProxies` is an event emitter object.
 let gettingProxies: ProxyLists.GetProxiesEventEmitter = ProxyLists.getProxies(options);
 
-gettingProxies.on('data', proxies => {
+gettingProxies.on('data', (proxies) => {
     // Received some proxies.
 });
 
-gettingProxies.on('error', error => {
+gettingProxies.on('error', (error) => {
     // Some error has occurred.
     console.error(error);
 });
@@ -34,22 +34,22 @@ gettingProxies.once('end', () => {
 
 gettingProxies = ProxyLists.getProxiesFromSource('freeproxylists', options);
 
-gettingProxies.on('data', proxies => {
+gettingProxies.on('data', (proxies) => {
     // Received some proxies.
 });
 
 const source: ProxyLists.AddSource = {
-	homeUrl: 'www.example.com',
-	getProxies: (options: ProxyLists.InternalOptions) => {
-		return new EventEmitter();
-	}
+    homeUrl: 'www.example.com',
+    getProxies: (options: ProxyLists.InternalOptions) => {
+        return new EventEmitter();
+    },
 };
 
 ProxyLists.addSource('testSource', source);
 
 const listSourcesOptions: ProxyLists.ListSourcesOptions = {
-	sourcesWhiteList: ['freeproxylists'],
-    sourcesBlackList: ['freeproxylists']
+    sourcesWhiteList: ['freeproxylists'],
+    sourcesBlackList: ['freeproxylists'],
 };
 
-ProxyLists.listSources(listSourcesOptions).forEach(source => console.log(source.name, source.homeUrl));
+ProxyLists.listSources(listSourcesOptions).forEach((source) => console.log(source.name, source.homeUrl));

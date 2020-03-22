@@ -27,7 +27,7 @@ import {
     visit,
     currentURL,
     currentRouteName,
-    setApplication
+    setApplication,
 } from '@ember/test-helpers';
 
 const MyApp = Application.extend({ modulePrefix: 'my-app' });
@@ -92,6 +92,6 @@ test('wait helpers', async (assert) => {
         hasPendingTimers,
         hasPendingWaiters,
         hasRunLoop,
-        pendingRequestCount
+        pendingRequestCount,
     } = getSettledState();
 });

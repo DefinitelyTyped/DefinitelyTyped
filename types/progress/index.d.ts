@@ -38,20 +38,17 @@ declare class ProgressBar {
     constructor(format: string, total: number);
     constructor(format: string, options: ProgressBar.ProgressBarOptions);
 
-
     /**
      * "tick" the progress bar with optional `len` and optional `tokens`.
      */
     tick(tokens?: any): void;
     tick(count?: number, tokens?: any): void;
 
-
     /**
      * Method to render the progress bar with optional `tokens` to place in the
      * progress bar's `fmt` field.
      */
     render(tokens?: any): void;
-
 
     /**
      * "update" the progress bar to represent an exact percentage.
@@ -94,58 +91,58 @@ declare class ProgressBar {
 }
 
 declare namespace ProgressBar {
-  /**
-   * These are keys in the options object you can pass to the progress bar along with total as seen in the example above.
-   */
-  interface ProgressBarOptions {
-      /**
-       * Total number of ticks to complete.
-       */
-      total: number;
+    /**
+     * These are keys in the options object you can pass to the progress bar along with total as seen in the example above.
+     */
+    interface ProgressBarOptions {
+        /**
+         * Total number of ticks to complete.
+         */
+        total: number;
 
-      /**
-       * current completed index
-       */
-      curr?: number;
+        /**
+         * current completed index
+         */
+        curr?: number;
 
-      /**
-       * head character defaulting to complete character
-       */
-      head?: string;
+        /**
+         * head character defaulting to complete character
+         */
+        head?: string;
 
-      /**
-       * The displayed width of the progress bar defaulting to total.
-       */
-      width?: number;
+        /**
+         * The displayed width of the progress bar defaulting to total.
+         */
+        width?: number;
 
-      /**
-       * minimum time between updates in milliseconds defaulting to 16
-       */
-      renderThrottle?: number;
+        /**
+         * minimum time between updates in milliseconds defaulting to 16
+         */
+        renderThrottle?: number;
 
-      /**
-       * The output stream defaulting to stderr.
-       */
-      stream?: NodeJS.WritableStream;
+        /**
+         * The output stream defaulting to stderr.
+         */
+        stream?: NodeJS.WritableStream;
 
-      /**
-       * Completion character defaulting to "=".
-       */
-      complete?: string;
+        /**
+         * Completion character defaulting to "=".
+         */
+        complete?: string;
 
-      /**
-       * Incomplete character defaulting to "-".
-       */
-      incomplete?: string;
+        /**
+         * Incomplete character defaulting to "-".
+         */
+        incomplete?: string;
 
-      /**
-       * Option to clear the bar on completion defaulting to false.
-       */
-      clear?: boolean;
+        /**
+         * Option to clear the bar on completion defaulting to false.
+         */
+        clear?: boolean;
 
-      /**
-       * Optional function to call when the progress bar completes.
-       */
-      callback?: Function;
-  }
+        /**
+         * Optional function to call when the progress bar completes.
+         */
+        callback?: Function;
+    }
 }

@@ -1,17 +1,12 @@
-import {
-    LinearGaugeOptions,
-    RadialGaugeOptions,
-    LinearGauge,
-    RadialGauge
-} from 'canvas-gauges';
+import { LinearGaugeOptions, RadialGaugeOptions, LinearGauge, RadialGauge } from 'canvas-gauges';
 
 let linearOptions: LinearGaugeOptions = {
     renderTo: document.createElement('canvas'),
-    fontNumbersStyle: 'italic'
+    fontNumbersStyle: 'italic',
 };
 let radialOptions: RadialGaugeOptions = {
     renderTo: 'gauge-id',
-    fontNumbersWeight: 'bold'
+    fontNumbersWeight: 'bold',
 };
 
 const linearGauge = new LinearGauge(linearOptions);

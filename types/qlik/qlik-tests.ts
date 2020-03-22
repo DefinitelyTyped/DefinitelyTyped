@@ -9,7 +9,7 @@ import * as Qlik from 'qlik';
             dimensions: {
                 uses: 'dimensions',
                 min: 1,
-                ref: "qHyperCubeDef.qDimensions",
+                ref: 'qHyperCubeDef.qDimensions',
                 items: {
                     isGrouping: {
                         type: 'boolean',
@@ -21,20 +21,22 @@ import * as Qlik from 'qlik';
             },
             measures: {
                 uses: 'measures',
-                ref: "qHyperCubeDef.qMeasures",
+                ref: 'qHyperCubeDef.qMeasures',
                 min: 0,
             },
-        }
+        },
     };
 
     const initialProperties: Qlik.InitialProperties = {
         qHyperCubeDef: {
             qDimensions: [],
             qMeasures: [],
-            qInitialDataFetch: [{
-                qWidth: 10,
-                qHeight: 100,
-            }],
+            qInitialDataFetch: [
+                {
+                    qWidth: 10,
+                    qHeight: 100,
+                },
+            ],
         },
     };
 

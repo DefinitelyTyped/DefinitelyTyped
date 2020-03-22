@@ -21,7 +21,7 @@ declare namespace Options {
     interface Options {
         cjs: boolean | Partial<Esm>;
         mainFields: string[];
-        mode: "auto" | "all" | "strict";
+        mode: 'auto' | 'all' | 'strict';
         await: boolean;
         force: boolean;
         wasm: boolean;

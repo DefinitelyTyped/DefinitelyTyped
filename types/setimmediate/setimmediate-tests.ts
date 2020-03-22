@@ -2,7 +2,7 @@ import 'setimmediate';
 
 // $ExpectType number
 const i = setImmediate((...args) => {
-	args; // $ExpectType any[]
+    args; // $ExpectType any[]
 });
 
 clearImmediate(i);

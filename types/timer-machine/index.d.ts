@@ -7,7 +7,7 @@ export as namespace Timer;
 export = Timer;
 
 declare namespace Timer {
-    type TimerEvent = "start" | "stop" | "time";
+    type TimerEvent = 'start' | 'stop' | 'time';
 }
 
 declare class Timer {

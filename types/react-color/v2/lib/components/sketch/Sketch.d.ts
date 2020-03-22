@@ -1,6 +1,6 @@
-import { Component, CSSProperties } from "react";
+import { Component, CSSProperties } from 'react';
 
-import { CustomPickerProps, ColorState, RenderersProps } from "../../..";
+import { CustomPickerProps, ColorState, RenderersProps } from '../../..';
 
 export interface SketchPickerDefaultStyles {
     picker?: CSSProperties;

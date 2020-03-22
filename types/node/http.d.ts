@@ -1,12 +1,12 @@
-declare module "http" {
-    import * as events from "events";
-    import * as stream from "stream";
-    import { URL } from "url";
-    import { Socket, Server as NetServer } from "net";
+declare module 'http' {
+    import * as events from 'events';
+    import * as stream from 'stream';
+    import { URL } from 'url';
+    import { Socket, Server as NetServer } from 'net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
-        'accept'?: string;
+        accept?: string;
         'accept-language'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
@@ -16,12 +16,12 @@ declare module "http" {
         'access-control-allow-origin'?: string;
         'access-control-expose-headers'?: string;
         'access-control-max-age'?: string;
-        'age'?: string;
-        'allow'?: string;
+        age?: string;
+        allow?: string;
         'alt-svc'?: string;
-        'authorization'?: string;
+        authorization?: string;
         'cache-control'?: string;
-        'connection'?: string;
+        connection?: string;
         'content-disposition'?: string;
         'content-encoding'?: string;
         'content-language'?: string;
@@ -29,36 +29,36 @@ declare module "http" {
         'content-location'?: string;
         'content-range'?: string;
         'content-type'?: string;
-        'cookie'?: string;
-        'date'?: string;
-        'expect'?: string;
-        'expires'?: string;
-        'forwarded'?: string;
-        'from'?: string;
-        'host'?: string;
+        cookie?: string;
+        date?: string;
+        expect?: string;
+        expires?: string;
+        forwarded?: string;
+        from?: string;
+        host?: string;
         'if-match'?: string;
         'if-modified-since'?: string;
         'if-none-match'?: string;
         'if-unmodified-since'?: string;
         'last-modified'?: string;
-        'location'?: string;
-        'pragma'?: string;
+        location?: string;
+        pragma?: string;
         'proxy-authenticate'?: string;
         'proxy-authorization'?: string;
         'public-key-pins'?: string;
-        'range'?: string;
-        'referer'?: string;
+        range?: string;
+        referer?: string;
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
-        'tk'?: string;
-        'trailer'?: string;
+        tk?: string;
+        trailer?: string;
         'transfer-encoding'?: string;
-        'upgrade'?: string;
+        upgrade?: string;
         'user-agent'?: string;
-        'vary'?: string;
-        'via'?: string;
-        'warning'?: string;
+        vary?: string;
+        via?: string;
+        warning?: string;
         'www-authenticate'?: string;
         [header: string]: string | string[] | undefined;
     }
@@ -214,13 +214,19 @@ declare module "http" {
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
 
         addListener(event: 'abort', listener: () => void): this;
-        addListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(
+            event: 'connect',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         addListener(event: 'continue', listener: () => void): this;
         addListener(event: 'information', listener: (info: InformationEvent) => void): this;
         addListener(event: 'response', listener: (response: IncomingMessage) => void): this;
         addListener(event: 'socket', listener: (socket: Socket) => void): this;
         addListener(event: 'timeout', listener: () => void): this;
-        addListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(
+            event: 'upgrade',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         addListener(event: 'close', listener: () => void): this;
         addListener(event: 'drain', listener: () => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
@@ -262,13 +268,19 @@ declare module "http" {
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
         prependListener(event: 'abort', listener: () => void): this;
-        prependListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(
+            event: 'connect',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependListener(event: 'continue', listener: () => void): this;
         prependListener(event: 'information', listener: (info: InformationEvent) => void): this;
         prependListener(event: 'response', listener: (response: IncomingMessage) => void): this;
         prependListener(event: 'socket', listener: (socket: Socket) => void): this;
         prependListener(event: 'timeout', listener: () => void): this;
-        prependListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(
+            event: 'upgrade',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependListener(event: 'close', listener: () => void): this;
         prependListener(event: 'drain', listener: () => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
@@ -278,13 +290,19 @@ declare module "http" {
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         prependOnceListener(event: 'abort', listener: () => void): this;
-        prependOnceListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'connect',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: 'continue', listener: () => void): this;
         prependOnceListener(event: 'information', listener: (info: InformationEvent) => void): this;
         prependOnceListener(event: 'response', listener: (response: IncomingMessage) => void): this;
         prependOnceListener(event: 'socket', listener: (socket: Socket) => void): this;
         prependOnceListener(event: 'timeout', listener: () => void): this;
-        prependOnceListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'upgrade',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: 'close', listener: () => void): this;
         prependOnceListener(event: 'drain', listener: () => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
@@ -387,9 +405,13 @@ declare module "http" {
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
-    interface RequestOptions extends ClientRequestArgs { }
+    interface RequestOptions extends ClientRequestArgs {}
     function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    function request(
+        url: string | URL,
+        options: RequestOptions,
+        callback?: (res: IncomingMessage) => void,
+    ): ClientRequest;
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     let globalAgent: Agent;

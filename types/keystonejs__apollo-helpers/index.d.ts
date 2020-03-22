@@ -32,8 +32,7 @@ declare module '@keystonejs/apollo-helpers' {
     function flattenApollo(
         opts: KeyValues<
             string,
-            | React.ReactElement<KeystoneMutationTypeProps>
-            | React.ReactElement<KeystoneMutationTypeProps>
-        >
+            React.ReactElement<KeystoneMutationTypeProps> | React.ReactElement<KeystoneMutationTypeProps>
+        >,
     ): React.ComponentType;
 }

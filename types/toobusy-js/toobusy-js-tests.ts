@@ -15,11 +15,11 @@ numberValue = toobusy.smoothingFactor(numberValue);
 numberValue = toobusy.smoothingFactor();
 toobusy.shutdown();
 
-toobusy.onLag(duration => {
+toobusy.onLag((duration) => {
     // $ExpectType number
     duration;
 });
-toobusy.onLag(duration => {
+toobusy.onLag((duration) => {
     // $ExpectType number
     duration;
 }, numberValue);

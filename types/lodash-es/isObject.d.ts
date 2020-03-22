@@ -1,2 +1,2 @@
-import { isObject } from "lodash";
+import { isObject } from 'lodash';
 export default isObject;

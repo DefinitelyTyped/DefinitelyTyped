@@ -10,13 +10,13 @@ const exampleJsFunctions = {
         document.getElementById('welcome')!.innerText = welcomeMessage;
     },
     returnArrayAsyncJs() {
-        DotNet.invokeMethodAsync<number[]>('BlazorSample', 'ReturnArrayAsync').then(data => {
+        DotNet.invokeMethodAsync<number[]>('BlazorSample', 'ReturnArrayAsync').then((data) => {
             data.push(4);
             console.log(data);
         });
     },
     sayHello(dotnetHelper: DotNet.DotNetObject) {
-        return dotnetHelper.invokeMethodAsync<string>('SayHello').then(r => console.log(r));
+        return dotnetHelper.invokeMethodAsync<string>('SayHello').then((r) => console.log(r));
     },
 };
 

@@ -1,4 +1,4 @@
-import newrelic = require("new-relic-browser");
+import newrelic = require('new-relic-browser');
 
 // The following tests are largely taken straight from the examples at https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
 
@@ -17,11 +17,11 @@ newrelic.addToTrace({
     start: 1417044274239,
     end: 1417044274252,
     origin: 'Origin of event',
-    type: 'What type of event was this'
+    type: 'What type of event was this',
 });
 newrelic.addToTrace({
     name: 'Event Name',
-    start: 1417044274239
+    start: 1417044274239,
 });
 
 // finished()
@@ -56,16 +56,14 @@ newrelic.setCurrentRouteName('/users/:id');
 // --- NewRelic.BrowserInteraction methods -----------------------------------
 
 // createTracer()
-newrelic
-    .interaction()
-    .createTracer('customSegment', () => { })();
+newrelic.interaction().createTracer('customSegment', () => {})();
 
 // end()
 newrelic.interaction().end();
 
 // getContext(), setAttribute()
 const interaction = newrelic.interaction();
-interaction.getContext(ctx => {
+interaction.getContext((ctx) => {
     if (ctx.productId) {
         interaction.setAttribute('productId', ctx.productId);
     }
@@ -75,16 +73,9 @@ interaction.getContext(ctx => {
 newrelic.interaction().ignore();
 
 // onEnd(), setAttribute()
-newrelic.interaction().onEnd(ctx => {
-    interaction.setAttribute(
-        'averageChartLoadTime',
-        ctx.totalChartLoadTime / ctx.chartLoadCount
-    );
+newrelic.interaction().onEnd((ctx) => {
+    interaction.setAttribute('averageChartLoadTime', ctx.totalChartLoadTime / ctx.chartLoadCount);
 });
 
 // setName(), setAttribute(), save()
-newrelic.interaction()
-    .setName('loadNextPage')
-    .setAttribute('username', 'userName')
-    .setAttribute('userId', 123)
-    .save();
+newrelic.interaction().setName('loadNextPage').setAttribute('username', 'userName').setAttribute('userId', 123).save();

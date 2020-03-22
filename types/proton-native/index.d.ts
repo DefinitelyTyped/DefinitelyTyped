@@ -17,7 +17,7 @@ export interface AppProps {
 /**
  * The app is the container for the entire program and holds Windows and Menus.
  */
-export class App extends React.Component<AppProps> { }
+export class App extends React.Component<AppProps> {}
 
 export interface AreaBaseProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -78,7 +78,7 @@ export interface AreaRectangleProps extends AreaBaseProps {
 /**
  * A rectangle to be displayed in an Area component.
  */
-export class AreaRectangle extends React.Component<AreaRectangleProps> { }
+export class AreaRectangle extends React.Component<AreaRectangleProps> {}
 
 export interface AreaLineProps extends AreaBaseProps {
     /**
@@ -99,7 +99,7 @@ export interface AreaLineProps extends AreaBaseProps {
     y2: number | string;
 }
 
-export class AreaLine extends React.Component<AreaLineProps> { }
+export class AreaLine extends React.Component<AreaLineProps> {}
 
 export interface AreaCircleProps extends AreaBaseProps {
     /**
@@ -116,7 +116,7 @@ export interface AreaCircleProps extends AreaBaseProps {
     y: number | string;
 }
 
-export class AreaCircle extends React.Component<AreaCircleProps> { }
+export class AreaCircle extends React.Component<AreaCircleProps> {}
 
 export interface AreaBezierProps extends AreaBaseProps {
     /**
@@ -153,7 +153,7 @@ export interface AreaBezierProps extends AreaBaseProps {
     y2: number | string;
 }
 
-export class AreaBezier extends React.Component<AreaBezierProps> { }
+export class AreaBezier extends React.Component<AreaBezierProps> {}
 
 export interface AreaPathProps extends AreaBaseProps {
     /**
@@ -168,11 +168,11 @@ export interface AreaPathProps extends AreaBaseProps {
     fillMode: 'nonzero' | 'evenodd';
 }
 
-export class AreaPath extends React.Component<AreaPathProps> { }
+export class AreaPath extends React.Component<AreaPathProps> {}
 
-export interface AreaTextProps extends StyledTextProps, AreaBaseProps { }
+export interface AreaTextProps extends StyledTextProps, AreaBaseProps {}
 
-export class AreaText extends React.Component<AreaTextProps> { }
+export class AreaText extends React.Component<AreaTextProps> {}
 
 export interface AreaGroupProps extends AreaBaseProps {
     /**
@@ -185,7 +185,7 @@ export interface AreaGroupProps extends AreaBaseProps {
     height?: number | string;
 }
 
-export class AreaGroup extends React.Component<AreaGroupProps> { }
+export class AreaGroup extends React.Component<AreaGroupProps> {}
 
 export interface MouseEvent {
     button: number;
@@ -305,7 +305,7 @@ export interface BoxProps extends GridChildrenProps, Label, Stretchy {
     visible?: boolean;
 }
 
-export class Box extends React.Component<BoxProps> { }
+export class Box extends React.Component<BoxProps> {}
 
 export interface ButtonProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -329,7 +329,7 @@ export interface ButtonProps extends GridChildrenProps, Label, Stretchy {
 /**
  * A container for multiple components that are ordered vertically or horizontally. Similar to React Native's `View`.
  */
-export class Button extends React.Component<ButtonProps> { }
+export class Button extends React.Component<ButtonProps> {}
 
 export interface CheckboxProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -354,7 +354,7 @@ export interface CheckboxProps extends GridChildrenProps, Label, Stretchy {
     visible?: boolean;
 }
 
-export class Checkbox extends React.Component<CheckboxProps> { }
+export class Checkbox extends React.Component<CheckboxProps> {}
 
 export interface ColorButtonProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -364,18 +364,13 @@ export interface ColorButtonProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Called when the color is changed for the ColorButton. The current color is passed as an object of RGBA.
      */
-    onChange?: (color: {
-        r: number,
-        g: number,
-        b: number,
-        a: number
-    }) => void;
+    onChange?: (color: { r: number; g: number; b: number; a: number }) => void;
 }
 
 /**
  * A button that allows the user to choose a color.
  */
-export class ColorButton extends React.Component<ColorButtonProps> { }
+export class ColorButton extends React.Component<ColorButtonProps> {}
 
 export interface FormProps extends GridChildrenProps, Stretchy {
     /**
@@ -397,7 +392,7 @@ export interface FormProps extends GridChildrenProps, Stretchy {
  *
  * Each form component has a single prop, `label` which sets the label to its left. It is required.
  */
-export class Form extends React.Component<FormProps> { }
+export class Form extends React.Component<FormProps> {}
 
 export interface GridChildrenProps {
     /**
@@ -428,7 +423,7 @@ export interface GridChildrenProps {
     span?: {
         x: number;
         y: number;
-  };
+    };
 }
 
 export interface GridProps {
@@ -449,7 +444,7 @@ export interface GridProps {
 /**
  * A grid where components can be placed in rows and columns.
  */
-export class Grid extends React.Component<GridProps> { }
+export class Grid extends React.Component<GridProps> {}
 
 export interface GroupProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -479,7 +474,7 @@ export interface GroupProps extends GridChildrenProps, Label, Stretchy {
  *
  * **Note:** Group can only have one child. To have more than one child, use boxes
  */
-export class Group extends React.Component<GroupProps> { }
+export class Group extends React.Component<GroupProps> {}
 
 export interface Label {
     /**
@@ -524,7 +519,7 @@ export interface MenuItemProps {
 /**
  * A single item in a Menu.
  */
-export class MenuItem extends React.Component<MenuItemProps> { }
+export class MenuItem extends React.Component<MenuItemProps> {}
 
 /**
  * The top bar on a window that can have multiple options.
@@ -573,7 +568,7 @@ export interface PickerItemProps {
     children: string;
 }
 
-export class PickerItem extends React.Component<PickerItemProps> { }
+export class PickerItem extends React.Component<PickerItemProps> {}
 
 /**
  * A drop down menu where the user can pick different values.
@@ -600,13 +595,13 @@ export interface ProgressBarProps extends GridChildrenProps, Label, Stretchy {
 /**
  * A bar that shows the progress in a certain task, 0-100.
  */
-export class ProgressBar extends React.Component<ProgressBarProps> { }
+export class ProgressBar extends React.Component<ProgressBarProps> {}
 
 export interface RadioButtonsItemProps {
     children: string;
 }
 
-export class RadioButtonsItem extends React.Component<RadioButtonsItemProps> { }
+export class RadioButtonsItem extends React.Component<RadioButtonsItemProps> {}
 
 export interface RadioButtonsProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -654,7 +649,7 @@ export interface SeparatorProps extends GridChildrenProps, Label, Stretchy {
 /**
  * A line to separate two components, commonly used in a Box.
  */
-export class Separator extends React.Component<SeparatorProps> { }
+export class Separator extends React.Component<SeparatorProps> {}
 
 export interface SliderProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -686,7 +681,7 @@ export interface SliderProps extends GridChildrenProps, Label, Stretchy {
 /**
  * A bar that can be dragged by the user from 0-100.
  */
-export class Slider extends React.Component<SliderProps> { }
+export class Slider extends React.Component<SliderProps> {}
 
 export interface SpinBoxProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -710,7 +705,7 @@ export interface SpinBoxProps extends GridChildrenProps, Label, Stretchy {
 /**
  * A location for the user to choose a number.
  */
-export class SpinBox extends React.Component<SpinBoxProps> { }
+export class SpinBox extends React.Component<SpinBoxProps> {}
 
 export interface Stretchy {
     /**
@@ -750,7 +745,21 @@ export interface StyledTextProps {
         /**
          * Whether a bold font should be used (and the amount).
          */
-        fontWeight?: 'minimum' | 'thin' | 'ultraLight' | 'light' | 'book' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'ultraBold' | 'heavy' | 'ultraHeavy' | 'maximum' | number;
+        fontWeight?:
+            | 'minimum'
+            | 'thin'
+            | 'ultraLight'
+            | 'light'
+            | 'book'
+            | 'normal'
+            | 'medium'
+            | 'semiBold'
+            | 'bold'
+            | 'ultraBold'
+            | 'heavy'
+            | 'ultraHeavy'
+            | 'maximum'
+            | number;
         /**
          * Wheter the text should be aligned to the left, center or right.
          *
@@ -760,7 +769,16 @@ export interface StyledTextProps {
         /**
          * How wide or narrow the characters should be.
          */
-        textStretch?: 'ultraCondensed' | 'extraCondensed' | 'condensed' | 'semiCondensed' | 'normal' | 'semiExpanded' | 'expanded' | 'extraExpanded' | 'ultraExpanded';
+        textStretch?:
+            | 'ultraCondensed'
+            | 'extraCondensed'
+            | 'condensed'
+            | 'semiCondensed'
+            | 'normal'
+            | 'semiExpanded'
+            | 'expanded'
+            | 'extraExpanded'
+            | 'ultraExpanded';
         /**
          * The text underline style.
          */
@@ -782,7 +800,7 @@ export interface StyledTextProps {
     y?: number | string;
 }
 
-export class StyledText extends React.Component<StyledTextProps> { }
+export class StyledText extends React.Component<StyledTextProps> {}
 
 export interface TabProps extends GridChildrenProps {
     /**
@@ -800,7 +818,7 @@ export interface TabProps extends GridChildrenProps {
  *
  * Each child is required to have a label prop that is displayed at the top and names the tab.
  */
-export class Tab extends React.Component<TabProps> { }
+export class Tab extends React.Component<TabProps> {}
 
 export interface TextProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -812,7 +830,7 @@ export interface TextProps extends GridChildrenProps, Label, Stretchy {
 /**
  * Displays some text.
  */
-export class Text extends React.Component<TextProps> { }
+export class Text extends React.Component<TextProps> {}
 
 export interface TextInputProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -848,7 +866,7 @@ export interface TextInputProps extends GridChildrenProps, Label, Stretchy {
 /**
  * A place for the user to type in a string.
  */
-export class TextInput extends React.Component<TextInputProps> { }
+export class TextInput extends React.Component<TextInputProps> {}
 
 export interface WindowProps {
     /**
@@ -886,16 +904,13 @@ export interface WindowProps {
     /**
      * Called when the window size is changed by the user. The new size is passed as an argument, in an object.
      */
-    onContentSizeChange?: (size: {
-        h: number,
-        y: number
-    }) => void;
+    onContentSizeChange?: (size: { h: number; y: number }) => void;
     /**
      * How big the window is when the application is first started.
      */
     size?: {
-        h: number,
-        w: number
+        h: number;
+        w: number;
     };
     /**
      * The title of the window. Will be shown at the top left ribbon.
@@ -908,7 +923,7 @@ export interface WindowProps {
  *
  * **Note:** Window can only have one child. To have more than one child, use boxes.
  */
-export class Window extends React.Component<WindowProps> { }
+export class Window extends React.Component<WindowProps> {}
 
 /**
  * Renders the input component
@@ -926,13 +941,15 @@ export function render(element: JSX.Element): void;
  */
 export function Dialog(
     type: 'Message' | 'Error',
-    options?: {
-        title: string,
-        description?: string
-    } | {
-        title?: string,
-        description: string
-    }
+    options?:
+        | {
+              title: string;
+              description?: string;
+          }
+        | {
+              title?: string;
+              description: string;
+          },
 ): void;
 
 /**

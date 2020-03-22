@@ -3,7 +3,7 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/definitelytyped/DefinitelyTyped
 
-declare module "generic-functions" {
+declare module 'generic-functions' {
     function strcmp(str1: string, str2: string): boolean;
     function icstrcmp(str1: string, str2: string): boolean;
     function strendswith(str: string, suffix: string): boolean;

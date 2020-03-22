@@ -1,4 +1,4 @@
-import * as millisecond from "millisecond";
+import * as millisecond from 'millisecond';
 
 millisecond(100);
-millisecond("1 years");
+millisecond('1 years');

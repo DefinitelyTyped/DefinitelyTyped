@@ -1,14 +1,14 @@
-import yogBigpipe = require("yog-bigpipe");
+import yogBigpipe = require('yog-bigpipe');
 
 yogBigpipe();
 yogBigpipe({});
 yogBigpipe({
-    skipAnalysis: true
+    skipAnalysis: true,
 });
 
 yogBigpipe({
     tpl: {
         _default: '',
-        quickling: '[test]'
-    }
+        quickling: '[test]',
+    },
 });

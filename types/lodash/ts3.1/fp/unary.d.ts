@@ -1,2 +1,2 @@
-import { unary } from "../fp";
+import { unary } from '../fp';
 export = unary;

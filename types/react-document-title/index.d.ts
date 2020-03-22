@@ -10,7 +10,6 @@ interface DocumentTitleProps {
     title: string;
 }
 
-declare class DocumentTitle extends React.Component<DocumentTitleProps, any> {
-}
+declare class DocumentTitle extends React.Component<DocumentTitleProps, any> {}
 
 export default DocumentTitle;

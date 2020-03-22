@@ -1,13 +1,5 @@
 import Vue from 'vue';
-import {
-    Material,
-    Compact,
-    Swatches,
-    Slider,
-    Sketch,
-    Chrome,
-    Photoshop
-} from 'vue-color';
+import { Material, Compact, Swatches, Slider, Sketch, Chrome, Photoshop } from 'vue-color';
 
 const colors = '#194d33';
 
@@ -20,7 +12,7 @@ new Vue({
         'slider-picker': Slider,
         'sketch-picker': Sketch,
         'chrome-picker': Chrome,
-        'photoshop-picker': Photoshop
+        'photoshop-picker': Photoshop,
     },
     template: `
         <material-picker v-model="colors"></material-picker>
@@ -33,5 +25,5 @@ new Vue({
     `,
     data() {
         return { colors };
-    }
+    },
 });

@@ -1,7 +1,7 @@
 /* tslint:disable:no-mergeable-namespace no-namespace */
-"use strict";
+'use strict';
 
-import conventionalChangelogPresetLoader from "conventional-changelog-preset-loader";
+import conventionalChangelogPresetLoader from 'conventional-changelog-preset-loader';
 
 namespace Module {
     declare const path: string;

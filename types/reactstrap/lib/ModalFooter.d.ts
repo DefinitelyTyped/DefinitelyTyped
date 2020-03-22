@@ -8,5 +8,5 @@ export interface ModalFooterProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class ModalFooter<T = {[key: string]: any}> extends React.Component<ModalFooterProps> {}
+declare class ModalFooter<T = { [key: string]: any }> extends React.Component<ModalFooterProps> {}
 export default ModalFooter;

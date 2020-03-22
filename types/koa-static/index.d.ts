@@ -15,9 +15,9 @@
 
  =============================================== */
 
-import { Middleware } from "koa";
+import { Middleware } from 'koa';
 
-import { SendOptions } from "koa-send";
+import { SendOptions } from 'koa-send';
 
 declare function serve(root: string, opts?: serve.Options): Middleware<{}>;
 

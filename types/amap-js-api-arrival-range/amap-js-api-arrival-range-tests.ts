@@ -24,14 +24,14 @@ arrivalRange.search(lnglat, 10, (status, result) => {
     }
 });
 // $ExpectType void
-arrivalRange.search(lnglatTuple, 10, () => { });
+arrivalRange.search(lnglatTuple, 10, () => {});
 // $ExpectType void
-arrivalRange.search(lnglatTuple, 10, () => { }, {});
+arrivalRange.search(lnglatTuple, 10, () => {}, {});
 // $ExpectType void
-arrivalRange.search(lnglat, 10, () => { }, {
+arrivalRange.search(lnglat, 10, () => {}, {
     policy: 'BUS',
     resultType: 'polygon',
-    destination: lnglat
+    destination: lnglat,
 });
 
 arrivalRange.on('error', (event: AMap.ArrivalRange.EventMap['error']) => {

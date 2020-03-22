@@ -3,7 +3,7 @@
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as acorn from "acorn";
+import * as acorn from 'acorn';
 
 /**
  * Check the source code string 'src' for syntax errors. Optionally you can specify a filename
@@ -13,6 +13,10 @@ import * as acorn from "acorn";
  * Options will be passed through to acorn-node. acorn-node defaults to options
  * that match the most recent Node versions.
  */
-declare function syntaxError(src: any, file?: string, opts?: acorn.Options): (SyntaxError & { line: number; column: number; annotated: string; inspect(): string }) | undefined;
+declare function syntaxError(
+    src: any,
+    file?: string,
+    opts?: acorn.Options,
+): (SyntaxError & { line: number; column: number; annotated: string; inspect(): string }) | undefined;
 
 export = syntaxError;

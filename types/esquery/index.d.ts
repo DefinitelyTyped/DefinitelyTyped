@@ -26,7 +26,8 @@ declare namespace query {
     //
     // Unions
     //
-    type Selector =  Field
+    type Selector =
+        | Field
         | Type
         | Sequence
         | Identifier
@@ -42,24 +43,11 @@ declare namespace query {
         | Matches
         | Has
         | Class;
-    type MultiSelector = Sequence
-        | Negation
-        | Matches
-        | Has;
-    type BinarySelector = Descendant
-        | Child
-        | Sibling
-        | Adjacent;
-    type NthSelector = NthChild
-        | NthLastChild;
-    type SubjectSelector = NthSelector
-        | BinarySelector
-        | MultiSelector
-        | Identifier
-        | Wildcard
-        | Attribute;
-    type Literal = StringLiteral
-        | NumericLiteral;
+    type MultiSelector = Sequence | Negation | Matches | Has;
+    type BinarySelector = Descendant | Child | Sibling | Adjacent;
+    type NthSelector = NthChild | NthLastChild;
+    type SubjectSelector = NthSelector | BinarySelector | MultiSelector | Identifier | Wildcard | Attribute;
+    type Literal = StringLiteral | NumericLiteral;
 
     //
     // Base Atoms

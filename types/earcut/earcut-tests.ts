@@ -10,7 +10,18 @@ declare const dimensions: number;
 const triangles = earcut(vertices, holes, dimensions);
 const deviation = earcut.deviation(vertices, holes, dimensions, triangles);
 
-const data = earcut.flatten([[[0, 0], [100, 0], [0, 100]], [[10, 10], [0, 10], [10, 0]]]);
+const data = earcut.flatten([
+    [
+        [0, 0],
+        [100, 0],
+        [0, 100],
+    ],
+    [
+        [10, 10],
+        [0, 10],
+        [10, 0],
+    ],
+]);
 const triangles2 = earcut(data.vertices, data.holes, data.dimensions);
 
 declare const multiDimData: number[][][];

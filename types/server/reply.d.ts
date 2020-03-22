@@ -1,10 +1,6 @@
-import express = require("express");
+import express = require('express');
 
-export type cookieType = (
-    name: string,
-    value: string,
-    opts?: express.CookieOptions
-) => Reply;
+export type cookieType = (name: string, value: string, opts?: express.CookieOptions) => Reply;
 
 export type downloadType = (path: string, filename?: string) => any;
 export type headerType = (field: string, value?: string) => Reply;

@@ -25,16 +25,11 @@ export = first;
  */
 declare function first<TEmitter extends EventEmitter>(
     eventSpec: Array<[TEmitter, ...string[]]>,
-    listener: first.Listener<TEmitter>
+    listener: first.Listener<TEmitter>,
 ): first.Thunk<TEmitter>;
 
 declare namespace first {
-    type Listener<TEmitter extends EventEmitter> = (
-        err: any,
-        ee: TEmitter,
-        event: string[],
-        args: any[]
-    ) => void;
+    type Listener<TEmitter extends EventEmitter> = (err: any, ee: TEmitter, event: string[], args: any[]) => void;
 
     interface Thunk<TEmitter extends EventEmitter> {
         (listener: Listener<TEmitter>): void;

@@ -1,2 +1,2 @@
-import { deburr } from "lodash";
+import { deburr } from 'lodash';
 export default deburr;

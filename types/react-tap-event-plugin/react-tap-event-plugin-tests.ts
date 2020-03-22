@@ -1,10 +1,10 @@
 // since the export is a function, this is the only actual correct way:
-import injectTapEventPluginRequire = require("react-tap-event-plugin");
+import injectTapEventPluginRequire = require('react-tap-event-plugin');
 
 injectTapEventPluginRequire({
-  shouldRejectClick: function (lastTouchEventTimestamp, clickEventTimestamp) {
-    return true;
-  }
+    shouldRejectClick: function (lastTouchEventTimestamp, clickEventTimestamp) {
+        return true;
+    },
 });
 
 injectTapEventPluginRequire();

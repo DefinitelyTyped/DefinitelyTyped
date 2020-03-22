@@ -7,10 +7,9 @@
 
 // Todo: add 'toggleComment' command, once command type definitions exist in main definitions
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
-
+declare module 'codemirror' {
     interface Editor {
         /** Tries to uncomment the current selection, and if that fails, line-comments it. */
         toggleComment(options?: CommentOptions): void;

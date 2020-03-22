@@ -11,10 +11,7 @@ import { CursorOptions, CursorResult, Options, Plugin } from './';
  * ```
  * `-> { formatted: '1;\n', cursorOffset: 1 }`
  */
-export function formatWithCursor(
-    source: string,
-    options: CursorOptions,
-): CursorResult;
+export function formatWithCursor(source: string, options: CursorOptions): CursorResult;
 
 /**
  * `format` is used to format text using Prettier. [Options](https://github.com/prettier/prettier#options) may be provided to override the defaults.

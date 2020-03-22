@@ -3,7 +3,7 @@ namespace RectTutorial {
     var stage = new Kinetic.Stage({
         container: 'container',
         width: 578,
-        height: 200
+        height: 200,
     });
 
     var layer = new Kinetic.Layer();
@@ -15,7 +15,7 @@ namespace RectTutorial {
         height: 50,
         fill: 'green',
         stroke: 'black',
-        strokeWidth: 4
+        strokeWidth: 4,
     });
 
     // add the shape to the layer
@@ -30,7 +30,7 @@ namespace CircleTutorial {
     var stage = new Kinetic.Stage({
         container: 'container',
         width: 578,
-        height: 200
+        height: 200,
     });
 
     var layer = new Kinetic.Layer();
@@ -41,7 +41,7 @@ namespace CircleTutorial {
         radius: 70,
         fill: 'red',
         stroke: 'black',
-        strokeWidth: 4
+        strokeWidth: 4,
     });
 
     // add the shape to the layer

@@ -29,7 +29,7 @@ sessionData = {
     RefreshToken: refreshToken,
     AccessToken: accessToken,
     TokenScopes: tokenScopes,
-    State: '/myapp/home'
+    State: '/myapp/home',
 };
 authSession = new lib.CognitoAuthSession(sessionData);
 
@@ -48,7 +48,7 @@ let authOptions: lib.CognitoAuthOptions = {
     ClientId: '1a2b3c4d5e6f7g',
     AppWebDomain: 'myapp.auth.us-east-1.amazoncognito.com',
     RedirectUriSignIn: 'https://myapp.com/login',
-    RedirectUriSignOut: 'https://myapp.com/logout'
+    RedirectUriSignOut: 'https://myapp.com/logout',
 };
 let auth: lib.CognitoAuth = new lib.CognitoAuth(authOptions);
 
@@ -60,7 +60,7 @@ authOptions = {
     RedirectUriSignOut: 'https://myapp.com/logout',
     IdentityProvider: 'Facebook',
     UserPoolId: 'us-east-1_faKE4ReAl',
-    AdvancedSecurityDataCollectionFlag: true
+    AdvancedSecurityDataCollectionFlag: true,
 };
 auth = new lib.CognitoAuth(authOptions);
 
@@ -77,7 +77,7 @@ auth.getState(); // $ExpectType string
 auth.setState('/myhost/default.htm'); // $ExpectType void
 auth.getSession(); // $ExpectType void
 auth.parseCognitoWebResponse('url&stuff=true'); // $ExpectType void
-auth.getCodeQueryParameter(new Map());  // $ExpectType void
+auth.getCodeQueryParameter(new Map()); // $ExpectType void
 auth.getTokenQueryParameter(new Map()); // $ExpectType void
 auth.getCachedSession(); // $ExpectType CognitoAuthSession
 auth.getLastUser(); // $ExpectType string
@@ -89,10 +89,13 @@ auth.generateRandomString(5, '159erf'); // $ExpectType string
 auth.clearCachedTokensScopes(); // $ExpectType void
 auth.refreshSession('refreshToken=='); // $ExpectType void
 // $ExpectType void
-auth.makePOSTRequest({ 'Content-Type': 'application/json' }, { pool: '2' },
+auth.makePOSTRequest(
+    { 'Content-Type': 'application/json' },
+    { pool: '2' },
     'https://auth.com/signin',
     (data) => console.log(data),
-    (error) => console.log(error));
+    (error) => console.log(error),
+);
 auth.createCORSRequest('POST', '/myapp/login'); // $ExpectType XMLHttpRequest | XDomainRequest
 auth.onFailure('request failed'); // $ExpectType void
 auth.onSuccessRefreshToken('{"name":"John", "age":31}'); // $ExpectType void
@@ -107,7 +110,7 @@ auth.isUserSignedIn(); // $ExpectType boolean
 
 const userHandler: lib.CognitoAuthUserHandler = {
     onSuccess: (authSession: lib.CognitoAuthSession) => console.log(authSession),
-    onFailure: (error: any) => console.log(error)
+    onFailure: (error: any) => console.log(error),
 };
 auth.userhandler = userHandler;
 

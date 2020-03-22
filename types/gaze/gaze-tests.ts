@@ -4,14 +4,18 @@ gaze('**/*.js', null, (err, watcher) => {
     watcher.watched();
     watcher.relative('./', false);
 });
-gaze(['stylesheets/*.css', 'images/**/*.png'], {
-    interval: 5,
-    debounceDelay: 10,
-    mode: "auto",
-    cwd: './'
-}, (err, watcher) => {
-    watcher.add(['js/*.js']);
-});
+gaze(
+    ['stylesheets/*.css', 'images/**/*.png'],
+    {
+        interval: 5,
+        debounceDelay: 10,
+        mode: 'auto',
+        cwd: './',
+    },
+    (err, watcher) => {
+        watcher.add(['js/*.js']);
+    },
+);
 
 const gazeInstance = new gaze.Gaze('**/*.js', null, (err, watcher) => {
     watcher.add('file.js');

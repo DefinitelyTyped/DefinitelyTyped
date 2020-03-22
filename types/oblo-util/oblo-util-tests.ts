@@ -1,5 +1,3 @@
-
-
 util.debug = false;
 
 util.log('Log message');
@@ -18,7 +16,7 @@ util.padZero(4, 247);
 
 util.addslashes('\\"\'');
 
-util.showJSON({name: 'Clyde', color: 'orange'}, '  ', 7);
+util.showJSON({ name: 'Clyde', color: 'orange' }, '  ', 7);
 
 util.showTime(new Date());
 

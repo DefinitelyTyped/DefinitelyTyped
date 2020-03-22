@@ -21,8 +21,8 @@ const eventEmitter3: Stream = parser1.import(stream, { baseIRI, context, factory
 interface SpecializedQuad extends BaseQuad {
     foo: string;
 }
-const typedStream: Stream<SpecializedQuad> = <any> {};
-const typedParser: Parser<SpecializedQuad> = <any> {};
+const typedStream: Stream<SpecializedQuad> = <any>{};
+const typedParser: Parser<SpecializedQuad> = <any>{};
 const typedImported: Stream<SpecializedQuad> = typedParser.import(typedStream);
 const typedImported1: Stream<SpecializedQuad> = typedParser.import(typedStream, {});
 const typedImported2: Stream<SpecializedQuad> = typedParser.import(typedStream, { baseIRI, context, factory });

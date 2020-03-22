@@ -1,2 +1,2 @@
-import { toPairs } from "../fp";
+import { toPairs } from '../fp';
 export = toPairs;

@@ -55,14 +55,14 @@ export default class PlatformModule {
      */
     getCurrentSync(): Platform;
     /**
-    * Creates and starts a Platform and returns a wrapped and running Platform.  The wrapped Platform methods can
-    * be used to launch content into the platform.  Promise will reject if the platform is already running.
-    * @param { PlatformOptions } platformOptions
-    * @return {Promise.<Platform>}
-    * @tutorial Platform.start
-    * @static
-    * @experimental
-    */
+     * Creates and starts a Platform and returns a wrapped and running Platform.  The wrapped Platform methods can
+     * be used to launch content into the platform.  Promise will reject if the platform is already running.
+     * @param { PlatformOptions } platformOptions
+     * @return {Promise.<Platform>}
+     * @tutorial Platform.start
+     * @static
+     * @experimental
+     */
     start(platformOptions: PlatformOptions): Promise<Platform>;
     /**
      * Retrieves platforms's manifest and returns a wrapped and running Platform.  If there is a snapshot in the manifest,

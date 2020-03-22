@@ -7,7 +7,7 @@
 import socketio = require('socket.io');
 import express = require('express');
 
-declare module "socket.io" {
+declare module 'socket.io' {
     interface Handshake {
         session?: Express.Session;
         sessionID?: string;
@@ -17,11 +17,13 @@ declare module "socket.io" {
 declare function sharedsession(
     expressSessionMiddleware: express.RequestHandler,
     cookieParserMiddleware: express.RequestHandler,
-    options?: sharedsession.SharedSessionOptions): sharedsession.SocketIoSharedSessionMiddleware;
+    options?: sharedsession.SharedSessionOptions,
+): sharedsession.SocketIoSharedSessionMiddleware;
 
 declare function sharedsession(
     expressSessionMiddleware: express.RequestHandler,
-    options?: sharedsession.SharedSessionOptions): sharedsession.SocketIoSharedSessionMiddleware;
+    options?: sharedsession.SharedSessionOptions,
+): sharedsession.SocketIoSharedSessionMiddleware;
 
 declare namespace sharedsession {
     interface SharedSessionOptions {

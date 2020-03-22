@@ -1,5 +1,5 @@
-import { Blob } from "./blob";
-import { Name } from "./name";
+import { Blob } from './blob';
+import { Name } from './name';
 
 export enum KeyLocatorType {
     KEYNAME = 1,
@@ -61,14 +61,10 @@ export class GenericSignature extends SignatureBase<GenericSignature> {
     setSignatureInfoEncoding(encoding: Blob, typeCode?: number): void;
 }
 
-export class DigestSha256Signature extends SignatureBase<DigestSha256Signature> {
-}
+export class DigestSha256Signature extends SignatureBase<DigestSha256Signature> {}
 
-export class Sha256WithRsaSignature extends SignatureBaseKlVp<Sha256WithRsaSignature> {
-}
+export class Sha256WithRsaSignature extends SignatureBaseKlVp<Sha256WithRsaSignature> {}
 
-export class Sha256WithEcdsaSignature extends SignatureBaseKlVp<Sha256WithEcdsaSignature> {
-}
+export class Sha256WithEcdsaSignature extends SignatureBaseKlVp<Sha256WithEcdsaSignature> {}
 
-export class HmacWithSha25Signature extends SignatureBaseKl<HmacWithSha25Signature> {
-}
+export class HmacWithSha25Signature extends SignatureBaseKl<HmacWithSha25Signature> {}

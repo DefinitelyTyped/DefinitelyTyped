@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Firebase Dynamic Links API v1 */
-    function load(name: "firebasedynamiclinks", version: "v1"): PromiseLike<void>;
-    function load(name: "firebasedynamiclinks", version: "v1", callback: () => any): void;
+    function load(name: 'firebasedynamiclinks', version: 'v1'): PromiseLike<void>;
+    function load(name: 'firebasedynamiclinks', version: 'v1', callback: () => any): void;
 
     const shortLinks: firebasedynamiclinks.ShortLinksResource;
 
@@ -331,7 +331,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -366,7 +366,7 @@ declare namespace gapi.client {
              */
             getLinkStats(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -399,7 +399,7 @@ declare namespace gapi.client {
             /** Get iOS strong/weak-match info for post-install attribution. */
             installAttribution(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

@@ -1,11 +1,11 @@
-import { Color } from "chroma-js";
-import chroma = require("chroma-js");
+import { Color } from 'chroma-js';
+import chroma = require('chroma-js');
 
 function test_chroma() {
     chroma('hotpink');
     chroma('#ff3399');
     chroma('F39');
-    chroma.hex("#fff");
+    chroma.hex('#fff');
     chroma.valid(0);
     chroma.valid('');
     chroma.valid({});
@@ -42,9 +42,29 @@ function test_chroma() {
     chroma.contrast('pink', 'hotpink');
     chroma.contrast('pink', 'purple');
     chroma.brewer.OrRd;
-    const data = [3.0, 3.5, 3.6, 3.8, 3.8, 4.1, 4.3, 4.4,
-        4.6, 4.9, 5.2, 5.3, 5.4, 5.7, 5.8, 5.9,
-        6.2, 6.5, 6.8, 7.2, 9];
+    const data = [
+        3.0,
+        3.5,
+        3.6,
+        3.8,
+        3.8,
+        4.1,
+        4.3,
+        4.4,
+        4.6,
+        4.9,
+        5.2,
+        5.3,
+        5.4,
+        5.7,
+        5.8,
+        5.9,
+        6.2,
+        6.5,
+        6.8,
+        7.2,
+        9,
+    ];
     chroma.limits(data, 'e', 5);
     chroma.limits(data, 'q', 5);
     chroma.limits(data, 'k', 5);
@@ -138,8 +158,7 @@ function test_scale() {
     // set domain to [0,100]
     chroma.scale(['yellow', '008ae5']).domain([0, 100]);
     // default domain is [0,1]
-    chroma.scale(['yellow', 'lightgreen', '008ae5'])
-        .domain([0, 0.25, 1]);
+    chroma.scale(['yellow', 'lightgreen', '008ae5']).domain([0, 0.25, 1]);
     chroma.scale(['yellow', '008ae5']);
     chroma.scale(['yellow', 'navy']);
     chroma.scale(['yellow', 'navy']).mode('lab');
@@ -152,26 +171,20 @@ function test_scale() {
     chroma.brewer.OrRd;
     chroma.scale(['yellow', '008ae5']).mode('lch');
 
-    chroma.scale(['yellow', '008ae5'])
-        .mode('lch')
-        .correctLightness();
+    chroma.scale(['yellow', '008ae5']).mode('lch').correctLightness();
     // linear interpolation
     chroma.scale(['yellow', 'red', 'black']);
     // bezier interpolation
     chroma.bezier(['yellow', 'red', 'black']);
     // convert bezier interpolator into chroma.scale
-    chroma.bezier(['yellow', 'red', 'black'])
-        .scale().colors(5);
+    chroma.bezier(['yellow', 'red', 'black']).scale().colors(5);
     // use the default helix...
     chroma.cubehelix();
     // or customize it
-    chroma.cubehelix()
-        .start(200)
-        .rotations(-0.5)
-        .gamma(0.8)
-        .lightness([0.3, 0.8]);
+    chroma.cubehelix().start(200).rotations(-0.5).gamma(0.8).lightness([0.3, 0.8]);
 
-    chroma.cubehelix()
+    chroma
+        .cubehelix()
         .start(200)
         .rotations(-0.35)
         .gamma(0.7)
@@ -189,7 +202,8 @@ function test_scale() {
     chroma.scale('OrRd').classes(5);
     chroma.scale('OrRd').classes(8);
 
-    chroma.cubehelix()
+    chroma
+        .cubehelix()
         .start(200)
         .rotations(-0.35)
         .gamma(0.7)

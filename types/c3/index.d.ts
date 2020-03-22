@@ -34,11 +34,23 @@ export type Domain = [number, number];
  * @param j The sub index of the data point where the label is shown.
  * @returns The formatted data label.
  */
-export type FormatFunction = (v: number | {valueOf(): number}, id: string, i: number, j: number) => string;
+export type FormatFunction = (v: number | { valueOf(): number }, id: string, i: number, j: number) => string;
 
-export type YAxisName = "y" | "y2";
-export type AxisName = "x" | YAxisName;
-export type ChartType = "line" | "spline" | "step" | "area" | "area-spline" | "area-step" | "bar" | "scatter" | "stanford" | "pie" | "donut" | "gauge";
+export type YAxisName = 'y' | 'y2';
+export type AxisName = 'x' | YAxisName;
+export type ChartType =
+    | 'line'
+    | 'spline'
+    | 'step'
+    | 'area'
+    | 'area-spline'
+    | 'area-step'
+    | 'bar'
+    | 'scatter'
+    | 'stanford'
+    | 'pie'
+    | 'donut'
+    | 'gauge';
 
 export interface SidePadding {
     /** Right padding. */
@@ -242,7 +254,7 @@ export interface ChartConfiguration {
         label?: LabelOptions;
         labelLine?: {
             show?: boolean;
-        }
+        };
         /**
          * Enable or disable expanding gauge.
          */
@@ -277,7 +289,7 @@ export interface ChartConfiguration {
              * Defaults to `5`.
              */
             minWidth?: number;
-        }
+        };
     };
 
     spline?: {
@@ -285,7 +297,17 @@ export interface ChartConfiguration {
             /**
              * Set custom spline interpolation
              */
-            type?: 'linear' | 'linear-closed' | 'basis' | 'basis-open' | 'basis-closed' | 'bundle' | 'cardinal' | 'cardinal-open' | 'cardinal-closed' | 'monotone';
+            type?:
+                | 'linear'
+                | 'linear-closed'
+                | 'basis'
+                | 'basis-open'
+                | 'basis-closed'
+                | 'bundle'
+                | 'cardinal'
+                | 'cardinal-open'
+                | 'cardinal-closed'
+                | 'monotone';
         };
     };
 
@@ -365,7 +387,7 @@ export interface ChartConfiguration {
         /**
          * Position the title relative to the chart.
          */
-        title_position?: "right" | "center" | "left";
+        title_position?: 'right' | 'center' | 'left';
     };
 }
 
@@ -380,10 +402,12 @@ export interface LabelOptions {
     format?(value: number, ratio: number, id: string): string | number;
 }
 
-export type ExpandOptions = boolean | {
-    /** Transition duration for expanding. */
-    duration?: number;
-};
+export type ExpandOptions =
+    | boolean
+    | {
+          /** Transition duration for expanding. */
+          duration?: number;
+      };
 
 export interface LabelOptionsWithThreshold extends LabelOptions {
     /**
@@ -486,16 +510,13 @@ export interface Data {
      * Show labels on each data points or set formatter function for data labels.
      * Control all labels with a boolean value or `format` function, or control behavior for individual data with a `format` object.
      */
-    labels?:
-        | boolean
-        | { format: FormatFunction }
-        | { format: { [key: string]: boolean | FormatFunction } };
+    labels?: boolean | { format: FormatFunction } | { format: { [key: string]: boolean | FormatFunction } };
     /**
      * Define the order of the data.
      * This option changes the order of stacking the data and pieces of pie/donut. If null specified, it will be the order the data loaded. If function specified, it will be used to sort the data
      * and it will recieve the data as argument.
      */
-    order?: "asc" | "desc" | ((...data: DataSeries[]) => number) | null;
+    order?: 'asc' | 'desc' | ((...data: DataSeries[]) => number) | null;
     /**
      * Define regions for each data.
      * The values must be an array for each data and it should include an object that has start, end, style. If start is not set, the start will be the first data point. If end is not set, the
@@ -684,7 +705,7 @@ export interface XAxisConfiguration extends AxisConfiguration {
      * Set type of x axis.
      * Defaults to `"indexed"`.
      */
-    type?: "timeseries" | "category" | "indexed";
+    type?: 'timeseries' | 'category' | 'indexed';
     /**
      * Set how to treat the timezone of x values.
      * If `true` (default), treat x value as localtime. If `false`, convert to UTC internally.
@@ -776,13 +797,13 @@ export interface XTickConfiguration extends TickConfiguration {
      * This option does not hide the tick lines. If `false` is set, all of ticks will be shown.
      */
     culling?:
-      | boolean
-      | {
-          /**
-           * The number of tick texts will be adjusted to less than this value.
-           */
-          max: number;
-        };
+        | boolean
+        | {
+              /**
+               * The number of tick texts will be adjusted to less than this value.
+               */
+              max: number;
+          };
     /**
      * Fit x axis ticks.
      * If `true` set, the ticks will be positioned nicely. If `false` set, the ticks will be positioned
@@ -840,7 +861,7 @@ export interface GridLineOptions {
     /** Value to place the grid line at. */
     value: string | number | Date;
     text?: string;
-    position?: "start" | "end" | "middle";
+    position?: 'start' | 'end' | 'middle';
     /** Class to give the grid line for styling. */
     class?: string;
 }
@@ -876,7 +897,7 @@ export interface RegionOptions {
     /**
      * If `'dashed'`, renders the line as dashed in this range instead of showing a region block.
      */
-    style?: "dashed";
+    style?: 'dashed';
 }
 
 export interface LegendOptions {
@@ -894,7 +915,7 @@ export interface LegendOptions {
     /**
      * Change the position of legend.
      */
-    position?: "bottom" | "right" | "inset";
+    position?: 'bottom' | 'right' | 'inset';
     /**
      * Change inset legend attributes. Ignored unless `legend.position` is `"inset"`.
      */
@@ -903,7 +924,7 @@ export interface LegendOptions {
          * Decides the position of the legend.
          * Defaults to `"top-left"`.
          */
-        anchor?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+        anchor?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
         /**
          * Set the horizontal position of the legend based on the anchor.
          * Defaults to `10`.
@@ -1020,7 +1041,7 @@ export interface TooltipOptions {
     /**
      * Set tooltip values order.
      */
-    order?: "desc" | "asc" | unknown[] | ((data1: unknown, data2: unknown) => number) | null;
+    order?: 'desc' | 'asc' | unknown[] | ((data1: unknown, data2: unknown) => number) | null;
     init?: {
         show?: boolean;
         x?: number;
@@ -1050,7 +1071,7 @@ export interface SubchartOptions {
     axis?: {
         x?: {
             show: boolean;
-        }
+        };
     };
     /**
      * Set callback for brush event.
@@ -1157,7 +1178,7 @@ export interface LineOptions {
          * Change step type for step chart.
          * Defaults to `"step"`.
          */
-        type: "step" | "step-before" | "step-after";
+        type: 'step' | 'step-before' | 'step-after';
     };
 }
 
@@ -1255,11 +1276,15 @@ export interface ChartAPI {
      * @param args If given, will unload the data with the ids that match the string, the array of strings, or the `ids` argument of the object. If not given, will unload all data.
      * NOTE: If you call load API soon after/before unload, unload param of load should be used. Otherwise chart will not be rendered properly because of cancel of animation.
      */
-    unload(args?: ArrayOrString | {
-        ids?: ArrayOrString;
-        /** Called after data is loaded, but not after rendering. This is because rendering will finish after some transition and there is some time lag between loading and rendering. */
-        done?: () => void;
-    }): void;
+    unload(
+        args?:
+            | ArrayOrString
+            | {
+                  ids?: ArrayOrString;
+                  /** Called after data is loaded, but not after rendering. This is because rendering will finish after some transition and there is some time lag between loading and rendering. */
+                  done?: () => void;
+              },
+    ): void;
     /**
      * Flow data to the chart. By this API, you can append new data points to the chart.
      * If data that has the same target id is given, the chart will be appended. Otherwise, new target will be added.
@@ -1378,9 +1403,7 @@ export interface ChartAPI {
          * @param colors If this argument is given, the colors of data will be updated. If not given, the current colors will be returned. The format of this argument is the same as data.colors.
          * @returns A map of all data IDs to their current colors.
          */
-        colors(colors?: {
-            [key: string]: string | d3.RGBColor | d3.HSLColor;
-        }): { [key: string]: string };
+        colors(colors?: { [key: string]: string | d3.RGBColor | d3.HSLColor }): { [key: string]: string };
         /**
          * Get and set axes of the data loaded in the chart.
          * @param axes If this argument is given, the axes of data will be updated. This is a map of data IDs to their new axes' names.
@@ -1418,18 +1441,14 @@ export interface ChartAPI {
      * @param x If given, x values of every target will be updated.
      * @returns A map of data IDs to their x IDs after running this function.
      */
-    x(x?: {
-        [key: string]: PrimitiveArray;
-    }): { [key: string]: PrimitiveArray };
+    x(x?: { [key: string]: PrimitiveArray }): { [key: string]: PrimitiveArray };
 
     /**
      * Get and set x values for the chart. Same as `x` method.
      * @param x If given, x values of every target will be updated.
      * @returns A map of data IDs to their x IDs after running this function.
      */
-    xs(xs?: {
-        [key: string]: PrimitiveArray;
-    }): { [key: string]: PrimitiveArray };
+    xs(xs?: { [key: string]: PrimitiveArray }): { [key: string]: PrimitiveArray };
 
     axis: {
         (): void;
@@ -1462,8 +1481,8 @@ export interface ChartAPI {
          * @returns If `range` is *not* given, returns the current min and max values for each axis.
          */
         range(): {
-            min: { [key in AxisName]: number; };
-            max: { [key in AxisName]: number; };
+            min: { [key in AxisName]: number };
+            max: { [key in AxisName]: number };
         };
         range(range: {
             min?: number | { [key in AxisName]?: number };
@@ -1527,11 +1546,8 @@ export interface ChartAPI {
         range(): {
             max: number;
             min: number;
-        }
-        range(range: {
-            max?: number;
-            min?: number;
-        }): void;
+        };
+        range(range: { max?: number; min?: number }): void;
     };
 
     /**

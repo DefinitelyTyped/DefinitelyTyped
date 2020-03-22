@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 import * as child_process from 'child_process';
 interface StreamDataHandler {
     (data: any): void;
@@ -46,7 +45,7 @@ interface Rsync {
     execute(
         callback: (err: Error, code: number, cmd: string) => void,
         stdout: StreamDataHandler,
-        stderr: StreamDataHandler
+        stderr: StreamDataHandler,
     ): child_process.ChildProcess;
 
     // cwd

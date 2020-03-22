@@ -7,5 +7,5 @@ globParent('*.js', {});
 globParent('*.js', { flipBackslashes: false });
 
 const options: globParent.Options = {
-    flipBackslashes: false
+    flipBackslashes: false,
 };

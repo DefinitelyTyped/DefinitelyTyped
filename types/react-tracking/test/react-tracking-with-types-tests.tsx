@@ -33,9 +33,9 @@ const track: Track<TrackingData, Props, State> = _track;
     { page: 'ClassPage' },
     {
         dispatch: customEventReporter,
-        dispatchOnMount: contextData => ({ event: 'pageDataReady' }),
-        process: ownTrackingData => (ownTrackingData.page ? { event: 'pageview' } : null),
-    }
+        dispatchOnMount: (contextData) => ({ event: 'pageDataReady' }),
+        process: (ownTrackingData) => (ownTrackingData.page ? { event: 'pageview' } : null),
+    },
 )
 class ClassPage extends React.Component<Props, State> {
     @track({ event: 'Clicked' })
@@ -63,7 +63,7 @@ class ClassPage extends React.Component<Props, State> {
     }
 }
 
-const FunctionPage: React.SFC<Props> = props => {
+const FunctionPage: React.SFC<Props> = (props) => {
     return (
         <div
             onClick={() => {
@@ -79,7 +79,7 @@ const WrappedFunctionPage = track(
     },
     {
         dispatchOnMount: true,
-    }
+    },
 )(FunctionPage);
 
 class Test extends React.Component<any, null> {

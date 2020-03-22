@@ -2,13 +2,13 @@
  * Not all possible formats for construction are displayed.
  * To see a complete list please view: https://github.com/bgrins/TinyColor
  */
-const testColor: tinycolor.Instance = tinycolor("red");
+const testColor: tinycolor.Instance = tinycolor('red');
 
 /* Constructor Tests*/
 
 // string
 // $ExpectType Instance
-tinycolor("#ffffff");
+tinycolor('#ffffff');
 
 // rgb && rgba
 // $ExpectType Instance
@@ -38,7 +38,7 @@ tinycolor({ h: 0, s: 0, v: 0, a: 0 });
 // $ExpectType Instance
 tinycolor.mix(testColor, testColor);
 // $ExpectType Instance
-tinycolor.mix("#ff0000", "#00ff00");
+tinycolor.mix('#ff0000', '#00ff00');
 // $ExpectType Instance
 tinycolor.mix(testColor, testColor, 50);
 // $ExpectType Instance
@@ -52,22 +52,22 @@ tinycolor.readability(testColor, testColor);
 // $ExpectType boolean
 tinycolor.isReadable(testColor, testColor);
 // $ExpectType boolean
-tinycolor.isReadable(testColor, testColor, {size: "small"});
+tinycolor.isReadable(testColor, testColor, { size: 'small' });
 // $ExpectType Instance
 tinycolor.mostReadable(testColor, [testColor, testColor, testColor]);
 // $ExpectType Instance
-tinycolor.mostReadable(testColor, [testColor, testColor, testColor], {size: "large", level: "AA"});
+tinycolor.mostReadable(testColor, [testColor, testColor, testColor], { size: 'large', level: 'AA' });
 
 const hexNames: { [key: string]: string } = tinycolor.hexNames;
 const names: { [key: string]: string } = tinycolor.names;
 // $ExpectType "linen"
-tinycolor.hexNames["faf0e6"];
+tinycolor.hexNames['faf0e6'];
 // $ExpectType "yellow"
-tinycolor.hexNames["ff0"];
+tinycolor.hexNames['ff0'];
 // $ExpectType "f0f8ff"
-tinycolor.names["aliceblue"];
+tinycolor.names['aliceblue'];
 // $ExpectType "808080"
-tinycolor.names["gray"];
+tinycolor.names['gray'];
 
 /* Instance Methods */
 
@@ -130,21 +130,21 @@ testColor.toFilter();
 // $ExpectType string
 testColor.toString();
 // $ExpectType string
-testColor.toString("rgb");
+testColor.toString('rgb');
 // $ExpectType string
-testColor.toString("prgb");
+testColor.toString('prgb');
 // $ExpectType string
-testColor.toString("hex6");
+testColor.toString('hex6');
 // $ExpectType string
-testColor.toString("hex3");
+testColor.toString('hex3');
 // $ExpectType string
-testColor.toString("hex8");
+testColor.toString('hex8');
 // $ExpectType string
-testColor.toString("name");
+testColor.toString('name');
 // $ExpectType string
-testColor.toString("hsl");
+testColor.toString('hsl');
 // $ExpectType string
-testColor.toString("hsv");
+testColor.toString('hsv');
 
 // color modifications
 // $ExpectType Instance

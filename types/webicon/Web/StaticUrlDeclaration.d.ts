@@ -1,4 +1,4 @@
-import { UrlDeclarationBase } from "./UrlDeclarationBase";
+import { UrlDeclarationBase } from './UrlDeclarationBase';
 
 /**
  * Represents a static url.

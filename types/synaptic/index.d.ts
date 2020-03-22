@@ -4,7 +4,7 @@
 //                 Austin Cummings <https://github.com/austincummings>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Synaptic from "synaptic"; // Need this to refer to Synaptic from within the `declare global`
+import * as Synaptic from 'synaptic'; // Need this to refer to Synaptic from within the `declare global`
 
 declare global {
     var Neuron: typeof Synaptic.Neuron;
@@ -112,7 +112,10 @@ export class Neuron {
     /**
      * Hardcodes the behavior of the neuron into an optimized function.
      */
-    optimize(optimized?: any, layer?: any): {
+    optimize(
+        optimized?: any,
+        layer?: any,
+    ): {
         memory: any;
         neurons: any;
         inputs: any;
@@ -127,7 +130,7 @@ export class Neuron {
 
     static uid(): number;
 
-    static quantity(): { neurons: number; connections: number; };
+    static quantity(): { neurons: number; connections: number };
 }
 
 export namespace Layer {
@@ -148,7 +151,7 @@ export namespace Layer {
         /**
          * Useful only in self-connections. It connects every neuron from a layer to all the other neurons in that same layer, except with itself. If this connectionType is used in a connection between different layers, it produces the same result as ALL_TO_ALL.
          */
-        ALL_TO_ELSE
+        ALL_TO_ELSE,
     }
 
     /**
@@ -187,7 +190,7 @@ export namespace Layer {
         /**
          * If layer C is gating connections between layer A and B, each neuron from C gates one connection from A to B. This is useful for gating self-connected layers. To use this kind of gateType, A, B and C must be the same size.
          */
-        ONE_TO_ONE
+        ONE_TO_ONE,
     }
 
     interface Options {
@@ -619,7 +622,10 @@ export class Trainer {
      * This method allows you to train any training set to a Network.
      * @returns When the training is done this method returns an object with the error, the iterations, and the elapsed time of the training.
      */
-    trainAsync(trainingSet: Trainer.TrainingSet, trainingOptions?: Trainer.TrainingOptions): Promise<Trainer.TrainingResult>;
+    trainAsync(
+        trainingSet: Trainer.TrainingSet,
+        trainingOptions?: Trainer.TrainingOptions,
+    ): Promise<Trainer.TrainingResult>;
 
     /**
      * This method accepts the same arguments as train(dataSet, options). It will iterate over the dataSet, activating the network.

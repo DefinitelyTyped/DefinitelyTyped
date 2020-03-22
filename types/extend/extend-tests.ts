@@ -1,24 +1,24 @@
 import extend = require('extend');
 
 const objectBase = {
-    test: 'base'
+    test: 'base',
 };
 
 const objectOne = {
     test: 'one',
-    iamone: true
+    iamone: true,
 };
 
 const objectTwo = {
     test: 2,
-    iamtwo: true
+    iamtwo: true,
 };
 
 const objectThree = {
     iamthree: true,
     depth: {
-        innerType: 'deep'
-    }
+        innerType: 'deep',
+    },
 };
 
 type ExtendedType = typeof objectBase & typeof objectOne;
@@ -32,8 +32,7 @@ moreExtended.test === 2;
 moreExtended.iamone;
 moreExtended.iamtwo;
 
-type DeepExtendedType = typeof objectBase & typeof objectOne &
-  typeof objectTwo & typeof objectThree;
+type DeepExtendedType = typeof objectBase & typeof objectOne & typeof objectTwo & typeof objectThree;
 const deepExtended = extend(true, objectBase, objectOne, objectTwo, objectThree);
 deepExtended.iamone;
 deepExtended.iamtwo;

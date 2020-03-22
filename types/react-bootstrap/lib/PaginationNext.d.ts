@@ -6,5 +6,5 @@ declare namespace PaginationNext {
         disabled?: boolean;
     }
 }
-declare class PaginationNext extends React.Component<PaginationNext.PaginationNextProps> { }
+declare class PaginationNext extends React.Component<PaginationNext.PaginationNextProps> {}
 export = PaginationNext;

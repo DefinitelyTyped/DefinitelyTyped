@@ -1,4 +1,4 @@
-import * as stats from "stats-lite";
+import * as stats from 'stats-lite';
 const rolls: number[] = [];
 
 // $ExpectType number

@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 /**
  * The interface includes all options that available for sass executable.
  * Options are converted from dashed to camelCase
@@ -64,6 +63,6 @@ interface Options extends SassOptions {
  */
 declare function sass(source: string, options?: Options): NodeJS.ReadableStream;
 
-declare namespace sass { }
+declare namespace sass {}
 
 export = sass;

@@ -5,7 +5,7 @@
 // TypeScript Version: 2.7
 
 type codepageType =
-    'cp437'
+    | 'cp437'
     | 'cp737'
     | 'cp850'
     | 'cp775'

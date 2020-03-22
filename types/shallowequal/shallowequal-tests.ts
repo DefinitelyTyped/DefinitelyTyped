@@ -17,11 +17,11 @@ shallowEqual(a, b, () => undefined); // $ExpectType boolean
 shallowEqual(
     a,
     b,
-    function() {
+    function () {
         this; // $ExpectType { foo: string; }
         return undefined;
     },
-    { foo: 'bar' }
+    { foo: 'bar' },
 );
 
 interface Foo {
@@ -34,7 +34,7 @@ const d: Foo = { foo: 'baz', bar: 1 };
 
 const undefinedCustomizer: shallowEqual.Customizer<Foo> = () => undefined;
 
-const customizer: shallowEqual.Customizer<Foo> = function(a: any, b: any) {
+const customizer: shallowEqual.Customizer<Foo> = function (a: any, b: any) {
     this; // $ExpectType Foo
     a; // $ExpectType any
     b; // $ExpectType any

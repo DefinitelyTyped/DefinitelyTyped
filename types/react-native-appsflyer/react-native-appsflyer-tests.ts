@@ -7,10 +7,10 @@ appsFlyer.initSdk({ devKey: '1A2b3C', appId: 'app_id', isDebug: true });
 appsFlyer.getAppsFlyerUID((error, appsFlyerId) => {});
 
 // $ExpectType () => void
-appsFlyer.onAppOpenAttribution(res => {});
+appsFlyer.onAppOpenAttribution((res) => {});
 
 // $ExpectType () => void
-appsFlyer.onInstallConversionData(res => {});
+appsFlyer.onInstallConversionData((res) => {});
 
 // $ExpectType void
 appsFlyer.sendDeepLinkData('https://reactjs.org');

@@ -24,7 +24,11 @@ declare class EmailTemplates {
     generateText(templatePath: string, context: any, html: string, cb: (error: any, text: string | null) => void): void;
     generateSubject(templatePath: string, context: any, cb: (error: any, text: string | null) => void): void;
     rewriteUrls($: JQueryStatic, rewrite: (href: string) => void): void;
-    render(templatePath: string, context: any, cb: (error: any, inlinedHTML?: string, text?: string, subject?: string) => void): void;
+    render(
+        templatePath: string,
+        context: any,
+        cb: (error: any, inlinedHTML?: string, text?: string, subject?: string) => void,
+    ): void;
 }
 
 export = EmailTemplates;

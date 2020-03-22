@@ -11,9 +11,7 @@ export = findCacheDir;
  * @param options
  * @returns A string containing the absolute path to the cache directory, or null if package.json was never found.
  */
-declare function findCacheDir(
-    options: findCacheDir.OptionsWithThunk
-): ((...pathParts: string[]) => string) | null;
+declare function findCacheDir(options: findCacheDir.OptionsWithThunk): ((...pathParts: string[]) => string) | null;
 declare function findCacheDir(options: findCacheDir.Options): string | null;
 
 declare namespace findCacheDir {

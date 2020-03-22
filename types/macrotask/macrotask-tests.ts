@@ -1,7 +1,7 @@
 import { run, clear } from 'macrotask';
 
 const token = run(() => {});
-run(arg1 => {}); // $ExpectError
+run((arg1) => {}); // $ExpectError
 
 run(
     (arg1, arg2) => {
@@ -9,7 +9,7 @@ run(
         arg2; // $ExpectType number
     },
     'foo',
-    1
+    1,
 );
 // $ExpectError
 run((arg1, arg2) => {}, 'foo');

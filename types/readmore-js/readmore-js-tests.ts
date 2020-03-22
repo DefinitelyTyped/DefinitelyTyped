@@ -18,7 +18,7 @@ const options: Readmore.Options = {
     },
     blockProcessed: (element: Element, collapsable: boolean) => {
         console.log(element, element);
-    }
+    },
 };
 
 new Readmore('.selector', options);

@@ -1,8 +1,4 @@
-import {
-    Byte,
-    ByteArray,
-    LoadCallbackType
-} from '../types';
+import { Byte, ByteArray, LoadCallbackType } from '../types';
 import MediaFileReader from './MediaFileReader';
 
 export default class ArrayFileReader extends MediaFileReader {

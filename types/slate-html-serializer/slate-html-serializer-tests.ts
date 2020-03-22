@@ -1,10 +1,10 @@
-import Html, { Rule } from "slate-html-serializer";
+import Html, { Rule } from 'slate-html-serializer';
 
 const myRule: Rule = {
     deserialize: (el, next) => {},
-    serialize: () => null
+    serialize: () => null,
 };
 
 const serializer = new Html({
-    rules: [myRule]
+    rules: [myRule],
 });

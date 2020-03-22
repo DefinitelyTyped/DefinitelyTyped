@@ -1,4 +1,4 @@
-import tape = require("tape-async");
+import tape = require('tape-async');
 
 const name: string = undefined;
 const cb = async (test: tape.Test) => {};

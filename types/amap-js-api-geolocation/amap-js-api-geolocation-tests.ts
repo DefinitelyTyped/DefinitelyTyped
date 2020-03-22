@@ -23,7 +23,7 @@ const geolocation = new AMap.Geolocation({
     panToLocation: true,
     zoomToAccuracy: true,
     useNative: false,
-    extensions: 'all'
+    extensions: 'all',
 });
 
 // $ExpectType boolean

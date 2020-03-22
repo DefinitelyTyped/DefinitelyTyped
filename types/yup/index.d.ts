@@ -247,7 +247,7 @@ export interface ObjectSchemaConstructor {
 
 export interface ObjectSchema<T extends object | null | undefined = object> extends Schema<T> {
     fields: {
-      [k in keyof T]: Schema<T[k]>
+        [k in keyof T]: Schema<T[k]>;
     };
     shape<U extends object>(
         fields: ObjectSchemaDefinition<U>,
@@ -294,7 +294,7 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params?: { path?: string; message?: string, params?: object }) => ValidationError;
+    createError: (params?: { path?: string; message?: string; params?: object }) => ValidationError;
 }
 
 export interface ValidateOptions {
@@ -359,16 +359,12 @@ export interface SchemaFieldRefDescription {
     key: string;
 }
 
-export interface SchemaFieldInnerTypeDescription extends Pick<
-    SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>
-> {
+export interface SchemaFieldInnerTypeDescription
+    extends Pick<SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>> {
     innerType?: SchemaFieldDescription;
 }
 
-export type SchemaFieldDescription =
-    | SchemaDescription
-    | SchemaFieldRefDescription
-    | SchemaFieldInnerTypeDescription;
+export type SchemaFieldDescription = SchemaDescription | SchemaFieldRefDescription | SchemaFieldInnerTypeDescription;
 
 export interface SchemaDescription {
     type: string;
@@ -514,5 +510,5 @@ type KeyOfUndefined<T> = {
 type Id<T> = { [K in keyof T]: T[K] };
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
-type InnerInferType<T> = T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>> ;
+type InnerInferType<T> = T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>>;
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;

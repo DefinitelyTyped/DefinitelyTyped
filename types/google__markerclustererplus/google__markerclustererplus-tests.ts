@@ -3,24 +3,24 @@ const p = new google.maps.LatLng(0, 0);
 const b = new google.maps.LatLngBounds(p, p);
 const iconStyles: ClusterIconStyle[] = [
     {
-        url: "http://example.com",
+        url: 'http://example.com',
         height: 1,
         width: 1,
         anchorText: [0, 0],
         anchorIcon: [0, 0],
-        textColor: "red",
+        textColor: 'red',
         textSize: 1,
-        textDecoration: "underline",
-        fontWeight: "bold",
-        fontStyle: "italic",
-        fontFamily: "Arial",
-        backgroundPosition: "center"
+        textDecoration: 'underline',
+        fontWeight: 'bold',
+        fontStyle: 'italic',
+        fontFamily: 'Arial',
+        backgroundPosition: 'center',
     },
     {
-        url: "http://example.com",
+        url: 'http://example.com',
         height: 1,
-        width: 1
-    }
+        width: 1,
+    },
 ];
 const calculator: Calculator = MarkerClusterer.CALCULATOR;
 {
@@ -38,7 +38,7 @@ const imageExtension: string = MarkerClusterer.IMAGE_EXTENSION;
 const map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: p,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
 });
 
 const mc = new MarkerClusterer(map);
@@ -52,8 +52,8 @@ const mc = new MarkerClusterer(map);
         averageCenter: true,
         minimumClusterSize: 1,
         ignoreHidden: true,
-        title: "title",
-        clusterClass: "class",
+        title: 'title',
+        clusterClass: 'class',
         styles: iconStyles,
         enableRetinaIcons: true,
         batchSize: 1,
@@ -61,7 +61,7 @@ const mc = new MarkerClusterer(map);
         calculator,
         imagePath,
         imageExtension,
-        imageSizes
+        imageSizes,
     });
 }
 {
@@ -114,7 +114,7 @@ const mc = new MarkerClusterer(map);
     mc.setAverageCenter(false);
     mc.setBatchSizeIE(batchSizeIE);
     mc.setCalculator(calculator);
-    mc.setClusterClass("cluster_class");
+    mc.setClusterClass('cluster_class');
     mc.setEnableRetinaIcons(true);
     mc.setGridSize(1);
     mc.setHideLabel(true);
@@ -125,7 +125,7 @@ const mc = new MarkerClusterer(map);
     mc.setMaxZoom(1);
     mc.setMinimumClusterSize(1);
     mc.setStyles(iconStyles);
-    mc.setTitle("title");
+    mc.setTitle('title');
     mc.setupStyles_();
     mc.setZoomOnClick(true);
 }
@@ -147,7 +147,7 @@ const mc = new MarkerClusterer(map);
         const icon = new ClusterIcon(c, iconStyles);
         icon.onAdd();
         icon.createCss(new google.maps.Point(0, 0));
-        icon.useStyle({index: 1, text: "text", title: "title"});
+        icon.useStyle({ index: 1, text: 'text', title: 'title' });
         icon.draw();
         icon.hide();
         const pos: google.maps.Point = icon.getPosFromLatLng_(p);

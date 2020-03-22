@@ -51,11 +51,11 @@ export namespace helpers {
     function generateClass(
         name: string,
         options?: {
-            extends?: Error,
-            globalize?: boolean,
-            args?: string[],
-            generateMessage?: GenerateMessageMethod
-        }
+            extends?: Error;
+            globalize?: boolean;
+            args?: string[];
+            generateMessage?: GenerateMessageMethod;
+        },
     ): ErrorConstructor;
 }
 
@@ -556,7 +556,7 @@ export namespace io {
          * @param inner_error the Error instance that caused the current
          *                    error. Stack trace will be appended.
          */
-        constructor(message: string, inner_error?: Error)
+        constructor(message: string, inner_error?: Error);
     }
 
     /**

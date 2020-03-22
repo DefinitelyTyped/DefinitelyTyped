@@ -204,8 +204,15 @@ declare namespace WIA {
          * @param boolean [UseCommonUI=true]
          * @param boolean [CancelError=false]
          */
-        ShowAcquireImage(DeviceType?: WiaDeviceType, Intent?: WiaImageIntent, Bias?: WiaImageBias, FormatID?: string, AlwaysSelectDevice?: boolean, UseCommonUI?: boolean,
-            CancelError?: boolean): ImageFile | null;
+        ShowAcquireImage(
+            DeviceType?: WiaDeviceType,
+            Intent?: WiaImageIntent,
+            Bias?: WiaImageBias,
+            FormatID?: string,
+            AlwaysSelectDevice?: boolean,
+            UseCommonUI?: boolean,
+            CancelError?: boolean,
+        ): ImageFile | null;
 
         /** Launches the Windows Scanner and Camera Wizard and returns Nothing. Future versions may return a collection of ImageFile objects. */
         ShowAcquisitionWizard(Device: Device): null;
@@ -232,7 +239,11 @@ declare namespace WIA {
          * @param boolean [AlwaysSelectDevice=false]
          * @param boolean [CancelError=false]
          */
-        ShowSelectDevice(DeviceType?: WiaDeviceType, AlwaysSelectDevice?: boolean, CancelError?: boolean): Device | null;
+        ShowSelectDevice(
+            DeviceType?: WiaDeviceType,
+            AlwaysSelectDevice?: boolean,
+            CancelError?: boolean,
+        ): Device | null;
 
         /**
          * Displays a dialog box that enables the user to select an item for transfer from a hardware device for image acquisition. Returns the selection as an
@@ -243,7 +254,14 @@ declare namespace WIA {
          * @param boolean [UseCommonUI=true]
          * @param boolean [CancelError=false]
          */
-        ShowSelectItems(Device: Device, Intent?: WiaImageIntent, Bias?: WiaImageBias, SingleSelect?: boolean, UseCommonUI?: boolean, CancelError?: boolean): Items | null;
+        ShowSelectItems(
+            Device: Device,
+            Intent?: WiaImageIntent,
+            Bias?: WiaImageBias,
+            SingleSelect?: boolean,
+            UseCommonUI?: boolean,
+            CancelError?: boolean,
+        ): Items | null;
 
         /**
          * Displays a progress dialog box while transferring the specified Item to the local machine. See Item.Transfer for additional information.
@@ -408,7 +426,14 @@ declare namespace WIA {
          * path name and the appropriate command-line arguments needed to invoke the application.
          * @param string [DeviceID='*']
          */
-        RegisterPersistentEvent(Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string): void;
+        RegisterPersistentEvent(
+            Command: string,
+            Name: string,
+            Description: string,
+            Icon: string,
+            EventID: string,
+            DeviceID?: string,
+        ): void;
 
         /**
          * Unregisters the specified EventID for the specified DeviceID. UnregisterEvent should only be called for EventID and DeviceID for which you called
@@ -422,7 +447,14 @@ declare namespace WIA {
          * Command, Name, Description, Icon, EventID and DeviceID for which you called RegisterPersistentEvent.
          * @param string [DeviceID='*']
          */
-        UnregisterPersistentEvent(Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string): void;
+        UnregisterPersistentEvent(
+            Command: string,
+            Name: string,
+            Description: string,
+            Icon: string,
+            EventID: string,
+            DeviceID?: string,
+        ): void;
     }
 
     /**
@@ -793,8 +825,15 @@ declare namespace WIA {
 }
 
 interface ActiveXObject {
-    on(obj: WIA.DeviceManager, event: 'OnEvent', argNames: ['EventID', 'DeviceID', 'ItemID'], handler: (
-        this: WIA.DeviceManager, parameter: { readonly EventID: string, readonly DeviceID: string, readonly ItemID: string }) => void): void;
+    on(
+        obj: WIA.DeviceManager,
+        event: 'OnEvent',
+        argNames: ['EventID', 'DeviceID', 'ItemID'],
+        handler: (
+            this: WIA.DeviceManager,
+            parameter: { readonly EventID: string; readonly DeviceID: string; readonly ItemID: string },
+        ) => void,
+    ): void;
     set<TItem>(obj: WIA.Vector<TItem>, propertyName: 'Item', parameterTypes: [number], newValue: TItem): void;
 }
 

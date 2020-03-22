@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 declare namespace MediaQuery {
     interface MediaQueryProps {
         query?: string;
         // matchers
-        orientation?: "portrait" | "landscape";
-        scan?: "progressive" | "interlace";
+        orientation?: 'portrait' | 'landscape';
+        scan?: 'progressive' | 'interlace';
         aspectRatio?: string;
         deviceAspectRatio?: string;
         height?: number | string;
@@ -58,5 +58,5 @@ declare namespace MediaQuery {
     }
 }
 
-declare class MediaQuery extends React.Component<MediaQuery.MediaQueryProps, any> { }
+declare class MediaQuery extends React.Component<MediaQuery.MediaQueryProps, any> {}
 export = MediaQuery;

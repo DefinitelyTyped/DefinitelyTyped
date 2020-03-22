@@ -11,5 +11,5 @@ declare namespace PanelGroup {
         generateChildId?: Function;
     }
 }
-declare class PanelGroup extends React.Component<PanelGroup.PanelGroupProps> { }
+declare class PanelGroup extends React.Component<PanelGroup.PanelGroupProps> {}
 export = PanelGroup;

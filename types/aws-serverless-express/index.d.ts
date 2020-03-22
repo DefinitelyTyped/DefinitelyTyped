@@ -24,14 +24,10 @@ export interface ProxyResult {
 export function createServer(
     requestListener: (request: http.IncomingMessage, response: http.ServerResponse) => void,
     serverListenCallback?: () => any,
-    binaryMimeTypes?: string[]
+    binaryMimeTypes?: string[],
 ): http.Server;
 
-export function proxy(
-    server: http.Server,
-    event: lambda.APIGatewayProxyEvent,
-    context: lambda.Context,
-): http.Server;
+export function proxy(server: http.Server, event: lambda.APIGatewayProxyEvent, context: lambda.Context): http.Server;
 
 export function proxy(
     server: http.Server,
@@ -45,5 +41,5 @@ export function proxy(
     event: lambda.APIGatewayProxyEvent,
     context: lambda.Context,
     resolutionMode: 'CALLBACK',
-    callback?: (error: any, response: Response) => void
+    callback?: (error: any, response: Response) => void,
 ): ProxyResult;

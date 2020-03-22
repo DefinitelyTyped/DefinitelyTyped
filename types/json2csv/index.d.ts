@@ -15,20 +15,13 @@ import JSON2CSVTransform from './JSON2CSVTransform';
 
 export default json2csv;
 
-export {
-    JSON2CSVParser as Parser,
-    JSON2CSVAsyncParser as AsyncParser,
-	JSON2CSVTransform as Transform
-};
+export { JSON2CSVParser as Parser, JSON2CSVAsyncParser as AsyncParser, JSON2CSVTransform as Transform };
 
 // Convenience method to keep the API similar to version 3.X
-export function parse<T>(
-    data: Readonly<T> | ReadonlyArray<T>,
-    opts?: json2csv.Options<T>
-): string;
+export function parse<T>(data: Readonly<T> | ReadonlyArray<T>, opts?: json2csv.Options<T>): string;
 
 export function parseAsync<T>(
     data: Readonly<T> | ReadonlyArray<T> | Readable,
     opts?: json2csv.Options<T>,
-    transformOpts?: TransformOptions
+    transformOpts?: TransformOptions,
 ): Promise<string>;

@@ -7,7 +7,7 @@ const complexForm = create({
     password: fields.password({ required: true }),
     password_confirm: fields.password({
         required: true,
-        validators: [validators.matchField('password')]
+        validators: [validators.matchField('password')],
     }),
     phone_1: fields.string({ validators: [validators.requiresFieldIfEmpty('phone_2')] }),
     phone_2: fields.string({ validators: [validators.requiresFieldIfEmpty('phone_1')] }),
@@ -15,44 +15,46 @@ const complexForm = create({
         choices: {
             one: 'option one',
             two: 'option two',
-            three: 'option three'
+            three: 'option three',
         },
         widget: widgets.select(),
-        validators: [ (form, field, callback) => {
-            if (field.data === 'two') {
-                callback('two?! are you crazy?!');
-            } else {
-                callback();
-            }
-        } ]
+        validators: [
+            (form, field, callback) => {
+                if (field.data === 'two') {
+                    callback('two?! are you crazy?!');
+                } else {
+                    callback();
+                }
+            },
+        ],
     }),
     more_options: fields.array({
         choices: { one: 'item 1', two: 'item 2', three: 'item 3' },
-        widget: widgets.multipleCheckbox()
+        widget: widgets.multipleCheckbox(),
     }),
     even_more: fields.string({
         choices: { one: 'item 1', two: 'item 2', three: 'item 3' },
-        widget: widgets.multipleRadio()
+        widget: widgets.multipleRadio(),
     }),
     and_more: fields.array({
         choices: { one: 'item 1', two: 'item 2', three: 'item 3' },
-        widget: widgets.multipleSelect()
+        widget: widgets.multipleSelect(),
     }),
     notes: fields.string({ widget: widgets.textarea({ rows: 6 }) }),
     spam_me: fields.boolean(),
     nested_1: {
         nested_2: {
-            nested: fields.string()
-        }
+            nested: fields.string(),
+        },
     },
     bootstrapTitle: fields.string({
         required: true,
-        widget: widgets.text({ classes: [ 'input-with-feedback' ] }),
+        widget: widgets.text({ classes: ['input-with-feedback'] }),
         errorAfterField: true,
         cssClasses: {
-            label: [ 'control-label col col-lg-3' ]
-        }
-    })
+            label: ['control-label col col-lg-3'],
+        },
+    }),
 });
 
 const output = complexForm.toHTML();

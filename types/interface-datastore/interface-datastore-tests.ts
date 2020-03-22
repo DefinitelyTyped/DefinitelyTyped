@@ -10,14 +10,14 @@ for (let i = 0; i < 100; i++) {
     data.push([new Key(`/z/key${i}`), Buffer.from(`data${i}`)]);
 }
 
-Promise.all(data.map(d => store.put(d[0], d[1]))).then(() => {
-    Promise.all(data.map(d => store.get(d[0]))).then(res => {
+Promise.all(data.map((d) => store.put(d[0], d[1]))).then(() => {
+    Promise.all(data.map((d) => store.get(d[0]))).then((res) => {
         console.log(res);
     });
 });
 
 store.put(k, Buffer.from('hello')).then(() => {
-    store.get(k).then(res => {
+    store.get(k).then((res) => {
         console.log(res);
     });
 });
@@ -33,7 +33,7 @@ try {
 store.put(k, Buffer.from('hello')).then(() => {
     store.get(k).then(() => {
         store.delete(k).then(() => {
-            store.has(k).then(exists => {
+            store.has(k).then((exists) => {
                 console.log(exists);
                 // true
             });
@@ -50,7 +50,7 @@ store.put(new Key('/z/old'), Buffer.from('old')).then(() => {
     b.delete(new Key('/z/old'));
     b.commit().then(() => {
         const keys = ['/a/one', '/q/two', '/q/three', '/z/old'];
-        Promise.all(keys.map(k => store.has(new Key(k)))).then(res => {
+        Promise.all(keys.map((k) => store.has(new Key(k)))).then((res) => {
             console.log(res);
             // [true, true, true, false]
         });
@@ -89,7 +89,7 @@ const query: Query = {
     filters: [filter1, filter2],
     orders: [order],
     offset: 1,
-    limit: 1
+    limit: 1,
 };
 
 const test = async () => {

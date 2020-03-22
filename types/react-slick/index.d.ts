@@ -7,11 +7,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
-type ComponentConstructor<TProps> =
-    | React.ComponentClass<TProps>
-    | React.StatelessComponent<TProps>;
+type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
 
 export interface CustomArrowProps {
     className?: string;
@@ -23,12 +21,12 @@ export interface CustomArrowProps {
 
 export interface ResponsiveObject {
     breakpoint: number;
-    settings: "unslick" | Settings;
+    settings: 'unslick' | Settings;
 }
 
-export type SwipeDirection = "left" | "down" | "right" | "up" | string;
+export type SwipeDirection = 'left' | 'down' | 'right' | 'up' | string;
 
-export type LazyLoadTypes = "ondemand" | "progressive";
+export type LazyLoadTypes = 'ondemand' | 'progressive';
 
 export interface Settings {
     accessibility?: boolean;

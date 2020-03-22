@@ -4,25 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace AdminGroupsMigration {
-    namespace Collection {
-      interface ArchiveCollection {
-        // Inserts a new mail into the archive of the Google group.
-        insert(groupId: string): AdminGroupsMigration.Schema.Groups;
-        // Inserts a new mail into the archive of the Google group.
-        insert(groupId: string, mediaData: any): AdminGroupsMigration.Schema.Groups;
-      }
+    namespace AdminGroupsMigration {
+        namespace Collection {
+            interface ArchiveCollection {
+                // Inserts a new mail into the archive of the Google group.
+                insert(groupId: string): AdminGroupsMigration.Schema.Groups;
+                // Inserts a new mail into the archive of the Google group.
+                insert(groupId: string, mediaData: any): AdminGroupsMigration.Schema.Groups;
+            }
+        }
+        namespace Schema {
+            interface Groups {
+                kind?: string;
+                responseCode?: string;
+            }
+        }
     }
-    namespace Schema {
-      interface Groups {
-        kind?: string;
-        responseCode?: string;
-      }
+    interface AdminGroupsMigration {
+        Archive?: AdminGroupsMigration.Collection.ArchiveCollection;
     }
-  }
-  interface AdminGroupsMigration {
-    Archive?: AdminGroupsMigration.Collection.ArchiveCollection;
-  }
 }
 
 declare var AdminGroupsMigration: GoogleAppsScript.AdminGroupsMigration;

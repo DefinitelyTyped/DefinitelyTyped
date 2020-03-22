@@ -1,4 +1,4 @@
-import ndn = require("ndn-js");
+import ndn = require('ndn-js');
 
 let kl: ndn.KeyLocator = new ndn.KeyLocator();
 kl = new ndn.KeyLocator(kl);

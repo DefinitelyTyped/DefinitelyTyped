@@ -6,7 +6,7 @@
 /// <reference types="node" />
 /// <reference types="vinyl" />
 
-import File = require("vinyl");
+import File = require('vinyl');
 
 declare function inject(sources: NodeJS.ReadableStream, options?: inject.IOptions): NodeJS.ReadWriteStream;
 

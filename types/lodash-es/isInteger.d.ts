@@ -1,2 +1,2 @@
-import { isInteger } from "lodash";
+import { isInteger } from 'lodash';
 export default isInteger;

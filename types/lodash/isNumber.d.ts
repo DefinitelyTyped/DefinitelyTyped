@@ -1,2 +1,2 @@
-import { isNumber } from "./index";
+import { isNumber } from './index';
 export = isNumber;

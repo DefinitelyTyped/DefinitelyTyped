@@ -1,10 +1,10 @@
-import * as React from "react";
-import { ReactButtonAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactButtonAttr } from '../../../typings/shared';
 
-interface InheritedProps extends Omit<ReactButtonAttr, "type"> { }
+interface InheritedProps extends Omit<ReactButtonAttr, 'type'> {}
 
 export interface HeaderGlobalActionProps extends InheritedProps {
-    isActive?: boolean,
+    isActive?: boolean;
 }
 
 declare const HeaderGlobalAction: React.FC<HeaderGlobalActionProps>;

@@ -7,7 +7,7 @@ const bricks = Bricks({
         { columns: 2, gutter: 10 },
         { mq: '768px', columns: 3, gutter: 25 },
         { mq: '1024px', columns: 4, gutter: 25 },
-    ]
+    ],
 });
 
 bricks

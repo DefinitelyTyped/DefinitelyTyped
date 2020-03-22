@@ -19,7 +19,7 @@ Saml11.create(
         nameIdentifier: 'foo',
         sessionIndex: '_faed468a-15a0-4668-aed6-3d9c478cc8fa',
     },
-    () => {}
+    () => {},
 );
 
 Saml20.create({
@@ -41,5 +41,5 @@ Saml20.create(
         nameIdentifier: 'foo',
         sessionIndex: '_faed468a-15a0-4668-aed6-3d9c478cc8fa',
     },
-    () => {}
+    () => {},
 );

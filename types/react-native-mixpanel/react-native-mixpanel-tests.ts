@@ -13,10 +13,10 @@ Mixpanel.registerSuperProperties({ 'Account type': 'Free', 'User Type': 'Vendor'
 Mixpanel.registerSuperPropertiesOnce({ Gender: 'Female' });
 Mixpanel.trackCharge(399);
 Mixpanel.trackChargeWithProperties(399, { product: 'ACME Wearable tech' });
-Mixpanel.increment("Login Count", 1);
+Mixpanel.increment('Login Count', 1);
 Mixpanel.setPushRegistrationId('1234567890abc');
 Mixpanel.initPushHandling('123456666');
 Mixpanel.clearPushRegistrationId();
 Mixpanel.addPushDeviceToken('1234567890abc');
 Mixpanel.reset();
-Mixpanel.getDistinctId((id) => (id));
+Mixpanel.getDistinctId((id) => id);

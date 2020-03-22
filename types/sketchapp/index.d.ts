@@ -198,7 +198,7 @@ interface SketchMSAttributedString {
     string: string;
     attributes: SketchMSStringAttribute[];
     archivedAttributedString?: {
-      _archive: string;
+        _archive: string;
     };
 }
 interface SketchMSTextLayer extends SketchMSContainerLayer {

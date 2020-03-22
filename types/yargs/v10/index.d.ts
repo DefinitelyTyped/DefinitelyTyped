@@ -45,7 +45,7 @@ declare namespace yargs {
         choices(choices: { [argName: string]: Choices }): Argv;
 
         coerce(key: string | string[], func: (arg: any) => any): Argv;
-        coerce(opts: { [key: string]: (arg: any) => any; }): Argv;
+        coerce(opts: { [key: string]: (arg: any) => any }): Argv;
 
         /**
          * Define the commands exposed by your application.
@@ -56,11 +56,31 @@ declare namespace yargs {
          * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command specific help.
          * @param [handler] Function, which will be executed with the parsed `argv` object.
          */
-        command(command: string | string[], description: string, builder?: BuilderCallback, handler?: (args: Arguments) => void): Argv;
-        command(command: string | string[], description: string, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
+        command(
+            command: string | string[],
+            description: string,
+            builder?: BuilderCallback,
+            handler?: (args: Arguments) => void,
+        ): Argv;
+        command(
+            command: string | string[],
+            description: string,
+            builder?: { [key: string]: Options },
+            handler?: (args: Arguments) => void,
+        ): Argv;
         command(command: string | string[], description: string, module: CommandModule): Argv;
-        command(command: string | string[], showInHelp: false, builder?: BuilderCallback, handler?: (args: Arguments) => void): Argv;
-        command(command: string | string[], showInHelp: false, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
+        command(
+            command: string | string[],
+            showInHelp: false,
+            builder?: BuilderCallback,
+            handler?: (args: Arguments) => void,
+        ): Argv;
+        command(
+            command: string | string[],
+            showInHelp: false,
+            builder?: { [key: string]: Options },
+            handler?: (args: Arguments) => void,
+        ): Argv;
         command(command: string | string[], showInHelp: false, module: CommandModule): Argv;
         command(module: CommandModule): Argv;
 
@@ -215,10 +235,30 @@ declare namespace yargs {
         updateStrings(obj: { [key: string]: string }): Argv;
 
         usage(message: string): Argv;
-        usage(command: string | string[], description: string, builder?: (args: Argv) => Argv, handler?: (args: Arguments) => void): Argv;
-        usage(command: string | string[], showInHelp: boolean, builder?: (args: Argv) => Argv, handler?: (args: Arguments) => void): Argv;
-        usage(command: string | string[], description: string, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
-        usage(commands: string | string[], showInHelp: boolean, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
+        usage(
+            command: string | string[],
+            description: string,
+            builder?: (args: Argv) => Argv,
+            handler?: (args: Arguments) => void,
+        ): Argv;
+        usage(
+            command: string | string[],
+            showInHelp: boolean,
+            builder?: (args: Argv) => Argv,
+            handler?: (args: Arguments) => void,
+        ): Argv;
+        usage(
+            command: string | string[],
+            description: string,
+            builder?: { [key: string]: Options },
+            handler?: (args: Arguments) => void,
+        ): Argv;
+        usage(
+            commands: string | string[],
+            showInHelp: boolean,
+            builder?: { [key: string]: Options },
+            handler?: (args: Arguments) => void,
+        ): Argv;
 
         version(): Argv;
         version(version: string): Argv;
@@ -279,7 +319,7 @@ declare namespace yargs {
         requiresArg?: boolean | string;
         skipValidation?: boolean;
         string?: boolean;
-        type?: "array" | "count" | PositionalOptionsType;
+        type?: 'array' | 'count' | PositionalOptionsType;
     }
 
     interface PositionalOptions {
@@ -310,7 +350,7 @@ declare namespace yargs {
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: string[]) => void) => void;
     type Choices = Array<string | true | undefined>;
-    type PositionalOptionsType = "boolean" | "number" | "string";
+    type PositionalOptionsType = 'boolean' | 'number' | 'string';
 }
 
 declare var yargs: yargs.Argv;

@@ -1,17 +1,17 @@
 import {
-  ComposedCustomEvent,
-  Constructor,
-  CustomElement,
-  HTMLElementClass,
-  EventOptions,
-  PropOptions,
-  WithChildren,
-  WithRenderer,
-  WithUpdate,
-  WithComponent,
-  WithLifecycle,
-  WithContext,
-  Mixed
+    ComposedCustomEvent,
+    Constructor,
+    CustomElement,
+    HTMLElementClass,
+    EventOptions,
+    PropOptions,
+    WithChildren,
+    WithRenderer,
+    WithUpdate,
+    WithComponent,
+    WithLifecycle,
+    WithContext,
+    Mixed,
 } from './types';
 
 /**
@@ -30,12 +30,12 @@ export function emit(elem: EventTarget | HTMLElementClass, eventName: string, ev
 export function link(elem: CustomElement, target?: string): (e: ComposedCustomEvent) => void;
 
 export const props: Readonly<{
-  any: PropOptions & PropertyDecorator;
-  array: PropOptions<any[]> & PropertyDecorator;
-  boolean: PropOptions<boolean> & PropertyDecorator;
-  number: PropOptions<number> & PropertyDecorator;
-  object: PropOptions<object> & PropertyDecorator;
-  string: PropOptions<string> & PropertyDecorator;
+    any: PropOptions & PropertyDecorator;
+    array: PropOptions<any[]> & PropertyDecorator;
+    boolean: PropOptions<boolean> & PropertyDecorator;
+    number: PropOptions<number> & PropertyDecorator;
+    object: PropOptions<object> & PropertyDecorator;
+    string: PropOptions<string> & PropertyDecorator;
 }>;
 
 export const prop: (ops?: PropOptions) => PropertyDecorator & PropOptions;
@@ -46,27 +46,27 @@ export const name: (componentName?: string) => string;
 
 // Mixins
 export function withComponent<T extends Constructor<HTMLElement> = Constructor<HTMLElement>>(
-  Base?: T
+    Base?: T,
 ): typeof WithComponent;
 
 export function withComponent<
-  P = Mixed,
-  S = Mixed,
-  C = void,
-  T extends Constructor<HTMLElement> = Constructor<HTMLElement>
+    P = Mixed,
+    S = Mixed,
+    C = void,
+    T extends Constructor<HTMLElement> = Constructor<HTMLElement>
 >(Base?: T): Constructor<WithComponent<P, S, C>> & T;
 export function withUpdate<P = Mixed, S = Mixed, T extends Constructor<HTMLElement> = Constructor<HTMLElement>>(
-  Base?: T
+    Base?: T,
 ): Constructor<WithUpdate<P, S>> & T;
 export function withRenderer<O = Mixed | null, T extends Constructor<HTMLElement> = Constructor<HTMLElement>>(
-  Base?: T
+    Base?: T,
 ): Constructor<WithRenderer<O>> & T;
 export function withContext<C = Mixed, T extends Constructor<HTMLElement> = Constructor<HTMLElement>>(
-  Base?: T
+    Base?: T,
 ): Constructor<WithContext<C>> & T;
 export function withLifecycle<T extends Constructor<HTMLElement> = Constructor<HTMLElement>>(
-  Base?: T
+    Base?: T,
 ): Constructor<WithLifecycle> & T;
 export function withChildren<T extends Constructor<HTMLElement> = Constructor<HTMLElement>>(
-  Base?: T
+    Base?: T,
 ): Constructor<WithChildren> & T;

@@ -1,4 +1,4 @@
-import { throttle, debounce } from "throttle-debounce";
+import { throttle, debounce } from 'throttle-debounce';
 
 type Func = () => void;
 

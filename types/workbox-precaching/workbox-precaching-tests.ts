@@ -1,8 +1,8 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
-import { WorkboxPlugin } from "workbox-core/types/WorkboxPlugin";
+import { WorkboxPlugin } from 'workbox-core/types/WorkboxPlugin';
 import {
     FetchListenerOptions,
     PrecacheController,
@@ -12,8 +12,8 @@ import {
     cleanupOutdatedCaches,
     getCacheKeyForURL,
     precache,
-    precacheAndRoute
-} from "workbox-precaching";
+    precacheAndRoute,
+} from 'workbox-precaching';
 
 //==============================================================================
 // WorkboxPrecaching.PrecacheController

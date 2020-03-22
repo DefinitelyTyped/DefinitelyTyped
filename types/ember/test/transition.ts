@@ -7,7 +7,7 @@ Ember.Route.extend({
             alert('Sorry, you need a time machine to enter this route.');
             transition.abort();
         }
-    }
+    },
 });
 
 Ember.Controller.extend({
@@ -24,6 +24,6 @@ Ember.Controller.extend({
                 // Default back to homepage
                 this.transitionToRoute('index');
             }
-        }
-    }
+        },
+    },
 });

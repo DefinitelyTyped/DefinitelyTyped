@@ -24,7 +24,6 @@ declare interface Platform {
 
 declare var platform: Platform;
 
-declare module "platform" {
+declare module 'platform' {
     export = platform;
 }
-

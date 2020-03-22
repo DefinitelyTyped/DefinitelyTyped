@@ -15,8 +15,9 @@ function myfunc() {
     }
 }
 
-retry(myfunc)
-    .done(result => { console.log(result); });
+retry(myfunc).done((result) => {
+    console.log(result);
+});
 
 // Options example
 function logFail() {
@@ -26,7 +27,7 @@ function logFail() {
 
 const options: retry.Options = {
     max_tries: 4,
-    interval: 500
+    interval: 500,
 };
 
 retry(logFail, options);

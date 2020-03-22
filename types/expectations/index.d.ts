@@ -3,58 +3,58 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var expect:Expectations.IExpectations;
+declare var expect: Expectations.IExpectations;
 
 declare namespace Expectations {
     interface IExpectations {
-        (value:any):Expect;
-        addAssertion(name:string, matcher:Function):void;
+        (value: any): Expect;
+        addAssertion(name: string, matcher: Function): void;
     }
     interface IAssertions {
-        pass(message?:string):any;
-        fail(message:string):any;
+        pass(message?: string): any;
+        fail(message: string): any;
     }
     class Expect {
-        value:any;
-        assertions:IAssertions;
-        expr:any;
-        parent:Expect;
-        not:Expect;
+        value: any;
+        assertions: IAssertions;
+        expr: any;
+        parent: Expect;
+        not: Expect;
 
-        constructor(value:any, assertions?:IAssertions, expr?:any, parent?:Expect);
+        constructor(value: any, assertions?: IAssertions, expr?: any, parent?: Expect);
 
-        generateMessage(value:any, expr:any, toDo:string, otherVal?:any):string;
+        generateMessage(value: any, expr: any, toDo: string, otherVal?: any): string;
 
-        toEqual(val:any):any;
+        toEqual(val: any): any;
 
-        toNotEqual(val:any):any;
+        toNotEqual(val: any): any;
 
-        toBe(val:any):any;
+        toBe(val: any): any;
 
-        toBeTruthy():any;
+        toBeTruthy(): any;
 
-        toBeFalsey():any;
+        toBeFalsey(): any;
 
-        toBeFalsy():any;
+        toBeFalsy(): any;
 
-        toBeGreaterThan(val:any):any;
+        toBeGreaterThan(val: any): any;
 
-        toBeLessThan(val:any):any;
+        toBeLessThan(val: any): any;
 
-        toContain(val:any):any;
+        toContain(val: any): any;
 
-        toMatch(val:any):any;
+        toMatch(val: any): any;
 
-        toBeDefined():any;
+        toBeDefined(): any;
 
-        toBeUndefined():any;
+        toBeUndefined(): any;
 
-        toBeNull():any;
+        toBeNull(): any;
 
-        toThrow():any;
+        toThrow(): any;
 
-        pass():any;
+        pass(): any;
 
-        fail(why?:string, what?:any):any;
+        fail(why?: string, what?: any): any;
     }
 }

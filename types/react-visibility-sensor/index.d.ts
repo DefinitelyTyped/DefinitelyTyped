@@ -5,41 +5,41 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace ReactVisibilitySensor;
 
 interface Shape {
-  top?: number;
-  left?: number;
-  bottom?: number;
-  right?: number;
+    top?: number;
+    left?: number;
+    bottom?: number;
+    right?: number;
 }
 
 interface ChildFunctionArg {
-  isVisible: boolean | null;
-  visibilityRect: Shape;
+    isVisible: boolean | null;
+    visibilityRect: Shape;
 }
 
 type ChildFunction = (arg: ChildFunctionArg) => React.ReactNode;
 
 interface Props {
-  onChange?: (isVisible: boolean) => void;
-  active?: boolean;
-  partialVisibility?: boolean;
-  offset?: Shape;
-  minTopValue?: number;
-  intervalCheck?: boolean;
-  intervalDelay?: number;
-  scrollCheck?: boolean;
-  scrollDelay?: number;
-  scrollThrottle?: number;
-  resizeCheck?: boolean;
-  resizeDelay?: number;
-  resizeThrottle?: number;
-  containment?: HTMLElement;
-  delayedCall?: boolean;
-  children?: React.ReactElement | ChildFunction;
+    onChange?: (isVisible: boolean) => void;
+    active?: boolean;
+    partialVisibility?: boolean;
+    offset?: Shape;
+    minTopValue?: number;
+    intervalCheck?: boolean;
+    intervalDelay?: number;
+    scrollCheck?: boolean;
+    scrollDelay?: number;
+    scrollThrottle?: number;
+    resizeCheck?: boolean;
+    resizeDelay?: number;
+    resizeThrottle?: number;
+    containment?: HTMLElement;
+    delayedCall?: boolean;
+    children?: React.ReactElement | ChildFunction;
 }
 
 declare const ReactVisibilitySensor: React.StatelessComponent<Props>;

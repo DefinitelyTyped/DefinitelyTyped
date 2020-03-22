@@ -6,20 +6,20 @@
 
 import * as _moment from 'moment';
 
-declare module "moment" {
+declare module 'moment' {
     interface Moment {
         strftime(pattern: string): string;
     }
 }
 
-declare module "moment-timezone" {
+declare module 'moment-timezone' {
     interface Moment {
         strftime(pattern: string): string;
     }
 }
 
 export interface Modifiers {
-    "%": string;
+    '%': string;
     A: string;
     B: string;
     C?: string;

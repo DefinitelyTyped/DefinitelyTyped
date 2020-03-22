@@ -64,39 +64,60 @@ import resolve = require('enhanced-resolve');
 
 const aplugin = new AliasFieldPlugin('a', 'b', 'c');
 
-const aplugin2 = new AliasPlugin('a', {
-    onlyModule: false,
-    name: 'a',
-    alias: 'b'
-}, 'string')
+const aplugin2 = new AliasPlugin(
+    'a',
+    {
+        onlyModule: false,
+        name: 'a',
+        alias: 'b',
+    },
+    'string',
+);
 
 const aplugin3 = new AppendPlugin('a', 'b', 'c');
 
 const cplugin = new CloneBasenamePlugin('a', 'c');
 
-const cplugin2 = new ConcordExtensionsPlugin('a', {
-    any: 'string',
-    right: false
-}, 'b');
+const cplugin2 = new ConcordExtensionsPlugin(
+    'a',
+    {
+        any: 'string',
+        right: false,
+    },
+    'b',
+);
 
-const cplugin3 = new ConcordMainPlugin('string', {
-    any: 'string',
-    right: false
-}, 'string');
+const cplugin3 = new ConcordMainPlugin(
+    'string',
+    {
+        any: 'string',
+        right: false,
+    },
+    'string',
+);
 
-const cplugin4 = new ConcordModulesPlugin('string', {
-    any: 'string',
-    right: false
-}, 'string');
+const cplugin4 = new ConcordModulesPlugin(
+    'string',
+    {
+        any: 'string',
+        right: false,
+    },
+    'string',
+);
 
 const dplugin = new DescriptionFilePlugin('string', 'string', 'string');
 
 DescriptionFileUtils.cdUp('./lib');
 DescriptionFileUtils.getField({}, 'hi');
-DescriptionFileUtils.loadDescriptionFile(resolve.ResolverFactory.createResolver({
-    extensions: [''],
-    fileSystem: {} as AbstractInputFileSystem
-}), './lib', ['file'], function () { });
+DescriptionFileUtils.loadDescriptionFile(
+    resolve.ResolverFactory.createResolver({
+        extensions: [''],
+        fileSystem: {} as AbstractInputFileSystem,
+    }),
+    './lib',
+    ['file'],
+    function () {},
+);
 
 const dplugin1 = new DirectoryExistsPlugin('string', 'string');
 
@@ -114,10 +135,14 @@ const jplugin = new JoinRequestPlugin('string', 's');
 
 const lplugin = new LogInfoPlugin('string');
 
-const mplugin = new MainFieldPlugin('string', {
-    name: 'hi',
-    forceRelative: false
-}, 's');
+const mplugin = new MainFieldPlugin(
+    'string',
+    {
+        name: 'hi',
+        forceRelative: false,
+    },
+    's',
+);
 
 const mplugin2 = new ModuleAppendPlugin('string', 'ap', 's');
 
@@ -139,10 +164,17 @@ const splugin = new SymlinkPlugin('string', 's');
 
 const tplugin = new TryNextPlugin('string', 'ap', 's');
 
-const uplugin = new UnsafeCachePlugin('string', function (e) { return false }, {
-    hi: 'string',
-    hello: true
-}, 's');
+const uplugin = new UnsafeCachePlugin(
+    'string',
+    function (e) {
+        return false;
+    },
+    {
+        hi: 'string',
+        hello: true,
+    },
+    's',
+);
 
 const uplugin2 = new UseFilePlugin('string', 'ap', 's');
 

@@ -6,5 +6,4 @@ const options: neatCsv.Options = { separator: ',' };
 neatCsv(data); // $ExpectType Promise<Row[]>
 const rowsPromise = neatCsv(data, options); // $ExpectType Promise<Row[]>
 
-rowsPromise.then(rows =>
-    rows.map(({ type, part }: neatCsv.Row) => `type: ${type}, part: ${part}`));
+rowsPromise.then((rows) => rows.map(({ type, part }: neatCsv.Row) => `type: ${type}, part: ${part}`));

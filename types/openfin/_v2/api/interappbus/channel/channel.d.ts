@@ -6,7 +6,11 @@ export interface ProviderIdentity extends Identity {
     channelName: string;
 }
 export declare type Action = (() => any) | ((payload: any) => any) | ((payload: any, id: ProviderIdentity) => any);
-export declare type Middleware = (() => any) | ((action: string) => any) | ((action: string, payload: any) => any) | ((action: string, payload: any, id: ProviderIdentity) => any);
+export declare type Middleware =
+    | (() => any)
+    | ((action: string) => any)
+    | ((action: string, payload: any) => any)
+    | ((action: string, payload: any, id: ProviderIdentity) => any);
 export interface ChannelMessagePayload extends Identity {
     action: string;
     payload: any;
@@ -26,7 +30,11 @@ export declare class ChannelBase {
     private postAction;
     private errorMiddleware;
     private defaultSet;
-    constructor(providerIdentity: ProviderIdentity, send: Transport['sendAction'], channelProtectedMap: WeakMap<ChannelBase, ProtectedItems>);
+    constructor(
+        providerIdentity: ProviderIdentity,
+        send: Transport['sendAction'],
+        channelProtectedMap: WeakMap<ChannelBase, ProtectedItems>,
+    );
     processAction(action: string, payload: any, senderIdentity: ProviderIdentity): Promise<any>;
     beforeAction(func: Action): void;
     onError(func: (action: string, error: any, id: Identity) => any): void;

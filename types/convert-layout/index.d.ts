@@ -16,35 +16,35 @@ declare const convert_layout: {
     uk: layout;
 };
 
-declare module "convert-layout" {
+declare module 'convert-layout' {
     export = convert_layout;
 }
 
-declare module "convert-layout/by" {
+declare module 'convert-layout/by' {
     export = lang_layout;
 }
 
-declare module "convert-layout/de" {
+declare module 'convert-layout/de' {
     export = lang_layout;
 }
 
-declare module "convert-layout/es" {
+declare module 'convert-layout/es' {
     export = lang_layout;
 }
 
-declare module "convert-layout/he" {
+declare module 'convert-layout/he' {
     export = lang_layout;
 }
 
-declare module "convert-layout/kk" {
+declare module 'convert-layout/kk' {
     export = lang_layout;
 }
 
-declare module "convert-layout/ru" {
+declare module 'convert-layout/ru' {
     export = lang_layout;
 }
 
-declare module "convert-layout/uk" {
+declare module 'convert-layout/uk' {
     export = lang_layout;
 }
 

@@ -7,15 +7,9 @@
 import Vue from 'vue';
 import { ExtendedVue } from 'vue/types/vue';
 export interface FeatherIconProps {
-  size: string;
+    size: string;
 }
-export type FeatherIconComponent = ExtendedVue<
-  Vue,
-  {},
-  {},
-  {},
-  FeatherIconProps
-  >;
+export type FeatherIconComponent = ExtendedVue<Vue, {}, {}, {}, FeatherIconProps>;
 export const ActivityIcon: FeatherIconComponent;
 export const AirplayIcon: FeatherIconComponent;
 export const AlertCircleIcon: FeatherIconComponent;

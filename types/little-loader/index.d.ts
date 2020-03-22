@@ -9,15 +9,8 @@ interface Options {
     callback?: (this: any, err: string) => void;
 }
 
-declare function loader(
-    module: string,
-    callback?: (this: any, err: string) => void,
-    context?: any
-): void;
+declare function loader(module: string, callback?: (this: any, err: string) => void, context?: any): void;
 
-declare function loader(
-    module: string,
-    options?: Options
-): void;
+declare function loader(module: string, options?: Options): void;
 
 export = loader;

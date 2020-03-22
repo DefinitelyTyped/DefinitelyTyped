@@ -8,36 +8,36 @@ import { Term } from 'rdf-js';
 import { URL } from 'url';
 
 declare namespace SparqlHttp {
-  interface SparqlHttpClient<TResponse extends Response = Response> {
-    updateQuery(query: string, options?: QueryRequestInit): Promise<Response>;
-    selectQuery(query: string, options?: QueryRequestInit): Promise<SelectResponse & TResponse>;
-    constructQuery(query: string, options?: QueryRequestInit): Promise<TResponse>;
-  }
+    interface SparqlHttpClient<TResponse extends Response = Response> {
+        updateQuery(query: string, options?: QueryRequestInit): Promise<Response>;
+        selectQuery(query: string, options?: QueryRequestInit): Promise<SelectResponse & TResponse>;
+        constructQuery(query: string, options?: QueryRequestInit): Promise<TResponse>;
+    }
 
-  interface SparqlHttpOptions {
-      endpointUrl?: string;
-      updateUrl?: string;
-  }
+    interface SparqlHttpOptions {
+        endpointUrl?: string;
+        updateUrl?: string;
+    }
 
-  interface SparqlClientOptions extends SparqlHttpOptions {
+    interface SparqlClientOptions extends SparqlHttpOptions {
         fetch?: typeof fetch;
         URL?: typeof URL;
         defaultHeaders?: HeadersInit;
-  }
+    }
 
-  interface QueryRequestInit extends SparqlHttpOptions, RequestInit {}
+    interface QueryRequestInit extends SparqlHttpOptions, RequestInit {}
 
-  interface SelectBindings {
-      results: { bindings: ReadonlyArray<Record<string, Term>> };
-  }
+    interface SelectBindings {
+        results: { bindings: ReadonlyArray<Record<string, Term>> };
+    }
 
-  interface AskResult {
+    interface AskResult {
         boolean: boolean;
-  }
+    }
 
-  interface SelectResponse {
+    interface SelectResponse {
         json(): Promise<SelectBindings & AskResult>;
-  }
+    }
 }
 
 declare class SparqlHttp<TResponse extends Response = Response> implements SparqlHttp.SparqlHttpClient<TResponse> {

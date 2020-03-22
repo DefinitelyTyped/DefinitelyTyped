@@ -5,14 +5,16 @@ let num: number;
 const hudScene = new Scene();
 const myScene: Scene = new Scene({
     name: 'myScene',
-    resources: [{
-        id: 'myRes',
-        src: 'src',
-        type: 'image'
-    }],
+    resources: [
+        {
+            id: 'myRes',
+            src: 'src',
+            type: 'image',
+        },
+    ],
     opacity: 1,
     layers: 0,
-    hudScene
+    hudScene,
 });
 
 num = myScene.getOpacity();
@@ -23,10 +25,12 @@ const sprite = new Drawable('mySprite', {});
 myScene.debug(false);
 myScene.bindEvents('gameover');
 myScene.addObject(sprite);
-myScene.animate('Fade', {
-    easing: 'linear'
-}).then(() => {
-    console.log('effect ended');
+myScene
+    .animate('Fade', {
+        easing: 'linear',
+    })
+    .then(() => {
+        console.log('effect ended');
     });
 myScene.fadeIn(1000).then(() => {
     myScene.fadeOut(2000);
@@ -49,10 +53,12 @@ myScene.notify('ready');
 myScene.removeObject(sprite);
 
 myScene.setMap({});
-myScene.setMap(new Map({
-    src: 'img/tiles.png',
-    tileWidth: 24,
-    tileHeight: 32,
-    width: 240,
-    height: 320
-}));
+myScene.setMap(
+    new Map({
+        src: 'img/tiles.png',
+        tileWidth: 24,
+        tileHeight: 32,
+        width: 240,
+        height: 320,
+    }),
+);

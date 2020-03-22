@@ -11,19 +11,19 @@ export = SmoothScroll;
 
 declare namespace SmoothScroll {
     type Easing =
-        | "Linear"
-        | "easeInQuad"
-        | "easeInCubic"
-        | "easeInQuart"
-        | "easeInQuint"
-        | "easeInOutQuad"
-        | "easeInOutCubic"
-        | "easeInOutQuart"
-        | "easeInOutQuint"
-        | "easeOutQuad"
-        | "easeOutCubic"
-        | "easeOutQuart"
-        | "easeOutQuint";
+        | 'Linear'
+        | 'easeInQuad'
+        | 'easeInCubic'
+        | 'easeInQuart'
+        | 'easeInQuint'
+        | 'easeInOutQuad'
+        | 'easeInOutCubic'
+        | 'easeInOutQuart'
+        | 'easeInOutQuint'
+        | 'easeOutQuad'
+        | 'easeOutCubic'
+        | 'easeOutQuart'
+        | 'easeOutQuint';
 
     interface Options {
         // Selectors
@@ -37,12 +37,7 @@ declare namespace SmoothScroll {
         durationMax?: number | null;
         durationMin?: number | null;
         clip?: boolean;
-        offset?:
-            | number
-            | ((
-                  anchor?: Element | number | null,
-                  toggle?: Element | null
-              ) => number);
+        offset?: number | ((anchor?: Element | number | null, toggle?: Element | null) => number);
         easing?: Easing;
         customEasing?: (time: number) => number;
 
@@ -62,11 +57,7 @@ declare class SmoothScroll {
 
     destroy(): void;
 
-    animateScroll(
-        anchor: Element | number | null,
-        toggle?: Element | null,
-        options?: SmoothScroll.Options
-    ): void;
+    animateScroll(anchor: Element | number | null, toggle?: Element | null, options?: SmoothScroll.Options): void;
 
     cancelScroll(noEvent?: boolean): void;
 }

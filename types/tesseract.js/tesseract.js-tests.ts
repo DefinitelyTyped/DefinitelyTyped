@@ -1,28 +1,30 @@
 import * as Tesseract from 'tesseract.js';
 
-Tesseract.recognize("./demo.png", {
+Tesseract.recognize('./demo.png', {
     lang: 'chi_sim',
-}).progress(function (p) {
-    console.log('progress', p);
-}).then(function (result) {
-    console.log(result.text)
+})
+    .progress(function (p) {
+        console.log('progress', p);
+    })
+    .then(function (result) {
+        console.log(result.text);
+    });
+
+Tesseract.detect('./demo.png').then(function (result) {
+    console.log(result);
 });
 
-Tesseract.detect("./demo.png").then(function (result) {
-    console.log(result)
-});
+Tesseract.recognize('./demo.png')
+    .progress((message) => console.log(message))
+    .catch((err) => console.error(err))
+    .then((result) => console.log(result))
+    .finally((resultOrError) => console.log(resultOrError));
 
-Tesseract.recognize("./demo.png")
-    .progress(message => console.log(message))
-    .catch(err => console.error(err))
-    .then(result => console.log(result))
-    .finally(resultOrError => console.log(resultOrError));
-
-var job = Tesseract.recognize("./demo.png");
-job.progress(message => console.log(message));
-job.catch(err => console.error(err));
-job.then(result => console.log(result));
-job.finally(resultOrError => console.log(resultOrError));
+var job = Tesseract.recognize('./demo.png');
+job.progress((message) => console.log(message));
+job.catch((err) => console.error(err));
+job.then((result) => console.log(result));
+job.finally((resultOrError) => console.log(resultOrError));
 
 Tesseract.create({
     workerPath: '/path/to/worker.js',

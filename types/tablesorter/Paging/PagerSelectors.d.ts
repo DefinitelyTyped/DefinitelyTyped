@@ -1,4 +1,4 @@
-import "jquery";
+import 'jquery';
 
 /**
  * Provides selectors for the `pager`-widget.

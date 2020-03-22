@@ -12,35 +12,39 @@ var extConfigSingle: Hapi.RouteAdditionalConfigurationOptions = {
         type: 'onPreAuth',
         method: function (request, reply) {
             reply('ok');
-        } as Hapi.ServerExtRequestHandler
-    }
-}
+        } as Hapi.ServerExtRequestHandler,
+    },
+};
 
 var extConfigMulti: Hapi.RouteAdditionalConfigurationOptions = {
-    ext: [{
-        type: 'onPreAuth',
-        method: function (request, reply) {
-            reply('ok');
-        } as Hapi.ServerExtRequestHandler
-    }, {
-        type: 'onPostAuth',
-        method: function (request, reply) {
-            reply('ok');
-        } as Hapi.ServerExtRequestHandler
-    }, {
-        type: 'onPostStart',
-        method: function (server, next) {
-            next();
-        } as Hapi.ServerExtFunction
-  }]
-}
+    ext: [
+        {
+            type: 'onPreAuth',
+            method: function (request, reply) {
+                reply('ok');
+            } as Hapi.ServerExtRequestHandler,
+        },
+        {
+            type: 'onPostAuth',
+            method: function (request, reply) {
+                reply('ok');
+            } as Hapi.ServerExtRequestHandler,
+        },
+        {
+            type: 'onPostStart',
+            method: function (server, next) {
+                next();
+            } as Hapi.ServerExtFunction,
+        },
+    ],
+};
 
 // Handler in config
 const user: Hapi.RouteAdditionalConfigurationOptions = {
     cache: { expiresIn: 5000, statuses: [200, 201] },
     handler: function (request, reply) {
         return reply({ name: 'John' });
-    }
+    },
 };
 
 // Add in addition to examples in docs
@@ -70,12 +74,12 @@ var payloadOptions: Hapi.RoutePayloadConfigurationObject = {
     allow: 'multipart/form-data',
     maxBytes: 123,
     output: 'file',
-    timeout: 1000
+    timeout: 1000,
 };
 
 var payloadOptions: Hapi.RoutePayloadConfigurationObject = {
     allow: 'multipart/form-data',
     maxBytes: 123,
     output: 'file',
-    timeout: false
+    timeout: false,
 };

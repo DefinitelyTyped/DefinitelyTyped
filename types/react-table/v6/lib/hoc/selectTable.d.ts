@@ -50,7 +50,7 @@ export interface SelectTableHOCOptions {
 
 declare function selectTableHOC<Props extends Partial<TableProps>>(
     WrappedComponent: ComponentType<Props>,
-    options?: SelectTableHOCOptions
+    options?: SelectTableHOCOptions,
 ): ComponentClass<Props & SelectTableAdditionalProps>;
 
 export default selectTableHOC;

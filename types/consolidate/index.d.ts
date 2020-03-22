@@ -11,7 +11,7 @@
 
 /// <reference types="node" />
 
-import Promise = require("bluebird");
+import Promise = require('bluebird');
 
 declare var cons: Consolidate;
 
@@ -66,11 +66,11 @@ type Requires = SupportedTemplateEngines | 'extend' | 'ReactDOM' | 'babel';
 
 type ConsolidateType = {
     [engine in SupportedTemplateEngines]: RendererInterface;
-}
+};
 
 type RequiresType = {
     [engine in Requires]: any;
-}
+};
 
 interface Consolidate extends ConsolidateType {
     /**
@@ -89,13 +89,21 @@ interface Consolidate extends ConsolidateType {
 interface RendererInterface {
     render(path: string, fn: (err: Error, html: string) => any): any;
 
-    render(path: string, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: string) => any): any;
+    render(
+        path: string,
+        options: { cache?: boolean; [otherOptions: string]: any },
+        fn: (err: Error, html: string) => any,
+    ): any;
 
-    render(path: string, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<string>;
+    render(path: string, options?: { cache?: boolean; [otherOptions: string]: any }): Promise<string>;
 
     (path: string, fn: (err: Error, html: string) => any): any;
 
-    (path: string, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: string) => any): any;
+    (
+        path: string,
+        options: { cache?: boolean; [otherOptions: string]: any },
+        fn: (err: Error, html: string) => any,
+    ): any;
 
-    (path: string, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<string>;
+    (path: string, options?: { cache?: boolean; [otherOptions: string]: any }): Promise<string>;
 }

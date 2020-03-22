@@ -1,4 +1,4 @@
-import autobahn = require("autobahn");
+import autobahn = require('autobahn');
 
 class MyClass {
     add2Count: number = 0;
@@ -14,17 +14,16 @@ class MyClass {
     }
 
     onEvent(args: Array<any>): void {
-        console.log("Event:", args[0]);
+        console.log('Event:', args[0]);
     }
 }
 
 function test_client() {
-    var options: autobahn.IConnectionOptions =
-        { url: 'ws://127.0.0.1:8080/ws', realm: 'realm1' };
+    var options: autobahn.IConnectionOptions = { url: 'ws://127.0.0.1:8080/ws', realm: 'realm1' };
 
     var connection = new autobahn.Connection(options);
 
-    connection.onopen = session => {
+    connection.onopen = (session) => {
         var myInstance = new MyClass(session);
 
         // 1) subscribe to a topic
@@ -37,9 +36,10 @@ function test_client() {
         session.register('com.myapp.add2', myInstance.add2, { invoke: 'roundrobin' });
 
         // 4) call a remote procedure
-        session.call<number>('com.myapp.add2', [2, 3]).then(
-            res => {
-                console.log("Result:", res);
+        session
+            .call<number>('com.myapp.add2', [2, 3])
+            .then((res) => {
+                console.log('Result:', res);
             });
     };
 
@@ -47,16 +47,22 @@ function test_client() {
         connection.open();
     }
 
-    var { isConnected, transport: { info: { protocol, type, url } }, defer } = connection;
+    var {
+        isConnected,
+        transport: {
+            info: { protocol, type, url },
+        },
+        defer,
+    } = connection;
     console.log(isConnected, protocol, type, url, defer);
 }
 
 function test_custom_transport_factory() {
-    autobahn.transports.register('custom', CustomTransportFactory)
-    
+    autobahn.transports.register('custom', CustomTransportFactory);
+
     var CustomFactoryFactory = autobahn.transports.get('');
     var customFactory = new CustomFactoryFactory({});
-    var customTransport = customFactory.create()
+    var customTransport = customFactory.create();
     console.log(customTransport.info);
 }
 
@@ -68,9 +74,9 @@ class CustomTransportFactory {
             onclose(details: autobahn.ICloseEventDetails) {},
             send(message: any[]) {},
             close(errorCode: number, reason?: string) {},
-            info: {type: 'custom'}
+            info: { type: 'custom' },
         };
     }
 
-    type: autobahn.TransportType = 'custom'
+    type: autobahn.TransportType = 'custom';
 }

@@ -1,4 +1,4 @@
-import DatadogWinston = require("datadog-winston");
+import DatadogWinston = require('datadog-winston');
 
 const options: DatadogWinston.DatadogTransportOptions = {
     apiKey: '<key>',

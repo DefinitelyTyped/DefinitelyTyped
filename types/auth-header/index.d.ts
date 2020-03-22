@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-type Params =
-    | Array<[string, string | ReadonlyArray<string>]>
-    | {[key: string]: string | ReadonlyArray<string>};
+type Params = Array<[string, string | ReadonlyArray<string>]> | { [key: string]: string | ReadonlyArray<string> };
 export { Params };
 
 export interface TokenOptions {
@@ -17,7 +15,7 @@ export interface TokenOptions {
 
 export interface Token {
     scheme: string;
-    params: {[key: string]: string | string[]};
+    params: { [key: string]: string | string[] };
     token: null | string | string[];
 }
 

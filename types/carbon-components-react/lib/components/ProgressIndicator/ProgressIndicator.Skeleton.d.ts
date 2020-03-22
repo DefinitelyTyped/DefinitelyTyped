@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
-interface InheritedProps { }
+interface InheritedProps {}
 
-export interface ProgressIndicatorSkeletonProps extends InheritedProps { }
+export interface ProgressIndicatorSkeletonProps extends InheritedProps {}
 
-declare class ProgressIndicatorSkeleton extends React.Component<ProgressIndicatorSkeletonProps> { }
+declare class ProgressIndicatorSkeleton extends React.Component<ProgressIndicatorSkeletonProps> {}
 
 export default ProgressIndicatorSkeleton;

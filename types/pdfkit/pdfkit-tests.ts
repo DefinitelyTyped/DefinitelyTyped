@@ -22,8 +22,8 @@ var doc = new PDFDocument({
     permissions: {
         modifying: true,
         annotating: false,
-        printing: 'lowResolution'
-    }
+        printing: 'lowResolution',
+    },
 });
 
 doc.addPage({
@@ -67,37 +67,16 @@ doc.roundedRect(150, 250, 150, 150, 10);
 doc.polygon([100, 0], [50, 100], [50, 100]);
 
 doc.lineWidth(25);
-doc.lineCap('butt')
-    .moveTo(50, 20)
-    .lineTo(100, 20)
-    .stroke();
-doc.lineCap('round')
-    .moveTo(150, 20)
-    .lineTo(200, 20)
-    .stroke();
-doc.lineCap('square')
-    .moveTo(250, 20)
-    .circle(275, 30, 15)
-    .stroke();
-doc.lineJoin('miter')
-    .rect(50, 100, 50, 50)
-    .stroke();
-doc.lineJoin('round')
-    .rect(150, 100, 50, 50)
-    .stroke();
-doc.lineJoin('bevel')
-    .rect(250, 100, 50, 50)
-    .stroke();
+doc.lineCap('butt').moveTo(50, 20).lineTo(100, 20).stroke();
+doc.lineCap('round').moveTo(150, 20).lineTo(200, 20).stroke();
+doc.lineCap('square').moveTo(250, 20).circle(275, 30, 15).stroke();
+doc.lineJoin('miter').rect(50, 100, 50, 50).stroke();
+doc.lineJoin('round').rect(150, 100, 50, 50).stroke();
+doc.lineJoin('bevel').rect(250, 100, 50, 50).stroke();
 
-doc.circle(100, 50, 50)
-    .lineWidth(3)
-    .fillOpacity(0.8)
-    .fillAndStroke('red', '#900');
+doc.circle(100, 50, 50).lineWidth(3).fillOpacity(0.8).fillAndStroke('red', '#900');
 
-var grad = doc
-    .linearGradient(50, 0, 150, 100)
-    .stop(0, 'green')
-    .stop(1, 'red');
+var grad = doc.linearGradient(50, 0, 150, 100).stop(0, 'green').stop(1, 'red');
 
 doc.rect(50, 0, 100, 100).fill(grad);
 
@@ -113,21 +92,15 @@ var rgrad = doc.radialGradient(300, 50, 0, 300, 50, 50);
 rgrad.stop(0, 'orange', 0).stop(1, 'orange', 1);
 doc.circle(300, 50, 50).fill(rgrad);
 
-doc.fillColor('red')
-    .translate(-100, -50)
-    .scale(0.8);
+doc.fillColor('red').translate(-100, -50).scale(0.8);
 
 doc.path('M 250,75 L 323,301 131,161 369,161 177,301 z').fill('non-zero');
 
-doc.translate(280, 0)
-    .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
-    .fill('even-odd');
+doc.translate(280, 0).path('M 250,75 L 323,301 131,161 369,161 177,301 z').fill('even-odd');
 
 doc.circle(100, 100, 100).clip();
 
-doc.fontSize(25)
-    .fillColor('blue')
-    .text('This is a link!', 20, 0);
+doc.fontSize(25).fillColor('blue').text('This is a link!', 20, 0);
 
 var width = doc.widthOfString('This is a link!');
 
@@ -142,9 +115,7 @@ doc.moveDown()
     .highlight(20, doc.y, doc.widthOfString('This text is highlighted!'), height)
     .text('This text is highlighted!');
 
-doc.moveDown()
-    .strike(20, doc.y, doc.widthOfString('STRIKE!'), height)
-    .text('STRIKE!');
+doc.moveDown().strike(20, doc.y, doc.widthOfString('STRIKE!'), height).text('STRIKE!');
 
 doc.image('images/test.jpeg', 0, 15, {
     width: 300,
@@ -181,7 +152,7 @@ doc.text('Baseline - string literal', { baseline: 'alphabetic' });
 
 doc.text('Baseline - numeric', { baseline: 10 });
 
-doc.text('Text with features', { features: [ "kern" ] });
+doc.text('Text with features', { features: ['kern'] });
 
 doc.goTo(0, 0, 0, 0, 'lorem');
 
@@ -201,25 +172,28 @@ doc.image('path/to/image.png', {
     destination: 'lorem',
 });
 
-
 // Subclassing
 class SubPDFDocument extends PDFDocument {
-    constructor(options:PDFKit.PDFDocumentOptions) {
+    constructor(options: PDFKit.PDFDocumentOptions) {
         super(options);
     }
 
     // override
-    text(text: string | number, x?:number | PDFKit.Mixins.TextOptions, y?:number, options?:PDFKit.Mixins.TextOptions):this {
-        if (typeof text === "string") {
+    text(
+        text: string | number,
+        x?: number | PDFKit.Mixins.TextOptions,
+        y?: number,
+        options?: PDFKit.Mixins.TextOptions,
+    ): this {
+        if (typeof text === 'string') {
             return super.text(text, options);
-        }
-        else {
-            return super.text(text + "", options);
+        } else {
+            return super.text(text + '', options);
         }
     }
 
     // new method
-    segment(xa:number, ya:number, xb:number, yb:number):this {
+    segment(xa: number, ya: number, xb: number, yb: number): this {
         this.moveTo(xa, ya);
         this.lineTo(xb, yb);
         return this;
@@ -229,4 +203,7 @@ class SubPDFDocument extends PDFDocument {
 var subDoc = new SubPDFDocument({});
 
 subDoc.moveTo(subDoc.page.width / 2, subDoc.page.height / 2).text(10);
-subDoc.lineWidth(3).segment(10, subDoc.page.width - 10, subDoc.page.height - 10, 10).stroke("#00FFFF");
+subDoc
+    .lineWidth(3)
+    .segment(10, subDoc.page.width - 10, subDoc.page.height - 10, 10)
+    .stroke('#00FFFF');

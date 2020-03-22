@@ -42,4 +42,4 @@ render(<Example />, document.getElementById('app'));
 useTooltip();
 
 // $ExpectType [TriggerParams, TooltipParams, boolean]
-useTooltip({ onMouseEnter: e => {} });
+useTooltip({ onMouseEnter: (e) => {} });

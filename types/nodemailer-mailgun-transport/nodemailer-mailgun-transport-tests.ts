@@ -3,23 +3,23 @@ import nodemailer = require('nodemailer');
 
 const opts: mailgunTransport.Options = {
     auth: {
-        api_key: "harry"
-    }
+        api_key: 'harry',
+    },
 };
 
 const optsWithDomain: mailgunTransport.Options = {
     auth: {
-        api_key: "harry",
-        domain: "http://www.foo.com"
-    }
+        api_key: 'harry',
+        domain: 'http://www.foo.com',
+    },
 };
 
 const optsWithHost: mailgunTransport.Options = {
     auth: {
-        api_key: "harry",
-        domain: "http://www.foo.com"
+        api_key: 'harry',
+        domain: 'http://www.foo.com',
     },
-    host: 'api.eu.mailgun.net'
+    host: 'api.eu.mailgun.net',
 };
 
 const transport: nodemailer.Transporter = nodemailer.createTransport(mailgunTransport(optsWithHost));
@@ -30,9 +30,9 @@ const mailOptions: nodemailer.SendMailOptions = {
     to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
     subject: 'Hello ✔', // Subject line
     text: 'Hello world ✔', // plaintext body
-    html: '<b>Hello world ✔</b>' // html body
+    html: '<b>Hello world ✔</b>', // html body
 };
 
 transport.sendMail(mailOptions, (error: Error | null, info: nodemailer.SentMessageInfo): void => {
-	// nothing
+    // nothing
 });

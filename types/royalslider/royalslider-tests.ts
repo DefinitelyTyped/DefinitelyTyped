@@ -1,86 +1,85 @@
-$(".royalSlider").royalSlider();
+$('.royalSlider').royalSlider();
 
-$(".royalSlider").royalSlider({
+$('.royalSlider').royalSlider({
     // options go here
     // as an example, enable keyboard arrows nav
-    keyboardNavEnabled: true
+    keyboardNavEnabled: true,
 });
 
 jQuery(document).ready(function () {
-    $(".royalSlider").royalSlider({
+    $('.royalSlider').royalSlider({
         // general options go here
         autoScaleSlider: true,
         thumbs: {
             // thumbnails options go here
             spacing: 10,
-            arrowsAutoHide: true
-        }
+            arrowsAutoHide: true,
+        },
     });
 });
 
 jQuery(document).ready(function () {
-    $(".royalSlider").royalSlider({
+    $('.royalSlider').royalSlider({
         // general options go here
         autoScaleSlider: true,
         fullscreen: {
             // fullscreen options go here
             enabled: true,
-            nativeFS: true
-        }
+            nativeFS: true,
+        },
     });
 });
 
 jQuery(document).ready(function () {
-    $(".royalSlider").royalSlider({
+    $('.royalSlider').royalSlider({
         // general options go here
         autoScaleSlider: true,
         deeplinking: {
             // deep linking options go here
             enabled: true,
-            prefix: 'slider-'
-        }
+            prefix: 'slider-',
+        },
     });
 });
 
-
 jQuery(document).ready(function () {
-    $(".royalSlider").royalSlider({
+    $('.royalSlider').royalSlider({
         // general options go here
         autoScaleSlider: true,
         autoplay: {
             // autoplay options go here
             enabled: true,
-            pauseOnHover: true
-        }
+            pauseOnHover: true,
+        },
     });
 });
 
 jQuery(document).ready(function () {
-    $(".royalSlider").royalSlider({
+    $('.royalSlider').royalSlider({
         // general options go here
         autoScaleSlider: true,
         video: {
             // video options go here
             autoHideBlocks: true,
-            autoHideArrows: false
-        }
+            autoHideArrows: false,
+        },
     });
 });
 
 jQuery(document).ready(function () {
-    $(".royalSlider").royalSlider({
+    $('.royalSlider').royalSlider({
         // general options go here
         autoScaleSlider: true,
         block: {
             // animated blocks options go here
             fadeEffect: false,
-            moveEffect: 'left'
-        }
+            moveEffect: 'left',
+        },
     });
 });
 
 jQuery(document).ready(function () {
-    $(".royalSlider").royalSlider({
+    $('.royalSlider').royalSlider({
         // general options go here
         keyboardNavEnabled: true,
         visibleNearby: {
@@ -89,8 +88,8 @@ jQuery(document).ready(function () {
             center: true,
             breakpoint: 650,
             breakpointCenterArea: 0.64,
-            navigateByCenterClick: true
-        }
+            navigateByCenterClick: true,
+        },
     });
 });
 
@@ -98,11 +97,11 @@ jQuery(document).ready(function () {
 // Another example: $(".royalSlider").royalSlider('goTo', 3);
 // But it's recommended to get instance once if you have many calls:
 
-var slider: RoyalSlider.RoyalSlider = $(".royalSlider").royalSlider().data('royalSlider');
+var slider: RoyalSlider.RoyalSlider = $('.royalSlider').royalSlider().data('royalSlider');
 
 slider.goTo(3); // go to slide with id
-slider.next();  // next slide
-slider.prev();  // prev slide
+slider.next(); // next slide
+slider.prev(); // prev slide
 
 slider.destroy(); // removes all events and clears all slider data
 // use on ajax sites to avoid memory leaks
@@ -115,7 +114,7 @@ slider.appendSlide($('div'), 4);
 slider.removeSlide();
 slider.removeSlide(4);
 
-slider.updateSliderSize(); // updates size of slider. Use after you resize slider with js. 
+slider.updateSliderSize(); // updates size of slider. Use after you resize slider with js.
 slider.updateSliderSize(true); // Function has "forceResize" Boolean paramater.
 
 // Thumbnails public methods
@@ -136,30 +135,24 @@ slider.toggleVideo();
 slider.playVideo();
 slider.stopVideo();
 
+slider.currSlideId; // current slide index
+slider.currSlide; // current slide object
 
+slider.numSlides; // total number of slides
 
+slider.isFullscreen; // indicates if slider is in fullscreen mode
+slider.nativeFS; // indicates if browser supports native fullscreen
 
-slider.currSlideId // current slide index
-slider.currSlide // current slide object
+slider.width; // width of slider
+slider.height; // height of slider
 
-slider.numSlides // total number of slides
+slider.dragSuccess; // Boolean, changes on mouseup, indicates if slide was dragged. Used to check if event is drag or click.
 
-slider.isFullscreen // indicates if slider is in fullscreen mode
-slider.nativeFS		// indicates if browser supports native fullscreen
+slider.slides; // array, contains all data about each slide
+slider.slidesJQ; // array, contains list of HTML slides that are added to slider
 
-slider.width // width of slider
-slider.height // height of slider
-
-slider.dragSuccess // Boolean, changes on mouseup, indicates if slide was dragged. Used to check if event is drag or click.
-
-slider.slides // array, contains all data about each slide
-slider.slidesJQ // array, contains list of HTML slides that are added to slider
-
-slider.st // object with slider settings
-slider.ev // jQuery object with slider events
-
-
-
+slider.st; // object with slider settings
+slider.ev; // jQuery object with slider events
 
 // In each listener event.target is slider instance
 
@@ -187,7 +180,7 @@ slider.ev.on('rsBeforeDestroy', function () {
     // triggers before slider in destroyed
 });
 slider.ev.on('rsOnCreateVideoElement', function (e, url?: string) {
-    // triggers before video element is created, after click on play button. 
+    // triggers before video element is created, after click on play button.
     // Read more in Tips&Tricks section
 });
 slider.ev.on('rsSlideClick', function () {
@@ -195,10 +188,10 @@ slider.ev.on('rsSlideClick', function () {
     // doesn't trigger after click and drag
 });
 slider.ev.on('rsEnterFullscreen', function () {
-    // enter fullscreen mode 
+    // enter fullscreen mode
 });
 slider.ev.on('rsExitFullscreen', function () {
-    // exit fullscreen mode 
+    // exit fullscreen mode
 });
 
 slider.ev.on('rsVideoPlay', function () {
@@ -220,7 +213,7 @@ slider.ev.on('rsAfterContentSet', function (e, slideObject?: RoyalSlider.RoyalSl
 // if you bind them after slider init they'll not fire
 // used for module development
 slider.ev.on('rsAfterInit', function () {
-    // after slider is initialized, 
+    // after slider is initialized,
 });
 slider.ev.on('rsBeforeParseNode', function (e, content?: any, obj?: any) {
     // before slide node is parsed

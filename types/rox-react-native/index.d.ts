@@ -30,10 +30,7 @@ export function register(namespace: string, roxContainer: RoxContainer): void;
  *
  * https://support.rollout.io/docs/reactnative#section-setup
  */
-export function setup(
-    apiKey: string,
-    options?: RoxSetupOptions
-): Promise<unknown>;
+export function setup(apiKey: string, options?: RoxSetupOptions): Promise<unknown>;
 
 export interface RoxSetupOptions {
     version?: string;
@@ -86,21 +83,12 @@ export interface RoxExperiment {
  * Note that you might have to call unfreeze after setting custom properties such as email after login
  * https://support.rollout.io/docs/custom-properties
  */
-export function setCustomNumberProperty(
-    name: string,
-    value: number | (() => number)
-): void;
-export function setCustomStringProperty(
-    name: string,
-    value: string | (() => string)
-): void;
-export function setCustomBooleanProperty(
-    name: string,
-    value: boolean | (() => boolean)
-): void;
+export function setCustomNumberProperty(name: string, value: number | (() => number)): void;
+export function setCustomStringProperty(name: string, value: string | (() => string)): void;
+export function setCustomBooleanProperty(name: string, value: boolean | (() => boolean)): void;
 export function setDynamicCustomPropertyRule(
-    handler: (propName: string, context: unknown) => number | string | boolean
-  ): void;
+    handler: (propName: string, context: unknown) => number | string | boolean,
+): void;
 
 /**
  * Unfreeze the state of all flags in code
@@ -258,6 +246,6 @@ export namespace dynamicApi {
      * Getting string value of a Variant flag
      */
     function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
-  }
+}
 
 export const flags: ReadonlyArray<Flag>;

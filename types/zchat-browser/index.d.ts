@@ -51,12 +51,18 @@ export function sendChatMsg(msg: string, callback?: (err: Error) => void): void;
  * @param file
  * @param callback
  */
-export function sendFile(file: File, callback?: (err: SendFileErrorMessage, data: {
-    mime_type: string,
-    name: string,
-    size: number,
-    url: string,
-}) => void): void;
+export function sendFile(
+    file: File,
+    callback?: (
+        err: SendFileErrorMessage,
+        data: {
+            mime_type: string;
+            name: string;
+            size: number;
+            url: string;
+        },
+    ) => void,
+): void;
 
 export function sendOfflineMsg(
     options: {
@@ -66,7 +72,7 @@ export function sendOfflineMsg(
         message: string;
         department?: number;
     },
-    callback: (err: Error) => void
+    callback: (err: Error) => void,
 ): void;
 
 export function addTags(tags: string[], callback?: (err: Error) => void): void;
@@ -97,36 +103,36 @@ export namespace ChatEvent {
     }
 
     type ChatEventData =
-        | BaseChatEventData & {
-        type: 'chat.msg';
-        msg: string;
-        options: string[];
-        structured_msg: StructuredMessage;
-    }
-        | BaseChatEventData & {
-        type: 'chat.file';
-        attachment: Attachment;
-        deleted: boolean;
-    }
-        | BaseChatEventData & {
-        type: 'chat.memberjoin';
-    }
-        | BaseChatEventData & {
-        type: 'chat.memberleave';
-    }
-        | BaseChatEventData & {
-        type: 'chat.request.rating';
-    }
-        | BaseChatEventData & {
-        type: 'chat.rating';
-        rating?: string;
-        new_rating?: string;
-    }
-        | BaseChatEventData & {
-        type: 'chat.comment';
-        comment?: string;
-        new_comment?: string;
-    };
+        | (BaseChatEventData & {
+              type: 'chat.msg';
+              msg: string;
+              options: string[];
+              structured_msg: StructuredMessage;
+          })
+        | (BaseChatEventData & {
+              type: 'chat.file';
+              attachment: Attachment;
+              deleted: boolean;
+          })
+        | (BaseChatEventData & {
+              type: 'chat.memberjoin';
+          })
+        | (BaseChatEventData & {
+              type: 'chat.memberleave';
+          })
+        | (BaseChatEventData & {
+              type: 'chat.request.rating';
+          })
+        | (BaseChatEventData & {
+              type: 'chat.rating';
+              rating?: string;
+              new_rating?: string;
+          })
+        | (BaseChatEventData & {
+              type: 'chat.comment';
+              comment?: string;
+              new_comment?: string;
+          });
 
     interface Action {
         type: 'QUICK_REPLY_ACTION' | 'LINK_ACTION';
@@ -160,24 +166,24 @@ export namespace ChatEvent {
 
     type StructuredMessage =
         | {
-        type: 'QUICK_REPLIES';
-        msg: string;
-        quick_replies: Button[];
-    }
+              type: 'QUICK_REPLIES';
+              msg: string;
+              quick_replies: Button[];
+          }
         | {
-        type: 'PANEL_TEMPLATE';
-        panel: Panel;
-        buttons: Button[];
-    }
+              type: 'PANEL_TEMPLATE';
+              panel: Panel;
+              buttons: Button[];
+          }
         | {
-        type: 'PANEL_TEMPLATE_CAROUSEL';
-        items: PanelTemplate[];
-    }
+              type: 'PANEL_TEMPLATE_CAROUSEL';
+              items: PanelTemplate[];
+          }
         | {
-        type: 'LIST_TEMPLATE';
-        items: ListItem[];
-        buttons: Button[];
-    };
+              type: 'LIST_TEMPLATE';
+              items: ListItem[];
+              buttons: Button[];
+          };
 }
 
 export type SendFileErrorMessage =
@@ -228,20 +234,20 @@ export type EventName =
 export type EventData =
     | ChatEvent.ChatEventData
     | {
-    type: 'chat.queue_position';
-    nick: string;
-    queue_position: number;
-}
+          type: 'chat.queue_position';
+          nick: string;
+          queue_position: number;
+      }
     | {
-    type: 'typing';
-    nick: string;
-    typing: boolean;
-}
+          type: 'typing';
+          nick: string;
+          typing: boolean;
+      }
     | {
-    type: 'last_read';
-    nick: string;
-    timestamp: number;
-}
+          type: 'last_read';
+          nick: string;
+          timestamp: number;
+      }
     | 'online'
     | 'away'
     | 'offline'

@@ -1,66 +1,64 @@
-
-
-$(function() {
+$(function () {
     $.notifyBar({
-        html: "Autostart"
+        html: 'Autostart',
     });
 
-    $("#common").click(function () {
+    $('#common').click(function () {
         $.notifyBar();
     });
-    $("#error").click(function () {
-        $.notifyBar({ cssClass: "error", html: "Error occurred!" });
+    $('#error').click(function () {
+        $.notifyBar({ cssClass: 'error', html: 'Error occurred!' });
     });
-    $("#success").click(function () {
-        $.notifyBar({ cssClass: "success", html: "Your data has been changed!" });
+    $('#success').click(function () {
+        $.notifyBar({ cssClass: 'success', html: 'Your data has been changed!' });
     });
-    $("#warning").click(function() {
-        $.notifyBar({ cssClass: "warning", html: "Settings aren't changed!" });
-    })
-    $("#custom").click(function () {
-        $.notifyBar({ cssClass: "custom", html: "Your data has been changed!" });
+    $('#warning').click(function () {
+        $.notifyBar({ cssClass: 'warning', html: "Settings aren't changed!" });
     });
-    $("#close").click(function () {
+    $('#custom').click(function () {
+        $.notifyBar({ cssClass: 'custom', html: 'Your data has been changed!' });
+    });
+    $('#close').click(function () {
         $.notifyBar({ html: "Click 'close' to hide notify bar", close: true, closeOnClick: false });
     });
-    $("#position").click(function () {
-        $.notifyBar({ html: "At bottom", position: "bottom" });
+    $('#position').click(function () {
+        $.notifyBar({ html: 'At bottom', position: 'bottom' });
     });
 
-    $("#events").click(function () {
+    $('#events').click(function () {
         $.notifyBar({
-            html: "Test events",
+            html: 'Test events',
             onBeforeShow: function () {
-                $("#onBeforeShow").html("onBeforeShow - ok");
+                $('#onBeforeShow').html('onBeforeShow - ok');
             },
             onShow: function () {
-                $("#onShow").html("onShow - ok");
+                $('#onShow').html('onShow - ok');
             },
             onBeforeHide: function () {
-                $("#onBeforeHide").html("onBeforeHide - ok");
+                $('#onBeforeHide').html('onBeforeHide - ok');
             },
             onHide: function () {
-                $("#onHide").html("onHide - ok");
-            }
+                $('#onHide').html('onHide - ok');
+            },
         });
     });
 
-    $("#delay").click(function () {
-        $.notifyBar({ html: "delay 1000000", delay: 1000000 });
+    $('#delay').click(function () {
+        $.notifyBar({ html: 'delay 1000000', delay: 1000000 });
     });
-    $("#speed-string").click(function () {
-        $.notifyBar({ html: "speed normal", animationSpeed: "normal" });
+    $('#speed-string').click(function () {
+        $.notifyBar({ html: 'speed normal', animationSpeed: 'normal' });
     });
-    $("#speed-number").click(function () {
-        $.notifyBar({ html: "speed normal", animationSpeed: 500 });
+    $('#speed-number').click(function () {
+        $.notifyBar({ html: 'speed normal', animationSpeed: 500 });
     });
-    $("#jqObject").click(function () {
-        $.notifyBar({ html: "set jqObject", jqObject: $("#jqObject") });
+    $('#jqObject').click(function () {
+        $.notifyBar({ html: 'set jqObject', jqObject: $('#jqObject') });
     });
-    $("#closeText").click(function () {
-        $.notifyBar({ html: "set close text", closeText: "close" });
+    $('#closeText').click(function () {
+        $.notifyBar({ html: 'set close text', closeText: 'close' });
     });
-    $("#closeOnOver").click(function () {
-        $.notifyBar({ html: "enable close on over", close: false, closeOnClick: false, closeOnOver: true });
+    $('#closeOnOver').click(function () {
+        $.notifyBar({ html: 'enable close on over', close: false, closeOnClick: false, closeOnOver: true });
     });
 });

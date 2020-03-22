@@ -34,13 +34,16 @@ const stylesService: StylesService = Styles(config);
 stylesService.putStyleIcon({
     styleId: 'style-id',
     iconId: 'icon-id',
-    file: 'path-to-file.file'
+    file: 'path-to-file.file',
 });
 
 const staticMapService: StaticMapService = StaticMap(client);
 const geoOverlay: LineString = {
     type: 'LineString',
-    coordinates: [[0, 1], [2, 3]]
+    coordinates: [
+        [0, 1],
+        [2, 3],
+    ],
 };
 staticMapService.getStaticImage({
     ownerId: 'owner-id',
@@ -50,7 +53,7 @@ staticMapService.getStaticImage({
     position: 'auto',
     overlays: [
         {
-            geoJson: geoOverlay
-        }
-    ]
+            geoJson: geoOverlay,
+        },
+    ],
 });

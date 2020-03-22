@@ -1,2 +1,2 @@
-import { isNil } from "lodash";
+import { isNil } from 'lodash';
 export default isNil;

@@ -1,33 +1,29 @@
-
 import eyes = require('eyes');
 
 var testObj = {
     color: 'red',
-    num: 227
-}
+    num: 227,
+};
 
-eyes.inspect(testObj)
+eyes.inspect(testObj);
 
 var options = {
-    styles: {                
+    styles: {
         all: 'green',
         label: 'red',
         other: 'red',
         key: 'red',
         special: 'red',
-        'string': 'red',
-        'number': 'red',
+        string: 'red',
+        number: 'red',
         bool: 'red',
-        regexp: 'red'
+        regexp: 'red',
     },
 
-    pretty: false,         
-    hideFunctions: true,  
+    pretty: false,
+    hideFunctions: true,
     stream: process.stdout,
-    maxLength: 120
-}
+    maxLength: 120,
+};
 
-var result = eyes.inspector(options)
-
-
-
+var result = eyes.inspector(options);

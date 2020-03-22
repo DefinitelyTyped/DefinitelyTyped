@@ -6,19 +6,20 @@ node.addGeneratedCode('world');
 node.getGeneratedCode();
 node.getMappings();
 node.mapGeneratedCode(function (code) {
-    if (typeof code === 'string') {}
+    if (typeof code === 'string') {
+    }
 
     return code;
-})
+});
 
 slm.fromStringWithSourceMap('hello', {
     sources: [node, new slm.CodeNode('hello')],
     sourcesContent: ['hi'],
-    mappings: 'null'
+    mappings: 'null',
 });
 
-const snode = new slm.SourceNode('hi', 'i\'am', 'e-cloud');
-const snode1 = new slm.SourceNode('hi', 'i\'am', 'e-cloud', 1);
+const snode = new slm.SourceNode('hi', "i'am", 'e-cloud');
+const snode1 = new slm.SourceNode('hi', "i'am", 'e-cloud', 1);
 snode.getGeneratedCode();
 
 const context = new slm.MappingsContext();

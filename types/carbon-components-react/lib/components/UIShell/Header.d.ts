@@ -1,9 +1,9 @@
-import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactAttr } from '../../../typings/shared';
 
-interface InheritedProps extends Omit<ReactAttr, "role"> { }
+interface InheritedProps extends Omit<ReactAttr, 'role'> {}
 
-export interface HeaderProps extends InheritedProps { }
+export interface HeaderProps extends InheritedProps {}
 
 declare const Header: React.FC<HeaderProps>;
 

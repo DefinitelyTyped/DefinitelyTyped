@@ -174,12 +174,12 @@ declare class Vec2 {
      */
     fromArray(array: number[]): Vec2;
 
-     toJSON(): { x: number, y: number };
+    toJSON(): { x: number; y: number };
 
     /**
      * _returns_: `'(x, y)'`
      */
-     toString(): string;
+    toString(): string;
 }
 
 export = Vec2;

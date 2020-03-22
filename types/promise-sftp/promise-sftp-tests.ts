@@ -1,4 +1,4 @@
-import PromiseSftp = require("promise-sftp");
+import PromiseSftp = require('promise-sftp');
 
 const sftp = new PromiseSftp();
 

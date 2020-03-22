@@ -12,7 +12,7 @@ function defaultDemo() {
 function responsive() {
     const swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
-        paginationClickable: true
+        paginationClickable: true,
     });
 }
 // 03-vertical.html
@@ -20,7 +20,7 @@ function vertical() {
     const swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
-        direction: 'vertical'
+        direction: 'vertical',
     });
 }
 // 04-space-between.html
@@ -37,7 +37,7 @@ function slidesPerView() {
         pagination: '.swiper-pagination',
         slidesPerView: 3,
         paginationClickable: true,
-        spaceBetween: 30
+        spaceBetween: 30,
     });
 }
 // 06-slides-per-view-auto.html
@@ -46,7 +46,7 @@ function slidesPerViewAuto() {
         pagination: '.swiper-pagination',
         slidesPerView: 'auto',
         paginationClickable: true,
-        spaceBetween: 30
+        spaceBetween: 30,
     });
 }
 // 07-centered.html
@@ -56,7 +56,7 @@ function centered() {
         slidesPerView: 4,
         centeredSlides: true,
         paginationClickable: true,
-        spaceBetween: 30
+        spaceBetween: 30,
     });
 }
 // 08-centered-auto.html
@@ -66,7 +66,7 @@ function centeredAuto() {
         slidesPerView: 'auto',
         centeredSlides: true,
         paginationClickable: true,
-        spaceBetween: 30
+        spaceBetween: 30,
     });
 }
 // 09-freemode.html
@@ -76,7 +76,7 @@ function freemode() {
         slidesPerView: 3,
         paginationClickable: true,
         spaceBetween: 30,
-        freeMode: true
+        freeMode: true,
     });
 }
 // 10-slides-per-column.html
@@ -86,7 +86,7 @@ function slidesPerColumn() {
         slidesPerView: 3,
         slidesPerColumn: 2,
         paginationClickable: true,
-        spaceBetween: 30
+        spaceBetween: 30,
     });
 }
 // 11-nested.html
@@ -94,13 +94,13 @@ function nested() {
     const swiperH = new Swiper('.swiper-container-h', {
         pagination: '.swiper-pagination-h',
         paginationClickable: true,
-        spaceBetween: 50
+        spaceBetween: 50,
     });
     const swiperV = new Swiper('.swiper-container-v', {
         pagination: '.swiper-pagination-v',
         paginationClickable: true,
         direction: 'vertical',
-        spaceBetween: 50
+        spaceBetween: 50,
     });
 }
 // 12-grab-cursor.html
@@ -111,7 +111,7 @@ function grabCursor() {
         centeredSlides: true,
         paginationClickable: true,
         spaceBetween: 30,
-        grabCursor: true
+        grabCursor: true,
     });
 }
 // 13-scrollbar.html
@@ -122,7 +122,7 @@ function scrollbar() {
         slidesPerView: 'auto',
         centeredSlides: true,
         spaceBetween: 30,
-        grabCursor: true
+        grabCursor: true,
     });
 }
 // 14-nav-arrows.html
@@ -132,7 +132,7 @@ function navArrows() {
         paginationClickable: true,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
-        spaceBetween: 30
+        spaceBetween: 30,
     });
 }
 // 15-infinite-loop.html
@@ -144,7 +144,7 @@ function infiniteLoop() {
         slidesPerView: 1,
         paginationClickable: true,
         spaceBetween: 30,
-        loop: true
+        loop: true,
     });
 }
 // 16-effect-fade.html
@@ -155,7 +155,7 @@ function effectFade() {
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
         spaceBetween: 30,
-        effect: 'fade'
+        effect: 'fade',
     });
 }
 // 17-effect-cube.html
@@ -168,8 +168,8 @@ function effectCube() {
             shadow: true,
             slideShadows: true,
             shadowOffset: 20,
-            shadowScale: 0.94
-        }
+            shadowScale: 0.94,
+        },
     });
 }
 // 18-effect-coverflow.html
@@ -185,8 +185,8 @@ function effectCoverflow() {
             stretch: 0,
             depth: 100,
             modifier: 1,
-            slideShadows: true
-        }
+            slideShadows: true,
+        },
     });
 }
 // 19-keyboard-control.html
@@ -209,7 +209,7 @@ function mousewheelControl() {
         slidesPerView: 1,
         paginationClickable: true,
         spaceBetween: 30,
-        mousewheelControl: true
+        mousewheelControl: true,
     });
 }
 // 21-autoplay.html
@@ -222,7 +222,7 @@ function autoplay() {
         spaceBetween: 30,
         centeredSlides: true,
         autoplay: 2500,
-        autoplayDisableOnInteraction: false
+        autoplayDisableOnInteraction: false,
     });
 }
 // 22-dynamic-slides.html
@@ -238,26 +238,26 @@ function dynamicSlides() {
         paginationClickable: true,
         spaceBetween: 30,
     });
-    document.querySelector('.prepend-2-slides').addEventListener('click', e => {
+    document.querySelector('.prepend-2-slides').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.prependSlide([
             `<div class="swiper-slide">Slide ${--prependNumber}</div>`,
-            `<div class="swiper-slide">Slide ${--prependNumber}</div>`
+            `<div class="swiper-slide">Slide ${--prependNumber}</div>`,
         ]);
     });
-    document.querySelector('.prepend-slide').addEventListener('click', e => {
+    document.querySelector('.prepend-slide').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.prependSlide(`<div class="swiper-slide">Slide ${--prependNumber}</div>`);
     });
-    document.querySelector('.append-slide').addEventListener('click', e => {
+    document.querySelector('.append-slide').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.appendSlide(`<div class="swiper-slide">Slide ${++appendNumber}</div>`);
     });
-    document.querySelector('.append-2-slides').addEventListener('click', e => {
+    document.querySelector('.append-2-slides').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.appendSlide([
             `<div class="swiper-slide">Slide ${++appendNumber}</div>`,
-            `<div class="swiper-slide">Slide ${++appendNumber}</div>`
+            `<div class="swiper-slide">Slide ${++appendNumber}</div>`,
         ]);
     });
 }
@@ -276,7 +276,7 @@ function thumbsGalleryLoop() {
         touchRatio: 0.2,
         loop: true,
         loopedSlides: 5, // looped slides should be the same
-        slideToClickedSlide: true
+        slideToClickedSlide: true,
     });
     galleryTop.params.control = galleryThumbs;
     galleryThumbs.params.control = galleryTop;
@@ -293,7 +293,7 @@ function thumbsGallery() {
         centeredSlides: true,
         slidesPerView: 'auto',
         touchRatio: 0.2,
-        slideToClickedSlide: true
+        slideToClickedSlide: true,
     });
     galleryTop.params.control = galleryThumbs;
     galleryThumbs.params.control = galleryTop;
@@ -325,7 +325,7 @@ function hashNavigation() {
         prevButton: '.swiper-button-prev',
         spaceBetween: 30,
         hashnav: true,
-        hashnavWatchState: true
+        hashnavWatchState: true,
     });
 }
 // 26-rtl.html
@@ -334,7 +334,7 @@ function rtl() {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
+        prevButton: '.swiper-button-prev',
     });
 }
 // 27-jquery.html
@@ -343,7 +343,7 @@ function jquery() {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
+        prevButton: '.swiper-button-prev',
     });
 }
 // 28-parallax.html
@@ -364,7 +364,7 @@ function customPagination() {
         paginationClickable: true,
         paginationBulletRender(swiper, index, className) {
             return `<span class="${className}">${index + 1}</span>`;
-        }
+        },
     });
 }
 // 30-lazy-load-images.html
@@ -377,7 +377,7 @@ function lazyLoadImages() {
         // Disable preloading of all images
         preloadImages: false,
         // Enable lazy loading
-        lazyLoading: true
+        lazyLoading: true,
     });
 }
 // 31-custom-plugin.html
@@ -421,7 +421,7 @@ function customPlugin() {
             },
             onReachEnd(swiper: any) {
                 console.log('onReachEnd');
-            }
+            },
         };
     };
 }
@@ -432,34 +432,30 @@ function scrollContainer() {
         direction: 'vertical',
         slidesPerView: 'auto',
         mousewheelControl: true,
-        freeMode: true
+        freeMode: true,
     });
 }
 // 32-slideable-menu.html
 function slideableMenu() {
     const toggleMenu = () => {
-        if (swiper.previousIndex === 0)
-            swiper.slidePrev();
+        if (swiper.previousIndex === 0) swiper.slidePrev();
     };
     const menuButton = document.getElementsByClassName('menu-button')[0];
     const swiper = new Swiper('.swiper-container', {
         slidesPerView: 'auto',
         initialSlide: 1,
-        resistanceRatio: .00000000000001,
+        resistanceRatio: 0.00000000000001,
         onSlideChangeStart: (slider) => {
             if (slider.activeIndex === 0) {
                 menuButton.classList.add('cross');
                 menuButton.removeEventListener('click', toggleMenu, false);
-            } else
-                menuButton.classList.remove('cross');
+            } else menuButton.classList.remove('cross');
         },
         onSlideChangeEnd: (slider) => {
-            if (slider.activeIndex === 0)
-                menuButton.removeEventListener('click', toggleMenu, false);
-            else
-                menuButton.addEventListener('click', toggleMenu, false);
+            if (slider.activeIndex === 0) menuButton.removeEventListener('click', toggleMenu, false);
+            else menuButton.addEventListener('click', toggleMenu, false);
         },
-        slideToClickedSlide: true
+        slideToClickedSlide: true,
     });
 }
 // 33-responsive-breakpoints.html
@@ -472,21 +468,21 @@ function responsiveBreakpoints() {
         breakpoints: {
             1024: {
                 slidesPerView: 4,
-                spaceBetween: 40
+                spaceBetween: 40,
             },
             768: {
                 slidesPerView: 3,
-                spaceBetween: 30
+                spaceBetween: 30,
             },
             640: {
                 slidesPerView: 2,
-                spaceBetween: 20
+                spaceBetween: 20,
             },
             320: {
                 slidesPerView: 1,
-                spaceBetween: 10
-            }
-        }
+                spaceBetween: 10,
+            },
+        },
     });
 }
 // 34-autoheight.html
@@ -506,7 +502,7 @@ function effectFlip() {
         effect: 'flip',
         grabCursor: true,
         nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
+        prevButton: '.swiper-button-prev',
     });
 }
 // 36-pagination-fraction.html
@@ -515,7 +511,7 @@ function paginationFraction() {
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
         pagination: '.swiper-pagination',
-        paginationType: 'fraction'
+        paginationType: 'fraction',
     });
 }
 // 37-pagination-progress.html
@@ -524,7 +520,7 @@ function paginationProgress() {
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
         pagination: '.swiper-pagination',
-        paginationType: 'progress'
+        paginationType: 'progress',
     });
 }
 // 38-history.html
@@ -549,7 +545,7 @@ function jqueryIe9Loop() {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
+        prevButton: '.swiper-button-prev',
     });
 }
 // 39-zoom.html
@@ -558,6 +554,6 @@ function zoom() {
         zoom: true,
         pagination: '.swiper-pagination',
         nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
+        prevButton: '.swiper-button-prev',
     });
 }

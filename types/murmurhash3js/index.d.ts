@@ -8,7 +8,7 @@ declare module 'murmurhash3js' {
         function hash32(val: string, seed?: number): number;
         function hash128(val: string, seed?: number): string;
     }
-    
+
     export module x64 {
         function hash128(val: string, seed?: number): string;
     }

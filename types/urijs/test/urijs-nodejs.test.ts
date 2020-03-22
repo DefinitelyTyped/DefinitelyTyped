@@ -56,10 +56,7 @@ declare var $: (arg?: any) => JQuery;
     URI('http://example.org/foo/hello.html').segmentCoded(0, 'foo bar');
     URI('http://example.org/foo/hello.html').segmentCoded(['foo bar', 'bar foo', 'foo bar.html']);
 
-    const withDuplicates = URI('?bar=1&bar=1')
-        .duplicateQueryParameters(true)
-        .normalizeQuery()
-        .toString();
+    const withDuplicates = URI('?bar=1&bar=1').duplicateQueryParameters(true).normalizeQuery().toString();
 
     /*
     To enable `URI.expand` when using `URI.js` via `npm`, include the following:
@@ -69,14 +66,12 @@ declare var $: (arg?: any) => JQuery;
     void URITemplate;
     ```
     */
-    URI(
-      'http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag'
-    ).equals(
-      URI.expand!('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
-        p: ['foo', 'bar.html'],
-        q: { foo: 'bar', bar: 'baz' },
-        h: 'frag',
-      }),
+    URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
+        URI.expand!('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
+            p: ['foo', 'bar.html'],
+            q: { foo: 'bar', bar: 'baz' },
+            h: 'frag',
+        }),
     );
 
     // Basic URITemplate type usage
@@ -85,21 +80,21 @@ declare var $: (arg?: any) => JQuery;
             p: ['foo', 'bar.html'],
             q: { foo: 'bar', bar: 'baz' },
             h: 'frag',
-        })
+        }),
     );
 
     // Using a callback for a specific key value.
     URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
         URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
-            p: key => ['foo', 'bar.html'],
+            p: (key) => ['foo', 'bar.html'],
             q: { foo: 'bar', bar: 'baz' },
             h: 'frag',
-        })
+        }),
     );
 
     // Using a callback for entire data parameter.
     URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
-        URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand(key => {
+        URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand((key) => {
             switch (key) {
                 case 'p':
                     return ['foo', 'bar.html'];
@@ -108,7 +103,7 @@ declare var $: (arg?: any) => JQuery;
                 case 'h':
                     return 'frag';
             }
-        })
+        }),
     );
 
     // Supports null/undefined values for certain keys
@@ -117,7 +112,7 @@ declare var $: (arg?: any) => JQuery;
             p: ['foo', 'bar.html'],
             q: null,
             h: undefined,
-        })
+        }),
     );
 
     const template = URITemplate('/items/{?page,count}');
@@ -157,7 +152,7 @@ declare var $: (arg?: any) => JQuery;
         uri.hasQuery('string', (value: string, name: string, data: string) => {
             return true;
         }),
-        true
+        true,
     );
 
     /*

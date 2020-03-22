@@ -6,7 +6,7 @@
 
 /// <reference types="googlemaps" />
 
-import { Component, InputHTMLAttributes } from "react";
+import { Component, InputHTMLAttributes } from 'react';
 
 export default class Geosuggest extends Component<GeosuggestProps> {
     focus(): void;
@@ -17,7 +17,10 @@ export default class Geosuggest extends Component<GeosuggestProps> {
 }
 
 // Replace with Exclude once on 2.8+
-export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+export type Omit<T, K extends keyof T> = Pick<
+    T,
+    ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never; [x: number]: never })[keyof T]
+>;
 
 export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'style'> {
     placeholder?: string;
@@ -66,12 +69,7 @@ export interface Styles {
     suggests?: Record<string, any>;
 }
 
-export type QueryType
-    = 'address'
-    | 'establishment'
-    | 'geocode'
-    | '(cities)'
-    | '(regions)';
+export type QueryType = 'address' | 'establishment' | 'geocode' | '(cities)' | '(regions)';
 
 export interface Fixture {
     className?: string;
@@ -82,6 +80,6 @@ export interface Fixture {
 export interface Suggest {
     gmaps?: google.maps.GeocoderResult;
     label: string;
-    location: {lat: number, lng: number};
+    location: { lat: number; lng: number };
     placeId: string;
 }

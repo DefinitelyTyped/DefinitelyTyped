@@ -1,7 +1,7 @@
-declare module "worker_threads" {
-    import { Context } from "vm";
-    import { EventEmitter } from "events";
-    import { Readable, Writable } from "stream";
+declare module 'worker_threads' {
+    import { Context } from 'vm';
+    import { EventEmitter } from 'events';
+    import { Readable, Writable } from 'stream';
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -20,36 +20,36 @@ declare module "worker_threads" {
         unref(): void;
         start(): void;
 
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "message", listener: (value: any) => void): this;
+        addListener(event: 'close', listener: () => void): this;
+        addListener(event: 'message', listener: (value: any) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: "close"): boolean;
-        emit(event: "message", value: any): boolean;
+        emit(event: 'close'): boolean;
+        emit(event: 'message', value: any): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
 
-        on(event: "close", listener: () => void): this;
-        on(event: "message", listener: (value: any) => void): this;
+        on(event: 'close', listener: () => void): this;
+        on(event: 'message', listener: (value: any) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: "close", listener: () => void): this;
-        once(event: "message", listener: (value: any) => void): this;
+        once(event: 'close', listener: () => void): this;
+        once(event: 'message', listener: (value: any) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "message", listener: (value: any) => void): this;
+        prependListener(event: 'close', listener: () => void): this;
+        prependListener(event: 'message', listener: (value: any) => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (value: any) => void): this;
+        prependOnceListener(event: 'close', listener: () => void): this;
+        prependOnceListener(event: 'message', listener: (value: any) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        removeListener(event: "close", listener: () => void): this;
-        removeListener(event: "message", listener: (value: any) => void): this;
+        removeListener(event: 'close', listener: () => void): this;
+        removeListener(event: 'message', listener: (value: any) => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        off(event: "close", listener: () => void): this;
-        off(event: "message", listener: (value: any) => void): this;
+        off(event: 'close', listener: () => void): this;
+        off(event: 'message', listener: (value: any) => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
@@ -127,52 +127,52 @@ declare module "worker_threads" {
          */
         getHeapSnapshot(): Promise<Readable>;
 
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "exit", listener: (exitCode: number) => void): this;
-        addListener(event: "message", listener: (value: any) => void): this;
-        addListener(event: "online", listener: () => void): this;
+        addListener(event: 'error', listener: (err: Error) => void): this;
+        addListener(event: 'exit', listener: (exitCode: number) => void): this;
+        addListener(event: 'message', listener: (value: any) => void): this;
+        addListener(event: 'online', listener: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: "error", err: Error): boolean;
-        emit(event: "exit", exitCode: number): boolean;
-        emit(event: "message", value: any): boolean;
-        emit(event: "online"): boolean;
+        emit(event: 'error', err: Error): boolean;
+        emit(event: 'exit', exitCode: number): boolean;
+        emit(event: 'message', value: any): boolean;
+        emit(event: 'online'): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
 
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "exit", listener: (exitCode: number) => void): this;
-        on(event: "message", listener: (value: any) => void): this;
-        on(event: "online", listener: () => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'exit', listener: (exitCode: number) => void): this;
+        on(event: 'message', listener: (value: any) => void): this;
+        on(event: 'online', listener: () => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "exit", listener: (exitCode: number) => void): this;
-        once(event: "message", listener: (value: any) => void): this;
-        once(event: "online", listener: () => void): this;
+        once(event: 'error', listener: (err: Error) => void): this;
+        once(event: 'exit', listener: (exitCode: number) => void): this;
+        once(event: 'message', listener: (value: any) => void): this;
+        once(event: 'online', listener: () => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "exit", listener: (exitCode: number) => void): this;
-        prependListener(event: "message", listener: (value: any) => void): this;
-        prependListener(event: "online", listener: () => void): this;
+        prependListener(event: 'error', listener: (err: Error) => void): this;
+        prependListener(event: 'exit', listener: (exitCode: number) => void): this;
+        prependListener(event: 'message', listener: (value: any) => void): this;
+        prependListener(event: 'online', listener: () => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "exit", listener: (exitCode: number) => void): this;
-        prependOnceListener(event: "message", listener: (value: any) => void): this;
-        prependOnceListener(event: "online", listener: () => void): this;
+        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
+        prependOnceListener(event: 'exit', listener: (exitCode: number) => void): this;
+        prependOnceListener(event: 'message', listener: (value: any) => void): this;
+        prependOnceListener(event: 'online', listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        removeListener(event: "error", listener: (err: Error) => void): this;
-        removeListener(event: "exit", listener: (exitCode: number) => void): this;
-        removeListener(event: "message", listener: (value: any) => void): this;
-        removeListener(event: "online", listener: () => void): this;
+        removeListener(event: 'error', listener: (err: Error) => void): this;
+        removeListener(event: 'exit', listener: (exitCode: number) => void): this;
+        removeListener(event: 'message', listener: (value: any) => void): this;
+        removeListener(event: 'online', listener: () => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        off(event: "error", listener: (err: Error) => void): this;
-        off(event: "exit", listener: (exitCode: number) => void): this;
-        off(event: "message", listener: (value: any) => void): this;
-        off(event: "online", listener: () => void): this;
+        off(event: 'error', listener: (err: Error) => void): this;
+        off(event: 'exit', listener: (exitCode: number) => void): this;
+        off(event: 'message', listener: (value: any) => void): this;
+        off(event: 'online', listener: () => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 }

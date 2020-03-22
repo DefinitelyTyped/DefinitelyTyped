@@ -2,7 +2,7 @@ System.import('./hi.js').then((hi) => {
     hi.someProperty();
 });
 
-System.import<Hi>('./hi.js').then(hi => {
+System.import<Hi>('./hi.js').then((hi) => {
     hi.someExport();
 });
 
@@ -14,23 +14,23 @@ System.register(['foo', 'bar'], (_export, _context) => {
 
     return {
         setters: [
-            module => {
+            (module) => {
                 foo = module;
             },
-            module => {
+            (module) => {
                 bar = module;
-            }
+            },
         ],
         execute() {
             _export('a', 'thing');
             _export('b', 123);
             _export('c', () => 'hi');
-            _export({some: 'thing'});
+            _export({ some: 'thing' });
 
             _context.import('./other-thing.js');
 
             _context.meta.url;
-        }
+        },
     };
 });
 
@@ -63,7 +63,7 @@ if (b) {
 const hasC: boolean = System.has('https://example.com/c.js');
 
 System.set('https://example.com/d.js', {
-    hi: 'there'
+    hi: 'there',
 });
 
 for (const entry of System.entries()) {

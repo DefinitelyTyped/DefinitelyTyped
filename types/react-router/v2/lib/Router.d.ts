@@ -1,13 +1,19 @@
 import * as React from 'react';
 import RouterContext from './RouterContext';
 import {
-    QueryString, Query,
-    Location, LocationDescriptor, LocationState as HLocationState,
-    History, Href,
-    Pathname, Path } from 'history';
+    QueryString,
+    Query,
+    Location,
+    LocationDescriptor,
+    LocationState as HLocationState,
+    History,
+    Href,
+    Pathname,
+    Path,
+} from 'history';
 
 declare const Router: Router;
-interface Router extends React.ComponentClass<Router.RouterProps> { }
+interface Router extends React.ComponentClass<Router.RouterProps> {}
 
 export default Router;
 
@@ -16,7 +22,9 @@ export default Router;
 declare namespace Router {
     type RouteConfig = React.ReactNode | PlainRoute | PlainRoute[];
     type RoutePattern = string;
-    interface RouteComponents { [key: string]: RouteComponent; }
+    interface RouteComponents {
+        [key: string]: RouteComponent;
+    }
 
     type ParseQueryString = (queryString: QueryString) => Query;
     type StringifyQuery = (queryObject: Query) => QueryString;
@@ -26,10 +34,17 @@ declare namespace Router {
 
     type EnterHook = (nextState: RouterState, replace: RedirectFunction, callback?: Function) => void;
     type LeaveHook = () => void;
-    type ChangeHook = (prevState: RouterState, nextState: RouterState, replace: RedirectFunction, callback: Function) => void;
+    type ChangeHook = (
+        prevState: RouterState,
+        nextState: RouterState,
+        replace: RedirectFunction,
+        callback: Function,
+    ) => void;
     type RouteHook = (nextLocation?: Location) => any;
 
-    interface Params { [param: string]: string; }
+    interface Params {
+        [param: string]: string;
+    }
 
     type RouterListener = (error: Error, nextState: RouterState) => void;
 
@@ -43,8 +58,8 @@ declare namespace Router {
     interface RedirectFunction {
         (location: LocationDescriptor): void;
         /**
-        * @deprecated `replaceState(state, pathname, query) is deprecated; Use `replace(location)` with a location descriptor instead. http://tiny.cc/router-isActivedeprecated
-        */
+         * @deprecated `replaceState(state, pathname, query) is deprecated; Use `replace(location)` with a location descriptor instead. http://tiny.cc/router-isActivedeprecated
+         */
         (state: HLocationState, pathname: Pathname | Path, query?: Query): void;
     }
 

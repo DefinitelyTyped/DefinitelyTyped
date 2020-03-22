@@ -1,14 +1,14 @@
 import * as zenscroll from 'zenscroll';
 
 // Scroll to the top of an element
-const about = document.getElementById("about");
+const about = document.getElementById('about');
 zenscroll.to(about);
 
 // Scroll to a specific vertical position
 zenscroll.toY(50);
 
 // Scroll an element into view
-const image1 = document.getElementById("imageSample");
+const image1 = document.getElementById('imageSample');
 zenscroll.intoView(image1, 400, () => console.log('scrolled'));
 
 // Scrolls the element to the center of the screen
@@ -27,9 +27,9 @@ zenscroll.to(about, 0); // 0 milliseconds == no smoothing
 // Scroll inside a scrollable DIV
 const defaultDuration = 500;
 const edgeOffset = 30;
-const myDiv = document.getElementById("container");
+const myDiv = document.getElementById('container');
 const myScroller = zenscroll.createScroller(myDiv, defaultDuration, edgeOffset);
-const target = document.getElementById("item4");
+const target = document.getElementById('item4');
 myScroller.center(target);
 myScroller.toY(500);
 myScroller.intoView(target);

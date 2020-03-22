@@ -8,12 +8,12 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
-import { Observable } from "rxjs";
+import * as stream from 'stream';
+import { Observable } from 'rxjs';
 
 declare namespace Listr {
     type ListrContext = any;
-    type ListrRendererValue<Ctx> = "silent" | "default" | "verbose" | ListrRendererClass<Ctx>;
+    type ListrRendererValue<Ctx> = 'silent' | 'default' | 'verbose' | ListrRendererClass<Ctx>;
     type ListrTaskResult<Ctx> = string | Promise<any> | Listr<Ctx> | stream.Readable | Observable<any>;
 
     interface ListrOptions<Ctx = ListrContext> {
@@ -70,7 +70,7 @@ declare namespace Listr {
     }
     interface ListrRendererClass<Ctx> {
         nonTTY: boolean;
-        new(tasks: ReadonlyArray<ListrTaskObject<Ctx>>, options: ListrOptions<Ctx>): ListrRenderer;
+        new (tasks: ReadonlyArray<ListrTaskObject<Ctx>>, options: ListrOptions<Ctx>): ListrRenderer;
     }
 }
 

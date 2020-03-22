@@ -1,5 +1,5 @@
-import { Component, ComponentType, CSSProperties } from "react";
-import { CustomPickerProps } from "../../..";
+import { Component, ComponentType, CSSProperties } from 'react';
+import { CustomPickerProps } from '../../..';
 
 export interface SliderPickerDefaultStyles {
     hue?: CSSProperties;

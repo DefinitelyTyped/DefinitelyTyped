@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/drawing.html
      *
@@ -13,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface drawing {
-    }
+    interface drawing {}
     namespace drawing {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/drawing/_base.html
@@ -77,22 +74,22 @@ declare namespace dojox {
              * Height of the canvas
              *
              */
-            "height": number;
+            'height': number;
             /**
              * Changes the functionality of the drawing
              *
              */
-            "mode": string;
+            'mode': string;
             /**
              * Whether or not the canvas has been created and Stencils can be added
              *
              */
-            "ready": boolean;
+            'ready': boolean;
             /**
              * Width of the canvas
              *
              */
-            "width": number;
+            'width': number;
             /**
              * Add a toolbar plugin object to plugins array
              * to be parsed
@@ -319,22 +316,22 @@ declare namespace dojox {
              * Height of the canvas
              *
              */
-            "height": number;
+            'height': number;
             /**
              * Changes the functionality of the drawing
              *
              */
-            "mode": string;
+            'mode': string;
             /**
              * Whether or not the canvas has been created and Stencils can be added
              *
              */
-            "ready": boolean;
+            'ready': boolean;
             /**
              * Width of the canvas
              *
              */
-            "width": number;
+            'width': number;
             /**
              * Add a toolbar plugin object to plugins array
              * to be parsed
@@ -1040,11 +1037,11 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "angle": number;
+                'angle': number;
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  * Gets or creates HTMLNode used for display
                  *
@@ -1082,7 +1079,7 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "showing": boolean;
+                'showing': boolean;
                 /**
                  * Creates data used to draw arrow head.
                  *
@@ -1183,56 +1180,56 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "closeColor": Object;
+                'closeColor': Object;
                 /**
                  *
                  */
-                "closePath": boolean;
+                'closePath': boolean;
                 /**
                  *
                  */
-                "closeRadius": number;
+                'closeRadius': number;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  *
                  */
-                "idx1": number;
+                'idx1': number;
                 /**
                  *
                  */
-                "idx2": number;
+                'idx2': number;
                 /**
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "subShape": boolean;
+                'subShape': boolean;
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -1657,49 +1654,49 @@ declare namespace dojox {
                      * Options: start, middle, end
                      *
                      */
-                    "align": string;
+                    'align': string;
                     /**
                      *
                      */
-                    "anchorType": string;
+                    'anchorType': string;
                     /**
                      *
                      */
-                    "baseRender": boolean;
+                    'baseRender': boolean;
                     /**
                      *
                      */
-                    "drawingType": string;
+                    'drawingType': string;
                     /**
                      * Whether the Stencil is enabled or not.
                      *
                      */
-                    "enabled": boolean;
+                    'enabled': boolean;
                     /**
                      * The minimum size allowed for a render. If the size
                      * is less, the shape is destroyed.
                      *
                      */
-                    "minimumSize": number;
+                    'minimumSize': number;
                     /**
                      * The data used to create the dojox.gfx Text
                      *
                      */
-                    "StencilData": Object;
+                    'StencilData': Object;
                     /**
                      *
                      */
-                    "StencilPoints": any[];
+                    'StencilPoints': any[];
                     /**
                      *
                      */
-                    "type": string;
+                    'type': string;
                     /**
                      * Text vertical alignment
                      * Options: top, middle, bottom (FIXME: bottom not supported)
                      *
                      */
-                    "valign": string;
+                    'valign': string;
                     /**
                      *
                      * @param args
@@ -2118,7 +2115,6 @@ declare namespace dojox {
                     onUp(obj: Event): void;
                 }
             }
-
         }
 
         namespace library {
@@ -2853,16 +2849,16 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseClass": string;
+                'baseClass': string;
                 /**
                  *
                  */
-                "useScrollbars": boolean;
+                'useScrollbars': boolean;
                 /**
                  * The amount the canvas is zoomed
                  *
                  */
-                "zoom": number;
+                'zoom': number;
                 /**
                  * Get the scroll position of the canvas
                  *
@@ -3050,17 +3046,17 @@ declare namespace dojox {
                  * otherwise noted.
                  *
                  */
-                "CustomEventMethod": Object;
+                'CustomEventMethod': Object;
                 /**
                  * Milliseconds between clicks to
                  * register as for onDoubleClick
                  *
                  */
-                "doublClickSpeed": number;
+                'doublClickSpeed': number;
                 /**
                  *
                  */
-                "zoom": number;
+                'zoom': number;
                 /**
                  * Internal. Create EventObject
                  *
@@ -3248,7 +3244,7 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "throttleTime": number;
+                'throttleTime': number;
                 /**
                  * Deletes a stencil.
                  * NOTE: supports limited undo.
@@ -3681,43 +3677,43 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchors": Object;
+                'anchors': Object;
                 /**
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  *
                  */
-                "canvas": Object;
+                'canvas': Object;
                 /**
                  *
                  */
-                "drawing": Object;
+                'drawing': Object;
                 /**
                  *
                  */
-                "keys": Object;
+                'keys': Object;
                 /**
                  *
                  */
-                "mouse": Object;
+                'mouse': Object;
                 /**
                  *
                  */
-                "node": Object;
+                'node': Object;
                 /**
                  *
                  */
-                "stencils": Object;
+                'stencils': Object;
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  */
-                "util": Object;
+                'util': Object;
                 /**
                  *
                  */
@@ -3750,71 +3746,71 @@ declare namespace dojox {
                     /**
                      *
                      */
-                    "anchors": Object;
+                    'anchors': Object;
                     /**
                      *
                      */
-                    "button": Object;
+                    'button': Object;
                     /**
                      *
                      */
-                    "canvas": Object;
+                    'canvas': Object;
                     /**
                      *
                      */
-                    "drawing": Object;
+                    'drawing': Object;
                     /**
                      * How far apart to set the grid lines
                      *
                      */
-                    "gap": number;
+                    'gap': number;
                     /**
                      *
                      */
-                    "keys": Object;
+                    'keys': Object;
                     /**
                      *
                      */
-                    "major": number;
+                    'major': number;
                     /**
                      * Major lines color
                      *
                      */
-                    "majorColor": string;
+                    'majorColor': string;
                     /**
                      *
                      */
-                    "minor": number;
+                    'minor': number;
                     /**
                      * Minor lines color
                      *
                      */
-                    "minorColor": string;
+                    'minorColor': string;
                     /**
                      *
                      */
-                    "mouse": Object;
+                    'mouse': Object;
                     /**
                      *
                      */
-                    "node": Object;
+                    'node': Object;
                     /**
                      *
                      */
-                    "stencils": Object;
+                    'stencils': Object;
                     /**
                      *
                      */
-                    "type": string;
+                    'type': string;
                     /**
                      *
                      */
-                    "util": Object;
+                    'util': Object;
                     /**
                      * The current zoom of the grid
                      *
                      */
-                    "zoom": number;
+                    'zoom': number;
                     /**
                      *
                      */
@@ -3876,19 +3872,25 @@ declare namespace dojox {
                      * True if mouse was pressed while over this widget, and hasn't been released yet
                      *
                      */
-                    "active": boolean;
-                    set(property:"active", value: boolean): void;
-                    get(property:"active"): boolean;
-                    watch(property:"active", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'active': boolean;
+                    set(property: 'active', value: boolean): void;
+                    get(property: 'active'): boolean;
+                    watch(
+                        property: 'active',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -3931,31 +3933,43 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "cellClass": string;
-                    set(property:"cellClass", value: string): void;
-                    get(property:"cellClass"): string;
-                    watch(property:"cellClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'cellClass': string;
+                    set(property: 'cellClass', value: string): void;
+                    get(property: 'cellClass'): string;
+                    watch(
+                        property: 'cellClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -3979,10 +3993,13 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Subclasses may define a cssStateNodes property that lists sub-nodes within the widget that
                      * need CSS classes applied on mouse hover/press and focus.
@@ -3999,28 +4016,37 @@ declare namespace dojox {
                      * is hovered, etc.
                      *
                      */
-                    "cssStateNodes": Object;
-                    set(property:"cssStateNodes", value: Object): void;
-                    get(property:"cssStateNodes"): Object;
-                    watch(property:"cssStateNodes", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'cssStateNodes': Object;
+                    set(property: 'cssStateNodes', value: Object): void;
+                    get(property: 'cssStateNodes'): Object;
+                    watch(
+                        property: 'cssStateNodes',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Number of milliseconds before a held key or button becomes typematic
                      *
                      */
-                    "defaultTimeout": number;
-                    set(property:"defaultTimeout", value: number): void;
-                    get(property:"defaultTimeout"): number;
-                    watch(property:"defaultTimeout", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'defaultTimeout': number;
+                    set(property: 'defaultTimeout', value: number): void;
+                    get(property: 'defaultTimeout'): number;
+                    watch(
+                        property: 'defaultTimeout',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -4028,27 +4054,36 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * True if cursor is over this widget
                      *
                      */
-                    "hovering": boolean;
-                    set(property:"hovering", value: boolean): void;
-                    get(property:"hovering"): boolean;
-                    watch(property:"hovering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'hovering': boolean;
+                    set(property: 'hovering', value: boolean): void;
+                    get(property: 'hovering'): boolean;
+                    watch(
+                        property: 'hovering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -4056,10 +4091,13 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -4067,93 +4105,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "paletteClass": string;
-                    set(property:"paletteClass", value: string): void;
-                    get(property:"paletteClass"): string;
-                    watch(property:"paletteClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'paletteClass': string;
+                    set(property: 'paletteClass', value: string): void;
+                    get(property: 'paletteClass'): string;
+                    watch(
+                        property: 'paletteClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Whether the preview pane will be displayed, to show details about the selected entity.
                      *
                      */
-                    "showPreview": boolean;
-                    set(property:"showPreview", value: boolean): void;
-                    get(property:"showPreview"): boolean;
-                    watch(property:"showPreview", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'showPreview': boolean;
+                    set(property: 'showPreview', value: boolean): void;
+                    get(property: 'showPreview'): boolean;
+                    watch(
+                        property: 'showPreview',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Widget tab index.
                      *
                      */
-                    "tabIndex": string;
-                    set(property:"tabIndex", value: string): void;
-                    get(property:"tabIndex"): string;
-                    watch(property:"tabIndex", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tabIndex': string;
+                    set(property: 'tabIndex', value: string): void;
+                    get(property: 'tabIndex'): string;
+                    watch(
+                        property: 'tabIndex',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The template of this widget.  Using dojoxEntityPalette classes
                      * in order to allow easy transfer of css
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Fraction of time used to change the typematic timer between events
                      * 1.0 means that each typematic event fires at defaultTimeout intervals
                      * Less than 1.0 means that each typematic event fires at an increasing faster rate
                      *
                      */
-                    "timeoutChangeRate": number;
-                    set(property:"timeoutChangeRate", value: number): void;
-                    get(property:"timeoutChangeRate"): number;
-                    watch(property:"timeoutChangeRate", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'timeoutChangeRate': number;
+                    set(property: 'timeoutChangeRate', value: number): void;
+                    get(property: 'timeoutChangeRate'): number;
+                    watch(
+                        property: 'timeoutChangeRate',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -4165,27 +4236,36 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Currently selected color/emoticon/etc.
                      *
                      */
-                    "value": string;
-                    set(property:"value", value: string): void;
-                    get(property:"value"): string;
-                    watch(property:"value", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'value': string;
+                    set(property: 'value', value: string): void;
+                    get(property: 'value'): string;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -4642,7 +4722,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -4775,9 +4858,7 @@ declare namespace dojox {
                      */
                     onShow(): void;
                 }
-                namespace Silverlight {
-                }
-
+                namespace Silverlight {}
             }
 
             namespace tools {
@@ -4795,47 +4876,47 @@ declare namespace dojox {
                     /**
                      *
                      */
-                    "anchors": Object;
+                    'anchors': Object;
                     /**
                      *
                      */
-                    "button": Object;
+                    'button': Object;
                     /**
                      *
                      */
-                    "canvas": Object;
+                    'canvas': Object;
                     /**
                      *
                      */
-                    "drawing": Object;
+                    'drawing': Object;
                     /**
                      *
                      */
-                    "keys": Object;
+                    'keys': Object;
                     /**
                      *
                      */
-                    "mouse": Object;
+                    'mouse': Object;
                     /**
                      *
                      */
-                    "node": Object;
+                    'node': Object;
                     /**
                      *
                      */
-                    "setup": Object;
+                    'setup': Object;
                     /**
                      *
                      */
-                    "stencils": Object;
+                    'stencils': Object;
                     /**
                      *
                      */
-                    "type": string;
+                    'type': string;
                     /**
                      *
                      */
-                    "util": Object;
+                    'util': Object;
                     /**
                      *
                      */
@@ -4902,59 +4983,59 @@ declare namespace dojox {
                     /**
                      *
                      */
-                    "anchors": Object;
+                    'anchors': Object;
                     /**
                      *
                      */
-                    "button": Object;
+                    'button': Object;
                     /**
                      *
                      */
-                    "canvas": Object;
+                    'canvas': Object;
                     /**
                      *
                      */
-                    "drawing": Object;
+                    'drawing': Object;
                     /**
                      *
                      */
-                    "interval": number;
+                    'interval': number;
                     /**
                      *
                      */
-                    "keys": Object;
+                    'keys': Object;
                     /**
                      *
                      */
-                    "keyScroll": boolean;
+                    'keyScroll': boolean;
                     /**
                      *
                      */
-                    "mouse": Object;
+                    'mouse': Object;
                     /**
                      *
                      */
-                    "node": Object;
+                    'node': Object;
                     /**
                      *
                      */
-                    "selected": boolean;
+                    'selected': boolean;
                     /**
                      *
                      */
-                    "setup": Object;
+                    'setup': Object;
                     /**
                      *
                      */
-                    "stencils": Object;
+                    'stencils': Object;
                     /**
                      *
                      */
-                    "type": string;
+                    'type': string;
                     /**
                      *
                      */
-                    "util": Object;
+                    'util': Object;
                     /**
                      *
                      */
@@ -5085,47 +5166,47 @@ declare namespace dojox {
                         /**
                          *
                          */
-                        "anchors": Object;
+                        'anchors': Object;
                         /**
                          *
                          */
-                        "button": Object;
+                        'button': Object;
                         /**
                          *
                          */
-                        "canvas": Object;
+                        'canvas': Object;
                         /**
                          *
                          */
-                        "drawing": Object;
+                        'drawing': Object;
                         /**
                          *
                          */
-                        "keys": Object;
+                        'keys': Object;
                         /**
                          *
                          */
-                        "mouse": Object;
+                        'mouse': Object;
                         /**
                          *
                          */
-                        "node": Object;
+                        'node': Object;
                         /**
                          *
                          */
-                        "setup": Object;
+                        'setup': Object;
                         /**
                          *
                          */
-                        "stencils": Object;
+                        'stencils': Object;
                         /**
                          *
                          */
-                        "type": string;
+                        'type': string;
                         /**
                          *
                          */
-                        "util": Object;
+                        'util': Object;
                         /**
                          *
                          */
@@ -5165,47 +5246,47 @@ declare namespace dojox {
                         /**
                          *
                          */
-                        "anchors": Object;
+                        'anchors': Object;
                         /**
                          *
                          */
-                        "button": Object;
+                        'button': Object;
                         /**
                          *
                          */
-                        "canvas": Object;
+                        'canvas': Object;
                         /**
                          *
                          */
-                        "drawing": Object;
+                        'drawing': Object;
                         /**
                          *
                          */
-                        "keys": Object;
+                        'keys': Object;
                         /**
                          *
                          */
-                        "mouse": Object;
+                        'mouse': Object;
                         /**
                          *
                          */
-                        "node": Object;
+                        'node': Object;
                         /**
                          *
                          */
-                        "setup": Object;
+                        'setup': Object;
                         /**
                          *
                          */
-                        "stencils": Object;
+                        'stencils': Object;
                         /**
                          *
                          */
-                        "type": string;
+                        'type': string;
                         /**
                          *
                          */
-                        "util": Object;
+                        'util': Object;
                         /**
                          *
                          */
@@ -5245,47 +5326,47 @@ declare namespace dojox {
                         /**
                          *
                          */
-                        "anchors": Object;
+                        'anchors': Object;
                         /**
                          *
                          */
-                        "button": Object;
+                        'button': Object;
                         /**
                          *
                          */
-                        "canvas": Object;
+                        'canvas': Object;
                         /**
                          *
                          */
-                        "drawing": Object;
+                        'drawing': Object;
                         /**
                          *
                          */
-                        "keys": Object;
+                        'keys': Object;
                         /**
                          *
                          */
-                        "mouse": Object;
+                        'mouse': Object;
                         /**
                          *
                          */
-                        "node": Object;
+                        'node': Object;
                         /**
                          *
                          */
-                        "setup": Object;
+                        'setup': Object;
                         /**
                          *
                          */
-                        "stencils": Object;
+                        'stencils': Object;
                         /**
                          *
                          */
-                        "type": string;
+                        'type': string;
                         /**
                          *
                          */
-                        "util": Object;
+                        'util': Object;
                         /**
                          *
                          */
@@ -5315,9 +5396,7 @@ declare namespace dojox {
                         onZoomOut(): void;
                     }
                 }
-
             }
-
         }
 
         namespace stencil {
@@ -5335,25 +5414,25 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  * The type of Stencil this is. Should be overridden
                  * by extending classes.
                  * FIXME: should this be declaredClass?
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -5744,30 +5823,30 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -6160,39 +6239,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  * The data used to create the dojox.gfx Shape
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -6595,40 +6674,40 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  * The data used to create the dojox.gfx Shape, specify
                  * x1,y1,x2,y2, or x,y,angle,radius
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -7020,46 +7099,46 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "closeColor": Object;
+                'closeColor': Object;
                 /**
                  *
                  */
-                "closePath": boolean;
+                'closePath': boolean;
                 /**
                  *
                  */
-                "closeRadius": number;
+                'closeRadius': number;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -7457,30 +7536,30 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -7879,49 +7958,49 @@ declare namespace dojox {
                  * Options: start, middle, end
                  *
                  */
-                "align": string;
+                'align': string;
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  * The data used to create the dojox.gfx Text
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  * Text vertical alignment
                  * Options: top, middle, bottom (FIXME: bottom not supported)
                  *
                  */
-                "valign": string;
+                'valign': string;
                 /**
                  *
                  * @param args
@@ -8345,62 +8424,62 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  * Whether or not to place an arrow on end.
                  *
                  */
-                "arrowEnd": boolean;
+                'arrowEnd': boolean;
                 /**
                  * Whether or not to place an arrow on start.
                  *
                  */
-                "arrowStart": boolean;
+                'arrowStart': boolean;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  *
                  */
-                "draws": boolean;
+                'draws': boolean;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "setup": Object;
+                'setup': Object;
                 /**
                  *
                  */
-                "showAngle": boolean;
+                'showAngle': boolean;
                 /**
                  * The data used to create the dojox.gfx Shape, specify
                  * x1,y1,x2,y2, or x,y,angle,radius
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -8814,38 +8893,38 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  *
                  */
-                "draws": boolean;
+                'draws': boolean;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "setup": Object;
+                'setup': Object;
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -9255,52 +9334,52 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  *
                  */
-                "draws": boolean;
+                'draws': boolean;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "setup": Object;
+                'setup': Object;
                 /**
                  *
                  */
-                "showAngle": boolean;
+                'showAngle': boolean;
                 /**
                  * The data used to create the dojox.gfx Shape, specify
                  * x1,y1,x2,y2, or x,y,angle,radius
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -9709,54 +9788,54 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "closeColor": Object;
+                'closeColor': Object;
                 /**
                  *
                  */
-                "closePath": boolean;
+                'closePath': boolean;
                 /**
                  *
                  */
-                "closeRadius": number;
+                'closeRadius': number;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  *
                  */
-                "draws": boolean;
+                'draws': boolean;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "setup": Object;
+                'setup': Object;
                 /**
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -10188,61 +10267,61 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "closeColor": Object;
+                'closeColor': Object;
                 /**
                  *
                  */
-                "closePath": boolean;
+                'closePath': boolean;
                 /**
                  *
                  */
-                "closeRadius": number;
+                'closeRadius': number;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  *
                  */
-                "draws": boolean;
+                'draws': boolean;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The distance the mouse must travel before rendering
                  * a path segment. Lower number is a higher definition
                  * path but more points.
                  *
                  */
-                "minDist": number;
+                'minDist': number;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "setup": Object;
+                'setup': Object;
                 /**
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -10657,38 +10736,38 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  *
                  */
-                "draws": boolean;
+                'draws': boolean;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  *
                  */
-                "setup": Object;
+                'setup': Object;
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param args
@@ -11108,69 +11187,69 @@ declare namespace dojox {
                  * Options: start, middle, end
                  *
                  */
-                "align": string;
+                'align': string;
                 /**
                  *
                  */
-                "anchorType": string;
+                'anchorType': string;
                 /**
                  *
                  */
-                "baseRender": boolean;
+                'baseRender': boolean;
                 /**
                  *
                  */
-                "drawingType": string;
+                'drawingType': string;
                 /**
                  *
                  */
-                "draws": boolean;
+                'draws': boolean;
                 /**
                  * Whether the Stencil is enabled or not.
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  * The minimum size allowed for a render. If the size
                  * is less, the shape is destroyed.
                  *
                  */
-                "minimumSize": number;
+                'minimumSize': number;
                 /**
                  * Whether the Stencil is selected when the text field
                  * is executed or not
                  *
                  */
-                "selectOnExec": boolean;
+                'selectOnExec': boolean;
                 /**
                  *
                  */
-                "setup": Object;
+                'setup': Object;
                 /**
                  * If true and there is no text in the data, the TextBlock
                  * Is displayed and focused and awaits input.
                  *
                  */
-                "showEmpty": boolean;
+                'showEmpty': boolean;
                 /**
                  * The data used to create the dojox.gfx Text
                  *
                  */
-                "StencilData": Object;
+                'StencilData': Object;
                 /**
                  *
                  */
-                "StencilPoints": any[];
+                'StencilPoints': any[];
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  * Text vertical alignment
                  * Options: top, middle, bottom (FIXME: bottom not supported)
                  *
                  */
-                "valign": string;
+                'valign': string;
                 /**
                  *
                  * @param args
@@ -11714,61 +11793,61 @@ declare namespace dojox {
                     /**
                      *
                      */
-                    "baseRender": boolean;
+                    'baseRender': boolean;
                     /**
                      *
                      */
-                    "closeColor": Object;
+                    'closeColor': Object;
                     /**
                      *
                      */
-                    "closePath": boolean;
+                    'closePath': boolean;
                     /**
                      *
                      */
-                    "closeRadius": number;
+                    'closeRadius': number;
                     /**
                      *
                      */
-                    "drawingType": string;
+                    'drawingType': string;
                     /**
                      *
                      */
-                    "draws": boolean;
+                    'draws': boolean;
                     /**
                      * Whether the Stencil is enabled or not.
                      *
                      */
-                    "enabled": boolean;
+                    'enabled': boolean;
                     /**
                      *
                      */
-                    "minimumSize": number;
+                    'minimumSize': number;
                     /**
                      * See stencil._Base ToolsSetup
                      *
                      */
-                    "setup": Object;
+                    'setup': Object;
                     /**
                      *
                      */
-                    "showAngle": boolean;
+                    'showAngle': boolean;
                     /**
                      *
                      */
-                    "StencilData": Object;
+                    'StencilData': Object;
                     /**
                      *
                      */
-                    "StencilPoints": any[];
+                    'StencilPoints': any[];
                     /**
                      *
                      */
-                    "type": string;
+                    'type': string;
                     /**
                      *
                      */
-                    "zScale": number;
+                    'zScale': number;
                     /**
                      *
                      * @param args
@@ -12221,74 +12300,74 @@ declare namespace dojox {
                      * Options: start, middle, end
                      *
                      */
-                    "align": string;
+                    'align': string;
                     /**
                      *
                      */
-                    "anchorType": string;
+                    'anchorType': string;
                     /**
                      *
                      */
-                    "baseRender": boolean;
+                    'baseRender': boolean;
                     /**
                      *
                      */
-                    "customType": string;
+                    'customType': string;
                     /**
                      *
                      */
-                    "drawingType": string;
+                    'drawingType': string;
                     /**
                      *
                      */
-                    "draws": boolean;
+                    'draws': boolean;
                     /**
                      * Whether the Stencil is enabled or not.
                      *
                      */
-                    "enabled": boolean;
+                    'enabled': boolean;
                     /**
                      * The minimum size allowed for a render. If the size
                      * is less, the shape is destroyed.
                      *
                      */
-                    "minimumSize": number;
+                    'minimumSize': number;
                     /**
                      * Whether the Stencil is selected when the text field
                      * is executed or not
                      *
                      */
-                    "selectOnExec": boolean;
+                    'selectOnExec': boolean;
                     /**
                      * See stencil._Base ToolsSetup
                      *
                      */
-                    "setup": Object;
+                    'setup': Object;
                     /**
                      * If true and there is no text in the data, the TextBlock
                      * Is displayed and focused and awaits input.
                      *
                      */
-                    "showEmpty": boolean;
+                    'showEmpty': boolean;
                     /**
                      * The data used to create the dojox.gfx Text
                      *
                      */
-                    "StencilData": Object;
+                    'StencilData': Object;
                     /**
                      *
                      */
-                    "StencilPoints": any[];
+                    'StencilPoints': any[];
                     /**
                      *
                      */
-                    "type": string;
+                    'type': string;
                     /**
                      * Text vertical alignment
                      * Options: top, middle, bottom (FIXME: bottom not supported)
                      *
                      */
-                    "valign": string;
+                    'valign': string;
                     /**
                      *
                      * @param args
@@ -12831,61 +12910,61 @@ declare namespace dojox {
                     /**
                      *
                      */
-                    "anchorType": string;
+                    'anchorType': string;
                     /**
                      * Whether or not to place an arrow on end.
                      *
                      */
-                    "arrowEnd": boolean;
+                    'arrowEnd': boolean;
                     /**
                      * Whether or not to place an arrow on start.
                      *
                      */
-                    "arrowStart": boolean;
+                    'arrowStart': boolean;
                     /**
                      *
                      */
-                    "baseRender": boolean;
+                    'baseRender': boolean;
                     /**
                      *
                      */
-                    "drawingType": string;
+                    'drawingType': string;
                     /**
                      *
                      */
-                    "draws": boolean;
+                    'draws': boolean;
                     /**
                      * Whether the Stencil is enabled or not.
                      *
                      */
-                    "enabled": boolean;
+                    'enabled': boolean;
                     /**
                      *
                      */
-                    "minimumSize": number;
+                    'minimumSize': number;
                     /**
                      * See stencil._Base ToolsSetup
                      *
                      */
-                    "setup": Object;
+                    'setup': Object;
                     /**
                      *
                      */
-                    "showAngle": boolean;
+                    'showAngle': boolean;
                     /**
                      * The data used to create the dojox.gfx Shape, specify
                      * x1,y1,x2,y2, or x,y,angle,radius
                      *
                      */
-                    "StencilData": Object;
+                    'StencilData': Object;
                     /**
                      *
                      */
-                    "StencilPoints": any[];
+                    'StencilPoints': any[];
                     /**
                      *
                      */
-                    "type": string;
+                    'type': string;
                     /**
                      *
                      * @param args
@@ -13313,9 +13392,7 @@ declare namespace dojox {
                         tooltip: string;
                     }
                 }
-
             }
-
         }
 
         namespace ui {
@@ -13333,31 +13410,31 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "callback": Object;
+                'callback': Object;
                 /**
                  *
                  */
-                "enabled": boolean;
+                'enabled': boolean;
                 /**
                  *
                  */
-                "hitched": Object;
+                'hitched': Object;
                 /**
                  *
                  */
-                "scope": Object;
+                'scope': Object;
                 /**
                  *
                  */
-                "selected": boolean;
+                'selected': boolean;
                 /**
                  *
                  */
-                "toolType": string;
+                'toolType': string;
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  * @param options
@@ -13421,51 +13498,51 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "anchors": Object;
+                'anchors': Object;
                 /**
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  *
                  */
-                "canvas": Object;
+                'canvas': Object;
                 /**
                  *
                  */
-                "drawing": Object;
+                'drawing': Object;
                 /**
                  *
                  */
-                "height": number;
+                'height': number;
                 /**
                  *
                  */
-                "keys": Object;
+                'keys': Object;
                 /**
                  *
                  */
-                "mouse": Object;
+                'mouse': Object;
                 /**
                  *
                  */
-                "node": Object;
+                'node': Object;
                 /**
                  *
                  */
-                "stencils": Object;
+                'stencils': Object;
                 /**
                  *
                  */
-                "type": string;
+                'type': string;
                 /**
                  *
                  */
-                "util": Object;
+                'util': Object;
                 /**
                  *
                  */
-                "width": number;
+                'width': number;
                 /**
                  *
                  */
@@ -13514,44 +13591,44 @@ declare namespace dojox {
                  * The space between each button.
                  *
                  */
-                "margin": number;
+                'margin': number;
                 /**
                  * The amount of spce between the top and left of the toolbar and the buttons.
                  *
                  */
-                "padding": number;
+                'padding': number;
                 /**
                  * The size of the button's rounded corner
                  *
                  */
-                "radius": number;
+                'radius': number;
                 /**
                  * The width and height of the button
                  *
                  */
-                "size": number;
+                'size': number;
                 /**
                  * A comma delineated list of the plugins to include in the Toolbar.
                  * If "all" is used, all registered plugins are included.
                  *
                  */
-                "strPlugs": string;
+                'strPlugs': string;
                 /**
                  * The button that should be selected at startup.
                  *
                  */
-                "strSelected": string;
+                'strSelected': string;
                 /**
                  * A comma delineated list of the Stencil-tools to include in the Toolbar.
                  * If "all" is used, all registered tools are included.
                  *
                  */
-                "strTools": string;
+                'strTools': string;
                 /**
                  * The distance between the tool buttons and plug buttons
                  *
                  */
-                "toolPlugGap": number;
+                'toolPlugGap': number;
                 /**
                  * Internal. Adds the back, behind the toolbar.
                  *
@@ -13603,17 +13680,17 @@ declare namespace dojox {
                      * The CSS style to apply to the toolbar node
                      *
                      */
-                    "baseClass": string;
+                    'baseClass': string;
                     /**
                      * The CSS style to apply to each button node
                      *
                      */
-                    "buttonClass": string;
+                    'buttonClass': string;
                     /**
                      * The CSS style to apply to each button icon node
                      *
                      */
-                    "iconClass": string;
+                    'iconClass': string;
                     /**
                      * Internal. Creates an icon node for each button.
                      *
@@ -13660,51 +13737,51 @@ declare namespace dojox {
                     /**
                      *
                      */
-                    "anchors": Object;
+                    'anchors': Object;
                     /**
                      *
                      */
-                    "button": Object;
+                    'button': Object;
                     /**
                      *
                      */
-                    "canvas": Object;
+                    'canvas': Object;
                     /**
                      *
                      */
-                    "drawing": Object;
+                    'drawing': Object;
                     /**
                      *
                      */
-                    "keys": Object;
+                    'keys': Object;
                     /**
                      *
                      */
-                    "mouse": Object;
+                    'mouse': Object;
                     /**
                      *
                      */
-                    "node": Object;
+                    'node': Object;
                     /**
                      *
                      */
-                    "selected": boolean;
+                    'selected': boolean;
                     /**
                      *
                      */
-                    "setup": Object;
+                    'setup': Object;
                     /**
                      *
                      */
-                    "stencils": Object;
+                    'stencils': Object;
                     /**
                      *
                      */
-                    "type": string;
+                    'type': string;
                     /**
                      *
                      */
-                    "util": Object;
+                    'util': Object;
                     /**
                      * Scans all items on the canvas and checks if they are out of
                      * bounds. If so, a scroll bar (in Canvas) is shown. If the position
@@ -13801,83 +13878,83 @@ declare namespace dojox {
                     /**
                      *
                      */
-                    "anchors": Object;
+                    'anchors': Object;
                     /**
                      * The CSS class added to the Toolbar buttons
                      *
                      */
-                    "baseClass": string;
+                    'baseClass': string;
                     /**
                      * The CSS class added to the bottom (or right) Toolbar button
                      *
                      */
-                    "botClass": string;
+                    'botClass': string;
                     /**
                      *
                      */
-                    "button": Object;
+                    'button': Object;
                     /**
                      *
                      */
-                    "canvas": Object;
+                    'canvas': Object;
                     /**
                      *
                      */
-                    "drawing": Object;
+                    'drawing': Object;
                     /**
                      *
                      */
-                    "keys": Object;
+                    'keys': Object;
                     /**
                      * The maximum the canvas can be zoomed in. 10 = 1000%
                      *
                      */
-                    "maxZoom": number;
+                    'maxZoom': number;
                     /**
                      * The CSS class added to the middle Toolbar button
                      *
                      */
-                    "midClass": string;
+                    'midClass': string;
                     /**
                      * The most the canvas can be zoomed out. .1 = 10%
                      *
                      */
-                    "minZoom": number;
+                    'minZoom': number;
                     /**
                      *
                      */
-                    "mouse": Object;
+                    'mouse': Object;
                     /**
                      *
                      */
-                    "node": Object;
+                    'node': Object;
                     /**
                      *
                      */
-                    "stencils": Object;
+                    'stencils': Object;
                     /**
                      * The CSS class added to the top (or left) Toolbar button
                      *
                      */
-                    "topClass": string;
+                    'topClass': string;
                     /**
                      *
                      */
-                    "type": string;
+                    'type': string;
                     /**
                      *
                      */
-                    "util": Object;
+                    'util': Object;
                     /**
                      * The current zoom amount
                      *
                      */
-                    "zoomFactor": number;
+                    'zoomFactor': number;
                     /**
                      * The amount of zoom that will occur upon each click.
                      *
                      */
-                    "zoomInc": number;
+                    'zoomInc': number;
                     /**
                      *
                      */
@@ -13923,7 +14000,6 @@ declare namespace dojox {
                     onZoomOut(evt: MouseEvent): void;
                 }
             }
-
         }
 
         namespace util {
@@ -14095,8 +14171,7 @@ declare namespace dojox {
                  *
                  *
                  */
-                interface objects {
-                }
+                interface objects {}
             }
 
             /**
@@ -14192,404 +14267,402 @@ declare namespace dojox {
                 convertLaTeX(inText: any): any;
             }
         }
-
     }
-
 }
 
-declare module "dojox/drawing" {
-    var exp: dojox.drawing
-    export=exp;
-}
-declare module "dojox/drawing/_base" {
-    var exp: dojox.drawing._base
-    export=exp;
-}
-declare module "dojox/drawing/Drawing" {
-    var exp: dojox.drawing.Drawing
-    export=exp;
-}
-declare module "dojox/drawing/defaults" {
-    var exp: dojox.drawing.defaults
-    export=exp;
-}
-declare module "dojox/drawing/defaults.arrows" {
-    var exp: dojox.drawing.defaults.arrows
-    export=exp;
-}
-declare module "dojox/drawing/defaults.disabled" {
-    var exp: dojox.drawing.defaults.disabled
-    export=exp;
-}
-declare module "dojox/drawing/defaults.anchors" {
-    var exp: dojox.drawing.defaults.anchors
-    export=exp;
-}
-declare module "dojox/drawing/defaults.highlighted" {
-    var exp: dojox.drawing.defaults.highlighted
-    export=exp;
-}
-declare module "dojox/drawing/defaults.button" {
-    var exp: dojox.drawing.defaults.button
-    export=exp;
-}
-declare module "dojox/drawing/defaults.hitSelected" {
-    var exp: dojox.drawing.defaults.hitSelected
-    export=exp;
-}
-declare module "dojox/drawing/defaults.hitNorm" {
-    var exp: dojox.drawing.defaults.hitNorm
-    export=exp;
-}
-declare module "dojox/drawing/defaults.hitHighlighted" {
-    var exp: dojox.drawing.defaults.hitHighlighted
-    export=exp;
-}
-declare module "dojox/drawing/defaults.selected" {
-    var exp: dojox.drawing.defaults.selected
-    export=exp;
-}
-declare module "dojox/drawing/defaults.norm" {
-    var exp: dojox.drawing.defaults.norm
-    export=exp;
-}
-declare module "dojox/drawing/defaults.textMode" {
-    var exp: dojox.drawing.defaults.textMode
-    export=exp;
-}
-declare module "dojox/drawing/defaults.textDisabled" {
-    var exp: dojox.drawing.defaults.textDisabled
-    export=exp;
-}
-declare module "dojox/drawing/defaults.text" {
-    var exp: dojox.drawing.defaults.text
-    export=exp;
-}
-declare module "dojox/drawing/annotations/Label" {
-    var exp: dojox.drawing.annotations.Label
-    export=exp;
-}
-declare module "dojox/drawing/annotations/Label.Label" {
-    var exp: dojox.drawing.annotations.Label.Label
-    export=exp;
-}
-declare module "dojox/drawing/annotations/Angle" {
-    var exp: dojox.drawing.annotations.Angle
-    export=exp;
-}
-declare module "dojox/drawing/annotations/BoxShadow" {
-    var exp: dojox.drawing.annotations.BoxShadow
-    export=exp;
-}
-declare module "dojox/drawing/annotations/Arrow" {
-    var exp: dojox.drawing.annotations.Arrow
-    export=exp;
-}
-declare module "dojox/drawing/library/icons" {
-    var exp: dojox.drawing.library.icons
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.ellipse" {
-    var exp: dojox.drawing.library.icons.ellipse
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.arrow" {
-    var exp: dojox.drawing.library.icons.arrow
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.axes" {
-    var exp: dojox.drawing.library.icons.axes
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.pan" {
-    var exp: dojox.drawing.library.icons.pan
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.line" {
-    var exp: dojox.drawing.library.icons.line
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.path" {
-    var exp: dojox.drawing.library.icons.path
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.equation" {
-    var exp: dojox.drawing.library.icons.equation
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.iconize" {
-    var exp: dojox.drawing.library.icons.iconize
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.pencil" {
-    var exp: dojox.drawing.library.icons.pencil
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.plus" {
-    var exp: dojox.drawing.library.icons.plus
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.triangle" {
-    var exp: dojox.drawing.library.icons.triangle
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.vector" {
-    var exp: dojox.drawing.library.icons.vector
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.rect" {
-    var exp: dojox.drawing.library.icons.rect
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.zoom100" {
-    var exp: dojox.drawing.library.icons.zoom100
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.textBlock" {
-    var exp: dojox.drawing.library.icons.textBlock
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.zoomIn" {
-    var exp: dojox.drawing.library.icons.zoomIn
-    export=exp;
-}
-declare module "dojox/drawing/library/icons.zoomOut" {
-    var exp: dojox.drawing.library.icons.zoomOut
-    export=exp;
-}
-declare module "dojox/drawing/library/greek" {
-    var exp: dojox.drawing.library.greek
-    export=exp;
-}
-declare module "dojox/drawing/manager/_registry" {
-    var exp: dojox.drawing.manager._registry
-    export=exp;
-}
-declare module "dojox/drawing/manager/keys" {
-    var exp: dojox.drawing.manager.keys
-    export=exp;
-}
-declare module "dojox/drawing/manager/Anchors" {
-    var exp: dojox.drawing.manager.Anchors
-    export=exp;
-}
-declare module "dojox/drawing/manager/Canvas" {
-    var exp: dojox.drawing.manager.Canvas
-    export=exp;
-}
-declare module "dojox/drawing/manager/StencilUI" {
-    var exp: dojox.drawing.manager.StencilUI
-    export=exp;
-}
-declare module "dojox/drawing/manager/Undo" {
-    var exp: dojox.drawing.manager.Undo
-    export=exp;
-}
-declare module "dojox/drawing/manager/Mouse" {
-    var exp: dojox.drawing.manager.Mouse
-    export=exp;
-}
-declare module "dojox/drawing/manager/Stencil" {
-    var exp: dojox.drawing.manager.Stencil
-    export=exp;
-}
-declare module "dojox/drawing/plugins/_Plugin" {
-    var exp: dojox.drawing.plugins._Plugin
-    export=exp;
-}
-declare module "dojox/drawing/plugins/drawing/Grid" {
-    var exp: dojox.drawing.plugins.drawing.Grid
-    export=exp;
-}
-declare module "dojox/drawing/plugins/drawing/GreekPalette" {
-    var exp: dojox.drawing.plugins.drawing.GreekPalette
-    export=exp;
-}
-declare module "dojox/drawing/plugins/tools/Zoom" {
-    var exp: dojox.drawing.plugins.tools.Zoom
-    export=exp;
-}
-declare module "dojox/drawing/plugins/tools/Zoom.Zoom100" {
-    var exp: dojox.drawing.plugins.tools.Zoom.Zoom100
-    export=exp;
-}
-declare module "dojox/drawing/plugins/tools/Zoom.ZoomOut" {
-    var exp: dojox.drawing.plugins.tools.Zoom.ZoomOut
-    export=exp;
-}
-declare module "dojox/drawing/plugins/tools/Zoom.ZoomIn" {
-    var exp: dojox.drawing.plugins.tools.Zoom.ZoomIn
-    export=exp;
-}
-declare module "dojox/drawing/plugins/tools/Iconize" {
-    var exp: dojox.drawing.plugins.tools.Iconize
-    export=exp;
-}
-declare module "dojox/drawing/plugins/tools/Iconize.setup" {
-    var exp: dojox.drawing.plugins.tools.Iconize.setup
-    export=exp;
-}
-declare module "dojox/drawing/plugins/tools/Pan" {
-    var exp: dojox.drawing.plugins.tools.Pan
-    export=exp;
-}
-declare module "dojox/drawing/plugins/tools/Pan.setup" {
-    var exp: dojox.drawing.plugins.tools.Pan.setup
-    export=exp;
-}
-declare module "dojox/drawing/stencil/_Base" {
-    var exp: dojox.drawing.stencil._Base
-    export=exp;
-}
-declare module "dojox/drawing/stencil/Line" {
-    var exp: dojox.drawing.stencil.Line
-    export=exp;
-}
-declare module "dojox/drawing/stencil/Ellipse" {
-    var exp: dojox.drawing.stencil.Ellipse
-    export=exp;
-}
-declare module "dojox/drawing/stencil/Path" {
-    var exp: dojox.drawing.stencil.Path
-    export=exp;
-}
-declare module "dojox/drawing/stencil/Rect" {
-    var exp: dojox.drawing.stencil.Rect
-    export=exp;
-}
-declare module "dojox/drawing/stencil/Image" {
-    var exp: dojox.drawing.stencil.Image
-    export=exp;
-}
-declare module "dojox/drawing/stencil/Text" {
-    var exp: dojox.drawing.stencil.Text
-    export=exp;
-}
-declare module "dojox/drawing/tools/Arrow" {
-    var exp: dojox.drawing.tools.Arrow
-    export=exp;
-}
-declare module "dojox/drawing/tools/Arrow.setup" {
-    var exp: dojox.drawing.tools.Arrow.setup
-    export=exp;
-}
-declare module "dojox/drawing/tools/Ellipse" {
-    var exp: dojox.drawing.tools.Ellipse
-    export=exp;
-}
-declare module "dojox/drawing/tools/Ellipse.setup" {
-    var exp: dojox.drawing.tools.Ellipse.setup
-    export=exp;
-}
-declare module "dojox/drawing/tools/Pencil" {
-    var exp: dojox.drawing.tools.Pencil
-    export=exp;
-}
-declare module "dojox/drawing/tools/Pencil.setup" {
-    var exp: dojox.drawing.tools.Pencil.setup
-    export=exp;
-}
-declare module "dojox/drawing/tools/Rect" {
-    var exp: dojox.drawing.tools.Rect
-    export=exp;
-}
-declare module "dojox/drawing/tools/Rect.setup" {
-    var exp: dojox.drawing.tools.Rect.setup
-    export=exp;
-}
-declare module "dojox/drawing/tools/Path" {
-    var exp: dojox.drawing.tools.Path
-    export=exp;
-}
-declare module "dojox/drawing/tools/Path.setup" {
-    var exp: dojox.drawing.tools.Path.setup
-    export=exp;
-}
-declare module "dojox/drawing/tools/Line" {
-    var exp: dojox.drawing.tools.Line
-    export=exp;
-}
-declare module "dojox/drawing/tools/Line.setup" {
-    var exp: dojox.drawing.tools.Line.setup
-    export=exp;
-}
-declare module "dojox/drawing/tools/TextBlock" {
-    var exp: dojox.drawing.tools.TextBlock
-    export=exp;
-}
-declare module "dojox/drawing/tools/TextBlock.setup" {
-    var exp: dojox.drawing.tools.TextBlock.setup
-    export=exp;
-}
-declare module "dojox/drawing/tools/custom/Axes" {
-    var exp: dojox.drawing.tools.custom.Axes
-    export=exp;
-}
-declare module "dojox/drawing/tools/custom/Axes.setup" {
-    var exp: dojox.drawing.tools.custom.Axes.setup
-    export=exp;
-}
-declare module "dojox/drawing/tools/custom/Vector" {
-    var exp: dojox.drawing.tools.custom.Vector
-    export=exp;
-}
-declare module "dojox/drawing/tools/custom/Vector.setup" {
-    var exp: dojox.drawing.tools.custom.Vector.setup
-    export=exp;
-}
-declare module "dojox/drawing/tools/custom/Equation" {
-    var exp: dojox.drawing.tools.custom.Equation
-    export=exp;
-}
-declare module "dojox/drawing/tools/custom/Equation.setup" {
-    var exp: dojox.drawing.tools.custom.Equation.setup
-    export=exp;
-}
-declare module "dojox/drawing/ui/Button" {
-    var exp: dojox.drawing.ui.Button
-    export=exp;
-}
-declare module "dojox/drawing/ui/Toolbar" {
-    var exp: dojox.drawing.ui.Toolbar
-    export=exp;
-}
-declare module "dojox/drawing/ui/Tooltip" {
-    var exp: dojox.drawing.ui.Tooltip
-    export=exp;
-}
-declare module "dojox/drawing/ui/dom/Toolbar" {
-    var exp: dojox.drawing.ui.dom.Toolbar
-    export=exp;
-}
-declare module "dojox/drawing/ui/dom/Pan" {
-    var exp: dojox.drawing.ui.dom.Pan
-    export=exp;
-}
-declare module "dojox/drawing/ui/dom/Pan.setup" {
-    var exp: dojox.drawing.ui.dom.Pan.setup
-    export=exp;
-}
-declare module "dojox/drawing/ui/dom/Zoom" {
-    var exp: dojox.drawing.ui.dom.Zoom
-    export=exp;
-}
-declare module "dojox/drawing/util/positioning" {
-    var exp: dojox.drawing.util.positioning
-    export=exp;
-}
-declare module "dojox/drawing/util/oo" {
-    var exp: dojox.drawing.util.oo
-    export=exp;
-}
-declare module "dojox/drawing/util/typeset" {
-    var exp: dojox.drawing.util.typeset
-    export=exp;
-}
-declare module "dojox/drawing/util/common" {
-    var exp: dojox.drawing.util.common
-    export=exp;
-}
-declare module "dojox/drawing/util/common.objects" {
-    var exp: dojox.drawing.util.common.objects
-    export=exp;
+declare module 'dojox/drawing' {
+    var exp: dojox.drawing;
+    export = exp;
+}
+declare module 'dojox/drawing/_base' {
+    var exp: dojox.drawing._base;
+    export = exp;
+}
+declare module 'dojox/drawing/Drawing' {
+    var exp: dojox.drawing.Drawing;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults' {
+    var exp: dojox.drawing.defaults;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.arrows' {
+    var exp: dojox.drawing.defaults.arrows;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.disabled' {
+    var exp: dojox.drawing.defaults.disabled;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.anchors' {
+    var exp: dojox.drawing.defaults.anchors;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.highlighted' {
+    var exp: dojox.drawing.defaults.highlighted;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.button' {
+    var exp: dojox.drawing.defaults.button;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.hitSelected' {
+    var exp: dojox.drawing.defaults.hitSelected;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.hitNorm' {
+    var exp: dojox.drawing.defaults.hitNorm;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.hitHighlighted' {
+    var exp: dojox.drawing.defaults.hitHighlighted;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.selected' {
+    var exp: dojox.drawing.defaults.selected;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.norm' {
+    var exp: dojox.drawing.defaults.norm;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.textMode' {
+    var exp: dojox.drawing.defaults.textMode;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.textDisabled' {
+    var exp: dojox.drawing.defaults.textDisabled;
+    export = exp;
+}
+declare module 'dojox/drawing/defaults.text' {
+    var exp: dojox.drawing.defaults.text;
+    export = exp;
+}
+declare module 'dojox/drawing/annotations/Label' {
+    var exp: dojox.drawing.annotations.Label;
+    export = exp;
+}
+declare module 'dojox/drawing/annotations/Label.Label' {
+    var exp: dojox.drawing.annotations.Label.Label;
+    export = exp;
+}
+declare module 'dojox/drawing/annotations/Angle' {
+    var exp: dojox.drawing.annotations.Angle;
+    export = exp;
+}
+declare module 'dojox/drawing/annotations/BoxShadow' {
+    var exp: dojox.drawing.annotations.BoxShadow;
+    export = exp;
+}
+declare module 'dojox/drawing/annotations/Arrow' {
+    var exp: dojox.drawing.annotations.Arrow;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons' {
+    var exp: dojox.drawing.library.icons;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.ellipse' {
+    var exp: dojox.drawing.library.icons.ellipse;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.arrow' {
+    var exp: dojox.drawing.library.icons.arrow;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.axes' {
+    var exp: dojox.drawing.library.icons.axes;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.pan' {
+    var exp: dojox.drawing.library.icons.pan;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.line' {
+    var exp: dojox.drawing.library.icons.line;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.path' {
+    var exp: dojox.drawing.library.icons.path;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.equation' {
+    var exp: dojox.drawing.library.icons.equation;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.iconize' {
+    var exp: dojox.drawing.library.icons.iconize;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.pencil' {
+    var exp: dojox.drawing.library.icons.pencil;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.plus' {
+    var exp: dojox.drawing.library.icons.plus;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.triangle' {
+    var exp: dojox.drawing.library.icons.triangle;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.vector' {
+    var exp: dojox.drawing.library.icons.vector;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.rect' {
+    var exp: dojox.drawing.library.icons.rect;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.zoom100' {
+    var exp: dojox.drawing.library.icons.zoom100;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.textBlock' {
+    var exp: dojox.drawing.library.icons.textBlock;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.zoomIn' {
+    var exp: dojox.drawing.library.icons.zoomIn;
+    export = exp;
+}
+declare module 'dojox/drawing/library/icons.zoomOut' {
+    var exp: dojox.drawing.library.icons.zoomOut;
+    export = exp;
+}
+declare module 'dojox/drawing/library/greek' {
+    var exp: dojox.drawing.library.greek;
+    export = exp;
+}
+declare module 'dojox/drawing/manager/_registry' {
+    var exp: dojox.drawing.manager._registry;
+    export = exp;
+}
+declare module 'dojox/drawing/manager/keys' {
+    var exp: dojox.drawing.manager.keys;
+    export = exp;
+}
+declare module 'dojox/drawing/manager/Anchors' {
+    var exp: dojox.drawing.manager.Anchors;
+    export = exp;
+}
+declare module 'dojox/drawing/manager/Canvas' {
+    var exp: dojox.drawing.manager.Canvas;
+    export = exp;
+}
+declare module 'dojox/drawing/manager/StencilUI' {
+    var exp: dojox.drawing.manager.StencilUI;
+    export = exp;
+}
+declare module 'dojox/drawing/manager/Undo' {
+    var exp: dojox.drawing.manager.Undo;
+    export = exp;
+}
+declare module 'dojox/drawing/manager/Mouse' {
+    var exp: dojox.drawing.manager.Mouse;
+    export = exp;
+}
+declare module 'dojox/drawing/manager/Stencil' {
+    var exp: dojox.drawing.manager.Stencil;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/_Plugin' {
+    var exp: dojox.drawing.plugins._Plugin;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/drawing/Grid' {
+    var exp: dojox.drawing.plugins.drawing.Grid;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/drawing/GreekPalette' {
+    var exp: dojox.drawing.plugins.drawing.GreekPalette;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/tools/Zoom' {
+    var exp: dojox.drawing.plugins.tools.Zoom;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/tools/Zoom.Zoom100' {
+    var exp: dojox.drawing.plugins.tools.Zoom.Zoom100;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/tools/Zoom.ZoomOut' {
+    var exp: dojox.drawing.plugins.tools.Zoom.ZoomOut;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/tools/Zoom.ZoomIn' {
+    var exp: dojox.drawing.plugins.tools.Zoom.ZoomIn;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/tools/Iconize' {
+    var exp: dojox.drawing.plugins.tools.Iconize;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/tools/Iconize.setup' {
+    var exp: dojox.drawing.plugins.tools.Iconize.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/tools/Pan' {
+    var exp: dojox.drawing.plugins.tools.Pan;
+    export = exp;
+}
+declare module 'dojox/drawing/plugins/tools/Pan.setup' {
+    var exp: dojox.drawing.plugins.tools.Pan.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/stencil/_Base' {
+    var exp: dojox.drawing.stencil._Base;
+    export = exp;
+}
+declare module 'dojox/drawing/stencil/Line' {
+    var exp: dojox.drawing.stencil.Line;
+    export = exp;
+}
+declare module 'dojox/drawing/stencil/Ellipse' {
+    var exp: dojox.drawing.stencil.Ellipse;
+    export = exp;
+}
+declare module 'dojox/drawing/stencil/Path' {
+    var exp: dojox.drawing.stencil.Path;
+    export = exp;
+}
+declare module 'dojox/drawing/stencil/Rect' {
+    var exp: dojox.drawing.stencil.Rect;
+    export = exp;
+}
+declare module 'dojox/drawing/stencil/Image' {
+    var exp: dojox.drawing.stencil.Image;
+    export = exp;
+}
+declare module 'dojox/drawing/stencil/Text' {
+    var exp: dojox.drawing.stencil.Text;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Arrow' {
+    var exp: dojox.drawing.tools.Arrow;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Arrow.setup' {
+    var exp: dojox.drawing.tools.Arrow.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Ellipse' {
+    var exp: dojox.drawing.tools.Ellipse;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Ellipse.setup' {
+    var exp: dojox.drawing.tools.Ellipse.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Pencil' {
+    var exp: dojox.drawing.tools.Pencil;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Pencil.setup' {
+    var exp: dojox.drawing.tools.Pencil.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Rect' {
+    var exp: dojox.drawing.tools.Rect;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Rect.setup' {
+    var exp: dojox.drawing.tools.Rect.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Path' {
+    var exp: dojox.drawing.tools.Path;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Path.setup' {
+    var exp: dojox.drawing.tools.Path.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Line' {
+    var exp: dojox.drawing.tools.Line;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/Line.setup' {
+    var exp: dojox.drawing.tools.Line.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/TextBlock' {
+    var exp: dojox.drawing.tools.TextBlock;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/TextBlock.setup' {
+    var exp: dojox.drawing.tools.TextBlock.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/custom/Axes' {
+    var exp: dojox.drawing.tools.custom.Axes;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/custom/Axes.setup' {
+    var exp: dojox.drawing.tools.custom.Axes.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/custom/Vector' {
+    var exp: dojox.drawing.tools.custom.Vector;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/custom/Vector.setup' {
+    var exp: dojox.drawing.tools.custom.Vector.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/custom/Equation' {
+    var exp: dojox.drawing.tools.custom.Equation;
+    export = exp;
+}
+declare module 'dojox/drawing/tools/custom/Equation.setup' {
+    var exp: dojox.drawing.tools.custom.Equation.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/ui/Button' {
+    var exp: dojox.drawing.ui.Button;
+    export = exp;
+}
+declare module 'dojox/drawing/ui/Toolbar' {
+    var exp: dojox.drawing.ui.Toolbar;
+    export = exp;
+}
+declare module 'dojox/drawing/ui/Tooltip' {
+    var exp: dojox.drawing.ui.Tooltip;
+    export = exp;
+}
+declare module 'dojox/drawing/ui/dom/Toolbar' {
+    var exp: dojox.drawing.ui.dom.Toolbar;
+    export = exp;
+}
+declare module 'dojox/drawing/ui/dom/Pan' {
+    var exp: dojox.drawing.ui.dom.Pan;
+    export = exp;
+}
+declare module 'dojox/drawing/ui/dom/Pan.setup' {
+    var exp: dojox.drawing.ui.dom.Pan.setup;
+    export = exp;
+}
+declare module 'dojox/drawing/ui/dom/Zoom' {
+    var exp: dojox.drawing.ui.dom.Zoom;
+    export = exp;
+}
+declare module 'dojox/drawing/util/positioning' {
+    var exp: dojox.drawing.util.positioning;
+    export = exp;
+}
+declare module 'dojox/drawing/util/oo' {
+    var exp: dojox.drawing.util.oo;
+    export = exp;
+}
+declare module 'dojox/drawing/util/typeset' {
+    var exp: dojox.drawing.util.typeset;
+    export = exp;
+}
+declare module 'dojox/drawing/util/common' {
+    var exp: dojox.drawing.util.common;
+    export = exp;
+}
+declare module 'dojox/drawing/util/common.objects' {
+    var exp: dojox.drawing.util.common.objects;
+    export = exp;
 }

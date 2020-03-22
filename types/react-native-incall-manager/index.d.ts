@@ -35,12 +35,7 @@ declare class InCallManager {
 
     setMicrophoneMute(enable?: boolean): void;
 
-    startRingtone(
-        ringtone?: string,
-        vibrate_pattern?: any[],
-        ios_category?: string,
-        seconds?: number
-    ): void;
+    startRingtone(ringtone?: string, vibrate_pattern?: any[], ios_category?: string, seconds?: number): void;
 
     stopRingtone(): void;
 

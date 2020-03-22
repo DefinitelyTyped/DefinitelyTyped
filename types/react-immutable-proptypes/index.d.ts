@@ -9,7 +9,10 @@ import * as Immutable from 'immutable';
 
 export function listOf<V>(type: Validator<V>): Requireable<Immutable.List<V>>;
 export function mapOf<V, K = any>(valueType: Validator<V>, keyType?: Validator<K>): Requireable<Immutable.Map<K, V>>;
-export function orderedMapOf<V, K = any>(valueType: Validator<V>, keyType?: Validator<K>): Requireable<Immutable.OrderedMap<K, V>>;
+export function orderedMapOf<V, K = any>(
+    valueType: Validator<V>,
+    keyType?: Validator<K>,
+): Requireable<Immutable.OrderedMap<K, V>>;
 export function setOf<V>(type: Validator<V>): Requireable<Immutable.Set<V>>;
 export function orderedSetOf<V>(type: Validator<V>): Requireable<Immutable.OrderedSet<V>>;
 export function stackOf<V>(type: Validator<V>): Requireable<Immutable.Stack<V>>;

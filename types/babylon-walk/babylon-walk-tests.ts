@@ -1,5 +1,5 @@
-import * as babelTypes from "babel-types";
-import * as walk from "babylon-walk";
+import * as babelTypes from 'babel-types';
+import * as walk from 'babylon-walk';
 declare function assert(expr: boolean): void;
 
 const simpleVisitors: walk.visitors<walk.SimpleVisitor> = {
@@ -21,7 +21,7 @@ const recursiveVisitors: walk.visitors<walk.RecursiveVisitor> = {
 };
 
 const node: any = {
-    type: "File",
+    type: 'File',
 };
 
 const state: any = {

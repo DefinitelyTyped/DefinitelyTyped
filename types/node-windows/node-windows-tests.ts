@@ -17,7 +17,7 @@ service.on('alreadyuninstalled', () => log.error('Service already uninstalled', 
 service.on('start', () => log.info('Service started', 1002));
 service.on('stop', () => log.info('Service stopped', 1003));
 service.on('invalidinstallation', () => log.error('Invalid Installation', 2002));
-service.on('error', err => log.error(`Error Encountered: ${err}`, 2003));
+service.on('error', (err) => log.error(`Error Encountered: ${err}`, 2003));
 
 service.install();
 service.start();

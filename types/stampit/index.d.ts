@@ -36,7 +36,9 @@ interface StampSignature {
 type StampType<Original> = Original extends /* disallowed types */ [] | bigint
     ? never
     : stampit.IsADescriptor<Original> extends true
-    ? (Original extends stampit.ExtendedDescriptor<infer Obj, infer Stamp> ? Stamp : never)
+    ? Original extends stampit.ExtendedDescriptor<infer Obj, infer Stamp>
+        ? Stamp
+        : never
     : unknown extends Original /* is any or unknown */
     ? stampit.Stamp<Original>
     : Original extends StampSignature
@@ -54,13 +56,17 @@ type StampType<Original> = Original extends /* disallowed types */ [] | bigint
 type StampObjectType<Original> = Original extends /* disallowed types */ bigint | boolean | number | string | symbol
     ? never
     : stampit.IsADescriptor<Original> extends true
-    ? (Original extends stampit.ExtendedDescriptor<infer Obj, any> ? Obj : never)
+    ? Original extends stampit.ExtendedDescriptor<infer Obj, any>
+        ? Obj
+        : never
     : unknown extends Original /* is any or unknown */
     ? Original
     : Original extends StampSignature
-    ? (Original extends stampit.Stamp<infer Obj> /* extended stamps may require infering twice */
-          ? (Obj extends stampit.Stamp<infer Obj> ? Obj : Obj)
-          : any)
+    ? Original extends stampit.Stamp<infer Obj> /* extended stamps may require infering twice */
+        ? Obj extends stampit.Stamp<infer Obj>
+            ? Obj
+            : Obj
+        : any
     : Original extends stampit.ExtendedDescriptor<infer Obj, any>
     ? Obj
     : Original extends Pojo
@@ -278,11 +284,13 @@ declare namespace stampit {
      */
     // TODO: Improve test by checking the type of common keys
     type IsADescriptor<Type> = unknown extends Type
-        ? (keyof Type extends never
-              ? false
-              : keyof Type extends infer K
-              ? (K extends keyof ExtendedDescriptor<unknown> ? true : false)
-              : false)
+        ? keyof Type extends never
+            ? false
+            : keyof Type extends infer K
+            ? K extends keyof ExtendedDescriptor<unknown>
+                ? true
+                : false
+            : false
         : false;
 
     /**

@@ -17,9 +17,7 @@ stream2.toArray((err, arr) => {
     arr; // $ExpectType any[]
 });
 
-toArray(stream1)
-    .then(parts => {
-        const buffers = parts
-            .map(part => util.isBuffer(part) ? part : Buffer.from(part));
-        return Buffer.concat(buffers);
-    });
+toArray(stream1).then((parts) => {
+    const buffers = parts.map((part) => (util.isBuffer(part) ? part : Buffer.from(part)));
+    return Buffer.concat(buffers);
+});

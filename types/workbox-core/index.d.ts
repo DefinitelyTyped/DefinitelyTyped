@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export * from "./cacheNames";
-export * from "./clientsClaim";
-export * from "./registerQuotaErrorCallback";
-export * from "./setCacheNameDetails";
-export * from "./skipWaiting";
+export * from './cacheNames';
+export * from './clientsClaim';
+export * from './registerQuotaErrorCallback';
+export * from './setCacheNameDetails';
+export * from './skipWaiting';
 
-export { WorkboxPlugin } from "./types/WorkboxPlugin";
+export { WorkboxPlugin } from './types/WorkboxPlugin';

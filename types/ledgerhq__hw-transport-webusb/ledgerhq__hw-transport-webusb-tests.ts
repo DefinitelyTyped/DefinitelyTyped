@@ -11,7 +11,7 @@ TransportWebUSB.open('test');
 // $ExpectType Promise<TransportWebUSB>
 TransportWebUSB.openConnection();
 
-const test = TransportWebUSB.open('test').then(transport => {
+const test = TransportWebUSB.open('test').then((transport) => {
     // $ExpectType void
     transport.setScrambleKey('BTC');
 

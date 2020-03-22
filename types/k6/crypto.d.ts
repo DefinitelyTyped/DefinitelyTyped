@@ -27,7 +27,7 @@ export function hmac<OE extends OutputEncoding>(
     algorithm: Algorithm,
     secret: string,
     data: string,
-    outputEncoding: OE
+    outputEncoding: OE,
 ): Output<OE>;
 
 /**
@@ -38,10 +38,7 @@ export function hmac<OE extends OutputEncoding>(
  * @returns MD4 digest.
  * @public
  */
-export function md4<OE extends OutputEncoding>(
-    input: string,
-    outputEncoding: OE
-): Output<OE>;
+export function md4<OE extends OutputEncoding>(input: string, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with MD5.
@@ -51,10 +48,7 @@ export function md4<OE extends OutputEncoding>(
  * @returns MD5 digest.
  * @public
  */
-export function md5<OE extends OutputEncoding>(
-    input: string,
-    outputEncoding: OE
-): Output<OE>;
+export function md5<OE extends OutputEncoding>(input: string, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-1.
@@ -64,10 +58,7 @@ export function md5<OE extends OutputEncoding>(
  * @returns SHA-1 digest.
  * @public
  */
-export function sha1<OE extends OutputEncoding>(
-    input: string,
-    outputEncoding: OE
-): Output<OE>;
+export function sha1<OE extends OutputEncoding>(input: string, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-256.
@@ -77,10 +68,7 @@ export function sha1<OE extends OutputEncoding>(
  * @returns SHA-256 digest.
  * @public
  */
-export function sha256<OE extends OutputEncoding>(
-    input: string,
-    outputEncoding: OE
-): Output<OE>;
+export function sha256<OE extends OutputEncoding>(input: string, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-384.
@@ -90,10 +78,7 @@ export function sha256<OE extends OutputEncoding>(
  * @returns SHA-384 digest.
  * @public
  */
-export function sha384<OE extends OutputEncoding>(
-    input: string,
-    outputEncoding: OE
-): Output<OE>;
+export function sha384<OE extends OutputEncoding>(input: string, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-512.
@@ -103,10 +88,7 @@ export function sha384<OE extends OutputEncoding>(
  * @returns SHA-512 digest.
  * @public
  */
-export function sha512<OE extends OutputEncoding>(
-    input: string,
-    outputEncoding: OE
-): Output<OE>;
+export function sha512<OE extends OutputEncoding>(input: string, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-512/224.
@@ -116,10 +98,7 @@ export function sha512<OE extends OutputEncoding>(
  * @returns SHA-512/224 digest.
  * @public
  */
-export function sha512_224<OE extends OutputEncoding>(
-    input: string,
-    outputEncoding: OE
-): Output<OE>;
+export function sha512_224<OE extends OutputEncoding>(input: string, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-512/256.
@@ -129,10 +108,7 @@ export function sha512_224<OE extends OutputEncoding>(
  * @returns SHA-512/256 digest.
  * @public
  */
-export function sha512_256<OE extends OutputEncoding>(
-    input: string,
-    outputEncoding: OE
-): Output<OE>;
+export function sha512_256<OE extends OutputEncoding>(input: string, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with RIPEMD-160.
@@ -142,10 +118,7 @@ export function sha512_256<OE extends OutputEncoding>(
  * @returns RIPEMD-160 digest.
  * @public
  */
-export function ripemd160<OE extends OutputEncoding>(
-    input: string,
-    outputEncoding: OE
-): Output<OE>;
+export function ripemd160<OE extends OutputEncoding>(input: string, outputEncoding: OE): Output<OE>;
 
 /**
  * Create a hashing object.
@@ -216,18 +189,18 @@ export type Output<OE extends OutputEncoding> = OE extends StringEncoding
  * @public
  */
 export abstract class Hasher {
-           protected __brand: never;
+    protected __brand: never;
 
-           /**
-            * Add more data to the string we want to create a hash of.
-            * @param input - Data to add.
-            */
-           update(input: string): void;
+    /**
+     * Add more data to the string we want to create a hash of.
+     * @param input - Data to add.
+     */
+    update(input: string): void;
 
-           /**
-            * Return a digest from the data added so far.
-            * @param outputEncoding - Output encoding.
-            * @returns Digest of data added so far.
-            */
-           digest<OE extends OutputEncoding>(outputEncoding: OE): Output<OE>;
-       }
+    /**
+     * Return a digest from the data added so far.
+     * @param outputEncoding - Output encoding.
+     * @returns Digest of data added so far.
+     */
+    digest<OE extends OutputEncoding>(outputEncoding: OE): Output<OE>;
+}

@@ -6,7 +6,7 @@
 // TypeScript Version: 2.4
 
 declare namespace I18next {
-    interface I18nextOptions extends i18nextNodeFsBackEnd.I18nextOptions { }
+    interface I18nextOptions extends i18nextNodeFsBackEnd.I18nextOptions {}
 }
 
 declare namespace i18nextNodeFsBackEnd {
@@ -49,13 +49,17 @@ declare namespace i18nextNodeFsBackEnd {
     }
 }
 
-declare module "i18next-node-fs-backend" {
-    import * as i18next from "i18next";
+declare module 'i18next-node-fs-backend' {
+    import * as i18next from 'i18next';
 
     class Backend implements i18next.BackendModule<i18nextNodeFsBackEnd.i18nextNodeFsBackEndOptions> {
-        type: "backend";
+        type: 'backend';
         constructor(services?: any, options?: i18nextNodeFsBackEnd.i18nextNodeFsBackEndOptions);
-        init(services: i18next.Services, backendOptions?: i18nextNodeFsBackEnd.i18nextNodeFsBackEndOptions, i18nextOptions?: i18next.InitOptions): void;
+        init(
+            services: i18next.Services,
+            backendOptions?: i18nextNodeFsBackEnd.i18nextNodeFsBackEndOptions,
+            i18nextOptions?: i18next.InitOptions,
+        ): void;
         read(language: string, namespace: string, callback: i18next.ReadCallback): void;
         create(languages: string[], namespace: string, key: string, fallbackValue: string): void;
     }

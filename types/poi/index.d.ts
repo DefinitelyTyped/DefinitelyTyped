@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ICompiler, Configuration as WebpackConfig } from "webpack";
-import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
-import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
-import * as WebpackChainConfig from "webpack-chain";
-import CAC from "cac/types/CAC";
+import { ICompiler, Configuration as WebpackConfig } from 'webpack';
+import { Configuration as WebpackDevServerConfig } from 'webpack-dev-server';
+import { Options as HtmlWebpackPluginOptions } from 'html-webpack-plugin';
+import * as WebpackChainConfig from 'webpack-chain';
+import CAC from 'cac/types/CAC';
 
 /**
  * https://poi.js.org/api.html#constructor-argv
@@ -19,7 +19,7 @@ declare class PoiCore {
     cli: CAC;
 
     /** The current running command */
-    command: CAC["command"];
+    command: CAC['command'];
 
     config: PoiCore.Config;
 
@@ -45,7 +45,7 @@ declare class PoiCore {
     getCacheConfig(
         dir: string,
         keys: { [k: string]: string },
-        files: ReadonlyArray<string>
+        files: ReadonlyArray<string>,
     ): {
         cacheDirectory: string;
         cacheIdentifier: string;
@@ -61,7 +61,7 @@ declare class PoiCore {
 }
 
 declare namespace PoiCore {
-    type Mode = "production" | "development" | "test";
+    type Mode = 'production' | 'development' | 'test';
 
     interface Opts {
         type: string;
@@ -89,26 +89,26 @@ declare namespace PoiCore {
     }
 
     namespace Config {
-        type Entry = WebpackConfig["entry"];
+        type Entry = WebpackConfig['entry'];
 
         interface Output {
             dir?: string;
             clean?: boolean;
-            format?: "iife" | "cjs" | "umd";
+            format?: 'iife' | 'cjs' | 'umd';
             moduleName?: string;
             sourceMap?: boolean;
             minimize?: boolean;
             publicUrl?: string;
             fileNames?: Output.FileNames;
             target?:
-                | "web"
-                | "electron"
-                | "electron-renderer"
-                | "electron-main"
-                | "node"
-                | "node-webkit"
-                | "async-node"
-                | "webworker";
+                | 'web'
+                | 'electron'
+                | 'electron-renderer'
+                | 'electron-main'
+                | 'node'
+                | 'node-webkit'
+                | 'async-node'
+                | 'webworker';
             html?: Output.Html;
         }
         namespace Output {
@@ -132,10 +132,10 @@ declare namespace PoiCore {
         interface Pages {
             [pageName: string]:
                 | string
-                | Partial<HtmlWebpackPluginOptions> & {
+                | (Partial<HtmlWebpackPluginOptions> & {
                       entry: string;
                       chunks?: string[];
-                  };
+                  });
         }
 
         interface Babel {
@@ -182,9 +182,7 @@ declare namespace PoiCore {
             (config: WebpackChainConfig, opts: Opts): void;
         }
 
-        type ConfigureWebpack =
-            | WebpackConfig
-            | ((config: WebpackConfig, opts: Opts) => void | WebpackConfig);
+        type ConfigureWebpack = WebpackConfig | ((config: WebpackConfig, opts: Opts) => void | WebpackConfig);
 
         type PublicFolder = string | boolean;
 
@@ -194,13 +192,13 @@ declare namespace PoiCore {
             hot?: boolean;
             hotOnly?: boolean;
             hotEntries?: string[];
-            historyApiFallback?: WebpackDevServerConfig["historyApiFallback"];
+            historyApiFallback?: WebpackDevServerConfig['historyApiFallback'];
             open?: boolean;
-            proxy?: string | WebpackDevServerConfig["proxy"];
-            https?: WebpackDevServerConfig["https"];
-            before?: WebpackDevServerConfig["before"];
-            after?: WebpackDevServerConfig["after"];
-            headers?: WebpackDevServerConfig["headers"];
+            proxy?: string | WebpackDevServerConfig['proxy'];
+            https?: WebpackDevServerConfig['https'];
+            before?: WebpackDevServerConfig['before'];
+            after?: WebpackDevServerConfig['after'];
+            headers?: WebpackDevServerConfig['headers'];
         }
 
         interface PluginOption {
@@ -211,18 +209,10 @@ declare namespace PoiCore {
     }
 
     interface ConfigLoader {
-        resolve(
-            files?: ReadonlyArray<string>,
-            cwd?: string,
-            stopDir?: string
-        ): string | null;
+        resolve(files?: ReadonlyArray<string>, cwd?: string, stopDir?: string): string | null;
         resolve(options?: ConfigLoader.Options): string | null;
 
-        load(
-            files?: ReadonlyArray<string>,
-            cwd?: string,
-            stopDir?: string
-        ): any;
+        load(files?: ReadonlyArray<string>, cwd?: string, stopDir?: string): any;
         load(options?: ConfigLoader.Options): any;
     }
     namespace ConfigLoader {

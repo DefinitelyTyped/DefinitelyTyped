@@ -1,13 +1,17 @@
-import { WebContentsEventMapping, WindowResourceLoadFailedEvent, WindowResourceResponseReceivedEvent } from './webcontents';
+import {
+    WebContentsEventMapping,
+    WindowResourceLoadFailedEvent,
+    WindowResourceResponseReceivedEvent,
+} from './webcontents';
 import { WindowEvent, BaseEventMap } from './base';
 import { WindowNavigationRejectedEvent } from './window';
 import { CrashedEvent } from './application';
 export interface ViewEventMapping<Topic = string, Type = string> extends WebContentsEventMapping {
-    'attached': WindowEvent<Topic, Type>;
-    'created': WindowEvent<Topic, Type>;
-    'destroyed': WindowEvent<Topic, Type>;
-    'hidden': WindowEvent<Topic, Type>;
-    'shown': WindowEvent<Topic, Type>;
+    attached: WindowEvent<Topic, Type>;
+    created: WindowEvent<Topic, Type>;
+    destroyed: WindowEvent<Topic, Type>;
+    hidden: WindowEvent<Topic, Type>;
+    shown: WindowEvent<Topic, Type>;
     'target-changed': WindowEvent<Topic, Type>;
 }
 export interface PropagatedViewEventMapping<Topic = string, Type = string> extends BaseEventMap {

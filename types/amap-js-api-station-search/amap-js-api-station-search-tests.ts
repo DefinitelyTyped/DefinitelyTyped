@@ -6,7 +6,7 @@ new AMap.StationSearch({});
 const stationSearch = new AMap.StationSearch({
     pageIndex: 1,
     pageSize: 10,
-    city: '深圳'
+    city: '深圳',
 });
 
 stationSearch.search('keyword', (status, result) => {

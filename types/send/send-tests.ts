@@ -4,13 +4,13 @@ import send = require('send');
 var app = express();
 
 send.mime.define({
-  'application/x-my-type': ['x-mt', 'x-mtt']
+    'application/x-my-type': ['x-mt', 'x-mtt'],
 });
 
 app.get('/test.html', (req, res) => {
     send(req, '/test.html', {
         maxAge: 0,
-        root: __dirname + '/wwwroot'
+        root: __dirname + '/wwwroot',
     }).pipe(res);
 });
 

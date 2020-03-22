@@ -1,10 +1,9 @@
-
 import smtpTransport = require('nodemailer-smtp-transport');
 import nodemailer = require('nodemailer');
 
 var opts: smtpTransport.SmtpOptions = {
-	host: "localhost",
-	port: 25,
+    host: 'localhost',
+    port: 25,
     auth: {
         type: 'OAuth2',
         user: 'user@example.com',
@@ -18,7 +17,7 @@ var opts: smtpTransport.SmtpOptions = {
         serviceClient: '113600000000000000000',
         privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...',
     },
-    service: 'Gmail'
+    service: 'Gmail',
 };
 
 var transport: nodemailer.Transport = smtpTransport(opts);
@@ -29,9 +28,8 @@ var mailOptions: nodemailer.SendMailOptions = {
     to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
     subject: 'Hello ✔', // Subject line
     text: 'Hello world ✔', // plaintext body
-    html: '<b>Hello world ✔</b>' // html body
+    html: '<b>Hello world ✔</b>', // html body
 };
 transport.send(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
-	// nothing
+    // nothing
 });
-

@@ -7,5 +7,5 @@ declare namespace PanelBody {
         bsClass?: string;
     }
 }
-declare class PanelBody extends React.Component<PanelBody.PanelBodyProps> { }
+declare class PanelBody extends React.Component<PanelBody.PanelBodyProps> {}
 export = PanelBody;

@@ -5,5 +5,5 @@ declare namespace MediaHeading {
         componentClass?: React.ReactType;
     }
 }
-declare class MediaHeading extends React.Component<MediaHeading.MediaHeadingProps> { }
+declare class MediaHeading extends React.Component<MediaHeading.MediaHeadingProps> {}
 export = MediaHeading;

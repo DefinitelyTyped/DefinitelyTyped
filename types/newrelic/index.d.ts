@@ -412,9 +412,7 @@ export interface TransactionHandle {
     /**
      * Inserts distributed trace headers into the provided headers map.
      */
-    insertDistributedTraceHeaders(headers: {
-        [header: string]: number | string | string[] | undefined;
-    }): void;
+    insertDistributedTraceHeaders(headers: { [header: string]: number | string | string[] | undefined }): void;
 }
 
 export interface LinkingMetadata {

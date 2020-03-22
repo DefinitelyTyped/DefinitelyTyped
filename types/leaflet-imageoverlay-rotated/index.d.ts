@@ -9,10 +9,7 @@ import * as L from 'leaflet';
 declare module 'leaflet' {
     namespace ImageOverlay {
         interface Rotated extends ImageOverlay {
-            reposition(
-                topleft: LatLngExpression,
-                topright: LatLngExpression,
-                bottomleft: LatLngExpression): void;
+            reposition(topleft: LatLngExpression, topright: LatLngExpression, bottomleft: LatLngExpression): void;
         }
     }
 
@@ -22,6 +19,7 @@ declare module 'leaflet' {
             topleft: LatLngExpression,
             topright: LatLngExpression,
             bottomleft: LatLngExpression,
-            options?: ImageOverlayOptions): ImageOverlay.Rotated;
+            options?: ImageOverlayOptions,
+        ): ImageOverlay.Rotated;
     }
 }

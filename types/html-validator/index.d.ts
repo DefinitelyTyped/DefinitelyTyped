@@ -8,14 +8,14 @@
 
 declare function HtmlValidator(
     options:
-        HtmlValidator.OptionsForHtmlFileAsValidationTargetAndObjectAsResult |
-        HtmlValidator.OptionsForExternalUrlAsValidationTargetAndObjectAsResult
+        | HtmlValidator.OptionsForHtmlFileAsValidationTargetAndObjectAsResult
+        | HtmlValidator.OptionsForExternalUrlAsValidationTargetAndObjectAsResult,
 ): Promise<HtmlValidator.ParsedJsonAsValidationResults>;
 
 declare function HtmlValidator(
     options:
-        HtmlValidator.OptionsForHtmlFileAsValidationTargetAndTextAsResults |
-        HtmlValidator.OptionsForExternalUrlAsValidationTargetAndTextAsResults
+        | HtmlValidator.OptionsForHtmlFileAsValidationTargetAndTextAsResults
+        | HtmlValidator.OptionsForExternalUrlAsValidationTargetAndTextAsResults,
 ): Promise<string>;
 
 declare namespace HtmlValidator {
@@ -109,7 +109,12 @@ declare namespace HtmlValidator {
         subType?: 'internal' | 'io' | 'schema';
     }
 
-    type ValidationMessageSimpleObject = (ValidationMessageBasicErrorObject | ValidationMessageBasicInfoObject | ValidationMessageBasicNonDocumentErrorObject) & ValidationMessageBasicObject;
+    type ValidationMessageSimpleObject = (
+        | ValidationMessageBasicErrorObject
+        | ValidationMessageBasicInfoObject
+        | ValidationMessageBasicNonDocumentErrorObject
+    ) &
+        ValidationMessageBasicObject;
     type ValidationMessageLocationObject = ValidationMessageSimpleObject & ValidationMessageBasicLocationObject;
 
     type ValidationMessageObject = ValidationMessageSimpleObject | ValidationMessageLocationObject;

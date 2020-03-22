@@ -29,51 +29,33 @@ type ParseWithEachType =
 /**
  * Alias for `env.string(name, [fallback])`
  */
-declare function getenv(
-    name: string,
-    fallback?: string
-): ParseMappings['string'];
+declare function getenv(name: string, fallback?: string): ParseMappings['string'];
 
 declare namespace getenv {
     /**
      * Return as string.
      */
-    function string(
-        name: string,
-        fallback?: ParseMappings['string']
-    ): ParseMappings['string'];
+    function string(name: string, fallback?: ParseMappings['string']): ParseMappings['string'];
 
     /**
      * Return as integer number.
      */
-    function int(
-        name: string,
-        fallback?: ParseMappings['int']
-    ): ParseMappings['int'];
+    function int(name: string, fallback?: ParseMappings['int']): ParseMappings['int'];
 
     /**
      * Return as float number.
      */
-    function float(
-        name: string,
-        fallback?: ParseMappings['float']
-    ): ParseMappings['float'];
+    function float(name: string, fallback?: ParseMappings['float']): ParseMappings['float'];
 
     /**
      * Return as boolean. Only allows true/false as valid values.
      */
-    function bool(
-        name: string,
-        fallback?: ParseMappings['bool']
-    ): ParseMappings['bool'];
+    function bool(name: string, fallback?: ParseMappings['bool']): ParseMappings['bool'];
 
     /**
      * Return as boolean. Allows true/false/1/0 as valid values.
      */
-    function boolish(
-        name: string,
-        fallback?: ParseMappings['boolish']
-    ): ParseMappings['boolish'];
+    function boolish(name: string, fallback?: ParseMappings['boolish']): ParseMappings['boolish'];
 
     /**
      * Split value of the environment variable at each comma and return the resulting array
@@ -83,7 +65,7 @@ declare namespace getenv {
     function array<T extends ParseTypes = 'string'>(
         name: string,
         type?: T,
-        fallback?: Array<ParseMappings[T]>
+        fallback?: Array<ParseMappings[T]>,
     ): Array<ParseMappings[T]>;
 
     /**
@@ -102,20 +84,15 @@ declare namespace getenv {
             [k: string]: string | ParseWithFallback | ParseWithEachType;
         }
     >(
-        spec: S
+        spec: S,
     ): {
-        [P in keyof S]: S[P][2] extends ParseTypes
-            ? ParseMappings[S[P][2]]
-            : string
+        [P in keyof S]: S[P][2] extends ParseTypes ? ParseMappings[S[P][2]] : string;
     };
 
     /**
      * Return a parsed URL as per Node's `require("url").parse`. N.B `url` doesn't validate URLs, so be sure it includes a protocol or you'll get deeply weird results.
      */
-    function url(
-        name: string,
-        fallback?: ParseMappings['url']
-    ): ParseMappings['url'];
+    function url(name: string, fallback?: ParseMappings['url']): ParseMappings['url'];
 
     /**
      * Disallows fallbacks in environments where you don't want to rely on brittle development

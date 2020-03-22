@@ -1,2 +1,2 @@
-import { multiply } from "lodash";
+import { multiply } from 'lodash';
 export default multiply;

@@ -172,6 +172,6 @@ export class Collection extends PureComponent<CollectionProps> {
     cellRenderers(
         params: {
             isScrolling: boolean;
-        } & SizeInfo
+        } & SizeInfo,
     ): React.ReactNode[];
 }

@@ -13,5 +13,7 @@ interface MatchState extends Router.RouterState {
     router: Router;
     createElement: (component: Router.RouteComponent, props: Object) => any;
 }
-export default function match(args: MatchArgs, cb: (error: any, nextLocation: H.Location, nextState: MatchState) => void): void;
-
+export default function match(
+    args: MatchArgs,
+    cb: (error: any, nextLocation: H.Location, nextState: MatchState) => void,
+): void;

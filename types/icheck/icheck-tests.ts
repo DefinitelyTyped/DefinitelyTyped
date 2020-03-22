@@ -2,7 +2,7 @@
 
 $('input').iCheck({
     labelHover: false,
-    cursor: true
+    cursor: true,
 });
 
 // customize all inputs (will search for checkboxes and radio buttons)
@@ -13,7 +13,7 @@ $('.block input').iCheck();
 
 // handle only checkboxes inside $('.test')
 $('.test input').iCheck({
-    handle: 'checkbox'
+    handle: 'checkbox',
 });
 
 // handle .vote class elements (will search inside the element, if it's not an input)

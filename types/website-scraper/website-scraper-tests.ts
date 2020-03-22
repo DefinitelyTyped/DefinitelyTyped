@@ -25,9 +25,9 @@ scraper({
         },
     },
 })
-    .then(function(result) {
+    .then(function (result) {
         console.log(result);
     })
-    .catch(function(err) {
+    .catch(function (err) {
         console.log(err);
     });

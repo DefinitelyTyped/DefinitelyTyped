@@ -1,5 +1,5 @@
-import { Component, ReactType, HTMLProps, ReactElement } from "react";
-import { TransitionActions, TransitionProps } from "./Transition";
+import { Component, ReactType, HTMLProps, ReactElement } from 'react';
+import { TransitionActions, TransitionProps } from './Transition';
 
 export interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div'>
     extends TransitionActions {
@@ -12,11 +12,11 @@ export interface ComponentTransitionGroupProps<T extends ReactType> extends Tran
 
 export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div', V extends ReactType = any> =
     | (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T])
-    | (ComponentTransitionGroupProps<V>) & {
+    | (ComponentTransitionGroupProps<V> & {
           children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
           childFactory?(child: ReactElement): ReactElement;
           [prop: string]: any;
-      };
+      });
 
 /**
  * The `<TransitionGroup>` component manages a set of `<Transition>` components

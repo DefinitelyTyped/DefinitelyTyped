@@ -57,7 +57,4 @@ export function sign(
  * @param [options] - Options for the verification
  * @returns A promise containing either an error or the decoded JSON Web Token string
  */
-export function verify(
-    token: string,
-    secretOrPublicKey: string | Buffer,
-): Promise<object | string>;
+export function verify(token: string, secretOrPublicKey: string | Buffer): Promise<object | string>;

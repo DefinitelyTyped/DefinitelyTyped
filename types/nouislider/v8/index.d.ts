@@ -16,10 +16,10 @@ declare namespace noUiSlider {
          */
         start: number | number[] | number[][];
         /**
-        * The connect setting can be used to control the bar between the handles,
-        * or the edges of the slider. Use "lower" to connect to the lower side,
-        * or "upper" to connect to the upper side. Setting true sets the bar between the handles.
-        */
+         * The connect setting can be used to control the bar between the handles,
+         * or the edges of the slider. Use "lower" to connect to the lower side,
+         * or "upper" to connect to the upper side. Setting true sets the bar between the handles.
+         */
         range: Object;
         /**
          * noUiSlider offers several ways to handle user interaction.
@@ -29,10 +29,10 @@ declare namespace noUiSlider {
          */
         connect?: string | boolean;
         /**
-        * When using two handles, the minimum distance between the handles can be set using the margin option.
-        * The margin value is relative to the value set in 'range'.
-        * This option is only available on standard linear sliders.
-        */
+         * When using two handles, the minimum distance between the handles can be set using the margin option.
+         * The margin value is relative to the value set in 'range'.
+         * This option is only available on standard linear sliders.
+         */
         margin?: number;
         /**
          * The limit option is the oposite of the margin option,
@@ -72,7 +72,7 @@ declare namespace noUiSlider {
          * See manual formatting to the right for usage information.
          * By default, noUiSlider will format output with 2 decimals.
          */
-        format?: Object | ((...args:any[]) => any);
+        format?: Object | ((...args: any[]) => any);
 
         /**
          * Allows you to generate points along the slider.
@@ -137,9 +137,8 @@ declare namespace noUiSlider {
          * Array for both one-handle and two-handle sliders. It contains the current slider values,
          * with formatting applied.
          */
-        (values: any[], handle: number, unencoded: number): void
+        (values: any[], handle: number, unencoded: number): void;
     }
-
 
     interface noUiSlider {
         /**
@@ -171,10 +170,10 @@ declare namespace noUiSlider {
     }
 
     interface Instance extends HTMLElement {
-        noUiSlider: noUiSlider
+        noUiSlider: noUiSlider;
     }
 }
 
-declare module "nouislider" {
+declare module 'nouislider' {
     export = noUiSlider;
 }

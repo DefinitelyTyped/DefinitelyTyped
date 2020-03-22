@@ -1,16 +1,20 @@
 import sane = require('sane');
 
-const watcher = sane('path/to/dir', {glob: ['**/*.js', '**/*.css']});
-sane('path/to/dir', {glob: '**/*.js'});
-sane('path/to/dir', {poll: true});
-sane('path/to/dir', {watchman: true});
-sane('path/to/dir', {fsevents: true});
-sane('path/to/dir', {watcher: ''});
-sane('path/to/dir', {dot: true});
-sane('path/to/dir', {ignored: ['', /./, (str) => true]});
-sane('path/to/dir', {ignored: ''});
-sane('path/to/dir', {ignored: /./});
-sane('path/to/dir', {ignored(str) { return true; }});
+const watcher = sane('path/to/dir', { glob: ['**/*.js', '**/*.css'] });
+sane('path/to/dir', { glob: '**/*.js' });
+sane('path/to/dir', { poll: true });
+sane('path/to/dir', { watchman: true });
+sane('path/to/dir', { fsevents: true });
+sane('path/to/dir', { watcher: '' });
+sane('path/to/dir', { dot: true });
+sane('path/to/dir', { ignored: ['', /./, (str) => true] });
+sane('path/to/dir', { ignored: '' });
+sane('path/to/dir', { ignored: /./ });
+sane('path/to/dir', {
+    ignored(str) {
+        return true;
+    },
+});
 // $ExpectType SaneWatcher
 watcher;
 

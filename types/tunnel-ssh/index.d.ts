@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node"/>
 
-import { Server } from "net";
+import { Server } from 'net';
 
 export = tunnel;
 
@@ -35,7 +35,11 @@ declare namespace tunnel {
         localHostname?: string;
         localUsername?: string;
         tryKeyboard?: boolean;
-        authHandler?: (methodsLeft: null | string[], partialSuccess: null | boolean, cb: (nextMethod: string) => void) => string;
+        authHandler?: (
+            methodsLeft: null | string[],
+            partialSuccess: null | boolean,
+            cb: (nextMethod: string) => void,
+        ) => string;
         keepaliveInterval?: number;
         keepaliveCountMax?: number;
         readyTimeout?: number;
@@ -48,7 +52,7 @@ declare namespace tunnel {
             hmac?: string[];
             compress?: string[];
         };
-        compress?: "force" | boolean;
+        compress?: 'force' | boolean;
         debug?: (info: string) => void;
     }
 }

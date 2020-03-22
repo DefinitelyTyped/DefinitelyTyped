@@ -521,77 +521,66 @@ declare module 'leaflet' {
          * for (const key in eventHandlers) { map.off(eventHandlers[key], LeafletFn); }
          */
         interface EventHandlers {
-          onCreated: typeof Event.CREATED;
-          onDeleted: typeof Event.DELETED;
-          onDeleteStart: typeof Event.DELETESTART;
-          onDeleteStop: typeof Event.DELETESTOP;
-          onDrawStart: typeof Event.DRAWSTART;
-          onDrawStop: typeof Event.DRAWSTOP;
-          onDrawVertex: typeof Event.DRAWVERTEX;
-          onEdited: typeof Event.EDITED;
-          onEditMove: typeof Event.EDITMOVE;
-          onEditResize: typeof Event.EDITRESIZE;
-          onEditStart: typeof Event.EDITSTART;
-          onEditStop: typeof Event.EDITSTOP;
-          onEditVertex: typeof Event.EDITVERTEX;
-          onMarkerContext: typeof Event.MARKERCONTEXT;
-          onToolbarClosed: typeof Event.TOOLBARCLOSED;
-          onToolbarOpened: typeof Event.TOOLBAROPENED;
+            onCreated: typeof Event.CREATED;
+            onDeleted: typeof Event.DELETED;
+            onDeleteStart: typeof Event.DELETESTART;
+            onDeleteStop: typeof Event.DELETESTOP;
+            onDrawStart: typeof Event.DRAWSTART;
+            onDrawStop: typeof Event.DRAWSTOP;
+            onDrawVertex: typeof Event.DRAWVERTEX;
+            onEdited: typeof Event.EDITED;
+            onEditMove: typeof Event.EDITMOVE;
+            onEditResize: typeof Event.EDITRESIZE;
+            onEditStart: typeof Event.EDITSTART;
+            onEditStop: typeof Event.EDITSTOP;
+            onEditVertex: typeof Event.EDITVERTEX;
+            onMarkerContext: typeof Event.MARKERCONTEXT;
+            onToolbarClosed: typeof Event.TOOLBARCLOSED;
+            onToolbarOpened: typeof Event.TOOLBAROPENED;
 
-          // Requires an index signature of type string to be properly useful
-          [key: string]: string;
+            // Requires an index signature of type string to be properly useful
+            [key: string]: string;
         }
 
         class Feature extends Handler {
             initialize(
                 map: DrawMap,
                 options:
-                    | DrawOptions.PolylineOptions | DrawOptions.PolygonOptions
-                    | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions
-                    | DrawOptions.EditHandlerOptions
+                    | DrawOptions.PolylineOptions
+                    | DrawOptions.PolygonOptions
+                    | DrawOptions.RectangleOptions
+                    | DrawOptions.MarkerOptions
+                    | DrawOptions.EditHandlerOptions,
             ): void;
 
             setOptions(
                 options:
-                    | DrawOptions.PolylineOptions | DrawOptions.PolygonOptions
-                    | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions
-                    | DrawOptions.EditHandlerOptions
+                    | DrawOptions.PolylineOptions
+                    | DrawOptions.PolygonOptions
+                    | DrawOptions.RectangleOptions
+                    | DrawOptions.MarkerOptions
+                    | DrawOptions.EditHandlerOptions,
             ): void;
         }
 
         class SimpleShape extends Feature {
-            constructor(
-                map: DrawMap,
-                options?: DrawOptions.SimpleShapeOptions
-            )
+            constructor(map: DrawMap, options?: DrawOptions.SimpleShapeOptions);
         }
 
         class Marker extends Feature {
-            constructor(
-                map: DrawMap,
-                options?: DrawOptions.MarkerOptions
-            )
+            constructor(map: DrawMap, options?: DrawOptions.MarkerOptions);
         }
 
         class CircleMarker extends Marker {
-            constructor(
-                map: DrawMap,
-                options?: DrawOptions.MarkerOptions
-            )
+            constructor(map: DrawMap, options?: DrawOptions.MarkerOptions);
         }
 
         class Circle extends SimpleShape {
-            constructor(
-                map: DrawMap,
-                options?: DrawOptions.CircleOptions
-            )
+            constructor(map: DrawMap, options?: DrawOptions.CircleOptions);
         }
 
         class Polyline extends Feature {
-            constructor(
-                map: DrawMap,
-                options?: DrawOptions.PolylineOptions
-            )
+            constructor(map: DrawMap, options?: DrawOptions.PolylineOptions);
 
             deleteLastVertex(): void;
 
@@ -601,17 +590,11 @@ declare module 'leaflet' {
         }
 
         class Rectangle extends SimpleShape {
-            constructor(
-                map: DrawMap,
-                options?: DrawOptions.RectangleOptions
-            )
+            constructor(map: DrawMap, options?: DrawOptions.RectangleOptions);
         }
 
         class Polygon extends Polyline {
-            constructor(
-                map: DrawMap,
-                options?: DrawOptions.PolygonOptions
-            )
+            constructor(map: DrawMap, options?: DrawOptions.PolygonOptions);
         }
 
         class Tooltip extends Class {
@@ -619,7 +602,7 @@ declare module 'leaflet' {
 
             dispose(): void;
 
-            updateContent(labelText?: { text: string, subtext?: string }): Tooltip;
+            updateContent(labelText?: { text: string; subtext?: string }): Tooltip;
 
             updatePosition(latlng: LatLng): Tooltip;
 
@@ -762,8 +745,11 @@ declare module 'leaflet' {
          * The value will be rounded as defined by the precision option object.
          */
         function readableDistance(
-            distance: number, isMetric?: boolean, isFeet?: boolean,
-            isNauticalMile?: boolean, precision?: PrecisionOptions
+            distance: number,
+            isMetric?: boolean,
+            isFeet?: boolean,
+            isNauticalMile?: boolean,
+            precision?: PrecisionOptions,
         ): string;
 
         /**

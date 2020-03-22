@@ -11,5 +11,5 @@ export interface SpinnerProps extends React.HTMLProps<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class Spinner<T = {[key: string]: any}> extends React.Component<SpinnerProps> {}
+declare class Spinner<T = { [key: string]: any }> extends React.Component<SpinnerProps> {}
 export default Spinner;

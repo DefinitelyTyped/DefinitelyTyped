@@ -10,5 +10,5 @@ export interface CardLinkProps extends React.HTMLAttributes<HTMLElement> {
     href?: string;
 }
 
-declare class CardLink<T = {[key: string]: any}> extends React.Component<CardLinkProps> {}
+declare class CardLink<T = { [key: string]: any }> extends React.Component<CardLinkProps> {}
 export default CardLink;

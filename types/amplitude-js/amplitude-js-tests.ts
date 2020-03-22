@@ -91,10 +91,7 @@ import amplitude = require('amplitude-js');
         .add('karma', 1)
         .setOnce('sign_up_date', '2016-03-31');
     identify = new amplitude.Identify().add('karma', 1).add('friends', 1);
-    identify = new amplitude.Identify()
-        .set('karma', 10)
-        .add('karma', 1)
-        .unset('karma');
+    identify = new amplitude.Identify().set('karma', 10).add('karma', 1).unset('karma');
     identify = new amplitude.Identify().append('ab-tests', 'new-user-tests');
     identify.append('some_list', [1, 2, 3, 4, 'values']);
     identify = new amplitude.Identify().prepend('ab-tests', 'new-user-tests');
@@ -113,14 +110,8 @@ import amplitude = require('amplitude-js');
         .setProductId('productIdentifier')
         .setPrice(10.99)
         .setEventProperties({ city: 'San Francisco' });
-    revenue = new amplitude.Revenue()
-        .setProductId('productIdentifier')
-        .setPrice(10.99)
-        .setQuantity(5);
-    revenue = new amplitude.Revenue()
-        .setProductId('productIdentifier')
-        .setPrice(10.99)
-        .setRevenueType('purchase');
+    revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setQuantity(5);
+    revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setRevenueType('purchase');
 
     identify = new client.Identify();
     revenue = new client.Revenue();

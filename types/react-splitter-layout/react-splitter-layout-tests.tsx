@@ -1,5 +1,5 @@
-import * as React from "react";
-import SplitterLayout, { SplitterLayoutProps } from "react-splitter-layout";
+import * as React from 'react';
+import SplitterLayout, { SplitterLayoutProps } from 'react-splitter-layout';
 
 export class SplitterLayoutTest extends React.PureComponent {
     render(): JSX.Element {

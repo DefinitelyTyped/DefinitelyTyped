@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Photos Library API v1 */
-    function load(name: "photoslibrary", version: "v1"): PromiseLike<void>;
-    function load(name: "photoslibrary", version: "v1", callback: () => any): void;
+    function load(name: 'photoslibrary', version: 'v1'): PromiseLike<void>;
+    function load(name: 'photoslibrary', version: 'v1', callback: () => any): void;
 
     namespace photoslibrary {
         interface AddEnrichmentToAlbumRequest {
@@ -98,8 +98,7 @@ declare namespace gapi.client {
             mediaItemIds?: string[];
         }
         // tslint:disable-next-line:no-empty-interface
-        interface BatchAddMediaItemsToAlbumResponse {
-        }
+        interface BatchAddMediaItemsToAlbumResponse {}
         interface BatchCreateMediaItemsRequest {
             /**
              * Identifier of the album where the media items are added. The media items
@@ -142,8 +141,7 @@ declare namespace gapi.client {
             mediaItemIds?: string[];
         }
         // tslint:disable-next-line:no-empty-interface
-        interface BatchRemoveMediaItemsFromAlbumResponse {
-        }
+        interface BatchRemoveMediaItemsFromAlbumResponse {}
         interface ContentFilter {
             /**
              * The set of categories which are not to be included in the media item search
@@ -257,8 +255,7 @@ declare namespace gapi.client {
             shareToken?: string;
         }
         // tslint:disable-next-line:no-empty-interface
-        interface LeaveSharedAlbumResponse {
-        }
+        interface LeaveSharedAlbumResponse {}
         interface ListAlbumsResponse {
             /**
              * Output only. List of albums shown in the Albums tab of the user's Google
@@ -539,11 +536,9 @@ declare namespace gapi.client {
             text?: string;
         }
         // tslint:disable-next-line:no-empty-interface
-        interface UnshareAlbumRequest {
-        }
+        interface UnshareAlbumRequest {}
         // tslint:disable-next-line:no-empty-interface
-        interface UnshareAlbumResponse {
-        }
+        interface UnshareAlbumResponse {}
         interface Video {
             /** Brand of the camera with which the video was taken. */
             cameraMake?: string;
@@ -558,7 +553,7 @@ declare namespace gapi.client {
             /** Adds an enrichment at a specified position in a defined album. */
             addEnrichment(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Identifier of the album where the enrichment is to be added. */
@@ -584,33 +579,35 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: AddEnrichmentToAlbumRequest;
             }): Request<AddEnrichmentToAlbumResponse>;
-            addEnrichment(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Identifier of the album where the enrichment is to be added. */
-                albumId: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: AddEnrichmentToAlbumRequest): Request<AddEnrichmentToAlbumResponse>;
+            addEnrichment(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Identifier of the album where the enrichment is to be added. */
+                    albumId: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: AddEnrichmentToAlbumRequest,
+            ): Request<AddEnrichmentToAlbumResponse>;
             /**
              * Adds one or more media items in a user's Google Photos library to
              * an album. The media items and albums must have been created by the
@@ -630,7 +627,7 @@ declare namespace gapi.client {
              */
             batchAddMediaItems(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -659,36 +656,38 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: BatchAddMediaItemsToAlbumRequest;
             }): Request<{}>;
-            batchAddMediaItems(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /**
-                 * Identifier of the Album that the
-                 * media items are added to.
-                 */
-                albumId: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: BatchAddMediaItemsToAlbumRequest): Request<{}>;
+            batchAddMediaItems(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /**
+                     * Identifier of the Album that the
+                     * media items are added to.
+                     */
+                    albumId: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: BatchAddMediaItemsToAlbumRequest,
+            ): Request<{}>;
             /**
              * Removes one or more media items from a specified album. The media items and
              * the album must have been created by the developer via the API.
@@ -703,7 +702,7 @@ declare namespace gapi.client {
              */
             batchRemoveMediaItems(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -732,40 +731,42 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: BatchRemoveMediaItemsFromAlbumRequest;
             }): Request<{}>;
-            batchRemoveMediaItems(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /**
-                 * Identifier of the Album that the media
-                 * items are to be removed from.
-                 */
-                albumId: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: BatchRemoveMediaItemsFromAlbumRequest): Request<{}>;
+            batchRemoveMediaItems(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /**
+                     * Identifier of the Album that the media
+                     * items are to be removed from.
+                     */
+                    albumId: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: BatchRemoveMediaItemsFromAlbumRequest,
+            ): Request<{}>;
             /** Creates an album in a user's Google Photos library. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -789,31 +790,33 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: CreateAlbumRequest;
             }): Request<Album>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: CreateAlbumRequest): Request<Album>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: CreateAlbumRequest,
+            ): Request<Album>;
             /**
              * Returns the album based on the specified `albumId`.
              * The `albumId` must be the ID of an album owned by the user or a shared
@@ -821,7 +824,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Identifier of the album to be requested. */
@@ -851,7 +854,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -899,7 +902,7 @@ declare namespace gapi.client {
              */
             share(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -928,36 +931,38 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: ShareAlbumRequest;
             }): Request<ShareAlbumResponse>;
-            share(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /**
-                 * Identifier of the album to be shared. This `albumId` must belong to an
-                 * album created by the developer.
-                 */
-                albumId: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: ShareAlbumRequest): Request<ShareAlbumResponse>;
+            share(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /**
+                     * Identifier of the album to be shared. This `albumId` must belong to an
+                     * album created by the developer.
+                     */
+                    albumId: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: ShareAlbumRequest,
+            ): Request<ShareAlbumResponse>;
             /**
              * Marks a previously shared album as private. This means that the album is
              * no longer shared and all the non-owners will lose access to the album. All
@@ -968,7 +973,7 @@ declare namespace gapi.client {
              */
             unshare(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -997,36 +1002,38 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: UnshareAlbumRequest;
             }): Request<{}>;
-            unshare(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /**
-                 * Identifier of the album to be unshared. This album id must belong to an
-                 * album created by the developer.
-                 */
-                albumId: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: UnshareAlbumRequest): Request<{}>;
+            unshare(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /**
+                     * Identifier of the album to be unshared. This album id must belong to an
+                     * album created by the developer.
+                     */
+                    albumId: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: UnshareAlbumRequest,
+            ): Request<{}>;
         }
         interface MediaItemsResource {
             /**
@@ -1052,7 +1059,7 @@ declare namespace gapi.client {
              */
             batchCreate(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1076,38 +1083,40 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: BatchCreateMediaItemsRequest;
             }): Request<BatchCreateMediaItemsResponse>;
-            batchCreate(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: BatchCreateMediaItemsRequest): Request<BatchCreateMediaItemsResponse>;
+            batchCreate(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: BatchCreateMediaItemsRequest,
+            ): Request<BatchCreateMediaItemsResponse>;
             /**
              * Returns the list of media items for the specified media item identifiers.
              * Items are returned in the same order as the supplied identifiers.
              */
             batchGet(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1138,7 +1147,7 @@ declare namespace gapi.client {
             /** Returns the media item for the specified media item identifier. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1165,7 +1174,7 @@ declare namespace gapi.client {
             /** List all media items from a user's Google Photos library. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1211,7 +1220,7 @@ declare namespace gapi.client {
              */
             search(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1235,37 +1244,39 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: SearchMediaItemsRequest;
             }): Request<SearchMediaItemsResponse>;
-            search(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: SearchMediaItemsRequest): Request<SearchMediaItemsResponse>;
+            search(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: SearchMediaItemsRequest,
+            ): Request<SearchMediaItemsResponse>;
         }
         interface SharedAlbumsResource {
             /** Returns the album based on the specified `shareToken`. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1292,7 +1303,7 @@ declare namespace gapi.client {
             /** Joins a shared album on behalf of the Google Photos user. */
             join(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1316,38 +1327,40 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: JoinSharedAlbumRequest;
             }): Request<JoinSharedAlbumResponse>;
-            join(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: JoinSharedAlbumRequest): Request<JoinSharedAlbumResponse>;
+            join(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: JoinSharedAlbumRequest,
+            ): Request<JoinSharedAlbumResponse>;
             /**
              * Leaves a previously-joined shared album on behalf of the Google Photos
              * user. The user must not own this album.
              */
             leave(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1371,38 +1384,40 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: LeaveSharedAlbumRequest;
             }): Request<{}>;
-            leave(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: LeaveSharedAlbumRequest): Request<{}>;
+            leave(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: LeaveSharedAlbumRequest,
+            ): Request<{}>;
             /**
              * Lists all shared albums available in the Sharing tab of the
              * user's Google Photos app.
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

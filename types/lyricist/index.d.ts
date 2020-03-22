@@ -7,7 +7,10 @@
 declare class Lyricist {
     constructor(accessToken: string);
 
-    album(id: number, opts?: { fetchTracklist?: boolean, textFormat?: Lyricist.LyricistTextFormat }): Promise<Lyricist.Album>;
+    album(
+        id: number,
+        opts?: { fetchTracklist?: boolean; textFormat?: Lyricist.LyricistTextFormat },
+    ): Promise<Lyricist.Album>;
 
     artist(id: number, opts: { textFormat?: Lyricist.LyricistTextFormat }): Promise<Lyricist.Artist>;
 
@@ -15,9 +18,15 @@ declare class Lyricist {
 
     search(query: string): Promise<Lyricist.SearchResult[]>;
 
-    song(id: number, opts?: { fetchLyrics?: boolean, textFormat?: Lyricist.LyricistTextFormat }): Promise<Lyricist.Song>;
+    song(
+        id: number,
+        opts?: { fetchLyrics?: boolean; textFormat?: Lyricist.LyricistTextFormat },
+    ): Promise<Lyricist.Song>;
 
-    songsByArtist(id: number, opts?: { page?: number, perPage?: number, sort?: 'asc' | 'desc' }): Promise<Lyricist.SongByArtist[]>;
+    songsByArtist(
+        id: number,
+        opts?: { page?: number; perPage?: number; sort?: 'asc' | 'desc' },
+    ): Promise<Lyricist.SongByArtist[]>;
 }
 
 declare namespace Lyricist {
@@ -250,7 +259,7 @@ declare namespace Lyricist {
         user?: any;
     }
 
-// Search ================================================
+    // Search ================================================
     interface SearchResult {
         annotation_count: number;
         api_path: string;

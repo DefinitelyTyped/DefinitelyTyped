@@ -19,13 +19,15 @@ export interface AddonParameters {
 export type AddWithJSXFunc<StoryFnReturnType> = (
     kind: string,
     fn: () => ReactNode,
-    options?: AddonParameters
+    options?: AddonParameters,
 ) => StoryApi<StoryFnReturnType>;
 
 declare module '@storybook/addons' {
     interface ClientStoryApi<StoryFnReturnType = unknown> {
-        storiesOf(kind: string, module: NodeModule): StoryApi<StoryFnReturnType> &
-            { addWithJSX: AddWithJSXFunc<StoryFnReturnType> };
+        storiesOf(
+            kind: string,
+            module: NodeModule,
+        ): StoryApi<StoryFnReturnType> & { addWithJSX: AddWithJSXFunc<StoryFnReturnType> };
         addDecorator(decorator: DecoratorFunction<StoryFnReturnType>): StoryApi<StoryFnReturnType>;
         addParameters(parameter: Parameters & { jsx: AddonParameters }): StoryApi<StoryFnReturnType>;
     }

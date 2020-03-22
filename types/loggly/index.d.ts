@@ -12,7 +12,7 @@ export declare interface LogglyOptions {
     auth?: {
         username: string;
         password: string;
-    }
+    };
 }
 
 declare interface SharedSearchOptions {

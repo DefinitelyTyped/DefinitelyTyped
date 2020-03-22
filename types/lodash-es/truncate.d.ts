@@ -1,2 +1,2 @@
-import { truncate } from "lodash";
+import { truncate } from 'lodash';
 export default truncate;

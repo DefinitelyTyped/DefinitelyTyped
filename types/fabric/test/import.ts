@@ -1,2 +1,2 @@
-import { fabric } from "fabric";
-new fabric.Canvas("C");
+import { fabric } from 'fabric';
+new fabric.Canvas('C');

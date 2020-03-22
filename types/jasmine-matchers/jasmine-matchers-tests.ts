@@ -23,18 +23,12 @@ describe('toBeArray', function () {
             expect(new Array()).toBeArray();
         });
         it('should pass for [1,"",{}]', function () {
-            expect([
-                1,
-                "",
-                {
-                }
-            ]).toBeArray();
+            expect([1, '', {}]).toBeArray();
         });
     });
     describe('.not matches', function () {
         it('should pass for {}', function () {
-            expect({
-            }).not.toBeArray();
+            expect({}).not.toBeArray();
         });
         it('should pass for `arguments`', function () {
             expect(arguments).not.toBeArray();
@@ -55,16 +49,14 @@ describe('toBeNumber', function () {
             expect('x').not.toBeNumber();
         });
         it('should pass for function(){}', function () {
-            expect(function () {
-            }).not.toBeNumber();
+            expect(function () {}).not.toBeNumber();
         });
     });
 });
 describe('toBeInstanceOf', function () {
     describe('matches', function () {
         it('should work for `function(){}` to be instance of `Function`', function () {
-            expect(function () {
-            }).toBeInstanceOf(Function);
+            expect(function () {}).toBeInstanceOf(Function);
         });
     });
 });
@@ -111,30 +103,18 @@ describe('toBeInRange', function () {
 describe('toBeOneOf', function () {
     describe('matches', function () {
         it('should find "a" in ["a", "b"]', function () {
-            expect('a').toBeOneOf([
-                'a',
-                'b'
-            ]);
+            expect('a').toBeOneOf(['a', 'b']);
         });
         it('should find "uxebu" in ["company", "uxebu"]', function () {
-            expect('uxebu').toBeOneOf([
-                'company',
-                'uxebu'
-            ]);
+            expect('uxebu').toBeOneOf(['company', 'uxebu']);
         });
     });
     describe('non-matches', function () {
         it('should not find "" in [" ", "0"]', function () {
-            expect('').not.toBeOneOf([
-                ' ',
-                '0'
-            ]);
+            expect('').not.toBeOneOf([' ', '0']);
         });
         it('should not find "a" in ["b", "c"]', function () {
-            expect('a').not.toBeOneOf([
-                'b',
-                'c'
-            ]);
+            expect('a').not.toBeOneOf(['b', 'c']);
         });
     });
 });
@@ -150,61 +130,36 @@ describe('toBeCloseToOneOf', function () {
         return oneDigitOff(actual, expected) || tenPercentOff(actual, expected);
     }
     function twoDecimalsOff(actual: any, expected: any) {
-        var lower = ((expected * 100) - 2) / 100;
-        var upper = ((expected * 100) + 2) / 100;
+        var lower = (expected * 100 - 2) / 100;
+        var upper = (expected * 100 + 2) / 100;
         return lower <= actual && upper >= actual;
     }
     describe('matches', function () {
         it('should say 7 is close to one of [8, 9]', function () {
-            expect(7).toBeCloseToOneOf([
-                8,
-                9
-            ], oneDigitOff);
+            expect(7).toBeCloseToOneOf([8, 9], oneDigitOff);
         });
         it('should say 2 is 10% off of one of [2.2, 1.0]', function () {
-            expect(2).toBeCloseToOneOf([
-                2.2,
-                1.0
-            ], tenPercentOff);
+            expect(2).toBeCloseToOneOf([2.2, 1.0], tenPercentOff);
         });
         it('should say 7 is close to one of [8, 9]', function () {
-            expect(7).toBeCloseToOneOf([
-                8,
-                9
-            ], oneDigitOrTenPercentOff);
+            expect(7).toBeCloseToOneOf([8, 9], oneDigitOrTenPercentOff);
         });
         it('should say 1.345 two decimals off of [1.325, 1.365]', function () {
-            expect(1.345).toBeCloseToOneOf([
-                1.325,
-                1.365
-            ], twoDecimalsOff);
+            expect(1.345).toBeCloseToOneOf([1.325, 1.365], twoDecimalsOff);
         });
     });
     describe('non-matches', function () {
         it('should say 7 is NOT one off of [9, 10, 11]', function () {
-            expect(7).not.toBeCloseToOneOf([
-                9,
-                10,
-                11
-            ], oneDigitOff);
+            expect(7).not.toBeCloseToOneOf([9, 10, 11], oneDigitOff);
         });
         it('should say 1 is close to one of [8, 9]', function () {
-            expect(1).not.toBeCloseToOneOf([
-                8,
-                9
-            ], oneDigitOrTenPercentOff);
+            expect(1).not.toBeCloseToOneOf([8, 9], oneDigitOrTenPercentOff);
         });
         it('should say 1.9 is NOT 10% off of one of [2.2, 1.0]', function () {
-            expect(1.9).not.toBeCloseToOneOf([
-                2.2,
-                1.0
-            ], tenPercentOff);
+            expect(1.9).not.toBeCloseToOneOf([2.2, 1.0], tenPercentOff);
         });
         it('should say 1.345 two decimals off of [1.325, 1.365]', function () {
-            expect(1.304).not.toBeCloseToOneOf([
-                1.325,
-                1.365
-            ], twoDecimalsOff);
+            expect(1.304).not.toBeCloseToOneOf([1.325, 1.365], twoDecimalsOff);
         });
     });
 });
@@ -212,10 +167,7 @@ describe('toBeCloseToOneOf', function () {
 describe('toContainOnce', function () {
     describe('matches', function () {
         it('should work for arrays', function () {
-            expect([
-                1,
-                2
-            ]).toContainOnce(1);
+            expect([1, 2]).toContainOnce(1);
         });
         it('should work for strings', function () {
             expect('uxebu rox').toContainOnce('uxebu');
@@ -223,10 +175,7 @@ describe('toContainOnce', function () {
     });
     describe('non-matches', function () {
         it('should work for arrays', function () {
-            expect([
-                1,
-                2
-            ]).not.toContainOnce(3);
+            expect([1, 2]).not.toContainOnce(3);
         });
         it('should work for strings', function () {
             expect('uxebu rox').not.toContainOnce('u');
@@ -241,12 +190,12 @@ describe('toHaveLength', function () {
     describe('matches', function () {
         it('should work for `{length:2}`', function () {
             expect({
-                length: 2
+                length: 2,
             }).toHaveLength(2);
         });
         it('should work for `{length:null}`', function () {
             expect({
-                length: null
+                length: null,
             }).toHaveLength(null);
         });
     });
@@ -256,7 +205,7 @@ describe('toHaveProperties', function () {
         it('should work for `{x:0, y:undefined}`', function () {
             var obj: any = {
                 x: 0,
-                y: undefined
+                y: undefined,
             };
             expect(obj).toHaveProperties('x', 'y');
         });
@@ -267,12 +216,12 @@ describe('toHavePropertiesWithValues', function () {
         it('should work with a reference object', function () {
             var C: any = function C() {
                 this.x = 0;
-            }
+            };
             C.prototype.y = 'arbitrary';
             expect(new C()).toHavePropertiesWithValues({
                 x: 0,
                 y: 'arbitrary',
-                constructor: C
+                constructor: C,
             });
         });
     });
@@ -282,7 +231,7 @@ describe('toHaveOwnProperties', function () {
         it('should work for `{x:0, y:undefined}`', function () {
             var obj: any = {
                 x: 0,
-                y: undefined
+                y: undefined,
             };
             expect(obj).toHaveOwnProperties('x', 'y');
         });
@@ -293,10 +242,10 @@ describe('toHaveOwnPropertiesWithValues', function () {
         it('should work with a reference object', function () {
             expect({
                 x: 0,
-                y: 'arbitrary'
+                y: 'arbitrary',
             }).toHaveOwnPropertiesWithValues({
                 x: 0,
-                y: 'arbitrary'
+                y: 'arbitrary',
             });
         });
     });
@@ -321,14 +270,14 @@ describe('toExactlyHaveProperties', function () {
         it('should work for `{x:0, y:undefined}`', function () {
             var obj: any = {
                 x: 0,
-                y: undefined
+                y: undefined,
             };
             expect(obj).toExactlyHaveProperties('x', 'y');
         });
         it('should work in any order', function () {
             var obj: any = {
                 x: 0,
-                y: undefined
+                y: undefined,
             };
             expect(obj).toExactlyHaveProperties('y', 'x');
         });
@@ -337,14 +286,14 @@ describe('toExactlyHaveProperties', function () {
         it('should work for too many properties', function () {
             var obj: any = {
                 x: 0,
-                y: undefined
+                y: undefined,
             };
             expect(obj).not.toExactlyHaveProperties('x');
         });
         it('should work for missing properties', function () {
             var obj: any = {
                 x: 0,
-                y: undefined
+                y: undefined,
             };
             expect(obj).not.toExactlyHaveProperties('x', 'y', 'z');
         });
@@ -371,38 +320,18 @@ describe('toEndWith', function () {
     describe('with array', function () {
         describe('matches', function () {
             it('should work for string', function () {
-                expect([
-                    '1',
-                    '2'
-                ]).toEndWith('2');
+                expect(['1', '2']).toEndWith('2');
             });
             it('should work for array', function () {
-                expect([
-                    3,
-                    4,
-                    5
-                ]).toEndWith([
-                    4,
-                    5
-                ]);
+                expect([3, 4, 5]).toEndWith([4, 5]);
             });
         });
         describe('non-matches', function () {
             it('should work for string', function () {
-                expect([
-                    '1',
-                    '2'
-                ]).not.toEndWith('3');
+                expect(['1', '2']).not.toEndWith('3');
             });
             it('should work for array', function () {
-                expect([
-                    3,
-                    4,
-                    5
-                ]).not.toEndWith([
-                    3,
-                    4
-                ]);
+                expect([3, 4, 5]).not.toEndWith([3, 4]);
             });
         });
     });
@@ -410,60 +339,36 @@ describe('toEndWith', function () {
 describe('toEachEndWith', function () {
     describe('matches', function () {
         it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).toEachEndWith('e');
+            expect(['one']).toEachEndWith('e');
         });
         it('should work for array with multiple elements', function () {
-            expect([
-                'one',
-                'zwee',
-                'three'
-            ]).toEachEndWith('e');
+            expect(['one', 'zwee', 'three']).toEachEndWith('e');
         });
     });
     describe('non-matches', function () {
         it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).not.toEachEndWith('o');
+            expect(['one']).not.toEachEndWith('o');
         });
         it('should work for array with multiple elements', function () {
-            expect([
-                'one',
-                'zwei',
-                'three'
-            ]).not.toEachEndWith('e');
+            expect(['one', 'zwei', 'three']).not.toEachEndWith('e');
         });
     });
 });
 describe('toSomeEndWith', function () {
     describe('matches', function () {
         it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).toSomeEndWith('e');
+            expect(['one']).toSomeEndWith('e');
         });
         it('should work for array with multiple elements', function () {
-            expect([
-                'one',
-                'zwee',
-                'three'
-            ]).toSomeEndWith('ee');
+            expect(['one', 'zwee', 'three']).toSomeEndWith('ee');
         });
     });
     describe('non-matches', function () {
         it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).not.toSomeEndWith('o');
+            expect(['one']).not.toSomeEndWith('o');
         });
         it('should work for array with multiple elements', function () {
-            expect([
-                'one',
-                'zwei',
-                'three'
-            ]).not.toSomeEndWith('a');
+            expect(['one', 'zwei', 'three']).not.toSomeEndWith('a');
         });
     });
 });
@@ -487,38 +392,18 @@ describe('toStartWith', function () {
     describe('with array', function () {
         describe('matches', function () {
             it('should work for string', function () {
-                expect([
-                    '1',
-                    '2'
-                ]).toStartWith('1');
+                expect(['1', '2']).toStartWith('1');
             });
             it('should work for array', function () {
-                expect([
-                    3,
-                    4,
-                    5
-                ]).toStartWith([
-                    3,
-                    4
-                ]);
+                expect([3, 4, 5]).toStartWith([3, 4]);
             });
         });
         describe('non-matches', function () {
             it('should work for string', function () {
-                expect([
-                    '1',
-                    '2'
-                ]).not.toStartWith('3');
+                expect(['1', '2']).not.toStartWith('3');
             });
             it('should work for array', function () {
-                expect([
-                    3,
-                    4,
-                    5
-                ]).not.toStartWith([
-                    4,
-                    5
-                ]);
+                expect([3, 4, 5]).not.toStartWith([4, 5]);
             });
         });
     });
@@ -526,60 +411,36 @@ describe('toStartWith', function () {
 describe('toEachStartWith', function () {
     describe('matches', function () {
         it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).toEachStartWith('o');
+            expect(['one']).toEachStartWith('o');
         });
         it('should work for array with multiple elements', function () {
-            expect([
-                'one',
-                'onetwo',
-                'onethree'
-            ]).toEachStartWith('o');
+            expect(['one', 'onetwo', 'onethree']).toEachStartWith('o');
         });
     });
     describe('non-matches', function () {
         it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).not.toEachStartWith('e');
+            expect(['one']).not.toEachStartWith('e');
         });
         it('should work for array with multiple elements', function () {
-            expect([
-                'one',
-                'two',
-                'onethree'
-            ]).not.toEachStartWith('o');
+            expect(['one', 'two', 'onethree']).not.toEachStartWith('o');
         });
     });
 });
 describe('toSomeStartWith', function () {
     describe('matches', function () {
         it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).toSomeStartWith('o');
+            expect(['one']).toSomeStartWith('o');
         });
         it('should work for array with multiple elements', function () {
-            expect([
-                'one',
-                'onetwo',
-                'three'
-            ]).toSomeStartWith('one');
+            expect(['one', 'onetwo', 'three']).toSomeStartWith('one');
         });
     });
     describe('non-matches', function () {
         it('should work for array with one element', function () {
-            expect([
-                'one'
-            ]).not.toSomeStartWith('e');
+            expect(['one']).not.toSomeStartWith('e');
         });
         it('should work for array with multiple elements', function () {
-            expect([
-                'one',
-                'two',
-                'onethree'
-            ]).not.toSomeStartWith('a');
+            expect(['one', 'two', 'onethree']).not.toSomeStartWith('a');
         });
     });
 });
@@ -606,43 +467,18 @@ describe('toStartWithEither', function () {
     describe('with array', function () {
         describe('matches', function () {
             it('should work for string', function () {
-                expect([
-                    '1',
-                    '2'
-                ]).toStartWithEither('1', '2');
+                expect(['1', '2']).toStartWithEither('1', '2');
             });
             it('should work for array', function () {
-                expect([
-                    3,
-                    4,
-                    5
-                ]).toStartWithEither([
-                    4
-                ], [
-                    3,
-                    4
-                ]);
+                expect([3, 4, 5]).toStartWithEither([4], [3, 4]);
             });
         });
         describe('non-matches', function () {
             it('should work for string', function () {
-                expect([
-                    '1',
-                    '2'
-                ]).not.toStartWithEither('3');
+                expect(['1', '2']).not.toStartWithEither('3');
             });
             it('should work for array', function () {
-                expect([
-                    3,
-                    4,
-                    5
-                ]).not.toStartWithEither([
-                    5,
-                    6
-                ], [
-                    4,
-                    5
-                ]);
+                expect([3, 4, 5]).not.toStartWithEither([5, 6], [4, 5]);
             });
         });
     });

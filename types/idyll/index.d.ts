@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { EventEmitter } from "events";
-import { Options as CompilerOptions } from "idyll-compiler";
+import { EventEmitter } from 'events';
+import { Options as CompilerOptions } from 'idyll-compiler';
 
 interface Options {
     /**
@@ -88,20 +88,20 @@ interface Options {
 }
 
 type PredefinedFile =
-    | "APP_PATH"
-    | "CSS_INPUT_FILE"
-    | "DATA_DIR"
-    | "HTML_TEMPLATE_FILE"
-    | "IDYLL_INPUT_FILE"
-    | "INPUT_DIR"
-    | "PACKAGE_FILE"
-    | "OUTPUT_DIR"
-    | "TMP_DIR"
-    | "CSS_OUTPUT_FILE"
-    | "HTML_OUTPUT_FILE"
-    | "JS_OUTPUT_FILE";
+    | 'APP_PATH'
+    | 'CSS_INPUT_FILE'
+    | 'DATA_DIR'
+    | 'HTML_TEMPLATE_FILE'
+    | 'IDYLL_INPUT_FILE'
+    | 'INPUT_DIR'
+    | 'PACKAGE_FILE'
+    | 'OUTPUT_DIR'
+    | 'TMP_DIR'
+    | 'CSS_OUTPUT_FILE'
+    | 'HTML_OUTPUT_FILE'
+    | 'JS_OUTPUT_FILE';
 
-type ComponentFiles = "COMPONENT_DIRS" | "DEFAULT_COMPONENT_DIRS";
+type ComponentFiles = 'COMPONENT_DIRS' | 'DEFAULT_COMPONENT_DIRS';
 
 type Paths = Record<PredefinedFile, string> & Record<ComponentFiles, string[]>;
 

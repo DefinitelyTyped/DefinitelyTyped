@@ -1,4 +1,4 @@
-import inquirer = require("../..");
+import inquirer = require('../..');
 
 /**
  * Represents a choice-item separator.
@@ -7,7 +7,7 @@ declare class Separator implements inquirer.ChoiceBase, inquirer.SeparatorOption
     /**
      * @inheritdoc
      */
-    readonly type: "separator";
+    readonly type: 'separator';
 
     /**
      * @inheritdoc

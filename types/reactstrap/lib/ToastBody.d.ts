@@ -9,5 +9,5 @@ export interface ToastBodyProps extends React.HTMLAttributes<HTMLElement> {
     innerRef?: React.Ref<HTMLElement>;
 }
 
-declare class ToastBody<T = {[key: string]: any}> extends React.Component<ToastBodyProps> {}
+declare class ToastBody<T = { [key: string]: any }> extends React.Component<ToastBodyProps> {}
 export default ToastBody;

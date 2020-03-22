@@ -16,9 +16,16 @@
 export as namespace ReactDOM;
 
 import {
-    ReactInstance, Component, ComponentState,
-    ReactElement, SFCElement, CElement,
-    DOMAttributes, DOMElement, ReactNode, ReactPortal
+    ReactInstance,
+    Component,
+    ComponentState,
+    ReactElement,
+    SFCElement,
+    CElement,
+    DOMAttributes,
+    DOMElement,
+    ReactNode,
+    ReactPortal,
 } from 'react';
 
 export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
@@ -38,61 +45,50 @@ export function unstable_renderSubtreeIntoContainer<T extends Element>(
     parentComponent: Component<any>,
     element: DOMElement<DOMAttributes<T>, T>,
     container: Element,
-    callback?: (element: T) => any): T;
+    callback?: (element: T) => any,
+): T;
 export function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState>>(
     parentComponent: Component<any>,
     element: CElement<P, T>,
     container: Element,
-    callback?: (component: T) => any): T;
+    callback?: (component: T) => any,
+): T;
 export function unstable_renderSubtreeIntoContainer<P>(
     parentComponent: Component<any>,
     element: ReactElement<P>,
     container: Element,
-    callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
+    callback?: (component?: Component<P, ComponentState> | Element) => any,
+): Component<P, ComponentState> | Element | void;
 
 export interface Renderer {
     // Deprecated(render): The return value is deprecated.
     // In future releases the render function's return type will be void.
 
-    <T extends Element>(
-        element: DOMElement<DOMAttributes<T>, T>,
-        container: Element | null,
-        callback?: () => void
-    ): T;
+    <T extends Element>(element: DOMElement<DOMAttributes<T>, T>, container: Element | null, callback?: () => void): T;
 
-    (
-        element: Array<DOMElement<DOMAttributes<any>, any>>,
-        container: Element | null,
-        callback?: () => void
-    ): Element;
+    (element: Array<DOMElement<DOMAttributes<any>, any>>, container: Element | null, callback?: () => void): Element;
 
-    (
-        element: SFCElement<any> | Array<SFCElement<any>>,
-        container: Element | null,
-        callback?: () => void
-    ): void;
+    (element: SFCElement<any> | Array<SFCElement<any>>, container: Element | null, callback?: () => void): void;
 
     <P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         container: Element | null,
-        callback?: () => void
+        callback?: () => void,
     ): T;
 
     (
         element: Array<CElement<any, Component<any, ComponentState>>>,
         container: Element | null,
-        callback?: () => void
+        callback?: () => void,
     ): Component<any, ComponentState>;
 
-    <P>(
-        element: ReactElement<P>,
-        container: Element | null,
-        callback?: () => void
-    ): Component<P, ComponentState> | Element | void;
+    <P>(element: ReactElement<P>, container: Element | null, callback?: () => void):
+        | Component<P, ComponentState>
+        | Element
+        | void;
 
-    (
-        element: ReactElement[],
-        container: Element | null,
-        callback?: () => void
-    ): Component<any, ComponentState> | Element | void;
+    (element: ReactElement[], container: Element | null, callback?: () => void):
+        | Component<any, ComponentState>
+        | Element
+        | void;
 }

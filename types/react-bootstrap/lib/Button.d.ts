@@ -12,5 +12,5 @@ declare namespace Button {
         disabled?: boolean;
     }
 }
-declare class Button extends React.Component<Button.ButtonProps> { }
+declare class Button extends React.Component<Button.ButtonProps> {}
 export = Button;

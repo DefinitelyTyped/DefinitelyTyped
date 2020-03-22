@@ -1,15 +1,16 @@
-const gDagre = new dagre.graphlib.Graph({compound: true, multigraph: false});
-gDagre.setGraph({})
-  .setDefaultEdgeLabel(() => ({}))
-  .setDefaultNodeLabel(() => ({}))
-  .setNode("a", {})
-  .setEdge("b", "c")
-  .setEdge("c", "d", {class: "class"});
+const gDagre = new dagre.graphlib.Graph({ compound: true, multigraph: false });
+gDagre
+    .setGraph({})
+    .setDefaultEdgeLabel(() => ({}))
+    .setDefaultNodeLabel(() => ({}))
+    .setNode('a', {})
+    .setEdge('b', 'c')
+    .setEdge('c', 'd', { class: 'class' });
 
 dagre.layout(gDagre);
 
-gDagre.edge({v: 'b', w: 'c'});
-gDagre.hasEdge({v: 'b', w: 'c'});
+gDagre.edge({ v: 'b', w: 'c' });
+gDagre.hasEdge({ v: 'b', w: 'c' });
 gDagre.inEdges('c');
 gDagre.outEdges('c');
 

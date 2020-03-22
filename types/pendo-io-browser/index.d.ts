@@ -15,7 +15,7 @@ declare namespace pendo {
         [key: string]: string | number | boolean;
     }
 
-    type IdentityMetadata = { id?: string; } & Metadata;
+    type IdentityMetadata = { id?: string } & Metadata;
 
     interface InitOptions extends Identity {
         apiKey?: string;
@@ -28,7 +28,7 @@ declare namespace pendo {
             timeout?: number;
             tooltip?: {
                 arrowSize?: number;
-            }
+            };
         };
         events?: EventCallbacks;
     }
@@ -68,7 +68,7 @@ declare namespace pendo {
         // Debugging
         enableDebugging(): void;
         disableDebugging(): void;
-        isDebuggingEnabled(coerce?: false): "Yes" | "No";
+        isDebuggingEnabled(coerce?: false): 'Yes' | 'No';
         isDebuggingEnabled(coerce: true): boolean;
         debugging: Debugging;
 
@@ -81,7 +81,7 @@ declare namespace pendo {
         onGuideAdvanced(steps: { steps: number }): void;
         onGuidePrevious(step?: GuideStep): void;
         onGuideDismissed(step?: GuideStep): void;
-        onGuideDismissed(until: { until: "reload" }): void;
+        onGuideDismissed(until: { until: 'reload' }): void;
 
         // Other
         validateInstall(): void;
@@ -110,13 +110,13 @@ declare namespace pendo {
         stableVersionId: string;
         id: string;
         name: string;
-        state: "published" | "staged" | "draft" | "disabled";
-        launchMethod: "api" | "automatic" | "badge" | "dom" | "launcher";
+        state: 'published' | 'staged' | 'draft' | 'disabled';
+        launchMethod: 'api' | 'automatic' | 'badge' | 'dom' | 'launcher';
         isMultiStep: boolean;
         steps: GuideStep[];
         attributes: {
             type: string;
-            device: { desktop: boolean; mobile: boolean; type: "desktop" | "mobile" };
+            device: { desktop: boolean; mobile: boolean; type: 'desktop' | 'mobile' };
             badge: any; // TODO
             priority: number;
             launcher: { keywords: string[] };
@@ -146,7 +146,7 @@ declare namespace pendo {
         contentUrlCss?: string;
         contentUrlJs?: string;
         rank: number;
-        advanceMethod: "button" | "programatic" /* sic */ | "element";
+        advanceMethod: 'button' | 'programatic' | /* sic */ 'element';
         thumbnailUrls?: string;
         attributes: {
             height: number;

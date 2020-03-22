@@ -3,8 +3,6 @@
 // Definitions by: kruncher <https://github.com/kruncher>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
-
 interface ValidationError {
     field: string;
     message: string;

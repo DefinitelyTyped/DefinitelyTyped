@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     // camelCase
 
     interface LoDashStatic {
@@ -90,31 +90,21 @@ declare module "../index" {
          * @param position The position to search from.
          * @return Returns true if string ends with target, else false.
          */
-        endsWith(
-            string?: string,
-            target?: string,
-            position?: number
-        ): boolean;
+        endsWith(string?: string, target?: string, position?: number): boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.endsWith
          */
-        endsWith(
-            target?: string,
-            position?: number
-        ): boolean;
+        endsWith(target?: string, position?: number): boolean;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.endsWith
          */
-        endsWith(
-            target?: string,
-            position?: number
-        ): LoDashExplicitWrapper<boolean>;
+        endsWith(target?: string, position?: number): LoDashExplicitWrapper<boolean>;
     }
 
     // escape
@@ -271,31 +261,21 @@ declare module "../index" {
          * @param chars The string used as padding.
          * @return Returns the padded string.
          */
-        pad(
-            string?: string,
-            length?: number,
-            chars?: string
-        ): string;
+        pad(string?: string, length?: number, chars?: string): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.pad
          */
-        pad(
-            length?: number,
-            chars?: string
-        ): string;
+        pad(length?: number, chars?: string): string;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.pad
          */
-        pad(
-            length?: number,
-            chars?: string
-        ): LoDashExplicitWrapper<string>;
+        pad(length?: number, chars?: string): LoDashExplicitWrapper<string>;
     }
 
     // padEnd
@@ -310,31 +290,21 @@ declare module "../index" {
          * @param chars The string used as padding.
          * @return Returns the padded string.
          */
-        padEnd(
-            string?: string,
-            length?: number,
-            chars?: string
-        ): string;
+        padEnd(string?: string, length?: number, chars?: string): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.padEnd
          */
-        padEnd(
-            length?: number,
-            chars?: string
-        ): string;
+        padEnd(length?: number, chars?: string): string;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.padEnd
          */
-        padEnd(
-            length?: number,
-            chars?: string
-        ): LoDashExplicitWrapper<string>;
+        padEnd(length?: number, chars?: string): LoDashExplicitWrapper<string>;
     }
 
     // padStart
@@ -349,31 +319,21 @@ declare module "../index" {
          * @param chars The string used as padding.
          * @return Returns the padded string.
          */
-        padStart(
-            string?: string,
-            length?: number,
-            chars?: string
-        ): string;
+        padStart(string?: string, length?: number, chars?: string): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.padStart
          */
-        padStart(
-            length?: number,
-            chars?: string
-        ): string;
+        padStart(length?: number, chars?: string): string;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.padStart
          */
-        padStart(
-            length?: number,
-            chars?: string
-        ): LoDashExplicitWrapper<string>;
+        padStart(length?: number, chars?: string): LoDashExplicitWrapper<string>;
     }
 
     // parseInt
@@ -389,10 +349,7 @@ declare module "../index" {
          * @param radix The radix to interpret value by.
          * @return Returns the converted integer.
          */
-        parseInt(
-            string: string,
-            radix?: number
-        ): number;
+        parseInt(string: string, radix?: number): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -419,10 +376,7 @@ declare module "../index" {
          * @param n The number of times to repeat the string.
          * @return Returns the repeated string.
          */
-        repeat(
-            string?: string,
-            n?: number
-        ): string;
+        repeat(string?: string, n?: number): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -451,53 +405,36 @@ declare module "../index" {
          *
          * @return Returns the modified string.
          */
-        replace(
-            string: string,
-            pattern: RegExp | string,
-            replacement: ReplaceFunction | string
-        ): string;
+        replace(string: string, pattern: RegExp | string, replacement: ReplaceFunction | string): string;
 
         /**
          * @see _.replace
          */
-        replace(
-            pattern: RegExp | string,
-            replacement: ReplaceFunction | string
-        ): string;
+        replace(pattern: RegExp | string, replacement: ReplaceFunction | string): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.replace
          */
-        replace(
-            pattern: RegExp|string,
-            replacement: ReplaceFunction | string
-        ): string;
+        replace(pattern: RegExp | string, replacement: ReplaceFunction | string): string;
 
         /**
          * @see _.replace
          */
-        replace(
-            replacement: ReplaceFunction | string
-        ): string;
+        replace(replacement: ReplaceFunction | string): string;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.replace
          */
-        replace(
-            pattern: RegExp | string,
-            replacement: ReplaceFunction | string
-        ): LoDashExplicitWrapper<string>;
+        replace(pattern: RegExp | string, replacement: ReplaceFunction | string): LoDashExplicitWrapper<string>;
 
         /**
          * @see _.replace
          */
-        replace(
-            replacement: ReplaceFunction | string
-        ): LoDashExplicitWrapper<string>;
+        replace(replacement: ReplaceFunction | string): LoDashExplicitWrapper<string>;
     }
 
     // snakeCase
@@ -539,11 +476,7 @@ declare module "../index" {
          * @param limit The length to truncate results to.
          * @return Returns the new array of string segments.
          */
-        split(
-            string: string,
-            separator?: RegExp|string,
-            limit?: number
-        ): string[];
+        split(string: string, separator?: RegExp | string, limit?: number): string[];
 
         /**
          * Splits string by separator.
@@ -555,31 +488,21 @@ declare module "../index" {
          * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
          * @return Returns the new array of string segments.
          */
-        split(
-            string: string,
-            index: string | number,
-            guard: object
-        ): string[];
+        split(string: string, index: string | number, guard: object): string[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.split
          */
-        split(
-            separator?: RegExp|string,
-            limit?: number
-        ): LoDashImplicitWrapper<string[]>;
+        split(separator?: RegExp | string, limit?: number): LoDashImplicitWrapper<string[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.split
          */
-        split(
-            separator?: RegExp|string,
-            limit?: number
-        ): LoDashExplicitWrapper<string[]>;
+        split(separator?: RegExp | string, limit?: number): LoDashExplicitWrapper<string[]>;
     }
 
     // startCase
@@ -619,31 +542,21 @@ declare module "../index" {
          * @param position The position to search from.
          * @return Returns true if string starts with target, else false.
          */
-        startsWith(
-            string?: string,
-            target?: string,
-            position?: number
-        ): boolean;
+        startsWith(string?: string, target?: string, position?: number): boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.startsWith
          */
-        startsWith(
-            target?: string,
-            position?: number
-        ): boolean;
+        startsWith(target?: string, position?: number): boolean;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.startsWith
          */
-        startsWith(
-            target?: string,
-            position?: number
-        ): LoDashExplicitWrapper<boolean>;
+        startsWith(target?: string, position?: number): LoDashExplicitWrapper<boolean>;
     }
 
     // template
@@ -687,10 +600,7 @@ declare module "../index" {
          * @param options.variable The data object variable name.
          * @return Returns the compiled template function.
          */
-        template(
-            string?: string,
-            options?: TemplateOptions
-        ): TemplateExecutor;
+        template(string?: string, options?: TemplateOptions): TemplateExecutor;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -769,10 +679,7 @@ declare module "../index" {
          * @param chars The characters to trim.
          * @return Returns the trimmed string.
          */
-        trim(
-            string?: string,
-            chars?: string
-        ): string;
+        trim(string?: string, chars?: string): string;
 
         /**
          * Removes leading and trailing whitespace or specified characters from string.
@@ -782,11 +689,7 @@ declare module "../index" {
          * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
          * @return Returns the trimmed string.
          */
-        trim(
-            string: string,
-            index: string | number,
-            guard: object
-        ): string;
+        trim(string: string, index: string | number, guard: object): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -813,10 +716,7 @@ declare module "../index" {
          * @param chars The characters to trim.
          * @return Returns the trimmed string.
          */
-        trimEnd(
-            string?: string,
-            chars?: string
-        ): string;
+        trimEnd(string?: string, chars?: string): string;
 
         /**
          * Removes trailing whitespace or specified characters from string.
@@ -826,11 +726,7 @@ declare module "../index" {
          * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
          * @return Returns the trimmed string.
          */
-        trimEnd(
-            string: string,
-            index: string | number,
-            guard: object
-        ): string;
+        trimEnd(string: string, index: string | number, guard: object): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -857,10 +753,7 @@ declare module "../index" {
          * @param chars The characters to trim.
          * @return Returns the trimmed string.
          */
-        trimStart(
-            string?: string,
-            chars?: string
-        ): string;
+        trimStart(string?: string, chars?: string): string;
 
         /**
          * Removes leading whitespace or specified characters from string.
@@ -870,11 +763,7 @@ declare module "../index" {
          * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
          * @return Returns the trimmed string.
          */
-        trimStart(
-            string: string,
-            index: string | number,
-            guard: object
-        ): string;
+        trimStart(string: string, index: string | number, guard: object): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -899,7 +788,7 @@ declare module "../index" {
         /** The string to indicate text is omitted. */
         omission?: string;
         /** The separator pattern to truncate to. */
-        separator?: string|RegExp;
+        separator?: string | RegExp;
     }
 
     interface LoDashStatic {
@@ -911,10 +800,7 @@ declare module "../index" {
          * @param options The options object or maximum string length.
          * @return Returns the truncated string.
          */
-        truncate(
-            string?: string,
-            options?: TruncateOptions
-        ): string;
+        truncate(string?: string, options?: TruncateOptions): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1023,10 +909,7 @@ declare module "../index" {
          * @param pattern The pattern to match words.
          * @return Returns the words of `string`.
          */
-        words(
-            string?: string,
-            pattern?: string|RegExp
-        ): string[];
+        words(string?: string, pattern?: string | RegExp): string[];
 
         /**
          * Splits `string` into an array of its words.
@@ -1036,24 +919,20 @@ declare module "../index" {
          * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
          * @return Returns the words of `string`.
          */
-        words(
-            string: string,
-            index: string | number,
-            guard: object
-        ): string[];
+        words(string: string, index: string | number, guard: object): string[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.words
          */
-        words(pattern?: string|RegExp): string[];
+        words(pattern?: string | RegExp): string[];
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.words
          */
-        words(pattern?: string|RegExp): LoDashExplicitWrapper<string[]>;
+        words(pattern?: string | RegExp): LoDashExplicitWrapper<string[]>;
     }
 }

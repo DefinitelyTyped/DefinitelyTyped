@@ -1,4 +1,4 @@
-import { FilterBox } from "./FilterBox";
+import { FilterBox } from './FilterBox';
 
 /**
  * Provides place-holders for different kinds of filter-boxes.

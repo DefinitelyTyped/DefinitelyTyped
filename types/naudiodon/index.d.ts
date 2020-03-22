@@ -48,8 +48,8 @@ interface AudioStream {
 export function getDevices(): Device[];
 
 export function getHostAPIs(): {
-    defaultHostAPI: number,
-    HostAPIs: HostAPI[]
+    defaultHostAPI: number;
+    HostAPIs: HostAPI[];
 };
 
 export const SampleFormatFloat32: number;
@@ -62,4 +62,4 @@ export function AudioIO(options: { inOptions: AudioOptions }): Readable & AudioS
 
 export function AudioIO(options: { outOptions: AudioOptions }): Writable & AudioStream;
 
-export function AudioIO(options: { inOptions: AudioOptions, outOptions: AudioOptions }): Duplex & AudioStream;
+export function AudioIO(options: { inOptions: AudioOptions; outOptions: AudioOptions }): Duplex & AudioStream;

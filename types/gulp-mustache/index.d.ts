@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Transform } from "stream";
+import { Transform } from 'stream';
 
 declare namespace GulpMustache {
     type View = Hash | string | undefined;
@@ -20,8 +20,10 @@ declare namespace GulpMustache {
     }
 }
 
-declare function GulpMustache(view: GulpMustache.View,
-                              options?: GulpMustache.Options,
-                              partials?: GulpMustache.Hash): Transform;
+declare function GulpMustache(
+    view: GulpMustache.View,
+    options?: GulpMustache.Options,
+    partials?: GulpMustache.Hash,
+): Transform;
 
 export = GulpMustache;

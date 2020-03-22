@@ -1,7 +1,7 @@
 import chmodr = require('chmodr');
 import { URL } from 'url';
 
-chmodr('', '', err => {
+chmodr('', '', (err) => {
     err; // $ExpectType ErrnoException
 });
 chmodr(new Buffer(''), '', () => {});

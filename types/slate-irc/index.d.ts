@@ -5,8 +5,7 @@
 
 /// <reference types="node" />
 
-
-import * as net from "net";
+import * as net from 'net';
 
 declare function IRC(socket: net.Socket): IRC.Client;
 
@@ -90,7 +89,7 @@ declare namespace IRC {
 
         join(channel: string, key?: string): void;
         part(channel: string, msg?: string): void;
-        names(channel: string, callback: (error: Error, names: { name: string; mode: string; }[]) => void): void;
+        names(channel: string, callback: (error: Error, names: { name: string; mode: string }[]) => void): void;
 
         away(message: string): void;
         topic(channel: string, topic: string): void;
@@ -101,18 +100,18 @@ declare namespace IRC {
         whois(target: string, mask: string, callback: Function): void;
 
         on(event: string, callback: Function): void;
-        on(event: "data", callback: (event: DataEvent) => void): void;
-        on(event: "welcome", callback: (name: string) => void): void;
-        on(event: "message", callback: (event: MessageEvent) => void): void;
-        on(event: "notice", callback: (event: MessageEvent) => void): void;
-        on(event: "motd", callback: (event: MOTDEvent) => void): void;
-        on(event: "topic", callback: (event: TopicEvent) => void): void;
-        on(event: "join", callback: (event: JoinEvent) => void): void;
-        on(event: "part", callback: (event: PartEvent) => void): void;
-        on(event: "nick", callback: (event: NickEvent) => void): void;
-        on(event: "mode", callback: (event: ModeEvent) => void): void;
-        on(event: "away", callback: (event: AwayEvent) => void): void;
-        on(event: "quit", callback: (event: QuitEvent) => void): void;
+        on(event: 'data', callback: (event: DataEvent) => void): void;
+        on(event: 'welcome', callback: (name: string) => void): void;
+        on(event: 'message', callback: (event: MessageEvent) => void): void;
+        on(event: 'notice', callback: (event: MessageEvent) => void): void;
+        on(event: 'motd', callback: (event: MOTDEvent) => void): void;
+        on(event: 'topic', callback: (event: TopicEvent) => void): void;
+        on(event: 'join', callback: (event: JoinEvent) => void): void;
+        on(event: 'part', callback: (event: PartEvent) => void): void;
+        on(event: 'nick', callback: (event: NickEvent) => void): void;
+        on(event: 'mode', callback: (event: ModeEvent) => void): void;
+        on(event: 'away', callback: (event: AwayEvent) => void): void;
+        on(event: 'quit', callback: (event: QuitEvent) => void): void;
     }
 }
 

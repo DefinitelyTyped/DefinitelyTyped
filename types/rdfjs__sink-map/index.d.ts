@@ -7,12 +7,15 @@ import { EventEmitter } from 'events';
 import { Sink } from 'rdf-js';
 
 declare namespace SinkMap {
-    interface SinkMap<InputStream extends EventEmitter, OutputStream extends EventEmitter> extends Map<string, Sink<InputStream, OutputStream>> {
+    interface SinkMap<InputStream extends EventEmitter, OutputStream extends EventEmitter>
+        extends Map<string, Sink<InputStream, OutputStream>> {
         import(mediaType: string, input: InputStream, options?: any): OutputStream | null;
     }
 }
 
-declare class SinkMap<InputStream extends EventEmitter, OutputStream extends EventEmitter> extends Map<string, Sink<InputStream, OutputStream>> implements SinkMap<InputStream, OutputStream> {
+declare class SinkMap<InputStream extends EventEmitter, OutputStream extends EventEmitter>
+    extends Map<string, Sink<InputStream, OutputStream>>
+    implements SinkMap<InputStream, OutputStream> {
     import(mediaType: string, input: InputStream, options?: any): OutputStream | null;
 }
 

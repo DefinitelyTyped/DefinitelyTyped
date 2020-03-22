@@ -20,9 +20,15 @@ interface Blob {
 interface Buffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
-    toJSON(): { type: 'Buffer', data: any[] };
+    toJSON(): { type: 'Buffer'; data: any[] };
     equals(otherBuffer: Buffer): boolean;
-    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
+    compare(
+        otherBuffer: Buffer,
+        targetStart?: number,
+        targetEnd?: number,
+        sourceStart?: number,
+        sourceEnd?: number,
+    ): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
@@ -89,10 +95,7 @@ interface EventEmitter {
     eventNames(): Array<string | symbol>;
 }
 
-type Fetch = (
-    url: string | Request,
-    opts?: RequestInit
-) => Promise<Response>;
+type Fetch = (url: string | Request, opts?: RequestInit) => Promise<Response>;
 
 declare namespace PouchDB {
     namespace Core {
@@ -117,7 +120,7 @@ declare namespace PouchDB {
         type AttachmentData = string | Blob | Buffer;
 
         interface Options {
-          fetch?: Fetch;
+            fetch?: Fetch;
         }
 
         interface BasicResponse {
@@ -239,18 +242,19 @@ declare namespace PouchDB {
 
         type NewDocument<Content extends {}> = Content;
         type Document<Content extends {}> = Content & IdMeta;
-        type ExistingDocument<Content extends {}> =
-                Document<Content> & RevisionIdMeta;
+        type ExistingDocument<Content extends {}> = Document<Content> & RevisionIdMeta;
 
         /** Existing doc or just object with `_id` and `_rev` */
         type RemoveDocument = IdMeta & RevisionIdMeta;
 
         type PostDocument<Content extends {}> = NewDocument<Content> & {
-            filters?: {[filterName: string]: string};
-            views?: {[viewName: string]: {
-                map: string,
-                reduce?: string
-            }};
+            filters?: { [filterName: string]: string };
+            views?: {
+                [viewName: string]: {
+                    map: string;
+                    reduce?: string;
+                };
+            };
 
             /** You can update an existing doc using _rev */
             _rev?: RevisionId;
@@ -258,9 +262,10 @@ declare namespace PouchDB {
             _attachments?: Attachments;
         };
 
-        type PutDocument<Content extends {}> = PostDocument<Content> & ChangesMeta & {
-            _id?: DocumentId;
-        };
+        type PutDocument<Content extends {}> = PostDocument<Content> &
+            ChangesMeta & {
+                _id?: DocumentId;
+            };
 
         interface AllDocsOptions extends Options {
             /**
@@ -342,7 +347,7 @@ declare namespace PouchDB {
                 value: {
                     rev: RevisionId;
                     deleted?: boolean;
-                }
+                };
             }>;
         }
 
@@ -359,8 +364,8 @@ declare namespace PouchDB {
 
         interface BulkGetResponse<Content extends {}> {
             results: Array<{
-                id: string,
-                docs: Array<{ ok: Content & GetMeta } | { error: Error }>
+                id: string;
+                docs: Array<{ ok: Content & GetMeta } | { error: Error }>;
             }>;
         }
 
@@ -427,7 +432,7 @@ declare namespace PouchDB {
              * where "bar" will be available in the filter function as params.query.foo.
              * To access the params, define your filter function like function (doc, params).
              */
-            query_params?: {[paramName: string]: any};
+            query_params?: { [paramName: string]: any };
 
             /**
              * Specify a view function (e.g. 'design_doc_name/view_name' or 'view_name' as shorthand for 'view_name/view_name') to act as a filter.
@@ -530,11 +535,11 @@ declare namespace PouchDB {
         }
 
         interface CompactOptions extends Options {
-          interval?: number;
+            interval?: number;
         }
 
         interface PutOptions extends Options {
-          force?: boolean;
+            force?: boolean;
         }
 
         interface RemoveAttachmentResponse extends BasicResponse {
@@ -608,8 +613,7 @@ declare namespace PouchDB {
             skip_setup?: boolean;
         }
 
-        type DatabaseConfiguration = LocalDatabaseConfiguration |
-                RemoteDatabaseConfiguration;
+        type DatabaseConfiguration = LocalDatabaseConfiguration | RemoteDatabaseConfiguration;
     }
 
     interface Static extends EventEmitter {
@@ -623,16 +627,18 @@ declare namespace PouchDB {
 
         debug: debug.IDebug;
 
-        new<Content extends {} = {}>(name?: string,
-                                     options?: Configuration.DatabaseConfiguration): Database<Content>;
+        new <Content extends {} = {}>(name?: string, options?: Configuration.DatabaseConfiguration): Database<Content>;
 
         /**
          * The returned object is a constructor function that works the same as PouchDB,
          * except that whenever you invoke it (e.g. with new), the given options will be passed in by default.
          */
-        defaults(options: Configuration.DatabaseConfiguration): {
-            new<Content extends {} = {}>(name?: string,
-                                         options?: Configuration.DatabaseConfiguration): Database<Content>;
+        defaults(
+            options: Configuration.DatabaseConfiguration,
+        ): {
+            new <Content extends {} = {}>(name?: string, options?: Configuration.DatabaseConfiguration): Database<
+                Content
+            >;
         };
     }
 
@@ -641,8 +647,13 @@ declare namespace PouchDB {
         name: string;
 
         /** Fetch all documents matching the given options. */
-        allDocs<Model>(options?: Core.AllDocsWithKeyOptions | Core.AllDocsWithKeysOptions | Core.AllDocsWithinRangeOptions | Core.AllDocsOptions):
-            Promise<Core.AllDocsResponse<Content & Model>>;
+        allDocs<Model>(
+            options?:
+                | Core.AllDocsWithKeyOptions
+                | Core.AllDocsWithKeysOptions
+                | Core.AllDocsWithinRangeOptions
+                | Core.AllDocsOptions,
+        ): Promise<Core.AllDocsResponse<Content & Model>>;
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
@@ -651,9 +662,11 @@ declare namespace PouchDB {
          * which should match the ID and revision of the document on which to base your updates.
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
-        bulkDocs<Model>(docs: Array<Core.PutDocument<Content & Model>>,
-                        options: Core.BulkDocsOptions | null,
-                        callback: Core.Callback<Array<Core.Response | Core.Error>>): void;
+        bulkDocs<Model>(
+            docs: Array<Core.PutDocument<Content & Model>>,
+            options: Core.BulkDocsOptions | null,
+            callback: Core.Callback<Array<Core.Response | Core.Error>>,
+        ): void;
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
@@ -662,44 +675,48 @@ declare namespace PouchDB {
          * which should match the ID and revision of the document on which to base your updates.
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
-        bulkDocs<Model>(docs: Array<Core.PutDocument<Content & Model>>,
-                        options?: Core.BulkDocsOptions): Promise<Array<Core.Response | Core.Error >>;
+        bulkDocs<Model>(
+            docs: Array<Core.PutDocument<Content & Model>>,
+            options?: Core.BulkDocsOptions,
+        ): Promise<Array<Core.Response | Core.Error>>;
 
         /** Compact the database */
         compact(options?: Core.CompactOptions): Promise<Core.Response>;
 
         /** Compact the database */
-        compact(options: Core.CompactOptions,
-                callback: Core.Callback<Core.Response>): void;
+        compact(options: Core.CompactOptions, callback: Core.Callback<Core.Response>): void;
 
         /** Destroy the database */
-        destroy(options: Core.Options | null,
-                callback: Core.Callback<any>): void;
+        destroy(options: Core.Options | null, callback: Core.Callback<any>): void;
 
         /** Destroy the database */
         destroy(options?: Core.Options | null): Promise<void>;
 
         /** Fetch a document */
-        get<Model>(docId: Core.DocumentId,
-                   options: Core.GetOptions | null,
-                   callback: Core.Callback<Core.Document<Content & Model> & Core.GetMeta>
-                  ): void;
+        get<Model>(
+            docId: Core.DocumentId,
+            options: Core.GetOptions | null,
+            callback: Core.Callback<Core.Document<Content & Model> & Core.GetMeta>,
+        ): void;
 
         /** Fetch a document */
-        get<Model>(docId: Core.DocumentId,
-                   options: Core.GetOpenRevisions,
-                   callback: Core.Callback<Array<Core.Revision<Content & Model>>>
-                  ): void;
+        get<Model>(
+            docId: Core.DocumentId,
+            options: Core.GetOpenRevisions,
+            callback: Core.Callback<Array<Core.Revision<Content & Model>>>,
+        ): void;
 
         /** Fetch a document */
-        get<Model>(docId: Core.DocumentId,
-                   options?: Core.GetOptions
-                  ): Promise<Core.Document<Content & Model> & Core.GetMeta>;
+        get<Model>(
+            docId: Core.DocumentId,
+            options?: Core.GetOptions,
+        ): Promise<Core.Document<Content & Model> & Core.GetMeta>;
 
         /** Fetch a document */
-        get<Model>(docId: Core.DocumentId,
-                   options: Core.GetOpenRevisions
-                  ): Promise<Array<Core.Revision<Content & Model>>>;
+        get<Model>(
+            docId: Core.DocumentId,
+            options: Core.GetOpenRevisions,
+        ): Promise<Array<Core.Revision<Content & Model>>>;
 
         /**
          * Create a new document without providing an id.
@@ -710,9 +727,11 @@ declare namespace PouchDB {
          *
          * @see {@link https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html|PouchDB Pro Tips}
          */
-        post<Model>(doc: Core.PostDocument<Content & Model>,
-                    options: Core.Options | null,
-                    callback: Core.Callback<Core.Response>): void;
+        post<Model>(
+            doc: Core.PostDocument<Content & Model>,
+            options: Core.Options | null,
+            callback: Core.Callback<Core.Response>,
+        ): void;
 
         /**
          * Create a new document without providing an id.
@@ -723,8 +742,7 @@ declare namespace PouchDB {
          *
          * @see {@link https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html|PouchDB Pro Tips}
          */
-        post<Model>(doc: Core.PostDocument<Content & Model>,
-                    options?: Core.Options): Promise<Core.Response>;
+        post<Model>(doc: Core.PostDocument<Content & Model>, options?: Core.Options): Promise<Core.Response>;
 
         /**
          * Create a new document or update an existing document.
@@ -735,9 +753,11 @@ declare namespace PouchDB {
          * If you try to store non-JSON data (for instance Date objects) you may
          * see inconsistent results.
          */
-        put<Model>(doc: Core.PutDocument<Content & Model>,
-                   options: Core.PutOptions | null,
-                   callback: Core.Callback<Core.Response>): void;
+        put<Model>(
+            doc: Core.PutDocument<Content & Model>,
+            options: Core.PutOptions | null,
+            callback: Core.Callback<Core.Response>,
+        ): void;
 
         /**
          * Create a new document or update an existing document.
@@ -748,28 +768,24 @@ declare namespace PouchDB {
          * If you try to store non-JSON data (for instance Date objects) you may
          * see inconsistent results.
          */
-        put<Model>(doc: Core.PutDocument<Content & Model>,
-                   options?: Core.PutOptions): Promise<Core.Response>;
+        put<Model>(doc: Core.PutDocument<Content & Model>, options?: Core.PutOptions): Promise<Core.Response>;
 
         /** Remove a doc from the database */
-        remove(doc: Core.RemoveDocument,
-               options: Core.Options,
-               callback: Core.Callback<Core.Response>): void;
+        remove(doc: Core.RemoveDocument, options: Core.Options, callback: Core.Callback<Core.Response>): void;
 
         /** Remove a doc from the database */
-        remove(docId: Core.DocumentId,
-               revision: Core.RevisionId,
-               options: Core.Options,
-               callback: Core.Callback<Core.Response>): void;
+        remove(
+            docId: Core.DocumentId,
+            revision: Core.RevisionId,
+            options: Core.Options,
+            callback: Core.Callback<Core.Response>,
+        ): void;
 
         /** Remove a doc from the database */
-        remove(doc: Core.RemoveDocument,
-               options?: Core.Options): Promise<Core.Response>;
+        remove(doc: Core.RemoveDocument, options?: Core.Options): Promise<Core.Response>;
 
         /** Remove a doc from the database */
-        remove(docId: Core.DocumentId,
-               revision: Core.RevisionId,
-               options?: Core.Options): Promise<Core.Response>;
+        remove(docId: Core.DocumentId, revision: Core.RevisionId, options?: Core.Options): Promise<Core.Response>;
 
         /** Get database information */
         info(callback: Core.Callback<Core.DatabaseInfo>): void;
@@ -785,8 +801,10 @@ declare namespace PouchDB {
          * a 'complete' event when all the changes have been processed, and an 'error' event when an error occurs.
          * Calling cancel() will unsubscribe all event listeners automatically.
          */
-        changes<Model>(options: Core.ChangesOptions | null,
-                       callback: Core.Callback<Core.Changes<Content & Model>>): void;
+        changes<Model>(
+            options: Core.ChangesOptions | null,
+            callback: Core.Callback<Core.Changes<Content & Model>>,
+        ): void;
 
         /**
          * A list of changes made to documents in the database, in the order they were made.
@@ -809,82 +827,101 @@ declare namespace PouchDB {
          * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
          */
-        putAttachment(docId: Core.DocumentId,
-                      attachmentId: Core.AttachmentId,
-                      rev: Core.RevisionId,
-                      attachment: Core.AttachmentData,
-                      type: string,
-                      callback: Core.Callback<Core.Response>): void;
+        putAttachment(
+            docId: Core.DocumentId,
+            attachmentId: Core.AttachmentId,
+            rev: Core.RevisionId,
+            attachment: Core.AttachmentData,
+            type: string,
+            callback: Core.Callback<Core.Response>,
+        ): void;
 
-         /**
-          * Attaches a binary object to a document.
-          * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
-          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
-          */
-        putAttachment(docId: Core.DocumentId,
-                      attachmentId: Core.AttachmentId,
-                      rev: Core.RevisionId,
-                      attachment: Core.AttachmentData,
-                      type: string): Promise<Core.Response>;
+        /**
+         * Attaches a binary object to a document.
+         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
+         * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
+         */
+        putAttachment(
+            docId: Core.DocumentId,
+            attachmentId: Core.AttachmentId,
+            rev: Core.RevisionId,
+            attachment: Core.AttachmentData,
+            type: string,
+        ): Promise<Core.Response>;
 
-         /**
-          * Attaches a binary object to a document.
-          * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
-          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
-          */
-        putAttachment(docId: Core.DocumentId,
-                      attachmentId: Core.AttachmentId,
-                      attachment: Core.AttachmentData,
-                      type: string,
-                      callback: Core.Callback<Core.Response>): void;
+        /**
+         * Attaches a binary object to a document.
+         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
+         * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
+         */
+        putAttachment(
+            docId: Core.DocumentId,
+            attachmentId: Core.AttachmentId,
+            attachment: Core.AttachmentData,
+            type: string,
+            callback: Core.Callback<Core.Response>,
+        ): void;
 
-         /**
-          * Attaches a binary object to a document.
-          * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
-          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
-          */
-        putAttachment(docId: Core.DocumentId,
-                      attachmentId: Core.AttachmentId,
-                      attachment: Core.AttachmentData,
-                      type: string): Promise<Core.Response>;
-
-        /** Get attachment data */
-        getAttachment(docId: Core.DocumentId,
-                      attachmentId: Core.AttachmentId,
-                      options: { rev?: Core.RevisionId},
-                      callback: Core.Callback<Blob | Buffer>): void;
-
-        /** Get attachment data */
-        getAttachment(docId: Core.DocumentId,
-                      attachmentId: Core.AttachmentId,
-                      options?: { rev?: Core.RevisionId}): Promise<Blob | Buffer>;
+        /**
+         * Attaches a binary object to a document.
+         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
+         * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
+         */
+        putAttachment(
+            docId: Core.DocumentId,
+            attachmentId: Core.AttachmentId,
+            attachment: Core.AttachmentData,
+            type: string,
+        ): Promise<Core.Response>;
 
         /** Get attachment data */
-        getAttachment(docId: Core.DocumentId,
-                      attachmentId: Core.AttachmentId,
-                      callback: Core.Callback<Blob | Buffer>): void;
+        getAttachment(
+            docId: Core.DocumentId,
+            attachmentId: Core.AttachmentId,
+            options: { rev?: Core.RevisionId },
+            callback: Core.Callback<Blob | Buffer>,
+        ): void;
+
+        /** Get attachment data */
+        getAttachment(
+            docId: Core.DocumentId,
+            attachmentId: Core.AttachmentId,
+            options?: { rev?: Core.RevisionId },
+        ): Promise<Blob | Buffer>;
+
+        /** Get attachment data */
+        getAttachment(
+            docId: Core.DocumentId,
+            attachmentId: Core.AttachmentId,
+            callback: Core.Callback<Blob | Buffer>,
+        ): void;
 
         /** Delete an attachment from a doc. You must supply the rev of the existing doc. */
-        removeAttachment(docId: Core.DocumentId,
-                         attachmentId: Core.AttachmentId,
-                         rev: Core.RevisionId,
-                         callback: Core.Callback<Core.RemoveAttachmentResponse>): void;
+        removeAttachment(
+            docId: Core.DocumentId,
+            attachmentId: Core.AttachmentId,
+            rev: Core.RevisionId,
+            callback: Core.Callback<Core.RemoveAttachmentResponse>,
+        ): void;
 
         /** Delete an attachment from a doc. You must supply the rev of the existing doc. */
-        removeAttachment(docId: Core.DocumentId,
-                         attachmentId: Core.AttachmentId,
-                         rev: Core.RevisionId): Promise<Core.RemoveAttachmentResponse>;
+        removeAttachment(
+            docId: Core.DocumentId,
+            attachmentId: Core.AttachmentId,
+            rev: Core.RevisionId,
+        ): Promise<Core.RemoveAttachmentResponse>;
 
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
-        bulkGet<Model>(options: Core.BulkGetOptions,
-                       callback: Core.Callback<Core.BulkGetResponse<Content & Model>>): void;
+        bulkGet<Model>(
+            options: Core.BulkGetOptions,
+            callback: Core.Callback<Core.BulkGetResponse<Content & Model>>,
+        ): void;
 
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
         bulkGet<Model>(options: Core.BulkGetOptions): Promise<Core.BulkGetResponse<Content & Model>>;
 
         /** Given a set of document/revision IDs, returns the subset of those that do not correspond to revisions stored in the database */
-        revsDiff(diff: Core.RevisionDiffOptions,
-                 callback: Core.Callback<Core.RevisionDiffResponse>): void;
+        revsDiff(diff: Core.RevisionDiffOptions, callback: Core.Callback<Core.RevisionDiffResponse>): void;
 
         /** Given a set of document/revision IDs, returns the subset of those that do not correspond to revisions stored in the database */
         revsDiff(diff: Core.RevisionDiffOptions): Promise<Core.RevisionDiffResponse>;
@@ -893,8 +930,8 @@ declare namespace PouchDB {
 
 //
 declare module 'pouchdb-core' {
-  const PouchDb: PouchDB.Static;
-  export = PouchDb;
+    const PouchDb: PouchDB.Static;
+    export = PouchDb;
 }
 
 declare var PouchDB: PouchDB.Static;

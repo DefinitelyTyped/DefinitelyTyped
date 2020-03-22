@@ -4,29 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Dependency {
-  [packageName: string]: string;
+    [packageName: string]: string;
 }
 
 export interface FirstLevelDependency {
-  version: string;
-  resolved?: string;
-  dependencies?: Dependency;
+    version: string;
+    resolved?: string;
+    dependencies?: Dependency;
 }
 
 export interface LockFileObject {
-  [packageName: string]: FirstLevelDependency;
+    [packageName: string]: FirstLevelDependency;
 }
 
 export function parse(
-  file: string,
-  fileLoc?: string,
+    file: string,
+    fileLoc?: string,
 ): {
-  type: 'success' | 'merge' | 'conflict';
-  object: any;
+    type: 'success' | 'merge' | 'conflict';
+    object: any;
 };
 
-export function stringify(
-  json: any,
-  noHeader?: boolean,
-  enableVersions?: boolean,
-): string;
+export function stringify(json: any, noHeader?: boolean, enableVersions?: boolean): string;

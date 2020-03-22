@@ -9,13 +9,13 @@ export namespace Submodule {
         NONE = 1,
         UNTRACKED = 2,
         DIRTY = 3,
-        ALL = 4
+        ALL = 4,
     }
 
     const enum RECURSE {
         NO = 0,
         YES = 1,
-        ONDEMAND = 2
+        ONDEMAND = 2,
     }
 
     const enum STATUS {
@@ -32,7 +32,7 @@ export namespace Submodule {
         WD_MODIFIED = 1024,
         WD_INDEX_MODIFIED = 2048,
         WD_WD_MODIFIED = 4096,
-        WD_UNTRACKED = 8192
+        WD_UNTRACKED = 8192,
     }
 
     const enum UPDATE {
@@ -40,7 +40,7 @@ export namespace Submodule {
         REBASE = 2,
         MERGE = 3,
         NONE = 4,
-        DEFAULT = 0
+        DEFAULT = 0,
     }
 }
 

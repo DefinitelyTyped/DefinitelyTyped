@@ -7,7 +7,7 @@ namespace applicationTests {
         DMainCliCommand,
         Subsystem,
         runCli,
-        Application
+        Application,
     } = adone.app;
 
     namespace DApplicationTests {
@@ -21,24 +21,13 @@ namespace applicationTests {
         }
         {
             @DApplication({
-                name: "hello"
+                name: 'hello',
             })
             class App extends CliApplication {}
         }
         {
             @DApplication({
-                description: "hello"
-            })
-            class App extends CliApplication {}
-        }
-        {
-            @DApplication({
-                subsystems: [
-                    {
-                        name: "hello",
-                        subsystem: "a.js"
-                    }
-                ]
+                description: 'hello',
             })
             class App extends CliApplication {}
         }
@@ -46,20 +35,33 @@ namespace applicationTests {
             @DApplication({
                 subsystems: [
                     {
-                        name: "hello",
-                        subsystem: "a.js",
-                        transpile: true
-                    }
-                ]
+                        name: 'hello',
+                        subsystem: 'a.js',
+                    },
+                ],
             })
             class App extends CliApplication {}
         }
         {
             @DApplication({
-                commandsGroups: [{
-                    name: "a",
-                    description: "b"
-                }]
+                subsystems: [
+                    {
+                        name: 'hello',
+                        subsystem: 'a.js',
+                        transpile: true,
+                    },
+                ],
+            })
+            class App extends CliApplication {}
+        }
+        {
+            @DApplication({
+                commandsGroups: [
+                    {
+                        name: 'a',
+                        description: 'b',
+                    },
+                ],
             })
             class App extends CliApplication {}
         }
@@ -76,24 +78,13 @@ namespace applicationTests {
         }
         {
             @DSubsystem({
-                name: "hello"
+                name: 'hello',
             })
             class App extends Subsystem {}
         }
         {
             @DSubsystem({
-                description: "hello"
-            })
-            class App extends Subsystem {}
-        }
-        {
-            @DSubsystem({
-                subsystems: [
-                    {
-                        name: "hello",
-                        subsystem: "a.js"
-                    }
-                ]
+                description: 'hello',
             })
             class App extends Subsystem {}
         }
@@ -101,20 +92,33 @@ namespace applicationTests {
             @DSubsystem({
                 subsystems: [
                     {
-                        name: "hello",
-                        subsystem: "a.js",
-                        transpile: true
-                    }
-                ]
+                        name: 'hello',
+                        subsystem: 'a.js',
+                    },
+                ],
             })
             class App extends Subsystem {}
         }
         {
             @DSubsystem({
-                commandsGroups: [{
-                    name: "a",
-                    description: "b"
-                }]
+                subsystems: [
+                    {
+                        name: 'hello',
+                        subsystem: 'a.js',
+                        transpile: true,
+                    },
+                ],
+            })
+            class App extends Subsystem {}
+        }
+        {
+            @DSubsystem({
+                commandsGroups: [
+                    {
+                        name: 'a',
+                        description: 'b',
+                    },
+                ],
             })
             class App extends Subsystem {}
         }
@@ -142,7 +146,7 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DMainCliCommand({
-                    blindMode: true
+                    blindMode: true,
                 })
                 main() {}
             }
@@ -150,7 +154,7 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DMainCliCommand({
-                    description: "a"
+                    description: 'a',
                 })
                 main() {}
             }
@@ -158,7 +162,7 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DMainCliCommand({
-                    match: (arg) => arg.startsWith("hello")
+                    match: (arg) => arg.startsWith('hello'),
                 })
                 main() {}
             }
@@ -166,10 +170,12 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DMainCliCommand({
-                    optionsGroups: [{
-                        description: "a",
-                        name: "a"
-                    }]
+                    optionsGroups: [
+                        {
+                            description: 'a',
+                            name: 'a',
+                        },
+                    ],
                 })
                 main() {}
             }
@@ -179,7 +185,7 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: ["hello"]
+                        arguments: ['hello'],
                     })
                     main() {}
                 }
@@ -187,9 +193,11 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -197,9 +205,11 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: ["hello"]
-                        }]
+                        arguments: [
+                            {
+                                name: ['hello'],
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -207,10 +217,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "append"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'append',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -218,10 +230,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "count"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'count',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -229,10 +243,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "set"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'set',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -240,10 +256,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "store_const"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'store_const',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -251,10 +269,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "store_false"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'store_false',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -262,10 +282,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "store_true"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'store_true',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -273,10 +295,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "store"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'store',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -284,10 +308,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            appendChoicesHelpMessage: true
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                appendChoicesHelpMessage: true,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -295,10 +321,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            appendDefaultMessage: false
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                appendDefaultMessage: false,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -306,10 +334,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            default: null
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                default: null,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -317,10 +347,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            description: "hello"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                description: 'hello',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -328,10 +360,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            enabled: false
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                enabled: false,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -339,10 +373,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            help: "asd"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                help: 'asd',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -350,10 +386,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            holder: "a"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                holder: 'a',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -361,10 +399,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            holder: ["a"]
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                holder: ['a'],
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -372,10 +412,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            nargs: 1
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                nargs: 1,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -383,10 +425,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            nargs: "*"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                nargs: '*',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -394,10 +438,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            nargs: "+"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                nargs: '+',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -405,10 +451,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            nargs: "?"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                nargs: '?',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -416,10 +464,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            required: false
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                required: false,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -427,10 +477,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            type: String
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                type: String,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -438,12 +490,14 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            type: (x: string, i: number) => {
-                                return true;
-                            }
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                type: (x: string, i: number) => {
+                                    return true;
+                                },
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -451,12 +505,16 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            type: [(x: string, i: number) => {
-                                return true;
-                            }]
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                type: [
+                                    (x: string, i: number) => {
+                                        return true;
+                                    },
+                                ],
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -464,10 +522,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            type: [/^abc$/]
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                type: [/^abc$/],
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -475,12 +535,14 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            verify: (args, opts) => {
-                                return true;
-                            }
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                verify: (args, opts) => {
+                                    return true;
+                                },
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -491,7 +553,7 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: ["--hello"]
+                        options: ['--hello'],
                     })
                     main() {}
                 }
@@ -499,9 +561,11 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -509,9 +573,11 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: ["hello"]
-                        }]
+                        options: [
+                            {
+                                name: ['hello'],
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -519,10 +585,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "append"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'append',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -530,10 +598,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "count"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'count',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -541,10 +611,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "set"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'set',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -552,10 +624,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "store_const"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'store_const',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -563,10 +637,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "store_false"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'store_false',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -574,10 +650,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "store_true"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'store_true',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -585,10 +663,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "store"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'store',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -596,10 +676,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            appendChoicesHelpMessage: true
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                appendChoicesHelpMessage: true,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -607,10 +689,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            appendDefaultMessage: false
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                appendDefaultMessage: false,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -618,10 +702,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            default: null
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                default: null,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -629,10 +715,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            description: "hello"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                description: 'hello',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -640,10 +728,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            enabled: false
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                enabled: false,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -651,10 +741,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            help: "asd"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                help: 'asd',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -662,10 +754,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            holder: "a"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                holder: 'a',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -673,10 +767,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            holder: ["a"]
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                holder: ['a'],
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -684,10 +780,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            nargs: 1
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                nargs: 1,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -695,10 +793,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            nargs: "*"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                nargs: '*',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -706,10 +806,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            nargs: "+"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                nargs: '+',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -717,10 +819,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            nargs: "?"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                nargs: '?',
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -728,10 +832,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            required: false
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                required: false,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -739,10 +845,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            type: String
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                type: String,
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -750,12 +858,14 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            type: (x: string, i: number) => {
-                                return true;
-                            }
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                type: (x: string, i: number) => {
+                                    return true;
+                                },
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -763,12 +873,16 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            type: [(x: string, i: number) => {
-                                return true;
-                            }]
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                type: [
+                                    (x: string, i: number) => {
+                                        return true;
+                                    },
+                                ],
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -776,10 +890,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            type: [/^abc$/]
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                type: [/^abc$/],
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -787,12 +903,14 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            verify: (args, opts) => {
-                                return true;
-                            }
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                verify: (args, opts) => {
+                                    return true;
+                                },
+                            },
+                        ],
                     })
                     main() {}
                 }
@@ -822,7 +940,7 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DCliCommand({
-                    blindMode: true
+                    blindMode: true,
                 })
                 cmd() {}
             }
@@ -830,7 +948,7 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DCliCommand({
-                    description: "a"
+                    description: 'a',
                 })
                 cmd() {}
             }
@@ -838,7 +956,7 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DCliCommand({
-                    match: (arg) => arg.startsWith("hello")
+                    match: (arg) => arg.startsWith('hello'),
                 })
                 cmd() {}
             }
@@ -846,10 +964,12 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DCliCommand({
-                    optionsGroups: [{
-                        description: "a",
-                        name: "a"
-                    }]
+                    optionsGroups: [
+                        {
+                            description: 'a',
+                            name: 'a',
+                        },
+                    ],
                 })
                 cmd() {}
             }
@@ -857,7 +977,7 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DCliCommand({
-                    name: "cmdd"
+                    name: 'cmdd',
                 })
                 cmd() {}
             }
@@ -865,7 +985,7 @@ namespace applicationTests {
         {
             class App extends CliApplication {
                 @DCliCommand({
-                    group: "asdasd"
+                    group: 'asdasd',
                 })
                 cmd() {}
             }
@@ -875,7 +995,7 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: ["hello"]
+                        arguments: ['hello'],
                     })
                     cmd() {}
                 }
@@ -883,9 +1003,11 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -893,9 +1015,11 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: ["hello"]
-                        }]
+                        arguments: [
+                            {
+                                name: ['hello'],
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -903,10 +1027,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "append"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'append',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -914,10 +1040,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "count"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'count',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -925,10 +1053,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "set"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'set',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -936,10 +1066,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "store_const"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'store_const',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -947,10 +1079,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "store_false"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'store_false',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -958,10 +1092,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "store_true"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'store_true',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -969,10 +1105,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            action: "store"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                action: 'store',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -980,10 +1118,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            appendChoicesHelpMessage: true
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                appendChoicesHelpMessage: true,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -991,10 +1131,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            appendDefaultMessage: false
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                appendDefaultMessage: false,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1002,10 +1144,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            default: null
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                default: null,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1013,10 +1157,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            description: "hello"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                description: 'hello',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1024,10 +1170,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            enabled: false
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                enabled: false,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1035,10 +1183,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            help: "asd"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                help: 'asd',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1046,10 +1196,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            holder: "a"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                holder: 'a',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1057,10 +1209,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            holder: ["a"]
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                holder: ['a'],
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1068,10 +1222,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            nargs: 1
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                nargs: 1,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1079,10 +1235,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            nargs: "*"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                nargs: '*',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1090,10 +1248,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            nargs: "+"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                nargs: '+',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1101,10 +1261,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            nargs: "?"
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                nargs: '?',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1112,10 +1274,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            required: false
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                required: false,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1123,10 +1287,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            type: String
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                type: String,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1134,12 +1300,14 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            type: (x: string, i: number) => {
-                                return true;
-                            }
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                type: (x: string, i: number) => {
+                                    return true;
+                                },
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1147,12 +1315,16 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            type: [(x: string, i: number) => {
-                                return true;
-                            }]
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                type: [
+                                    (x: string, i: number) => {
+                                        return true;
+                                    },
+                                ],
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1160,10 +1332,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            type: [/^abc$/]
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                type: [/^abc$/],
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1171,12 +1345,14 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        arguments: [{
-                            name: "hello",
-                            verify: (args, opts) => {
-                                return true;
-                            }
-                        }]
+                        arguments: [
+                            {
+                                name: 'hello',
+                                verify: (args, opts) => {
+                                    return true;
+                                },
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1187,7 +1363,7 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: ["--hello"]
+                        options: ['--hello'],
                     })
                     cmd() {}
                 }
@@ -1195,9 +1371,11 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1205,9 +1383,11 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: ["hello"]
-                        }]
+                        options: [
+                            {
+                                name: ['hello'],
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1215,10 +1395,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "append"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'append',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1226,10 +1408,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "count"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'count',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1237,10 +1421,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "set"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'set',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1248,10 +1434,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "store_const"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'store_const',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1259,10 +1447,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "store_false"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'store_false',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1270,10 +1460,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "store_true"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'store_true',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1281,10 +1473,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            action: "store"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                action: 'store',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1292,10 +1486,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            appendChoicesHelpMessage: true
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                appendChoicesHelpMessage: true,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1303,10 +1499,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            appendDefaultMessage: false
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                appendDefaultMessage: false,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1314,10 +1512,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            default: null
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                default: null,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1325,10 +1525,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            description: "hello"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                description: 'hello',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1336,10 +1538,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            enabled: false
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                enabled: false,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1347,10 +1551,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            help: "asd"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                help: 'asd',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1358,10 +1564,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            holder: "a"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                holder: 'a',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1369,10 +1577,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            holder: ["a"]
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                holder: ['a'],
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1380,10 +1590,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            nargs: 1
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                nargs: 1,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1391,10 +1603,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            nargs: "*"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                nargs: '*',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1402,10 +1616,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            nargs: "+"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                nargs: '+',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1413,10 +1629,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            nargs: "?"
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                nargs: '?',
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1424,10 +1642,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            required: false
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                required: false,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1435,10 +1655,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            type: String
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                type: String,
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1446,12 +1668,14 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            type: (x: string, i: number) => {
-                                return true;
-                            }
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                type: (x: string, i: number) => {
+                                    return true;
+                                },
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1459,12 +1683,16 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            type: [(x: string, i: number) => {
-                                return true;
-                            }]
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                type: [
+                                    (x: string, i: number) => {
+                                        return true;
+                                    },
+                                ],
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1472,10 +1700,12 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DCliCommand({
-                        options: [{
-                            name: "--hello",
-                            type: [/^abc$/]
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                type: [/^abc$/],
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1483,12 +1713,14 @@ namespace applicationTests {
             {
                 class App extends CliApplication {
                     @DMainCliCommand({
-                        options: [{
-                            name: "--hello",
-                            verify: (args, opts) => {
-                                return true;
-                            }
-                        }]
+                        options: [
+                            {
+                                name: '--hello',
+                                verify: (args, opts) => {
+                                    return true;
+                                },
+                            },
+                        ],
                     })
                     cmd() {}
                 }
@@ -1512,32 +1744,35 @@ namespace applicationTests {
         new Subsystem().configureSubsystems().then(() => {});
         new Subsystem().uninitializeSubsystems().then(() => {});
         new Subsystem().reinitializeSubsystems().then(() => {});
-        new Subsystem().configureSubsystem("a").then(() => {});
-        new Subsystem().loadSubsystem("a").then(() => {});
+        new Subsystem().configureSubsystem('a').then(() => {});
+        new Subsystem().loadSubsystem('a').then(() => {});
         new Subsystem().loadSubsystem(new Subsystem()).then(() => {});
         new Subsystem().loadSubsystem(new Subsystem(), {}).then(() => {});
-        new Subsystem().loadSubsystem(new Subsystem(), { description: "a" }).then(() => {});
-        new Subsystem().loadSubsystem(new Subsystem(), { group: "a" }).then(() => {});
-        new Subsystem().loadSubsystem(new Subsystem(), { name: "a" }).then(() => {});
+        new Subsystem().loadSubsystem(new Subsystem(), { description: 'a' }).then(() => {});
+        new Subsystem().loadSubsystem(new Subsystem(), { group: 'a' }).then(() => {});
+        new Subsystem().loadSubsystem(new Subsystem(), { name: 'a' }).then(() => {});
         new Subsystem().loadSubsystem(new Subsystem(), { transpile: false }).then(() => {});
-        new Subsystem().unloadSubsystem("a").then(() => {});
-        new Subsystem().initializeSubsystem("a").then(() => {});
-        new Subsystem().uninitializeSubsystem("a").then(() => {});
-        new Subsystem().getSubsystem("a").waitForState(2).then(() => {});
-        new Subsystem().hasSubsystem("a") === true;
-        new Subsystem().hasSubsystem("a") === true;
+        new Subsystem().unloadSubsystem('a').then(() => {});
+        new Subsystem().initializeSubsystem('a').then(() => {});
+        new Subsystem().uninitializeSubsystem('a').then(() => {});
+        new Subsystem()
+            .getSubsystem('a')
+            .waitForState(2)
+            .then(() => {});
+        new Subsystem().hasSubsystem('a') === true;
+        new Subsystem().hasSubsystem('a') === true;
         new Subsystem().hasSubsystems() === true;
-        new Subsystem().addSubsystem({ subsystem: "ppp" });
-        new Subsystem().addSubsystem({ subsystem: "ppp", bind: true });
-        new Subsystem().addSubsystem({ subsystem: "ppp", bind: "a" });
-        new Subsystem().addSubsystem({ subsystem: "ppp", configureArgs: [1] });
-        new Subsystem().addSubsystem({ subsystem: "ppp", description: "a" });
-        new Subsystem().addSubsystem({ subsystem: "ppp", group: "a" });
-        new Subsystem().addSubsystem({ subsystem: "ppp", name: "a" });
-        new Subsystem().addSubsystem({ subsystem: "ppp", transpile: false });
-        new Subsystem().addSubsystem({ subsystem: "ppp", useFilename: true });
+        new Subsystem().addSubsystem({ subsystem: 'ppp' });
+        new Subsystem().addSubsystem({ subsystem: 'ppp', bind: true });
+        new Subsystem().addSubsystem({ subsystem: 'ppp', bind: 'a' });
+        new Subsystem().addSubsystem({ subsystem: 'ppp', configureArgs: [1] });
+        new Subsystem().addSubsystem({ subsystem: 'ppp', description: 'a' });
+        new Subsystem().addSubsystem({ subsystem: 'ppp', group: 'a' });
+        new Subsystem().addSubsystem({ subsystem: 'ppp', name: 'a' });
+        new Subsystem().addSubsystem({ subsystem: 'ppp', transpile: false });
+        new Subsystem().addSubsystem({ subsystem: 'ppp', useFilename: true });
         {
-            const sysInfo = new Subsystem().addSubsystem({ subsystem: "ppp" });
+            const sysInfo = new Subsystem().addSubsystem({ subsystem: 'ppp' });
             sysInfo.configureArgs[0];
             sysInfo.description.charCodeAt(10);
             sysInfo.group.charCodeAt(10);
@@ -1554,25 +1789,34 @@ namespace applicationTests {
             sysInfo.name.charCodeAt(100);
             sysInfo.path === null;
         }
-        new Subsystem().addSubsystemsFrom("asd", {});
-        new Subsystem().addSubsystemsFrom("asd", { filter: ["a"] });
-        new Subsystem().addSubsystemsFrom("asd", { filter: (file) => file.charCodeAt(100) === 100 });
-        new Subsystem().addSubsystemsFrom("asd", { filter: async (file) => file.charCodeAt(100) === 100 });
-        new Subsystem().addSubsystemsFrom("asd", { bind: "a" });
-        new Subsystem().addSubsystemsFrom("asd", { bind: true });
-        new Subsystem().addSubsystemsFrom("asd", { configureArgs: [1] });
-        new Subsystem().addSubsystemsFrom("asd", { description: "a" });
-        new Subsystem().addSubsystemsFrom("asd", { group: "a" });
-        new Subsystem().addSubsystemsFrom("asd", { name: "a" });
-        new Subsystem().addSubsystemsFrom("asd", { transpile: true });
-        new Subsystem().addSubsystemsFrom("asd", { useFilename: true });
+        new Subsystem().addSubsystemsFrom('asd', {});
+        new Subsystem().addSubsystemsFrom('asd', { filter: ['a'] });
+        new Subsystem().addSubsystemsFrom('asd', { filter: (file) => file.charCodeAt(100) === 100 });
+        new Subsystem().addSubsystemsFrom('asd', { filter: async (file) => file.charCodeAt(100) === 100 });
+        new Subsystem().addSubsystemsFrom('asd', { bind: 'a' });
+        new Subsystem().addSubsystemsFrom('asd', { bind: true });
+        new Subsystem().addSubsystemsFrom('asd', { configureArgs: [1] });
+        new Subsystem().addSubsystemsFrom('asd', { description: 'a' });
+        new Subsystem().addSubsystemsFrom('asd', { group: 'a' });
+        new Subsystem().addSubsystemsFrom('asd', { name: 'a' });
+        new Subsystem().addSubsystemsFrom('asd', { transpile: true });
+        new Subsystem().addSubsystemsFrom('asd', { useFilename: true });
 
-        new Subsystem().instantiateSubsystem("asd").waitForState(2, 200).then(() => {});
-        new Subsystem().instantiateSubsystem(new Subsystem()).waitForState(2, 200).then(() => {});
-        new Subsystem().instantiateSubsystem(new Subsystem(), { transpile: false }).waitForState(2, 200).then(() => {});
-        new Subsystem().deleteSubsystem("name");
-        new Subsystem().deleteSubsystem("name", true);
-        new Subsystem().getSubsystemInfo("name").configureArgs[0];
+        new Subsystem()
+            .instantiateSubsystem('asd')
+            .waitForState(2, 200)
+            .then(() => {});
+        new Subsystem()
+            .instantiateSubsystem(new Subsystem())
+            .waitForState(2, 200)
+            .then(() => {});
+        new Subsystem()
+            .instantiateSubsystem(new Subsystem(), { transpile: false })
+            .waitForState(2, 200)
+            .then(() => {});
+        new Subsystem().deleteSubsystem('name');
+        new Subsystem().deleteSubsystem('name', true);
+        new Subsystem().getSubsystemInfo('name').configureArgs[0];
         new Subsystem().getSubsystems()[0].configureArgs[0];
     }
 
@@ -1581,19 +1825,19 @@ namespace applicationTests {
         new Application().main();
         new Application().enableReport();
         new Application().enableReport({});
-        new Application().enableReport({ directory: "a" });
-        new Application().enableReport({ events: "a" });
-        new Application().enableReport({ filename: "a" });
-        new Application().enableReport({ signal: "a" });
+        new Application().enableReport({ directory: 'a' });
+        new Application().enableReport({ events: 'a' });
+        new Application().enableReport({ filename: 'a' });
+        new Application().enableReport({ signal: 'a' });
         new Application().run().then(() => {});
         new Application().exit().then(() => {});
         new Application().exit(1).then(() => {});
-        new Application().exitOnSignal("SIGINT", "SIGUSR1");
+        new Application().exitOnSignal('SIGINT', 'SIGUSR1');
         new Application().removeProcesshandlers();
         new Application()._uncaughtException;
         new Application()._unhandledRejection;
         new Application()._rejectionHandled;
-        new Application()._signalExit("asd");
+        new Application()._signalExit('asd');
     }
 
     namespace cliApplicationTests {
@@ -1602,62 +1846,74 @@ namespace applicationTests {
         new CliApplication().exposeCliInterface();
         new CliApplication().mainCommand;
         new CliApplication().defineMainCommand({
-            arguments: [{
-                name: "a",
-                default: 100500,
-                nargs: 100,
-                required: false
-            }],
-            options: [{
-                name: "--a",
-                default: 1000,
-                nargs: 101231
-            }],
-            optionsGroups: [{
-                name: "a",
-                description: "a"
-            }]
+            arguments: [
+                {
+                    name: 'a',
+                    default: 100500,
+                    nargs: 100,
+                    required: false,
+                },
+            ],
+            options: [
+                {
+                    name: '--a',
+                    default: 1000,
+                    nargs: 101231,
+                },
+            ],
+            optionsGroups: [
+                {
+                    name: 'a',
+                    description: 'a',
+                },
+            ],
         });
         new CliApplication().defineCommand({
-            name: "a",
-            arguments: [{
-                name: "a",
-                default: 100500,
-                nargs: 100,
-                required: false
-            }],
-            options: [{
-                name: "--a",
-                default: 1000,
-                nargs: 101231
-            }],
-            optionsGroups: [{
-                name: "a",
-                description: "a"
-            }]
+            name: 'a',
+            arguments: [
+                {
+                    name: 'a',
+                    default: 100500,
+                    nargs: 100,
+                    required: false,
+                },
+            ],
+            options: [
+                {
+                    name: '--a',
+                    default: 1000,
+                    nargs: 101231,
+                },
+            ],
+            optionsGroups: [
+                {
+                    name: 'a',
+                    description: 'a',
+                },
+            ],
         });
         new CliApplication().defineCommandFromSubsystem({
             configureArgs: [1],
-            description: "a",
+            description: 'a',
             lazily: true,
-            subsystem: "a",
-            group: "a",
-            name: "a",
-            transpile: false
+            subsystem: 'a',
+            group: 'a',
+            name: 'a',
+            transpile: false,
         });
         new CliApplication().defineOption({
-            name: "--a",
-            action: "store"
+            name: '--a',
+            action: 'store',
         });
         new CliApplication().defineOptionsGroup({
-            name: "a",
-            description: "b"
+            name: 'a',
+            description: 'b',
         });
         new CliApplication().defineCommandsGroup({
-            name: "a",
-            description: "b"
+            name: 'a',
+            description: 'b',
         });
-        new CliApplication().option("a");
-        new CliApplication().option("a", { value: true });
+        new CliApplication().option('a');
+        new CliApplication().option('a', { value: true });
     }
 }

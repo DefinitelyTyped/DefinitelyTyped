@@ -53,7 +53,7 @@ export interface VueTelInputMethods {
     findCountry: (iso: string) => any[];
     getItemClass: (index: number, iso2: string) => any;
     choose: (country: any) => void;
-    onInput: ()  => void;
+    onInput: () => void;
     onBlur: () => void;
     toggleDropdown: () => void;
     clickedOutside: () => void;
@@ -67,7 +67,7 @@ export interface VueTelInputComputed {
     sortedCountries: () => string[];
     formattedResult: () => string;
     state: () => boolean;
-    response: () => VueTelInputResponse ;
+    response: () => VueTelInputResponse;
 }
 
 export interface VueTelInputDirective {

@@ -41,7 +41,11 @@ export interface Channel extends events.EventEmitter {
     publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish): boolean;
     sendToQueue(queue: string, content: Buffer, options?: Options.Publish): boolean;
 
-    consume(queue: string, onMessage: (msg: ConsumeMessage | null) => any, options?: Options.Consume): Promise<Replies.Consume>;
+    consume(
+        queue: string,
+        onMessage: (msg: ConsumeMessage | null) => any,
+        options?: Options.Consume,
+    ): Promise<Replies.Consume>;
 
     cancel(consumerTag: string): Promise<Replies.Empty>;
     get(queue: string, options?: Options.Get): Promise<GetMessage | false>;
@@ -58,22 +62,36 @@ export interface Channel extends events.EventEmitter {
 }
 
 export interface ConfirmChannel extends Channel {
-    publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
-    sendToQueue(queue: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
+    publish(
+        exchange: string,
+        routingKey: string,
+        content: Buffer,
+        options?: Options.Publish,
+        callback?: (err: any, ok: Replies.Empty) => void,
+    ): boolean;
+    sendToQueue(
+        queue: string,
+        content: Buffer,
+        options?: Options.Publish,
+        callback?: (err: any, ok: Replies.Empty) => void,
+    ): boolean;
 
     waitForConfirms(): Promise<void>;
 }
 
 export const credentials: {
     external(): {
-      mechanism: string;
-      response(): Buffer;
+        mechanism: string;
+        response(): Buffer;
     };
-    plain(username: string, password: string): {
-      mechanism: string;
-      response(): Buffer;
-      username: string;
-      password: string;
+    plain(
+        username: string,
+        password: string,
+    ): {
+        mechanism: string;
+        response(): Buffer;
+        username: string;
+        password: string;
     };
 };
 

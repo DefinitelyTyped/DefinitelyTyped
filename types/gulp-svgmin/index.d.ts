@@ -7,9 +7,9 @@
 
 /// <reference types="node"/>
 
-import SVGO = require("svgo");
-import { Transform } from "stream";
-import * as File from "vinyl";
+import SVGO = require('svgo');
+import { Transform } from 'stream';
+import * as File from 'vinyl';
 
 export = GulpSvgmin;
 

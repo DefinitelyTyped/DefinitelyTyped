@@ -6,7 +6,7 @@
 import flushable = require('flushable');
 
 // prints a message to the console after 1 second
-const operation = flushable(flushed => {
+const operation = flushable((flushed) => {
     const result = `I completed ${flushed ? 'early' : 'on time'}`;
 }, 1000);
 

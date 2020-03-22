@@ -31,7 +31,7 @@ export interface FetchRequestProps extends RequestInit {
     url: string;
 }
 
-export type ResponseType = 'arrayBuffer' |  'blob' | 'formData' | 'json' | 'text';
+export type ResponseType = 'arrayBuffer' | 'blob' | 'formData' | 'json' | 'text';
 
 export interface FetchProps<T = any> extends FetchRequestProps {
     afterFetch?: (args: FetchResponse<T>) => void;
@@ -44,9 +44,7 @@ export interface DoFetchOptions extends RequestInit {
     url?: string;
 }
 
-export type DoFetch<T = any> = (
-    options?: DoFetchOptions
-) => Promise<FetchResponse<T>>;
+export type DoFetch<T = any> = (options?: DoFetchOptions) => Promise<FetchResponse<T>>;
 
 // TODO(dannycochran) RequestKeyOptions, ProxyRequest, fetchDedupe, getRequestKey, isRequestInFlight, clearRequestCache
 // should all be defined in an adjacent typings directory for fetch-dedupe.
@@ -63,11 +61,7 @@ export interface ProxyRequest {
 }
 
 // TODO(dannycochran) Fill out fetchDedupe options.
-export function fetchDedupe(
-    input: any,
-    init?: any,
-    dedupeOptions?: any
-): Promise<ProxyRequest>;
+export function fetchDedupe(input: any, init?: any, dedupeOptions?: any): Promise<ProxyRequest>;
 
 export function getRequestKey(keyOptions?: RequestKeyOptions): string;
 export function isRequestInFlight(): boolean;

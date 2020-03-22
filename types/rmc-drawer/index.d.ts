@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as moment from "moment";
+import * as moment from 'moment';
 import * as React from 'react';
 
 interface DrawerProps {
@@ -27,7 +27,6 @@ interface DrawerProps {
     dragToggleDistance?: number;
 }
 
-declare class Drawer extends React.Component<Partial<DrawerProps>> {
-}
+declare class Drawer extends React.Component<Partial<DrawerProps>> {}
 
 export = Drawer;

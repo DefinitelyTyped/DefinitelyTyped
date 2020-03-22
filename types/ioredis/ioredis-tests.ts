@@ -1,5 +1,5 @@
-import Redis = require("ioredis");
-import { Command } from "ioredis";
+import Redis = require('ioredis');
+import { Command } from 'ioredis';
 
 const redis = new Redis();
 
@@ -11,7 +11,7 @@ redis.get('foo', (err, result) => {
 });
 
 // Static check that returned value is always a number
-redis.del('foo', 'bar').then(result => result * 1);
+redis.del('foo', 'bar').then((result) => result * 1);
 
 // Or using a promise if the last argument isn't a function
 redis.get('foo').then((result: string | null) => {
@@ -38,15 +38,15 @@ redis.set('key', '100', 'EX', 10, 'NX', (err, data) => {});
 redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
 redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 
-redis.exists('foo').then(result => result * 1);
-redis.exists('foo', ((err, data) => data * 1));
+redis.exists('foo').then((result) => result * 1);
+redis.exists('foo', (err, data) => data * 1);
 
 // Should support usage of Buffer
 redis.set(Buffer.from('key'), '100');
 redis.setBuffer(Buffer.from('key'), '100', 'NX', 'EX', 10);
 
 const listData = ['foo', 'bar', 'baz'];
-listData.forEach(value => {
+listData.forEach((value) => {
     redis.rpushBuffer('bufferlist', Buffer.from(value));
 });
 redis.lpopBuffer('bufferlist', (err, result) => {
@@ -62,22 +62,24 @@ redis.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, results) => {
     });
 });
 
-new Redis();       // Connect to 127.0.0.1:6379
-new Redis(6380);   // 127.0.0.1:6380
-new Redis(6379, '192.168.1.1');       // 192.168.1.1:6379
+new Redis(); // Connect to 127.0.0.1:6379
+new Redis(6380); // 127.0.0.1:6380
+new Redis(6379, '192.168.1.1'); // 192.168.1.1:6379
 new Redis('/tmp/redis.sock');
 new Redis({
-    port: 6379,          // Redis port
-    host: '127.0.0.1',   // Redis host
-    family: 4,           // 4 (IPv4) or 6 (IPv6)
+    port: 6379, // Redis port
+    host: '127.0.0.1', // Redis host
+    family: 4, // 4 (IPv4) or 6 (IPv6)
     password: 'auth',
     db: 0,
-    retryStrategy() { return null; },
+    retryStrategy() {
+        return null;
+    },
     maxRetriesPerRequest: 20,
     showFriendlyErrorStack: true,
     tls: {
-        servername: 'tlsservername'
-    }
+        servername: 'tlsservername',
+    },
 });
 
 const pub = new Redis();
@@ -108,8 +110,11 @@ pipeline.exec((err, results) => {
 });
 
 // You can even chain the commands:
-redis.pipeline().set('foo', 'bar').del('cc').exec((err, results) => {
-});
+redis
+    .pipeline()
+    .set('foo', 'bar')
+    .del('cc')
+    .exec((err, results) => {});
 
 // `exec` also returns a Promise:
 const promise = redis.pipeline().set('foo', 'bar').get('foo').exec();
@@ -117,18 +122,26 @@ promise.then((result) => {
     // result === [[null, 'OK'], [null, 'bar']]
 });
 
-redis.pipeline().set('foo', 'bar').get('foo', (err, result) => {
-    // result === 'bar'
-}).exec((err, result) => {
-    // result[1][1] === 'bar'
-});
+redis
+    .pipeline()
+    .set('foo', 'bar')
+    .get('foo', (err, result) => {
+        // result === 'bar'
+    })
+    .exec((err, result) => {
+        // result[1][1] === 'bar'
+    });
 
-redis.pipeline([
-    ['set', 'foo', 'bar'],
-    ['get', 'foo']
-]).exec(() => { /* ... */ });
+redis
+    .pipeline([
+        ['set', 'foo', 'bar'],
+        ['get', 'foo'],
+    ])
+    .exec(() => {
+        /* ... */
+    });
 
-Redis.Command.setArgumentTransformer('set', args => {
+Redis.Command.setArgumentTransformer('set', (args) => {
     return args;
 });
 
@@ -137,30 +150,40 @@ Redis.Command.setReplyTransformer('get', (result: any) => {
 });
 
 redis.scan(0, 'match', '*foo*', 'count', 20).then(([nextCursor, keys]) => {
-  // nextCursor is always a string
-  if (nextCursor === '0') {
-    // keys is always an array of strings and it might be empty
-    return keys.map(key => key.trim());
-  }
+    // nextCursor is always a string
+    if (nextCursor === '0') {
+        // keys is always an array of strings and it might be empty
+        return keys.map((key) => key.trim());
+    }
 });
 
-redis.pipeline().scan(0, 'count', 20, 'match', '*foo*').exec((err, result) => {
-  // result = [[null, [nextCursor, keys]]]
-});
+redis
+    .pipeline()
+    .scan(0, 'count', 20, 'match', '*foo*')
+    .exec((err, result) => {
+        // result = [[null, [nextCursor, keys]]]
+    });
 
 // multi
-redis.multi().set('foo', 'bar').set('foo', 'baz').get('foo', (err, result) => {
-    // result === 'QUEUED'
-}).exec((err, results) => {
-    // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
-});
+redis
+    .multi()
+    .set('foo', 'bar')
+    .set('foo', 'baz')
+    .get('foo', (err, result) => {
+        // result === 'QUEUED'
+    })
+    .exec((err, results) => {
+        // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
+    });
 
-redis.multi([
-    ['set', 'foo', 'bar'],
-    ['get', 'foo']
-]).exec((err, results) => {
-    // results = [[null, 'OK'], [null, 'bar']]
-});
+redis
+    .multi([
+        ['set', 'foo', 'bar'],
+        ['get', 'foo'],
+    ])
+    .exec((err, results) => {
+        // results = [[null, 'OK'], [null, 'bar']]
+    });
 
 const keys = ['foo', 'bar'];
 redis.mget(...keys);
@@ -168,26 +191,28 @@ redis.mget(...keys);
 redis.mset(...['foo', 'bar']);
 redis.mset({ foo: 'bar' });
 
+new Redis.Cluster(['localhost']);
+
+new Redis.Cluster([6379]);
+
 new Redis.Cluster([
-    'localhost'
+    {
+        host: 'localhost',
+    },
 ]);
 
 new Redis.Cluster([
-    6379
+    {
+        port: 6379,
+    },
 ]);
 
-new Redis.Cluster([{
-    host: 'localhost'
-}]);
-
-new Redis.Cluster([{
-    port: 6379
-}]);
-
-new Redis.Cluster([{
-    host: 'localhost',
-    port: 6379
-}]);
+new Redis.Cluster([
+    {
+        host: 'localhost',
+        port: 6379,
+    },
+]);
 
 redis.xack('streamName', 'groupName', 'id');
 redis.xadd('streamName', '*', 'field', 'name');
@@ -212,11 +237,11 @@ redis.xtrim('streamName', 'MAXLEN', '~', 1000);
 
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {
-    clusterRetryStrategy: (times: number, reason?: Error) => null
+    clusterRetryStrategy: (times: number, reason?: Error) => null,
 });
 
 new Redis.Cluster([], {
-    clusterRetryStrategy: (times: number, reason?: Error) => 1
+    clusterRetryStrategy: (times: number, reason?: Error) => 1,
 });
 
 // Cluster types
@@ -225,17 +250,17 @@ const cluster = new Redis.Cluster(
     [
         {
             host: 'localhost',
-            port: 6379
-        }
+            port: 6379,
+        },
     ],
-    clusterOptions
+    clusterOptions,
 );
 cluster.on('end', () => console.log('on end'));
-cluster.nodes().map(node => {
+cluster.nodes().map((node) => {
     node.pipeline()
         .flushdb()
         .exec()
-        .then(result => console.log(result));
+        .then((result) => console.log(result));
 });
 cluster.set('foo', 'bar');
 cluster.get('foo', (err, result) => {
@@ -244,16 +269,18 @@ cluster.get('foo', (err, result) => {
     }
     console.log(result);
 });
-cluster.get('foo')
-    .then(result => console.log(result))
-    .catch(reason => console.error(reason));
-cluster.connect(() => {
-    console.log('connect');
-})
-.then(result => console.log(result))
-.then(reason => console.error(reason));
+cluster
+    .get('foo')
+    .then((result) => console.log(result))
+    .catch((reason) => console.error(reason));
+cluster
+    .connect(() => {
+        console.log('connect');
+    })
+    .then((result) => console.log(result))
+    .then((reason) => console.error(reason));
 
-cluster.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => { });
+cluster.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 cluster.getBuffer('key', (err, data) => {
     // [null, '100']
 });
@@ -278,11 +305,11 @@ cluster.decr('key', (err, data) => {
     // [null, '100']
 });
 
-listData.forEach(value => {
+listData.forEach((value) => {
     cluster.rpush('bufferlist', Buffer.from(value));
 });
 
-listData.forEach(value => {
+listData.forEach((value) => {
     cluster.lpop('bufferlist', (err, data) => {
         if (data !== value) {
             console.log(data);
@@ -290,7 +317,7 @@ listData.forEach(value => {
     });
 });
 
-listData.forEach(value => {
+listData.forEach((value) => {
     cluster.rpushBuffer('bufferlist', Buffer.from(value));
 });
 
@@ -331,7 +358,7 @@ cluster.expire('key', 300, (err, res) => {
 });
 
 cluster.disconnect();
-cluster.quit(result => {
+cluster.quit((result) => {
     console.log(result);
 });
 const getBuiltinCommandsResult = cluster.getBuiltinCommands();
@@ -340,7 +367,7 @@ const createBuiltinCommandResult = cluster.createBuiltinCommand('createBuiltinCo
 console.log(createBuiltinCommandResult);
 cluster.defineCommand('defineCommand', {
     numberOfKeys: 1,
-    lua: 'lua'
+    lua: 'lua',
 });
 cluster.sendCommand();
 

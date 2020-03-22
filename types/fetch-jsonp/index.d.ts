@@ -5,10 +5,10 @@
 // TypeScript Version: 2.2
 
 declare namespace fetchJsonp {
-  interface Options {
-    timeout?: number;
-    jsonpCallback?: string;
-  }
+    interface Options {
+        timeout?: number;
+        jsonpCallback?: string;
+    }
 }
 
 declare function fetchJsonp(url: RequestInfo, options?: fetchJsonp.Options): Promise<Response>;

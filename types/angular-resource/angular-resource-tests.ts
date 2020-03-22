@@ -34,24 +34,28 @@ function MainController($resource: ng.resource.IResourceService): void {
     // your assignment against it
     const publishDescriptor: ng.resource.IActionDescriptor = {
         method: 'GET',
-        isArray: false
+        isArray: false,
     };
 
     // A call to the $resource service returns a IResourceClass. Since
     // our own IArticleResourceClass defines 2 more actions, we cast the return
     // value to make the compiler aware of that
-    const articleResource: IArticleResourceClass = $resource<IArticleResource, IArticleResourceClass>('/articles/:id', null, {
-        publish : publishDescriptor,
-        unpublish : {
-            method: 'POST'
-        }
-    });
+    const articleResource: IArticleResourceClass = $resource<IArticleResource, IArticleResourceClass>(
+        '/articles/:id',
+        null,
+        {
+            publish: publishDescriptor,
+            unpublish: {
+                method: 'POST',
+            },
+        },
+    );
 
     // Now we can do this
     articleResource.unpublish({ id: 1 });
 
     // IResourceClass.get() will be automatically available here
-    const article: IArticleResource = articleResource.get({id: 1}, function success(): void {
+    const article: IArticleResource = articleResource.get({ id: 1 }, function success(): void {
         // Again, default + custom action here...
         article.title = 'New Title';
         article.$save();
@@ -75,10 +79,10 @@ angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactorySe
     actionDescriptor.params = { key: 'value' };
     actionDescriptor.url = '/api/test-url/';
     actionDescriptor.isArray = true;
-    actionDescriptor.transformRequest = function () { };
-    actionDescriptor.transformRequest = [function () { }];
-    actionDescriptor.transformResponse = function () { };
-    actionDescriptor.transformResponse = [function () { }];
+    actionDescriptor.transformRequest = function () {};
+    actionDescriptor.transformRequest = [function () {}];
+    actionDescriptor.transformResponse = function () {};
+    actionDescriptor.transformResponse = [function () {}];
     actionDescriptor.headers = { header: 'value' };
     actionDescriptor.cache = true;
     actionDescriptor.cache = $cacheFactory('cacheId');
@@ -86,8 +90,10 @@ angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactorySe
     actionDescriptor.withCredentials = true;
     actionDescriptor.responseType = 'response type';
     actionDescriptor.interceptor = {
-        response() { return {} as IHttpResponse<IMyData>; },
-        responseError() {}
+        response() {
+            return {} as IHttpResponse<IMyData>;
+        },
+        responseError() {},
     };
     actionDescriptor.cancellable = true;
     actionDescriptor.hasBody = true;
@@ -102,52 +108,92 @@ let resourceArray: angular.resource.IResourceArray<IMyResource>;
 
 resource = resourceClass.delete();
 resource = resourceClass.delete({ key: 'value' });
-resource = resourceClass.delete({ key: 'value' }, function () { });
-resource = resourceClass.delete(function () { });
-resource = resourceClass.delete(function () { }, function () { });
+resource = resourceClass.delete({ key: 'value' }, function () {});
+resource = resourceClass.delete(function () {});
+resource = resourceClass.delete(
+    function () {},
+    function () {},
+);
 resource = resourceClass.delete({ key: 'value' }, { key: 'value' });
-resource = resourceClass.delete({ key: 'value' }, { key: 'value' }, function () { });
-resource = resourceClass.delete({ key: 'value' }, { key: 'value' }, function () { }, function () { });
-resource.$promise.then(function(data: IMyResource) {});
+resource = resourceClass.delete({ key: 'value' }, { key: 'value' }, function () {});
+resource = resourceClass.delete(
+    { key: 'value' },
+    { key: 'value' },
+    function () {},
+    function () {},
+);
+resource.$promise.then(function (data: IMyResource) {});
 resource.$cancelRequest();
 
 resource = resourceClass.get();
 resource = resourceClass.get({ key: 'value' });
-resource = resourceClass.get({ key: 'value' }, function () { });
-resource = resourceClass.get(function () { });
-resource = resourceClass.get(function () { }, function () { });
+resource = resourceClass.get({ key: 'value' }, function () {});
+resource = resourceClass.get(function () {});
+resource = resourceClass.get(
+    function () {},
+    function () {},
+);
 resource = resourceClass.get({ key: 'value' }, { key: 'value' });
-resource = resourceClass.get({ key: 'value' }, { key: 'value' }, function () { });
-resource = resourceClass.get({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+resource = resourceClass.get({ key: 'value' }, { key: 'value' }, function () {});
+resource = resourceClass.get(
+    { key: 'value' },
+    { key: 'value' },
+    function () {},
+    function () {},
+);
 
 resourceArray = resourceClass.query();
 resourceArray = resourceClass.query({ key: 'value' });
-resourceArray = resourceClass.query({ key: 'value' }, function () { });
-resourceArray = resourceClass.query(function () { });
-resourceArray = resourceClass.query(function () { }, function () { });
+resourceArray = resourceClass.query({ key: 'value' }, function () {});
+resourceArray = resourceClass.query(function () {});
+resourceArray = resourceClass.query(
+    function () {},
+    function () {},
+);
 resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' });
-resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { });
-resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+resourceArray = resourceClass.query({ key: 'value' }, { key: 'value' }, function () {});
+resourceArray = resourceClass.query(
+    { key: 'value' },
+    { key: 'value' },
+    function () {},
+    function () {},
+);
 resourceArray.push(resource);
-resourceArray.$promise.then(function(data: angular.resource.IResourceArray<IMyResource>) {});
+resourceArray.$promise.then(function (data: angular.resource.IResourceArray<IMyResource>) {});
 
 resource = resourceClass.remove();
 resource = resourceClass.remove({ key: 'value' });
-resource = resourceClass.remove({ key: 'value' }, function () { });
-resource = resourceClass.remove(function () { });
-resource = resourceClass.remove(function () { }, function () { });
+resource = resourceClass.remove({ key: 'value' }, function () {});
+resource = resourceClass.remove(function () {});
+resource = resourceClass.remove(
+    function () {},
+    function () {},
+);
 resource = resourceClass.remove({ key: 'value' }, { key: 'value' });
-resource = resourceClass.remove({ key: 'value' }, { key: 'value' }, function () { });
-resource = resourceClass.remove({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+resource = resourceClass.remove({ key: 'value' }, { key: 'value' }, function () {});
+resource = resourceClass.remove(
+    { key: 'value' },
+    { key: 'value' },
+    function () {},
+    function () {},
+);
 
 resource = resourceClass.save();
 resource = resourceClass.save({ key: 'value' });
-resource = resourceClass.save({ key: 'value' }, function () { });
-resource = resourceClass.save(function () { });
-resource = resourceClass.save(function () { }, function () { });
+resource = resourceClass.save({ key: 'value' }, function () {});
+resource = resourceClass.save(function () {});
+resource = resourceClass.save(
+    function () {},
+    function () {},
+);
 resource = resourceClass.save({ key: 'value' }, { key: 'value' });
-resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () { });
-resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () { }, function () { });
+resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () {});
+resource = resourceClass.save(
+    { key: 'value' },
+    { key: 'value' },
+    function () {},
+    function () {},
+);
 
 ///////////////////////////////////////
 // IResource
@@ -159,42 +205,77 @@ let json: IMyResource;
 
 promise = resource.$delete();
 promise = resource.$delete({ key: 'value' });
-promise = resource.$delete({ key: 'value' }, function () { });
-promise = resource.$delete(function () { });
-promise = resource.$delete(function () { }, function () { });
-promise = resource.$delete({ key: 'value' }, function () { }, function () { });
-promise.then(function(data: IMyResource) {});
+promise = resource.$delete({ key: 'value' }, function () {});
+promise = resource.$delete(function () {});
+promise = resource.$delete(
+    function () {},
+    function () {},
+);
+promise = resource.$delete(
+    { key: 'value' },
+    function () {},
+    function () {},
+);
+promise.then(function (data: IMyResource) {});
 
 promise = resource.$get();
 promise = resource.$get({ key: 'value' });
-promise = resource.$get({ key: 'value' }, function () { });
-promise = resource.$get(function () { });
-promise = resource.$get(function () { }, function () { });
-promise = resource.$get({ key: 'value' }, function () { }, function () { });
+promise = resource.$get({ key: 'value' }, function () {});
+promise = resource.$get(function () {});
+promise = resource.$get(
+    function () {},
+    function () {},
+);
+promise = resource.$get(
+    { key: 'value' },
+    function () {},
+    function () {},
+);
 
 arrayPromise = resourceArray[0].$query();
 arrayPromise = resourceArray[0].$query({ key: 'value' });
-arrayPromise = resourceArray[0].$query({ key: 'value' }, function () { });
-arrayPromise = resourceArray[0].$query(function () { });
-arrayPromise = resourceArray[0].$query(function () { }, function () { });
-arrayPromise = resourceArray[0].$query({ key: 'value' }, function () { }, function () { });
-arrayPromise.then(function(data: angular.resource.IResourceArray<IMyResource>) {});
+arrayPromise = resourceArray[0].$query({ key: 'value' }, function () {});
+arrayPromise = resourceArray[0].$query(function () {});
+arrayPromise = resourceArray[0].$query(
+    function () {},
+    function () {},
+);
+arrayPromise = resourceArray[0].$query(
+    { key: 'value' },
+    function () {},
+    function () {},
+);
+arrayPromise.then(function (data: angular.resource.IResourceArray<IMyResource>) {});
 
 promise = resource.$remove();
 promise = resource.$remove({ key: 'value' });
-promise = resource.$remove({ key: 'value' }, function () { });
-promise = resource.$remove(function () { });
-promise = resource.$remove(function () { }, function () { });
-promise = resource.$remove({ key: 'value' }, function () { }, function () { });
+promise = resource.$remove({ key: 'value' }, function () {});
+promise = resource.$remove(function () {});
+promise = resource.$remove(
+    function () {},
+    function () {},
+);
+promise = resource.$remove(
+    { key: 'value' },
+    function () {},
+    function () {},
+);
 
 promise = resource.$save();
 promise = resource.$save({ key: 'value' });
-promise = resource.$save({ key: 'value' }, function () { });
-promise = resource.$save(function () { });
-promise = resource.$save(function () { }, function () { });
-promise = resource.$save({ key: 'value' }, function () { }, function () { });
+promise = resource.$save({ key: 'value' }, function () {});
+promise = resource.$save(function () {});
+promise = resource.$save(
+    function () {},
+    function () {},
+);
+promise = resource.$save(
+    { key: 'value' },
+    function () {},
+    function () {},
+);
 
-json    = resource.toJSON();
+json = resource.toJSON();
 
 ///////////////////////////////////////
 // IResourceService
@@ -212,7 +293,9 @@ let resourceServiceFactoryFunction: angular.resource.IResourceServiceFactoryFunc
 
 resourceClass = resourceServiceFactoryFunction<IMyResourceClass>(resourceService);
 
-resourceServiceFactoryFunction = function (resourceService: angular.resource.IResourceService) { return resourceClass as any; };
+resourceServiceFactoryFunction = function (resourceService: angular.resource.IResourceService) {
+    return resourceClass as any;
+};
 mod = mod.factory('factory name', resourceServiceFactoryFunction);
 
 ///////////////////////////////////////

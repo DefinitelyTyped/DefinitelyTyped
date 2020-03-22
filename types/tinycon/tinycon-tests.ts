@@ -7,7 +7,7 @@ Tinycon.setOptions({
     fallback: true,
     font: '10px arial',
     height: 9,
-    width: 7
+    width: 7,
 });
 
 Tinycon.setOptions({
@@ -17,7 +17,7 @@ Tinycon.setOptions({
     fallback: 'force',
     font: '10px arial',
     height: 9,
-    width: 7
+    width: 7,
 });
 
 Tinycon.setBubble(7);

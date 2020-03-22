@@ -14,7 +14,7 @@ const format: convict.Format = {
     },
     coerce(val) {
         return parseFloat(val);
-    }
+    },
 };
 
 convict.addFormat(format);
@@ -32,14 +32,14 @@ convict.addFormats({
         },
         coerce(val) {
             return parseInt(val, 10);
-        }
-    }
+        },
+    },
 });
 
 convict.addParser({ extension: 'json', parse: JSON.parse });
 convict.addParser([
     { extension: 'json', parse: JSON.parse },
-    { extension: ['yml', 'yaml'], parse: safeLoad }
+    { extension: ['yml', 'yaml'], parse: safeLoad },
 ]);
 
 const conf = convict({
@@ -64,13 +64,13 @@ const conf = convict({
         arg: 'port',
     },
     key: {
-        doc: "API key",
+        doc: 'API key',
         format: (val: string) => {
             if (!validator.isUUID(val)) {
                 throw new Error('must be a valid UUID');
             }
         },
-        default: '01527E56-8431-11E4-AF91-47B661C210CA'
+        default: '01527E56-8431-11E4-AF91-47B661C210CA',
     },
     db: {
         ip: {
@@ -95,11 +95,11 @@ const conf = convict({
     },
     primeNumber: {
         format: 'prime',
-        default: 17
+        default: 17,
     },
     percentNumber: {
         format: 'float-percent',
-        default: 0.5
+        default: 0.5,
     },
 });
 
@@ -125,8 +125,7 @@ conf.validate({ allowed: 'warn' });
 
 // Chaining
 
-conf
-    .loadFile(['./configs/always.json', './configs/sometimes.json'])
+conf.loadFile(['./configs/always.json', './configs/sometimes.json'])
     .loadFile<{ envVar: any }>(`./config/${env}.json`)
     .load({ jsonKey: 'jsonValue' })
     .set('key', 'value')
@@ -139,8 +138,8 @@ if (conf.has('key')) {
     conf.set('the.awesome', true);
     conf.load({
         thing: {
-            a: 'b'
-        }
+            a: 'b',
+        },
     });
 }
 

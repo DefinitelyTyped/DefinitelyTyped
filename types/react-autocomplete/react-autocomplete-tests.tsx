@@ -18,6 +18,4 @@ render(
 );
 
 // $ExpectError
-const renderMenu: React.ComponentProps<typeof Autocomplete>['renderMenu'] = (
-    (item: string[]) => <div></div>
-);
+const renderMenu: React.ComponentProps<typeof Autocomplete>['renderMenu'] = (item: string[]) => <div></div>;

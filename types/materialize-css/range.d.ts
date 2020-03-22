@@ -20,5 +20,5 @@ declare namespace M {
 }
 
 interface JQuery {
-    range(method?: keyof Pick<M.Range, "destroy">): JQuery;
+    range(method?: keyof Pick<M.Range, 'destroy'>): JQuery;
 }

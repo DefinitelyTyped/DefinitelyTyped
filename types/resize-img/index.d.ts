@@ -7,9 +7,7 @@
 
 export = ResizeImg;
 
-declare function ResizeImg(
-    input: Buffer,
-    options: ResizeImg.ResizeImgOptions): Promise<Buffer>;
+declare function ResizeImg(input: Buffer, options: ResizeImg.ResizeImgOptions): Promise<Buffer>;
 
 declare namespace ResizeImg {
     interface ResizeImgOptions {

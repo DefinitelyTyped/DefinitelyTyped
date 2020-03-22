@@ -29,12 +29,9 @@ declare class BN {
     constructor(
         number: number | string | number[] | Uint8Array | Buffer | BN,
         base?: number | 'hex',
-        endian?: BN.Endianness
+        endian?: BN.Endianness,
     );
-    constructor(
-        number: number | string | number[] | Uint8Array | Buffer | BN,
-        endian?: BN.Endianness
-    )
+    constructor(number: number | string | number[] | Uint8Array | Buffer | BN, endian?: BN.Endianness);
 
     /**
      * @description  create a reduction context
@@ -89,17 +86,9 @@ declare class BN {
     /**
      * @description convert to an instance of `type`, which must behave like an Array
      */
-    toArrayLike(
-        ArrayType: typeof Buffer,
-        endian?: BN.Endianness,
-        length?: number
-    ): Buffer;
+    toArrayLike(ArrayType: typeof Buffer, endian?: BN.Endianness, length?: number): Buffer;
 
-    toArrayLike(
-        ArrayType: any[],
-        endian?: BN.Endianness,
-        length?: number
-    ): any[];
+    toArrayLike(ArrayType: any[], endian?: BN.Endianness, length?: number): any[];
 
     /**
      * @description  convert to Node.js Buffer (if available). For compatibility with browserify and similar tools, use this instead: a.toArrayLike(Buffer, endian, length)

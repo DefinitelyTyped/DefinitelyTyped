@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
-import * as parse5 from "parse5";
+import * as stream from 'stream';
+import * as parse5 from 'parse5';
 
 /**
  * Streaming HTML parser with scripting support.
@@ -78,12 +78,8 @@ declare class ParserStream<TDocument> extends stream.Writable {
      * ```
      */
     on(
-        event: "script",
-        listener: (
-            scriptElement: parse5.Element,
-            documentWrite: (html: string) => void,
-            resume: () => void
-        ) => void
+        event: 'script',
+        listener: (scriptElement: parse5.Element, documentWrite: (html: string) => void, resume: () => void) => void,
     ): this;
     /**
      * WritableStream events

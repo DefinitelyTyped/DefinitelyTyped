@@ -1,6 +1,6 @@
-import { DeviceEventEmitter, NativeModules } from 'react-native'
+import { DeviceEventEmitter, NativeModules } from 'react-native';
 
-const SensorManager = NativeModules.SensorManager
+const SensorManager = NativeModules.SensorManager;
 
 let num: number;
 let bool: boolean;
@@ -32,13 +32,11 @@ SensorManager.stopProximity();
 SensorManager.startLightSensor(num);
 SensorManager.stopLightSensor();
 
-
 DeviceEventEmitter.addListener('Accelerometer', (data) => {
     num = data.x;
     num = data.y;
     num = data.z;
 });
-
 
 DeviceEventEmitter.addListener('Gyroscope', (data) => {
     num = data.x;

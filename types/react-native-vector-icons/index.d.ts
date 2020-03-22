@@ -19,11 +19,7 @@ import { TextProps } from 'react-native';
  * to the font file in you asset folder.
  *
  */
-export function createIconSet(
-  glyphMap: {},
-  fontFamily: string,
-  fontFile?: string
-): typeof Icon;
+export function createIconSet(glyphMap: {}, fontFamily: string, fontFile?: string): typeof Icon;
 
 /**
  * Convenience method to create a custom font based on a fontello config file.

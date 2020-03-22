@@ -1,5 +1,5 @@
-import browserSync = require("browser-sync");
-import { EventEmitter } from "events";
+import browserSync = require('browser-sync');
+import { EventEmitter } from 'events';
 
 (() => {
     //make sure that the interfaces are correctly exposed
@@ -9,269 +9,261 @@ import { EventEmitter } from "events";
 })();
 
 browserSync({
-    ui: true
+    ui: true,
 });
 
 browserSync({
     ui: {
         port: 9000,
         weinre: {
-            port: 9001
-        }
-    }
+            port: 9001,
+        },
+    },
 });
 
 browserSync({
-    files: "app/css/style.css"
+    files: 'app/css/style.css',
 });
 
 browserSync({
-    files: [
-        "app/css/style.css",
-        "app/js/*.js"
-    ]
+    files: ['app/css/style.css', 'app/js/*.js'],
 });
 
 browserSync({
-    files: [
-        "app/css/style.css",
-        "!app/js/*.js"
-    ]
+    files: ['app/css/style.css', '!app/js/*.js'],
 });
 
 browserSync({
     files: [
-        "wp-content/themes/**/*.css",
+        'wp-content/themes/**/*.css',
         {
-            match: ["wp-content/themes/**/*.css"],
+            match: ['wp-content/themes/**/*.css'],
             fn: function (event, file) {
                 /** Custom event handler **/
-            }
-        }
-    ]
+            },
+        },
+    ],
 });
 
 browserSync({
-    watchEvents: [
-        "change",
-        "add",
-        "unlink",
-        "addDir",
-        "unlinkDir"
-    ]
+    watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
 });
 
 browserSync({
-    watch: true
+    watch: true,
 });
 
 browserSync({
-    ignore: [
-        "app/js/*.js"
-    ]
+    ignore: ['app/js/*.js'],
 });
 
 browserSync({
-    single: true
+    single: true,
 });
 
 browserSync({
     watchOptions: {
         ignoreInitial: true,
-        ignored: '*.txt'
+        ignored: '*.txt',
     },
-    files: ['./app']
+    files: ['./app'],
 });
 
 browserSync({
     files: [
         {
-            match: ["wp-content/themes/**/*.php"],
+            match: ['wp-content/themes/**/*.php'],
             fn: function (event, file) {
                 /** Custom event handler **/
             },
             options: {
-                ignored: '*.txt'
-            }
-        }
-    ]
+                ignored: '*.txt',
+            },
+        },
+    ],
 });
 
 browserSync({
-    server: "app"
+    server: 'app',
 });
 
 // multiple base directory
 browserSync({
     server: {
-        baseDir: ["app", "dist"]
-    }
+        baseDir: ['app', 'dist'],
+    },
 });
 
 browserSync({
-    server: true
-});
-
-browserSync({
-    server: {
-        baseDir: "./"
-    }
+    server: true,
 });
 
 browserSync({
     server: {
-        baseDir: "./",
-        index: "index.htm"
-    }
+        baseDir: './',
+    },
 });
 
 browserSync({
     server: {
-        baseDir: "./",
-        directory: true
-    }
+        baseDir: './',
+        index: 'index.htm',
+    },
 });
 
 browserSync({
     server: {
-        baseDir: "app",
+        baseDir: './',
+        directory: true,
+    },
+});
+
+browserSync({
+    server: {
+        baseDir: 'app',
         serveStaticOptions: {
-            extensions: ["html"]
-        }
-    }
+            extensions: ['html'],
+        },
+    },
 });
 
 browserSync({
-    proxy: "yourlocal.dev"
+    proxy: 'yourlocal.dev',
 });
 
 browserSync({
     proxy: {
-        target: "http://yourlocal.dev",
+        target: 'http://yourlocal.dev',
         proxyReq: function (proxyReq) {
             console.log(proxyReq);
-        }
-    }
+        },
+    },
 });
 
 browserSync({
     proxy: {
-        target: "http://yourlocal.dev",
+        target: 'http://yourlocal.dev',
         proxyReq: [
             function (proxyReq) {
                 console.log(proxyReq);
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 
 browserSync({
     proxy: {
-        target: "http://yourlocal.dev",
+        target: 'http://yourlocal.dev',
         proxyRes: function (proxyResponse, req, res) {
             console.log(proxyResponse);
-        }
-    }
+        },
+    },
 });
 
 browserSync({
     proxy: {
-        target: "http://yourlocal.dev",
+        target: 'http://yourlocal.dev',
         proxyRes: [
             function (proxyResponse, req, res) {
                 console.log(proxyResponse);
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 
 browserSync({
     proxy: {
-        target: "http://yourlocal.dev",
+        target: 'http://yourlocal.dev',
         proxyRes: function (res) {
             console.log(res);
-        }
-    }
+        },
+    },
 });
 
 browserSync({
     proxy: {
-        target: "http://yourlocal.dev",
+        target: 'http://yourlocal.dev',
         proxyRes: [
             function (res) {
                 console.log(res);
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 
 browserSync({
-    proxy: "https://yourlocal.dev",
+    proxy: 'https://yourlocal.dev',
     https: {
-        key: "./path/to/the/key/file.key",
-        cert: "./path/to/the/cert/file.cer"
-    }
+        key: './path/to/the/key/file.key',
+        cert: './path/to/the/cert/file.cer',
+    },
 });
 
 browserSync({
-    port: 3000
+    port: 3000,
 });
 
 browserSync({
-    proxy: "http://yourlocal.dev",
-    serveStatic: ['.', './app/css']
+    proxy: 'http://yourlocal.dev',
+    serveStatic: ['.', './app/css'],
 });
 
 browserSync({
-    proxy: "http://yourlocal.dev",
-    serveStatic: [{
-        route: '/assets',
-        dir: 'tmp'
-    }]
+    proxy: 'http://yourlocal.dev',
+    serveStatic: [
+        {
+            route: '/assets',
+            dir: 'tmp',
+        },
+    ],
 });
 
 browserSync({
-    proxy: "http://yourlocal.dev",
-    serveStatic: [{
-        route: ['/assets', '/content'],
-        dir: 'tmp'
-    }]
+    proxy: 'http://yourlocal.dev',
+    serveStatic: [
+        {
+            route: ['/assets', '/content'],
+            dir: 'tmp',
+        },
+    ],
 });
 
 browserSync({
-    proxy: "http://yourlocal.dev",
-    serveStatic: [{
-        route: '/assets',
-        dir: ['./tmp', './app']
-    }]
+    proxy: 'http://yourlocal.dev',
+    serveStatic: [
+        {
+            route: '/assets',
+            dir: ['./tmp', './app'],
+        },
+    ],
 });
 
 browserSync({
     serveStatic: ['.', './app', './temp'],
     serveStaticOptions: {
-        extensions: ['html'] // pretty urls
-    }
+        extensions: ['html'], // pretty urls
+    },
 });
 
 browserSync({
-    https: true
+    https: true,
 });
 
 browserSync({
-    server: "./app",
-    https: true
+    server: './app',
+    https: true,
 });
 
 browserSync({
-    server: "./app",
+    server: './app',
     https: {
-        key: "./path/to/the/key/file.key",
-        cert: "./path/to/the/cert/file.cer"
-    }
+        key: './path/to/the/key/file.key',
+        cert: './path/to/the/cert/file.cer',
+    },
 });
 
 browserSync({
-    httpModule: "http2"
+    httpModule: 'http2',
 });
 
 browserSync({
@@ -281,10 +273,10 @@ browserSync({
         forms: {
             inputs: true,
             submit: true,
-            toggles: true
-        }
+            toggles: true,
+        },
     },
-    proxy: "https://yourlocal.dev"
+    proxy: 'https://yourlocal.dev',
 });
 
 /**
@@ -294,19 +286,16 @@ browserSync({
 
 browserSync({
     snippetOptions: {
-
         // Ignore all HTML files within the templates folder
-        blacklist: [
-            "templates/*.html"
-        ],
+        blacklist: ['templates/*.html'],
         // Provide a custom Regex for inserting the snippet.
         rule: {
             match: /<\/body>/i,
             fn: function (snippet, match) {
                 return snippet + match;
-            }
-        }
-    }
+            },
+        },
+    },
 });
 
 browserSync({
@@ -315,24 +304,24 @@ browserSync({
             match: /Browsersync/g,
             fn: function (req, res, match) {
                 return 'kittenz';
-            }
-        }
-    ]
+            },
+        },
+    ],
 });
 
 browserSync({
     rewriteRules: [
         {
             match: /(cats|kitten[sz]) are mediocre/g,
-            replace: "$1 are excellent"
-        }
-    ]
+            replace: '$1 are excellent',
+        },
+    ],
 });
 
 var config = {
     server: {
-        baseDir: "./"
-    }
+        baseDir: './',
+    },
 };
 
 // config only
@@ -341,7 +330,7 @@ browserSync(config);
 // config + callback
 browserSync(config, function (err, bs) {
     if (!err) {
-        console.log("BrowserSync is ready!");
+        console.log('BrowserSync is ready!');
     }
 });
 
@@ -349,20 +338,20 @@ browserSync(config, function (err, bs) {
 browserSync.reload();
 
 // single file
-browserSync.reload("styles.css");
+browserSync.reload('styles.css');
 
 // multiple files
-browserSync.reload(["styles.css", "ie.css"]);
+browserSync.reload(['styles.css', 'ie.css']);
 
 // streams support
 browserSync.reload({ stream: true });
 
-browserSync.notify("Compiling, please wait!");
+browserSync.notify('Compiling, please wait!');
 
 browserSync.notify("HTML <span color='green'>is supported</span> too!");
 
 // Since 1.3.0, specify a timeout
-browserSync.notify("This message will only last a second", 1000);
+browserSync.notify('This message will only last a second', 1000);
 
 browserSync(config, function (err, bs) {
     browserSync.exit();
@@ -376,60 +365,58 @@ browserSync(config, function (err, bs) {
 
 var evt = browserSync.emitter;
 
-evt.on("init", function () {
-    console.log("BrowserSync is running!");
+evt.on('init', function () {
+    console.log('BrowserSync is running!');
 });
 
 browserSync(config);
 
-var has = browserSync.has("My server");
+var has = browserSync.has('My server');
 
 var bs = browserSync.create();
 
 bs.init({
-    server: { index: "./app" }
+    server: { index: './app' },
 });
 
 bs.reload();
 
 browserSync.use(
     {
-        plugin: function(opts: object, bs: browserSync.BrowserSyncInstance) {
+        plugin: function (opts: object, bs: browserSync.BrowserSyncInstance) {
             console.log(opts);
         },
-        "plugin:name": "test"
+        'plugin:name': 'test',
     },
-    { files: "*.css" }
+    { files: '*.css' },
 );
 
 browserSync.use({
-    plugin: function(opts: object, bs: browserSync.BrowserSyncInstance) {
+    plugin: function (opts: object, bs: browserSync.BrowserSyncInstance) {
         console.log(bs.name);
-    }
+    },
 });
 
-browserSync(
-    {
-        server: {
-            baseDir: "test/fixtures"
-        },
-        logLevel: "silent",
-        open: false
-    }
-);
+browserSync({
+    server: {
+        baseDir: 'test/fixtures',
+    },
+    logLevel: 'silent',
+    open: false,
+});
 
-var instanceName = "TestInstance";
+var instanceName = 'TestInstance';
 var namedInstance = browserSync.create(instanceName);
 namedInstance.init({
-    server: { index: "./app" },
-    https: true
+    server: { index: './app' },
+    https: true,
 });
 
-console.log(namedInstance.getOption("https")); // Should output true.
+console.log(namedInstance.getOption('https')); // Should output true.
 
 var existingInstance = browserSync.get(instanceName);
 
-browserSync.create("InstanceWithEventEmitter", new EventEmitter());
+browserSync.create('InstanceWithEventEmitter', new EventEmitter());
 
 // Should output something greater than 0.
 console.log(browserSync.instances.length);
@@ -439,7 +426,7 @@ browserSync.reset();
 // Should output 0.
 console.log(browserSync.instances.length);
 
-var cleanupTestInstance = browserSync.create("CleanupTest");
+var cleanupTestInstance = browserSync.create('CleanupTest');
 cleanupTestInstance.cleanup();
 console.log(cleanupTestInstance.active); // Should output false.
 
@@ -462,7 +449,7 @@ browser.stream();
 browser.stream({ once: true });
 
 // -- "match" option (string).
-browser.stream({ match: "**/*.js" });
+browser.stream({ match: '**/*.js' });
 
 // -- "match" option (RegExp).
 browser.stream({ match: /\.js$/ });
@@ -471,7 +458,7 @@ browser.stream({ match: /\.js$/ });
 browser.stream({ match: (testString) => true });
 
 // -- "match" option (array).
-browser.stream({ match: ["**/*.js", /\.js$/, (testString) => true] });
+browser.stream({ match: ['**/*.js', /\.js$/, (testString) => true] });
 
 // -- Both options.
-browser.stream({ once: true, match: ["**/*.js", /\.js$/, (testString) => true] });
+browser.stream({ once: true, match: ['**/*.js', /\.js$/, (testString) => true] });

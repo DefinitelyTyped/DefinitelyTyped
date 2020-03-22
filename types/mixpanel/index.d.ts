@@ -389,7 +389,7 @@ declare namespace Mixpanel {
          * @param callback If provided, the callback will be called after the tracking event
          */
         increment(prop: string, value?: number, callback?: () => void): void;
-        increment(keys: { [index: string]: number}, callback?: () => void): void;
+        increment(keys: { [index: string]: number }, callback?: () => void): void;
 
         /**
          * Merge a given list with a list-valued people analytics property,

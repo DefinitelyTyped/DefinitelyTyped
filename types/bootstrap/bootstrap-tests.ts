@@ -5,36 +5,36 @@ declare let aHtmlElement: HTMLElement;
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#alert").alert();
+$('#alert').alert();
 
 // $ExpectType JQuery<HTMLElement>
-$("#alert").alert("close");
+$('#alert').alert('close');
 
-$("#alert").on("close.bs.alert", () => {});
+$('#alert').on('close.bs.alert', () => {});
 
 // --------------------------------------------------------------------------------------
 // Button
 // --------------------------------------------------------------------------------------
 
 // $ExpectError
-$("#button").button();
+$('#button').button();
 
 // $ExpectType JQuery<HTMLElement>
-$("#button").button("toggle");
+$('#button').button('toggle');
 
 // --------------------------------------------------------------------------------------
 // Carousel
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#carousel").carousel();
+$('#carousel').carousel();
 
 // $ExpectType JQuery<HTMLElement>
-$("#carousel").carousel("pause");
+$('#carousel').carousel('pause');
 
-$("#carousel").carousel(100);
+$('#carousel').carousel(100);
 
-$("#carousel").on("slide.bs.carousel", function(e) {
+$('#carousel').on('slide.bs.carousel', function (e) {
     const that: HTMLElement = this;
 
     const data: undefined = e.data;
@@ -46,24 +46,24 @@ $("#carousel").on("slide.bs.carousel", function(e) {
     const to: number = e.to;
 });
 
-$("#carousel").carousel({
+$('#carousel').carousel({
     interval: 5000,
     keyboard: true,
     slide: false,
-    pause: "hover",
+    pause: 'hover',
     wrap: true,
     touch: false,
 });
 
-$("#carousel").carousel({
-    slide: "prev",
+$('#carousel').carousel({
+    slide: 'prev',
 });
 
-$("#carousel").carousel({
+$('#carousel').carousel({
     pause: false,
 });
 
-$("#carousel").carousel({
+$('#carousel').carousel({
     interval: false,
 });
 
@@ -72,27 +72,27 @@ $("#carousel").carousel({
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#collapse").collapse();
+$('#collapse').collapse();
 
 // $ExpectType JQuery<HTMLElement>
-$("#collapse").collapse("toggle");
+$('#collapse').collapse('toggle');
 
-$("#collapse").on("show.bs.collapse", () => {});
+$('#collapse').on('show.bs.collapse', () => {});
 
-$("#collapse").collapse({
-    parent: "#parent",
+$('#collapse').collapse({
+    parent: '#parent',
     toggle: true,
 });
 
-$("#collapse").collapse({
+$('#collapse').collapse({
     parent: aHtmlElement,
 });
 
-$("#collapse").collapse({
-    parent: $("#parent"),
+$('#collapse').collapse({
+    parent: $('#parent'),
 });
 
-$("#collapse").collapse({
+$('#collapse').collapse({
     toggle: false,
 });
 
@@ -101,42 +101,41 @@ $("#collapse").collapse({
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#dropdown").dropdown();
+$('#dropdown').dropdown();
 
 // $ExpectType JQuery<HTMLElement>
-$("#dropdown").dropdown("update");
+$('#dropdown').dropdown('update');
 
-$("#dropdown").on("hide.bs.dropdown", (e) => {
+$('#dropdown').on('hide.bs.dropdown', (e) => {
     const data: undefined = e.data;
     const container: HTMLElement = e.target;
     const togglingAnchorElement: HTMLElement = e.relatedTarget;
 });
 
-$("#dropdown").dropdown({
+$('#dropdown').dropdown({
     offset: 10,
     flip: false,
-    boundary: "window",
-    reference: "toggle",
-    display: "dynamic",
+    boundary: 'window',
+    reference: 'toggle',
+    display: 'dynamic',
 });
 
-$("#dropdown").dropdown({
-    offset: "10px",
+$('#dropdown').dropdown({
+    offset: '10px',
 });
 
-$("#dropdown").dropdown({
+$('#dropdown').dropdown({
     offset(offsets: Bootstrap.OffsetsExtend) {
-        if (!this.flip)
-            return { popper: { left: 100 } };
+        if (!this.flip) return { popper: { left: 100 } };
         return {};
     },
 });
 
-$("#dropdown").dropdown({
+$('#dropdown').dropdown({
     boundary: aHtmlElement,
 });
 
-$("#dropdown").dropdown({
+$('#dropdown').dropdown({
     reference: aHtmlElement,
 });
 
@@ -145,12 +144,12 @@ $("#dropdown").dropdown({
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#modal").modal();
+$('#modal').modal();
 
 // $ExpectType JQuery<HTMLElement>
-$("#modal").modal("show");
+$('#modal').modal('show');
 
-$("#modal").on("show.bs.modal", (e) => {
+$('#modal').on('show.bs.modal', (e) => {
     const data: undefined = e.data;
     const modal: HTMLElement = e.target;
     if (e.relatedTarget) {
@@ -158,15 +157,15 @@ $("#modal").on("show.bs.modal", (e) => {
     }
 });
 
-$("#modal").modal({
+$('#modal').modal({
     backdrop: false,
     focus: false,
     keyboard: false,
     show: false,
 });
 
-$("#modal").modal({
-    backdrop: "static",
+$('#modal').modal({
+    backdrop: 'static',
 });
 
 // --------------------------------------------------------------------------------------
@@ -174,46 +173,46 @@ $("#modal").modal({
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#popover").popover();
+$('#popover').popover();
 
 // $ExpectType JQuery<HTMLElement>
-$("#popover").popover("toggle");
+$('#popover').popover('toggle');
 
-$("#popover").on("show.bs.popover", () => {});
+$('#popover').on('show.bs.popover', () => {});
 
-$("#popover").popover({});
+$('#popover').popover({});
 
-$("#popover").popover({
+$('#popover').popover({
     animation: false,
-    container: "#container",
-    delay: {show: 500, hide: 100},
+    container: '#container',
+    delay: { show: 500, hide: 100 },
     html: true,
-    placement: "auto",
-    selector: "[rel=\"popover\"]",
+    placement: 'auto',
+    selector: '[rel="popover"]',
     template: '<div class="popover empty" role="popover"></div>',
-    title: "Hello world",
-    trigger: "hover focus",
+    title: 'Hello world',
+    trigger: 'hover focus',
     offset: 10,
-    fallbackPlacement: ["flip", "clockwise"],
-    boundary: "scrollParent",
+    fallbackPlacement: ['flip', 'clockwise'],
+    boundary: 'scrollParent',
     sanitize: false,
     whiteList: {
         h1: [],
         img: ['src', 'alt', 'title', 'width', 'height'],
     },
-    sanitizeFn: (x: string) => x.replace("<", ""),
+    sanitizeFn: (x: string) => x.replace('<', ''),
 });
 
-$("#popover").popover({
+$('#popover').popover({
     placement(this, popover, trigger) {
         console.log(this.tip === popover);
         console.log(this.element === trigger);
         console.log(this.config.content);
-        return "left";
+        return 'left';
     },
 });
 
-$("#popover").popover({
+$('#popover').popover({
     sanitizeFn: null,
 });
 
@@ -222,25 +221,25 @@ $("#popover").popover({
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#scrollspy").scrollspy();
+$('#scrollspy').scrollspy();
 
 // $ExpectType JQuery<HTMLElement>
-$("#scrollspy").scrollspy("refresh");
+$('#scrollspy').scrollspy('refresh');
 
-$("#scrollspy").on("activate.bs.scrollspy", () => {});
+$('#scrollspy').on('activate.bs.scrollspy', () => {});
 
-$("#scrollspy").scrollspy({
+$('#scrollspy').scrollspy({
     offset: 100,
-    target: "#navbar-example2",
-    method: "offset",
+    target: '#navbar-example2',
+    method: 'offset',
 });
 
-$("#scrollspy").scrollspy({
-    target: document.getElementById("navbar-example2") as HTMLElement
+$('#scrollspy').scrollspy({
+    target: document.getElementById('navbar-example2') as HTMLElement,
 });
 
-$("#scrollspy").scrollspy({
-    method: "position"
+$('#scrollspy').scrollspy({
+    method: 'position',
 });
 
 // --------------------------------------------------------------------------------------
@@ -248,9 +247,9 @@ $("#scrollspy").scrollspy({
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#someListItem").tab("show");
+$('#someListItem').tab('show');
 
-$("a[data-toggle=\"list\"]").on("shown.bs.tab", (e) => {
+$('a[data-toggle="list"]').on('shown.bs.tab', (e) => {
     const data: undefined = e.data;
     const newlyActivatedTab: HTMLElement = e.target;
     const previousActiveTab: HTMLElement = e.relatedTarget;
@@ -261,109 +260,109 @@ $("a[data-toggle=\"list\"]").on("shown.bs.tab", (e) => {
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#toast").toast();
+$('#toast').toast();
 
 // $ExpectType JQuery<HTMLElement>
-$("#toast").toast("show");
+$('#toast').toast('show');
 
-$("#toast").on("shown.bs.toast", () => {});
+$('#toast').on('shown.bs.toast', () => {});
 
-$("#toast").toast({
+$('#toast').toast({
     animation: false,
     autohide: false,
     delay: 100,
 });
 
-$("#toast").toast({});
+$('#toast').toast({});
 
 // --------------------------------------------------------------------------------------
 // Tooltip
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#tooltip").tooltip();
+$('#tooltip').tooltip();
 
 // $ExpectType JQuery<HTMLElement>
-$("#tooltip").tooltip("show");
+$('#tooltip').tooltip('show');
 
-$("#tooltip").on("hide.bs.tooltip", () => {});
+$('#tooltip').on('hide.bs.tooltip', () => {});
 
-$("#tooltip").tooltip({
+$('#tooltip').tooltip({
     animation: false,
-    container: "#container",
-    delay: {show: 500, hide: 100},
+    container: '#container',
+    delay: { show: 500, hide: 100 },
     html: true,
-    placement: "auto",
-    selector: "[rel=\"tooltip\"]",
+    placement: 'auto',
+    selector: '[rel="tooltip"]',
     template: '<div class="tooltip empty" role="tooltip"></div>',
-    title: "Hello world",
-    trigger: "hover focus",
+    title: 'Hello world',
+    trigger: 'hover focus',
     offset: 10,
-    fallbackPlacement: ["flip", "clockwise"],
-    boundary: "scrollParent",
+    fallbackPlacement: ['flip', 'clockwise'],
+    boundary: 'scrollParent',
     sanitize: false,
     whiteList: {
         h1: [],
         img: ['src', 'alt', 'title', 'width', 'height'],
     },
-    sanitizeFn: (x: string) => x.replace("<", ""),
+    sanitizeFn: (x: string) => x.replace('<', ''),
 });
 
-$("#tooltip").tooltip({
-    container: document.getElementById("#container") as HTMLElement,
+$('#tooltip').tooltip({
+    container: document.getElementById('#container') as HTMLElement,
 });
 
-$("#tooltip").tooltip({
+$('#tooltip').tooltip({
     container: false,
 });
 
-$("#tooltip").tooltip({
+$('#tooltip').tooltip({
     delay: 250,
 });
 
-$("#tooltip").tooltip({
+$('#tooltip').tooltip({
     placement(this, tooltip, trigger) {
         console.log(this.tip === tooltip);
         console.log(this.element === trigger);
         console.log(this.config.html);
-        return "left";
+        return 'left';
     },
 });
 
-$("#tooltip").tooltip({
+$('#tooltip').tooltip({
     placement(this, tooltip, trigger) {
         // $ExpectError
         console.log(this.config.content); // only for PopoverOption, not TooltipOption
-        return "left";
+        return 'left';
     },
 });
 
-$("#tooltip").tooltip({
+$('#tooltip').tooltip({
     selector: false,
 });
 
-$("#tooltip").tooltip({
-    title: document.getElementById("title-element") as HTMLElement,
+$('#tooltip').tooltip({
+    title: document.getElementById('title-element') as HTMLElement,
 });
 
-$("#tooltip").tooltip({
+$('#tooltip').tooltip({
     title(this: Element) {
         return this.textContent as string;
     },
 });
 
-$("#tooltip").tooltip({
-    offset: "10px",
+$('#tooltip').tooltip({
+    offset: '10px',
 });
 
-$("#tooltip").tooltip({
-    fallbackPlacement: "clockwise",
+$('#tooltip').tooltip({
+    fallbackPlacement: 'clockwise',
 });
 
-$("#tooltip").tooltip({
+$('#tooltip').tooltip({
     boundary: aHtmlElement,
 });
 
-$("#tooltip").tooltip({
+$('#tooltip').tooltip({
     sanitizeFn: null,
 });

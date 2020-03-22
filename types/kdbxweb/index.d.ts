@@ -35,10 +35,7 @@ export interface editingStateDict {
 }
 
 export class Credentials {
-    constructor(
-        password: ProtectedValue,
-        keyFile: string | ArrayBuffer | Uint8Array
-    );
+    constructor(password: ProtectedValue, keyFile: string | ArrayBuffer | Uint8Array);
 
     getHash(): Promise<ArrayBuffer>;
 
@@ -77,9 +74,7 @@ export class Kdbx {
 
     cleanup(settings: Settings): void;
 
-    createBinary(
-        value: ProtectedValue | ArrayBuffer
-    ): Promise<ProtectedValue | ArrayBuffer>;
+    createBinary(value: ProtectedValue | ArrayBuffer): Promise<ProtectedValue | ArrayBuffer>;
 
     createDefaultGroup(): void;
 
@@ -121,7 +116,7 @@ export class Kdbx {
 export class KdbxError {
     constructor(code: number, message: string);
 
-    name: "KdbxError";
+    name: 'KdbxError';
     code: number;
     message: string;
 
@@ -345,27 +340,16 @@ export namespace CryptoEngine {
         length: number,
         parallelism: number,
         type: number,
-        version: number
+        version: number,
     ): Promise<ArrayBuffer>;
 
-    function chacha20(
-        data: ArrayBuffer,
-        key: ArrayBuffer,
-        iv: ArrayBuffer
-    ): Promise<ArrayBuffer>;
+    function chacha20(data: ArrayBuffer, key: ArrayBuffer, iv: ArrayBuffer): Promise<ArrayBuffer>;
 
-    function configure(
-        newSubtle: SubtleCrypto | null,
-        newWebCrypto: Crypto | null,
-        newNodeCrypto: Crypto | null
-    ): void;
+    function configure(newSubtle: SubtleCrypto | null, newWebCrypto: Crypto | null, newNodeCrypto: Crypto | null): void;
 
     function createAesCbc(): any;
 
-    function hmacSha256(
-        key: ArrayBuffer,
-        data: ArrayBuffer
-    ): Promise<ArrayBuffer>;
+    function hmacSha256(key: ArrayBuffer, data: ArrayBuffer): Promise<ArrayBuffer>;
 
     function random(len: number): Uint8Array;
 
@@ -436,9 +420,7 @@ export class Binaries {
     constructor();
 
     hash(): Promise<any[]>;
-    getBinaryHash(
-        binary: ProtectedValue | ArrayBuffer | Uint8Array
-    ): Promise<string>;
+    getBinaryHash(binary: ProtectedValue | ArrayBuffer | Uint8Array): Promise<string>;
     assignIds(): void;
     add(value: ProtectedValue | ArrayBuffer): Promise<BinaryInforamtion>;
 }
@@ -473,11 +455,8 @@ export class Group {
 
     write(parentNode: Node, ctx: Context): void;
     forEach(
-        callback: (
-            thisArg: (value: any) => void,
-            entry: Entry | undefined
-        ) => void,
-        thisArg: (value: any) => void
+        callback: (thisArg: (value: any) => void, entry: Entry | undefined) => void,
+        thisArg: (value: any) => void,
     ): void;
     merge(objectMap: ObjectMap): void;
     copyFrom(group: Group): void;

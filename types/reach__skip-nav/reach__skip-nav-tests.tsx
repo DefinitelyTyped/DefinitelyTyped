@@ -8,7 +8,7 @@ render(
     <SkipNavLink style={{ color: 'red' }} onClick={() => {}}>
         Skip it
     </SkipNavLink>,
-    document.getElementById('app')
+    document.getElementById('app'),
 );
 
 render(<SkipNavContent />, document.getElementById('app'));
@@ -16,5 +16,5 @@ render(
     <SkipNavContent style={{ color: 'red' }} onClick={() => {}}>
         Skip Nav Content
     </SkipNavContent>,
-    document.getElementById('app')
+    document.getElementById('app'),
 );

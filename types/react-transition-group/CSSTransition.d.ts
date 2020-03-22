@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { TransitionProps } from "./Transition";
+import { TransitionProps } from './Transition';
 
 export interface CSSTransitionClassNames {
     appear?: string;

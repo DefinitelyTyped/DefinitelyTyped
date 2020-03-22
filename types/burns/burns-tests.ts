@@ -18,12 +18,12 @@ function sendOrderShippedEmail(data: OrderData) {
 }
 
 burns.configure({
-    defaultHandler: handleEverything
+    defaultHandler: handleEverything,
 });
 burns.registerEvents({
-    newPurchase: sendOrderShippedEmail
+    newPurchase: sendOrderShippedEmail,
 });
 burns.dispatch('newPurchase', {
     userName: 'Johnny',
-    orderId: 'rand'
+    orderId: 'rand',
 });

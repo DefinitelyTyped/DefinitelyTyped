@@ -1,5 +1,5 @@
-import { Component, CSSProperties, ComponentType } from "react";
-import { CustomPickerInjectedProps } from "../../..";
+import { Component, CSSProperties, ComponentType } from 'react';
+import { CustomPickerInjectedProps } from '../../..';
 
 export interface SaturationStyle {
     color?: CSSProperties;

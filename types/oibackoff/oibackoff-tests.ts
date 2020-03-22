@@ -7,14 +7,19 @@ import * as oibackoff from 'oibackoff';
 
 // Example 1
 let backoff = oibackoff.backoff({
-    algorithm  : 'exponential',
-    delayRatio : 0.2,
-    maxTries   : 5,
+    algorithm: 'exponential',
+    delayRatio: 0.2,
+    maxTries: 5,
 });
 
-backoff(dns.resolve, 'example.com', (err, tries, delay) => true, (err, addresses) => {
-    // Do something
-});
+backoff(
+    dns.resolve,
+    'example.com',
+    (err, tries, delay) => true,
+    (err, addresses) => {
+        // Do something
+    },
+);
 
 const fn = (callback: (err: number) => any) => {};
 backoff(fn, (err, addresses, priorErrors) => {
@@ -39,10 +44,10 @@ backoff(dns.resolve, 'chilts.org', (err, addresses, priorErrors) => {
 
 // Example 2
 function intermediate(err: Error | null, tries: number, delay: number): boolean {
-    console.log(err);   // last error
+    console.log(err); // last error
     console.log(tries); // total number of tries performed thus far
     console.log(delay); // the delay for the next attempt
-    return false;       // this will cancel additional tries
+    return false; // this will cancel additional tries
 }
 
 backoff(dns.resolve, 'chilts.org', intermediate, (err, addresses, priorErrors) => {
@@ -55,31 +60,36 @@ backoff(dns.resolve, 'chilts.org', intermediate, (err, addresses, priorErrors) =
     console.log(addresses);
 });
 
-backoff(dns.resolve, 'chilts.org', (err, tries, delay) => true, (err, addresses) => {
-    if (err) {
-        // do something to recover from this error
-        return;
-    }
+backoff(
+    dns.resolve,
+    'chilts.org',
+    (err, tries, delay) => true,
+    (err, addresses) => {
+        if (err) {
+            // do something to recover from this error
+            return;
+        }
 
-    // do something with addresses
-    console.log(addresses);
-});
+        // do something with addresses
+        console.log(addresses);
+    },
+);
 
 // Backoff Strategies
 // 0.4, 0.8, 1.6, 3.2, 6.4, ...
 backoff = oibackoff.backoff({
-    algorithm  : 'exponential',
-    delayRatio : 0.4,
+    algorithm: 'exponential',
+    delayRatio: 0.4,
 });
 
 // 1, 2, 3, 4, 5, ...
 backoff = oibackoff.backoff({
-    algorithm  : 'incremental',
-    delayRatio : 1,
+    algorithm: 'incremental',
+    delayRatio: 1,
 });
 
 // 0.5, 0.5, 1.0, 1.5, 2.5, 4, ...
 backoff = oibackoff.backoff({
-    algorithm  : 'fibonacci',
-    delayRatio : 0.5,
+    algorithm: 'fibonacci',
+    delayRatio: 0.5,
 });

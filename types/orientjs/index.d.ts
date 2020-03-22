@@ -14,11 +14,30 @@ import { Readable } from 'stream';
 
 declare namespace orientjs {
     type Version = number | string;
-    type PropertyType = "Boolean" | "Integer" | "Short" | "Long" |
-        "Float" | "Double" | "DateTime" | "String" | "Binary" |
-        "Embedded" | "EmbeddedList" | "EmbeddedSet" | "EmbeddedMap" |
-        "Link" | "LinkList" | "LinkSet" | "LinkMap" | "Byte" |
-        "Transient" | "Date" | "Custom" | "Decimal" | "LinkBag";
+    type PropertyType =
+        | 'Boolean'
+        | 'Integer'
+        | 'Short'
+        | 'Long'
+        | 'Float'
+        | 'Double'
+        | 'DateTime'
+        | 'String'
+        | 'Binary'
+        | 'Embedded'
+        | 'EmbeddedList'
+        | 'EmbeddedSet'
+        | 'EmbeddedMap'
+        | 'Link'
+        | 'LinkList'
+        | 'LinkSet'
+        | 'LinkMap'
+        | 'Byte'
+        | 'Transient'
+        | 'Date'
+        | 'Custom'
+        | 'Decimal'
+        | 'LinkBag';
     /**
      * A list of orientdb data types, indexed by their type id.
      */
@@ -46,7 +65,7 @@ declare namespace orientjs {
         Custom = 20,
         Decimal = 21,
         LinkBag = 22,
-        Any = 23
+        Any = 23,
     }
 
     namespace Errors {
@@ -58,8 +77,7 @@ declare namespace orientjs {
             message: string;
             date: any;
         }
-        class RequestError extends OperationError {
-        }
+        class RequestError extends OperationError {}
     }
 
     namespace Migration {
@@ -230,7 +248,7 @@ declare namespace orientjs {
         min?: number;
         max?: number;
         custom?: {
-            fields?: CustomField[]
+            fields?: CustomField[];
         };
     }
 
@@ -248,7 +266,7 @@ declare namespace orientjs {
         min?: number;
         max?: number;
         custom?: {
-            fields?: CustomField[]
+            fields?: CustomField[];
         };
     }
 
@@ -267,7 +285,7 @@ declare namespace orientjs {
         min?: number;
         max?: number;
         custom?: {
-            fields?: CustomField[]
+            fields?: CustomField[];
         };
 
         reload(): Promise<OClassProperty>;
@@ -296,10 +314,13 @@ declare namespace orientjs {
          * @promise {Object}           The updated property.
          */
         update(config: PropertyUpdateConfig, reload?: boolean): Promise<OClassProperty>;
-        drop(name: string, config?: {
-            ifexist?: boolean,
-            force?: boolean
-        }): Promise<OClass>;
+        drop(
+            name: string,
+            config?: {
+                ifexist?: boolean;
+                force?: boolean;
+            },
+        ): Promise<OClass>;
         alter(name: string, setting?: any): Promise<OClass>;
         rename(oldName: string, newName?: string): Promise<OClassProperty>;
     }
@@ -354,7 +375,13 @@ declare namespace orientjs {
          * @param  ifnotexist     The flag for the if not exist class
          * @promise {Object}                The created class object
          */
-        create(name: string, parentName?: string, cluster?: string, isAbstract?: boolean, ifnotexist?: boolean): Promise<OClass>;
+        create(
+            name: string,
+            parentName?: string,
+            cluster?: string,
+            isAbstract?: boolean,
+            ifnotexist?: boolean,
+        ): Promise<OClass>;
         /**
          * Update the given class.
          *
@@ -376,10 +403,13 @@ declare namespace orientjs {
          * @param  config The config.
          * @promise {Db}         The database instance.
          */
-        drop(name: string, config?: {
-            ifexist?: boolean,
-            force?: boolean
-        }): Promise<ODB>;
+        drop(
+            name: string,
+            config?: {
+                ifexist?: boolean;
+                force?: boolean;
+            },
+        ): Promise<ODB>;
         /**
          * Get a class by name.
          *
@@ -448,7 +478,13 @@ declare namespace orientjs {
          * @param  cache     The cache number
          * @promise {Object}                The created sequence object
          */
-        create(name: string, type: "ORDERED" | "CACHED", start?: number, incerement?: number, cache?: number): Promise<OSequence>;
+        create(
+            name: string,
+            type: 'ORDERED' | 'CACHED',
+            start?: number,
+            incerement?: number,
+            cache?: number,
+        ): Promise<OSequence>;
         /**
          * update a  sequence.
          *
@@ -472,8 +508,7 @@ declare namespace orientjs {
          * @param  config The config.
          * @promise {Db}         The database instance.
          */
-        drop(name: string, config?: {
-        }): Promise<ODB>;
+        drop(name: string, config?: {}): Promise<ODB>;
         /**
          * Get a sequence by name.
          *
@@ -492,8 +527,8 @@ declare namespace orientjs {
     }
 
     interface RecordMeta {
-        "@rid": ORID;
-        "@version": Version;
+        '@rid': ORID;
+        '@version': Version;
     }
 
     type ODocument = ORecord;
@@ -586,10 +621,19 @@ declare namespace orientjs {
         class?: string;
         ifnotexist?: boolean;
         properties?: string[];
-        type: "UNIQUE" | "NOTUNIQUE" | "FULLTEXT" | "DICTIONARY" | "UNIQUE_HASH_INDEX" | "NOTUNIQUE_HASH_INDEX" | "FULLTEXT_HASH_INDEX" | "DICTIONARY_HASH_INDEX" | "SPATIAL";
+        type:
+            | 'UNIQUE'
+            | 'NOTUNIQUE'
+            | 'FULLTEXT'
+            | 'DICTIONARY'
+            | 'UNIQUE_HASH_INDEX'
+            | 'NOTUNIQUE_HASH_INDEX'
+            | 'FULLTEXT_HASH_INDEX'
+            | 'DICTIONARY_HASH_INDEX'
+            | 'SPATIAL';
         keyType?: string;
         metadata?: any;
-        engine?: "LUCENE" | "COLA" | string;
+        engine?: 'LUCENE' | 'COLA' | string;
     }
 
     interface OIndexEntry {
@@ -657,7 +701,13 @@ declare namespace orientjs {
         wait(waitLimit: number): OStatement;
         return(value: OSqlExpression): OStatement;
         lucene(property: string | any, luceneQuery: string): OStatement;
-        near(latitudeProperty: string | any, longitudeProperty: string | number, longitude: number, latitude?: number, maxDistanceInKms?: number): OStatement;
+        near(
+            latitudeProperty: string | any,
+            longitudeProperty: string | number,
+            longitude: number,
+            latitude?: number,
+            maxDistanceInKms?: number,
+        ): OStatement;
         within(latitudeProperty: string, longitudeProperty: string, box: number[]): OStatement;
         addParams(key: string, value: any): OStatement;
         addParams(value: any): OStatement;
@@ -696,7 +746,7 @@ declare namespace orientjs {
         type?: string;
         storage?: string;
         token?: any;
-        transformers?: Array<((item: ORecord) => any)>;
+        transformers?: Array<(item: ORecord) => any>;
     }
 
     interface ORawExpression {
@@ -726,12 +776,12 @@ declare namespace orientjs {
 
     interface QueryOptions {
         params?: any;
-        mode?: "s" | "a" | "l";
+        mode?: 's' | 'a' | 'l';
         fetchPlan?: any;
         limit?: number;
         token?: any;
         class?: string;
-        language?: "SQL" | "Javascript";
+        language?: 'SQL' | 'Javascript';
     }
 
     class ODB extends events.EventEmitter {
@@ -739,8 +789,8 @@ declare namespace orientjs {
         forcePrepare: boolean;
         name: string;
         server: OServer;
-        type: "graph" | "document";
-        storage: "plocal" | "memory";
+        type: 'graph' | 'document';
+        storage: 'plocal' | 'memory';
         username: string;
         password: string;
         token: any;
@@ -898,13 +948,13 @@ declare namespace orientjs {
          * @returns
          */
         if(condition: OSqlExpression, statements: OStatement[]): OStatement;
-       /**
-        * Create a transactional query with if.
-        *
-        * @param condition
-        * @param statements
-        * @returns
-        */
+        /**
+         * Create a transactional query with if.
+         *
+         * @param condition
+         * @param statements
+         * @returns
+         */
         if(condition: OSqlExpression, ...statements: OStatement[]): OStatement;
         /**
          * Escape the given input.
@@ -1046,8 +1096,7 @@ declare namespace orientjs {
         shutdown(): Promise<any>;
     }
 
-    class OConnection {
-    }
+    class OConnection {}
 
     namespace Topology {
         class OServerNode extends events.EventEmitter {
@@ -1062,7 +1111,7 @@ declare namespace orientjs {
         }
         class OCluster extends events.EventEmitter {
             servers: OServerNode[];
-            constructor(config?: OClusterConfig)
+            constructor(config?: OClusterConfig);
             acquireFrom(selection: (cluster: OCluster) => OServerNode): Promise<OServerNode>;
             connect(): Promise<OServerNode>;
 
@@ -1071,13 +1120,7 @@ declare namespace orientjs {
     }
 
     class ODatabase extends ODB {
-        constructor(config?: {
-            host: string,
-            port?: number,
-            username?: string,
-            password?: string,
-            name: string
-        });
+        constructor(config?: { host: string; port?: number; username?: string; password?: string; name: string });
     }
 
     interface BasePoolConfig {
@@ -1108,8 +1151,8 @@ declare namespace orientjs {
         config: any;
 
         name: string;
-        type: "document" | "graph";
-        storage: "plocal" | "memory";
+        type: 'document' | 'graph';
+        storage: 'plocal' | 'memory';
         username: string;
         password: string;
         pushNotification?: boolean;
@@ -1157,7 +1200,7 @@ declare namespace orientjs {
         name: string;
         username?: string;
         password?: string;
-        pool?: { max?: number, min?: number };
+        pool?: { max?: number; min?: number };
     }
     class ODatabaseSession extends ODatabase {
         constructor(client?: OrientDBClient, options?: ODatabaseSessionOptions);
@@ -1185,7 +1228,7 @@ declare namespace orientjs {
          * @param   {Object|Array} [options.params]   Batch parameters
          * @return           The results of the batch script
          */
-        batch<R>(batch: string, options?: { pageSize?: number, params?: any }): OResult<R>;
+        batch<R>(batch: string, options?: { pageSize?: number; params?: any }): OResult<R>;
 
         /**
          * Commit the transaction.
@@ -1202,7 +1245,7 @@ declare namespace orientjs {
          * @param   {Object|Array} [options.params]   Command parameters
          * @return            The results of the command
          */
-        command<R>(command: string, options?: { pageSize?: number, params?: any }): OResult<R>;
+        command<R>(command: string, options?: { pageSize?: number; params?: any }): OResult<R>;
 
         /**
          * Execute an SQL query against the database and retreive the results
@@ -1212,7 +1255,7 @@ declare namespace orientjs {
          * @param   {Object|Array} [options.params]   Query parameters
          * @returns                         The results of the query
          */
-        query<R>(query: string, options?: { pageSize?: number, params?: any }): OResult<R>;
+        query<R>(query: string, options?: { pageSize?: number; params?: any }): OResult<R>;
 
         /**
          * Execute a custom language script against the database and retreive the results
@@ -1224,7 +1267,7 @@ declare namespace orientjs {
          * @param   {Object|Array} [options.params]   Script parameters
          * @return                          The results of the script
          */
-        execute<R>(language: string, script: string, options?: { pageSize?: number, params?: any }): OResult<R>;
+        execute<R>(language: string, script: string, options?: { pageSize?: number; params?: any }): OResult<R>;
 
         /**
          * Execute an SQL Live query against the database and retreive the results
@@ -1278,9 +1321,9 @@ declare namespace orientjs {
         port?: number;
 
         servers?: OServerConfig[];
-        pool?: { max?: number, min?: number; };
+        pool?: { max?: number; min?: number };
 
-        subscribePool?: { max?: number; };
+        subscribePool?: { max?: number };
 
         logger?: any;
     }
@@ -1294,8 +1337,8 @@ declare namespace orientjs {
         username?: string;
         password?: string;
         name: string;
-        type?: "graph" | "document";
-        storage?: "plocal" | "memory";
+        type?: 'graph' | 'document';
+        storage?: 'plocal' | 'memory';
     }
 
     interface DropDatabaseOptions {

@@ -94,86 +94,99 @@ interface CleanOption {
 }
 
 interface SimpleSchemaOptions {
-  check?: boolean;
-  clean?: CleanOption;
-  defaultLabel?: string;
-  humanizeAutoLabels?: boolean;
-  requiredByDefault?: boolean;
-  tracker?: any;
+    check?: boolean;
+    clean?: CleanOption;
+    defaultLabel?: string;
+    humanizeAutoLabels?: boolean;
+    requiredByDefault?: boolean;
+    tracker?: any;
 }
 
 interface SimpleSchemaValidationError {
-  type: string;
-  [key: string]: number | string;
+    type: string;
+    [key: string]: number | string;
 }
 
-export type SimpleSchemaDefinition = {
-    [key: string]: SchemaDefinition
-      | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
-      | ArrayConstructor
-      | string | RegExp
-      | SimpleSchema
-  } | any[];
+export type SimpleSchemaDefinition =
+    | {
+          [key: string]:
+              | SchemaDefinition
+              | BooleanConstructor
+              | StringConstructor
+              | NumberConstructor
+              | DateConstructor
+              | ArrayConstructor
+              | string
+              | RegExp
+              | SimpleSchema;
+      }
+    | any[];
 
 interface SimpleSchemaStatic {
-  new(
-    schema: SimpleSchemaDefinition,
-    options?: SimpleSchemaOptions
-  ): SimpleSchema;
-  namedContext(name?: string): SimpleSchemaValidationContextStatic;
-  addValidator(validator: () => boolean): any;
-  pick(...fields: string[]): SimpleSchemaStatic;
-  omit(...fields: string[]): SimpleSchemaStatic;
-  oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchemaStatic;
-  clean(doc: any, options?: CleanOption): any;
-  schema(key: string): SchemaDefinition;
-  schema(): SchemaDefinition[];
-  getDefinition(key: string, propList?: any, functionContext?: any): any;
-  keyIsInBlackBox(key: string): boolean;
-  labels(labels: {[key: string]: string}): void;
-  label(key: any): any;
-  Integer: RegExp;
-  messages(messages: any): any;
-  messageForError(type: any, key: any, def: any, value: any): string;
-  allowsKey(key: any): string;
-  newContext(): ValidationContext;
-  objectKeys(keyPrefix: any): any[];
-  validate(obj: any, options?: ValidationOption): void;
-  validator(options?: ValidationOption): () => boolean;
-  extend(otherSchema: SimpleSchemaStatic): SimpleSchemaStatic;
-  extendOptions(options: string[]): void;
-  RegEx: {
-      Email: RegExp;
-      EmailWithTLD: RegExp;
-      Domain: RegExp;
-      WeakDomain: RegExp;
-      IP: RegExp;
-      IPv4: RegExp;
-      IPv6: RegExp;
-      Url: RegExp;
-      Id: RegExp;
-      ZipCode: RegExp;
-      Phone: RegExp;
-  };
-  ErrorTypes: {
-      REQUIRED: string,
-      MIN_STRING: string,
-      MAX_STRING: string,
-      MIN_NUMBER: string,
-      MAX_NUMBER: string,
-      MIN_NUMBER_EXCLUSIVE: string,
-      MAX_NUMBER_EXCLUSIVE: string,
-      MIN_DATE: string,
-      MAX_DATE: string,
-      BAD_DATE: string,
-      MIN_COUNT: string,
-      MAX_COUNT: string,
-      MUST_BE_INTEGER: string,
-      VALUE_NOT_ALLOWED: string,
-      EXPECTED_TYPE: string,
-      FAILED_REGULAR_EXPRESSION: string,
-      KEY_NOT_IN_SCHEMA: string
-  };
+    new (schema: SimpleSchemaDefinition, options?: SimpleSchemaOptions): SimpleSchema;
+    namedContext(name?: string): SimpleSchemaValidationContextStatic;
+    addValidator(validator: () => boolean): any;
+    pick(...fields: string[]): SimpleSchemaStatic;
+    omit(...fields: string[]): SimpleSchemaStatic;
+    oneOf(
+        ...types: Array<
+            | SchemaDefinition
+            | BooleanConstructor
+            | StringConstructor
+            | NumberConstructor
+            | DateConstructor
+            | ArrayConstructor
+        >
+    ): SimpleSchemaStatic;
+    clean(doc: any, options?: CleanOption): any;
+    schema(key: string): SchemaDefinition;
+    schema(): SchemaDefinition[];
+    getDefinition(key: string, propList?: any, functionContext?: any): any;
+    keyIsInBlackBox(key: string): boolean;
+    labels(labels: { [key: string]: string }): void;
+    label(key: any): any;
+    Integer: RegExp;
+    messages(messages: any): any;
+    messageForError(type: any, key: any, def: any, value: any): string;
+    allowsKey(key: any): string;
+    newContext(): ValidationContext;
+    objectKeys(keyPrefix: any): any[];
+    validate(obj: any, options?: ValidationOption): void;
+    validator(options?: ValidationOption): () => boolean;
+    extend(otherSchema: SimpleSchemaStatic): SimpleSchemaStatic;
+    extendOptions(options: string[]): void;
+    RegEx: {
+        Email: RegExp;
+        EmailWithTLD: RegExp;
+        Domain: RegExp;
+        WeakDomain: RegExp;
+        IP: RegExp;
+        IPv4: RegExp;
+        IPv6: RegExp;
+        Url: RegExp;
+        Id: RegExp;
+        ZipCode: RegExp;
+        Phone: RegExp;
+    };
+    ErrorTypes: {
+        REQUIRED: string;
+        MIN_STRING: string;
+        MAX_STRING: string;
+        MIN_NUMBER: string;
+        MAX_NUMBER: string;
+        MIN_NUMBER_EXCLUSIVE: string;
+        MAX_NUMBER_EXCLUSIVE: string;
+        MIN_DATE: string;
+        MAX_DATE: string;
+        BAD_DATE: string;
+        MIN_COUNT: string;
+        MAX_COUNT: string;
+        MUST_BE_INTEGER: string;
+        VALUE_NOT_ALLOWED: string;
+        EXPECTED_TYPE: string;
+        FAILED_REGULAR_EXPRESSION: string;
+        KEY_NOT_IN_SCHEMA: string;
+    };
 }
 
 interface ValidationOption {
@@ -209,7 +222,7 @@ interface SimpleSchemaValidationContextStatic {
 }
 
 interface MongoObjectStatic {
-    forEachNode(func: (() => void), options?: {endPointsOnly: boolean}): void;
+    forEachNode(func: () => void, options?: { endPointsOnly: boolean }): void;
     getValueForPosition(position: string): any;
     setValueForPosition(position: string, value: any): void;
     removeValueForPosition(position: string): void;
@@ -224,11 +237,11 @@ interface MongoObjectStatic {
     removeGenericKey(key: string): void;
     removeKey(key: string): void;
     removeKeys(keys: string[]): void;
-    filterGenericKeys(test: (() => boolean)): void;
+    filterGenericKeys(test: () => boolean): void;
     setValueForKey(key: string, val: any): void;
     setValueForGenericKey(key: string, val: any): void;
     getObject(): any;
-    getFlatObject(options?: {keepArrays?: boolean}): any;
+    getFlatObject(options?: { keepArrays?: boolean }): any;
     affectsKey(key: string): any;
     affectsGenericKey(key: string): any;
     affectsGenericKeyImplicit(key: string): any;
@@ -247,7 +260,7 @@ export interface SimpleSchema extends SimpleSchemaStatic {
 }
 
 export interface MongoObject {
-  expandKey(val: any, key: string, obj: any): void;
+    expandKey(val: any, key: string, obj: any): void;
 }
 
 export default SimpleSchema;

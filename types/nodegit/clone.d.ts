@@ -6,7 +6,7 @@ export namespace Clone {
         AUTO = 0,
         LOCAL = 1,
         NO_LOCAL = 2,
-        NO_LINKS = 3
+        NO_LINKS = 3,
     }
 }
 

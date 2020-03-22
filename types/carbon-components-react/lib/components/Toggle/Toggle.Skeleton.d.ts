@@ -1,12 +1,12 @@
-import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactAttr } from '../../../typings/shared';
 
 interface InheritedProps {
-    id?: ReactAttr["id"],
+    id?: ReactAttr['id'];
 }
 
-export interface ToggleSkeletonProps extends InheritedProps { }
+export interface ToggleSkeletonProps extends InheritedProps {}
 
-declare class ToggleSkeleton extends React.Component<ToggleSkeletonProps> { }
+declare class ToggleSkeleton extends React.Component<ToggleSkeletonProps> {}
 
 export default ToggleSkeleton;

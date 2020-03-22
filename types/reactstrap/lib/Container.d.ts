@@ -9,5 +9,5 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class Container<T = {[key: string]: any}> extends React.Component<ContainerProps> {}
+declare class Container<T = { [key: string]: any }> extends React.Component<ContainerProps> {}
 export default Container;

@@ -34,21 +34,17 @@ moment.updateLocale('en', {
         3: ['09:30:00', '13:00:00'],
         4: ['09:30:00', '17:00:00'],
         5: ['09:30:00', '17:00:00'],
-        6: null
-    }
+        6: null,
+    },
 });
 moment('2015-02-25T15:00:00Z').isWorkingTime(); // false
 moment('2015-02-23T09:00:00Z').isWorkingTime(); // false
 moment.updateLocale('en', {
-    holidays: [
-        '2015-05-04'
-    ]
+    holidays: ['2015-05-04'],
 });
 moment('2015-05-04T09:30:00Z').isWorkingDay(); // false
 moment.updateLocale('en', {
-    holidays: [
-        '*-12-25'
-    ]
+    holidays: ['*-12-25'],
 });
 moment('2015-12-25T16:30:00Z').isWorkingDay(); // false
 moment('2016-12-25T16:30:00Z').isWorkingDay(); // false

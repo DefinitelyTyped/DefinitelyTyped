@@ -14,7 +14,15 @@ export class Curve {
     G: Point;
     n: BigInteger;
     h: BigInteger;
-    constructor(p: BigInteger, a: BigInteger, b: BigInteger, Gx: BigInteger, Gy: BigInteger, n: BigInteger, h: BigInteger);
+    constructor(
+        p: BigInteger,
+        a: BigInteger,
+        b: BigInteger,
+        Gx: BigInteger,
+        Gy: BigInteger,
+        n: BigInteger,
+        h: BigInteger,
+    );
     isInfinity(Q: any): boolean;
     isOnCurve(Q: any): boolean;
     pointFromX(isOdd: boolean, x: Point): Point;

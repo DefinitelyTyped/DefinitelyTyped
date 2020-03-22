@@ -9,7 +9,7 @@ declare function gitRepoName(options?: string | gitRepoName.Options): Promise<st
 declare function gitRepoName(callback: (err: Error | null, repoName: string) => void): void;
 declare function gitRepoName(
     options: string | gitRepoName.Options,
-    callback: (err: Error | null, repoName: string) => void
+    callback: (err: Error | null, repoName: string) => void,
 ): void;
 
 declare namespace gitRepoName {

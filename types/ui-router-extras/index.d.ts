@@ -41,7 +41,7 @@ declare module 'angular' {
             params?: boolean | string[];
             /*
              * A callback function that determines whether or not the redirect should actually occur, or changes the redirect to some other state.
-            * Return an object: IRedirectParams to change the redirect
+             * Return an object: IRedirectParams to change the redirect
              */
             fn?($dsr$: { redirect: IRedirectParams; to: IRedirectParams }): boolean | IRedirectParams;
         }
@@ -98,9 +98,9 @@ declare module 'angular' {
          */
         interface IStickyState extends IState {
             /*
-            * When marking a state sticky, the state must target its own unique named ui-view.
-            * Docs: http://christopherthielen.github.io/ui-router-extras/#/sticky
-            */
+             * When marking a state sticky, the state must target its own unique named ui-view.
+             * Docs: http://christopherthielen.github.io/ui-router-extras/#/sticky
+             */
             sticky?: boolean;
             /*
              * The most-recently-activate substate of the DSR marked state is remembered.
@@ -131,7 +131,7 @@ declare module 'angular' {
          */
         interface IStickyStateService {
             getInactiveStates(): IStickyState[];
-             /*
+            /*
              * If there is an inactive state named inactiveStateName, this method exits that state.
              * If stateParams is provided, then the state is only exited if the params match the inactive params.
              * If inactiveStateName === '*', then all inactive states are exited

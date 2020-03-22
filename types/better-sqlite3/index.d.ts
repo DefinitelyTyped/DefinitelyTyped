@@ -9,12 +9,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import Integer = require("integer");
+import Integer = require('integer');
 
 type VariableArgFunction = (...params: any[]) => any;
-type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any
-  ? A
-  : never;
+type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
 
 declare namespace BetterSqlite3 {
     interface Statement<BindParameters extends any[]> {
@@ -58,9 +56,9 @@ declare namespace BetterSqlite3 {
         inTransaction: boolean;
 
         // tslint:disable-next-line no-unnecessary-generics
-        prepare<BindParameters extends any[] | {} = any[]>(source: string): BindParameters extends any[]
-          ? Statement<BindParameters>
-          : Statement<[BindParameters]>;
+        prepare<BindParameters extends any[] | {} = any[]>(
+            source: string,
+        ): BindParameters extends any[] ? Statement<BindParameters> : Statement<[BindParameters]>;
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): any;
@@ -75,7 +73,7 @@ declare namespace BetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new(filename: string, options?: Database.Options): Database;
+        new (filename: string, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 
@@ -133,8 +131,8 @@ declare namespace Database {
     type Integer = typeof Integer;
     type SqliteError = typeof SqliteError;
     type Statement<BindParameters extends any[] | {} = any[]> = BindParameters extends any[]
-      ? BetterSqlite3.Statement<BindParameters>
-      : BetterSqlite3.Statement<[BindParameters]>;
+        ? BetterSqlite3.Statement<BindParameters>
+        : BetterSqlite3.Statement<[BindParameters]>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
     type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
     type Database = BetterSqlite3.Database;

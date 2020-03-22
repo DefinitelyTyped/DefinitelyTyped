@@ -7,9 +7,7 @@ KeepAwake.deactivate();
 
 class TestComponent extends React.Component {
     render() {
-       return (
-            <KeepAwake />
-       );
+        return <KeepAwake />;
     }
 }
 

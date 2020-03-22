@@ -6,10 +6,7 @@
 
 export = snakecaseKeys;
 
-declare function snakecaseKeys(
-    obj: object,
-    options?: snakecaseKeys.Options
-): { [key: string]: any };
+declare function snakecaseKeys(obj: object, options?: snakecaseKeys.Options): { [key: string]: any };
 
 declare namespace snakecaseKeys {
     interface Options {

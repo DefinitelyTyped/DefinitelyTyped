@@ -2,17 +2,20 @@ import { createReadStream } from 'fs';
 import { get } from 'http';
 import { CentralDirectory, Entry, Open, Parse } from 'unzipper';
 
-createReadStream("http://example.org/path/to/archive.zip")
+createReadStream('http://example.org/path/to/archive.zip')
     .pipe(Parse())
-    .on("entry", (entry: Entry) => {
-        entry.autodrain().promise().then(() => {
-            console.log("Finished draining stream");
-        });
+    .on('entry', (entry: Entry) => {
+        entry
+            .autodrain()
+            .promise()
+            .then(() => {
+                console.log('Finished draining stream');
+            });
     });
 
-createReadStream("http://example.org/path/to/archive.zip")
+createReadStream('http://example.org/path/to/archive.zip')
     .pipe(Parse())
-    .on("entry", (entry: Entry) => {
+    .on('entry', (entry: Entry) => {
         entry.buffer().then((b1: Buffer) => {});
         const s1: string = entry.path;
         const s2: string = entry.type;
@@ -26,8 +29,7 @@ createReadStream("http://example.org/path/to/archive.zip")
             compressedSize: number;
             fileNameLength: number;
             extraFieldLength: number;
-        } =
-            entry.vars;
+        } = entry.vars;
 
         const o2: {
             signature: number;
@@ -36,22 +38,21 @@ createReadStream("http://example.org/path/to/archive.zip")
             compressedSize: number;
             offset: number;
             disknum: number;
-        } =
-            entry.extra;
+        } = entry.extra;
     })
     .promise()
     .then(() => {
-        console.log("Finished reading stream");
+        console.log('Finished reading stream');
     });
 
-const dir1: Promise<CentralDirectory> = Open.file("Z:\\path\\to\\archive.zip");
-const dir2: Promise<CentralDirectory> = Open.url(get("url/to/archive.zip"), {});
-const dir3: Promise<CentralDirectory> = Open.s3("any", "any");
+const dir1: Promise<CentralDirectory> = Open.file('Z:\\path\\to\\archive.zip');
+const dir2: Promise<CentralDirectory> = Open.url(get('url/to/archive.zip'), {});
+const dir3: Promise<CentralDirectory> = Open.s3('any', 'any');
 const dir4: Promise<CentralDirectory> = Open.buffer(Buffer.from('ZIPDATA'));
 
 (async () => {
     const cd = await dir1;
     await cd.extract({
-        path: "path/to/extraction/root"
+        path: 'path/to/extraction/root',
     });
 })();

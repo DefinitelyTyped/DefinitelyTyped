@@ -6,9 +6,8 @@ declare namespace Radio {
         disabled?: boolean;
         inline?: boolean;
         inputRef?: (instance: HTMLInputElement) => void;
-        validationState?: "success" | "warning" | "error";
+        validationState?: 'success' | 'warning' | 'error';
     }
-
 }
-declare class Radio extends React.Component<Radio.RadioProps> { }
+declare class Radio extends React.Component<Radio.RadioProps> {}
 export = Radio;

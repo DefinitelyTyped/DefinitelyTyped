@@ -19,7 +19,7 @@ const streams = [
     through(),
     through2(),
     fs.createReadStream('.filepath'),
-    () => fs.createWriteStream('.filepath2')
+    () => fs.createWriteStream('.filepath2'),
 ];
 
 const factory: multistream.FactoryStream = (cb) => {

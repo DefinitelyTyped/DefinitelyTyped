@@ -48,17 +48,17 @@ declare namespace Xrm {
     /**
      * Client Types for Xrm.Page.context.getClient().
      */
-    type Client = "Web" | "Outlook" | "Mobile";
+    type Client = 'Web' | 'Outlook' | 'Mobile';
 
     /**
      * Client States for Xrm.Page.context.getClientState().
      */
-    type ClientState = "Online" | "Offline";
+    type ClientState = 'Online' | 'Offline';
 
     /**
      * Themes for Xrm.Page.context.getCurrentTheme().
      */
-    type Theme = "default" | "Office12Blue" | "Office14Silver";
+    type Theme = 'default' | 'Office12Blue' | 'Office14Silver';
 
     /**
      * Interface for the client context.
@@ -517,8 +517,11 @@ declare namespace Xrm {
          *                                                  error.
          * @return   Returns an asynchronous promise.
          */
-        openQuickCreate(entityLogicalName: string, createFromEntity?: Page.LookupValue, parameters?: Utility.OpenParameters):
-            Async.XrmPromise<Async.QuickCreateSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+        openQuickCreate(
+            entityLogicalName: string,
+            createFromEntity?: Page.LookupValue,
+            parameters?: Utility.OpenParameters,
+        ): Async.XrmPromise<Async.QuickCreateSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
          * Opens an entity form.
@@ -528,7 +531,12 @@ declare namespace Xrm {
          * @param       parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
          * @param    windowOptions   (Optional) Options for controlling the window.
          */
-        openEntityForm(name: string, id?: string, parameters?: Utility.FormOpenParameters, windowOptions?: Utility.WindowOptions): void;
+        openEntityForm(
+            name: string,
+            id?: string,
+            parameters?: Utility.FormOpenParameters,
+            windowOptions?: Utility.WindowOptions,
+        ): void;
 
         /**
          * Opens an HTML Web Resource in a new browser window.
@@ -595,7 +603,10 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
          *             Status, UniqueIdentifier
          */
-        createRecord(entityType: string, data: { [attributeName: string]: any }): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+        createRecord(
+            entityType: string,
+            data: { [attributeName: string]: any },
+        ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
          * Retrieves an entity record in mobile clients while working in the offline mode.
@@ -613,7 +624,11 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
          *             Status, UniqueIdentifier
          */
-        retrieveRecord(entityType: string, id: string, options: string): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+        retrieveRecord(
+            entityType: string,
+            id: string,
+            options: string,
+        ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
          * Retrieves a collection of entity records in mobile clients while working in the offline mode.
@@ -636,7 +651,11 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
          *             Status, UniqueIdentifier
          */
-        retrieveMultipleRecords(entityType: string, options: string, maxPageSize: number): Async.XrmPromise<Async.OfflineRetrieveMultipleSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+        retrieveMultipleRecords(
+            entityType: string,
+            options: string,
+            maxPageSize: number,
+        ): Async.XrmPromise<Async.OfflineRetrieveMultipleSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
          * Updates an entity record in mobile clients while working in the offline mode.
@@ -653,7 +672,11 @@ declare namespace Xrm {
          *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
          *             Status, UniqueIdentifier
          */
-        updateRecord(entityType: string, id: string, data: { [attributeName: string]: any }): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+        updateRecord(
+            entityType: string,
+            id: string,
+            data: { [attributeName: string]: any },
+        ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
          * Deletes an entity record in mobile clients while working in the offline mode.
@@ -665,7 +688,10 @@ declare namespace Xrm {
          *
          * @remarks  You cannot delete intersect and activity party entities.
          */
-        deleteRecord(entityType: string, id: string): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+        deleteRecord(
+            entityType: string,
+            id: string,
+        ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
     }
 
     interface Panel {
@@ -888,72 +914,96 @@ declare namespace Xrm {
         /**
          * Requirement Level for Xrm.Page.Attribute.getRequiredLevel() and Xrm.Page.Attribute.setRequiredLevel().
          */
-        type RequirementLevel = "none" | "recommended" | "required";
+        type RequirementLevel = 'none' | 'recommended' | 'required';
 
         /**
          * Save Modes for Xrm.Page.Entity.save().
          */
-        type SaveMode = "saveandclose" | "saveandnew";
+        type SaveMode = 'saveandclose' | 'saveandnew';
 
         /**
          * Status for Xrm.Page.Stage.getStatus().
          */
-        type StageStatus = "active" | "inactive";
+        type StageStatus = 'active' | 'inactive';
 
         /**
          * Status for Xrm.Page.Process.getStatus().
          */
-        type ProcessStatus = "active" | "aborted" | "finished";
+        type ProcessStatus = 'active' | 'aborted' | 'finished';
 
         /**
          * Submit Mode for Xrm.Page.Attribute.getSubmitMode() and Xrm.Page.Attribute.setSubmitMode().
          */
-        type SubmitMode = "always" | "dirty" | "never";
+        type SubmitMode = 'always' | 'dirty' | 'never';
 
         /**
          * Control type for Xrm.Page.ui.QuickForm.getControlType().
          */
-        type ControlQuickFormType = "quickform";
+        type ControlQuickFormType = 'quickform';
 
         /**
          * Control types for Xrm.Page.Control.getControlType().
          */
-        type ControlType = "standard" | "iframe" | "lookup" | "optionset" | "subgrid" | "webresource" | "notes" | "timercontrol" | "kbsearch" | ControlQuickFormType;
+        type ControlType =
+            | 'standard'
+            | 'iframe'
+            | 'lookup'
+            | 'optionset'
+            | 'subgrid'
+            | 'webresource'
+            | 'notes'
+            | 'timercontrol'
+            | 'kbsearch'
+            | ControlQuickFormType;
 
         /**
          * Date attribute formats for Xrm.Page.Attribute.getFormat(), used by DateAttribute.
          */
-        type DateAttributeFormat = "date" | "datetime";
+        type DateAttributeFormat = 'date' | 'datetime';
 
         /**
          * Integer attribute formats for Xrm.Page.Attribute.getFormat(), used by NumberAttribute.
          */
-        type IntegerAttributeFormat = "duration" | "none";
+        type IntegerAttributeFormat = 'duration' | 'none';
 
         /**
          * OptionSet attribute formats for Xrm.Page.Attribute.getFormat(), used by OptionSetAttribute.
          */
-        type OptionSetAttributeFormat = "language" | "timezone";
+        type OptionSetAttributeFormat = 'language' | 'timezone';
 
         /**
          * String attribute formats for Xrm.Page.Attribute.getFormat(), used by StringAttribute.
          */
-        type StringAttributeFormat = "email" | "phone" | "text" | "textarea" | "tickersymbol" | "url";
+        type StringAttributeFormat = 'email' | 'phone' | 'text' | 'textarea' | 'tickersymbol' | 'url';
 
         /**
          * Attribute types for Xrm.ui.ProcessMonitor Xrm.Page.Attribute.setDisplayState().
          */
-        type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" | "lookup" | "memo" | "money" | "optionset" | "string";
+        type AttributeType =
+            | 'boolean'
+            | 'datetime'
+            | 'decimal'
+            | 'double'
+            | 'integer'
+            | 'lookup'
+            | 'memo'
+            | 'money'
+            | 'optionset'
+            | 'string';
 
         /**
          * Direction types for a process stage change event
          */
-        type StageChangeDirection = "Next" | "Previous";
+        type StageChangeDirection = 'Next' | 'Previous';
 
         /**
          * Attribute formats for Xrm.Page.Attribute.getFormat().
          */
-        type AttributeFormat = DateAttributeFormat | IntegerAttributeFormat | OptionSetAttributeFormat | StringAttributeFormat;
+        type AttributeFormat =
+            | DateAttributeFormat
+            | IntegerAttributeFormat
+            | OptionSetAttributeFormat
+            | StringAttributeFormat;
 
         /**
          * Interface for a CRM Business Process Flow instance.
@@ -2270,7 +2320,9 @@ declare namespace Xrm {
             /**
              * Represents a key-value pair, where the key is the Process Flow's ID, and the value is the name thereof.
              */
-            interface ProcessDictionary { [index: string]: string; }
+            interface ProcessDictionary {
+                [index: string]: string;
+            }
         }
 
         /**
@@ -2518,7 +2570,14 @@ declare namespace Xrm {
              *          Example viewId value: "{00000000-0000-0000-0000-000000000001}"
              *          Layout XML Reference: {@link http://msdn.microsoft.com/en-us/library/gg334522.aspx}
              */
-            addCustomView(viewId: string, entityName: string, viewDisplayName: string, fetchXml: string, layoutXml: string, isDefault: boolean): void;
+            addCustomView(
+                viewId: string,
+                entityName: string,
+                viewDisplayName: string,
+                fetchXml: string,
+                layoutXml: string,
+                isDefault: boolean,
+            ): void;
 
             /**
              * Gets the control's bound attribute.
@@ -2807,12 +2866,12 @@ declare namespace Xrm {
             /**
              * Form Notification Levels for Xrm.Ui.setFormNotification().
              */
-            type FormNotificationLevel = "ERROR" | "INFO" | "WARNING";
+            type FormNotificationLevel = 'ERROR' | 'INFO' | 'WARNING';
 
             /**
              * Display States for Xrm.ui.ProcessMonitor.setDisplayState().
              */
-            type DisplayState = "collapsed" | "expanded";
+            type DisplayState = 'collapsed' | 'expanded';
 
             /**
              * Interface for Xrm.Page.ui.process API
@@ -3128,16 +3187,16 @@ declare namespace Xrm {
          * Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
          */
 
-        type CmdBarDisplay = "true" | "false";
+        type CmdBarDisplay = 'true' | 'false';
         /**
          * Navigation Bar Display options for Xrm.Url.FormOpenParameters.navbar, Xrm.Url.ViewOpenParameters.navbar, and Xrm.Utility.FormOpenParameters.navbar.
          */
-        type NavBarDisplay = "entity" | "off" | "on";
+        type NavBarDisplay = 'entity' | 'off' | 'on';
 
         /**
          * Report Open Action options for Xrm.Url.ReportOpenParameters.actions.
          */
-        type ReportAction = "filter" | "run";
+        type ReportAction = 'filter' | 'run';
 
         /**
          * Interface for defining parameters on a request to open a form with main.aspx (as with
@@ -3346,7 +3405,7 @@ declare namespace XrmEnum {
         Update = 2,
         ReadOnly = 3,
         Disabled = 4,
-        BulkEdit = 6
+        BulkEdit = 6,
     }
 
     /**
@@ -3363,7 +3422,7 @@ declare namespace XrmEnum {
         Assign = 47,
         Send = 7,
         Qualify = 16,
-        Disqualify = 15
+        Disqualify = 15,
     }
 
     /**
@@ -3376,7 +3435,7 @@ declare namespace XrmEnum {
         Close = 3,
         Identify = 4,
         Research = 5,
-        Resolve = 6
+        Resolve = 6,
     }
 
     /**
@@ -3387,7 +3446,7 @@ declare namespace XrmEnum {
         RibbonContextForm = 1,
         RibbonContextListing = 2,
         FormContextUnrelated = 3,
-        FormContextRelated = 4
+        FormContextRelated = 4,
     }
 
     /**
@@ -3395,6 +3454,6 @@ declare namespace XrmEnum {
      */
     const enum ViewType {
         SystemView = 1039,
-        UserView = 4230
+        UserView = 4230,
     }
 }

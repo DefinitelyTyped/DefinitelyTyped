@@ -1,4 +1,4 @@
-declare module "v8" {
+declare module 'v8' {
     interface HeapSpaceInfo {
         space_name: string;
         space_size: number;

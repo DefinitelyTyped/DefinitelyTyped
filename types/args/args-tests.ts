@@ -1,40 +1,39 @@
-import * as args from "args";
+import * as args from 'args';
 
-args
-    .option("opt1", "desc")
-    .option("opt2", "desc", false, (value: any): any => value)
+args.option('opt1', 'desc')
+    .option('opt2', 'desc', false, (value: any): any => value)
     .options([
         {
             name: 'opt3',
             description: 'desc',
             defaultValue: 1,
-            init: (value: any) => { },
+            init: (value: any) => {},
         },
         {
             name: 'opt4',
             description: 'desc',
         },
     ])
-    .command("cm1", "desc")
-    .command("cm2", "desc", (value: any): void => { }, ['a'])
-    .example("ex1", "desc")
+    .command('cm1', 'desc')
+    .command('cm2', 'desc', (value: any): void => {}, ['a'])
+    .example('ex1', 'desc')
     .examples([
         {
-            usage: "ex2",
-            description: "desc",
+            usage: 'ex2',
+            description: 'desc',
         },
     ]);
 
 args.parse(['~/bin/node', '~/dir', 'arg', '--param'], {
     help: true,
-    name: "name",
+    name: 'name',
     version: true,
     usageFilter: (a: any): any => a,
-    value: "value",
+    value: 'value',
     mri: {
         args: ['a'],
         alias: {
-            a: "b",
+            a: 'b',
             c: ['d'],
         },
         boolean: ['wat'],
@@ -55,11 +54,11 @@ args.parse(['~/bin/node', '~/dir', 'arg', '--param'], {
             foo: 'bar',
         },
         stopEarly: true,
-        "--": false,
+        '--': false,
         unknown: (param: string): boolean => true,
     },
-    mainColor: "yellow",
-    subColor: "dim"
+    mainColor: 'yellow',
+    subColor: 'dim',
 });
 
 args.showHelp();

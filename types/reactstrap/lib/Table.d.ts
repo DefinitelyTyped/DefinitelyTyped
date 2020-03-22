@@ -17,5 +17,5 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
     responsiveTag?: React.ReactType;
 }
 
-declare class Table<T = {[key: string]: any}> extends React.Component<TableProps> {}
+declare class Table<T = { [key: string]: any }> extends React.Component<TableProps> {}
 export default Table;

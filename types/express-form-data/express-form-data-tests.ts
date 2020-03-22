@@ -1,11 +1,6 @@
 import express = require('express');
 import os = require('os');
-import {
-    parse,
-    format,
-    stream,
-    union,
-} from 'express-form-data';
+import { parse, format, stream, union } from 'express-form-data';
 
 const app = express();
 

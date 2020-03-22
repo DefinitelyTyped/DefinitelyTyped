@@ -6,7 +6,7 @@
 export type Reviver = (this: any, key: string, value: any) => any;
 
 export interface ParseOptions {
-	protoAction: "error" | "remove" | "ignore";
+    protoAction: 'error' | 'remove' | 'ignore';
 }
 
 export function parse(input: string, reviver?: Reviver, options?: ParseOptions): any;

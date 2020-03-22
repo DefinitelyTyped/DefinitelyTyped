@@ -17,14 +17,14 @@
 /// <reference path="mbc.d.ts" />
 
 /*!
-* Based on Dynamsoft WebTwain JavaScript Intellisense
-* Product: Dynamsoft Web Twain
-* Web Site: http://www.dynamsoft.com
-*
-* Copyright 2020, Dynamsoft Corporation
-* Author: Dynamsoft Support Team
-* Version: 15.3
-*/
+ * Based on Dynamsoft WebTwain JavaScript Intellisense
+ * Product: Dynamsoft Web Twain
+ * Web Site: http://www.dynamsoft.com
+ *
+ * Copyright 2020, Dynamsoft Corporation
+ * Author: Dynamsoft Support Team
+ * Version: 15.3
+ */
 
 declare const Dynamsoft: DynamsoftStatic;
 export = Dynamsoft;

@@ -25,9 +25,9 @@ export interface SyslogTransportInstance extends Transport {
     producer: any;
     socket: dgram.Socket | net.Socket;
 
-    connect(callback: (err: (true | null)) => any): void;
+    connect(callback: (err: true | null) => any): void;
 
-    new(options?: SyslogTransportOptions): SyslogTransportInstance;
+    new (options?: SyslogTransportOptions): SyslogTransportInstance;
 }
 
 export const Syslog: SyslogTransportInstance;

@@ -1,4 +1,4 @@
-import { RelativeSorting } from "./RelativeSorting";
+import { RelativeSorting } from './RelativeSorting';
 
 /**
  * Represents a definition of a relative sorting.

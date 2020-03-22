@@ -1,4 +1,4 @@
-import Timeout from "await-timeout";
+import Timeout from 'await-timeout';
 
 /**
  * This test is just a TS-friendly version of the await-timeout README:
@@ -33,11 +33,7 @@ async () => {
 async () => {
     const timer = new Timeout();
     try {
-        await Promise.race([
-            fetch('https://example.com'),
-            timer.set(1000)
-            .then(() => Promise.reject('Timeout'))
-        ]);
+        await Promise.race([fetch('https://example.com'), timer.set(1000).then(() => Promise.reject('Timeout'))]);
     } finally {
         timer.clear();
     }
@@ -55,29 +51,32 @@ async () => {
 // Starts new timer like `setTimeout()` and returns promise. The promise will be resolved after `ms` milliseconds:
 async () => {
     const timer = new Timeout();
-    timer.set(1000)
-    .then(() => console.log('1000 ms passed.'));
+    timer.set(1000).then(() => console.log('1000 ms passed.'));
 };
 
 // If you need to reject after timeout:
 async () => {
     const timer = new Timeout();
-    timer.set(1000)
-    .then(() => {throw new Error('Timeout'); });
+    timer.set(1000).then(() => {
+        throw new Error('Timeout');
+    });
 };
 
 // Or reject with custom error:
 async () => {
     const timer = new Timeout();
-    timer.set(1000)
-    .then(() => {throw new MyTimeoutError(); });
+    timer.set(1000).then(() => {
+        throw new MyTimeoutError();
+    });
 };
 // The second parameter `message` is just convenient way to reject with `new Error(message)`:
 async () => {
     const timer = new Timeout();
     timer.set(1000, 'Timeout');
     // is equivalent to
-    timer.set(1000).then(() => {throw new Error('Timeout'); });
+    timer.set(1000).then(() => {
+        throw new Error('Timeout');
+    });
 };
 
 // If you need to just wait some time - use static version of `.set()` :
@@ -100,10 +99,7 @@ async () => {
 
     const timer = new Timeout();
     try {
-        const timeoutedPromise = await Promise.race([
-            promise,
-            timer.set(1000, 'Timeout')
-        ]);
+        const timeoutedPromise = await Promise.race([promise, timer.set(1000, 'Timeout')]);
     } finally {
         timer.clear();
     }
@@ -113,8 +109,7 @@ async () => {
 // Clears existing timeout like `clearTimeout()`.
 async () => {
     const timer = new Timeout();
-    timer.set(1000)
-    .then(() => console.log('This will never be called, because timeout is cleared on the next line'));
+    timer.set(1000).then(() => console.log('This will never be called, because timeout is cleared on the next line'));
     timer.clear();
 };
 

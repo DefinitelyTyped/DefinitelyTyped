@@ -1,4 +1,4 @@
-import parseurl = require("parseurl");
+import parseurl = require('parseurl');
 
 const req: any = {};
 

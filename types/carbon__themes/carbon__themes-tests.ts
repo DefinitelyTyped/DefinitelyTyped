@@ -1,4 +1,4 @@
-import ThemePackage from "@carbon/themes";
+import ThemePackage from '@carbon/themes';
 
 interface Theme {
     active01: string;

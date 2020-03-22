@@ -26,9 +26,9 @@ export interface UploadOptions {
 }
 
 export class Upload {
-    constructor(file: File | Blob | Pick<ReadableStreamDefaultReader, "read">, options: UploadOptions);
+    constructor(file: File | Blob | Pick<ReadableStreamDefaultReader, 'read'>, options: UploadOptions);
 
-    file: File | Blob | Pick<ReadableStreamDefaultReader, "read">;
+    file: File | Blob | Pick<ReadableStreamDefaultReader, 'read'>;
     options: UploadOptions;
     url: string | null;
 

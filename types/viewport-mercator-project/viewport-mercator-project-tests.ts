@@ -6,7 +6,20 @@ import WebMercatorViewport, {
 
 const mercator = new WebMercatorViewport();
 
-const { width, height, scale, latitude, longitude, altitude, zoom, pitch, bearing, center, viewMatrix, projectionMatrix } = mercator;
+const {
+    width,
+    height,
+    scale,
+    latitude,
+    longitude,
+    altitude,
+    zoom,
+    pitch,
+    bearing,
+    center,
+    viewMatrix,
+    projectionMatrix,
+} = mercator;
 
 const xy = mercator.project([0, 1]);
 const xyz = mercator.project([0, 1, 2]);
@@ -31,10 +44,16 @@ const mapCenter = mercatorWithOptions.getMapCenterByLngLatPosition({
     pos: [100, 200],
 });
 
-const fittedMercator = mercatorWithOptions.fitBounds([[10, 20], [30, 40]], {
-    padding: 10,
-    offset: [10, 20],
-});
+const fittedMercator = mercatorWithOptions.fitBounds(
+    [
+        [10, 20],
+        [30, 40],
+    ],
+    {
+        padding: 10,
+        offset: [10, 20],
+    },
+);
 
 const equalFitted = fittedMercator.equals(mercatorWithOptions);
 

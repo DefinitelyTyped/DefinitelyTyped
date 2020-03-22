@@ -17,7 +17,7 @@ function bindLater(callback: (x: number) => number) {
 
 bindLater((x: number) => {
     return x;
-})(123);  // passing argument 'abc' should get compile error
+})(123); // passing argument 'abc' should get compile error
 
 const session2 = cls.getNamespace('my session');
 session2.get('user');

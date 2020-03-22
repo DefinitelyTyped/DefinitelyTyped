@@ -1,4 +1,4 @@
-import { PublicApi } from "./PublicApi";
+import { PublicApi } from './PublicApi';
 
 /**
  * Provides the functionality to handle the `configuration`-event.

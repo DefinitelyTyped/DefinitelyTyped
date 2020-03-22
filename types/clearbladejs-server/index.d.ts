@@ -29,7 +29,7 @@ declare namespace CbServer {
     enum MessagingQOS {
         MESSAGING_QOS_AT_MOST_ONCE = 0,
         MESSAGING_QOS_AT_LEAST_ONCE = 1,
-        MESSAGING_QOS_EXACTLY_ONCE = 2
+        MESSAGING_QOS_EXACTLY_ONCE = 2,
     }
 
     interface InitOptions {
@@ -72,24 +72,11 @@ declare namespace CbServer {
 
         about(): string;
         addToQuery(queryObj: QueryObj, key: string, value: string): void;
-        addFilterToQuery(
-            queryObj: QueryObj,
-            condition: QueryConditions,
-            key: string,
-            value: QueryValue
-        ): void;
-        addSortToQuery(
-            queryObj: QueryObj,
-            direction: QuerySortDirections,
-            column: string
-        ): void;
+        addFilterToQuery(queryObj: QueryObj, condition: QueryConditions, key: string, value: QueryValue): void;
+        addSortToQuery(queryObj: QueryObj, direction: QuerySortDirections, column: string): void;
         Code(): Code;
         Collection(
-            options:
-                | string
-                | CollectionOptionsWithName
-                | CollectionOptionsWithID
-                | CollectionOptionsWithCollection
+            options: string | CollectionOptionsWithName | CollectionOptionsWithID | CollectionOptionsWithCollection,
         ): Collection;
         Deployment(): Deployment;
         Device(): Device;
@@ -109,39 +96,16 @@ declare namespace CbServer {
         makeKVPair(key: string, value: string): KeyValuePair;
         Messaging(options: MessagingOptions, callback: CbCallback): Messaging;
         newCollection(name: string, callback: CbCallback): void;
-        Query(
-            options:
-                | QueryOptionsWithCollection
-                | QueryOptionsWithName
-                | QueryOptionsWithID
-        ): QueryObj;
+        Query(options: QueryOptionsWithCollection | QueryOptionsWithName | QueryOptionsWithID): QueryObj;
         parseOperationQuery(query: Query): string;
         parseQuery(query: Query | QueryObj): string;
-        registerUser(
-            email: string,
-            password: string,
-            callback: CbCallback
-        ): void;
+        registerUser(email: string, password: string, callback: CbCallback): void;
         setUser(email: string, authToken: string, userId: string): void;
         User(): AppUser;
 
-        createDevice(
-            name: string,
-            data: object,
-            causeTrigger: boolean,
-            callback: CbCallback
-        ): void;
-        deleteDevice(
-            name: string,
-            causeTrigger: boolean,
-            callback: CbCallback
-        ): void;
-        updateDevice(
-            name: string,
-            data: object,
-            causeTrigger: boolean,
-            callback: CbCallback
-        ): void;
+        createDevice(name: string, data: object, causeTrigger: boolean, callback: CbCallback): void;
+        deleteDevice(name: string, causeTrigger: boolean, callback: CbCallback): void;
+        updateDevice(name: string, data: object, causeTrigger: boolean, callback: CbCallback): void;
         getDeviceByName(name: string, callback: CbCallback): void;
         getAllDevicesForSystem(callback: CbCallback): void;
         validateEmailPassword(email: string, password: string): void;
@@ -177,18 +141,18 @@ declare namespace CbServer {
     }
 
     enum QuerySortDirections {
-        QUERY_SORT_ASCENDING = "ASC",
-        QUERY_SORT_DESCENDING = "DESC"
+        QUERY_SORT_ASCENDING = 'ASC',
+        QUERY_SORT_DESCENDING = 'DESC',
     }
 
     enum QueryConditions {
-        QUERY_EQUAL = "EQ",
-        QUERY_NOTEQUAL = "NEQ",
-        QUERY_GREATERTHAN = "GT",
-        QUERY_GREATERTHAN_EQUAL = "GTE",
-        QUERY_LESSTHAN = "LT",
-        QUERY_LESSTHAN_EQUAL = "LTE",
-        QUERY_MATCHES = "RE"
+        QUERY_EQUAL = 'EQ',
+        QUERY_NOTEQUAL = 'NEQ',
+        QUERY_GREATERTHAN = 'GT',
+        QUERY_GREATERTHAN_EQUAL = 'GTE',
+        QUERY_LESSTHAN = 'LT',
+        QUERY_LESSTHAN_EQUAL = 'LTE',
+        QUERY_MATCHES = 'RE',
     }
 
     type QueryValue = string | number | boolean;
@@ -198,17 +162,11 @@ declare namespace CbServer {
         limit?: number;
     }
 
-    interface QueryOptionsWithCollection
-        extends CollectionOptionsWithCollection,
-            QueryOptions {}
+    interface QueryOptionsWithCollection extends CollectionOptionsWithCollection, QueryOptions {}
 
-    interface QueryOptionsWithName
-        extends CollectionOptionsWithName,
-            QueryOptions {}
+    interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOptions {}
 
-    interface QueryOptionsWithID
-        extends CollectionOptionsWithID,
-            QueryOptions {}
+    interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions {}
 
     interface Query {
         SELECTCOLUMNS?: string[];
@@ -269,12 +227,7 @@ declare namespace CbServer {
         systemKey: string;
         systemSecret: string;
 
-        execute(
-            name: string,
-            params: object,
-            loggingEnabled: boolean,
-            callback: CbCallback
-        ): void;
+        execute(name: string, params: object, loggingEnabled: boolean, callback: CbCallback): void;
         getAllServices(callback: CbCallback): void;
     }
 
@@ -285,17 +238,8 @@ declare namespace CbServer {
         systemKey: string;
         systemSecret: string;
 
-        create(
-            name: string,
-            description: string,
-            options: DeploymentOptions,
-            callback: CbCallback
-        ): void;
-        update(
-            name: string,
-            options: DeploymentOptions,
-            callback: CbCallback
-        ): void;
+        create(name: string, description: string, options: DeploymentOptions, callback: CbCallback): void;
+        update(name: string, options: DeploymentOptions, callback: CbCallback): void;
         delete(name: string, callback: CbCallback): void;
         read(name: string, callback: CbCallback): void;
         readAll(query: QueryObj, callback: CbCallback): void;
@@ -325,21 +269,16 @@ declare namespace CbServer {
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
-        getMessageHistory(
-            topic: string,
-            start: number,
-            count: number,
-            callback: CbCallback
-        ): void;
+        getMessageHistory(topic: string, start: number, count: number, callback: CbCallback): void;
         getAndDeleteMessageHistory(
             topic: string,
             count: number,
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getCurrentTopics(callback: CbCallback): void;
         publish(topic: string, payload: string | ArrayBuffer): void;
@@ -359,10 +298,10 @@ declare namespace CbServer {
     }
 
     enum TriggerModule {
-        DEVICE = "Device",
-        Data = "Data",
-        MESSAGING = "Messaging",
-        USER = "User"
+        DEVICE = 'Device',
+        Data = 'Data',
+        MESSAGING = 'Messaging',
+        USER = 'User',
     }
 
     interface TriggerCreateOptions {
@@ -375,11 +314,7 @@ declare namespace CbServer {
     }
 
     interface TriggerClass {
-        Create(
-            name: string,
-            options: TriggerCreateOptions,
-            callback: CbCallback
-        ): void;
+        Create(name: string, options: TriggerCreateOptions, callback: CbCallback): void;
         Fetch(name: string, callback: CbCallback): void;
     }
 
@@ -394,11 +329,7 @@ declare namespace CbServer {
     }
 
     interface TimerClass {
-        Create(
-            name: string,
-            options: TimerCreateOptions,
-            callback: CbCallback
-        ): void;
+        Create(name: string, options: TimerCreateOptions, callback: CbCallback): void;
         Fetch(name: string, callback: CbCallback): void;
     }
 

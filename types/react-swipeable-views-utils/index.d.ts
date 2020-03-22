@@ -48,7 +48,7 @@ export interface WithBindKeyboard {
     onChangeIndex: OnChangeIndexCallback;
 }
 export interface WithBindKeyboardProps {
-    axis?: "x" | "x-reverse" | "y" | "y-reverse";
+    axis?: 'x' | 'x-reverse' | 'y' | 'y-reverse';
     index: number;
     onChangeIndex: OnChangeIndexCallback;
     slidecount?: number;

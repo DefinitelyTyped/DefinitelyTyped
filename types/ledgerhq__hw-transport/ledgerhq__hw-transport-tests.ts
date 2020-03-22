@@ -7,7 +7,7 @@ Transport.list();
 // $ExpectType Promise<Transport<string>>
 Transport.open('test');
 
-const test = Transport.open('test').then(transport => {
+const test = Transport.open('test').then((transport) => {
     // $ExpectType void
     transport.setScrambleKey('test');
 

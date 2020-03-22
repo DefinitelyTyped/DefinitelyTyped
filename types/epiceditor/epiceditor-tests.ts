@@ -1,22 +1,19 @@
-
-
 var editor = new EpicEditor().load();
 
 editor.load(function () {
-    console.log("Editor loaded.")
+    console.log('Editor loaded.');
 });
 
 editor.unload(function () {
-    console.log("Editor unloaded.")
+    console.log('Editor unloaded.');
 });
 
 editor.getElement('editor').body.innerHTML;
 
-if (editor.is('loaded'))
-    editor.enterFullscreen();
+if (editor.is('loaded')) editor.enterFullscreen();
 
 editor.open('some-file');
-editor.importFile('some-file', "#Imported markdown\nFancy, huh?");
+editor.importFile('some-file', '#Imported markdown\nFancy, huh?');
 var theContent = editor.exportFile();
 
 var newName = prompt('What do you want to rename this file to?');
@@ -57,23 +54,23 @@ var opts = {
     file: {
         name: 'epiceditor',
         defaultContent: '',
-        autoSave: 100
+        autoSave: 100,
     },
     theme: {
         base: '/themes/base/epiceditor.css',
         preview: '/themes/preview/preview-dark.css',
-        editor: '/themes/editor/epic-dark.css'
+        editor: '/themes/editor/epic-dark.css',
     },
     focusOnLoad: false,
     shortcut: {
         modifier: 18,
         fullscreen: 70,
-        preview: 80
+        preview: 80,
     },
     string: {
         togglePreview: 'Toggle Preview Mode',
         toggleEdit: 'Toggle Edit Mode',
-        toggleFullscreen: 'Enter Fullscreen'
-    }
-}
+        toggleFullscreen: 'Enter Fullscreen',
+    },
+};
 var editor2 = new EpicEditor(opts);

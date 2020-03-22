@@ -42,14 +42,30 @@ const fso = new ActiveXObject('Scripting.FileSystemObject');
             return 'Normal';
         }
         const attributeStrings: string[] = [];
-        if (attr & Scripting.FileAttribute.Directory) { attributeStrings.push('Directory'); }
-        if (attr & Scripting.FileAttribute.ReadOnly) { attributeStrings.push('Read-only'); }
-        if (attr & Scripting.FileAttribute.Hidden) { attributeStrings.push('Hidden'); }
-        if (attr & Scripting.FileAttribute.System) { attributeStrings.push('System'); }
-        if (attr & Scripting.FileAttribute.Volume) { attributeStrings.push('Volume'); }
-        if (attr & Scripting.FileAttribute.Archive) { attributeStrings.push('Archive'); }
-        if (attr & Scripting.FileAttribute.Alias) { attributeStrings.push('Alias'); }
-        if (attr & Scripting.FileAttribute.Compressed) { attributeStrings.push('Compressed'); }
+        if (attr & Scripting.FileAttribute.Directory) {
+            attributeStrings.push('Directory');
+        }
+        if (attr & Scripting.FileAttribute.ReadOnly) {
+            attributeStrings.push('Read-only');
+        }
+        if (attr & Scripting.FileAttribute.Hidden) {
+            attributeStrings.push('Hidden');
+        }
+        if (attr & Scripting.FileAttribute.System) {
+            attributeStrings.push('System');
+        }
+        if (attr & Scripting.FileAttribute.Volume) {
+            attributeStrings.push('Volume');
+        }
+        if (attr & Scripting.FileAttribute.Archive) {
+            attributeStrings.push('Archive');
+        }
+        if (attr & Scripting.FileAttribute.Alias) {
+            attributeStrings.push('Alias');
+        }
+        if (attr & Scripting.FileAttribute.Compressed) {
+            attributeStrings.push('Compressed');
+        }
         return attributeStrings.join(',');
     };
 
@@ -59,7 +75,7 @@ const fso = new ActiveXObject('Scripting.FileSystemObject');
                 d.DriveLetter,
                 d.Path,
                 driveTypeString(d),
-                d.IsReady ? 'true' : 'false'
+                d.IsReady ? 'true' : 'false',
             ];
             if (d.IsReady) {
                 parts = parts.concat([
@@ -68,7 +84,7 @@ const fso = new ActiveXObject('Scripting.FileSystemObject');
                     d.TotalSize,
                     d.FreeSpace,
                     d.AvailableSpace,
-                    d.SerialNumber.toString(16)
+                    d.SerialNumber.toString(16),
                 ]);
             }
             return parts.join('    ');
@@ -81,13 +97,19 @@ Number of drives:    ${fso.Drives.Count}
 Letter    Path    Type    Ready?    Name    System    Space    Space     Space    Number
 ${new Array(106).join('-')}
 ${collectionToArray(fso.Drives).map(driveLine).join('\n')}`
-            .trim().replace('    ', '\t');
+            .trim()
+            .replace('    ', '\t');
     };
 
     type fiileFolderKey = keyof Scripting.File & keyof Scripting.Folder;
     type keys = fiileFolderKey | 'Attribs' | 'Created' | 'Accessed' | 'Modified';
-    const detailBuilder = (f: Scripting.File | Scripting.Folder, x: fiileFolderKey | 'Attribs' | 'Created' | 'Accessed' | 'Modified') => {
-        if (x === 'Attribs') { return attributesString(f); }
+    const detailBuilder = (
+        f: Scripting.File | Scripting.Folder,
+        x: fiileFolderKey | 'Attribs' | 'Created' | 'Accessed' | 'Modified',
+    ) => {
+        if (x === 'Attribs') {
+            return attributesString(f);
+        }
         const label = x;
         switch (x) {
             case 'Created':
@@ -105,12 +127,12 @@ ${collectionToArray(fso.Drives).map(driveLine).join('\n')}`
 
     const fileDetailsString = (f: Scripting.File) => {
         const keys: keys[] = ['Path', 'Name', 'Type', 'Attribs', 'Created', 'Accessed', 'Modified', 'Size'];
-        return keys.map(x => detailBuilder(f, x)).join('');
+        return keys.map((x) => detailBuilder(f, x)).join('');
     };
 
     const folderDetailsString = (f: Scripting.Folder) => {
         const keys: keys[] = ['Path', 'Name', 'Attribs', 'Created', 'Accessed', 'Modified', 'Size'];
-        return keys.map(x => detailBuilder(f, x)).join('');
+        return keys.map((x) => detailBuilder(f, x)).join('');
     };
 
     const folderContentsString = (f: Scripting.Folder): string => {
@@ -125,13 +147,16 @@ ${files.map(fileDetailsString).join('')}
 There ${subfolders.length === 1 ? 'is 1 subfolder' : `are ${subfolders.length} subfolders`}
 ${subfolders.map(folderDetailsString).join('')}
 ${subfolders.map(folderContentsString).join('')}`
-            .trim().replace('    ', '\t');
+            .trim()
+            .replace('    ', '\t');
     };
 
     const testDrive = 'C:\\';
     const testPath = 'C:\\test';
     const testfolderInfo = () => {
-        if (!fso.DriveExists(testDrive) || !fso.FolderExists(testPath)) { return ''; }
+        if (!fso.DriveExists(testDrive) || !fso.FolderExists(testPath)) {
+            return '';
+        }
         return folderContentsString(fso.GetFolder(testPath));
     };
 
@@ -185,9 +210,13 @@ ${subfolders.map(folderContentsString).join('')}`
 
     const buildTestFolder = () => {
         // Bail out if the drive doesn't exists ...
-        if (!fso.DriveExists(testDrive)) { return false; }
+        if (!fso.DriveExists(testDrive)) {
+            return false;
+        }
         // or the directory already exists
-        if (fso.FolderExists(testPath)) { return false; }
+        if (fso.FolderExists(testPath)) {
+            return false;
+        }
 
         const testFolder = fso.CreateFolder(testPath);
 
@@ -222,7 +251,7 @@ ${subfolders.map(folderContentsString).join('')}`
         let s = `Drive ${drvPath} - `;
         s += d.VolumeName + '<br>';
         s += `Free Space: ${d.FreeSpace / 1024} Kbytes`;
-        return (s);
+        return s;
     };
 }
 
@@ -236,7 +265,7 @@ ${subfolders.map(folderContentsString).join('')}`
             s += file.Read(1);
         }
         file.Close();
-        return (s);
+        return s;
     };
 }
 
@@ -245,15 +274,14 @@ ${subfolders.map(folderContentsString).join('')}`
     const showDriveInfo = (path: string) => {
         const bytesPerGB = 1024 * 1024 * 1024;
         const drv = fso.GetDrive(fso.GetDriveName(path));
-        const ret =
-            drv.IsReady ?
-            `${drv.Path} - ${drv.FreeSpace / bytesPerGB} GB free of ${drv.TotalSize / bytesPerGB} GB` :
-            'Not ready';
+        const ret = drv.IsReady
+            ? `${drv.Path} - ${drv.FreeSpace / bytesPerGB} GB free of ${drv.TotalSize / bytesPerGB} GB`
+            : 'Not ready';
         WScript.Echo(ret);
     };
 
     const showFolderInfo = () => {
-        const fldr = fso.GetFolder("c:\\");
+        const fldr = fso.GetFolder('c:\\');
         let ret = `
 Folder: ${fldr.Path}
 Drive: ${fldr.Drive}
@@ -273,28 +301,28 @@ ${fldr.IsRootFolder ? 'Is root folder' : `Parent folder: ${fldr.ParentFolder}`}
 // https://msdn.microsoft.com/en-us/library/czxefwt8(v=vs.84).aspx
 {
     const readFiles = () => {
-        const file = fso.CreateTextFile("c:\\testfile.txt", true);
+        const file = fso.CreateTextFile('c:\\testfile.txt', true);
 
         // Write a line.
         WScript.Echo('Writing file');
-        file.WriteLine("Hello World");
+        file.WriteLine('Hello World');
         file.WriteBlankLines(1);
         file.Close();
 
         // Read the contents of the file.
         WScript.Echo('Reading file');
-        const textStream = fso.OpenTextFile("c:\\testfile.txt", Scripting.IOMode.ForReading);
+        const textStream = fso.OpenTextFile('c:\\testfile.txt', Scripting.IOMode.ForReading);
         WScript.Echo(`File contents = "${textStream.ReadLine()}"`);
         textStream.Close();
     };
 
     const manipulateFiles = () => {
-        const file = fso.CreateTextFile("c:\\testfile.txt", true);
+        const file = fso.CreateTextFile('c:\\testfile.txt', true);
 
         WScript.Echo('Writing file');
 
         // Write a line.
-        file.Write("This is a test.");
+        file.Write('This is a test.');
 
         // Close the file to writing.
         file.Close();
@@ -302,10 +330,10 @@ ${fldr.IsRootFolder ? 'Is root folder' : `Parent folder: ${fldr.ParentFolder}`}
         WScript.Echo('Moving file to c:\\tmp');
 
         // Get a handle to the file in root of C:\.
-        let file2 = fso.GetFile("c:\\testfile.txt");
+        let file2 = fso.GetFile('c:\\testfile.txt');
 
         // Move the file to \tmp directory.
-        file2.Move("c:\\tmp\\testfile.txt");
+        file2.Move('c:\\tmp\\testfile.txt');
 
         WScript.Echo('Copying file to c:\\temp <br>');
 

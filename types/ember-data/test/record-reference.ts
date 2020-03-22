@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 declare const store: DS.Store;
 
@@ -28,17 +28,17 @@ if (userRef.remoteType() === 'id') {
 }
 
 // load user (via store.find)
-userRef.load().then(user => {
+userRef.load().then((user) => {
     assertType<User>(user);
 });
 
 // or trigger a reload
-userRef.reload().then(user => {
+userRef.reload().then((user) => {
     assertType<User>(user);
 });
 
 // provide data for reference
-userRef.push({ id: 1, username: '@user' }).then(function(user) {
+userRef.push({ id: 1, username: '@user' }).then(function (user) {
     assertType<User>(user);
     userRef.value() === user;
 });

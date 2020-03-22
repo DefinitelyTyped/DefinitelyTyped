@@ -135,14 +135,14 @@ declare class Graph {
      * //       cost: 4
      * //    }
      */
-    path(start: any, goal: any, options ?: PathOption): any;
+    path(start: any, goal: any, options?: PathOption): any;
 }
 
 interface PathOption {
-    trim ?: boolean;
-    reverse ?: boolean;
-    cost ?: boolean;
-    avoid ?: any[];
+    trim?: boolean;
+    reverse?: boolean;
+    cost?: boolean;
+    avoid?: any[];
 }
 
 export = Graph;

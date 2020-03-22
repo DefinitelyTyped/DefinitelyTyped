@@ -30,7 +30,7 @@ const userMessages = ['hi', 'what are you up to?', '<script>alert("something evi
 html`
     <div class="chat-list">
         <ul>
-            ${userMessages.map(message => safeHtml`<li>${message}</li>`)}
+            ${userMessages.map((message) => safeHtml`<li>${message}</li>`)}
         </ul>
     </div>
 `;
@@ -166,24 +166,24 @@ const tt: TemplateTransformer<{ foo: string }> = {
 createTag({});
 createTag(tt);
 createTag({
-    onString: str => `${str}!`,
+    onString: (str) => `${str}!`,
 });
 createTag({
-    onSubstitution: substitution => `${substitution}!`,
+    onSubstitution: (substitution) => `${substitution}!`,
 });
 createTag({
-    onEndResult: endResult => `${endResult}!`,
+    onEndResult: (endResult) => `${endResult}!`,
 });
 new TemplateTag({});
 new TemplateTag(tt);
 new TemplateTag({
-    onString: str => `${str}!`,
+    onString: (str) => `${str}!`,
 });
 new TemplateTag({
-    onSubstitution: substitution => `${substitution}!`,
+    onSubstitution: (substitution) => `${substitution}!`,
 });
 new TemplateTag({
-    onEndResult: endResult => `${endResult}!`,
+    onEndResult: (endResult) => `${endResult}!`,
 });
 
 createTag(trimResultTransformer());
@@ -206,7 +206,7 @@ createTag(
         // $ExpectType any[]
         matches;
         return '';
-    })
+    }),
 );
 
 createTag(replaceSubstitutionTransformer('foo', 'bar'));
@@ -218,7 +218,7 @@ createTag(
         // $ExpectType any[]
         matches;
         return '';
-    })
+    }),
 );
 
 createTag(replaceStringTransformer('foo', 'bar'));
@@ -230,7 +230,7 @@ createTag(
         // $ExpectType any[]
         matches;
         return '';
-    })
+    }),
 );
 
 createTag(inlineArrayTransformer());

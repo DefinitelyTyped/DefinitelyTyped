@@ -18,8 +18,7 @@ export {};
 type FilePondOrigin =
     | 'input' // Added by user
     | 'limbo' // Temporary server file
-    | 'local' // Existing server file
-    ;
+    | 'local'; // Existing server file
 
 export interface FileProps {
     src: string;
@@ -27,7 +26,7 @@ export interface FileProps {
     size?: number;
     type?: string;
     origin?: FilePondOrigin;
-    metadata?: {[key: string]: any};
+    metadata?: { [key: string]: any };
 }
 
 // Note that this duplicates the JS File type declaration, but is necessary
@@ -35,7 +34,7 @@ export interface FileProps {
 // see: https://developer.mozilla.org/en-US/docs/Web/API/File
 // see: https://github.com/Microsoft/dtslint/issues/173
 // see: https://stackoverflow.com/q/53876793/2517147
-type ActualFileObject = Blob & {readonly lastModified: number; readonly name: string};
+type ActualFileObject = Blob & { readonly lastModified: number; readonly name: string };
 
 export class File extends React.Component<FileProps> {
     file: ActualFileObject;
@@ -67,7 +66,7 @@ interface ServerUrl {
     url: string;
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
     withCredentials?: boolean;
-    headers?: {[key: string]: string|boolean|number};
+    headers?: { [key: string]: string | boolean | number };
     timeout?: number;
 
     /**
@@ -105,14 +104,14 @@ type ProcessServerConfigFunction = (
     fieldName: string,
     /** The actual file object to send */
     file: ActualFileObject,
-    metadata: {[key: string]: any},
+    metadata: { [key: string]: any },
     /**
      * Should call the load method when done and pass the returned server file id.
      * This server file id is then used later on when reverting or restoring a file
      * so that your server knows which file to return without exposing that info
      * to the client.
      */
-    load: (p: string | {[key: string]: any}) => void,
+    load: (p: string | { [key: string]: any }) => void,
     /** Can call the error method is something went wrong, should exit after */
     error: (errorText: string) => void,
     /**
@@ -121,7 +120,7 @@ type ProcessServerConfigFunction = (
      */
     progress: ProgressServerConfigFunction,
     /** Let FilePond know the request has been cancelled */
-    abort: () => void
+    abort: () => void,
 ) => void;
 
 type RevertServerConfigFunction = (
@@ -195,13 +194,15 @@ type FetchServerConfigFunction = (
 
 export interface FilePondServerConfigProps {
     instantUpload?: boolean;
-    server?: string | {
-        process?: string | ServerUrl | ProcessServerConfigFunction;
-        revert?: string | ServerUrl | RevertServerConfigFunction;
-        restore?: string | ServerUrl | RestoreServerConfigFunction;
-        load?: string | ServerUrl | LoadServerConfigFunction;
-        fetch?: string | ServerUrl | FetchServerConfigFunction;
-    };
+    server?:
+        | string
+        | {
+              process?: string | ServerUrl | ProcessServerConfigFunction;
+              revert?: string | ServerUrl | RevertServerConfigFunction;
+              restore?: string | ServerUrl | RestoreServerConfigFunction;
+              load?: string | ServerUrl | LoadServerConfigFunction;
+              fetch?: string | ServerUrl | FetchServerConfigFunction;
+          };
 }
 
 export interface FilePondDragDropProps {
@@ -366,17 +367,17 @@ export interface FilePondBaseProps {
     /** List of files for controlled usage */
     files?: File[];
     acceptedFileTypes?: string[];
-    metadata?: {[key: string]: any};
+    metadata?: { [key: string]: any };
 }
 
-export interface FilePondProps extends
-    FilePondDragDropProps,
-    FilePondServerConfigProps,
-    FilePondLabelProps,
-    FilePondSvgIconProps,
-    FilePondCallbackProps,
-    FilePondHookProps,
-    FilePondBaseProps {}
+export interface FilePondProps
+    extends FilePondDragDropProps,
+        FilePondServerConfigProps,
+        FilePondLabelProps,
+        FilePondSvgIconProps,
+        FilePondCallbackProps,
+        FilePondHookProps,
+        FilePondBaseProps {}
 
 export class FilePond extends React.Component<FilePondProps> {
     setOptions: (options: FilePondProps) => void;

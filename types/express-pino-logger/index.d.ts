@@ -5,6 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import PinoHttp = require("pino-http");
+import PinoHttp = require('pino-http');
 
 export = PinoHttp;

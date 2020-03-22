@@ -9,7 +9,7 @@ declare namespace flowjs {
             domNodes: ReadonlyArray<HTMLElement>,
             isDirectory?: boolean,
             singleFile?: boolean,
-            attributes?: object
+            attributes?: object,
         ): void;
         assignDrop(node: HTMLElement | ReadonlyArray<HTMLElement>): void;
         unAssignDrop(node: HTMLElement | ReadonlyArray<HTMLElement>): void;
@@ -140,8 +140,7 @@ declare namespace flowjs {
     type FlowEvent = FlowEventMap[keyof FlowEventMap];
 
     type FlowEventFromEventName<T extends EventName> = FlowEventMap[T];
-    type FlowEventTypeFromFlowEvent<T extends FlowEvent> =
-        T extends FlowEventFromEventName<infer U> ? U : never;
+    type FlowEventTypeFromFlowEvent<T extends FlowEvent> = T extends FlowEventFromEventName<infer U> ? U : never;
 
     type FileSuccessCallbackArguments = [FlowFile, string, FlowChunk];
     type FileProgressCallbackArguments = [FlowFile, FlowChunk];

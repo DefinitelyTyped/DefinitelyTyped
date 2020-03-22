@@ -31,8 +31,9 @@ interface ClickOutComponentClass<P extends OnClickOut.InjectedOnClickOutProps> e
 }
 
 declare function OnClickOut<P>(
-    component: ComponentConstructor<P & OnClickOut.InjectedOnClickOutProps & OnClickOut.HandleClickOutside<any>>
-        | ClickOutComponentClass<P & OnClickOut.InjectedOnClickOutProps>
+    component:
+        | ComponentConstructor<P & OnClickOut.InjectedOnClickOutProps & OnClickOut.HandleClickOutside<any>>
+        | ClickOutComponentClass<P & OnClickOut.InjectedOnClickOutProps>,
 ): React.ComponentClass<P & OnClickOut.OnClickOutProps>;
 
 export = OnClickOut;

@@ -1,7 +1,17 @@
-import "./Tests";
-import { SortDefinitionOrder, TriggerCallbackHandler, SortDefinition, RelativeSortDefinition, Parser, Widget, ParsedCell, TablesorterHeading, StorageConfiguration } from "tablesorter";
-import { RelativeSorting } from "tablesorter/Sorting/RelativeSorting";
-import { StorageType } from "tablesorter/Storage/StorageType";
+import './Tests';
+import {
+    SortDefinitionOrder,
+    TriggerCallbackHandler,
+    SortDefinition,
+    RelativeSortDefinition,
+    Parser,
+    Widget,
+    ParsedCell,
+    TablesorterHeading,
+    StorageConfiguration,
+} from 'tablesorter';
+import { RelativeSorting } from 'tablesorter/Sorting/RelativeSorting';
+import { StorageType } from 'tablesorter/Storage/StorageType';
 
 /**
  * Provides tests for the methods.
@@ -10,24 +20,31 @@ export class TestMethods<T extends HTMLElement> {
     /**
      * A jQuery-object for testing.
      */
-    protected table = $<T>("");
+    protected table = $<T>('');
 
     /**
      * A set of sort-definitions for testing.
      */
-    protected sorting: ReadonlyArray<SortDefinition> = [[0, 1], [1, 0]];
+    protected sorting: ReadonlyArray<SortDefinition> = [
+        [0, 1],
+        [1, 0],
+    ];
 
     /**
      * A set of relative sort-definitions for testing.
      */
-    protected relativeSorting: ReadonlyArray<RelativeSortDefinition> = [[0, "o"], [1, "s"]];
+    protected relativeSorting: ReadonlyArray<RelativeSortDefinition> = [
+        [0, 'o'],
+        [1, 's'],
+    ];
 
     /**
      * A set of mixed sort-definitions for testing.
      */
     protected mixedSorting: ReadonlyArray<SortDefinition | RelativeSortDefinition> = [
-        [0, "d"],
-        [1, "o"]];
+        [0, 'd'],
+        [1, 'o'],
+    ];
 
     /**
      * A trigger-callback for testing.
@@ -35,7 +52,7 @@ export class TestMethods<T extends HTMLElement> {
     protected triggerCallback: TriggerCallbackHandler<T> = (table) => {
         // $ExpectType T
         table;
-    }
+    };
 
     /**
      * Tests for the methods.
@@ -46,15 +63,15 @@ export class TestMethods<T extends HTMLElement> {
         const config = this.table[0].config;
         const parser: Parser<T> = {} as any;
         const widget: Widget<T> = {} as any;
-        const parsedCellCallback = (cell: ParsedCell): void => { };
+        const parsedCellCallback = (cell: ParsedCell): void => {};
         const ajaxSettings: JQuery.AjaxSettings = {} as any;
         const request: JQuery.jqXHR = {} as any;
         const storageConfig: StorageConfiguration = {
-            group: "",
-            id: "",
-            page: "",
-            storageType: "c",
-            url: ""
+            group: '',
+            id: '',
+            page: '',
+            storageType: 'c',
+            url: '',
         };
 
         /**
@@ -70,13 +87,13 @@ export class TestMethods<T extends HTMLElement> {
         $.tablesorter.addRows(config, $(), true, this.triggerCallback);
         $.tablesorter.addRows(config, $(), this.sorting);
         $.tablesorter.addRows(config, $(), this.sorting, this.triggerCallback);
-        $.tablesorter.addRows(config, "", true);
-        $.tablesorter.addRows(config, "", true, this.triggerCallback);
-        $.tablesorter.addRows(config, "", this.sorting);
-        $.tablesorter.addRows(config, "", this.sorting, this.triggerCallback);
+        $.tablesorter.addRows(config, '', true);
+        $.tablesorter.addRows(config, '', true, this.triggerCallback);
+        $.tablesorter.addRows(config, '', this.sorting);
+        $.tablesorter.addRows(config, '', this.sorting, this.triggerCallback);
 
         $.tablesorter.addInstanceMethods({ hello: () => null });
-        $.tablesorter.addInstanceMethods({ world() { } });
+        $.tablesorter.addInstanceMethods({ world() {} });
 
         $.tablesorter.addParser(parser);
 
@@ -91,8 +108,8 @@ export class TestMethods<T extends HTMLElement> {
         $.tablesorter.applyWidget(tableElement, true);
         $.tablesorter.applyWidget(tableElement, true, this.triggerCallback);
 
-        $.tablesorter.applyWidgetId(this.table, "zebra");
-        $.tablesorter.applyWidgetId(tableElement, "zebra");
+        $.tablesorter.applyWidgetId(this.table, 'zebra');
+        $.tablesorter.applyWidgetId(tableElement, 'zebra');
 
         $.tablesorter.bindEvents(this.table, $());
         $.tablesorter.bindEvents(tableElement, $());
@@ -112,59 +129,51 @@ export class TestMethods<T extends HTMLElement> {
         $.tablesorter.fixColumnWidth(this.table);
         $.tablesorter.fixColumnWidth(tableElement);
 
-        $.tablesorter.formatFloat("", this.table);
-        $.tablesorter.formatFloat("", tableElement);
+        $.tablesorter.formatFloat('', this.table);
+        $.tablesorter.formatFloat('', tableElement);
 
         // $ExpectType Widget<T>
-        $.tablesorter.getColumnData(this.table, { 0: widget, "*": widget }, 0);
+        $.tablesorter.getColumnData(this.table, { 0: widget, '*': widget }, 0);
         // $ExpectType Widget<T>
-        $.tablesorter.getColumnData(this.table, { 0: widget, "*": widget }, "*");
+        $.tablesorter.getColumnData(this.table, { 0: widget, '*': widget }, '*');
         // $ExpectType Widget<T>
-        $.tablesorter.getColumnData(tableElement, { 0: widget, "*": widget }, 0);
+        $.tablesorter.getColumnData(tableElement, { 0: widget, '*': widget }, 0);
         // $ExpectType Widget<T>
-        $.tablesorter.getColumnData(tableElement, { 0: widget, "*": widget }, "*");
+        $.tablesorter.getColumnData(tableElement, { 0: widget, '*': widget }, '*');
 
         $.tablesorter.getColumnText(this.table, 0);
         $.tablesorter.getColumnText(this.table, 0, parsedCellCallback);
-        $.tablesorter.getColumnText(this.table, 0, parsedCellCallback, "*");
+        $.tablesorter.getColumnText(this.table, 0, parsedCellCallback, '*');
         $.tablesorter.getColumnText(this.table, 0, parsedCellCallback, $());
         $.tablesorter.getColumnText(this.table, 0, parsedCellCallback, $()[0]);
-        $.tablesorter.getColumnText(
-            this.table,
-            0,
-            parsedCellCallback,
-            (index, element) => {
-                // $ExpectType number
-                index;
-                // $ExpectType HTMLElement
-                element;
-                return true;
-            });
+        $.tablesorter.getColumnText(this.table, 0, parsedCellCallback, (index, element) => {
+            // $ExpectType number
+            index;
+            // $ExpectType HTMLElement
+            element;
+            return true;
+        });
         $.tablesorter.getColumnText(tableElement, 0);
         $.tablesorter.getColumnText(tableElement, 0, parsedCellCallback);
-        $.tablesorter.getColumnText(tableElement, 0, parsedCellCallback, "*");
+        $.tablesorter.getColumnText(tableElement, 0, parsedCellCallback, '*');
         $.tablesorter.getColumnText(tableElement, 0, parsedCellCallback, $());
         $.tablesorter.getColumnText(tableElement, 0, parsedCellCallback, $()[0]);
-        $.tablesorter.getColumnText(
-            tableElement,
-            0,
-            parsedCellCallback,
-            (index, element) => {
-                // $ExpectType number
-                index;
-                // $ExpectType HTMLElement
-                element;
-                return true;
-            });
+        $.tablesorter.getColumnText(tableElement, 0, parsedCellCallback, (index, element) => {
+            // $ExpectType number
+            index;
+            // $ExpectType HTMLElement
+            element;
+            return true;
+        });
 
         // $ExpectType string | boolean | undefined
-        $.tablesorter.getData($(), config.headers[0], "sorter");
+        $.tablesorter.getData($(), config.headers[0], 'sorter');
         // $ExpectType string | boolean | undefined
-        $.tablesorter.getData($()[0], config.headers[0], "sorter");
+        $.tablesorter.getData($()[0], config.headers[0], 'sorter');
         // $ExpectType "top" | "bottom" | "zero" | "min" | "max" | undefined || "top" | "bottom" | "min" | "max" | "zero" | undefined
-        $.tablesorter.getData($(), config.headers[0], "string");
+        $.tablesorter.getData($(), config.headers[0], 'string');
         // $ExpectType "top" | "bottom" | "zero" | "min" | "max" | undefined || "top" | "bottom" | "min" | "max" | "zero" | undefined
-        $.tablesorter.getData($()[0], config.headers[0], "string");
+        $.tablesorter.getData($()[0], config.headers[0], 'string');
 
         // $ExpectType string[]
         $.tablesorter.getFilters(this.table);
@@ -176,15 +185,15 @@ export class TestMethods<T extends HTMLElement> {
         $.tablesorter.getFilters(tableElement, true);
 
         // $ExpectType Widget<T>
-        $.tablesorter.getWidgetById("");
+        $.tablesorter.getWidgetById('');
 
         // $ExpectType boolean
-        $.tablesorter.hasWidget(this.table, "");
+        $.tablesorter.hasWidget(this.table, '');
         // $ExpectType boolean
-        $.tablesorter.hasWidget(tableElement, "");
+        $.tablesorter.hasWidget(tableElement, '');
 
         // $ExpectType boolean
-        $.tablesorter.isDigit("");
+        $.tablesorter.isDigit('');
 
         $.tablesorter.isProcessing(this.table, true);
         $.tablesorter.isProcessing(this.table, true, $());
@@ -194,7 +203,11 @@ export class TestMethods<T extends HTMLElement> {
         // $ExpectType boolean
         $.tablesorter.isValueInArray(2, this.sorting);
         // $ExpectType boolean
-        $.tablesorter.isValueInArray(2, [[0, "this.table"], [1, 2102311923084], [3, {}]]);
+        $.tablesorter.isValueInArray(2, [
+            [0, 'this.table'],
+            [1, 2102311923084],
+            [3, {}],
+        ]);
 
         // $ExpectType void
         $.tablesorter.processTbody(this.table, $());
@@ -218,19 +231,19 @@ export class TestMethods<T extends HTMLElement> {
 
         $.tablesorter.removeWidget(this.table, true);
         $.tablesorter.removeWidget(this.table, true, true);
-        $.tablesorter.removeWidget(this.table, "");
-        $.tablesorter.removeWidget(this.table, "", true);
-        $.tablesorter.removeWidget(this.table, ["", ""]);
-        $.tablesorter.removeWidget(this.table, ["", ""], true);
+        $.tablesorter.removeWidget(this.table, '');
+        $.tablesorter.removeWidget(this.table, '', true);
+        $.tablesorter.removeWidget(this.table, ['', '']);
+        $.tablesorter.removeWidget(this.table, ['', ''], true);
         $.tablesorter.removeWidget(tableElement, true);
         $.tablesorter.removeWidget(tableElement, true, true);
-        $.tablesorter.removeWidget(tableElement, "");
-        $.tablesorter.removeWidget(tableElement, "", true);
-        $.tablesorter.removeWidget(tableElement, ["", ""]);
-        $.tablesorter.removeWidget(tableElement, ["", ""], true);
+        $.tablesorter.removeWidget(tableElement, '');
+        $.tablesorter.removeWidget(tableElement, '', true);
+        $.tablesorter.removeWidget(tableElement, ['', '']);
+        $.tablesorter.removeWidget(tableElement, ['', ''], true);
 
         // $ExpectType string
-        $.tablesorter.replaceAccents("");
+        $.tablesorter.replaceAccents('');
 
         $.tablesorter.resizableReset(this.table);
         $.tablesorter.resizableReset(this.table, true);
@@ -240,21 +253,21 @@ export class TestMethods<T extends HTMLElement> {
         $.tablesorter.restoreHeaders(this.table);
         $.tablesorter.restoreHeaders(tableElement);
 
-        $.tablesorter.setFilters(this.table, [""]);
-        $.tablesorter.setFilters(this.table, [""], true);
-        $.tablesorter.setFilters(tableElement, [""]);
-        $.tablesorter.setFilters(tableElement, [""], true);
+        $.tablesorter.setFilters(this.table, ['']);
+        $.tablesorter.setFilters(this.table, [''], true);
+        $.tablesorter.setFilters(tableElement, ['']);
+        $.tablesorter.setFilters(tableElement, [''], true);
 
-        $.tablesorter.showError(this.table, "", ajaxSettings, "");
-        $.tablesorter.showError(this.table, request, ajaxSettings, "");
-        $.tablesorter.showError(tableElement, "", ajaxSettings, "");
-        $.tablesorter.showError(tableElement, request, ajaxSettings, "");
-
-        // $ExpectType number
-        $.tablesorter.sortNatural("", "");
+        $.tablesorter.showError(this.table, '', ajaxSettings, '');
+        $.tablesorter.showError(this.table, request, ajaxSettings, '');
+        $.tablesorter.showError(tableElement, '', ajaxSettings, '');
+        $.tablesorter.showError(tableElement, request, ajaxSettings, '');
 
         // $ExpectType number
-        $.tablesorter.sortText("", "");
+        $.tablesorter.sortNatural('', '');
+
+        // $ExpectType number
+        $.tablesorter.sortText('', '');
 
         $.tablesorter.sortOn(config, this.sorting);
         $.tablesorter.sortOn(config, this.sorting, this.triggerCallback);
@@ -267,17 +280,17 @@ export class TestMethods<T extends HTMLElement> {
         $.tablesorter.sortReset(config, this.triggerCallback);
 
         // $ExpectType any
-        $.tablesorter.storage(this.table, "");
+        $.tablesorter.storage(this.table, '');
         // $ExpectType void
-        $.tablesorter.storage(this.table, "", {});
+        $.tablesorter.storage(this.table, '', {});
         // $ExpectType void
-        $.tablesorter.storage(this.table, "", {}, storageConfig);
+        $.tablesorter.storage(this.table, '', {}, storageConfig);
         // $ExpectType any
-        $.tablesorter.storage(tableElement, "");
+        $.tablesorter.storage(tableElement, '');
         // $ExpectType void
-        $.tablesorter.storage(tableElement, "", {});
+        $.tablesorter.storage(tableElement, '', {});
         // $ExpectType void
-        $.tablesorter.storage(tableElement, "", {}, storageConfig);
+        $.tablesorter.storage(tableElement, '', {}, storageConfig);
 
         $.tablesorter.update(config);
         $.tablesorter.update(config, true);
@@ -314,14 +327,14 @@ export class TestMethods<T extends HTMLElement> {
 
         $.tablesorter.filter.buildSelect(this.table, 0, [1, 2, 3, 4], true);
         $.tablesorter.filter.buildSelect(this.table, 0, [1, 2, 3, 4], true, true);
-        $.tablesorter.filter.buildSelect(this.table, 0, "", true);
-        $.tablesorter.filter.buildSelect(this.table, 0, "", true, true);
+        $.tablesorter.filter.buildSelect(this.table, 0, '', true);
+        $.tablesorter.filter.buildSelect(this.table, 0, '', true, true);
         $.tablesorter.filter.buildSelect(this.table, 0, $(), true);
         $.tablesorter.filter.buildSelect(this.table, 0, $(), true, true);
         $.tablesorter.filter.buildSelect(tableElement, 0, [1, 2, 3, 4], true);
         $.tablesorter.filter.buildSelect(tableElement, 0, [1, 2, 3, 4], true, true);
-        $.tablesorter.filter.buildSelect(tableElement, 0, "", true);
-        $.tablesorter.filter.buildSelect(tableElement, 0, "", true, true);
+        $.tablesorter.filter.buildSelect(tableElement, 0, '', true);
+        $.tablesorter.filter.buildSelect(tableElement, 0, '', true, true);
         $.tablesorter.filter.buildSelect(tableElement, 0, $(), true);
         $.tablesorter.filter.buildSelect(tableElement, 0, $(), true, true);
 

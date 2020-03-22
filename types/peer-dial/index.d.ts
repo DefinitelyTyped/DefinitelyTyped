@@ -6,9 +6,9 @@
 
 /// <reference types="node" />
 
-import * as events from "events";
-import * as express from "express";
-import * as uuid from "node-uuid";
+import * as events from 'events';
+import * as express from 'express';
+import * as uuid from 'node-uuid';
 
 export class Server extends events.EventEmitter {
     constructor(options: ServerOptions);
@@ -75,7 +75,12 @@ export class DialDevice {
     constructor(deviceInfo: DeviceInfo);
     getAppInfoXml(appName: string, callback?: (data: string, err: any) => void): void;
     getAppInfo(appName: string, callback?: (data: AppInfo, err: any) => void): void;
-    launchApp(appName: string, launchData: string, contentType: string, callback?: (data: string, err: any) => void): void;
+    launchApp(
+        appName: string,
+        launchData: string,
+        contentType: string,
+        callback?: (data: string, err: any) => void,
+    ): void;
     stopApp(appName: string, pid: string, callback?: (data: number, err: any) => void): void;
 }
 
@@ -87,7 +92,9 @@ export interface DeviceInfo {
     manufacturer: string;
     modelName: string;
     UDN: string;
-    iconList: object[] | {
-        icon: object
-    };
+    iconList:
+        | object[]
+        | {
+              icon: object;
+          };
 }

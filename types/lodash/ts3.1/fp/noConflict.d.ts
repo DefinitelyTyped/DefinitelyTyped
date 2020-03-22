@@ -1,2 +1,2 @@
-import { noConflict } from "../fp";
+import { noConflict } from '../fp';
 export = noConflict;

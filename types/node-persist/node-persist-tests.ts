@@ -1,9 +1,9 @@
 // node-persist tests
 // compile with --module=common
 
-import nodePersist = require("node-persist");
+import nodePersist = require('node-persist');
 
-(async test => {
+(async (test) => {
     // Test with the global instance
     await test(nodePersist);
 
@@ -12,18 +12,21 @@ import nodePersist = require("node-persist");
     await test(storage);
 })(async (storage: nodePersist.LocalStorage) => {
     await storage.init({
-        dir: __dirname + "/test"
+        dir: __dirname + '/test',
     });
 
-    await storage.setItem("someArray", [1, 2, 3]);
-    const value = await storage.getItem("someArray");
-    await storage.removeItem("someArray");
+    await storage.setItem('someArray', [1, 2, 3]);
+    const value = await storage.getItem('someArray');
+    await storage.removeItem('someArray');
 
-    await storage.setItem("someString", "foo").then(() => {
-        return storage.getItem("someString");
-    }).then(() => {
-        return storage.removeItem("someString");
-    });
+    await storage
+        .setItem('someString', 'foo')
+        .then(() => {
+            return storage.getItem('someString');
+        })
+        .then(() => {
+            return storage.removeItem('someString');
+        });
 
     interface TestObject {
         foo: string;
@@ -31,13 +34,13 @@ import nodePersist = require("node-persist");
     }
 
     await storage.clear();
-    let testObject: TestObject = {foo: "bar", two: 2};
-    await storage.setItem("someObject", testObject);
-    testObject = await storage.getItem("someObject");
-    await storage.removeItem("someObject");
+    let testObject: TestObject = { foo: 'bar', two: 2 };
+    await storage.setItem('someObject', testObject);
+    testObject = await storage.getItem('someObject');
+    await storage.removeItem('someObject');
 
     const values: any[] = await storage.values();
-    const valuesWithKeyMatch: any[] = await storage.valuesWithKeyMatch("some");
+    const valuesWithKeyMatch: any[] = await storage.valuesWithKeyMatch('some');
     const keys: string[] = await storage.keys();
     const size: number = await storage.length();
 

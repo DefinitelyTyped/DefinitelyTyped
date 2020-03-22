@@ -5,10 +5,10 @@ var pdfTemplatePath = 'templates.pdf';
 var extendArgs: string[] = [];
 
 fillPdf.generatePdf(formData, pdfTemplatePath, extendArgs, (err: Error, output: Buffer) => {
-  if ( !err ) {
-    console.log('Success!');
-    // output is a buffer
-  }
+    if (!err) {
+        console.log('Success!');
+        // output is a buffer
+    }
 });
 
 var result = fillPdf.generateFdf(formData);

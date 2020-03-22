@@ -1,2 +1,2 @@
-import { trimStart } from "./index";
+import { trimStart } from './index';
 export = trimStart;

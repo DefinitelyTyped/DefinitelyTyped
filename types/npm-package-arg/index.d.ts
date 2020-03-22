@@ -22,12 +22,11 @@ declare namespace npa {
      * Something like: 1.2, ^1.7.17, http://x.com/foo.tgz, git+https://github.com/user/foo, bitbucket:user/foo, file:foo.tar.gz or file:../foo/bar/. If not included then the default is latest.
      * @param where Optionally the path to resolve file paths relative to. Defaults to process.cwd()
      */
-    function resolve(name: string, spec: string, where?: string):
-        FileResult |
-        HostedGitResult |
-        URLResult |
-        AliasResult |
-        RegistryResult;
+    function resolve(
+        name: string,
+        spec: string,
+        where?: string,
+    ): FileResult | HostedGitResult | URLResult | AliasResult | RegistryResult;
 
     class Result {
         /**
@@ -40,15 +39,7 @@ declare namespace npa {
          * * directory - A local directory.
          * * remote - An http url (presumably to a tgz)
          */
-        type:
-            | "git"
-            | "tag"
-            | "version"
-            | "range"
-            | "file"
-            | "directory"
-            | "remote"
-            | "alias";
+        type: 'git' | 'tag' | 'version' | 'range' | 'file' | 'directory' | 'remote' | 'alias';
 
         /** If true this specifier refers to a resource hosted on a registry. This is true for tag, version and range types. */
         registry: boolean;
@@ -85,14 +76,14 @@ declare namespace npa {
     }
 
     interface FileResult extends Result {
-        type: "file" | "directory";
+        type: 'file' | 'directory';
         where: string;
         saveSpec: string;
         fetchSpec: null | string;
     }
 
     interface HostedGitResult extends Result {
-        type: "git";
+        type: 'git';
         hosted: HostedGit;
         saveSpec: string;
         fetchSpec: null | string;
@@ -102,7 +93,7 @@ declare namespace npa {
 
     interface URLResult extends Result {
         saveSpec: string;
-        type: "git" | "remote";
+        type: 'git' | 'remote';
         fetchSpec: string;
         gitCommittish: string | undefined;
         gitRange: string | undefined;
@@ -111,14 +102,14 @@ declare namespace npa {
     interface AliasResult extends Result {
         subSpec: Result;
         registry: true;
-        type: "alias";
+        type: 'alias';
         saveSpec: null;
         fetchSpec: null;
     }
 
     interface RegistryResult extends Result {
         registry: true;
-        type: "version" | "range" | "tag";
+        type: 'version' | 'range' | 'tag';
         saveSpec: null;
         fetchSpec: string;
     }

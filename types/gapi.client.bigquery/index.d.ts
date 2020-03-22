@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load BigQuery API v2 */
-    function load(name: "bigquery", version: "v2"): PromiseLike<void>;
-    function load(name: "bigquery", version: "v2", callback: () => any): void;
+    function load(name: 'bigquery', version: 'v2'): PromiseLike<void>;
+    function load(name: 'bigquery', version: 'v2', callback: () => any): void;
 
     const datasets: bigquery.DatasetsResource;
 

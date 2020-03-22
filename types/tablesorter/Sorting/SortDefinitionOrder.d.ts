@@ -5,14 +5,14 @@ export type SortDefinitionOrder =
     /**
      * Indicates no sorting.
      */
-    2 |
+    | 2
 
     /**
      * Indicates ascending sorting.
      */
-    0 |
+    | 0
 
     /**
      * Indicates descending sorting.
      */
-    1;
+    | 1;

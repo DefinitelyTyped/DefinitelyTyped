@@ -7,5 +7,5 @@ declare namespace PaginationItem {
         active?: boolean;
     }
 }
-declare class PaginationItem extends React.Component<PaginationItem.PaginationItemProps> { }
+declare class PaginationItem extends React.Component<PaginationItem.PaginationItemProps> {}
 export = PaginationItem;

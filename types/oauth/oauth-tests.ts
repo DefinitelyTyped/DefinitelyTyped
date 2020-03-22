@@ -5,16 +5,18 @@ import qs = require('querystring');
 
 const clientID = '';
 const clientSecret = '';
-const oauth2 = new OAuth2(clientID,
-                        clientSecret,
-                        'https://github.com/',
-                        'login/oauth/authorize',
-                        'login/oauth/access_token');
+const oauth2 = new OAuth2(
+    clientID,
+    clientSecret,
+    'https://github.com/',
+    'login/oauth/authorize',
+    'login/oauth/access_token',
+);
 
 http.createServer((req, res) => {
     const p: string[] = [];
     if (req.url) {
-      req.url.split('/');
+        req.url.split('/');
     }
     const pLen = p.length;
 
@@ -29,7 +31,7 @@ http.createServer((req, res) => {
     const authURL = oauth2.getAuthorizeUrl({
         redirect_uri: 'http://localhost:8080/code',
         scope: ['repo', 'user'],
-        state: 'some random string to protect against cross-site request forgery attacks'
+        state: 'some random string to protect against cross-site request forgery attacks',
     });
 
     /**
@@ -39,7 +41,8 @@ http.createServer((req, res) => {
     if (pLen === 2 && p[1] === '') {
         res.writeHead(200, {
             'Content-Length': body.length,
-            'Content-Type': 'text/html' });
+            'Content-Type': 'text/html',
+        });
         res.end(body);
     } else if (pLen === 2 && p[1].indexOf('code') === 0) {
         /** Github sends auth code so that access_token can be obtained */
@@ -49,7 +52,7 @@ http.createServer((req, res) => {
         /** Obtaining access_token */
         oauth2.getOAuthAccessToken(
             qsObj['code'],
-            {redirect_uri: 'http://localhost:8080/code/'},
+            { redirect_uri: 'http://localhost:8080/code/' },
             (e, access_token, refresh_token, results) => {
                 if (e) {
                     console.log(e);
@@ -61,7 +64,8 @@ http.createServer((req, res) => {
                     console.log('Obtained access_token: ', access_token);
                     res.end(access_token);
                 }
-        });
+            },
+        );
     } else {
         // Unhandled url
     }

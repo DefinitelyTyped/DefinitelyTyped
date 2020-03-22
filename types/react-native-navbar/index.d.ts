@@ -17,7 +17,7 @@ export interface NavigationBarButton {
 export interface NavigationBarTitle {
     title: string;
     tintColor?: string;
-    ellipsizeMode?: TextProps["ellipsizeMode"];
+    ellipsizeMode?: TextProps['ellipsizeMode'];
     numberOfLines?: number;
 }
 

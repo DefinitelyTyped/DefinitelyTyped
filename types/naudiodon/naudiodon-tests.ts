@@ -14,8 +14,8 @@ const ao = portAudio.AudioIO({
         channelCount: 2,
         sampleFormat: portAudio.SampleFormat16Bit,
         sampleRate: 48000,
-        deviceId: -1
-    }
+        deviceId: -1,
+    },
 });
 
 const rs = fs.createReadStream('steam_48000.wav');

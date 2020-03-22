@@ -65,6 +65,6 @@ interface GlDatePicker {
 }
 
 interface JQuery {
-	glDatePicker(ret: boolean): GlDatePicker;
-	glDatePicker(options?: GlDatePickerOptions): JQuery;
+    glDatePicker(ret: boolean): GlDatePicker;
+    glDatePicker(options?: GlDatePickerOptions): JQuery;
 }

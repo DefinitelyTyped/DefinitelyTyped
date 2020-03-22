@@ -1,6 +1,6 @@
-import { Break, BreakClip } from "./cast.framework.messages";
+import { Break, BreakClip } from './cast.framework.messages';
 
-export as namespace breaks
+export as namespace breaks;
 export class BreakSeekData {
     constructor(seekFrom: number, seekTo: number, breaks: Break[]);
 
@@ -59,18 +59,13 @@ export interface BreakManager {
      * the VAST logic will be overridden and developers should implement their own VAST fetching and parsing logic in the provided interceptor.
      */
     setBreakClipLoadInterceptor(
-        interceptor: (
-            breakClip: BreakClip,
-            breakClipLoaderContext?: BreakClipLoadInterceptorContext
-        ) => void
+        interceptor: (breakClip: BreakClip, breakClipLoaderContext?: BreakClipLoadInterceptorContext) => void,
     ): void;
 
     /**
      * Provide an interceptor for developer to specify what breaks they want to play after seek.
      */
-    setBreakSeekInterceptor(
-        seekInterceptor: (breakSeekData: BreakSeekData) => void
-    ): void;
+    setBreakSeekInterceptor(seekInterceptor: (breakSeekData: BreakSeekData) => void): void;
 
     /**
      * Set a flag to control if the watched client stitching break should be played.
@@ -83,7 +78,5 @@ export interface BreakManager {
      * The interceptor can either return a modified string of URL or a Promise of modified string of URL.
      * The interceptor can also return null if you want to send the tracking URL by your own code instead of by CAF.
      */
-    setVastTrackingInterceptor(
-        interceptor?: (trackingUrl: string) => void
-    ): void;
+    setVastTrackingInterceptor(interceptor?: (trackingUrl: string) => void): void;
 }

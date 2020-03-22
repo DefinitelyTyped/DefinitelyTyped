@@ -10,5 +10,5 @@ dogapi.event.create(
     '',
     '',
     { date_happened: Math.floor(Date.now() / 1000) },
-    (err: Error | null, res: dogapi.EventCreateResponse) => {}
+    (err: Error | null, res: dogapi.EventCreateResponse) => {},
 );

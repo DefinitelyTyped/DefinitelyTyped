@@ -50,14 +50,14 @@ export function values(obj: object): any[];
  *
  * @param obj An object.
  */
-export function entries<T>(obj: { [key: string]: T } | ArrayLike<T>): Array<{ key: string, value: T }>;
+export function entries<T>(obj: { [key: string]: T } | ArrayLike<T>): Array<{ key: string; value: T }>;
 /**
  * Returns an array containing the property keys and values of the specified object (an associative array).
  * Each entry is an object with a key and value attribute.The order of the returned array is undefined.
  *
  * @param obj An object.
  */
-export function entries(obj: object): Array<{ key: string, value: any }>;
+export function entries(obj: object): Array<{ key: string; value: any }>;
 
 // ---------------------------------------------------------------------
 // map / Map
@@ -121,7 +121,7 @@ export interface Map<T> {
      * Returns an array of key-value objects for each entry in this map. The order of the returned entries is arbitrary.
      * Each entry’s key is a string, but the value can have arbitrary type.
      */
-    entries(): Array<{ key: string, value: T }>;
+    entries(): Array<{ key: string; value: T }>;
     /**
      * Calls the specified function for each entry in this map and returns undefined.
      * The iteration order is arbitrary.
@@ -291,7 +291,12 @@ export function set<T>(array: T[], key: (value: T, index: number, array: T[]) =>
  * with an array of type Datum at leaf level, or has a rolled-up 'value' property.
  */
 // tslint:disable-next-line:no-empty-interface
-export interface NestedArray<Datum, RollupType> extends Array<{ key: string, values: NestedArray<Datum, RollupType> | Datum[] | undefined, value: RollupType | undefined }> { }
+export interface NestedArray<Datum, RollupType>
+    extends Array<{
+        key: string;
+        values: NestedArray<Datum, RollupType> | Datum[] | undefined;
+        value: RollupType | undefined;
+    }> {}
 
 /**
  * A more formal definition of the nested array returned by Nest.map(...). This data structure is intended as a reference only.
@@ -301,7 +306,7 @@ export interface NestedArray<Datum, RollupType> extends Array<{ key: string, val
  * to use in practice.
  */
 // tslint:disable-next-line:no-empty-interface
-export interface NestedMap<Datum, RollupType> extends Map<NestedMap<Datum, RollupType> | Datum[] | RollupType> { }
+export interface NestedMap<Datum, RollupType> extends Map<NestedMap<Datum, RollupType> | Datum[] | RollupType> {}
 
 /**
  * A more formal definition of the nested array returned by Nest.object(...). This data structure is intended as a reference only.

@@ -13,7 +13,7 @@ export function getBlockSupport(nameOrType: string | Block<any>, feature: keyof 
 export function getBlockSupport<T>(
     nameOrType: string | Block<any>,
     feature: keyof BlockSupports,
-    defaultSupports: T
+    defaultSupports: T,
 ): T extends string ? string : T extends number ? number : T extends boolean ? boolean : T;
 
 /**
@@ -67,7 +67,7 @@ export function getUnregisteredTypeHandlerName(): string | undefined;
 export function hasBlockSupport(
     nameOrType: string | Block<any>,
     feature: keyof BlockSupports,
-    defaultSupports?: boolean
+    defaultSupports?: boolean,
 ): boolean;
 
 /**
@@ -112,7 +112,7 @@ export function registerBlockStyle(blockName: string, styleVariation: BlockStyle
  */
 export function registerBlockType<T extends Record<string, any> = {}>(
     name: string,
-    settings: BlockConfiguration<T>
+    settings: BlockConfiguration<T>,
 ): Block<T> | undefined;
 
 /**

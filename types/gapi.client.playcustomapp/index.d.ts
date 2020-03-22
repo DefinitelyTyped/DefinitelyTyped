@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Play Custom App Publishing API v1 */
-    function load(name: "playcustomapp", version: "v1"): PromiseLike<void>;
-    function load(name: "playcustomapp", version: "v1", callback: () => any): void;
+    function load(name: 'playcustomapp', version: 'v1'): PromiseLike<void>;
+    function load(name: 'playcustomapp', version: 'v1', callback: () => any): void;
 
     const accounts: playcustomapp.AccountsResource;
 

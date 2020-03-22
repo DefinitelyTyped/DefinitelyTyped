@@ -8,7 +8,6 @@
 export = autobahn;
 
 declare namespace autobahn {
-
     export class Session {
         id: number;
         realm: string;
@@ -25,13 +24,22 @@ declare namespace autobahn {
 
         leave(reason: string, message: string): void;
 
-        call<TResult>(procedure: string, args?: any[] | any, kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
+        call<TResult>(
+            procedure: string,
+            args?: any[] | any,
+            kwargs?: any,
+            options?: ICallOptions,
+        ): When.Promise<TResult>;
 
         publish(topic: string, args?: any[], kwargs?: any, options?: IPublishOptions): When.Promise<IPublication>;
 
         subscribe(topic: string, handler: SubscribeHandler, options?: ISubscribeOptions): When.Promise<ISubscription>;
 
-        register(procedure: string, endpoint: RegisterEndpoint, options?: IRegisterOptions): When.Promise<IRegistration>;
+        register(
+            procedure: string,
+            endpoint: RegisterEndpoint,
+            options?: IRegisterOptions,
+        ): When.Promise<IRegistration>;
 
         unsubscribe(subscription: ISubscription): When.Promise<any>;
 
@@ -47,7 +55,7 @@ declare namespace autobahn {
 
     interface IInvocation {
         caller?: number;
-        progress?: (args : any[], kwargs : any) => void;
+        progress?: (args: any[], kwargs: any) => void;
         procedure: string;
     }
 
@@ -109,7 +117,13 @@ declare namespace autobahn {
     }
 
     class Subscription implements ISubscription {
-        constructor(topic? : string, handler?: SubscribeHandler, options?: ISubscribeOptions, session?: Session, id?: number);
+        constructor(
+            topic?: string,
+            handler?: SubscribeHandler,
+            options?: ISubscribeOptions,
+            session?: Session,
+            id?: number,
+        );
 
         handler: SubscribeHandler;
 
@@ -135,7 +149,13 @@ declare namespace autobahn {
     }
 
     class Registration implements IRegistration {
-        constructor(procedure?: string, endpoint?: RegisterEndpoint, options?: IRegisterOptions, session?: Session, id?: number);
+        constructor(
+            procedure?: string,
+            endpoint?: RegisterEndpoint,
+            options?: IRegisterOptions,
+            session?: Session,
+            id?: number,
+        );
 
         endpoint: RegisterEndpoint;
 
@@ -241,8 +261,8 @@ declare namespace autobahn {
     }
 
     type DefaultTransportType = 'websocket' | 'longpoll' | 'rawsocket';
-    
-    // Workaround to get intellisense on type unions of 'literals' | string. 
+
+    // Workaround to get intellisense on type unions of 'literals' | string.
     // See https://github.com/Microsoft/TypeScript/issues/29729
     type CustomTransportType = string & { zz_IGNORE_ME?: never };
     type TransportType = DefaultTransportType | CustomTransportType;
@@ -267,7 +287,7 @@ declare namespace autobahn {
         type: TransportType;
         create(): ITransport;
     }
-    
+
     interface ITransportFactoryFactory {
         new (options: any): ITransportFactory;
     }

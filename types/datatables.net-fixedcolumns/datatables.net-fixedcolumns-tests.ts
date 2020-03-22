@@ -4,7 +4,7 @@ $(document).ready(() => {
         fixedColumns: {
             heightMatch: 'semiauto',
             leftColumns: 2,
-            rightColumns: 1
-        }
+            rightColumns: 1,
+        },
     };
 });

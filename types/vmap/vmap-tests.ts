@@ -20,7 +20,7 @@ const vmap = new VMAP(vmapXML);
 
 const version = vmap.version;
 
-vmap.adBreaks.forEach(adBreak => {
+vmap.adBreaks.forEach((adBreak) => {
     const timeoffset = adBreak.timeOffset;
     const breakType = adBreak.breakType;
     const breakId = adBreak.breakId;
@@ -34,12 +34,12 @@ vmap.adBreaks.forEach(adBreak => {
     const customData = adSource.customData;
     const vastAdData = adSource.vastAdData;
 
-    adBreak.trackingEvents.forEach(trackingEvent => {
+    adBreak.trackingEvents.forEach((trackingEvent) => {
         const event = trackingEvent.event;
         const uri = trackingEvent.uri;
     });
 
-    adBreak.extensions.forEach(extension => {
+    adBreak.extensions.forEach((extension) => {
         const children = extension.children;
         const attribute = extension.attribute;
         const value = extension.value;

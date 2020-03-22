@@ -8,24 +8,24 @@ class EmployeesFactory {
         this.hub = new Hub('employee', {
             // client-side methods
             listeners: {
-                'lockEmployee': (id: number) => {
+                lockEmployee: (id: number) => {
                     var employee = this.find(id);
                     employee.Locked = true;
                     $rootScope.$apply();
                 },
-                'unlockEmployee': (id: number) => {
+                unlockEmployee: (id: number) => {
                     var employee = this.find(id);
                     employee.Locked = false;
                     $rootScope.$apply();
-                }
+                },
             },
 
             // server-side methods
             methods: ['lock', 'unlock'],
 
             // query params sent on initial connection
-            queryParams:{
-                    'token': 'exampletoken'
+            queryParams: {
+                token: 'exampletoken',
             },
 
             // handle connection error
@@ -35,7 +35,7 @@ class EmployeesFactory {
 
             stateChanged: (state: SignalR.StateChanged) => {
                 // your code here
-            }
+            },
         });
     }
 
@@ -55,7 +55,7 @@ class EmployeesFactory {
     public done = (employee: Employee) => {
         employee.Edit = false;
         this.hub.invoke('unlock', employee.Id);
-    }
+    };
 }
 
 interface Employee {
@@ -67,6 +67,4 @@ interface Employee {
     Locked: boolean;
 }
 
-angular
-    .module('app', ['SignalR'])
-    .factory('Employees', EmployeesFactory);
+angular.module('app', ['SignalR']).factory('Employees', EmployeesFactory);

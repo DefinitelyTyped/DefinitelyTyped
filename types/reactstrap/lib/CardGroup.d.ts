@@ -8,5 +8,5 @@ export interface CardGroupProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class CardGroup<T = {[key: string]: any}> extends React.Component<CardGroupProps> {}
+declare class CardGroup<T = { [key: string]: any }> extends React.Component<CardGroupProps> {}
 export default CardGroup;

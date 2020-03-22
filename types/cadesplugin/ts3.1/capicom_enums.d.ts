@@ -13,13 +13,13 @@ declare namespace CAPICOM {
     }
 
     interface StoreNamePlugin {
-        readonly CAPICOM_MY_STORE: "My";
+        readonly CAPICOM_MY_STORE: 'My';
     }
 
     interface CAPICOM_STORE_NAME extends StoreNamePlugin {
-        readonly CAPICOM_CA_STORE: "Ca";
-        readonly CAPICOM_OTHER_STORE: "AddressBook";
-        readonly CAPICOM_ROOT_STORE: "Root";
+        readonly CAPICOM_CA_STORE: 'Ca';
+        readonly CAPICOM_OTHER_STORE: 'AddressBook';
+        readonly CAPICOM_ROOT_STORE: 'Root';
     }
 
     interface StoreOpenModePlugin {

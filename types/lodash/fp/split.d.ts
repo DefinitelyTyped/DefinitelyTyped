@@ -1,2 +1,2 @@
-import { split } from "../fp";
+import { split } from '../fp';
 export = split;

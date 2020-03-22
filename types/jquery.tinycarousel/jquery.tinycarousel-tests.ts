@@ -1,5 +1,3 @@
-
-
 $('#slider1').tinycarousel();
 
 $('#slider2').tinycarousel({ display: 2 });
@@ -32,7 +30,7 @@ $('#stopslider').click(function () {
     return false;
 });
 
-$(document).ready(function () {    
+$(document).ready(function () {
     $('#slider-code').tinycarousel();
 });
 
@@ -43,5 +41,5 @@ $(document).ready(function () {
 $('#slider-code').tinycarousel({
     callback: function (element, index) {
         console.log(element, index);
-    }
+    },
 });

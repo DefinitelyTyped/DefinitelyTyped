@@ -8,32 +8,32 @@ gitBranchIs('master', (err, result) => {
 });
 
 gitBranchIs('master').then(
-    result => {
+    (result) => {
         console.log(result ? 'On master' : 'Not on master');
     },
-    err => {
+    (err) => {
         console.error(err);
     },
 );
 
-gitBranchIs(branchName => {
+gitBranchIs((branchName) => {
     return /^master$/.test(branchName);
 }).then(
-    result => {
+    (result) => {
         console.log(result ? 'On master' : 'Not on master');
     },
-    err => {
+    (err) => {
         console.error(err);
     },
 );
 
-gitBranchIs(branchName => {
+gitBranchIs((branchName) => {
     return Promise.resolve(branchName === 'master');
 }).then(
-    result => {
+    (result) => {
         console.log(result ? 'On master' : 'Not on master');
     },
-    err => {
+    (err) => {
         console.error(err);
     },
 );

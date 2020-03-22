@@ -24,7 +24,7 @@ new AMap.PlaceSearch({
     panel: div,
     showCover: true,
     renderStyle: 'newpc',
-    autoFitView: true
+    autoFitView: true,
 });
 
 // $ExpectType void
@@ -312,7 +312,7 @@ placeSearch.searchNearBy('keyword', lnglat, 10, (status, result) => {
     result;
 });
 // $ExpectType void
-placeSearch.searchNearBy('keyword', lnglatTuple, 10, () => { });
+placeSearch.searchNearBy('keyword', lnglatTuple, 10, () => {});
 
 // $ExpectType void
 placeSearch.searchInBounds('keyword', bounds, (status, result) => {
@@ -321,7 +321,7 @@ placeSearch.searchInBounds('keyword', bounds, (status, result) => {
     result;
 });
 // $ExpectType void
-placeSearch.searchInBounds('keyword', polygon, () => { });
+placeSearch.searchInBounds('keyword', polygon, () => {});
 
 // $ExpectType void
 placeSearch.getDetails('id', (status, result) => {
@@ -374,7 +374,7 @@ placeSearch.poiOnAMAP({
 placeSearch.poiOnAMAP({
     location: lnglat,
     id: 'id',
-    name: 'name'
+    name: 'name',
 });
 
 // $ExpectType void
@@ -385,7 +385,7 @@ placeSearch.detailOnAMAP({
 placeSearch.detailOnAMAP({
     location: lnglat,
     id: 'id',
-    name: 'name'
+    name: 'name',
 });
 
 // $ExpectType void

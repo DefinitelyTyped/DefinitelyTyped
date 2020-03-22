@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load DoubleClick Search API v2 */
-    function load(name: "doubleclicksearch", version: "v2"): PromiseLike<void>;
-    function load(name: "doubleclicksearch", version: "v2", callback: () => any): void;
+    function load(name: 'doubleclicksearch', version: 'v2'): PromiseLike<void>;
+    function load(name: 'doubleclicksearch', version: 'v2', callback: () => any): void;
 
     const conversion: doubleclicksearch.ConversionResource;
 

@@ -1,6 +1,6 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import * as Reactable from "reactable";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as Reactable from 'reactable';
 
 interface Person {
     name: string;
@@ -27,9 +27,9 @@ const PersonTableTfoot = Reactable.Tfoot as PersonTableTfoot;
 
 const data = [
     {
-        name: "Christoph Spielmann",
-        age: 36
-    }
+        name: 'Christoph Spielmann',
+        age: 36,
+    },
 ];
 
 export class TestComponent extends React.Component {
@@ -40,35 +40,31 @@ export class TestComponent extends React.Component {
 
 export class FullblownReactableTestComponent extends React.Component {
     render(): JSX.Element {
-        const displayedColumns = ["name"];
+        const displayedColumns = ['name'];
         // custom table Th-elements
         const columns: JSX.Element[] = [];
         for (const colName of displayedColumns) {
             columns.push(
                 <PersonTableTh column={colName} key={colName}>
                     <strong className="name-header">{colName}</strong>
-                </PersonTableTh>
+                </PersonTableTh>,
             );
         }
         const rows: JSX.Element[] = [];
         for (const d of data) {
             const tds: JSX.Element[] = [];
-            displayedColumns.forEach(col => tds.push(
-                <PersonTableTd column={col}>
-                    <p>d[col]</p>
-                </PersonTableTd>
-            ));
-            rows.push(
-                <PersonRow>
-                    {tds}
-                </PersonRow>
+            displayedColumns.forEach((col) =>
+                tds.push(
+                    <PersonTableTd column={col}>
+                        <p>d[col]</p>
+                    </PersonTableTd>,
+                ),
             );
+            rows.push(<PersonRow>{tds}</PersonRow>);
         }
         return (
-            <PersonTable defaultSort={{ column: "name", direction: 'asc' }}>
-                <PersonTableHeader>
-                    {columns}
-                </PersonTableHeader>
+            <PersonTable defaultSort={{ column: 'name', direction: 'asc' }}>
+                <PersonTableHeader>{columns}</PersonTableHeader>
                 {rows}
                 <PersonTableTfoot>
                     <tr className="reactable-footer">

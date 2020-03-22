@@ -19,10 +19,6 @@ const transform: Transform = (node, index) => {
 class HtmlComponentWithTransform extends React.Component {
     render() {
         const html = '<div>Example HTML string</div>';
-        return (
-            <div>
-                {ReactHtmlParser(html, { transform })}
-            </div>
-        );
+        return <div>{ReactHtmlParser(html, { transform })}</div>;
     }
 }

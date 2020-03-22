@@ -1,6 +1,6 @@
-import map = require("just-map-values");
+import map = require('just-map-values');
 
-const obj = {foo: {bar: []}};
+const obj = { foo: { bar: [] } };
 
 map(obj, (value) => value); // $ExpectType {}
 map(obj, (value, key, object) => ''); // $ExpectType {}

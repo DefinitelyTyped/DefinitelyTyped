@@ -12,30 +12,33 @@ class Demo extends React.Component {
     render() {
         return (
             <Cropper
-                ref='cropper'
-                src='http://fengyuanchen.github.io/cropper/img/picture.jpg'
+                ref="cropper"
+                src="http://fengyuanchen.github.io/cropper/img/picture.jpg"
                 style={{ height: 400, width: '100%' }}
                 // Cropper.js options
                 aspectRatio={16 / 9}
                 guides={false}
-                crop={this.crop.bind(this) } />
+                crop={this.crop.bind(this)}
+            />
         );
     }
 }
 
 function testCropperRef() {
-    const refIsWorking = <Cropper
-        ref={(el: Cropper) => {
-            // $ExpectError el can be null
-            el.getCroppedCanvas();
-            if (el !== null) {
-                // el is a cropperjs element
+    const refIsWorking = (
+        <Cropper
+            ref={(el: Cropper) => {
+                // $ExpectError el can be null
                 el.getCroppedCanvas();
-                // el is also a React.Component instance
-                el.props;
-            }
-        }}
-    />;
+                if (el !== null) {
+                    // el is a cropperjs element
+                    el.getCroppedCanvas();
+                    // el is also a React.Component instance
+                    el.props;
+                }
+            }}
+        />
+    );
 
     const refIsOptional = <Cropper />;
 }

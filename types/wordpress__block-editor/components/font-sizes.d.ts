@@ -25,7 +25,7 @@ export const FontSizePicker: ComponentType<FontSizePicker.Props>;
 export function getFontSize(
     fontSizes: EditorFontSize[],
     fontSizeAttribute: string | undefined,
-    customFontSizeAttribute: number
+    customFontSizeAttribute: number,
 ): Partial<EditorFontSize> & Pick<EditorFontSize, 'size'>;
 
 /**

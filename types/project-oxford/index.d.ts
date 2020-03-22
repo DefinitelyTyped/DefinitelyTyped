@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import Promise = require("bluebird");
-import stream = require("stream");
+import Promise = require('bluebird');
+import stream = require('stream');
 
 export declare class Client {
     constructor(apiKey: string);
@@ -17,7 +17,6 @@ export declare class Client {
 }
 
 export declare class FaceAPI {
-
     /**
      * Call the Face Detected API
      * Detects human faces in an image and returns face locations, face landmarks, and
@@ -180,7 +179,7 @@ export declare class PersonGroup {
 
     /**
      * Starts a person group training.
-         * Training is a necessary preparation process of a person group before identification.
+     * Training is a necessary preparation process of a person group before identification.
      * Each person group needs to be trained in order to call Identification. The training
      * will process for a while on the server side even after this API has responded.
      *
@@ -262,7 +261,12 @@ export declare class Person {
      * @param {string} userData          - Optional fields for user-provided data attached to a person. Size limit is 16KB.
      * @return {Promise}                 - Promise resolving with the resulting JSON
      */
-    public create(personGroupId: string, faces: string[], name: string, userData: string): Promise<{ personId: string }>;
+    public create(
+        personGroupId: string,
+        faces: string[],
+        name: string,
+        userData: string,
+    ): Promise<{ personId: string }>;
 
     /**
      * Deletes an existing person from a person group.
@@ -291,7 +295,13 @@ export declare class Person {
      * @param {string} userData          - Optional fields for user-provided data attached to a person. Size limit is 16KB.
      * @return {Promise}                 - Promise resolving with the resulting JSON
      */
-    public update(personGroupId: string, personId: string, faces: string[], name: string, userData: string): Promise<void>;
+    public update(
+        personGroupId: string,
+        personId: string,
+        faces: string[],
+        name: string,
+        userData: string,
+    ): Promise<void>;
 
     /**
      * Lists all persons in a person group, with the person information.
@@ -359,162 +369,170 @@ declare namespace FaceResponses {
     }
 
     interface FaceLandmarks {
-        "pupilLeft": point;
-        "pupilRight": point;
-        "noseTip": point;
-        "mouthLeft": point;
-        "mouthRight": point;
-        "eyebrowLeftOuter": point;
-        "eyebrowLeftInner": point;
-        "eyeLeftOuter": point;
-        "eyeLeftTop": point;
-        "eyeLeftBottom": point;
-        "eyeLeftInner": point;
-        "eyebrowRightInner": point;
-        "eyebrowRightOuter": point;
-        "eyeRightInner": point;
-        "eyeRightTop": point;
-        "eyeRightBottom": point;
-        "eyeRightOuter": point;
-        "noseRootLeft": point;
-        "noseRootRight": point;
-        "noseLeftAlarTop": point;
-        "noseRightAlarTop": point;
-        "noseLeftAlarOutTip": point;
-        "noseRightAlarOutTip": point;
-        "upperLipTop": point;
-        "upperLipBottom": point;
-        "underLipTop": point;
-        "underLipBottom": point;
+        pupilLeft: point;
+        pupilRight: point;
+        noseTip: point;
+        mouthLeft: point;
+        mouthRight: point;
+        eyebrowLeftOuter: point;
+        eyebrowLeftInner: point;
+        eyeLeftOuter: point;
+        eyeLeftTop: point;
+        eyeLeftBottom: point;
+        eyeLeftInner: point;
+        eyebrowRightInner: point;
+        eyebrowRightOuter: point;
+        eyeRightInner: point;
+        eyeRightTop: point;
+        eyeRightBottom: point;
+        eyeRightOuter: point;
+        noseRootLeft: point;
+        noseRootRight: point;
+        noseLeftAlarTop: point;
+        noseRightAlarTop: point;
+        noseLeftAlarOutTip: point;
+        noseRightAlarOutTip: point;
+        upperLipTop: point;
+        upperLipBottom: point;
+        underLipTop: point;
+        underLipBottom: point;
     }
 
     interface Attributes {
-        "headPose": { "pitch": number, "roll": number, "yaw": number };
-        "gender": string;
-        "age": number;
+        headPose: { pitch: number; roll: number; yaw: number };
+        gender: string;
+        age: number;
     }
 
     export interface Detect {
-        "faceId": string;
-        "faceRectangle": FaceRectangle;
-        "faceLandmarks": FaceLandmarks;
-        "attributes": Attributes;
+        faceId: string;
+        faceRectangle: FaceRectangle;
+        faceLandmarks: FaceLandmarks;
+        attributes: Attributes;
     }
 
     export interface Similar {
-        "faceIds": string[];
+        faceIds: string[];
     }
 
     export interface Grouping {
-        "groups": string[];
-        "messyGroup": string[];
+        groups: string[];
+        messyGroup: string[];
     }
 
     export interface Identify {
-        "faceId": string;
-        "candidates": [{
-            personId: string;
-            confidence: number;
-        }];
+        faceId: string;
+        candidates: [
+            {
+                personId: string;
+                confidence: number;
+            },
+        ];
     }
 
     export interface Verify {
-        "isIdentical": boolean;
-        "confidence": number;
+        isIdentical: boolean;
+        confidence: number;
     }
 }
 
 declare namespace PersonGroupResponses {
-
     export interface PersonGroup {
-        "personGroupId": string;
-        "name": string;
-        "userData": string;
+        personGroupId: string;
+        name: string;
+        userData: string;
     }
 
     export interface TrainingStatus {
-        "personGroupId": string;
-        "status": string;
-        "startTime": string;
-        "endTime": string;
+        personGroupId: string;
+        status: string;
+        startTime: string;
+        endTime: string;
     }
 }
 
 declare namespace PersonResponses {
     export interface Create {
-        "personId": string;
+        personId: string;
     }
 
     export interface Person {
-        "personId": string;
-        "faceIds": string[];
-        "name": string;
-        "userData": string;
+        personId: string;
+        faceIds: string[];
+        name: string;
+        userData: string;
     }
 
     export interface Face {
-        "faceId": string;
-        "userData": string;
+        faceId: string;
+        userData: string;
     }
 }
 
 declare namespace VisionResponses {
     export interface Analyze {
-        "categories": [{
-            "name": string;
-            "score": number;
-        }],
-        "adult": {
-            "isAdultContent": boolean;
-            "isRacyContent": boolean;
-            "adultScore": number;
-            "racyScore": number;
-        },
-        "requestId": string;
-        "metadata": {
-            "width": number;
-            "height": number;
-            "format": string;
-        },
-        "faces": [
+        categories: [
             {
-                "age": number;
-                "gender": string;
-                "faceRectangle": {
-                    "left": number;
-                    "top": number;
-                    "width": number;
-                    "height": number;
-                }
-            }
-        ],
-        "color": {
-            "dominantColorForeground": string;
-            "dominantColorBackground": string;
-            "dominantColors": string[];
-            "accentColor": string;
-            "isBWImg": boolean;
-        },
-        "imageType": {
-            "clipArtType": number;
-            "lineDrawingType": number;
-        }
+                name: string;
+                score: number;
+            },
+        ];
+        adult: {
+            isAdultContent: boolean;
+            isRacyContent: boolean;
+            adultScore: number;
+            racyScore: number;
+        };
+        requestId: string;
+        metadata: {
+            width: number;
+            height: number;
+            format: string;
+        };
+        faces: [
+            {
+                age: number;
+                gender: string;
+                faceRectangle: {
+                    left: number;
+                    top: number;
+                    width: number;
+                    height: number;
+                };
+            },
+        ];
+        color: {
+            dominantColorForeground: string;
+            dominantColorBackground: string;
+            dominantColors: string[];
+            accentColor: string;
+            isBWImg: boolean;
+        };
+        imageType: {
+            clipArtType: number;
+            lineDrawingType: number;
+        };
     }
 
-
     export interface Ocr {
-        "language": string;
-        "textAngle": number;
-        "orientation": string;
-        "regions": [{
-            "boundingBox": string;
-            "lines": [{
-                "boundingBox": string;
-                "words": [{
-                    "boundingBox": string;
-                    "text": string;
-                }]
-            }]
-        }]
+        language: string;
+        textAngle: number;
+        orientation: string;
+        regions: [
+            {
+                boundingBox: string;
+                lines: [
+                    {
+                        boundingBox: string;
+                        words: [
+                            {
+                                boundingBox: string;
+                                text: string;
+                            },
+                        ];
+                    },
+                ];
+            },
+        ];
     }
 }

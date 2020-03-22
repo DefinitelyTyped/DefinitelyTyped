@@ -5,14 +5,8 @@ declare namespace adone {
 
             interface ArgumentInfo {
                 name: string | string[];
-                action?: "store"
-                    | "store_const"
-                    | "store_true"
-                    | "store_false"
-                    | "append"
-                    | "count"
-                    | "set";
-                nargs?: number | "+" | "*" | "?";
+                action?: 'store' | 'store_const' | 'store_true' | 'store_false' | 'append' | 'count' | 'set';
+                nargs?: number | '+' | '*' | '?';
                 type?: ArgumentType | ArgumentType[];
                 verify?: (args: any, opts: any) => boolean; // TODO
                 required?: boolean;
@@ -167,9 +161,12 @@ declare namespace adone {
 
             addSubsystemsFrom(path: string, options?: I.AddSubsystemsFromOptions): I.SysInfoWithPath;
 
-            instantiateSubsystem(subsystem: string | Subsystem, options?: {
-                transpile?: boolean
-            }): Subsystem;
+            instantiateSubsystem(
+                subsystem: string | Subsystem,
+                options?: {
+                    transpile?: boolean;
+                },
+            ): Subsystem;
 
             deleteSubsystem(name: string, force?: boolean): void;
 

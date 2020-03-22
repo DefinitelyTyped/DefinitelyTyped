@@ -1,14 +1,6 @@
 import * as React from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    TouchableHighlight,
-} from 'react-native';
-import SignatureCapture, {
-    SaveEventParams,
-} from 'react-native-signature-capture';
+import { AppRegistry, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import SignatureCapture, { SaveEventParams } from 'react-native-signature-capture';
 
 class RNSignatureExample extends React.Component {
     private readonly signatureRef = React.createRef<SignatureCapture>();
@@ -16,11 +8,7 @@ class RNSignatureExample extends React.Component {
     render() {
         return (
             <View style={{ flex: 1, flexDirection: 'column' }}>
-                <Text
-                    style={{ alignItems: 'center', justifyContent: 'center' }}
-                >
-                    Signature Capture Extended{' '}
-                </Text>
+                <Text style={{ alignItems: 'center', justifyContent: 'center' }}>Signature Capture Extended </Text>
                 <SignatureCapture
                     style={[{ flex: 1 }, styles.signature]}
                     ref={this.signatureRef}

@@ -1,4 +1,4 @@
-import { ValidSelectSources } from "./ValidSelectSources";
+import { ValidSelectSources } from './ValidSelectSources';
 
 /**
  * Represents a function for generating select-sources.

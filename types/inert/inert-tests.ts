@@ -1,7 +1,4 @@
-import {
-    Server,
-    Lifecycle,
-} from 'hapi';
+import { Server, Lifecycle } from 'hapi';
 
 import * as path from 'path';
 import * as inert from 'inert';
@@ -10,9 +7,9 @@ const server = new Server({
     port: 3000,
     routes: {
         files: {
-            relativeTo: path.join(__dirname, 'public')
-        }
-    }
+            relativeTo: path.join(__dirname, 'public'),
+        },
+    },
 });
 
 const provision = async () => {
@@ -35,9 +32,9 @@ const provision = async () => {
             directory: {
                 path: '.',
                 redirectToSlash: true,
-                index: true
-            }
-        }
+                index: true,
+            },
+        },
     });
 
     // https://github.com/hapijs/inert#serving-a-single-file
@@ -45,8 +42,8 @@ const provision = async () => {
         method: 'GET',
         path: '/{path*}',
         handler: {
-            file: 'page.html'
-        }
+            file: 'page.html',
+        },
     });
 
     // https://github.com/hapijs/inert#customized-file-response
@@ -60,7 +57,7 @@ const provision = async () => {
             }
 
             return reply.file(path).vary('x-magic');
-        }
+        },
     });
 
     const handler: Lifecycle.Method = (request, h) => {
@@ -81,7 +78,7 @@ const provision = async () => {
 
     const directory: inert.DirectoryHandlerRouteObject = {
         path: '',
-        listing: true
+        listing: true,
     };
 
     server.route({
@@ -100,6 +97,6 @@ const provision = async () => {
                 },
             },
         },
-        options: { files: { relativeTo: __dirname } }
+        options: { files: { relativeTo: __dirname } },
     });
 };

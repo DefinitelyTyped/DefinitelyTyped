@@ -11,14 +11,14 @@ type LinkedStateMixin = LinkedStateMixin.LinkedStateMixin;
 export = LinkedStateMixin;
 
 declare namespace LinkedStateMixin {
-	export interface ReactLink<T> {
-	    value: T;
-	    requestChange(newValue: T): void;
-	}
+    export interface ReactLink<T> {
+        value: T;
+        requestChange(newValue: T): void;
+    }
 
-	export interface LinkedStateMixin extends Mixin<any, any> {
-	    linkState<T>(key: string): ReactLink<T>;
-	}
+    export interface LinkedStateMixin extends Mixin<any, any> {
+        linkState<T>(key: string): ReactLink<T>;
+    }
 }
 
 declare module 'react' {

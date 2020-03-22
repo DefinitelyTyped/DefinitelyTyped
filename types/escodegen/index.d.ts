@@ -160,7 +160,7 @@ export enum Precedence {
     New,
     TaggedTemplate,
     Member,
-    Primary
+    Primary,
 }
 
 /**

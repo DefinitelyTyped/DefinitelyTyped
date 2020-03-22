@@ -15,10 +15,10 @@ const options: DropkickOptions = {
     selectedIndex: 0,
     selectedOptions: ['test'],
     value: 'test',
-    change() { },
-    close() { },
-    open() { },
-    initialize: () => { }
+    change() {},
+    close() {},
+    open() {},
+    initialize: () => {},
 };
 const withFullOptions = new Dropkick('#test', options);
 
@@ -64,10 +64,10 @@ dk.remove(4);
 dk.reset();
 dk.reset(true);
 
-const words = dk.search("qwer", "fuzzy");
+const words = dk.search('qwer', 'fuzzy');
 
 const node2 = dk.select(4);
-const node3 = dk.select("AL");
+const node3 = dk.select('AL');
 const node4 = dk.select(4, true);
 
 const node5 = dk.selectOne(4);
@@ -77,13 +77,13 @@ const node6 = dk.selectOne(4, true);
 let fieldValue = '';
 const selectOptions: DropkickOptions = {
     open(this: Dropkick) {
-        const optionsList = (<any> this).data.elem.lastChild; // undocumented but useful data field
+        const optionsList = (<any>this).data.elem.lastChild; // undocumented but useful data field
         if (optionsList.scrollWidth > optionsList.offsetWidth) {
             optionsList.style.width = `${optionsList.scrollWidth + 25}px`;
         }
     },
     change: () => {
         fieldValue = select.value;
-    }
+    },
 };
 const select = new Dropkick('#select', options);

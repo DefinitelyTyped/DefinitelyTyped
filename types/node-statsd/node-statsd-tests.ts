@@ -36,12 +36,12 @@ client.histogram('my_histogram', 42, ['foo', 'bar']);
 
 // Using the callback
 client.set(['foo', 'bar'], 42, (error: Error, bytes: Buffer) => {
-  // this only gets called once after all messages have been sent
-  if (error) {
-    console.error('Oh noes! There was an error:', error);
-  } else {
-    console.log('Successfully sent', bytes, 'bytes');
-  }
+    // this only gets called once after all messages have been sent
+    if (error) {
+        console.error('Oh noes! There was an error:', error);
+    } else {
+        console.log('Successfully sent', bytes, 'bytes');
+    }
 });
 
 function next() {}
@@ -56,5 +56,5 @@ client.histogram('my_histogram', 42, ['tag'], next);
 client.histogram('my_histogram', 42, 0.25, ['tag'], next);
 
 client.socket.on('error', (error) => {
-  console.error("Error in socket: ", error);
+    console.error('Error in socket: ', error);
 });

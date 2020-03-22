@@ -5,7 +5,7 @@ let RedisStore = connectRedis(session);
 const store = new RedisStore({
     host: 'localhost',
     port: 6379,
-    logErrors: error => console.warn(error),
+    logErrors: (error) => console.warn(error),
     scanCount: 80,
     disableTouch: true,
     ttl: (store, sess, sessionID) => {

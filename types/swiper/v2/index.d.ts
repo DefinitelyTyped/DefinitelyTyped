@@ -104,10 +104,10 @@ interface SwiperOptions {
 }
 
 interface SwiperScrollbarOptions {
-    container: string;          // Default: '.swiper-scrollbar'
-    draggable?: boolean;        // Default: true
-    hide?: boolean;             // Default: true
-    snapOnRelease?: boolean;    // Default: false
+    container: string; // Default: '.swiper-scrollbar'
+    draggable?: boolean; // Default: true
+    hide?: boolean; // Default: true
+    snapOnRelease?: boolean; // Default: false
 }
 
 declare class SwiperSlide {
@@ -115,7 +115,7 @@ declare class SwiperSlide {
     clone(): SwiperSlide;
     getWidth(): number;
     getHeight(): number;
-    getOffset(): { top: number; left: number; };
+    getOffset(): { top: number; left: number };
     insertAfter(index: number): SwiperSlide;
     prepend(): SwiperSlide;
     remove(): void;
@@ -174,7 +174,7 @@ declare class Swiper {
     stopAutoplay(): void;
 
     // Other methods
-    getWrapperTranslate(axis: string): number;  // 'x' or 'y'
+    getWrapperTranslate(axis: string): number; // 'x' or 'y'
     setWrapperTranslate(x: number, y: number, z: number): void;
     setWrapperTransition(duration: any): void;
 
@@ -195,7 +195,7 @@ declare class Swiper {
     getFirstSlide(): SwiperSlide;
 }
 
-declare module "swiper" {
+declare module 'swiper' {
     const swiper: {
         new (element: Element | string, options?: SwiperOptions): Swiper;
     };

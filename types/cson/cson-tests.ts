@@ -1,16 +1,15 @@
-
 import cson = require('cson');
 
-var data: string = cson.stringify({hello: 'world'});
+var data: string = cson.stringify({ hello: 'world' });
 console.log('cson.stringify => %s', data);
 
-data = cson.createString({hello: 'world'});
+data = cson.createString({ hello: 'world' });
 console.log('cson.createString => %s', data);
 
-data = cson.createJSONString({hello: 'world'});
+data = cson.createJSONString({ hello: 'world' });
 console.log('cson.createJSONString => %s', data);
 
-data = cson.createCSONString({hello: 'world'});
+data = cson.createCSONString({ hello: 'world' });
 console.log('cson.createCSONString => %s', data);
 
 var obj = cson.parse(data);

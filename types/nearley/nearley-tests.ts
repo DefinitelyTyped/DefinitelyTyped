@@ -15,9 +15,13 @@ lexer.reset('', {});
 lexer.next(); // $ExpectType string | { value: string; } | undefined
 lexer.save(); // $ExpectType LexerState
 lexer.formatError('', ''); // $ExpectType string
-lexer.formatError({value: ''}, '');
+lexer.formatError({ value: '' }, '');
 
-const rule = new Rule(compiledRules.ParserRules[0].name, compiledRules.ParserRules[0].symbols, compiledRules.ParserRules[0].postprocess);
+const rule = new Rule(
+    compiledRules.ParserRules[0].name,
+    compiledRules.ParserRules[0].symbols,
+    compiledRules.ParserRules[0].postprocess,
+);
 
 rule.id; // $ExpectType number
 rule.name; // $ExpectType string
@@ -38,8 +42,8 @@ grammar.lexer; // $ExpectType Lexer | undefined
 Parser.fail; // $ExpectType {}
 
 const parser = new Parser(grammar);
-new Parser(grammar, {lexer});
-new Parser(grammar, {keepHistory: false});
+new Parser(grammar, { lexer });
+new Parser(grammar, { keepHistory: false });
 
 parser.grammar; // $ExpectType Grammar
 parser.options; // $ExpectType ParserOptions
@@ -55,7 +59,7 @@ state; // $ExpectType { [key: string]: any; lexerState: LexerState; }
 parser.restore(state);
 
 try {
-    parser.feed("<123>");
+    parser.feed('<123>');
     if (parser.results) {
         console.log(parser.results[0]);
     }

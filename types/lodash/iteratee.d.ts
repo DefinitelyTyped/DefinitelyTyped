@@ -1,2 +1,2 @@
-import { iteratee } from "./index";
+import { iteratee } from './index';
 export = iteratee;

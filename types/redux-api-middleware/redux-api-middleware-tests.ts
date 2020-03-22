@@ -103,8 +103,8 @@ import {
     createMiddleware(); // $ExpectType Middleware<{}, any, Dispatch<AnyAction>>
     createMiddleware({}); // $ExpectType Middleware<{}, any, Dispatch<AnyAction>>
     createMiddleware({ fetch }); // $ExpectType Middleware<{}, any, Dispatch<AnyAction>>
-    createMiddleware({ ok: res => res.ok }); // $ExpectType Middleware<{}, any, Dispatch<AnyAction>>
-    createMiddleware({ fetch, ok: res => res.ok }); // $ExpectType Middleware<{}, any, Dispatch<AnyAction>>
+    createMiddleware({ ok: (res) => res.ok }); // $ExpectType Middleware<{}, any, Dispatch<AnyAction>>
+    createMiddleware({ fetch, ok: (res) => res.ok }); // $ExpectType Middleware<{}, any, Dispatch<AnyAction>>
 }
 
 {
@@ -168,15 +168,15 @@ import {
     store.dispatch(action).then(() => Promise.resolve());
     store
         .dispatch(action)
-        .then(action => (action.error ? Promise.reject() : Promise.resolve(action.payload)))
+        .then((action) => (action.error ? Promise.reject() : Promise.resolve(action.payload)))
         .then((payload: string) => payload);
     store
         .dispatch(action)
-        .then(action => (action.error ? Promise.reject() : Promise.resolve(action.meta)))
+        .then((action) => (action.error ? Promise.reject() : Promise.resolve(action.meta)))
         .then((payload: number) => Promise.resolve());
     store
         .dispatch(action)
-        .then(action => (action.error ? Promise.reject() : Promise.resolve(action.payload)))
+        .then((action) => (action.error ? Promise.reject() : Promise.resolve(action.payload)))
         .then((payload: number) => Promise.resolve()); // $ExpectError
     store.dispatch(action).then((action: string) => Promise.resolve()); // $ExpectError
 }

@@ -1,11 +1,11 @@
-describe("Jasmine jQuery extension", () => {
-    it("Adds jQuery matchers", () => {
+describe('Jasmine jQuery extension', () => {
+    it('Adds jQuery matchers', () => {
         expect($('<div id="some-id"></div>')).toBe($('div'));
         expect($('<div id="some-id"></div>')).toBe($('div#some-id'));
         expect($('<input type="checkbox" checked="checked"/>')).toBeChecked();
         expect($('<div id="some-id"></div>')).toBeHidden();
-        expect($('<div style="display: none; margin: 10px;"></div>')).toHaveCss({ display: "none", margin: "10px" });
-        expect($('<div style="display: none; margin: 10px;"></div>')).toHaveCss({ margin: "10px" });
+        expect($('<div style="display: none; margin: 10px;"></div>')).toHaveCss({ display: 'none', margin: '10px' });
+        expect($('<div style="display: none; margin: 10px;"></div>')).toHaveCss({ margin: '10px' });
         expect($('<option selected="selected"></option>')).toBeSelected();
         expect($('<div id="some-id"></div>')).toBeVisible();
         // NOTE: It is now necessary to explicitly add the generic parameter when using `toContain`
@@ -23,12 +23,12 @@ describe("Jasmine jQuery extension", () => {
         expect($('')).toHaveBeenPreventedOn('#some-id');
         expect($('')).toHaveBeenStopped();
         expect($('')).toHaveBeenStoppedOn('#some-id');
-        expect($('<div class="some-class"></div>')).toHaveClass("some-class");
+        expect($('<div class="some-class"></div>')).toHaveClass('some-class');
         expect($('<div data-item="value"></div>')).toHaveData('item', 'value');
         expect($('<div><span></span></div>')).toHaveHtml('<span></span>');
         expect($('<div><ul></ul><h1>header</h1></div>')).toContainHtml('<ul></ul>');
         expect($('<div><ul></ul><h1>header</h1></div>')).toContainText('header');
-        expect($('<div id="some-id"></div>')).toHaveId("some-id");
+        expect($('<div id="some-id"></div>')).toHaveId('some-id');
         expect($('<div>some text</div>')).toHaveText('some text');
         expect($('<input type="text" value="some text"/>')).toHaveValue('some text');
         expect($('ul > li')).toHaveLength(3);
@@ -39,10 +39,10 @@ describe("Jasmine jQuery extension", () => {
         expect($('<div></div>')).toBeInDOM();
         expect($('<div><span class="some-class"></span></div>')).toContainElement('span.some-class');
         expect($('<div><ul></ul><h1>header</h1></div>')).toContainHtml('<ul></ul>');
-        expect($('<div><ul></ul><h1>header</h1></div>')).toContainText('header')
+        expect($('<div><ul></ul><h1>header</h1></div>')).toContainText('header');
     });
 
-    it("Handles HTML Fixtures", () => {
+    it('Handles HTML Fixtures', () => {
         jasmine.getFixtures().fixturesPath = 'my/new/path';
         jasmine.getFixtures().containerId = 'my-new-id';
 
@@ -65,13 +65,13 @@ describe("Jasmine jQuery extension", () => {
         sandbox({
             id: 'my-id',
             class: 'my-class',
-            myattr: 'my-attr'
+            myattr: 'my-attr',
         });
 
         setFixtures(sandbox({ class: 'my-class' }));
     });
 
-    it("Handles Style Fixtures", () => {
+    it('Handles Style Fixtures', () => {
         jasmine.getStyleFixtures().fixturesPath = 'my/new/path';
 
         jasmine.getStyleFixtures().load('myfixture.css');
@@ -88,7 +88,7 @@ describe("Jasmine jQuery extension", () => {
         appendSetStyleFixtures('.elem { position: absolute }');
     });
 
-    it("Handles JSON Fixtures", () => {
+    it('Handles JSON Fixtures', () => {
         jasmine.getJSONFixtures().fixturesPath = 'my/new/path';
 
         jasmine.getJSONFixtures().load('myfixture.json');
@@ -99,15 +99,15 @@ describe("Jasmine jQuery extension", () => {
         var fixtures = loadJSONFixtures('myjsonfixture.json');
     });
 
-    describe("Event Spies", () => {
-        it("First, spy on the event", () => {
+    describe('Event Spies', () => {
+        it('First, spy on the event', () => {
             var spyEvent = spyOnEvent('#some_element', 'click');
             $('#some_element').click();
             expect('click').toHaveBeenTriggeredOn('#some_element');
             expect(spyEvent).toHaveBeenTriggered();
         });
 
-        it("You can reset spy events", () => {
+        it('You can reset spy events', () => {
             var spyEvent = spyOnEvent('#some_element', 'click');
             $('#some_element').click();
             expect('click').toHaveBeenTriggeredOn('#some_element');
@@ -118,17 +118,21 @@ describe("Jasmine jQuery extension", () => {
             expect(spyEvent).not.toHaveBeenTriggered();
         });
 
-        it("You can similarly check if triggered event was prevented", () => {
+        it('You can similarly check if triggered event was prevented', () => {
             var spyEvent = spyOnEvent('#some_element', 'click');
-            $('#some_element').click(function (event) { event.preventDefault(); });
+            $('#some_element').click(function (event) {
+                event.preventDefault();
+            });
             $('#some_element').click();
             expect('click').toHaveBeenPreventedOn('#some_element');
             expect(spyEvent).toHaveBeenPrevented();
         });
 
-        it("You can also check if the triggered event was stopped", () => {
+        it('You can also check if the triggered event was stopped', () => {
             var spyEvent = spyOnEvent('#some_element', 'click');
-            $('#some_element').click(function (event) { event.stopPropagation(); });
+            $('#some_element').click(function (event) {
+                event.stopPropagation();
+            });
             $('#some_element').click();
             expect('click').toHaveBeenStoppedOn('#some_element');
             expect(spyEvent).toHaveBeenStopped();

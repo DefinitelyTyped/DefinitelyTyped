@@ -77,36 +77,30 @@ const options: CircuitBreaker.Options = {
 };
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
-breaker
-    .fire('foo')
-    .then(console.log)
-    .catch(console.error);
+breaker.fire('foo').then(console.log).catch(console.error);
 
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 // if asyncFunctionThatCouldFail starts to fail, firing the breaker
 // will trigger our fallback function
 breaker.fallback(() => 'Sorry, out of service right now');
-breaker.on('fallback', result => console.log(result));
+breaker.on('fallback', (result) => console.log(result));
 
 breaker = new CircuitBreaker(callbackNoArgs, options);
 
 breaker.fallback(callbackNoArgs);
 
-breaker.on('success', result => console.log(result));
+breaker.on('success', (result) => console.log(result));
 breaker.on('timeout', callbackNoArgs);
 breaker.on('reject', callbackNoArgs);
 breaker.on('open', callbackNoArgs);
 breaker.on('halfOpen', callbackNoArgs);
 breaker.on('close', callbackNoArgs);
-breaker.on('fallback', data => console.log(data));
+breaker.on('fallback', (data) => console.log(data));
 
 const readFile = promisify(fs.readFile);
 breaker = new CircuitBreaker(readFile, options);
 
-breaker
-    .fire('./package.json', 'utf-8')
-    .then(console.log)
-    .catch(console.error);
+breaker.fire('./package.json', 'utf-8').then(console.log).catch(console.error);
 
 breaker = new CircuitBreaker(readFile, {});
 

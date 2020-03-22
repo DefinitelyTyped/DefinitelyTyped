@@ -4,17 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class ClipboardJS {
-    constructor(
-        selector: string | Element | NodeListOf<Element>,
-        options?: ClipboardJS.Options
-    );
+    constructor(selector: string | Element | NodeListOf<Element>, options?: ClipboardJS.Options);
 
     /**
      * Subscribes to events that indicate the result of a copy/cut operation.
      * @param type Event type ('success' or 'error').
      * @param handler Callback function.
      */
-    on(type: "success" | "error", handler: (e: ClipboardJS.Event) => void): this;
+    on(type: 'success' | 'error', handler: (e: ClipboardJS.Event) => void): this;
     on(type: string, handler: (...args: any[]) => void): this;
 
     /**
@@ -34,7 +31,7 @@ declare namespace ClipboardJS {
          * Overwrites default command ('cut' or 'copy').
          * @param elem Current element
          */
-        action?(elem: Element): "cut" | "copy";
+        action?(elem: Element): 'cut' | 'copy';
 
         /**
          * Overwrites default target input element.

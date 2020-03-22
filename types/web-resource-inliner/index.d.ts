@@ -111,9 +111,7 @@ export interface Options {
      *
      * See the [list of available options](https://www.npmjs.com/package/request#request-options-callback).
      */
-    requestTransform?: (
-        requestOptions: RequiredUriUrl & CoreOptions
-    ) => RequiredUriUrl & CoreOptions;
+    requestTransform?: (requestOptions: RequiredUriUrl & CoreOptions) => RequiredUriUrl & CoreOptions;
     /**
      * Allows to make changes to scripts before they are inlined, such as minifying.
      *

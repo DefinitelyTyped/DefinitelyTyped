@@ -12,7 +12,7 @@ const configTest = (config: karma.Config) => {
         parallelOptions: {
             executors: 4, // Defaults to cpu-count - 1
             shardStrategy: 'round-robin',
-            customShardStrategy: config => {
+            customShardStrategy: (config) => {
                 config.executors; // $ExpectType number
                 config.shardIndex; // $ExpectType number
                 config.description; // $ExpectType string

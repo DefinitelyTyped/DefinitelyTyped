@@ -1,2 +1,2 @@
-import { trim } from "../fp";
+import { trim } from '../fp';
 export = trim;

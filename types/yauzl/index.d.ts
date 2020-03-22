@@ -92,7 +92,16 @@ export function fromFd(fd: number, options: Options, callback?: (err?: Error, zi
 export function fromFd(fd: number, callback?: (err?: Error, zipfile?: ZipFile) => void): void;
 export function fromBuffer(buffer: Buffer, options: Options, callback?: (err?: Error, zipfile?: ZipFile) => void): void;
 export function fromBuffer(buffer: Buffer, callback?: (err?: Error, zipfile?: ZipFile) => void): void;
-export function fromRandomAccessReader(reader: RandomAccessReader, totalSize: number, options: Options, callback: (err?: Error, zipfile?: ZipFile) => void): void;
-export function fromRandomAccessReader(reader: RandomAccessReader, totalSize: number, callback: (err?: Error, zipfile?: ZipFile) => void): void;
+export function fromRandomAccessReader(
+    reader: RandomAccessReader,
+    totalSize: number,
+    options: Options,
+    callback: (err?: Error, zipfile?: ZipFile) => void,
+): void;
+export function fromRandomAccessReader(
+    reader: RandomAccessReader,
+    totalSize: number,
+    callback: (err?: Error, zipfile?: ZipFile) => void,
+): void;
 export function dosDateTimeToDate(date: number, time: number): Date;
 export function validateFileName(fileName: string): string | null;

@@ -3,8 +3,7 @@
 // Definitions by: Mudkip <https://github.com/mudkipme>
 // Definitions: https://github.com/mudkipme/DefinitelyTyped
 
-declare module "bit-array" {
-
+declare module 'bit-array' {
     class BitArray {
         /**
          * Creates a new empty BitArray with the given length or initialises the BitArray with the given hex representation.

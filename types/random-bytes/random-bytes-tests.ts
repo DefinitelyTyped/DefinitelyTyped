@@ -10,10 +10,9 @@ randomBytes(16, (err, buff) => {
 });
 
 // Promise-based signature.
-randomBytes(32)
-    .then((buff) => {
-        console.log(buff);
-    });
+randomBytes(32).then((buff) => {
+    console.log(buff);
+});
 
 // Synchronous signature.
 const buff = randomBytes.sync(64);

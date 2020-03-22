@@ -1,12 +1,12 @@
-import BootstrapMenu = require("bootstrap-menu");
+import BootstrapMenu = require('bootstrap-menu');
 
-const menu = new BootstrapMenu("#main", {
+const menu = new BootstrapMenu('#main', {
     actions: [
         {
-            name: "Main menu action",
+            name: 'Main menu action',
             onClick: (element: any) => {
                 console.log(element);
-            }
-        }
-    ]
+            },
+        },
+    ],
 });

@@ -17,7 +17,7 @@ declare namespace fileinclude {
          * Can be "@file" or "@root" or some base path.
          * default: "@file"
          */
-        basepath?: "@file" | "@root" | string;
+        basepath?: '@file' | '@root' | string;
         /**
          * Filters basically look like functions that get passed into '@@include'.
          * When one of these functions is called, something of that name is looked

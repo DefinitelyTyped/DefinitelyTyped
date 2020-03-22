@@ -1,6 +1,6 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
 import {
     HTTPMethod,
@@ -16,8 +16,8 @@ import {
     registerNavigationRoute,
     registerRoute,
     setCatchHandler,
-    setDefaultHandler
-} from "workbox-routing";
+    setDefaultHandler,
+} from 'workbox-routing';
 
 declare const findMatchingRouteOptions: Router.FindMatchingRouteOptions;
 declare const handleRequestOptions: Router.HandleRequestOptions;

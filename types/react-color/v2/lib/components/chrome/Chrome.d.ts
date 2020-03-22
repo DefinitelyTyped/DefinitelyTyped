@@ -1,5 +1,5 @@
-import { Component, CSSProperties } from "react";
-import { RenderersProps, CustomPickerProps } from "../../..";
+import { Component, CSSProperties } from 'react';
+import { RenderersProps, CustomPickerProps } from '../../..';
 
 export interface ChromePickerDefaultStyles {
     picker?: CSSProperties;

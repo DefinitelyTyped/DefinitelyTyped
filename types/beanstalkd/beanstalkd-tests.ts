@@ -6,7 +6,7 @@ const tube = 'TestTube';
 
 const beanstalkd = new Beanstalkd(host, port);
 
-beanstalkd.connect().then(beanstalkd => {
+beanstalkd.connect().then((beanstalkd) => {
     const priority = 1;
     const delay = 10 * 60;
     const ttr = 5 * 60;

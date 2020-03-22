@@ -20,7 +20,15 @@ interface toastOptions {
     loader?: boolean;
     loaderBg?: string;
     stack?: number | false;
-    position?: 'bottom-left' | 'bottom-right' | 'bottom-center' | 'top-right' | 'top-left' | 'top-center' | 'mid-center' | CustomPosition;
+    position?:
+        | 'bottom-left'
+        | 'bottom-right'
+        | 'bottom-center'
+        | 'top-right'
+        | 'top-left'
+        | 'top-center'
+        | 'mid-center'
+        | CustomPosition;
     bgColor?: string;
     textColor?: string;
     textAlign?: 'left' | 'right' | 'center';

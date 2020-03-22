@@ -4,10 +4,10 @@ export interface Locale {
     short?: Duration;
     narrow?: Duration;
     tiny?: Duration;
-    "short-time"?: Duration;
-    "short-convenient"?: Duration;
-    "long-time"?: Duration;
-    "long-convenient"?: Duration;
+    'short-time'?: Duration;
+    'short-convenient'?: Duration;
+    'long-time'?: Duration;
+    'long-convenient'?: Duration;
     quantify: (n: number) => keyof QuantifyType;
 }
 
@@ -47,6 +47,6 @@ export interface RTFFormatter {
 }
 
 export type TimeUnit = 'now' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
-export type DefaultFormats = "long" | "short" | "narrow";
-export type ExtendedFormats = "tiny" | "short-time" | "short-convenient" | "long-time" | "long-convenient";
+export type DefaultFormats = 'long' | 'short' | 'narrow';
+export type ExtendedFormats = 'tiny' | 'short-time' | 'short-convenient' | 'long-time' | 'long-convenient';
 export type Formats = DefaultFormats | ExtendedFormats;

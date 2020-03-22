@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     interface LoDashStatic {
         /**
          * Adds two numbers.
@@ -48,11 +48,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-        * Divide two numbers.
-        *
-        * @param dividend The first number in a division.
-        * @param divisor The second number in a division.
-        * @returns Returns the quotient.
+         * Divide two numbers.
+         *
+         * @param dividend The first number in a division.
+         * @param divisor The second number in a division.
+         * @returns Returns the quotient.
          */
         divide(dividend: number, divisor: number): number;
     }
@@ -94,12 +94,12 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-          * Computes the maximum value of `array`. If `array` is empty or falsey
-          * `undefined` is returned.
-          *
-          * @category Math
-          * @param array The array to iterate over.
-          * @returns Returns the maximum value.
+         * Computes the maximum value of `array`. If `array` is empty or falsey
+         * `undefined` is returned.
+         *
+         * @category Math
+         * @param array The array to iterate over.
+         * @returns Returns the maximum value.
          */
         max<T>(collection: List<T> | null | undefined): T | undefined;
     }

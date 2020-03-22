@@ -11,8 +11,9 @@ import * as util from 'util';
 import * as assert from 'assert';
 
 // Stub mocha functions
-const {describe, it, before, after, beforeEach, afterEach} = null as any as {
-    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+const { describe, it, before, after, beforeEach, afterEach } = (null as any) as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) &
+        ((cb: (done: any) => void) => void) & { only: any; skip: any };
 };
 
 describe('EventEmitter', function tests() {
@@ -25,8 +26,8 @@ describe('EventEmitter', function tests() {
 
         util.inherits(Beast, EventEmitter);
 
-        var moop = new Beast()
-            , meap = new Beast();
+        var moop = new Beast(),
+            meap = new Beast();
 
         assert.strictEqual(moop instanceof Beast, true);
         assert.strictEqual(moop instanceof EventEmitter, true);
@@ -44,15 +45,19 @@ describe('EventEmitter', function tests() {
 
     describe('EventEmitter#emit', function () {
         it('emits with context', function (done) {
-            var context = { bar: 'baz' }
-                , e = new EventEmitter();
+            var context = { bar: 'baz' },
+                e = new EventEmitter();
 
-            e.addListener('foo', function (bar: string) {
-                assert.strictEqual(bar, 'bar');
-                assert.strictEqual(this, context);
+            e.addListener(
+                'foo',
+                function (bar: string) {
+                    assert.strictEqual(bar, 'bar');
+                    assert.strictEqual(this, context);
 
-                done();
-            }, context);
+                    done();
+                },
+                context,
+            );
 
             e.emit('foo', 'bar');
         });
@@ -60,7 +65,7 @@ describe('EventEmitter', function tests() {
         it('can emit the function with multiple arguments', function () {
             var e = new EventEmitter();
 
-            for(var i = 0; i < 100; i++) {
+            for (var i = 0; i < 100; i++) {
                 (function (j: number) {
                     for (var i = 0, args: number[] = []; i < j; i++) {
                         args.push(j);
@@ -79,7 +84,7 @@ describe('EventEmitter', function tests() {
         it('can emit the function with multiple arguments, multiple listeners', function () {
             var e = new EventEmitter();
 
-            for(var i = 0; i < 100; i++) {
+            for (var i = 0; i < 100; i++) {
                 (function (j: number) {
                     for (var i = 0, args: number[] = []; i < j; i++) {
                         args.push(j);
@@ -113,22 +118,30 @@ describe('EventEmitter', function tests() {
         it('emits with context, multiple listeners (force loop)', function () {
             var e = new EventEmitter();
 
-            e.addListener('foo', function (bar: string) {
-                assert.deepStrictEqual(this, { foo: 'bar' });
-                assert.strictEqual(bar, 'bar');
-            }, { foo: 'bar' });
+            e.addListener(
+                'foo',
+                function (bar: string) {
+                    assert.deepStrictEqual(this, { foo: 'bar' });
+                    assert.strictEqual(bar, 'bar');
+                },
+                { foo: 'bar' },
+            );
 
-            e.addListener('foo', function (bar: string) {
-                assert.deepStrictEqual(this, { bar: 'baz' });
-                assert.strictEqual(bar, 'bar');
-            }, { bar: 'baz' });
+            e.addListener(
+                'foo',
+                function (bar: string) {
+                    assert.deepStrictEqual(this, { bar: 'baz' });
+                    assert.strictEqual(bar, 'bar');
+                },
+                { bar: 'baz' },
+            );
 
             e.emit('foo', 'bar');
         });
 
         it('emits with different contexts', function () {
-            var e = new EventEmitter()
-                , pattern = '';
+            var e = new EventEmitter(),
+                pattern = '';
 
             function writer() {
                 pattern += this;
@@ -160,8 +173,8 @@ describe('EventEmitter', function tests() {
         });
 
         it('emits to all event listeners', function () {
-            var e = new EventEmitter()
-                , pattern: string[] = [];
+            var e = new EventEmitter(),
+                pattern: string[] = [];
 
             e.addListener('foo', function () {
                 pattern.push('foo1');
@@ -175,7 +188,6 @@ describe('EventEmitter', function tests() {
 
             assert.strictEqual(pattern.join(';'), 'foo1;foo2');
         });
-
     });
 
     describe('EventEmitter#listeners', function () {
@@ -187,15 +199,15 @@ describe('EventEmitter', function tests() {
         });
 
         it('returns an array of function', function () {
-             var e = new EventEmitter();
+            var e = new EventEmitter();
 
-             function foo() {}
+            function foo() {}
 
-             e.addListener('foo', foo);
-             assert.strictEqual(e.listeners('foo') instanceof Array, true);
-             assert.strictEqual(e.listeners('foo').length, 1);
-             console.log(e.listeners('foo')[0]);
-             assert.strictEqual(e.listeners('foo')[0], foo);
+            e.addListener('foo', foo);
+            assert.strictEqual(e.listeners('foo') instanceof Array, true);
+            assert.strictEqual(e.listeners('foo').length, 1);
+            console.log(e.listeners('foo')[0]);
+            assert.strictEqual(e.listeners('foo')[0], foo);
         });
 
         it('is not vulnerable to modifications', function () {
@@ -214,8 +226,8 @@ describe('EventEmitter', function tests() {
 
     describe('EventEmitter#once', function () {
         it('only emits it once', function () {
-            var e = new EventEmitter()
-                , calls = 0;
+            var e = new EventEmitter(),
+                calls = 0;
 
             e.once('foo', function () {
                 calls++;
@@ -232,8 +244,8 @@ describe('EventEmitter', function tests() {
         });
 
         it('only emits once if emits are nested inside the listener', function () {
-            var e = new EventEmitter()
-                , calls = 0;
+            var e = new EventEmitter(),
+                calls = 0;
 
             e.once('foo', function () {
                 calls++;
@@ -246,10 +258,10 @@ describe('EventEmitter', function tests() {
         });
 
         it('only emits once for multiple events', function () {
-            var e = new EventEmitter()
-                , multi = 0
-                , foo = 0
-                , bar = 0;
+            var e = new EventEmitter(),
+                multi = 0,
+                foo = 0,
+                bar = 0;
 
             e.once('foo', function () {
                 foo++;
@@ -276,14 +288,18 @@ describe('EventEmitter', function tests() {
         });
 
         it('only emits once with context', function (done) {
-            var context = { foo: 'bar' }
-                , e = new EventEmitter();
+            var context = { foo: 'bar' },
+                e = new EventEmitter();
 
-            e.once('foo', function (bar: string) {
-                assert.strictEqual(this, context);
-                assert.strictEqual(bar, 'bar');
-                done();
-            }, context);
+            e.once(
+                'foo',
+                function (bar: string) {
+                    assert.strictEqual(this, context);
+                    assert.strictEqual(bar, 'bar');
+                    done();
+                },
+                context,
+            );
 
             e.emit('foo', 'bar');
         });
@@ -317,10 +333,18 @@ describe('EventEmitter', function tests() {
         it('removes all events for the specified events', function () {
             var e = new EventEmitter();
 
-            e.addListener('foo', function () { throw new Error('oops'); });
-            e.addListener('foo', function () { throw new Error('oops'); });
-            e.addListener('bar', function () { throw new Error('oops'); });
-            e.addListener('aaa', function () { throw new Error('oops'); });
+            e.addListener('foo', function () {
+                throw new Error('oops');
+            });
+            e.addListener('foo', function () {
+                throw new Error('oops');
+            });
+            e.addListener('bar', function () {
+                throw new Error('oops');
+            });
+            e.addListener('aaa', function () {
+                throw new Error('oops');
+            });
 
             e.removeAllListeners('foo');
             assert.strictEqual(e.listeners('foo').length, 0);
@@ -337,10 +361,18 @@ describe('EventEmitter', function tests() {
         it('just nukes everything', function () {
             var e = new EventEmitter();
 
-            e.addListener('foo', function () { throw new Error('oops'); });
-            e.addListener('foo', function () { throw new Error('oops'); });
-            e.addListener('bar', function () { throw new Error('oops'); });
-            e.addListener('aaa', function () { throw new Error('oops'); });
+            e.addListener('foo', function () {
+                throw new Error('oops');
+            });
+            e.addListener('foo', function () {
+                throw new Error('oops');
+            });
+            e.addListener('bar', function () {
+                throw new Error('oops');
+            });
+            e.addListener('aaa', function () {
+                throw new Error('oops');
+            });
 
             e.removeAllListeners();
             assert.strictEqual(e.listeners('foo').length, 0);
@@ -348,5 +380,4 @@ describe('EventEmitter', function tests() {
             assert.strictEqual(e.listeners('aaa').length, 0);
         });
     });
-
 });

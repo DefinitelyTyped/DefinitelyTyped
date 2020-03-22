@@ -6,10 +6,10 @@
 // TypeScript Version: 2.8
 
 // High-level wrappers
-import { PureComponent, ReactNode, ComponentClass, ReactElement } from "react";
-import { BackHandler, StyleProp, ViewStyle } from "react-native";
-import { History, Location } from "history";
-import { RouterProps, match } from "react-router";
+import { PureComponent, ReactNode, ComponentClass, ReactElement } from 'react';
+import { BackHandler, StyleProp, ViewStyle } from 'react-native';
+import { History, Location } from 'history';
+import { RouterProps, match } from 'react-router';
 
 export type Route<T = {}> = {
     key: string;
@@ -124,7 +124,7 @@ export const shouldUpdate: (
     currentItem: RouteProps,
     nextItem: RouteProps,
     currentLocation: Location,
-    nextLocation: Location
+    nextLocation: Location,
 ) => boolean;
 
 // Get stack item from a specific route
@@ -134,24 +134,15 @@ export const get: <Item extends Route>(items: Item[], route: Route) => Item;
 export const createKey: (route: Route) => string;
 
 // Get current route from a specific history location
-export const getRoute: (
-    stack: RouteProps[],
-    location: Location
-) => Route | undefined;
+export const getRoute: (stack: RouteProps[], location: Location) => Route | undefined;
 
 // Render a subview with props
 export const renderSubView: (
     render: (propsA: any, propsB: any) => ReactNode,
-    additionalProps?: any
+    additionalProps?: any,
 ) => (ownProps: any) => ReactNode;
 
 // Build stack with React elements
-export const build: <Item>(
-    children: Array<ReactElement<Item>>,
-    oldBuild?: Item[]
-) => Item[];
+export const build: <Item>(children: Array<ReactElement<Item>>, oldBuild?: Item[]) => Item[];
 
-export const runHistoryListenner: (
-    history: History,
-    onListenHistory: () => void
-) => () => void;
+export const runHistoryListenner: (history: History, onListenHistory: () => void) => () => void;

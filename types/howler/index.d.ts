@@ -28,7 +28,7 @@ interface HowlerGlobal {
 declare let Howler: HowlerGlobal;
 
 interface IHowlSoundSpriteDefinition {
-    [name: string]: [number, number] | [number, number, boolean]
+    [name: string]: [number, number] | [number, number, boolean];
 }
 
 interface IHowlProperties {
@@ -124,21 +124,28 @@ interface Howl {
     stereo(pan: number, id?: number): this | void;
     pos(x: number, y: number, z: number, id?: number): this | void;
     orientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): this | void;
-    pannerAttr(o: {
-        coneInnerAngle?: number,
-        coneOuterAngle?: number, coneOuterGain?: number,
-        distanceModel: 'inverse' | 'linear', maxDistance: number,
-        panningModel: 'HRTF' | 'equalpower', refDistance: number, rolloffFactor: number
-    }, id?: number): this;
+    pannerAttr(
+        o: {
+            coneInnerAngle?: number;
+            coneOuterAngle?: number;
+            coneOuterGain?: number;
+            distanceModel: 'inverse' | 'linear';
+            maxDistance: number;
+            panningModel: 'HRTF' | 'equalpower';
+            refDistance: number;
+            rolloffFactor: number;
+        },
+        id?: number,
+    ): this;
 }
 
 interface HowlStatic {
-    new(properties: IHowlProperties): Howl;
+    new (properties: IHowlProperties): Howl;
 }
 
 declare let Howl: HowlStatic;
 
-declare module "howler" {
+declare module 'howler' {
     export let Howler: HowlerGlobal;
     export let Howl: HowlStatic;
 }

@@ -2,7 +2,7 @@ var backstretch = jQuery.backstretch(['image.png'], {
     centeredX: false,
     centeredY: false,
     duration: 'normal',
-    fade: 1000
+    fade: 1000,
 });
 
 backstretch.next();

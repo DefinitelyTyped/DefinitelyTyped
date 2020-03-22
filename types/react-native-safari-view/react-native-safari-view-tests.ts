@@ -6,7 +6,7 @@ const didShow: Promise<boolean> = SafariView.show({
     fromBottom: true,
     readerMode: true,
     tintColor: '#000000',
-    url: 'http://test.url'
+    url: 'http://test.url',
 });
 
 const listener = (): void => {};

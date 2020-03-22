@@ -6,5 +6,5 @@
 
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
-import { isPlainObject } from "lodash";
+import { isPlainObject } from 'lodash';
 export = isPlainObject;

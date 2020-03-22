@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage } from "http";
-import { Url } from "url";
+import { IncomingMessage } from 'http';
+import { Url } from 'url';
 
 declare function parseurl(req: IncomingMessage): Url | undefined;
 

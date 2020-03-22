@@ -2,10 +2,31 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import {
-    CartesianGrid, Line, LineChart, PieChart, Pie,
-    Sector, XAxis, YAxis, Tooltip, ReferenceLine,
-    ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized
+    CartesianGrid,
+    Line,
+    LineChart,
+    PieChart,
+    Pie,
+    Sector,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ReferenceLine,
+    ReferenceArea,
+    ResponsiveContainer,
+    Label,
+    LabelList,
+    Brush,
+    ScatterChart,
+    ZAxis,
+    Legend,
+    Scatter,
+    Bar,
+    BarChart,
+    Text,
+    Area,
+    AreaChart,
+    Customized,
 } from 'recharts';
 
 interface ComponentState {
@@ -14,7 +35,7 @@ interface ComponentState {
 
 class Component extends React.Component<{}, ComponentState> {
     state = {
-        activeIndex: 0
+        activeIndex: 0,
     };
 
     private clickHandler(...args: any[]) {
@@ -27,11 +48,15 @@ class Component extends React.Component<{}, ComponentState> {
                 pv of page
             </Text>
         );
-    }
+    };
 
     private renderCustomizedElement(props: any) {
         console.log('Customized props', props);
-        return (<Text x={0} y={0} width={100} height={20} className="customized-text">Customized element</Text>);
+        return (
+            <Text x={0} y={0} width={100} height={20} className="customized-text">
+                Customized element
+            </Text>
+        );
     }
     render() {
         const data = [
@@ -48,13 +73,24 @@ class Component extends React.Component<{}, ComponentState> {
             { name: 'Group A', value: 400 },
             { name: 'Group B', value: 300 },
             { name: 'Group C', value: 300 },
-            { name: 'Group D', value: 200 }
+            { name: 'Group D', value: 200 },
         ];
 
         const renderActiveShape = (props: any) => {
             const RADIAN = Math.PI / 180;
-            const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-                fill, payload, percent, value } = props;
+            const {
+                cx,
+                cy,
+                midAngle,
+                innerRadius,
+                outerRadius,
+                startAngle,
+                endAngle,
+                fill,
+                payload,
+                percent,
+                value,
+            } = props;
             const sin = Math.sin(-RADIAN * midAngle);
             const cos = Math.cos(-RADIAN * midAngle);
             const sx = cx + (outerRadius + 10) * cos;
@@ -67,7 +103,9 @@ class Component extends React.Component<{}, ComponentState> {
 
             return (
                 <g>
-                    <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+                    <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+                        {payload.name}
+                    </text>
                     <Sector
                         cx={cx}
                         cy={cy}
@@ -88,7 +126,12 @@ class Component extends React.Component<{}, ComponentState> {
                     />
                     <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
                     <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-                    <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
+                    <text
+                        x={ex + (cos >= 0 ? 1 : -1) * 12}
+                        y={ey}
+                        textAnchor={textAnchor}
+                        fill="#333"
+                    >{`PV ${value}`}</text>
                     <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
                         {`(Rate ${(percent * 100).toFixed(2)}%)`}
                     </text>
@@ -96,7 +139,7 @@ class Component extends React.Component<{}, ComponentState> {
             );
         };
         return (
-            <div style={{ width: "100%", height: "100%" }}>
+            <div style={{ width: '100%', height: '100%' }}>
                 <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
@@ -105,22 +148,22 @@ class Component extends React.Component<{}, ComponentState> {
                         <YAxis stroke="#8884d8">
                             <Label>Y axis</Label>
                         </YAxis>
-                        <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]} />
+                        <CartesianGrid vertical={true} horizontal={false} verticalFill={['#fafafa', '#c8c8c8']} />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line id="custom-id" type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
                         <Brush dataKey="name" />
                         <Brush dataKey="name" gap={3} />
                         <Brush dataKey="name" leaveTimeOut={55} />
-                        <ReferenceLine label={"reference"} />
-                        <ReferenceArea
-                            stroke="red"
-                            fill="red"
-                            y2={1}
-                            strokeOpacity={0.2}
-                            fillOpacity={0.1}
+                        <ReferenceLine label={'reference'} />
+                        <ReferenceArea stroke="red" fill="red" y2={1} strokeOpacity={0.2} fillOpacity={0.1} />
+                        <Customized
+                            component={
+                                <Text x={0} y={0} width={100} height={20}>
+                                    Customized element
+                                </Text>
+                            }
                         />
-                        <Customized component={<Text x={0} y={0} width={100} height={20}>Customized element</Text>} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>
@@ -131,39 +174,27 @@ class Component extends React.Component<{}, ComponentState> {
                         <YAxis>
                             <Label>Y axis</Label>
                         </YAxis>
-                        <CartesianGrid vertical={false} horizontal={true} horizontalFill={["#fafafa", "#c8c8c8"]} />
+                        <CartesianGrid vertical={false} horizontal={true} horizontalFill={['#fafafa', '#c8c8c8']} />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
                         <Brush dataKey="name" />
                         <ReferenceLine />
-                        <ReferenceArea
-                            stroke="red"
-                            fill="red"
-                            y2={1}
-                            strokeOpacity={0.2}
-                            fillOpacity={0.1}
-                        />
+                        <ReferenceArea stroke="red" fill="red" y2={1} strokeOpacity={0.2} fillOpacity={0.1} />
                         <Customized component={this.renderCustomizedElement} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
-                        <XAxis dataKey="name" label={{ value: "X axis - name" }} />
-                        <YAxis label={{ value: "Y axis" }} />
+                        <XAxis dataKey="name" label={{ value: 'X axis - name' }} />
+                        <YAxis label={{ value: 'Y axis' }} />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
                         <Brush dataKey="name" />
                         <ReferenceLine />
-                        <ReferenceArea
-                            stroke="red"
-                            fill="red"
-                            y2={1}
-                            strokeOpacity={0.2}
-                            fillOpacity={0.1}
-                        />
+                        <ReferenceArea stroke="red" fill="red" y2={1} strokeOpacity={0.2} fillOpacity={0.1} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={400}>
@@ -189,18 +220,13 @@ class Component extends React.Component<{}, ComponentState> {
                         <XAxis type="number" dataKey="uv" name="stature" unit="cm" angle={30} dx={20} dy={20} />
                         <YAxis dataKey="pv" name="weight" unit="kg" angle={30} dx={20} dy={20} />
                         <ZAxis dataKey="amt" range={[64, 144]} name="score" unit="km" />
-                        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
                         <Legend />
                         <Scatter id="custom-id" name="A school" data={data} fill="#8884d8" />
                     </ScatterChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={250}>
-                    <BarChart
-                        width={730}
-                        height={250}
-                        data={data}
-                        margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
-                    >
+                    <BarChart width={730} height={250} data={data} margin={{ top: 15, right: 30, left: 20, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name">
                             <Label value="Pages of my website" offset={0} position="insideBottom" />
@@ -213,28 +239,34 @@ class Component extends React.Component<{}, ComponentState> {
                             <LabelList dataKey="name" position="insideTop" angle={45} />
                         </Bar>
                         <Bar dataKey="uv" fill="#82ca9d" radius={[10, 10, 0, 0]}>
-                            <LabelList valueAccessor={(entry: any) => entry["uv"]} position="top" />
+                            <LabelList valueAccessor={(entry: any) => entry['uv']} position="top" />
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={250}>
-                    <AreaChart width={730} height={250} data={data}
-                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                    <AreaChart width={730} height={250} data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+                                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
                             </linearGradient>
                             <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+                                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
                             </linearGradient>
                         </defs>
                         <XAxis dataKey="name" />
                         <YAxis />
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
-                        <Area id="custom-id" type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+                        <Area
+                            id="custom-id"
+                            type="monotone"
+                            dataKey="uv"
+                            stroke="#8884d8"
+                            fillOpacity={1}
+                            fill="url(#colorUv)"
+                        />
                         <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
                     </AreaChart>
                 </ResponsiveContainer>

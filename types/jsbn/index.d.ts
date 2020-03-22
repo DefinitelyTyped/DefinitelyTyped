@@ -172,10 +172,10 @@ export class BigInteger {
     setBit(n: number): BigInteger;
 
     // (public) this & ~(1<<n)
-    clearBit(n: number): BigInteger
+    clearBit(n: number): BigInteger;
 
     // (public) this ^ (1<<n)
-    flipBit(n: number): BigInteger
+    flipBit(n: number): BigInteger;
 
     // (protected) r = this + a
     addTo(a: BigInteger, r: BigInteger): void;

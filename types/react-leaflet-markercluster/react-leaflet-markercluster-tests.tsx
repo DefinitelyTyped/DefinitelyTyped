@@ -12,19 +12,20 @@ const MarkerCluster = (
         animateAddingMarkers
         singleMarkerMode
         chunkedLoading
-        chunkDelay={ 500 }
-        disableClusteringAtZoom={ 4 }
-        maxClusterRadius={ 0 }
-        spiderfyDistanceMultiplier={ 2 }
-        polygonOptions={ {
+        chunkDelay={500}
+        disableClusteringAtZoom={4}
+        maxClusterRadius={0}
+        spiderfyDistanceMultiplier={2}
+        polygonOptions={{
             stroke: true,
             color: 'blue',
-            opacity: 0.5
-        } }
-        spiderLegPolylineOptions={ {
+            opacity: 0.5,
+        }}
+        spiderLegPolylineOptions={{
             stroke: true,
             color: 'blue',
-            opacity: 0.5
-        } }
-        iconCreateFunction={ cluster => Leaflet.divIcon({ html: `<b>${cluster.getChildCount()}</b>` }) }/>
+            opacity: 0.5,
+        }}
+        iconCreateFunction={(cluster) => Leaflet.divIcon({ html: `<b>${cluster.getChildCount()}</b>` })}
+    />
 );

@@ -10,18 +10,19 @@ import * as http from 'http';
 import busboy = require('busboy');
 
 interface Options extends busboy.BusboyConfig {
-  onFile: (
-    fieldname: string,
-    file: NodeJS.ReadableStream,
-    filename: string,
-    encoding: string,
-    mimetype: string) => void;
+    onFile: (
+        fieldname: string,
+        file: NodeJS.ReadableStream,
+        filename: string,
+        encoding: string,
+        mimetype: string,
+    ) => void;
 }
 
 type AsyncBusboy = (
-  req: http.IncomingMessage,
-  options?: Options
-) => Promise<{fields: {[key: string]: any}; files?: fs.ReadStream[]}>;
+    req: http.IncomingMessage,
+    options?: Options,
+) => Promise<{ fields: { [key: string]: any }; files?: fs.ReadStream[] }>;
 
 declare const asyncBusboy: AsyncBusboy;
 

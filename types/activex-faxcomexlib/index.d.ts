@@ -1153,7 +1153,13 @@ declare namespace FAXCOMEXLib {
     /** FaxOutboundRoutingRules Class */
     interface FaxOutboundRoutingRules {
         /** Add a rule */
-        Add(lCountryCode: number, lAreaCode: number, bUseDevice: boolean, bstrGroupName: string, lDeviceId: number): FaxOutboundRoutingRule;
+        Add(
+            lCountryCode: number,
+            lAreaCode: number,
+            bUseDevice: boolean,
+            bstrGroupName: string,
+            lDeviceId: number,
+        ): FaxOutboundRoutingRule;
         readonly Count: number;
         Item(lIndex: number): FaxOutboundRoutingRule;
 
@@ -1865,13 +1871,24 @@ declare namespace FAXCOMEXLib {
         readonly ReceiptOptions: FaxReceiptOptions;
 
         /** Register device provider */
-        RegisterDeviceProvider(bstrGUID: string, bstrFriendlyName: string, bstrImageName: string, TspName: string, lFSPIVersion: number): void;
+        RegisterDeviceProvider(
+            bstrGUID: string,
+            bstrFriendlyName: string,
+            bstrImageName: string,
+            TspName: string,
+            lFSPIVersion: number,
+        ): void;
 
         /** Events the fax Server is listening to */
         readonly RegisteredEvents: FAX_SERVER_EVENTS_TYPE_ENUM;
 
         /** Register inbound routing extension */
-        RegisterInboundRoutingExtension(bstrExtensionName: string, bstrFriendlyName: string, bstrImageName: string, vMethods: any): void;
+        RegisterInboundRoutingExtension(
+            bstrExtensionName: string,
+            bstrFriendlyName: string,
+            bstrImageName: string,
+            vMethods: any,
+        ): void;
 
         /** The security configuration object */
         readonly Security: FaxSecurity;
@@ -1890,11 +1907,36 @@ declare namespace FAXCOMEXLib {
     }
 
     namespace EventHelperTypes {
-        type FaxAccount_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type FaxAccount_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
-        type FaxServer_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type FaxServer_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
-        type FaxServer_OnDeviceStatusChange_ArgNames = ['pFaxServer', 'lDeviceId', 'bPoweredOff', 'bSending', 'bReceiving', 'bRinging'];
+        type FaxServer_OnDeviceStatusChange_ArgNames = [
+            'pFaxServer',
+            'lDeviceId',
+            'bPoweredOff',
+            'bSending',
+            'bReceiving',
+            'bRinging',
+        ];
 
         interface FaxAccount_Invoke_Parameter {
             readonly dispidMember: number;
@@ -1931,86 +1973,273 @@ declare namespace FAXCOMEXLib {
 
 interface ActiveXObject {
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: FAXCOMEXLib.FaxAccount, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: FAXCOMEXLib.FaxAccount,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: FAXCOMEXLib.FaxAccount, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: FAXCOMEXLib.FaxAccount, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: FAXCOMEXLib.FaxAccount, parameter: {pctinfo: number}) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: FAXCOMEXLib.FaxAccount,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'Invoke', argNames: FAXCOMEXLib.EventHelperTypes.FaxAccount_Invoke_ArgNames, handler: (
-            this: FAXCOMEXLib.FaxAccount, parameter: FAXCOMEXLib.EventHelperTypes.FaxAccount_Invoke_Parameter) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: FAXCOMEXLib.FaxAccount, parameter: { pctinfo: number }) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'OnIncomingJobAdded' | 'OnIncomingJobRemoved' | 'OnOutgoingJobAdded' | 'OnOutgoingJobRemoved',
-        argNames: ['pFaxAccount', 'bstrJobId'], handler: (this: FAXCOMEXLib.FaxAccount, parameter: {readonly pFaxAccount: FAXCOMEXLib.FaxAccount, readonly bstrJobId: string}) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'Invoke',
+        argNames: FAXCOMEXLib.EventHelperTypes.FaxAccount_Invoke_ArgNames,
+        handler: (
+            this: FAXCOMEXLib.FaxAccount,
+            parameter: FAXCOMEXLib.EventHelperTypes.FaxAccount_Invoke_Parameter,
+        ) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'OnIncomingJobChanged' | 'OnOutgoingJobChanged', argNames: ['pFaxAccount', 'bstrJobId', 'pJobStatus'],
-        handler: (this: FAXCOMEXLib.FaxAccount, parameter: {readonly pFaxAccount: FAXCOMEXLib.FaxAccount, readonly bstrJobId: string, readonly pJobStatus: FAXCOMEXLib.FaxJobStatus}) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'OnIncomingJobAdded' | 'OnIncomingJobRemoved' | 'OnOutgoingJobAdded' | 'OnOutgoingJobRemoved',
+        argNames: ['pFaxAccount', 'bstrJobId'],
+        handler: (
+            this: FAXCOMEXLib.FaxAccount,
+            parameter: { readonly pFaxAccount: FAXCOMEXLib.FaxAccount; readonly bstrJobId: string },
+        ) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'OnIncomingMessageAdded', argNames: ['pFaxAccount', 'bstrMessageId', 'fAddedToReceiveFolder'],
-        handler: (this: FAXCOMEXLib.FaxAccount, parameter: {readonly pFaxAccount: FAXCOMEXLib.FaxAccount, readonly bstrMessageId: string, readonly fAddedToReceiveFolder: boolean}) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'OnIncomingJobChanged' | 'OnOutgoingJobChanged',
+        argNames: ['pFaxAccount', 'bstrJobId', 'pJobStatus'],
+        handler: (
+            this: FAXCOMEXLib.FaxAccount,
+            parameter: {
+                readonly pFaxAccount: FAXCOMEXLib.FaxAccount;
+                readonly bstrJobId: string;
+                readonly pJobStatus: FAXCOMEXLib.FaxJobStatus;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'OnIncomingMessageRemoved', argNames: ['pFaxAccount', 'bstrMessageId', 'fRemovedFromReceiveFolder'],
-        handler: (this: FAXCOMEXLib.FaxAccount, parameter: {readonly pFaxAccount: FAXCOMEXLib.FaxAccount, readonly bstrMessageId: string, readonly fRemovedFromReceiveFolder: boolean}) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'OnIncomingMessageAdded',
+        argNames: ['pFaxAccount', 'bstrMessageId', 'fAddedToReceiveFolder'],
+        handler: (
+            this: FAXCOMEXLib.FaxAccount,
+            parameter: {
+                readonly pFaxAccount: FAXCOMEXLib.FaxAccount;
+                readonly bstrMessageId: string;
+                readonly fAddedToReceiveFolder: boolean;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'OnOutgoingMessageAdded' | 'OnOutgoingMessageRemoved', argNames: ['pFaxAccount', 'bstrMessageId'],
-        handler: (this: FAXCOMEXLib.FaxAccount, parameter: {readonly pFaxAccount: FAXCOMEXLib.FaxAccount, readonly bstrMessageId: string}) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'OnIncomingMessageRemoved',
+        argNames: ['pFaxAccount', 'bstrMessageId', 'fRemovedFromReceiveFolder'],
+        handler: (
+            this: FAXCOMEXLib.FaxAccount,
+            parameter: {
+                readonly pFaxAccount: FAXCOMEXLib.FaxAccount;
+                readonly bstrMessageId: string;
+                readonly fRemovedFromReceiveFolder: boolean;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'OnServerShutDown', argNames: ['pFaxServer'], handler: (
-            this: FAXCOMEXLib.FaxAccount, parameter: {readonly pFaxServer: FAXCOMEXLib.FaxServer}) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'OnOutgoingMessageAdded' | 'OnOutgoingMessageRemoved',
+        argNames: ['pFaxAccount', 'bstrMessageId'],
+        handler: (
+            this: FAXCOMEXLib.FaxAccount,
+            parameter: { readonly pFaxAccount: FAXCOMEXLib.FaxAccount; readonly bstrMessageId: string },
+        ) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxAccount, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (
-            this: FAXCOMEXLib.FaxAccount, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(
-        obj: FAXCOMEXLib.FaxServer, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: FAXCOMEXLib.FaxServer, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(
-        obj: FAXCOMEXLib.FaxServer, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: FAXCOMEXLib.FaxServer, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: FAXCOMEXLib.FaxServer, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: FAXCOMEXLib.FaxServer, parameter: {pctinfo: number}) => void): void;
-    on(
-        obj: FAXCOMEXLib.FaxServer, event: 'Invoke', argNames: FAXCOMEXLib.EventHelperTypes.FaxServer_Invoke_ArgNames, handler: (
-            this: FAXCOMEXLib.FaxServer, parameter: FAXCOMEXLib.EventHelperTypes.FaxServer_Invoke_Parameter) => void): void;
-    on(
-        obj: FAXCOMEXLib.FaxServer, event: 'OnActivityLoggingConfigChange' | 'OnDevicesConfigChange' | 'OnEventLoggingConfigChange' | 'OnGeneralServerConfigChanged' |
-        'OnIncomingArchiveConfigChange' | 'OnOutboundRoutingGroupsConfigChange' | 'OnOutboundRoutingRulesConfigChange' | 'OnOutgoingArchiveConfigChange' |
-        'OnOutgoingQueueConfigChange' | 'OnReceiptOptionsChange' | 'OnSecurityConfigChange' | 'OnServerShutDown',
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'OnServerShutDown',
         argNames: ['pFaxServer'],
-        handler: (this: FAXCOMEXLib.FaxServer, parameter: {readonly pFaxServer: FAXCOMEXLib.FaxServer}) => void): void;
+        handler: (this: FAXCOMEXLib.FaxAccount, parameter: { readonly pFaxServer: FAXCOMEXLib.FaxServer }) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxServer, event: 'OnDeviceStatusChange', argNames: FAXCOMEXLib.EventHelperTypes.FaxServer_OnDeviceStatusChange_ArgNames,
-        handler: (this: FAXCOMEXLib.FaxServer, parameter: FAXCOMEXLib.EventHelperTypes.FaxServer_OnDeviceStatusChange_Parameter) => void): void;
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: FAXCOMEXLib.FaxAccount, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
     on(
-        obj: FAXCOMEXLib.FaxServer, event: 'OnIncomingJobAdded' | 'OnIncomingJobRemoved' | 'OnOutgoingJobAdded' | 'OnOutgoingJobRemoved',
-        argNames: ['pFaxServer', 'bstrJobId'], handler: (this: FAXCOMEXLib.FaxServer, parameter: {readonly pFaxServer: FAXCOMEXLib.FaxServer, readonly bstrJobId: string}) => void): void;
-    on(
-        obj: FAXCOMEXLib.FaxServer, event: 'OnIncomingJobChanged' | 'OnOutgoingJobChanged', argNames: ['pFaxServer', 'bstrJobId', 'pJobStatus'],
-        handler: (this: FAXCOMEXLib.FaxServer, parameter: {readonly pFaxServer: FAXCOMEXLib.FaxServer, readonly bstrJobId: string, readonly pJobStatus: FAXCOMEXLib.FaxJobStatus}) => void): void;
-    on(
-        obj: FAXCOMEXLib.FaxServer, event: 'OnIncomingMessageAdded' | 'OnIncomingMessageRemoved' | 'OnOutgoingMessageAdded' | 'OnOutgoingMessageRemoved',
-        argNames: ['pFaxServer', 'bstrMessageId'], handler: (this: FAXCOMEXLib.FaxServer, parameter: {readonly pFaxServer: FAXCOMEXLib.FaxServer, readonly bstrMessageId: string}) => void): void;
-    on(
-        obj: FAXCOMEXLib.FaxServer, event: 'OnNewCall', argNames: ['pFaxServer', 'lCallId', 'lDeviceId', 'bstrCallerId'], handler: (
-            this: FAXCOMEXLib.FaxServer, parameter: {readonly pFaxServer: FAXCOMEXLib.FaxServer, readonly lCallId: number, readonly lDeviceId: number, readonly bstrCallerId: string}) => void): void;
-    on(
-        obj: FAXCOMEXLib.FaxServer, event: 'OnQueuesStatusChange', argNames: ['pFaxServer', 'bOutgoingQueueBlocked', 'bOutgoingQueuePaused', 'bIncomingQueueBlocked'],
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
         handler: (
             this: FAXCOMEXLib.FaxServer,
             parameter: {
-                readonly pFaxServer: FAXCOMEXLib.FaxServer, readonly bOutgoingQueueBlocked: boolean, readonly bOutgoingQueuePaused: boolean, readonly bIncomingQueueBlocked: boolean}) => void): void;
-    on(
-        obj: FAXCOMEXLib.FaxServer, event: 'OnServerActivityChange',
-        argNames: ['pFaxServer', 'lIncomingMessages', 'lRoutingMessages', 'lOutgoingMessages', 'lQueuedMessages'], handler: (
-            this: FAXCOMEXLib.FaxServer,
-            parameter: {
-                readonly pFaxServer: FAXCOMEXLib.FaxServer, readonly lIncomingMessages: number, readonly lRoutingMessages: number, readonly lOutgoingMessages: number, readonly lQueuedMessages: number
-            }) => void
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
     ): void;
     on(
-        obj: FAXCOMEXLib.FaxServer, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (
-            this: FAXCOMEXLib.FaxServer, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: FAXCOMEXLib.FaxAccount, event: 'AddRef' | 'Release', handler: (this: FAXCOMEXLib.FaxAccount, parameter: {}) => void): void;
-    on(obj: FAXCOMEXLib.FaxServer, event: 'AddRef' | 'Release', handler: (this: FAXCOMEXLib.FaxServer, parameter: {}) => void): void;
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: FAXCOMEXLib.FaxServer,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: FAXCOMEXLib.FaxServer, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'Invoke',
+        argNames: FAXCOMEXLib.EventHelperTypes.FaxServer_Invoke_ArgNames,
+        handler: (
+            this: FAXCOMEXLib.FaxServer,
+            parameter: FAXCOMEXLib.EventHelperTypes.FaxServer_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event:
+            | 'OnActivityLoggingConfigChange'
+            | 'OnDevicesConfigChange'
+            | 'OnEventLoggingConfigChange'
+            | 'OnGeneralServerConfigChanged'
+            | 'OnIncomingArchiveConfigChange'
+            | 'OnOutboundRoutingGroupsConfigChange'
+            | 'OnOutboundRoutingRulesConfigChange'
+            | 'OnOutgoingArchiveConfigChange'
+            | 'OnOutgoingQueueConfigChange'
+            | 'OnReceiptOptionsChange'
+            | 'OnSecurityConfigChange'
+            | 'OnServerShutDown',
+        argNames: ['pFaxServer'],
+        handler: (this: FAXCOMEXLib.FaxServer, parameter: { readonly pFaxServer: FAXCOMEXLib.FaxServer }) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'OnDeviceStatusChange',
+        argNames: FAXCOMEXLib.EventHelperTypes.FaxServer_OnDeviceStatusChange_ArgNames,
+        handler: (
+            this: FAXCOMEXLib.FaxServer,
+            parameter: FAXCOMEXLib.EventHelperTypes.FaxServer_OnDeviceStatusChange_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'OnIncomingJobAdded' | 'OnIncomingJobRemoved' | 'OnOutgoingJobAdded' | 'OnOutgoingJobRemoved',
+        argNames: ['pFaxServer', 'bstrJobId'],
+        handler: (
+            this: FAXCOMEXLib.FaxServer,
+            parameter: { readonly pFaxServer: FAXCOMEXLib.FaxServer; readonly bstrJobId: string },
+        ) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'OnIncomingJobChanged' | 'OnOutgoingJobChanged',
+        argNames: ['pFaxServer', 'bstrJobId', 'pJobStatus'],
+        handler: (
+            this: FAXCOMEXLib.FaxServer,
+            parameter: {
+                readonly pFaxServer: FAXCOMEXLib.FaxServer;
+                readonly bstrJobId: string;
+                readonly pJobStatus: FAXCOMEXLib.FaxJobStatus;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event:
+            | 'OnIncomingMessageAdded'
+            | 'OnIncomingMessageRemoved'
+            | 'OnOutgoingMessageAdded'
+            | 'OnOutgoingMessageRemoved',
+        argNames: ['pFaxServer', 'bstrMessageId'],
+        handler: (
+            this: FAXCOMEXLib.FaxServer,
+            parameter: { readonly pFaxServer: FAXCOMEXLib.FaxServer; readonly bstrMessageId: string },
+        ) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'OnNewCall',
+        argNames: ['pFaxServer', 'lCallId', 'lDeviceId', 'bstrCallerId'],
+        handler: (
+            this: FAXCOMEXLib.FaxServer,
+            parameter: {
+                readonly pFaxServer: FAXCOMEXLib.FaxServer;
+                readonly lCallId: number;
+                readonly lDeviceId: number;
+                readonly bstrCallerId: string;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'OnQueuesStatusChange',
+        argNames: ['pFaxServer', 'bOutgoingQueueBlocked', 'bOutgoingQueuePaused', 'bIncomingQueueBlocked'],
+        handler: (
+            this: FAXCOMEXLib.FaxServer,
+            parameter: {
+                readonly pFaxServer: FAXCOMEXLib.FaxServer;
+                readonly bOutgoingQueueBlocked: boolean;
+                readonly bOutgoingQueuePaused: boolean;
+                readonly bIncomingQueueBlocked: boolean;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'OnServerActivityChange',
+        argNames: ['pFaxServer', 'lIncomingMessages', 'lRoutingMessages', 'lOutgoingMessages', 'lQueuedMessages'],
+        handler: (
+            this: FAXCOMEXLib.FaxServer,
+            parameter: {
+                readonly pFaxServer: FAXCOMEXLib.FaxServer;
+                readonly lIncomingMessages: number;
+                readonly lRoutingMessages: number;
+                readonly lOutgoingMessages: number;
+                readonly lQueuedMessages: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: FAXCOMEXLib.FaxServer, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxAccount,
+        event: 'AddRef' | 'Release',
+        handler: (this: FAXCOMEXLib.FaxAccount, parameter: {}) => void,
+    ): void;
+    on(
+        obj: FAXCOMEXLib.FaxServer,
+        event: 'AddRef' | 'Release',
+        handler: (this: FAXCOMEXLib.FaxServer, parameter: {}) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {

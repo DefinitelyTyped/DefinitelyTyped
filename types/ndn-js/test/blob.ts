@@ -1,11 +1,11 @@
 /// <reference types="node"/>
-import ndn = require("ndn-js");
+import ndn = require('ndn-js');
 
 let blob = new ndn.Blob();
 blob = new ndn.Blob(blob);
 blob = new ndn.Blob(Buffer.alloc(4));
 blob = new ndn.Blob([0x08, 0x01, 0x41]);
-blob = new ndn.Blob("str");
+blob = new ndn.Blob('str');
 
 let buf: Buffer = blob.buf();
 let b: boolean = blob.equals(blob);

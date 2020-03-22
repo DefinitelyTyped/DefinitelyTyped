@@ -1,7 +1,7 @@
-import singleSpaReact = require("single-spa-react");
-import { Lifecycles } from "single-spa-react";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import singleSpaReact = require('single-spa-react');
+import { Lifecycles } from 'single-spa-react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 interface customProps {
     name: string;
@@ -17,5 +17,5 @@ class rootComponent extends React.Component<customProps> {
 singleSpaReact({
     React,
     ReactDOM,
-    rootComponent
+    rootComponent,
 });

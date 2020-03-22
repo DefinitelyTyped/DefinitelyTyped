@@ -9,15 +9,10 @@ import {
     MjmlSection,
     MjmlColumn,
     MjmlButton,
-    MjmlImage
+    MjmlImage,
 } from 'mjml-react';
 
-import {
-    MjmlComment,
-    MjmlConditionalComment,
-    MjmlTrackingPixel,
-    MjmlYahooStyle
-} from 'mjml-react/extensions';
+import { MjmlComment, MjmlConditionalComment, MjmlTrackingPixel, MjmlYahooStyle } from 'mjml-react/extensions';
 
 import {
     addQueryParams,
@@ -25,12 +20,12 @@ import {
     getTextAlign,
     namedEntityToHexCode,
     toMobileFontSize,
-    useHttps
+    useHttps,
 } from 'mjml-react/utils';
 
 function renderOutTestEmail() {
     // $ExpectType { html: string; errors: Error[]; }
-    const result = render((
+    const result = render(
         <Mjml>
             <MjmlHead>
                 <MjmlTitle>Last Minute Offer</MjmlTitle>
@@ -47,10 +42,11 @@ function renderOutTestEmail() {
                     <MjmlColumn>
                         <MjmlButton padding="20px" backgroundColor="#346DB7" href="https://www.wix.com/">
                             I like it!
-                    </MjmlButton>
+                        </MjmlButton>
                     </MjmlColumn>
                 </MjmlSection>
             </MjmlBody>
-        </Mjml>
-    ), { validationLevel: 'soft' });
+        </Mjml>,
+        { validationLevel: 'soft' },
+    );
 }

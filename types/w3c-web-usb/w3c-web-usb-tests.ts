@@ -13,11 +13,15 @@ if (button) {
     button.addEventListener('click', async () => {
         let device;
         try {
-            device = await navigator.usb.requestDevice({ filters: [{
-                vendorId: 0xABCD,
-                classCode: 0xFF, // vendor-specific
-                protocolCode: 0x01
-            }]});
+            device = await navigator.usb.requestDevice({
+                filters: [
+                    {
+                        vendorId: 0xabcd,
+                        classCode: 0xff, // vendor-specific
+                        protocolCode: 0x01,
+                    },
+                ],
+            });
         } catch (e) {
             // No device was selected.
         }
@@ -29,12 +33,12 @@ if (button) {
     });
 }
 
-navigator.usb.addEventListener('connect', evt => {
+navigator.usb.addEventListener('connect', (evt) => {
     // Add |device| to the UI.
     handleConnectedDevice(evt.device);
 });
 
-navigator.usb.addEventListener('disconnect', evt => {
+navigator.usb.addEventListener('disconnect', (evt) => {
     // Remove |device| from the UI.
     const i = connectedDevices.indexOf(evt.device);
     if (i >= 0) {
@@ -47,16 +51,15 @@ async function handleConnectedDevice(device: USBDevice) {
     connectedDevices.push(device);
 
     await device.open();
-    if (device.configuration === null)
-      await device.selectConfiguration(1);
+    if (device.configuration === null) await device.selectConfiguration(1);
     await device.claimInterface(1);
 
     await device.controlTransferOut({
         requestType: 'vendor',
         recipient: 'interface',
-        request: 0x01,  // vendor-specific request: enable channels
-        value: 0x0013,  // 0b00010011 (channels 1, 2 and 5)
-        index: 0x0001   // Interface 1 is the recipient
+        request: 0x01, // vendor-specific request: enable channels
+        value: 0x0013, // 0b00010011 (channels 1, 2 and 5)
+        index: 0x0001, // Interface 1 is the recipient
     });
 
     while (true) {
@@ -70,7 +73,7 @@ async function handleConnectedDevice(device: USBDevice) {
 
         if (result.status === 'stall') {
             console.warn('Endpoint stalled. Clearing.');
-            await device.clearHalt("in", 1);
+            await device.clearHalt('in', 1);
         }
     }
 }

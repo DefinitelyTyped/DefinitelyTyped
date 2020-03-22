@@ -10,11 +10,11 @@ export { t as types };
 export type Node = t.Node;
 export import template = require('babel-template');
 export const version: string;
-import traverse, { Visitor, NodePath } from "babel-traverse";
+import traverse, { Visitor, NodePath } from 'babel-traverse';
 export { traverse, Visitor };
-import { BabylonOptions } from "babylon";
+import { BabylonOptions } from 'babylon';
 export { BabylonOptions };
-import { GeneratorOptions } from "babel-generator";
+import { GeneratorOptions } from 'babel-generator';
 export { GeneratorOptions };
 
 // A babel plugin is a simple function which must return an object matching
@@ -34,7 +34,11 @@ export interface PluginObj<S = {}> {
 export function transform(code: string, opts?: TransformOptions): BabelFileResult;
 
 /** Asynchronously transforms the entire contents of a file. */
-export function transformFile(filename: string, opts: TransformOptions, callback: (err: any, result: BabelFileResult) => void): void;
+export function transformFile(
+    filename: string,
+    opts: TransformOptions,
+    callback: (err: any, result: BabelFileResult) => void,
+): void;
 
 /** Synchronous version of `babel.transformFile`. Returns the transformed contents of the `filename`. */
 export function transformFileSync(filename: string, opts?: TransformOptions): BabelFileResult;
@@ -64,7 +68,7 @@ export interface TransformOptions {
      * Do not include superfluous whitespace characters and line terminators. When set to `"auto"`, `compact` is set to
      * `true` on input sizes of >100KB.
      */
-    compact?: boolean | "auto";
+    compact?: boolean | 'auto';
 
     /**
      * This is an object of keys that represent different environments. For example, you may have:
@@ -151,7 +155,7 @@ export interface TransformOptions {
      * directive is added to the bottom of the returned code. If set to `"both"` then a map property is returned as well
      * as a source map comment appended.
      */
-    sourceMaps?: boolean | "inline" | "both";
+    sourceMaps?: boolean | 'inline' | 'both';
 
     /** Set `file` on returned source map. */
     sourceMapTarget?: string;
@@ -160,20 +164,24 @@ export interface TransformOptions {
     sourceRoot?: string;
 
     /** Indicate the mode the code should be parsed in. Can be either “script” or “module”. Default: "module" */
-    sourceType?: "script" | "module";
+    sourceType?: 'script' | 'module';
 
     /**
      * An optional callback that can be used to wrap visitor methods.
      * NOTE: This is useful for things like introspection, and not really needed for implementing anything.
      */
-    wrapPluginVisitorMethod?(pluginAlias: string, visitorType: 'enter' | 'exit', callback: (path: NodePath, state: any) => void): (path: NodePath, state: any) => void ;
+    wrapPluginVisitorMethod?(
+        pluginAlias: string,
+        visitorType: 'enter' | 'exit',
+        callback: (path: NodePath, state: any) => void,
+    ): (path: NodePath, state: any) => void;
 }
 
 export interface BabelFileModulesMetadata {
     imports: object[];
     exports: {
-        exported: object[],
-        specifiers: object[]
+        exported: object[];
+        specifiers: object[];
     };
 }
 

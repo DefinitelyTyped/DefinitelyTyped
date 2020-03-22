@@ -14,19 +14,19 @@ import { ascending } from 'd3-array';
 const keyValueObj = {
     a: 'test',
     b: 123,
-    c: [true, true, false]
+    c: [true, true, false],
 };
 
 const keyValueObj2 = {
     a: 'test',
     b: 'same',
-    c: 'type'
+    c: 'type',
 };
 
 let stringArray: string[];
 let anyArray: any[];
-let stringKVArray: Array<{ key: string, value: string }>;
-let anyKVArray: Array<{ key: string, value: any }>;
+let stringKVArray: Array<{ key: string; value: string }>;
+let anyKVArray: Array<{ key: string; value: any }>;
 
 let num: number;
 let booleanFlag: boolean;
@@ -77,7 +77,7 @@ interface TestObject {
 
 let testObjectMaybe: TestObject | undefined;
 let testObjArray: TestObject[];
-let testObjKVArray: Array<{ key: string, value: TestObject }>;
+let testObjKVArray: Array<{ key: string; value: TestObject }>;
 
 // Create Map ========================================================
 
@@ -91,9 +91,15 @@ basicMap = d3Collection.map(['foo', 'bar']); // map with key-value pairs { '0': 
 
 // from array with accessor
 let testObjMap: d3Collection.Map<TestObject>;
-testObjMap = d3Collection.map<TestObject>([{ name: 'foo', val: 10 }, { name: 'bar', val: 42 }], (value, i, array) => {
-    return value.name;
-});
+testObjMap = d3Collection.map<TestObject>(
+    [
+        { name: 'foo', val: 10 },
+        { name: 'bar', val: 42 },
+    ],
+    (value, i, array) => {
+        return value.name;
+    },
+);
 
 // from existing map
 basicMap = d3Collection.map(basicMap);
@@ -193,10 +199,7 @@ booleanFlag = basicSet.has('foo');
 
 // add(...) ------------------------------------------------------------
 
-basicSet = basicSet
-    .add('foo')
-    .add('bar')
-    .add(42); // will be coerced to string
+basicSet = basicSet.add('foo').add('bar').add(42); // will be coerced to string
 
 // remove(...) ---------------------------------------------------------
 
@@ -240,16 +243,16 @@ interface Yield {
 }
 
 const raw: Yield[] = [
-    { yield: 27.00, variety: 'Manchuria', year: 1931, site: 'University Farm' },
+    { yield: 27.0, variety: 'Manchuria', year: 1931, site: 'University Farm' },
     { yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca' },
     { yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris' },
     { yield: 43.07, variety: 'Glabron', year: 1931, site: 'University Farm' },
-    { yield: 55.20, variety: 'Glabron', year: 1931, site: 'Waseca' },
-    { yield: 26.00, variety: 'Manchuria', year: 1932, site: 'University Farm' },
+    { yield: 55.2, variety: 'Glabron', year: 1931, site: 'Waseca' },
+    { yield: 26.0, variety: 'Manchuria', year: 1932, site: 'University Farm' },
     { yield: 47.87, variety: 'Manchuria', year: 1932, site: 'Waseca' },
     { yield: 26.43, variety: 'Manchuria', year: 1932, site: 'Morris' },
     { yield: 42.07, variety: 'Glabron', year: 1932, site: 'University Farm' },
-    { yield: 54.20, variety: 'Glabron', year: 1932, site: 'Waseca' }
+    { yield: 54.2, variety: 'Glabron', year: 1932, site: 'Waseca' },
 ];
 
 // Create Nest ========================================================
@@ -264,39 +267,35 @@ nestL1Rollup = d3Collection.nest<Yield, number>();
 
 // key(...) and sortKeys(...) -----------------------------------------
 
-nestL2 = nestL2
-    .key(d => {
-        return d.year.toString();
-    });
+nestL2 = nestL2.key((d) => {
+    return d.year.toString();
+});
 
 // with 2nd key with sortkey(...)
 nestL2 = nestL2
-    .key(d => {
+    .key((d) => {
         return d.variety;
     })
     .sortKeys(ascending);
 
-nestL1Rollup = nestL1Rollup
-    .key(d => {
-        return d.year.toString();
-    });
+nestL1Rollup = nestL1Rollup.key((d) => {
+    return d.year.toString();
+});
 
 // sortValues(...) ----------------------------------------------------
 
-nestL2 = nestL2
-    .sortValues((a, b) => {
-        const val1: Yield = a; // data type Yield
-        const val2: Yield = b; // data type Yield
-        return a.yield - b.yield;
-    });
+nestL2 = nestL2.sortValues((a, b) => {
+    const val1: Yield = a; // data type Yield
+    const val2: Yield = b; // data type Yield
+    return a.yield - b.yield;
+});
 
 // rollup(...) --------------------------------------------------------
 
-nestL1Rollup = nestL1Rollup
-    .rollup(values => {
-        const vs: Yield[] = values; // correct data array type
-        return vs.length;
-    });
+nestL1Rollup = nestL1Rollup.rollup((values) => {
+    const vs: Yield[] = values; // correct data array type
+    return vs.length;
+});
 
 // Use Nest ===========================================================
 
@@ -347,7 +346,7 @@ type TestL2NestedArray = Array<{
     values: Array<{
         key: string;
         values: Yield[];
-    }>
+    }>;
 }>;
 
 type TestL1NestedArrayRollup = Array<{

@@ -9,7 +9,7 @@ loadjs(['/path/to/foo.js', '/path/to/bar.js'], 'foobar', {
     success: () => {},
     error: (pathsNotFound) => {},
     async: true,
-    numRetries: 3
+    numRetries: 3,
 });
 loadjs.ready('foobar', {
     success: () => {},

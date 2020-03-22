@@ -1,4 +1,4 @@
-import * as assert from "power-assert";
+import * as assert from 'power-assert';
 import {
     setDefinitionFunctionWrapper,
     setWorldConstructor,
@@ -10,16 +10,16 @@ import {
     Given,
     When,
     Then,
-    TableDefinition as Table
-} from "cucumber";
-import cucumber = require("cucumber");
+    TableDefinition as Table,
+} from 'cucumber';
+import cucumber = require('cucumber');
 
 type Callback = cucumber.CallbackStepDefinition;
 type HookScenarioResult = cucumber.HookScenarioResult;
 const Status = cucumber.Status;
 
 // You can optionally declare your own world properties
-declare module "cucumber" {
+declare module 'cucumber' {
     interface World {
         visit(url: string, callback: CallbackStepDefinition): void;
         toInt(value: string): number;
@@ -27,7 +27,7 @@ declare module "cucumber" {
 }
 
 function StepSampleWithoutDefineSupportCode() {
-    setWorldConstructor(function({attach, parameters}) {
+    setWorldConstructor(function ({ attach, parameters }) {
         this.attach = attach;
         this.parameters = parameters;
         this.visit = (url: string, callback: Callback) => {
@@ -52,22 +52,22 @@ function StepSampleWithoutDefineSupportCode() {
     });
 
     BeforeAll((callback: Callback) => {
-        console.log("Before all");
+        console.log('Before all');
         callback();
     });
 
     BeforeAll({ timeout: 1000 }, (callback: Callback) => {
-        console.log("Before all");
+        console.log('Before all');
         callback();
     });
 
     BeforeAll('@tag', (callback: Callback) => {
-        console.log("Before all");
+        console.log('Before all');
         callback();
     });
 
     After((scenarioResult: HookScenarioResult, callback: Callback) => {
-        console.log("After");
+        console.log('After');
         callback();
     });
 
@@ -79,39 +79,39 @@ function StepSampleWithoutDefineSupportCode() {
     });
 
     After({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback: Callback) => {
-        console.log("After");
+        console.log('After');
         callback();
     });
 
     After('@tag', (scenarioResult: HookScenarioResult, callback: Callback) => {
-        console.log("After");
+        console.log('After');
         callback();
     });
 
     AfterAll((callback: Callback) => {
-        console.log("After all");
+        console.log('After all');
         callback();
     });
 
     AfterAll({ timeout: 1000 }, (callback: Callback) => {
-        console.log("After all");
+        console.log('After all');
         callback();
     });
 
     AfterAll('@tag', (callback: Callback) => {
-        console.log("After all");
+        console.log('After all');
         callback();
     });
 
     Given(/^a variable set to (\d+)$/, (x: string) => {
-        console.log("the number is: " + x);
+        console.log('the number is: ' + x);
     });
 
     Given(/^a variable set to (\d+)$/, (x: number) => {
         console.log(typeof x);
     });
 
-    Given(/^I am on the Cucumber.js GitHub repository$/, function(callback: Callback) {
+    Given(/^I am on the Cucumber.js GitHub repository$/, function (callback: Callback) {
         this.visit('https://github.com/cucumber/cucumber-js', callback);
     });
 
@@ -119,13 +119,16 @@ function StepSampleWithoutDefineSupportCode() {
         callback(null, 'pending');
     });
 
-    Then(/^I should see "(.*)" as the page title$/, {timeout: 60 * 1000}, function(title: string, callback: Callback) {
+    Then(/^I should see "(.*)" as the page title$/, { timeout: 60 * 1000 }, function (
+        title: string,
+        callback: Callback,
+    ) {
         const pageTitle = this.browser.text('title');
 
         if (title === pageTitle) {
             callback();
         } else {
-            callback(new Error("Expected to be on page with title " + title));
+            callback(new Error('Expected to be on page with title ' + title));
         }
     });
 
@@ -135,7 +138,7 @@ function StepSampleWithoutDefineSupportCode() {
     Given(/^a table step with Table raw$/, (table: Table) => {
         const expected = [
             ['Cucumber', 'Cucumis sativus'],
-            ['Burr Gherkin', 'Cucumis anguria']
+            ['Burr Gherkin', 'Cucumis anguria'],
         ];
         const actual: string[][] = table.raw();
         assert.deepEqual(actual, expected);
@@ -145,7 +148,7 @@ function StepSampleWithoutDefineSupportCode() {
         const expected = [
             ['Apricot', '5'],
             ['Brocolli', '2'],
-            ['Cucumber', '10']
+            ['Cucumber', '10'],
         ];
         const actual: string[][] = table.rows();
         assert.deepEqual(actual, expected);
@@ -154,7 +157,7 @@ function StepSampleWithoutDefineSupportCode() {
     Given(/^a table step with Table rowHash$/, (table: Table) => {
         const expected = {
             Cucumber: 'Cucumis sativus',
-            'Burr Gherkin': 'Cucumis anguria'
+            'Burr Gherkin': 'Cucumis anguria',
         };
         const actual: { [firstCol: string]: string } = table.rowsHash();
         assert.deepEqual(actual, expected);
@@ -162,9 +165,9 @@ function StepSampleWithoutDefineSupportCode() {
 
     Given(/^a table step$/, (table: Table) => {
         const expected = [
-            {Vegetable: 'Apricot', Rating: '5'},
-            {Vegetable: 'Brocolli', Rating: '2'},
-            {Vegetable: 'Cucumber', Rating: '10'}
+            { Vegetable: 'Apricot', Rating: '5' },
+            { Vegetable: 'Brocolli', Rating: '2' },
+            { Vegetable: 'Cucumber', Rating: '10' },
         ];
         const actual: Array<{ [colName: string]: string }> = table.hashes();
         assert.deepEqual(actual, expected);
@@ -179,7 +182,7 @@ function StepSampleWithoutDefineSupportCode() {
         const expected = [
             { Vegetable: 'Apricot', Rating: '5' },
             { Vegetable: 'Brocolli', Rating: '2' },
-            { Vegetable: 'Cucumber', Rating: '10' }
+            { Vegetable: 'Cucumber', Rating: '10' },
         ];
         const [actual] = table.hashes();
         assert.deepEqual(actual.Vegetable, 'Apricot');
@@ -190,16 +193,16 @@ function StepSampleWithoutDefineSupportCode() {
 
     defineParameterType({
         regexp: /particular/,
-        transformer: s => s.toUpperCase(),
-        typeName: 'param'  // deprecated but still supported
+        transformer: (s) => s.toUpperCase(),
+        typeName: 'param', // deprecated but still supported
     });
 
     defineParameterType({
         regexp: /particularly/,
-        transformer: s => s.toUpperCase(),
+        transformer: (s) => s.toUpperCase(),
         name: 'param',
         preferForRegexpMatch: false,
-        useForSnippets: false
+        useForSnippets: false,
     });
 
     defineParameterType({
@@ -207,7 +210,7 @@ function StepSampleWithoutDefineSupportCode() {
         transformer: (x, y) => x + y,
         name: 'param',
         preferForRegexpMatch: false,
-        useForSnippets: false
+        useForSnippets: false,
     });
 
     defineParameterType({
@@ -217,20 +220,24 @@ function StepSampleWithoutDefineSupportCode() {
         },
         name: 'param',
         preferForRegexpMatch: false,
-        useForSnippets: false
+        useForSnippets: false,
     });
 
-    Given('a {param} step', param => {
+    Given('a {param} step', (param) => {
         assert.equal(param, 'PARTICULAR');
     });
 
-    Given('a step with custom options for function wrapper', { timeout: 1, wrapperOptions: { retry: 2 } }, param => {
+    Given('a step with custom options for function wrapper', { timeout: 1, wrapperOptions: { retry: 2 } }, (param) => {
         console.log('Mock step');
     });
 
-    Given('a step with custom options for function wrapper with any complext wrapper options', { wrapperOptions: { moreOptions: { nested: [] } } }, param => {
-        console.log('Mock step');
-    });
+    Given(
+        'a step with custom options for function wrapper with any complext wrapper options',
+        { wrapperOptions: { moreOptions: { nested: [] } } },
+        (param) => {
+            console.log('Mock step');
+        },
+    );
 
     setDefinitionFunctionWrapper((fn: () => void) => {
         return fn;
@@ -243,8 +250,7 @@ function StepSampleWithoutDefineSupportCode() {
 
 // syntax defineSupportCode deprecated
 function StepSample() {
-    cucumber.defineSupportCode((l) => {
-    });
+    cucumber.defineSupportCode((l) => {});
 }
 
 const fns: cucumber.SupportCodeConsumer[] = cucumber.getSupportCodeFns();

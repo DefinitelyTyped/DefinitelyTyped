@@ -35,12 +35,7 @@ declare namespace Mark {
 
         each?(element: Element): void;
 
-        filter?(
-            textNode: Element,
-            term: string,
-            marksSoFar: number,
-            marksTotal: number
-        ): boolean;
+        filter?(textNode: Element, term: string, marksSoFar: number, marksTotal: number): boolean;
 
         noMatch?(term: string): void;
 
@@ -59,12 +54,7 @@ declare namespace Mark {
         acrossElements?: boolean;
         ignoreGroups?: number;
         each?(element: Element): void;
-        filter?(
-            textNode: Element,
-            term: string,
-            marksSoFar: number,
-            marksTotal: number
-        ): boolean;
+        filter?(textNode: Element, term: string, marksSoFar: number, marksTotal: number): boolean;
         noMatch?(term: string): void;
         done?(marksTotal: number): void;
         debug?: boolean;
@@ -78,12 +68,7 @@ declare namespace Mark {
         iframes?: boolean;
         iframesTimeout?: number;
         each?(element: Element, range: Range): void;
-        filter?(
-            textNode: Element,
-            term: string,
-            marksSoFar: number,
-            marksTotal: number
-        ): boolean;
+        filter?(textNode: Element, term: string, marksSoFar: number, marksTotal: number): boolean;
         noMatch?(term: string): void;
         done?(marksTotal: number): void;
         debug?: boolean;
@@ -110,9 +95,7 @@ declare namespace Mark {
 }
 
 declare class Mark {
-    constructor(
-        context: string | HTMLElement | ReadonlyArray<HTMLElement> | NodeList
-    );
+    constructor(context: string | HTMLElement | ReadonlyArray<HTMLElement> | NodeList);
 
     /**
      * highlight custom search terms.
@@ -121,10 +104,7 @@ declare class Mark {
      * have a look at the `markRegExp()`
      * @param options Optional options
      */
-    mark(
-        keyword: string | ReadonlyArray<string>,
-        options?: Mark.MarkOptions
-    ): void;
+    mark(keyword: string | ReadonlyArray<string>, options?: Mark.MarkOptions): void;
 
     /**
      * highlight custom regular expressions.
@@ -141,10 +121,7 @@ declare class Mark {
      * Note that the start positions must be specified including whitespace characters.
      * @param options Optional options
      */
-    markRanges(
-        ranges: ReadonlyArray<Mark.Range>,
-        options?: Mark.MarkRangesOptions
-    ): void;
+    markRanges(ranges: ReadonlyArray<Mark.Range>, options?: Mark.MarkRangesOptions): void;
 
     /**
      * A method to remove highlights created by mark.js.
@@ -158,19 +135,13 @@ export = Mark;
 /* augment JQuery */
 declare global {
     interface JQuery {
-        mark(
-            term: string | ReadonlyArray<string>,
-            options?: Mark.MarkOptions
-        ): void;
+        mark(term: string | ReadonlyArray<string>, options?: Mark.MarkOptions): void;
 
         unmark(options?: Mark.UnmarkOptions): void;
     }
 
     interface JQueryStatic {
-        mark(
-            term: string | ReadonlyArray<string>,
-            options?: Mark.MarkOptions
-        ): void;
+        mark(term: string | ReadonlyArray<string>, options?: Mark.MarkOptions): void;
 
         unmark(options?: Mark.UnmarkOptions): void;
     }

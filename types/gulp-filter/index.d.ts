@@ -21,7 +21,7 @@ declare namespace filter {
 
     // A transform stream with a .restore object
     interface Filter extends NodeJS.ReadWriteStream {
-        restore: NodeJS.ReadWriteStream
+        restore: NodeJS.ReadWriteStream;
     }
 }
 

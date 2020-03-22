@@ -8,19 +8,13 @@
 
 export = emptyDir;
 
-declare function emptyDir(
-    dir: string,
-    cb: (err: NodeJS.ErrnoException, isEmpty: boolean) => void
-): void;
+declare function emptyDir(dir: string, cb: (err: NodeJS.ErrnoException, isEmpty: boolean) => void): void;
 declare function emptyDir(
     dir: string,
     filter: (path: string) => boolean,
-    cb: (err: NodeJS.ErrnoException, isEmpty: boolean) => void
+    cb: (err: NodeJS.ErrnoException, isEmpty: boolean) => void,
 ): void;
-declare function emptyDir(
-    dir: string,
-    filter?: (path: string) => boolean
-): Promise<boolean>;
+declare function emptyDir(dir: string, filter?: (path: string) => boolean): Promise<boolean>;
 
 declare namespace emptyDir {
     function sync(dir: string, filter?: (path: string) => boolean): boolean;

@@ -384,7 +384,7 @@ export namespace NoteStore {
         READ_NOTEBOOK = 0,
         READ_NOTEBOOK_PLUS_ACTIVITY = 10,
         MODIFY_NOTEBOOK_PLUS_ACTIVITY = 20,
-        FULL_ACCESS = 30
+        FULL_ACCESS = 30,
     }
     class ShareRelationshipRestrictions {
         noSetReadOnly?: boolean;
@@ -507,11 +507,11 @@ export namespace NoteStore {
     class UpdateNoteIfUsnMatchesResult {
         note?: Types.Note;
         updated?: boolean;
-        constructor(args?: { note?: Types.Note, updated?: boolean });
+        constructor(args?: { note?: Types.Note; updated?: boolean });
     }
     enum UserSetting {
         RECEIVE_REMINDER_EMAIL = 1,
-        TIMEZONE = 2
+        TIMEZONE = 2,
     }
 }
 
@@ -550,7 +550,7 @@ export namespace UserStore {
     class BootstrapProfile {
         name?: string;
         settings?: BootstrapSettings;
-        constructor(args?: { name?: string, settings?: BootstrapSettings });
+        constructor(args?: { name?: string; settings?: BootstrapSettings });
     }
     class BootstrapSettings {
         serviceHost?: string;
@@ -752,13 +752,17 @@ export namespace Types {
     enum BusinessInvitationStatus {
         APPROVED = 0,
         REQUESTED = 1,
-        REDEEMED = 2
+        REDEEMED = 2,
     }
     class BusinessNotebook {
         notebookDescription?: string;
         privilege?: SharedNotebookPrivilegeLevel;
         recommended?: boolean;
-        constructor(args?: { notebookDescription?: string, privilege?: SharedNotebookPrivilegeLevel, recommended?: boolean });
+        constructor(args?: {
+            notebookDescription?: string;
+            privilege?: SharedNotebookPrivilegeLevel;
+            recommended?: boolean;
+        });
     }
     class BusinessUserAttributes {
         title?: string;
@@ -794,7 +798,7 @@ export namespace Types {
     }
     enum BusinessUserRole {
         ADMIN = 1,
-        NORMAL = 2
+        NORMAL = 2,
     }
     class Contact {
         name?: string;
@@ -820,13 +824,13 @@ export namespace Types {
         FACEBOOK = 3,
         EMAIL = 4,
         TWITTER = 5,
-        LINKEDIN = 6
+        LINKEDIN = 6,
     }
     class Data {
         bodyHash?: string;
         size?: number;
         body?: string;
-        constructor(args?: { bodyHash?: string, size?: number, body?: string });
+        constructor(args?: { bodyHash?: string; size?: number; body?: string });
     }
     type Guid = string;
     class Identity {
@@ -854,7 +858,7 @@ export namespace Types {
     class LazyMap {
         keysOnly?: Set<string>;
         fullMap?: Map<string, string>;
-        constructor(args?: { keysOnly?: Set<string>, fullMap?: Map<string, string> });
+        constructor(args?: { keysOnly?: Set<string>; fullMap?: Map<string, string> });
     }
     class LinkedNotebook {
         shareName?: string;
@@ -1005,7 +1009,7 @@ export namespace Types {
         UPDATED = 2,
         RELEVANCE = 3,
         UPDATE_SEQUENCE_NUMBER = 4,
-        TITLE = 5
+        TITLE = 5,
     }
     class Notebook {
         guid?: Guid;
@@ -1060,7 +1064,12 @@ export namespace Types {
         reminderNotifyInApp?: boolean;
         inMyList?: boolean;
         stack?: string;
-        constructor(args?: { reminderNotifyEmail?: boolean, reminderNotifyInApp?: boolean, inMyList?: boolean, stack?: string });
+        constructor(args?: {
+            reminderNotifyEmail?: boolean;
+            reminderNotifyInApp?: boolean;
+            inMyList?: boolean;
+            stack?: string;
+        });
     }
     class NotebookRestrictions {
         noReadNotes?: boolean;
@@ -1138,7 +1147,7 @@ export namespace Types {
         ACTIVE = 2,
         FAILED = 3,
         CANCELLATION_PENDING = 4,
-        CANCELED = 5
+        CANCELED = 5,
     }
     enum PrivilegeLevel {
         NORMAL = 1,
@@ -1146,14 +1155,14 @@ export namespace Types {
         VIP = 5,
         MANAGER = 7,
         SUPPORT = 8,
-        ADMIN = 9
+        ADMIN = 9,
     }
     class Publishing {
         uri?: string;
         order?: NoteSortOrder;
         ascending?: boolean;
         publicDescription?: string;
-        constructor(args?: { uri?: string, order?: NoteSortOrder, ascending?: boolean, publicDescription?: string });
+        constructor(args?: { uri?: string; order?: NoteSortOrder; ascending?: boolean; publicDescription?: string });
     }
     enum QueryFormat {
         'USER' = 1,
@@ -1199,7 +1208,7 @@ export namespace Types {
         NOT_ACCESSIBLE = 0,
         DIRECT_LINK_ACCESS_OK = 1,
         DIRECT_LINK_LOGIN_REQUIRED = 2,
-        DIRECT_LINK_EMBEDDED_VIEW = 3
+        DIRECT_LINK_EMBEDDED_VIEW = 3,
     }
     class RelatedContentImage {
         url?: string;
@@ -1207,17 +1216,17 @@ export namespace Types {
         height?: number;
         pixelRatio?: number;
         fileSize?: number;
-        constructor(args?: { url?: string, width?: number, height?: number, pixelRatio?: number, fileSize?: number });
+        constructor(args?: { url?: string; width?: number; height?: number; pixelRatio?: number; fileSize?: number });
     }
     enum RelatedContentType {
         NEWS_ARTICLE = 1,
         PROFILE_PERSON = 2,
         PROFILE_ORGANIZATION = 3,
-        REFERENCE_MATERIAL = 4
+        REFERENCE_MATERIAL = 4,
     }
     enum ReminderEmailConfig {
         DO_NOT_SEND = 1,
-        SEND_DAILY_EMAIL = 2
+        SEND_DAILY_EMAIL = 2,
     }
     class Resource {
         guid?: Guid;
@@ -1295,12 +1304,16 @@ export namespace Types {
         includeAccount?: boolean;
         includePersonalLinkedNotebooks?: boolean;
         includeBusinessLinkedNotebooks?: boolean;
-        constructor(args?: { includeAccount?: boolean, includePersonalLinkedNotebooks?: boolean, includeBusinessLinkedNotebooks?: boolean });
+        constructor(args?: {
+            includeAccount?: boolean;
+            includePersonalLinkedNotebooks?: boolean;
+            includeBusinessLinkedNotebooks?: boolean;
+        });
     }
     enum ServiceLevel {
         BASIC = 1,
         PLUS = 2,
-        PREMIUM = 3
+        PREMIUM = 3,
     }
     class SharedNote {
         sharerUserID?: UserID;
@@ -1321,7 +1334,7 @@ export namespace Types {
     enum SharedNotePrivilegeLevel {
         READ_NOTE = 0,
         MODIFY_NOTE = 1,
-        FULL_ACCESS = 2
+        FULL_ACCESS = 2,
     }
     class SharedNotebook {
         id?: number;
@@ -1361,7 +1374,7 @@ export namespace Types {
     }
     enum SharedNotebookInstanceRestrictions {
         ONLY_JOINED_OR_PREVIEW = 1,
-        NO_SHARED_NOTEBOOKS = 2
+        NO_SHARED_NOTEBOOKS = 2,
     }
     enum SharedNotebookPrivilegeLevel {
         READ_NOTEBOOK = 0,
@@ -1369,24 +1382,24 @@ export namespace Types {
         READ_NOTEBOOK_PLUS_ACTIVITY = 2,
         GROUP = 3,
         FULL_ACCESS = 4,
-        BUSINESS_FULL_ACCESS = 5
+        BUSINESS_FULL_ACCESS = 5,
     }
     class SharedNotebookRecipientSettings {
         reminderNotifyEmail?: boolean;
         reminderNotifyInApp?: boolean;
-        constructor(args?: { reminderNotifyEmail?: boolean, reminderNotifyInApp?: boolean });
+        constructor(args?: { reminderNotifyEmail?: boolean; reminderNotifyInApp?: boolean });
     }
     enum SponsoredGroupRole {
         GROUP_MEMBER = 1,
         GROUP_ADMIN = 2,
-        GROUP_OWNER = 3
+        GROUP_OWNER = 3,
     }
     class Tag {
         guid?: Guid;
         name?: string;
         parentGuid?: Guid;
         updateSequenceNum?: number;
-        constructor(args?: { guid?: Guid, name?: string, parentGuid?: Guid, updateSequenceNum?: number });
+        constructor(args?: { guid?: Guid; name?: string; parentGuid?: Guid; updateSequenceNum?: number });
     }
     type Timestamp = number;
     class User {
@@ -1506,16 +1519,12 @@ export namespace Types {
         type?: UserIdentityType;
         stringIdentifier?: string;
         longIdentifier?: number;
-        constructor(args?: {
-            type?: UserIdentityType;
-            stringIdentifier?: string;
-            longIdentifier?: number;
-        });
+        constructor(args?: { type?: UserIdentityType; stringIdentifier?: string; longIdentifier?: number });
     }
     enum UserIdentityType {
         EVERNOTE_USERID = 1,
         EMAIL = 2,
-        IDENTITYID = 3
+        IDENTITYID = 3,
     }
     class UserProfile {
         id?: UserID;
@@ -1708,12 +1717,12 @@ export namespace Errors {
         TAKEN_DOWN = 18,
         RATE_LIMIT_REACHED = 19,
         BUSINESS_SECURITY_LOGIN_REQUIRED = 20,
-        DEVICE_LIMIT_REACHED = 21
+        DEVICE_LIMIT_REACHED = 21,
     }
     enum EDAMInvalidContactReason {
         BAD_ADDRESS = 0,
         DUPLICATE_CONTACT = 1,
-        NO_CONNECTION = 2
+        NO_CONNECTION = 2,
     }
     class EDAMInvalidContactsException extends Error {
         contacts: Types.Contact[];
@@ -1747,7 +1756,12 @@ export class Client {
     });
     getRequestToken(callbackUrl: string, callback: oauth1tokenCallback): void;
     getAuthorizeUrl(oauthToken: string): string;
-    getAccessToken(oauthToken: string, oauthTokenSecret: string, oauthVerifier: string, callback: oauth1tokenCallback): void;
+    getAccessToken(
+        oauthToken: string,
+        oauthTokenSecret: string,
+        oauthVerifier: string,
+        callback: oauth1tokenCallback,
+    ): void;
     getNoteStore(noteStoreUrl?: string): NoteStoreClient;
     getUserStore(): UserStoreClient;
     getSharedNoteStore(linkedNotebook: Types.LinkedNotebook): NoteStoreClient;
@@ -1757,13 +1771,23 @@ export class Client {
 }
 
 export class NoteStoreClient {
-    authenticateToSharedNote(guid: Types.Guid, noteKey: string, authenticationToken?: string): Promise<UserStore.AuthenticationResult>;
-    authenticateToSharedNotebook(guid: Types.Guid, noteKey: string, authenticationToken?: string): Promise<UserStore.AuthenticationResult>;
+    authenticateToSharedNote(
+        guid: Types.Guid,
+        noteKey: string,
+        authenticationToken?: string,
+    ): Promise<UserStore.AuthenticationResult>;
+    authenticateToSharedNotebook(
+        guid: Types.Guid,
+        noteKey: string,
+        authenticationToken?: string,
+    ): Promise<UserStore.AuthenticationResult>;
     copyNote(noteGuid: Types.Guid, toNotebookGuid: Types.Guid): Promise<Types.Note>;
     createLinkedNotebook(linkedNotebook: Types.LinkedNotebook): Promise<Types.LinkedNotebook>;
     createNote(note: Types.Note): Promise<Types.Note>;
     createNotebook(notebook: Types.Notebook): Promise<Types.Notebook>;
-    createOrUpdateNotebookShares(shareTemplate: NoteStore.NotebookShareTemplate): Promise<NoteStore.CreateOrUpdateNotebookSharesResult>;
+    createOrUpdateNotebookShares(
+        shareTemplate: NoteStore.NotebookShareTemplate,
+    ): Promise<NoteStore.CreateOrUpdateNotebookSharesResult>;
     createSearch(search: Types.SavedSearch): Promise<Types.SavedSearch>;
     createTag(tag: Types.Tag): Promise<Types.Tag>;
     deleteNote(guid: Types.Guid): Promise<number>;
@@ -1775,11 +1799,28 @@ export class NoteStoreClient {
     expungeTag(guid: Types.Guid): Promise<number>;
     findNoteCounts(filter: NoteStore.NoteFilter, withTrash: boolean): Promise<NoteStore.NoteCollectionCounts>;
     findNoteOffset(filter: NoteStore.NoteFilter, guid: Types.Guid): Promise<number>;
-    findNotesMetadata(filter: NoteStore.NoteFilter, offset: number, maxNotes: number, resultSpec: NoteStore.NotesMetadataResultSpec): Promise<NoteStore.NotesMetadataList>;
-    findRelated(query: NoteStore.RelatedQuery, resultSpec: NoteStore.RelatedResultSpec): Promise<NoteStore.RelatedResult>;
+    findNotesMetadata(
+        filter: NoteStore.NoteFilter,
+        offset: number,
+        maxNotes: number,
+        resultSpec: NoteStore.NotesMetadataResultSpec,
+    ): Promise<NoteStore.NotesMetadataList>;
+    findRelated(
+        query: NoteStore.RelatedQuery,
+        resultSpec: NoteStore.RelatedResultSpec,
+    ): Promise<NoteStore.RelatedResult>;
     getDefaultNotebook(): Promise<Types.Notebook>;
-    getFilteredSyncChunk(afterUSN: number, maxEntries: number, filter: NoteStore.SyncChunkFilter): Promise<NoteStore.SyncChunk>;
-    getLinkedNotebookSyncChunk(linkedNotebook: Types.LinkedNotebook, afterUSN: number, maxEntries: number, fullSyncOnly: boolean): Promise<NoteStore.SyncChunk>;
+    getFilteredSyncChunk(
+        afterUSN: number,
+        maxEntries: number,
+        filter: NoteStore.SyncChunkFilter,
+    ): Promise<NoteStore.SyncChunk>;
+    getLinkedNotebookSyncChunk(
+        linkedNotebook: Types.LinkedNotebook,
+        afterUSN: number,
+        maxEntries: number,
+        fullSyncOnly: boolean,
+    ): Promise<NoteStore.SyncChunk>;
     getLinkedNotebookSyncState(linkedNotebook: Types.LinkedNotebook): Promise<NoteStore.SyncState>;
     getNoteApplicationData(guid: Types.Guid): Promise<Types.LazyMap>;
     getNoteApplicationDataEntry(guid: Types.Guid, key: string): Promise<string>;
@@ -1789,14 +1830,32 @@ export class NoteStoreClient {
     getNoteContent(guid: Types.Guid): Promise<string>;
     getNoteSearchText(guid: Types.Guid, noteOnly: boolean, tokenizeForIndexing: boolean): Promise<string>;
     getNoteTagNames(guid: Types.Guid): Promise<string[]>;
-    getNoteVersion(noteguid: Types.Guid, updateSequenceNum: number, withResourcesData: boolean, withResourcesRecognition: boolean, withResourcesAlternateData: boolean): Promise<Types.Note>;
+    getNoteVersion(
+        noteguid: Types.Guid,
+        updateSequenceNum: number,
+        withResourcesData: boolean,
+        withResourcesRecognition: boolean,
+        withResourcesAlternateData: boolean,
+    ): Promise<Types.Note>;
     getPublicNotebook(userId: Types.UserID, publicUri: string): Promise<Types.Notebook>;
-    getResource(guid: Types.Guid, withData: boolean, withRecognition: boolean, withAttributes: boolean, withAlternateData: boolean): Promise<Types.Resource>;
+    getResource(
+        guid: Types.Guid,
+        withData: boolean,
+        withRecognition: boolean,
+        withAttributes: boolean,
+        withAlternateData: boolean,
+    ): Promise<Types.Resource>;
     getResourceAlternateData(guid: Types.Guid): Promise<string>;
     getResourceApplicationData(guid: Types.Guid): Promise<Types.LazyMap>;
     getResourceApplicationDataEntry(guid: Types.Guid, key: string): Promise<string>;
     getResourceAttributes(guid: Types.Guid): Promise<Types.ResourceAttributes>;
-    getResourceByHash(noteguid: Types.Guid, contentHash: string, withData: boolean, withRecognition: boolean, withAlternateData: boolean): Promise<Types.Resource>;
+    getResourceByHash(
+        noteguid: Types.Guid,
+        contentHash: string,
+        withData: boolean,
+        withRecognition: boolean,
+        withAlternateData: boolean,
+    ): Promise<Types.Resource>;
     getResourceData(guid: Types.Guid): Promise<string>;
     getResourceRecognition(guid: Types.Guid): Promise<string>;
     getResourceSearchText(guid: Types.Guid): Promise<string>;
@@ -1812,9 +1871,14 @@ export class NoteStoreClient {
     listSharedNotebooks(): Promise<Types.SharedNotebook[]>;
     listTags(): Promise<Types.Tag[]>;
     listTagsByNotebook(notebookguid: Types.Guid): Promise<Types.Tag[]>;
-    manageNotebookShares(parameters: NoteStore.ManageNotebookSharesParameters): Promise<NoteStore.ManageNotebookSharesResult>;
+    manageNotebookShares(
+        parameters: NoteStore.ManageNotebookSharesParameters,
+    ): Promise<NoteStore.ManageNotebookSharesResult>;
     setNoteApplicationDataEntry(guid: Types.Guid, key: string, value: string): Promise<number>;
-    setNotebookRecipientSettings(notebookGuid: string, recipientSettings: Types.NotebookRecipientSettings): Promise<Types.Notebook>;
+    setNotebookRecipientSettings(
+        notebookGuid: string,
+        recipientSettings: Types.NotebookRecipientSettings,
+    ): Promise<Types.Notebook>;
     setResourceApplicationDataEntry(guid: Types.Guid, key: string, value: string): Promise<number>;
     shareNote(guid: Types.Guid): Promise<string>;
     stopSharingNote(guid: Types.Guid): Promise<void>;
@@ -1830,7 +1894,13 @@ export class NoteStoreClient {
     updateTag(tag: Types.Tag): Promise<number>;
 
     /* DEPRECATED */
-    getNote(guid: Types.Guid, withContent: boolean, withResourcesData: boolean, withResourcesRecognition: boolean, withResourcesAlternateData: boolean): Promise<Types.Note>;
+    getNote(
+        guid: Types.Guid,
+        withContent: boolean,
+        withResourcesData: boolean,
+        withResourcesRecognition: boolean,
+        withResourcesAlternateData: boolean,
+    ): Promise<Types.Note>;
     updateSharedNotebook(sharedNotebook: Types.SharedNotebook): Promise<number>;
     shareNotebook(sharedNotebook: Types.SharedNotebook, message: string): Promise<Types.SharedNotebook>;
 }
@@ -1843,11 +1913,16 @@ export class UserStoreClient {
         consumerSecret: string,
         deviceIdentifier: string,
         deviceDescription: string,
-        supportsTwoFactor: boolean
-        ): Promise<UserStore.AuthenticationResult>;
+        supportsTwoFactor: boolean,
+    ): Promise<UserStore.AuthenticationResult>;
     authenticateToBusiness(): Promise<UserStore.AuthenticationResult>;
     checkVersion(clientName: string, edamVersionMajor: number, edamVersionMinor: number): Promise<boolean>;
-    completeTwoFactorAuthentication(authenticationToken: string, oneTimeCode: string, deviceIdentifier: string, deviceDescription: string): Promise<UserStore.AuthenticationResult>;
+    completeTwoFactorAuthentication(
+        authenticationToken: string,
+        oneTimeCode: string,
+        deviceIdentifier: string,
+        deviceDescription: string,
+    ): Promise<UserStore.AuthenticationResult>;
     getAccountLimits(serviceLevel: Types.ServiceLevel): Promise<Types.AccountLimits>;
     getBootstrapInfo(locale: string): Promise<UserStore.BootstrapInfo>;
     getPremiumInfo(): Promise<Types.PremiumInfo>;

@@ -34,17 +34,15 @@ export function useStep(params: UseStepParams): UseStepResponse;
 
 export interface FormTarget {
     target: {
-        name: string, // object property name or Dot separated when hierarchical
-        value: any,
-        type?: string,
-        checked?: boolean,
+        name: string; // object property name or Dot separated when hierarchical
+        value: any;
+        type?: string;
+        checked?: boolean;
     };
 }
 
-export type SetForm = (event:
-    | React.SyntheticEvent<HTMLInputElement>
-    | React.ChangeEvent<HTMLInputElement>
-    | FormTarget
+export type SetForm = (
+    event: React.SyntheticEvent<HTMLInputElement> | React.ChangeEvent<HTMLInputElement> | FormTarget,
 ) => void;
 
 export function useForm<T>(defaultFormConfig: T): [T, SetForm];

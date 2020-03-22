@@ -306,7 +306,7 @@ export interface ConfigOptions {
      * @description Redefine default mapping from file extensions to MIME-type.
      * Set property name to required MIME, provide Array of extensions (without dots) as it's value.
      */
-    mime?: {[type: string]: string[]};
+    mime?: { [type: string]: string[] };
     /**
      * @default ['karma-*']
      * @description List of plugins to load. A plugin can be a string (in which case it will be required

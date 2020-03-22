@@ -6,7 +6,7 @@
 
 /// <reference types="react" />
 
-import * as Table from "reactabular-table";
+import * as Table from 'reactabular-table';
 
 export interface DndMoveEvent {
     sourceLabel: string;

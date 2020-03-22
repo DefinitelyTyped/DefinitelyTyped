@@ -1,16 +1,16 @@
-import { IncomingMessage, ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from 'http';
 import { Permit, Basic, Bearer } from 'permit';
 
 const permit = new Permit({
-    scheme: "some-scheme",
-    proxy: "some-proxy",
-    realm: "auth"
+    scheme: 'some-scheme',
+    proxy: 'some-proxy',
+    realm: 'auth',
 });
 
 const basic = new Basic({
-    scheme: "some-scheme",
-    proxy: "some-proxy",
-    realm: "auth"
+    scheme: 'some-scheme',
+    proxy: 'some-proxy',
+    realm: 'auth',
 });
 
 const bearer = new Bearer({
@@ -32,7 +32,7 @@ function basichHndler(req: IncomingMessage, res: ServerResponse) {
         throw new Error(`Authentication required!`);
     }
 
-    const user = "some-user";
+    const user = 'some-user';
 
     if (!user) {
         basic.fail(res);
@@ -50,7 +50,7 @@ function bearerHandler(req: IncomingMessage, res: ServerResponse) {
         throw new Error(`Authentication required!`);
     }
 
-    const user = "some-user";
+    const user = 'some-user';
 
     if (!user) {
         bearer.fail(res);

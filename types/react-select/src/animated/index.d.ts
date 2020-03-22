@@ -7,7 +7,9 @@ import { default as AnimatedSingleValue, AnimatedSingleValueProps } from './Sing
 import { default as AnimatedValueContainer, AnimatedValueContainerProps } from './ValueContainer';
 import { OptionTypeBase } from '../types';
 
-export function makeAnimated<OptionType extends OptionTypeBase>(externalComponents?: SelectComponentsConfig<OptionType>): SelectComponents<OptionType>;
+export function makeAnimated<OptionType extends OptionTypeBase>(
+    externalComponents?: SelectComponentsConfig<OptionType>,
+): SelectComponents<OptionType>;
 
 export const Input: ComponentType<AnimatedInputProps>;
 export const MultiValue: ComponentType<AnimatedMultiValueProps<any>>;

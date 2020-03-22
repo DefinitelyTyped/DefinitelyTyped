@@ -11,51 +11,51 @@ import { Plugin } from 'webpack';
 export = WebpackBar;
 
 declare class WebpackBar extends Plugin {
-	constructor(options?: WebpackBar.Options);
+    constructor(options?: WebpackBar.Options);
 
-  state: WebpackBar.State;
+    state: WebpackBar.State;
 }
 
 declare namespace WebpackBar {
-  interface Stats {
-    count: number;
-    time: [number, number];
-  }
+    interface Stats {
+        count: number;
+        time: [number, number];
+    }
 
-  class Profile {
-    requests: any[];
+    class Profile {
+        requests: any[];
 
-    name: string;
+        name: string;
 
-    constructor(name: string);
+        constructor(name: string);
 
-    getStats(): { ext: Stats, loader: Stats };
-  }
+        getStats(): { ext: Stats; loader: Stats };
+    }
 
-  interface State {
-    isRunning: boolean;
-    color: string;
-    profile: Profile | null;
-  }
+    interface State {
+        isRunning: boolean;
+        color: string;
+        profile: Profile | null;
+    }
 
-  interface SharedState {
-    [name: string]: State;
-  }
+    interface SharedState {
+        [name: string]: State;
+    }
 
-  interface Options {
-    /** Display name */
-    name?: string;
-    /** Color output of the progress bar */
-    color?: string;
-    /** Enable the profiler for files and loaders */
-    profile?: boolean;
-    /** Stream to rwite to */
-    stream?: NodeJS.WriteStream;
-    /** Minimal output */
-    minimal?: boolean;
-    /** Show compiled in time */
-    compiledIn?: boolean;
-    /** Function called when all builds are finished */
-    done?: (sharedState: SharedState, ctx: WebpackBar) => void;
-  }
+    interface Options {
+        /** Display name */
+        name?: string;
+        /** Color output of the progress bar */
+        color?: string;
+        /** Enable the profiler for files and loaders */
+        profile?: boolean;
+        /** Stream to rwite to */
+        stream?: NodeJS.WriteStream;
+        /** Minimal output */
+        minimal?: boolean;
+        /** Show compiled in time */
+        compiledIn?: boolean;
+        /** Function called when all builds are finished */
+        done?: (sharedState: SharedState, ctx: WebpackBar) => void;
+    }
 }

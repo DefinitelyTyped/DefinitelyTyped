@@ -11,28 +11,28 @@ gio('visit.set', 'key', 'value');
 gio('evar.set', 'key', 'value');
 
 gio('app.set', {
-	key: 'value',
+    key: 'value',
 });
 gio('people.set', {
-	key: 'value',
+    key: 'value',
 });
 gio('page.set', {
-	key: 'value',
+    key: 'value',
 });
 gio('visit.set', {
-	key: 'value',
+    key: 'value',
 });
 gio('evar.set', {
-	key: 'value',
+    key: 'value',
 });
 
 gio('track', 'eventId');
 gio('track', 'eventId', 1);
 gio('track', 'eventId', {
-	key: 'value',
+    key: 'value',
 });
 gio('track', 'eventId', 1, {
-	key: 'value',
+    key: 'value',
 });
 
 gio('init', 'projectId', {});

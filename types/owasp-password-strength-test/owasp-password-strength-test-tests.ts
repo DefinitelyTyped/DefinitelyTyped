@@ -8,7 +8,7 @@ owasp.config({
     minOptionalTestsToPass: 4,
 });
 
-owasp.tests.required.push(password => {
+owasp.tests.required.push((password) => {
     if (password === 'one two three four five') {
         return "That's the kind of thing an idiot would have on his luggage!";
     }

@@ -1,14 +1,24 @@
-import { baseComponent, baseComponentEventMap, baseComponentSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import {
+    baseComponent,
+    baseComponentEventMap,
+    baseComponentSettableProperties,
+    JetElementCustomEvent,
+    JetSetPropertyType,
+} from '..';
 export interface ojTrain extends baseComponent<ojTrainSettableProperties> {
     selectedStep: string;
     steps: ojTrain.Step[];
-    onSelectedStepChanged: ((event: JetElementCustomEvent<ojTrain["selectedStep"]>) => any) | null;
-    onStepsChanged: ((event: JetElementCustomEvent<ojTrain["steps"]>) => any) | null;
+    onSelectedStepChanged: ((event: JetElementCustomEvent<ojTrain['selectedStep']>) => any) | null;
+    onStepsChanged: ((event: JetElementCustomEvent<ojTrain['steps']>) => any) | null;
     onOjBeforeDeselect: ((event: ojTrain.ojBeforeDeselect) => any) | null;
     onOjBeforeSelect: ((event: ojTrain.ojBeforeSelect) => any) | null;
     onOjDeselect: ((event: ojTrain.ojDeselect) => any) | null;
     onOjSelect: ((event: ojTrain.ojSelect) => any) | null;
-    addEventListener<T extends keyof ojTrainEventMap>(type: T, listener: (this: HTMLElement, ev: ojTrainEventMap[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojTrainEventMap>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojTrainEventMap[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojTrainSettableProperties>(property: T): ojTrain[T];
     getProperty(property: string): any;
@@ -19,39 +29,42 @@ export interface ojTrain extends baseComponent<ojTrainSettableProperties> {
     getPreviousSelectableStep(): string | null;
     getStep(id: string): ojTrain.Step | null;
     refresh(): void;
-    updateStep(id: string, stepProperties: {
-        id?: string;
-        label?: string;
-        disabled?: boolean;
-        visited?: boolean;
-        messageType?: 'info' | 'error' | 'fatal' | 'warning';
-    }): void;
+    updateStep(
+        id: string,
+        stepProperties: {
+            id?: string;
+            label?: string;
+            disabled?: boolean;
+            visited?: boolean;
+            messageType?: 'info' | 'error' | 'fatal' | 'warning';
+        },
+    ): void;
 }
 export namespace ojTrain {
-    interface ojBeforeDeselect extends CustomEvent<{
-        toStep: string;
-        fromStep: string;
-        [propName: string]: any;
-    }> {
-    }
-    interface ojBeforeSelect extends CustomEvent<{
-        toStep: string;
-        fromStep: string;
-        [propName: string]: any;
-    }> {
-    }
-    interface ojDeselect extends CustomEvent<{
-        toStep: string;
-        fromStep: string;
-        [propName: string]: any;
-    }> {
-    }
-    interface ojSelect extends CustomEvent<{
-        toStep: string;
-        fromStep: string;
-        [propName: string]: any;
-    }> {
-    }
+    interface ojBeforeDeselect
+        extends CustomEvent<{
+            toStep: string;
+            fromStep: string;
+            [propName: string]: any;
+        }> {}
+    interface ojBeforeSelect
+        extends CustomEvent<{
+            toStep: string;
+            fromStep: string;
+            [propName: string]: any;
+        }> {}
+    interface ojDeselect
+        extends CustomEvent<{
+            toStep: string;
+            fromStep: string;
+            [propName: string]: any;
+        }> {}
+    interface ojSelect
+        extends CustomEvent<{
+            toStep: string;
+            fromStep: string;
+            [propName: string]: any;
+        }> {}
     // tslint:disable-next-line interface-over-type-literal
     type Step = {
         id: string;
@@ -62,12 +75,12 @@ export namespace ojTrain {
     };
 }
 export interface ojTrainEventMap extends baseComponentEventMap<ojTrainSettableProperties> {
-    'ojBeforeDeselect': ojTrain.ojBeforeDeselect;
-    'ojBeforeSelect': ojTrain.ojBeforeSelect;
-    'ojDeselect': ojTrain.ojDeselect;
-    'ojSelect': ojTrain.ojSelect;
-    'selectedStepChanged': JetElementCustomEvent<ojTrain["selectedStep"]>;
-    'stepsChanged': JetElementCustomEvent<ojTrain["steps"]>;
+    ojBeforeDeselect: ojTrain.ojBeforeDeselect;
+    ojBeforeSelect: ojTrain.ojBeforeSelect;
+    ojDeselect: ojTrain.ojDeselect;
+    ojSelect: ojTrain.ojSelect;
+    selectedStepChanged: JetElementCustomEvent<ojTrain['selectedStep']>;
+    stepsChanged: JetElementCustomEvent<ojTrain['steps']>;
 }
 export interface ojTrainSettableProperties extends baseComponentSettableProperties {
     selectedStep: string;

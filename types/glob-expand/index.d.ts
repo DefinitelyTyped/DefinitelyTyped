@@ -5,7 +5,7 @@
 
 /// <reference types="glob"/>
 
-import * as glob from "glob";
+import * as glob from 'glob';
 
 interface Option {
     filter?: string | ((filePath: string) => boolean);

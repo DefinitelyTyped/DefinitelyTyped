@@ -52,9 +52,9 @@ console.log(<App />);
     deadZone={Number()}
     layout={layouts.XBOX}
     onConnect={(gamepadIndex: number) => {}}
-    onDisconnect={gamepadIndex => {}}
-    onButtonDown={buttonName => {}}
-    onButtonUp={buttonName => {}}
+    onDisconnect={(gamepadIndex) => {}}
+    onButtonDown={(buttonName) => {}}
+    onButtonUp={(buttonName) => {}}
     onButtonChange={(buttonName, pressed) => {}}
     onAxisChange={(axisName, value, previousValue) => {}}
     onA={() => {}}

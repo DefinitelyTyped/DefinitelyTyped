@@ -1,5 +1,5 @@
-import moment = require("moment");
-import * as mb from "moment-business";
+import moment = require('moment');
+import * as mb from 'moment-business';
 
 mb.isWeekDay(moment());
 mb.isWeekendDay(moment());

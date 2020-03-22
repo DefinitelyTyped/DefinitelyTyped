@@ -8,7 +8,7 @@ const geojson: GeoJSON = {
     properties: {},
     geometry: {
         type: 'Point',
-        coordinates: [-127, 19]
-    }
+        coordinates: [-127, 19],
+    },
 };
 geobuf.encode(geojson, new Pbf()); // $ExpectType Uint8Array

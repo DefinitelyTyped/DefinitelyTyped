@@ -1,4 +1,4 @@
-import "jquery";
+import 'jquery';
 
 /**
  * Provides options for the `stickyHeaders`-widget.

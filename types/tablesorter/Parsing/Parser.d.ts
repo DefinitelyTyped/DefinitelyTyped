@@ -1,4 +1,4 @@
-import { ParserType } from "./ParserType";
+import { ParserType } from './ParserType';
 
 /**
  * Represents a parser.

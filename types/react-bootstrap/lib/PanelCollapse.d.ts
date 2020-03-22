@@ -12,5 +12,5 @@ declare namespace PanelCollapse {
         onExited?: Function;
     }
 }
-declare class PanelCollapse extends React.Component<PanelCollapse.PanelCollapseProps> { }
+declare class PanelCollapse extends React.Component<PanelCollapse.PanelCollapseProps> {}
 export = PanelCollapse;

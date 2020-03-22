@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode } from "react";
-import { TextStyle, StyleProp, ImageStyle, ViewStyle } from "react-native";
+import { Component, ReactNode } from 'react';
+import { TextStyle, StyleProp, ImageStyle, ViewStyle } from 'react-native';
 
 interface SettingsListProps {
     /**
@@ -136,7 +136,7 @@ interface ItemProps {
      */
     rightSideContent?: ReactNode;
     /* Gives opens to hide specific borders */
-    borderHide?: "Top" | "Bottom" | "Both";
+    borderHide?: 'Top' | 'Bottom' | 'Both';
 
     itemRef?: () => void;
 }

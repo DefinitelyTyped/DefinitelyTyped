@@ -92,20 +92,20 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 // Class Method byteLenght
 {
     let len: number;
-    len = Buffer.byteLength("foo");
-    len = Buffer.byteLength("foo", "utf8");
+    len = Buffer.byteLength('foo');
+    len = Buffer.byteLength('foo', 'utf8');
 
-    const b = Buffer.from("bar");
+    const b = Buffer.from('bar');
     len = Buffer.byteLength(b);
-    len = Buffer.byteLength(b, "utf16le");
+    len = Buffer.byteLength(b, 'utf16le');
 
     const ab = new ArrayBuffer(15);
     len = Buffer.byteLength(ab);
-    len = Buffer.byteLength(ab, "ascii");
+    len = Buffer.byteLength(ab, 'ascii');
 
     const dv = new DataView(ab);
     len = Buffer.byteLength(dv);
-    len = Buffer.byteLength(dv, "utf16le");
+    len = Buffer.byteLength(dv, 'utf16le');
 }
 
 // Class Method poolSize
@@ -141,9 +141,9 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     let index: number;
-    index = buffer.indexOf("23");
-    index = buffer.indexOf("23", 1);
-    index = buffer.indexOf("23", 1, "utf8");
+    index = buffer.indexOf('23');
+    index = buffer.indexOf('23', 1);
+    index = buffer.indexOf('23', 1, 'utf8');
     index = buffer.indexOf(23);
     index = buffer.indexOf(buffer);
 }
@@ -151,9 +151,9 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     let index: number;
-    index = buffer.lastIndexOf("23");
-    index = buffer.lastIndexOf("23", 1);
-    index = buffer.lastIndexOf("23", 1, "utf8");
+    index = buffer.lastIndexOf('23');
+    index = buffer.lastIndexOf('23', 1);
+    index = buffer.lastIndexOf('23', 1, 'utf8');
     index = buffer.lastIndexOf(23);
     index = buffer.lastIndexOf(buffer);
 }
@@ -172,15 +172,15 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     let includes: boolean;
-    includes = buffer.includes("23");
-    includes = buffer.includes("23", 1);
-    includes = buffer.includes("23", 1, "utf8");
+    includes = buffer.includes('23');
+    includes = buffer.includes('23', 1);
+    includes = buffer.includes('23', 1, 'utf8');
     includes = buffer.includes(23);
     includes = buffer.includes(23, 1);
-    includes = buffer.includes(23, 1, "utf8");
+    includes = buffer.includes(23, 1, 'utf8');
     includes = buffer.includes(buffer);
     includes = buffer.includes(buffer, 1);
-    includes = buffer.includes(buffer, 1, "utf8");
+    includes = buffer.includes(buffer, 1, 'utf8');
 }
 
 {

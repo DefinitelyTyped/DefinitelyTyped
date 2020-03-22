@@ -18,5 +18,4 @@
 import MDCTopAppBarFoundation from '../foundation';
 import MDCTopAppBarAdapter from '../adapter';
 
-export default class MDCFixedTopAppBarFoundation extends MDCTopAppBarFoundation {
-}
+export default class MDCFixedTopAppBarFoundation extends MDCTopAppBarFoundation {}

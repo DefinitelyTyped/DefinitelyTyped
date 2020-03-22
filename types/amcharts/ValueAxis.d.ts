@@ -1,6 +1,6 @@
-import AmChart from "./AmChart";
-import AxisBase from "./AxisBase";
-import Guide from "./Guide";
+import AmChart from './AmChart';
+import AxisBase from './AxisBase';
+import Guide from './Guide';
 
 /**
  * ValueAxis is the class which displays value axis for the chart. The chart can have any number of value axes.
@@ -233,14 +233,7 @@ export default class ValueAxis extends AxisBase {
      */
     addListener(
         type: string,
-        handler: (
-            e: {
-                type: string;
-                startValue?: Date;
-                endValue?: Date;
-                chart: AmChart;
-            },
-        ) => void,
+        handler: (e: { type: string; startValue?: Date; endValue?: Date; chart: AmChart }) => void,
     ): void;
 
     /**

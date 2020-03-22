@@ -3,13 +3,13 @@
 
 import rg4js, { RaygunStatic } from 'raygun4js';
 
-rg4js("apiKey", "api-key");
-rg4js("enableCrashReporting", true);
-rg4js("enablePulse", true);
+rg4js('apiKey', 'api-key');
+rg4js('enableCrashReporting', true);
+rg4js('enablePulse', true);
 rg4js('setUser', {
-    identifier: "username",
-    firstName: "Robert",
-    fullName: "Robert Raygun"
+    identifier: 'username',
+    firstName: 'Robert',
+    fullName: 'Robert Raygun',
 });
 
 try {
@@ -64,31 +64,31 @@ client.setFilterScope('all');
 
 client.whitelistCrossOriginDomains(['domain1', 'domain2']);
 
-client.onBeforeSend(payload => {
+client.onBeforeSend((payload) => {
     payload.OccurredOn = new Date();
     return payload;
 });
 
-client.groupingKey(payload => {
+client.groupingKey((payload) => {
     return payload.Details.Error.Message;
 });
 
-client.onBeforeXHR(xhr => {
+client.onBeforeXHR((xhr) => {
     console.log(xhr.response);
 });
 
-client.onAfterSend(xhr => {
+client.onAfterSend((xhr) => {
     console.log(xhr.response);
 });
 
 client.endSession();
 
 client.trackEvent('pageView', {
-    path: '/url'
+    path: '/url',
 });
 
 client.disableAutoBreadcrumbs();
 
 client.enableAutoBreadcrumbs();
 
-client.recordBreadcrumb("Breadcrumb Message", { custom: "data" });
+client.recordBreadcrumb('Breadcrumb Message', { custom: 'data' });

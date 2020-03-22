@@ -15,7 +15,11 @@ import { EventEmitter } from 'events';
 import * as processors from './lib/processors';
 
 export function parseString(str: convertableToString, callback: (err: Error, result: any) => void): void;
-export function parseString(str: convertableToString, options: OptionsV2, callback: (err: Error, result: any) => void): void;
+export function parseString(
+    str: convertableToString,
+    options: OptionsV2,
+    callback: (err: Error, result: any) => void,
+): void;
 export function parseStringPromise(str: convertableToString, options?: OptionsV2): Promise<any>;
 
 export const defaults: {

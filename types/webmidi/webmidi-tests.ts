@@ -1,11 +1,11 @@
 const onFulfilled = (item: WebMidi.MIDIAccess) => {
     const midiPort = item;
 
-    midiPort.onstatechange = event => {
+    midiPort.onstatechange = (event) => {
         console.log('onstatechange');
         console.log(event);
     };
-    midiPort.addEventListener('statechange', event => {
+    midiPort.addEventListener('statechange', (event) => {
         console.log(event.port);
     });
 
@@ -20,10 +20,10 @@ const onFulfilled = (item: WebMidi.MIDIAccess) => {
 
     const inputs = midiPort.inputs.values();
     for (const input of inputs) {
-        input.onmidimessage = event => {
+        input.onmidimessage = (event) => {
             console.log(event.data);
         };
-        input.addEventListener('midimessage', event => {
+        input.addEventListener('midimessage', (event) => {
             console.log(event.data);
         });
     }

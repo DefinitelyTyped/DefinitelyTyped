@@ -33,14 +33,18 @@ import { Moment } from 'moment';
 declare class Chart {
     static readonly Chart: typeof Chart;
     constructor(
-        context: string | CanvasRenderingContext2D | HTMLCanvasElement | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
-        options: Chart.ChartConfiguration
+        context:
+            | string
+            | CanvasRenderingContext2D
+            | HTMLCanvasElement
+            | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
+        options: Chart.ChartConfiguration,
     );
     config: Chart.ChartConfiguration;
     data: Chart.ChartData;
     destroy: () => {};
-    update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
-    render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
+    update: ({ duration, lazy, easing }?: Chart.ChartUpdateProps) => {};
+    render: ({ duration, lazy, easing }?: Chart.ChartRenderProps) => {};
     stop: () => Chart;
     resize: () => Chart;
     clear: () => Chart;
@@ -61,9 +65,10 @@ declare class Chart {
     static plugins: PluginServiceStatic;
 
     static defaults: {
-        global: Chart.ChartOptions & Chart.ChartFontOptions & {
-            tooltips: Chart.ChartTooltipOptions
-        };
+        global: Chart.ChartOptions &
+            Chart.ChartFontOptions & {
+                tooltips: Chart.ChartTooltipOptions;
+            };
         [key: string]: any;
     };
 
@@ -76,7 +81,7 @@ declare class Chart {
     };
 
     static platform: {
-        disableCSSInjection: boolean
+        disableCSSInjection: boolean;
     };
 
     // Tooltip Static Options
@@ -95,12 +100,12 @@ interface Meta {
     type: Chart.ChartType;
     data: MetaData[];
     dataset?: Chart.ChartDataSets;
-    controller: { [key: string]: any; };
+    controller: { [key: string]: any };
     hidden?: boolean;
     total?: string;
     xAxisID?: string;
     yAxisID?: string;
-    "$filler"?: { [key: string]: any; };
+    $filler?: { [key: string]: any };
 }
 
 interface MetaData {
@@ -145,22 +150,69 @@ interface Model {
 }
 
 declare namespace Chart {
-    type ChartType = 'line' | 'bar' | 'horizontalBar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter';
+    type ChartType =
+        | 'line'
+        | 'bar'
+        | 'horizontalBar'
+        | 'radar'
+        | 'doughnut'
+        | 'polarArea'
+        | 'bubble'
+        | 'pie'
+        | 'scatter';
 
     type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
 
     type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
 
-    type PointStyle = 'circle' | 'cross' | 'crossRot' | 'dash' | 'line' | 'rect' | 'rectRounded' | 'rectRot' | 'star' | 'triangle';
+    type PointStyle =
+        | 'circle'
+        | 'cross'
+        | 'crossRot'
+        | 'dash'
+        | 'line'
+        | 'rect'
+        | 'rectRounded'
+        | 'rectRot'
+        | 'star'
+        | 'triangle';
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom' | 'chartArea';
 
     type InteractionMode = 'point' | 'nearest' | 'single' | 'label' | 'index' | 'x-axis' | 'dataset' | 'x' | 'y';
 
-    type Easing = 'linear' | 'easeInQuad' | 'easeOutQuad' | 'easeInOutQuad' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' |
-        'easeInQuart' | 'easeOutQuart' | 'easeInOutQuart' | 'easeInQuint' | 'easeOutQuint' | 'easeInOutQuint' | 'easeInSine' | 'easeOutSine' |
-        'easeInOutSine' | 'easeInExpo' | 'easeOutExpo' | 'easeInOutExpo' | 'easeInCirc' | 'easeOutCirc' | 'easeInOutCirc' | 'easeInElastic' |
-        'easeOutElastic' | 'easeInOutElastic' | 'easeInBack' | 'easeOutBack' | 'easeInOutBack' | 'easeInBounce' | 'easeOutBounce' | 'easeInOutBounce';
+    type Easing =
+        | 'linear'
+        | 'easeInQuad'
+        | 'easeOutQuad'
+        | 'easeInOutQuad'
+        | 'easeInCubic'
+        | 'easeOutCubic'
+        | 'easeInOutCubic'
+        | 'easeInQuart'
+        | 'easeOutQuart'
+        | 'easeInOutQuart'
+        | 'easeInQuint'
+        | 'easeOutQuint'
+        | 'easeInOutQuint'
+        | 'easeInSine'
+        | 'easeOutSine'
+        | 'easeInOutSine'
+        | 'easeInExpo'
+        | 'easeOutExpo'
+        | 'easeInOutExpo'
+        | 'easeInCirc'
+        | 'easeOutCirc'
+        | 'easeInOutCirc'
+        | 'easeInElastic'
+        | 'easeOutElastic'
+        | 'easeInOutElastic'
+        | 'easeInBack'
+        | 'easeOutBack'
+        | 'easeInOutBack'
+        | 'easeInBounce'
+        | 'easeOutBounce'
+        | 'easeInOutBounce';
 
     type TextAlignment = 'left' | 'center' | 'right';
 
@@ -610,7 +662,7 @@ declare namespace Chart {
         fontFamily?: string;
         fontSize?: number;
         fontStyle?: string;
-        lineHeight?: number|string;
+        lineHeight?: number | string;
     }
 
     interface LinearTickOptions extends TickOptions {
@@ -622,15 +674,14 @@ declare namespace Chart {
     }
 
     // tslint:disable-next-line no-empty-interface
-    interface LogarithmicTickOptions extends TickOptions {
-    }
+    interface LogarithmicTickOptions extends TickOptions {}
 
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
     type Scriptable<T> = (ctx: {
         chart?: Chart;
         dataIndex?: number;
-        dataset?: ChartDataSets
+        dataset?: ChartDataSets;
         datasetIndex?: number;
     }) => T;
 
@@ -638,7 +689,7 @@ declare namespace Chart {
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         barPercentage?: number;
-        barThickness?: number | "flex";
+        barThickness?: number | 'flex';
         borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment>;
         borderWidth?: BorderWidth | BorderWidth[] | Scriptable<BorderWidth>;
         borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
@@ -671,7 +722,12 @@ declare namespace Chart {
         pointHoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointHoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointHoverBorderWidth?: number | number[] | Scriptable<number>;
-        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement> | Scriptable<PointStyle | HTMLImageElement | HTMLCanvasElement>;
+        pointStyle?:
+            | PointStyle
+            | HTMLImageElement
+            | HTMLCanvasElement
+            | Array<PointStyle | HTMLImageElement | HTMLCanvasElement>
+            | Scriptable<PointStyle | HTMLImageElement | HTMLCanvasElement>;
         radius?: number | number[] | Scriptable<number>;
         rotation?: number | number[] | Scriptable<number>;
         xAxisID?: string;
@@ -729,8 +785,7 @@ declare namespace Chart {
     }
 
     // tslint:disable-next-line no-empty-interface
-    interface ChartYAxe extends CommonAxe {
-    }
+    interface ChartYAxe extends CommonAxe {}
 
     interface LinearScale extends ChartScales {
         ticks?: LinearTickOptions;

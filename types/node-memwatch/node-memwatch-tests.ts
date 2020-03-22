@@ -1,10 +1,10 @@
-import memwatch = require("node-memwatch");
+import memwatch = require('node-memwatch');
 
-memwatch.on("stats", info => {
+memwatch.on('stats', (info) => {
     info.estimated_base;
 });
 
-memwatch.on("leak", info => {
+memwatch.on('leak', (info) => {
     info.growth;
 });
 

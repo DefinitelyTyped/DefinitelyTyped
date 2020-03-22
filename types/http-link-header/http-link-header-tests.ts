@@ -1,7 +1,7 @@
 import LinkHeader = require('http-link-header');
 
 function isLinkHeader(l: LinkHeader): null {
-  return null;
+    return null;
 }
 
 function isBool(bool: boolean): null {
@@ -18,8 +18,8 @@ function isString(str: string): null {
 
 const link = LinkHeader.parse(
     '<example.com>; rel="example"; title="Example Website", ' +
-    '<example-twice.com>; rel="example"; title="Example Website Twice", ' +
-    '<example-01.com>; rel="alternate"; title="Alternate Example Domain"'
+        '<example-twice.com>; rel="example"; title="Example Website Twice", ' +
+        '<example-01.com>; rel="alternate"; title="Alternate Example Domain"',
 );
 isReferenceArray(link.refs);
 

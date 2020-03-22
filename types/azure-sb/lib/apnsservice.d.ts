@@ -19,65 +19,78 @@ declare class ApnsService {
 
     public notificationHubService: NotificationHubService;
 
-    public send(tags: string | string[],
-                payload: object | string,
-                callback: ResponseCallback): void;
+    public send(tags: string | string[], payload: object | string, callback: ResponseCallback): void;
 
-    public send(tags: string | string[],
-                payload: object | string,
-                options: { headers: Dictionary<string> },
-                callback: ResponseCallback): void;
+    public send(
+        tags: string | string[],
+        payload: object | string,
+        options: { headers: Dictionary<string> },
+        callback: ResponseCallback,
+    ): void;
 
-    public createNativeRegistration(token: string,
-                                    tags: string | string[],
-                                    callback: ResponseCallback): void;
+    public createNativeRegistration(token: string, tags: string | string[], callback: ResponseCallback): void;
 
-    public createNativeRegistration(token: string,
-                                    tags: string | string[],
-                                    options: object,
-                                    callback: ResponseCallback): void;
+    public createNativeRegistration(
+        token: string,
+        tags: string | string[],
+        options: object,
+        callback: ResponseCallback,
+    ): void;
 
-    public createOrUpdateNativeRegistration(registrationId: string,
-                                            token: string,
-                                            tags: string | string[],
-                                            callback: ResponseCallback): void;
+    public createOrUpdateNativeRegistration(
+        registrationId: string,
+        token: string,
+        tags: string | string[],
+        callback: ResponseCallback,
+    ): void;
 
-    public createOrUpdateNativeRegistration(registrationId: string,
-                                            token: string,
-                                            tags: string | string[],
-                                            options: object,
-                                            callback: ResponseCallback): void;
+    public createOrUpdateNativeRegistration(
+        registrationId: string,
+        token: string,
+        tags: string | string[],
+        options: object,
+        callback: ResponseCallback,
+    ): void;
 
-    public createTemplateRegistration(token: string,
-                                      tags: string | string[],
-                                      template: Template | string,
-                                      callback: ResponseCallback): void;
+    public createTemplateRegistration(
+        token: string,
+        tags: string | string[],
+        template: Template | string,
+        callback: ResponseCallback,
+    ): void;
 
-    public createTemplateRegistration(token: string,
-                                      tags: string | string[],
-                                      template: Template | string,
-                                      options: object,
-                                      callback: ResponseCallback): void;
+    public createTemplateRegistration(
+        token: string,
+        tags: string | string[],
+        template: Template | string,
+        options: object,
+        callback: ResponseCallback,
+    ): void;
 
-    public updateTemplateRegistration(registrationId: string,
-                                      token: string,
-                                      tags: string | string[],
-                                      template: Template | string,
-                                      callback: ResponseCallback): void;
+    public updateTemplateRegistration(
+        registrationId: string,
+        token: string,
+        tags: string | string[],
+        template: Template | string,
+        callback: ResponseCallback,
+    ): void;
 
-    public updateTemplateRegistration(registrationId: string,
-                                      token: string,
-                                      tags: string | string[],
-                                      template: Template | string,
-                                      options: { headers: Dictionary<string> },
-                                      callback: ResponseCallback): void;
+    public updateTemplateRegistration(
+        registrationId: string,
+        token: string,
+        tags: string | string[],
+        template: Template | string,
+        options: { headers: Dictionary<string> },
+        callback: ResponseCallback,
+    ): void;
 
-    public listRegistrationsByToken(token: string,
-                                    callback: ResponseCallback): void;
+    public listRegistrationsByToken(token: string, callback: ResponseCallback): void;
 
-    public listRegistrationsByToken(token: string,
-                                    options: ListNotificationHubsOptions,
-                                    callback: ResponseCallback): void;
+    public listRegistrationsByToken(
+        token: string,
+        options: ListNotificationHubsOptions,
+        callback: ResponseCallback,
+    ): void;
 }
 
 export = ApnsService;

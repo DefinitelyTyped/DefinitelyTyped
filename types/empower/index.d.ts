@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function empower(originalAssert:any, formatter:any, options?:empower.Options):any;
+declare function empower(originalAssert: any, formatter: any, options?: empower.Options): any;
 
 export = empower;
 export as namespace empower;

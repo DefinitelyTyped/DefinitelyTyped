@@ -116,7 +116,7 @@ export interface Plugin<T extends Controller = Editor> extends CorePlugin<T> {
         previousProps: RenderNodeProps,
         props: RenderNodeProps,
         editor: CoreEditor,
-        next: () => any
+        next: () => any,
     ) => any;
 
     onBeforeInput?: EventHook<React.FormEvent>;

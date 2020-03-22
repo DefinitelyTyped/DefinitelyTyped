@@ -10,13 +10,13 @@ const selection = Selection.create({
     startareas: ['html'],
     singleClick: true,
     startThreshold: 10,
-    scrollSpeedDivider: 10
+    scrollSpeedDivider: 10,
 });
 
 const selectable = document.createElement('div');
 
 selection.on('beforestart', (e) => (e.oe.target as HTMLElement).matches('.selectable'));
-selection.on('move', e => {
+selection.on('move', (e) => {
     e.inst.cancel();
     e.area.matches('.area');
     e.changed.added;
@@ -26,7 +26,7 @@ selection.on('start', () => {});
 selection.on('stop', () => {});
 
 selection.off('beforestart', (e) => (e.oe.target as HTMLElement).matches('.selectable'));
-selection.off('move', e => {
+selection.off('move', (e) => {
     e.inst.cancel();
     e.area.matches('.area');
     e.changed.added;

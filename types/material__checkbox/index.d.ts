@@ -29,7 +29,8 @@ import { MDCRipple } from 'material__ripple';
 
 export { MDCCheckboxAdapter, MDCCheckboxFoundation };
 
-export class MDCCheckbox extends MDCComponent<MDCCheckboxAdapter, MDCCheckboxFoundation> implements MDCSelectionControl {
+export class MDCCheckbox extends MDCComponent<MDCCheckboxAdapter, MDCCheckboxFoundation>
+    implements MDCSelectionControl {
     static attachTo(root: Element): MDCCheckbox;
 
     readonly ripple: MDCRipple;

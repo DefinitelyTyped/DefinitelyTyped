@@ -1,6 +1,6 @@
 import safeJsonStringify = require('safe-json-stringify');
 
-const obj1 = {foo: 'bar'};
+const obj1 = { foo: 'bar' };
 
 function replacer(key: any, value: any) {
     if (typeof value === 'string') {

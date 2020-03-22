@@ -22,8 +22,7 @@ interface RTCOfferOptions extends RTCOfferAnswerOptions {
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcansweroptions
-interface RTCAnswerOptions extends RTCOfferAnswerOptions {
-}
+interface RTCAnswerOptions extends RTCOfferAnswerOptions {}
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtciceserver
 interface RTCIceServer {
@@ -320,26 +319,38 @@ interface RTCPeerConnection extends EventTarget {
 
     // Extension: https://www.w3.org/TR/webrtc/#legacy-interface-extensions
     // Deprecated!
-    createOffer(successCallback: RTCSessionDescriptionCallback,
+    createOffer(
+        successCallback: RTCSessionDescriptionCallback,
         failureCallback: RTCPeerConnectionErrorCallback,
-        options?: RTCOfferOptions): Promise<void>;
-    setLocalDescription(description: RTCSessionDescriptionInit,
+        options?: RTCOfferOptions,
+    ): Promise<void>;
+    setLocalDescription(
+        description: RTCSessionDescriptionInit,
         successCallback: () => void,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
-    createAnswer(successCallback: RTCSessionDescriptionCallback,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
-    setRemoteDescription(description: RTCSessionDescriptionInit,
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
+    createAnswer(
+        successCallback: RTCSessionDescriptionCallback,
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
+    setRemoteDescription(
+        description: RTCSessionDescriptionInit,
         successCallback: () => void,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
-    addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate,
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
+    addIceCandidate(
+        candidate: RTCIceCandidateInit | RTCIceCandidate,
         successCallback: () => void,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
-    getStats(selector: MediaStreamTrack | null,
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
+    getStats(
+        selector: MediaStreamTrack | null,
         successCallback: RTCStatsCallback,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
 }
 interface RTCPeerConnectionStatic {
-    new(configuration?: RTCConfiguration, options?: any): RTCPeerConnection;
+    new (configuration?: RTCConfiguration, options?: any): RTCPeerConnection;
     readonly defaultIceServers: RTCIceServer[];
 
     // Extension: https://www.w3.org/TR/webrtc/#sec.cert-mgmt

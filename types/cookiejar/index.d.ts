@@ -99,7 +99,11 @@ export class CookieJar {
      * @param requestDomain string argument is used to default the domain if it is not explicit in the cookie string
      * @param requestPath string argument is used to set the path if it is not explicit in a cookie String
      */
-    setCookies(cookie: string | ReadonlyArray<string>, requestDomain?: string, requestPath?: string): ReadonlyArray<Cookie> | false;
+    setCookies(
+        cookie: string | ReadonlyArray<string>,
+        requestDomain?: string,
+        requestPath?: string,
+    ): ReadonlyArray<Cookie> | false;
 
     /**
      * get a cookie with the name and access_info matching

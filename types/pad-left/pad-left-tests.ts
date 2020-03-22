@@ -1,3 +1,3 @@
-import padLeft = require("pad-left");
+import padLeft = require('pad-left');
 
-padLeft("a", 2); // $ExpectType string
+padLeft('a', 2); // $ExpectType string

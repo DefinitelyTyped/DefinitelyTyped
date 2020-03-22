@@ -7,5 +7,5 @@ declare namespace PanelHeading {
         bsClass?: string;
     }
 }
-declare class PanelHeading extends React.Component<PanelHeading.PanelHeadingProps> { }
+declare class PanelHeading extends React.Component<PanelHeading.PanelHeadingProps> {}
 export = PanelHeading;

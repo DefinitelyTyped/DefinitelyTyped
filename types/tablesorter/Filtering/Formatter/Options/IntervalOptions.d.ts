@@ -1,4 +1,4 @@
-import { NumericOptions } from "./NumericOptions";
+import { NumericOptions } from './NumericOptions';
 
 /**
  * Provides options for interval filter-controls.

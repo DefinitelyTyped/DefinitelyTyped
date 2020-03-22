@@ -3,7 +3,7 @@ import gulpConcat = require('gulp-concat');
 import gulpLoadPlugins = require('gulp-load-plugins');
 
 interface GulpPlugins extends IGulpPlugins {
-	concat: typeof gulpConcat;
+    concat: typeof gulpConcat;
 }
 
 var plugins = gulpLoadPlugins<GulpPlugins>({
@@ -13,14 +13,12 @@ var plugins = gulpLoadPlugins<GulpPlugins>({
     replaceString: /^gulp(-|\.)/,
     camelize: true,
     lazy: true,
-    rename: {}
+    rename: {},
 });
 plugins = gulpLoadPlugins<GulpPlugins>();
 
 gulp.task('taskName', () => {
-	gulp.src('*.*')
-		.pipe(plugins.concat('concatenated.js'))
-		.pipe(gulp.dest('output'));
+    gulp.src('*.*').pipe(plugins.concat('concatenated.js')).pipe(gulp.dest('output'));
 });
 
 /*
@@ -29,9 +27,9 @@ gulp.task('taskName', () => {
  *  sass :
  */
 plugins = gulpLoadPlugins<GulpPlugins>({
-	rename: {
-		'gulp-ruby-sass': 'sass'
-	}
+    rename: {
+        'gulp-ruby-sass': 'sass',
+    },
 });
 /*
  * gulp-load-plugins  comes with npm scope support. The major difference is that scoped
@@ -40,9 +38,9 @@ plugins = gulpLoadPlugins<GulpPlugins>({
  * shown in the following example:
  */
 interface GulpPlugins {
-	myco: {
-		testPlugin(): NodeJS.ReadWriteStream;
-	}
+    myco: {
+        testPlugin(): NodeJS.ReadWriteStream;
+    };
 }
 
 plugins.myco.testPlugin();

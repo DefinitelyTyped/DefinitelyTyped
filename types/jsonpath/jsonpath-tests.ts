@@ -22,7 +22,9 @@ jp.value(data, '$.store..price', 12.5);
 var parent = jp.parent(data, '$.store..price');
 
 // jp.apply()
-var nodes = jp.apply(data, '$..author', (value: string) => { return value.toUpperCase() });
+var nodes = jp.apply(data, '$..author', (value: string) => {
+    return value.toUpperCase();
+});
 
 // jp.parse()
 var path = jp.parse('$..author');

@@ -19,7 +19,7 @@ interface Item {
 }
 
 const getItems = (count: number): Item[] => {
-    return Array.from({ length: count }, (v, k) => k).map(k => ({
+    return Array.from({ length: count }, (v, k) => k).map((k) => ({
         id: `item-${k}`,
         content: `item ${k}`,
     }));

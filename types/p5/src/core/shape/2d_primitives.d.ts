@@ -44,7 +44,7 @@ declare module '../../../index' {
             start: number,
             stop: number,
             mode?: ARC_MODE,
-            detail?: number
+            detail?: number,
         ): p5;
 
         /**
@@ -209,7 +209,7 @@ declare module '../../../index' {
             z3: number,
             x4: number,
             y4: number,
-            z4: number
+            z4: number,
         ): p5;
 
         /**

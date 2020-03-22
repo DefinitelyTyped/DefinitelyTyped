@@ -36,9 +36,9 @@ For a service `foo` and trigger `bar`, there should ideally be
 a file `trigger/foo-bar.d.ts` containing something like:
 
 ```ts
-import { Callback, Handler } from "../handler";
+import { Callback, Handler } from '../handler';
 
-import { FooCommonType } from "../common/foo";
+import { FooCommonType } from '../common/foo';
 
 export type FooBarHandler = Handler<FooBarEvent, FooBarResult>;
 export type FooBarCallback = Callback<FooBarResult>;
@@ -46,15 +46,15 @@ export type FooBarCallback = Callback<FooBarResult>;
 export type FooBarHandler = Handler<FooBarEvent, void>;
 
 export interface FooBarEvent {
-  // ...
+    // ...
 }
 
 export interface FooBarEventSpecificType {
-  // ...
+    // ...
 }
 
 export interface FooBarResult {
-  // ...
+    // ...
 }
 
 export interface FooBarResultSpecificType {
@@ -164,26 +164,26 @@ prepared to make a decently strong case for why this is an exception.
 
 ## Future ideas
 
-* Adding JSDocs for types and properties (copied from AWS docs?). Many
-  triggers have unintuitive formats and requirements.
+-   Adding JSDocs for types and properties (copied from AWS docs?). Many
+    triggers have unintuitive formats and requirements.
 
-* Splitting `import { Context, FooBarHandler, FooCommonType } from "aws-lambda"` into
+-   Splitting `import { Context, FooBarHandler, FooCommonType } from "aws-lambda"` into
 
-  * `import { Context } from "@aws-lambda/runtime"` and
-  * `import { BarHandler, CommonType } from "@aws-lambda/foo"`
+    -   `import { Context } from "@aws-lambda/runtime"` and
+    -   `import { BarHandler, CommonType } from "@aws-lambda/foo"`
 
-  With forwarding from the current package to preserve back-compat.
-  This would allow not only more fine-grained dependencies, but also
-  support backward-incompatible changes to triggers as they could be
-  independently major versioned.
+    With forwarding from the current package to preserve back-compat.
+    This would allow not only more fine-grained dependencies, but also
+    support backward-incompatible changes to triggers as they could be
+    independently major versioned.
 
-  It's a lot of busywork to do all that renaming though, and ensuring
-  compatibility is kept.
+    It's a lot of busywork to do all that renaming though, and ensuring
+    compatibility is kept.
 
-* Possibly related to the above, migrating this to, or somehow in support of,
-  an npm package with runtime support for implementing handlers correctly.
-  For example, catching and formatting `ClientError` into an API Gateway
-  400 error, or parsing CloudWatch log payloads.
+-   Possibly related to the above, migrating this to, or somehow in support of,
+    an npm package with runtime support for implementing handlers correctly.
+    For example, catching and formatting `ClientError` into an API Gateway
+    400 error, or parsing CloudWatch log payloads.
 
-  This one is much more fraught, as it by default loses all the existing
-  DefinitelyTyped tooling and community support (e.g. cross package typing).
+    This one is much more fraught, as it by default loses all the existing
+    DefinitelyTyped tooling and community support (e.g. cross package typing).

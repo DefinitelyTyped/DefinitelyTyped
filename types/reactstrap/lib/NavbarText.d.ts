@@ -8,5 +8,5 @@ export interface NavbarTextProps extends React.HTMLProps<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class NavbarText<T = {[key: string]: any}> extends React.Component<NavbarTextProps> {}
+declare class NavbarText<T = { [key: string]: any }> extends React.Component<NavbarTextProps> {}
 export default NavbarText;

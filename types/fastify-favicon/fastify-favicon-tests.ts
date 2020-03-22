@@ -1,5 +1,5 @@
-import fastifyFavicon = require("fastify-favicon");
+import fastifyFavicon = require('fastify-favicon');
 
 const options: fastifyFavicon.FastifyFaviconOptions = {
-  path: './public',
+    path: './public',
 };

@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Text } from "react-native";
-import { NativeRouter, Link } from "react-router-native";
-import { Navigation, Card } from "react-router-navigation";
+import * as React from 'react';
+import { Text } from 'react-native';
+import { NativeRouter, Link } from 'react-router-native';
+import { Navigation, Card } from 'react-router-navigation';
 
 const App = () => (
     <NativeRouter>

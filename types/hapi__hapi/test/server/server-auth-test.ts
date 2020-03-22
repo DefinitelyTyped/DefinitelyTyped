@@ -1,7 +1,7 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-await-serverauthteststrategy-request
 //      https://github.com/hapijs/hapi/blob/master/API.md#-serverauthschemename-scheme
-import { Request, ResponseToolkit, Server, ServerAuthScheme, ServerAuthSchemeOptions } from "@hapi/hapi";
-import * as Boom from "@hapi/boom";
+import { Request, ResponseToolkit, Server, ServerAuthScheme, ServerAuthSchemeOptions } from '@hapi/hapi';
+import * as Boom from '@hapi/boom';
 
 declare module '@hapi/hapi' {
     interface AuthCredentials {
@@ -21,8 +21,8 @@ const scheme: ServerAuthScheme = (server, options) => {
             if (!authorization) {
                 throw Boom.unauthorized(null, 'Custom');
             }
-            return h.authenticated({ credentials: { name: 'john', } });
-        }
+            return h.authenticated({ credentials: { name: 'john' } });
+        },
     };
 };
 
@@ -39,7 +39,7 @@ server.route({
         } catch (err) {
             return { status: false };
         }
-    }
+    },
 });
 
 server.start();

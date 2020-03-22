@@ -70,7 +70,7 @@ export interface googlePayCreateOptions {
 }
 
 export interface paypalCreateOptions {
-    flow: "checkout" | "vault";
+    flow: 'checkout' | 'vault';
     amount?: string | number;
     currency?: string;
     buttonStyle?: string;
@@ -90,14 +90,14 @@ export interface venmoCreateOptions {
 export interface Dropin {
     clearSelectedPaymentMethod(): void;
     isPaymentMethodRequestable(): boolean;
-    on(event: "noPaymentMethodRequestable", handler: () => void): void;
+    on(event: 'noPaymentMethodRequestable', handler: () => void): void;
     on(
-        event: "paymentMethodRequestable",
-        handler: (payload: { type: "CreditCard" | "PayPalAccount"; paymentMethodIsSelected: boolean }) => void
+        event: 'paymentMethodRequestable',
+        handler: (payload: { type: 'CreditCard' | 'PayPalAccount'; paymentMethodIsSelected: boolean }) => void,
     ): void;
     on(
-        event: "paymentOptionSelected",
-        handler: (payload: { paymentOption: "card" | "paypal" | "paypalCredit" }) => void
+        event: 'paymentOptionSelected',
+        handler: (payload: { paymentOption: 'card' | 'paypal' | 'paypalCredit' }) => void,
     ): void;
     requestPaymentMethod(callback: (error: object | null, payload: PaymentMethodPayload | undefined) => void): void;
     requestPaymentMethod(): Promise<PaymentMethodPayload>;
@@ -108,7 +108,7 @@ export interface Dropin {
 export interface PaymentMethodPayload {
     nonce: string;
     details: object;
-    type: "CreditCard" | "PayPalAccount" | "VenmoAccount" | "AndroidPayCard" | "ApplePayCard";
+    type: 'CreditCard' | 'PayPalAccount' | 'VenmoAccount' | 'AndroidPayCard' | 'ApplePayCard';
     deviceData: string | null;
     [key: string]: any;
 }

@@ -3,7 +3,6 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export interface OsmToGeoJSON {
     (data: Document | OsmJSON.OsmJSONObject, options?: Options): GeoJSON.GeoJSONObject;
     toGeojson(data: Document | OsmJSON.OsmJSONObject, options?: Options): GeoJSON.GeoJSONObject;
@@ -18,7 +17,7 @@ export interface Options {
     /**
      * Either a blacklist of tag keys or a callback function. Will be used to decide if a feature is interesting enough for its own GeoJSON feature.
      */
-    uninterestingTags?: { [tag: string]: boolean; } | Function; //TODO: type function
+    uninterestingTags?: { [tag: string]: boolean } | Function; //TODO: type function
     /**
      * Either a json object or callback function that is used to determine if a closed way should be treated as a Polygon or LineString.
      */
@@ -61,7 +60,7 @@ export declare namespace OsmJSON {
     export interface Element {
         type: string;
         id: number;
-        tags?: { [name: string]: string; }
+        tags?: { [name: string]: string };
         timestamp?: string;
         version?: number;
         changeset?: number;

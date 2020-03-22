@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Revalidator {
-
     interface IOptions {
         /** Enforce format constraints (default true) */
         validateFormats?: boolean;
@@ -23,7 +22,18 @@ declare module Revalidator {
     }
 
     type Types = 'string' | 'number' | 'integer' | 'array' | 'boolean' | 'object' | 'null' | 'any';
-    type Formats = 'url' | 'email' | 'ip-address' | 'ipv6' | 'date-time' | 'date' | 'time' | 'color' | 'host-name' | 'utc-millisec' | 'regex';
+    type Formats =
+        | 'url'
+        | 'email'
+        | 'ip-address'
+        | 'ipv6'
+        | 'date-time'
+        | 'date'
+        | 'time'
+        | 'color'
+        | 'host-name'
+        | 'utc-millisec'
+        | 'regex';
 
     interface IErrrorProperty {
         property: string;
@@ -42,16 +52,16 @@ declare module Revalidator {
     }
 
     interface ISchemas<T> {
-        [index: string]: ISchema<T>|JSONSchema<T>;
+        [index: string]: ISchema<T> | JSONSchema<T>;
     }
 
     interface ISchema<T> {
         /**The type of value should be equal to the expected value */
-        type: Types|Types[];
+        type: Types | Types[];
         /**If true, the value should not be undefined */
         required?: boolean;
         /**The expected value regex needs to be satisfied by the value */
-        pattern?: RegExp|string;
+        pattern?: RegExp | string;
         /**The length of value must be greater than or equal to expected value */
         maxLength?: number;
         /**Description for this object */
@@ -81,7 +91,7 @@ declare module Revalidator {
         /**Custom messages for different constraints */
         message?: string;
         /**Custom messages for different constraints */
-        messages?: {[index: string]: string};
+        messages?: { [index: string]: string };
         /**Default value */
         default?: any;
         /**Value must be a valid format */
@@ -91,12 +101,12 @@ declare module Revalidator {
         /**Value is valid only if the dependent value is valid */
         dependencies?: string;
         /**Property to describe items for type: 'array' */
-        items?: ISchema<T>|JSONSchema<T>
+        items?: ISchema<T> | JSONSchema<T>;
     }
 }
 
 declare var revalidator: Revalidator.RevalidatorStatic;
 
-declare module "revalidator" {
+declare module 'revalidator' {
     export = revalidator;
 }

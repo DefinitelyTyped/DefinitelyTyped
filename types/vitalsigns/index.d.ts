@@ -6,8 +6,8 @@
 
 ///<reference types="express"/>
 
-declare module "vitalsigns" {
-    import { RequestHandler } from "express";
+declare module 'vitalsigns' {
+    import { RequestHandler } from 'express';
 
     namespace vitalsigns {
         /**
@@ -139,7 +139,7 @@ declare module "vitalsigns" {
          * @constructors
          * @param {Options} [options] Options.
          */
-        constructor (options?: vitalsigns.Options);
+        constructor(options?: vitalsigns.Options);
 
         /**
          * Pushes a health constraint onto this instance's constraint array.

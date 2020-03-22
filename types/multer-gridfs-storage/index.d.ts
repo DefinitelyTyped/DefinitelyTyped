@@ -43,7 +43,11 @@ declare class MulterGridfsStorage extends EventEmitter implements Multer.Storage
 
     constructor(configuration: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.DbStorageOptions);
 
-    _handleFile(req: Express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+    _handleFile(
+        req: Express.Request,
+        file: Express.Multer.File,
+        callback: (error?: any, info?: Express.Multer.File) => void,
+    ): void;
 
     _removeFile(req: Express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
 
@@ -51,7 +55,7 @@ declare class MulterGridfsStorage extends EventEmitter implements Multer.Storage
 
     static cache: Cache;
 
-    static generateBytes(): Promise<{filename: string}>;
+    static generateBytes(): Promise<{ filename: string }>;
 }
 
 declare namespace MulterGridfsStorage {

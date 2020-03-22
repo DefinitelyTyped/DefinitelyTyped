@@ -31,7 +31,9 @@ const extendOptions4: CoreObject.ExtendOptions<{ a: number }> = { a: 'hi' }; // 
 
 //////////// ExtendThisType ////////////
 
-declare function extendThisType1<T>(options: T & CoreObject.ExtendThisType<{ prop: string; method: () => number }, T>): void;
+declare function extendThisType1<T>(
+    options: T & CoreObject.ExtendThisType<{ prop: string; method: () => number }, T>,
+): void;
 extendThisType1({
     otherMethod() {
         this.prop; // $ExpectType string
@@ -39,7 +41,7 @@ extendThisType1({
 
         this._super.method.call(this); // $ExpectType number
         this._super.random; // $ExpectError
-    }
+    },
 });
 
 //////////// CoreObject ////////////
@@ -49,7 +51,7 @@ const A = CoreObject.extend({
 
     method(): string {
         return this.foo;
-    }
+    },
 });
 
 const a = new A();
@@ -62,7 +64,7 @@ const B = A.extend({
 
     other(): string {
         return this._super.method.call(this) + this.foo;
-    }
+    },
 });
 
 const b = new B();
@@ -74,7 +76,7 @@ b.other(); // $ExpectType string
 class ClassWithMethods extends CoreObject.extend({
     extendMethod(arg: number): string {
         return 'ok';
-    }
+    },
 }) {
     esMethod(arg: string): number {
         return 123;
@@ -91,7 +93,7 @@ const ExtendSubclass = ClassWithMethods.extend({
 
         this._super.esMethod.call(this, 'hi'); // $ExpectType number
         this._super.esMethod.apply(this, ['hi']); // $ExpectType number
-    }
+    },
 });
 
 class ESSubclass extends ClassWithMethods {
@@ -119,7 +121,7 @@ ClassWithMethods.extend({
         const result = this._super.esMethod.call(this, arg);
         result; // $ExpectType number
         return result;
-    }
+    },
 });
 
 declare class ClassWithManyMethods extends CoreObject {
@@ -159,5 +161,5 @@ ClassWithManyMethods.extend({
         // Arity 4 is as high as we go for arg checking
         this._super.method5.call(this, 'foo', 'bar', 'baz'); // $ExpectType 5
         this._super.method5.apply(this, ['foo', 'bar', 'baz']); // $ExpectType 5
-    }
+    },
 });

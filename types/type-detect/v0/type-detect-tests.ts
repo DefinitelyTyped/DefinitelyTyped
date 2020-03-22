@@ -1,4 +1,3 @@
-
 import td = require('type-detect');
 
 var str: string;
@@ -11,9 +10,7 @@ var lib: td.Library = new td.Library();
 
 lib.define(str, /aa/);
 lib.define(str, (val) => {
-	return bool;
+    return bool;
 });
 str = lib.of(x);
 bool = lib.test(x, str);
-
-

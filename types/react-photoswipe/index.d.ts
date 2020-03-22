@@ -182,6 +182,6 @@ export interface PhotoSwipeGalleryProps extends Omit<PhotoSwipeProps, 'isOpen'> 
     thumbnailContent: (item: PhotoSwipeGalleryItem) => React.ReactNode;
 }
 
-export class PhotoSwipe extends React.Component<PhotoSwipeProps> { }
+export class PhotoSwipe extends React.Component<PhotoSwipeProps> {}
 
-export class PhotoSwipeGallery extends React.Component<PhotoSwipeGalleryProps> { }
+export class PhotoSwipeGallery extends React.Component<PhotoSwipeGalleryProps> {}

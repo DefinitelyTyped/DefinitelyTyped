@@ -14,7 +14,7 @@ export namespace Checkout {
         UPDATED = 4,
         UNTRACKED = 8,
         IGNORED = 16,
-        ALL = 65535
+        ALL = 65535,
     }
 
     const enum STRATEGY {
@@ -39,7 +39,7 @@ export namespace Checkout {
         DONT_REMOVE_EXISTING = 4194304,
         DONT_WRITE_INDEX = 8388608,
         UPDATE_SUBMODULES = 65536,
-        UPDATE_SUBMODULES_IF_CHANGED = 131072
+        UPDATE_SUBMODULES_IF_CHANGED = 131072,
     }
 }
 

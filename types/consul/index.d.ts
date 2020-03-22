@@ -6,12 +6,9 @@
 
 /// <reference types="node" />
 
-
-
-import { IncomingMessage as HttpIncomingMessage } from "http";
+import { IncomingMessage as HttpIncomingMessage } from 'http';
 
 declare namespace Consul {
-
     interface Thenable<T> {
         then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
         then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
@@ -39,7 +36,6 @@ declare namespace Consul {
     }
 
     namespace Acl {
-
         interface CreateOptions extends CommonOptions {
             name?: string;
             type?: string;
@@ -61,13 +57,13 @@ declare namespace Consul {
             id: string;
         }
 
-        interface GetOptions extends InfoOptions { }
+        interface GetOptions extends InfoOptions {}
 
         interface CloneOptions extends CommonOptions {
             id: string;
         }
 
-        interface ListOptions extends CommonOptions { }
+        interface ListOptions extends CommonOptions {}
     }
 
     interface Acl {
@@ -88,7 +84,7 @@ declare namespace Consul {
         update: {
             <TData>(opts: Acl.UpdateOptions, callback: Callback<TData>): void;
             <TData>(opts: Acl.UpdateOptions): Thenable<TData>;
-        }
+        };
 
         /**
          * Destroys a given token
@@ -141,10 +137,8 @@ declare namespace Consul {
     }
 
     namespace Agent {
-
         namespace Check {
-
-            interface ListOptions extends CommonOptions { }
+            interface ListOptions extends CommonOptions {}
 
             interface RegisterOptions extends CommonOptions {
                 name: string;
@@ -244,7 +238,6 @@ declare namespace Consul {
         }
 
         namespace Service {
-
             interface RegisterCheck {
                 http?: string;
                 script?: string;
@@ -254,7 +247,7 @@ declare namespace Consul {
                 status?: string;
             }
 
-            interface ListOptions extends CommonOptions { }
+            interface ListOptions extends CommonOptions {}
 
             interface RegisterOptions extends CommonOptions {
                 name: string;
@@ -322,15 +315,15 @@ declare namespace Consul {
             new (consul: Consul): Service;
         }
 
-        interface ChecksOptions extends Check.ListOptions { }
+        interface ChecksOptions extends Check.ListOptions {}
 
-        interface ServicesOptions extends Service.ListOptions { }
+        interface ServicesOptions extends Service.ListOptions {}
 
         interface MembersOptions extends CommonOptions {
             wan?: boolean;
         }
 
-        interface SelfOptions extends CommonOptions { }
+        interface SelfOptions extends CommonOptions {}
 
         interface MaintenanceOptions extends CommonOptions {
             enable: boolean;
@@ -427,9 +420,7 @@ declare namespace Consul {
     }
 
     namespace Catalog {
-
         namespace Node {
-
             interface ListOptions extends CommonOptions {
                 dc?: string;
             }
@@ -469,7 +460,6 @@ declare namespace Consul {
         }
 
         namespace Service {
-
             interface ListOptions extends CommonOptions {
                 dc?: string;
             }
@@ -480,8 +470,6 @@ declare namespace Consul {
                 tag?: string;
             }
         }
-
-
 
         interface Service {
             consul: Consul;
@@ -512,11 +500,11 @@ declare namespace Consul {
             new (consul: Consul): Service;
         }
 
-        interface DatacentersOptions extends CommonOptions { }
+        interface DatacentersOptions extends CommonOptions {}
 
-        interface NodesOptions extends Node.ListOptions { }
+        interface NodesOptions extends Node.ListOptions {}
 
-        interface ServicesOptions extends Service.ListOptions { }
+        interface ServicesOptions extends Service.ListOptions {}
     }
 
     interface Catalog {
@@ -564,7 +552,6 @@ declare namespace Consul {
     }
 
     namespace Event {
-
         interface FireOptions extends CommonOptions {
             name: string;
             payload: string | Buffer;
@@ -610,7 +597,6 @@ declare namespace Consul {
     }
 
     namespace Health {
-
         interface NodeOptions extends CommonOptions {
             node: string;
             dc?: string;
@@ -684,7 +670,6 @@ declare namespace Consul {
     }
 
     namespace Kv {
-
         interface GetOptions extends CommonOptions {
             key: string;
             dc?: string;
@@ -718,7 +703,7 @@ declare namespace Consul {
             cas?: string;
         }
 
-        interface DeleteOptions extends DelOptions { }
+        interface DeleteOptions extends DelOptions {}
     }
 
     interface Kv {
@@ -779,7 +764,6 @@ declare namespace Consul {
     }
 
     namespace Lock {
-
         interface Options {
             key: string;
             session?: Object | string;
@@ -808,7 +792,6 @@ declare namespace Consul {
     }
 
     namespace Session {
-
         interface CreateOptions extends CommonOptions {
             dc?: string;
             lockdelay?: string;
@@ -829,7 +812,7 @@ declare namespace Consul {
             dc?: string;
         }
 
-        interface GetOptions extends InfoOptions { }
+        interface GetOptions extends InfoOptions {}
 
         interface NodeOptions extends CommonOptions {
             node: string;
@@ -845,7 +828,6 @@ declare namespace Consul {
             dc?: string;
         }
     }
-
 
     interface Session {
         consul: Consul;
@@ -920,10 +902,9 @@ declare namespace Consul {
     }
 
     namespace Status {
+        interface LeaderOptions extends CommonOptions {}
 
-        interface LeaderOptions extends CommonOptions { }
-
-        interface PeersOptions extends CommonOptions { }
+        interface PeersOptions extends CommonOptions {}
     }
 
     interface Status {
@@ -953,7 +934,6 @@ declare namespace Consul {
     }
 
     namespace Watch {
-        
         interface WatchOptions {
             key?: string;
         }

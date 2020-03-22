@@ -5,27 +5,29 @@ $(() => {
 
     $('#cp3').colorpicker({
         color: '#AA3399',
-        format: 'rgb'
+        format: 'rgb',
     });
 
-    $('#cp4').colorpicker().on('changeColor', (e) => {
-        $('body')[0].style.backgroundColor = e.color.toString('rgba');
-    });
+    $('#cp4')
+        .colorpicker()
+        .on('changeColor', (e) => {
+            $('body')[0].style.backgroundColor = e.color.toString('rgba');
+        });
 
     $('#cp5').colorpicker({
-        color: "transparent",
-        format: "hex"
+        color: 'transparent',
+        format: 'hex',
     });
 
     $('#cp6').colorpicker({
-        color: "#88cc33",
-        horizontal: true
+        color: '#88cc33',
+        horizontal: true,
     });
 
     $('#cp7').colorpicker({
         color: '#ffaa00',
         container: true,
-        inline: true
+        inline: true,
     });
 
     $('#cp8').colorpicker({
@@ -38,8 +40,8 @@ $(() => {
             success: '#5cb85c',
             info: '#5bc0de',
             warning: '#f0ad4e',
-            danger: '#d9534f'
-        }
+            danger: '#d9534f',
+        },
     });
 
     $('#cp9').colorpicker({
@@ -47,15 +49,15 @@ $(() => {
         sliders: {
             saturation: {
                 maxLeft: 200,
-                maxTop: 200
+                maxTop: 200,
             },
             hue: {
-                maxTop: 200
+                maxTop: 200,
             },
             alpha: {
-                maxTop: 200
-            }
-        }
+                maxTop: 200,
+            },
+        },
     });
 
     $('.disable-button').click((e) => {
@@ -71,7 +73,6 @@ $(() => {
     });
 
     $('#cp10').colorpicker();
-
 
     $('#cp11').colorpicker();
 });

@@ -1,6 +1,6 @@
-import csvrow = require("csvrow");
+import csvrow = require('csvrow');
 
-let row = "a,b,c";
+let row = 'a,b,c';
 let columns: string[];
 
 columns = csvrow.parse(row);

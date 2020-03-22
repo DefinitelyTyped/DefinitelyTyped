@@ -1,2 +1,2 @@
-import { tail } from "../fp";
+import { tail } from '../fp';
 export = tail;

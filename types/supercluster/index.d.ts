@@ -120,7 +120,10 @@ declare namespace Supercluster {
 /**
  * A very fast geospatial point clustering library for browsers and Node.
  */
-declare class Supercluster<P extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps, C extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps> {
+declare class Supercluster<
+    P extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps,
+    C extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps
+> {
     constructor(options?: Supercluster.Options<P, C>);
 
     /**

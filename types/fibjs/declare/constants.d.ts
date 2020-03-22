@@ -7,14 +7,10 @@
  *                                                                         *
  ***************************************************************************/
 
-/** 
+/**
  * @author Richard <richardo2016@gmail.com>
  *
  */
-
-
-
-
 
 /// <reference path="Buffer.d.ts" />
 
@@ -192,26 +188,14 @@
 
 /// <reference path="object.d.ts" />
 
-
-
 /** module Or Internal Object */
 /**
-	* @brief 常用常量定义模块
-	* @detail 引用方法：,```JavaScript,var constants = require('constants');,```
-	*/
-declare module "constants" {
-	
-
-	module constants {
-		
-		
-		
-		
-		
-	} /** end of `module constants` */
-	export = constants
+ * @brief 常用常量定义模块
+ * @detail 引用方法：,```JavaScript,var constants = require('constants');,```
+ */
+declare module 'constants' {
+    module constants {} /** end of `module constants` */
+    export = constants;
 }
 
 /** endof `module Or Internal Object` */
-
-

@@ -1,33 +1,33 @@
 // $ExpectType void
-ineum("key", "key");
+ineum('key', 'key');
 // $ExpectType void
-ineum("reportingUrl", "reportingUrl");
+ineum('reportingUrl', 'reportingUrl');
 // $ExpectType void
-ineum("page", "pageName");
+ineum('page', 'pageName');
 // $ExpectType void
-ineum("user", "userId", "userName", "userEmail");
+ineum('user', 'userId', 'userName', 'userEmail');
 // $ExpectType void
-ineum("meta", "key", "value");
+ineum('meta', 'key', 'value');
 // $ExpectType void
-ineum("traceId", "traceId");
+ineum('traceId', 'traceId');
 // $ExpectType void
-ineum("ignoreUrls", [/regex/]);
+ineum('ignoreUrls', [/regex/]);
 // $ExpectType void
-ineum("autoClearResourceTimings", true);
+ineum('autoClearResourceTimings', true);
 // $ExpectType void
-ineum("reportError", "error");
+ineum('reportError', 'error');
 // $ExpectType void
-ineum("reportError", "error", {
-    componentStack: "stack"
+ineum('reportError', 'error', {
+    componentStack: 'stack',
 });
 // $ExpectType void
-ineum("ignoreErrorMessages", [/regex/]);
+ineum('ignoreErrorMessages', [/regex/]);
 // $ExpectType void
-ineum("wrapEventHandlers", true);
+ineum('wrapEventHandlers', true);
 // $ExpectType void
-ineum("wrapTimers", true);
+ineum('wrapTimers', true);
 // $ExpectType void
-ineum("whitelistedOrigins", [/regex/]);
+ineum('whitelistedOrigins', [/regex/]);
 
 // $ExpectType string | undefined
-ineum("getPageLoadId");
+ineum('getPageLoadId');

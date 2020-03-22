@@ -1,5 +1,5 @@
-import { FetchListenerOptions } from "./types/FetchListenerOptions";
+import { FetchListenerOptions } from './types/FetchListenerOptions';
 
 export function addRoute(options?: FetchListenerOptions): void;
 
-export * from "./types/FetchListenerOptions";
+export * from './types/FetchListenerOptions';

@@ -25,11 +25,17 @@ let size: [number, number];
 
 let hexbin: d3Hexbin.Hexbin<[number, number]>;
 let hexbinBins: Array<d3Hexbin.HexbinBin<[number, number]>>;
-const data: Array<[number, number]> = [[10, 20], [30, 10]];
+const data: Array<[number, number]> = [
+    [10, 20],
+    [30, 10],
+];
 
 let pointHexbin: d3Hexbin.Hexbin<Point>;
 let pointHexbinBins: Array<d3Hexbin.HexbinBin<Point>>;
-const pointData: Point[] = [{x: 10, y: 20}, {x: 30, y: 10}];
+const pointData: Point[] = [
+    { x: 10, y: 20 },
+    { x: 30, y: 10 },
+];
 
 let pointAccessor: (d: Point) => number;
 
@@ -51,13 +57,13 @@ pointHexbin = d3Hexbin.hexbin<Point>();
 
 // x(...) ---------------------------------------------------------------------
 
-pointHexbin = pointHexbin.x(d => d.x);
+pointHexbin = pointHexbin.x((d) => d.x);
 
 pointAccessor = pointHexbin.x();
 
 // y(...) ---------------------------------------------------------------------
 
-pointHexbin = pointHexbin.y(d => d.y);
+pointHexbin = pointHexbin.y((d) => d.y);
 
 pointAccessor = pointHexbin.x();
 
@@ -81,7 +87,10 @@ num = hexbin.radius();
 
 // extent(...) ----------------------------------------------------------------
 
-hexbin = hexbin.extent([[0, 0], [1, 1]]);
+hexbin = hexbin.extent([
+    [0, 0],
+    [1, 1],
+]);
 
 extent = hexbin.extent();
 

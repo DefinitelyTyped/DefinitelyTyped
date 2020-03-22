@@ -16,17 +16,12 @@ export interface BrowserSupport {
 
 export function getSupport(feature: string): BrowserSupport;
 
-export function isSupported(
-    feature: string,
-    browsers: string | ReadonlyArray<string>
-): boolean;
+export function isSupported(feature: string, browsers: string | ReadonlyArray<string>): boolean;
 
 export function find(query: string): string[];
 
 export function getLatestStableBrowsers(): string[];
 
-export function setBrowserScope(
-    browserscope: string | ReadonlyArray<string>
-): void;
+export function setBrowserScope(browserscope: string | ReadonlyArray<string>): void;
 
 export function getBrowserScope(): string[];

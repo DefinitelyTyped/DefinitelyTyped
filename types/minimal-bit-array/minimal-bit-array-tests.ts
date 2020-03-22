@@ -1,4 +1,4 @@
-import * as BitArray from "minimal-bit-array";
+import * as BitArray from 'minimal-bit-array';
 
 new BitArray('abc'); // $ExpectError
 const bitArray: BitArray = new BitArray(123);

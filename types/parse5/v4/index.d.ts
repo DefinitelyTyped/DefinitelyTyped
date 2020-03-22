@@ -6,7 +6,7 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-import * as stream from "stream";
+import * as stream from 'stream';
 
 // Markup data
 //-----------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ declare namespace MarkupData {
         /**
          * Start tag attributes' location info
          */
-        attrs: AttributesLocation
+        attrs: AttributesLocation;
     }
 
     interface ElementLocation extends StartTagLocation {
@@ -91,7 +91,6 @@ declare namespace Options {
         treeAdapter?: AST.TreeAdapter;
     }
 }
-
 
 // AST
 //-----------------------------------------------------------------------------------
@@ -266,7 +265,6 @@ declare namespace AST {
         }
     }
 
-
     // htmlparser2 tree adapter
     namespace HtmlParser2 {
         /**
@@ -348,7 +346,7 @@ declare namespace AST {
             /**
              * Document type name.
              */
-            'x-name':string;
+            'x-name': string;
             /**
              * Document type public identifier.
              */
@@ -470,7 +468,6 @@ declare namespace AST {
         }
     }
 
-
     // Unions
     // NOTE: we use `Object` in unions to support custom tree adapter implementations.
     // TypeScript Handbook suggests to always use `any` instead of `Object`, but in that
@@ -515,7 +512,6 @@ declare namespace AST {
      * Cast to the actual AST interface (e.g. {@link parse5.AST.Default.CommentNode}) to get access to the properties.
      */
     type CommentNode = Default.CommentNode | HtmlParser2.CommentNode | Object;
-
 
     // Tree adapter interface
     //-----------------------------------------------------------------------------------
@@ -727,7 +723,6 @@ declare namespace AST {
     }
 }
 
-
 // Included tree adapters
 //-----------------------------------------------------------------------------------
 
@@ -754,14 +749,13 @@ export var treeAdapters: {
     /**
      * Default tree format for parse5.
      */
-    default: AST.TreeAdapter,
+    default: AST.TreeAdapter;
     /**
      * Quite popular [htmlparser2](https://github.com/fb55/htmlparser2) tree format
      * (e.g. used by [cheerio](https://github.com/MatthewMueller/cheerio) and [jsdom](https://github.com/tmpvar/jsdom)).
      */
-    htmlparser2: AST.TreeAdapter
+    htmlparser2: AST.TreeAdapter;
 };
-
 
 // Shorthand methods
 //-----------------------------------------------------------------------------------
@@ -806,7 +800,11 @@ export function parse(html: string, options?: Options.ParserOptions): AST.Docume
  * console.log(trFragment.childNodes[0].childNodes[0].tagName); //> 'td'
  * ```
  */
-export function parseFragment(fragmentContext: AST.Element, html: string, options?: Options.ParserOptions): AST.DocumentFragment;
+export function parseFragment(
+    fragmentContext: AST.Element,
+    html: string,
+    options?: Options.ParserOptions,
+): AST.DocumentFragment;
 export function parseFragment(html: string, options?: Options.ParserOptions): AST.DocumentFragment;
 
 /**
@@ -832,7 +830,6 @@ export function parseFragment(html: string, options?: Options.ParserOptions): AS
  * ```
  */
 export function serialize(node: AST.Node, options?: Options.SerializerOptions): string;
-
 
 // Parser stream
 //-----------------------------------------------------------------------------------
@@ -903,13 +900,15 @@ export class ParserStream extends stream.Writable {
      * parser.end('<script src="example.com/script.js"></script>');
      * ```
      */
-    on(event: 'script', listener: (scriptElement: AST.Element, documentWrite: (html: string) => void, resume: () => void) => void): this;
+    on(
+        event: 'script',
+        listener: (scriptElement: AST.Element, documentWrite: (html: string) => void, resume: () => void) => void,
+    ): this;
     /**
      * WritableStream events
      */
     on(event: string, listener: Function): this;
 }
-
 
 // Plaint text conversion stream
 //-----------------------------------------------------------------------------------
@@ -934,8 +933,7 @@ export class ParserStream extends stream.Writable {
  * file.pipe(converter);
  * ```
  */
-export class PlainTextConversionStream extends ParserStream { }
-
+export class PlainTextConversionStream extends ParserStream {}
 
 // SAX parser
 //-----------------------------------------------------------------------------------
@@ -981,7 +979,15 @@ export class SAXParser extends stream.Transform {
      * @param listener.selfClosing - Indicates if the tag is self-closing.
      * @param listener.location - Start tag source code location info. Available if location info is enabled via {@link Options.SAXParserOptions}.
      */
-    on(event: 'startTag', listener: (name: string, attrs: AST.Default.Attribute[], selfClosing: boolean, location?: MarkupData.StartTagLocation) => void): this;
+    on(
+        event: 'startTag',
+        listener: (
+            name: string,
+            attrs: AST.Default.Attribute[],
+            selfClosing: boolean,
+            location?: MarkupData.StartTagLocation,
+        ) => void,
+    ): this;
     /**
      * Raised then parser encounters an end tag.
      *
@@ -1011,7 +1017,10 @@ export class SAXParser extends stream.Transform {
      * @param listener.systemId - Document type system identifier.
      * @param listener.location - Document type declaration source code location info. Available if location info is enabled via {@link Options.SAXParserOptions}.
      */
-    on(event: 'doctype', listener: (name: string, publicId: string, systemId: string, location?: MarkupData.Location) => void): this;
+    on(
+        event: 'doctype',
+        listener: (name: string, publicId: string, systemId: string, location?: MarkupData.Location) => void,
+    ): this;
     /**
      * TransformStream events
      */
@@ -1046,7 +1055,6 @@ export class SAXParser extends stream.Transform {
      */
     stop(): void;
 }
-
 
 // Serializer stream
 //-----------------------------------------------------------------------------------

@@ -14,7 +14,7 @@ import { Reducer, Action, AnyAction } from 'redux';
 // https://github.com/redux-utilities/flux-standard-action/issues/119
 // below is a minimalistic implementation that should work until the above questions are answered
 export type FSAHack = Action<string> & {
-  payload?: any;
+    payload?: any;
 };
 
 export type AppName = string;
@@ -24,13 +24,11 @@ export type ActionName = string;
 export type ActionType = string; // AppName/DuckName/ActionName or just DuckName/ActionName
 
 // Ducks define FSA actions
-export type ActionCreator<A extends FSAHack> = A extends { payload: any }
-  ? (a: A['payload']) => A
-  : () => A;
+export type ActionCreator<A extends FSAHack> = A extends { payload: any } ? (a: A['payload']) => A : () => A;
 
 // Ducks can listen for any actions (FSA or not)
 export type ActionHandlers<S = any, A extends Action = AnyAction> = {
-  [T in A['type']]?: (x: S, y: Extract<A, { type: T }>) => S;
+    [T in A['type']]?: (x: S, y: Extract<A, { type: T }>) => S;
 };
 
 export interface DuckBuilder<AppAction extends Action = AnyAction> {

@@ -1,4 +1,4 @@
-import * as clarinet from "clarinet";
+import * as clarinet from 'clarinet';
 
 const stream = clarinet.createStream({});
 

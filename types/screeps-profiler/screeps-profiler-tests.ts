@@ -1,26 +1,24 @@
-import profiler = require("screeps-profiler");
+import profiler = require('screeps-profiler');
 
-function testFunction() {
-}
+function testFunction() {}
 
 class TestClass {
     private readonly dummy: string;
 }
 
 const testObj = {
-    foo() {
-    },
+    foo() {},
 };
 
 profiler.enable();
 profiler.wrap(testFunction);
-profiler.registerClass(TestClass, "TestClass");
-profiler.registerObject(testObj, "testObj");
+profiler.registerClass(TestClass, 'TestClass');
+profiler.registerObject(testObj, 'testObj');
 profiler.registerFN(testFunction);
-profiler.registerFN(testFunction, "testFunction");
+profiler.registerFN(testFunction, 'testFunction');
 
 const ticks = 100;
-const filterName = "test";
+const filterName = 'test';
 
 Game.profiler.profile(ticks);
 Game.profiler.profile(ticks, filterName);

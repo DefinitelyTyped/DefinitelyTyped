@@ -6,13 +6,9 @@ interface TOwnProps extends RouteComponentProps {
     username: string;
 }
 
-const ComponentFunction = (props: TOwnProps) => (
-    <h2>Welcome {props.username}</h2>
-);
+const ComponentFunction = (props: TOwnProps) => <h2>Welcome {props.username}</h2>;
 
-const FunctionComponent: React.FunctionComponent<TOwnProps> = props => (
-  <h2>Welcome {props.username}</h2>
-);
+const FunctionComponent: React.FunctionComponent<TOwnProps> = (props) => <h2>Welcome {props.username}</h2>;
 
 class ComponentClass extends React.Component<TOwnProps> {
     render() {
@@ -31,9 +27,7 @@ WithRouterComponentClass.WrappedComponent; // $ExpectType typeof ComponentClass
 // $ExpectError ^3.6.3
 // const WithRouterComponent = withRouter(Component);
 
-const WithRouterTestFunction = () => (
-    <WithRouterComponentFunction username="John" />
-);
+const WithRouterTestFunction = () => <WithRouterComponentFunction username="John" />;
 const OnWrappedRefFn = (ref: ComponentClass | null) => {};
 const WithRouterTestClass = () => <WithRouterComponentClass username="John" wrappedComponentRef={OnWrappedRefFn} />;
 
@@ -52,11 +46,13 @@ const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wra
         issue: number;
     }
 
-    interface State { foo: number; }
+    interface State {
+        foo: number;
+    }
 
     type SomethingToRead = (Book | Magazine) & RouteComponentProps<{}, StaticContext, State>;
 
-    const Readable: React.SFC<SomethingToRead> = props => {
+    const Readable: React.SFC<SomethingToRead> = (props) => {
         props.location.state; // $ExpectType State
         props.history.location.state; // $ExpectType State
 

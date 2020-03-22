@@ -18,20 +18,21 @@ declare module 'karma' {
     }
 
     /** Reporter type */
-    export type ReporterType = 'html' |
-        'lcov' |
-        'lcovonly' |
-        'text' |
-        'text-summary' |
-        'cobertura' |
-        'teamcity' |
-        'json' |
-        'json-summary' |
-        'in-memory' |
-        'none';
+    export type ReporterType =
+        | 'html'
+        | 'lcov'
+        | 'lcovonly'
+        | 'text'
+        | 'text-summary'
+        | 'cobertura'
+        | 'teamcity'
+        | 'json'
+        | 'json-summary'
+        | 'in-memory'
+        | 'none';
 
     interface Reporter {
-        type: ReporterType,
+        type: ReporterType;
         dir?: string;
         subdir?: string | ((browser: string) => string);
         file?: string;

@@ -14,37 +14,40 @@ $.notify.defaults({
     showDuration: 400,
     hideAnimation: 'slideUp',
     hideDuration: 200,
-    gap: 2
+    gap: 2,
 });
 
-$(".elem-demo").notify("Hello Box");
-$.notify("Access granted", "success");
-$.notify("Do not press this button", "info");
+$('.elem-demo').notify('Hello Box');
+$.notify('Access granted', 'success');
+$.notify('Do not press this button', 'info');
 $.notify('hello !!', {
-    style: 'happyblue'
+    style: 'happyblue',
 });
 $.notify('hello !!', {
-    style: 'happyblue'
+    style: 'happyblue',
 });
 //add a new style 'foo'
 $.notify.addStyle('foo', {
     html:
-    "<div>" +
-    "<div class='clearfix'>" +
-    "<div class='title' data-notify-html='title'/>" +
-    "<div class='buttons'>" +
-    "<button class='no'>Cancel</button>" +
-    "<button class='yes' data-notify-text='button'></button>" +
-    "</div>" +
-    "</div>" +
-    "</div>"
+        '<div>' +
+        "<div class='clearfix'>" +
+        "<div class='title' data-notify-html='title'/>" +
+        "<div class='buttons'>" +
+        "<button class='no'>Cancel</button>" +
+        "<button class='yes' data-notify-text='button'></button>" +
+        '</div>' +
+        '</div>' +
+        '</div>',
 });
 
-$.notify({
-    title: 'Would you like some Foo ?',
-    button: 'Confirm'
-}, {
+$.notify(
+    {
+        title: 'Would you like some Foo ?',
+        button: 'Confirm',
+    },
+    {
         style: 'foo',
         autoHide: false,
-        clickToHide: false
-    });
+        clickToHide: false,
+    },
+);

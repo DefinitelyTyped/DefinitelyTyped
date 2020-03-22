@@ -42,13 +42,13 @@ png.bitblt(pngs[1], 1);
 png.bitblt(pngs[1], 1, 1);
 png.bitblt(pngs[1], 1, 1, 1, 1, 1, 1);
 
-png.on('metadata', metadata => {
+png.on('metadata', (metadata) => {
     metadata.bpp === 1;
 });
-png.on('parsed', data => {
+png.on('parsed', (data) => {
     data.byteLength === 1;
 });
-png.on('error', error => {
+png.on('error', (error) => {
     error === new Error('testing');
 });
 png.on('closed', () => {

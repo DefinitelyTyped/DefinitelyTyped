@@ -31,10 +31,10 @@ const isSchemaResult1: boolean = isSchema(schema1);
 const isSchemaResult2: boolean = isSchema({});
 
 // addMethod function
-yup.addMethod<NumberSchema>(yup.number, 'minimum', function(this, minValue: number, message: string) {
+yup.addMethod<NumberSchema>(yup.number, 'minimum', function (this, minValue: number, message: string) {
     return this.min(minValue, message);
 });
-yup.addMethod(yup.date, 'newMethod', function(this: yup.DateSchema, date: Date, message?: string) {
+yup.addMethod(yup.date, 'newMethod', function (this: yup.DateSchema, date: Date, message?: string) {
     return this.max(date, message);
 });
 
@@ -66,13 +66,13 @@ const node: ObjectSchema<any> = yup.object().shape({
 
 // ObjectSchema.fields
 const fieldsTestSchema = yup.object().shape({
-  s: yup.string(),
-  n: yup.number(),
-  m: yup.mixed(),
-  b: yup.boolean(),
-  d: yup.date(),
-  a: yup.array(),
-  o: yup.object()
+    s: yup.string(),
+    n: yup.number(),
+    m: yup.mixed(),
+    b: yup.boolean(),
+    d: yup.date(),
+    a: yup.array(),
+    o: yup.object(),
 });
 const stringField: Schema<string> = fieldsTestSchema.fields.s;
 const numberField: Schema<number> = fieldsTestSchema.fields.n;
@@ -82,7 +82,7 @@ const dateField: Schema<Date> = fieldsTestSchema.fields.d;
 const arrayField: Schema<any[]> = fieldsTestSchema.fields.a;
 const objectField: Schema<object> = fieldsTestSchema.fields.o;
 
-const renderable = yup.lazy(value => {
+const renderable = yup.lazy((value) => {
     switch (typeof value) {
         case 'number':
             return yup.number();
@@ -137,18 +137,18 @@ mixed.describe().tests;
 mixed.describe().type;
 mixed.concat(yup.string());
 mixed.validate({});
-mixed.validate({ hello: 'world' }, { strict: true }).then(value => value);
+mixed.validate({ hello: 'world' }, { strict: true }).then((value) => value);
 mixed.validateSync({ hello: 'world' }, { strict: true });
 mixed.validateAt('path', {}, { strict: true, context: {} });
-mixed.validateAt('path', {}, { strict: true, context: {} }).then(value => value);
+mixed.validateAt('path', {}, { strict: true, context: {} }).then((value) => value);
 mixed.validateSyncAt('path', {}, { strict: true, context: {} });
 mixed.isValid(undefined, (valid: true) => true);
-mixed.isValid({ hello: 'world' }).then(valid => valid);
+mixed.isValid({ hello: 'world' }).then((valid) => valid);
 mixed.cast({});
 mixed.isType('hello');
 mixed.strict(true);
 mixed.strip(true);
-mixed.withMutation(schema => {});
+mixed.withMutation((schema) => {});
 mixed.default({ number: 5 });
 mixed.default(() => ({ number: 5 }));
 mixed.default();
@@ -168,7 +168,7 @@ mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
-    is: value => true,
+    is: (value) => true,
     then: yup.number().min(5),
     otherwise: yup.number().min(0),
 });
@@ -185,21 +185,21 @@ mixed
     })
     .when('$other', (value: any, schema: MixedSchema) => (value === 4 ? schema.required() : schema));
 // tslint:disable-next-line:no-invalid-template-strings
-mixed.test('is-jimmy', '${path} is not Jimmy', value => value === 'jimmy');
+mixed.test('is-jimmy', '${path} is not Jimmy', (value) => value === 'jimmy');
 mixed.test(
     'is-jimmy',
     ({ path, value }) => `${path} has an error, it is ${value}`,
-    value => value === 'jimmy',
+    (value) => value === 'jimmy',
 );
 mixed.test({
     name: 'lessThan5',
     exclusive: true,
     // tslint:disable-next-line:no-invalid-template-strings
     message: '${path} must be less than 5 characters',
-    test: value => value == null || value.length <= 5,
+    test: (value) => value == null || value.length <= 5,
 });
-mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
-const testContext = function(this: TestContext) {
+mixed.test('with-promise', 'It contains invalid value', (value) => new Promise((resolve) => true));
+const testContext = function (this: TestContext) {
     // $ExpectType string
     this.path;
     // $ExpectType ValidateOptions
@@ -228,7 +228,7 @@ mixed.test({
     message: ({ passed }) => (passed ? 'You passed' : 'You failed'),
     name: 'checkParams',
     params: { passed: true },
-    test: value => !!value,
+    test: (value) => !!value,
 });
 
 // mixed with concat
@@ -237,8 +237,8 @@ yup.mixed<string>().concat(yup.date()); // $ExpectType MixedSchema<string | Date
 
 // Async ValidationError
 const asyncValidationErrorTest = (includeParams: boolean) =>
-    function(this: TestContext): Promise<ValidationError> {
-        return new Promise(resolve =>
+    function (this: TestContext): Promise<ValidationError> {
+        return new Promise((resolve) =>
             resolve(
                 includeParams
                     ? this.createError({ path: 'testPath', message: 'testMessage', params: { foo: 'bar' } })
@@ -254,7 +254,7 @@ mixed.test({ test: asyncValidationErrorTest(false) });
 
 // Sync ValidationError
 const syncValidationErrorTest = (includeParams: boolean) =>
-    function(this: TestContext): ValidationError {
+    function (this: TestContext): ValidationError {
         return includeParams
             ? this.createError({ path: 'testPath', message: 'testMessage', params: { foo: 'bar' } })
             : this.createError();
@@ -265,7 +265,7 @@ mixed.test('sync-validation-error', 'Returns sync ValidationError', syncValidati
 mixed.test({ test: syncValidationErrorTest(true) });
 mixed.test({ test: syncValidationErrorTest(false) });
 
-yup.string().transform(function(this, value: any, originalvalue: any) {
+yup.string().transform(function (this, value: any, originalvalue: any) {
     return this.isType(value) && value !== null ? value.toUpperCase() : value;
 });
 
@@ -289,7 +289,7 @@ class DateSchema extends yup.date {
             name: 'Wednesday',
             // tslint:disable-next-line:no-invalid-template-strings
             message: message || '${path} must be Wednesday',
-            test: value => true /* Check that day is Wednesday */,
+            test: (value) => true /* Check that day is Wednesday */,
         });
     }
 }
@@ -379,8 +379,8 @@ numSchema.truncate();
 numSchema.round('floor');
 numSchema
     .validate(5, { strict: true })
-    .then(value => value)
-    .catch(err => err);
+    .then((value) => value)
+    .catch((err) => err);
 
 // Boolean Schema
 const boolSchema = yup.boolean();
@@ -434,11 +434,7 @@ yup.array().of(yup.string()); // $ExpectType ArraySchema<string>
 // Object Schema
 const objSchema = yup.object().shape({
     name: yup.string().required(),
-    age: yup
-        .number()
-        .required()
-        .positive()
-        .integer(),
+    age: yup.number().required().positive().integer(),
     email: yup.string().email(),
     website: yup.string().url(),
 });
@@ -456,7 +452,7 @@ objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
-objSchema.transformKeys(key => key.toUpperCase());
+objSchema.transformKeys((key) => key.toUpperCase());
 objSchema.camelCase();
 objSchema.constantCase();
 
@@ -465,7 +461,7 @@ const description: SchemaDescription = {
     label: 'label',
     meta: { key: 'value' },
     tests: [
-        { name: 'test1', params: {param1: 'param1'} },
+        { name: 'test1', params: { param1: 'param1' } },
         { name: 'test2', params: {} },
     ],
     fields: {
@@ -484,23 +480,23 @@ const description: SchemaDescription = {
             label: 'label',
             meta: { key: 'value' },
             tests: [],
-            fields: { key: { type: 'ref', key: 'value' } }
+            fields: { key: { type: 'ref', key: 'value' } },
         },
         withInnerType: {
             type: 'type',
             label: 'label',
             meta: { key: 'value' },
             tests: [],
-            innerType: { type: 'ref', key: 'value' }
+            innerType: { type: 'ref', key: 'value' },
         },
-     },
+    },
 };
 
 const param1: any = description.tests[0].params.param1;
 
 const testOptions: TestOptions = {
     name: 'name',
-    test: value => true,
+    test: (value) => true,
     message: 'validation error message',
     params: { param1: 'value' },
     exclusive: true,
@@ -508,7 +504,7 @@ const testOptions: TestOptions = {
 
 const testOptionsWithPromise: TestOptions = {
     name: 'name',
-    test: value => new Promise(resolve => true),
+    test: (value) => new Promise((resolve) => true),
     message: 'validation error message',
     params: { param1: 'value' },
     exclusive: true,
@@ -539,7 +535,7 @@ const localeNotType2: LocaleObject = {
 const localeNotType3: LocaleObject = {
     mixed: {
         required: 'message',
-        notType: _ref => {
+        notType: (_ref) => {
             const isCast: boolean = _ref.originalValue != null && _ref.originalValue !== _ref.value;
             const finalPartOfTheMessage = isCast ? ` (cast from the value '${_ref.originalValue}').` : '.';
 
@@ -598,7 +594,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
 
 yup.setLocale({
     mixed: {
-        required: options => options,
+        required: (options) => options,
     },
     number: { max: 'Max message', min: 'Min message' },
     string: {
@@ -694,7 +690,8 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({ stringField: yup.number().required(),
+yup.object<MyInterface>({
+    stringField: yup.number().required(),
     numberField: yup.number().required(),
     subFields: yup
         .object({
@@ -712,7 +709,8 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({ subFields: yup
+yup.object<MyInterface>({
+    subFields: yup
         .object({
             testField: yup.number().required(),
         })
@@ -730,32 +728,12 @@ enum Gender {
 const personSchema = yup.object({
     firstName: yup.string(), // $ExpectType StringSchema<string>
     gender: yup.mixed<Gender>().oneOf([Gender.Male, Gender.Female]),
-    email: yup
-        .string()
-        .nullable()
-        .notRequired()
-        .email(),
-    birthDate: yup
-        .date()
-        .nullable()
-        .notRequired()
-        .min(new Date(1900, 0, 1)),
+    email: yup.string().nullable().notRequired().email(),
+    birthDate: yup.date().nullable().notRequired().min(new Date(1900, 0, 1)),
     canBeNull: yup.string().nullable(true), // $ExpectType StringSchema<string | null>
-    isAlive: yup
-        .boolean()
-        .nullable()
-        .notRequired(),
-    mustBeAString: yup
-        .string()
-        .nullable(true)
-        .nullable(false)
-        .notRequired()
-        .required(),
-    children: yup
-        .array(yup.string())
-        .nullable()
-        .notRequired()
-        .min(1),
+    isAlive: yup.boolean().nullable().notRequired(),
+    mustBeAString: yup.string().nullable(true).nullable(false).notRequired().required(),
+    children: yup.array(yup.string()).nullable().notRequired().min(1),
 });
 
 type Person = yup.InferType<typeof personSchema>;
@@ -848,5 +826,5 @@ const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 
 const arrayOfStringsSchema = yup.array().of(yup.string());
 type ArrayOfStrings = yup.InferType<typeof arrayOfStringsSchema>;
 function returnTheArray(data: ArrayOfStrings): any[] {
-  return data;
+    return data;
 }

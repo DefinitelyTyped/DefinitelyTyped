@@ -1,2 +1,2 @@
-import { isDate } from "./index";
+import { isDate } from './index';
 export = isDate;

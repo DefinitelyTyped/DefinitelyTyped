@@ -1,31 +1,23 @@
 // test app from https://github.com/onefinestay/react-daterange-picker/blob/master/example/index.jsx
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import DateRangePicker from "react-daterange-picker";
-import * as ReactDateRangePicker from "react-daterange-picker";
+import DateRangePicker from 'react-daterange-picker';
+import * as ReactDateRangePicker from 'react-daterange-picker';
 
-import * as MomentRange from "moment-range";
-import Moment = require("moment");
+import * as MomentRange from 'moment-range';
+import Moment = require('moment');
 
 const moment = MomentRange.extendMoment(Moment);
 
 type AppProps = ReactDateRangePicker.Props;
 
 const CustomSFCPaginationArrow: React.SFC<ReactDateRangePicker.PaginationArrowProps> = (props) => {
-    return (
-        <div onClick={ props.onTrigger }>
-        { (props.direction === 'next') ? '<' : '>' }
-        </div>
-    );
+    return <div onClick={props.onTrigger}>{props.direction === 'next' ? '<' : '>'}</div>;
 };
 
 class CustomComponentClassPaginationArrow extends React.Component<ReactDateRangePicker.PaginationArrowProps> {
     render() {
-        return (
-            <div onClick={ this.props.onTrigger }>
-            { (this.props.direction === 'next') ? '<' : '>' }
-            </div>
-        );
+        return <div onClick={this.props.onTrigger}>{this.props.direction === 'next' ? '<' : '>'}</div>;
     }
 }
 
@@ -37,20 +29,26 @@ class App extends React.Component<AppProps, any> {
     render(): any {
         return (
             <div>
-                <DateRangePicker {...this.props}
+                <DateRangePicker
+                    {...this.props}
                     onSelect={this.handleSelect.bind(this)}
                     value={this.state.value}
                     locale="en"
-                    className="example" />
+                    className="example"
+                />
                 <div>
-                    <input type="text"
-                        value={this.state.value ? this.state.value.start.format('LL') : ""}
+                    <input
+                        type="text"
+                        value={this.state.value ? this.state.value.start.format('LL') : ''}
                         readOnly={true}
-                        placeholder="Start date" />
-                    <input type="text"
-                        value={this.state.value ? this.state.value.end.format('LL') : ""}
+                        placeholder="Start date"
+                    />
+                    <input
+                        type="text"
+                        value={this.state.value ? this.state.value.end.format('LL') : ''}
                         readOnly={true}
-                        placeholder="End date" />
+                        placeholder="End date"
+                    />
                 </div>
             </div>
         );
@@ -65,12 +63,9 @@ class DateSinglePicker extends React.Component<AppProps, any> {
     render() {
         return (
             <div>
-                <DateRangePicker {...this.props} onSelect={this.handleSelect.bind(this)}
-                    value={this.state.value} />
+                <DateRangePicker {...this.props} onSelect={this.handleSelect.bind(this)} value={this.state.value} />
                 <div>
-                    <input type="text"
-                        value={this.state.value ? this.state.value.format('LL') : ""}
-                        readOnly={true} />
+                    <input type="text" value={this.state.value ? this.state.value.format('LL') : ''} readOnly={true} />
                 </div>
             </div>
         );
@@ -92,7 +87,7 @@ export class Main extends React.Component {
                 selectable: false,
                 color: '#78818b',
                 label: 'Unavailable',
-            }
+            },
         };
 
         const dateRanges = [
@@ -100,15 +95,12 @@ export class Main extends React.Component {
                 state: 'enquire',
                 range: moment.range(
                     moment().add(2, 'weeks').subtract(5, 'days'),
-                    moment().add(2, 'weeks').add(6, 'days')
+                    moment().add(2, 'weeks').add(6, 'days'),
                 ),
             },
             {
                 state: 'unavailable',
-                range: moment.range(
-                    moment().add(3, 'weeks'),
-                    moment().add(3, 'weeks').add(5, 'days')
-                ),
+                range: moment.range(moment().add(3, 'weeks'), moment().add(3, 'weeks').add(5, 'days')),
             },
         ];
 
@@ -122,7 +114,7 @@ export class Main extends React.Component {
                     <App
                         firstOfWeek={1}
                         numberOfCalendars={2}
-                        selectionType='range'
+                        selectionType="range"
                         minimumDate={new Date()}
                         maximumDate={moment().add(2, 'years').toDate()}
                         stateDefinitions={stateDefinitions}
@@ -138,11 +130,7 @@ export class Main extends React.Component {
 
                     <div className="example">
                         <h4>Range with no date states</h4>
-                        <App
-                            numberOfCalendars={2}
-                            selectionType="range"
-                            minimumDate={new Date()}
-                        />
+                        <App numberOfCalendars={2} selectionType="range" minimumDate={new Date()} />
                     </div>
 
                     <div className="example">
@@ -157,31 +145,19 @@ export class Main extends React.Component {
 
                     <div className="example">
                         <h4>Range with no minimum date</h4>
-                        <App
-                            numberOfCalendars={2}
-                            selectionType="range"
-                            singleDateRange={true}
-                        />
+                        <App numberOfCalendars={2} selectionType="range" singleDateRange={true} />
                     </div>
                     <div className="example">
                         <h4>Single with no date states</h4>
-                        <DateSinglePicker
-                            numberOfCalendars={2}
-                            selectionType="single"
-                            minimumDate={new Date()}
-                        />
+                        <DateSinglePicker numberOfCalendars={2} selectionType="single" minimumDate={new Date()} />
                     </div>
                     <div className="example">
                         <h4>With custom SFC paginationArrowComponent</h4>
-                        <DateSinglePicker
-                            paginationArrowComponent={ CustomSFCPaginationArrow }
-                        />
+                        <DateSinglePicker paginationArrowComponent={CustomSFCPaginationArrow} />
                     </div>
                     <div className="example">
                         <h4>With custom ComponentClass paginationArrowComponent</h4>
-                        <DateSinglePicker
-                            paginationArrowComponent={ CustomComponentClassPaginationArrow }
-                        />
+                        <DateSinglePicker paginationArrowComponent={CustomComponentClassPaginationArrow} />
                     </div>
                 </div>
             </div>
@@ -191,7 +167,4 @@ export class Main extends React.Component {
 
 const MainFactory = React.createFactory(Main);
 
-ReactDOM.render(
-    MainFactory(),
-    document.getElementById('app')
-);
+ReactDOM.render(MainFactory(), document.getElementById('app'));

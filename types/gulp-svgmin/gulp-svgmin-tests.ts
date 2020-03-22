@@ -1,5 +1,5 @@
-import svgmin = require("gulp-svgmin");
-import { basename, extname } from "path";
+import svgmin = require('gulp-svgmin');
+import { basename, extname } from 'path';
 
 // From tests
 
@@ -14,38 +14,45 @@ svgmin();
 
 // $ExpectType Transform
 svgmin({
-    plugins: [{
-        removeDoctype: false
-    }, {
-        removeComments: false
-    }, {
-        cleanupNumericValues: {
-            floatPrecision: 2
-        }
-    }, {
-        convertColors: {
-            names2hex: false,
-            rgb2hex: false
-        }
-    }]
+    plugins: [
+        {
+            removeDoctype: false,
+        },
+        {
+            removeComments: false,
+        },
+        {
+            cleanupNumericValues: {
+                floatPrecision: 2,
+            },
+        },
+        {
+            convertColors: {
+                names2hex: false,
+                rgb2hex: false,
+            },
+        },
+    ],
 });
 
 // $ExpectType Transform
 svgmin({
     js2svg: {
-        pretty: true
-    }
+        pretty: true,
+    },
 });
 
 // $ExpectType Transform
 svgmin(function getOptions(file) {
     const prefix = basename(file.relative, extname(file.relative));
     return {
-        plugins: [{
-            cleanupIDs: {
-                prefix: prefix + '-',
-                minify: true
-            }
-        }]
+        plugins: [
+            {
+                cleanupIDs: {
+                    prefix: prefix + '-',
+                    minify: true,
+                },
+            },
+        ],
     };
 });

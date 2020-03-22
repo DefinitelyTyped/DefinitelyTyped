@@ -26,7 +26,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-scatter
          */
         interface SeriesScatter {
-
             /**
              * @default
              * "scatter"
@@ -318,7 +317,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-scatter.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -777,12 +775,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-scatter.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1115,7 +1111,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-scatter.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -1228,12 +1223,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-scatter.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-scatter.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1692,12 +1685,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-scatter.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2028,7 +2019,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2410,10 +2400,9 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-scatter.data
              */
-            data?: (
-                (void | number | string | SeriesScatter.DataObject)[]
-                | (void | number | string | SeriesScatter.DataObject)[][]
-            );
+            data?:
+                | (void | number | string | SeriesScatter.DataObject)[]
+                | (void | number | string | SeriesScatter.DataObject)[][];
 
             /**
              * Mark point in a chart.
@@ -2422,7 +2411,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2552,7 +2540,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -3013,12 +3000,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3348,7 +3333,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3813,12 +3797,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4165,7 +4147,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -4265,7 +4246,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -4400,7 +4380,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -4623,7 +4602,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4725,7 +4703,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -4832,7 +4809,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -5251,12 +5227,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5598,7 +5572,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -6019,12 +5992,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-scatter.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -6482,7 +6453,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-scatter.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6535,7 +6505,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -6609,7 +6578,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -6690,7 +6658,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -6796,7 +6763,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -6940,7 +6906,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -6948,7 +6913,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -7177,7 +7141,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7287,7 +7250,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7405,7 +7367,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7481,7 +7442,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -7563,7 +7523,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -7792,7 +7751,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7902,7 +7860,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -8020,7 +7977,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -8096,7 +8052,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -8287,7 +8242,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-scatter.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -8305,7 +8259,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -8720,12 +8673,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -9055,7 +9006,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -9474,12 +9424,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9826,7 +9774,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9926,7 +9873,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -10073,7 +10019,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -10081,7 +10026,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -10180,7 +10124,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -10285,7 +10228,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -10399,7 +10341,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10820,12 +10761,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -11168,7 +11107,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -11603,12 +11541,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -11965,7 +11901,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -12064,7 +11999,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -12169,7 +12103,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -12283,7 +12216,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -12704,12 +12636,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -13052,7 +12982,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -13487,12 +13416,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-scatter.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -14107,7 +14034,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-scatter.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -14362,7 +14288,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -14554,12 +14479,11 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.tooltip.extraCssText
                  */
                 extraCssText?: string;
-            }
+            };
         }
 
         namespace SeriesScatter {
             interface DataObject {
-
                 /**
                  * the name of data item.
                  *
@@ -14675,7 +14599,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -15092,12 +15015,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-scatter.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -15431,7 +15352,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -15532,12 +15452,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-scatter.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -15956,12 +15874,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-scatter.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-scatter.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -16304,7 +16220,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -16411,7 +16326,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-scatter.data.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
@@ -16661,7 +16575,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-scatter.data.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *

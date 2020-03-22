@@ -1,7 +1,4 @@
-import {
-    BugsnagSourceMapUploaderPlugin,
-    BugsnagBuildReporterPlugin
-} from "webpack-bugsnag-plugins";
+import { BugsnagSourceMapUploaderPlugin, BugsnagBuildReporterPlugin } from 'webpack-bugsnag-plugins';
 
 /**
  * Missing or invalid options
@@ -21,7 +18,7 @@ new BugsnagBuildReporterPlugin({});
 
 // $ExpectError
 new BugsnagBuildReporterPlugin({
-    apiKey: "123456789"
+    apiKey: '123456789',
 });
 
 /**
@@ -30,13 +27,13 @@ new BugsnagBuildReporterPlugin({
 
 // $ExpectType BugsnagSourceMapUploaderPlugin
 new BugsnagSourceMapUploaderPlugin({
-    apiKey: "123456789"
+    apiKey: '123456789',
 });
 
 // $ExpectType BugsnagBuildReporterPlugin
 new BugsnagBuildReporterPlugin({
-    apiKey: "123456789",
-    appVersion: "1.2.3"
+    apiKey: '123456789',
+    appVersion: '1.2.3',
 });
 
 /**
@@ -45,37 +42,37 @@ new BugsnagBuildReporterPlugin({
 
 // $ExpectType BugsnagSourceMapUploaderPlugin
 new BugsnagSourceMapUploaderPlugin({
-    apiKey: "123456789",
-    publicPath: "*/dist",
-    appVersion: "1.2.3",
+    apiKey: '123456789',
+    publicPath: '*/dist',
+    appVersion: '1.2.3',
     overwrite: true,
-    endpoint: "https://upload.bugsnag.com",
-    ignoredBundleExtensions: [".css"]
+    endpoint: 'https://upload.bugsnag.com',
+    ignoredBundleExtensions: ['.css'],
 });
 
 // $ExpectType BugsnagBuildReporterPlugin
 new BugsnagBuildReporterPlugin(
     {
-        apiKey: "123456789",
-        appVersion: "1.2.3",
-        releaseStage: "staging",
+        apiKey: '123456789',
+        appVersion: '1.2.3',
+        releaseStage: 'staging',
         sourceControl: {
-            provider: "github",
-            repository: "https://github.com/bugsnag/webpack-bugsnag-plugins",
-            revision: "123456789"
+            provider: 'github',
+            repository: 'https://github.com/bugsnag/webpack-bugsnag-plugins',
+            revision: '123456789',
         },
-        builderName: "whoami",
-        autoAssignRelease: false
+        builderName: 'whoami',
+        autoAssignRelease: false,
     },
     {
-        logLevel: "debug",
+        logLevel: 'debug',
         logger: {
             debug: () => null,
             info: () => null,
             warn: () => null,
-            error: () => null
+            error: () => null,
         },
         path: process.cwd(),
-        endpoint: "https://build.bugsnag.com"
-    }
+        endpoint: 'https://build.bugsnag.com',
+    },
 );

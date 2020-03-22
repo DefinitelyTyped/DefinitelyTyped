@@ -7,7 +7,7 @@ const districtSearch = new AMap.DistrictSearch({
     level: 'city',
     showbiz: true,
     extensions: 'all',
-    subdistrict: 1
+    subdistrict: 1,
 });
 
 // $ExpectType void

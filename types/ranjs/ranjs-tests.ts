@@ -63,20 +63,28 @@ xs = vec.v();
 x = vec.i(0);
 vec.i(x, x);
 vec = vec
-    .f(x => normal.pdf(x))
+    .f((x) => normal.pdf(x))
     .scale(10)
     .add(new la.Vector([4, 5, 6]));
 x = vec.dot(vec);
 let mat = new la.Matrix();
-mat = new la.Matrix([[1, 2], [3, 4]]);
+mat = new la.Matrix([
+    [1, 2],
+    [3, 4],
+]);
 mat = new la.Matrix(mat);
 xss = mat.m();
 x = mat.ij(0, 0);
 mat.ij(x, x, x);
 mat = mat
-    .f(x => normal.pdf(x))
+    .f((x) => normal.pdf(x))
     .scale(0.1)
-    .add(new la.Matrix([[5, 6], [7, 8]]))
+    .add(
+        new la.Matrix([
+            [5, 6],
+            [7, 8],
+        ]),
+    )
     .mult(mat)
     .t();
 vec = mat.act(vec);
@@ -88,7 +96,7 @@ declare const logDensity: (x: number[]) => number;
 const rwmConfig = { dim: 1, maxHistory: 1e4 };
 let rwm = new mc.RWM(logDensity, rwmConfig);
 rwm = new mc.RWM(logDensity, rwmConfig, rwm.state());
-rwm.warmUp(p => (x = p), 1000);
+rwm.warmUp((p) => (x = p), 1000);
 const iterRes = rwm.iterate((x, ac) => {
     xs = x;
     b = ac;
@@ -96,13 +104,16 @@ const iterRes = rwm.iterate((x, ac) => {
 xs = iterRes.x;
 b = iterRes.accepted;
 const rwmStats = rwm.statistics();
-xs = rwmStats.map(stat => stat.mean);
-xs = rwmStats.map(stat => stat.cv);
-xs = rwmStats.map(stat => stat.std);
+xs = rwmStats.map((stat) => stat.mean);
+xs = rwmStats.map((stat) => stat.cv);
+xs = rwmStats.map((stat) => stat.std);
 x = rwm.ar();
 xs = rwm.ac();
-xss = rwm.sample(p => (x = p), 1000);
-xss = mc.gr(new Array(10).fill(null).map(() => rwm.sample()), 1000);
+xss = rwm.sample((p) => (x = p), 1000);
+xss = mc.gr(
+    new Array(10).fill(null).map(() => rwm.sample()),
+    1000,
+);
 
 const testRes1 = test.bartlett(xss, 0.1);
 x = testRes1.chi2;

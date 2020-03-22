@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as express from "express";
+import * as express from 'express';
 
 interface Tags {
     [key: string]: string | number;
@@ -23,7 +23,7 @@ interface CommonOptions {
     debug?: boolean;
 
     /**
-     * Object of string key/value pairs which will be appended on 
+     * Object of string key/value pairs which will be appended on
      * to all StatsD payloads (excluding raw payloads)
      * (default {})
      */
@@ -35,10 +35,10 @@ interface CommonOptions {
     tcp?: boolean;
 
     /**
-     * Dual-use timer. Will flush metrics every interval. For UDP, 
-     * it auto-closes the socket after this long without activity 
-     * (default 1000 ms; 0 disables this). For TCP, it auto-closes 
-     * the socket after socketTimeoutsToClose number of timeouts 
+     * Dual-use timer. Will flush metrics every interval. For UDP,
+     * it auto-closes the socket after this long without activity
+     * (default 1000 ms; 0 disables this). For TCP, it auto-closes
+     * the socket after socketTimeoutsToClose number of timeouts
      * have elapsed without activity.
      */
     socketTimeout?: number;
@@ -56,8 +56,8 @@ interface TcpOptions extends CommonOptions {
     port?: number;
 
     /**
-     * Number of timeouts in which the socket auto-closes if it 
-     * has been inactive. (default 10; 1 to auto-close after a 
+     * Number of timeouts in which the socket auto-closes if it
+     * has been inactive. (default 10; 1 to auto-close after a
      * single timeout).
      */
     socketTimeoutsToClose: number;
@@ -124,7 +124,7 @@ declare class StatsdClient {
 
     set(name: string, value: number, tags?: Tags): this;
 
-    timing(name: string, startOrDuration: Date | number, tags?: Tags): this;    
+    timing(name: string, startOrDuration: Date | number, tags?: Tags): this;
 
     histogram(name: string, value: number, tags?: Tags): this;
 

@@ -1,12 +1,7 @@
-import {
-    JsonSchemaCustomPropertyError,
-    JsonSchemaValidation,
-    addSchemaProperties,
-    validate,
-} from "express-jsonschema";
+import { JsonSchemaCustomPropertyError, JsonSchemaValidation, addSchemaProperties, validate } from 'express-jsonschema';
 
-import { Request, Response, NextFunction } from "express";
-import { JSONSchema4 } from "json-schema";
+import { Request, Response, NextFunction } from 'express';
+import { JSONSchema4 } from 'json-schema';
 
 let jsonSchema: JSONSchema4;
 let expressMiddleware: (req: Request, res: Response, next: NextFunction) => void;
@@ -27,9 +22,7 @@ jsonSchema = {
     minLength: 7,
     pattern: 'baz',
     additionalItems: true,
-    items: [
-      { items: [{ minLength: 4 }] }
-    ],
+    items: [{ items: [{ minLength: 4 }] }],
     maxItems: 4,
     minItems: 5,
     uniqueItems: true,
@@ -38,16 +31,16 @@ jsonSchema = {
     required: ['foo', 'bar'],
     additionalProperties: false,
     definitions: {
-      foo: { type: 'string' }
+        foo: { type: 'string' },
     },
     properties: {
-      bar: { type: 'boolean' }
+        bar: { type: 'boolean' },
     },
     patternProperties: {
-      foo: { type: 'integer' }
+        foo: { type: 'integer' },
     },
     dependencies: {
-      baz: { type: 'integer' }
+        baz: { type: 'integer' },
     },
     enum: ['foo', 42],
     type: 'string',
@@ -60,12 +53,12 @@ jsonSchema = {
     format: 'date-time',
 };
 
-expressMiddleware = validate({ test: jsonSchema }, [ jsonSchema ]);
+expressMiddleware = validate({ test: jsonSchema }, [jsonSchema]);
 addSchemaProperties({
-    test: () => "This is an error with message...",
+    test: () => 'This is an error with message...',
     conditional: (instance: any, schema: JSONSchema4) => {
         if (!instance) {
-            return "An instance should be present";
+            return 'An instance should be present';
         }
-    }
+    },
 });

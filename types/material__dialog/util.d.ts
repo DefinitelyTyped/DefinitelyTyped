@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
-export type MDCFocusTrapFactory = (a: Element, b: {initialFocus: Element, clickOutsideDeactivates: boolean}) => any;
+export type MDCFocusTrapFactory = (a: Element, b: { initialFocus: Element; clickOutsideDeactivates: boolean }) => any;
 
-export function createFocusTrapInstance(surfaceEl: Element, acceptButtonEl: Element, focusTrapFactory?: MDCFocusTrapFactory): any;
+export function createFocusTrapInstance(
+    surfaceEl: Element,
+    acceptButtonEl: Element,
+    focusTrapFactory?: MDCFocusTrapFactory,
+): any;

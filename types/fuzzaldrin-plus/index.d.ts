@@ -6,34 +6,30 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export as namespace fuzzaldrin
+export as namespace fuzzaldrin;
 
 export class Query {
-    $$__internal: Symbol
+    $$__internal: Symbol;
 }
 
 export interface IOptions {
-    allowErrors?: boolean
-    usePathScoring?: boolean
-    useExtensionBonus?: boolean
-    pathSeparator?: '/' | '\\' | string
-    optCharRegEx?: RegExp
-    wrap?: { tagOpen?: string; tagClass?: string; tagClose?: string }
-    preparedQuery?: Query
+    allowErrors?: boolean;
+    usePathScoring?: boolean;
+    useExtensionBonus?: boolean;
+    pathSeparator?: '/' | '\\' | string;
+    optCharRegEx?: RegExp;
+    wrap?: { tagOpen?: string; tagClass?: string; tagClose?: string };
+    preparedQuery?: Query;
 }
 
 export type IFilterOptions = IOptions & {
-    key?: string
-    maxResults?: number
-    maxInners?: number
-}
+    key?: string;
+    maxResults?: number;
+    maxInners?: number;
+};
 
-export function filter<T>(
-    data: T[],
-    query: string,
-    options?: IFilterOptions
-): T[]
-export function score(str: string, query: string, options?: IOptions): number
-export function match(str: string, query: string, options?: IOptions): number[]
-export function wrap(str: string, query: string, options?: IOptions): string
-export function prepareQuery(query: string, options?: IOptions): Query
+export function filter<T>(data: T[], query: string, options?: IFilterOptions): T[];
+export function score(str: string, query: string, options?: IOptions): number;
+export function match(str: string, query: string, options?: IOptions): number[];
+export function wrap(str: string, query: string, options?: IOptions): string;
+export function prepareQuery(query: string, options?: IOptions): Query;

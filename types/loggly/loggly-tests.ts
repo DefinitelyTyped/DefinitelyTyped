@@ -1,6 +1,6 @@
 import * as Loggly from 'loggly';
 
-let options: Loggly.LogglyOptions  = {
+let options: Loggly.LogglyOptions = {
     token: 'YOUR_TOKEN',
     subdomain: 'YOUR_DOMAIN',
     tags: ['NodeJS'],
@@ -12,7 +12,6 @@ let options: Loggly.LogglyOptions  = {
 };
 
 let client: Loggly.LogglyInstance = Loggly.createClient(options);
-
 
 // Logging
 client.log('hello world');
@@ -42,6 +41,6 @@ client.search('404', function (err, results) {
 });
 
 client.search({ query: '404', rows: 10 }).run(function (err, results) {
-  // Inspect the result set
-  console.dir(results.events);
+    // Inspect the result set
+    console.dir(results.events);
 });

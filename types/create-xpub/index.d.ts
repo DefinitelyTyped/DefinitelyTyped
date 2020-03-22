@@ -20,11 +20,11 @@ declare namespace createXpub {
     /**
      * Mainnet (xpub) version bytes.
      */
-    const mainnet: 0x0488B21E;
+    const mainnet: 0x0488b21e;
     /**
      * Testnet (tpub) version bytes.
      */
-    const testnet: 0x043587CF;
+    const testnet: 0x043587cf;
 
     interface Options {
         /**

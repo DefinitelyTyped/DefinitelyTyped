@@ -38,13 +38,13 @@ declare namespace Selection {
             el: ElementList,
             events: string | ReadonlyArray<string>,
             fn: (ev: Event) => void,
-            options?: AddEventListenerOptions
+            options?: AddEventListenerOptions,
         ): void;
         off(
             el: ElementList,
             events: string | ReadonlyArray<string>,
             fn: (ev: Event) => void,
-            options?: AddEventListenerOptions
+            options?: AddEventListenerOptions,
         ): void;
         css(el: Element, attr: Record<string, string | number>): any;
         css(el: Element, attr: string, val: string | number): any;
@@ -78,7 +78,7 @@ declare class Selection {
     cancel(keepEvent?: boolean): void;
     option<K extends keyof Selection.SelectionOptions>(
         name: K,
-        value: Selection.SelectionOptions[K] | null
+        value: Selection.SelectionOptions[K] | null,
     ): Selection.SelectionOptions[K];
     disable(): void;
     destroy(): void;

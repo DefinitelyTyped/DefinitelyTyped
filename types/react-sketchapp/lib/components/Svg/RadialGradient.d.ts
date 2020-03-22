@@ -15,6 +15,4 @@ export interface RadialGradientProps {
     children?: React.ReactNode[] | React.ReactNode;
 }
 
-export default class RadialGradient extends React.Component<
-    RadialGradientProps
-> {}
+export default class RadialGradient extends React.Component<RadialGradientProps> {}

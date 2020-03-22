@@ -537,7 +537,7 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
 
         let promiseResolver: () => void;
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             promiseResolver = resolve;
         });
     }
@@ -547,9 +547,12 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
         const { loadedRowsMap } = this.state;
 
         const row = list.get(index);
-        const content = loadedRowsMap[index] === STATUS_LOADED
-            ? row.name
-            : <div className={'styles.placeholder'} style={{ width: row.size }} />;
+        const content =
+            loadedRowsMap[index] === STATUS_LOADED ? (
+                row.name
+            ) : (
+                <div className={'styles.placeholder'} style={{ width: row.size }} />
+            );
 
         return (
             <div className={'styles.row'} key={key} style={style}>
@@ -1333,7 +1336,7 @@ export class WindowScrollerExample extends PureComponent<{}, any> {
                                     overscanRowCount={2}
                                     rowCount={list.size}
                                     rowHeight={30}
-                                    rowRenderer={params =>
+                                    rowRenderer={(params) =>
                                         this._rowRenderer({
                                             ...params,
                                             isScrolling,

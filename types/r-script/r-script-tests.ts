@@ -13,10 +13,14 @@ function RPromise(r: R): Promise<any> {
 }
 
 const options: R.Options = {
-    dataframe: "rows",
-    anotherRandomOption: true
+    dataframe: 'rows',
+    anotherRandomOption: true,
 };
-const result1 = R("foo.R").data("string data param", "another one").callSync();
-const result2 = R("foo.R").data("string data param", "another one").callSync(options);
-R("foo.R").data("string data param", "another one").call(options, (err, d) => d);
-R("foo.R").data("string data param", "another one").call((err, d) => d);
+const result1 = R('foo.R').data('string data param', 'another one').callSync();
+const result2 = R('foo.R').data('string data param', 'another one').callSync(options);
+R('foo.R')
+    .data('string data param', 'another one')
+    .call(options, (err, d) => d);
+R('foo.R')
+    .data('string data param', 'another one')
+    .call((err, d) => d);

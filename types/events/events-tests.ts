@@ -2,25 +2,25 @@ import { EventEmitter } from 'events';
 
 const emitter = new EventEmitter();
 const listener = () => {
-  console.log('once');
+    console.log('once');
 };
 const listener1 = () => {
-  console.log('listener1');
+    console.log('listener1');
 };
 const listener2 = () => {
-  console.log('listener2');
+    console.log('listener2');
 };
 const listener3 = (arg1: string) => {
-  console.log('listener3', arg1);
+    console.log('listener3', arg1);
 };
 const listener4 = () => {
-  console.log('type of number');
+    console.log('type of number');
 };
 const listener5 = () => {
-  console.log('prepend listener');
+    console.log('prepend listener');
 };
 const listener6 = () => {
-  console.log('prepend once listener');
+    console.log('prepend once listener');
 };
 
 emitter.setMaxListeners(100);
@@ -51,36 +51,36 @@ console.log(`eventNames: ${emitter.eventNames().join(', ')}`);
 console.log(`rawListeners count: ${emitter.rawListeners('send').length}`);
 
 setTimeout(() => {
-  console.log('\n');
-  emitter.emit('send');
+    console.log('\n');
+    emitter.emit('send');
 }, 1000);
 
 setTimeout(() => {
-  console.log('\n');
-  emitter.emit('send');
-  emitter.removeListener('send', listener2);
+    console.log('\n');
+    emitter.emit('send');
+    emitter.removeListener('send', listener2);
 }, 2000);
 
 setTimeout(() => {
-  console.log('\n');
-  emitter.emit('send');
-  emitter.off('send', listener3);
+    console.log('\n');
+    emitter.emit('send');
+    emitter.off('send', listener3);
 }, 2000);
 
 setTimeout(() => {
-  console.log('\n');
-  emitter.emit('send', 'params1');
-  emitter.removeAllListeners('send');
+    console.log('\n');
+    emitter.emit('send', 'params1');
+    emitter.removeAllListeners('send');
 }, 3000);
 
 setTimeout(() => {
-  console.log('\n');
-  emitter.emit('send', 'params1');
-  emitter.removeAllListeners();
+    console.log('\n');
+    emitter.emit('send', 'params1');
+    emitter.removeAllListeners();
 }, 3000);
 
 setTimeout(() => {
-  console.log('\n');
-  emitter.emit(1);
-  emitter.emit('send');
+    console.log('\n');
+    emitter.emit(1);
+    emitter.emit('send');
 }, 3000);

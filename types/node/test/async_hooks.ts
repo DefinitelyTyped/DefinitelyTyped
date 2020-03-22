@@ -44,7 +44,7 @@ import * as async_hooks from 'async_hooks';
     new async_hooks.AsyncResource('', {});
     new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
     new async_hooks.AsyncResource('', {
-      triggerAsyncId: 0,
-      requireManualDestroy: true
+        triggerAsyncId: 0,
+        requireManualDestroy: true,
     });
 }

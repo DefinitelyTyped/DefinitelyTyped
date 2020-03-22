@@ -1,4 +1,3 @@
-
 // From https://hapijs.com/api/16.1.1#serverlookupid
 
 import * as Hapi from 'hapi';
@@ -9,11 +8,10 @@ server.route({
     path: '/',
     config: {
         handler: function (request, reply) {
-
             return reply();
         },
-        id: 'root'
-    }
+        id: 'root',
+    },
 });
 
 const route = server.lookup('root');

@@ -5,11 +5,4 @@ import { render } from 'react-dom';
 
 declare const container: Element;
 
-render(
-    <InlineEdit
-        readView={<div>Hello</div>}
-        onConfirm={() => {}}
-        onCancel={() => {}}
-    />,
-    container,
-);
+render(<InlineEdit readView={<div>Hello</div>} onConfirm={() => {}} onCancel={() => {}} />, container);

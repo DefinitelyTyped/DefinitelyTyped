@@ -50,5 +50,5 @@ declare global {
 }
 
 declare const chaiString: Chai.ChaiPlugin;
-declare namespace chaiString { }
+declare namespace chaiString {}
 export = chaiString;

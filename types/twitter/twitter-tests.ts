@@ -31,12 +31,12 @@ client.post('statuses/update', { status: 'I Love Twitter' }, (error, tweet, resp
     response;
 });
 
-client.post('statuses/update').then(tweet => {
+client.post('statuses/update').then((tweet) => {
     // $ExpectType ResponseData
     tweet;
 });
 
-client.post('statuses/update', { status: 'I Love Twitter' }).then(tweet => {
+client.post('statuses/update', { status: 'I Love Twitter' }).then((tweet) => {
     // $ExpectType ResponseData
     tweet;
 });
@@ -44,15 +44,15 @@ client.post('statuses/update', { status: 'I Love Twitter' }).then(tweet => {
 let stream: EventEmitter = client.stream('statuses/filter', { track: 'javascript' });
 stream = client.stream('statuses/filter');
 
-stream.on('data', event => {
+stream.on('data', (event) => {
     console.log(event && event.text);
 });
 
-stream.on('error', error => {
+stream.on('error', (error) => {
     throw error;
 });
 
-client.stream('statuses/filter', { track: 'javascript' }, stream => {
+client.stream('statuses/filter', { track: 'javascript' }, (stream) => {
     // $ExpectType EventEmitter
     stream;
 
@@ -64,7 +64,7 @@ client.stream('statuses/filter', { track: 'javascript' }, stream => {
         throw error;
     });
 });
-client.stream('statuses/filter', stream => {
+client.stream('statuses/filter', (stream) => {
     // $ExpectType EventEmitter
     stream;
 });

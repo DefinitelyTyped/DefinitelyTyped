@@ -44,7 +44,8 @@ export class MDCTextField extends MDCComponent<MDCTextFieldAdapter, MDCTextField
         helperTextFactory?: (el: Element) => MDCTextFieldHelperText,
         iconFactory?: (el: Element) => MDCTextFieldIcon,
         labelFactory?: (el: Element) => MDCFloatingLabel,
-        outlineFactory?: (el: Element) => MDCNotchedOutline): void;
+        outlineFactory?: (el: Element) => MDCNotchedOutline,
+    ): void;
 
     /**
      * Initiliazes the Text Field's internal state based on the environment's

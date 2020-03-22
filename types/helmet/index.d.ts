@@ -53,12 +53,9 @@ declare namespace helmet {
         | 'allow-presentation'
         | 'allow-same-origin'
         | 'allow-scripts'
-        | 'allow-top-navigation'
+        | 'allow-top-navigation';
 
-    export type HelmetCspRequireSriForValue =
-        | string
-        | 'script'
-        | 'style'
+    export type HelmetCspRequireSriForValue = string | 'script' | 'style';
 
     export interface IHelmetContentSecurityPolicyDirectives {
         baseUri?: HelmetCspDirectiveValue[];
@@ -105,7 +102,7 @@ declare namespace helmet {
         'report-to'?: HelmetCspDirectiveValue;
         'report-uri'?: HelmetCspDirectiveValue;
         'require-sri-for'?: HelmetCspRequireSriForValue[];
-        'sandbox'?: HelmetCspSandboxDirective[];
+        sandbox?: HelmetCspSandboxDirective[];
         'script-src'?: HelmetCspDirectiveValue;
         'style-src'?: HelmetCspDirectiveValue;
         'upgrade-insecure-requests'?: boolean;
@@ -281,6 +278,8 @@ declare namespace helmet {
          * @param {helmet.IHelmetPermittedCrossDomainPoliciesConfiguration} options
          * @returns {express.RequestHandler}
          */
-        permittedCrossDomainPolicies(options?: IHelmetPermittedCrossDomainPoliciesConfiguration): express.RequestHandler;
+        permittedCrossDomainPolicies(
+            options?: IHelmetPermittedCrossDomainPoliciesConfiguration,
+        ): express.RequestHandler;
     }
 }

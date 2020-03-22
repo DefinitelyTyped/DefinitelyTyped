@@ -1,11 +1,11 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverload
-import { Server } from "@hapi/hapi";
+import { Server } from '@hapi/hapi';
 
 const server = new Server({
     port: 8000,
     load: {
         sampleInterval: 1000,
-    }
+    },
 });
 server.start();
 

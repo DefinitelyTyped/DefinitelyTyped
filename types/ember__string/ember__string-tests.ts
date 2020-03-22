@@ -29,5 +29,5 @@ capitalize('blue man group'); // $ExpectType string
 capitalize('', ''); // $ExpectError
 
 loc(); // $ExpectError
-loc("_Hello World");  // $ExpectType string
-loc("_Hello %@ %@", ["John", "Smith"]);  // $ExpectType string
+loc('_Hello World'); // $ExpectType string
+loc('_Hello %@ %@', ['John', 'Smith']); // $ExpectType string

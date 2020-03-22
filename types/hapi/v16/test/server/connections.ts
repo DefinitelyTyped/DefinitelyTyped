@@ -1,4 +1,3 @@
-
 // From https://hapijs.com/api/16.1.1#serverconnections
 
 import * as Hapi from 'hapi';

@@ -6,8 +6,8 @@
 
 import { Component, ReactNode } from 'react';
 
-export type ColorType = ReadonlyArray<[ string, number? ]>;
-export type StrokeLinecapType = "round" | "square";
+export type ColorType = ReadonlyArray<[string, number?]>;
+export type StrokeLinecapType = 'round' | 'square';
 export type RenderTimeFunctionType = (remainingTime: number, elapsedTime: number, isPlaying: boolean) => ReactNode;
 export type OnCompleteFunctionType = () => [boolean, number] | undefined | void;
 

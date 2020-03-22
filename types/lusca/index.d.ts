@@ -46,17 +46,21 @@ declare namespace lusca {
     }
 
     interface csrfOptionsAngular {
-        cookie?: string | {
-            options?: object;
-        };
+        cookie?:
+            | string
+            | {
+                  options?: object;
+              };
         angular: true;
     }
 
     interface csrfOptionsNonAngular {
-        cookie?: string | {
-            name: string;
-            options?: object;
-        };
+        cookie?:
+            | string
+            | {
+                  name: string;
+                  options?: object;
+              };
         angular?: false;
     }
 

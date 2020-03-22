@@ -1,2 +1,2 @@
-import { AttributesManager } from "..";
+import { AttributesManager } from '..';
 export = AttributesManager;

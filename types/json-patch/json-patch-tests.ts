@@ -1,5 +1,5 @@
-import jsonpatch = require("json-patch");
-import jp = require("json-patch");
+import jsonpatch = require('json-patch');
+import jp = require('json-patch');
 
 // Add property, result: {foo: 'bar'}
 jsonpatch.apply({}, [{ op: 'add', path: '/foo', value: 'bar' }]);

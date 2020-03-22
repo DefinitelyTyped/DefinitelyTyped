@@ -21,7 +21,7 @@ markerClusterGroupOptions = {
     iconCreateFunction: (cluster: L.MarkerCluster) => {
         const childMarkers: L.Marker[] = cluster.getAllChildMarkers();
         const childCount: number = cluster.getChildCount();
-        cluster.zoomToBounds({padding: [1, 2]});
+        cluster.zoomToBounds({ padding: [1, 2] });
         const bounds: L.LatLngBounds = cluster.getBounds();
         return icon;
     },
@@ -29,8 +29,10 @@ markerClusterGroupOptions = {
     chunkDelay: 100,
     chunkInterval: 200,
     chunkProgress: (processedMarkers, totalMarkers, timeElapsed) => {
-        console.log(`Reporting chunkProgress, processedMarkers: ${processedMarkers}, totalMarkers: ${totalMarkers}, timeElapsed: ${timeElapsed}.`);
-    }
+        console.log(
+            `Reporting chunkProgress, processedMarkers: ${processedMarkers}, totalMarkers: ${totalMarkers}, timeElapsed: ${timeElapsed}.`,
+        );
+    },
 };
 
 markerClusterGroupOptions.iconCreateFunction = (cluster: L.MarkerCluster) => {
@@ -44,9 +46,7 @@ markerClusterGroup = L.markerClusterGroup(markerClusterGroupOptions);
 let map = L.map('foo');
 
 markerClusterGroup = markerClusterGroup.addTo(map);
-map = map
-    .addLayer(markerClusterGroup)
-    .removeLayer(markerClusterGroup);
+map = map.addLayer(markerClusterGroup).removeLayer(markerClusterGroup);
 
 const latLng: L.LatLng = L.latLng(10, 10);
 
@@ -88,13 +88,13 @@ hasLayer = markerClusterGroup.hasLayer(marker);
 
 // inheritance
 const Subclass1 = L.MarkerClusterGroup.extend({
-    myFunction() {}
+    myFunction() {},
 });
 class Subclass2 extends L.MarkerClusterGroup {
     myFunction() {}
 }
 const Subclass3 = L.MarkerCluster.extend({
-    myFunction() {}
+    myFunction() {},
 });
 class Subclass4 extends L.MarkerCluster {
     myFunction() {}

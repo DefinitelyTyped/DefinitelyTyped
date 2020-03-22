@@ -1,5 +1,5 @@
-import { IconSetOptions } from "./IconSetOptions";
-import { Storeable } from "./Storeable";
+import { IconSetOptions } from './IconSetOptions';
+import { Storeable } from './Storeable';
 
 /**
  * Provides options for svg-icon sets.

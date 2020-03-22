@@ -49,11 +49,11 @@ declare namespace ZipPlugin {
          * Include file paths or patterns.
          * Defaults to including all files in the webpack output path.
          */
-        include?: string | RegExp | ReadonlyArray<string|RegExp>;
+        include?: string | RegExp | ReadonlyArray<string | RegExp>;
         /**
          * Exclude file paths or patterns. Takes precedence over include. Defaults to no excluding.
          */
-        exclude?: string | RegExp | ReadonlyArray<string|RegExp>;
+        exclude?: string | RegExp | ReadonlyArray<string | RegExp>;
         /**
          * File options passed to yazl `addFile`.
          * See https://github.com/thejoshwolfe/yazl#addfilerealpath-metadatapath-options

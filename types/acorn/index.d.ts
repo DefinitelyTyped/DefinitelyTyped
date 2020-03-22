@@ -27,10 +27,16 @@ declare namespace acorn {
         allowHashBang?: boolean;
         locations?: boolean;
         onToken?: ((token: Token) => any) | Token[];
-        onComment?: ((
-            isBlock: boolean, text: string, start: number, end: number, startLoc?: ESTree.Position,
-            endLoc?: ESTree.Position
-        ) => void) | Comment[];
+        onComment?:
+            | ((
+                  isBlock: boolean,
+                  text: string,
+                  start: number,
+                  end: number,
+                  startLoc?: ESTree.Position,
+                  endLoc?: ESTree.Position,
+              ) => void)
+            | Comment[];
         ranges?: boolean;
         program?: ESTree.Program;
         sourceFile?: string;
@@ -236,8 +242,8 @@ declare namespace acorn {
     function parseExpressionAt(input: string, pos?: number, options?: Options): ESTree.Expression;
 
     interface ITokenizer {
-      getToken(): Token;
-      [Symbol.iterator](): Iterator<Token>;
+        getToken(): Token;
+        [Symbol.iterator](): Iterator<Token>;
     }
 
     function tokenizer(input: string, options: Options): ITokenizer;

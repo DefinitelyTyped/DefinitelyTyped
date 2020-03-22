@@ -3,10 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace dojox {
-
     namespace treemap {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/treemap/DrillDownUp.html
@@ -70,7 +67,7 @@ declare namespace dojox {
              * Order fields are traversed when user hits the tab key
              *
              */
-            "tabIndex": string;
+            'tabIndex': string;
             /**
              *
              * @param item
@@ -124,10 +121,13 @@ declare namespace dojox {
              * The attribute of the store item that contains the data used to compute the area of a treemap cell.Default is "".
              *
              */
-            "areaAttr": string;
-            set(property:"areaAttr", value: string): void;
-            get(property:"areaAttr"): string;
-            watch(property:"areaAttr", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'areaAttr': string;
+            set(property: 'areaAttr', value: string): void;
+            get(property: 'areaAttr'): string;
+            watch(
+                property: 'areaAttr',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -170,41 +170,56 @@ declare namespace dojox {
              * "" --> { node: "domNode", type: "attribute" }
              *
              */
-            "attributeMap": Object;
-            set(property:"attributeMap", value: Object): void;
-            get(property:"attributeMap"): Object;
-            watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'attributeMap': Object;
+            set(property: 'attributeMap', value: Object): void;
+            get(property: 'attributeMap'): Object;
+            watch(
+                property: 'attributeMap',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "baseClass": string;
-            set(property:"baseClass", value: string): void;
-            get(property:"baseClass"): string;
-            watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'baseClass': string;
+            set(property: 'baseClass', value: string): void;
+            get(property: 'baseClass'): string;
+            watch(
+                property: 'baseClass',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "class": string;
-            set(property:"class", value: string): void;
-            get(property:"class"): string;
-            watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'class': string;
+            set(property: 'class', value: string): void;
+            get(property: 'class'): string;
+            watch(
+                property: 'class',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The attribute of the store item that contains the data used to compute the color of a treemap cell.
              * Default is "".
              *
              */
-            "colorAttr": string;
-            set(property:"colorAttr", value: string): void;
-            get(property:"colorAttr"): string;
-            watch(property:"colorAttr", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'colorAttr': string;
+            set(property: 'colorAttr', value: string): void;
+            get(property: 'colorAttr'): string;
+            watch(
+                property: 'colorAttr',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The optional color model that converts data to color.Default is null.
              *
              */
-            "colorModel": Object;
-            set(property:"colorModel", value: Object): void;
-            get(property:"colorModel"): Object;
-            watch(property:"colorModel", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'colorModel': Object;
+            set(property: 'colorModel', value: Object): void;
+            get(property: 'colorModel'): Object;
+            watch(
+                property: 'colorModel',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Designates where children of the source DOM node will be placed.
              * "Children" in this case refers to both DOM nodes and widgets.
@@ -228,20 +243,26 @@ declare namespace dojox {
              * is null for widgets that don't, like TextBox.
              *
              */
-            "containerNode": HTMLElement;
-            set(property:"containerNode", value: HTMLElement): void;
-            get(property:"containerNode"): HTMLElement;
-            watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'containerNode': HTMLElement;
+            set(property: 'containerNode', value: HTMLElement): void;
+            get(property: 'containerNode'): HTMLElement;
+            watch(
+                property: 'containerNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * Bi-directional support, as defined by the HTML DIR
              * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
              * default direction.
              *
              */
-            "dir": string;
-            set(property:"dir", value: string): void;
-            get(property:"dir"): string;
-            watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'dir': string;
+            set(property: 'dir', value: string): void;
+            get(property: 'dir'): string;
+            watch(
+                property: 'dir',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This is our visible representation of the widget! Other DOM
              * Nodes may by assigned to other properties, usually through the
@@ -249,37 +270,49 @@ declare namespace dojox {
              * property is the canonical "top level" node in widget UI.
              *
              */
-            "domNode": HTMLElement;
-            set(property:"domNode", value: HTMLElement): void;
-            get(property:"domNode"): HTMLElement;
-            watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'domNode': HTMLElement;
+            set(property: 'domNode', value: HTMLElement): void;
+            get(property: 'domNode'): HTMLElement;
+            watch(
+                property: 'domNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * This widget or a widget it contains has focus, or is "active" because
              * it was recently clicked.
              *
              */
-            "focused": boolean;
-            set(property:"focused", value: boolean): void;
-            get(property:"focused"): boolean;
-            watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'focused': boolean;
+            set(property: 'focused', value: boolean): void;
+            get(property: 'focused'): boolean;
+            watch(
+                property: 'focused',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * An array of data attributes used to group data in the treemap.Default is [].
              *
              */
-            "groupAttrs": any[];
-            set(property:"groupAttrs", value: any[]): void;
-            get(property:"groupAttrs"): any[];
-            watch(property:"groupAttrs", callback:{(property?:string, oldValue?:any[], newValue?: any[]):void}) :{unwatch():void}
+            'groupAttrs': any[];
+            set(property: 'groupAttrs', value: any[]): void;
+            get(property: 'groupAttrs'): any[];
+            watch(
+                property: 'groupAttrs',
+                callback: { (property?: string, oldValue?: any[], newValue?: any[]): void },
+            ): { unwatch(): void };
             /**
              * An array of grouping functions used to group data in the treemap.
              * When null, groupAttrs is to compute grouping functions.
              * Default is null.
              *
              */
-            "groupFuncs": any[];
-            set(property:"groupFuncs", value: any[]): void;
-            get(property:"groupFuncs"): any[];
-            watch(property:"groupFuncs", callback:{(property?:string, oldValue?:any[], newValue?: any[]):void}) :{unwatch():void}
+            'groupFuncs': any[];
+            set(property: 'groupFuncs', value: any[]): void;
+            get(property: 'groupFuncs'): any[];
+            watch(
+                property: 'groupFuncs',
+                callback: { (property?: string, oldValue?: any[], newValue?: any[]): void },
+            ): { unwatch(): void };
             /**
              * A unique, opaque ID string that can be assigned by users or by the
              * system. If the developer passes an ID which is known not to be
@@ -287,50 +320,68 @@ declare namespace dojox {
              * used instead.
              *
              */
-            "id": string;
-            set(property:"id", value: string): void;
-            get(property:"id"): string;
-            watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'id': string;
+            set(property: 'id', value: string): void;
+            get(property: 'id'): string;
+            watch(
+                property: 'id',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The associated array item to renderer list.
              *
              */
-            "itemToRenderer": Object;
-            set(property:"itemToRenderer", value: Object): void;
-            get(property:"itemToRenderer"): Object;
-            watch(property:"itemToRenderer", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'itemToRenderer': Object;
+            set(property: 'itemToRenderer', value: Object): void;
+            get(property: 'itemToRenderer'): Object;
+            watch(
+                property: 'itemToRenderer',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The attribute of the store item that contains the label of a treemap cell.Default is "label".
              *
              */
-            "labelAttr": string;
-            set(property:"labelAttr", value: string): void;
-            get(property:"labelAttr"): string;
-            watch(property:"labelAttr", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'labelAttr': string;
+            set(property: 'labelAttr', value: string): void;
+            get(property: 'labelAttr'): string;
+            watch(
+                property: 'labelAttr',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The starting depth level at which the labels are not displayed anymore on cells.If NaN no threshold is applied. The depth is the visual depth of the items on the screen not
              * in the data (i.e. after drill down the depth of an item might change).
              * Default is NaN.
              *
              */
-            "labelThreshold": number;
-            set(property:"labelThreshold", value: number): void;
-            get(property:"labelThreshold"): number;
-            watch(property:"labelThreshold", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'labelThreshold': number;
+            set(property: 'labelThreshold', value: number): void;
+            get(property: 'labelThreshold'): number;
+            watch(
+                property: 'labelThreshold',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Rarely used.  Overrides the default Dojo locale used to render this widget,
              * as defined by the HTML LANG attribute.
@@ -338,62 +389,83 @@ declare namespace dojox {
              * formatted according to RFC 3066 (like en-us).
              *
              */
-            "lang": string;
-            set(property:"lang", value: string): void;
-            get(property:"lang"): string;
-            watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'lang': string;
+            set(property: 'lang', value: string): void;
+            get(property: 'lang'): string;
+            watch(
+                property: 'lang',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The document this widget belongs to.  If not specified to constructor, will default to
              * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
              *
              */
-            "ownerDocument": Object;
-            set(property:"ownerDocument", value: Object): void;
-            get(property:"ownerDocument"): Object;
-            watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'ownerDocument': Object;
+            set(property: 'ownerDocument', value: Object): void;
+            get(property: 'ownerDocument'): Object;
+            watch(
+                property: 'ownerDocument',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * A query that can be passed to when querying the store.
              *
              */
-            "query": Object;
-            set(property:"query", value: Object): void;
-            get(property:"query"): Object;
-            watch(property:"query", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'query': Object;
+            set(property: 'query', value: Object): void;
+            get(property: 'query'): Object;
+            watch(
+                property: 'query',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Options to be applied when querying the store.
              *
              */
-            "queryOptions": Object;
-            set(property:"queryOptions", value: Object): void;
-            get(property:"queryOptions"): Object;
-            watch(property:"queryOptions", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'queryOptions': Object;
+            set(property: 'queryOptions', value: Object): void;
+            get(property: 'queryOptions'): Object;
+            watch(
+                property: 'queryOptions',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The root item of the treemap, that is the first visible item.
              * If null the entire treemap hierarchy is shown.Default is null.
              *
              */
-            "rootItem": Object;
-            set(property:"rootItem", value: Object): void;
-            get(property:"rootItem"): Object;
-            watch(property:"rootItem", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'rootItem': Object;
+            set(property: 'rootItem', value: Object): void;
+            get(property: 'rootItem'): Object;
+            watch(
+                property: 'rootItem',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * In single selection mode, the selected item or in multiple selection mode the last selected item.
              * Warning: Do not use this property directly, make sure to call set() or get() methods.
              *
              */
-            "selectedItem": Object;
-            set(property:"selectedItem", value: Object): void;
-            get(property:"selectedItem"): Object;
-            watch(property:"selectedItem", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'selectedItem': Object;
+            set(property: 'selectedItem', value: Object): void;
+            get(property: 'selectedItem'): Object;
+            watch(
+                property: 'selectedItem',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The list of selected items.
              * Warning: Do not use this property directly, make sure to call set() or get() methods.
              *
              */
-            "selectedItems": Object;
-            set(property:"selectedItems", value: Object): void;
-            get(property:"selectedItems"): Object;
-            watch(property:"selectedItems", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'selectedItems': Object;
+            set(property: 'selectedItems', value: Object): void;
+            get(property: 'selectedItems'): Object;
+            watch(
+                property: 'selectedItems',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Valid values are:
              *
@@ -403,34 +475,46 @@ declare namespace dojox {
              * Default value is "single".
              *
              */
-            "selectionMode": string;
-            set(property:"selectionMode", value: string): void;
-            get(property:"selectionMode"): string;
-            watch(property:"selectionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'selectionMode': string;
+            set(property: 'selectionMode', value: string): void;
+            get(property: 'selectionMode'): string;
+            watch(
+                property: 'selectionMode',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * pointer to original DOM node
              *
              */
-            "srcNodeRef": HTMLElement;
-            set(property:"srcNodeRef", value: HTMLElement): void;
-            get(property:"srcNodeRef"): HTMLElement;
-            watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'srcNodeRef': HTMLElement;
+            set(property: 'srcNodeRef', value: HTMLElement): void;
+            get(property: 'srcNodeRef'): HTMLElement;
+            watch(
+                property: 'srcNodeRef',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * The store that contains the items to display.
              *
              */
-            "store": Object;
-            set(property:"store", value: Object): void;
-            get(property:"store"): Object;
-            watch(property:"store", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'store': Object;
+            set(property: 'store', value: Object): void;
+            get(property: 'store'): Object;
+            watch(
+                property: 'store',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * HTML style attributes as cssText string or name/value hash
              *
              */
-            "style": string;
-            set(property:"style", value: string): void;
-            get(property:"style"): string;
-            watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'style': string;
+            set(property: 'style', value: string): void;
+            get(property: 'style'): string;
+            watch(
+                property: 'style',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * HTML title attribute.
              *
@@ -442,27 +526,36 @@ declare namespace dojox {
              * interpreted as HTML.
              *
              */
-            "title": string;
-            set(property:"title", value: string): void;
-            get(property:"title"): string;
-            watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'title': string;
+            set(property: 'title', value: string): void;
+            get(property: 'title'): string;
+            watch(
+                property: 'title',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
              * this specifies the tooltip to appear when the mouse is hovered over that text.
              *
              */
-            "tooltip": string;
-            set(property:"tooltip", value: string): void;
-            get(property:"tooltip"): string;
-            watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'tooltip': string;
+            set(property: 'tooltip', value: string): void;
+            get(property: 'tooltip'): string;
+            watch(
+                property: 'tooltip',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The attribute of the store item that contains the tooltip text of a treemap cell.Default is "".
              *
              */
-            "tooltipAttr": string;
-            set(property:"tooltipAttr", value: string): void;
-            get(property:"tooltipAttr"): string;
-            watch(property:"tooltipAttr", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'tooltipAttr': string;
+            set(property: 'tooltipAttr', value: string): void;
+            get(property: 'tooltipAttr'): string;
+            watch(
+                property: 'tooltipAttr',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Add properties to the watched properties to trigger invalidation. This method must be called in
              * the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
@@ -692,7 +785,12 @@ declare namespace dojox {
              * @param renderer The visual renderer of the selected/deselected item.
              * @param triggerEvent The event that lead to the selection of the item.
              */
-            dispatchChange(oldSelectedItem: Object, newSelectedItem: Object, renderer: Object, triggerEvent: Event): void;
+            dispatchChange(
+                oldSelectedItem: Object,
+                newSelectedItem: Object,
+                renderer: Object,
+                triggerEvent: Event,
+            ): void;
             /**
              * Used by widgets to signal that a synthetic event occurred, ex:
              *
@@ -785,7 +883,7 @@ declare namespace dojox {
             /**
              *
              */
-            isValid: {(): void};
+            isValid: { (): void };
             /**
              * A function that returns the label of cell from a store item.Default implementation is using labelAttr.
              *
@@ -1028,7 +1126,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
             /**
              * Called when the widget stops being "active" because
              * focus moved to something outside of it, or the user
@@ -1103,30 +1204,29 @@ declare namespace dojox {
             solve(items: any, width: any, height: any, areaFunc: any, rtl: any): Object;
         }
     }
-
 }
 
-declare module "dojox/treemap/_utils" {
-    var exp: dojox.treemap._utils
-    export=exp;
+declare module 'dojox/treemap/_utils' {
+    var exp: dojox.treemap._utils;
+    export = exp;
 }
-declare module "dojox/treemap/GroupLabel" {
-    var exp: dojox.treemap.GroupLabel
-    export=exp;
+declare module 'dojox/treemap/GroupLabel' {
+    var exp: dojox.treemap.GroupLabel;
+    export = exp;
 }
-declare module "dojox/treemap/DrillDownUp" {
-    var exp: dojox.treemap.DrillDownUp
-    export=exp;
+declare module 'dojox/treemap/DrillDownUp' {
+    var exp: dojox.treemap.DrillDownUp;
+    export = exp;
 }
-declare module "dojox/treemap/Keyboard" {
-    var exp: dojox.treemap.Keyboard
-    export=exp;
+declare module 'dojox/treemap/Keyboard' {
+    var exp: dojox.treemap.Keyboard;
+    export = exp;
 }
-declare module "dojox/treemap/ScaledLabel" {
-    var exp: dojox.treemap.ScaledLabel
-    export=exp;
+declare module 'dojox/treemap/ScaledLabel' {
+    var exp: dojox.treemap.ScaledLabel;
+    export = exp;
 }
-declare module "dojox/treemap/TreeMap" {
-    var exp: dojox.treemap.TreeMap
-    export=exp;
+declare module 'dojox/treemap/TreeMap' {
+    var exp: dojox.treemap.TreeMap;
+    export = exp;
 }

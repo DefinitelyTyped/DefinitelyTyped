@@ -10,9 +10,9 @@ export interface ContentRangeType {
 
 export default class XhrFileReader extends MediaFileReader {
     static _config: {
-      avoidHeadRequests: boolean,
-      disallowedXhrHeaders: string[],
-      timeoutInSec: number
+        avoidHeadRequests: boolean;
+        disallowedXhrHeaders: string[];
+        timeoutInSec: number;
     };
     _url: string;
     _fileData: ChunkedFileData;
@@ -33,25 +33,21 @@ export default class XhrFileReader extends MediaFileReader {
 
     _getXhrResponseContent(xhr: XMLHttpRequest): string;
 
-    _parseContentLength(xhr: XMLHttpRequest): number|null;
+    _parseContentLength(xhr: XMLHttpRequest): number | null;
 
-    _parseContentRange(xhr: XMLHttpRequest): ContentRangeType|null;
+    _parseContentRange(xhr: XMLHttpRequest): ContentRangeType | null;
 
     loadRange(range: [number, number], callbacks: LoadCallbackType): void;
 
     _roundRangeToChunkMultiple(range: [number, number]): [number, number];
 
-    _makeXHRRequest(
-        method: string,
-        range: [number, number] | null,
-        callbacks: CallbackType
-      ): void;
+    _makeXHRRequest(method: string, range: [number, number] | null, callbacks: CallbackType): void;
 
     _setRequestHeader(xhr: XMLHttpRequest, headerName: string, headerValue: string): void;
 
     _hasResponseHeader(xhr: XMLHttpRequest, headerName: string): boolean;
 
-    _getResponseHeader(xhr: XMLHttpRequest, headerName: string): string|null;
+    _getResponseHeader(xhr: XMLHttpRequest, headerName: string): string | null;
 
     getByteAt(offset: number): number;
 

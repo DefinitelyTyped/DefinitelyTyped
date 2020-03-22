@@ -75,7 +75,7 @@ const run = (): Promise<void> => {
     // The completion command is added automatically by tabtab when the program
     // is completed.
     if (cmd === 'completion') {
-        return new Promise<void>(res => {
+        return new Promise<void>((res) => {
             const env = parseEnv(process.env);
             completion(env);
             res();
@@ -85,4 +85,4 @@ const run = (): Promise<void> => {
     return new Promise<void>((_, rej) => rej());
 };
 
-run().catch(e => console.error(e));
+run().catch((e) => console.error(e));

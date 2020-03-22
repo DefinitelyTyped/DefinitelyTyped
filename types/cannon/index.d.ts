@@ -4,18 +4,13 @@
 //                 Grzegorz Rozdzialik <https://github.com/Gelio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare module CANNON {
-
     export interface IAABBOptions {
-
         upperBound?: Vec3;
         lowerBound?: Vec3;
-
     }
 
     export class AABB {
-
         lowerBound: Vec3;
         upperBound: Vec3;
 
@@ -29,22 +24,18 @@ declare module CANNON {
         setFromPoints(points: Vec3[], position?: Vec3, quaternion?: Quaternion, skinSize?: number): AABB;
         toLocalFrame(frame: Transform, target: AABB): AABB;
         toWorldFrame(frame: Transform, target: AABB): AABB;
-
     }
 
     export class ArrayCollisionMatrix {
-
         matrix: Mat3[];
 
         get(i: number, j: number): number;
         set(i: number, j: number, value: number): void;
         reset(): void;
         setNumObjects(n: number): void;
-
     }
 
     export class BroadPhase {
-
         world: World;
         useBoundingBoxes: boolean;
         dirty: boolean;
@@ -58,11 +49,9 @@ declare module CANNON {
         setWorld(world: World): void;
         boundingSphereCheck(bodyA: Body, bodyB: Body): boolean;
         aabbQuery(world: World, aabb: AABB, result: Body[]): Body[];
-
     }
 
     export class GridBroadphase extends BroadPhase {
-
         nx: number;
         ny: number;
         nz: number;
@@ -71,25 +60,20 @@ declare module CANNON {
         bins: any[];
 
         constructor(aabbMin?: Vec3, aabbMax?: Vec3, nx?: number, ny?: number, nz?: number);
-
     }
 
-    export class NaiveBroadphase extends BroadPhase {
-    }
+    export class NaiveBroadphase extends BroadPhase {}
 
     export class ObjectCollisionMatrix {
-
         matrix: number[];
 
         get(i: number, j: number): number;
         set(i: number, j: number, value: number): void;
         reset(): void;
         setNumObjects(n: number): void;
-
     }
 
     export class Ray {
-
         from: Vec3;
         to: Vec3;
         precision: number;
@@ -98,11 +82,9 @@ declare module CANNON {
         constructor(from?: Vec3, to?: Vec3);
 
         getAABB(result: RaycastResult): void;
-
     }
 
     export class RaycastResult {
-
         rayFromWorld: Vec3;
         rayToWorld: Vec3;
         hitNormalWorld: Vec3;
@@ -113,12 +95,18 @@ declare module CANNON {
         distance: number;
 
         reset(): void;
-        set(rayFromWorld: Vec3, rayToWorld: Vec3, hitNormalWorld: Vec3, hitPointWorld: Vec3, shape: Shape, body: Body, distance: number): void;
-
+        set(
+            rayFromWorld: Vec3,
+            rayToWorld: Vec3,
+            hitNormalWorld: Vec3,
+            hitPointWorld: Vec3,
+            shape: Shape,
+            body: Body,
+            distance: number,
+        ): void;
     }
 
     export class SAPBroadphase extends BroadPhase {
-
         static insertionSortX(a: any[]): any[];
         static insertionSortY(a: any[]): any[];
         static insertionSortZ(a: any[]): any[];
@@ -132,18 +120,14 @@ declare module CANNON {
 
         autoDetectAxis(): void;
         aabbQuery(world: World, aabb: AABB, result?: Body[]): Body[];
-
     }
 
     export interface IConstraintOptions {
-
         collideConnected?: boolean;
         wakeUpBodies?: boolean;
-
     }
 
     export class Constraint {
-
         equations: any[];
         bodyA: Body;
         bodyB: Body;
@@ -155,27 +139,21 @@ declare module CANNON {
         update(): void;
         disable(): void;
         enable(): void;
-
     }
 
     export class DistanceConstraint extends Constraint {
-
         constructor(bodyA: Body, bodyB: Body, distance: number, maxForce?: number);
-
     }
 
     export interface IHingeConstraintOptions {
-
         pivotA?: Vec3;
         axisA?: Vec3;
         pivotB?: Vec3;
         axisB?: Vec3;
         maxForce?: number;
-
     }
 
     export class HingeConstraint extends Constraint {
-
         motorEnabled: boolean;
         motorTargetVelocity: number;
         motorMinForce: number;
@@ -186,13 +164,10 @@ declare module CANNON {
 
         enableMotor(): void;
         disableMotor(): void;
-
     }
 
     export class PointToPointConstraint extends Constraint {
-
         constructor(bodyA: Body, pivotA: Vec3, bodyB: Body, pivotB: Vec3, maxForce?: number);
-
     }
 
     export interface ILockConstraintOptions {
@@ -215,10 +190,7 @@ declare module CANNON {
         constructor(bodyA: Body, bodyB: Body, options?: IConeTwistConstraintOptions);
     }
 
-
-
     export class Equation {
-
         id: number;
         minForce: number;
         maxForce: number;
@@ -242,17 +214,13 @@ declare module CANNON {
         computeGiMGt(): number;
         addToWlamda(deltalambda: number): number;
         computeC(): number;
-
     }
 
     export class FrictionEquation extends Equation {
-
         constructor(bi: Body, bj: Body, slipForce: number);
-
     }
 
     export class RotationalEquation extends Equation {
-
         ni: Vec3;
         nj: Vec3;
         nixnj: Vec3;
@@ -263,11 +231,9 @@ declare module CANNON {
         relForce: Vec3;
 
         constructor(bodyA: Body, bodyB: Body);
-
     }
 
     export class RotationalMotorEquation extends Equation {
-
         axisA: Vec3;
         axisB: Vec3;
         invLi: Mat3;
@@ -275,11 +241,9 @@ declare module CANNON {
         targetVelocity: number;
 
         constructor(bodyA: Body, bodyB: Body, maxForce?: number);
-
     }
 
     export class ContactEquation extends Equation {
-
         restitution: number;
         ri: Vec3;
         rj: Vec3;
@@ -293,22 +257,18 @@ declare module CANNON {
         bjInvInertiaTimesRjxn: Vec3;
 
         constructor(bi: Body, bj: Body);
-
     }
 
     export interface IContactMaterialOptions {
-
         friction?: number;
         restitution?: number;
         contactEquationStiffness?: number;
         contactEquationRelaxation?: number;
         frictionEquationStiffness?: number;
         frictionEquationRelaxation?: number;
-
     }
 
     export class ContactMaterial {
-
         id: number;
         materials: Material[];
         friction: number;
@@ -319,32 +279,26 @@ declare module CANNON {
         frictionEquationRelaxation: number;
 
         constructor(m1: Material, m2: Material, options?: IContactMaterialOptions);
-
     }
 
     export class Material {
-
         name: string;
         id: number;
-        friction:number;
-        restitution:number;
+        friction: number;
+        restitution: number;
 
         constructor(name: string);
-
     }
 
     export class JacobianElement {
-
         spatial: Vec3;
         rotational: Vec3;
 
         multiplyElement(element: JacobianElement): number;
         multiplyVectors(spacial: Vec3, rotational: Vec3): number;
-
     }
 
     export class Mat3 {
-
         constructor(elements?: number[]);
 
         identity(): void;
@@ -362,11 +316,9 @@ declare module CANNON {
         reverse(target?: Mat3): Mat3;
         setRotationFromQuaternion(q: Quaternion): Mat3;
         transpose(target?: Mat3): Mat3;
-
     }
 
     export class Quaternion {
-
         x: number;
         y: number;
         z: number;
@@ -390,11 +342,9 @@ declare module CANNON {
         toEuler(target: Vec3, order?: string): void;
         setFromEuler(x: number, y: number, z: number, order?: string): Quaternion;
         clone(): Quaternion;
-
     }
 
     export class Transform {
-
         static pointToLocalFrame(position: Vec3, quaternion: Quaternion, worldPoint: Vec3, result?: Vec3): Vec3;
         static pointToWorldFrame(position: Vec3, quaternion: Quaternion, localPoint: Vec3, result?: Vec3): Vec3;
 
@@ -403,11 +353,9 @@ declare module CANNON {
 
         vectorToWorldFrame(localVector: Vec3, result?: Vec3): Vec3;
         vectorToLocalFrame(position: Vec3, quaternion: Quaternion, worldVector: Vec3, result?: Vec3): Vec3;
-
     }
 
     export class Vec3 {
-
         static ZERO: Vec3;
 
         x: number;
@@ -441,7 +389,6 @@ declare module CANNON {
         almostZero(precision?: number): boolean;
         isAntiparallelTo(v: Vec3, prescision?: number): boolean;
         clone(): Vec3;
-
     }
 
     export interface IBodyOptions {
@@ -464,7 +411,6 @@ declare module CANNON {
     }
 
     export class Body extends EventTarget {
-
         static DYNAMIC: number;
         static STATIC: number;
         static KINEMATIC: number;
@@ -539,20 +485,16 @@ declare module CANNON {
         applyLocalImpulse(impulse: Vec3, localPoint: Vec3): void;
         updateMassProperties(): void;
         getVelocityAtWorldPoint(worldPoint: Vec3, result: Vec3): Vec3;
-
     }
 
     export interface IRaycastVehicleOptions {
-
         chassisBody?: Body;
         indexRightAxis?: number;
         indexLeftAxis?: number;
         indexUpAxis?: number;
-
     }
 
     export interface IWheelInfoOptions {
-
         chassisConnectionPointLocal?: Vec3;
         chassisConnectionPointWorld?: Vec3;
         directionLocal?: Vec3;
@@ -585,11 +527,9 @@ declare module CANNON {
         direction?: Vec3;
         axis?: Vec3;
         body?: Body;
-
     }
 
     export class WheelInfo {
-
         maxSuspensionTravbel: number;
         customSlidingRotationalSpeed: number;
         useCustomSlidingRotationalSpeed: boolean;
@@ -627,11 +567,9 @@ declare module CANNON {
         isInContact: boolean;
 
         constructor(options?: IWheelInfoOptions);
-
     }
 
     export class RaycastVehicle {
-
         chassisBody: Body;
         wheelInfos: IWheelInfoOptions[];
         sliding: boolean;
@@ -652,17 +590,13 @@ declare module CANNON {
         updateSuspension(deltaTime: number): void;
         removeFromWorld(world: World): void;
         getWheelTransformWorld(wheelIndex: number): Transform;
-
     }
 
     export interface IRigidVehicleOptions {
-
         chassisBody: Body;
-
     }
 
     export class RigidVehicle {
-
         wheelBodies: Body[];
         coordinateSystem: Vec3;
         chassisBody: Body;
@@ -681,11 +615,9 @@ declare module CANNON {
         addToWorld(world: World): void;
         removeFromWorld(world: World): void;
         getWheelSpeed(wheelIndex: number): number;
-
     }
 
     export class SPHSystem {
-
         particles: Particle[];
         density: number;
         smoothingRadius: number;
@@ -703,11 +635,9 @@ declare module CANNON {
         w(r: number): number;
         gradw(rVec: Vec3, resultVec: Vec3): void;
         nablaw(r: number): number;
-
     }
 
     export interface ISpringOptions {
-
         restLength?: number;
         stiffness?: number;
         damping?: number;
@@ -715,11 +645,9 @@ declare module CANNON {
         worldAnchorB?: Vec3;
         localAnchorA?: Vec3;
         localAnchorB?: Vec3;
-
     }
 
     export class Spring {
-
         restLength: number;
         stffness: number;
         damping: number;
@@ -735,11 +663,9 @@ declare module CANNON {
         getWorldAnchorA(result: Vec3): void;
         getWorldAnchorB(result: Vec3): void;
         applyForce(): void;
-
     }
 
     export class Box extends Shape {
-
         static calculateIntertia(halfExtents: Vec3, mass: number, target: Vec3): void;
 
         boundingSphereRadius: number;
@@ -755,11 +681,9 @@ declare module CANNON {
         updateBoundingSphereRadius(): number;
         volume(): number;
         forEachWorldCorner(pos: Vec3, quat: Quaternion, callback: Function): void;
-
     }
 
     export class ConvexPolyhedron extends Shape {
-
         static computeNormal(va: Vec3, vb: Vec3, vc: Vec3, target: Vec3): void;
         static project(hull: ConvexPolyhedron, axis: Vec3, pos: Vec3, quat: Quaternion, result: number[]): void;
 
@@ -775,11 +699,44 @@ declare module CANNON {
         computeEdges(): void;
         computeNormals(): void;
         getFaceNormal(i: number, target: Vec3): Vec3;
-        clipAgainstHull(posA: Vec3, quatA: Quaternion, hullB: Vec3, quatB: Quaternion, separatingNormal: Vec3, minDist: number, maxDist: number, result: any[]): void;
-        findSaparatingAxis(hullB: ConvexPolyhedron, posA: Vec3, quatA: Quaternion, posB: Vec3, quatB: Quaternion, target: Vec3, faceListA: any[], faceListB: any[]): boolean;
-        testSepAxis(axis: Vec3, hullB: ConvexPolyhedron, posA: Vec3, quatA: Quaternion, posB: Vec3, quatB: Quaternion): number;
+        clipAgainstHull(
+            posA: Vec3,
+            quatA: Quaternion,
+            hullB: Vec3,
+            quatB: Quaternion,
+            separatingNormal: Vec3,
+            minDist: number,
+            maxDist: number,
+            result: any[],
+        ): void;
+        findSaparatingAxis(
+            hullB: ConvexPolyhedron,
+            posA: Vec3,
+            quatA: Quaternion,
+            posB: Vec3,
+            quatB: Quaternion,
+            target: Vec3,
+            faceListA: any[],
+            faceListB: any[],
+        ): boolean;
+        testSepAxis(
+            axis: Vec3,
+            hullB: ConvexPolyhedron,
+            posA: Vec3,
+            quatA: Quaternion,
+            posB: Vec3,
+            quatB: Quaternion,
+        ): number;
         getPlaneConstantOfFace(face_i: number): number;
-        clipFaceAgainstHull(separatingNormal: Vec3, posA: Vec3, quatA: Quaternion, worldVertsB1: Vec3[], minDist: number, maxDist: number, result: any[]): void;
+        clipFaceAgainstHull(
+            separatingNormal: Vec3,
+            posA: Vec3,
+            quatA: Quaternion,
+            worldVertsB1: Vec3[],
+            minDist: number,
+            maxDist: number,
+            result: any[],
+        ): void;
         clipFaceAgainstPlane(inVertices: Vec3[], outVertices: Vec3[], planeNormal: Vec3, planeConstant: number): Vec3;
         computeWorldVertices(position: Vec3, quat: Quaternion): void;
         computeLocalAABB(aabbmin: Vec3, aabbmax: Vec3): void;
@@ -788,25 +745,19 @@ declare module CANNON {
         getAveragePointLocal(target: Vec3): Vec3;
         transformAllPoints(offset: Vec3, quat: Quaternion): void;
         pointIsInside(p: Vec3): boolean;
-
     }
 
     export class Cylinder extends Shape {
-
         constructor(radiusTop: number, radiusBottom: number, height: number, numSegments: number);
-
     }
 
     export interface IHightfield {
-
         minValue?: number;
         maxValue?: number;
         elementSize: number;
-
     }
 
     export class Heightfield extends Shape {
-
         data: number[][];
         maxValue: number;
         minValue: number;
@@ -825,28 +776,21 @@ declare module CANNON {
         getRectMinMax(iMinX: number, iMinY: number, iMaxX: number, iMaxY: number, result: any[]): void;
         getIndexOfPosition(x: number, y: number, result: any[], clamp: boolean): boolean;
         getConvexTrianglePillar(xi: number, yi: number, getUpperTriangle: boolean): void;
-
     }
 
-    export class Particle extends Shape {
-
-    }
+    export class Particle extends Shape {}
 
     export class Plane extends Shape {
-
         worldNormal: Vec3;
         worldNormalNeedsUpdate: boolean;
         boundingSphereRadius: number;
 
         computeWorldNormal(quat: Quaternion): void;
         calculateWorldAABB(pos: Vec3, quat: Quaternion, min: number, max: number): void;
-
     }
 
     export class Shape {
-
         static types: {
-
             SPHERE: number;
             PLANE: number;
             BOX: number;
@@ -855,8 +799,7 @@ declare module CANNON {
             HEIGHTFIELD: number;
             PARTICLE: number;
             CYLINDER: number;
-
-        }
+        };
 
         type: number;
         boundingSphereRadius: number;
@@ -865,25 +808,19 @@ declare module CANNON {
         updateBoundingSphereRadius(): number;
         volume(): number;
         calculateLocalInertia(mass: number, target: Vec3): Vec3;
-
     }
 
     export class Sphere extends Shape {
-
         radius: number;
 
         constructor(radius: number);
-
     }
 
     export class GSSolver extends Solver {
-
         iterations: number;
         tolerance: number;
 
         solve(dy: number, world: World): number;
-
-
     }
 
     export class Solver {
@@ -894,41 +831,33 @@ declare module CANNON {
         addEquation(eq: Equation): void;
         removeEquation(eq: Equation): void;
         removeAllEquations(): void;
-
     }
 
     export class SplitSolver extends Solver {
-
         subsolver: Solver;
 
         constructor(subsolver: Solver);
 
         solve(dy: number, world: World): number;
-
     }
 
     export class EventTarget {
-
         addEventListener(type: string, listener: Function): EventTarget;
         hasEventListener(type: string, listener: Function): boolean;
         removeEventListener(type: string, listener: Function): EventTarget;
         dispatchEvent(event: IEvent): IEvent;
-
     }
 
     export class Pool {
-
         objects: any[];
         type: any[];
 
         release(): any;
         get(): any;
         constructObject(): any;
-
     }
 
     export class TupleDictionary {
-
         data: {
             keys: any[];
         };
@@ -936,28 +865,21 @@ declare module CANNON {
         get(i: number, j: number): number;
         set(i: number, j: number, value: number): void;
         reset(): void;
-
     }
 
     export class Utils {
-
         static defaults(options?: any, defaults?: any): any;
-
     }
 
     export class Vec3Pool extends Pool {
-
         type: any;
 
         constructObject(): Vec3;
-
     }
 
     export class NarrowPhase {
-
         contactPointPool: Pool[];
         v3pool: Vec3Pool;
-
     }
 
     export class World extends EventTarget {
@@ -1008,28 +930,21 @@ declare module CANNON {
         addMaterial(m: Material): void;
         addContactMaterial(cmat: ContactMaterial): void;
         step(dy: number, timeSinceLastCalled?: number, maxSubSteps?: number): void;
-
     }
 
     export interface IEvent {
-
         type: string;
-
     }
 
     export interface IBodyEvent extends IEvent {
-
         body: Body;
-
     }
 
     export interface ICollisionEvent extends IBodyEvent {
         contact: any;
     }
-
 }
 
-
-declare module "cannon" {
+declare module 'cannon' {
     export = CANNON;
 }

@@ -9,7 +9,6 @@
 import * as signal from 'signals';
 
 declare namespace CrossroadsJs {
-
     export interface Route {
         matched: signal.Signal;
 
@@ -54,7 +53,6 @@ declare namespace CrossroadsJs {
     }
 
     export interface CrossRoadsStatic {
-
         NORM_AS_ARRAY: Function;
 
         NORM_AS_OBJECT: Function;

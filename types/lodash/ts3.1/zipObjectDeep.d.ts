@@ -1,2 +1,2 @@
-import { zipObjectDeep } from "./index";
+import { zipObjectDeep } from './index';
 export = zipObjectDeep;

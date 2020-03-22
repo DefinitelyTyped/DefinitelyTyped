@@ -1,2 +1,2 @@
-import { isSymbol } from "../fp";
+import { isSymbol } from '../fp';
 export = isSymbol;

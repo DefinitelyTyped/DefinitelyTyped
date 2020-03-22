@@ -29,7 +29,7 @@ declare class Twitter {
     stream(
         method: 'user' | 'site' | string,
         params: { [key: string]: any },
-        callback: (stream: EventEmitter) => void
+        callback: (stream: EventEmitter) => void,
     ): void;
     stream(method: 'user' | 'site' | string, callback: (stream: EventEmitter) => void): void;
     stream(method: 'user' | 'site' | string, params?: { [key: string]: any }): EventEmitter;

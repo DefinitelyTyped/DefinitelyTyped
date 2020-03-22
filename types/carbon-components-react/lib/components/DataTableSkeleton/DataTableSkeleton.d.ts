@@ -1,7 +1,7 @@
-import * as React from "react";
-import { ShapeOf } from "../../../typings/shared";
+import * as React from 'react';
+import { ShapeOf } from '../../../typings/shared';
 
-interface InheritedProps extends React.TableHTMLAttributes<HTMLTableElement> { }
+interface InheritedProps extends React.TableHTMLAttributes<HTMLTableElement> {}
 
 export interface HeaderType {
     key?: string;

@@ -1,29 +1,61 @@
 // Test file for react-mdl Definition file
 
-
 import * as React from 'react';
-import { Chip, ChipContact,
+import {
+    Chip,
+    ChipContact,
     Badge,
-    FABButton, Button, IconButton,
-    Card, CardActions, CardTitle, CardText, CardMenu, CardMedia,
+    FABButton,
+    Button,
+    IconButton,
+    Card,
+    CardActions,
+    CardTitle,
+    CardText,
+    CardMenu,
+    CardMedia,
     Checkbox,
-    DataTable, TableHeader, Table,
-    Dialog, DialogTitle, DialogContent, DialogActions,
-    Grid, Cell,
-    Icon, IconToggle,
-    Layout, Header, Navigation, Drawer, Content, HeaderRow, HeaderTabs, Footer, FooterDropDownSection, FooterLinkList, FooterSection,
-    List, ListItem, ListItemContent, ListItemAction,
-    Menu, MenuItem,
+    DataTable,
+    TableHeader,
+    Table,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Grid,
+    Cell,
+    Icon,
+    IconToggle,
+    Layout,
+    Header,
+    Navigation,
+    Drawer,
+    Content,
+    HeaderRow,
+    HeaderTabs,
+    Footer,
+    FooterDropDownSection,
+    FooterLinkList,
+    FooterSection,
+    List,
+    ListItem,
+    ListItemContent,
+    ListItemAction,
+    Menu,
+    MenuItem,
     ProgressBar,
-    RadioGroup, Radio,
+    RadioGroup,
+    Radio,
     Slider,
     Snackbar,
     Spinner,
     Switch,
-    Tabs, Tab,
+    Tabs,
+    Tab,
     Textfield,
     Tooltip,
-    MDLComponent } from 'react-mdl';
+    MDLComponent,
+} from 'react-mdl';
 
 // all tests are from the examples provided here: https://tleunen.github.io/react-mdl/
 
@@ -46,7 +78,9 @@ class BadgeTests extends React.Component {
                 <Badge text="4">Inbox</Badge>
 
                 {/* Icon badge without background on text */}
-                <Badge text="♥" noBackground>Mood</Badge>
+                <Badge text="♥" noBackground>
+                    Mood
+                </Badge>
             </div>
         );
     }
@@ -59,9 +93,21 @@ class ChipTests extends React.Component {
             <div>
                 <Chip>Basic chip</Chip>
 
-                <Chip onClose={e => { alert('Close icon clicked!'); }}>Deletable Chip</Chip>
+                <Chip
+                    onClose={(e) => {
+                        alert('Close icon clicked!');
+                    }}
+                >
+                    Deletable Chip
+                </Chip>
 
-                <Chip onClick={e => { alert('Clicked!'); }}>Button Chip</Chip>
+                <Chip
+                    onClick={(e) => {
+                        alert('Clicked!');
+                    }}
+                >
+                    Button Chip
+                </Chip>
                 {/* Contact Chip */}
                 <Chip>
                     <ChipContact className="mdl-color--teal mdl-color-text--white">A</ChipContact>
@@ -69,10 +115,12 @@ class ChipTests extends React.Component {
                 </Chip>
 
                 {/* User Contact Chip */}
-                <Chip onClose={e => { alert('Close icon clicked!'); }}>
-                    <ChipContact
-                        style={{ background: 'url("https://placekitten.com/150/150") 0 0 / cover' }}
-                    />
+                <Chip
+                    onClose={(e) => {
+                        alert('Close icon clicked!');
+                    }}
+                >
+                    <ChipContact style={{ background: 'url("https://placekitten.com/150/150") 0 0 / cover' }} />
                     Deletable user contact chip
                 </Chip>
             </div>
@@ -124,19 +172,29 @@ class ButtonTests extends React.Component {
                 <Button raised>Button</Button>
 
                 {/* Raised button with ripple */}
-                <Button raised ripple>Button</Button>
+                <Button raised ripple>
+                    Button
+                </Button>
 
                 {/* Disabled Raised button */}
-                <Button raised disabled>Button</Button>
+                <Button raised disabled>
+                    Button
+                </Button>
 
                 {/* Colored Raised button */}
-                <Button raised colored>Button</Button>
+                <Button raised colored>
+                    Button
+                </Button>
 
                 {/* Accent-colored button without ripple */}
-                <Button raised accent>Button</Button>
+                <Button raised accent>
+                    Button
+                </Button>
 
                 {/* Accent-colored button with ripple */}
-                <Button raised accent ripple>Button</Button>
+                <Button raised accent ripple>
+                    Button
+                </Button>
 
                 {/* Flat button */}
                 <Button>Button</Button>
@@ -168,50 +226,83 @@ class CardTests extends React.Component {
     render() {
         return (
             <div>
-                <Card shadow={0} style={{width: '512px', margin: 'auto'}}>
-                    <CardTitle style={{color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover'}}>Welcome</CardTitle>
+                <Card shadow={0} style={{ width: '512px', margin: 'auto' }}>
+                    <CardTitle
+                        style={{
+                            color: '#fff',
+                            height: '176px',
+                            background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover',
+                        }}
+                    >
+                        Welcome
+                    </CardTitle>
                     <CardText>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Mauris sagittis pellentesque lacus eleifend lacinia...
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis pellentesque lacus
+                        eleifend lacinia...
                     </CardText>
                     <CardActions border>
                         <Button colored>Get Started</Button>
                     </CardActions>
-                    <CardMenu style={{color: '#fff'}}>
+                    <CardMenu style={{ color: '#fff' }}>
                         <IconButton name="share" />
                     </CardMenu>
                 </Card>
 
-                <Card shadow={0} style={{width: '320px', height: '320px', margin: 'auto'}}>
-                    <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #46B6AC'}}>Update</CardTitle>
-                    <CardText>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Aenan convallis.
-                    </CardText>
+                <Card shadow={0} style={{ width: '320px', height: '320px', margin: 'auto' }}>
+                    <CardTitle
+                        expand
+                        style={{
+                            color: '#fff',
+                            background:
+                                'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #46B6AC',
+                        }}
+                    >
+                        Update
+                    </CardTitle>
+                    <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenan convallis.</CardText>
                     <CardActions border>
                         <Button colored>View Updates</Button>
                     </CardActions>
                 </Card>
 
-                <Card shadow={0} style={{width: '256px', height: '256px', background: 'url(http://www.getmdl.io/assets/demos/image_card.jpg) center / cover', margin: 'auto'}}>
+                <Card
+                    shadow={0}
+                    style={{
+                        width: '256px',
+                        height: '256px',
+                        background: 'url(http://www.getmdl.io/assets/demos/image_card.jpg) center / cover',
+                        margin: 'auto',
+                    }}
+                >
                     <CardTitle expand />
-                    <CardActions style={{height: '52px', padding: '16px', background: 'rgba(0,0,0,0.2)'}}>
-                        <span style={{color: '#fff', fontSize: '14px', fontWeight: 500 }}>
-                            Image.jpg
-                        </span>
+                    <CardActions style={{ height: '52px', padding: '16px', background: 'rgba(0,0,0,0.2)' }}>
+                        <span style={{ color: '#fff', fontSize: '14px', fontWeight: 500 }}>Image.jpg</span>
                     </CardActions>
                 </Card>
 
-                <Card shadow={0} style={{width: '256px', height: '256px', background: '#3E4EB8'}}>
-                    <CardTitle expand style={{alignItems: 'flex-start', color: '#fff'}}>
-                        <h4 style={{marginTop: '0'}}>
-                            Featured event:<br />
-                            May 24, 2016<br />
+                <Card shadow={0} style={{ width: '256px', height: '256px', background: '#3E4EB8' }}>
+                    <CardTitle expand style={{ alignItems: 'flex-start', color: '#fff' }}>
+                        <h4 style={{ marginTop: '0' }}>
+                            Featured event:
+                            <br />
+                            May 24, 2016
+                            <br />
                             7-11pm
                         </h4>
                     </CardTitle>
-                    <CardActions border style={{borderColor: 'rgba(255, 255, 255, 0.2)', display: 'flex', boxSizing: 'border-box', alignItems: 'center', color: '#fff'}}>
-                        <Button colored style={{color: '#fff'}}>Add to Calendar</Button>
+                    <CardActions
+                        border
+                        style={{
+                            borderColor: 'rgba(255, 255, 255, 0.2)',
+                            display: 'flex',
+                            boxSizing: 'border-box',
+                            alignItems: 'center',
+                            color: '#fff',
+                        }}
+                    >
+                        <Button colored style={{ color: '#fff' }}>
+                            Add to Calendar
+                        </Button>
                         <div className="mdl-layout-spacer"></div>
                         <Icon name="event" />
                     </CardActions>
@@ -242,14 +333,25 @@ class DataTableTests extends React.Component {
                 <DataTable
                     shadow={0}
                     rows={[
-                        {material: 'Acrylic (Transparent)', quantity: 25, price: 2.90},
-                        {material: 'Plywood (Birch)', quantity: 50, price: 1.25},
-                        {material: 'Laminate (Gold on Blue)', quantity: 10, price: 2.35}
+                        { material: 'Acrylic (Transparent)', quantity: 25, price: 2.9 },
+                        { material: 'Plywood (Birch)', quantity: 50, price: 1.25 },
+                        { material: 'Laminate (Gold on Blue)', quantity: 10, price: 2.35 },
                     ]}
                 >
-                    <TableHeader name="material" tooltip="The amazing material name">Material</TableHeader>
-                    <TableHeader numeric name="quantity" tooltip="Number of materials">Quantity</TableHeader>
-                    <TableHeader numeric name="price" cellFormatter={(price) => `\$${price.toFixed(2)}`} tooltip="Price pet unit">Price</TableHeader>
+                    <TableHeader name="material" tooltip="The amazing material name">
+                        Material
+                    </TableHeader>
+                    <TableHeader numeric name="quantity" tooltip="Number of materials">
+                        Quantity
+                    </TableHeader>
+                    <TableHeader
+                        numeric
+                        name="price"
+                        cellFormatter={(price) => `\$${price.toFixed(2)}`}
+                        tooltip="Price pet unit"
+                    >
+                        Price
+                    </TableHeader>
                 </DataTable>
 
                 <DataTable
@@ -257,38 +359,47 @@ class DataTableTests extends React.Component {
                     shadow={0}
                     rowKeyColumn="id"
                     rows={[
-                        {id: 1001, material: 'Acrylic (Transparent)', quantity: 25, price: 2.90},
-                        {id: 1002, material: 'Plywood (Birch)', quantity: 50, price: 1.25},
-                        {id: 1003, material: 'Laminate (Gold on Blue)', quantity: 10, price: 2.35}
+                        { id: 1001, material: 'Acrylic (Transparent)', quantity: 25, price: 2.9 },
+                        { id: 1002, material: 'Plywood (Birch)', quantity: 50, price: 1.25 },
+                        { id: 1003, material: 'Laminate (Gold on Blue)', quantity: 10, price: 2.35 },
                     ]}
                 >
-                    <TableHeader name="material" tooltip="The amazing material name">Material</TableHeader>
-                    <TableHeader numeric name="quantity" tooltip="Number of materials">Quantity</TableHeader>
-                    <TableHeader numeric name="price" cellFormatter={(price) => `\$${price.toFixed(2)}`} tooltip="Price pet unit">Price</TableHeader>
+                    <TableHeader name="material" tooltip="The amazing material name">
+                        Material
+                    </TableHeader>
+                    <TableHeader numeric name="quantity" tooltip="Number of materials">
+                        Quantity
+                    </TableHeader>
+                    <TableHeader
+                        numeric
+                        name="price"
+                        cellFormatter={(price) => `\$${price.toFixed(2)}`}
+                        tooltip="Price pet unit"
+                    >
+                        Price
+                    </TableHeader>
                 </DataTable>
 
                 <Table
                     sortable
                     shadow={0}
                     rows={[
-                        {material: 'Acrylic (Transparent)', quantity: 25, price: 2.90},
-                        {material: 'Plywood (Birch)', quantity: 50, price: 1.25},
-                        {material: 'Laminate (Gold on Blue)', quantity: 10, price: 2.35}
+                        { material: 'Acrylic (Transparent)', quantity: 25, price: 2.9 },
+                        { material: 'Plywood (Birch)', quantity: 50, price: 1.25 },
+                        { material: 'Laminate (Gold on Blue)', quantity: 10, price: 2.35 },
                     ]}
                 >
                     <TableHeader
                         name="material"
                         sortable
-                        sortFn={(a, b, isAsc) => (isAsc ? a : b).match(/\((.*)\)/)[1].localeCompare((isAsc ? b : a).match(/\((.*)\)/)[1])}
+                        sortFn={(a, b, isAsc) =>
+                            (isAsc ? a : b).match(/\((.*)\)/)[1].localeCompare((isAsc ? b : a).match(/\((.*)\)/)[1])
+                        }
                         tooltip="The amazing material name"
                     >
                         Material
                     </TableHeader>
-                    <TableHeader
-                        numeric
-                        name="quantity"
-                        tooltip="Number of materials"
-                    >
+                    <TableHeader numeric name="quantity" tooltip="Number of materials">
                         Quantity
                     </TableHeader>
                     <TableHeader
@@ -307,52 +418,64 @@ class DataTableTests extends React.Component {
 }
 
 // Dialog tests
-class DialogTests extends React.Component<{}, {openDialog: boolean}> {
-    handleOpenDialog() { }
-    handleCloseDialog() { }
+class DialogTests extends React.Component<{}, { openDialog: boolean }> {
+    handleOpenDialog() {}
+    handleCloseDialog() {}
 
     render() {
         return (
             <div>
                 <div>
-                    <Button colored onClick={this.handleOpenDialog} raised ripple>Show Dialog</Button>
+                    <Button colored onClick={this.handleOpenDialog} raised ripple>
+                        Show Dialog
+                    </Button>
                     <Dialog open={this.state.openDialog}>
-                    <DialogTitle>Allow data collection?</DialogTitle>
-                    <DialogContent>
-                        <p>Allowing us to collect data will let us get you the information you want faster.</p>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button type='button'>Agree</Button>
-                        <Button type='button' onClick={this.handleCloseDialog}>Disagree</Button>
-                    </DialogActions>
+                        <DialogTitle>Allow data collection?</DialogTitle>
+                        <DialogContent>
+                            <p>Allowing us to collect data will let us get you the information you want faster.</p>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button type="button">Agree</Button>
+                            <Button type="button" onClick={this.handleCloseDialog}>
+                                Disagree
+                            </Button>
+                        </DialogActions>
                     </Dialog>
                 </div>
 
                 <div>
-                    <Button colored onClick={this.handleOpenDialog} raised ripple>Show Modal</Button>
+                    <Button colored onClick={this.handleOpenDialog} raised ripple>
+                        Show Modal
+                    </Button>
                     <Dialog open={this.state.openDialog}>
-                    <DialogTitle>Allow this site to collect usage data to improve your experience?</DialogTitle>
-                    <DialogContent>
-                        <p>Allowing us to collect data will let us get you the information you want faster.</p>
-                    </DialogContent>
-                    <DialogActions fullWidth>
-                        <Button type='button'>Agree</Button>
-                        <Button type='button' onClick={this.handleCloseDialog}>Disagree</Button>
-                    </DialogActions>
+                        <DialogTitle>Allow this site to collect usage data to improve your experience?</DialogTitle>
+                        <DialogContent>
+                            <p>Allowing us to collect data will let us get you the information you want faster.</p>
+                        </DialogContent>
+                        <DialogActions fullWidth>
+                            <Button type="button">Agree</Button>
+                            <Button type="button" onClick={this.handleCloseDialog}>
+                                Disagree
+                            </Button>
+                        </DialogActions>
                     </Dialog>
                 </div>
 
                 <div>
-                    <Button colored onClick={this.handleOpenDialog} onAbort={this.handleCloseDialog} raised ripple>Show Dialog</Button>
+                    <Button colored onClick={this.handleOpenDialog} onAbort={this.handleCloseDialog} raised ripple>
+                        Show Dialog
+                    </Button>
                     <Dialog open={this.state.openDialog} onAbort={this.handleCloseDialog}>
-                    <DialogTitle>Allow data collection?</DialogTitle>
-                    <DialogContent>
-                        <p>Allowing us to collect data will let us get you the information you want faster.</p>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button type='button'>Agree</Button>
-                        <Button type='button' onClick={this.handleCloseDialog}>Disagree</Button>
-                    </DialogActions>
+                        <DialogTitle>Allow data collection?</DialogTitle>
+                        <DialogContent>
+                            <p>Allowing us to collect data will let us get you the information you want faster.</p>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button type="button">Agree</Button>
+                            <Button type="button" onClick={this.handleCloseDialog}>
+                                Disagree
+                            </Button>
+                        </DialogActions>
                     </Dialog>
                 </div>
             </div>
@@ -365,7 +488,7 @@ class GridTests extends React.Component {
     render() {
         return (
             <div>
-                <div style={{width: '80%', margin: 'auto'}}>
+                <div style={{ width: '80%', margin: 'auto' }}>
                     <Grid className="demo-grid-ruler">
                         <Cell col={1}>1</Cell>
                         <Cell col={1}>1</Cell>
@@ -391,9 +514,15 @@ class GridTests extends React.Component {
                         <Cell col={2}>2</Cell>
                     </Grid>
                     <Grid className="demo-grid-3">
-                        <Cell col={6} tablet={8}>6 (8 tablet)</Cell>
-                        <Cell col={4} tablet={6}>4 (6 tablet)</Cell>
-                        <Cell col={2} phone={4}>2 (4 phone)</Cell>
+                        <Cell col={6} tablet={8}>
+                            6 (8 tablet)
+                        </Cell>
+                        <Cell col={4} tablet={6}>
+                            4 (6 tablet)
+                        </Cell>
+                        <Cell col={2} phone={4}>
+                            2 (4 phone)
+                        </Cell>
                     </Grid>
                 </div>
             </div>
@@ -415,14 +544,16 @@ class IconToggleTests extends React.Component {
 }
 
 // Layout tests
-class LayoutTests extends React.Component<{}, {activeTab: number}> {
+class LayoutTests extends React.Component<{}, { activeTab: number }> {
     render() {
         return (
             <div>
                 {/* Uses a transparent header that draws on top of the layout's background */}
-                <div style={{height: '300px', position: 'relative'}}>
-                    <Layout style={{background: 'url(http://www.getmdl.io/assets/demos/transparent.jpg) center / cover'}}>
-                        <Header transparent title="Title" style={{color: 'white'}}>
+                <div style={{ height: '300px', position: 'relative' }}>
+                    <Layout
+                        style={{ background: 'url(http://www.getmdl.io/assets/demos/transparent.jpg) center / cover' }}
+                    >
+                        <Header transparent title="Title" style={{ color: 'white' }}>
                             <Navigation>
                                 <a href="">Link</a>
                                 <a href="">Link</a>
@@ -443,7 +574,7 @@ class LayoutTests extends React.Component<{}, {activeTab: number}> {
                 </div>
 
                 {/* No header, and the drawer stays open on larger screens (fixed drawer). */}
-                <div style={{height: '300px', position: 'relative'}}>
+                <div style={{ height: '300px', position: 'relative' }}>
                     <Layout fixedDrawer>
                         <Drawer title="Title">
                             <Navigation>
@@ -458,9 +589,16 @@ class LayoutTests extends React.Component<{}, {activeTab: number}> {
                 </div>
 
                 {/* Always shows a header, even in smaller screens. */}
-                <div style={{height: '300px', position: 'relative'}}>
+                <div style={{ height: '300px', position: 'relative' }}>
                     <Layout fixedHeader>
-                        <Header title={<span><span style={{ color: '#ddd' }}>Area / </span><strong>The Title</strong></span>}>
+                        <Header
+                            title={
+                                <span>
+                                    <span style={{ color: '#ddd' }}>Area / </span>
+                                    <strong>The Title</strong>
+                                </span>
+                            }
+                        >
                             <Navigation>
                                 <a href="">Link</a>
                                 <a href="">Link</a>
@@ -481,16 +619,10 @@ class LayoutTests extends React.Component<{}, {activeTab: number}> {
                 </div>
 
                 {/* The drawer is always open in large screens. The header is always shown, even in small screens. */}
-                <div style={{height: '300px', position: 'relative'}}>
+                <div style={{ height: '300px', position: 'relative' }}>
                     <Layout fixedHeader fixedDrawer>
                         <Header title="Title">
-                            <Textfield
-                                value=""
-                                onChange={() => {}}
-                                label="Search"
-                                expandable
-                                expandableIcon="search"
-                            />
+                            <Textfield value="" onChange={() => {}} label="Search" expandable expandableIcon="search" />
                         </Header>
                         <Drawer title="Title">
                             <Navigation>
@@ -601,7 +733,7 @@ class LayoutTests extends React.Component<{}, {activeTab: number}> {
                     </Layout>
                 </div>
 
-                <div style={{height: '300px', position: 'relative'}}>
+                <div style={{ height: '300px', position: 'relative' }}>
                     <Layout fixedHeader>
                         <Header>
                             <HeaderRow title="Title" />
@@ -622,7 +754,7 @@ class LayoutTests extends React.Component<{}, {activeTab: number}> {
                 </div>
 
                 {/* Simple header with fixed tabs. */}
-                <div style={{height: '300px', position: 'relative'}}>
+                <div style={{ height: '300px', position: 'relative' }}>
                     <Layout fixedHeader fixedTabs>
                         <Header>
                             <HeaderRow title="Title" />
@@ -634,7 +766,10 @@ class LayoutTests extends React.Component<{}, {activeTab: number}> {
                         </Header>
                         <Drawer title="Title" />
                         <Content>
-                            <div className="page-content">You can add logic to update the content of this container based on the "activeTab" receive in the `onChange` callback.</div>
+                            <div className="page-content">
+                                You can add logic to update the content of this container based on the "activeTab"
+                                receive in the `onChange` callback.
+                            </div>
                         </Content>
                     </Layout>
                 </div>
@@ -700,105 +835,144 @@ class ListTests extends React.Component {
         return (
             <div>
                 <List>
-                <ListItem>Bryan Cranston</ListItem>
-                <ListItem>Aaron Paul</ListItem>
-                <ListItem>Bob Odenkirk</ListItem>
+                    <ListItem>Bryan Cranston</ListItem>
+                    <ListItem>Aaron Paul</ListItem>
+                    <ListItem>Bob Odenkirk</ListItem>
                 </List>
 
                 <List>
-                <ListItem>
-                    <ListItemContent icon="person">Bryan Cranston</ListItemContent>
-                </ListItem>
-                <ListItem>
-                    <ListItemContent icon="person">Aaron Paul</ListItemContent>
-                </ListItem>
-                <ListItem>
-                    <ListItemContent icon="person">Bob Odenkirk</ListItemContent>
-                </ListItem>
+                    <ListItem>
+                        <ListItemContent icon="person">Bryan Cranston</ListItemContent>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemContent icon="person">Aaron Paul</ListItemContent>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemContent icon="person">Bob Odenkirk</ListItemContent>
+                    </ListItem>
                 </List>
 
-                <List style={{width: '300px'}}>
-                <ListItem>
-                    <ListItemContent avatar="person">Bryan Cranston</ListItemContent>
-                    <ListItemAction>
-                    <a href="#"><Icon name="star" /></a>
-                    </ListItemAction>
-                </ListItem>
-                <ListItem>
-                    <ListItemContent avatar="person">Aaron Paul</ListItemContent>
-                    <ListItemAction>
-                    <a href="#"><Icon name="star" /></a>
-                    </ListItemAction>
-                </ListItem>
-                <ListItem>
-                    <ListItemContent avatar="person">Bob Odenkirk</ListItemContent>
-                    <ListItemAction>
-                    <a href="#"><Icon name="star" /></a>
-                    </ListItemAction>
-                </ListItem>
+                <List style={{ width: '300px' }}>
+                    <ListItem>
+                        <ListItemContent avatar="person">Bryan Cranston</ListItemContent>
+                        <ListItemAction>
+                            <a href="#">
+                                <Icon name="star" />
+                            </a>
+                        </ListItemAction>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemContent avatar="person">Aaron Paul</ListItemContent>
+                        <ListItemAction>
+                            <a href="#">
+                                <Icon name="star" />
+                            </a>
+                        </ListItemAction>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemContent avatar="person">Bob Odenkirk</ListItemContent>
+                        <ListItemAction>
+                            <a href="#">
+                                <Icon name="star" />
+                            </a>
+                        </ListItemAction>
+                    </ListItem>
                 </List>
 
-                <List style={{width: '300px'}}>
-                <ListItem>
-                    <ListItemContent avatar="person">Bryan Cranston</ListItemContent>
-                    <ListItemAction>
-                    <Checkbox defaultChecked />
-                    </ListItemAction>
-                </ListItem>
-                <ListItem>
-                    <ListItemContent avatar="person">Aaron Paul</ListItemContent>
-                    <ListItemAction>
-                    <Radio value={1} />
-                    </ListItemAction>
-                </ListItem>
-                <ListItem>
-                    <ListItemContent avatar="person">Bob Odenkirk</ListItemContent>
-                    <ListItemAction>
-                    <Switch defaultChecked />
-                    </ListItemAction>
-                </ListItem>
+                <List style={{ width: '300px' }}>
+                    <ListItem>
+                        <ListItemContent avatar="person">Bryan Cranston</ListItemContent>
+                        <ListItemAction>
+                            <Checkbox defaultChecked />
+                        </ListItemAction>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemContent avatar="person">Aaron Paul</ListItemContent>
+                        <ListItemAction>
+                            <Radio value={1} />
+                        </ListItemAction>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemContent avatar="person">Bob Odenkirk</ListItemContent>
+                        <ListItemAction>
+                            <Switch defaultChecked />
+                        </ListItemAction>
+                    </ListItem>
                 </List>
 
-                <List style={{width: '300px'}}>
-                <ListItem twoLine>
-                    <ListItemContent avatar="person" subtitle="62 episodes">Bryan Cranston</ListItemContent>
-                    <ListItemAction info="Actor">
-                    <a href="#"><Icon name="star" /></a>
-                    </ListItemAction>
-                </ListItem>
-                <ListItem twoLine>
-                    <ListItemContent avatar="person" subtitle="62 episodes">Aaron Paul</ListItemContent>
-                    <ListItemAction>
-                    <a href="#"><Icon name="star" /></a>
-                    </ListItemAction>
-                </ListItem>
-                <ListItem twoLine>
-                    <ListItemContent avatar="person" subtitle="62 episodes">Bob Odenkirk</ListItemContent>
-                    <ListItemAction>
-                    <a href="#"><Icon name="star" /></a>
-                    </ListItemAction>
-                </ListItem>
+                <List style={{ width: '300px' }}>
+                    <ListItem twoLine>
+                        <ListItemContent avatar="person" subtitle="62 episodes">
+                            Bryan Cranston
+                        </ListItemContent>
+                        <ListItemAction info="Actor">
+                            <a href="#">
+                                <Icon name="star" />
+                            </a>
+                        </ListItemAction>
+                    </ListItem>
+                    <ListItem twoLine>
+                        <ListItemContent avatar="person" subtitle="62 episodes">
+                            Aaron Paul
+                        </ListItemContent>
+                        <ListItemAction>
+                            <a href="#">
+                                <Icon name="star" />
+                            </a>
+                        </ListItemAction>
+                    </ListItem>
+                    <ListItem twoLine>
+                        <ListItemContent avatar="person" subtitle="62 episodes">
+                            Bob Odenkirk
+                        </ListItemContent>
+                        <ListItemAction>
+                            <a href="#">
+                                <Icon name="star" />
+                            </a>
+                        </ListItemAction>
+                    </ListItem>
                 </List>
 
-                <List style={{width: '650px'}}>
-                <ListItem threeLine>
-                    <ListItemContent avatar="person" subtitle="Bryan Cranston played the role of Walter in Breaking Bad. He is also known for playing Hal in Malcom in the Middle.">Bryan Cranston</ListItemContent>
-                    <ListItemAction>
-                    <a href="#"><Icon name="star" /></a>
-                    </ListItemAction>
-                </ListItem>
-                <ListItem threeLine>
-                    <ListItemContent avatar="person" subtitle="Aaron Paul played the role of Jesse in Breaking Bad. He also featured in the Need For Speed Movie.">Aaron Paul</ListItemContent>
-                    <ListItemAction>
-                    <a href="#"><Icon name="star" /></a>
-                    </ListItemAction>
-                </ListItem>
-                <ListItem threeLine>
-                    <ListItemContent avatar="person" subtitle="Bob Odinkrik played the role of Saul in Breaking Bad. Due to public fondness for the character, Bob stars in his own show now, called Better Call Saul.">Bob Odenkirk</ListItemContent>
-                    <ListItemAction>
-                    <a href="#"><Icon name="star" /></a>
-                    </ListItemAction>
-                </ListItem>
+                <List style={{ width: '650px' }}>
+                    <ListItem threeLine>
+                        <ListItemContent
+                            avatar="person"
+                            subtitle="Bryan Cranston played the role of Walter in Breaking Bad. He is also known for playing Hal in Malcom in the Middle."
+                        >
+                            Bryan Cranston
+                        </ListItemContent>
+                        <ListItemAction>
+                            <a href="#">
+                                <Icon name="star" />
+                            </a>
+                        </ListItemAction>
+                    </ListItem>
+                    <ListItem threeLine>
+                        <ListItemContent
+                            avatar="person"
+                            subtitle="Aaron Paul played the role of Jesse in Breaking Bad. He also featured in the Need For Speed Movie."
+                        >
+                            Aaron Paul
+                        </ListItemContent>
+                        <ListItemAction>
+                            <a href="#">
+                                <Icon name="star" />
+                            </a>
+                        </ListItemAction>
+                    </ListItem>
+                    <ListItem threeLine>
+                        <ListItemContent
+                            avatar="person"
+                            subtitle="Bob Odinkrik played the role of Saul in Breaking Bad. Due to public fondness for the character, Bob stars in his own show now, called Better Call Saul."
+                        >
+                            Bob Odenkirk
+                        </ListItemContent>
+                        <ListItemAction>
+                            <a href="#">
+                                <Icon name="star" />
+                            </a>
+                        </ListItemAction>
+                    </ListItem>
                 </List>
             </div>
         );
@@ -811,7 +985,7 @@ class MenuTests extends React.Component {
         return (
             <div>
                 {/* Lower left */}
-                <div style={{position: 'relative'}}>
+                <div style={{ position: 'relative' }}>
                     <IconButton name="more_vert" id="demo-menu-lower-left" />
                     <Menu target="demo-menu-lower-left">
                         <MenuItem>Some Action</MenuItem>
@@ -822,7 +996,7 @@ class MenuTests extends React.Component {
                 </div>
 
                 {/* Lower right */}
-                <div style={{position: 'relative'}}>
+                <div style={{ position: 'relative' }}>
                     <IconButton name="more_vert" id="demo-menu-lower-right" />
                     <Menu target="demo-menu-lower-right" align="right">
                         <MenuItem>Some Action</MenuItem>
@@ -833,7 +1007,7 @@ class MenuTests extends React.Component {
                 </div>
 
                 {/* Top left */}
-                <div style={{position: 'relative'}}>
+                <div style={{ position: 'relative' }}>
                     <IconButton name="more_vert" id="demo-menu-top-left" />
                     <Menu target="demo-menu-top-left" valign="top">
                         <MenuItem>Some Action</MenuItem>
@@ -844,7 +1018,7 @@ class MenuTests extends React.Component {
                 </div>
 
                 {/* Top right */}
-                <div style={{position: 'relative'}}>
+                <div style={{ position: 'relative' }}>
                     <IconButton name="more_vert" id="demo-menu-top-right" />
                     <Menu target="demo-menu-top-right" valign="top" align="right">
                         <MenuItem>Some Action</MenuItem>
@@ -882,12 +1056,16 @@ class RadioTests extends React.Component {
         return (
             <div>
                 <RadioGroup name="demo" value="opt1">
-                    <Radio value="opt1" ripple>Ripple option</Radio>
+                    <Radio value="opt1" ripple>
+                        Ripple option
+                    </Radio>
                     <Radio value="opt2">Other option</Radio>
                 </RadioGroup>
 
                 <RadioGroup container="ul" childContainer="li" name="demo2" value="opt2">
-                    <Radio value="opt1" ripple>Ripple option</Radio>
+                    <Radio value="opt1" ripple>
+                        Ripple option
+                    </Radio>
                     <Radio value="opt2">Other option</Radio>
                 </RadioGroup>
             </div>
@@ -920,20 +1098,28 @@ class SnackbarTests extends React.Component {
         return (
             <div>
                 <div>
-                    <Button raised style={{backgroundColor: '#FF00FF'}} onClick={this.handleShowSnackbar}>Show a Snackbar</Button>
+                    <Button raised style={{ backgroundColor: '#FF00FF' }} onClick={this.handleShowSnackbar}>
+                        Show a Snackbar
+                    </Button>
                     <Snackbar
                         active={false}
                         onClick={this.handleClickActionSnackbar}
                         onTimeout={this.handleTimeoutSnackbar}
-                        action="Undo">Button color changed.</Snackbar>
+                        action="Undo"
+                    >
+                        Button color changed.
+                    </Snackbar>
                 </div>
 
                 <div>
-                    <Button raised onClick={this.handleShowSnackbar}>Show a Toast</Button>
-                    <Snackbar
-                        active={true}
-                        onTimeout={this.handleTimeoutSnackbar}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius luctus quam. Fusce quis blandit libero. Donec accumsan nunc lectus, vel blandit diam bibendum ac. Integer faucibus, lorem et convallis fermentum, diam dolor imperdiet mi, nec iaculis risus mauris id elit. Vivamus vel eros dapibus, molestie ante ut, vestibulum sem.
+                    <Button raised onClick={this.handleShowSnackbar}>
+                        Show a Toast
+                    </Button>
+                    <Snackbar active={true} onTimeout={this.handleTimeoutSnackbar}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius luctus quam. Fusce quis
+                        blandit libero. Donec accumsan nunc lectus, vel blandit diam bibendum ac. Integer faucibus,
+                        lorem et convallis fermentum, diam dolor imperdiet mi, nec iaculis risus mauris id elit. Vivamus
+                        vel eros dapibus, molestie ante ut, vestibulum sem.
                     </Snackbar>
                 </div>
             </div>
@@ -961,7 +1147,9 @@ class SwitchTest extends React.Component {
     render() {
         return (
             <div>
-                <Switch ripple id="switch1" defaultChecked>Ripple switch</Switch>
+                <Switch ripple id="switch1" defaultChecked>
+                    Ripple switch
+                </Switch>
 
                 <Switch id="switch2">Switch</Switch>
             </div>
@@ -970,12 +1158,16 @@ class SwitchTest extends React.Component {
 }
 
 // Tab tests
-class TabTests extends React.Component<{}, {activeTab: number}> {
+class TabTests extends React.Component<{}, { activeTab: number }> {
     render() {
         return (
             <div>
                 <div className="demo-tabs">
-                    <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
+                    <Tabs
+                        activeTab={this.state.activeTab}
+                        onChange={(tabId) => this.setState({ activeTab: tabId })}
+                        ripple
+                    >
                         <Tab>Starks</Tab>
                         <Tab>Lannisters</Tab>
                         <Tab>Targaryens</Tab>
@@ -995,11 +1187,7 @@ class TextfieldTests extends React.Component {
         return (
             <div>
                 {/* Simple textfield */}
-                <Textfield
-                    onChange={() => {}}
-                    label="Text..."
-                    style={{width: '200px'}}
-                />
+                <Textfield onChange={() => {}} label="Text..." style={{ width: '200px' }} />
 
                 {/* Numeric textfield */}
                 <Textfield
@@ -1007,16 +1195,11 @@ class TextfieldTests extends React.Component {
                     pattern="-?[0-9]*(\.[0-9]+)?"
                     error="Input is not a number!"
                     label="Number..."
-                    style={{width: '200px'}}
+                    style={{ width: '200px' }}
                 />
 
                 {/* Textfield with floating label */}
-                <Textfield
-                    onChange={() => {}}
-                    label="Text..."
-                    floatingLabel
-                    style={{width: '200px'}}
-                />
+                <Textfield onChange={() => {}} label="Text..." floatingLabel style={{ width: '200px' }} />
 
                 {/* Numeric Textfield with floating label */}
                 <Textfield
@@ -1047,12 +1230,26 @@ class TooltipTests extends React.Component {
                 </Tooltip>
 
                 {/* Rich Tooltip */}
-                <Tooltip label={<span>Upload <strong>file.zip</strong></span>}>
+                <Tooltip
+                    label={
+                        <span>
+                            Upload <strong>file.zip</strong>
+                        </span>
+                    }
+                >
                     <Icon name="cloud_upload" />
                 </Tooltip>
 
                 {/* Multiline Tooltip */}
-                <Tooltip label={<span>Share your content<br />via social media</span>}>
+                <Tooltip
+                    label={
+                        <span>
+                            Share your content
+                            <br />
+                            via social media
+                        </span>
+                    }
+                >
                     <Icon name="share" />
                 </Tooltip>
 
@@ -1087,6 +1284,6 @@ class MDLComponentTests extends React.Component {
             <MDLComponent recursive={false}>
                 <div />
             </MDLComponent>
-        )
+        );
     }
 }

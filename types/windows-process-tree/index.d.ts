@@ -6,7 +6,7 @@
 export enum ProcessDataFlag {
     None = 0,
     Memory = 1,
-    CommandLine = 2
+    CommandLine = 2,
 }
 
 export interface ProcessInfo {
@@ -43,7 +43,11 @@ export interface ProcessTreeNode {
  * @param callback - The callback to use with the returned list of processes.
  * @param flags - The flags for what process data should be included.
  */
-export function getProcessTree(rootPid: number, callback: (tree: ProcessTreeNode) => void, flags?: ProcessDataFlag): void;
+export function getProcessTree(
+    rootPid: number,
+    callback: (tree: ProcessTreeNode) => void,
+    flags?: ProcessDataFlag,
+): void;
 
 /**
  * Returns a list of processes containing the rootPid process and all of its descendants.
@@ -51,11 +55,18 @@ export function getProcessTree(rootPid: number, callback: (tree: ProcessTreeNode
  * @param callback - The callback to use with the returned set of processes.
  * @param flags - The flags for what process data should be included.
  */
-export function getProcessList(rootPid: number, callback: (processList: ProcessInfo[]) => void, flags?: ProcessDataFlag): void;
+export function getProcessList(
+    rootPid: number,
+    callback: (processList: ProcessInfo[]) => void,
+    flags?: ProcessDataFlag,
+): void;
 
 /**
  * Returns the list of processes annotated with cpu usage information.
  * @param processList - The list of processes.
  * @param callback - The callback to use with the returned list of processes.
  */
-export function getProcessCpuUsage(processList: ReadonlyArray<ProcessInfo>, callback: (processListWithCpu: ProcessCpuInfo[]) => void): void;
+export function getProcessCpuUsage(
+    processList: ReadonlyArray<ProcessInfo>,
+    callback: (processListWithCpu: ProcessCpuInfo[]) => void,
+): void;

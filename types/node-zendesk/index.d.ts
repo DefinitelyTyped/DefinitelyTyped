@@ -11,7 +11,7 @@ import { PathLike } from 'fs';
 export type ZendeskCallback<TResponse, TResult> = (
     error: Error | undefined,
     response: TResponse,
-    result: TResult
+    result: TResult,
 ) => void;
 
 export interface Client {
@@ -86,7 +86,7 @@ export namespace Attachments {
                 filename: string;
                 token?: string;
             },
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): void;
     }
 
@@ -116,7 +116,7 @@ export namespace JobStatuses {
             jobStatusId: ZendeskID,
             interval: number,
             maxAttempts: number,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): unknown;
     }
 
@@ -150,7 +150,7 @@ export namespace Macros {
         applyTicket(
             ticketId: ZendeskID,
             macroId: number,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): ApplyTicketResponsePayload;
     }
 
@@ -215,7 +215,7 @@ export namespace Requests {
         getComment(
             requestId: ZendeskID,
             commentId: ZendeskID,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): Comments.ResponsePayload;
 
         /** Inherited */
@@ -388,7 +388,7 @@ export namespace Tickets {
         merge(
             ticketId: ZendeskID,
             mergingTickets: MergePayload,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): JobStatuses.ResponsePayload;
 
         /** Ticket Exports */
@@ -683,7 +683,7 @@ export namespace Users {
         createOrUpdate(user: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
         createOrUpdateMany(
             users: CreateManyPayload,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): JobStatuses.ResponsePayload;
 
         /** Updating Users */
@@ -691,7 +691,7 @@ export namespace Users {
         updateMany(
             userIds: UpdateIdPayload,
             users: UpdateManyPayload,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): JobStatuses.ResponsePayload;
 
         /** Suspending Users */
@@ -715,7 +715,7 @@ export namespace Users {
             userId: ZendeskID,
             oldPassword: string,
             newPassword: string,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): unknown;
 
         /** Users Export */
@@ -864,14 +864,14 @@ export namespace Users {
                 userId: ZendeskID,
                 identityId: ZendeskID,
                 identity: UpdatePayload,
-                cb: ZendeskCallback<unknown, unknown>
+                cb: ZendeskCallback<unknown, unknown>,
             ): ResponsePayload;
             makePrimary(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
             verify(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
             requestVerification(
                 userId: ZendeskID,
                 identityId: ZendeskID,
-                cb: ZendeskCallback<unknown, unknown>
+                cb: ZendeskCallback<unknown, unknown>,
             ): unknown;
 
             /** Deleting Identities */

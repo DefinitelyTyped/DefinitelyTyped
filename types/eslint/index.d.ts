@@ -56,7 +56,18 @@ export namespace Scope {
     }
 
     interface Scope {
-        type: 'block' | 'catch' | 'class' | 'for' | 'function' | 'function-expression-name' | 'global' | 'module' | 'switch' | 'with' | 'TDZ';
+        type:
+            | 'block'
+            | 'catch'
+            | 'class'
+            | 'for'
+            | 'function'
+            | 'function-expression-name'
+            | 'global'
+            | 'module'
+            | 'switch'
+            | 'with'
+            | 'TDZ';
         isStrict: boolean;
         upper: Scope | null;
         childScopes: Scope[];
@@ -95,14 +106,22 @@ export namespace Scope {
     }
 
     type DefinitionType =
-        | { type: 'CatchClause', node: ESTree.CatchClause, parent: null }
-        | { type: 'ClassName', node: ESTree.ClassDeclaration | ESTree.ClassExpression, parent: null }
-        | { type: 'FunctionName', node: ESTree.FunctionDeclaration | ESTree.FunctionExpression, parent: null }
-        | { type: 'ImplicitGlobalVariable', node: ESTree.Program, parent: null }
-        | { type: 'ImportBinding', node: ESTree.ImportSpecifier | ESTree.ImportDefaultSpecifier | ESTree.ImportNamespaceSpecifier, parent: ESTree.ImportDeclaration }
-        | { type: 'Parameter', node: ESTree.FunctionDeclaration | ESTree.FunctionExpression | ESTree.ArrowFunctionExpression, parent: null }
-        | { type: 'TDZ', node: any, parent: null }
-        | { type: 'Variable', node: ESTree.VariableDeclarator, parent: ESTree.VariableDeclaration };
+        | { type: 'CatchClause'; node: ESTree.CatchClause; parent: null }
+        | { type: 'ClassName'; node: ESTree.ClassDeclaration | ESTree.ClassExpression; parent: null }
+        | { type: 'FunctionName'; node: ESTree.FunctionDeclaration | ESTree.FunctionExpression; parent: null }
+        | { type: 'ImplicitGlobalVariable'; node: ESTree.Program; parent: null }
+        | {
+              type: 'ImportBinding';
+              node: ESTree.ImportSpecifier | ESTree.ImportDefaultSpecifier | ESTree.ImportNamespaceSpecifier;
+              parent: ESTree.ImportDeclaration;
+          }
+        | {
+              type: 'Parameter';
+              node: ESTree.FunctionDeclaration | ESTree.FunctionExpression | ESTree.ArrowFunctionExpression;
+              parent: null;
+          }
+        | { type: 'TDZ'; node: any; parent: null }
+        | { type: 'Variable'; node: ESTree.VariableDeclarator; parent: ESTree.VariableDeclaration };
 
     type Definition = DefinitionType & { name: ESTree.Identifier };
 }
@@ -129,7 +148,7 @@ export class SourceCode {
 
     getAllComments(): ESTree.Comment[];
 
-    getComments(node: ESTree.Node): { leading: ESTree.Comment[], trailing: ESTree.Comment[] };
+    getComments(node: ESTree.Node): { leading: ESTree.Comment[]; trailing: ESTree.Comment[] };
 
     getJSDocComment(node: ESTree.Node): AST.Token | null;
 
@@ -154,42 +173,54 @@ export class SourceCode {
 
     getLastTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getTokenBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenBefore(
+        node: ESTree.Node | AST.Token | ESTree.Comment,
+        options?: SourceCode.CursorWithSkipOptions,
+    ): AST.Token | null;
 
-    getTokensBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensBefore(
+        node: ESTree.Node | AST.Token | ESTree.Comment,
+        options?: SourceCode.CursorWithCountOptions,
+    ): AST.Token[];
 
-    getTokenAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenAfter(
+        node: ESTree.Node | AST.Token | ESTree.Comment,
+        options?: SourceCode.CursorWithSkipOptions,
+    ): AST.Token | null;
 
-    getTokensAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensAfter(
+        node: ESTree.Node | AST.Token | ESTree.Comment,
+        options?: SourceCode.CursorWithCountOptions,
+    ): AST.Token[];
 
     getFirstTokenBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions
+        options?: SourceCode.CursorWithSkipOptions,
     ): AST.Token | null;
 
     getFirstTokensBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions
+        options?: SourceCode.CursorWithCountOptions,
     ): AST.Token[];
 
     getLastTokenBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithSkipOptions
+        options?: SourceCode.CursorWithSkipOptions,
     ): AST.Token | null;
 
     getLastTokensBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options?: SourceCode.CursorWithCountOptions
+        options?: SourceCode.CursorWithCountOptions,
     ): AST.Token[];
 
     getTokensBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        padding?: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions
+        padding?: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions,
     ): AST.Token[];
 
     getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): AST.Token[];
@@ -221,17 +252,23 @@ export namespace SourceCode {
 
     type FilterPredicate = (tokenOrComment: AST.Token | ESTree.Comment) => boolean;
 
-    type CursorWithSkipOptions = number | FilterPredicate | {
-        includeComments?: boolean;
-        filter?: FilterPredicate;
-        skip?: number;
-    };
+    type CursorWithSkipOptions =
+        | number
+        | FilterPredicate
+        | {
+              includeComments?: boolean;
+              filter?: FilterPredicate;
+              skip?: number;
+          };
 
-    type CursorWithCountOptions = number | FilterPredicate | {
-        includeComments?: boolean;
-        filter?: FilterPredicate;
-        count?: number;
-    };
+    type CursorWithCountOptions =
+        | number
+        | FilterPredicate
+        | {
+              includeComments?: boolean;
+              filter?: FilterPredicate;
+              count?: number;
+          };
 }
 
 //#endregion
@@ -555,8 +592,8 @@ export namespace CLIEngine {
     }
 
     interface DeprecatedRuleUse {
-      ruleId: string;
-      replacedBy: string[];
+        ruleId: string;
+        replacedBy: string[];
     }
 
     type Formatter = (results: LintResult[], data?: LintResultData) => string;

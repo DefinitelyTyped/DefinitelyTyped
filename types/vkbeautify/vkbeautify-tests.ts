@@ -14,7 +14,7 @@ import VKBeautify = require('vkbeautify');
  *         String:   character string to visualize indentation ( can also be a set of white spaces )
  */
 
-const exampleContent = "here-be-xml-json-css-or-sql-content-that-is-about-to-get-formatted";
+const exampleContent = 'here-be-xml-json-css-or-sql-content-that-is-about-to-get-formatted';
 
 // xml
 function xmlWithDefault() {

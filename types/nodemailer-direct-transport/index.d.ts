@@ -6,7 +6,6 @@
 import * as nodemailer from 'nodemailer';
 
 declare namespace directTransport {
-
     export interface AuthOptions {
         user?: string;
         pass?: string;

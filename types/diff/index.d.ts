@@ -90,12 +90,7 @@ export interface ApplyPatchOptions {
      *
      * @default strict equality
      */
-    compareLine?: (
-        lineNumber: number,
-        line: string,
-        operation: '-' | ' ',
-        patchContent: string
-    ) => boolean;
+    compareLine?: (lineNumber: number, line: string, operation: '-' | ' ', patchContent: string) => boolean;
 }
 
 export interface ApplyPatchesOptions extends ApplyPatchOptions {
@@ -154,17 +149,12 @@ export class Diff {
     diff(
         oldString: string,
         newString: string,
-        options?: Callback | (ArrayOptions<any, any> & Partial<CallbackOptions>)
+        options?: Callback | (ArrayOptions<any, any> & Partial<CallbackOptions>),
     ): Change[];
 
     pushComponent(components: Change[], added: boolean, removed: boolean): void;
 
-    extractCommon(
-        basePath: BestPath,
-        newString: string,
-        oldString: string,
-        diagonalPath: number
-    ): number;
+    extractCommon(basePath: BestPath, newString: string, oldString: string, diagonalPath: number): number;
 
     equals(left: any, right: any): boolean;
 
@@ -183,11 +173,7 @@ export class Diff {
  * @returns A list of change objects.
  */
 export function diffChars(oldStr: string, newStr: string, options?: BaseOptions): Change[];
-export function diffChars(
-    oldStr: string,
-    newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
-): void;
+export function diffChars(oldStr: string, newStr: string, options: Callback | (BaseOptions & CallbackOptions)): void;
 
 /**
  * Diffs two blocks of text, comparing word by word, ignoring whitespace.
@@ -195,26 +181,18 @@ export function diffChars(
  * @returns A list of change objects.
  */
 export function diffWords(oldStr: string, newStr: string, options?: WordsOptions): Change[];
-export function diffWords(
-    oldStr: string,
-    newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions)
-): void;
+export function diffWords(oldStr: string, newStr: string, options: Callback | (WordsOptions & CallbackOptions)): void;
 
 /**
  * Diffs two blocks of text, comparing word by word, treating whitespace as significant.
  *
  * @returns A list of change objects.
  */
+export function diffWordsWithSpace(oldStr: string, newStr: string, options?: WordsOptions): Change[];
 export function diffWordsWithSpace(
     oldStr: string,
     newStr: string,
-    options?: WordsOptions
-): Change[];
-export function diffWordsWithSpace(
-    oldStr: string,
-    newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions)
+    options: Callback | (WordsOptions & CallbackOptions),
 ): void;
 
 /**
@@ -223,11 +201,7 @@ export function diffWordsWithSpace(
  * @returns A list of change objects.
  */
 export function diffLines(oldStr: string, newStr: string, options?: LinesOptions): Change[];
-export function diffLines(
-    oldStr: string,
-    newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions)
-): void;
+export function diffLines(oldStr: string, newStr: string, options: Callback | (LinesOptions & CallbackOptions)): void;
 
 /**
  * Diffs two blocks of text, comparing line by line, ignoring leading and trailing whitespace.
@@ -238,7 +212,7 @@ export function diffTrimmedLines(oldStr: string, newStr: string, options?: Lines
 export function diffTrimmedLines(
     oldStr: string,
     newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions)
+    options: Callback | (LinesOptions & CallbackOptions),
 ): void;
 
 /**
@@ -250,7 +224,7 @@ export function diffSentences(oldStr: string, newStr: string, options?: BaseOpti
 export function diffSentences(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback | (BaseOptions & CallbackOptions),
 ): void;
 
 /**
@@ -259,11 +233,7 @@ export function diffSentences(
  * @returns A list of change objects.
  */
 export function diffCss(oldStr: string, newStr: string, options?: BaseOptions): Change[];
-export function diffCss(
-    oldStr: string,
-    newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
-): void;
+export function diffCss(oldStr: string, newStr: string, options: Callback | (BaseOptions & CallbackOptions)): void;
 
 /**
  * Diffs two JSON objects, comparing the fields defined on each. The order of fields, etc does not matter
@@ -271,15 +241,11 @@ export function diffCss(
  *
  * @returns A list of change objects.
  */
+export function diffJson(oldObj: string | object, newObj: string | object, options?: JsonOptions): Change[];
 export function diffJson(
     oldObj: string | object,
     newObj: string | object,
-    options?: JsonOptions
-): Change[];
-export function diffJson(
-    oldObj: string | object,
-    newObj: string | object,
-    options: Callback | (JsonOptions & CallbackOptions)
+    options: Callback | (JsonOptions & CallbackOptions),
 ): void;
 
 /**
@@ -290,7 +256,7 @@ export function diffJson(
 export function diffArrays<TOld, TNew>(
     oldArr: TOld[],
     newArr: TNew[],
-    options?: ArrayOptions<TOld, TNew>
+    options?: ArrayOptions<TOld, TNew>,
 ): Array<ArrayChange<TOld | TNew>>;
 
 /**
@@ -310,7 +276,7 @@ export function createTwoFilesPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): string;
 
 /**
@@ -329,7 +295,7 @@ export function createPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): string;
 
 /**
@@ -351,7 +317,7 @@ export function structuredPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): ParsedDiff;
 
 /**
@@ -363,7 +329,7 @@ export function structuredPatch(
 export function applyPatch(
     source: string,
     patch: string | ParsedDiff | [ParsedDiff],
-    options?: ApplyPatchOptions
+    options?: ApplyPatchOptions,
 ): string;
 
 /**

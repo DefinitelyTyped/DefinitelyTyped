@@ -1,12 +1,8 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
-import {
-    disable,
-    enable,
-    isSupported,
-} from "workbox-navigation-preload";
+import { disable, enable, isSupported } from 'workbox-navigation-preload';
 
 declare const headerValue: string;
 

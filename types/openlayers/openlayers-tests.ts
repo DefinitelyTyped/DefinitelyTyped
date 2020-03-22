@@ -56,7 +56,7 @@ const iconOrigin: ol.style.IconOrigin = 'bottom-left';
 let linearRing: ol.geom.LinearRing;
 let lineString: ol.geom.LineString;
 let loadingStrategy: ol.LoadingStrategy;
-const logoOptions: ol.olx.LogoOptions = {href: stringValue, src: stringValue};
+const logoOptions: ol.olx.LogoOptions = { href: stringValue, src: stringValue };
 let map: ol.Map;
 let multiLineString: ol.geom.MultiLineString;
 let multiPoint: ol.geom.MultiPoint;
@@ -75,13 +75,13 @@ const styleArray: ol.style.Style[] = [];
 const styleFunction: ol.StyleFunction = (feature, resolution) => style;
 let styleRegularShape: ol.style.RegularShape;
 let styleStroke: ol.style.Stroke;
-const tilegrid = new ol.tilegrid.TileGrid({resolutions: numberArray});
+const tilegrid = new ol.tilegrid.TileGrid({ resolutions: numberArray });
 const transformFn: ol.TransformFunction = (array, out, dimension) => numberArray;
 let units: ol.proj.Units;
 let vectorSource: ol.source.Vector;
 
-const viewState: ol.olx.ViewState = {center: coordinate, projection, resolution: numberValue, rotation: numberValue};
-const frameState: ol.olx.FrameState = {pixelRatio: numberValue, time: numberValue, viewState};
+const viewState: ol.olx.ViewState = { center: coordinate, projection, resolution: numberValue, rotation: numberValue };
+const frameState: ol.olx.FrameState = { pixelRatio: numberValue, time: numberValue, viewState };
 const mapBrowserEvent = new ol.MapBrowserEvent(stringValue, map, event, booleanValue, frameState);
 
 //
@@ -357,14 +357,14 @@ vectorSource = new ol.source.Vector({
     strategy: loadingStrategy,
     url: stringValue,
     useSpatialIndex: booleanValue,
-    wrapX: booleanValue
+    wrapX: booleanValue,
 });
 vectorSource = new ol.source.Vector({
-    features: featureArray
+    features: featureArray,
 });
 vectorSource = new ol.source.Vector({
     url: featureUrlFunction,
-    loader: featureLoader
+    loader: featureLoader,
 });
 vectorSource.addFeature(feature);
 vectorSource.addFeatures(featureArray);
@@ -385,7 +385,7 @@ featureArray = vectorSource.getFeaturesInExtent(extent);
 vectorSource.removeFeature(feature);
 
 clusterSource = new ol.source.Cluster({
-    source: vectorSource
+    source: vectorSource,
 });
 
 numberValue = clusterSource.getDistance();
@@ -400,13 +400,17 @@ feature = new ol.Feature({
     a: numberValue,
     b: stringValue,
     c: null,
-    d: object
+    d: object,
 });
 feature = feature.clone();
 geometry = feature.getGeometry();
 stringValue = feature.getGeometryName();
 const featureGetId: string | number = feature.getId();
-const featureGetStyle: ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction = feature.getStyle();
+const featureGetStyle:
+    | ol.style.Style
+    | ol.style.Style[]
+    | ol.FeatureStyleFunction
+    | ol.StyleFunction = feature.getStyle();
 featureStyleFunction = feature.getStyleFunction();
 feature.setGeometry(geometry);
 feature.setGeometryName(stringValue);
@@ -418,11 +422,11 @@ feature.setStyle(styleArray);
 feature.setStyle(featureStyleFunction);
 feature.setStyle(styleFunction);
 feature.setProperties(object);
-const nullStyleFunction = (feature: (ol.Feature|ol.render.Feature), resolution: number): null => {
+const nullStyleFunction = (feature: ol.Feature | ol.render.Feature, resolution: number): null => {
     return null;
 };
 const nullFeatureStyleFunction = (resolution: number): null => {
-  return null;
+    return null;
 };
 feature.setStyle(nullStyleFunction);
 feature.setStyle(nullFeatureStyleFunction);
@@ -484,8 +488,8 @@ view.fit(simpleGeometry);
 view.fit(simpleGeometry, {});
 view.fit(extent);
 view.fit(extent, {});
-view.fit(extent, { callback: () => { } });
-view.fit(extent, { callback: (animationCompleted: boolean) => { } });
+view.fit(extent, { callback: () => {} });
+view.fit(extent, { callback: (animationCompleted: boolean) => {} });
 view.fit(extent, {
     size,
     padding: [numberValue, numberValue, numberValue, numberValue],
@@ -495,7 +499,7 @@ view.fit(extent, {
     maxZoom: numberValue,
     duration: numberValue,
     easing: easingFunction,
-    callback: (animationCompleted: boolean) => { }
+    callback: (animationCompleted: boolean) => {},
 });
 booleanValue = view.getAnimating();
 coordinate = view.getCenter();
@@ -527,14 +531,14 @@ view.setZoom(numberValue);
 // ol.layer.Base
 //
 const baseLayer: ol.layer.Base = new ol.layer.Base({
-    zIndex: 1
+    zIndex: 1,
 });
 
 //
 // ol.layer.Group
 //
 const groupLayer: ol.layer.Group = new ol.layer.Group({
-    zIndex: 2
+    zIndex: 2,
 });
 
 //
@@ -543,7 +547,7 @@ const groupLayer: ol.layer.Group = new ol.layer.Group({
 const heatmapLayer: ol.layer.Heatmap = new ol.layer.Heatmap({
     source: new ol.source.Vector(),
     weight: '',
-    zIndex: 1
+    zIndex: 1,
 });
 
 //
@@ -551,16 +555,16 @@ const heatmapLayer: ol.layer.Heatmap = new ol.layer.Heatmap({
 //
 const imageLayer: ol.layer.Image = new ol.layer.Image({
     source: new ol.source.Image({
-        projection: ''
+        projection: '',
     }),
-    zIndex: 1
+    zIndex: 1,
 });
 
 //
 // ol.layer.Layer
 //
 const layerLayer: ol.layer.Layer = new ol.layer.Layer({
-    zIndex: 2
+    zIndex: 2,
 });
 
 //
@@ -568,7 +572,7 @@ const layerLayer: ol.layer.Layer = new ol.layer.Layer({
 //
 const tileLayer: ol.layer.Tile = new ol.layer.Tile({
     source: new ol.source.OSM(),
-    zIndex: 0
+    zIndex: 0,
 });
 
 //
@@ -578,7 +582,7 @@ const vectorLayerRenderMode: ol.olx.layer.VectorRenderType = 'image';
 const vectorLayer: ol.layer.Vector = new ol.layer.Vector({
     renderMode: vectorLayerRenderMode,
     source: new ol.source.Vector(),
-    zIndex: -1
+    zIndex: -1,
 });
 
 vectorLayer.setStyle(nullStyleFunction);
@@ -590,7 +594,7 @@ vectorLayer.setStyle(undefined);
 //
 const vectorTileLayer: ol.layer.VectorTile = new ol.layer.VectorTile({
     renderOrder: () => 1,
-    zIndex: 2
+    zIndex: 2,
 });
 
 //
@@ -601,7 +605,7 @@ const olObject: ol.Object = new ol.Object({
     b: stringValue,
     c: booleanValue,
     d: object,
-    e: fn
+    e: fn,
 });
 anyValue = olObject.get(stringValue);
 stringArray = olObject.getKeys();
@@ -664,9 +668,15 @@ units = 'us-ft';
 map = new ol.Map({
     view,
     layers: [tileLayer],
-    target: stringValue
+    target: stringValue,
 });
-numberValue = map.forEachLayerAtPixel(coordinate, (layer, color) => numberValue, anyValue, (layer) => booleanValue, anyValue);
+numberValue = map.forEachLayerAtPixel(
+    coordinate,
+    (layer, color) => numberValue,
+    anyValue,
+    (layer) => booleanValue,
+    anyValue,
+);
 
 //
 // ol.source.ImageWMS
@@ -675,7 +685,7 @@ const imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
     params: {},
     projection,
     serverType: stringValue,
-    url: stringValue
+    url: stringValue,
 });
 
 //
@@ -705,26 +715,26 @@ let tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
     projection,
     serverType: stringValue,
     url: stringValue,
-    transition: 0.5
+    transition: 0.5,
 });
 
 // test without projection
 tileWMS = new ol.source.TileWMS({
     params: {},
     serverType: stringValue,
-    url: stringValue
+    url: stringValue,
 });
 tileWMS.updateParams(tileWMS.getParams());
-stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, "EPSG:4326", {});
+stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, 'EPSG:4326', {});
 
 //
 // ol.source.WMTS
 //
 const wmts: ol.source.WMTS = new ol.source.WMTS({
-    layer: "",
+    layer: '',
     projection,
-    matrixSet: "",
-    style: "",
+    matrixSet: '',
+    style: '',
     tileGrid: new ol.tilegrid.WMTS({
         matrixIds: [],
         resolutions: [],
@@ -746,7 +756,7 @@ const imageArcGISRest: ol.source.ImageArcGISRest = new ol.source.ImageArcGISRest
     projection: projectionLike,
     ratio: numberValue,
     resolutions: [numberValue, numberValue, numberValue, numberValue, numberValue],
-    url: stringValue
+    url: stringValue,
 });
 
 //
@@ -778,7 +788,7 @@ easingFunction = ol.easing.upAndDown;
 // ol.Geolocation
 //
 const geolocation: ol.Geolocation = new ol.Geolocation({
-    projection
+    projection,
 });
 coordinate = geolocation.getPosition();
 
@@ -809,7 +819,7 @@ numberValue = deviceOrientation.getHeading();
 //
 
 const popup: ol.Overlay = new ol.Overlay({
-    element: document.getElementById('popup')
+    element: document.getElementById('popup'),
 });
 map.addOverlay(popup);
 const popupElement: Element = popup.getElement();
@@ -828,36 +838,45 @@ popup.setPositioning(popupPositioning);
 // ol.format.GeoJSON
 //
 
-const geojsonOptions: ol.olx.format.GeoJSONOptions = {defaultDataProjection: projectionLike, featureProjection: projectionLike, geometryName: stringValue};
-geojsonOptions.defaultDataProjection = "EPSG";
+const geojsonOptions: ol.olx.format.GeoJSONOptions = {
+    defaultDataProjection: projectionLike,
+    featureProjection: projectionLike,
+    geometryName: stringValue,
+};
+geojsonOptions.defaultDataProjection = 'EPSG';
 geojsonOptions.defaultDataProjection = projection;
-geojsonOptions.geometryName = "geom";
+geojsonOptions.geometryName = 'geom';
 
 let geojsonFormat: ol.format.GeoJSON;
 geojsonFormat = new ol.format.GeoJSON();
 geojsonFormat = new ol.format.GeoJSON(geojsonOptions);
 
 // Test options
-const readOptions: ol.olx.format.ReadOptions = {dataProjection: projectionLike, featureProjection: projectionLike};
-readOptions.dataProjection = "EPSG";
+const readOptions: ol.olx.format.ReadOptions = { dataProjection: projectionLike, featureProjection: projectionLike };
+readOptions.dataProjection = 'EPSG';
 readOptions.dataProjection = projection;
-readOptions.featureProjection = "EPSG";
+readOptions.featureProjection = 'EPSG';
 readOptions.featureProjection = projection;
 
-const writeOptions: ol.olx.format.WriteOptions = {dataProjection: projectionLike, featureProjection: projectionLike, rightHanded: booleanValue, decimals: numberValue};
-writeOptions.dataProjection = "EPSG";
+const writeOptions: ol.olx.format.WriteOptions = {
+    dataProjection: projectionLike,
+    featureProjection: projectionLike,
+    rightHanded: booleanValue,
+    decimals: numberValue,
+};
+writeOptions.dataProjection = 'EPSG';
 writeOptions.dataProjection = projection;
-writeOptions.featureProjection = "EPSG";
+writeOptions.featureProjection = 'EPSG';
 writeOptions.featureProjection = projection;
 writeOptions.rightHanded = false;
 
 // Test functions
-feature = geojsonFormat.readFeature("json");
-feature = geojsonFormat.readFeature("json", readOptions);
-featureArray = geojsonFormat.readFeatures("json");
-featureArray = geojsonFormat.readFeatures("json", readOptions);
-geometry = geojsonFormat.readGeometry("geometry");
-geometry = geojsonFormat.readGeometry("geometry", readOptions);
+feature = geojsonFormat.readFeature('json');
+feature = geojsonFormat.readFeature('json', readOptions);
+featureArray = geojsonFormat.readFeatures('json');
+featureArray = geojsonFormat.readFeatures('json', readOptions);
+geometry = geojsonFormat.readGeometry('geometry');
+geometry = geojsonFormat.readGeometry('geometry', readOptions);
 stringValue = geojsonFormat.writeFeature(feature);
 stringValue = geojsonFormat.writeFeature(feature, writeOptions);
 stringValue = geojsonFormat.writeFeatures(featureArray);
@@ -876,70 +895,70 @@ jsonValue = geojsonFormat.writeGeometryObject(geometry, writeOptions);
 //
 
 let bboxFilter: ol.format.filter.Bbox;
-bboxFilter = new ol.format.filter.Bbox("geometry", extent);
-bboxFilter = new ol.format.filter.Bbox("geometry", extent, "srs");
-bboxFilter = ol.format.filter.bbox("geometry", extent);
-bboxFilter = ol.format.filter.bbox("geometry", extent, "srs");
+bboxFilter = new ol.format.filter.Bbox('geometry', extent);
+bboxFilter = new ol.format.filter.Bbox('geometry', extent, 'srs');
+bboxFilter = ol.format.filter.bbox('geometry', extent);
+bboxFilter = ol.format.filter.bbox('geometry', extent, 'srs');
 
 let equalToFilter: ol.format.filter.EqualTo;
-equalToFilter = new ol.format.filter.EqualTo("property", "abc");
-equalToFilter = new ol.format.filter.EqualTo("property", "abc", true);
-equalToFilter = new ol.format.filter.EqualTo("property", 123);
-equalToFilter = new ol.format.filter.EqualTo("property", 123, true);
-equalToFilter = ol.format.filter.equalTo("property", "abc");
-equalToFilter = ol.format.filter.equalTo("property", "abc", true);
-equalToFilter = ol.format.filter.equalTo("property", 123);
-equalToFilter = ol.format.filter.equalTo("property", 123, true);
+equalToFilter = new ol.format.filter.EqualTo('property', 'abc');
+equalToFilter = new ol.format.filter.EqualTo('property', 'abc', true);
+equalToFilter = new ol.format.filter.EqualTo('property', 123);
+equalToFilter = new ol.format.filter.EqualTo('property', 123, true);
+equalToFilter = ol.format.filter.equalTo('property', 'abc');
+equalToFilter = ol.format.filter.equalTo('property', 'abc', true);
+equalToFilter = ol.format.filter.equalTo('property', 123);
+equalToFilter = ol.format.filter.equalTo('property', 123, true);
 
 let greaterThanFilter: ol.format.filter.GreaterThan;
-greaterThanFilter = new ol.format.filter.GreaterThan("property", 123);
-greaterThanFilter = ol.format.filter.greaterThan("property", 123);
+greaterThanFilter = new ol.format.filter.GreaterThan('property', 123);
+greaterThanFilter = ol.format.filter.greaterThan('property', 123);
 
 let greaterThanEqualToFilter: ol.format.filter.GreaterThanOrEqualTo;
-greaterThanEqualToFilter = new ol.format.filter.GreaterThanOrEqualTo("property", 123);
-greaterThanEqualToFilter = ol.format.filter.greaterThanOrEqualTo("property", 123);
+greaterThanEqualToFilter = new ol.format.filter.GreaterThanOrEqualTo('property', 123);
+greaterThanEqualToFilter = ol.format.filter.greaterThanOrEqualTo('property', 123);
 
 let lessThanFilter: ol.format.filter.LessThan;
-lessThanFilter = new ol.format.filter.LessThan("property", 123);
-lessThanFilter = ol.format.filter.lessThan("property", 123);
+lessThanFilter = new ol.format.filter.LessThan('property', 123);
+lessThanFilter = ol.format.filter.lessThan('property', 123);
 
 let lessThanEqualToFilter: ol.format.filter.LessThanOrEqualTo;
-lessThanEqualToFilter = new ol.format.filter.LessThanOrEqualTo("property", 123);
-lessThanEqualToFilter = ol.format.filter.lessThanOrEqualTo("property", 123);
+lessThanEqualToFilter = new ol.format.filter.LessThanOrEqualTo('property', 123);
+lessThanEqualToFilter = ol.format.filter.lessThanOrEqualTo('property', 123);
 
 let notEqualToFilter: ol.format.filter.NotEqualTo;
-notEqualToFilter = new ol.format.filter.NotEqualTo("property", "abc");
-notEqualToFilter = new ol.format.filter.NotEqualTo("property", "abc", true);
-notEqualToFilter = new ol.format.filter.NotEqualTo("property", 123);
-notEqualToFilter = new ol.format.filter.NotEqualTo("property", 123, true);
-notEqualToFilter = ol.format.filter.notEqualTo("property", "abc");
-notEqualToFilter = ol.format.filter.notEqualTo("property", "abc", true);
-notEqualToFilter = ol.format.filter.notEqualTo("property", 123);
-notEqualToFilter = ol.format.filter.notEqualTo("property", 123, true);
+notEqualToFilter = new ol.format.filter.NotEqualTo('property', 'abc');
+notEqualToFilter = new ol.format.filter.NotEqualTo('property', 'abc', true);
+notEqualToFilter = new ol.format.filter.NotEqualTo('property', 123);
+notEqualToFilter = new ol.format.filter.NotEqualTo('property', 123, true);
+notEqualToFilter = ol.format.filter.notEqualTo('property', 'abc');
+notEqualToFilter = ol.format.filter.notEqualTo('property', 'abc', true);
+notEqualToFilter = ol.format.filter.notEqualTo('property', 123);
+notEqualToFilter = ol.format.filter.notEqualTo('property', 123, true);
 
 let duringFilter: ol.format.filter.During;
-duringFilter = new ol.format.filter.During("property", "2017-01-01T12:00Z", "2017-01-01T14:00Z");
-duringFilter = ol.format.filter.during("property", "2017-01-01T12:00Z", "2017-01-01T14:00Z");
+duringFilter = new ol.format.filter.During('property', '2017-01-01T12:00Z', '2017-01-01T14:00Z');
+duringFilter = ol.format.filter.during('property', '2017-01-01T12:00Z', '2017-01-01T14:00Z');
 
 let isBetweenFilter: ol.format.filter.IsBetween;
-isBetweenFilter = new ol.format.filter.IsBetween("property", 1, 10);
-isBetweenFilter = ol.format.filter.between("property", 1, 10);
+isBetweenFilter = new ol.format.filter.IsBetween('property', 1, 10);
+isBetweenFilter = ol.format.filter.between('property', 1, 10);
 
 let isLikeFilter: ol.format.filter.IsLike;
-isLikeFilter = new ol.format.filter.IsLike("property", "pattern");
-isLikeFilter = new ol.format.filter.IsLike("property", "pattern", "wildcard");
-isLikeFilter = new ol.format.filter.IsLike("property", "pattern", "wildcard", "s");
-isLikeFilter = new ol.format.filter.IsLike("property", "pattern", "wildcard", "s", "e");
-isLikeFilter = new ol.format.filter.IsLike("property", "pattern", "wildcard", "s", "e", true);
-isLikeFilter = ol.format.filter.like("property", "pattern");
-isLikeFilter = ol.format.filter.like("property", "pattern", "wildcard");
-isLikeFilter = ol.format.filter.like("property", "pattern", "wildcard", "s");
-isLikeFilter = ol.format.filter.like("property", "pattern", "wildcard", "s", "e");
-isLikeFilter = ol.format.filter.like("property", "pattern", "wildcard", "s", "e", true);
+isLikeFilter = new ol.format.filter.IsLike('property', 'pattern');
+isLikeFilter = new ol.format.filter.IsLike('property', 'pattern', 'wildcard');
+isLikeFilter = new ol.format.filter.IsLike('property', 'pattern', 'wildcard', 's');
+isLikeFilter = new ol.format.filter.IsLike('property', 'pattern', 'wildcard', 's', 'e');
+isLikeFilter = new ol.format.filter.IsLike('property', 'pattern', 'wildcard', 's', 'e', true);
+isLikeFilter = ol.format.filter.like('property', 'pattern');
+isLikeFilter = ol.format.filter.like('property', 'pattern', 'wildcard');
+isLikeFilter = ol.format.filter.like('property', 'pattern', 'wildcard', 's');
+isLikeFilter = ol.format.filter.like('property', 'pattern', 'wildcard', 's', 'e');
+isLikeFilter = ol.format.filter.like('property', 'pattern', 'wildcard', 's', 'e', true);
 
 let isNullFilter: ol.format.filter.IsNull;
-isNullFilter = new ol.format.filter.IsNull("property");
-isNullFilter = ol.format.filter.isNull("property");
+isNullFilter = new ol.format.filter.IsNull('property');
+isNullFilter = ol.format.filter.isNull('property');
 
 let andFilter: ol.format.filter.And;
 andFilter = new ol.format.filter.And(isNullFilter, duringFilter);
@@ -954,16 +973,16 @@ notFilter = new ol.format.filter.Not(isBetweenFilter);
 notFilter = ol.format.filter.not(isBetweenFilter);
 
 let intersectsFilter: ol.format.filter.Intersects;
-intersectsFilter = new ol.format.filter.Intersects("geometry", geometry);
-intersectsFilter = new ol.format.filter.Intersects("geometry", geometry, "srs");
-intersectsFilter = ol.format.filter.intersects("geometry", geometry);
-intersectsFilter = ol.format.filter.intersects("geometry", geometry, "srs");
+intersectsFilter = new ol.format.filter.Intersects('geometry', geometry);
+intersectsFilter = new ol.format.filter.Intersects('geometry', geometry, 'srs');
+intersectsFilter = ol.format.filter.intersects('geometry', geometry);
+intersectsFilter = ol.format.filter.intersects('geometry', geometry, 'srs');
 
 let withinFilter: ol.format.filter.Within;
-withinFilter = new ol.format.filter.Within("geometry", geometry);
-withinFilter = new ol.format.filter.Within("geometry", geometry, "srs");
-withinFilter = ol.format.filter.within("geometry", geometry);
-withinFilter = ol.format.filter.within("geometry", geometry, "srs");
+withinFilter = new ol.format.filter.Within('geometry', geometry);
+withinFilter = new ol.format.filter.Within('geometry', geometry, 'srs');
+withinFilter = ol.format.filter.within('geometry', geometry);
+withinFilter = ol.format.filter.within('geometry', geometry, 'srs');
 
 //
 // ol.interactions
@@ -990,7 +1009,7 @@ const dragAndDropWithUndefined: ol.interaction.DragAndDrop = new ol.interaction.
 });
 
 let draw: ol.interaction.Draw = new ol.interaction.Draw({
-    type: "Point",
+    type: 'Point',
     clickTolerance: numberValue,
     features: new ol.Collection([]),
     source: vectorSource,
@@ -1003,23 +1022,23 @@ let draw: ol.interaction.Draw = new ol.interaction.Draw({
     condition: ol.events.condition.never,
     freehandCondition: ol.events.condition.never,
     wrapX: booleanValue,
-    stopClick: booleanValue
+    stopClick: booleanValue,
 });
 draw = new ol.interaction.Draw({
-    type: "Point",
+    type: 'Point',
     style: styleArray,
-    stopClick: booleanValue
+    stopClick: booleanValue,
 });
 draw = new ol.interaction.Draw({
-    type: "Point",
+    type: 'Point',
     style: styleFunction,
-    stopClick: booleanValue
+    stopClick: booleanValue,
 });
 const styleFunctionAsStyle = (feature: ol.Feature, resolution: number): ol.style.Style => style;
 draw = new ol.interaction.Draw({
-    type: "Point",
+    type: 'Point',
     style: styleFunctionAsStyle,
-    stopClick: booleanValue
+    stopClick: booleanValue,
 });
 ol.interaction.Draw.createBox();
 ol.interaction.Draw.createRegularPolygon();
@@ -1027,22 +1046,22 @@ ol.interaction.Draw.createRegularPolygon(4);
 ol.interaction.Draw.createRegularPolygon(4, 0);
 
 ol.interaction.defaults({
-    constrainResolution: booleanValue
+    constrainResolution: booleanValue,
 });
 
 const styleFunctionAsArray = (feature: ol.Feature, resolution: number): ol.style.Style[] => styleArray;
 draw = new ol.interaction.Draw({
-    type: "Point",
+    type: 'Point',
     style: styleFunctionAsArray,
-    stopClick: booleanValue
+    stopClick: booleanValue,
 });
 
 const itExtent = new ol.interaction.Extent({
-    extent: [10, 10, 20 , 20],
+    extent: [10, 10, 20, 20],
     boxStyle: style,
     pixelTolerance: 10,
     pointerStyle: style,
-    wrapX: true
+    wrapX: true,
 });
 
 itExtent.setMap(map);
@@ -1057,14 +1076,14 @@ const dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
         const width: number = endPixel[0] - startPixel[0];
         const height: number = endPixel[1] - startPixel[1];
         return booleanValue;
-    }
+    },
 });
 polygon = dragbox.getGeometry();
 
 const interaction: ol.interaction.Interaction = new ol.interaction.Interaction({
     handleEvent: (e: ol.MapBrowserEvent) => {
         return booleanValue;
-    }
+    },
 });
 booleanValue = interaction.getActive();
 map = interaction.getMap();
@@ -1076,14 +1095,14 @@ const select: ol.interaction.Select = new ol.interaction.Select({
 
 const pinchZoom: ol.interaction.PinchZoom = new ol.interaction.PinchZoom({
     constrainResolution: booleanValue,
-    duration: numberValue
+    duration: numberValue,
 });
 
 const mouseWheelZoom: ol.interaction.MouseWheelZoom = new ol.interaction.MouseWheelZoom({
     constrainResolution: booleanValue,
     duration: numberValue,
     timeout: numberValue,
-    useAnchor: booleanValue
+    useAnchor: booleanValue,
 });
 
 //
@@ -1162,7 +1181,7 @@ styleStroke.setLineDashOffset(10);
 styleStroke.setMiterLimit(20);
 styleStroke.setWidth(5);
 
-const strokeColor: ol.Color|ol.ColorLike = styleStroke.getColor();
+const strokeColor: ol.Color | ol.ColorLike = styleStroke.getColor();
 const strokeLineCap: string = styleStroke.getLineCap();
 const strokeLineJoin: string = styleStroke.getLineJoin();
 const strokeLineDash: number[] = styleStroke.getLineDash();

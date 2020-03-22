@@ -1,5 +1,5 @@
-import { Action } from "redux";
-import { OptimisticState, OptimisticAction, BEGIN, optimistic, ensureState } from "redux-optimistic-ui";
+import { Action } from 'redux';
+import { OptimisticState, OptimisticAction, BEGIN, optimistic, ensureState } from 'redux-optimistic-ui';
 
 interface TestState {
     a: number;
@@ -15,7 +15,7 @@ function myReducer(state: TestState, action: Action) {
 
 const optimisticReducer = optimistic(myReducer);
 
-const nextState = optimisticReducer(optimisticState, { type: "test" });
+const nextState = optimisticReducer(optimisticState, { type: 'test' });
 nextState.current.a;
 nextState.current.b;
 nextState.beforeState;
@@ -25,11 +25,11 @@ ensureState(testState).a;
 ensureState(optimisticState).a;
 
 const myOptimisticAction: Action & OptimisticAction = {
-    type: "test",
+    type: 'test',
     meta: {
         optimistic: {
             type: BEGIN,
-            id: 1
-        }
-    }
-}
+            id: 1,
+        },
+    },
+};

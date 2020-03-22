@@ -1,3 +1,3 @@
-import ProviderEngine = require("web3-provider-engine");
+import ProviderEngine = require('web3-provider-engine');
 
 new ProviderEngine();

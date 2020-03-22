@@ -1,14 +1,14 @@
-import Sybase = require("sybase-promised");
+import Sybase = require('sybase-promised');
 
-const config: Sybase.ConnectionOptions =  {
-    dbname: "testDb",
-    host: "127.0.0.1",
-    password: "password",
+const config: Sybase.ConnectionOptions = {
+    dbname: 'testDb',
+    host: '127.0.0.1',
+    password: 'password',
     port: 3223,
-    username: "user",
-  };
+    username: 'user',
+};
 
-const sql = "SELECT * FROM test1";
+const sql = 'SELECT * FROM test1';
 
 (async () => {
     const connection = new Sybase(config);

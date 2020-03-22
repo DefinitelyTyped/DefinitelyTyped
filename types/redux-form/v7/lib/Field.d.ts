@@ -7,9 +7,9 @@ import {
     FocusEvent,
     InputHTMLAttributes,
     SelectHTMLAttributes,
-    TextareaHTMLAttributes
-} from "react";
-import { Dispatch } from "redux";
+    TextareaHTMLAttributes,
+} from 'react';
+import { Dispatch } from 'redux';
 
 export type Normalizer = (value: any, previousValue?: any, allValues?: any, previousAllValues?: any) => any;
 export type Formatter = (value: any, name: string) => any;
@@ -37,7 +37,7 @@ export interface CommonFieldProps extends CommonFieldInputProps {
 
 export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     name: string;
-    component?: ComponentType<WrappedFieldProps & P> | "input" | "select" | "textarea";
+    component?: ComponentType<WrappedFieldProps & P> | 'input' | 'select' | 'textarea';
     format?: Formatter | null;
     normalize?: Normalizer;
     props?: P;
@@ -57,11 +57,13 @@ export interface GenericField<P> extends Component<BaseFieldProps<P> & P> {
 }
 
 export type GenericFieldHTMLAttributes =
-    InputHTMLAttributes<HTMLInputElement> |
-    SelectHTMLAttributes<HTMLSelectElement> |
-    TextareaHTMLAttributes<HTMLTextAreaElement>;
+    | InputHTMLAttributes<HTMLInputElement>
+    | SelectHTMLAttributes<HTMLSelectElement>
+    | TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export class Field<P extends GenericFieldHTMLAttributes | BaseFieldProps = GenericFieldHTMLAttributes | BaseFieldProps> extends Component<P> {
+export class Field<
+    P extends GenericFieldHTMLAttributes | BaseFieldProps = GenericFieldHTMLAttributes | BaseFieldProps
+> extends Component<P> {
     dirty: boolean;
     name: string;
     pristine: boolean;

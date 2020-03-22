@@ -1,5 +1,4 @@
-
-import faststats = require("fast-stats");
+import faststats = require('fast-stats');
 import Stats = faststats.Stats;
 
 var s: Stats;
@@ -33,5 +32,3 @@ n = stats.gstddev();
 n = stats.moe();
 ns = stats.range();
 buckets = stats.distribution();
-
-

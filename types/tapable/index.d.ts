@@ -7,8 +7,8 @@
 
 export declare abstract class Tapable {
     private _plugins: {
-        [propName: string]: Tapable.Handler[]
-    }
+        [propName: string]: Tapable.Handler[];
+    };
 
     /** @deprecated Private internals. Do not use directly */
     _pluginCompat: Hook;
@@ -124,7 +124,7 @@ export declare abstract class Tapable {
      */
     applyPluginsAsyncSeries(name: string, ...args: any[]): void;
 
-    applyPluginsAsyncSeries1(name: string, param: any, callback: Tapable.CallbackFunction): void
+    applyPluginsAsyncSeries1(name: string, param: any, callback: Tapable.CallbackFunction): void;
 
     /**
      * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
@@ -231,7 +231,7 @@ declare namespace Tapable {
     }
 }
 
-type TapType = "sync" | "async" | "promise";
+type TapType = 'sync' | 'async' | 'promise';
 
 export interface HookCompileOptions {
     type: TapType;
@@ -258,19 +258,40 @@ export class Hook<TArg1 = any, TArg2 = any, TArg3 = any, TTabResult = any, THook
     compile(options: HookCompileOptions): Function;
     tap: (name: string | Tap, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => TTabResult) => void;
     tapAsync: (name: string | Tap, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => void) => void;
-    tapPromise: (name: string | Tap, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => Promise<TTabResult>) => void;
+    tapPromise: (
+        name: string | Tap,
+        fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => Promise<TTabResult>,
+    ) => void;
     intercept: (interceptor: HookInterceptor) => void;
 }
 
 export class SyncHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
-export class SyncBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class SyncBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<
+    T1,
+    T2,
+    T3,
+    undefined | THookResult,
+    undefined | THookResult
+> {}
 export class SyncLoopHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
 export class SyncWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, T1, T1> {}
 
 export class AsyncParallelHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
-export class AsyncParallelBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class AsyncParallelBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<
+    T1,
+    T2,
+    T3,
+    undefined | THookResult,
+    undefined | THookResult
+> {}
 export class AsyncSeriesHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
-export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<
+    T1,
+    T2,
+    T3,
+    undefined | THookResult,
+    undefined | THookResult
+> {}
 export class AsyncSeriesWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, T1, T1> {}
 
 export class HookInterceptor {
@@ -288,7 +309,11 @@ export class HookMap<T1 = any, T2 = any, T3 = any> {
     for: (key: any) => Hook<T1, T2, T3>;
     tap: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any) => void;
     tapAsync: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => void) => void;
-    tapPromise: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => Promise<any>) => void;
+    tapPromise: (
+        key: any,
+        name: string | Tap,
+        fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => Promise<any>,
+    ) => void;
     intercept: (interceptor: HookMapInterceptor<T1, T2, T3>) => void;
 }
 
@@ -306,5 +331,5 @@ export class HookMapInterceptor<T1 = any, T2 = any, T3 = any> {
  * ```
  */
 export class MultiHook {
-    constructor(hooks: Hook[])
+    constructor(hooks: Hook[]);
 }

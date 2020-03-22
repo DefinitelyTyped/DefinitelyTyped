@@ -7,8 +7,12 @@
 import { RequestHandler } from 'express';
 
 export function abide(options?: AbideOptions): RequestHandler;
-export function parseAcceptLanguage(header?: string): Array<{ lang: string, quality: number }>;
-export function bestLanguage(languages: Array<{ lang: string, quality: number}>, supported_languages: string[], defaultLanguage: string): string;
+export function parseAcceptLanguage(header?: string): Array<{ lang: string; quality: number }>;
+export function bestLanguage(
+    languages: Array<{ lang: string; quality: number }>,
+    supported_languages: string[],
+    defaultLanguage: string,
+): string;
 export function localeFrom(language?: string): string;
 export function languageFrom(locale?: string): string;
 export function normalizeLanguage(language?: string): string;
@@ -23,5 +27,5 @@ export interface AbideOptions {
     debug_lang?: string;
     disable_locale_check?: boolean;
     translation_directory?: string;
-    logger?: { warn(msg: string): void, error(msg: string): void };
+    logger?: { warn(msg: string): void; error(msg: string): void };
 }

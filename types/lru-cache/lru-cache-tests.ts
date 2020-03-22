@@ -3,32 +3,34 @@ import LRUCache = require('lru-cache');
 const num = 1;
 
 interface Foo {
-	foo(): void;
+    foo(): void;
 }
 
 const foo = {
-    foo() {}
+    foo() {},
 };
 
 const cache = new LRUCache<string, Foo>();
 cache; // $ExpectType LRUCache<string, Foo>
-new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
-	max: num,
-	maxAge: num,
-	length(value) {
+new LRUCache<string, Foo>({
+    // $ExpectType LRUCache<string, Foo>
+    max: num,
+    maxAge: num,
+    length(value) {
         value; // $ExpectType Foo
         return num;
-	},
-	dispose(key, value) {
+    },
+    dispose(key, value) {
         key; // $ExpectType string
         value; // $ExpectType Foo
-	},
-	stale: false,
+    },
+    stale: false,
     noDisposeOnSet: false,
 });
 new LRUCache<string, Foo>(num); // $ExpectType LRUCache<string, Foo>
 new LRUCache<string, Foo>(); // $ExpectType LRUCache<string, Foo>
-new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>({
+    // $ExpectType LRUCache<string, Foo>
     max: num,
     maxAge: num,
     length: (value) => {
@@ -77,26 +79,26 @@ cache.del(1); // $ExpectError
 cache.reset();
 cache.prune();
 
-cache.forEach(function(value, key, cache) {
+cache.forEach(function (value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
     cache; // $ExpectType LRUCache<string, Foo>
     this; // $ExpectType LRUCache<string, Foo>
 });
-cache.forEach(function(value, key, cache) {
+cache.forEach(function (value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
     cache; // $ExpectType LRUCache<string, Foo>
     this; // $ExpectType { foo(): void; }
 }, foo);
 
-cache.rforEach(function(value, key, cache) {
+cache.rforEach(function (value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
     cache; // $ExpectType LRUCache<string, Foo>
     this; // $ExpectType LRUCache<string, Foo>
 });
-cache.rforEach(function(value, key, cache) {
+cache.rforEach(function (value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
     cache; // $ExpectType LRUCache<string, Foo>

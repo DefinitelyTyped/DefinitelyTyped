@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import express = require("express");
-import qs = require("qs");
+import express = require('express');
+import qs = require('qs');
 
-declare function qsMiddleware(
-    options?: qs.IParseOptions
-): express.RequestHandler;
+declare function qsMiddleware(options?: qs.IParseOptions): express.RequestHandler;
 
 export = qsMiddleware;

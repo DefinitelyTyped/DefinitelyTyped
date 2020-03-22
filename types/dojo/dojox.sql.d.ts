@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/sql.html
      *
@@ -12,28 +11,23 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface sql {
-    }
+    interface sql {}
     namespace sql {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/sql/_crypto.html
          *
          *
          */
-        interface _crypto {
-        }
-        module _base {
-        }
-
+        interface _crypto {}
+        module _base {}
     }
-
 }
 
-declare module "dojox/sql" {
-    var exp: dojox.sql
-    export=exp;
+declare module 'dojox/sql' {
+    var exp: dojox.sql;
+    export = exp;
 }
-declare module "dojox/sql/_crypto" {
-    var exp: dojox.sql._crypto
-    export=exp;
+declare module 'dojox/sql/_crypto' {
+    var exp: dojox.sql._crypto;
+    export = exp;
 }

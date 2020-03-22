@@ -1,4 +1,4 @@
-import * as yogRal from "yog-ral";
+import * as yogRal from 'yog-ral';
 
 class FormConverter extends yogRal.Converter {
     pack(config: yogRal.Service, data: {}) {
@@ -16,7 +16,11 @@ class HashringBalance extends yogRal.Balance {
     getName() {
         return 'hashring';
     }
-    fetchServer(balanceContext: yogRal.Balance.BalanceContextClass, conf: {}, prevBackend: yogRal.Server): yogRal.Server {
+    fetchServer(
+        balanceContext: yogRal.Balance.BalanceContextClass,
+        conf: {},
+        prevBackend: yogRal.Server,
+    ): yogRal.Server {
         return {
             host: '127.0.0.1',
             port: 8888,

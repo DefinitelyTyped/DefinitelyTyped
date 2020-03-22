@@ -1,9 +1,5 @@
 namespace mathTests.matrixTests {
-    const {
-        vec2, vec3, vec4,
-        mat2, mat2d, mat3, mat4,
-        quat
-    } = adone.math.matrix;
+    const { vec2, vec3, vec4, mat2, mat2d, mat3, mat4, quat } = adone.math.matrix;
     type mat2 = adone.math.matrix.I.mat2;
     type mat2d = adone.math.matrix.I.mat2d;
     type mat3 = adone.math.matrix.I.mat3;
@@ -316,7 +312,12 @@ namespace mathTests.matrixTests {
         outMat4 = mat4.fromQuat(outMat4, quatB);
         outMat4 = mat4.frustum(outMat4, -1, 1, -1, 1, -1, 1);
         outMat4 = mat4.perspective(outMat4, Math.PI, 1, 0, 1);
-        outMat4 = mat4.perspectiveFromFieldOfView(outMat4, { upDegrees: Math.PI, downDegrees: -Math.PI, leftDegrees: -Math.PI, rightDegrees: Math.PI }, 1, 0);
+        outMat4 = mat4.perspectiveFromFieldOfView(
+            outMat4,
+            { upDegrees: Math.PI, downDegrees: -Math.PI, leftDegrees: -Math.PI, rightDegrees: Math.PI },
+            1,
+            0,
+        );
         outMat4 = mat4.ortho(outMat4, -1, 1, -1, 1, -1, 1);
         outMat4 = mat4.lookAt(outMat4, vec3A, vec3B, vec3A);
         outStr = mat4.str(mat4A);

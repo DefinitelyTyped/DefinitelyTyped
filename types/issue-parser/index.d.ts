@@ -4,10 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare function issueParser(
-    authOptions?: issueParser.Options,
-    extension?: issueParser.Overrides
-): issueParser.Parser;
+declare function issueParser(authOptions?: issueParser.Options, extension?: issueParser.Overrides): issueParser.Parser;
 
 declare namespace issueParser {
     type Parser = (text: string) => Result;
@@ -22,7 +19,7 @@ declare namespace issueParser {
         issueURLSegments?: string | ReadonlyArray<string>;
         overrides?: string | ReadonlyArray<string>;
     }
-    type Options = "github" | "gitlab" | "bitbucket" | "waffle" | Overrides;
+    type Options = 'github' | 'gitlab' | 'bitbucket' | 'waffle' | Overrides;
     interface Reference {
         raw: string;
         slug: string | undefined;

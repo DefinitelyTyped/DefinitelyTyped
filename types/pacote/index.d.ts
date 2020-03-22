@@ -97,7 +97,7 @@ export interface PackageVersion {
 
 export interface Packument {
     name: string;
-    'dist-tags': { latest: string; } & Record<string, string>;
+    'dist-tags': { latest: string } & Record<string, string>;
     versions: Record<string, PackageVersion>;
 
     [key: string]: unknown;

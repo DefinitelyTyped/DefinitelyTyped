@@ -12,7 +12,7 @@ declare class UnsafeCachePlugin {
         source: string,
         filterPredicate: (request: ResolverRequest) => boolean,
         cache: Dictionary<any>,
-        target: string
+        target: string,
     );
 
     apply(resolver: Resolver): void;

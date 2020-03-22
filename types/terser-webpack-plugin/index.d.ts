@@ -29,7 +29,7 @@ declare namespace TerserPlugin {
         banner?: boolean | string | FormatFn;
     }
 
-    type ExtractCommentFn = (node: any, comment: any) => (boolean | object);
+    type ExtractCommentFn = (node: any, comment: any) => boolean | object;
 
     type FormatFn = (input: string) => string;
 
@@ -44,11 +44,7 @@ declare namespace TerserPlugin {
         sourceMap?: boolean;
         minify?: (file: any, sourceMap: any) => MinifyResult;
         terserOptions?: MinifyOptions;
-        extractComments?: boolean
-        | string
-        | RegExp
-        | ExtractCommentFn
-        | ExtractCommentOptions;
+        extractComments?: boolean | string | RegExp | ExtractCommentFn | ExtractCommentOptions;
         warningsFilter?: (warning: string, source: string | undefined, file: string) => boolean;
     }
 }

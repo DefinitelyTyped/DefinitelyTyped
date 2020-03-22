@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "strftime" {
+declare module 'strftime' {
     type strftimeFunction = (format: string, date?: Date) => string;
 
     namespace strftime {
@@ -50,7 +50,7 @@ declare module "strftime" {
             PM?: string;
             am?: string;
             pm?: string;
-            formats: LocaleFormats
+            formats: LocaleFormats;
         }
     }
 

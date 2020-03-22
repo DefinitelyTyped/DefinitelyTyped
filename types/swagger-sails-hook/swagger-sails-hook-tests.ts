@@ -1,12 +1,14 @@
-import swaggerSailsHook = require("swagger-sails-hook");
-import * as express from "express";
+import swaggerSailsHook = require('swagger-sails-hook');
+import * as express from 'express';
 
 const mockSailsApp = {
     models: {},
     conf: {},
     sockets: {},
     hooks: {},
-    lift: () => { /* do nothing */ }
+    lift: () => {
+        /* do nothing */
+    },
 };
 
 // create and register hook

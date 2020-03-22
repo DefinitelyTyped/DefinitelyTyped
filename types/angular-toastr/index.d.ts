@@ -24,7 +24,7 @@ declare module 'angular' {
             closeButton?: boolean;
             closeHtml?: string;
             extendedTimeOut?: number;
-            extraData?: any,
+            extraData?: any;
             messageClass?: string;
             onHidden?: (wasClicked: boolean, toast: angular.toastr.IToast) => void;
             onShown?: (toast: angular.toastr.IToast) => void;
@@ -60,7 +60,7 @@ declare module 'angular' {
             };
         }
 
-        interface IToastrConfig extends IToastContainerConfig, IToastConfig { }
+        interface IToastrConfig extends IToastContainerConfig, IToastConfig {}
 
         interface IToastScope extends angular.IScope {
             message: string;

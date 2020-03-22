@@ -1,4 +1,4 @@
-import tape = require("tape-async");
+import tape = require('tape-async');
 
 const name: string = undefined;
 const cb = (test: tape.Test) => {};
@@ -166,11 +166,11 @@ tape(name, (test: tape.Test) => {
 	test.doesNotThrow(fn, CustomException);
 	test.doesNotThrow(fn, CustomException, msg);
 
-	test.test(name, st => {
+	test.test(name, (st) => {
 		t = st;
 	});
 
-	test.test(name, opts, st => {
+	test.test(name, opts, (st) => {
 		t = st;
 	});
 

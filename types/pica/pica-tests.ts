@@ -17,7 +17,7 @@ resizerWithOptions.resize(image, canvas);
 
 // Resize image with options
 let resizeOptions: PicaResizeOptions = {
-    quality: 9
+    quality: 9,
 };
 resizer.resize(image, canvas, resizeOptions);
 resizerWithOptions.resize(image, canvas, resizeOptions);

@@ -1,19 +1,23 @@
-import ExpressOAuthServer = require("express-oauth-server");
-import * as OAuth2Server from "oauth2-server";
-import express = require("express");
+import ExpressOAuthServer = require('express-oauth-server');
+import * as OAuth2Server from 'oauth2-server';
+import express = require('express');
 
 const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
     getClient: async (clientId: string, clientSecret: string): Promise<OAuth2Server.Client | OAuth2Server.Falsey> => {
         return undefined;
     },
-    saveToken: async (token: OAuth2Server.Token, client: OAuth2Server.Client, user: OAuth2Server.User): Promise<OAuth2Server.Token> => {
+    saveToken: async (
+        token: OAuth2Server.Token,
+        client: OAuth2Server.Client,
+        user: OAuth2Server.User,
+    ): Promise<OAuth2Server.Token> => {
         return token;
     },
     getAccessToken: async (accessToken: string): Promise<OAuth2Server.Token> => {
         return {
             accessToken,
-            client: {id: "testClient", grants: ["access_token"]},
-            user: {id: "testUser"}
+            client: { id: 'testClient', grants: ['access_token'] },
+            user: { id: 'testUser' },
         };
     },
     verifyScope: async (token: OAuth2Server.Token, scope: string): Promise<boolean> => {
@@ -23,17 +27,21 @@ const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
         return {
             authorizationCode,
             expiresAt: new Date(),
-            redirectUri: "www.test.com",
-            client: {id: "testClient", grants: ["access_token"]},
-            user: {id: "testUser"}
+            redirectUri: 'www.test.com',
+            client: { id: 'testClient', grants: ['access_token'] },
+            user: { id: 'testUser' },
         };
     },
-    saveAuthorizationCode: async (code: OAuth2Server.AuthorizationCode, client: OAuth2Server.Client, user: OAuth2Server.User): Promise<OAuth2Server.AuthorizationCode> => {
+    saveAuthorizationCode: async (
+        code: OAuth2Server.AuthorizationCode,
+        client: OAuth2Server.Client,
+        user: OAuth2Server.User,
+    ): Promise<OAuth2Server.AuthorizationCode> => {
         return code;
     },
     revokeAuthorizationCode: async (code: OAuth2Server.AuthorizationCode): Promise<boolean> => {
         return true;
-    }
+    },
 };
 
 const serverOptions: OAuth2Server.ServerOptions = {
@@ -63,19 +71,19 @@ resultingAuthorizationCodeMiddleware = expressOAuthServer.authorize();
 const expressApp = express();
 
 expressApp.all(
-    "/path",
+    '/path',
     expressOAuthServer.authenticate(),
     (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        res.json({message: "Secure data"});
+        res.json({ message: 'Secure data' });
     },
 );
 
 expressApp.get(
-    "/profile",
-    expressOAuthServer.authenticate({scope: "profile"}),
-    (req: express.Request & {user?: OAuth2Server.Token}, res: express.Response, next: express.NextFunction) => {
+    '/profile',
+    expressOAuthServer.authenticate({ scope: 'profile' }),
+    (req: express.Request & { user?: OAuth2Server.Token }, res: express.Response, next: express.NextFunction) => {
         res.json({
-            profile: req.user
+            profile: req.user,
         });
     },
 );

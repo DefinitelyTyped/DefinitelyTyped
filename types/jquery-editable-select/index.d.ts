@@ -27,7 +27,7 @@ declare namespace JQueryEditableSelect {
         /**
          * How dropdown list is triggered.
          */
-        trigger?: 'focus'| 'manual';
+        trigger?: 'focus' | 'manual';
     }
 }
 
@@ -43,7 +43,7 @@ interface JQuery {
      *
      * @param action Action to apply
      */
-    editableSelect(action: 'show'| 'hide'| 'filter' | 'clear'| 'destroy'): void;
+    editableSelect(action: 'show' | 'hide' | 'filter' | 'clear' | 'destroy'): void;
     /**
      * Manually sets the value of the text field to the value of the $element passed as parameter.
      *
@@ -60,7 +60,13 @@ interface JQuery {
      * @param attrs optional attributes to add to the element
      * @param data optional data to add to the element
      */
-    editableSelect(action: 'add', text: string , index?: number, attrs?: Array<{name: string, value: string}>, data?: string): void;
+    editableSelect(
+        action: 'add',
+        text: string,
+        index?: number,
+        attrs?: Array<{ name: string; value: string }>,
+        data?: string,
+    ): void;
     /**
      * Removes an option in the dropdown list at the given index.
      *

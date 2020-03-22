@@ -7,7 +7,6 @@
 
 // This package has been deprecated in favor of gulp-htmlmin, which should be faster and more comprehensive.
 
-
 declare namespace minifyHtml {
     // Options from https://github.com/Swaagie/minimize#options
     interface Options {

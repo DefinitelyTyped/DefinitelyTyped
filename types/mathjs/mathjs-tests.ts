@@ -20,7 +20,13 @@ Basic usage examples
     math.atan2(3, -3) / math.pi;
     math.log(10000, 10);
     math.sqrt(-4);
-    math.pow([[-1, 2], [3, 1]], 2);
+    math.pow(
+        [
+            [-1, 2],
+            [3, 1],
+        ],
+        2,
+    );
     const angle = 0.2;
     math.add(math.pow(math.sin(angle), 2), math.pow(math.cos(angle), 2));
 
@@ -28,11 +34,7 @@ Basic usage examples
     math.evaluate('1.2 * (2 + 4.5)');
 
     // chained operations
-    const a = math
-        .chain(3)
-        .add(4)
-        .multiply(2)
-        .done(); // 14
+    const a = math.chain(3).add(4).multiply(2).done(); // 14
 
     // mixed use of different data types in functions
     math.add(4, [5, 6]); // number + Array, [9, 10]
@@ -62,19 +64,10 @@ Chaining examples
 */
 {
     const math = create(all, {});
-    const a = math
-        .chain(3)
-        .add(4)
-        .multiply(2)
-        .done(); // 14
+    const a = math.chain(3).add(4).multiply(2).done(); // 14
 
     // Another example, calculate square(sin(pi / 4))
-    const b = math
-        .chain(math.pi)
-        .divide(4)
-        .sin()
-        .square()
-        .done();
+    const b = math.chain(math.pi).divide(4).sin().square().done();
 
     // toString will return a string representation of the chain's value
     const chain = math.chain(2).divide(3);
@@ -83,17 +76,13 @@ Chaining examples
     chain.valueOf();
 
     // the function subset can be used to get or replace sub matrices
-    const array = [[1, 2], [3, 4]];
-    const v = math
-        .chain(array)
-        .subset(math.index(1, 0))
-        .done(); // 3
+    const array = [
+        [1, 2],
+        [3, 4],
+    ];
+    const v = math.chain(array).subset(math.index(1, 0)).done(); // 3
 
-    const m = math
-        .chain(array)
-        .subset(math.index(0, 0), 8)
-        .multiply(3)
-        .done();
+    const m = math.chain(array).subset(math.index(0, 0), 8).multiply(3).done();
 }
 
 /*
@@ -251,8 +240,14 @@ Matrices examples
 
     // create and manipulate matrices. Arrays and Matrices can be used mixed.
     {
-        const a = [[1, 2], [3, 4]];
-        const b: math.Matrix = math.matrix([[5, 6], [1, 1]]);
+        const a = [
+            [1, 2],
+            [3, 4],
+        ];
+        const b: math.Matrix = math.matrix([
+            [5, 6],
+            [1, 1],
+        ]);
 
         b.subset(math.index(1, [0, 1]), [[7, 8]]);
         const c = math.multiply(a, b);
@@ -293,14 +288,14 @@ Matrices examples
 
     // map matrix
     {
-        math.map([1, 2, 3], function(value) {
+        math.map([1, 2, 3], function (value) {
             return value * value;
         }); // returns [1, 4, 9]
     }
 
     // filter matrix
     {
-        math.filter([6, -2, -1, 4, 3], function(x) {
+        math.filter([6, -2, -1, 4, 3], function (x) {
             return x > 0;
         }); // returns [6, 4, 3]
         math.filter(['23', 'foo', '100', '55', 'bar'], /[0-9]+/); // returns ["23", "100", "55"]
@@ -350,7 +345,7 @@ Units examples
             aliases: ['knots', 'kt', 'kts'],
             prefixes: 'long',
         },
-        { override: true }
+        { override: true },
     );
     math.createUnit(
         {
@@ -365,7 +360,7 @@ Units examples
         },
         {
             override: true,
-        }
+        },
     );
     // use Unit as definition
     math.createUnit('c', { definition: b });
@@ -455,7 +450,7 @@ declare module 'mathjs' {
             testFun,
             value: 10,
         },
-        {}
+        {},
     );
 
     math.testFun();
@@ -473,15 +468,9 @@ Renamed functions from v5 => v6
     math.evaluate('1 + 2');
 
     // chained operations
-    math.chain(3)
-        .typeOf()
-        .done();
-    math.chain([1, 2, 3])
-        .variance()
-        .done();
-    math.chain('1 + 2')
-        .evaluate()
-        .done();
+    math.chain(3).typeOf().done();
+    math.chain([1, 2, 3]).variance().done();
+    math.chain('1 + 2').evaluate().done();
 }
 
 /*
@@ -491,7 +480,7 @@ Factory Test
     // create a factory function
     const name = 'negativeSquare';
     const dependencies: MathJsFunctionName[] = ['multiply', 'unaryMinus'];
-    const createNegativeSquare = factory(name, dependencies, injected => {
+    const createNegativeSquare = factory(name, dependencies, (injected) => {
         const { multiply, unaryMinus } = injected;
         return function negativeSquare(x: number): number {
             return unaryMinus(multiply(x, x));
@@ -522,7 +511,7 @@ Factory Test
             divideDependencies,
             formatDependencies,
         },
-        config
+        config,
     );
 
     // Use the created functions

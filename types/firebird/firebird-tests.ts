@@ -1,4 +1,4 @@
-import * as fb from "firebird";
+import * as fb from 'firebird';
 
 /* createConnection */
 let con: fb.Connection = fb.createConnection();
@@ -14,8 +14,8 @@ if (con.connected === true) {
 }
 
 con.querySync("insert into test (id,name) values (5, 'new one')");
-const res: fb.FBResult = con.querySync("select * from test");
-con.query("select * from test", (err: Error | null, res: fb.FBResult) => {});
+const res: fb.FBResult = con.querySync('select * from test');
+con.query('select * from test', (err: Error | null, res: fb.FBResult) => {});
 
 con.commitSync();
 con.commit((err: Error | null) => {});
@@ -26,7 +26,7 @@ con.rollback((err: Error | null) => {});
 con.startSync();
 con.start((err: Error | null) => {});
 
-let stmt: fb.FBStatement = con.prepareSync("select * from test where name = ?");
+let stmt: fb.FBStatement = con.prepareSync('select * from test where name = ?');
 
 if (con.inTransaction === true) {
     console.log('in transaction');
@@ -38,10 +38,10 @@ const tx: fb.Transaction = con.startNewTransactionSync();
 con.startNewTransaction((err: Error | null, tx: fb.Transaction) => {});
 
 /* DataType */
-const column: fb.DataType = <any> {};
-if (typeof (column) === "number") {
+const column: fb.DataType = <any>{};
+if (typeof column === 'number') {
     column * 10;
-} else if (typeof (column) === "string") {
+} else if (typeof column === 'string') {
     column.substring(0, 1);
 } else if (column instanceof Date) {
     column.toISOString();
@@ -55,22 +55,52 @@ interface MyRow {
     name: string;
 }
 
-let rowsArray: fb.DataType[][] = res.fetchSync("all", false);
+let rowsArray: fb.DataType[][] = res.fetchSync('all', false);
 rowsArray = res.fetchSync(1, false);
-res.fetch("all", false, (row: fb.DataType[]) => {}, (err: Error | null, eof: boolean) => {});
-res.fetch(1, false, (row: fb.DataType[]) => {}, (err: Error | null, eof: boolean) => {});
-let rowsObject: Array<{[colmn: string]: fb.DataType}> = res.fetchSync("all", true);
+res.fetch(
+    'all',
+    false,
+    (row: fb.DataType[]) => {},
+    (err: Error | null, eof: boolean) => {},
+);
+res.fetch(
+    1,
+    false,
+    (row: fb.DataType[]) => {},
+    (err: Error | null, eof: boolean) => {},
+);
+let rowsObject: Array<{ [colmn: string]: fb.DataType }> = res.fetchSync('all', true);
 rowsObject = res.fetchSync(1, true);
-res.fetch("all", true, (row: {[colmn: string]: fb.DataType}) => {}, (err: Error | null, eof: boolean) => {});
-res.fetch(1, true, (row: {[colmn: string]: fb.DataType}) => {}, (err: Error | null, eof: boolean) => {});
-let rowsTyped: MyRow[] = res.fetchSync<MyRow>("all", true);
+res.fetch(
+    'all',
+    true,
+    (row: { [colmn: string]: fb.DataType }) => {},
+    (err: Error | null, eof: boolean) => {},
+);
+res.fetch(
+    1,
+    true,
+    (row: { [colmn: string]: fb.DataType }) => {},
+    (err: Error | null, eof: boolean) => {},
+);
+let rowsTyped: MyRow[] = res.fetchSync<MyRow>('all', true);
 rowsTyped = res.fetchSync<MyRow>(1, true);
-res.fetch<MyRow>("all", true, (row: MyRow) => {}, (err: Error | null, eof: boolean) => {});
-res.fetch<MyRow>(1, true, (row: MyRow) => {}, (err: Error | null, eof: boolean) => {});
+res.fetch<MyRow>(
+    'all',
+    true,
+    (row: MyRow) => {},
+    (err: Error | null, eof: boolean) => {},
+);
+res.fetch<MyRow>(
+    1,
+    true,
+    (row: MyRow) => {},
+    (err: Error | null, eof: boolean) => {},
+);
 
 /* Transaction */
 tx.querySync("insert into test (id,name) values (5, 'new one')");
-tx.query("select * from test", (err: Error | null, res: fb.FBResult) => {});
+tx.query('select * from test', (err: Error | null, res: fb.FBResult) => {});
 
 tx.commitSync();
 tx.commit((err: Error | null) => {});
@@ -80,7 +110,7 @@ tx.rollback((err: Error | null) => {});
 
 tx.startSync();
 tx.start((error: Error | null) => {});
-stmt = tx.prepareSync("select * from test where name = ?");
+stmt = tx.prepareSync('select * from test where name = ?');
 
 if (tx.inTransaction === true) {
     console.log('in transaction');
@@ -88,21 +118,21 @@ if (tx.inTransaction === true) {
 
 /* FBStatement */
 const asFBResult: fb.FBResult = stmt;
-stmt.execSync("John");
-stmt.execSync(1, "Mary");
-stmt.execInTransSync(tx, "John");
-stmt.execInTransSync(tx, 1, "Mary");
-stmt.exec("John");
-stmt.exec(1, "Mary");
-stmt.execInTrans(tx, "John");
-stmt.execInTrans(tx, 1, "Mary");
+stmt.execSync('John');
+stmt.execSync(1, 'Mary');
+stmt.execInTransSync(tx, 'John');
+stmt.execInTransSync(tx, 1, 'Mary');
+stmt.exec('John');
+stmt.exec(1, 'Mary');
+stmt.execInTrans(tx, 'John');
+stmt.execInTrans(tx, 1, 'Mary');
 
 /* FBBlob */
 blob._openSync();
 
 blob._closeSync();
 
-const buffer: Buffer = <any> {};
+const buffer: Buffer = <any>{};
 const readBytes: number = blob._readSync(buffer);
 blob._read(buffer, (err: Error | null, buffer: Buffer, len: number) => {});
 

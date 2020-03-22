@@ -3,7 +3,7 @@
 
 /// <reference path="./config.d.ts" />
 
-import { Point, ScopeDescriptor, TextEditor } from "../index";
+import { Point, ScopeDescriptor, TextEditor } from '../index';
 
 /** The parameters passed into getSuggestions by Autocomplete+. */
 export interface SuggestionsRequestedEvent {
@@ -27,7 +27,7 @@ export interface SuggestionsRequestedEvent {
 export interface SuggestionInsertedEvent {
     editor: TextEditor;
     triggerPosition: Point;
-    suggestion: TextSuggestion|SnippetSuggestion;
+    suggestion: TextSuggestion | SnippetSuggestion;
 }
 
 /**
@@ -112,7 +112,7 @@ export interface SnippetSuggestion extends SuggestionBase {
     snippet: string;
 }
 
-export type AnySuggestion = TextSuggestion|SnippetSuggestion;
+export type AnySuggestion = TextSuggestion | SnippetSuggestion;
 export type Suggestions = AnySuggestion[];
 
 /** The interface that all Autocomplete+ providers must implement. */
@@ -129,7 +129,7 @@ export interface AutocompleteProvider {
      *  like them displayed to the user. Returning a Promise of an array of suggestions
      *  is also supported.
      */
-    getSuggestions(params: SuggestionsRequestedEvent): Suggestions|Promise<Suggestions>;
+    getSuggestions(params: SuggestionsRequestedEvent): Suggestions | Promise<Suggestions>;
 
     /**
      *  Defines the scope selector(s) (can be comma-separated) for which your provider
@@ -168,6 +168,5 @@ export interface AutocompleteProvider {
      *  Promise of the new suggestion to replace it with or return null if
      *  no change is needed.
      */
-    getSuggestionDetailsOnSelect?:
-      (suggestion: AnySuggestion) => Promise<AnySuggestion | null> | AnySuggestion | null;
+    getSuggestionDetailsOnSelect?: (suggestion: AnySuggestion) => Promise<AnySuggestion | null> | AnySuggestion | null;
 }

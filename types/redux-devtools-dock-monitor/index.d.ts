@@ -6,27 +6,27 @@
 
 /// <reference types="react" />
 
-import * as React from 'react'
+import * as React from 'react';
 
-type DockPosition = 'left' | 'top' | 'right' | 'bottom'
+type DockPosition = 'left' | 'top' | 'right' | 'bottom';
 
 interface IDockMonitorProps {
     /**
      * Any valid Redux DevTools monitor.
      */
-    children?: React.ReactNode
+    children?: React.ReactNode;
 
     /**
      * A key or a key combination that toggles the dock visibility.
      * Must be recognizable by parse-key (for example, 'ctrl-h')
      */
-    toggleVisibilityKey: string
+    toggleVisibilityKey: string;
 
     /**
      * A key or a key combination that toggles the dock position.
      * Must be recognizable by parse-key (for example, 'ctrl-w')
      */
-    changePositionKey: string
+    changePositionKey: string;
 
     /**
      * A key or a key combination that switches the currently visible monitor.
@@ -35,14 +35,14 @@ interface IDockMonitorProps {
      *
      * @default undefined
      */
-    changeMonitorKey?: string
+    changeMonitorKey?: string;
 
     /**
      * When true, the dock size is a fraction of the window size, fixed otherwise.
      *
      * @default true
      */
-    fluid?: boolean
+    fluid?: boolean;
 
     /**
      * Size of the dock. When fluid is true, a float (0.5 means half the window size).
@@ -50,7 +50,7 @@ interface IDockMonitorProps {
      *
      * @default 0.3 (3/10th of the window size)
      */
-    defaultSize?: number
+    defaultSize?: number;
 
     /**
      * Where the dock appears on the screen.
@@ -58,12 +58,12 @@ interface IDockMonitorProps {
      *
      * @default 'right'
      */
-    defaultPosition?: DockPosition
+    defaultPosition?: DockPosition;
 
     /**
      * @default true
      */
-    defaultIsVisible?: boolean
+    defaultIsVisible?: boolean;
 }
 
-export default class DockMonitor extends React.Component<IDockMonitorProps> { }
+export default class DockMonitor extends React.Component<IDockMonitorProps> {}

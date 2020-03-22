@@ -10,4 +10,4 @@ export interface Environment {
     getWebWindow(identity: Identity): Window;
     getCurrentEntityIdentity(): Identity;
 }
-export declare const notImplementedEnvErrorMsg = "Not implemented in this environment";
+export declare const notImplementedEnvErrorMsg = 'Not implemented in this environment';

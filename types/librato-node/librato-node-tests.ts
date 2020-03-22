@@ -2,7 +2,7 @@ import * as librato from 'librato-node';
 
 let str = '';
 const num = 0;
-const error  = new Error();
+const error = new Error();
 const optionalErrorCallback = (err?: Error | null) => {
     throw err;
 };
@@ -44,36 +44,63 @@ librato.timing(str, () => {}, optionalErrorCallback);
 librato.timing(str, (done: () => void) => {
     done();
 });
-librato.timing(str, (done: () => void) => {
-    done();
-}, {
-    source: str,
-}, optionalErrorCallback);
-librato.timing(str, (done: () => void) => {
-    done();
-}, optionalErrorCallback);
+librato.timing(
+    str,
+    (done: () => void) => {
+        done();
+    },
+    {
+        source: str,
+    },
+    optionalErrorCallback,
+);
+librato.timing(
+    str,
+    (done: () => void) => {
+        done();
+    },
+    optionalErrorCallback,
+);
 librato.timing(str, (done: (err: Error) => void) => {
     done(error);
 });
-librato.timing(str, (done: (err: Error) => void) => {
-    done(error);
-}, {
-    source: str,
-}, optionalErrorCallback);
-librato.timing(str, (done: (err: Error) => void) => {
-    done(error);
-}, optionalErrorCallback);
+librato.timing(
+    str,
+    (done: (err: Error) => void) => {
+        done(error);
+    },
+    {
+        source: str,
+    },
+    optionalErrorCallback,
+);
+librato.timing(
+    str,
+    (done: (err: Error) => void) => {
+        done(error);
+    },
+    optionalErrorCallback,
+);
 str = librato.timing('key', (done: (err: Error, result: string) => string) => {
     return done(error, 'result string');
 });
-str = librato.timing('key', (done: (err: Error, result: string) => string) => {
-    return done(error, 'result string');
-}, {
-    source: 'foobar source',
-}, optionalErrorCallback);
-str = librato.timing('key', (done: (err: Error, result: string) => string) => {
-    return done(error, 'result string');
-}, optionalErrorCallback);
+str = librato.timing(
+    'key',
+    (done: (err: Error, result: string) => string) => {
+        return done(error, 'result string');
+    },
+    {
+        source: 'foobar source',
+    },
+    optionalErrorCallback,
+);
+str = librato.timing(
+    'key',
+    (done: (err: Error, result: string) => string) => {
+        return done(error, 'result string');
+    },
+    optionalErrorCallback,
+);
 librato.start();
 librato.stop();
 librato.stop(optionalErrorCallback);

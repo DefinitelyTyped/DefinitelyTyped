@@ -1,20 +1,20 @@
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-describe("Globals", () => {
-    it("INSTALL_OPTIONS returns InstallOptions (dictionary)", () => {
+describe('Globals', () => {
+    it('INSTALL_OPTIONS returns InstallOptions (dictionary)', () => {
         const options: CloudflareApps.InstallOptions = INSTALL_OPTIONS;
     });
 
-    it("INSTALL_ID should return string", () => {
+    it('INSTALL_ID should return string', () => {
         const id: string = INSTALL_ID;
     });
 
-    it("INSTALL_SCOPE returns InstallScope (dictionary)", () => {
+    it('INSTALL_SCOPE returns InstallScope (dictionary)', () => {
         const scope: CloudflareApps.InstallScope = INSTALL_SCOPE;
     });
 
-    it("INSTALL_PRODUCT returns InstallProduct", () => {
+    it('INSTALL_PRODUCT returns InstallProduct', () => {
         const product: CloudflareApps.InstallProduct | undefined = INSTALL_PRODUCT;
 
         if (product != null) {
@@ -22,44 +22,47 @@ describe("Globals", () => {
         }
     });
 
-    it("INSTALL", () => {
+    it('INSTALL', () => {
         const id: string = INSTALL.siteId;
     });
 
-    it("CloudflareApps is CloudflareApps object", () => {
+    it('CloudflareApps is CloudflareApps object', () => {
         const apps: CloudflareApps.CloudflareApps = CloudflareApps;
     });
 });
 
-describe("CloudflareApps methods", () => {
-    it("createElement", () => {
+describe('CloudflareApps methods', () => {
+    it('createElement', () => {
         const element: Element = CloudflareApps.createElement({
-            method: "replace",
-            selector: "body > *"
+            method: 'replace',
+            selector: 'body > *',
         });
 
-        const div: HTMLDivElement = document.createElement("div");
-        const divElement: HTMLDivElement = CloudflareApps.createElement({
-            method: "replace",
-            selector: "body > *"
-        }, div);
+        const div: HTMLDivElement = document.createElement('div');
+        const divElement: HTMLDivElement = CloudflareApps.createElement(
+            {
+                method: 'replace',
+                selector: 'body > *',
+            },
+            div,
+        );
     });
 
-    it("matchPage", () => {
+    it('matchPage', () => {
         // Example: domain.com
-        const truthyMatch: boolean = CloudflareApps.matchPage(["domain"]);
-        const falsyMatch: boolean = CloudflareApps.matchPage(["foobar"]);
+        const truthyMatch: boolean = CloudflareApps.matchPage(['domain']);
+        const falsyMatch: boolean = CloudflareApps.matchPage(['foobar']);
     });
 
-    it("querySelector", () => {
-        const element: Element | null = CloudflareApps.querySelector("body > *");
-        const bodyElement: HTMLBodyElement | null = CloudflareApps.querySelector("body");
+    it('querySelector', () => {
+        const element: Element | null = CloudflareApps.querySelector('body > *');
+        const bodyElement: HTMLBodyElement | null = CloudflareApps.querySelector('body');
     });
 });
 
-describe("CloudflareApps properties", () => {
-    it("installs", () => {
-        const appId = "preview";
+describe('CloudflareApps properties', () => {
+    it('installs', () => {
+        const appId = 'preview';
         const app: CloudflareApps.App | undefined = CloudflareApps.installs[appId];
 
         if (app != null) {
@@ -67,12 +70,12 @@ describe("CloudflareApps properties", () => {
         }
     });
 
-    it("proxy", () => {
+    it('proxy', () => {
         const proxy: CloudflareApps.CloudflareAppsProxy = CloudflareApps.proxy;
         const siteId: string = proxy.embedSiteId;
     });
 
-    it("siteId", () => {
+    it('siteId', () => {
         const siteId: string = CloudflareApps.siteId;
     });
 });

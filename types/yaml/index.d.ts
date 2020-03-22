@@ -26,20 +26,14 @@ export function stringify(value: any, options?: ParseOptions): string;
  * Parses a single YAML.Document from the input str; used internally by YAML.parse.
  * Will include an error if str contains more than one document.
  */
-export function parseDocument(
-    str: string,
-    options?: ParseOptions
-): ast.Document;
+export function parseDocument(str: string, options?: ParseOptions): ast.Document;
 
 /**
  * When parsing YAML, the input string str may consist of a stream of documents
  * separated from each other by `...` document end marker lines.
  * @returns An array of Document objects that allow these documents to be parsed and manipulated with more control.
  */
-export function parseAllDocuments(
-    str: string,
-    options?: ParseOptions
-): ast.Document[];
+export function parseAllDocuments(str: string, options?: ParseOptions): ast.Document[];
 
 /**
  * YAML.createNode recursively turns objects into Map and arrays to Seq collections.
@@ -48,11 +42,7 @@ export function parseAllDocuments(
  *
  * Wraps plain values in Scalar objects.
  */
-export function createNode(
-    value: any,
-    wrapScalars?: true,
-    tag?: string
-): ast.MapBase | ast.SeqBase | ast.Scalar;
+export function createNode(value: any, wrapScalars?: true, tag?: string): ast.MapBase | ast.SeqBase | ast.Scalar;
 
 /**
  * YAML.createNode recursively turns objects into Map and arrays to Seq collections.
@@ -64,7 +54,7 @@ export function createNode(
 export function createNode(
     value: any,
     wrapScalars: false,
-    tag?: string
+    tag?: string,
 ): ast.MapBase | ast.SeqBase | string | number | boolean | null;
 
 export function parseCST(str: string): ParsedCST;
@@ -100,7 +90,7 @@ export interface ParseOptions {
     /**
      * The base schema to use. By default `"core"` for YAML 1.2 and `"yaml-1.1"` for earlier versions.
      */
-    schema?: "core" | "failsafe" | "json" | "yaml-1.1";
+    schema?: 'core' | 'failsafe' | 'json' | 'yaml-1.1';
     /**
      * Array of additional (custom) tags to include in the schema.
      */
@@ -148,11 +138,7 @@ export interface Tag {
      * @param ctx contains the stringifying context variables.
      * @param onComment a function that should be called if the stringifier includes the item's comment in its output.
      */
-    stringify(
-        item: ast.Node,
-        ctx: StringifyContext,
-        onComment: () => void
-    ): string;
+    stringify(item: ast.Node, ctx: StringifyContext, onComment: () => void): string;
     /**
      * The fully qualified name of the tag.
      */
@@ -167,28 +153,25 @@ export interface StringifyContext {
     [key: string]: any;
 }
 
-export type YAMLError =
-    | YAMLSyntaxError
-    | YAMLSemanticError
-    | YAMLReferenceError;
+export type YAMLError = YAMLSyntaxError | YAMLSemanticError | YAMLReferenceError;
 
 export interface YAMLSyntaxError extends SyntaxError {
-    name: "YAMLSyntaxError";
+    name: 'YAMLSyntaxError';
     source: cst.Node;
 }
 
 export interface YAMLSemanticError extends SyntaxError {
-    name: "YAMLSemanticError";
+    name: 'YAMLSemanticError';
     source: cst.Node;
 }
 
 export interface YAMLReferenceError extends ReferenceError {
-    name: "YAMLReferenceError";
+    name: 'YAMLReferenceError';
     source: cst.Node;
 }
 
 export interface YAMLWarning extends Error {
-    name: "YAMLReferenceError";
+    name: 'YAMLReferenceError';
     source: cst.Node;
 }
 
@@ -238,15 +221,12 @@ export namespace cst {
         readonly hasProps: boolean;
         readonly jsonLike: boolean;
         readonly rawValue: string | null;
-        readonly tag:
-            | null
-            | { verbatim: string }
-            | { handle: string; suffix: string };
+        readonly tag: null | { verbatim: string } | { handle: string; suffix: string };
         readonly valueRangeContainsNewline: boolean;
     }
 
     interface Alias extends Node {
-        type: "ALIAS";
+        type: 'ALIAS';
         /** contain the anchor without the * prefix */
         readonly rawValue: string;
     }
@@ -254,44 +234,41 @@ export namespace cst {
     type Scalar = BlockValue | PlainValue | QuoteValue;
 
     interface BlockValue extends Node {
-        type: "BLOCK_FOLDED" | "BLOCK_LITERAL";
-        chomping: "CLIP" | "KEEP" | "STRIP";
+        type: 'BLOCK_FOLDED' | 'BLOCK_LITERAL';
+        chomping: 'CLIP' | 'KEEP' | 'STRIP';
         blockIndent: number | null;
         header: Range;
         readonly strValue: string | null;
     }
 
     interface BlockFolded extends BlockValue {
-        type: "BLOCK_FOLDED";
+        type: 'BLOCK_FOLDED';
     }
 
     interface BlockLiteral extends BlockValue {
-        type: "BLOCK_LITERAL";
+        type: 'BLOCK_LITERAL';
     }
 
     interface PlainValue extends Node {
-        type: "PLAIN";
+        type: 'PLAIN';
         readonly strValue: string | null;
     }
 
     interface QuoteValue extends Node {
-        type: "QUOTE_DOUBLE" | "QUOTE_SINGLE";
-        readonly strValue:
-            | null
-            | string
-            | { str: string; errors: YAMLSyntaxError[] };
+        type: 'QUOTE_DOUBLE' | 'QUOTE_SINGLE';
+        readonly strValue: null | string | { str: string; errors: YAMLSyntaxError[] };
     }
 
     interface QuoteDouble extends QuoteValue {
-        type: "QUOTE_DOUBLE";
+        type: 'QUOTE_DOUBLE';
     }
 
     interface QuoteSingle extends QuoteValue {
-        type: "QUOTE_SINGLE";
+        type: 'QUOTE_SINGLE';
     }
 
     interface Comment extends Node {
-        type: "COMMENT";
+        type: 'COMMENT';
         readonly anchor: null;
         readonly comment: string;
         readonly rawValue: null;
@@ -299,61 +276,61 @@ export namespace cst {
     }
 
     interface BlankLine extends Node {
-        type: "BLANK_LINE";
+        type: 'BLANK_LINE';
     }
 
     interface MapItem extends Node {
-        type: "MAP_KEY" | "MAP_VALUE";
+        type: 'MAP_KEY' | 'MAP_VALUE';
         node: ContentNode | null;
     }
 
     interface MapKey extends MapItem {
-        type: "MAP_KEY";
+        type: 'MAP_KEY';
     }
 
     interface MapValue extends MapItem {
-        type: "MAP_VALUE";
+        type: 'MAP_VALUE';
     }
 
     interface Map extends Node {
-        type: "MAP";
+        type: 'MAP';
         /** implicit keys are not wrapped */
         items: Array<BlankLine | Comment | Alias | Scalar | MapItem>;
     }
 
     interface SeqItem extends Node {
-        type: "SEQ_ITEM";
+        type: 'SEQ_ITEM';
         node: ContentNode | null;
     }
 
     interface Seq extends Node {
-        type: "SEQ";
+        type: 'SEQ';
         items: Array<BlankLine | Comment | SeqItem>;
     }
 
     interface FlowChar {
-        char: "{" | "}" | "[" | "]" | "," | "?" | ":";
+        char: '{' | '}' | '[' | ']' | ',' | '?' | ':';
         offset: number;
         origOffset?: number;
     }
 
     interface FlowCollection extends Node {
-        type: "FLOW_MAP" | "FLOW_SEQ";
+        type: 'FLOW_MAP' | 'FLOW_SEQ';
         items: Array<FlowChar | BlankLine | Comment | Alias | Scalar | FlowCollection>;
     }
 
     interface FlowMap extends FlowCollection {
-        type: "FLOW_MAP";
+        type: 'FLOW_MAP';
     }
 
     interface FlowSeq extends FlowCollection {
-        type: "FLOW_SEQ";
+        type: 'FLOW_SEQ';
     }
 
     type ContentNode = Alias | Scalar | Map | Seq | FlowCollection;
 
     interface Directive extends Node {
-        type: "DIRECTIVE";
+        type: 'DIRECTIVE';
         name: string;
         readonly anchor: null;
         readonly parameters: string[];
@@ -361,7 +338,7 @@ export namespace cst {
     }
 
     interface Document extends Node {
-        type: "DOCUMENT";
+        type: 'DOCUMENT';
         directives: Array<BlankLine | Comment | Directive>;
         contents: Array<BlankLine | Comment | ContentNode>;
         readonly anchor: null;
@@ -375,7 +352,7 @@ export namespace ast {
 
     type DocumentConstructor = new (options?: ParseOptions) => Document;
     interface Document {
-        type: "DOCUMENT";
+        type: 'DOCUMENT';
         /**
          * Anchors associated with the document's nodes;
          * also provides alias & merge node creators.
@@ -523,63 +500,47 @@ export namespace ast {
         toJSON(): any;
     }
 
-    type ScalarConstructor = new (
-        value: null | boolean | number | string
-    ) => Scalar;
+    type ScalarConstructor = new (value: null | boolean | number | string) => Scalar;
     interface Scalar extends Node {
-        type:
-            | "BLOCK_FOLDED"
-            | "BLOCK_LITERAL"
-            | "PLAIN"
-            | "QUOTE_DOUBLE"
-            | "QUOTE_SINGLE"
-            | undefined;
+        type: 'BLOCK_FOLDED' | 'BLOCK_LITERAL' | 'PLAIN' | 'QUOTE_DOUBLE' | 'QUOTE_SINGLE' | undefined;
         /**
          * By default (undefined), numbers use decimal notation.
          * The YAML 1.2 core schema only supports 'HEX' and 'OCT'.
          */
-        format: "BIN" | "HEX" | "OCT" | "TIME" | undefined;
+        format: 'BIN' | 'HEX' | 'OCT' | 'TIME' | undefined;
         value: null | boolean | number | string;
     }
 
-    type ScalarNode =
-        | BlockFolded
-        | BlockLiteral
-        | PlainValue
-        | QuoteDouble
-        | QuoteSingle;
+    type ScalarNode = BlockFolded | BlockLiteral | PlainValue | QuoteDouble | QuoteSingle;
 
     interface BlockFolded extends Scalar {
-        type: "BLOCK_FOLDED";
+        type: 'BLOCK_FOLDED';
         cstNode?: cst.BlockFolded;
     }
 
     interface BlockLiteral extends Scalar {
-        type: "BLOCK_LITERAL";
+        type: 'BLOCK_LITERAL';
         cstNode?: cst.BlockLiteral;
     }
 
     interface PlainValue extends Scalar {
-        type: "PLAIN";
+        type: 'PLAIN';
         cstNode?: cst.PlainValue;
     }
 
     interface QuoteDouble extends Scalar {
-        type: "QUOTE_DOUBLE";
+        type: 'QUOTE_DOUBLE';
         cstNode?: cst.QuoteDouble;
     }
 
     interface QuoteSingle extends Scalar {
-        type: "QUOTE_SINGLE";
+        type: 'QUOTE_SINGLE';
         cstNode?: cst.QuoteSingle;
     }
 
-    type PairConstructor = new (
-        key: AstNode | null,
-        value?: AstNode | null
-    ) => Pair;
+    type PairConstructor = new (key: AstNode | null, value?: AstNode | null) => Pair;
     interface Pair extends Node {
-        type: "PAIR";
+        type: 'PAIR';
         /**
          * key is always Node or null when parsed, but can be set to anything.
          */
@@ -593,25 +554,25 @@ export namespace ast {
 
     type MapConstructor = new () => MapBase;
     interface MapBase extends Node {
-        type: "FLOW_MAP" | "MAP" | undefined;
+        type: 'FLOW_MAP' | 'MAP' | undefined;
         items: Array<Pair | Merge>;
     }
 
     type MapNode = FlowMap | Map;
 
     interface FlowMap extends MapBase {
-        type: "FLOW_MAP";
+        type: 'FLOW_MAP';
         cstNode?: cst.FlowMap;
     }
 
     interface Map extends MapBase {
-        type: "MAP";
+        type: 'MAP';
         cstNode?: cst.Map;
     }
 
     type SeqConstructor = new () => SeqBase;
     interface SeqBase extends Node {
-        type: "FLOW_SEQ" | "SEQ" | undefined;
+        type: 'FLOW_SEQ' | 'SEQ' | undefined;
         /**
          * item is always Node or null when parsed, but can be set to anything.
          */
@@ -621,25 +582,25 @@ export namespace ast {
     type SeqNode = FlowSeq | Seq;
 
     interface FlowSeq extends SeqBase {
-        type: "FLOW_SEQ";
+        type: 'FLOW_SEQ';
         items: Array<AstNode | Pair>;
         cstNode?: cst.FlowSeq;
     }
 
     interface Seq extends SeqBase {
-        type: "SEQ";
+        type: 'SEQ';
         items: Array<AstNode | null>;
         cstNode?: cst.Seq;
     }
 
     interface Alias extends Node {
-        type: "ALIAS";
+        type: 'ALIAS';
         source: AstNode;
         cstNode?: cst.Alias;
     }
 
     interface Merge extends Node {
-        type: "MERGE_PAIR";
+        type: 'MERGE_PAIR';
         /**
          * key is always Scalar('<<'), defined by the type specification
          */

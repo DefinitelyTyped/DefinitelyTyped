@@ -130,7 +130,10 @@ declare namespace pusher {
         channel_data?: string;
     }
 
-    type Authorizer = (channel: Channel, options: Config) => {
+    type Authorizer = (
+        channel: Channel,
+        options: Config,
+    ) => {
         authorize: (socketId: string, callback: (errored: boolean, authInfo?: AuthInfo) => void) => void;
     };
 

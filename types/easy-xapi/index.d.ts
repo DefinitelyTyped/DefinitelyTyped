@@ -15,13 +15,13 @@ declare namespace Express {
     }
 }
 
-declare module "easy-xapi" {
+declare module 'easy-xapi' {
     import express = require('express');
     import http = require('http');
     import Logger = require('bunyan');
 
     interface InitConfig {
-        jSend?: {partial: boolean};
+        jSend?: { partial: boolean };
     }
 
     interface Config {
@@ -31,9 +31,9 @@ declare module "easy-xapi" {
         xHeaderDefaults?: Object;
         log: {
             name: string;
-            level: string
-        }
-        mount: (app: express.Application) => void
+            level: string;
+        };
+        mount: (app: express.Application) => void;
     }
 
     interface Result {

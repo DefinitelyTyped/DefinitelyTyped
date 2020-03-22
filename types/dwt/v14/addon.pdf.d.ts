@@ -3,21 +3,21 @@
 // tslint:disable:no-irregular-whitespace
 
 /*!
-* Product: Dynamsoft Web Twain
-* Web Site: http://www.dynamsoft.com
-*
-* Copyright 2019, Dynamsoft Corporation
-* Author: Dynamsoft Support Team
-*/
+ * Product: Dynamsoft Web Twain
+ * Web Site: http://www.dynamsoft.com
+ *
+ * Copyright 2019, Dynamsoft Corporation
+ * Author: Dynamsoft Support Team
+ */
 
 declare enum EnumDWT_ConvertMode {
     CM_DEFAULT = 0,
-    CM_RENDERALL = 1
+    CM_RENDERALL = 1,
 }
 
 declare enum EnumDWT_ConverMode {
     CM_DEFAULT = 0,
-    CM_RENDERALL = 1
+    CM_RENDERALL = 1,
 }
 
 /**
@@ -34,9 +34,11 @@ interface PDF {
      * The function to call when the download fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    Download(remoteFile: string,
+    Download(
+        remoteFile: string,
         optionalAsyncSuccessFunc?: () => void,
-        optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
+        optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void,
+    ): boolean;
 
     /**
      *  Input the password to decrypt PDF files using PDF Rasterizer add-on.

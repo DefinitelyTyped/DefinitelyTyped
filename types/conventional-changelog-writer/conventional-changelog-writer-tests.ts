@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import conventionalChangelogWriter from "conventional-changelog-writer";
+import conventionalChangelogWriter from 'conventional-changelog-writer';
 
 declare const context: conventionalChangelogWriter.Context;
 declare const options: conventionalChangelogWriter.Options;

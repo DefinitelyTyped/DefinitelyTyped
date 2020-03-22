@@ -6,19 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import {
-    Store,
-    Dispatch,
-    Middleware,
-    Reducer
-} from 'redux';
-import {
-    History,
-    Location,
-    Path,
-    LocationState,
-    LocationDescriptor
-} from 'history';
+import { Store, Dispatch, Middleware, Reducer } from 'redux';
+import { History, Location, Path, LocationState, LocationDescriptor } from 'history';
 import * as React from 'react';
 import { match } from 'react-router';
 
@@ -45,11 +34,11 @@ export function goBack(): RouterAction;
 export function goForward(): RouterAction;
 
 export const routerActions: {
-    push: typeof push
-    replace: typeof replace
-    go: typeof go
-    goBack: typeof goBack
-    goForward: typeof goForward
+    push: typeof push;
+    replace: typeof replace;
+    go: typeof go;
+    goBack: typeof goBack;
+    goForward: typeof goForward;
 };
 
 export interface LocationActionPayload {
@@ -71,10 +60,10 @@ export interface LocationChangeAction {
                 url: string;
                 params: any;
                 isExact: boolean;
-            },
+            };
             location: Location;
             history: History;
-        }
+        };
     };
 }
 

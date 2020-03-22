@@ -66,5 +66,5 @@ const deck: Deck = {
     ac: 49,
     ad: 50,
     ah: 51,
-    as: 52
+    as: 52,
 };

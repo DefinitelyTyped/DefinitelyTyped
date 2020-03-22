@@ -39,10 +39,23 @@ export interface PatternOptions {
     generator?: GeneratorType;
 }
 
-export type GeneratorType = 'chevrons' | 'octagons' | 'overlappingCircles' |
-    'plusSigns' | 'xes' | 'sineWaves' | 'hexagons' | 'overlappingRings' |
-    'plaid' |'triangles' | 'squares' | 'nestedSquares' | 'mosaicSquares' |
-    'concentricCircles' | 'diamonds' | 'tessellation';
+export type GeneratorType =
+    | 'chevrons'
+    | 'octagons'
+    | 'overlappingCircles'
+    | 'plusSigns'
+    | 'xes'
+    | 'sineWaves'
+    | 'hexagons'
+    | 'overlappingRings'
+    | 'plaid'
+    | 'triangles'
+    | 'squares'
+    | 'nestedSquares'
+    | 'mosaicSquares'
+    | 'concentricCircles'
+    | 'diamonds'
+    | 'tessellation';
 
 export interface Pattern {
     /** Gets the pattern's background color as a hexadecimal string. */
@@ -71,7 +84,7 @@ export interface Pattern {
 }
 
 declare global {
-	interface JQuery {
-		geopattern(string: string, options?: PatternOptions): JQuery;
-	}
+    interface JQuery {
+        geopattern(string: string, options?: PatternOptions): JQuery;
+    }
 }

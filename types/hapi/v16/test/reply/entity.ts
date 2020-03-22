@@ -1,4 +1,3 @@
-
 // From https://hapijs.com/api/16.1.1#replyentityoptions
 
 import * as Hapi from 'hapi';
@@ -11,7 +10,6 @@ server.route({
     config: {
         cache: { expiresIn: 5000 },
         handler: function (request, reply) {
-
             const response = reply.entity({ etag: 'abc' });
             if (response) {
                 response.header('X', 'y');
@@ -19,6 +17,6 @@ server.route({
             }
 
             return reply('ok');
-        }
-    }
+        },
+    },
 });

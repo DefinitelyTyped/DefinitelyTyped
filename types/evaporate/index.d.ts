@@ -48,15 +48,19 @@ declare namespace Evaporate {
         s3FileCacheHoursAgo?: null | number;
         signParams?: object;
         signHeaders?: object;
-        customAuthMethod?: null | ((
-            signParams: string,
-            signHeaders: string,
-            stringToSign: string,
-            signatureDateTime: string,
-            canonicalRequest: string
-        ) => Promise<string>);
+        customAuthMethod?:
+            | null
+            | ((
+                  signParams: string,
+                  signHeaders: string,
+                  stringToSign: string,
+                  signatureDateTime: string,
+                  canonicalRequest: string,
+              ) => Promise<string>);
         maxFileSize?: number;
-        signResponseHandler?: null | ((response: any, stringToSign: string, signatureDateTime: string) => Promise<string>);
+        signResponseHandler?:
+            | null
+            | ((response: any, stringToSign: string, signatureDateTime: string) => Promise<string>);
         xhrWithCredentials?: boolean;
         localTimeOffset?: number;
         evaporateChanged?: (evaporate: Evaporate, evaporatingCount: number) => void;
@@ -98,9 +102,18 @@ declare namespace Evaporate {
     }
 
     type ImmutableOptionKeys =
-        | 'maxConcurrentParts' | 'logging' | 'cloudfront' | 'encodeFilename'
-        | 'computeContentMd5' | 'allowS3ExistenceOptimization' | 'onlyRetryForSameFileName'
-        | 'timeUrl' | 'cryptoMd5Method' | 'cryptoHexEncodedHash256' | 'awsRegion' | 'awsSignatureVersion'
+        | 'maxConcurrentParts'
+        | 'logging'
+        | 'cloudfront'
+        | 'encodeFilename'
+        | 'computeContentMd5'
+        | 'allowS3ExistenceOptimization'
+        | 'onlyRetryForSameFileName'
+        | 'timeUrl'
+        | 'cryptoMd5Method'
+        | 'cryptoHexEncodedHash256'
+        | 'awsRegion'
+        | 'awsSignatureVersion'
         | 'evaporateChanged';
     type AddOverrideOptionKeys = Exclude<keyof CreateConfig, ImmutableOptionKeys>;
     interface AddOverrideOptions extends Pick<CreateConfig, AddOverrideOptionKeys> {}

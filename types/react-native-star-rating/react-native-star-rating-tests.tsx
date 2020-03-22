@@ -7,14 +7,14 @@ interface State {
 
 class GeneralStarExample extends React.Component<{}, State> {
     state = {
-        starCount: 3.5
+        starCount: 3.5,
     };
 
     onStarRatingPress = (rating: number) => {
         this.setState({
-            starCount: rating
+            starCount: rating,
         });
-    }
+    };
 
     render() {
         return (

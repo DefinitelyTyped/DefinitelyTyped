@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as EventEmitter3 from 'eventemitter3';
-import * as React from "react";
+import * as React from 'react';
 
 declare namespace Fluxxor {
     class Dispatcher {
@@ -19,7 +19,7 @@ declare namespace Fluxxor {
     class Flux extends EventEmitter3.EventEmitter {
         constructor(stores: any, actions: any);
         addActions(actions: any): void;
-        addAction(...args: Array<string|Function>): void;
+        addAction(...args: Array<string | Function>): void;
         addAction(names: string[], action: Function): void;
         store(name: string): any;
         addStore(name: string, store: Store): void;
@@ -29,8 +29,8 @@ declare namespace Fluxxor {
     }
 
     interface Store extends EventEmitter3.EventEmitter {
-        bindActions(...args: Array<string|Function>): void;
-        bindActions(args: Array<string|Function>): void;
+        bindActions(...args: Array<string | Function>): void;
+        bindActions(args: Array<string | Function>): void;
         waitFor(stores: string[], fn: Function): void;
     }
 

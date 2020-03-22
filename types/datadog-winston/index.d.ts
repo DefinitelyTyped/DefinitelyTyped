@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import TransportStream = require("winston-transport");
+import TransportStream = require('winston-transport');
 
 declare namespace DatadogWinston {
     interface DatadogTransportOptions extends TransportStream.TransportStreamOptions {

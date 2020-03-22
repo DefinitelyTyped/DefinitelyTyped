@@ -1,8 +1,8 @@
-declare module "tls" {
-    import * as crypto from "crypto";
-    import * as dns from "dns";
-    import * as net from "net";
-    import * as stream from "stream";
+declare module 'tls' {
+    import * as crypto from 'crypto';
+    import * as dns from 'dns';
+    import * as net from 'net';
+    import * as stream from 'stream';
 
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
@@ -83,66 +83,69 @@ declare module "tls" {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
-        constructor(socket: net.Socket, options?: {
-            /**
-             * An optional TLS context object from tls.createSecureContext()
-             */
-            secureContext?: SecureContext,
-            /**
-             * If true the TLS socket will be instantiated in server-mode.
-             * Defaults to false.
-             */
-            isServer?: boolean,
-            /**
-             * An optional net.Server instance.
-             */
-            server?: net.Server,
-            /**
-             * If true the server will request a certificate from clients that
-             * connect and attempt to verify that certificate. Defaults to
-             * false.
-             */
-            requestCert?: boolean,
-            /**
-             * If true the server will reject any connection which is not
-             * authorized with the list of supplied CAs. This option only has an
-             * effect if requestCert is true. Defaults to false.
-             */
-            rejectUnauthorized?: boolean,
-            /**
-             * An array of strings or a Buffer naming possible NPN protocols.
-             * (Protocols should be ordered by their priority.)
-             */
-            NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
-            /**
-             * An array of strings or a Buffer naming possible ALPN protocols.
-             * (Protocols should be ordered by their priority.) When the server
-             * receives both NPN and ALPN extensions from the client, ALPN takes
-             * precedence over NPN and the server does not send an NPN extension
-             * to the client.
-             */
-            ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
-            /**
-             * SNICallback(servername, cb) <Function> A function that will be
-             * called if the client supports SNI TLS extension. Two arguments
-             * will be passed when called: servername and cb. SNICallback should
-             * invoke cb(null, ctx), where ctx is a SecureContext instance.
-             * (tls.createSecureContext(...) can be used to get a proper
-             * SecureContext.) If SNICallback wasn't provided the default callback
-             * with high-level API will be used (see below).
-             */
-            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void,
-            /**
-             * An optional Buffer instance containing a TLS session.
-             */
-            session?: Buffer,
-            /**
-             * If true, specifies that the OCSP status request extension will be
-             * added to the client hello and an 'OCSPResponse' event will be
-             * emitted on the socket before establishing a secure communication
-             */
-            requestOCSP?: boolean
-        });
+        constructor(
+            socket: net.Socket,
+            options?: {
+                /**
+                 * An optional TLS context object from tls.createSecureContext()
+                 */
+                secureContext?: SecureContext;
+                /**
+                 * If true the TLS socket will be instantiated in server-mode.
+                 * Defaults to false.
+                 */
+                isServer?: boolean;
+                /**
+                 * An optional net.Server instance.
+                 */
+                server?: net.Server;
+                /**
+                 * If true the server will request a certificate from clients that
+                 * connect and attempt to verify that certificate. Defaults to
+                 * false.
+                 */
+                requestCert?: boolean;
+                /**
+                 * If true the server will reject any connection which is not
+                 * authorized with the list of supplied CAs. This option only has an
+                 * effect if requestCert is true. Defaults to false.
+                 */
+                rejectUnauthorized?: boolean;
+                /**
+                 * An array of strings or a Buffer naming possible NPN protocols.
+                 * (Protocols should be ordered by their priority.)
+                 */
+                NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+                /**
+                 * An array of strings or a Buffer naming possible ALPN protocols.
+                 * (Protocols should be ordered by their priority.) When the server
+                 * receives both NPN and ALPN extensions from the client, ALPN takes
+                 * precedence over NPN and the server does not send an NPN extension
+                 * to the client.
+                 */
+                ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+                /**
+                 * SNICallback(servername, cb) <Function> A function that will be
+                 * called if the client supports SNI TLS extension. Two arguments
+                 * will be passed when called: servername and cb. SNICallback should
+                 * invoke cb(null, ctx), where ctx is a SecureContext instance.
+                 * (tls.createSecureContext(...) can be used to get a proper
+                 * SecureContext.) If SNICallback wasn't provided the default callback
+                 * with high-level API will be used (see below).
+                 */
+                SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
+                /**
+                 * An optional Buffer instance containing a TLS session.
+                 */
+                session?: Buffer;
+                /**
+                 * If true, specifies that the OCSP status request extension will be
+                 * added to the client hello and an 'OCSPResponse' event will be
+                 * emitted on the socket before establishing a secure communication
+                 */
+                requestOCSP?: boolean;
+            },
+        );
 
         /**
          * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
@@ -257,7 +260,10 @@ declare module "tls" {
          * @param callback - callback(err) will be executed with null as err, once the renegotiation
          * is successfully completed.
          */
-        renegotiate(options: { rejectUnauthorized?: boolean, requestCert?: boolean }, callback: (err: Error | null) => void): any;
+        renegotiate(
+            options: { rejectUnauthorized?: boolean; requestCert?: boolean },
+            callback: (err: Error | null) => void,
+        ): any;
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
@@ -283,28 +289,28 @@ declare module "tls" {
          * 2. secureConnect
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        addListener(event: "secureConnect", listener: () => void): this;
+        addListener(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
+        addListener(event: 'secureConnect', listener: () => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "OCSPResponse", response: Buffer): boolean;
-        emit(event: "secureConnect"): boolean;
+        emit(event: 'OCSPResponse', response: Buffer): boolean;
+        emit(event: 'secureConnect'): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        on(event: "secureConnect", listener: () => void): this;
+        on(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
+        on(event: 'secureConnect', listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        once(event: "secureConnect", listener: () => void): this;
+        once(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
+        once(event: 'secureConnect', listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        prependListener(event: "secureConnect", listener: () => void): this;
+        prependListener(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
+        prependListener(event: 'secureConnect', listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
-        prependOnceListener(event: "secureConnect", listener: () => void): this;
+        prependOnceListener(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
+        prependOnceListener(event: 'secureConnect', listener: () => void): this;
     }
 
     interface TlsOptions extends SecureContextOptions {
@@ -340,11 +346,14 @@ declare module "tls" {
          * used if the client request's SNI name matches the supplied hostname
          * (or wildcard).
          */
-        addContext(hostName: string, credentials: {
-            key: string;
-            cert: string;
-            ca: string;
-        }): void;
+        addContext(
+            hostName: string,
+            credentials: {
+                key: string;
+                cert: string;
+                ca: string;
+            },
+        ): void;
         /**
          * Returns the session ticket keys.
          */
@@ -365,46 +374,90 @@ declare module "tls" {
          * 5. secureConnection
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        addListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
-        addListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
-        addListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
-        addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        addListener(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        addListener(
+            event: 'newSession',
+            listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void,
+        ): this;
+        addListener(
+            event: 'OCSPRequest',
+            listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void,
+        ): this;
+        addListener(
+            event: 'resumeSession',
+            listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void,
+        ): this;
+        addListener(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
-        emit(event: "newSession", sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void): boolean;
-        emit(event: "OCSPRequest", certificate: Buffer, issuer: Buffer, callback: Function): boolean;
-        emit(event: "resumeSession", sessionId: any, callback: (err: Error, sessionData: any) => void): boolean;
-        emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
+        emit(event: 'tlsClientError', err: Error, tlsSocket: TLSSocket): boolean;
+        emit(
+            event: 'newSession',
+            sessionId: any,
+            sessionData: any,
+            callback: (err: Error, resp: Buffer) => void,
+        ): boolean;
+        emit(event: 'OCSPRequest', certificate: Buffer, issuer: Buffer, callback: Function): boolean;
+        emit(event: 'resumeSession', sessionId: any, callback: (err: Error, sessionData: any) => void): boolean;
+        emit(event: 'secureConnection', tlsSocket: TLSSocket): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        on(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
-        on(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
-        on(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
-        on(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        on(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        on(
+            event: 'newSession',
+            listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void,
+        ): this;
+        on(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        on(
+            event: 'resumeSession',
+            listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void,
+        ): this;
+        on(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        once(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
-        once(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
-        once(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
-        once(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        once(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        once(
+            event: 'newSession',
+            listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void,
+        ): this;
+        once(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        once(
+            event: 'resumeSession',
+            listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void,
+        ): this;
+        once(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        prependListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
-        prependListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
-        prependListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
-        prependListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        prependListener(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        prependListener(
+            event: 'newSession',
+            listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void,
+        ): this;
+        prependListener(
+            event: 'OCSPRequest',
+            listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void,
+        ): this;
+        prependListener(
+            event: 'resumeSession',
+            listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void,
+        ): this;
+        prependListener(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        prependOnceListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
-        prependOnceListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
-        prependOnceListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
-        prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        prependOnceListener(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        prependOnceListener(
+            event: 'newSession',
+            listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void,
+        ): this;
+        prependOnceListener(
+            event: 'OCSPRequest',
+            listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void,
+        ): this;
+        prependOnceListener(
+            event: 'resumeSession',
+            listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void,
+        ): this;
+        prependOnceListener(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
     }
 
     interface SecurePair {
@@ -443,9 +496,19 @@ declare module "tls" {
     function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
     function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     function connect(options: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
-    function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
+    function connect(
+        port: number,
+        host?: string,
+        options?: ConnectionOptions,
+        secureConnectListener?: () => void,
+    ): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
-    function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
+    function createSecurePair(
+        credentials?: crypto.Credentials,
+        isServer?: boolean,
+        requestCert?: boolean,
+        rejectUnauthorized?: boolean,
+    ): SecurePair;
     function createSecureContext(details: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 

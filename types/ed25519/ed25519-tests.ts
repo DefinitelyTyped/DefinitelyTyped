@@ -10,6 +10,6 @@ function signAndValidatePlaintext() {
 
     const matches: boolean = ed25519.Verify(plaintext, signature, keyPair.publicKey);
     if (!matches) {
-        throw new Error("Sign and verify should work for the same plaintext");
+        throw new Error('Sign and verify should work for the same plaintext');
     }
 }

@@ -33,7 +33,7 @@ export interface TextItem {
     dir: string;
     transform: number[];
     width: number;
-    height:	number;
+    height: number;
     fontName: string;
 }
 
@@ -187,4 +187,4 @@ export interface Props {
     width?: number;
 }
 
-export default class Page extends React.Component<Props> { }
+export default class Page extends React.Component<Props> {}

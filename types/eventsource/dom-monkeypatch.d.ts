@@ -1,6 +1,6 @@
 interface EventListener {
-  // tslint:disable-next-line: callable-types
-  (evt: Event): void;
+    // tslint:disable-next-line: callable-types
+    (evt: Event): void;
 }
 
 /**
@@ -11,83 +11,83 @@ interface EventListener {
  * methods which are common to all events.
  */
 interface Event {
-  /**
-   * Returns true or false depending on how event was initialized. True if event goes through its target's ancestors in reverse tree order, and false otherwise.
-   */
-  readonly bubbles: boolean;
-  cancelBubble: boolean;
-  readonly cancelable: boolean;
-  /**
-   * Returns true or false depending on how event was initialized. True if event invokes listeners past a ShadowRoot node that is the root of its target, and false otherwise.
-   */
-  readonly composed: boolean;
-  readonly defaultPrevented: boolean;
-  readonly eventPhase: number;
-  /**
-   * Returns true if event was dispatched by the user agent, and
-   * false otherwise.
-   */
-  readonly isTrusted: boolean;
-  returnValue: boolean;
-  /**
-   * Returns the event's timestamp as the number of milliseconds measured relative to
-   * the time origin.
-   */
-  readonly timeStamp: number;
-  /**
-   * Returns the type of event, e.g.
-   * "click", "hashchange", or
-   * "submit".
-   */
-  readonly type: string;
-  readonly AT_TARGET: number;
-  readonly BUBBLING_PHASE: number;
-  readonly CAPTURING_PHASE: number;
-  readonly NONE: number;
-  composedPath(): any[];
-  initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
-  preventDefault(): void;
-  /**
-   * Invoking this method prevents event from reaching
-   * any registered event listeners after the current one finishes running and, when dispatched in a tree, also prevents event from reaching any
-   * other objects.
-   */
-  stopImmediatePropagation(): void;
-  /**
-   * When dispatched in a tree, invoking this method prevents event from reaching any objects other than the current object.
-   */
-  stopPropagation(): void;
+    /**
+     * Returns true or false depending on how event was initialized. True if event goes through its target's ancestors in reverse tree order, and false otherwise.
+     */
+    readonly bubbles: boolean;
+    cancelBubble: boolean;
+    readonly cancelable: boolean;
+    /**
+     * Returns true or false depending on how event was initialized. True if event invokes listeners past a ShadowRoot node that is the root of its target, and false otherwise.
+     */
+    readonly composed: boolean;
+    readonly defaultPrevented: boolean;
+    readonly eventPhase: number;
+    /**
+     * Returns true if event was dispatched by the user agent, and
+     * false otherwise.
+     */
+    readonly isTrusted: boolean;
+    returnValue: boolean;
+    /**
+     * Returns the event's timestamp as the number of milliseconds measured relative to
+     * the time origin.
+     */
+    readonly timeStamp: number;
+    /**
+     * Returns the type of event, e.g.
+     * "click", "hashchange", or
+     * "submit".
+     */
+    readonly type: string;
+    readonly AT_TARGET: number;
+    readonly BUBBLING_PHASE: number;
+    readonly CAPTURING_PHASE: number;
+    readonly NONE: number;
+    composedPath(): any[];
+    initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
+    preventDefault(): void;
+    /**
+     * Invoking this method prevents event from reaching
+     * any registered event listeners after the current one finishes running and, when dispatched in a tree, also prevents event from reaching any
+     * other objects.
+     */
+    stopImmediatePropagation(): void;
+    /**
+     * When dispatched in a tree, invoking this method prevents event from reaching any objects other than the current object.
+     */
+    stopPropagation(): void;
 }
 
 interface EventInit {
-  bubbles?: boolean;
-  cancelable?: boolean;
-  composed?: boolean;
+    bubbles?: boolean;
+    cancelable?: boolean;
+    composed?: boolean;
 }
 
 interface MessageEventInit extends EventInit {
-  data?: any;
-  lastEventId?: string;
-  origin?: string;
+    data?: any;
+    lastEventId?: string;
+    origin?: string;
 }
 
 /** The MessageEvent interface represents a message received by a target object. */
 interface MessageEvent extends Event {
-  /**
-   * Returns the data of the message.
-   */
-  readonly data: any;
-  /**
-   * Returns the last event ID string, for server-sent events.
-   */
-  readonly lastEventId: string;
-  /**
-   * Returns the origin of the message, for server-sent events and
-   * cross-document messaging.
-   */
-  readonly origin: string;
+    /**
+     * Returns the data of the message.
+     */
+    readonly data: any;
+    /**
+     * Returns the last event ID string, for server-sent events.
+     */
+    readonly lastEventId: string;
+    /**
+     * Returns the origin of the message, for server-sent events and
+     * cross-document messaging.
+     */
+    readonly origin: string;
 }
 declare var MessageEvent: {
-  prototype: MessageEvent;
-  new (type: string, eventInitDict?: MessageEventInit): MessageEvent;
+    prototype: MessageEvent;
+    new (type: string, eventInitDict?: MessageEventInit): MessageEvent;
 };

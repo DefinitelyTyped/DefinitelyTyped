@@ -8,7 +8,12 @@
 
 export = writeFile;
 
-declare function writeFile(filename: string, data: string | Buffer, options: writeFile.Options, callback: (error?: Error) => void): void;
+declare function writeFile(
+    filename: string,
+    data: string | Buffer,
+    options: writeFile.Options,
+    callback: (error?: Error) => void,
+): void;
 declare function writeFile(filename: string, data: string | Buffer, callback: (error?: Error) => void): void;
 declare function writeFile(filename: string, data: string | Buffer, options?: writeFile.Options): Promise<void>;
 

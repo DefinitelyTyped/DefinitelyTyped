@@ -1,5 +1,5 @@
-import express = require("express");
-import actuator = require("express-actuator");
+import express = require('express');
+import actuator = require('express-actuator');
 
 const app = express();
 

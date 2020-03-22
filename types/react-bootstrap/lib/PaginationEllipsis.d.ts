@@ -6,5 +6,5 @@ declare namespace PaginationEllipsis {
         disabled?: boolean;
     }
 }
-declare class PaginationEllipsis extends React.Component<PaginationEllipsis.PaginationEllipsisProps> { }
+declare class PaginationEllipsis extends React.Component<PaginationEllipsis.PaginationEllipsisProps> {}
 export = PaginationEllipsis;

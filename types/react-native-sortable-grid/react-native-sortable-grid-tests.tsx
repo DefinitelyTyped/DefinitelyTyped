@@ -7,11 +7,7 @@ export default class SortableGridExample extends React.Component {
         const items = ['A', 'B', 'C', 'D'];
 
         return (
-            <SortableGrid
-                blockTransitionDuration={400}
-                itemsPerRow={4}
-                onDragRelease={order => console.log(order)}
-            >
+            <SortableGrid blockTransitionDuration={400} itemsPerRow={4} onDragRelease={(order) => console.log(order)}>
                 {items.map((letter, index) => (
                     <View key={index}>
                         <Text>{letter}</Text>

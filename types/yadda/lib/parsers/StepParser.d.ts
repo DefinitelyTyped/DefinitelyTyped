@@ -1,4 +1,4 @@
-import { Step } from "..";
+import { Step } from '..';
 
 declare class StepParser {
     constructor();

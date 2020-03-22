@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import File = require("vinyl");
-import { Transform } from "stream";
-import { PluginError } from "gulp-util";
+import File = require('vinyl');
+import { Transform } from 'stream';
+import { PluginError } from 'gulp-util';
 
 declare namespace gc {
     type Predicate<T> = (arg: T) => boolean;
@@ -22,7 +22,7 @@ declare namespace gc {
          * The name of the bucket which stores the cached objects.
          * Default value = 'default'
          */
-        name?: string,
+        name?: string;
 
         /**
          * The hash generator to use.

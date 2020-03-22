@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
-
 declare function ejsLocals(): Function;
 
 export = ejsLocals;

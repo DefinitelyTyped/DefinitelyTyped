@@ -11,7 +11,7 @@ declare namespace AMap {
         interface EventMap {
             hide: Event<'hide'>;
             show: Event<'show'>;
-            location: Event<'location', {lnglat: LngLat}>;
+            location: Event<'location', { lnglat: LngLat }>;
             zoomchanged: Event<'zoomin' | 'zoomout'>;
             // internal
             'location-success': Event<'location-success'>; // TODO geolocation.getCurrentPosition

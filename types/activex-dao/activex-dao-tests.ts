@@ -40,7 +40,11 @@ let dbsNorthwind = engine.OpenDatabase('c:\\path\\to\\northwind.mdb');
         WHERE OrderDate > QuarterStart
     `;
     qdf = dbsNorthwind.CreateQueryDef('Second quarter (parameters)', sql);
-    WScript.Echo(`Field names: ${collectionToArray(qdf.Fields).map(fld => fld.Name).join(', ')}`);
+    WScript.Echo(
+        `Field names: ${collectionToArray(qdf.Fields)
+            .map((fld) => fld.Name)
+            .join(', ')}`,
+    );
 }
 
 // https://msdn.microsoft.com/VBA/Access-VBA/articles/count-the-number-of-records-in-a-dao-recordset
@@ -59,7 +63,10 @@ const findRecordCount = (dbs: DAO.Database, sql: string) => {
 // https://msdn.microsoft.com/VBA/Access-VBA/articles/delete-a-record-from-a-dao-recordset
 {
     // delete records from a Recordset
-    const rstShippers = dbsNorthwind.OpenRecordset('SELECT * FROM Shippers ORDER BY CompanyName, ShipperID', DAO.RecordsetTypeEnum.dbOpenDynaset);
+    const rstShippers = dbsNorthwind.OpenRecordset(
+        'SELECT * FROM Shippers ORDER BY CompanyName, ShipperID',
+        DAO.RecordsetTypeEnum.dbOpenDynaset,
+    );
     if (!rstShippers.EOF) {
         let name = rstShippers('CompanyName').Value;
         rstShippers.MoveNext();
@@ -88,7 +95,9 @@ const findRecordCount = (dbs: DAO.Database, sql: string) => {
             WScript.Echo(records.getItem(column, row));
         }
     }
-    if (rstEmployees.EOF) { WScript.Echo('At end of recordset'); }
+    if (rstEmployees.EOF) {
+        WScript.Echo('At end of recordset');
+    }
     rstEmployees.Close();
 }
 
@@ -96,7 +105,10 @@ const findRecordCount = (dbs: DAO.Database, sql: string) => {
 {
     const orders: number[] = [];
     const rstOrders = dbsNorthwind.OpenRecordset('SELECT * FROM Orders ORDER BY OrderID', dbOpenSnapshot);
-    const rstOrderDetails = dbsNorthwind.OpenRecordset('SELECT * FROM [Order Details] ORDER BY OrderID', dbOpenSnapshot);
+    const rstOrderDetails = dbsNorthwind.OpenRecordset(
+        'SELECT * FROM [Order Details] ORDER BY OrderID',
+        dbOpenSnapshot,
+    );
 
     if (!rstOrders.EOF && !rstOrderDetails.EOF) {
         while (!rstOrders.EOF) {
@@ -136,7 +148,9 @@ const getHireDate = (employeeID: number) => {
     while (!rs.EOF) {
         WScript.Echo(rs('TaskName').Value);
         const childRs = rs('AssignedTo').Value as DAO.Recordset;
-        if (childRs.EOF) { continue; }
+        if (childRs.EOF) {
+            continue;
+        }
         childRs.MoveFirst();
         while (!childRs.EOF) {
             WScript.Echo('\t' + childRs('Value').Value);

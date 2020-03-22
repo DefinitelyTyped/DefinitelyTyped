@@ -3,7 +3,7 @@ import Yallist = require('yallist');
 const forEachIterable = {
     forEach(fn: (item: string, idx: number) => void, thisArg?: any) {},
 };
-const thisArg: {someProp?: number} = {};
+const thisArg: { someProp?: number } = {};
 const node = new Yallist.Node('foo');
 
 Yallist.create<string | number>([1, 2, 3]); // $ExpectType Yallist<string | number>
@@ -15,42 +15,42 @@ new Yallist<string | number>([1, 2, 3]); // $ExpectType Yallist<string | number>
 new Yallist<string | number>(1, 2, 3); // $ExpectType Yallist<string | number>
 new Yallist(forEachIterable); // $ExpectType Yallist<string>
 
-myList.forEach(function(v, i, l) {
+myList.forEach(function (v, i, l) {
     v; // $ExpectType string
     i; // $ExpectType number
     l; // $ExpectType Yallist<string>
     this; // $ExpectType Yallist<string>
 });
-myList.forEach(function(v, i, l) {
+myList.forEach(function (v, i, l) {
     this; // $ExpectType { someProp?: number | undefined; }
 }, thisArg);
-myList.forEachReverse(function(v, i, l) {
+myList.forEachReverse(function (v, i, l) {
     v; // $ExpectType string
     i; // $ExpectType number
     l; // $ExpectType Yallist<string>
     this; // $ExpectType Yallist<string>
 });
-myList.forEachReverse(function(v, i, l) {
+myList.forEachReverse(function (v, i, l) {
     this; // $ExpectType { someProp?: number | undefined; }
 }, thisArg);
 
 myList.get(2); // $ExpectType string | undefined
 myList.getReverse(2); // $ExpectType string | undefined
 
-myList.map(function(v, l) {
+myList.map(function (v, l) {
     v; // $ExpectType string
     l; // $ExpectType Yallist<string>
     this; // $ExpectType Yallist<string>
 });
-myList.map(function(v, l) {
+myList.map(function (v, l) {
     this; // $ExpectType { someProp?: number | undefined; }
 }, thisArg);
-myList.mapReverse(function(v, l) {
+myList.mapReverse(function (v, l) {
     v; // $ExpectType string
     l; // $ExpectType Yallist<string>
     this; // $ExpectType Yallist<string>
 });
-myList.mapReverse(function(v, l) {
+myList.mapReverse(function (v, l) {
     this; // $ExpectType { someProp?: number | undefined; }
 }, thisArg);
 
@@ -60,23 +60,27 @@ myList.push(); // $ExpectType number
 myList.push('foo'); // $ExpectType number
 myList.push('foo', 'bar'); // $ExpectType number
 
-myList.reduce((acc, v, i) => { // $ExpectType string
+myList.reduce((acc, v, i) => {
+    // $ExpectType string
     acc; // $ExpectType string
     v; // $ExpectType string
     i; // $ExpectType number
     return acc;
 });
-myList.reduce((acc, v) => { // $ExpectType boolean
+myList.reduce((acc, v) => {
+    // $ExpectType boolean
     acc; // $ExpectType boolean
     return acc;
 }, true);
-myList.reduceReverse((acc, v, i) => { // $ExpectType string
+myList.reduceReverse((acc, v, i) => {
+    // $ExpectType string
     acc; // $ExpectType string
     v; // $ExpectType string
     i; // $ExpectType number
     return acc;
 });
-myList.reduceReverse((acc, v) => { // $ExpectType boolean
+myList.reduceReverse((acc, v) => {
+    // $ExpectType boolean
     acc; // $ExpectType boolean
     return acc;
 }, true);

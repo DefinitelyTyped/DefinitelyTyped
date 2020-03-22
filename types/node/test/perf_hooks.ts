@@ -1,9 +1,15 @@
-import { performance, monitorEventLoopDelay, PerformanceObserverCallback, PerformanceObserver, PerformanceEntry, EntryType, constants } from 'perf_hooks';
+import {
+    performance,
+    monitorEventLoopDelay,
+    PerformanceObserverCallback,
+    PerformanceObserver,
+    PerformanceEntry,
+    EntryType,
+    constants,
+} from 'perf_hooks';
 
 performance.mark('start');
-(
-    () => {}
-)();
+(() => {})();
 performance.mark('end');
 
 const perfEntry: PerformanceEntry = performance.getEntriesByName('discover')[0];

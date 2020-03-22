@@ -23,7 +23,7 @@ type RequestFn = typeof request;
 interface CacheableRequest {
     new (requestFn: RequestFn, storageAdapter?: string | CacheableRequest.StorageAdapter): (
         opts: string | URL | (RequestOptions & CacheSemanticsOptions),
-        cb?: (response: ServerResponse | ResponseLike) => void
+        cb?: (response: ServerResponse | ResponseLike) => void,
     ) => CacheableRequest.Emitter;
 
     RequestError: typeof RequestErrorCls;
@@ -72,10 +72,7 @@ declare namespace CacheableRequest {
 
     interface Emitter extends EventEmitter {
         addListener(event: 'request', listener: (request: ClientRequest) => void): this;
-        addListener(
-            event: 'response',
-            listener: (response: ServerResponse | ResponseLike) => void
-        ): this;
+        addListener(event: 'response', listener: (response: ServerResponse | ResponseLike) => void): this;
         addListener(event: 'error', listener: (error: RequestError | CacheError) => void): this;
         on(event: 'request', listener: (request: ClientRequest) => void): this;
         on(event: 'response', listener: (response: ServerResponse | ResponseLike) => void): this;
@@ -84,25 +81,13 @@ declare namespace CacheableRequest {
         once(event: 'response', listener: (response: ServerResponse | ResponseLike) => void): this;
         once(event: 'error', listener: (error: RequestError | CacheError) => void): this;
         prependListener(event: 'request', listener: (request: ClientRequest) => void): this;
-        prependListener(
-            event: 'response',
-            listener: (response: ServerResponse | ResponseLike) => void
-        ): this;
+        prependListener(event: 'response', listener: (response: ServerResponse | ResponseLike) => void): this;
         prependListener(event: 'error', listener: (error: RequestError | CacheError) => void): this;
         prependOnceListener(event: 'request', listener: (request: ClientRequest) => void): this;
-        prependOnceListener(
-            event: 'response',
-            listener: (response: ServerResponse | ResponseLike) => void
-        ): this;
-        prependOnceListener(
-            event: 'error',
-            listener: (error: RequestError | CacheError) => void
-        ): this;
+        prependOnceListener(event: 'response', listener: (response: ServerResponse | ResponseLike) => void): this;
+        prependOnceListener(event: 'error', listener: (error: RequestError | CacheError) => void): this;
         removeListener(event: 'request', listener: (request: ClientRequest) => void): this;
-        removeListener(
-            event: 'response',
-            listener: (response: ServerResponse | ResponseLike) => void
-        ): this;
+        removeListener(event: 'response', listener: (response: ServerResponse | ResponseLike) => void): this;
         removeListener(event: 'error', listener: (error: RequestError | CacheError) => void): this;
         off(event: 'request', listener: (request: ClientRequest) => void): this;
         off(event: 'response', listener: (response: ServerResponse | ResponseLike) => void): this;

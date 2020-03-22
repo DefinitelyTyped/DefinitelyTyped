@@ -5,10 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export type TemplateCallback<T> = (
-  err: lib.TemplateError | null,
-  res: T | null,
-) => void;
+export type TemplateCallback<T> = (err: lib.TemplateError | null, res: T | null) => void;
 export type Callback<E, T> = (err: E | null, res: T | null) => void;
 
 export function render(name: string, context?: object): string;
@@ -29,7 +26,7 @@ export interface PrecompileOptions {
     env?: Environment;
     include?: string[];
     exclude?: string[];
-    wrapper?(templates: { name: string, template: string }, opts: PrecompileOptions): string;
+    wrapper?(templates: { name: string; template: string }, opts: PrecompileOptions): string;
 }
 
 export class Template {
@@ -49,17 +46,17 @@ export interface ConfigureOptions {
     watch?: boolean;
     noCache?: boolean;
     web?: {
-        useCache?: boolean,
-        async?: boolean
+        useCache?: boolean;
+        async?: boolean;
     };
     express?: object;
     tags?: {
-        blockStart?: string,
-        blockEnd?: string,
-        variableStart?: string,
-        variableEnd?: string,
-        commentStart?: string,
-        commentEnd?: string
+        blockStart?: string;
+        blockEnd?: string;
+        variableStart?: string;
+        variableEnd?: string;
+        commentStart?: string;
+        commentEnd?: string;
     };
 }
 

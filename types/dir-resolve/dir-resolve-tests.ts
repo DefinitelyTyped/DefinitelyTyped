@@ -1,3 +1,3 @@
-import resolve = require("dir-resolve");
+import resolve = require('dir-resolve');
 
-resolve("module/package");
+resolve('module/package');

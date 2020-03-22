@@ -8,8 +8,8 @@ type NotFoundHandler = (locale: string, key: string, fallback: string, scope: st
 type LocaleChangeHandler = (newLocale: string, oldLocale: string) => void;
 
 interface Counterpart {
-    (key: string|string[], options?: object): string;
-    translate(key: string|string[], options?: object): string;
+    (key: string | string[], options?: object): string;
+    translate(key: string | string[], options?: object): string;
 
     setSeparator(value: string): string;
     onTranslationNotFound(callback: NotFoundHandler): void;
@@ -19,7 +19,7 @@ interface Counterpart {
     setLocale(value: string): string;
     onLocaleChange(callback: LocaleChangeHandler): void;
     offLocaleChange(callback: LocaleChangeHandler): void;
-    setFallbackLocale(value: string|string[]): void;
+    setFallbackLocale(value: string | string[]): void;
     registerTranslations(locale: string, data: object): void;
     registerInterpolations(data: object): void;
     setKeyTransformer(callback: (value: string, options: object) => string): string;

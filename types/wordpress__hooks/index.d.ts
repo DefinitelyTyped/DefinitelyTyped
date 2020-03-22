@@ -87,7 +87,7 @@ export function addAction(
     hookName: string,
     namespace: string,
     callback: (...args: any[]) => void,
-    priority?: number
+    priority?: number,
 ): void;
 
 /**
@@ -102,7 +102,7 @@ export function addFilter<T>(
     hookName: string,
     namespace: string,
     callback: (firstArg: T, ...rest: any[]) => T,
-    priority?: number
+    priority?: number,
 ): void;
 
 export const removeAction: RemoveHook;

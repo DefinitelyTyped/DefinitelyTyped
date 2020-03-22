@@ -5,7 +5,6 @@ interface MyAppScope extends ng.IScope {
 }
 
 myApp.config(function (calendarConfig: ng.bootstrap.calendar.ICalendarConfig) {
-
     calendarConfig.templates.calendarMonthView = 'path/to/custom/template.html'; //change the month view template to a custom template
 
     calendarConfig.dateFormatter = 'moment'; //use either moment or angular to format dates on the calendar. Default angular. Setting this will override any date formats you have already set.
@@ -21,7 +20,6 @@ myApp.config(function (calendarConfig: ng.bootstrap.calendar.ICalendarConfig) {
     calendarConfig.displayEventEndTimes = true; //This will display event end times on the month and year views. Default false.
 
     calendarConfig.showTimesOnWeekView = true; //Make the week view more like the day view, with the caveat that event end times are ignored.
-
 });
 
 var someController: Function = ($scope: MyAppScope) => {
@@ -37,7 +35,7 @@ var someController: Function = ($scope: MyAppScope) => {
             resizable: true, //Allow an event to be resizable
             incrementsBadgeTotal: true, //If set to false then will not count towards the badge total amount on the month and year view
             recursOn: 'year', // If set the event will recur on the given period. Valid values are year or month
-            cssClass: 'a-css-class-name' //A CSS class (or more, just separate with spaces) that will be added to the event when it is displayed on each view. Useful for marking an event as selected / active etc
-        }
+            cssClass: 'a-css-class-name', //A CSS class (or more, just separate with spaces) that will be added to the event when it is displayed on each view. Useful for marking an event as selected / active etc
+        },
     ];
 };

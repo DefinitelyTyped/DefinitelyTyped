@@ -4,44 +4,37 @@ import AsyncSelect from 'react-select/async';
 import { colourOptions } from '../data';
 
 const LoadingIndicator = (props: any) => {
-  return (
-    <Tooltip content={'Custom Loader'}>
-      <Spinner {...props} delay={0}/>
-    </Tooltip>
-  );
+    return (
+        <Tooltip content={'Custom Loader'}>
+            <Spinner {...props} delay={0} />
+        </Tooltip>
+    );
 };
 
 interface State {
-  inputValue: string;
+    inputValue: string;
 }
 
 const filterColors = (inputValue: string) =>
-  colourOptions.filter(i =>
-    i.label.toLowerCase().includes(inputValue.toLowerCase())
-  );
+    colourOptions.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
 
 const promiseOptions = (inputValue: string) =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve(filterColors(inputValue));
-    }, 1000);
-  });
+    new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(filterColors(inputValue));
+        }, 1000);
+    });
 
 export default class CustomLoadingIndicator extends React.Component<any, State> {
-  state = { inputValue: '' };
-  handleInputChange = (newValue: string) => {
-    const inputValue = newValue.replace(/\W/g, '');
-    this.setState({ inputValue });
-    return inputValue;
-  }
-  render() {
-    return (
-      <AsyncSelect
-        cacheOptions
-        defaultOptions
-        loadOptions={promiseOptions}
-        components={{ LoadingIndicator }}
-      />
-    );
-  }
+    state = { inputValue: '' };
+    handleInputChange = (newValue: string) => {
+        const inputValue = newValue.replace(/\W/g, '');
+        this.setState({ inputValue });
+        return inputValue;
+    };
+    render() {
+        return (
+            <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} components={{ LoadingIndicator }} />
+        );
+    }
 }

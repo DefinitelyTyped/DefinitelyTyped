@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare namespace Jsen {
-
     export interface JsenFormats {
         [key: string]: string | RegExp | Function;
     }

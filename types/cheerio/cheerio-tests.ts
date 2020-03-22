@@ -59,7 +59,7 @@ $el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
 $el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
-$el.attr('id', el => el.tagName).html();
+$el.attr('id', (el) => el.tagName).html();
 $el.attr({ id: 'uniq', class: 'big' }).html();
 
 $emptyEl.attr('id') === undefined;
@@ -75,9 +75,7 @@ $el.data('kind', 'mac');
 
 // val
 $('input[type="text"]').val();
-$('input[type="text"]')
-    .val('test')
-    .html();
+$('input[type="text"]').val('test').html();
 
 // removeAttr
 $el.removeAttr('class').html();
@@ -86,9 +84,7 @@ $el.removeAttr('class').html();
 $el.addClass('class').addClass('test');
 $el.hasClass('test');
 $el.removeClass('class').removeClass('test');
-$el.addClass('red')
-    .removeClass()
-    .html();
+$el.addClass('red').removeClass().html();
 $el.toggleClass('fruit green red').html();
 
 // is
@@ -153,9 +149,7 @@ $el.prevUntil();
 $el.prevUntil('.class');
 
 // .slice( start, [end] )
-$el.slice(1)
-    .eq(0)
-    .text();
+$el.slice(1).eq(0).text();
 $el.slice(1, 2).length;
 
 // .siblings([selector])
@@ -205,14 +199,10 @@ $el.has('.class').attr('id');
 $el.has($el[0]).attr('id');
 
 // .first()
-$el.children()
-    .first()
-    .text();
+$el.children().first().text();
 
 // .last()
-$el.children()
-    .last()
-    .text();
+$el.children().last().text();
 
 // .eq( i )
 $el.eq(0).text();
@@ -259,18 +249,14 @@ $el.after('<li class="plum">Plum</li>').html();
 $el.after('<li class="plum">Plum</li>', '<li class="plum">Plum</li>').html();
 
 // .insertAfter( content )
-$('<li class="plum">Plum</li>')
-    .insertAfter('.class')
-    .html();
+$('<li class="plum">Plum</li>').insertAfter('.class').html();
 
 // .before( content, [content, ...] )
 $el.before('<li class="plum">Plum</li>').html();
 $el.before('<li class="plum">Plum</li>', '<li class="plum">Plum</li>').html();
 
 // .insertBefore( content )
-$('<li class="plum">Plum</li>')
-    .insertBefore('.class')
-    .html();
+$('<li class="plum">Plum</li>').insertBefore('.class').html();
 
 // .remove( [selector] )
 $el.remove().html();
@@ -317,9 +303,7 @@ $el.clone().html();
  */
 
 // $.root
-$.root()
-    .append('<ul id="vegetables"></ul>')
-    .html();
+$.root().append('<ul id="vegetables"></ul>').html();
 
 // $.contains( container, contained )
 $.contains($el[0], $el[0]);

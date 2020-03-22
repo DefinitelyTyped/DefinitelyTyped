@@ -13,7 +13,7 @@ export interface Nested<T> {
 }
 export type FormValues = Nested<FormValue>;
 export type Touched = Nested<boolean>;
-export type FormErrors = {[key: string]: FormError} | [{[key: string]: FormError}];
+export type FormErrors = { [key: string]: FormError } | [{ [key: string]: FormError }];
 export type NestedErrors = Nested<FormErrors>;
 export type RenderReturn = JSX.Element | false | null;
 
@@ -69,39 +69,39 @@ export class Form
         FormState
     >
     implements FormApi, React.ChildContextProvider<FormContext> {
-        static defaultProps: FormProps;
-        static childContextTypes: {
-            formApi: React.Validator<any>
-        };
+    static defaultProps: FormProps;
+    static childContextTypes: {
+        formApi: React.Validator<any>;
+    };
 
-        getDefaultState(): FormState;
-        getChildContext(): FormContext;
-        componentWillMount(): void;
-        componentWillReceiveProps(nextProps: Readonly<Partial<FormProps>>, nextContext: any): void;
-        componentWillUmount(): void;
+    getDefaultState(): FormState;
+    getChildContext(): FormContext;
+    componentWillMount(): void;
+    componentWillReceiveProps(nextProps: Readonly<Partial<FormProps>>, nextContext: any): void;
+    componentWillUmount(): void;
 
-        // API
-        setAllValues(values: FormValues, noTouch?: boolean): void;
-        setValue(field: string, value: any, noTouch?: boolean): void;
-        getValue(field: string, fallback?: any): any;
-        setNestedError(field: string, value?: boolean): void;
-        getError(field: string): FormError;
-        setTouched(field: string, value?: boolean): void;
-        getTouched(field: string): boolean;
-        addValue(field: string, value: any): void;
-        removeValue(field: string, index: number): void;
-        swapValues(field: string, index: number, destIndex: number): void;
-        setAllTouched(dirty?: boolean, state?: Partial<FormState>): void;
-        resetForm(): void;
-        submitForm(e?: Pick<React.SyntheticEvent<any>, 'preventDefault'>): void;
+    // API
+    setAllValues(values: FormValues, noTouch?: boolean): void;
+    setValue(field: string, value: any, noTouch?: boolean): void;
+    getValue(field: string, fallback?: any): any;
+    setNestedError(field: string, value?: boolean): void;
+    getError(field: string): FormError;
+    setTouched(field: string, value?: boolean): void;
+    getTouched(field: string): boolean;
+    addValue(field: string, value: any): void;
+    removeValue(field: string, index: number): void;
+    swapValues(field: string, index: number, destIndex: number): void;
+    setAllTouched(dirty?: boolean, state?: Partial<FormState>): void;
+    resetForm(): void;
+    submitForm(e?: Pick<React.SyntheticEvent<any>, 'preventDefault'>): void;
 
-        // Utils
-        getAPI(): FormApi;
-        setFormState(newState: Partial<FormState>, silent?: boolean): void;
-        emitChange(state: FormState, initial?: boolean): void;
-        validate(values: FormValues, state: FormState, props: FormProps): FormErrors;
-        render(): RenderReturn;
-    }
+    // Utils
+    getAPI(): FormApi;
+    setFormState(newState: Partial<FormState>, silent?: boolean): void;
+    emitChange(state: FormState, initial?: boolean): void;
+    validate(values: FormValues, state: FormState, props: FormProps): FormErrors;
+    render(): RenderReturn;
+}
 
 export interface FormFieldApi {
     setAllValues(values: FormValues, noTouch?: boolean): void;
@@ -249,7 +249,7 @@ export interface RadioGroupContext {
 }
 export class RadioGroup extends React.Component<RadioGroupProps> implements FormFieldApi {
     static childContextTypes: {
-        formRadioGroup: React.Validator<any>
+        formRadioGroup: React.Validator<any>;
     };
 
     setAllValues: FormFieldApi['setAllValues'];
@@ -279,7 +279,7 @@ export interface RadioProps extends InputWIthoutClick {
 }
 export class Radio extends React.Component<RadioProps> {
     static contextTypes: {
-        formRadioGroup: React.Validator<any>
+        formRadioGroup: React.Validator<any>;
     };
 
     context: RadioGroupContext;

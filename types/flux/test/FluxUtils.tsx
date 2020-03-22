@@ -1,6 +1,6 @@
-import { Dispatcher } from "flux";
-import { ReduceStore, Container } from "flux/utils";
-import * as React from "react";
+import { Dispatcher } from 'flux';
+import { ReduceStore, Container } from 'flux/utils';
+import * as React from 'react';
 
 interface Payload {
     type: string;
@@ -44,14 +44,12 @@ class CounterContainer extends React.Component<Props, State> {
 
     static calculateState(prevState: State, props: Props): State {
         return {
-            counter: Store.getState() - (props.b ? 0 : 1)
+            counter: Store.getState() - (props.b ? 0 : 1),
         };
     }
 
     render() {
-        return <div>
-            {this.state.counter}
-        </div>;
+        return <div>{this.state.counter}</div>;
     }
 }
 
@@ -67,12 +65,10 @@ const ContainerComponent3 = Container.create<Props, State>(CounterContainer, { w
 // Functional flux container with Store
 const FunctionalContainerComponent = Container.createFunctional(
     (props: State) => {
-        return <div>
-            {props.counter}
-        </div>;
+        return <div>{props.counter}</div>;
     },
     (props: Props) => [Store],
-    (prevState: State, props: Props) => ({ counter: Store.getState() })
+    (prevState: State, props: Props) => ({ counter: Store.getState() }),
 );
 
 <FunctionalContainerComponent a="string" b={false} />;

@@ -1,5 +1,3 @@
-
-
 // From: https://mrrio.github.io/jsPDF/examples/basic.html
 
 import * as jsPDF from 'jspdf';
@@ -39,7 +37,7 @@ function test_metadata() {
         subject: 'This is the subject',
         author: 'James Hall',
         keywords: 'generated, javascript, web 2.0, ajax',
-        creator: 'MEEE'
+        creator: 'MEEE',
     });
     doc.save('Test.pdf');
 }
@@ -52,7 +50,7 @@ function test_user_input() {
         subject: 'This is the subject',
         author: 'James Hall',
         keywords: 'generated, javascript, web 2.0, ajax',
-        creator: 'MEEE'
+        creator: 'MEEE',
     });
     doc.save('Test.pdf');
 }
@@ -69,16 +67,16 @@ function test_font_sizes() {
 function test_font_types() {
     var doc = new jsPDF();
     doc.text(20, 20, 'This is the default font.');
-    doc.setFont("courier");
+    doc.setFont('courier');
     doc.text(20, 30, 'This is courier normal.');
-    doc.setFont("times");
-    doc.setFontType("italic");
+    doc.setFont('times');
+    doc.setFontType('italic');
     doc.text(20, 40, 'This is times italic.');
-    doc.setFont("helvetica");
-    doc.setFontType("bold");
+    doc.setFont('helvetica');
+    doc.setFontType('bold');
     doc.text(20, 50, 'This is helvetica bold.');
-    doc.setFont("courier");
-    doc.setFontType("bolditalic");
+    doc.setFont('courier');
+    doc.setFontType('bolditalic');
     doc.text(20, 60, 'This is courier bolditalic.');
     doc.save('Test.pdf');
 }
@@ -102,22 +100,24 @@ function test_text_colors() {
 
 function test_font_metrics_based_line_sizing_split() {
     var pdf = new jsPDF('p', 'in', 'letter');
-    var sizes:number[] = [12, 16, 20];
-    var fonts = [['Times', 'Roman'], ['Helvetica', ''], ['Times', 'Italic']];
-    var font:string[];
-    var size:number;
-    var lines:any[];
+    var sizes: number[] = [12, 16, 20];
+    var fonts = [
+        ['Times', 'Roman'],
+        ['Helvetica', ''],
+        ['Times', 'Italic'],
+    ];
+    var font: string[];
+    var size: number;
+    var lines: any[];
     var verticalOffset = 0.5; // inches on a 8.5 x 11 inch sheet.
     var loremipsum = 'Lorem ipsum dolor sit amet, ...';
     for (var i in fonts) {
         if (fonts.hasOwnProperty(i)) {
             font = fonts[i];
             size = sizes[i];
-            lines = pdf.setFont(font[0], font[1])
-                .setFontSize(size)
-                .splitTextToSize(loremipsum, 7.5);
+            lines = pdf.setFont(font[0], font[1]).setFontSize(size).splitTextToSize(loremipsum, 7.5);
             pdf.text(0.5, verticalOffset + size / 72, lines);
-            verticalOffset += (lines.length + 0.5) * size / 72
+            verticalOffset += ((lines.length + 0.5) * size) / 72;
         }
     }
     pdf.save('Test.pdf');
@@ -133,33 +133,33 @@ function test_simple_custom_size_document() {
 }
 
 function test_from_html() {
-    var pdf = new jsPDF('p', 'pt', 'letter')
-        , source = document.getElementById('#fromHTMLtestdiv')
-        , specialElementHandlers = {
-        '#bypassme': function (element:HTMLElement, renderer:any) {
-            return true
-        }
-    };
+    var pdf = new jsPDF('p', 'pt', 'letter'),
+        source = document.getElementById('#fromHTMLtestdiv'),
+        specialElementHandlers = {
+            '#bypassme': function (element: HTMLElement, renderer: any) {
+                return true;
+            },
+        };
     var margins = {
         top: 80,
         bottom: 60,
         left: 40,
-        width: 522
+        width: 522,
     };
 
     pdf.fromHTML(
-        source // HTML string or DOM elem ref.
-        , margins.left // x coord
-        , margins.top // y coord
-        , {
-            'width': margins.width // max width of content on PDF
-            , 'elementHandlers': specialElementHandlers
+        source, // HTML string or DOM elem ref.
+        margins.left, // x coord
+        margins.top, // y coord
+        {
+            width: margins.width, // max width of content on PDF
+            elementHandlers: specialElementHandlers,
         },
-        function (dispose:any) {
+        function (dispose: any) {
             pdf.save('Test.pdf');
         },
-        margins
-    )
+        margins,
+    );
 }
 
 function test_rect_squares() {
@@ -226,7 +226,7 @@ function test_triangles() {
 }
 
 function test_images() {
-    var getImageFromUrl = function (url:string, callback:Function) {
+    var getImageFromUrl = function (url: string, callback: Function) {
         var img = new Image();
         img.onerror = function () {
             alert('Cannot load image: "' + url + '"');
@@ -237,7 +237,7 @@ function test_images() {
         img.src = url;
     };
 
-    var createPDF = function (imgData:string) {
+    var createPDF = function (imgData: string) {
         var doc = new jsPDF();
         doc.addImage(imgData, 'JPEG', 10, 10, 50, 50, 'monkey'); // Cache the image using the alias 'monkey'
         doc.addImage('monkey', 70, 10, 100, 120); // use the cached 'monkey' image, JPEG is optional regardless
@@ -247,7 +247,7 @@ function test_images() {
             x: 10,
             y: 78,
             w: 45,
-            h: 58
+            h: 58,
         });
         doc.output('datauri');
     };

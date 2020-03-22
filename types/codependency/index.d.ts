@@ -8,10 +8,10 @@
 export as namespace codependency;
 
 export interface DependencyInfo {
-    supportedRange: string|null;
-    installedVersion: string|null;
-    isInstalled: boolean|null;
-    isValid: boolean|null;
+    supportedRange: string | null;
+    installedVersion: string | null;
+    isInstalled: boolean | null;
+    isValid: boolean | null;
     pkgPath: string;
 }
 
@@ -25,5 +25,5 @@ export interface RequirePeerFunction {
     resolve(name: string): DependencyInfo;
 }
 
-export function register(baseModule: NodeModule, options?: {index: string[]}): RequirePeerFunction;
+export function register(baseModule: NodeModule, options?: { index: string[] }): RequirePeerFunction;
 export function get(middlewareName: string): RequirePeerFunction;

@@ -11,8 +11,18 @@ export class Connection {
     // state on the agent and read it in middleware
     agent: Agent | null;
     get(collectionName: string, documentID: string): Doc;
-    createFetchQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
-    createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
+    createFetchQuery(
+        collectionName: string,
+        query: any,
+        options: { results?: Query[] },
+        callback: (err: Error, results: any[]) => void,
+    ): Query;
+    createSubscribeQuery(
+        collectionName: string,
+        query: any,
+        options: { results?: Query[] },
+        callback: (err: Error, results: any[]) => void,
+    ): Query;
 }
 export type Doc = ShareDB.Doc;
 export type Query = ShareDB.Query;

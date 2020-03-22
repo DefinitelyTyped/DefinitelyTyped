@@ -46,7 +46,7 @@ export function receiveEntityRecords(
     name: string,
     records: Record<string, any> | Array<Record<string, any>>,
     query?: Record<string, any>,
-    invalidateCache?: boolean
+    invalidateCache?: boolean,
 ): void;
 
 /**

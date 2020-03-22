@@ -3,9 +3,12 @@
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type JadeCustomFilterFunction = (text: string, options: {
-    [key: string]: boolean;
-}) => string;
+export type JadeCustomFilterFunction = (
+    text: string,
+    options: {
+        [key: string]: boolean;
+    },
+) => string;
 
 export interface JadeOptions {
     filename?: string;
@@ -13,7 +16,7 @@ export interface JadeOptions {
     doctype?: string;
     pretty?: boolean | string;
     filters?: {
-        [key: string]: JadeCustomFilterFunction
+        [key: string]: JadeCustomFilterFunction;
     };
     self?: boolean;
     debug?: boolean;
@@ -33,7 +36,10 @@ export type JadeGenerationFunction = (locals?: TemplateLocals) => string;
 export declare function compile(template: string, options?: JadeOptions): JadeGenerationFunction;
 export declare function compileFile(path: string, options?: JadeOptions): JadeGenerationFunction;
 export declare function compileClient(template: string, options?: JadeOptions): JadeGenerationFunction;
-export declare function compileClientWithDependenciesTracked(template: string, options?: JadeOptions): {
+export declare function compileClientWithDependenciesTracked(
+    template: string,
+    options?: JadeOptions,
+): {
     body: JadeGenerationFunction;
     dependencies: string[];
 };

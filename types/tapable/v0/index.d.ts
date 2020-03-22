@@ -5,8 +5,8 @@
 
 declare abstract class Tapable {
     private _plugins: {
-        [propName: string]: Tapable.Handler[]
-    }
+        [propName: string]: Tapable.Handler[];
+    };
 
     /**
      * Register plugin(s)
@@ -109,7 +109,7 @@ declare abstract class Tapable {
      */
     applyPluginsAsyncSeries(name: string, ...args: any[]): void;
 
-    applyPluginsAsyncSeries1(name: string, param: any, callback: Tapable.CallbackFunction): void
+    applyPluginsAsyncSeries1(name: string, param: any, callback: Tapable.CallbackFunction): void;
 
     /**
      * asynchronously applies all registered handlers for target name(event id).
@@ -210,4 +210,4 @@ declare namespace Tapable {
     }
 }
 
-export = Tapable
+export = Tapable;

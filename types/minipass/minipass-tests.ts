@@ -3,8 +3,8 @@ import MiniPass = require('minipass');
 const encoding: string | null = null;
 
 new MiniPass();
-new MiniPass({objectMode: true});
-const mp = new MiniPass({encoding: 'utf8'});
+new MiniPass({ objectMode: true });
+const mp = new MiniPass({ encoding: 'utf8' });
 
 mp.flowing; // $ExpectType boolean
 mp.flowing = true; // $ExpectError
@@ -37,7 +37,7 @@ mp.resume();
 mp.pause();
 mp.pipe(process.stdout); // $ExpectType WriteStream
 
-mp.on('data', chunk => {
+mp.on('data', (chunk) => {
     chunk; // $ExpectType any
 });
 mp.on('readable', () => {});

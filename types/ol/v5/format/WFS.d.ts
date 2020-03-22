@@ -70,6 +70,11 @@ export default class WFS extends XMLFeature {
     readTransactionResponseFromNode(node: Element): TransactionResponse | undefined;
     setFeatureType(featureType: string[] | string | undefined): void;
     writeGetFeature(options: WriteGetFeatureOptions): Node;
-    writeTransaction(inserts: Feature[], updates: Feature[], deletes: Feature[], options: WriteTransactionOptions): Node;
+    writeTransaction(
+        inserts: Feature[],
+        updates: Feature[],
+        deletes: Feature[],
+        options: WriteTransactionOptions,
+    ): Node;
 }
 export function writeFilter(filter: Filter): Node;

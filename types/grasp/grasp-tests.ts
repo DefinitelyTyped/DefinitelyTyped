@@ -1,5 +1,5 @@
-import fs = require("fs");
-import grasp = require("grasp");
+import fs = require('fs');
+import grasp = require('grasp');
 
 grasp(); // $ExpectError
 grasp({ args: [] }); // $ExpectType void
@@ -13,35 +13,35 @@ grasp({
     console,
     stdin: process.stdin,
     fs,
-    input: "foo bar"
+    input: 'foo bar',
 });
 
 // $ExpectError
-grasp({ args: [], textFormat: { cyan: "cyan" } });
+grasp({ args: [], textFormat: { cyan: 'cyan' } });
 
 // $ExpectType string
 grasp.VERSION;
 
-const fooquery = grasp.search("fooquery"); // $ExpectError
-const equery = grasp.search("equery");
-const squery = grasp.search("squery");
+const fooquery = grasp.search('fooquery'); // $ExpectError
+const equery = grasp.search('equery');
+const squery = grasp.search('squery');
 
 // $ExpectType Node[]
-grasp.search("equery", "pattern", "input");
+grasp.search('equery', 'pattern', 'input');
 
 // $ExpectType Node[]
-equery("pattern")("input");
+equery('pattern')('input');
 
 // $ExpectType (input: string) => Node[]
-squery("pattern");
+squery('pattern');
 
-const replacer = grasp.replace("equery", "pattern");
+const replacer = grasp.replace('equery', 'pattern');
 
 // $ExpectType string
-replacer("replacement", "input");
+replacer('replacement', 'input');
 
 // $ExpectType string
 replacer((getRaw, node, query, named) => {
     getRaw(node); // $ExpectType string
-    return "foo";
-}, "input");
+    return 'foo';
+}, 'input');

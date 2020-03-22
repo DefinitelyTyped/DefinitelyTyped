@@ -1,4 +1,4 @@
-import DiscontinuousRange = require("discontinuous-range");
+import DiscontinuousRange = require('discontinuous-range');
 
 // constructors
 const rangeOne: DiscontinuousRange = new DiscontinuousRange(3);

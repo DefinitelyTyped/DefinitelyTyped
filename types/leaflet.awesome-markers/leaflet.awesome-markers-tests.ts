@@ -5,12 +5,12 @@ const map: L.Map = L.map('map-container');
 
 const redMarker = L.AwesomeMarkers.icon({
     icon: 'coffee',
-    markerColor: 'red'
+    markerColor: 'red',
 });
 
 const blueMarker = new L.AwesomeMarkers.Icon({
     icon: 'star',
-    markerColor: 'blue'
+    markerColor: 'blue',
 });
 
 L.marker([51.941196, 4.512291], { icon: redMarker }).addTo(map);

@@ -20,7 +20,7 @@ declare namespace k {
         configdir?: string;
         mountpath?: string;
         inheritViews?: boolean;
-        startupHeaders?: { [key: string]: string; };
+        startupHeaders?: { [key: string]: string };
         onconfig?(config: Map<string, any>, next: (err: Error | null, config?: object) => any): any;
         uncaughtException?(err: Error): any;
     }

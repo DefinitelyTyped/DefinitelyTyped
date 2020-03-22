@@ -1,7 +1,7 @@
 /* tslint:disable:no-mergeable-namespace no-namespace */
-"use strict";
+'use strict';
 
-import conventionalChangelogCore from "conventional-changelog-core";
+import conventionalChangelogCore from 'conventional-changelog-core';
 
 namespace Module {
     declare const context: conventionalChangelogCore.Context;

@@ -1,7 +1,7 @@
 import didYouMean from 'didyoumean';
 
 interface ListType {
-	id: string;
+    id: string;
 }
 
 let input = 'insargrm';
@@ -19,7 +19,7 @@ result = didYouMean(input, list);
 // Matching to a list of key, value pairs.
 
 input = 'insargrm';
-const listOfObjects: ListType[] = [ { id: 'facebook' }, { id: 'twitter' }, { id: 'instagram' }, { id: 'linkedin' } ];
+const listOfObjects: ListType[] = [{ id: 'facebook' }, { id: 'twitter' }, { id: 'instagram' }, { id: 'linkedin' }];
 const key = 'id';
 result = didYouMean(input, list, key);
 

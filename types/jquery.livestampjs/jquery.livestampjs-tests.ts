@@ -9,4 +9,4 @@ $.livestamp.update();
 $.livestamp.pause();
 $.livestamp.resume();
 $.livestamp.interval(340);
-var result:number = $.livestamp.interval();
+var result: number = $.livestamp.interval();

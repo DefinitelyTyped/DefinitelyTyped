@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { Stream, Duplex } from "stream";
+import { Stream, Duplex } from 'stream';
 
 type DataType = string | Buffer | Stream;
 
@@ -17,10 +17,7 @@ interface Options {
 }
 
 declare class MemoryStream extends Duplex {
-    constructor(
-        data?: DataType | DataType[],
-        options?: Options,
-    );
+    constructor(data?: DataType | DataType[], options?: Options);
 }
 
 export = MemoryStream;

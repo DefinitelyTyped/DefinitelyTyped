@@ -8,9 +8,10 @@ const testService = nssm(svcName, options);
 
 const propertyName = 'Start';
 
-const console: { log: (...message: any[]) => void } = { log: (...args) => void (args) };
+const console: { log: (...message: any[]) => void } = { log: (...args) => void args };
 
-testService.set('start', 'manual')
+testService
+    .set('start', 'manual')
     .then((stdout) => {
         console.log(`stdout: ${stdout}`);
         return testService.get('start');
@@ -28,8 +29,7 @@ testService.set('start', 'manual')
     })
     .catch((error, stdout) => {
         console.log(`error: ${error}, stdout: ${stdout}`);
-    })
-;
+    });
 
 // https://github.com/alykoshin/nssm/blob/master/examples/get_callback.js
 

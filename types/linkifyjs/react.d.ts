@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Options } from "./index";
+import * as React from 'react';
+import { Options } from './index';
 
 export interface LinkifyProps {
     options?: Options;

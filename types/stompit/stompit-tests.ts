@@ -1,65 +1,62 @@
 // Adapted from README
-import stompit = require("stompit");
+import stompit = require('stompit');
 
-import fs = require("fs");
-import path = require("path");
-import { NetTcpConnectOptions } from "stompit/lib/connect";
+import fs = require('fs');
+import path = require('path');
+import { NetTcpConnectOptions } from 'stompit/lib/connect';
 
 {
     const connectOptions = {
-        host: "localhost",
+        host: 'localhost',
         port: 61613,
         connectHeaders: {
-            host: "/",
-            login: "username",
-            passcode: "password",
-            "heart-beat": "5000,5000"
-        }
+            host: '/',
+            login: 'username',
+            passcode: 'password',
+            'heart-beat': '5000,5000',
+        },
     };
 
-    stompit.connect(
-        connectOptions,
-        (error, client) => {
+    stompit.connect(connectOptions, (error, client) => {
+        if (error) {
+            console.log('connect error ' + error.message);
+            return;
+        }
+
+        const sendHeaders = {
+            destination: '/queue/test',
+            'content-type': 'text/plain',
+        };
+
+        const frame = client.send(sendHeaders);
+        frame.write('hello');
+        frame.end();
+
+        const subscribeHeaders = {
+            destination: '/queue/test',
+            ack: 'client-individual',
+        };
+
+        client.subscribe(subscribeHeaders, (error, message) => {
             if (error) {
-                console.log("connect error " + error.message);
+                console.log('subscribe error ' + error.message);
                 return;
             }
 
-            const sendHeaders = {
-                destination: "/queue/test",
-                "content-type": "text/plain"
-            };
-
-            const frame = client.send(sendHeaders);
-            frame.write("hello");
-            frame.end();
-
-            const subscribeHeaders = {
-                destination: "/queue/test",
-                ack: "client-individual"
-            };
-
-            client.subscribe(subscribeHeaders, (error, message) => {
+            message.readString('utf-8', (error, body) => {
                 if (error) {
-                    console.log("subscribe error " + error.message);
+                    console.log('read message error ' + error.message);
                     return;
                 }
 
-                message.readString("utf-8", (error, body) => {
-                    if (error) {
-                        console.log("read message error " + error.message);
-                        return;
-                    }
+                console.log('received message: ' + body);
 
-                    console.log("received message: " + body);
+                client.ack(message);
 
-                    client.ack(message);
-
-                    client.disconnect();
-                });
+                client.disconnect();
             });
-        }
-    );
+        });
+    });
 }
 
 // Adapted from examples folder
@@ -70,32 +67,32 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
     const servers = [
         {
-            host: "localhost",
+            host: 'localhost',
             port: 61613,
             connectHeaders: {
-                host: "localhost",
-                login: "admin",
-                passcode: "password",
-                "heart-beat": "100,100"
-            }
-        }
+                host: 'localhost',
+                login: 'admin',
+                passcode: 'password',
+                'heart-beat': '100,100',
+            },
+        },
     ];
 
     const reconnectOptions = {
-        maxReconnects: 1
+        maxReconnects: 1,
     };
 
     const connections = new stompit.ConnectFailover(servers, reconnectOptions);
 
     // Log connection events
 
-    connections.on("connecting", connector => {
+    connections.on('connecting', (connector) => {
         const address = connector.serverProperties.remoteAddress.transportPath;
 
-        console.log("Connecting to " + address);
+        console.log('Connecting to ' + address);
     });
 
-    connections.on("error", error => {
+    connections.on('error', (error) => {
         const connectArgs = error.connectArgs as NetTcpConnectOptions;
         const address = `${connectArgs.host}:${connectArgs.port}`;
 
@@ -108,28 +105,28 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
     channelFactory.channel((error, channel) => {
         if (error) {
-            console.log("channel factory error: " + error.message);
+            console.log('channel factory error: ' + error.message);
             return;
         }
 
         const headers = {
-            destination: "/queue/test",
-            ack: "client-individual"
+            destination: '/queue/test',
+            ack: 'client-individual',
         };
 
         channel.subscribe(headers, (error, message, subscription) => {
             if (error) {
-                console.log("subscribe error: " + error.message);
+                console.log('subscribe error: ' + error.message);
                 return;
             }
 
-            message.readString("utf8", (error, string) => {
+            message.readString('utf8', (error, string) => {
                 if (error) {
-                    console.log("read message error: " + error.message);
+                    console.log('read message error: ' + error.message);
                     return;
                 }
 
-                console.log("receive message: " + string);
+                console.log('receive message: ' + string);
 
                 channel.ack(message);
 
@@ -146,31 +143,31 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
     const servers = [
         {
-            host: "localhost",
+            host: 'localhost',
             port: 61613,
             connectHeaders: {
-                host: "localhost",
-                login: "admin",
-                passcode: "password"
-            }
-        }
+                host: 'localhost',
+                login: 'admin',
+                passcode: 'password',
+            },
+        },
     ];
 
     const reconnectOptions = {
-        maxReconnects: 1
+        maxReconnects: 1,
     };
 
     const connections = new stompit.ConnectFailover(servers, reconnectOptions);
 
     // Log connection events
 
-    connections.on("connecting", connector => {
+    connections.on('connecting', (connector) => {
         const address = connector.serverProperties.remoteAddress.transportPath;
 
-        console.log("Connecting to " + address);
+        console.log('Connecting to ' + address);
     });
 
-    connections.on("error", error => {
+    connections.on('error', (error) => {
         const connectArgs = error.connectArgs as NetTcpConnectOptions;
         const address = `${connectArgs.host}:${connectArgs.port}`;
 
@@ -183,25 +180,25 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
     channelFactory.channel((error, channel) => {
         if (error) {
-            console.log("channel factory error: " + error.message);
+            console.log('channel factory error: ' + error.message);
             return;
         }
 
         const headers = {
-            destination: "/queue/test",
-            "content-type": "text/plain",
-            "content-length": 5
+            destination: '/queue/test',
+            'content-type': 'text/plain',
+            'content-length': 5,
         };
 
-        const body = "hello";
+        const body = 'hello';
 
-        channel.send(headers, body, error => {
+        channel.send(headers, body, (error) => {
             if (error) {
-                console.log("send error: " + error.message);
+                console.log('send error: ' + error.message);
                 return;
             }
 
-            console.log("sent message");
+            console.log('sent message');
         });
     });
 }
@@ -209,259 +206,247 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 // client/consume_once.js
 {
     const connectParams = {
-        host: "localhost",
+        host: 'localhost',
         port: 61613,
         connectHeaders: {
-            host: "localhost",
-            login: "admin",
-            passcode: "password"
-        }
+            host: 'localhost',
+            login: 'admin',
+            passcode: 'password',
+        },
     };
 
-    stompit.connect(
-        connectParams,
-        (error, client) => {
-            if (error) {
-                console.log("Unable to connect: " + error.message);
+    stompit.connect(connectParams, (error, client) => {
+        if (error) {
+            console.log('Unable to connect: ' + error.message);
+            return;
+        }
+
+        const subscribeParams = {
+            destination: '/queue/test',
+            ack: 'client-individual',
+        };
+
+        let consuming = false;
+
+        client.subscribe(subscribeParams, (error, message) => {
+            // Don't consume more than one message
+            if (consuming) {
                 return;
             }
 
-            const subscribeParams = {
-                destination: "/queue/test",
-                ack: "client-individual"
+            consuming = true;
+
+            const read = () => {
+                let chunk: any;
+                // tslint:disable-next-line:no-conditional-assignment
+                while (null !== (chunk = message.read())) {
+                    process.stdout.write(chunk);
+                }
             };
 
-            let consuming = false;
+            message.on('readable', read);
 
-            client.subscribe(subscribeParams, (error, message) => {
-                // Don't consume more than one message
-                if (consuming) {
-                    return;
-                }
-
-                consuming = true;
-
-                const read = () => {
-                    let chunk: any;
-                    // tslint:disable-next-line:no-conditional-assignment
-                    while (null !== (chunk = message.read())) {
-                        process.stdout.write(chunk);
-                    }
-                };
-
-                message.on("readable", read);
-
-                message.on("end", () => {
-                    client.ack(message);
-                    client.disconnect();
-                });
+            message.on('end', () => {
+                client.ack(message);
+                client.disconnect();
             });
-        }
-    );
+        });
+    });
 }
 
 // client/send_file.js
 {
     const connectParams = {
-        host: "localhost",
+        host: 'localhost',
         port: 61613,
         connectHeaders: {
-            host: "localhost",
-            login: "admin",
-            passcode: "password"
-        }
+            host: 'localhost',
+            login: 'admin',
+            passcode: 'password',
+        },
     };
 
-    stompit.connect(
-        connectParams,
-        (error, client) => {
+    stompit.connect(connectParams, (error, client) => {
+        if (error) {
+            console.log('Unable to connect: ' + error.message);
+            return;
+        }
+
+        const filename = path.dirname(module.filename) + '/data/input1.jpg';
+
+        const fileStat = fs.statSync(filename);
+        const contentLength = fileStat.size;
+
+        const sendParams = {
+            destination: '/queue/test',
+            'content-type': 'image/jpeg',
+            'content-length': contentLength,
+        };
+
+        const frame = client.send(sendParams);
+
+        const file = fs.createReadStream(filename);
+        file.pipe(frame);
+
+        client.disconnect((error) => {
             if (error) {
-                console.log("Unable to connect: " + error.message);
+                console.log('Error while disconnecting: ' + error.message);
                 return;
             }
-
-            const filename = path.dirname(module.filename) + "/data/input1.jpg";
-
-            const fileStat = fs.statSync(filename);
-            const contentLength = fileStat.size;
-
-            const sendParams = {
-                destination: "/queue/test",
-                "content-type": "image/jpeg",
-                "content-length": contentLength
-            };
-
-            const frame = client.send(sendParams);
-
-            const file = fs.createReadStream(filename);
-            file.pipe(frame);
-
-            client.disconnect(error => {
-                if (error) {
-                    console.log("Error while disconnecting: " + error.message);
-                    return;
-                }
-                console.log("Sent file");
-            });
-        }
-    );
+            console.log('Sent file');
+        });
+    });
 }
 
 // client/send.js
 {
     const connectParams = {
-        host: "localhost",
+        host: 'localhost',
         port: 61613,
         connectHeaders: {
-            host: "localhost",
-            login: "admin",
-            passcode: "password"
-        }
+            host: 'localhost',
+            login: 'admin',
+            passcode: 'password',
+        },
     };
 
-    stompit.connect(
-        connectParams,
-        (error, client) => {
+    stompit.connect(connectParams, (error, client) => {
+        if (error) {
+            console.log('Unable to connect: ' + error.message);
+            return;
+        }
+
+        const sendParams = {
+            destination: '/queue/test',
+            'content-type': 'application/json',
+        };
+
+        const frame = client.send(sendParams);
+
+        frame.end(
+            JSON.stringify({
+                anything: 'anything',
+                example: true,
+            }),
+        );
+
+        client.disconnect((error) => {
             if (error) {
-                console.log("Unable to connect: " + error.message);
+                console.log('Error while disconnecting: ' + error.message);
                 return;
             }
-
-            const sendParams = {
-                destination: "/queue/test",
-                "content-type": "application/json"
-            };
-
-            const frame = client.send(sendParams);
-
-            frame.end(
-                JSON.stringify({
-                    anything: "anything",
-                    example: true
-                })
-            );
-
-            client.disconnect(error => {
-                if (error) {
-                    console.log("Error while disconnecting: " + error.message);
-                    return;
-                }
-                console.log("Sent message");
-            });
-        }
-    );
+            console.log('Sent message');
+        });
+    });
 }
 
 // client/transaction.js
 {
     const connectParams = {
-        host: "localhost",
+        host: 'localhost',
         port: 61613,
         connectHeaders: {
-            host: "localhost",
-            login: "admin",
-            passcode: "password"
-        }
+            host: 'localhost',
+            login: 'admin',
+            passcode: 'password',
+        },
     };
 
-    stompit.connect(
-        connectParams,
-        (error, client) => {
+    stompit.connect(connectParams, (error, client) => {
+        if (error) {
+            console.log('Unable to connect: ' + error.message);
+            return;
+        }
+
+        const transaction = client.begin();
+
+        transaction.send({ destination: '/queue/test' }).end('first');
+        transaction.send({ destination: '/queue/test' }).end('second');
+
+        transaction.commit(); // or call transaction.abort()
+
+        client.disconnect((error) => {
             if (error) {
-                console.log("Unable to connect: " + error.message);
+                console.log('Error while disconnecting: ' + error.message);
                 return;
             }
-
-            const transaction = client.begin();
-
-            transaction.send({ destination: "/queue/test" }).end("first");
-            transaction.send({ destination: "/queue/test" }).end("second");
-
-            transaction.commit(); // or call transaction.abort()
-
-            client.disconnect(error => {
-                if (error) {
-                    console.log("Error while disconnecting: " + error.message);
-                    return;
-                }
-                console.log("Sent messages");
-            });
-        }
-    );
+            console.log('Sent messages');
+        });
+    });
 }
 
 // pubsub.js
 {
     const connectionManager = new stompit.ConnectFailover([
         {
-            host: "localhost",
+            host: 'localhost',
             port: 61613,
             resetDisconnect: false,
             connectHeaders: {
-                "accept-version": "1.0",
-                host: "localhost",
-                login: "admin",
-                passcode: "password",
-                "heart-beat": "1000,1000"
-            }
-        }
+                'accept-version': '1.0',
+                host: 'localhost',
+                login: 'admin',
+                passcode: 'password',
+                'heart-beat': '1000,1000',
+            },
+        },
     ]);
 
-    connectionManager.on("error", error => {
+    connectionManager.on('error', (error) => {
         const connectArgs = error.connectArgs as NetTcpConnectOptions;
         const address = `${connectArgs.host}:${connectArgs.port}`;
         console.log(`Could not connect to ${address}: ${error.message}`);
     });
 
-    connectionManager.on("connecting", connector => {
-        console.log("Connecting to " + connector.serverProperties.remoteAddress.transportPath);
+    connectionManager.on('connecting', (connector) => {
+        console.log('Connecting to ' + connector.serverProperties.remoteAddress.transportPath);
     });
 
     const channelPool = new stompit.ChannelPool(connectionManager);
 
     channelPool.channel((error, channel) => {
         if (error) {
-            console.log("send-channel error: " + error.message);
+            console.log('send-channel error: ' + error.message);
             return;
         }
 
         const sendHeaders = {
-            destination: "/queue/a"
+            destination: '/queue/a',
         };
 
-        channel.send(sendHeaders, "hello", error => {
+        channel.send(sendHeaders, 'hello', (error) => {
             if (error) {
-                console.log("send error " + error.message);
+                console.log('send error ' + error.message);
                 return;
             }
 
-            console.log("message sent");
+            console.log('message sent');
         });
     });
 
     channelPool.channel((error, channel) => {
         if (error) {
-            console.log("subscribe-channel error: " + error.message);
+            console.log('subscribe-channel error: ' + error.message);
             return;
         }
 
         const subscribeHeaders = {
-            destination: "/queue/a"
+            destination: '/queue/a',
         };
 
         channel.subscribe(subscribeHeaders, (error, message, subscription) => {
             if (error) {
-                console.log("subscribe error: " + error.message);
+                console.log('subscribe error: ' + error.message);
                 return;
             }
 
-            message.readString("utf8", (error, body) => {
+            message.readString('utf8', (error, body) => {
                 if (error) {
-                    console.log("read message error " + error.message);
+                    console.log('read message error ' + error.message);
                     return;
                 }
 
-                console.log("received message: " + body);
+                console.log('received message: ' + body);
 
                 subscription.unsubscribe();
             });

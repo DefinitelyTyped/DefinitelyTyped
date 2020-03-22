@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ChartObject, IndividualSeriesOptions, Options } from "highcharts";
+import { ChartObject, IndividualSeriesOptions, Options } from 'highcharts';
 
 declare global {
     interface HighChartsNGConfig {
@@ -25,7 +25,7 @@ declare global {
         xAxis?: {
             currentMin?: number;
             currentMax?: number;
-            title?: { text?: string }
+            title?: { text?: string };
         };
         //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
         useHighStocks?: boolean;

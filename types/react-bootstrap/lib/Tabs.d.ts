@@ -16,5 +16,5 @@ declare namespace Tabs {
         justified?: boolean;
     }
 }
-declare class Tabs extends React.Component<Tabs.TabsProps> { }
+declare class Tabs extends React.Component<Tabs.TabsProps> {}
 export = Tabs;

@@ -67,8 +67,8 @@ declare class ReactCrop extends Component<ReactCrop.ReactCropProps> {
     onImageLoad: (image: HTMLImageElement) => void;
     getCropStyle: () => CSSProperties;
     getNewSize: () => {
-        width: number,
-        height: number,
+        width: number;
+        height: number;
     };
     resolveCrop: (crop: ReactCrop.Crop, imageWidth: number, imageHeight: number) => ReactCrop.Crop;
     dragCrop: () => ReactCrop.Crop;

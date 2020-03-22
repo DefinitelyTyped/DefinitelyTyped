@@ -22,4 +22,4 @@ JXON.stringToXml('');
 JXON.jsToXml({}, '', '', {});
 JXON.unbuild({}, '', '', {});
 
-JXON.each({}, arg => arg, '');
+JXON.each({}, (arg) => arg, '');

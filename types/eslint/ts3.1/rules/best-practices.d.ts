@@ -7,18 +7,20 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.22.0
      * @see https://eslint.org/docs/rules/accessor-pairs
      */
-    'accessor-pairs': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default true
-             */
-            setWithoutGet: boolean;
-            /**
-             * @default false
-             */
-            getWithoutSet: boolean;
-        }>
-    ]>;
+    'accessor-pairs': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                setWithoutGet: boolean;
+                /**
+                 * @default false
+                 */
+                getWithoutSet: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to enforce `return` statements in callbacks of array methods.
@@ -26,14 +28,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 2.0.0-alpha-1
      * @see https://eslint.org/docs/rules/array-callback-return
      */
-    'array-callback-return': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            allowImplicit: boolean;
-        }>
-    ]>;
+    'array-callback-return': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                allowImplicit: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to enforce the use of variables within the scope they are defined.
@@ -49,11 +53,13 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 3.4.0
      * @see https://eslint.org/docs/rules/class-methods-use-this
      */
-    'class-methods-use-this': Linter.RuleEntry<[
-        Partial<{
-            exceptMethods: string[];
-        }>
-    ]>;
+    'class-methods-use-this': Linter.RuleEntry<
+        [
+            Partial<{
+                exceptMethods: string[];
+            }>,
+        ]
+    >;
 
     /**
      * Rule to enforce a maximum cyclomatic complexity allowed in a program.
@@ -61,19 +67,22 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/complexity
      */
-    'complexity': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default 20
-             */
-            max: number;
-            /**
-             * @deprecated
-             * @default 20
-             */
-            maximum: number;
-        }> | number
-    ]>;
+    complexity: Linter.RuleEntry<
+        [
+            | Partial<{
+                  /**
+                   * @default 20
+                   */
+                  max: number;
+                  /**
+                   * @deprecated
+                   * @default 20
+                   */
+                  maximum: number;
+              }>
+            | number,
+        ]
+    >;
 
     /**
      * Rule to require `return` statements to either always or never specify values.
@@ -81,14 +90,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.4.0
      * @see https://eslint.org/docs/rules/consistent-return
      */
-    'consistent-return': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            treatUndefinedAsUnspecified: boolean;
-        }>
-    ]>;
+    'consistent-return': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                treatUndefinedAsUnspecified: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to enforce consistent brace style for all control statements.
@@ -96,9 +107,7 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.2
      * @see https://eslint.org/docs/rules/curly
      */
-    'curly': Linter.RuleEntry<[
-        'all' | 'multi' | 'multi-line' | 'multi-or-nest' | 'consistent'
-    ]>;
+    curly: Linter.RuleEntry<['all' | 'multi' | 'multi-line' | 'multi-or-nest' | 'consistent']>;
 
     /**
      * Rule to require `default` cases in `switch` statements.
@@ -106,14 +115,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.6.0
      * @see https://eslint.org/docs/rules/default-case
      */
-    'default-case': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default '^no default$'
-             */
-            commentPattern: string;
-        }>
-    ]>;
+    'default-case': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default '^no default$'
+                 */
+                commentPattern: string;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to enforce consistent newlines before and after dots.
@@ -121,9 +132,7 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.21.0
      * @see https://eslint.org/docs/rules/dot-location
      */
-    'dot-location': Linter.RuleEntry<[
-        'object' | 'property'
-    ]>;
+    'dot-location': Linter.RuleEntry<['object' | 'property']>;
 
     /**
      * Rule to enforce dot notation whenever possible.
@@ -131,15 +140,17 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.7
      * @see https://eslint.org/docs/rules/dot-notation
      */
-    'dot-notation': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default true
-             */
-            allowKeywords: boolean;
-            allowPattern: string;
-        }>
-    ]>;
+    'dot-notation': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                allowKeywords: boolean;
+                allowPattern: string;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to require the use of `===` and `!==`.
@@ -147,17 +158,19 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.2
      * @see https://eslint.org/docs/rules/eqeqeq
      */
-    'eqeqeq': Linter.RuleEntry<[
-        'always',
-        Partial<{
-            /**
-             * @default 'always'
-             */
-            null: 'always' | 'never' | 'ignore';
-        }>
-    ]> | Linter.RuleEntry<[
-        'smart' | 'allow-null'
-    ]>;
+    eqeqeq:
+        | Linter.RuleEntry<
+              [
+                  'always',
+                  Partial<{
+                      /**
+                       * @default 'always'
+                       */
+                      null: 'always' | 'never' | 'ignore';
+                  }>,
+              ]
+          >
+        | Linter.RuleEntry<['smart' | 'allow-null']>;
 
     /**
      * Rule to require `for-in` loops to include an `if` statement.
@@ -173,9 +186,7 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 5.0.0-alpha.3
      * @see https://eslint.org/docs/rules/max-classes-per-file
      */
-    'max-classes-per-file': Linter.RuleEntry<[
-        number
-    ]>;
+    'max-classes-per-file': Linter.RuleEntry<[number]>;
 
     /**
      * Rule to disallow the use of `alert`, `confirm`, and `prompt`.
@@ -218,14 +229,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-else-return
      */
-    'no-else-return': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default true
-             */
-            allowElseIf: boolean;
-        }>
-    ]>;
+    'no-else-return': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                allowElseIf: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow empty functions.
@@ -233,14 +246,25 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 2.0.0
      * @see https://eslint.org/docs/rules/no-empty-function
      */
-    'no-empty-function': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default []
-             */
-            allow: Array<'functions' | 'arrowFunctions' | 'generatorFunctions' | 'methods' | 'generatorMethods' | 'getters' | 'setters' | 'constructors'>;
-        }>
-    ]>;
+    'no-empty-function': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default []
+                 */
+                allow: Array<
+                    | 'functions'
+                    | 'arrowFunctions'
+                    | 'generatorFunctions'
+                    | 'methods'
+                    | 'generatorMethods'
+                    | 'getters'
+                    | 'setters'
+                    | 'constructors'
+                >;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow empty destructuring patterns.
@@ -267,14 +291,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.2
      * @see https://eslint.org/docs/rules/no-eval
      */
-    'no-eval': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            allowIndirect: boolean;
-        }>
-    ]>;
+    'no-eval': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                allowIndirect: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow extending native types.
@@ -282,11 +308,13 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.1.4
      * @see https://eslint.org/docs/rules/no-extend-native
      */
-    'no-extend-native': Linter.RuleEntry<[
-        Partial<{
-            exceptions: string[];
-        }>
-    ]>;
+    'no-extend-native': Linter.RuleEntry<
+        [
+            Partial<{
+                exceptions: string[];
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow unnecessary calls to `.bind()`.
@@ -313,14 +341,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.7
      * @see https://eslint.org/docs/rules/no-fallthrough
      */
-    'no-fallthrough': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default 'falls?\s?through'
-             */
-            commentPattern: string;
-        }>
-    ]>;
+    'no-fallthrough': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default 'falls?\s?through'
+                 */
+                commentPattern: string;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow leading or trailing decimal points in numeric literals.
@@ -339,11 +369,13 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 3.3.0
      * @see https://eslint.org/docs/rules/no-global-assign
      */
-    'no-global-assign': Linter.RuleEntry<[
-        Partial<{
-            exceptions: string[];
-        }>
-    ]>;
+    'no-global-assign': Linter.RuleEntry<
+        [
+            Partial<{
+                exceptions: string[];
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow shorthand type conversions.
@@ -351,26 +383,28 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 1.0.0-rc-2
      * @see https://eslint.org/docs/rules/no-implicit-coercion
      */
-    'no-implicit-coercion': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default true
-             */
-            boolean: boolean;
-            /**
-             * @default true
-             */
-            number: boolean;
-            /**
-             * @default true
-             */
-            string: boolean;
-            /**
-             * @default []
-             */
-            allow: Array<'~' | '!!' | '+' | '*'>;
-        }>
-    ]>;
+    'no-implicit-coercion': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                boolean: boolean;
+                /**
+                 * @default true
+                 */
+                number: boolean;
+                /**
+                 * @default true
+                 */
+                string: boolean;
+                /**
+                 * @default []
+                 */
+                allow: Array<'~' | '!!' | '+' | '*'>;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow variable and `function` declarations in the global scope.
@@ -410,18 +444,20 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.4.0
      * @see https://eslint.org/docs/rules/no-labels
      */
-    'no-labels': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            allowLoop: boolean;
-            /**
-             * @default false
-             */
-            allowSwitch: boolean;
-        }>
-    ]>;
+    'no-labels': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                allowLoop: boolean;
+                /**
+                 * @default false
+                 */
+                allowSwitch: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow unnecessary nested blocks.
@@ -445,26 +481,28 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 1.7.0
      * @see https://eslint.org/docs/rules/no-magic-numbers
      */
-    'no-magic-numbers': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default []
-             */
-            ignore: number[];
-            /**
-             * @default false
-             */
-            ignoreArrayIndexes: boolean;
-            /**
-             * @default false
-             */
-            enforceConst: boolean;
-            /**
-             * @default false
-             */
-            detectObjects: boolean;
-        }>
-    ]>;
+    'no-magic-numbers': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default []
+                 */
+                ignore: number[];
+                /**
+                 * @default false
+                 */
+                ignoreArrayIndexes: boolean;
+                /**
+                 * @default false
+                 */
+                enforceConst: boolean;
+                /**
+                 * @default false
+                 */
+                detectObjects: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow multiple spaces.
@@ -472,18 +510,20 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.9.0
      * @see https://eslint.org/docs/rules/no-multi-spaces
      */
-    'no-multi-spaces': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            ignoreEOLComments: boolean;
-            /**
-             * @default { Property: true }
-             */
-            exceptions: Record<string, boolean>;
-        }>
-    ]>;
+    'no-multi-spaces': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                ignoreEOLComments: boolean;
+                /**
+                 * @default { Property: true }
+                 */
+                exceptions: Record<string, boolean>;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow multiline strings.
@@ -542,18 +582,20 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.18.0
      * @see https://eslint.org/docs/rules/no-param-reassign
      */
-    'no-param-reassign': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            props: boolean;
-            /**
-             * @default []
-             */
-            ignorePropertyModificationsFor: string[];
-        }>
-    ]>;
+    'no-param-reassign': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                props: boolean;
+                /**
+                 * @default []
+                 */
+                ignorePropertyModificationsFor: string[];
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow the use of the `__proto__` property.
@@ -572,14 +614,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-redeclare
      */
-    'no-redeclare': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default true
-             */
-            builtinGlobals: boolean;
-        }>
-    ]>;
+    'no-redeclare': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                builtinGlobals: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow certain properties on certain objects.
@@ -587,16 +631,21 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 3.5.0
      * @see https://eslint.org/docs/rules/no-restricted-properties
      */
-    'no-restricted-properties': Linter.RuleEntry<[
-        ...Array<{
-            object: string;
-            property?: string;
-            message?: string;
-        } | {
-            property: string;
-            message?: string;
-        }>
-    ]>;
+    'no-restricted-properties': Linter.RuleEntry<
+        [
+            ...Array<
+                | {
+                      object: string;
+                      property?: string;
+                      message?: string;
+                  }
+                | {
+                      property: string;
+                      message?: string;
+                  }
+            >
+        ]
+    >;
 
     /**
      * Rule to disallow assignment operators in `return` statements.
@@ -604,9 +653,7 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-return-assign
      */
-    'no-return-assign': Linter.RuleEntry<[
-        'except-parens' | 'always'
-    ]>;
+    'no-return-assign': Linter.RuleEntry<['except-parens' | 'always']>;
 
     /**
      * Rule to disallow unnecessary `return await`.
@@ -673,22 +720,24 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.1.0
      * @see https://eslint.org/docs/rules/no-unused-expressions
      */
-    'no-unused-expressions': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            allowShortCircuit: boolean;
-            /**
-             * @default false
-             */
-            allowTernary: boolean;
-            /**
-             * @default false
-             */
-            allowTaggedTemplates: boolean;
-        }>
-    ]>;
+    'no-unused-expressions': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                allowShortCircuit: boolean;
+                /**
+                 * @default false
+                 */
+                allowTernary: boolean;
+                /**
+                 * @default false
+                 */
+                allowTaggedTemplates: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow unused labels.
@@ -761,18 +810,20 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.4.4
      * @see https://eslint.org/docs/rules/no-warning-comments
      */
-    'no-warning-comments': Linter.RuleEntry<[
-        {
-            /**
-             * @default ["todo", "fixme", "xxx"]
-             */
-            terms: string[];
-            /**
-             * @default 'start'
-             */
-            location: 'start' | 'anywhere';
-        }
-    ]>;
+    'no-warning-comments': Linter.RuleEntry<
+        [
+            {
+                /**
+                 * @default ["todo", "fixme", "xxx"]
+                 */
+                terms: string[];
+                /**
+                 * @default 'start'
+                 */
+                location: 'start' | 'anywhere';
+            },
+        ]
+    >;
 
     /**
      * Rule to disallow `with` statements.
@@ -799,14 +850,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 3.14.0
      * @see https://eslint.org/docs/rules/prefer-promise-reject-errors
      */
-    'prefer-promise-reject-errors': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            allowEmptyReject: boolean;
-        }>
-    ]>;
+    'prefer-promise-reject-errors': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                allowEmptyReject: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to enforce the consistent use of the radix argument when using `parseInt()`.
@@ -814,9 +867,7 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.7
      * @see https://eslint.org/docs/rules/radix
      */
-    'radix': Linter.RuleEntry<[
-        'always' | 'as-needed'
-    ]>;
+    radix: Linter.RuleEntry<['always' | 'as-needed']>;
 
     /**
      * Rule to disallow async functions which have no `await` expression.
@@ -848,15 +899,17 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/wrap-iife
      */
-    'wrap-iife': Linter.RuleEntry<[
-        'outside' | 'inside' | 'any',
-        Partial<{
-            /**
-             * @default false
-             */
-            functionPrototypeMethods: boolean;
-        }>
-    ]>;
+    'wrap-iife': Linter.RuleEntry<
+        [
+            'outside' | 'inside' | 'any',
+            Partial<{
+                /**
+                 * @default false
+                 */
+                functionPrototypeMethods: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to require or disallow “Yoda” conditions.
@@ -864,13 +917,15 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 0.7.1
      * @see https://eslint.org/docs/rules/yoda
      */
-    'yoda': Linter.RuleEntry<[
-        'never',
-        Partial<{
-            exceptRange: boolean;
-            onlyEquality: boolean;
-        }>
-    ]> | Linter.RuleEntry<[
-        'always'
-    ]>;
+    yoda:
+        | Linter.RuleEntry<
+              [
+                  'never',
+                  Partial<{
+                      exceptRange: boolean;
+                      onlyEquality: boolean;
+                  }>,
+              ]
+          >
+        | Linter.RuleEntry<['always']>;
 }

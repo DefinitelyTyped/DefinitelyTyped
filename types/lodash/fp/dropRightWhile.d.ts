@@ -1,2 +1,2 @@
-import { dropRightWhile } from "../fp";
+import { dropRightWhile } from '../fp';
 export = dropRightWhile;

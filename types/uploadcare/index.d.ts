@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { ReadStream } from "fs";
+import { ReadStream } from 'fs';
 
 declare namespace Uploadcare {
     interface File {
@@ -39,30 +39,17 @@ declare namespace Uploadcare {
             upload: (
                 readStream: ReadStream,
                 options: { store?: boolean },
-                callback: (err: Error, res: { file: string }) => void
+                callback: (err: Error, res: { file: string }) => void,
             ) => void;
-            fromUrl: (
-                url: string,
-                options: { store?: boolean },
-                callback: (err: Error, res: File) => void
-            ) => void;
+            fromUrl: (url: string, options: { store?: boolean }, callback: (err: Error, res: File) => void) => void;
         };
         files: {
-            store: (
-                uuid: string,
-                callback: (err: Error, res: File) => void
-            ) => void;
-            remove: (
-                uuid: string,
-                callback: (err: Error, res: File) => void
-            ) => void;
+            store: (uuid: string, callback: (err: Error, res: File) => void) => void;
+            remove: (uuid: string, callback: (err: Error, res: File) => void) => void;
         };
     }
 }
 
-declare function Uploadcare(
-    publicKey: string,
-    privateKey: string
-): Uploadcare.Instance;
+declare function Uploadcare(publicKey: string, privateKey: string): Uploadcare.Instance;
 
 export = Uploadcare;

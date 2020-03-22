@@ -141,7 +141,7 @@ declare function expect(): jasmine.NothingMatcher;
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual - Actual computed value to test expectations against.
  */
-declare function expectAsync<T, U>(actual: T|PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
+declare function expectAsync<T, U>(actual: T | PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Explicitly mark a spec as failed.
@@ -193,21 +193,29 @@ declare namespace jasmine {
 
     type ImplementationCallback = (() => PromiseLike<any>) | ((done: DoneFn) => void);
 
-    type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | {
-        [K in keyof T]: ExpectedRecursive<T[K]> | Any;
-    };
-    type Expected<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | Any | Spy | {
-        [K in keyof T]: ExpectedRecursive<T[K]>;
-    };
-    type SpyObjMethodNames<T = undefined> =
-        T extends undefined ?
-            (ReadonlyArray<string> | { [methodName: string]: any }) :
-            (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any });
+    type ExpectedRecursive<T> =
+        | T
+        | ObjectContaining<T>
+        | AsymmetricMatcher<any>
+        | {
+              [K in keyof T]: ExpectedRecursive<T[K]> | Any;
+          };
+    type Expected<T> =
+        | T
+        | ObjectContaining<T>
+        | AsymmetricMatcher<any>
+        | Any
+        | Spy
+        | {
+              [K in keyof T]: ExpectedRecursive<T[K]>;
+          };
+    type SpyObjMethodNames<T = undefined> = T extends undefined
+        ? ReadonlyArray<string> | { [methodName: string]: any }
+        : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any };
 
-    type SpyObjPropertyNames<T = undefined> =
-        T extends undefined ?
-                (ReadonlyArray<string> | { [propertyName: string]: any }) :
-                (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] });
+    type SpyObjPropertyNames<T = undefined> = T extends undefined
+        ? ReadonlyArray<string> | { [propertyName: string]: any }
+        : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] };
 
     /**
      * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
@@ -263,12 +271,16 @@ declare namespace jasmine {
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
-    function objectContaining<T>(sample: {[K in keyof T]?: ExpectedRecursive<T[K]>}): ObjectContaining<T>;
+    function objectContaining<T>(sample: { [K in keyof T]?: ExpectedRecursive<T[K]> }): ObjectContaining<T>;
 
     function setDefaultSpyStrategy(and: SpyAnd): void;
     function createSpy(name?: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
-    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
+    function createSpyObj<T>(
+        baseName: string,
+        methodNames: SpyObjMethodNames<T>,
+        propertyNames?: SpyObjPropertyNames<T>,
+    ): SpyObj<T>;
     function createSpyObj(methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
     function createSpyObj<T>(methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
 
@@ -294,8 +306,8 @@ declare namespace jasmine {
     }
 
     interface AsymmetricMatcher<TValue> {
-      asymmetricMatch(other: TValue, customTesters: ReadonlyArray<CustomEqualityTester>): boolean;
-      jasmineToString?(): string;
+        asymmetricMatch(other: TValue, customTesters: ReadonlyArray<CustomEqualityTester>): boolean;
+        jasmineToString?(): string;
     }
 
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
@@ -309,7 +321,7 @@ declare namespace jasmine {
     }
 
     interface ObjectContaining<T> extends AsymmetricMatcher<any> {
-        new?(sample: {[K in keyof T]?: any}): {[K in keyof T]?: any};
+        new?(sample: { [K in keyof T]?: any }): { [K in keyof T]?: any };
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString?(): string;
@@ -354,9 +366,15 @@ declare namespace jasmine {
         negativeCompare?(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
     }
 
-    type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomMatcher;
+    type CustomMatcherFactory = (
+        util: MatchersUtil,
+        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
+    ) => CustomMatcher;
 
-    type CustomAsyncMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomAsyncMatcher;
+    type CustomAsyncMatcherFactory = (
+        util: MatchersUtil,
+        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
+    ) => CustomAsyncMatcher;
 
     interface CustomMatcherFactories {
         [name: string]: CustomMatcherFactory;
@@ -373,7 +391,11 @@ declare namespace jasmine {
 
     interface MatchersUtil {
         equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
-        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
+        contains<T>(
+            haystack: ArrayLike<T> | string,
+            needle: any,
+            customTesters?: ReadonlyArray<CustomEqualityTester>,
+        ): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
     }
 
@@ -481,7 +503,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: { random: boolean, seed: string }): any;
+        new (options: { random: boolean; seed: string }): any;
         random: boolean;
         seed: string;
         sort<T>(items: T[]): T[];
@@ -519,8 +541,7 @@ declare namespace jasmine {
         append(value: any): void;
     }
 
-    interface StringPrettyPrinter extends PrettyPrinter {
-    }
+    interface StringPrettyPrinter extends PrettyPrinter {}
 
     interface Queue {
         new (env: any): any;
@@ -745,8 +766,7 @@ declare namespace jasmine {
         expected: string;
     }
 
-    interface PassedExpectation extends CustomReportExpectation {
-    }
+    interface PassedExpectation extends CustomReportExpectation {}
 
     interface CustomReporterResult {
         description: string;
@@ -872,9 +892,10 @@ declare namespace jasmine {
         withArgs(...args: any[]): Spy;
     }
 
-    type SpyObj<T> = T & {
-        [K in keyof T]: T[K] extends Function ? T[K] & Spy : T[K];
-    };
+    type SpyObj<T> = T &
+        {
+            [K in keyof T]: T[K] extends Function ? T[K] & Spy : T[K];
+        };
 
     interface SpyAnd {
         identity: string;
@@ -892,7 +913,7 @@ declare namespace jasmine {
         /** Tell the spy to return a promise rejecting with the specified value when invoked. */
         rejectWith(val?: any): Spy;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
-        throwError(msg: string|Error): Spy;
+        throwError(msg: string | Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
         stub(): Spy;
     }
@@ -985,7 +1006,7 @@ declare namespace jasmine {
     var MAX_PRETTY_PRINT_DEPTH: number;
 }
 
-declare module "jasmine" {
+declare module 'jasmine' {
     class jasmine {
         constructor(options: any);
         jasmine: jasmine.Jasmine;

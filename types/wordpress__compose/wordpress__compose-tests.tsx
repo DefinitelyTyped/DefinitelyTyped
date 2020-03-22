@@ -6,8 +6,8 @@ import * as C from '@wordpress/compose';
 //
 (() => {
     const withFoo = C.createHigherOrderComponent<{ foo: string }>(
-        OriginalComponent => props => <OriginalComponent foo="hello" {...props} />,
-        'withFoo'
+        (OriginalComponent) => (props) => <OriginalComponent foo="hello" {...props} />,
+        'withFoo',
     );
 
     const Enhanced = withFoo(({ foo, bar }: { foo: string; bar: string }) => (
@@ -65,7 +65,7 @@ import * as C from '@wordpress/compose';
             render() {
                 return <h1>{this.props.foo}</h1>;
             }
-        }
+        },
     );
     <Enhanced foo="foo" />;
 })();

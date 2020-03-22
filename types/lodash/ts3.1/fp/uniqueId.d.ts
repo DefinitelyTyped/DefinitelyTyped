@@ -1,2 +1,2 @@
-import { uniqueId } from "../fp";
+import { uniqueId } from '../fp';
 export = uniqueId;

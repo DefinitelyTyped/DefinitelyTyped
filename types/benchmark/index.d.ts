@@ -3,7 +3,6 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare class Benchmark {
     static deepClone<T>(value: T): T;
     static each(obj: Object | any[], callback: Function, thisArg?: any): void;

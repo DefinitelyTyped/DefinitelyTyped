@@ -1,16 +1,13 @@
-
 Ext.application({
     name: 'Sencha',
 
-    launch: function() {
-        
-        Ext.Viewport.add( <Ext.tab.IPanel>{
+    launch: function () {
+        Ext.Viewport.add(<Ext.tab.IPanel>{
             xtype: 'tabpanel',
             fullscreen: true,
             tabBarPosition: 'bottom',
 
             items: [
-            
                 <Ext.IComponent>{
                     title: 'Home',
                     iconCls: 'home',
@@ -18,9 +15,9 @@ Ext.application({
                     html: [
                         '<img height=260 src="http://staging.sencha.com/img/sencha.png" />',
                         '<h1>Welcome to Sencha Touch</h1>',
-                        "<p>Building the Getting Started app.</p>",
-                        '<h2>Sencha Touch</h2>'
-                    ].join("")
+                        '<p>Building the Getting Started app.</p>',
+                        '<h2>Sencha Touch</h2>',
+                    ].join(''),
                 },
 
                 <Ext.IComponent>{
@@ -33,36 +30,44 @@ Ext.application({
                     store: <Ext.data.ITreeStore>{
                         type: 'tree',
 
-                        fields: ['title', 'link', 'author', 'contentSnippet', 'content', {
-                            name: 'leaf',
-                            defaultValue: true
-                        }],
+                        fields: [
+                            'title',
+                            'link',
+                            'author',
+                            'contentSnippet',
+                            'content',
+                            {
+                                name: 'leaf',
+                                defaultValue: true,
+                            },
+                        ],
 
                         root: {
-                            leaf: false
+                            leaf: false,
                         },
 
                         proxy: <Ext.data.proxy.IJsonP>{
                             type: 'jsonp',
-                            url: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://feeds.feedburner.com/SenchaBlog',
+                            url:
+                                'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://feeds.feedburner.com/SenchaBlog',
                             reader: <Ext.data.reader.IJson>{
                                 type: 'json',
-                                rootProperty: 'responseData.feed.entries'
-                            }
-                        }
+                                rootProperty: 'responseData.feed.entries',
+                            },
+                        },
                     },
 
                     detailCard: <Ext.IPanel>{
                         xtype: 'panel',
                         scrollable: true,
-                        styleHtmlContent: true
+                        styleHtmlContent: true,
                     },
 
                     listeners: {
-                        itemtap: function(nestedList, list, index, element, post) {
+                        itemtap: function (nestedList, list, index, element, post) {
                             this.getDetailCard().setHtml(post.get('content'));
-                        }
-                    }
+                        },
+                    },
                 },
 
                 <Ext.form.IPanel>{
@@ -82,43 +87,42 @@ Ext.application({
                                 <Ext.field.IText>{
                                     xtype: 'textfield',
                                     label: 'Name',
-                                    name: 'name'
+                                    name: 'name',
                                 },
                                 <Ext.field.IEmail>{
                                     xtype: 'emailfield',
                                     label: 'Email',
-                                    name: 'email'
+                                    name: 'email',
                                 },
                                 <Ext.field.ITextArea>{
                                     xtype: 'textareafield',
                                     label: 'Message',
                                     name: 'message',
-                                    height: 90
-                                }
-                            ]
+                                    height: 90,
+                                },
+                            ],
                         },
-                        
+
                         <Ext.IButton>{
                             xtype: 'button',
                             text: 'Send',
                             ui: 'confirm',
 
-                            handler: function() {
-
+                            handler: function () {
                                 var form = this.up('formpanel');
 
                                 form.submit({
-                                    success: function() {
-                                        Ext.Msg.alert('Thank You', 'Your message has been received', function() {
+                                    success: function () {
+                                        Ext.Msg.alert('Thank You', 'Your message has been received', function () {
                                             form.reset();
                                         });
-                                    }
+                                    },
                                 });
-                            }
-                        }
-                    ]
-                }
-            ]
+                            },
+                        },
+                    ],
+                },
+            ],
         });
-    }
+    },
 });

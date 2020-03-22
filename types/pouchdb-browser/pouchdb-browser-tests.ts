@@ -10,6 +10,5 @@ function testConstructor(model: PouchDB.Core.Document<MyModel>) {
         adapter: 'http',
     });
     db.get('model').then((result) => model);
-    db.viewCleanup().catch((error) => {
-    });
+    db.viewCleanup().catch((error) => {});
 }

@@ -8,13 +8,8 @@
 
 import * as buildOptions from 'minimist-options';
 
-declare function meow(
-    helpMessage: string | ReadonlyArray<string>,
-    options: meow.Options
-): meow.Result;
-declare function meow(
-    options: string | ReadonlyArray<string> | meow.Options
-): meow.Result;
+declare function meow(helpMessage: string | ReadonlyArray<string>, options: meow.Options): meow.Result;
+declare function meow(options: string | ReadonlyArray<string> | meow.Options): meow.Result;
 declare namespace meow {
     interface Options {
         description?: string | boolean;

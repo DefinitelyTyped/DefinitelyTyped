@@ -11,5 +11,5 @@ export interface ButtonToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLB
     defaultValue?: boolean;
 }
 
-declare class ButtonToggle<T = {[key: string]: any}> extends React.Component<ButtonToggleProps> {}
+declare class ButtonToggle<T = { [key: string]: any }> extends React.Component<ButtonToggleProps> {}
 export default ButtonToggle;

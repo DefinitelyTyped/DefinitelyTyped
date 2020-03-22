@@ -13,11 +13,8 @@ const optionsArray: WorkerPlugin.Options[] = [
         globalObject: 'self',
     },
     {
-        plugins: [
-          'SomeExistingPlugin',
-          new ExistingPlugin(),
-        ],
-    }
+        plugins: ['SomeExistingPlugin', new ExistingPlugin()],
+    },
 ];
 
-const plugins = optionsArray.map(options => new WorkerPlugin(options));
+const plugins = optionsArray.map((options) => new WorkerPlugin(options));

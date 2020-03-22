@@ -1,16 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type InlineHelpPlacement =
-    | "bottom-right"
-    | "bottom-left"
-    | "right"
-    | "left"
-    | "bottom-center";
+export type InlineHelpPlacement = 'bottom-right' | 'bottom-left' | 'right' | 'left' | 'bottom-center';
 
 export type InlineHelpProps = {
-    className?: string,
-    contentClassName?: string,
-    disableStyles?: boolean,
+    className?: string;
+    contentClassName?: string;
+    disableStyles?: boolean;
     placement: InlineHelpPlacement;
 } & { [x: string]: any };
 

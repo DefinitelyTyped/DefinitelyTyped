@@ -1,10 +1,8 @@
 namespace adoneTests.net.http.client {
     const {
         net: {
-            http: {
-                client
-            }
-        }
+            http: { client },
+        },
     } = adone;
 
     let bool: boolean;
@@ -14,220 +12,224 @@ namespace adoneTests.net.http.client {
     let stream: nodestd.stream.Readable;
 
     namespace Client {
-        const {
-            Client
-        } = client;
+        const { Client } = client;
 
         new Client();
         new Client({});
         new Client({
             auth: {
-                username: "a"
-            }
+                username: 'a',
+            },
         });
         new Client({
             auth: {
-                password: "a"
-            }
+                password: 'a',
+            },
         });
         new Client({
-            cancelToken: new client.CancelToken(() => {})
+            cancelToken: new client.CancelToken(() => {}),
         });
         new Client({
-            data: Buffer.from("hello")
+            data: Buffer.from('hello'),
         });
         new Client({
-            data: "hello"
+            data: 'hello',
         });
         new Client({
-            data: adone.fs.createReadStream(__filename)
+            data: adone.fs.createReadStream(__filename),
         });
         new Client({
-            data: new ArrayBuffer(10)
-        });
-        new Client({
-            formData: {
-                a: "string"
-            }
+            data: new ArrayBuffer(10),
         });
         new Client({
             formData: {
-                a: ["string"]
-            }
+                a: 'string',
+            },
         });
         new Client({
             formData: {
-                a: [adone.fs.createReadStream(__filename)]
-            }
+                a: ['string'],
+            },
         });
         new Client({
             formData: {
-                a: {
-                    value: "string",
-                    options: {}
-                }
-            }
+                a: [adone.fs.createReadStream(__filename)],
+            },
         });
         new Client({
             formData: {
                 a: {
-                    value: "string",
+                    value: 'string',
+                    options: {},
+                },
+            },
+        });
+        new Client({
+            formData: {
+                a: {
+                    value: 'string',
                     options: {
-                        contentType: "a"
-                    }
-                }
-            }
+                        contentType: 'a',
+                    },
+                },
+            },
         });
         new Client({
             formData: {
                 a: {
-                    value: "string",
+                    value: 'string',
                     options: {
-                        filename: "a"
-                    }
-                }
-            }
+                        filename: 'a',
+                    },
+                },
+            },
         });
         new Client({
             formData: {
                 a: {
-                    value: "string",
+                    value: 'string',
                     options: {
-                        header: "a"
-                    }
-                }
-            }
+                        header: 'a',
+                    },
+                },
+            },
         });
         new Client({
             formData: {
                 a: {
-                    value: "string",
+                    value: 'string',
                     options: {
                         header: {
-                            a: "a"
-                        }
-                    }
-                }
-            }
+                            a: 'a',
+                        },
+                    },
+                },
+            },
         });
         new Client({
             formData: {
                 a: {
-                    value: "string",
+                    value: 'string',
                     options: {
-                        knownLength: 100500
-                    }
-                }
-            }
+                        knownLength: 100500,
+                    },
+                },
+            },
         });
         new Client({
             formData: {
-                a: [{
-                    value: "string",
-                    options: {
-                        knownLength: 100500
-                    }
-                }]
-            }
+                a: [
+                    {
+                        value: 'string',
+                        options: {
+                            knownLength: 100500,
+                        },
+                    },
+                ],
+            },
         });
         new Client({
             headers: {
-                "User-Agent": "true"
-            }
+                'User-Agent': 'true',
+            },
         });
         new Client({
-            httpAgent: {}
+            httpAgent: {},
         });
         new Client({
-            httpsAgent: {}
+            httpsAgent: {},
         });
         new Client({
-            maxContentLength: 100500
+            maxContentLength: 100500,
         });
         new Client({
-            maxRedirects: 100500
+            maxRedirects: 100500,
         });
         new Client({
-            method: "GET"
+            method: 'GET',
         });
         new Client({
             onUploadProgress(event) {
                 bool = event.lengthComputable;
                 num = event.loaded;
                 num = event.total;
-            }
+            },
         });
         new Client({
             params: {
-                a: 1
-            }
+                a: 1,
+            },
         });
         new Client({
             paramsSerializer(params: object) {
-                return "asd";
-            }
+                return 'asd';
+            },
         });
         new Client({
-            proxy: "socks5://localhost"
+            proxy: 'socks5://localhost',
         });
         new Client({
             proxy: {
-                protocol: "socks5",
-                host: "127.0.0.1",
+                protocol: 'socks5',
+                host: '127.0.0.1',
                 port: 9000,
                 auth: {
-                    username: "hello",
-                    password: "world"
-                }
-            }
+                    username: 'hello',
+                    password: 'world',
+                },
+            },
         });
 
         new Client({
-            rejectUnauthorized: true
+            rejectUnauthorized: true,
         });
         new Client({
-            responseEncoding: "CP1251"
+            responseEncoding: 'CP1251',
         });
         new Client({
-            responseType: "stream"
+            responseType: 'stream',
         });
         new Client({
-            timeout: 100
+            timeout: 100,
         });
         new Client({
-            transformRequest: [(data, headers, config) => {
-                return data;
-            }]
+            transformRequest: [
+                (data, headers, config) => {
+                    return data;
+                },
+            ],
         });
         new Client({
-            transformResponse: [(data, headers, config) => {
-                return data;
-            }]
+            transformResponse: [
+                (data, headers, config) => {
+                    return data;
+                },
+            ],
         });
         new Client({
-            transport: adone.std.http
+            transport: adone.std.http,
         });
         new Client({
             validateStatus(status) {
                 return status > 100;
-            }
+            },
         });
         new Client({
-            xsrfCookieName: "a"
+            xsrfCookieName: 'a',
         });
         new Client({
-            xsrfHeaderName: "a"
+            xsrfHeaderName: 'a',
         });
 
         const req = new Client();
 
         namespace request {
             req.request({
-                method: "GET"
+                method: 'GET',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
-                const len = resp.headers["content-length"];
+                const len = resp.headers['content-length'];
                 if (!adone.is.undefined(len)) {
                     str = len;
                 }
@@ -237,24 +239,24 @@ namespace adoneTests.net.http.client {
                 }
             });
             req.request({
-                method: "GET",
-                responseType: "string"
+                method: 'GET',
+                responseType: 'string',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 str = resp.data;
             });
             req.request({
-                method: "GET",
-                responseType: "buffer"
+                method: 'GET',
+                responseType: 'buffer',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 buf = resp.data;
             });
             req.request({
-                method: "GET",
-                responseType: "stream"
+                method: 'GET',
+                responseType: 'stream',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
@@ -263,7 +265,7 @@ namespace adoneTests.net.http.client {
         }
 
         namespace get {
-            req.get("url").then((resp) => {
+            req.get('url').then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 const data = resp.data;
@@ -271,22 +273,22 @@ namespace adoneTests.net.http.client {
                     str = data;
                 }
             });
-            req.get("url", {
-                responseType: "string"
+            req.get('url', {
+                responseType: 'string',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 str = resp.data;
             });
-            req.get("url", {
-                responseType: "buffer"
+            req.get('url', {
+                responseType: 'buffer',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 buf = resp.data;
             });
-            req.get("url", {
-                responseType: "stream"
+            req.get('url', {
+                responseType: 'stream',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
@@ -295,7 +297,7 @@ namespace adoneTests.net.http.client {
         }
 
         namespace post {
-            req.post("url", {}).then((resp) => {
+            req.post('url', {}).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 const data = resp.data;
@@ -303,23 +305,35 @@ namespace adoneTests.net.http.client {
                     str = data;
                 }
             });
-            req.post("url", {}, {
-                responseType: "string"
-            }).then((resp) => {
+            req.post(
+                'url',
+                {},
+                {
+                    responseType: 'string',
+                },
+            ).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 str = resp.data;
             });
-            req.post("url", {}, {
-                responseType: "buffer"
-            }).then((resp) => {
+            req.post(
+                'url',
+                {},
+                {
+                    responseType: 'buffer',
+                },
+            ).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 buf = resp.data;
             });
-            req.post("url", {}, {
-                responseType: "stream"
-            }).then((resp) => {
+            req.post(
+                'url',
+                {},
+                {
+                    responseType: 'stream',
+                },
+            ).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 stream = resp.data;
@@ -327,7 +341,7 @@ namespace adoneTests.net.http.client {
         }
 
         namespace put {
-            req.put("url", {}).then((resp) => {
+            req.put('url', {}).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 const data = resp.data;
@@ -335,23 +349,35 @@ namespace adoneTests.net.http.client {
                     str = data;
                 }
             });
-            req.put("url", {}, {
-                responseType: "string"
-            }).then((resp) => {
+            req.put(
+                'url',
+                {},
+                {
+                    responseType: 'string',
+                },
+            ).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 str = resp.data;
             });
-            req.put("url", {}, {
-                responseType: "buffer"
-            }).then((resp) => {
+            req.put(
+                'url',
+                {},
+                {
+                    responseType: 'buffer',
+                },
+            ).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 buf = resp.data;
             });
-            req.put("url", {}, {
-                responseType: "stream"
-            }).then((resp) => {
+            req.put(
+                'url',
+                {},
+                {
+                    responseType: 'stream',
+                },
+            ).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 stream = resp.data;
@@ -359,7 +385,7 @@ namespace adoneTests.net.http.client {
         }
 
         namespace patch {
-            req.patch("url", {}).then((resp) => {
+            req.patch('url', {}).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 const data = resp.data;
@@ -367,23 +393,35 @@ namespace adoneTests.net.http.client {
                     str = data;
                 }
             });
-            req.patch("url", {}, {
-                responseType: "string"
-            }).then((resp) => {
+            req.patch(
+                'url',
+                {},
+                {
+                    responseType: 'string',
+                },
+            ).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 str = resp.data;
             });
-            req.patch("url", {}, {
-                responseType: "buffer"
-            }).then((resp) => {
+            req.patch(
+                'url',
+                {},
+                {
+                    responseType: 'buffer',
+                },
+            ).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 buf = resp.data;
             });
-            req.patch("url", {}, {
-                responseType: "stream"
-            }).then((resp) => {
+            req.patch(
+                'url',
+                {},
+                {
+                    responseType: 'stream',
+                },
+            ).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 stream = resp.data;
@@ -391,7 +429,7 @@ namespace adoneTests.net.http.client {
         }
 
         namespace _delete {
-            req.delete("url").then((resp) => {
+            req.delete('url').then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 const data = resp.data;
@@ -399,22 +437,22 @@ namespace adoneTests.net.http.client {
                     str = data;
                 }
             });
-            req.delete("url", {
-                responseType: "string"
+            req.delete('url', {
+                responseType: 'string',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 str = resp.data;
             });
-            req.delete("url", {
-                responseType: "buffer"
+            req.delete('url', {
+                responseType: 'buffer',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 buf = resp.data;
             });
-            req.delete("url", {
-                responseType: "stream"
+            req.delete('url', {
+                responseType: 'stream',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
@@ -423,7 +461,7 @@ namespace adoneTests.net.http.client {
         }
 
         namespace options {
-            req.options("url").then((resp) => {
+            req.options('url').then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 const data = resp.data;
@@ -431,22 +469,22 @@ namespace adoneTests.net.http.client {
                     str = data;
                 }
             });
-            req.options("url", {
-                responseType: "string"
+            req.options('url', {
+                responseType: 'string',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 str = resp.data;
             });
-            req.options("url", {
-                responseType: "buffer"
+            req.options('url', {
+                responseType: 'buffer',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
                 buf = resp.data;
             });
-            req.options("url", {
-                responseType: "stream"
+            req.options('url', {
+                responseType: 'stream',
             }).then((resp) => {
                 num = resp.status;
                 str = resp.statusText;
@@ -456,7 +494,7 @@ namespace adoneTests.net.http.client {
     }
 
     namespace request {
-        client.request.get("htllo").then((x) => {
+        client.request.get('htllo').then((x) => {
             num = x.status;
         });
     }
@@ -466,29 +504,25 @@ namespace adoneTests.net.http.client {
         client.create({});
         const req = client.create({
             headers: {
-                "User-Agent": "Hello"
-            }
+                'User-Agent': 'Hello',
+            },
         });
-        req.get("hello world").then((x) => {
+        req.get('hello world').then((x) => {
             num = x.status;
         });
     }
 
     namespace cancel {
-        const {
-            Cancel,
-            CancelToken,
-            isCancel
-        } = client;
+        const { Cancel, CancelToken, isCancel } = client;
 
         new CancelToken((s: string) => 123).promise.then((x) => {
             str = x.message;
         });
         new CancelToken((s: string) => 123).reason;
         CancelToken.source().token.promise;
-        CancelToken.source().cancel("hello");
+        CancelToken.source().cancel('hello');
 
-        new Cancel("hello").message;
+        new Cancel('hello').message;
 
         const a: any = 2;
 

@@ -1,21 +1,23 @@
 import { Logger } from 'splunk-logging';
 
 const config = {
-    token: "your-token-here",
-    url: "https://splunk.local:8088"
+    token: 'your-token-here',
+    url: 'https://splunk.local:8088',
 };
 
 const logger = new Logger(config);
 logger.requestOptions.strictSSL = true;
 logger.eventFormatter = (msg, sev) => ({});
-logger.error = (err, context) => { context.message; };
+logger.error = (err, context) => {
+    context.message;
+};
 logger.serializedEventQueue[0] = { foo: 'bar' };
 
 const payload = {
     message: {
-        temperature: "70F",
-        chickenCount: 500
-    }
+        temperature: '70F',
+        chickenCount: 500,
+    },
 };
 
 logger.send(payload, (err, resp, body) => {
@@ -25,7 +27,7 @@ logger.send(payload, (err, resp, body) => {
 });
 
 const fullPayload = {
-    message: [ 1, 2, 3 ],
+    message: [1, 2, 3],
     severity: 'error',
     metadata: {
         host: 'myHost',

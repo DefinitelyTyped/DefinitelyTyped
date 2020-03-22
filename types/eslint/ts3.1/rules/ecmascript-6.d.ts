@@ -7,17 +7,19 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 1.8.0
      * @see https://eslint.org/docs/rules/arrow-body-style
      */
-    'arrow-body-style': Linter.RuleEntry<[
-        'as-needed',
-        Partial<{
-            /**
-             * @default false
-             */
-            requireReturnForObjectLiteral: boolean;
-        }>
-    ]> | Linter.RuleEntry<[
-        'always' | 'never'
-    ]>;
+    'arrow-body-style':
+        | Linter.RuleEntry<
+              [
+                  'as-needed',
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      requireReturnForObjectLiteral: boolean;
+                  }>,
+              ]
+          >
+        | Linter.RuleEntry<['always' | 'never']>;
 
     /**
      * Rule to require parentheses around arrow function arguments.
@@ -25,17 +27,19 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 1.0.0-rc-1
      * @see https://eslint.org/docs/rules/arrow-parens
      */
-    'arrow-parens': Linter.RuleEntry<[
-        'always'
-    ]> | Linter.RuleEntry<[
-        'as-needed',
-        Partial<{
-            /**
-             * @default false
-             */
-            requireForBlockBody: boolean;
-        }>
-    ]>;
+    'arrow-parens':
+        | Linter.RuleEntry<['always']>
+        | Linter.RuleEntry<
+              [
+                  'as-needed',
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      requireForBlockBody: boolean;
+                  }>,
+              ]
+          >;
 
     /**
      * Rule to enforce consistent spacing before and after the arrow in arrow functions.
@@ -62,24 +66,45 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 0.17.0
      * @see https://eslint.org/docs/rules/generator-star-spacing
      */
-    'generator-star-spacing': Linter.RuleEntry<[
-        Partial<{
-            before: boolean;
-            after: boolean;
-            named: Partial<{
-                before: boolean;
-                after: boolean;
-            }> | 'before' | 'after' | 'both' | 'neither';
-            anonymous: Partial<{
-                before: boolean;
-                after: boolean;
-            }> | 'before' | 'after' | 'both' | 'neither';
-            method: Partial<{
-                before: boolean;
-                after: boolean;
-            }> | 'before' | 'after' | 'both' | 'neither';
-        }> | 'before' | 'after' | 'both' | 'neither'
-    ]>;
+    'generator-star-spacing': Linter.RuleEntry<
+        [
+            | Partial<{
+                  before: boolean;
+                  after: boolean;
+                  named:
+                      | Partial<{
+                            before: boolean;
+                            after: boolean;
+                        }>
+                      | 'before'
+                      | 'after'
+                      | 'both'
+                      | 'neither';
+                  anonymous:
+                      | Partial<{
+                            before: boolean;
+                            after: boolean;
+                        }>
+                      | 'before'
+                      | 'after'
+                      | 'both'
+                      | 'neither';
+                  method:
+                      | Partial<{
+                            before: boolean;
+                            after: boolean;
+                        }>
+                      | 'before'
+                      | 'after'
+                      | 'both'
+                      | 'neither';
+              }>
+            | 'before'
+            | 'after'
+            | 'both'
+            | 'neither',
+        ]
+    >;
 
     /**
      * Rule to disallow reassigning class members.
@@ -98,14 +123,16 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 2.0.0-alpha-2
      * @see https://eslint.org/docs/rules/no-confusing-arrow
      */
-    'no-confusing-arrow': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default true
-             */
-            allowParens: boolean;
-        }>
-    ]>;
+    'no-confusing-arrow': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                allowParens: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow reassigning `const` variables.
@@ -135,14 +162,16 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 2.5.0
      * @see https://eslint.org/docs/rules/no-duplicate-import
      */
-    'no-duplicate-import': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            includeExports: boolean;
-        }>
-    ]>;
+    'no-duplicate-import': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                includeExports: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow `new` operators with the `Symbol` object.
@@ -161,20 +190,29 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 2.0.0-alpha-1
      * @see https://eslint.org/docs/rules/no-restricted-imports
      */
-    'no-restricted-imports': Linter.RuleEntry<[
-        ...Array<string | {
-            name: string;
-            importNames?: string[];
-            message?: string;
-        } | Partial<{
-            paths: Array<string | {
-                name: string;
-                importNames?: string[];
-                message?: string;
-            }>;
-            patterns: string[];
-        }>>
-    ]>;
+    'no-restricted-imports': Linter.RuleEntry<
+        [
+            ...Array<
+                | string
+                | {
+                      name: string;
+                      importNames?: string[];
+                      message?: string;
+                  }
+                | Partial<{
+                      paths: Array<
+                          | string
+                          | {
+                                name: string;
+                                importNames?: string[];
+                                message?: string;
+                            }
+                      >;
+                      patterns: string[];
+                  }>
+            >
+        ]
+    >;
 
     /**
      * Rule to disallow `this`/`super` before calling `super()` in constructors.
@@ -209,22 +247,24 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 2.11.0
      * @see https://eslint.org/docs/rules/no-useless-rename
      */
-    'no-useless-rename': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            ignoreImport: boolean;
-            /**
-             * @default false
-             */
-            ignoreExport: boolean;
-            /**
-             * @default false
-             */
-            ignoreDestructuring: boolean;
-        }>
-    ]>;
+    'no-useless-rename': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                ignoreImport: boolean;
+                /**
+                 * @default false
+                 */
+                ignoreExport: boolean;
+                /**
+                 * @default false
+                 */
+                ignoreDestructuring: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to require `let` or `const` instead of `var`.
@@ -240,33 +280,38 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 0.20.0
      * @see https://eslint.org/docs/rules/object-shorthand
      */
-    'object-shorthand': Linter.RuleEntry<[
-        'always' | 'methods',
-        Partial<{
-            /**
-             * @default false
-             */
-            avoidQuotes: boolean;
-            /**
-             * @default false
-             */
-            ignoreConstructors: boolean;
-            /**
-             * @default false
-             */
-            avoidExplicitReturnArrows: boolean;
-        }>
-    ]> | Linter.RuleEntry<[
-        'properties',
-        Partial<{
-            /**
-             * @default false
-             */
-            avoidQuotes: boolean;
-        }>
-    ]> | Linter.RuleEntry<[
-        'never' | 'consistent' | 'consistent-as-needed'
-    ]>;
+    'object-shorthand':
+        | Linter.RuleEntry<
+              [
+                  'always' | 'methods',
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      avoidQuotes: boolean;
+                      /**
+                       * @default false
+                       */
+                      ignoreConstructors: boolean;
+                      /**
+                       * @default false
+                       */
+                      avoidExplicitReturnArrows: boolean;
+                  }>,
+              ]
+          >
+        | Linter.RuleEntry<
+              [
+                  'properties',
+                  Partial<{
+                      /**
+                       * @default false
+                       */
+                      avoidQuotes: boolean;
+                  }>,
+              ]
+          >
+        | Linter.RuleEntry<['never' | 'consistent' | 'consistent-as-needed']>;
 
     /**
      * Rule to require using arrow functions for callbacks.
@@ -274,18 +319,20 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 1.2.0
      * @see https://eslint.org/docs/rules/prefer-arrow-callback
      */
-    'prefer-arrow-callback': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            allowNamedFunctions: boolean;
-            /**
-             * @default true
-             */
-            allowUnboundThis: boolean;
-        }>
-    ]>;
+    'prefer-arrow-callback': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                allowNamedFunctions: boolean;
+                /**
+                 * @default true
+                 */
+                allowUnboundThis: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to require `const` declarations for variables that are never reassigned after declared.
@@ -293,18 +340,20 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 0.23.0
      * @see https://eslint.org/docs/rules/prefer-const
      */
-    'prefer-const': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default 'any'
-             */
-            destructuring: 'any' | 'all';
-            /**
-             * @default false
-             */
-            ignoreReadBeforeAssign: boolean;
-        }>
-    ]>;
+    'prefer-const': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default 'any'
+                 */
+                destructuring: 'any' | 'all';
+                /**
+                 * @default false
+                 */
+                ignoreReadBeforeAssign: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to require destructuring from arrays and/or objects.
@@ -312,24 +361,29 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 3.13.0
      * @see https://eslint.org/docs/rules/prefer-destructuring
      */
-    'prefer-destructuring': Linter.RuleEntry<[
-        Partial<{
-            VariableDeclarator: Partial<{
-                array: boolean;
-                object: boolean;
-            }>;
-            AssignmentExpression: Partial<{
-                array: boolean;
-                object: boolean;
-            }>;
-        } | {
-            array: boolean;
-            object: boolean;
-        }>,
-        Partial<{
-            enforceForRenamedProperties: boolean;
-        }>
-    ]>;
+    'prefer-destructuring': Linter.RuleEntry<
+        [
+            Partial<
+                | {
+                      VariableDeclarator: Partial<{
+                          array: boolean;
+                          object: boolean;
+                      }>;
+                      AssignmentExpression: Partial<{
+                          array: boolean;
+                          object: boolean;
+                      }>;
+                  }
+                | {
+                      array: boolean;
+                      object: boolean;
+                  }
+            >,
+            Partial<{
+                enforceForRenamedProperties: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow `parseInt()` and `Number.parseInt()` in favor of binary, octal, and hexadecimal literals.
@@ -380,9 +434,7 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 2.12.0
      * @see https://eslint.org/docs/rules/rest-spread-spacing
      */
-    'rest-spread-spacing': Linter.RuleEntry<[
-        'never' | 'always'
-    ]>;
+    'rest-spread-spacing': Linter.RuleEntry<['never' | 'always']>;
 
     /**
      * Rule to enforce sorted import declarations within modules.
@@ -390,26 +442,28 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 2.0.0-beta.1
      * @see https://eslint.org/docs/rules/sort-imports
      */
-    'sort-imports': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            ignoreCase: boolean;
-            /**
-             * @default false
-             */
-            ignoreDeclarationSort: boolean;
-            /**
-             * @default false
-             */
-            ignoreMemberSort: boolean;
-            /**
-             * @default ['none', 'all', 'multiple', 'single']
-             */
-            memberSyntaxSortOrder: Array<'none' | 'all' | 'multiple' | 'single'>;
-        }>
-    ]>;
+    'sort-imports': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                ignoreCase: boolean;
+                /**
+                 * @default false
+                 */
+                ignoreDeclarationSort: boolean;
+                /**
+                 * @default false
+                 */
+                ignoreMemberSort: boolean;
+                /**
+                 * @default ['none', 'all', 'multiple', 'single']
+                 */
+                memberSyntaxSortOrder: Array<'none' | 'all' | 'multiple' | 'single'>;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to require symbol descriptions.
@@ -425,9 +479,7 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 2.0.0-rc.0
      * @see https://eslint.org/docs/rules/template-curly-spacing
      */
-    'template-curly-spacing': Linter.RuleEntry<[
-        'never' | 'always'
-    ]>;
+    'template-curly-spacing': Linter.RuleEntry<['never' | 'always']>;
 
     /**
      * Rule to require or disallow spacing around the `*` in `yield*` expressions.
@@ -435,10 +487,16 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 2.0.0-alpha-1
      * @see https://eslint.org/docs/rules/yield-star-spacing
      */
-    'yield-star-spacing': Linter.RuleEntry<[
-        Partial<{
-            before: boolean;
-            after: boolean;
-        }> | 'before' | 'after' | 'both' | 'neither'
-    ]>;
+    'yield-star-spacing': Linter.RuleEntry<
+        [
+            | Partial<{
+                  before: boolean;
+                  after: boolean;
+              }>
+            | 'before'
+            | 'after'
+            | 'both'
+            | 'neither',
+        ]
+    >;
 }

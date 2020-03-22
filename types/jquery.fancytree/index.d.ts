@@ -7,7 +7,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-
 ///<reference types="jquery" />
 ///<reference types="jqueryui" />
 
@@ -203,10 +202,10 @@ declare namespace Fancytree {
         warn(msg: any): void;
 
         /** Temporarily suppress rendering to improve performance on bulk-updates.
-        *
-        * @param {boolean} flag
-        * @returns {boolean} previous status
-        * @since 2.19 */
+         *
+         * @param {boolean} flag
+         * @returns {boolean} previous status
+         * @since 2.19 */
         enableUpdate(enabled: boolean): void;
     }
 
@@ -297,7 +296,6 @@ declare namespace Fancytree {
          */
         addChildren(child: Fancytree.NodeData, insertBefore?: number): FancytreeNode;
 
-
         /** Add class to node's span tag and to .extraClasses.
          * @param className class name
          */
@@ -357,9 +355,9 @@ declare namespace Fancytree {
         findAll(match: string): FancytreeNode[];
 
         /** Find all nodes that contain `match` in the title.
-          *
-          * @param match a function that returns `true` if a node is matched.
-          */
+         *
+         * @param match a function that returns `true` if a node is matched.
+         */
         findAll(match: (node: FancytreeNode) => boolean): FancytreeNode[];
 
         /** Find first node that contains `match` in the title (not including self).
@@ -369,9 +367,9 @@ declare namespace Fancytree {
         findFirst(match: string): FancytreeNode;
 
         /** Find first node that contains `match` in the title (not including self).
-          *
-          * @param match a function that returns `true` if a node is matched.
-          */
+         *
+         * @param match a function that returns `true` if a node is matched.
+         */
         findFirst(match: (node: FancytreeNode) => boolean): FancytreeNode;
 
         /** Fix selection status, after this node was (de)selected in multi-hier mode. This includes (de)selecting all children. */
@@ -417,7 +415,7 @@ declare namespace Fancytree {
          *
          * @param includeRoot Include the invisible system root node. (default=false)
          * @param includeSelf Include the node itself (default=false).
-          */
+         */
         getParentList(includeRoot: boolean, includeSelf: boolean): FancytreeNode[];
 
         /** Return the predecessor node (under the same parent) or null. */
@@ -673,13 +671,13 @@ declare namespace Fancytree {
         activate = 1,
         expand = 2,
         activate_and_expand = 3,
-        activate_dblclick_expands = 4
+        activate_dblclick_expands = 4,
     }
 
     enum FancytreeSelectMode {
         single = 1,
         multi = 2,
-        mutlti_hier = 3
+        mutlti_hier = 3,
     }
 
     /** Context object passed to events and hook functions. */
@@ -687,7 +685,7 @@ declare namespace Fancytree {
         /** The tree instance */
         tree: Fancytree;
         /** The jQuery UI tree widget */
-        widget: any;    // JQueryUI.Widget;
+        widget: any; // JQueryUI.Widget;
         /** Shortcut to tree.options */
         options: FancytreeOptions;
         /** The jQuery Event that initially triggered this call */
@@ -695,7 +693,7 @@ declare namespace Fancytree {
         /** The node that this call applies to (`null` for tree events) */
         node: FancytreeNode;
         /** (output parameter) Event handlers can return values back to the
-          * caller. Used by `lazyLoad`, `postProcess`, ... */
+         * caller. Used by `lazyLoad`, `postProcess`, ... */
         result: any;
         /** (only for click and dblclick events) 'title' | 'prefix' | 'expander' | 'checkbox' | 'icon' */
         targetType: string;
@@ -826,7 +824,7 @@ declare namespace Fancytree {
         /** Right to left mode (default: false) */
         rtl?: false;
         /** optional margins for node.scrollIntoView() (default: {top: 0, bottom: 0}) */
-        scrollOfs?: { top: number, bottom: number };
+        scrollOfs?: { top: number; bottom: number };
         /** scrollable container for node.scrollIntoView() (default: $container) */
         scrollParent?: JQuery | null;
         /** default: multi_hier */
@@ -1045,7 +1043,6 @@ declare namespace Fancytree {
         }
     }
 
-
     /** Data object passed to FancytreeNode() constructor. Note: typically these attributes are accessed by meber methods, e.g. `node.isExpanded()` and `node.setSelected(false)`.  */
     interface NodeData {
         /** node text (may contain HTML tags) */
@@ -1090,7 +1087,7 @@ declare namespace Fancytree {
     }
 
     /** Data object similar to NodeData, but with additional options.
-      * May be passed to FancytreeNode#applyPatch (Every property that is omitted (or set to undefined) will be ignored)  */
+     * May be passed to FancytreeNode#applyPatch (Every property that is omitted (or set to undefined) will be ignored)  */
     interface NodePatch {
         /** (not yet implemented) */
         appendChildren?: NodeData;
@@ -1146,4 +1143,3 @@ declare namespace Fancytree {
         warn(msg: string): void;
     }
 }
-

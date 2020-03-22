@@ -5,8 +5,8 @@
  * Created by using code samples from https://github.com/mashpie/i18n-node.
  */
 
-import express = require("express");
-import i18n = require("i18n");
+import express = require('express');
+import i18n = require('i18n');
 
 const app = express();
 declare const req: express.Request;
@@ -17,12 +17,12 @@ declare const req: express.Request;
  */
 i18n.configure({
     locales: ['en', 'de'],
-    directory: __dirname + '/locales'
+    directory: __dirname + '/locales',
 });
 
 i18n.configure({
     // setup some locales - other locales default to en silently
-    locales: [ 'en', 'de' ],
+    locales: ['en', 'de'],
 
     // fall back from Dutch to German
     fallbacks: { nl: 'de' },
@@ -52,7 +52,7 @@ i18n.configure({
     syncFiles: false,
 
     // what to use as the indentation unit - defaults to "\t"
-    indent: "\t",
+    indent: '\t',
 
     // setting extension of json files - defaults to '.json' (you might want to set this to '.js' according to webtranslateit)
     extension: '.js',
@@ -84,14 +84,14 @@ i18n.configure({
     // hash to specify different aliases for i18n's internal methods to apply on the request/response objects (method -> alias).
     // note that this will *not* overwrite existing properties with the same name
     api: {
-      __: 't',  // now req.__ becomes req.t
-      __n: 'tn' // and req.__n can be called as req.tn
+        __: 't', // now req.__ becomes req.t
+        __n: 'tn', // and req.__n can be called as req.tn
     },
 
     // Downcase locale when passed on queryParam; e.g. lang=en-US becomes
     // en-us.  When set to false, the queryParam value will be used as passed;
     // e.g. lang=en-US remains en-US.
-    preserveLegacyCase: true
+    preserveLegacyCase: true,
 });
 
 /**
@@ -137,27 +137,27 @@ i18n.__({ phrase: 'Hello {{name}}', locale: 'fr' }, { name: 'Marcus' }); // Salu
  */
 // short syntax
 // global (this.locale == 'de')
-i18n.__n("%s cat", 1); // 1 Katze
-i18n.__n("%s cat", 3); // 3 Katzen
+i18n.__n('%s cat', 1); // 1 Katze
+i18n.__n('%s cat', 3); // 3 Katzen
 
 // scoped via req object (req.locale == 'de')
-req.__n("%s cat", 1); // 1 Katze
-req.__n("%s cat", 3); // 3 Katzen
+req.__n('%s cat', 1); // 1 Katze
+req.__n('%s cat', 3); // 3 Katzen
 
 // long syntax
 // global (this.locale == 'de')
-i18n.__n("%s cat", "%s cats", 1); // 1 Katze
-i18n.__n("%s cat", "%s cats", 3); // 3 Katzen
+i18n.__n('%s cat', '%s cats', 1); // 1 Katze
+i18n.__n('%s cat', '%s cats', 3); // 3 Katzen
 
 // scoped via req object (req.locale == 'de')
-req.__n("%s cat", "%s cats", 1); // 1 Katze
-req.__n("%s cat", "%s cats", 3); // 3 Katzen
+req.__n('%s cat', '%s cats', 1); // 1 Katze
+req.__n('%s cat', '%s cats', 3); // 3 Katzen
 
 // passing specific locale
-i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr" }, 1); // 1 chat
-i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr" }, 3); // 3 chat
-i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 1 }); // 1 chat
-i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 3 }); // 3 chat
+i18n.__n({ singular: '%s cat', plural: '%s cats', locale: 'fr' }, 1); // 1 chat
+i18n.__n({ singular: '%s cat', plural: '%s cats', locale: 'fr' }, 3); // 3 chat
+i18n.__n({ singular: '%s cat', plural: '%s cats', locale: 'fr', count: 1 }); // 1 chat
+i18n.__n({ singular: '%s cat', plural: '%s cats', locale: 'fr', count: 3 }); // 3 chat
 
 /**
  * __mf()
@@ -177,7 +177,7 @@ app.get('/de', (_req: Express.Request, res: Express.Response) => {
     res.__mf('Hello {name}, how was your %s?', 'test', { name: 'Marcus' }); // --> Hallo Marcus, wie war dein test?
 
     // now check out a plural rule
-    res.__mf('{N, plural, one{# cat} few{# cats} many{# cats} others{# cats}}', {N: 1});
+    res.__mf('{N, plural, one{# cat} few{# cats} many{# cats} others{# cats}}', { N: 1 });
 });
 
 /**

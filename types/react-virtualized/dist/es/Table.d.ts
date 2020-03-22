@@ -37,7 +37,7 @@ export type MultiSortReturn = {
 
 export function createMultiSort(
     sortCallback: (params: { sortBy: string; sortDirection: SortDirectionType }) => void,
-    options?: MultiSortOptions
+    options?: MultiSortOptions,
 ): MultiSortReturn;
 
 export type TableCellDataGetterParams = {

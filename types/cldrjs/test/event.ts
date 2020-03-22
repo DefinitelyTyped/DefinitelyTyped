@@ -1,32 +1,32 @@
-Cldr.on("get", (path, value) => {
+Cldr.on('get', (path, value) => {
     console.log(path);
     console.log(value);
 });
 
-Cldr.once("get", (path, value) => {
+Cldr.once('get', (path, value) => {
     console.log(path);
     console.log(value);
 });
 
-Cldr.off("get", (path, value) => {
+Cldr.off('get', (path, value) => {
     console.log(path);
     console.log(value);
 });
 
 {
-    const cldr = new Cldr("en");
+    const cldr = new Cldr('en');
 
-    cldr.on("get", (path, value) => {
+    cldr.on('get', (path, value) => {
         console.log(path);
         console.log(value);
     });
 
-    cldr.once("get", (path, value) => {
+    cldr.once('get', (path, value) => {
         console.log(path);
         console.log(value);
     });
 
-    cldr.off("get", (path, value) => {
+    cldr.off('get', (path, value) => {
         console.log(path);
         console.log(value);
     });

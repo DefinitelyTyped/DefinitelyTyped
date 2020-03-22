@@ -1,4 +1,4 @@
-declare module "querystring" {
+declare module 'querystring' {
     interface StringifyOptions {
         encodeURIComponent?: (str: string) => string;
     }
@@ -8,7 +8,9 @@ declare module "querystring" {
         decodeURIComponent?: (str: string) => string;
     }
 
-    interface ParsedUrlQuery { [key: string]: string | string[]; }
+    interface ParsedUrlQuery {
+        [key: string]: string | string[];
+    }
 
     interface ParsedUrlQueryInput {
         [key: string]: NodeJS.PoorMansUnknown;

@@ -17,6 +17,6 @@ twemoji.convert.fromCodePoint('1f1e8');
 
 twemoji.convert.toCodePoint('\ud83c\udde8\ud83c\uddf3');
 
-if (twemoji.test("foo")) {
-    console.log("emoji All The Things!");
+if (twemoji.test('foo')) {
+    console.log('emoji All The Things!');
 }

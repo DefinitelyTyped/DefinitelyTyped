@@ -19,7 +19,9 @@ declare namespace rockset {
         workspaces: WorkspacesApi;
     }
 
-    interface RequestCallback { (err: any, data: any, response: any): void; }
+    interface RequestCallback {
+        (err: any, data: any, response: any): void;
+    }
 
     interface ApiKeysApi {
         create(body: CreateApiKeyRequest, callback?: RequestCallback): CreateApiKeyResponse;
@@ -36,8 +38,18 @@ declare namespace rockset {
     }
 
     interface DocumentsApi {
-        add(workspace: string, collection: string, body: AddDocumentsRequest, callback?: RequestCallback): AddDocumentsResponse;
-        remove(workspace: string, collection: string, body: DeleteDocumentsRequest, callback?: RequestCallback): DeleteDocumentsResponse;
+        add(
+            workspace: string,
+            collection: string,
+            body: AddDocumentsRequest,
+            callback?: RequestCallback,
+        ): AddDocumentsResponse;
+        remove(
+            workspace: string,
+            collection: string,
+            body: DeleteDocumentsRequest,
+            callback?: RequestCallback,
+        ): DeleteDocumentsResponse;
     }
 
     interface IntegrationsApi {

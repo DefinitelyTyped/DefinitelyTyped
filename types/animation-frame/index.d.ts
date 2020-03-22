@@ -4,9 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AnimationFrame {
-    new(): AnimationFrame;
+    new (): AnimationFrame;
     request(callback: () => void): void;
 }
 
 declare var AnimationFrame: AnimationFrame;
-

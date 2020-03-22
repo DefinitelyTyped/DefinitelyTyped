@@ -16,8 +16,8 @@
 /// <reference types="node" />
 /// <reference types="koa" />
 
-import * as Koa from "koa";
-import * as zlib from "zlib";
+import * as Koa from 'koa';
+import * as zlib from 'zlib';
 
 /**
  * Compress middleware for Koa
@@ -36,6 +36,6 @@ declare namespace koaCompress {
         /**
          * Minimum response size in bytes to compress. Default 1024 bytes or 1kb.
          */
-        threshold?: number
+        threshold?: number;
     }
 }

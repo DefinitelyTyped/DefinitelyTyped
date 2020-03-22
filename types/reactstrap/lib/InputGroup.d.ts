@@ -9,5 +9,5 @@ export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class InputGroup<T = {[key: string]: any}> extends React.Component<InputGroupProps> {}
+declare class InputGroup<T = { [key: string]: any }> extends React.Component<InputGroupProps> {}
 export default InputGroup;

@@ -6,7 +6,7 @@ const cache = new Cache<string, string>({
     staleWhileRevalidate: 86400,
     revalidate: (key, callback) => {
         callback(null, 'Value of ' + key);
-    }
+    },
 });
 
 const success: boolean = cache.set('key', 'value'); // true

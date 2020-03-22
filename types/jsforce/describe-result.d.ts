@@ -1,4 +1,4 @@
-type maybe<T> = (T | null | undefined)
+type maybe<T> = T | null | undefined;
 
 // From
 // https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_describesobjects_describesobjectresult.htm
@@ -87,7 +87,7 @@ export interface Field {
     formula?: maybe<string>;
     groupable: boolean;
     highScaleNumber?: maybe<boolean>;
-    htmlFormatted :boolean;
+    htmlFormatted: boolean;
     idLookup: boolean;
     inlineHelpText?: maybe<string>;
     label: string;
@@ -125,7 +125,7 @@ export type ExtraTypeInfo =
     | 'richtextarea'
     | 'switchablepersonname'
     | 'externallookup'
-    | 'indirectlookup'
+    | 'indirectlookup';
 
 export type FieldType =
     | 'string'
@@ -152,7 +152,7 @@ export type FieldType =
     | 'time'
     | 'encryptedstring'
     | 'address'
-    | 'complexvalue'
+    | 'complexvalue';
 
 export interface FilteredLookupInfo {
     controllingFields: string[];
@@ -178,7 +178,7 @@ export type SOAPType =
     | 'urn:RecordTypesSupported'
     | 'urn:RelationshipReferenceTo'
     | 'urn:SearchLayoutButtonsDisplayed'
-    | 'urn:SearchLayoutFieldsDisplayed'
+    | 'urn:SearchLayoutFieldsDisplayed';
 
 export interface PicklistEntry {
     active: boolean;

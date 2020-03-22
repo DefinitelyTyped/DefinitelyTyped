@@ -30,7 +30,7 @@ const serveConfig: serve.Options = {
     logLevel: 'info',
     logTime: false,
     on: {
-        'build-finished': args => {
+        'build-finished': (args) => {
             console.log(args.stats.toString());
         },
     },
@@ -42,8 +42,8 @@ const serveConfig: serve.Options = {
 
 const promise = serve({}, serveConfig);
 
-promise.then(result => {
-    result.on('compiler-error', args => {
+promise.then((result) => {
+    result.on('compiler-error', (args) => {
         console.log(args.stats);
     });
 });

@@ -1,13 +1,13 @@
 function testIdbDbCreation() {
     const basicDB = new PouchDB('basic', {
-        adapter: 'idb'
+        adapter: 'idb',
     });
     const persistentDb = new PouchDB('persistent', {
         adapter: 'idb',
-        storage: 'persistent'
+        storage: 'persistent',
     });
     const temporaryDb = new PouchDB('temporary', {
         adapter: 'idb',
-        storage: 'temporary'
+        storage: 'temporary',
     });
 }

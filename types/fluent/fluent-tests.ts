@@ -8,7 +8,7 @@ const errors1 = bundle1.addMessages(ftl`
 `);
 
 if (errors1.length) {
-  // syntax errors are per-message and don't break the whole resource
+    // syntax errors are per-message and don't break the whole resource
 }
 
 const welcome = bundle1.getMessage('welcome');
@@ -21,10 +21,10 @@ const bundle2 = new FluentBundle(['en-US']);
 const bundle3 = new FluentBundle(['en-US'], { useIsolating: false });
 
 const bundle4 = new FluentBundle(['en-US'], {
-  useIsolating: true,
-  functions: {
-    NODE_ENV: () => 'production'
-  }
+    useIsolating: true,
+    functions: {
+        NODE_ENV: () => 'production',
+    },
 });
 
 // FluentBundle addMessages examples:
@@ -45,8 +45,8 @@ bundle3.format(hello || [], { name: 'Jane' }, errors2);
 bundle3.format(hello || [], undefined, errors2);
 
 for (const [id, message] of bundle1.messages) {
-  bundle1.getMessage(id);
-  bundle1.format(message);
+    bundle1.getMessage(id);
+    bundle1.format(message);
 }
 
 Array.isArray(bundle4.locales);

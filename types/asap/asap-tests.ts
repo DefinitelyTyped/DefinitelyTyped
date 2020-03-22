@@ -1,5 +1,5 @@
-import asap = require("asap");
-import rawAsap = require("asap/raw");
+import asap = require('asap');
+import rawAsap = require('asap/raw');
 
 class Callable {
     call(): void {

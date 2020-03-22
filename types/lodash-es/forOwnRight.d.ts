@@ -1,2 +1,2 @@
-import { forOwnRight } from "lodash";
+import { forOwnRight } from 'lodash';
 export default forOwnRight;

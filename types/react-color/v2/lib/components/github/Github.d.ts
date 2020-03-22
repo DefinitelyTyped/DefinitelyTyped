@@ -1,5 +1,5 @@
-import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
+import { Component, CSSProperties } from 'react';
+import { CustomPickerProps, ColorState } from '../../..';
 
 export interface GithubPickerDefaultStyles {
     card?: CSSProperties;
@@ -14,10 +14,10 @@ export interface GithubPickerTriangleStyles {
 
 export interface GithubPickerHideTriangleStyles {
     triangle?: CSSProperties;
-    "top-left-triangle"?: GithubPickerTriangleStyles;
-    "top-right-triangle"?: GithubPickerTriangleStyles;
-    "bottom-left-triangle"?: GithubPickerTriangleStyles;
-    "bottom-right-triangle"?: GithubPickerTriangleStyles;
+    'top-left-triangle'?: GithubPickerTriangleStyles;
+    'top-right-triangle'?: GithubPickerTriangleStyles;
+    'bottom-left-triangle'?: GithubPickerTriangleStyles;
+    'bottom-right-triangle'?: GithubPickerTriangleStyles;
 }
 
 export interface GithubPickerStyles {
@@ -27,7 +27,7 @@ export interface GithubPickerStyles {
 export interface GithubPickerProps extends CustomPickerProps {
     colors?: string[];
     width?: string;
-    triangle?: "hide" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+    triangle?: 'hide' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
     onSwatchHover?(color: ColorState, event: MouseEvent): void;
     className?: string;
     styles?: GithubPickerStyles;

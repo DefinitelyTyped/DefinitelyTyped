@@ -28,7 +28,7 @@ export class Scene {
     loadMap(src: string, id?: string): void;
     notify(name: string, data?: JSObject): void;
     removeObject(obj: Drawable): void;
-    setBackgroundImage(image: string|HTMLImageElement): void;
+    setBackgroundImage(image: string | HTMLImageElement): void;
     setLayerPriority(layer: number, background: boolean): void;
     setMap(map: Map | JSObject, x?: number, y?: number): void;
     setOpacity(opacity: number): void;
@@ -57,8 +57,8 @@ export class Drawable {
     notify(id: string, data?: JSObject): void;
     onCollision(object: Drawable): void;
     onEvent(eventType: string, data?: JSObject): void;
-    playSound(id: string, options?: { pan?: boolean, loop?: false }): void;
-    setBehavior(behavior: string | { new(sprite: Drawable, options?: JSObject): Behavior }, options?: JSObject): void;
+    playSound(id: string, options?: { pan?: boolean; loop?: false }): void;
+    setBehavior(behavior: string | { new (sprite: Drawable, options?: JSObject): Behavior }, options?: JSObject): void;
     setScale(scale: number): void;
     getCurrentWidth(): number;
     getCurrentHeight(): number;
@@ -122,7 +122,15 @@ export class SimpleText extends Drawable {
 }
 export class Paint extends Drawable {
     constructor(type: string, paintOptions: PaintOptions);
-    arc(cx: number, cy: number, r: number, starteAngle: number, endAngle: number, fillStyle: string, borderSize: number): void;
+    arc(
+        cx: number,
+        cy: number,
+        r: number,
+        starteAngle: number,
+        endAngle: number,
+        fillStyle: string,
+        borderSize: number,
+    ): void;
     fill(color?: string): void;
     circle(cx: number, cy: number, r: number, fillStyle?: string, borderWidth?: number, borderStyle?: string): void;
     rect(x: number, y: number, width: number, height: number, color: string): void;
@@ -206,7 +214,7 @@ export interface MapOptions {
 }
 
 export interface FXInstance {
-    addFX(fxName: string, FxClass: { new(options: EffectOptions, display: Display): Effect }): void;
+    addFX(fxName: string, FxClass: { new (options: EffectOptions, display: Display): Effect }): void;
 }
 
 export const FX: FXInstance;
@@ -220,7 +228,7 @@ export class _FX {
     /**
      * Add a new Effect
      */
-    addFX(fxName: string, FxClass: { new(): Effect }): void;
+    addFX(fxName: string, FxClass: { new (): Effect }): void;
 
     /**
      * Retrieve an effect Class by its name
@@ -482,20 +490,20 @@ export interface _AudioManager {
      *
      */
     addSound(id: string, element: HTMLAudioElement): void;
-/**
- * Toggles global sound playback
- *
- */
+    /**
+     * Toggles global sound playback
+     *
+     */
     toggleSound(bool: boolean): void;
-/**
- * Plays the specified sound with `id`.
- *
- */
+    /**
+     * Plays the specified sound with `id`.
+     *
+     */
     play(id: string, loop?: boolean, volume?: number, panning?: number): any;
-/**
- * Stops playing the sound id
- *
- */
+    /**
+     * Stops playing the sound id
+     *
+     */
     stop(id: string, instanceId: any): void;
 }
 
@@ -529,98 +537,98 @@ export interface _ResourceManager {
 export const ResourceManager: _ResourceManager;
 
 export interface _InputManager {
-/**
- * A list of common keyCodes
- */
-KEYS: {
-    'UP': 38,
-    'DOWN': 40,
-    'LEFT': 37,
-    'RIGHT': 39,
-    'SPACE': 32,
-    'ENTER': 13,
-    'ESCAPE': 27,
-    'CTRL': 17
-};
-/**
- * List of common pad buttons
- */
-PAD_BUTTONS: {
-    32: 1, // Face (main) buttons
-    FACE_0: 1,
-    FACE_3: 2,
-    FACE_4: 3,
-    LEFT_SHOULDER: 4, // Top shoulder buttons
-    RIGHT_SHOULDER: 5,
-    LEFT_SHOULDER_BOTTOM: 6, // Bottom shoulder buttons
-    RIGHT_SHOULDER_BOTTOM: 7,
-    SELECT: 8,
-    START: 9,
-    LEFT_ANALOGUE_STICK: 10, // Analogue sticks (if depressible)
-    RIGHT_ANALOGUE_STICK: 11,
-    38: 12, // Directional (discrete) pad
-    40: 13,
-    37: 14,
-    39: 15
-};
-axes: JSObject;
-newGamepadPollDelay: number;
-gamepadSupport: boolean;
-recording: boolean;
-playingEvents: boolean;
-playingPos: number;
-/*recordedEvents: Array,*/
-pad: null;
-latches: JSObject;
-keyPressed: JSObject;
-padPressed: JSObject;
-keyCb: JSObject;
-enabled: boolean;
-inputMode: string;
-// virtual joystick instance
-dPadJoystick: null;
-jPollInterval: number;
-/**
- * Initializes the InputManager with a reference to the game.
- *
- * This method prepares the InputManager by reseting keyboard states/handlers and
- * set current inputMode
- *
- */
+    /**
+     * A list of common keyCodes
+     */
+    KEYS: {
+        UP: 38;
+        DOWN: 40;
+        LEFT: 37;
+        RIGHT: 39;
+        SPACE: 32;
+        ENTER: 13;
+        ESCAPE: 27;
+        CTRL: 17;
+    };
+    /**
+     * List of common pad buttons
+     */
+    PAD_BUTTONS: {
+        32: 1; // Face (main) buttons
+        FACE_0: 1;
+        FACE_3: 2;
+        FACE_4: 3;
+        LEFT_SHOULDER: 4; // Top shoulder buttons
+        RIGHT_SHOULDER: 5;
+        LEFT_SHOULDER_BOTTOM: 6; // Bottom shoulder buttons
+        RIGHT_SHOULDER_BOTTOM: 7;
+        SELECT: 8;
+        START: 9;
+        LEFT_ANALOGUE_STICK: 10; // Analogue sticks (if depressible)
+        RIGHT_ANALOGUE_STICK: 11;
+        38: 12; // Directional (discrete) pad
+        40: 13;
+        37: 14;
+        39: 15;
+    };
+    axes: JSObject;
+    newGamepadPollDelay: number;
+    gamepadSupport: boolean;
+    recording: boolean;
+    playingEvents: boolean;
+    playingPos: number;
+    /*recordedEvents: Array,*/
+    pad: null;
+    latches: JSObject;
+    keyPressed: JSObject;
+    padPressed: JSObject;
+    keyCb: JSObject;
+    enabled: boolean;
+    inputMode: string;
+    // virtual joystick instance
+    dPadJoystick: null;
+    jPollInterval: number;
+    /**
+     * Initializes the InputManager with a reference to the game.
+     *
+     * This method prepares the InputManager by reseting keyboard states/handlers and
+     * set current inputMode
+     *
+     */
     init(): void;
-/**
- * Starts recording input events. They are stored into `InputManager.recordedEvents`
- */
-startRecordingEvents(): void;
-/**
- * Stops recording events.
- */
-stopRecordingEvents(): void;
-/**
- * After events have been reccorded they can be played back using this method.
- */
-playRecordedEvents(): void;
-/**
- * Sets next key states using recorded events
- *
- * TODO: add an optional callback to be called at the end of the playback
- * so that demo can be looped.
- */
-nextRecordedEvents(): void;
-/**
- * Saves current event state onto the recordedEvents stack
- */
-/**
- * Changes input mode
- *
- */
-setInputMode(mode: string): void;
+    /**
+     * Starts recording input events. They are stored into `InputManager.recordedEvents`
+     */
+    startRecordingEvents(): void;
+    /**
+     * Stops recording events.
+     */
+    stopRecordingEvents(): void;
+    /**
+     * After events have been reccorded they can be played back using this method.
+     */
+    playRecordedEvents(): void;
+    /**
+     * Sets next key states using recorded events
+     *
+     * TODO: add an optional callback to be called at the end of the playback
+     * so that demo can be looped.
+     */
+    nextRecordedEvents(): void;
+    /**
+     * Saves current event state onto the recordedEvents stack
+     */
+    /**
+     * Changes input mode
+     *
+     */
+    setInputMode(mode: string): void;
     /**
      * Returns an object with the state of all keys
      */
     getAllKeysStatus(): JSObject;
     getKeyStatus(key: string, latch: boolean): boolean;
-    isKeyDown(key: string|number, latch?: boolean): boolean;
+    isKeyDown(key: string | number, latch?: boolean): boolean;
     /**
      * Install callback that gets called when a key is pressed/released
      *
@@ -654,7 +662,7 @@ export interface _Dom<TElement> extends Iterable<TElement> {
     length: number;
     css(prop: string, val: string): _Dom<TElement>;
     css(prop: JSObject): _Dom<TElement>;
-    css(prop: string): string|null;
+    css(prop: string): string | null;
     find(selector: string): _Dom<TElement>;
     appendTo(selector: string | _Dom<TElement> | HTMLElement): _Dom<TElement>;
     attr(att: string, val: string): _Dom<TElement>;
@@ -689,7 +697,7 @@ export interface SceneOptions {
 export interface DrawableOptions {
     x?: number;
     y?: number;
-    behavior?: { new(sprite: Drawable, options?: JSObject): Behavior };
+    behavior?: { new (sprite: Drawable, options?: JSObject): Behavior };
     canCollide?: boolean;
     canCollideFriendBullet?: boolean;
     collideGroup?: number;
@@ -763,7 +771,7 @@ export interface AnimationObject {
             y: number;
             x2: number;
             y2: number;
-        },
+        };
         plane?: number;
     }>;
     loop?: number;

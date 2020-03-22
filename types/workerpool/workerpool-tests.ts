@@ -1,20 +1,20 @@
 import * as wp from 'workerpool';
 
 wp.pool('foo');
-wp.pool({minWorkers: 1});
-wp.pool({minWorkers: 'max'});
-wp.pool({minWorkers: 'max', maxWorkers: 1});
-wp.pool({minWorkers: 1, maxWorkers: 1});
-wp.pool({maxWorkers: 1});
-wp.pool({nodeWorker: 'process'});
-wp.pool({nodeWorker: 'thread'});
-wp.pool({nodeWorker: 'auto'});
-wp.pool({workerType: 'process'});
-wp.pool({workerType: 'thread'});
-wp.pool({workerType: 'web'});
-wp.pool({workerType: 'auto'});
-wp.pool({forkArgs: ['foo', 'bar']});
-wp.pool({forkOpts: {cwd: '/tmp'}});
+wp.pool({ minWorkers: 1 });
+wp.pool({ minWorkers: 'max' });
+wp.pool({ minWorkers: 'max', maxWorkers: 1 });
+wp.pool({ minWorkers: 1, maxWorkers: 1 });
+wp.pool({ maxWorkers: 1 });
+wp.pool({ nodeWorker: 'process' });
+wp.pool({ nodeWorker: 'thread' });
+wp.pool({ nodeWorker: 'auto' });
+wp.pool({ workerType: 'process' });
+wp.pool({ workerType: 'thread' });
+wp.pool({ workerType: 'web' });
+wp.pool({ workerType: 'auto' });
+wp.pool({ forkArgs: ['foo', 'bar'] });
+wp.pool({ forkOpts: { cwd: '/tmp' } });
 const pool = wp.pool();
 pool.clear()
     .then(() => pool.terminate())
@@ -45,14 +45,11 @@ function hello(): string {
     return 'hello';
 }
 
-pool.exec(add, [1, 2])
-    .then((c: number) => c);
-pool.exec<typeof add>('add', [1, 2])
-    .then((c: number) => c);
-pool.exec(hello, [])
-    .then((s: string) => s);
+pool.exec(add, [1, 2]).then((c: number) => c);
+pool.exec<typeof add>('add', [1, 2]).then((c: number) => c);
+pool.exec(hello, []).then((s: string) => s);
 
-const workers = {add, hello};
+const workers = { add, hello };
 type IWorkers = typeof workers;
 pool.proxy<IWorkers>().then((proxy) => {
     proxy.add(1, 2);
@@ -70,6 +67,6 @@ new wp.Promise.TimeoutError();
 let promises: wp.Promise<any[]> = wp.Promise.all([
     pool.exec('foo', null),
     pool.exec('foo', null),
-    pool.exec('foo', null)
+    pool.exec('foo', null),
 ]);
 promises = wp.Promise.all([]);

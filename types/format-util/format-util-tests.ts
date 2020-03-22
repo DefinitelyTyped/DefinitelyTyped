@@ -1,4 +1,4 @@
-import format = require("format-util");
+import format = require('format-util');
 
 format('%s', 'foo');
 

@@ -12,7 +12,7 @@
  */
 
 export interface RoxContainer {
-  [key: string]: Flag | Configuration<any> | Variant;
+    [key: string]: Flag | Configuration<any> | Variant;
 }
 
 /**
@@ -39,48 +39,48 @@ export function setContext(globalContext: unknown): void;
 export function setup(apiKey: string, options?: RoxSetupOptions): Promise<unknown>;
 
 export interface RoxSetupOptions {
-  version?: string;
-  // https://support.rollout.io/docs/configuration-fetched-handler
-  configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
-  debugLevel?: 'verbose';
-  // https://support.rollout.io/docs/nodejs-api#section-using-the-impressionhandler-option
-  impressionHandler?(reporting: RoxReporting, experiment: RoxExperiment, context: unknown): void;
-  platform?: string;
-  fetchIntervalInSec?: number;
-  disableNetworkFetch?: boolean;
-  devModeSecret?: string;
-  /**
-   * Set Roxy's URL for automated tests or local development.
-   *
-   * https://support.rollout.io/docs/microservices-automated-testing-and-local-development
-   */
-  roxy?: string;
+    version?: string;
+    // https://support.rollout.io/docs/configuration-fetched-handler
+    configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
+    debugLevel?: 'verbose';
+    // https://support.rollout.io/docs/nodejs-api#section-using-the-impressionhandler-option
+    impressionHandler?(reporting: RoxReporting, experiment: RoxExperiment, context: unknown): void;
+    platform?: string;
+    fetchIntervalInSec?: number;
+    disableNetworkFetch?: boolean;
+    devModeSecret?: string;
+    /**
+     * Set Roxy's URL for automated tests or local development.
+     *
+     * https://support.rollout.io/docs/microservices-automated-testing-and-local-development
+     */
+    roxy?: string;
 }
 
 export enum RoxFetcherStatus {
-  AppliedFromEmbedded = 'APPLIED_FROM_EMBEDDED',
-  AppliedFromCache = 'APPLIED_FROM_CACHE',
-  AppliedFromNetwork = 'APPLIED_FROM_NETWORK',
-  ErrorFetchFailed = 'ERROR_FETCH_FAILED'
+    AppliedFromEmbedded = 'APPLIED_FROM_EMBEDDED',
+    AppliedFromCache = 'APPLIED_FROM_CACHE',
+    AppliedFromNetwork = 'APPLIED_FROM_NETWORK',
+    ErrorFetchFailed = 'ERROR_FETCH_FAILED',
 }
 
 export interface RoxFetcherResult {
-  fetcherStatus: RoxFetcherStatus;
-  creationDate: Date;
-  hasChanges: boolean;
-  errorDetails?: string;
+    fetcherStatus: RoxFetcherStatus;
+    creationDate: Date;
+    hasChanges: boolean;
+    errorDetails?: string;
 }
 
 export interface RoxReporting {
-  name: string;
-  value: string;
+    name: string;
+    value: string;
 }
 
 export interface RoxExperiment {
-  identifier: string; //  experiment id
-  name: string;
-  isArchived: boolean;
-  labels: string[]; // experiment's labels. assigned from dashboard
+    identifier: string; //  experiment id
+    name: string;
+    isArchived: boolean;
+    labels: string[]; // experiment's labels. assigned from dashboard
 }
 
 /**
@@ -90,7 +90,7 @@ export function setCustomNumberProperty(name: string, value: number | ((context?
 export function setCustomStringProperty(name: string, value: string | ((context?: unknown) => string)): void;
 export function setCustomBooleanProperty(name: string, value: boolean | ((context?: unknown) => boolean)): void;
 export function setDynamicCustomPropertyRule(
-  handler: (propName: string, context: unknown) => number | string | boolean
+    handler: (propName: string, context: unknown) => number | string | boolean,
 ): void;
 
 /**
@@ -105,16 +105,16 @@ export function fetch(): void;
  * https://support.rollout.io/docs/nodejs-api#section--flag-
  */
 export class Flag {
-  constructor(defaultValue?: boolean);
+    constructor(defaultValue?: boolean);
 
-  // The name of the Flag
-  readonly name: string;
+    // The name of the Flag
+    readonly name: string;
 
-  // Default value of the Flag
-  readonly defaultValue: boolean;
+    // Default value of the Flag
+    readonly defaultValue: boolean;
 
-  // Returns true when the flag is enabled
-  isEnabled(context?: unknown): boolean;
+    // Returns true when the flag is enabled
+    isEnabled(context?: unknown): boolean;
 }
 
 /**
@@ -123,16 +123,16 @@ export class Flag {
  * https://support.rollout.io/docs/nodejs-api#section--variant-
  */
 export class Variant<T extends string = string> {
-  constructor(defaultValue: T, options: ReadonlyArray<T>, name?: string);
+    constructor(defaultValue: T, options: ReadonlyArray<T>, name?: string);
 
-  // The name of the Variant
-  readonly name: string;
+    // The name of the Variant
+    readonly name: string;
 
-  // Default value of the Variant
-  readonly defaultValue: BasicType<T>;
+    // Default value of the Variant
+    readonly defaultValue: BasicType<T>;
 
-  // Returns the current value of the Variant, accounting for value overrides
-  getValue(context?: unknown): BasicType<T>;
+    // Returns the current value of the Variant, accounting for value overrides
+    getValue(context?: unknown): BasicType<T>;
 }
 
 /**
@@ -142,16 +142,16 @@ export class Variant<T extends string = string> {
  * https://support.rollout.io/docs/nodejs-api#section--configuration-
  */
 export class Configuration<T extends number | boolean | string> {
-  constructor(defaultValue: T);
+    constructor(defaultValue: T);
 
-  // The name of the Configuration
-  readonly name: string;
+    // The name of the Configuration
+    readonly name: string;
 
-  // Default value of the Configuration
-  readonly defaultValue: BasicType<T>;
+    // Default value of the Configuration
+    readonly defaultValue: BasicType<T>;
 
-  // Returns the current value of the Configuration, accounting for value overrides
-  getValue(context?: unknown): BasicType<T>;
+    // Returns the current value of the Configuration, accounting for value overrides
+    getValue(context?: unknown): BasicType<T>;
 }
 
 /**
@@ -173,38 +173,38 @@ export type BasicType<T> = T extends boolean ? boolean : T extends number ? numb
  * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-
  */
 export namespace overrides {
-  /**
-   * Sets an override value on a specific flag, this function accepts two parameters flag name (
-   * full flag name including namespace) and desired value (from type String).
-   * This function also saves the override value on the local device disk,
-   * so it is "remembered" for the next the SDK is loaded to production.
-   *
-   * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-setoverride-
-   *
-   * Note that for boolean flag we still give the value as a string.
-   */
-  function setOverride(nameSpacedFlagName: string, value: string): void;
+    /**
+     * Sets an override value on a specific flag, this function accepts two parameters flag name (
+     * full flag name including namespace) and desired value (from type String).
+     * This function also saves the override value on the local device disk,
+     * so it is "remembered" for the next the SDK is loaded to production.
+     *
+     * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-setoverride-
+     *
+     * Note that for boolean flag we still give the value as a string.
+     */
+    function setOverride(nameSpacedFlagName: string, value: string): void;
 
-  /**
-   * Clears the override value from the flag (and the disk).
-   *
-   * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-clearoverride-
-   */
-  function clearOverride(nameSpacedFlagName: string): void;
+    /**
+     * Clears the override value from the flag (and the disk).
+     *
+     * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-clearoverride-
+     */
+    function clearOverride(nameSpacedFlagName: string): void;
 
-  /**
-   * Clears all override values
-   */
-  function clearAllOverrides(): void;
+    /**
+     * Clears all override values
+     */
+    function clearAllOverrides(): void;
 
-  function getOriginalValue(nameSpacedFlagName: string): string;
+    function getOriginalValue(nameSpacedFlagName: string): string;
 
-  /**
-   * full flag name including namespace
-   *
-   * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-hasoverride-
-   */
-  function hasOverride(nameSpacedFlagName: string): boolean;
+    /**
+     * full flag name including namespace
+     *
+     * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-hasoverride-
+     */
+    function hasOverride(nameSpacedFlagName: string): boolean;
 }
 
 /**
@@ -213,15 +213,15 @@ export namespace overrides {
  * https://support.rollout.io/docs/dynamic-api
  */
 export namespace dynamicApi {
-  /**
-   * Getting boolean value of a flag
-   */
-  function isEnabled(nameSpacedFlagName: string, defaultValue: boolean, context?: unknown): boolean;
+    /**
+     * Getting boolean value of a flag
+     */
+    function isEnabled(nameSpacedFlagName: string, defaultValue: boolean, context?: unknown): boolean;
 
-  /**
-   * Getting string value of a Variant flag
-   */
-  function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
+    /**
+     * Getting string value of a Variant flag
+     */
+    function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
 }
 
 export const flags: ReadonlyArray<Flag>;

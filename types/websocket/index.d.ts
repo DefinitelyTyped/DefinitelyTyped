@@ -356,7 +356,7 @@ export class connection extends events.EventEmitter {
     static CLOSE_REASON_MESSAGE_TOO_BIG: number;
     static CLOSE_REASON_EXTENSION_REQUIRED: number;
 
-    static CLOSE_DESCRIPTIONS: {[code: number]: string};
+    static CLOSE_DESCRIPTIONS: { [code: number]: string };
 
     /**
      * After the connection is closed, contains a textual description of the reason for
@@ -414,8 +414,13 @@ export class connection extends events.EventEmitter {
 
     _pingListenerCount: number;
 
-    constructor(socket: net.Socket, extensions: IExtension[], protocol: string,
-        maskOutgoingPackets: boolean, config: IConfig);
+    constructor(
+        socket: net.Socket,
+        extensions: IExtension[],
+        protocol: string,
+        maskOutgoingPackets: boolean,
+        config: IConfig,
+    );
 
     /**
      * Close the connection. A close frame will be sent to the remote peer indicating
@@ -634,7 +639,13 @@ export class client extends events.EventEmitter {
      *                 any scripting content that caused the connection to be requested.
      * @param requestUrl should be a standard websocket url
      */
-    connect(requestUrl: url.Url | string, protocols?: string | string[], origin?: string, headers?: http.OutgoingHttpHeaders, extraRequestOptions?: http.RequestOptions): void;
+    connect(
+        requestUrl: url.Url | string,
+        protocols?: string | string[],
+        origin?: string,
+        headers?: http.OutgoingHttpHeaders,
+        extraRequestOptions?: http.RequestOptions,
+    ): void;
 
     validateHandshake(): void;
     failHandshake(errorDescription: string): void;
@@ -806,7 +817,7 @@ export class w3cwebsocket {
 
 export const deprecation: {
     disableWarnings: boolean;
-    deprecationWarningMap: {[name: string]: string};
+    deprecationWarningMap: { [name: string]: string };
     warn(deprecationName: string): void;
 };
 

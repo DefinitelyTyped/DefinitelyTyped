@@ -13,9 +13,9 @@
 export as namespace katex;
 
 export interface TrustContext {
-    command: string
-    url: string
-    protocol: string
+    command: string;
+    url: string;
+    protocol: string;
 }
 
 /** Documentation: https://katex.org/docs/options.html */

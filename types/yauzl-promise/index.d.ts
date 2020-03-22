@@ -58,7 +58,11 @@ export function fromFd(fd: number, options?: Options): Promise<ZipFile>;
 // export function fromFd(fd: number): Promise<ZipFile>;
 export function fromBuffer(buffer: Buffer, options?: Options): Promise<ZipFile>;
 // export function fromBuffer(buffer: Buffer): Promise<ZipFile>;
-export function fromRandomAccessReader(reader: RandomAccessReader, totalSize: number, options?: Options): Promise<ZipFile>;
+export function fromRandomAccessReader(
+    reader: RandomAccessReader,
+    totalSize: number,
+    options?: Options,
+): Promise<ZipFile>;
 // export function fromRandomAccessReader(reader: RandomAccessReader, totalSize: number): Promise<ZipFile>;
 
 // These are copied directly from @types/yauzl, I beleive they are unmodified

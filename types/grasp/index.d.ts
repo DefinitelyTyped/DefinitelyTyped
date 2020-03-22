@@ -6,10 +6,10 @@
 
 /// <reference types="node" />
 
-import * as fs from "fs";
-import * as cliColor from "cli-color";
+import * as fs from 'fs';
+import * as cliColor from 'cli-color';
 // Though Grasp does not use esprima, the parser it uses (flow-parser) has a compatible Node type and existing typedefs
-import { Node } from "estree";
+import { Node } from 'estree';
 
 export = grasp;
 
@@ -49,7 +49,7 @@ declare namespace grasp {
     function replace(engine: QueryEngineType, selector: string): GraspReplaceWithSelector;
     function replace(engine: QueryEngineType): GraspReplaceWithQueryEngine;
 
-    type QueryEngineType = "squery" | "equery";
+    type QueryEngineType = 'squery' | 'equery';
 
     type Replacement =
         | string
@@ -57,7 +57,7 @@ declare namespace grasp {
               getRaw: (node: Node) => string,
               node: Node,
               query: (q: string) => Node[],
-              named: { [key: string]: string | Node }
+              named: { [key: string]: string | Node },
           ) => string);
 
     type GraspSearchWithQueryEngine = ((selector: string, input: string) => Node[]) &

@@ -1,6 +1,14 @@
 import {
-    agents, features, feature, Agent, Feature, PackedFeature, StatsByAgentID, SupportStatusByVersion, SupportStatus
-} from "caniuse-lite";
+    agents,
+    features,
+    feature,
+    Agent,
+    Feature,
+    PackedFeature,
+    StatsByAgentID,
+    SupportStatusByVersion,
+    SupportStatus,
+} from 'caniuse-lite';
 
 const chrome: Agent | undefined = agents.chrome;
 if (chrome !== undefined) {
@@ -22,7 +30,7 @@ const unpackedFeatures = Object.keys(features).map((id: string) => {
     const stats: StatsByAgentID = unpacked.stats;
     Object.keys(stats).forEach((agentID: string) => {
         const byVersion: SupportStatusByVersion = stats[agentID];
-        Object.keys(byVersion).forEach(version => {
+        Object.keys(byVersion).forEach((version) => {
             const supportStatus: SupportStatus = byVersion[version];
             consume(supportStatus);
         });
@@ -32,13 +40,13 @@ const unpackedFeatures = Object.keys(features).map((id: string) => {
         return {
             feature: unpacked,
             agent,
-            versions: Object.keys(supportStatusByVersion).map(version => {
+            versions: Object.keys(supportStatusByVersion).map((version) => {
                 return {
                     version,
                     releaseDate: agent.release_date[version],
-                    [`feature_${id}`]: supportStatusByVersion[version]
+                    [`feature_${id}`]: supportStatusByVersion[version],
                 };
-            })
+            }),
         };
     });
 });

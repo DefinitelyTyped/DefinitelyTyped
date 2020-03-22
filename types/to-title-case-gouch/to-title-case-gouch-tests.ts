@@ -1,1 +1,1 @@
-"".toTitleCase();
+''.toTitleCase();

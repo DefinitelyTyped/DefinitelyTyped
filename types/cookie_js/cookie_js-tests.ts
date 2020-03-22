@@ -1,6 +1,6 @@
-import cookie = require("cookie_js");
+import cookie = require('cookie_js');
 
-cookie.set({a: '1', b: '2', c: '3'});
+cookie.set({ a: '1', b: '2', c: '3' });
 
 cookie;
 cookie.enabled();
@@ -23,8 +23,8 @@ cookie.remove('a');
 cookie.remove('a', 'b');
 cookie.remove(['a', 'b']);
 
-cookie.removeSpecific('a', {path: '/search'});
-cookie.removeSpecific(['a', 'b'], {path: '/search'});
+cookie.removeSpecific('a', { path: '/search' });
+cookie.removeSpecific(['a', 'b'], { path: '/search' });
 
 cookie.empty();
 
@@ -44,7 +44,7 @@ cookie.utils.retrieve('a', 'b');
 
 cookie.defaults;
 cookie.defaults.expires = 1;
-cookie.defaults.expires = new Date;
+cookie.defaults.expires = new Date();
 cookie.defaults.expires = 'Wed, 07 Feb 2018 17:00:26 GMT';
 cookie.defaults.domain = 'example.com';
 cookie.defaults.path = '/foo';

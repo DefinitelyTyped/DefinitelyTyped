@@ -1,3 +1,3 @@
 interface HTMLElement {
-  innerText: string;
+    innerText: string;
 }

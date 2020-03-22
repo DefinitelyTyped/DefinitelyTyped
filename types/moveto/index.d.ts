@@ -10,10 +10,7 @@ declare class MoveTo {
      * @param options Options
      * @param easeFunctions Custom ease functions
      */
-    constructor(
-        options?: MoveTo.MoveToOptions,
-        easeFunctions?: MoveTo.MoveToEaseFunctionsObject
-    );
+    constructor(options?: MoveTo.MoveToOptions, easeFunctions?: MoveTo.MoveToEaseFunctionsObject);
     /**
      * Options
      */
@@ -34,10 +31,7 @@ declare class MoveTo {
      * @param callback Callback function to be run after the scroll complete. This will overwrite the callback option
      * @return Unregister function
      */
-    registerTrigger(
-        dom: HTMLElement,
-        callback?: MoveTo.callbackType
-    ): MoveTo.unregisterTriggerType;
+    registerTrigger(dom: HTMLElement, callback?: MoveTo.callbackType): MoveTo.unregisterTriggerType;
     /**
      * Adds custom ease function
      * @param name Ease function name
@@ -89,12 +83,7 @@ declare namespace MoveTo {
      * @param d Duration
      * @return Calculated value
      */
-    type MoveToEaseFunction = (
-        t: number,
-        b: number,
-        c: number,
-        d: number
-    ) => number;
+    type MoveToEaseFunction = (t: number, b: number, c: number, d: number) => number;
 }
 
 export = MoveTo;

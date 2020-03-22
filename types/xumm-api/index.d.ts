@@ -3,32 +3,30 @@
 // Definitions by: Wietse Wind <https://github.com/WietseWind>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type XummTransactionType = "SignIn";
-export type XrplTransactionType = "Payment"
-    | "OfferCreate"
-    | "OfferCancel"
-    | "EscrowFinish"
-    | "EscrowCreate"
-    | "EscrowCancel"
-    | "DepositPreauth"
-    | "CheckCreate"
-    | "CheckCash"
-    | "CheckCancel"
-    | "AccountSet"
-    | "PaymentChannelCreate"
-    | "PaymentChannelFund"
-    | "SetRegularKey"
-    | "SignerListSet"
-    | "TrustSet"
-    | "EnableAmendment"
-    | "SetFee";
+export type XummTransactionType = 'SignIn';
+export type XrplTransactionType =
+    | 'Payment'
+    | 'OfferCreate'
+    | 'OfferCancel'
+    | 'EscrowFinish'
+    | 'EscrowCreate'
+    | 'EscrowCancel'
+    | 'DepositPreauth'
+    | 'CheckCreate'
+    | 'CheckCash'
+    | 'CheckCancel'
+    | 'AccountSet'
+    | 'PaymentChannelCreate'
+    | 'PaymentChannelFund'
+    | 'SetRegularKey'
+    | 'SignerListSet'
+    | 'TrustSet'
+    | 'EnableAmendment'
+    | 'SetFee';
 
-export type XummCancelReason = "ALREADY_CANCELLED"
-    | "ALREADY_RESOLVED"
-    | "ALREADY_OPENED"
-    | "ALREADY_EXPIRED";
+export type XummCancelReason = 'ALREADY_CANCELLED' | 'ALREADY_RESOLVED' | 'ALREADY_OPENED' | 'ALREADY_EXPIRED';
 
-export type XummQrQuality = "m" | "q" | "h";
+export type XummQrQuality = 'm' | 'q' | 'h';
 
 export interface XummJsonTransaction {
     TransactionType: XummTransactionType | XrplTransactionType;
@@ -68,7 +66,7 @@ export interface XummPayloadBodyBase {
         return_url?: {
             app?: string;
             web?: string;
-        }
+        };
     };
     custom_meta?: XummCustomMeta;
     user_token?: string;
@@ -91,7 +89,7 @@ export interface XummPostPayloadResponse {
     refs: {
         qr_png: string;
         qr_matrix: string;
-        qr_uri_quality_opts: XummQrQuality[],
+        qr_uri_quality_opts: XummQrQuality[];
         websocket_status: string;
     };
     pushed: boolean;
@@ -175,7 +173,7 @@ export interface XummWebsocketBody {
 
 export interface XummApiError {
     error: {
-      reference: string;
-      code: number;
+        reference: string;
+        code: number;
     };
 }

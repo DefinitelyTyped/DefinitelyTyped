@@ -22,18 +22,22 @@ const feedOptions: Podcast.FeedOptions = {
     itunesSummary: 'I am a summary',
     itunesOwner: { name: 'Max Nowack', email: 'max@unsou.de' },
     itunesExplicit: false,
-    itunesCategory: [{
-        text: 'Entertainment',
-        subcats: [{
-            text: 'Television'
-        }]
-    }],
+    itunesCategory: [
+        {
+            text: 'Entertainment',
+            subcats: [
+                {
+                    text: 'Television',
+                },
+            ],
+        },
+    ],
     itunesImage: 'http://link.to/image.png',
     itunesType: 'serial',
 };
 
 const feedItem: Podcast.Item = {
-    title:  'item title',
+    title: 'item title',
     description: 'use this for the content. It can include html.',
     url: 'http://example.com/article4?this&that',
     guid: '1123',

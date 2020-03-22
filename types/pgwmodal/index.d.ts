@@ -27,16 +27,15 @@ interface PgwModalOption {
 interface PgwModalMethod {
     (option: PgwModalOption): boolean;
     (action: string): any;
-    (action: "close"): boolean;
-    (action: "reposition"): boolean;
-    (action: "getData"): any;
-    (action: "isOpen"): boolean;
+    (action: 'close'): boolean;
+    (action: 'reposition'): boolean;
+    (action: 'getData'): any;
+    (action: 'isOpen'): boolean;
 }
 
 interface ZeptoStatic {
     pgwModal: PgwModalMethod;
 }
-
 
 interface JQueryStatic {
     pgwModal: PgwModalMethod;

@@ -6,19 +6,11 @@
 
 /// <reference types="node" />
 
-import {
-    IncomingMessage,
-    ServerResponse,
-    RequestOptions
-} from "http";
+import { IncomingMessage, ServerResponse, RequestOptions } from 'http';
 
-import {
-    EventEmitter
-} from "events";
+import { EventEmitter } from 'events';
 
-import {
-    Socket
-} from "net";
+import { Socket } from 'net';
 
 export type MaybePromise<T> = T | Promise<T>;
 
@@ -32,7 +24,7 @@ export interface ProxyOptions {
     /** Throttle in kb/s, unlimited for default */
     throttle?: number;
     /** Type of the proxy server, could be 'http' or 'https'. */
-    type?: "http" | "https";
+    type?: 'http' | 'https';
     /** Host name of the proxy server, required when this is an https proxy */
     hostname?: string;
     /** Force intercept all https request, default to false */
@@ -62,7 +54,10 @@ export interface RuleModule {
     /** Before sending request to server, AnyProxy will call beforeSendRequest with param requestDetail. */
     beforeSendRequest?(requestDetail: RequestDetail): MaybePromise<BeforeSendRequestResult | null | undefined>;
     /** Before sending response to client, AnyProxy will call beforeSendResponse with param requestDetail responseDetail. */
-    beforeSendResponse?(requestDetail: RequestDetail, responseDetail: ResponseDetail): MaybePromise<BeforeSendResponseResult | null | undefined>;
+    beforeSendResponse?(
+        requestDetail: RequestDetail,
+        responseDetail: ResponseDetail,
+    ): MaybePromise<BeforeSendResponseResult | null | undefined>;
     /**
      * When receiving https request, AnyProxy will call beforeDealHttpsRequest with param requestDetail.
      * If configed with forceProxyHttps in launching, AnyProxy will skip calling this method.
@@ -75,7 +70,10 @@ export interface RuleModule {
      */
     onError?(requestDetail: RequestDetail, err: Error): MaybePromise<BeforeSendResponseResult | null | undefined>;
     /** AnyProxy will call this method when failed to connect target server in https request. */
-    onConnectError?(requestDetail: RequestDetail, err: Error): MaybePromise<BeforeSendResponseResult | null | undefined>;
+    onConnectError?(
+        requestDetail: RequestDetail,
+        err: Error,
+    ): MaybePromise<BeforeSendResponseResult | null | undefined>;
 }
 
 // TypeScript Version: 2.2
@@ -162,9 +160,9 @@ export class ProxyServer extends ProxyCore {
     constructor(config?: ProxyOptions);
 
     /** Emit when proxy server is ready */
-    on(eventName: "ready", listener: () => void): this;
+    on(eventName: 'ready', listener: () => void): this;
     /** Emit when error happened inside proxy server */
-    on(eventName: "error", listener: (err: Error) => void): this;
+    on(eventName: 'error', listener: (err: Error) => void): this;
 
     /** Start proxy server */
     start(): this;

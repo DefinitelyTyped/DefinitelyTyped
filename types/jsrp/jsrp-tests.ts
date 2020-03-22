@@ -8,8 +8,8 @@ const client: jsrp.client = new jsrp.client();
 const server: jsrp.server = new jsrp.server();
 
 client.init({ username: 'testUser', password: 'password123' }, (): void => {});
-client.init({ username: 'testUser', password: 'password123', length: 2048}, (): void => {});
-client.init({ username: 'testUser', password: 'password123', length: 4096}, (): void => {});
+client.init({ username: 'testUser', password: 'password123', length: 2048 }, (): void => {});
+client.init({ username: 'testUser', password: 'password123', length: 4096 }, (): void => {});
 server.init({ salt: 'LONG_HEX_VALUE', verifier: 'EVEN_LONGER_HEX_VALUE' }, (): void => {});
 server.init({ salt: 'LONG_HEX_VALUE', verifier: 'EVEN_LONGER_HEX_VALUE', length: 2048 }, (): void => {});
 server.init({ salt: 'LONG_HEX_VALUE', verifier: 'EVEN_LONGER_HEX_VALUE', length: 4096 }, (): void => {});

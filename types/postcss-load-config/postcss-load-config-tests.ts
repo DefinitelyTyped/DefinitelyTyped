@@ -1,5 +1,5 @@
-import postcss = require("postcss");
-import postcssrc = require("postcss-load-config");
+import postcss = require('postcss');
+import postcssrc = require('postcss-load-config');
 
 postcssrc();
 postcssrc({ map: { inline: true } });

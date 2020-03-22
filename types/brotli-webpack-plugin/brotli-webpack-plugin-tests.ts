@@ -14,9 +14,5 @@ const optionsFull: BrotliWebpackPlugin.Options = {
 };
 
 const config: webpack.Configuration = {
-    plugins: [
-        new BrotliWebpackPlugin(),
-        new BrotliWebpackPlugin(optionsEmpty),
-        new BrotliWebpackPlugin(optionsFull),
-    ]
+    plugins: [new BrotliWebpackPlugin(), new BrotliWebpackPlugin(optionsEmpty), new BrotliWebpackPlugin(optionsFull)],
 };

@@ -63,7 +63,11 @@ export class Query<T> extends Readable implements Promise<T> {
 
     toSOQL(callback: (err: Error, soql: string) => void): Promise<string>;
 
-    update(mapping: any, type: string, callback: (err: Error, records: RecordResult[]) => void): Promise<RecordResult[]>;
+    update(
+        mapping: any,
+        type: string,
+        callback: (err: Error, records: RecordResult[]) => void,
+    ): Promise<RecordResult[]>;
 
     where(conditions: Object | string): Query<T>;
 
@@ -71,10 +75,12 @@ export class Query<T> extends Readable implements Promise<T> {
 
     [Symbol.toStringTag]: 'Promise';
 
-    catch<TResult>(onrejected?: ((reason: any) => (PromiseLike<TResult> | TResult))): Promise<T | TResult>;
+    catch<TResult>(onrejected?: (reason: any) => PromiseLike<TResult> | TResult): Promise<T | TResult>;
 
-    then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)),
-                             onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2))): Promise<TResult1 | TResult2>;
+    then<TResult1, TResult2>(
+        onfulfilled?: (value: T) => PromiseLike<TResult1> | TResult1,
+        onrejected?: (reason: any) => PromiseLike<TResult2> | TResult2,
+    ): Promise<TResult1 | TResult2>;
 }
 
 export class ExplainInfo {}

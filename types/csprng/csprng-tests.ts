@@ -1,4 +1,4 @@
-import csprng = require("csprng");
+import csprng = require('csprng');
 
 let rngStr: string;
 

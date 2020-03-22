@@ -5,13 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export = SingleSpaReact;
-declare function SingleSpaReact(
-    opts: SingleSpaReact.Options
-): SingleSpaReact.Lifecycles;
+declare function SingleSpaReact(opts: SingleSpaReact.Options): SingleSpaReact.Lifecycles;
 
 declare namespace SingleSpaReact {
     interface Options {

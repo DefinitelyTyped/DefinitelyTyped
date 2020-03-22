@@ -1,9 +1,9 @@
-import braces = require("braces");
+import braces = require('braces');
 
 const transform: braces.Transform = (str) => `foo_${str}`;
 const bracesOpts: braces.Options = {
     transform,
-    expand: true
+    expand: true,
 };
 
 // $ExpectType string[]

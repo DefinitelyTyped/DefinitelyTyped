@@ -8,8 +8,12 @@ export type RNFetchBlob = RNFetchBlobStatic;
 export default RNFetchBlob;
 
 interface RNFetchBlobStatic {
-    fetch(method: Methods, url: string, headers?: { [key: string]: string }, body?: {}
-        | null): StatefulPromise<FetchBlobResponse>;
+    fetch(
+        method: Methods,
+        url: string,
+        headers?: { [key: string]: string },
+        body?: {} | null,
+    ): StatefulPromise<FetchBlobResponse>;
     base64: { encode(input: string): string; decode(input: string): string };
     android: AndroidApi;
     ios: IOSApi;
@@ -69,7 +73,7 @@ export interface FetchBlobResponse {
      * @return File path of temp file.
      */
     path(): string;
-    type: "base64" | "path" | "utf8";
+    type: 'base64' | 'path' | 'utf8';
     data: any;
     /**
      * Convert result to javascript RNFetchBlob object.
@@ -135,8 +139,7 @@ export namespace PolyfillFileReader {
     const DONE: number;
 }
 
-export class PolyfillEvent {
-}
+export class PolyfillEvent {}
 
 export interface PolyfillProgressEvent extends EventTarget {
     lengthComputable: boolean;
@@ -202,8 +205,7 @@ export namespace PolyfillBlob {
     function setLog(level: number): void;
 }
 
-export class PolyfillFile extends PolyfillBlob {
-}
+export class PolyfillFile extends PolyfillBlob {}
 
 export interface PolyfillXMLHttpRequest extends PolyfillXMLHttpRequestEventTarget {
     upload: PolyfillXMLHttpRequestEventTarget;
@@ -382,7 +384,7 @@ export interface FS {
 
     slice(src: string, dest: string, start: number, end: number): Promise<void>;
     asset(path: string): string;
-    df(): Promise<{ free: number, total: number }>;
+    df(): Promise<{ free: number; total: number }>;
 }
 
 export interface Dirs {
@@ -422,7 +424,7 @@ export interface RNFetchBlobReadStream {
     onEnd(fn: () => void): void;
 }
 
-type Encoding = "utf8" | "ascii" | "base64";
+type Encoding = 'utf8' | 'ascii' | 'base64';
 
 /* tslint:disable-next-line interface-name*/
 export interface IOSApi {
@@ -450,7 +452,7 @@ export interface AndroidApi {
     actionViewIntent(path: string, mime: string): Promise<any>;
 }
 
-type Methods = "POST" | "GET" | "DELETE" | "PUT" | "post" | "get" | "delete" | "put";
+type Methods = 'POST' | 'GET' | 'DELETE' | 'PUT' | 'post' | 'get' | 'delete' | 'put';
 
 /**
  * A declare class inherits Promise, it has extra method like progress, uploadProgress,
@@ -470,7 +472,10 @@ export interface StatefulPromise<T> extends Promise<T> {
     /**
      * Add an event listener with custom configuration
      */
-    progress(config: { count?: number, interval?: number }, callback: (received: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
+    progress(
+        config: { count?: number; interval?: number },
+        callback: (received: number, total: number) => void,
+    ): StatefulPromise<FetchBlobResponse>;
 
     /**
      * Add an event listener with custom configuration.
@@ -480,7 +485,10 @@ export interface StatefulPromise<T> extends Promise<T> {
     /**
      * Add an event listener with custom configuration
      */
-    uploadProgress(config: { count?: number, interval?: number }, callback: (sent: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
+    uploadProgress(
+        config: { count?: number; interval?: number },
+        callback: (sent: number, total: number) => void,
+    ): StatefulPromise<FetchBlobResponse>;
 
     /**
      * An IOS only API, when IOS app turns into background network tasks will be terminated after ~180 seconds,
@@ -599,8 +607,8 @@ export interface RNFetchBlobResponseInfo {
     state: number;
     headers: any;
     status: number;
-    respType: "text" | "blob" | "" | "json";
-    rnfbEncode: "path" | "base64" | "ascii" | "utf8";
+    respType: 'text' | 'blob' | '' | 'json';
+    rnfbEncode: 'path' | 'base64' | 'ascii' | 'utf8';
 }
 
 export interface RNFetchBlobStream {
@@ -609,13 +617,12 @@ export interface RNFetchBlobStream {
     onEnd(): void;
 }
 
-export class RNFetchBlobFile {
-}
+export class RNFetchBlobFile {}
 
 export class RNFetchBlobStat {
     lastModified: string;
     size: string;
-    type: "directory" | "file";
+    type: 'directory' | 'file';
     path: string;
     filename: string;
 }

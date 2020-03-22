@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type ButtonGroupProps = {
     disabled?: boolean;
@@ -6,7 +6,7 @@ export type ButtonGroupProps = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare const ButtonGroup: React.FunctionComponent<ButtonGroupProps> & {
-    displayName: "ButtonGroup"
+    displayName: 'ButtonGroup';
 };
 
 export default ButtonGroup;

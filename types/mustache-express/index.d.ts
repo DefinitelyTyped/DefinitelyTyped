@@ -8,10 +8,7 @@ import { Cache } from 'lru-cache';
 
 export = mustacheExpress;
 
-declare function mustacheExpress(
-    partialsPath?: string,
-    partialsExt?: string
-): mustacheExpress.ExpessEngine;
+declare function mustacheExpress(partialsPath?: string, partialsExt?: string): mustacheExpress.ExpessEngine;
 
 declare namespace mustacheExpress {
     interface ExpessEngine {

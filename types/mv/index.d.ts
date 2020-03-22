@@ -9,12 +9,7 @@ interface Options {
 }
 
 interface Mv {
-    (
-        src: string,
-        dest: string,
-        options: Options,
-        callback: (error: any) => void
-    ): void;
+    (src: string, dest: string, options: Options, callback: (error: any) => void): void;
     (src: string, dest: string, callback: (error: any) => void): void;
 }
 

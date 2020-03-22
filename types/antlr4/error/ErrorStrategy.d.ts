@@ -14,8 +14,6 @@ export class ErrorStrategy {
     reportError(recognizer: Recognizer): void;
 }
 
-export class DefaultErrorStrategy extends ErrorStrategy {
-}
+export class DefaultErrorStrategy extends ErrorStrategy {}
 
-export class BailErrorStrategy extends ErrorStrategy {
-}
+export class BailErrorStrategy extends ErrorStrategy {}

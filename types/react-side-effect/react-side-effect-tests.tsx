@@ -1,5 +1,5 @@
-import * as React from "react";
-import withSideEffect = require("react-side-effect");
+import * as React from 'react';
+import withSideEffect = require('react-side-effect');
 
 interface DocumentTitleProps {
     title: string;
@@ -21,7 +21,7 @@ function reducePropsToState(propsList: DocumentTitleProps[]): State {
 }
 
 function handleStateChangeOnClient(title: State) {
-    document.title = title || "";
+    document.title = title || '';
 }
 
 const mapStateOnServer = (state: State): ServerState => ({ innerState: state });
@@ -29,23 +29,16 @@ const mapStateOnServer = (state: State): ServerState => ({ innerState: state });
 const DocumentTitleWithServerMapState = withSideEffect(
     reducePropsToState,
     handleStateChangeOnClient,
-    mapStateOnServer
+    mapStateOnServer,
 )(DocumentTitle);
 
 const testWithServerMapState = () => {
-    const testComponent = () => (
-        <DocumentTitleWithServerMapState title="Title" />
-    );
-    const peekedState:
-        | ServerState
-        | State = DocumentTitleWithServerMapState.peek();
+    const testComponent = () => <DocumentTitleWithServerMapState title="Title" />;
+    const peekedState: ServerState | State = DocumentTitleWithServerMapState.peek();
     const rewindedState: ServerState = DocumentTitleWithServerMapState.rewind();
 };
 
-const DocumentTitleNotServer = withSideEffect(
-    reducePropsToState,
-    handleStateChangeOnClient
-)(DocumentTitle);
+const DocumentTitleNotServer = withSideEffect(reducePropsToState, handleStateChangeOnClient)(DocumentTitle);
 
 const testWithoutMapState = () => {
     const testComponent = () => <DocumentTitleNotServer title="asdf" />;

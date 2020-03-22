@@ -1,5 +1,3 @@
-
-
 // knockout-secure-binding
 // The MIT License(MIT)
 // Copyright(c) 2013 Brian M Hunt
@@ -12,10 +10,10 @@ import ksp = require('knockout-secure-binding');
 function testt(): void {
     // https://github.com/brianmhunt/knockout-secure-binding
     var options = {
-        attribute: "data-bind",        // default "data-sbind"
-        globals: window,               // default {}
-        bindings: ko.bindingHandlers,  // default ko.bindingHandlers
-        noVirtualElements: false       // default true
+        attribute: 'data-bind', // default "data-sbind"
+        globals: window, // default {}
+        bindings: ko.bindingHandlers, // default ko.bindingHandlers
+        noVirtualElements: false, // default true
     };
 
     ko.bindingProvider.instance = new ko.secureBindingsProvider(options);

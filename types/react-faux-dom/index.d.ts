@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export class Element extends HTMLElement {
     style: any;
@@ -35,4 +35,6 @@ export interface ReactFauxDomProps {
     isAnimatingFauxDOM(): boolean;
 }
 
-export function withFauxDOM<P>(WrappedComponent: React.ComponentClass<P>): React.ComponentClass<Pick<P, Exclude<keyof P, keyof ReactFauxDomProps>>>;
+export function withFauxDOM<P>(
+    WrappedComponent: React.ComponentClass<P>,
+): React.ComponentClass<Pick<P, Exclude<keyof P, keyof ReactFauxDomProps>>>;

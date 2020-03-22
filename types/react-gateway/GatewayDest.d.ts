@@ -7,5 +7,5 @@ declare namespace GatewayDest {
         component?: string | React.ComponentType;
     }
 }
-declare class GatewayDest extends React.Component<GatewayDest.GatewayDestProps> { }
+declare class GatewayDest extends React.Component<GatewayDest.GatewayDestProps> {}
 export = GatewayDest;

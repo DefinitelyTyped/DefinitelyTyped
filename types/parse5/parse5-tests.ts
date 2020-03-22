@@ -1,67 +1,65 @@
-import * as parse5 from "parse5";
+import * as parse5 from 'parse5';
 
 // Shorthands
 // parse
-const document = parse5.parse("<html>");
+const document = parse5.parse('<html>');
 
 document; // $ExpectType Document
 
 const defaultAdapter = new Object() as parse5.TreeAdapter;
 
-parse5.parse("<html>", {}); // $ExpectType Document
-parse5.parse("<html>", { sourceCodeLocationInfo: true }); // $ExpectType Document
-parse5.parse("<html>", { treeAdapter: defaultAdapter }); // $ExpectType Document
+parse5.parse('<html>', {}); // $ExpectType Document
+parse5.parse('<html>', { sourceCodeLocationInfo: true }); // $ExpectType Document
+parse5.parse('<html>', { treeAdapter: defaultAdapter }); // $ExpectType Document
 
 let opt = {
     sourceCodeLocationInfo: true,
     scriptingEnabled: false,
-    treeAdapter: defaultAdapter
+    treeAdapter: defaultAdapter,
 };
 
-parse5.parse("<html>", opt); // $ExpectType Document
+parse5.parse('<html>', opt); // $ExpectType Document
 
 opt = {
     sourceCodeLocationInfo: true,
     scriptingEnabled: false,
-    treeAdapter: defaultAdapter
+    treeAdapter: defaultAdapter,
 };
 
-parse5.parse("<html>", opt); // $ExpectType Document
+parse5.parse('<html>', opt); // $ExpectType Document
 
 // parseFragment
-const fragment = parse5.parseFragment("<div>");
+const fragment = parse5.parseFragment('<div>');
 
 fragment; // $ExpectType DocumentFragment
 
-parse5.parseFragment("<div>", {});
-parse5.parseFragment("<div>", { sourceCodeLocationInfo: true });
-parse5.parseFragment("<div>", { treeAdapter: defaultAdapter });
-parse5.parseFragment("<div>", {
+parse5.parseFragment('<div>', {});
+parse5.parseFragment('<div>', { sourceCodeLocationInfo: true });
+parse5.parseFragment('<div>', { treeAdapter: defaultAdapter });
+parse5.parseFragment('<div>', {
     sourceCodeLocationInfo: true,
-    treeAdapter: defaultAdapter
+    treeAdapter: defaultAdapter,
 });
-parse5.parseFragment("<div>", {
+parse5.parseFragment('<div>', {
     sourceCodeLocationInfo: true,
-    treeAdapter: defaultAdapter
+    treeAdapter: defaultAdapter,
 });
 
-const element = (parse5.parseFragment(
-    "<div>"
-) as parse5.DefaultTreeDocumentFragment).childNodes[0] as parse5.Element;
+const element = (parse5.parseFragment('<div>') as parse5.DefaultTreeDocumentFragment).childNodes[0] as parse5.Element;
 
-parse5.parseFragment(element, "<div>");
-parse5.parseFragment(element, "<div>", {});
-parse5.parseFragment(element, "<div>", { sourceCodeLocationInfo: true });
-parse5.parseFragment(element, "<div>", {
-    treeAdapter: defaultAdapter
+parse5.parseFragment(element, '<div>');
+parse5.parseFragment(element, '<div>', {});
+parse5.parseFragment(element, '<div>', { sourceCodeLocationInfo: true });
+parse5.parseFragment(element, '<div>', {
+    treeAdapter: defaultAdapter,
 });
-parse5.parseFragment(element, "<div>", {
+parse5.parseFragment(element, '<div>', {
     sourceCodeLocationInfo: true,
-    treeAdapter: defaultAdapter
+    treeAdapter: defaultAdapter,
 });
-parse5.parseFragment(element, "<div>", {
+parse5.parseFragment(element, '<div>', {
     sourceCodeLocationInfo: true,
-    treeAdapter: defaultAdapter
+    treeAdapter: defaultAdapter,
 });
 
 // serialize
@@ -89,12 +87,12 @@ loc.startTag.endCol; // $ExpectType number
 loc.startTag.startOffset; // $ExpectType number
 loc.startTag.endOffset; // $ExpectType number
 
-loc.startTag.attrs["someAttr"].startLine; // $ExpectType number
-loc.startTag.attrs["someAttr"].startCol; // $ExpectType number
-loc.startTag.attrs["someAttr"].endLine; // $ExpectType number
-loc.startTag.attrs["someAttr"].endCol; // $ExpectType number
-loc.startTag.attrs["someAttr"].startOffset; // $ExpectType number
-loc.startTag.attrs["someAttr"].endOffset; // $ExpectType number
+loc.startTag.attrs['someAttr'].startLine; // $ExpectType number
+loc.startTag.attrs['someAttr'].startCol; // $ExpectType number
+loc.startTag.attrs['someAttr'].endLine; // $ExpectType number
+loc.startTag.attrs['someAttr'].endCol; // $ExpectType number
+loc.startTag.attrs['someAttr'].startOffset; // $ExpectType number
+loc.startTag.attrs['someAttr'].endOffset; // $ExpectType number
 
 loc.endTag.startLine; // $ExpectType number
 loc.endTag.startCol; // $ExpectType number
@@ -119,8 +117,7 @@ const defaultDocumentFragment = fragment as parse5.DefaultTreeDocumentFragment;
 
 defaultDocumentFragment.nodeName; // $ExpectType "#document-fragment"
 
-const defaultElement = defaultDocument
-    .childNodes[0] as parse5.DefaultTreeElement;
+const defaultElement = defaultDocument.childNodes[0] as parse5.DefaultTreeElement;
 
 defaultElement.sourceCodeLocation!; // $ExpectType ElementLocation
 defaultElement.namespaceURI; // $ExpectType string
@@ -136,8 +133,7 @@ defaultAttr.namespace!; // $ExpectType string
 defaultAttr.prefix!; // $ExpectType string
 defaultAttr.value; // $ExpectType string
 
-const defaultTextNode = defaultDocumentFragment
-    .childNodes[0] as parse5.DefaultTreeTextNode;
+const defaultTextNode = defaultDocumentFragment.childNodes[0] as parse5.DefaultTreeTextNode;
 
 defaultTextNode.sourceCodeLocation!; // $ExpectType Location
 defaultTextNode.nodeName; // $ExpectType "#text"
@@ -145,8 +141,7 @@ defaultTextNode.value; // $ExpectType string
 defaultTextNode.parentNode; // $ExpectType DefaultTreeParentNode
 defaultTextNode.parentNode.nodeName; // $ExpectType string
 
-const defaultCommentNode = defaultDocumentFragment
-    .childNodes[0] as parse5.DefaultTreeCommentNode;
+const defaultCommentNode = defaultDocumentFragment.childNodes[0] as parse5.DefaultTreeCommentNode;
 
 defaultCommentNode.sourceCodeLocation!; // $ExpectType Location
 defaultCommentNode.nodeName; // $ExpectType "#comment"
@@ -158,8 +153,8 @@ const adapter = defaultAdapter;
 
 adapter.createDocument(); // $ExpectType Document
 adapter.createDocumentFragment(); // $ExpectType DocumentFragment
-adapter.createElement("div", "namespace", [{ name: "someAttr", value: "42" }]); // $ExpectType Element
-adapter.createCommentNode("foo"); // $ExpectType CommentNode
+adapter.createElement('div', 'namespace', [{ name: 'someAttr', value: '42' }]); // $ExpectType Element
+adapter.createCommentNode('foo'); // $ExpectType CommentNode
 
 adapter.appendChild(document, element);
 adapter.insertBefore(document, element, element);
@@ -167,15 +162,15 @@ adapter.setTemplateContent(element, fragment);
 
 adapter.getTemplateContent(element); // $ExpectType DocumentFragment
 
-adapter.setDocumentType(document, "name", "publicId", "systemId");
-adapter.setDocumentMode(document, "quirks");
+adapter.setDocumentType(document, 'name', 'publicId', 'systemId');
+adapter.setDocumentMode(document, 'quirks');
 
 adapter.getDocumentMode(document); // $ExpectType DocumentMode
 
 adapter.detachNode(element);
-adapter.insertText(element, "text");
-adapter.insertTextBefore(document, "text", element);
-adapter.adoptAttributes(element, [{ name: "someAttr", value: "42" }]);
+adapter.insertText(element, 'text');
+adapter.insertTextBefore(document, 'text', element);
+adapter.adoptAttributes(element, [{ name: 'someAttr', value: '42' }]);
 
 adapter.getFirstChild(element); // $ExpectType Node
 adapter.getChildNodes(element)[0]; // $ExpectType Node

@@ -8,27 +8,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Decimal } from "decimal.js";
+import { Decimal } from 'decimal.js';
 
 declare const math: math.MathJsStatic;
 export as namespace math;
 export = math;
 
-type NoLiteralType<T> =
-    T extends number ? number :
-    T extends string ? string :
-    T extends boolean ? boolean :
-    T;
+type NoLiteralType<T> = T extends number ? number : T extends string ? string : T extends boolean ? boolean : T;
 declare namespace math {
     type MathArray = number[] | number[][];
-    type MathType =
-        | number
-        | BigNumber
-        | Fraction
-        | Complex
-        | Unit
-        | MathArray
-        | Matrix;
+    type MathType = number | BigNumber | Fraction | Complex | Unit | MathArray | Matrix;
     type MathExpression = string | string[] | MathArray | Matrix;
 
     type FactoryFunction<T> = (scope: any) => T;
@@ -91,7 +80,7 @@ declare namespace math {
          * @param signatures Object with one or multiple function signatures
          * @returns The created typed-function.
          */
-        typed: (name: string, signatures: Record<string, (...args: any[]) => any>) => ((...args: any[]) => any);
+        typed: (name: string, signatures: Record<string, (...args: any[]) => any>) => (...args: any[]) => any;
 
         /*************************************************************************
          * Construction functions
@@ -105,16 +94,7 @@ declare namespace math {
          * @returns The created bignumber
          */
         bignumber(
-            x?:
-                | number
-                | string
-                | Fraction
-                | BigNumber
-                | MathArray
-                | Matrix
-                | boolean
-                | Fraction
-                | null
+            x?: number | string | Fraction | BigNumber | MathArray | Matrix | boolean | Fraction | null,
         ): BigNumber;
 
         /**
@@ -125,9 +105,7 @@ declare namespace math {
          * @param x A value of any type
          * @returns The boolean value
          */
-        boolean(
-            x: string | number | boolean | MathArray | Matrix | null
-        ): boolean | MathArray | Matrix;
+        boolean(x: string | number | boolean | MathArray | Matrix | null): boolean | MathArray | Matrix;
 
         /**
          * Wrap any value in a chain, allowing to perform chained operations on
@@ -174,21 +152,14 @@ declare namespace math {
          * 0.
          * @returns The new unit
          */
-        createUnit(
-            name: string,
-            definition?: string | UnitDefinition,
-            options?: CreateUnitOptions
-        ): Unit;
+        createUnit(name: string, definition?: string | UnitDefinition, options?: CreateUnitOptions): Unit;
         /**
          * Create a user-defined unit and register it with the Unit type.
          * @param units Definition of the unit
          * @param options
          * @returns The new unit
          */
-        createUnit(
-            units: Record<string, string | UnitDefinition>,
-            options?: CreateUnitOptions
-        ): Unit;
+        createUnit(units: Record<string, string | UnitDefinition>, options?: CreateUnitOptions): Unit;
 
         /**
          * Create a fraction convert a value to a fraction.
@@ -196,9 +167,7 @@ declare namespace math {
          * fraction
          * @returns Returns a fraction
          */
-        fraction(
-            args: Fraction | MathArray | Matrix
-        ): Fraction | MathArray | Matrix;
+        fraction(args: Fraction | MathArray | Matrix): Fraction | MathArray | Matrix;
         /**
          * @param numerator Argument specifying the numerator of the fraction
          * @param denominator Argument specifying the denominator of the
@@ -207,7 +176,7 @@ declare namespace math {
          */
         fraction(
             numerator: number | string | MathArray | Matrix,
-            denominator?: number | string | MathArray | Matrix
+            denominator?: number | string | MathArray | Matrix,
         ): Fraction | MathArray | Matrix;
 
         /**
@@ -227,18 +196,14 @@ declare namespace math {
          * @param format The Matrix storage format
          * @returns The created Matrix
          */
-        matrix(format?: "sparse" | "dense"): Matrix;
+        matrix(format?: 'sparse' | 'dense'): Matrix;
         /**
          * @param data A multi dimensional array
          * @param format The Matrix storage format
          * @param dataType The Matrix data type
          * @returns The created Matrix
          */
-        matrix(
-            data: MathArray | Matrix,
-            format?: "sparse" | "dense",
-            dataType?: string
-        ): Matrix;
+        matrix(data: MathArray | Matrix, format?: 'sparse' | 'dense', dataType?: string): Matrix;
 
         /**
          * Create a number or convert a string, boolean, or unit to a number.
@@ -247,16 +212,7 @@ declare namespace math {
          * @returns The created number
          */
         number(
-            value?:
-                | string
-                | number
-                | BigNumber
-                | Fraction
-                | boolean
-                | MathArray
-                | Matrix
-                | Unit
-                | null
+            value?: string | number | BigNumber | Fraction | boolean | MathArray | Matrix | Unit | null,
         ): number | MathArray | Matrix;
         /**
          * @param value Value to be converted
@@ -292,9 +248,7 @@ declare namespace math {
          * @param value A value to convert to a string
          * @returns The created string
          */
-        string(
-            value: MathType | null
-        ): string | MathArray | Matrix;
+        string(value: MathType | null): string | MathArray | Matrix;
 
         /**
          * Create a unit. Depending on the passed arguments, the function will
@@ -334,10 +288,7 @@ declare namespace math {
          * @param scope Scope to read/write variables
          * @returns The result of the expression
          */
-        evaluate(
-            expr: MathExpression | MathExpression[] | Matrix,
-            scope?: object
-        ): any;
+        evaluate(expr: MathExpression | MathExpression[] | Matrix, scope?: object): any;
 
         /**
          * Retrieve help on a function or data type. Help files are retrieved
@@ -379,11 +330,7 @@ declare namespace math {
          * by default. When false, output will not be simplified.
          * @returns The derivative of expr
          */
-        derivative(
-            expr: MathNode | string,
-            variable: MathNode | string,
-            options?: {simplify: boolean}
-        ): MathNode;
+        derivative(expr: MathNode | string, variable: MathNode | string, options?: { simplify: boolean }): MathNode;
 
         /**
          * Solves the linear equation system by forwards substitution. Matrix
@@ -392,10 +339,7 @@ declare namespace math {
          * @param b A column vector with the b values
          * @returns A column vector with the linear system solution (x)
          */
-        lsolve(
-            L: Matrix | MathArray,
-            b: Matrix | MathArray
-        ): Matrix | MathArray;
+        lsolve(L: Matrix | MathArray, b: Matrix | MathArray): Matrix | MathArray;
 
         /**
          * Calculate the Matrix LU decomposition with partial pivoting. Matrix A
@@ -406,9 +350,7 @@ declare namespace math {
          * @returns The lower triangular matrix, the upper triangular matrix and
          * the permutation matrix.
          */
-        lup(
-            A?: Matrix | MathArray
-        ): { L: MathArray | Matrix; U: MathArray | Matrix; P: number[] };
+        lup(A?: Matrix | MathArray): { L: MathArray | Matrix; U: MathArray | Matrix; P: number[] };
 
         /**
          * Solves the linear system A * x = b where A is an [n x n] matrix and b
@@ -426,7 +368,7 @@ declare namespace math {
             A: Matrix | MathArray | number,
             b: Matrix | MathArray,
             order?: number,
-            threshold?: number
+            threshold?: number,
         ): Matrix | MathArray;
 
         /**
@@ -437,9 +379,7 @@ declare namespace math {
          * decomposition.
          * @returns Q: the orthogonal matrix and R: the upper triangular matrix
          */
-        qr(
-            A: Matrix | MathArray
-        ): { Q: MathArray | Matrix; R: MathArray | Matrix };
+        qr(A: Matrix | MathArray): { Q: MathArray | Matrix; R: MathArray | Matrix };
 
         /**
          * Transform a rationalizable expression in a rational fraction. If
@@ -453,7 +393,11 @@ declare namespace math {
          * expression node (default)
          * @returns The rational polynomial of expr
          */
-        rationalize(expr: MathNode | string, optional?: object | boolean, detailed?: true): { expression: MathNode | string, variables: string[], coefficients: MathType[] };
+        rationalize(
+            expr: MathNode | string,
+            optional?: object | boolean,
+            detailed?: true,
+        ): { expression: MathNode | string; variables: string[]; coefficients: MathType[] };
         rationalize(expr: MathNode | string, optional?: object | boolean, detailed?: false): MathNode;
 
         /**
@@ -468,8 +412,8 @@ declare namespace math {
          */
         simplify(
             expr: MathNode | string,
-            rules?: Array<({ l: string; r: string } | string | ((node: MathNode) => MathNode))>,
-            scope?: object
+            rules?: Array<{ l: string; r: string } | string | ((node: MathNode) => MathNode)>,
+            scope?: object,
         ): MathNode;
 
         /**
@@ -500,10 +444,7 @@ declare namespace math {
          * @param b A column vector with the b values
          * @returns A column vector with the linear system solution (x)
          */
-        usolve(
-            U: Matrix | MathArray,
-            b: Matrix | MathArray
-        ): Matrix | MathArray;
+        usolve(U: Matrix | MathArray, b: Matrix | MathArray): Matrix | MathArray;
 
         /*************************************************************************
          * Arithmetic functions
@@ -713,7 +654,7 @@ declare namespace math {
          */
         log<T extends number | BigNumber | Complex | MathArray | Matrix>(
             x: T,
-            base?: number | BigNumber | Complex
+            base?: number | BigNumber | Complex,
         ): NoLiteralType<T>;
 
         /**
@@ -763,7 +704,7 @@ declare namespace math {
          */
         mod<T extends number | BigNumber | Fraction | MathArray | Matrix>(
             x: T,
-            y: number | BigNumber | Fraction | MathArray | Matrix
+            y: number | BigNumber | Fraction | MathArray | Matrix,
         ): NoLiteralType<T>;
 
         /**
@@ -787,10 +728,7 @@ declare namespace math {
          * Frobenius norm) Default value: 2.
          * @returns the p-norm
          */
-        norm(
-            x: number | BigNumber | Complex | MathArray | Matrix,
-            p?: number | BigNumber | string
-        ): number | BigNumber;
+        norm(x: number | BigNumber | Complex | MathArray | Matrix, p?: number | BigNumber | string): number | BigNumber;
 
         /**
          * Calculate the nth root of a value. The principal nth root of a
@@ -802,7 +740,7 @@ declare namespace math {
          */
         nthRoot(
             a: number | BigNumber | MathArray | Matrix | Complex,
-            root?: number | BigNumber
+            root?: number | BigNumber,
         ): number | Complex | MathArray | Matrix;
 
         /**
@@ -823,7 +761,7 @@ declare namespace math {
          */
         round<T extends number | BigNumber | Fraction | Complex | MathArray | Matrix>(
             x: T,
-            n?: number | BigNumber | MathArray
+            n?: number | BigNumber | MathArray,
         ): NoLiteralType<T>;
 
         /**
@@ -933,7 +871,7 @@ declare namespace math {
          */
         bitAnd<T extends number | BigNumber | MathArray | Matrix>(
             x: T,
-            y: number | BigNumber | MathArray | Matrix
+            y: number | BigNumber | MathArray | Matrix,
         ): NoLiteralType<T>;
 
         /**
@@ -970,7 +908,7 @@ declare namespace math {
          */
         bitXor<T extends number | BigNumber | MathArray | Matrix>(
             x: T,
-            y: number | BigNumber | MathArray | Matrix
+            y: number | BigNumber | MathArray | Matrix,
         ): NoLiteralType<T>;
 
         /**
@@ -981,10 +919,7 @@ declare namespace math {
          * @param y Amount of shifts
          * @returns x shifted left y times
          */
-        leftShift<T extends number | BigNumber | MathArray | Matrix>(
-            x: T,
-            y: number | BigNumber
-        ): NoLiteralType<T>;
+        leftShift<T extends number | BigNumber | MathArray | Matrix>(x: T, y: number | BigNumber): NoLiteralType<T>;
 
         /**
          * Bitwise right arithmetic shift of a value x by y number of bits, x >>
@@ -996,7 +931,7 @@ declare namespace math {
          */
         rightArithShift<T extends number | BigNumber | MathArray | Matrix>(
             x: T,
-            y: number | BigNumber
+            y: number | BigNumber,
         ): NoLiteralType<T>;
 
         /**
@@ -1007,10 +942,7 @@ declare namespace math {
          * @param y Amount of shifts
          * @returns x zero-filled shifted right y times
          */
-        rightLogShift<T extends number | MathArray | Matrix>(
-            x: T,
-            y: number
-        ): NoLiteralType<T>;
+        rightLogShift<T extends number | MathArray | Matrix>(x: T, y: number): NoLiteralType<T>;
 
         /*************************************************************************
          * Combinatorics functions
@@ -1044,10 +976,7 @@ declare namespace math {
          * @param k Number of objects in the subset
          * @returns Returns the composition counts of n into k parts.
          */
-        composition<T extends number | BigNumber>(
-            n: T,
-            k: number | BigNumber
-        ): NoLiteralType<T>;
+        composition<T extends number | BigNumber>(n: T, k: number | BigNumber): NoLiteralType<T>;
 
         /**
          * The Stirling numbers of the second kind, counts the number of ways to
@@ -1059,10 +988,7 @@ declare namespace math {
          * @param k Number of objects in the subset
          * @returns S(n,k)
          */
-        stirlingS2<T extends number | BigNumber>(
-            n: T,
-            k: number | BigNumber
-        ): NoLiteralType<T>;
+        stirlingS2<T extends number | BigNumber>(n: T, k: number | BigNumber): NoLiteralType<T>;
 
         /*************************************************************************
          * Complex functions
@@ -1087,9 +1013,7 @@ declare namespace math {
          * @param x A complex number or array with complex numbers
          * @returns The complex conjugate of x
          */
-        conj<T extends number | BigNumber | Complex | MathArray | Matrix>(
-            x: T
-        ): NoLiteralType<T>;
+        conj<T extends number | BigNumber | Complex | MathArray | Matrix>(x: T): NoLiteralType<T>;
 
         /**
          * Get the imaginary part of a complex number. For a complex number a +
@@ -1098,9 +1022,7 @@ declare namespace math {
          * @param x A complex number or array with complex numbers
          * @returns The imaginary part of x
          */
-        im(
-            x: number | BigNumber | Complex | MathArray | Matrix
-        ): number | BigNumber | MathArray | Matrix;
+        im(x: number | BigNumber | Complex | MathArray | Matrix): number | BigNumber | MathArray | Matrix;
 
         /**
          * Get the real part of a complex number. For a complex number a + bi,
@@ -1109,9 +1031,7 @@ declare namespace math {
          * @param x A complex number or array of complex numbers
          * @returns The real part of x
          */
-        re(
-            x: number | BigNumber | Complex | MathArray | Matrix
-        ): number | BigNumber | MathArray | Matrix;
+        re(x: number | BigNumber | Complex | MathArray | Matrix): number | BigNumber | MathArray | Matrix;
 
         /*************************************************************************
          * Geometry functions
@@ -1129,10 +1049,7 @@ declare namespace math {
          * @param y Coordinates of the second point
          * @returns Returns the distance from two/three points
          */
-        distance(
-            x: MathArray | Matrix | object,
-            y: MathArray | Matrix | object
-        ): number | BigNumber;
+        distance(x: MathArray | Matrix | object, y: MathArray | Matrix | object): number | BigNumber;
 
         /**
          * Calculates the point of intersection of two lines in two or three
@@ -1153,7 +1070,7 @@ declare namespace math {
             w: MathArray | Matrix,
             x: MathArray | Matrix,
             y: MathArray | Matrix,
-            z: MathArray | Matrix
+            z: MathArray | Matrix,
         ): MathArray;
 
         /*************************************************************************
@@ -1171,7 +1088,7 @@ declare namespace math {
          */
         and(
             x: number | BigNumber | Complex | Unit | MathArray | Matrix,
-            y: number | BigNumber | Complex | Unit | MathArray | Matrix
+            y: number | BigNumber | Complex | Unit | MathArray | Matrix,
         ): boolean | MathArray | Matrix;
 
         /**
@@ -1180,9 +1097,7 @@ declare namespace math {
          * @param x First value to not
          * @returns Returns true when input is a zero or empty value.
          */
-        not(
-            x: number | BigNumber | Complex | Unit | MathArray | Matrix
-        ): boolean | MathArray | Matrix;
+        not(x: number | BigNumber | Complex | Unit | MathArray | Matrix): boolean | MathArray | Matrix;
 
         /**
          * Logical or. Test if at least one value is defined with a
@@ -1195,7 +1110,7 @@ declare namespace math {
          */
         or(
             x: number | BigNumber | Complex | Unit | MathArray | Matrix,
-            y: number | BigNumber | Complex | Unit | MathArray | Matrix
+            y: number | BigNumber | Complex | Unit | MathArray | Matrix,
         ): boolean | MathArray | Matrix;
 
         /**
@@ -1209,7 +1124,7 @@ declare namespace math {
          */
         xor(
             x: number | BigNumber | Complex | Unit | MathArray | Matrix,
-            y: number | BigNumber | Complex | Unit | MathArray | Matrix
+            y: number | BigNumber | Complex | Unit | MathArray | Matrix,
         ): boolean | MathArray | Matrix;
 
         /*************************************************************************
@@ -1258,11 +1173,7 @@ declare namespace math {
          * matrix
          */
         diag(X: MathArray | Matrix, format?: string): Matrix;
-        diag(
-            X: MathArray | Matrix,
-            k: number | BigNumber,
-            format?: string
-        ): Matrix | MathArray;
+        diag(X: MathArray | Matrix, k: number | BigNumber, format?: string): Matrix | MathArray;
 
         /**
          * Calculate the dot product of two vectors. The dot product of A = [a1,
@@ -1292,10 +1203,7 @@ declare namespace math {
          * @param format The Matrix storage format
          * @returns A matrix with ones on the diagonal
          */
-        identity(
-            size: number | number[] | Matrix | MathArray,
-            format?: string
-        ): Matrix | MathArray | number;
+        identity(size: number | number[] | Matrix | MathArray, format?: string): Matrix | MathArray | number;
         /**
          * @param m The x dimension for the matrix
          * @param n The y dimension for the matrix
@@ -1315,7 +1223,7 @@ declare namespace math {
          */
         filter(
             x: Matrix | MathArray | string[],
-            test: ((value: any, index: any, matrix: Matrix | MathArray | string[]) => boolean) | RegExp
+            test: ((value: any, index: any, matrix: Matrix | MathArray | string[]) => boolean) | RegExp,
         ): Matrix | MathArray;
 
         /**
@@ -1333,16 +1241,14 @@ declare namespace math {
          * parameters: the value of the element, the index of the element, and
          * the Matrix/array being traversed.
          */
-        forEach<T extends Matrix | MathArray>(x: T, callback: ((value: any, index: any, matrix: T) => void)): void;
+        forEach<T extends Matrix | MathArray>(x: T, callback: (value: any, index: any, matrix: T) => void): void;
 
         /**
          * Calculate the inverse of a square matrix.
          * @param x Matrix to be inversed
          * @returns The inverse of x
          */
-        inv<T extends number | Complex | MathArray | Matrix>(
-            x: T
-        ): NoLiteralType<T>;
+        inv<T extends number | Complex | MathArray | Matrix>(x: T): NoLiteralType<T>;
 
         /**
          * Calculate the kronecker product of two matrices or vectors
@@ -1361,7 +1267,7 @@ declare namespace math {
          * the Matrix/array being traversed.
          * @returns Transformed map of x
          */
-        map<T extends Matrix | MathArray>(x: T, callback: ((value: any, index: any, matrix: T) => MathType | string)): T;
+        map<T extends Matrix | MathArray>(x: T, callback: (value: any, index: any, matrix: T) => MathType | string): T;
 
         /**
          * Create a matrix filled with ones. The created matrix can have one or
@@ -1389,11 +1295,7 @@ declare namespace math {
          * and 0 when a == b. Default value: 'asc'.
          * @returns Returns the kth lowest value.
          */
-        partitionSelect(
-            x: MathArray | Matrix,
-            k: number,
-            compare?: "asc" | "desc" | ((a: any, b: any) => number)
-        ): any;
+        partitionSelect(x: MathArray | Matrix, k: number, compare?: 'asc' | 'desc' | ((a: any, b: any) => number)): any;
 
         /**
          * Create an array from a range. By default, the range end is excluded.
@@ -1409,16 +1311,12 @@ declare namespace math {
          * step.
          */
         range(str: string, includeEnd?: boolean): Matrix;
-        range(
-            start: number | BigNumber,
-            end: number | BigNumber,
-            includeEnd?: boolean
-        ): Matrix;
+        range(start: number | BigNumber, end: number | BigNumber, includeEnd?: boolean): Matrix;
         range(
             start: number | BigNumber,
             end: number | BigNumber,
             step: number | BigNumber,
-            includeEnd?: boolean
+            includeEnd?: boolean,
         ): Matrix;
 
         /**
@@ -1428,10 +1326,7 @@ declare namespace math {
          * dimension
          * @returns A reshaped clone of matrix x
          */
-        reshape<T extends MathArray | Matrix>(
-            x: T,
-            sizes: number[]
-        ): T;
+        reshape<T extends MathArray | Matrix>(x: T, sizes: number[]): T;
 
         /**
          * Resize a matrix
@@ -1441,20 +1336,14 @@ declare namespace math {
          * that case defaultValue = ' ' Default value: 0.
          * @returns A resized clone of matrix x
          */
-        resize<T extends MathArray | Matrix>(
-            x: T,
-            size: MathArray | Matrix,
-            defaultValue?: number | string
-        ): T;
+        resize<T extends MathArray | Matrix>(x: T, size: MathArray | Matrix, defaultValue?: number | string): T;
 
         /**
          * Calculate the size of a matrix or scalar.
          * @param A matrix
          * @returns A vector with the size of x
          */
-        size(
-            x: boolean | number | Complex | Unit | string | MathArray | Matrix
-        ): MathArray | Matrix;
+        size(x: boolean | number | Complex | Unit | string | MathArray | Matrix): MathArray | Matrix;
 
         /**
          * Sort the items in a matrix
@@ -1464,10 +1353,7 @@ declare namespace math {
          * b, and 0 when a == b. Default value: ‘asc’
          * @returns Returns the sorted matrix
          */
-        sort<T extends Matrix | MathArray>(
-            x: T,
-            compare: ((a: any, b: any) => number) | "asc" | "desc" | "natural"
-        ): T;
+        sort<T extends Matrix | MathArray>(x: T, compare: ((a: any, b: any) => number) | 'asc' | 'desc' | 'natural'): T;
 
         /**
          * Calculate the principal square root of a square matrix. The principal
@@ -1497,12 +1383,7 @@ declare namespace math {
          * undefined. Default value: undefined.
          * @returns Either the retrieved subset or the updated matrix
          */
-        subset<T extends MathArray | Matrix | string>(
-            value: T,
-            index: Index,
-            replacement?: any,
-            defaultValue?: any
-        ): T;
+        subset<T extends MathArray | Matrix | string>(value: T, index: Index, replacement?: any, defaultValue?: any): T;
 
         /**
          * Calculate the trace of a matrix: the sum of the elements on the main
@@ -1548,10 +1429,7 @@ declare namespace math {
          * @param k Number of objects in the subset
          * @returns Number of possible combinations
          */
-        combinations<T extends number | BigNumber>(
-            n: T,
-            k: number | BigNumber
-        ): NoLiteralType<T>;
+        combinations<T extends number | BigNumber>(n: T, k: number | BigNumber): NoLiteralType<T>;
 
         /**
          * Compute the factorial of a value Factorial only supports an integer
@@ -1560,9 +1438,7 @@ declare namespace math {
          * @param n An integer number
          * @returns The factorial of n
          */
-        factorial<T extends number | BigNumber | MathArray | Matrix>(
-            n: T
-        ): NoLiteralType<T>;
+        factorial<T extends number | BigNumber | MathArray | Matrix>(n: T): NoLiteralType<T>;
 
         /**
          * Compute the gamma function of a value using Lanczos approximation for
@@ -1600,10 +1476,7 @@ declare namespace math {
          * @param k The number of objects in the subset
          * @returns The number of permutations
          */
-        permutations<T extends number | BigNumber>(
-            n: T,
-            k?: number | BigNumber
-        ): NoLiteralType<T>;
+        permutations<T extends number | BigNumber>(n: T, k?: number | BigNumber): NoLiteralType<T>;
 
         /**
          * Random pick a value from a one dimensional array. Array element is
@@ -1615,11 +1488,7 @@ declare namespace math {
          * undefined. Returns an array with the configured number of elements
          * when number is > 1.
          */
-        pickRandom(
-            array: number[],
-            number?: number,
-            weights?: number[]
-        ): number | number[];
+        pickRandom(array: number[], number?: number, weights?: number[]): number | number[];
 
         /**
          * Return a random number larger or equal to min and smaller than max
@@ -1631,11 +1500,7 @@ declare namespace math {
          * @returns A random number
          */
         random(min?: number, max?: number): number;
-        random<T extends MathArray | Matrix>(
-            size: T,
-            min?: number,
-            max?: number
-        ): T;
+        random<T extends MathArray | Matrix>(size: T, min?: number, max?: number): T;
 
         /**
          * Return a random integer number larger or equal to min and smaller
@@ -1647,11 +1512,7 @@ declare namespace math {
          * @returns A random number
          */
         randomInt(min: number, max?: number): number;
-        randomInt<T extends MathArray | Matrix>(
-            size: T,
-            min?: number,
-            max?: number
-        ): T;
+        randomInt<T extends MathArray | Matrix>(size: T, min?: number, max?: number): T;
 
         /*************************************************************************
          * Relational functions
@@ -1668,10 +1529,7 @@ declare namespace math {
          * @returns Returns the result of the comparison: 1 when x > y, -1 when
          * x < y, and 0 when x == y.
          */
-        compare(
-            x: MathType | string,
-            y: MathType | string
-        ): number | BigNumber | Fraction | MathArray | Matrix;
+        compare(x: MathType | string, y: MathType | string): number | BigNumber | Fraction | MathArray | Matrix;
 
         /**
          * Compare two values of any type in a deterministic, natural way. For
@@ -1694,10 +1552,7 @@ declare namespace math {
          * @returns Returns the result of the comparison: 1 when x > y, -1 when
          * x < y, and 0 when x == y.
          */
-        compareText(
-            x: string | MathArray | Matrix,
-            y: string | MathArray | Matrix
-        ): number | MathArray | Matrix;
+        compareText(x: string | MathArray | Matrix, y: string | MathArray | Matrix): number | MathArray | Matrix;
 
         /**
          * Test element wise whether two matrices are equal. The function
@@ -1707,10 +1562,7 @@ declare namespace math {
          * @returns Returns true when the input matrices have the same size and
          * each of their elements is equal.
          */
-        deepEqual(
-            x: MathType,
-            y: MathType
-        ): number | BigNumber | Fraction | Complex | Unit | MathArray | Matrix;
+        deepEqual(x: MathType, y: MathType): number | BigNumber | Fraction | Complex | Unit | MathArray | Matrix;
 
         /**
          * Test whether two values are equal.
@@ -1727,10 +1579,7 @@ declare namespace math {
          * @returns Returns true when the compared values are equal, else
          * returns false
          */
-        equal(
-            x: MathType | string,
-            y: MathType | string
-        ): boolean | MathArray | Matrix;
+        equal(x: MathType | string, y: MathType | string): boolean | MathArray | Matrix;
 
         /**
          * Check equality of two strings. Comparison is case sensitive. For
@@ -1739,10 +1588,7 @@ declare namespace math {
          * @param y Second string to compare
          * @returns Returns true if the values are equal, and false if not.
          */
-        equalText(
-            x: string | MathArray | Matrix,
-            y: string | MathArray | Matrix
-        ): number | MathArray | Matrix;
+        equalText(x: string | MathArray | Matrix, y: string | MathArray | Matrix): number | MathArray | Matrix;
 
         /**
          * Test whether value x is larger than y. The function returns true when
@@ -1754,10 +1600,7 @@ declare namespace math {
          * @param y Second value to vcompare
          * @returns Returns true when x is larger than y, else returns false
          */
-        larger(
-            x: MathType | string,
-            y: MathType | string
-        ): boolean | MathArray | Matrix;
+        larger(x: MathType | string, y: MathType | string): boolean | MathArray | Matrix;
 
         /**
          * Test whether value x is larger or equal to y. The function returns
@@ -1770,10 +1613,7 @@ declare namespace math {
          * @returns Returns true when x is larger than or equal to y, else
          * returns false
          */
-        largerEq(
-            x: MathType | string,
-            y: MathType | string
-        ): boolean | MathArray | Matrix;
+        largerEq(x: MathType | string, y: MathType | string): boolean | MathArray | Matrix;
 
         /**
          * Test whether value x is smaller than y. The function returns true
@@ -1785,10 +1625,7 @@ declare namespace math {
          * @param y Second value to vcompare
          * @returns Returns true when x is smaller than y, else returns false
          */
-        smaller(
-            x: MathType | string,
-            y: MathType | string
-        ): boolean | MathArray | Matrix;
+        smaller(x: MathType | string, y: MathType | string): boolean | MathArray | Matrix;
 
         /**
          * Test whether value x is smaller or equal to y. The function returns
@@ -1801,10 +1638,7 @@ declare namespace math {
          * @returns Returns true when x is smaller than or equal to y, else
          * returns false
          */
-        smallerEq(
-            x: MathType | string,
-            y: MathType | string
-        ): boolean | MathArray | Matrix;
+        smallerEq(x: MathType | string, y: MathType | string): boolean | MathArray | Matrix;
 
         /**
          * Test whether two values are unequal. The function tests whether the
@@ -1820,10 +1654,7 @@ declare namespace math {
          * @returns Returns true when the compared values are unequal, else
          * returns false
          */
-        unequal(
-            x: MathType | string,
-            y: MathType | string
-        ): boolean | MathArray | Matrix;
+        unequal(x: MathType | string, y: MathType | string): boolean | MathArray | Matrix;
 
         /*************************************************************************
          * Set functions
@@ -1837,10 +1668,7 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The cartesian product of two (multi)sets
          */
-        setCartesian<T extends MathArray | Matrix>(
-            a1: T,
-            a2: MathArray | Matrix
-        ): T;
+        setCartesian<T extends MathArray | Matrix>(a1: T, a2: MathArray | Matrix): T;
 
         /**
          * Create the difference of two (multi)sets: every element of set1, that
@@ -1850,10 +1678,7 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The difference of two (multi)sets
          */
-        setDifference<T extends MathArray | Matrix>(
-            a1: T,
-            a2: MathArray | Matrix
-        ): T;
+        setDifference<T extends MathArray | Matrix>(a1: T, a2: MathArray | Matrix): T;
 
         /**
          * Collect the distinct elements of a multiset. A multi-dimension array
@@ -1870,10 +1695,7 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The intersection of two (multi)sets
          */
-        setIntersect<T extends MathArray | Matrix>(
-            a1: T,
-            a2: MathArray | Matrix
-        ): T;
+        setIntersect<T extends MathArray | Matrix>(a1: T, a2: MathArray | Matrix): T;
 
         /**
          * Check whether a (multi)set is a subset of another (multi)set. (Every
@@ -1894,10 +1716,7 @@ declare namespace math {
          * @returns The number of how many times the multiset contains the
          * element
          */
-        setMultiplicity(
-            e: number | BigNumber | Fraction | Complex,
-            a: MathArray | Matrix
-        ): number;
+        setMultiplicity(e: number | BigNumber | Fraction | Complex, a: MathArray | Matrix): number;
 
         /**
          * Create the powerset of a (multi)set. (The powerset contains very
@@ -1925,10 +1744,7 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The symmetric difference of two (multi)sets
          */
-        setSymDifference<T extends MathArray | Matrix>(
-            a1: T,
-            a2: MathArray | Matrix
-        ): T;
+        setSymDifference<T extends MathArray | Matrix>(a1: T, a2: MathArray | Matrix): T;
 
         /**
          * Create the union of two (multi)sets. Multi-dimension arrays will be
@@ -1937,10 +1753,7 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The union of two (multi)sets
          */
-        setUnion<T extends MathArray | Matrix>(
-            a1: T,
-            a2: MathArray | Matrix
-        ): T;
+        setUnion<T extends MathArray | Matrix>(a1: T, a2: MathArray | Matrix): T;
 
         /*************************************************************************
          * Special functions
@@ -2062,7 +1875,7 @@ declare namespace math {
         quantileSeq(
             A: MathArray | Matrix,
             prob: number | BigNumber | MathArray,
-            sorted?: boolean
+            sorted?: boolean,
         ): number | BigNumber | Unit | MathArray;
 
         /**
@@ -2081,10 +1894,7 @@ declare namespace math {
          * ‘unbiased’.
          * @returns The standard deviation
          */
-        std(
-            array: MathArray | Matrix,
-            normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
-        ): number;
+        std(array: MathArray | Matrix, normalization?: 'unbiased' | 'uncorrected' | 'biased' | 'unbiased'): number;
 
         /**
          * Compute the sum of a matrix or a list with values. In case of a
@@ -2122,10 +1932,7 @@ declare namespace math {
          * Default value: ‘unbiased’.
          * @returns The variance
          */
-        variance(
-            array: MathArray | Matrix,
-            normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
-        ): any;
+        variance(array: MathArray | Matrix, normalization?: 'unbiased' | 'uncorrected' | 'biased' | 'unbiased'): any;
 
         /*************************************************************************
          * String functions
@@ -2147,7 +1954,7 @@ declare namespace math {
         format(
             value: any,
             options?: FormatOptions | number | ((item: any) => string),
-            callback?: ((value: any) => string)
+            callback?: (value: any) => string,
         ): string;
 
         /**
@@ -2161,12 +1968,7 @@ declare namespace math {
          * numbers. See function math.format for a description of all options.
          * @returns Interpolated string
          */
-        print(
-            template: string,
-            values: any,
-            precision?: number,
-            options?: number | object
-        ): void;
+        print(template: string, values: any, precision?: number, options?: number | object): void;
 
         /*************************************************************************
          * Trigonometry functions
@@ -2476,10 +2278,7 @@ declare namespace math {
          * value.
          * @returns Value with changed, fixed unit
          */
-        to(
-            x: Unit | MathArray | Matrix,
-            unit: Unit | string
-        ): Unit | MathArray | Matrix;
+        to(x: Unit | MathArray | Matrix, unit: Unit | string): Unit | MathArray | Matrix;
 
         /*************************************************************************
          * Utils functions
@@ -2500,9 +2299,7 @@ declare namespace math {
          * @returns Returns true when x contains a numeric, integer value.
          * Throws an error in case of an unknown data type.
          */
-        isInteger(
-            x: number | BigNumber | Fraction | MathArray | Matrix
-        ): boolean;
+        isInteger(x: number | BigNumber | Fraction | MathArray | Matrix): boolean;
 
         /**
          * Test whether a value is NaN (not a number). The function supports
@@ -2512,9 +2309,7 @@ declare namespace math {
          * @returns Returns true when x is NaN. Throws an error in case of an
          * unknown data type.
          */
-        isNaN(
-            x: number | BigNumber | Fraction | MathArray | Matrix | Unit
-        ): boolean;
+        isNaN(x: number | BigNumber | Fraction | MathArray | Matrix | Unit): boolean;
 
         /**
          * Test whether a value is negative: smaller than zero. The function
@@ -2524,9 +2319,7 @@ declare namespace math {
          * @returns Returns true when x is larger than zero. Throws an error in
          * case of an unknown data type.
          */
-        isNegative(
-            x: number | BigNumber | Fraction | MathArray | Matrix | Unit
-        ): boolean;
+        isNegative(x: number | BigNumber | Fraction | MathArray | Matrix | Unit): boolean;
 
         /**
          * Test whether a value is an numeric value. The function is evaluated
@@ -2546,9 +2339,7 @@ declare namespace math {
          * @returns Returns true when x is larger than zero. Throws an error in
          * case of an unknown data type.
          */
-        isPositive(
-            x: number | BigNumber | Fraction | MathArray | Matrix | Unit
-        ): boolean;
+        isPositive(x: number | BigNumber | Fraction | MathArray | Matrix | Unit): boolean;
 
         /**
          * Test whether a value is prime: has no divisors other than itself and
@@ -2568,16 +2359,7 @@ declare namespace math {
          * @returns Returns true when x is zero. Throws an error in case of an
          * unknown data type.
          */
-        isZero(
-            x:
-                | number
-                | BigNumber
-                | Fraction
-                | MathArray
-                | Matrix
-                | Unit
-                | Complex
-        ): boolean;
+        isZero(x: number | BigNumber | Fraction | MathArray | Matrix | Unit | Complex): boolean;
 
         /**
          * Determine the type of a variable.
@@ -2950,25 +2732,12 @@ declare namespace math {
         density(): number;
         subset(index: Index, replacement?: any, defaultValue?: any): Matrix;
         get(index: number[]): any;
-        set(
-            index: number[],
-            value: any,
-            defaultValue?: number | string
-        ): Matrix;
-        resize(
-            size: MathArray | Matrix,
-            defaultValue?: number | string
-        ): Matrix;
+        set(index: number[], value: any, defaultValue?: number | string): Matrix;
+        resize(size: MathArray | Matrix, defaultValue?: number | string): Matrix;
         clone(): Matrix;
         size(): number[];
-        map(
-            callback: (a: any, b: number, c: Matrix) => any,
-            skipZeros?: boolean
-        ): Matrix;
-        forEach(
-            callback: (a: any, b: number, c: Matrix) => void,
-            skipZeros?: boolean
-        ): void;
+        map(callback: (a: any, b: number, c: Matrix) => any, skipZeros?: boolean): Matrix;
+        forEach(callback: (a: any, b: number, c: Matrix) => void, skipZeros?: boolean): void;
         toArray(): MathArray | Matrix;
         valueOff(): MathArray | Matrix;
         format(options?: FormatOptions | number | ((value: any) => string)): string;
@@ -3035,7 +2804,7 @@ declare namespace math {
     }
 
     interface CreateUnitOptions {
-        prefixes?: "none" | "short" | "long" | "binary_short" | "binary_long";
+        prefixes?: 'none' | 'short' | 'long' | 'binary_short' | 'binary_long';
         aliases?: string[];
         offset?: number;
         override?: boolean;
@@ -3129,16 +2898,12 @@ declare namespace math {
          * containing a relative JSON Path.
          * @return Returns an array with nodes for which test returned true
          */
-        filter(
-            callback: (node: MathNode, path: string, parent: MathNode) => any
-        ): MathNode[];
+        filter(callback: (node: MathNode, path: string, parent: MathNode) => any): MathNode[];
 
         /**
          * [forEach description]
          */
-        forEach(
-            callback: (node: MathNode, path: string, parent: MathNode) => any
-        ): MathNode[];
+        forEach(callback: (node: MathNode, path: string, parent: MathNode) => any): MathNode[];
 
         /**
          * Transform a node. Creates a new MathNode having it’s child's be the
@@ -3151,13 +2916,7 @@ declare namespace math {
          *
          * See also transform, which is a recursive version of map.
          */
-        map(
-            callback: (
-                node: MathNode,
-                path: string,
-                parent: MathNode
-            ) => MathNode
-        ): MathNode;
+        map(callback: (node: MathNode, path: string, parent: MathNode) => MathNode): MathNode;
 
         /**
          * Get a HTML representation of the parsed expression.
@@ -3200,13 +2959,7 @@ declare namespace math {
          * transformed.toString(); // returns '(3 ^ 2) + (5 * 3)'
          * ```
          */
-        transform(
-            callback: (
-                node: MathNode,
-                path: string,
-                parent: MathNode
-            ) => MathNode
-        ): MathNode;
+        transform(callback: (node: MathNode, path: string, parent: MathNode) => MathNode): MathNode;
 
         /**
          * `traverse(callback)`
@@ -3237,15 +2990,13 @@ declare namespace math {
          * //   ConstantMathNode 2
          * ```
          */
-        traverse(
-            callback: (node: MathNode, path: string, parent: MathNode) => void
-        ): any;
+        traverse(callback: (node: MathNode, path: string, parent: MathNode) => void): any;
     }
 
     interface Parser {
         evaluate(expr: string): any;
         get(variable: string): any;
-        getAll(): { [key: string]: any; };
+        getAll(): { [key: string]: any };
         set: (variable: string, value: any) => void;
         clear: () => void;
     }
@@ -3266,7 +3017,7 @@ declare namespace math {
          * elsewhere. Lower bound is included, upper bound is excluded. For
          * example '123.4' and '1.4e7'.
          */
-        notation?: "fixed" | "exponential" | "engineering" | "auto";
+        notation?: 'fixed' | 'exponential' | 'engineering' | 'auto';
 
         /**
          * A number between 0 and 16 to round the digits of the number. In case
@@ -3359,10 +3110,7 @@ declare namespace math {
          * the unit. For example, the offset for celsius is 273.15. Default is
          * 0.
          */
-        createUnit(
-            definition?: string | UnitDefinition,
-            options?: CreateUnitOptions
-        ): MathJsChain;
+        createUnit(definition?: string | UnitDefinition, options?: CreateUnitOptions): MathJsChain;
         /**
          * Create a user-defined unit and register it with the Unit type.
          * @param options (optional) An object containing any of the following
@@ -3380,9 +3128,7 @@ declare namespace math {
          * @param denominator Argument specifying the denominator of the
          * fraction
          */
-        fraction(
-            denominator?: number | string | MathArray | Matrix
-        ): MathJsChain;
+        fraction(denominator?: number | string | MathArray | Matrix): MathJsChain;
 
         /**
          * Create an index. An Index can store ranges having start, step, and
@@ -3397,7 +3143,7 @@ declare namespace math {
          * in the matrix, like getting the size and getting or setting values in
          * the matrix. Supported storage formats are 'dense' and 'sparse'.
          */
-        matrix(format?: "sparse" | "dense", dataType?: string): MathJsChain;
+        matrix(format?: 'sparse' | 'dense', dataType?: string): MathJsChain;
 
         /**
          * Create a number or convert a string, boolean, or unit to a number.
@@ -3484,7 +3230,7 @@ declare namespace math {
          * @param options There is one option available, simplify, which is true
          * by default. When false, output will not be simplified.
          */
-        derivative(variable: MathNode | string, options?: {simplify: boolean}): MathJsChain;
+        derivative(variable: MathNode | string, options?: { simplify: boolean }): MathJsChain;
 
         /**
          * Solves the linear equation system by forwards substitution. Matrix
@@ -3509,11 +3255,7 @@ declare namespace math {
          * @param threshold Partial pivoting threshold (1 for partial pivoting),
          * see slu for details. Matrix must be a SparseMatrix.
          */
-        lusolve(
-            b: Matrix | MathArray,
-            order?: number,
-            threshold?: number
-        ): MathJsChain;
+        lusolve(b: Matrix | MathArray, order?: number, threshold?: number): MathJsChain;
 
         /**
          * Calculate the Matrix QR decomposition. Matrix A is decomposed in two
@@ -3543,8 +3285,8 @@ declare namespace math {
          * @param scope Scope to variables
          */
         simplify(
-            rules?: Array<({ l: string; r: string } | string | ((node: MathNode) => MathNode))>,
-            scope?: object
+            rules?: Array<{ l: string; r: string } | string | ((node: MathNode) => MathNode)>,
+            scope?: object,
         ): MathJsChain;
 
         /**
@@ -3958,11 +3700,7 @@ declare namespace math {
          * @param z Co-ordinates of second end-point of second line OR null if
          * the calculation is for line and plane
          */
-        intersect(
-            x: MathArray | Matrix,
-            y: MathArray | Matrix,
-            z: MathArray | Matrix
-        ): MathJsChain;
+        intersect(x: MathArray | Matrix, y: MathArray | Matrix, z: MathArray | Matrix): MathJsChain;
 
         /*************************************************************************
          * Logical functions
@@ -3974,9 +3712,7 @@ declare namespace math {
          * element wise.
          * @param y Second value to and
          */
-        and(
-            y: number | BigNumber | Complex | Unit | MathArray | Matrix
-        ): MathJsChain;
+        and(y: number | BigNumber | Complex | Unit | MathArray | Matrix): MathJsChain;
 
         /**
          * Logical not. Flips boolean value of a given parameter. For matrices,
@@ -3990,9 +3726,7 @@ declare namespace math {
          * element wise.
          * @param y Second value to or
          */
-        or(
-            y: number | BigNumber | Complex | Unit | MathArray | Matrix
-        ): MathJsChain;
+        or(y: number | BigNumber | Complex | Unit | MathArray | Matrix): MathJsChain;
 
         /**
          * Logical xor. Test whether one and only one value is defined with a
@@ -4000,9 +3734,7 @@ declare namespace math {
          * element wise.
          * @param y Second value to xor
          */
-        xor(
-            y: number | BigNumber | Complex | Unit | MathArray | Matrix
-        ): MathJsChain;
+        xor(y: number | BigNumber | Complex | Unit | MathArray | Matrix): MathJsChain;
 
         /*************************************************************************
          * Matrix functions
@@ -4075,7 +3807,9 @@ declare namespace math {
         /**
          * Filter the items in an array or one dimensional matrix.
          */
-        filter(test: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)| RegExp): MathJsChain;
+        filter(
+            test: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray) | RegExp,
+        ): MathJsChain;
 
         /**
          * Flatten a multi dimensional matrix into a single dimensional matrix.
@@ -4086,7 +3820,7 @@ declare namespace math {
          * Iterate over all elements of a matrix/array, and executes the given
          * callback function.
          */
-        forEach(callback: ((value: any, index: any, matrix: Matrix | MathArray) => void)): MathJsChain;
+        forEach(callback: (value: any, index: any, matrix: Matrix | MathArray) => void): MathJsChain;
 
         /**
          * Calculate the inverse of a square matrix.
@@ -4106,7 +3840,7 @@ declare namespace math {
          * parameters: the value of the element, the index of the element, and
          * the Matrix/array being traversed.
          */
-        map(callback: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)): MathJsChain;
+        map(callback: (value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray): MathJsChain;
 
         /**
          * Create a matrix filled with ones. The created matrix can have one or
@@ -4126,10 +3860,7 @@ declare namespace math {
          * called as compare(a, b), and must return 1 when a > b, -1 when a < b,
          * and 0 when a == b. Default value: 'asc'.
          */
-        partitionSelect(
-            k: number,
-            compare?: "asc" | "desc" | ((a: any, b: any) => number)
-        ): MathJsChain;
+        partitionSelect(k: number, compare?: 'asc' | 'desc' | ((a: any, b: any) => number)): MathJsChain;
 
         /**
          * Create an array from a range. By default, the range end is excluded.
@@ -4142,11 +3873,7 @@ declare namespace math {
          */
         range(includeEnd?: boolean): Matrix;
         range(end: number | BigNumber, includeEnd?: boolean): MathJsChain;
-        range(
-            end: number | BigNumber,
-            step: number | BigNumber,
-            includeEnd?: boolean
-        ): MathJsChain;
+        range(end: number | BigNumber, step: number | BigNumber, includeEnd?: boolean): MathJsChain;
 
         /**
          * Reshape a multi dimensional array to fit the specified dimensions
@@ -4161,10 +3888,7 @@ declare namespace math {
          * @param defaultValue Zero by default, except in case of a string, in
          * that case defaultValue = ' ' Default value: 0.
          */
-        resize(
-            size: MathArray | Matrix,
-            defaultValue?: number | string
-        ): MathJsChain;
+        resize(size: MathArray | Matrix, defaultValue?: number | string): MathJsChain;
 
         /**
          * Calculate the size of a matrix or scalar.
@@ -4177,7 +3901,7 @@ declare namespace math {
          * is called as compare(a, b), and must return 1 when a > b, -1 when a <
          * b, and 0 when a == b. Default value: ‘asc’
          */
-        sort(compare: ((a: any, b: any) => number) | "asc" | "desc" | "natural"): MathJsChain;
+        sort(compare: ((a: any, b: any) => number) | 'asc' | 'desc' | 'natural'): MathJsChain;
 
         /**
          * Calculate the principal square root of a square matrix. The principal
@@ -4201,11 +3925,7 @@ declare namespace math {
          * matrix is resized. If not provided, math.matrix elements will be left
          * undefined. Default value: undefined.
          */
-        subset(
-            index: Index,
-            replacement?: any,
-            defaultValue?: any
-        ): MathJsChain;
+        subset(index: Index, replacement?: any, defaultValue?: any): MathJsChain;
 
         /**
          * Calculate the trace of a matrix: the sum of the elements on the main
@@ -4585,10 +4305,7 @@ declare namespace math {
          * these options can be provided
          * @param sorted =false is data sorted in ascending order
          */
-        quantileSeq(
-            prob: number | BigNumber | MathArray,
-            sorted?: boolean
-        ): MathJsChain;
+        quantileSeq(prob: number | BigNumber | MathArray, sorted?: boolean): MathJsChain;
 
         /**
          * Compute the standard deviation of a matrix or a list with values. The
@@ -4606,9 +4323,7 @@ declare namespace math {
          * ‘unbiased’.
          * @returns The standard deviation
          */
-        std(
-            normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
-        ): MathJsChain;
+        std(normalization?: 'unbiased' | 'uncorrected' | 'biased' | 'unbiased'): MathJsChain;
 
         /**
          * Compute the sum of a matrix or a list with values. In case of a
@@ -4633,9 +4348,7 @@ declare namespace math {
          * Default value: ‘unbiased’.
          * @returns The variance
          */
-        variance(
-            normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
-        ): MathJsChain;
+        variance(normalization?: 'unbiased' | 'uncorrected' | 'biased' | 'unbiased'): MathJsChain;
 
         /*************************************************************************
          * String functions
@@ -4655,7 +4368,7 @@ declare namespace math {
         format(
             value: any,
             options?: FormatOptions | number | ((item: any) => string),
-            callback?: ((value: any) => string)
+            callback?: (value: any) => string,
         ): MathJsChain;
 
         /**
@@ -4667,11 +4380,7 @@ declare namespace math {
          * @param options Formatting options, or the number of digits to format
          * numbers. See function math.format for a description of all options.
          */
-        print(
-            values: any,
-            precision?: number,
-            options?: number | object
-        ): MathJsChain;
+        print(values: any, precision?: number, options?: number | object): MathJsChain;
 
         /*************************************************************************
          * Trigonometry functions

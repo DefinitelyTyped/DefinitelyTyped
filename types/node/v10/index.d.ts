@@ -56,18 +56,18 @@
 // TypeScript 2.1-specific augmentations:
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
-interface MapConstructor { }
-interface WeakMapConstructor { }
-interface SetConstructor { }
-interface WeakSetConstructor { }
+interface MapConstructor {}
+interface WeakMapConstructor {}
+interface SetConstructor {}
+interface WeakSetConstructor {}
 interface Set<T> {}
 interface ReadonlySet<T> {}
-interface IteratorResult<T> { }
-interface Iterable<T> { }
+interface IteratorResult<T> {}
+interface Iterable<T> {}
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
-interface IterableIterator<T> { }
+interface IterableIterator<T> {}
 interface AsyncIterableIterator<T> {}
 interface SymbolConstructor {
     readonly iterator: symbol;
@@ -79,7 +79,7 @@ interface SharedArrayBuffer {
     slice(begin?: number, end?: number): SharedArrayBuffer;
 }
 
-declare module "util" {
+declare module 'util' {
     namespace inspect {
         const custom: symbol;
     }

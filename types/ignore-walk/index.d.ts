@@ -24,7 +24,7 @@ declare namespace walk {
         path: string;
         basename: string;
         ignoreFiles: string[];
-        ignoreRules: {[file: string]: string};
+        ignoreRules: { [file: string]: string };
         parent: Walker | WalkerSync | null;
         includeEmpty: boolean;
         root: string;
@@ -45,7 +45,9 @@ declare namespace walk {
         filterEntries(): void;
         onstat(st: Stats, entry: string, file: boolean, dir: boolean, then: () => void): void;
         stat(entry: string, file: boolean, dir: boolean, the: () => void): void;
-        walkerOpt(entry: string): {
+        walkerOpt(
+            entry: string,
+        ): {
             path: string;
             ignoreFiles: string[];
             parent: Walker | WalkerSync;

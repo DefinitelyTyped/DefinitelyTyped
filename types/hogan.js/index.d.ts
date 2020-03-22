@@ -53,14 +53,8 @@ declare class HoganTemplate {
 
 export { HoganTemplate as Template, HoganTemplate as template };
 
-export function compile(
-    text: string,
-    options?: HoganOptions & { asString: false }
-): HoganTemplate;
-export function compile(
-    text: string,
-    options?: HoganOptions & { asString: true }
-): string;
+export function compile(text: string, options?: HoganOptions & { asString: false }): HoganTemplate;
+export function compile(text: string, options?: HoganOptions & { asString: true }): string;
 /**
  * Compiles templates to HoganTemplate objects, which have a render method.
  *
@@ -68,10 +62,7 @@ export function compile(
  * @param options - Options to use when compiling. See https://github.com/twitter/hogan.js#compilation-options.
  * @returns A HoganTemplate.
  */
-export function compile(
-    text: string,
-    options?: HoganOptions
-): HoganTemplate | string;
+export function compile(text: string, options?: HoganOptions): HoganTemplate | string;
 /**
  * Scans templates returning an array of found tokens.
  *
@@ -88,8 +79,4 @@ export function scan(text: string, delimiters?: string): Token[];
  * @param options - Options to use when parsing. See https://github.com/twitter/hogan.js#compilation-options.
  * @returns The tree structure of the given tokens.
  */
-export function parse(
-    tokens: ReadonlyArray<Token>,
-    text?: undefined,
-    options?: HoganOptions
-): Tree;
+export function parse(tokens: ReadonlyArray<Token>, text?: undefined, options?: HoganOptions): Tree;

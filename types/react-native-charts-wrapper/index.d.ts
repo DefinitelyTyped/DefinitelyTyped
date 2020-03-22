@@ -557,9 +557,12 @@ export interface RadarChartProps extends PieRadarChartBase {
 
 export class RadarChart extends Component<RadarChartProps> {}
 
-export interface ScatterDatasetConfig extends CommonDatasetConfig, BarLineScatterCandleBubbleConfig, LineScatterCandleRadarConfig {
+export interface ScatterDatasetConfig
+    extends CommonDatasetConfig,
+        BarLineScatterCandleBubbleConfig,
+        LineScatterCandleRadarConfig {
     scatterShapeSize?: number;
-    scatterShape?: "SQUARE" | "CIRCLE" | "TRIANGLE" | "CROSS" | "X";
+    scatterShape?: 'SQUARE' | 'CIRCLE' | 'TRIANGLE' | 'CROSS' | 'X';
     scatterShapeHoleColor?: Color;
     scatterShapeHoleRadius?: number;
 }
@@ -589,7 +592,7 @@ export interface CombinedData {
 }
 
 export interface CombinedChartProps extends BarLineChartBase {
-    drawOrder?: Array<("BAR" | "BUBBLE" | "LINE" | "CANDLE" | "SCATTER")>;
+    drawOrder?: Array<'BAR' | 'BUBBLE' | 'LINE' | 'CANDLE' | 'SCATTER'>;
     drawValueAboveBar?: boolean;
     highlightFullBarEnabled?: boolean;
     drawBarShadow?: boolean;

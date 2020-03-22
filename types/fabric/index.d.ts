@@ -14,4 +14,4 @@
 //                 Natalie Marleny <https://github.com/nataliemarleny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-export import fabric = require("./fabric-impl");
+export import fabric = require('./fabric-impl');

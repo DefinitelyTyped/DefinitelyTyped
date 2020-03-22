@@ -1,4 +1,4 @@
-import Masonry = require("masonry-layout");
+import Masonry = require('masonry-layout');
 
 // responsive layouts
 function testResponsiveLayouts() {
@@ -6,7 +6,7 @@ function testResponsiveLayouts() {
         $('.grid').masonry({
             itemSelector: '.grid-item',
             columnWidth: '.grid-sizer',
-            percentPosition: true
+            percentPosition: true,
         });
     });
 }
@@ -16,13 +16,13 @@ function testRecommendedOptions() {
     $(document).ready(() => {
         $('.grid').masonry({
             columnWidth: 200,
-            itemSelector: '.grid-item'
+            itemSelector: '.grid-item',
         });
     });
 
     const msnry = new Masonry('.grid', {
         columnWidth: 200,
-        itemSelector: '.grid-item'
+        itemSelector: '.grid-item',
     });
 }
 
@@ -38,11 +38,11 @@ function testExtendedOptions() {
         originLeft: true,
         originTop: true,
         containerStyle: {
-            position: 'relative'
+            position: 'relative',
         },
         transitionDuration: '0.4s',
         resize: true,
         initLayout: true,
-        horizontalOrder: true
+        horizontalOrder: true,
     });
 }

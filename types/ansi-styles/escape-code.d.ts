@@ -1,6 +1,5 @@
 import * as cssKeywords from 'color-name';
 
-
 export namespace EscapeCode {
     export interface CodePair {
         open: string;
@@ -67,40 +66,40 @@ export namespace EscapeCode {
     }
 
     interface Conversions {
-        ansi: (ansi: number) => string
-        rgb: (r: number, g: number, b: number) => string
-        hsl: (h: number, s: number, l: number) => string
-        hsv: (h: number, s: number, v: number) => string
-        hwb: (h: number, w: number, b: number) => string
-        cmyk: (c: number, m: number, y: number, k: number) => string
-        xyz: (x: number, y: number, z: number) => string
-        lab: (l: number, a: number, b: number) => string
-        lch: (l: number, c: number, h: number) => string
-        hex: (hex: string) => string
+        ansi: (ansi: number) => string;
+        rgb: (r: number, g: number, b: number) => string;
+        hsl: (h: number, s: number, l: number) => string;
+        hsv: (h: number, s: number, v: number) => string;
+        hwb: (h: number, w: number, b: number) => string;
+        cmyk: (c: number, m: number, y: number, k: number) => string;
+        xyz: (x: number, y: number, z: number) => string;
+        lab: (l: number, a: number, b: number) => string;
+        lch: (l: number, c: number, h: number) => string;
+        hex: (hex: string) => string;
         /**
          * color keyword in css to ansi code
          */
-        keyword: (keyword: keyof typeof cssKeywords) => string
-        ansi256: (ansi256: number) => string
-        hcg: (h: number, c: number, g: number) => string
+        keyword: (keyword: keyof typeof cssKeywords) => string;
+        ansi256: (ansi256: number) => string;
+        hcg: (h: number, c: number, g: number) => string;
         /**
          * apple RGB to ansi code
          */
-        apple: (r: number, g: number, b: number) => string
-        gray: (grayscale: number) => string
+        apple: (r: number, g: number, b: number) => string;
+        gray: (grayscale: number) => string;
     }
     interface ColorType {
         /**
          * 16 color ansi code
          */
-        ansi: Conversions
+        ansi: Conversions;
         /**
          * 256 color ansi code
          */
-        ansi256: Conversions
+        ansi256: Conversions;
         /**
          * truecolor(16 million color) ansi code
          */
-        ansi16m: Conversions
+        ansi16m: Conversions;
     }
 }

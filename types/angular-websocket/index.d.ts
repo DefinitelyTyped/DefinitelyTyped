@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from "angular";
+import * as angular from 'angular';
 
 export type IWebSocketConfigOptions = angular.websocket.IWebSocketConfigOptions;
 export type IWebSocketProvider = angular.websocket.IWebSocketProvider;
@@ -13,7 +13,7 @@ export type IWebSocketMessageHandler = angular.websocket.IWebSocketMessageHandle
 export type IWebSocketQueueItem = angular.websocket.IWebSocketQueueItem;
 export type IWebSocket = angular.websocket.IWebSocket;
 
-declare module "angular" {
+declare module 'angular' {
     namespace websocket {
         /**
          * Options available to be specified for IWebSocketProvider.
@@ -24,7 +24,7 @@ declare module "angular" {
             useApplyAsync?: boolean;
             initialTimeout?: number;
             maxTimeout?: number;
-            binaryType?: "blob" | "arraybuffer";
+            binaryType?: 'blob' | 'arraybuffer';
             reconnectIfNotNormalClose?: boolean;
         }
 
@@ -34,9 +34,11 @@ declare module "angular" {
          * @param url url to connect to
          * @return websocket instance
          */
-        type IWebSocketProvider =
-            (url: string, protocols?: string | string[] | IWebSocketConfigOptions,
-                options?: IWebSocketConfigOptions) => IWebSocket;
+        type IWebSocketProvider = (
+            url: string,
+            protocols?: string | string[] | IWebSocketConfigOptions,
+            options?: IWebSocketConfigOptions,
+        ) => IWebSocket;
 
         /** Options available to be specified for IWebSocket.onMessage */
         interface IWebSocketMessageOptions {
@@ -128,7 +130,7 @@ declare module "angular" {
             /**
              * List of callbacks to be executed when the socket is opened.
              */
-            onOpenCallbacks: Array<((evt: Event) => void)>;
+            onOpenCallbacks: Array<(evt: Event) => void>;
 
             /**
              * List of callbacks to be executed when a message is received from the socket.
@@ -138,12 +140,12 @@ declare module "angular" {
             /**
              * List of callbacks to be executed when an error is received from the socket.
              */
-            onErrorCallbacks: Array<((evt: Event) => void)>;
+            onErrorCallbacks: Array<(evt: Event) => void>;
 
             /**
              * List of callbacks to be executed when the socket is closed.
              */
-            onCloseCallbacks: Array<((evt: CloseEvent) => void)>;
+            onCloseCallbacks: Array<(evt: CloseEvent) => void>;
 
             /**
              * Returns either the readyState value from the underlying WebSocket instance

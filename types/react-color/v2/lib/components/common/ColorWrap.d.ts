@@ -1,5 +1,5 @@
-import { ComponentType } from "react";
-import { Color, ColorState, ColorChangeHandler } from "../../..";
+import { ComponentType } from 'react';
+import { Color, ColorState, ColorChangeHandler } from '../../..';
 
 type SetDifference<A, B> = A extends B ? never : A;
 
@@ -18,7 +18,7 @@ export interface CustomPickerProps {
 }
 
 export default function CustomPicker<A>(
-    component: ComponentType<A & CustomPickerInjectedProps>
+    component: ComponentType<A & CustomPickerInjectedProps>,
 ): ComponentType<Diff<A, CustomPickerProps> & CustomPickerProps>;
 
 export {};

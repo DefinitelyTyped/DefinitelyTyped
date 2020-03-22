@@ -9,6 +9,6 @@
  *   shasum(string || buffer || object)
  * It also works in the browser with browserify.
  */
-declare function shasum(str: any, alg?: string | null, format?: "hex" | "latin1" | "base64"): string;
+declare function shasum(str: any, alg?: string | null, format?: 'hex' | 'latin1' | 'base64'): string;
 
 export = shasum;

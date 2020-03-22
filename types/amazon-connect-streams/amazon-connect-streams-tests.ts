@@ -1,5 +1,5 @@
 let elem: HTMLElement = new HTMLElement();
-connect.core.initCCP(elem, { ccpUrl: "" }); // $ExpectType void
+connect.core.initCCP(elem, { ccpUrl: '' }); // $ExpectType void
 
 // Types for below tests
 let agentCallback: connect.AgentCallback = () => {};
@@ -11,9 +11,9 @@ let endpoint: connect.Endpoint;
 let contactCallback: connect.ContactCallback;
 let sendDigitOptions: connect.SendDigitOptions;
 
-connect.Endpoint.byPhoneNumber(""); // $ExpectType: connect.Endpoint
+connect.Endpoint.byPhoneNumber(''); // $ExpectType: connect.Endpoint
 
-connect.agent(agent => {
+connect.agent((agent) => {
     agent.onContactPending(agentCallback); // $ExpectType: void
     agent.onRefresh(agentCallback); // $ExpectType: void
     agent.onRoutable(agentCallback); // $ExpectType: void
@@ -24,7 +24,7 @@ connect.agent(agent => {
     agent.onMuteToggle(muteCallback); // $ExpectType: void
     agent.getState(); // $ExpectType: AgentState
     agent.getStateDuration(); // $ExpectType: number
-    agent.getContacts(""); // $ExpectType: connect.Contact[]
+    agent.getContacts(''); // $ExpectType: connect.Contact[]
     agent.getConfiguration(); // $ExpectType: connect.AgentConfiguration
     agent.getAgentStates(); // $ExpectType: connect.AgentState[]
     agent.getRoutingProfile(); // $ExpectType: connect.AgentRoutingProfile
@@ -40,7 +40,7 @@ connect.agent(agent => {
     agent.getAgentStates(); // $ExpectType: connect.AgentState[]
 });
 
-connect.contact(contact => {
+connect.contact((contact) => {
     contact.onRefresh(contactCallback); // $ExpectType: void
     contact.onIncoming(contactCallback); // $ExpectType: void
     contact.onAccepted(contactCallback); // $ExpectType: void

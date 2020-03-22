@@ -8,13 +8,13 @@ const optionDefinitions: commandLineArgs.OptionDefinition[] = [
         defaultValue: '1',
         multiple: true,
         defaultOption: true,
-        group: 'one'
-    }
+        group: 'one',
+    },
 ];
 
 const options = commandLineArgs(optionDefinitions, {
-    argv: [ '--one', '1' ],
-    partial: true
+    argv: ['--one', '1'],
+    partial: true,
 });
 
 const unknown = options._unknown;

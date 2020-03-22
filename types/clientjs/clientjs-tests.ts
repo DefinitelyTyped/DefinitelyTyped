@@ -1,4 +1,4 @@
-import ClientJS = require("clientjs");
+import ClientJS = require('clientjs');
 
 const client = new ClientJS();
 client.getSoftwareVersion(); // $ExpectType string

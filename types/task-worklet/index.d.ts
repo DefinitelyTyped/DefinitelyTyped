@@ -21,12 +21,7 @@ declare namespace TaskQueue {
         result: Promise<T extends PromiseLike<infer U> ? U : T>;
     }
 
-    type State =
-        | 'cancelled'
-        | 'completed'
-        | 'fulfilled'
-        | 'pending'
-        | 'scheduled';
+    type State = 'cancelled' | 'completed' | 'fulfilled' | 'pending' | 'scheduled';
 }
 
 export = TaskQueue;

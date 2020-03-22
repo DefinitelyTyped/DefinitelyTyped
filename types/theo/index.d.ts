@@ -5,46 +5,39 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Collection, Map, List, OrderedMap } from "immutable";
+import { Collection, Map, List, OrderedMap } from 'immutable';
 
-export type StyleProperty =
-    | "name"
-    | "value"
-    | "type"
-    | "originalValue"
-    | "category"
-    | "comment"
-    | "meta";
+export type StyleProperty = 'name' | 'value' | 'type' | 'originalValue' | 'category' | 'comment' | 'meta';
 
 export type Format =
-    | "custom-properties.css"
-    | "cssmodules.css"
-    | "scss"
-    | "sass"
-    | "less"
-    | "styl"
-    | "map.css"
-    | "map.variable.scss"
-    | "list.scss"
-    | "module.js"
-    | "common.js"
-    | "html"
-    | "json"
-    | "raw.json"
-    | "ios.json"
-    | "android.xml"
-    | "aura.tokens";
+    | 'custom-properties.css'
+    | 'cssmodules.css'
+    | 'scss'
+    | 'sass'
+    | 'less'
+    | 'styl'
+    | 'map.css'
+    | 'map.variable.scss'
+    | 'list.scss'
+    | 'module.js'
+    | 'common.js'
+    | 'html'
+    | 'json'
+    | 'raw.json'
+    | 'ios.json'
+    | 'android.xml'
+    | 'aura.tokens';
 
-export type Transform = "raw" | "ios" | "android" | "web";
+export type Transform = 'raw' | 'ios' | 'android' | 'web';
 
 export type ValueTransform =
-    | "color/rgb"
-    | "color/hex"
-    | "color/hex8rgba"
-    | "color/hex8argb"
-    | "percentage/float"
-    | "relative/pixel"
-    | "relative/pixelValue";
+    | 'color/rgb'
+    | 'color/hex'
+    | 'color/hex8rgba'
+    | 'color/hex8argb'
+    | 'percentage/float'
+    | 'relative/pixel'
+    | 'relative/pixelValue';
 
 export type Prop = Map<StyleProperty, string | number>;
 export type Props = List<Prop>;
@@ -81,24 +74,18 @@ export interface TransformOptions<T extends string = never> {
 
 export interface FormatOptions {
     type: Format;
-    options?: (
-        options: object,
-        transformPropName?: (name: string) => string
-    ) => void;
+    options?: (options: object, transformPropName?: (name: string) => string) => void;
 }
 
 export function convert(options: ConvertOptions): Promise<string>;
 export function convertSync(options: ConvertOptions): string;
-export function registerFormat<T extends string = never>(
-    name: Format | T,
-    format: FormatResultFn | string
+export function registerFormat<T extends string = never>(name: Format | T, format: FormatResultFn | string): void;
+export function registerTransform<T extends string = never, V extends string = never>(
+    name: Transform | T,
+    valueTransforms: ValueTransform[] | V[],
 ): void;
-export function registerTransform<
-    T extends string = never,
-    V extends string = never
->(name: Transform | T, valueTransforms: ValueTransform[] | V[]): void;
 export function registerValueTransform<T extends string = never>(
     name: ValueTransform | T,
     predicate: (prop: Prop) => boolean,
-    transform: (prop: Prop) => string | number
+    transform: (prop: Prop) => string | number,
 ): void;

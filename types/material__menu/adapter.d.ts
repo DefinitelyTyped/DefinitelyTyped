@@ -43,13 +43,13 @@ export default interface MDCMenuAdapter {
 
     getAttributeForEventTarget(target: EventTarget, attributeName: string): string;
 
-    getInnerDimensions(): { width: number; height: number; };
+    getInnerDimensions(): { width: number; height: number };
 
     hasAnchor(): boolean;
 
-    getAnchorDimensions(): { width: number; height: number; top: number; right: number; bottom: number; left: number; };
+    getAnchorDimensions(): { width: number; height: number; top: number; right: number; bottom: number; left: number };
 
-    getWindowDimensions(): { width: number; height: number; };
+    getWindowDimensions(): { width: number; height: number };
 
     getNumberOfItems(): number;
 
@@ -63,7 +63,7 @@ export default interface MDCMenuAdapter {
 
     getIndexForEventTarget(target: EventTarget): number;
 
-    notifySelected(evtData: { index: number; }): void;
+    notifySelected(evtData: { index: number }): void;
 
     notifyCancel(): void;
 
@@ -84,10 +84,10 @@ export default interface MDCMenuAdapter {
     setTransformOrigin(origin: string): void;
 
     setPosition(position: {
-        top: (string|undefined),
-        right: (string|undefined),
-        bottom: (string|undefined),
-        left: (string|undefined)
+        top: string | undefined;
+        right: string | undefined;
+        bottom: string | undefined;
+        left: string | undefined;
     }): void;
 
     setMaxHeight(height: number): void;

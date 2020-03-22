@@ -4,7 +4,7 @@ let keys: ssbKeys.Keys = {
     curve: 'ed25519',
     public: 'abcd.ed25519',
     private: 'bcda.ed25519',
-    id: '@1234.ed25519'
+    id: '@1234.ed25519',
 };
 
 let str: string;

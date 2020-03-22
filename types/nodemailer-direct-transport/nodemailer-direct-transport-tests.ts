@@ -1,9 +1,8 @@
-
 import directTransport = require('nodemailer-direct-transport');
 import nodemailer = require('nodemailer');
 
 var opts: directTransport.DirectOptions = {
-	name: "harry"
+    name: 'harry',
 };
 
 var transport: nodemailer.Transport = directTransport(opts);
@@ -14,9 +13,8 @@ var mailOptions: nodemailer.SendMailOptions = {
     to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
     subject: 'Hello ✔', // Subject line
     text: 'Hello world ✔', // plaintext body
-    html: '<b>Hello world ✔</b>' // html body
+    html: '<b>Hello world ✔</b>', // html body
 };
 transport.send(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
-	// nothing
+    // nothing
 });
-

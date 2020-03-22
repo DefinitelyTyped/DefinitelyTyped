@@ -7,7 +7,7 @@ const options: Sqlite.Options = { fileMustExist: true, memory: true, readonly: t
 const registrationOptions: Sqlite.RegistrationOptions = {
     deterministic: true,
     safeIntegers: true,
-    varargs: true
+    varargs: true,
 };
 
 let db: Sqlite.Database = Sqlite('.');
@@ -17,26 +17,26 @@ db.exec('INSERT INTO test(name) VALUES("name");');
 db.pragma('data_version', { simple: true });
 db.checkpoint();
 db.checkpoint('main');
-db.function('noop', () => { });
-db.function('noop', { deterministic: true, varargs: true }, () => { });
+db.function('noop', () => {});
+db.function('noop', { deterministic: true, varargs: true }, () => {});
 db.aggregate('add', {
     start: 0,
     step: (t, n) => t + n,
     deterministic: true,
-    varargs: true
+    varargs: true,
 });
 db.aggregate('getAverage', {
     start: () => [],
     step: (array, nextValue) => {
         array.push(nextValue);
     },
-    result: array => array.reduce((t: any, v: any) => t + v) / array.length,
+    result: (array) => array.reduce((t: any, v: any) => t + v) / array.length,
 });
 db.aggregate('addAll', {
     start: 0,
     step: (total, nextValue) => total + nextValue,
     inverse: (total, droppedValue) => total - droppedValue,
-    result: total => Math.round(total),
+    result: (total) => Math.round(total),
 });
 db.defaultSafeIntegers();
 db.defaultSafeIntegers(true);
@@ -70,7 +70,10 @@ stmtWithBindTyped.run('alice', 20);
 // https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md#binding-parameters
 // $ExpectError
 stmtWithBindTyped.run(['alice', 20]);
-interface NamedBindParameters { name: string; age: number; }
+interface NamedBindParameters {
+    name: string;
+    age: number;
+}
 const stmtWithNamedBind = db.prepare<NamedBindParameters>('INSERT INTO test VALUES (@name, @age)');
 stmtWithNamedBind.run({ name: 'bob', age: 20 });
 
@@ -95,11 +98,10 @@ const transReturn = db.transaction(() => 1);
 // $ExpectType number
 transReturn();
 
-db.backup('backup-today.db')
-    .then(({ totalPages, remainingPages }) => {});
+db.backup('backup-today.db').then(({ totalPages, remainingPages }) => {});
 const paused = false;
 db.backup('backup-today.db', {
     progress({ totalPages: t, remainingPages: r }) {
         return paused ? 0 : 200;
-    }
+    },
 });

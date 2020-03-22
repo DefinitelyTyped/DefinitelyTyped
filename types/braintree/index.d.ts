@@ -915,13 +915,9 @@ declare namespace braintree {
         | AccountUpdaterNotification
         | PaymentMethodNotification;
 
-    export type AccountUpdaterNotificationKind =
-        | 'account_updater_daily_report';
+    export type AccountUpdaterNotificationKind = 'account_updater_daily_report';
 
-    export type DisputeNotificationKind =
-        | 'dispute_opened'
-        | 'dispute_lost'
-        | 'dispute_won';
+    export type DisputeNotificationKind = 'dispute_opened' | 'dispute_lost' | 'dispute_won';
 
     export type SubscriptionNotificationKind =
         | 'subscription_canceled'
@@ -932,19 +928,16 @@ declare namespace braintree {
         | 'subscription_went_active'
         | 'subscription_went_past_due';
 
-    export type SubMerchantAccountApprovedNotificationKind =
-        | 'sub_merchant_account_approved';
+    export type SubMerchantAccountApprovedNotificationKind = 'sub_merchant_account_approved';
 
-    export type SubMerchantAccountDeclinedNotificationKind =
-        | 'sub_merchant_account_declined';
+    export type SubMerchantAccountDeclinedNotificationKind = 'sub_merchant_account_declined';
 
     export type TransactionNotificationKind =
         | 'transaction_disbursed'
         | 'transaction_settled'
         | 'transaction_settlement_declined';
 
-    export type PaymentMethodNotificationKind =
-        | 'payment_method_revoked_by_customer';
+    export type PaymentMethodNotificationKind = 'payment_method_revoked_by_customer';
 
     export type WebhookNotificationKind =
         | AccountUpdaterNotificationKind

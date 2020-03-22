@@ -1,4 +1,4 @@
-import { MatchType } from "./MatchType";
+import { MatchType } from './MatchType';
 
 /**
  * Provides match-type settings.

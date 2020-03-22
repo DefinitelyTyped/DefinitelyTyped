@@ -1,4 +1,4 @@
-import AmChart from "./AmChart";
+import AmChart from './AmChart';
 
 /**
  * AmLegend is the class that displays legend of the chart.
@@ -229,16 +229,7 @@ export default class AmLegend {
      * @param type Either "clickLabel" or "clickMarker" or "hideItem".
      * @param handler The event handler.
      */
-    addListener(
-        type: string,
-        handler: (
-            e: {
-                type: string;
-                dataItem: object;
-                chart: AmChart;
-            },
-        ) => void,
-    ): void;
+    addListener(type: string, handler: (e: { type: string; dataItem: object; chart: AmChart }) => void): void;
 
     /**
      * Removes event listener from chart object.

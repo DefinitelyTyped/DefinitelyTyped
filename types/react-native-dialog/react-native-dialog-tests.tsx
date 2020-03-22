@@ -1,5 +1,5 @@
-import Dialog from "react-native-dialog";
-import { createRef, Component } from "react";
+import Dialog from 'react-native-dialog';
+import { createRef, Component } from 'react';
 
 class Example extends Component {
     dynamicButtons() {
@@ -8,12 +8,7 @@ class Example extends Component {
             { label: 'Button 1', action: buttonFunc },
             { label: 'Button 2', action: buttonFunc },
         ];
-        return buttons.map(({ label , action }) =>
-            <Dialog.Button
-                label={label}
-                onPress={action}
-            />
-        );
+        return buttons.map(({ label, action }) => <Dialog.Button label={label} onPress={action} />);
     }
 
     singleButton() {

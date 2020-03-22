@@ -27,7 +27,10 @@ declare namespace uglify {
         cacheKeys?: (defaultCacheKeys: any, file: any) => object;
         parallel?: boolean | number;
         sourceMap?: boolean;
-        minify?: (file: any, sourceMap: any) => {error: any, map: any, code: any, warnings: any, extractedComments: any};
+        minify?: (
+            file: any,
+            sourceMap: any,
+        ) => { error: any; map: any; code: any; warnings: any; extractedComments: any };
         uglifyOptions?: MinifyOptions;
         extractComments?: boolean | string | RegExp | ExtractCommentsFunction;
         warningsFilter?: (warning: any, source: any) => boolean;

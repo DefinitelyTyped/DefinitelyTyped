@@ -12,21 +12,22 @@ const recorder = new Recorder(audioContext, {
         // An array of 255 Numbers
         // You can use this to visualize the audio stream
         console.log(data);
-    }
+    },
 });
 
-navigator.mediaDevices.getUserMedia({audio: true})
+navigator.mediaDevices
+    .getUserMedia({ audio: true })
     .then((stream) => recorder.init(stream))
     .catch((err) => console.log('Uh oh... unable to get stream...', err));
 
 // startRecording()
 function startRecording() {
-    recorder.start().then(() => isRecording = true);
+    recorder.start().then(() => (isRecording = true));
 }
 
 // stopRecording()
 function stopRecording() {
-    recorder.stop().then(({blob, buffer}) => {
+    recorder.stop().then(({ blob, buffer }) => {
         console.log('blob: ', blob);
         console.log('buffer: ', buffer);
         recorded = blob;

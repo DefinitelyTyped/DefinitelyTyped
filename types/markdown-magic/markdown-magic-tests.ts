@@ -51,7 +51,7 @@ const customConfig: markdownMagic.Configuration = {
 /* This example callback automatically updates Readme.md and commits the changes */
 const callback: markdownMagic.Callback = function autoGitCommit(err, output) {
     // output is array of file information
-    output.forEach(data => {
+    output.forEach((data) => {
         const mdPath = data.outputFilePath;
         if (!mdPath) return false;
     });

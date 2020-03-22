@@ -3,7 +3,7 @@
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-export = PvUtils
+export = PvUtils;
 
 declare namespace PvUtils {
     /**
@@ -38,7 +38,12 @@ declare namespace PvUtils {
      * @param {number} inputLength
      * @returns {boolean}
      */
-    function checkBufferParams(baseBlock: any, inputBuffer: ArrayBuffer, inputOffset: number, inputLength: number): boolean;
+    function checkBufferParams(
+        baseBlock: any,
+        inputBuffer: ArrayBuffer,
+        inputOffset: number,
+        inputLength: number,
+    ): boolean;
 
     /**
      * Convert number from 2^base to 2^10

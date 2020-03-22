@@ -1,4 +1,4 @@
-import PasswordComplexity = require("joi-password-complexity");
+import PasswordComplexity = require('joi-password-complexity');
 
 const complexityOptions: PasswordComplexity.ComplexityOptions = {
     min: 8,
@@ -7,7 +7,7 @@ const complexityOptions: PasswordComplexity.ComplexityOptions = {
     upperCase: 1,
     numeric: 1,
     symbol: 1,
-    requirementCount: 3
+    requirementCount: 3,
 };
 
 const passwordComplexity = new PasswordComplexity(complexityOptions);

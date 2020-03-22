@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     namespace encoding {
         namespace compression {
             /**
@@ -14,28 +12,38 @@ declare namespace dojox {
              *
              * @param n
              */
-            interface splay{(n: any): void}
+            interface splay {
+                (n: any): void;
+            }
             namespace splay {
                 /**
                  *
                  * @param stream
                  */
-                interface decode{(stream: any): number}
+                interface decode {
+                    (stream: any): number;
+                }
                 /**
                  *
                  * @param value
                  * @param stream
                  */
-                interface encode{(value: any, stream: any): any}
+                interface encode {
+                    (value: any, stream: any): any;
+                }
                 /**
                  *
                  */
-                interface reset{(): void}
+                interface reset {
+                    (): void;
+                }
                 /**
                  *
                  * @param i
                  */
-                interface splay{(i: any): void}
+                interface splay {
+                    (i: any): void;
+                }
             }
 
             /**
@@ -310,7 +318,6 @@ declare namespace dojox {
                     String: number;
                 }
             }
-
         }
 
         namespace digests {
@@ -322,7 +329,9 @@ declare namespace dojox {
              * @param data
              * @param outputType       Optional
              */
-            interface SHA1{(data: String, outputType?: Object): void}
+            interface SHA1 {
+                (data: String, outputType?: Object): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/encoding/digests/MD5.html
              *
@@ -331,7 +340,9 @@ declare namespace dojox {
              * @param data
              * @param outputType       Optional
              */
-            interface MD5{(data: String, outputType?: Object): void}
+            interface MD5 {
+                (data: String, outputType?: Object): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/encoding/digests/SHA224.html
              *
@@ -339,7 +350,9 @@ declare namespace dojox {
              * @param data
              * @param outputType       Optional
              */
-            interface SHA224{(data: String, outputType?: number): void}
+            interface SHA224 {
+                (data: String, outputType?: number): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/encoding/digests/SHA256.html
              *
@@ -347,7 +360,9 @@ declare namespace dojox {
              * @param data
              * @param outputType       Optional
              */
-            interface SHA256{(data: String, outputType?: number): void}
+            interface SHA256 {
+                (data: String, outputType?: number): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/encoding/digests/SHA384.html
              *
@@ -355,7 +370,9 @@ declare namespace dojox {
              * @param data
              * @param outputType       Optional
              */
-            interface SHA384{(data: String, outputType?: number): void}
+            interface SHA384 {
+                (data: String, outputType?: number): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/encoding/digests/SHA512.html
              *
@@ -363,9 +380,10 @@ declare namespace dojox {
              * @param data
              * @param outputType       Optional
              */
-            interface SHA512{(data: String, outputType?: number): void}
-            module _sha_32 {
+            interface SHA512 {
+                (data: String, outputType?: number): void;
             }
+            module _sha_32 {}
 
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/encoding/digests/_base.html
@@ -503,8 +521,7 @@ declare namespace dojox {
          *
          *
          */
-        interface _base {
-        }
+        interface _base {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/encoding/bits.html
          *
@@ -580,97 +597,93 @@ declare namespace dojox {
             encode(input: any[]): void;
         }
     }
-
-
-
-
 }
 
-declare module "dojox/encoding/_base" {
-    var exp: dojox.encoding._base
-    export=exp;
+declare module 'dojox/encoding/_base' {
+    var exp: dojox.encoding._base;
+    export = exp;
 }
-declare module "dojox/encoding/ascii85" {
-    var exp: dojox.encoding.ascii85
-    export=exp;
+declare module 'dojox/encoding/ascii85' {
+    var exp: dojox.encoding.ascii85;
+    export = exp;
 }
-declare module "dojox/encoding/base64" {
-    var exp: dojox.encoding.base64
-    export=exp;
+declare module 'dojox/encoding/base64' {
+    var exp: dojox.encoding.base64;
+    export = exp;
 }
-declare module "dojox/encoding/bits" {
-    var exp: dojox.encoding.bits
-    export=exp;
+declare module 'dojox/encoding/bits' {
+    var exp: dojox.encoding.bits;
+    export = exp;
 }
-declare module "dojox/encoding/easy64" {
-    var exp: dojox.encoding.easy64
-    export=exp;
+declare module 'dojox/encoding/easy64' {
+    var exp: dojox.encoding.easy64;
+    export = exp;
 }
-declare module "dojox/encoding/compression/splay" {
-    var exp: dojox.encoding.compression.splay
-    export=exp;
+declare module 'dojox/encoding/compression/splay' {
+    var exp: dojox.encoding.compression.splay;
+    export = exp;
 }
-declare module "dojox/encoding/compression/lzw" {
-    var exp: dojox.encoding.compression.lzw
-    export=exp;
+declare module 'dojox/encoding/compression/lzw' {
+    var exp: dojox.encoding.compression.lzw;
+    export = exp;
 }
-declare module "dojox/encoding/crypto/_base" {
-    var exp: dojox.encoding.crypto._base
-    export=exp;
+declare module 'dojox/encoding/crypto/_base' {
+    var exp: dojox.encoding.crypto._base;
+    export = exp;
 }
-declare module "dojox/encoding/crypto/_base.RSAKey" {
-    var exp: dojox.encoding.crypto._base.RSAKey
-    export=exp;
+declare module 'dojox/encoding/crypto/_base.RSAKey' {
+    var exp: dojox.encoding.crypto._base.RSAKey;
+    export = exp;
 }
-declare module "dojox/encoding/crypto/_base.cipherModes" {
-    var exp: dojox.encoding.crypto._base.cipherModes
-    export=exp;
+declare module 'dojox/encoding/crypto/_base.cipherModes' {
+    var exp: dojox.encoding.crypto._base.cipherModes;
+    export = exp;
 }
-declare module "dojox/encoding/crypto/_base.outputTypes" {
-    var exp: dojox.encoding.crypto._base.outputTypes
-    export=exp;
+declare module 'dojox/encoding/crypto/_base.outputTypes' {
+    var exp: dojox.encoding.crypto._base.outputTypes;
+    export = exp;
 }
-declare module "dojox/encoding/crypto/RSAKey" {
-    var exp: dojox.encoding.crypto.RSAKey
-    export=exp;
+declare module 'dojox/encoding/crypto/RSAKey' {
+    var exp: dojox.encoding.crypto.RSAKey;
+    export = exp;
 }
-declare module "dojox/encoding/crypto/RSAKey-ext" {
-    var exp: dojox.encoding.crypto.RSAKey_ext
-    export=exp;
+declare module 'dojox/encoding/crypto/RSAKey-ext' {
+    var exp: dojox.encoding.crypto.RSAKey_ext;
+    export = exp;
 }
-declare module "dojox/encoding/digests/MD5" {
-    var exp: dojox.encoding.digests.MD5
-    export=exp;
+declare module 'dojox/encoding/digests/MD5' {
+    var exp: dojox.encoding.digests.MD5;
+    export = exp;
 }
-declare module "dojox/encoding/digests/SHA1" {
-    var exp: dojox.encoding.digests.SHA1
-    export=exp;
+declare module 'dojox/encoding/digests/SHA1' {
+    var exp: dojox.encoding.digests.SHA1;
+    export = exp;
 }
-declare module "dojox/encoding/digests/SHA224" {
-    var exp: dojox.encoding.digests.SHA224
-    export=exp;
+declare module 'dojox/encoding/digests/SHA224' {
+    var exp: dojox.encoding.digests.SHA224;
+    export = exp;
 }
-declare module "dojox/encoding/digests/SHA512" {
-    var exp: dojox.encoding.digests.SHA512
-    export=exp;
+declare module 'dojox/encoding/digests/SHA512' {
+    var exp: dojox.encoding.digests.SHA512;
+    export = exp;
 }
-declare module "dojox/encoding/digests/SHA256" {
-    var exp: dojox.encoding.digests.SHA256
-    export=exp;
+declare module 'dojox/encoding/digests/SHA256' {
+    var exp: dojox.encoding.digests.SHA256;
+    export = exp;
 }
-declare module "dojox/encoding/digests/SHA384" {
-    var exp: dojox.encoding.digests.SHA384
-    export=exp;
+declare module 'dojox/encoding/digests/SHA384' {
+    var exp: dojox.encoding.digests.SHA384;
+    export = exp;
 }
-declare module "dojox/encoding/digests/_base" {
-    var exp: dojox.encoding.digests._base
-    export=exp;
+declare module 'dojox/encoding/digests/_base' {
+    var exp: dojox.encoding.digests._base;
+    export = exp;
 }
-declare module "dojox/encoding/digests/_base.outputTypes" {
-    var exp: dojox.encoding.digests._base.outputTypes
-    export=exp;
+declare module 'dojox/encoding/digests/_base.outputTypes' {
+    var exp: dojox.encoding.digests._base.outputTypes;
+    export = exp;
 }
-declare module "dojox/encoding/digests/_sha-64" {
-    var exp: dojox.encoding.digests._sha_64
-    export=exp;
+declare module 'dojox/encoding/digests/_sha-64' {
+    var exp: dojox.encoding.digests._sha_64;
+    export = exp;
 }

@@ -11,7 +11,7 @@ const game: Game = new Game({
     debug: true,
     scene: myScene,
     target: 'body',
-    sound: true
+    sound: true,
 });
 
 game.setScene(myScene);

@@ -1,7 +1,5 @@
-import * as React from "react";
-import MediaQuery, {
-    toQuery
-} from "react-responsive";
+import * as React from 'react';
+import MediaQuery, { toQuery } from 'react-responsive';
 
 class QueryTests extends React.Component {
     render() {
@@ -65,24 +63,27 @@ class PropsTests extends React.Component {
                     <div>Wrapped</div>
                     <div>Content</div>
                 </MediaQuery>
-                <MediaQuery style={{textTransform: 'uppercase'}} all={true}>
+                <MediaQuery style={{ textTransform: 'uppercase' }} all={true}>
                     uppercase me!
                 </MediaQuery>
-                <MediaQuery minDeviceWidth={1224}
-                            values={{ aspectRatio: '4/3',
-                                      deviceAspectRatio: '4/3',
-                                      height: '1600px',
-                                      deviceHeight: 1600,
-                                      width: 1600,
-                                      deviceWidth: '1600px',
-                                      color: true,
-                                      colorIndex: true,
-                                      monochrome: false,
-                                      resolution: 1,
-                                      orientation: 'portrait',
-                                      scan: 'progressive',
-                                      type: 'print'
-                                    }}>
+                <MediaQuery
+                    minDeviceWidth={1224}
+                    values={{
+                        aspectRatio: '4/3',
+                        deviceAspectRatio: '4/3',
+                        height: '1600px',
+                        deviceHeight: 1600,
+                        width: 1600,
+                        deviceWidth: '1600px',
+                        color: true,
+                        colorIndex: true,
+                        monochrome: false,
+                        resolution: 1,
+                        orientation: 'portrait',
+                        scan: 'progressive',
+                        type: 'print',
+                    }}
+                >
                     Values supplied for SSR
                 </MediaQuery>
             </div>
@@ -111,19 +112,17 @@ class CallbackTest extends React.Component {
         if (matches) {
             // do something
         }
-    }
+    };
 
     onChange = (matches: boolean): void => {
         if (matches) {
             // do something else
         }
-    }
+    };
 
     render() {
         return (
-            <MediaQuery minDeviceWidth={700}
-                        onBeforeChange={this.onBeforeChange}
-                        onChange={this.onChange}>
+            <MediaQuery minDeviceWidth={700} onBeforeChange={this.onBeforeChange} onChange={this.onChange}>
                 Media query matches!
             </MediaQuery>
         );
@@ -133,5 +132,5 @@ class CallbackTest extends React.Component {
 const queryStrTest: string = toQuery({
     type: 'print',
     screen: true,
-    minHeight: 666
+    minHeight: 666,
 });

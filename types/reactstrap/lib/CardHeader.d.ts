@@ -8,5 +8,5 @@ export interface CardHeaderProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class CardHeader<T = {[key: string]: any}> extends React.Component<CardHeaderProps> {}
+declare class CardHeader<T = { [key: string]: any }> extends React.Component<CardHeaderProps> {}
 export default CardHeader;

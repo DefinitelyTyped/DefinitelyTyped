@@ -73,7 +73,7 @@ declare namespace DineroFactory {
         | 'HALF_AWAY_FROM_ZERO';
 
     interface ExchangeRatesApiOptions {
-        endpoint: string | Promise<{[key: string]: any}>;
+        endpoint: string | Promise<{ [key: string]: any }>;
         propertyPath?: string;
         headers?: { [header: string]: string };
         roundingMode?: RoundingMode;

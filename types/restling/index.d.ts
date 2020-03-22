@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import * as Promise from "bluebird";
-import * as Restler from "restler";
-import { ServerResponse } from "http";
+import * as Promise from 'bluebird';
+import * as Restler from 'restler';
+import { ServerResponse } from 'http';
 
 /**
  * Create a DELETE request.
@@ -100,11 +100,15 @@ export function putJson(url: string, data?: any, options?: RestlingOptions): Pro
  */
 export function request(url: string, options?: RestlingOptions): Promise<RestlingResult>;
 
-export function settleAsync(requests: Array<{ url: string, options?: RestlingOptions }>): Promise<[RestlingResult]>;
-export function settleAsync(requests: { [key: string]: { url: string, options?: RestlingOptions } }): Promise<{ [key: string]: RestlingResult }>;
+export function settleAsync(requests: Array<{ url: string; options?: RestlingOptions }>): Promise<[RestlingResult]>;
+export function settleAsync(requests: {
+    [key: string]: { url: string; options?: RestlingOptions };
+}): Promise<{ [key: string]: RestlingResult }>;
 
-export function allAsync(requests: Array<{ url: string, options?: RestlingOptions }>): Promise<[RestlingResult]>;
-export function allAsync(requests: { [key: string]: { url: string, options?: RestlingOptions } }): Promise<{ [key: string]: RestlingResult }>;
+export function allAsync(requests: Array<{ url: string; options?: RestlingOptions }>): Promise<[RestlingResult]>;
+export function allAsync(requests: {
+    [key: string]: { url: string; options?: RestlingOptions };
+}): Promise<{ [key: string]: RestlingResult }>;
 
 /**
  * Interface for the result.

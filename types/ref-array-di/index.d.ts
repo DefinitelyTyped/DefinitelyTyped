@@ -16,34 +16,71 @@ interface ArrayType<T> extends ref.Type {
      * for the ArrayType. The "length" of the Array is determined by searching
      * through the buffer's contents until an aligned NULL pointer is encountered.
      */
-    untilZeros(buffer: Buffer): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+    untilZeros(
+        buffer: Buffer,
+    ): {
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
 
     new (length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
     new (data: number[], length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
     new (data: Buffer, length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
     (length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
     (data: number[], length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
     (data: Buffer, length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
 }
 

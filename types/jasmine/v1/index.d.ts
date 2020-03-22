@@ -26,7 +26,6 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
-
     var Clock: Clock;
 
     function any(aclass: any): Any;
@@ -38,7 +37,6 @@ declare namespace jasmine {
     function getEnv(): Env;
 
     interface Any {
-
         new (expectedClass: any): any;
 
         jasmineMatches(other: any): boolean;
@@ -53,7 +51,6 @@ declare namespace jasmine {
     }
 
     interface Block {
-
         new (env: Env, func: SpecFunction, spec: Spec): any;
 
         execute(onComplete: () => void): void;
@@ -108,12 +105,13 @@ declare namespace jasmine {
         compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
         equals_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
         contains_(haystack: any, needle: any): boolean;
-        addEqualityTester(equalityTester: (a: any, b: any, env: Env, mismatchKeys: string[], mismatchValues: string[]) => boolean): void;
+        addEqualityTester(
+            equalityTester: (a: any, b: any, env: Env, mismatchKeys: string[], mismatchValues: string[]) => boolean,
+        ): void;
         specFilter(spec: Spec): boolean;
     }
 
     interface FakeTimer {
-
         new (): any;
 
         reset(): void;
@@ -146,12 +144,12 @@ declare namespace jasmine {
         passed(): boolean;
     }
 
-    interface MessageResult extends Result  {
+    interface MessageResult extends Result {
         values: any;
         trace: Trace;
     }
 
-    interface ExpectationResult extends Result  {
+    interface ExpectationResult extends Result {
         matcherName: string;
         passed(): boolean;
         expected: any;
@@ -167,7 +165,6 @@ declare namespace jasmine {
     }
 
     interface PrettyPrinter {
-
         new (): any;
 
         format(value: any): void;
@@ -179,11 +176,9 @@ declare namespace jasmine {
         append(value: any): void;
     }
 
-    interface StringPrettyPrinter extends PrettyPrinter {
-    }
+    interface StringPrettyPrinter extends PrettyPrinter {}
 
     interface Queue {
-
         new (env: any): any;
 
         env: Env;
@@ -204,7 +199,6 @@ declare namespace jasmine {
     }
 
     interface Matchers<T> {
-
         new (env: Env, actual: any, spec: Env, isNot?: boolean): any;
 
         env: Env;
@@ -250,7 +244,6 @@ declare namespace jasmine {
     }
 
     interface Runner {
-
         new (env: Env): any;
 
         execute(): void;
@@ -277,7 +270,6 @@ declare namespace jasmine {
     }
 
     interface Spec extends SuiteOrSpec {
-
         new (env: Env, suite: Suite, description: string): any;
 
         suite: Suite;
@@ -316,7 +308,6 @@ declare namespace jasmine {
     }
 
     interface Suite extends SuiteOrSpec {
-
         new (env: Env, description: string, specDefinitions: () => void, parentSuite: Suite): any;
 
         parentSuite: Suite;
@@ -342,7 +333,7 @@ declare namespace jasmine {
 
         identity: string;
         calls: any[];
-        mostRecentCall: { args: any[]; };
+        mostRecentCall: { args: any[] };
         argsForCall: any[];
         wasCalled: boolean;
         callCount: number;
@@ -361,7 +352,6 @@ declare namespace jasmine {
     }
 
     interface JsApiReporter extends Reporter {
-
         started: boolean;
         finished: boolean;
         result: any;

@@ -14,9 +14,11 @@ const parsed35 = parseRtpPayloadType(35);
 parsed35.name; // $ExpectType "unassigned"
 
 for (let i = 0; i < 200; i++) {
-  const parsed = parseRtpPayloadType(i);
-  if (parsed.name) {}
-  if (parsed.clockRate) {}
+    const parsed = parseRtpPayloadType(i);
+    if (parsed.name) {
+    }
+    if (parsed.clockRate) {
+    }
 }
 
 payloadTypesHash[0].mediaType; // $ExpectType "A"

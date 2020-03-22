@@ -26,7 +26,7 @@ authOpts.tokenManager = { storage: 'cookie', secure: true, autoRenew: 'string' }
 authOpts.tokenManager = {
     storage: 'cookie',
     secure: false,
-    autoRenew: true
+    autoRenew: true,
 };
 
 // Invalid optional config properties
@@ -63,13 +63,13 @@ const router = new Router({
             path: '/protected',
             component: {
                 name: 'protected',
-                template: '<div>Protected Route</div>'
+                template: '<div>Protected Route</div>',
             },
             meta: {
-                requiresAuth: true
-            }
+                requiresAuth: true,
+            },
         },
-    ]
+    ],
 });
 
 const redirectGuard = Vue.prototype.$auth.authRedirectGuard();

@@ -18,7 +18,7 @@ interface TokensOptions {
 
 declare class Tokens {
     /** Token generation/verification class. */
-    constructor(options?: TokensOptions)
+    constructor(options?: TokensOptions);
 
     /**
      * Create a new CSRF token.

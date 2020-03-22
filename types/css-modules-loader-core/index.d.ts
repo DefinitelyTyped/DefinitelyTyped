@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Plugin } from "postcss";
+import { Plugin } from 'postcss';
 
 declare namespace Core {
     type Source =
@@ -13,11 +13,7 @@ declare namespace Core {
               toString(): string;
           };
 
-    type PathFetcher = (
-        file: string,
-        relativeTo: string,
-        depTrace: string
-    ) => void;
+    type PathFetcher = (file: string, relativeTo: string, depTrace: string) => void;
 
     interface ExportTokens {
         [index: string]: string;
@@ -42,7 +38,7 @@ declare class Core {
         source: Core.Source,
         sourcePath?: string,
         trace?: string,
-        pathFetcher?: Core.PathFetcher
+        pathFetcher?: Core.PathFetcher,
     ): Promise<Core.Result>;
 }
 

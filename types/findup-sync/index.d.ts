@@ -13,7 +13,7 @@ export = findupSync;
 
 declare function findupSync(
     patternOrPatterns: string[] | string,
-    micromatchOptions?: findupSync.Options
+    micromatchOptions?: findupSync.Options,
 ): string | null;
 
 declare namespace findupSync {

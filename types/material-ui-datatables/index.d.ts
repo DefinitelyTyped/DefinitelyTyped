@@ -98,7 +98,7 @@ export interface DataTableProps {
     tableRowColumnStyle: React.CSSProperties;
     tableWrapperStyle: React.CSSProperties;
     /** 'default' or 'filter', filter mode shows a search box to reduce visible rows */
-    headerToolbarMode: "default" | "filter" | string; // BUG https://github.com/Microsoft/TypeScript/issues/11465
+    headerToolbarMode: 'default' | 'filter' | string; // BUG https://github.com/Microsoft/TypeScript/issues/11465
     /** The current filter value */
     filterValue: string;
     /** Show the icon to turn on the filtering feature */
@@ -116,4 +116,4 @@ export interface DataTableProps {
     onRowSelection: (selectedRows: any) => void;
 }
 
-export default class DataTable extends React.Component<Partial<DataTableProps>> { }
+export default class DataTable extends React.Component<Partial<DataTableProps>> {}

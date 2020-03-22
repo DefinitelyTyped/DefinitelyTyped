@@ -20,15 +20,17 @@ declare namespace SemanticUI {
     type SiteSettings = SiteSettings.Param;
 
     namespace SiteSettings {
-        type Param = (Pick<_Impl, 'modules'> |
-            Pick<_Impl, 'siteNamespace'> |
-            Pick<_Impl, 'namespaceStub'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
+        type Param = (
+            | Pick<_Impl, 'modules'>
+            | Pick<_Impl, 'siteNamespace'>
+            | Pick<_Impl, 'namespaceStub'>
+            | Pick<_Impl, 'namespace'>
+            | Pick<_Impl, 'name'>
+            | Pick<_Impl, 'silent'>
+            | Pick<_Impl, 'debug'>
+            | Pick<_Impl, 'performance'>
+            | Pick<_Impl, 'verbose'>
+        ) &
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
@@ -80,11 +82,13 @@ declare namespace SemanticUI {
         type NamespaceStubSettings = NamespaceStubSettings.Param;
 
         namespace NamespaceStubSettings {
-            type Param = (Pick<_Impl, 'cache'> |
-                Pick<_Impl, 'config'> |
-                Pick<_Impl, 'sections'> |
-                Pick<_Impl, 'section'> |
-                Pick<_Impl, 'utilities'>) &
+            type Param = (
+                | Pick<_Impl, 'cache'>
+                | Pick<_Impl, 'config'>
+                | Pick<_Impl, 'sections'>
+                | Pick<_Impl, 'section'>
+                | Pick<_Impl, 'utilities'>
+            ) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {

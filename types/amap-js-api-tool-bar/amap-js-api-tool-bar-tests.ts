@@ -16,7 +16,7 @@ const toolBar = new AMap.ToolBar({
     direction: true,
     autoPosition: true,
     locationMarker: marker,
-    useNative: false
+    useNative: false,
 });
 
 map.addControl(toolBar);

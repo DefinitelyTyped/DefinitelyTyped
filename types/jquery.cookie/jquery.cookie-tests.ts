@@ -2,7 +2,7 @@ class TestObject {
     text: string;
     value: number;
 
-    constructor (text: string, value: number) {
+    constructor(text: string, value: number) {
         this.text = text;
         this.value = value;
     }
@@ -15,21 +15,21 @@ class CookieOptions implements JQueryCookieOptions {
     secure: boolean;
 }
 
-$.cookie("the_cookie", "the_value");
+$.cookie('the_cookie', 'the_value');
 
-console.log($.cookie("the_cookie"));
+console.log($.cookie('the_cookie'));
 
-var testObject = new TestObject("Hello World", 5);
+var testObject = new TestObject('Hello World', 5);
 
 var cookieOptions = new CookieOptions();
-cookieOptions.path = "/";
-cookieOptions.domain = "jquery.com";
+cookieOptions.path = '/';
+cookieOptions.domain = 'jquery.com';
 
 $.cookie.json = true;
 
-$.cookie("test", testObject, cookieOptions);
+$.cookie('test', testObject, cookieOptions);
 
-var result = <TestObject>$.cookie("test");
+var result = <TestObject>$.cookie('test');
 
 console.log(result.text);
 

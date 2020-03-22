@@ -34,14 +34,14 @@ export class CommandExecutor {}
  * Configuration options specific to the {@link Driver SafariDriver}.
  */
 export class Options extends webdriver.Capabilities {
-  /**
-   * Instruct the SafariDriver to use the Safari Technology Preview if true.
-   * Otherwise, use the release version of Safari. Defaults to using the release version of Safari.
-   *
-   * @param {boolean} useTechnologyPreview
-   * @return {!Options} A self reference.
-   */
-  setTechnologyPreview(useTechnologyPreview: boolean): Options;
+    /**
+     * Instruct the SafariDriver to use the Safari Technology Preview if true.
+     * Otherwise, use the release version of Safari. Defaults to using the release version of Safari.
+     *
+     * @param {boolean} useTechnologyPreview
+     * @return {!Options} A self reference.
+     */
+    setTechnologyPreview(useTechnologyPreview: boolean): Options;
 }
 
 /**
@@ -54,12 +54,12 @@ export class Options extends webdriver.Capabilities {
  *
  */
 export class Driver extends webdriver.WebDriver {
-  /**
-   * Creates a new Safari session.
-   *
-   * @param {(Options|Capabilities)=} opt_config The configuration
-   *     options for the new session.
-   * @return {!Driver} A new driver instance.
-   */
-  static createSession(opt_config?: Options|webdriver.Capabilities): Driver;
+    /**
+     * Creates a new Safari session.
+     *
+     * @param {(Options|Capabilities)=} opt_config The configuration
+     *     options for the new session.
+     * @return {!Driver} A new driver instance.
+     */
+    static createSession(opt_config?: Options | webdriver.Capabilities): Driver;
 }

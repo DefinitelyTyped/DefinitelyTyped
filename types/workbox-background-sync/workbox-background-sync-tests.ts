@@ -1,13 +1,8 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
-import {
-    Plugin,
-    Queue,
-    QueueEntry,
-    QueueOptions,
-} from "workbox-background-sync";
+import { Plugin, Queue, QueueEntry, QueueOptions } from 'workbox-background-sync';
 
 //==============================================================================
 // WorkboxBackgroundSync.Queue

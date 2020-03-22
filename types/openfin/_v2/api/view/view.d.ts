@@ -20,13 +20,13 @@ export default class ViewModule extends Base {
      */
     create(options: ViewCreationOptions): Promise<View>;
     /**
-         * Asynchronously returns a View object that represents an existing view.
-         * @param { Identity } identity
-         * @return {Promise.<View>}
-         * @tutorial View.wrap
-         * @experimental
-         * @static
-         */
+     * Asynchronously returns a View object that represents an existing view.
+     * @param { Identity } identity
+     * @return {Promise.<View>}
+     * @tutorial View.wrap
+     * @experimental
+     * @static
+     */
     wrap(identity: Identity): Promise<View>;
     /**
      * Synchronously returns a View object that represents an existing view.
@@ -71,14 +71,14 @@ export declare class View extends WebContents<ViewEvents> {
     identity: Identity;
     constructor(wire: Transport, identity: Identity);
     /**
-    * Attaches the current view to a the given window identity.
-    * Identity must be the identity of a window in the same application.
-    * This detaches the view from it's current window, and sets the view to be destroyed when its new window closes.
-    * @param target {Identity}
-    * @return {Promise.<void>}
-    * @tutorial View.attach
-    * @experimental
-    */
+     * Attaches the current view to a the given window identity.
+     * Identity must be the identity of a window in the same application.
+     * This detaches the view from it's current window, and sets the view to be destroyed when its new window closes.
+     * @param target {Identity}
+     * @return {Promise.<void>}
+     * @tutorial View.attach
+     * @experimental
+     */
     attach: (target: Identity) => Promise<void>;
     /**
      * Navigates the view to a specified URL. The url must contain the protocol prefix such as http:// or https://.
@@ -91,69 +91,69 @@ export declare class View extends WebContents<ViewEvents> {
      * @experimental
      */
     /**
-    * Destroys the current view
-    * @return {Promise.<void>}
-    * @tutorial View.destroy
-    * @experimental
-    */
+     * Destroys the current view
+     * @return {Promise.<void>}
+     * @tutorial View.destroy
+     * @experimental
+     */
     destroy: () => Promise<void>;
     /**
-    * Shows the current view if it is currently hidden.
-    * @return {Promise.<void>}
-    * @tutorial View.show
-    * @experimental
-    */
+     * Shows the current view if it is currently hidden.
+     * @return {Promise.<void>}
+     * @tutorial View.show
+     * @experimental
+     */
     show: () => Promise<void>;
     /**
-    * Hides the current view if it is currently visible.
-    * @return {Promise.<void>}
-    * @tutorial View.hide
-    * @experimental
-    */
+     * Hides the current view if it is currently visible.
+     * @return {Promise.<void>}
+     * @tutorial View.hide
+     * @experimental
+     */
     hide: () => Promise<void>;
     /**
-    * Sets the bounds (top, left, width, height) of the view relative to its window.
-    * @param bounds {Bounds}
-    * @return {Promise.<void>}
-    * @tutorial View.setBounds
-    * @experimental
-    */
-    setBounds: (bounds: Pick<import("../../shapes").Bounds, "height" | "width" | "top" | "left">) => Promise<void>;
+     * Sets the bounds (top, left, width, height) of the view relative to its window.
+     * @param bounds {Bounds}
+     * @return {Promise.<void>}
+     * @tutorial View.setBounds
+     * @experimental
+     */
+    setBounds: (bounds: Pick<import('../../shapes').Bounds, 'height' | 'width' | 'top' | 'left'>) => Promise<void>;
     /**
-    * Gets the View's info.
-    * @return {Promise.<ViewInfo>}
-    * @tutorial View.getInfo
-    * @experimental
-    */
+     * Gets the View's info.
+     * @return {Promise.<ViewInfo>}
+     * @tutorial View.getInfo
+     * @experimental
+     */
     getInfo: () => Promise<any>;
     /**
-    * Gets the View's options.
-    * @return {Promise<ViewCreationOptions>}
-    * @tutorial View.getOptions
-    * @experimental
-    */
+     * Gets the View's options.
+     * @return {Promise<ViewCreationOptions>}
+     * @tutorial View.getOptions
+     * @experimental
+     */
     getOptions: () => Promise<ViewCreationOptions>;
     /**
-    * Gets the view's info.
-    * @param { Partial<ViewOptions> } options
-    * @return {Promise.<void>}
-    * @tutorial View.updateOptions
-    * @experimental
-    */
+     * Gets the view's info.
+     * @param { Partial<ViewOptions> } options
+     * @return {Promise.<void>}
+     * @tutorial View.updateOptions
+     * @experimental
+     */
     updateOptions: (options: Partial<ViewOptions>) => Promise<any>;
     /**
-    * Retrieves the window the view is currently attached to.
-    * @return {Promise.<_Window>}
-    * @tutorial View.getCurrentWindow
-    * @experimental
-    */
+     * Retrieves the window the view is currently attached to.
+     * @return {Promise.<_Window>}
+     * @tutorial View.getCurrentWindow
+     * @experimental
+     */
     getCurrentWindow: () => Promise<_Window>;
     /**
-    * Sets a custom window handler.
-    * @return {function}
-    * @param { string | string[] } urls
-    * @experimental
-    */
+     * Sets a custom window handler.
+     * @return {function}
+     * @param { string | string[] } urls
+     * @experimental
+     */
     setCustomWindowHandler: (urls: string | string[], handler: (options: WindowOption) => void) => Promise<() => void>;
 }
 export interface AutoResizeOptions {

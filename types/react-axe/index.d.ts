@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { Spec } from "axe-core";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Spec } from 'axe-core';
 
 export = axe;
 
@@ -14,7 +14,7 @@ declare function axe(
     react: typeof React,
     reactDOM: typeof ReactDOM,
     timeout: number,
-    config?: axe.ReactAxeConfig
+    config?: axe.ReactAxeConfig,
 ): void;
 
 declare namespace axe {

@@ -29,38 +29,38 @@ export {
     RouterProps,
     RouterState,
     RedirectFunction,
-    StringifyQuery
-} from "react-router/lib/Router";
-export { LinkProps } from "react-router/lib/Link";
-export { IndexLinkProps } from "react-router/lib/IndexLink";
-export { RouteProps, PlainRoute } from "react-router/lib/Route";
-export { IndexRouteProps } from "react-router/lib/IndexRoute";
-export { RedirectProps } from "react-router/lib/Redirect";
-export { IndexRedirectProps } from "react-router/lib/IndexRedirect";
-export { WithRouterProps } from "react-router/lib/withRouter";
+    StringifyQuery,
+} from 'react-router/lib/Router';
+export { LinkProps } from 'react-router/lib/Link';
+export { IndexLinkProps } from 'react-router/lib/IndexLink';
+export { RouteProps, PlainRoute } from 'react-router/lib/Route';
+export { IndexRouteProps } from 'react-router/lib/IndexRoute';
+export { RedirectProps } from 'react-router/lib/Redirect';
+export { IndexRedirectProps } from 'react-router/lib/IndexRedirect';
+export { WithRouterProps } from 'react-router/lib/withRouter';
 
 /* components */
-export { default as Router } from "react-router/lib/Router";
-export { default as Link } from "react-router/lib/Link";
-export { default as IndexLink } from "react-router/lib/IndexLink";
-export { default as withRouter } from "react-router/lib/withRouter";
+export { default as Router } from 'react-router/lib/Router';
+export { default as Link } from 'react-router/lib/Link';
+export { default as IndexLink } from 'react-router/lib/IndexLink';
+export { default as withRouter } from 'react-router/lib/withRouter';
 
 /* components (configuration) */
-export { default as IndexRedirect } from "react-router/lib/IndexRedirect";
-export { default as IndexRoute } from "react-router/lib/IndexRoute";
-export { default as Redirect } from "react-router/lib/Redirect";
-export { default as Route } from "react-router/lib/Route";
+export { default as IndexRedirect } from 'react-router/lib/IndexRedirect';
+export { default as IndexRoute } from 'react-router/lib/IndexRoute';
+export { default as Redirect } from 'react-router/lib/Redirect';
+export { default as Route } from 'react-router/lib/Route';
 
 /* utils */
-export { createRoutes } from "react-router/lib/RouteUtils";
-export { default as RouterContext } from "react-router/lib/RouterContext";
-export { routerShape, locationShape } from "react-router/lib/PropTypes";
-export { default as match, MatchHistoryArgs, MatchLocationArgs, MatchCallback } from "react-router/lib/match";
-export { default as useRouterHistory } from "react-router/lib/useRouterHistory";
-export { formatPattern } from "react-router/lib/PatternUtils";
-export { default as applyRouterMiddleware } from "react-router/lib/applyRouterMiddleware";
+export { createRoutes } from 'react-router/lib/RouteUtils';
+export { default as RouterContext } from 'react-router/lib/RouterContext';
+export { routerShape, locationShape } from 'react-router/lib/PropTypes';
+export { default as match, MatchHistoryArgs, MatchLocationArgs, MatchCallback } from 'react-router/lib/match';
+export { default as useRouterHistory } from 'react-router/lib/useRouterHistory';
+export { formatPattern } from 'react-router/lib/PatternUtils';
+export { default as applyRouterMiddleware } from 'react-router/lib/applyRouterMiddleware';
 
 /* histories */
-export { default as browserHistory } from "react-router/lib/browserHistory";
-export { default as hashHistory } from "react-router/lib/hashHistory";
-export { default as createMemoryHistory } from "react-router/lib/createMemoryHistory";
+export { default as browserHistory } from 'react-router/lib/browserHistory';
+export { default as hashHistory } from 'react-router/lib/hashHistory';
+export { default as createMemoryHistory } from 'react-router/lib/createMemoryHistory';

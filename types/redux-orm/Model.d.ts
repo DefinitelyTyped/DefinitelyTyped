@@ -261,7 +261,7 @@ export default class Model<MClass extends typeof AnyModel = typeof AnyModel, Fie
      */
     static orderBy(
         iteratees: ReadonlyArray<QuerySet.SortIteratee<Model>>,
-        orders?: ReadonlyArray<QuerySet.SortOrder>
+        orders?: ReadonlyArray<QuerySet.SortOrder>,
     ): QuerySet;
 
     /**

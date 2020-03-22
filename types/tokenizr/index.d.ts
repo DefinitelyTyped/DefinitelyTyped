@@ -15,9 +15,7 @@ declare class Tokenizr {
     /**
      * Execute multiple alternative callbacks
      */
-    alternatives<X extends Array<(this: this) => any>>(
-        ...alternatives: X
-    ): ReturnType<X[number]>;
+    alternatives<X extends Array<(this: this) => any>>(...alternatives: X): ReturnType<X[number]>;
 
     /**
      * Configure a tokenization before-rule callback
@@ -93,12 +91,7 @@ declare class Tokenizr {
      * Configure a tokenization rule
      */
     rule(pattern: RegExp, action: RuleAction, name?: string): this;
-    rule(
-        state: string,
-        pattern: RegExp,
-        action: RuleAction,
-        name: string
-    ): this;
+    rule(state: string, pattern: RegExp, action: RuleAction, name: string): this;
 
     /**
      * Skip one or more tokens
@@ -153,14 +146,10 @@ type Action = (
         pattern: RegExp;
         action: RuleAction;
         name: string;
-    }
+    },
 ) => void;
 
-type RuleAction = (
-    this: ActionContext,
-    ctx: ActionContext,
-    found: RegExpExecArray
-) => void;
+type RuleAction = (this: ActionContext, ctx: ActionContext, found: RegExpExecArray) => void;
 
 declare class ActionContext {
     constructor(e: any);
@@ -236,13 +225,7 @@ declare class ActionContext {
 }
 
 declare class ParsingError extends Error {
-    constructor(
-        message: string,
-        pos: number,
-        line: number,
-        column: number,
-        input: string
-    );
+    constructor(message: string, pos: number, line: number, column: number, input: string);
 
     /**
      * Render a useful string representation
@@ -258,14 +241,7 @@ declare class Token<T = unknown> {
     type: string;
     value: T;
 
-    constructor(
-        type: string,
-        value: T,
-        text: string,
-        pos?: number,
-        line?: number,
-        column?: number
-    );
+    constructor(type: string, value: T, text: string, pos?: number, line?: number, column?: number);
 
     isA(type: string, value?: any): boolean;
 

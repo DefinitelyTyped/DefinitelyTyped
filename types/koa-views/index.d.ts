@@ -24,31 +24,34 @@
 
  =============================================== */
 
-import * as Koa from "koa";
+import * as Koa from 'koa';
 
-declare function views(dir: string, opts?: {
-    /*
-    * autoRender the result into ctx.body, defaults to true
-    */
-    autoRender?: boolean,
-    /*
-    * default extension for your views
-    */
-    extension?: string,
-    /*
-    * these options will get passed to the view engine
-    */
-    options?: any,
-    /*
-    * map a file extension to an engine
-    */
-    map?: any,
-    /*
-    * replace consolidate as default engine source
-    */
-    engineSource?: any,
-}): Koa.Middleware;
-declare namespace views { }
+declare function views(
+    dir: string,
+    opts?: {
+        /*
+         * autoRender the result into ctx.body, defaults to true
+         */
+        autoRender?: boolean;
+        /*
+         * default extension for your views
+         */
+        extension?: string;
+        /*
+         * these options will get passed to the view engine
+         */
+        options?: any;
+        /*
+         * map a file extension to an engine
+         */
+        map?: any;
+        /*
+         * replace consolidate as default engine source
+         */
+        engineSource?: any;
+    },
+): Koa.Middleware;
+declare namespace views {}
 
 export = views;
 

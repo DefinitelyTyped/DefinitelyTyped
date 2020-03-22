@@ -25,7 +25,7 @@ Honeybadger.resetContext({
 const other_hb = Honeybadger.factory({ apiKey: 'zxcvbnm' });
 other_hb.notify('This will go to an alternate project.');
 
-Honeybadger.onUncaughtException(err => {
+Honeybadger.onUncaughtException((err) => {
     console.log(err);
 });
 

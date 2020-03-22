@@ -90,6 +90,6 @@ declare namespace M {
 }
 
 interface JQuery {
-    tooltip(method: keyof Pick<M.Tooltip, "open" | "close" | "destroy">): JQuery;
+    tooltip(method: keyof Pick<M.Tooltip, 'open' | 'close' | 'destroy'>): JQuery;
     tooltip(options?: Partial<M.TooltipOptions>): JQuery;
 }

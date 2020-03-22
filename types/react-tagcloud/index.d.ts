@@ -18,7 +18,7 @@ declare namespace ReactTagCloud {
         onClick?: Function;
         disableRandomColor?: boolean;
     }
-    interface TagCloudClass extends React.ComponentClass<TagCloudProps> { }
+    interface TagCloudClass extends React.ComponentClass<TagCloudProps> {}
 
     interface DefaultRendererFactoryOptions {
         tagRenderer?: Function;
@@ -34,13 +34,12 @@ declare namespace ReactTagCloud {
     }
 }
 
-
 // export = TagCloud
 declare module reactTagCloud {
     const TagCloud: ReactTagCloud.TagCloudClass;
     const DefaultRenderer: ReactTagCloud.DefaultRendererFactory;
 }
 
-declare module "react-tagcloud" {
-    export = reactTagCloud
+declare module 'react-tagcloud' {
+    export = reactTagCloud;
 }

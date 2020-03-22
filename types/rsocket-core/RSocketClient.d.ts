@@ -8,7 +8,7 @@ import { Leases } from './RSocketLease';
 export interface ClientConfig<D, M> {
     serializers?: PayloadSerializers<D, M>;
     setup: {
-        payload?: Payload<D, M>,
+        payload?: Payload<D, M>;
         dataMimeType: string;
         keepAlive: number;
         lifetime: number;

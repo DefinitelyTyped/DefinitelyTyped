@@ -363,11 +363,7 @@ declare namespace echarts {
              * }
              */
             interface Formatter {
-                (
-                    params: Format | Format[],
-                    ticket: string,
-                    callback: (ticket: string, html: string) => void,
-                ): string;
+                (params: Format | Format[], ticket: string, callback: (ticket: string, html: string) => void): string;
             }
 
             interface Format {
@@ -413,11 +409,11 @@ declare namespace echarts {
                 encode?: object;
 
                 // dimension names list
-                dimensionNames?: string[],
+                dimensionNames?: string[];
 
                 // data dimension index, for example 0 or 1 or 2 ...
                 // Only work in `radar` series.
-                dimensionIndex?: number,
+                dimensionIndex?: number;
 
                 // Color of data
                 color?: string;
@@ -443,14 +439,14 @@ declare namespace echarts {
                 };
                 // It is valid when axisPointer.type is 'cross'.
                 crossStyle?: LineStyle;
-                animation?: boolean,
-                animationThreshold?: number,
-                animationDuration?: number,
-                animationEasing?: string,
-                animationDelay?: number | Function,
-                animationDurationUpdate?: number | Function,
-                animationEasingUpdate?: string,
-                animationDelayUpdate?: number | Function,
+                animation?: boolean;
+                animationThreshold?: number;
+                animationDuration?: number;
+                animationEasing?: string;
+                animationDelay?: number | Function;
+                animationDurationUpdate?: number | Function;
+                animationEasingUpdate?: string;
+                animationDelayUpdate?: number | Function;
             }
         }
     }

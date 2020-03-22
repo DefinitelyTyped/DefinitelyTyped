@@ -13,7 +13,7 @@ const overridden = ArrayProxy.create({
     content: A(pets),
     objectAtContent(idx: number): string {
         return this.get('content').objectAt(idx)!.toUpperCase();
-    }
+    },
 });
 
 overridden.get('firstObject'); // 'DOG'

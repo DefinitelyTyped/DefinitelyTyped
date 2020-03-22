@@ -18,7 +18,7 @@ export enum LoggerLevel {
     INFO = 800,
     WARNING = 900,
     ERROR = 1000,
-    NONE = 1500
+    NONE = 1500,
 }
 
 export enum ContentProtection {

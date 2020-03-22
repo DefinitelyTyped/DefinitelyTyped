@@ -1,18 +1,14 @@
 import { FluentBundle, FluentDateTime, FluentError, FluentNumber, FluentResource, Scope } from '@fluent/bundle';
-import { mapBundleSync, mapBundleAsync } from "@fluent/sequence";
+import { mapBundleSync, mapBundleAsync } from '@fluent/sequence';
 
-const bundles = [
-    new FluentBundle(["en-US", "en-GB", "en"]),
-    new FluentBundle(["pl"]),
-    new FluentBundle("it")
-];
+const bundles = [new FluentBundle(['en-US', 'en-GB', 'en']), new FluentBundle(['pl']), new FluentBundle('it')];
 
 // mapSync examples:
-const msBundle1 = mapBundleSync(bundles, "message-id");
+const msBundle1 = mapBundleSync(bundles, 'message-id');
 if (msBundle1) {
-    console.log(msBundle1.getMessage("message_id"));
+    console.log(msBundle1.getMessage('message_id'));
 }
-const msBundleIds = ["message-id-1", "message-id-2"];
+const msBundleIds = ['message-id-1', 'message-id-2'];
 const msBundles = mapBundleSync(bundles, msBundleIds);
 for (let i = 0; i < msBundles.length; ++i) {
     const msBundle = msBundles[i];
@@ -32,12 +28,12 @@ class AsyncBundlesWrapper {
 
 async function asyncTest() {
     const bundlesWrapper = new AsyncBundlesWrapper();
-    const asBundle1 = await mapBundleAsync(bundlesWrapper, "message-id");
+    const asBundle1 = await mapBundleAsync(bundlesWrapper, 'message-id');
     if (asBundle1) {
-        console.log(asBundle1.getMessage("message_id"));
+        console.log(asBundle1.getMessage('message_id'));
     }
 
-    const asBundleIds = ["message-id-1", "message-id-2"];
+    const asBundleIds = ['message-id-1', 'message-id-2'];
     const asBundles = await mapBundleAsync(bundlesWrapper, asBundleIds);
     for (let i = 0; i < asBundles.length; ++i) {
         const asBundle = asBundles[i];

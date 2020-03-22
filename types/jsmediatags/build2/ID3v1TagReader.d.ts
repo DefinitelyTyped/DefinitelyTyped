@@ -1,8 +1,4 @@
-import {
-    LoadCallbackType,
-    ByteRange,
-    TagType
-} from '../types';
+import { LoadCallbackType, ByteRange, TagType } from '../types';
 import MediaFileReader from './MediaFileReader';
 import MediaTagReader from './MediaTagReader';
 

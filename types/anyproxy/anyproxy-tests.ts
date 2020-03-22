@@ -28,7 +28,7 @@ const proxyServer = new AnyProxy.ProxyServer({
                 const newResponse = responseDetail.response;
                 newResponse.body += '- AnyProxy Hacked!';
 
-                return new Promise<AnyProxy.BeforeSendResponseResult>(resolve => {
+                return new Promise<AnyProxy.BeforeSendResponseResult>((resolve) => {
                     setTimeout(() => {
                         // delay
                         resolve({ response: newResponse });
@@ -51,7 +51,7 @@ proxyServer.on('ready', () => {
     console.log('Proxy Server is ready');
 });
 
-proxyServer.on('error', e => {
+proxyServer.on('error', (e) => {
     console.log('Proxy Server error:', e);
 });
 

@@ -1,6 +1,6 @@
-import { ThroughStream } from "through";
-import inquirer = require("../..");
-import UI = require("./baseUI");
+import { ThroughStream } from 'through';
+import inquirer = require('../..');
+import UI = require('./baseUI');
 
 /**
  * Represents the bottom-bar UI.

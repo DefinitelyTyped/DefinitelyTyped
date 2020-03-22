@@ -1,4 +1,5 @@
 # TypeScript typings for Photos Library API v1
+
 Manage photos, videos, and albums in Google Photos
 
 For detailed description please check [documentation](https://developers.google.com/photos/).
@@ -6,6 +7,7 @@ For detailed description please check [documentation](https://developers.google.
 ## Installing
 
 Install typings for Photos Library API:
+
 ```
 npm install @types/gapi.client.photoslibrary@v1 --save-dev
 ```
@@ -13,63 +15,64 @@ npm install @types/gapi.client.photoslibrary@v1 --save-dev
 ## Usage
 
 You need to initialize Google API client in your code:
+
 ```typescript
-gapi.load("client", () => { 
+gapi.load('client', () => {
     // now we can use gapi.client
-    // ... 
+    // ...
 });
 ```
 
 Then load api client wrapper:
+
 ```typescript
 gapi.client.load('photoslibrary', 'v1', () => {
     // now we can use gapi.client.photoslibrary
-    // ... 
+    // ...
 });
 ```
 
 Don't forget to authenticate your client before sending any request to resources:
-```typescript
 
+```typescript
 // declare client_id registered in Google Developers Console
 var client_id = '',
-    scope = [     
+    scope = [
         // View and manage your Google Photos library
         'https://www.googleapis.com/auth/photoslibrary',
-    
+
         // Add to your Google Photos library
         'https://www.googleapis.com/auth/photoslibrary.appendonly',
-    
+
         // View your Google Photos library
         'https://www.googleapis.com/auth/photoslibrary.readonly',
-    
+
         // Manage photos added by this app
         'https://www.googleapis.com/auth/photoslibrary.readonly.appcreateddata',
-    
+
         // Manage and add to shared albums on your behalf
         'https://www.googleapis.com/auth/photoslibrary.sharing',
     ],
     immediate = true;
 // ...
 
-gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
+gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, (authResult) => {
     if (authResult && !authResult.error) {
         /* handle successful authorization */
     } else {
         /* handle authorization error */
     }
-});            
+});
 ```
 
 After that you can use Photos Library API resources:
 
-```typescript 
-    
+```typescript
 /* 
 Adds an enrichment at a specified position in a defined album.  
 */
-await gapi.client.albums.addEnrichment({ albumId: "albumId",  }); 
-    
+await gapi.client.albums.addEnrichment({ albumId: 'albumId' });
+
 /* 
 Adds one or more media items in a user's Google Photos library to
 an album. The media items and albums must have been created by the
@@ -87,8 +90,8 @@ user or the user must have joined the album as a collaborator.
 Partial success is not supported. The entire request will fail if an
 invalid media item or album is specified.  
 */
-await gapi.client.albums.batchAddMediaItems({ albumId: "albumId",  }); 
-    
+await gapi.client.albums.batchAddMediaItems({ albumId: 'albumId' });
+
 /* 
 Removes one or more media items from a specified album. The media items and
 the album must have been created by the developer via the API.
@@ -101,33 +104,33 @@ Partial success is not supported. The entire request will fail and no
 action will be performed on the album if an invalid media item or album is
 specified.  
 */
-await gapi.client.albums.batchRemoveMediaItems({ albumId: "albumId",  }); 
-    
+await gapi.client.albums.batchRemoveMediaItems({ albumId: 'albumId' });
+
 /* 
 Creates an album in a user's Google Photos library.  
 */
-await gapi.client.albums.create({  }); 
-    
+await gapi.client.albums.create({});
+
 /* 
 Returns the album based on the specified `albumId`.
 The `albumId` must be the ID of an album owned by the user or a shared
 album that the user has joined.  
 */
-await gapi.client.albums.get({ albumId: "albumId",  }); 
-    
+await gapi.client.albums.get({ albumId: 'albumId' });
+
 /* 
 Lists all albums shown to a user in the Albums tab of the Google
 Photos app.  
 */
-await gapi.client.albums.list({  }); 
-    
+await gapi.client.albums.list({});
+
 /* 
 Marks an album as shared and accessible to other users. This action can
 only be performed on albums which were created by the developer via the
 API.  
 */
-await gapi.client.albums.share({ albumId: "albumId",  }); 
-    
+await gapi.client.albums.share({ albumId: 'albumId' });
+
 /* 
 Marks a previously shared album as private. This means that the album is
 no longer shared and all the non-owners will lose access to the album. All
@@ -136,8 +139,8 @@ previously added the album to their library, they will retain all photos in
 their library. This action can only be performed on albums which were
 created by the developer via the API.  
 */
-await gapi.client.albums.unshare({ albumId: "albumId",  }); 
-    
+await gapi.client.albums.unshare({ albumId: 'albumId' });
+
 /* 
 Creates one or more media items in a user's Google Photos library.
 
@@ -159,24 +162,24 @@ If you are creating a media item in a shared album where you are not the
 owner, you are not allowed to position the media item. Doing so will result
 in a `BAD REQUEST` error.  
 */
-await gapi.client.mediaItems.batchCreate({  }); 
-    
+await gapi.client.mediaItems.batchCreate({});
+
 /* 
 Returns the list of media items for the specified media item identifiers.
 Items are returned in the same order as the supplied identifiers.  
 */
-await gapi.client.mediaItems.batchGet({  }); 
-    
+await gapi.client.mediaItems.batchGet({});
+
 /* 
 Returns the media item for the specified media item identifier.  
 */
-await gapi.client.mediaItems.get({ mediaItemId: "mediaItemId",  }); 
-    
+await gapi.client.mediaItems.get({ mediaItemId: 'mediaItemId' });
+
 /* 
 List all media items from a user's Google Photos library.  
 */
-await gapi.client.mediaItems.list({  }); 
-    
+await gapi.client.mediaItems.list({});
+
 /* 
 Searches for media items in a user's Google Photos library.
 If no filters are set, then all media items in the user's library are
@@ -186,27 +189,27 @@ If filters are specified, media items that match the filters from the
 user's library are listed. If you set both the album and the filters, the
 request results in an error.  
 */
-await gapi.client.mediaItems.search({  }); 
-    
+await gapi.client.mediaItems.search({});
+
 /* 
 Returns the album based on the specified `shareToken`.  
 */
-await gapi.client.sharedAlbums.get({ shareToken: "shareToken",  }); 
-    
+await gapi.client.sharedAlbums.get({ shareToken: 'shareToken' });
+
 /* 
 Joins a shared album on behalf of the Google Photos user.  
 */
-await gapi.client.sharedAlbums.join({  }); 
-    
+await gapi.client.sharedAlbums.join({});
+
 /* 
 Leaves a previously-joined shared album on behalf of the Google Photos
 user. The user must not own this album.  
 */
-await gapi.client.sharedAlbums.leave({  }); 
-    
+await gapi.client.sharedAlbums.leave({});
+
 /* 
 Lists all shared albums available in the Sharing tab of the
 user's Google Photos app.  
 */
-await gapi.client.sharedAlbums.list({  });
+await gapi.client.sharedAlbums.list({});
 ```

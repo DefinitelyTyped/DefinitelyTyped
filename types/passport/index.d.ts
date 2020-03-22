@@ -61,29 +61,46 @@ declare namespace passport {
         prompt?: string;
     }
 
-    interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet, AuthorizeOptions = AuthenticateOptions> {
+    interface Authenticator<
+        InitializeRet = express.Handler,
+        AuthenticateRet = any,
+        AuthorizeRet = AuthenticateRet,
+        AuthorizeOptions = AuthenticateOptions
+    > {
         use(strategy: Strategy): this;
         use(name: string, strategy: Strategy): this;
         unuse(name: string): this;
         framework<X, Y, Z>(fw: Framework<X, Y, Z>): Authenticator<X, Y, Z>;
-        initialize(options?: { userProperty: string; }): InitializeRet;
-        session(options?: { pauseStream: boolean; }): AuthenticateRet;
+        initialize(options?: { userProperty: string }): InitializeRet;
+        session(options?: { pauseStream: boolean }): AuthenticateRet;
 
         authenticate(strategy: string | string[], callback?: (...args: any[]) => any): AuthenticateRet;
-        authenticate(strategy: string | string[], options: AuthenticateOptions, callback?: (...args: any[]) => any): AuthenticateRet;
+        authenticate(
+            strategy: string | string[],
+            options: AuthenticateOptions,
+            callback?: (...args: any[]) => any,
+        ): AuthenticateRet;
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthorizeRet;
-        authorize(strategy: string | string[], options: AuthorizeOptions, callback?: (...args: any[]) => any): AuthorizeRet;
+        authorize(
+            strategy: string | string[],
+            options: AuthorizeOptions,
+            callback?: (...args: any[]) => any,
+        ): AuthorizeRet;
         serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id?: TID) => void) => void): void;
-        serializeUser<TUser, TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, user: TUser, done: (err: any, id?: TID) => void) => void): void;
+        serializeUser<TUser, TID, TR extends IncomingMessage = express.Request>(
+            fn: (req: TR, user: TUser, done: (err: any, id?: TID) => void) => void,
+        ): void;
         deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user?: TUser) => void) => void): void;
-        deserializeUser<TUser, TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, id: TID, done: (err: any, user?: TUser) => void) => void): void;
+        deserializeUser<TUser, TID, TR extends IncomingMessage = express.Request>(
+            fn: (req: TR, id: TID, done: (err: any, user?: TUser) => void) => void,
+        ): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 
     interface PassportStatic extends Authenticator {
-        Authenticator: { new(): Authenticator };
-        Passport: PassportStatic["Authenticator"];
-        Strategy: { new(): Strategy & StrategyCreatedStatic };
+        Authenticator: { new (): Authenticator };
+        Passport: PassportStatic['Authenticator'];
+        Strategy: { new (): Strategy & StrategyCreatedStatic };
     }
 
     interface Strategy {
@@ -159,9 +176,22 @@ declare namespace passport {
     }
 
     interface Framework<InitializeRet = any, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
-        initialize(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, options?: any): (...args: any[]) => InitializeRet;
-        authenticate(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthenticateRet;
-        authorize?(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthorizeRet;
+        initialize(
+            passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>,
+            options?: any,
+        ): (...args: any[]) => InitializeRet;
+        authenticate(
+            passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>,
+            name: string,
+            options?: any,
+            callback?: (...args: any[]) => any,
+        ): (...args: any[]) => AuthenticateRet;
+        authorize?(
+            passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>,
+            name: string,
+            options?: any,
+            callback?: (...args: any[]) => any,
+        ): (...args: any[]) => AuthorizeRet;
     }
 }
 

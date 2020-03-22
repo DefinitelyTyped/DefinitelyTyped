@@ -18,9 +18,4 @@ export function sort(array: any[], lo: number, hi?: number): void;
  * @param lo - First element in the range (inclusive).
  * @param hi - Last element in the range.
  */
-export function sort<T>(
-    array: T[],
-    compare?: (a: T, b: T) => number,
-    lo?: number,
-    hi?: number
-): void;
+export function sort<T>(array: T[], compare?: (a: T, b: T) => number, lo?: number, hi?: number): void;

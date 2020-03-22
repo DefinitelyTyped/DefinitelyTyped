@@ -1,5 +1,5 @@
-import { Reducer } from "redux";
-import { FieldType } from "../index";
+import { Reducer } from 'redux';
+import { FieldType } from '../index';
 
 export interface FormReducer extends Reducer<FormStateMap> {
     plugin(reducers: FormReducerMapObject): Reducer<FormStateMap>;

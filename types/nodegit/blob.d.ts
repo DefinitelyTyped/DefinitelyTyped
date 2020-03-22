@@ -1,5 +1,5 @@
 import { WriteStream } from 'fs';
-import { Wrapper } from "./wrapper";
+import { Wrapper } from './wrapper';
 import { Repository } from './repository';
 import { Oid } from './oid';
 

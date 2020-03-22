@@ -1,4 +1,3 @@
-
 import gcm = require('node-gcm');
 
 // Create a message
@@ -12,19 +11,19 @@ var message = new gcm.Message({
     timeToLive: 3,
     data: {
         key1: 'message1',
-        key2: 'message2'
-    }
+        key2: 'message2',
+    },
 });
 
 // Change the message data
 // ... as key-value
-message.addData('key1','message1');
-message.addData('key2','message2');
+message.addData('key1', 'message1');
+message.addData('key2', 'message2');
 
 // ... or as a data object (overwrites previous data object)
 message.addData({
     key1: 'message1',
-    key2: 'message2'
+    key2: 'message2',
 });
 
 // Change the message variables
@@ -68,4 +67,3 @@ sender.send(message, registrationIds, 10, (err, result) => {
         console.log(result);
     }
 });
-

@@ -23,55 +23,56 @@ declare namespace Flickity {
          * Triggered when a slide is selected.
          * This event was previously cellSelect in Flickity v1. cellSelect will continue to work in Flickity v2.
          */
-        "select" | "cellSelect" |
+        | 'select'
+        | 'cellSelect'
         /**
          * Triggered when the slider is settled at its end position.
          */
-        "settle" |
+        | 'settle'
         /**
          * Triggered when the slider moves.
          */
-        "scroll" |
+        | 'scroll'
         /**
          * Triggered when dragging starts and the slider starts moving.
          */
-        "dragStart" |
+        | 'dragStart'
         /**
          * Triggered when dragging moves and the slider moves.
          */
-        "dragMove" |
+        | 'dragMove'
         /**
          * Triggered when dragging ends.
          */
-        "dragEnd" |
+        | 'dragEnd'
         /**
          * Triggered when the user's pointer (mouse, touch, pointer) presses down.
          */
-        "pointerDown" |
+        | 'pointerDown'
         /**
          * Triggered when the user's pointer moves.
          */
-        "pointerMove" |
+        | 'pointerMove'
         /**
          * Triggered when the user's pointer unpresses.
          */
-        "pointerUp" |
+        | 'pointerUp'
         /**
          * Triggered when the user's pointer is pressed and unpressed and has not moved enough to start dragging.
          */
-        "staticClick" |
+        | 'staticClick'
         /**
          * Triggered after an image has been loaded with lazyLoad.
          */
-        "lazyLoad" |
+        | 'lazyLoad'
         /**
          * Triggered after a background image has been loaded with bgLazyLoad.
          */
-        "bgLazyLoad" |
+        | 'bgLazyLoad'
         /**
          * Triggered after entering or exiting fullscreen view.
          */
-        "fullscreenChange";
+        | 'fullscreenChange';
     interface Options {
         /**
          * Specify selector for cell elements. cellSelector is useful if you have other elements in your gallery elements that are not cells.
@@ -271,7 +272,7 @@ declare namespace Flickity {
          * Draws the shape of the arrows in the previous & next buttons.
          * javascript dictionary of points or path to SVG file
          */
-        arrowShape?: string | { x0: number, x1: number, y1: number, x2: number, y2: number, x3: number };
+        arrowShape?: string | { x0: number; x1: number; y1: number; x2: number; y2: number; x3: number };
 
         /**
          * Bind events within Flickity's options by setting on to an Object. The object's keys should match the event names. on is useful for capturing events as Flickity is initialized, like ready
@@ -310,71 +311,49 @@ declare namespace Flickity {
         /**
          * Triggered when dragging starts and the slider starts moving.
          */
-        dragStart?: (
-            event?: Event,
-            pointer?: Element | Touch) => void;
+        dragStart?: (event?: Event, pointer?: Element | Touch) => void;
 
         /**
          * Triggered when dragging moves and the slider moves.
          */
-        dragMove?: (
-            event?: Event,
-            pointer?: Element | Touch,
-            moveVector?: { x: number, y: number }) => void;
+        dragMove?: (event?: Event, pointer?: Element | Touch, moveVector?: { x: number; y: number }) => void;
 
         /**
          * Triggered when dragging ends.
          */
-        dragEnd?: (
-            event: Event,
-            pointer?: Element | Touch) => void;
+        dragEnd?: (event: Event, pointer?: Element | Touch) => void;
 
         /**
          * Triggered when the user's pointer (mouse, touch, pointer) presses down.
          */
-        pointerDown?: (
-            event: Event,
-            pointer?: Element | Touch) => void;
+        pointerDown?: (event: Event, pointer?: Element | Touch) => void;
 
         /**
          * Triggered when the user's pointer moves.
          */
-        pointerMove?: (
-            event?: Event,
-            pointer?: Element | Touch,
-            moveVector?: { x: number, y: number }) => void;
+        pointerMove?: (event?: Event, pointer?: Element | Touch, moveVector?: { x: number; y: number }) => void;
 
         /**
          * Triggered when the user's pointer unpresses.
          */
-        pointerUp?: (
-            event?: Event,
-            pointer?: Element | Touch) => void;
+        pointerUp?: (event?: Event, pointer?: Element | Touch) => void;
 
         /**
          * Triggered when the user's pointer is pressed and unpressed and has not moved enough to start dragging.
          * click events are hard to detect with draggable UI, as they are triggered whenever a user drags.
          * Flickity's staticClick event resolves this, as it is triggered when the user has not dragged.
          */
-        staticClick?: (
-            event?: Event,
-            pointer?: Element | Touch,
-            cellElement?: Element,
-            cellIndex?: number) => void;
+        staticClick?: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => void;
 
         /**
          * Triggered after an image has been loaded with lazyLoad.
          */
-        lazyLoad?: (
-            event?: Event,
-            cellElement?: Element) => void;
+        lazyLoad?: (event?: Event, cellElement?: Element) => void;
 
         /**
          * Triggered after a background image has been loaded with bgLazyLoad.
          */
-        bgLazyLoad?: (
-            event?: Event,
-            element?: Element) => void;
+        bgLazyLoad?: (event?: Event, element?: Element) => void;
 
         /**
          * Triggered after entering or exiting fullscreen view.
@@ -555,13 +534,19 @@ declare class Flickity {
      * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
      * @param callback callback funtion to execute when event fires
      */
-    on(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
+    on(
+        eventname: Flickity.FlickityEvents,
+        callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any,
+    ): void;
     /**
      * bind event listener
      * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
      * @param callback callback funtion to execute when event fires
      */
-    on(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, moveVector?: { x: number, y: number }) => any): void;
+    on(
+        eventname: Flickity.FlickityEvents,
+        callback: (event?: Event, pointer?: Element | Touch, moveVector?: { x: number; y: number }) => any,
+    ): void;
     /**
      * bind event listener
      * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
@@ -592,14 +577,20 @@ declare class Flickity {
      * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
      * @param callback callback funtion to execute when event fires
      */
-    off(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
+    off(
+        eventname: Flickity.FlickityEvents,
+        callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any,
+    ): void;
 
     /**
      * Remove event listener
      * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
      * @param callback callback funtion to execute when event fires
      */
-    off(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
+    off(
+        eventname: Flickity.FlickityEvents,
+        callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any,
+    ): void;
 
     /**
      * Remove event listener
@@ -634,7 +625,10 @@ declare class Flickity {
      * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
      * @param callback callback funtion to execute when event fires
      */
-    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
+    once(
+        eventname: string,
+        callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any,
+    ): void;
 
     /**
      * one time event handl`er

@@ -1,16 +1,16 @@
-import * as React from "react";
+import * as React from 'react';
 
 type SVGAttr = React.SVGAttributes<SVGSVGElement>;
 
 interface SVGInheritedProps {
-    className?: SVGAttr["className"],
-    fill?: SVGAttr["fill"],
-    fillRule?: SVGAttr["fillRule"],
-    height?: SVGAttr["height"],
-    role?: SVGAttr["role"],
-    style?: SVGAttr["style"],
-    viewBox?: SVGAttr["viewBox"],
-    width?: SVGAttr["width"],
+    className?: SVGAttr['className'];
+    fill?: SVGAttr['fill'];
+    fillRule?: SVGAttr['fillRule'];
+    height?: SVGAttr['height'];
+    role?: SVGAttr['role'];
+    style?: SVGAttr['style'];
+    viewBox?: SVGAttr['viewBox'];
+    width?: SVGAttr['width'];
 }
 
 export interface IconData {
@@ -21,10 +21,10 @@ export interface IconData {
 }
 
 export interface IconProps extends SVGInheritedProps {
-    description: string,
-    icon?: IconData,
-    iconRef?: React.Ref<HTMLElement>,
-    iconTitle?: string
+    description: string;
+    icon?: IconData;
+    iconRef?: React.Ref<HTMLElement>;
+    iconTitle?: string;
 }
 
 declare const Icon: React.FC<IconProps>;

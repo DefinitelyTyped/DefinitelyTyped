@@ -9,7 +9,7 @@ import * as React from 'react';
 export interface RectProps {
     observe?: boolean;
     onChange?: (rect: DOMRect) => void;
-    children?(args: { rect: DOMRect, ref: React.Ref<any> }): React.ReactNode;
+    children?(args: { rect: DOMRect; ref: React.Ref<any> }): React.ReactNode;
 }
 
 declare const Rect: React.FC<RectProps>;

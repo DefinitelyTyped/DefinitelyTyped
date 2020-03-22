@@ -1,9 +1,9 @@
 import { Config, SoftPWM } from 'raspi-soft-pwm';
 
 const config: Config = {
-  pin: 'P1-3',
-  frequency: 1,
-  range: 1
+    pin: 'P1-3',
+    frequency: 1,
+    range: 1,
 };
 
 new SoftPWM(1);

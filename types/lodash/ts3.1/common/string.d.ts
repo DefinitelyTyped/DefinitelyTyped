@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     interface LoDashStatic {
         /**
          * Converts string to camel case.

@@ -16,6 +16,6 @@
 /// <reference types="rx-lite-time"/>
 /// <reference types="rx-lite-virtualtime"/>
 
-declare module "rx" {
-	export = Rx;
+declare module 'rx' {
+    export = Rx;
 }

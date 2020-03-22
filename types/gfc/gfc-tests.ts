@@ -12,15 +12,15 @@ firstCommit({ forceFile: false }); // $ExpectType Promise<{ stdout: string | Buf
 firstCommit({ remote: 'foo' }); // $ExpectType Promise<{ stdout: string | Buffer; stderr: string | Buffer; }>
 firstCommit({ push: false }); // $ExpectType Promise<{ stdout: string | Buffer; stderr: string | Buffer; }>
 
-firstCommit().then(res => {
+firstCommit().then((res) => {
     res.stdout; // $ExpectType string | Buffer
     res.stderr; // $ExpectType string | Buffer
 });
-firstCommit('foo/bar').then(res => {
+firstCommit('foo/bar').then((res) => {
     res.stdout; // $ExpectType string | Buffer
     res.stderr; // $ExpectType string | Buffer
 });
-firstCommit('foo/bar', { cwd: 'foo/bar' }).then(res => {
+firstCommit('foo/bar', { cwd: 'foo/bar' }).then((res) => {
     res.stdout; // $ExpectType string | Buffer
     res.stderr; // $ExpectType string | Buffer
 });

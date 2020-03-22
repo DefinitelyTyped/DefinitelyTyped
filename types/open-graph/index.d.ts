@@ -41,7 +41,8 @@ declare namespace og {
         image?: string | string[] | ImageVideoMetadata;
         /** The locale these tags are marked up in. Of the format `language_TERRITORY`. Default is `en_US`. */
         locale?:
-            | string | string[]
+            | string
+            | string[]
             | {
                   /** An array of other locales this page is available in. */
                   alternate?: string | string[];

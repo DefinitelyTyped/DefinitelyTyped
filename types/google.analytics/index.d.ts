@@ -19,7 +19,7 @@ declare class Tracker {
 }
 
 interface GoogleAnalyticsCode {
-    push(commandArray: Array<string|boolean|number>): void;
+    push(commandArray: Array<string | boolean | number>): void;
     push(func: Function): void;
 }
 
@@ -551,62 +551,67 @@ declare namespace UniversalAnalytics {
             eventAction: string,
             eventLabel?: string,
             eventValue?: number,
-            fieldsObject?: FieldsObject): void;
+            fieldsObject?: FieldsObject,
+        ): void;
         (
             command: 'send',
             hitType: 'event',
             fieldsObject: {
-                eventCategory: string,
-                eventAction: string,
-                eventLabel?: string,
-                eventValue?: number,
-                nonInteraction?: boolean
-            }): void;
+                eventCategory: string;
+                eventAction: string;
+                eventLabel?: string;
+                eventValue?: number;
+                nonInteraction?: boolean;
+            },
+        ): void;
         (
             command: 'send',
             fieldsObject: {
-                hitType: HitType, // 'event'
-                eventCategory: string,
-                eventAction: string,
-                eventLabel?: string,
-                eventValue?: number,
-                nonInteraction?: boolean
-            }): void;
+                hitType: HitType; // 'event'
+                eventCategory: string;
+                eventAction: string;
+                eventLabel?: string;
+                eventValue?: number;
+                nonInteraction?: boolean;
+            },
+        ): void;
         (command: 'send', hitType: 'pageview', page: string): void;
-        (
-            command: 'send',
-            hitType: 'social',
-            socialNetwork: string,
-            socialAction: string,
-            socialTarget: string): void;
+        (command: 'send', hitType: 'social', socialNetwork: string, socialAction: string, socialTarget: string): void;
         (
             command: 'send',
             hitType: 'social',
             fieldsObject: {
-                socialNetwork: string,
-                socialAction: string,
-                socialTarget: string
-            }): void;
-        (
-            command: 'send',
-            hitType: 'timing',
-            timingCategory: string,
-            timingVar: string,
-            timingValue: number): void;
+                socialNetwork: string;
+                socialAction: string;
+                socialTarget: string;
+            },
+        ): void;
+        (command: 'send', hitType: 'timing', timingCategory: string, timingVar: string, timingValue: number): void;
         (
             command: 'send',
             hitType: 'timing',
             fieldsObject: {
-                timingCategory: string,
-                timingVar: string,
-                timingValue: number
-            }): void;
+                timingCategory: string;
+                timingVar: string;
+                timingValue: number;
+            },
+        ): void;
         (command: 'send', fieldsObject: FieldsObject): void;
         (command: string, hitType: HitType, ...fields: any[]): void;
         (command: 'require', pluginName: string, pluginOptions?: any): void;
-        (command: 'provide', pluginName: string, pluginConstructor: (tracker: Tracker, pluginOptions?: Object) => void): void;
+        (
+            command: 'provide',
+            pluginName: string,
+            pluginConstructor: (tracker: Tracker, pluginOptions?: Object) => void,
+        ): void;
 
-        (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: FieldsObject): void;
+        (
+            command: 'create',
+            trackingId: string,
+            cookieDomain?: string,
+            name?: string,
+            fieldsObject?: FieldsObject,
+        ): void;
         (command: 'remove'): void;
 
         (command: string, ...fields: any[]): void;

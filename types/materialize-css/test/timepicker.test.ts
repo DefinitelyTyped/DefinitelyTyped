@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -14,11 +14,11 @@ new materialize.Timepicker(elem);
 // $ExpectType Timepicker
 const timePicker = new materialize.Timepicker(elem, {
     duration: 1,
-    container: "selector",
+    container: 'selector',
     showClearBtn: true,
-    defaultTime: "13:14",
+    defaultTime: '13:14',
     fromNow: 1,
-    i18n: { done: "Ok, Mate" },
+    i18n: { done: 'Ok, Mate' },
     autoClose: true,
     twelveHour: true,
     vibrate: true,
@@ -43,12 +43,12 @@ const timePicker = new materialize.Timepicker(elem, {
         hour;
         // $ExpectType number
         minute;
-    }
+    },
 });
 // $ExpectType void
 timePicker.open();
 // $ExpectType void
-timePicker.showView("hours");
+timePicker.showView('hours');
 // $ExpectType void
 timePicker.destroy();
 // $ExpectType TimepickerOptions
@@ -58,8 +58,8 @@ timePicker.el;
 // $ExpectType boolean
 timePicker.isOpen;
 
-$(".whatever").timepicker();
-$(".whatever").timepicker({ defaultTime: "13:14" });
-$(".whatever").timepicker("open");
-$(".whatever").timepicker("destroy");
-$(".whatever").timepicker("showView", "hours");
+$('.whatever').timepicker();
+$('.whatever').timepicker({ defaultTime: '13:14' });
+$('.whatever').timepicker('open');
+$('.whatever').timepicker('destroy');
+$('.whatever').timepicker('showView', 'hours');

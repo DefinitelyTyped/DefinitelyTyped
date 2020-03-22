@@ -1,4 +1,4 @@
-import AuthenticationContext = require("adal-angular");
+import AuthenticationContext = require('adal-angular');
 
 const onLogin: AuthenticationContext.TokenCallback = (errorDescription, idToken, error) => {
     if (error) {
@@ -27,42 +27,30 @@ const onUser: AuthenticationContext.UserCallback = (error, user) => {
 };
 
 const acquireAnAccessToken = () => {
-    const resourceId = "https://graph.microsoft.net";
-    authenticationContext.acquireToken(
-        resourceId,
-        (errorDesc, token, error) => {
-            if (error) {
-                if (config.popUp) {
-                    authenticationContext.acquireTokenPopup(
-                        resourceId,
-                        null,
-                        null,
-                        onToken
-                    );
-                } else {
-                    authenticationContext.acquireTokenRedirect(
-                        resourceId,
-                        null,
-                        null
-                    );
-                }
+    const resourceId = 'https://graph.microsoft.net';
+    authenticationContext.acquireToken(resourceId, (errorDesc, token, error) => {
+        if (error) {
+            if (config.popUp) {
+                authenticationContext.acquireTokenPopup(resourceId, null, null, onToken);
             } else {
-                onToken(errorDesc, token, error);
+                authenticationContext.acquireTokenRedirect(resourceId, null, null);
             }
+        } else {
+            onToken(errorDesc, token, error);
         }
-    );
+    });
 };
 
 const config: AuthenticationContext.Options = {
-    clientId: "7cee0f68-5051-41f6-9e45-80463d21d65d",
-    redirectUri: "http://localhost:16969/",
-    instance: "https://login.microsoftonline.com/",
-    tenant: "contoso.onmicrosoft.com",
-    extraQueryParameter: "nux=1",
-    correlationId: "123",
+    clientId: '7cee0f68-5051-41f6-9e45-80463d21d65d',
+    redirectUri: 'http://localhost:16969/',
+    instance: 'https://login.microsoftonline.com/',
+    tenant: 'contoso.onmicrosoft.com',
+    extraQueryParameter: 'nux=1',
+    correlationId: '123',
     popUp: true,
-    cacheLocation: "localStorage",
-    callback: onLogin
+    cacheLocation: 'localStorage',
+    callback: onLogin,
 };
 
 const authenticationContext = new AuthenticationContext(config);
@@ -77,7 +65,7 @@ if (authenticationContext.isCallback(window.location.hash)) {
 }
 
 const injectedContext = AuthenticationContext.inject({
-    clientId: "7cee0f68-5051-41f6-9e45-80463d21d65d",
+    clientId: '7cee0f68-5051-41f6-9e45-80463d21d65d',
 });
 injectedContext.handleWindowCallback();
 

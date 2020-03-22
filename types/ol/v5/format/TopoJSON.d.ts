@@ -1,4 +1,14 @@
-import { GeometryCollection, GeometryObject, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon, Topology } from 'topojson-specification';
+import {
+    GeometryCollection,
+    GeometryObject,
+    LineString,
+    MultiLineString,
+    MultiPoint,
+    MultiPolygon,
+    Point,
+    Polygon,
+    Topology,
+} from 'topojson-specification';
 import { Coordinate } from '../coordinate';
 import Feature from '../Feature';
 import LineString_1 from '../geom/LineString';

@@ -1,7 +1,7 @@
-import isInteger = require("is-integer");
+import isInteger = require('is-integer');
 
 // $ExpectType boolean
-isInteger("hello");
+isInteger('hello');
 
 // $ExpectType boolean
 isInteger(4);

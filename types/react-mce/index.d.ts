@@ -80,5 +80,5 @@ interface ReactMCEProps {
     onDirty?: EventHandler;
 }
 
-declare class TinyMCE extends React.Component<ReactMCEProps> { }
+declare class TinyMCE extends React.Component<ReactMCEProps> {}
 export = TinyMCE;

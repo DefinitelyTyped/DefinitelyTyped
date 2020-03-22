@@ -25,19 +25,19 @@ export function updateNotification(notification: Notification): (dispatch: Dispa
 /**
  * Remove a notification (action creator)
  */
-export function removeNotification(notification: Notification): {type: string; payload: Notification};
+export function removeNotification(notification: Notification): { type: string; payload: Notification };
 
 /**
  * Remove all notifications (action creator)
  */
-export function removeNotifications(): {type: string};
+export function removeNotifications(): { type: string };
 
 // Action creators
 interface Actions {
     addNotification(notification: Notification): Notification;
     updateNotification(notification: Notification): Notification;
-    removeNotification(notification: Notification): {type: string; payload: Notification};
-    removeNotifications(): {type: string};
+    removeNotification(notification: Notification): { type: string; payload: Notification };
+    removeNotifications(): { type: string };
 }
 export const actions: Actions;
 
@@ -57,7 +57,9 @@ interface Types {
 export const types: Types;
 
 // Reducers
-export function reducer(defaultNotification?: Notification): (state: Notification[], notification: {type: ActionTypes; payload: any}) => Notification[];
+export function reducer(
+    defaultNotification?: Notification,
+): (state: Notification[], notification: { type: ActionTypes; payload: any }) => Notification[];
 
 // Constants
 type DEFAULT_STATUS = string;
@@ -84,7 +86,15 @@ type BOTTOM = string;
 type BOTTOM_CENTER = string;
 type BOTTOM_LEFT_POSITION = string;
 type BOTTOM_RIGHT_POSITION = string;
-type POSITION = TOP | TOP_CENTER | TOP_LEFT_POSITION | TOP_RIGHT_POSITION | BOTTOM | BOTTOM_CENTER | BOTTOM_LEFT_POSITION | BOTTOM_RIGHT_POSITION;
+type POSITION =
+    | TOP
+    | TOP_CENTER
+    | TOP_LEFT_POSITION
+    | TOP_RIGHT_POSITION
+    | BOTTOM
+    | BOTTOM_CENTER
+    | BOTTOM_LEFT_POSITION
+    | BOTTOM_RIGHT_POSITION;
 
 interface POSITIONS_TYPES {
     top: TOP;
@@ -105,12 +115,12 @@ interface Button {
 }
 
 export interface Notification {
-    id?: string|number;
+    id?: string | number;
     title?: string;
     message?: string;
     image?: string;
-    status?: string|number|STATUSES;
-    position?: string|POSITION;
+    status?: string | number | STATUSES;
+    position?: string | POSITION;
     dismissible?: boolean;
     dismissAfter?: number;
     closeButton?: boolean;

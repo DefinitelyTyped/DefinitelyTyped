@@ -1,2 +1,2 @@
-import { max } from "../fp";
+import { max } from '../fp';
 export = max;

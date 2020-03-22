@@ -1,4 +1,4 @@
-import { Component, ComponentClass, ClassAttributes, ReactNode, StatelessComponent } from "react";
+import { Component, ComponentClass, ClassAttributes, ReactNode, StatelessComponent } from 'react';
 import {
     Action,
     History,
@@ -10,9 +10,9 @@ import {
     Path,
     Pathname,
     Query,
-    Search
-} from "history";
-import { PlainRoute } from "react-router";
+    Search,
+} from 'history';
+import { PlainRoute } from 'react-router';
 
 export interface Params {
     [key: string]: string;
@@ -32,7 +32,12 @@ type AnyFunction = (...args: any[]) => any;
 
 export type EnterHook = (nextState: RouterState, replace: RedirectFunction, callback?: AnyFunction) => any;
 export type LeaveHook = (prevState: RouterState) => any;
-export type ChangeHook = (prevState: RouterState, nextState: RouterState, replace: RedirectFunction, callback?: AnyFunction) => any;
+export type ChangeHook = (
+    prevState: RouterState,
+    nextState: RouterState,
+    replace: RedirectFunction,
+    callback?: AnyFunction,
+) => any;
 export type RouteHook = (nextLocation?: Location) => any;
 
 export interface RedirectFunction {

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export const ConditionalContext: {
     Consumer: any;
@@ -29,7 +29,7 @@ interface FormolProps<V = any> {
     extra?: React.ReactNode;
     classes?: any;
     onSubmit?: (e: Event) => void;
-    validator?: (v: V) => {[K in keyof V]?: string | null};
+    validator?: (v: V) => { [K in keyof V]?: string | null };
 }
 
 declare const Formol: React.ComponentType<FormolProps>;
@@ -51,7 +51,7 @@ export const FieldSet: React.ComponentType<FieldSetProps>;
 
 interface SwitchButtonProps {
     type?: string;
-    i18n?: { yes: React.ReactNode, no: React.ReactNode } & { [k: string]: any };
+    i18n?: { yes: React.ReactNode; no: React.ReactNode } & { [k: string]: any };
     leftLabel?: React.ReactNode;
     rightLabel?: React.ReactNode;
     className?: string;

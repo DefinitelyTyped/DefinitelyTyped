@@ -47,11 +47,11 @@ interface Exphbs {
 }
 
 interface ExpressHandlebars {
-  (options?: ExphbsOptions): (...args: any[]) => any;
-  create (options?: ExphbsOptions): Exphbs;
+    (options?: ExphbsOptions): (...args: any[]) => any;
+    create(options?: ExphbsOptions): Exphbs;
 }
 
-declare module "express-handlebars" {
+declare module 'express-handlebars' {
     var exphbs: ExpressHandlebars;
     export = exphbs;
 }

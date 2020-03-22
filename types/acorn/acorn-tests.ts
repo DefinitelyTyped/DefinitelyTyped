@@ -16,7 +16,7 @@ program = acorn.parse('code', { ranges: true, onToken: tokens, onComment: commen
 program = acorn.parse('code', {
     ranges: true,
     onToken: (token) => tokens.push(token),
-    onComment: (isBlock, text, start, end) => { }
+    onComment: (isBlock, text, start, end) => {},
 });
 
 // Token
@@ -37,17 +37,21 @@ class LooseParser {
     // this means you can extend LooseParser
     test() {}
 }
-acorn.addLooseExports(() => {
-    return {
-        type: 'Program',
-        sourceType: 'script',
-        body: [
-            {
-                type: 'EmptyStatement'
-            }
-        ]
-    };
-}, LooseParser, {});
+acorn.addLooseExports(
+    () => {
+        return {
+            type: 'Program',
+            sourceType: 'script',
+            body: [
+                {
+                    type: 'EmptyStatement',
+                },
+            ],
+        };
+    },
+    LooseParser,
+    {},
+);
 
 acorn.parseExpressionAt('string', 2);
 
@@ -61,5 +65,5 @@ acorn.getLineInfo('string', 56);
 
 acorn.plugins['test'] = (p: acorn.Parser, config: any) => {};
 
-acorn.tokenizer('console.log("hello world)', {locations: true}).getToken();
-acorn.tokenizer('console.log("hello world)', {locations: true})[Symbol.iterator]().next();
+acorn.tokenizer('console.log("hello world)', { locations: true }).getToken();
+acorn.tokenizer('console.log("hello world)', { locations: true })[Symbol.iterator]().next();

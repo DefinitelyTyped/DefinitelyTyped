@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import { ServerResponse } from "http";
-import { Readable, Stream } from "stream";
+import { ServerResponse } from 'http';
+import { Readable, Stream } from 'stream';
 
 /**
  * Injects a fake request into an HTTP server.
@@ -103,5 +103,5 @@ export interface ResponseObject {
     /** the raw payload as a Buffer. */
     rawPayload: Buffer;
     /** an object containing the response trailers. */
-    trailers: {[index: string]: any};
+    trailers: { [index: string]: any };
 }

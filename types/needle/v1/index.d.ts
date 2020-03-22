@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-declare module "needle" {
+declare module 'needle' {
     import * as http from 'http';
     import * as Buffer from 'buffer';
     import * as https from 'https';
@@ -44,7 +44,7 @@ declare module "needle" {
             agent?: http.Agent | boolean;
             proxy?: string;
             headers?: {};
-            auth?: "auto" | "digest" | "basic";
+            auth?: 'auto' | 'digest' | 'basic';
             json?: boolean;
 
             // These properties are overwritten by those in the 'headers' field
@@ -107,10 +107,16 @@ declare module "needle" {
             patch(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
             delete(url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
-            delete(url: string, data: BodyData, options?: NeedleOptions, callback ?: NeedleCallback): ReadableStream;
+            delete(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
             request(method: string, url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
-            request(method: string, url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+            request(
+                method: string,
+                url: string,
+                data: BodyData,
+                options?: NeedleOptions,
+                callback?: NeedleCallback,
+            ): ReadableStream;
         }
     }
     const needle: Needle.NeedleStatic;

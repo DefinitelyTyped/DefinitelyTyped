@@ -1,5 +1,3 @@
-
-
 var valueFormat: string = numeral(1000).format('0,0');
 // '1,000'
 
@@ -45,43 +43,41 @@ var bVal: number = b.value();
 var cVal: number = c.add(10).value();
 // 1010
 
-
 // Formats
 numeral.register('format', 'percentage', {
     regexps: {
         format: /(%)/,
-        unformat: /(%)/
+        unformat: /(%)/,
     },
-    format: function(value, format, roundingFunction) {
+    format: function (value, format, roundingFunction) {
         return 'foo';
     },
-    unformat: function(string) {
+    unformat: function (string) {
         return 123;
-    }
+    },
 });
 
 var customFormatted = numeral().format('0%');
-
 
 // Locales
 // load a locale
 numeral.register('locale', 'fr', {
     delimiters: {
         thousands: ' ',
-        decimal: ','
+        decimal: ',',
     },
     abbreviations: {
         thousand: 'k',
         million: 'm',
         billion: 'b',
-        trillion: 't'
+        trillion: 't',
     },
-    ordinal : function (number) {
+    ordinal: function (number) {
         return number === 1 ? 'er' : 'ème';
     },
     currency: {
-        symbol: '€'
-    }
+        symbol: '€',
+    },
 });
 
 // switch between locales
@@ -92,18 +88,18 @@ numeral.locale();
 // 'fr'
 
 // return the current locale data
-numeral.localeData()
+numeral.localeData();
 
 // return a specific locale data
-const localeData = numeral.localeData('es')
+const localeData = numeral.localeData('es');
 
 // test accessing locale data
-const currencySymbol = localeData.currency.symbol
-const billionShorthand = localeData.abbreviations.billion
-const decimalDelimiter = localeData.delimiters.decimal
-const ordinalResult = localeData.ordinal(2)
+const currencySymbol = localeData.currency.symbol;
+const billionShorthand = localeData.abbreviations.billion;
+const decimalDelimiter = localeData.delimiters.decimal;
+const ordinalResult = localeData.ordinal(2);
 
 // test changing an option
-numeral.options.scalePercentBy100 = false
-numeral(50).format('0%')
+numeral.options.scalePercentBy100 = false;
+numeral(50).format('0%');
 // '50%'

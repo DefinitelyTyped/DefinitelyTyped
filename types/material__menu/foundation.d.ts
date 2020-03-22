@@ -51,9 +51,7 @@ export default class MDCMenuFoundation extends MDCFoundation<MDCMenuFoundation> 
 
     setQuickOpen(quickOpen: boolean): void;
 
-    open({focusIndex}?: {
-        focusIndex?: null;
-    }): void;
+    open({ focusIndex }?: { focusIndex?: null }): void;
 
     close(evt?: Event): void;
 

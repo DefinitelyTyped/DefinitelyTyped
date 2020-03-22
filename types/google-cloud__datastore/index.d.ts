@@ -20,18 +20,18 @@ declare module '@google-cloud/datastore' {
         DatastoreKeyPath,
         DatastoreKeyOptions,
         DatastoreCoords,
-        OneOrMany
+        OneOrMany,
     } from '@google-cloud/datastore/entity';
     import {
         DatastoreRequest as DatastoreRequest_,
         CommitCallback,
-        CommitResult
+        CommitResult,
     } from '@google-cloud/datastore/request';
     import {
         Query as DatastoreQuery,
         MoreResultsAfterCursor,
         MoreResultsAfterLimit,
-        NoMoreResults
+        NoMoreResults,
     } from '@google-cloud/datastore/query';
     import { DatastoreTransaction } from '@google-cloud/datastore/transaction';
 
@@ -93,7 +93,7 @@ declare module '@google-cloud/datastore' {
 }
 
 declare module '@google-cloud/datastore/entity' {
-    import Datastore = require("@google-cloud/datastore");
+    import Datastore = require('@google-cloud/datastore');
 
     interface DatastoreInt {
         value: string;
@@ -223,8 +223,10 @@ declare module '@google-cloud/datastore/request' {
         allocateIds(incompleteKey: DatastoreKey, n: number, callback: AllocateIdsCallback): void;
         allocateIds(incompleteKey: DatastoreKey, n: number): Promise<AllocateIdsResult>;
 
-        createReadStream(keys: DatastoreKey | ReadonlyArray<DatastoreKey>,
-                         options: QueryOptions): NodeJS.ReadableStream;
+        createReadStream(
+            keys: DatastoreKey | ReadonlyArray<DatastoreKey>,
+            options: QueryOptions,
+        ): NodeJS.ReadableStream;
 
         delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>, callback: CommitCallback): void;
         delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>): Promise<CommitResult> | void;
@@ -313,8 +315,10 @@ declare module '@google-cloud/datastore/transaction' {
     type RollbackCallback = (err: Error, rollbackResponse: {}) => void;
     type RollbackResult = [{}];
 
-    type TransactionCallback = (err: Error,
-                                tx: DatastoreTransaction,
-                                beginTxResponse: BeginTransactionResponse) => void;
+    type TransactionCallback = (
+        err: Error,
+        tx: DatastoreTransaction,
+        beginTxResponse: BeginTransactionResponse,
+    ) => void;
     type TransactionResult = [DatastoreTransaction, BeginTransactionResponse];
 }

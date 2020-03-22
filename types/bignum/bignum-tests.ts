@@ -1,5 +1,3 @@
-
-
 var bignum = require('bignum');
 
 // Test constructors.

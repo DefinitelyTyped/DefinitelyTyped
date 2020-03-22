@@ -18,7 +18,9 @@ import { Transition } from 'd3-transition';
  */
 // Retained ValueMap as type as it works better with IDE support for its intended purpose. It is not meant to be extended. So type is o.k.
 // tslint:disable-next-line:interface-over-type-literal
-export type ValueMap<T extends BaseType, Datum> = { [key: string]: number | string | boolean | null | ValueFn<T, Datum, number | string | boolean | null> };
+export type ValueMap<T extends BaseType, Datum> = {
+    [key: string]: number | string | boolean | null | ValueFn<T, Datum, number | string | boolean | null>;
+};
 
 declare module 'd3-selection' {
     /**

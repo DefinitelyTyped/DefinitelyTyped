@@ -4,22 +4,12 @@ const Spinner = () => <img src="https://a.com/spinner.gif" />;
 
 function A() {
     const { isWaiting } = useWait();
-    return (
-        <div>
-            {isWaiting('creating user')
-                ? 'Creating User...'
-                : 'Nothing happens'}
-        </div>
-    );
+    return <div>{isWaiting('creating user') ? 'Creating User...' : 'Nothing happens'}</div>;
 }
 
 function B() {
     const { anyWaiting } = useWait();
-    return (
-        <div>
-            {anyWaiting() ? 'Something happening on app...' : 'Nothing happens'}
-        </div>
-    );
+    return <div>{anyWaiting() ? 'Something happening on app...' : 'Nothing happens'}</div>;
 }
 
 function C() {
@@ -56,7 +46,9 @@ function testCreateWaitingContext() {
             <Wait fallback={<Spinner />}>
                 <button onClick={startWaiting}>Create user</button>
             </Wait>
-            <button disabled={isWaiting()} onClick={endWaiting}>Cancel</button>
+            <button disabled={isWaiting()} onClick={endWaiting}>
+                Cancel
+            </button>
         </div>
     );
 }
@@ -65,7 +57,9 @@ function testWaiters() {
     const { waiters } = useWait();
     return (
         <ul>
-            {waiters.map((waiter, index) => <li key={index}>{waiter}</li>)}
+            {waiters.map((waiter, index) => (
+                <li key={index}>{waiter}</li>
+            ))}
         </ul>
     );
 }

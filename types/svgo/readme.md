@@ -5,6 +5,7 @@
 ### TS 2.7+
 
 tsconfig.json
+
 ```
 {
   "compilerOptions": {
@@ -16,6 +17,7 @@ tsconfig.json
 ### Older TS versions
 
 tsconfig.json
+
 ```
 {
   "compilerOptions": {

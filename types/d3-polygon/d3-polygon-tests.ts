@@ -15,8 +15,17 @@ import * as d3Polygon from 'd3-polygon';
 let num: number;
 let containsFlag: boolean;
 let point: [number, number] = [15, 15];
-const polygon: Array<[number, number]> = [[10, 10], [20, 20], [10, 30]];
-const pointArray: Array<[number, number]> = [[10, 10], [20, 20], [10, 30], [15, 15]];
+const polygon: Array<[number, number]> = [
+    [10, 10],
+    [20, 20],
+    [10, 30],
+];
+const pointArray: Array<[number, number]> = [
+    [10, 10],
+    [20, 20],
+    [10, 30],
+    [15, 15],
+];
 let hullOrNothing: Array<[number, number]> | null;
 
 // -----------------------------------------------------------------------------

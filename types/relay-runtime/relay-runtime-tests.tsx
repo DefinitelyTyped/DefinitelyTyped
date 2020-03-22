@@ -102,7 +102,7 @@ const environment = new Environment({
             default:
                 break;
         }
-    }
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -173,7 +173,7 @@ store.publish(source);
 // commitLocalUpdate
 // ~~~~~~~~~~~~~~~~~~~~~
 
-commitLocalUpdate(environment, store => {
+commitLocalUpdate(environment, (store) => {
     const root = store.get(ROOT_ID);
     root!.setValue('foo', 'localKey');
 });
@@ -206,7 +206,7 @@ query FooQuery {
 */
 
 /* tslint:disable:only-arrow-functions no-var-keyword prefer-const */
-const node: ConcreteRequest = (function() {
+const node: ConcreteRequest = (function () {
     var v0 = [
         {
             kind: 'ScalarField',

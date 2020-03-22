@@ -40,9 +40,9 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 // Game object Id types
 {
-    const creepId: Id<Creep> = "1" as Id<Creep>;
+    const creepId: Id<Creep> = '1' as Id<Creep>;
     const creepOne: Creep | null = Game.getObjectById(creepId);
-    const creepTwo: Creep | null = Game.getObjectById<Creep>("2"); // deprecated
+    const creepTwo: Creep | null = Game.getObjectById<Creep>('2'); // deprecated
     const creepThree: Creep = new Creep(creepId); // Works with typed ID
 
     if (creepOne) {
@@ -51,22 +51,22 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     type StoreStructure = StructureContainer | StructureStorage | StructureLink;
-    const storeID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
+    const storeID: Id<StoreStructure> = '1234' as Id<StoreStructure>; // Strict assertion required
     const stringID: string = storeID; // Id<T> assignable implicitly to string
     const storeObject = Game.getObjectById(storeID)!;
 
     // Object recognized
     switch (storeObject.structureType) {
         case STRUCTURE_CONTAINER:
-            storeObject.structureType === "container";
+            storeObject.structureType === 'container';
         case STRUCTURE_STORAGE:
-            storeObject.structureType === "storage";
+            storeObject.structureType === 'storage';
         default:
-            storeObject.structureType === "link";
+            storeObject.structureType === 'link';
     }
 
     // Default type is unknown if untyped Id provided
-    const untyped = Game.getObjectById("untyped");
+    const untyped = Game.getObjectById('untyped');
 }
 
 // Game.creeps
@@ -86,14 +86,14 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.powerCreeps
 
 {
-    PowerCreep.create("steve", POWER_CLASS.OPERATOR) === OK;
+    PowerCreep.create('steve', POWER_CLASS.OPERATOR) === OK;
 
     for (const i in Game.powerCreeps) {
         const powerCreep = Game.powerCreeps[i];
 
         if (powerCreep.ticksToLive === undefined) {
             // Not spawned in world; spawn creep
-            const spawn = Game.getObjectById("powerSpawnID") as StructurePowerSpawn;
+            const spawn = Game.getObjectById('powerSpawnID') as StructurePowerSpawn;
             powerCreep.spawn(spawn);
         } else {
             // Generate Ops
@@ -105,9 +105,15 @@ function resources(o: GenericStore): ResourceConstant[] {
                 Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
             } else {
                 // Boost resource
-                const targetSource = Game.getObjectById("targetSourceID") as Source;
-                const sourceEffect = targetSource.effects.find(effect => effect.effect === PWR_REGEN_SOURCE && effect.level > 0);
-                if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
+                const targetSource = Game.getObjectById('targetSourceID') as Source;
+                const sourceEffect = targetSource.effects.find(
+                    (effect) => effect.effect === PWR_REGEN_SOURCE && effect.level > 0,
+                );
+                if (
+                    !sourceEffect &&
+                    powerCreep.powers[PWR_REGEN_SOURCE] &&
+                    powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0
+                ) {
                     powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
                 }
             }
@@ -129,7 +135,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     // Constant type checking
     POWER_INFO[PWR_GENERATE_OPS].className === POWER_CLASS.OPERATOR;
-    typeof POWER_INFO[PWR_GENERATE_OPS].level[0] === "number";
+    typeof POWER_INFO[PWR_GENERATE_OPS].level[0] === 'number';
 }
 
 // Game.spawns
@@ -147,11 +153,16 @@ function resources(o: GenericStore): ResourceConstant[] {
             const creepSpawn: StructureSpawn = creep.spawn;
 
             const cancelStatus: OK | ERR_NOT_OWNER = creep.cancel();
-            const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([TOP, BOTTOM, LEFT, RIGHT]);
+            const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([
+                TOP,
+                BOTTOM,
+                LEFT,
+                RIGHT,
+            ]);
         }
 
-        creep = new StructureSpawn.Spawning("" as Id<Spawning>);
-        creep = StructureSpawn.Spawning("" as Id<Spawning>);
+        creep = new StructureSpawn.Spawning('' as Id<Spawning>);
+        creep = StructureSpawn.Spawning('' as Id<Spawning>);
     }
 }
 
@@ -188,7 +199,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 // Game.cpu.halt()
 {
-    if (Game.cpu.hasOwnProperty("halt")) {
+    if (Game.cpu.hasOwnProperty('halt')) {
         Game.cpu.halt!();
     }
 }
@@ -210,9 +221,9 @@ function resources(o: GenericStore): ResourceConstant[] {
 }
 
 {
-    if (Game.spawns["Spawn1"].energy === 0) {
+    if (Game.spawns['Spawn1'].energy === 0) {
         Game.notify(
-            "Spawn1 is out of energy",
+            'Spawn1 is out of energy',
             180, // group these notifications for 3 hours
         );
     }
@@ -221,9 +232,9 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.map.describeExits()
 
 {
-    const exits = Game.map.describeExits("W8N3");
+    const exits = Game.map.describeExits('W8N3');
     // tslint:disable-next-line:newline-per-chained-call
-    keys(exits).map(exitKey => {
+    keys(exits).map((exitKey) => {
         const nextRoom = exits[exitKey];
         const exitDir = +exitKey as ExitConstant;
         const exitPos = creep.pos.findClosestByRange(exitDir);
@@ -267,7 +278,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const route = Game.map.findRoute(creep.room, anotherRoomName, {
         routeCallback(roomName, fromRoomName) {
-            if (roomName === "W10S10") {
+            if (roomName === 'W10S10') {
                 // avoid this room
                 return Infinity;
             }
@@ -277,8 +288,8 @@ function resources(o: GenericStore): ResourceConstant[] {
 }
 
 {
-    const from = new RoomPosition(25, 25, "E1N1");
-    const to = new RoomPosition(25, 25, "E4N1");
+    const from = new RoomPosition(25, 25, 'E1N1');
+    const to = new RoomPosition(25, 25, 'E4N1');
 
     // Use `findRoute` to calculate a high-level plan for this path,
     // prioritizing highways and owned rooms
@@ -288,7 +299,8 @@ function resources(o: GenericStore): ResourceConstant[] {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
             if (parsed !== null) {
                 const isHighway = parseInt(parsed[1], 10) % 10 === 0 || parseInt(parsed[2], 10) % 10 === 0;
-                const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller!.my;
+                const isMyRoom =
+                    Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller!.my;
                 if (isHighway || isMyRoom) {
                     return 1;
                 } else {
@@ -301,14 +313,14 @@ function resources(o: GenericStore): ResourceConstant[] {
     });
 
     if (route !== ERR_NO_PATH) {
-        route.forEach(info => {
+        route.forEach((info) => {
             allowedRooms[info.room] = true;
         });
     }
 
     // Invoke PathFinder, allowing access only to rooms from `findRoute`
     const ret = PathFinder.search(from, [to], {
-        roomCallback: roomName => {
+        roomCallback: (roomName) => {
             if (allowedRooms[roomName] === undefined) {
                 return false;
             } else {
@@ -321,20 +333,20 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.map.getRoomLinearDistance(roomName1, roomName2, [continuous])
 
 {
-    Game.map.getRoomLinearDistance("W1N1", "W4N2"); // 3
-    Game.map.getRoomLinearDistance("E65S55", "W65S55", false); // 131
-    Game.map.getRoomLinearDistance("E65S55", "W65S55", true); // 11
+    Game.map.getRoomLinearDistance('W1N1', 'W4N2'); // 3
+    Game.map.getRoomLinearDistance('E65S55', 'W65S55', false); // 131
+    Game.map.getRoomLinearDistance('E65S55', 'W65S55', true); // 11
 }
 
 // Game.map.getTerrainAt(x, y, roomName)
 // Game.map.getTerrainAt(pos)
 
 {
-    Game.map.getTerrainAt(25, 20, "W10N10");
+    Game.map.getTerrainAt(25, 20, 'W10N10');
 }
 
 {
-    Game.map.getTerrainAt(new RoomPosition(25, 20, "W10N10"));
+    Game.map.getTerrainAt(new RoomPosition(25, 20, 'W10N10'));
 }
 
 // Game.map.isRoomAvailable(roomName)
@@ -349,7 +361,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     // Game.market.calcTransactionCost(amount, roomName1, roomName2)
-    const cost = Game.market.calcTransactionCost(1000, "W0N0", "W10N5");
+    const cost = Game.market.calcTransactionCost(1000, 'W0N0', 'W10N5');
 
     // Game.market.cancelOrder(orderId)
     for (const id in Game.market.orders) {
@@ -357,14 +369,20 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     // Game.market.changeOrderPrice(orderId, newPrice)
-    Game.market.changeOrderPrice("57bec1bf77f4d17c4c011960", 9.95);
+    Game.market.changeOrderPrice('57bec1bf77f4d17c4c011960', 9.95);
 
     // Game.market.createOrder({type, resourceType, price, totalAmount, [roomName]})
-    Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000, roomName: "W1N1" });
+    Game.market.createOrder({
+        type: ORDER_SELL,
+        resourceType: RESOURCE_GHODIUM,
+        price: 9.95,
+        totalAmount: 10000,
+        roomName: 'W1N1',
+    });
     Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000 });
 
     // Game.market.deal(orderId, amount, [yourRoomName])
-    Game.market.deal("57cd2b12cda69a004ae223a3", 1000, "W1N1");
+    Game.market.deal('57cd2b12cda69a004ae223a3', 1000, 'W1N1');
 
     const amountToBuy = 2000;
     const maxTransferEnergyCost = 500;
@@ -372,32 +390,32 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     for (const i of orders) {
         if (i.roomName) {
-            const transferEnergyCost = Game.market.calcTransactionCost(amountToBuy, "W1N1", i.roomName);
+            const transferEnergyCost = Game.market.calcTransactionCost(amountToBuy, 'W1N1', i.roomName);
 
             if (transferEnergyCost < maxTransferEnergyCost) {
-                Game.market.deal(i.id, amountToBuy, "W1N1");
+                Game.market.deal(i.id, amountToBuy, 'W1N1');
                 break;
             }
         }
     }
 
     // Game.market.extendOrder(orderId, addAmount)
-    Game.market.extendOrder("57bec1bf77f4d17c4c011960", 10000);
+    Game.market.extendOrder('57bec1bf77f4d17c4c011960', 10000);
 
     // Game.market.getAllOrders([filter])
     Game.market.getAllOrders();
     Game.market.getAllOrders({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM });
 
-    const targetRoom = "W1N1";
+    const targetRoom = 'W1N1';
     Game.market.getAllOrders(
-        currentOrder =>
+        (currentOrder) =>
             currentOrder.resourceType === RESOURCE_GHODIUM &&
             currentOrder.type === ORDER_SELL &&
             Game.market.calcTransactionCost(1000, targetRoom, currentOrder.roomName!) < 500,
     );
 
     // Game.market.getOrderById(id)
-    const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
+    const order = Game.market.getOrderById('55c34a6b5be41a0a6e80c123');
 
     // Subscription tokens
     Game.market.getAllOrders({ type: ORDER_SELL, resourceType: SUBSCRIPTION_TOKEN });
@@ -416,7 +434,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     const pfCreep = Game.creeps.John;
 
     // tslint:disable-next-line:newline-per-chained-call
-    const goals = pfCreep.room.find(FIND_SOURCES).map(source => {
+    const goals = pfCreep.room.find(FIND_SOURCES).map((source) => {
         // We can't actually walk on sources-- set `range` to 1
         // so we path next to it.
         return { pos: source.pos, range: 1 };
@@ -439,7 +457,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             const costs = new PathFinder.CostMatrix();
 
             // tslint:disable-next-line:newline-per-chained-call
-            curRoom.find(FIND_STRUCTURES).forEach(struct => {
+            curRoom.find(FIND_STRUCTURES).forEach((struct) => {
                 if (struct.structureType === STRUCTURE_ROAD) {
                     // Favor roads over plain tiles
                     costs.set(struct.pos.x, struct.pos.y, 1);
@@ -454,7 +472,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
             // Avoid creeps in the room
             // tslint:disable-next-line:newline-per-chained-call
-            curRoom.find(FIND_CREEPS).forEach(thisCreep => {
+            curRoom.find(FIND_CREEPS).forEach((thisCreep) => {
                 costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
             });
 
@@ -478,7 +496,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     // RawMemory.foreignSegment
 
-    RawMemory.setActiveForeignSegment("player");
+    RawMemory.setActiveForeignSegment('player');
     // on the next tick
     const playerSegment = RawMemory.foreignSegment;
     // --> {"username": "player", "id": 40, "data": "Hello!"}
@@ -487,7 +505,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     RawMemory.interShardSegment = JSON.stringify({
         creeps: {
-            Bob: { role: "claimer" },
+            Bob: { role: 'claimer' },
         },
     });
 
@@ -509,8 +527,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     RawMemory.setActiveSegments([0, 3]);
 
     // RawMemory.setActiveForeignSegment(username, [id])
-    RawMemory.setActiveForeignSegment("player");
-    RawMemory.setActiveForeignSegment("player", 10);
+    RawMemory.setActiveForeignSegment('player');
+    RawMemory.setActiveForeignSegment('player', 10);
     RawMemory.setActiveForeignSegment(null);
 
     // RawMemory.setDefaultPublicSegment(id)
@@ -526,11 +544,11 @@ function resources(o: GenericStore): ResourceConstant[] {
 // InterShardMemory
 
 {
-    let localShardData = "";
+    let localShardData = '';
     InterShardMemory.setLocal(localShardData);
     localShardData = InterShardMemory.getLocal();
 
-    const remoteShardData: string = InterShardMemory.getRemote("shard2") || "";
+    const remoteShardData: string = InterShardMemory.getRemote('shard2') || '';
 }
 
 // Find Overloads
@@ -561,7 +579,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     creepsHere[0].getActiveBodyparts(ATTACK);
 
     const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
-        filter: structure => {
+        filter: (structure) => {
             return structure.structureType === STRUCTURE_TOWER;
         },
     });
@@ -581,7 +599,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
-        filter: structure => {
+        filter: (structure) => {
             return structure.structureType === STRUCTURE_TOWER;
         },
     });
@@ -591,7 +609,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
-        filter: structure => {
+        filter: (structure) => {
             return structure.structureType === STRUCTURE_RAMPART;
         },
     });
@@ -604,7 +622,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     hostileCreeps[0].saying;
 
     const labs = creep.pos.findInRange<StructureLab>(FIND_MY_STRUCTURES, 4, {
-        filter: structure => {
+        filter: (structure) => {
             return structure.structureType === STRUCTURE_LAB;
         },
     });
@@ -622,7 +640,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             const pos = new RoomPosition(+x, +y, room.name);
             const objects = row[x];
             if (objects.length > 0) {
-                objects.map(o => o.type);
+                objects.map((o) => o.type);
             }
         }
     }
@@ -653,7 +671,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         creep.drop(resourceType, amount);
     }
 
-    const extension = new StructureExtension("" as Id<StructureExtension>);
+    const extension = new StructureExtension('' as Id<StructureExtension>);
 
     const e1: number = extension.store.getUsedCapacity(RESOURCE_ENERGY);
     const e2: number = extension.store[RESOURCE_ENERGY];
@@ -661,18 +679,18 @@ function resources(o: GenericStore): ResourceConstant[] {
     const g1: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
     const g2: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
 
-    const storage = new StructureStorage("" as Id<StructureStorage>);
+    const storage = new StructureStorage('' as Id<StructureStorage>);
 
     const g3: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
 }
 
 // Advanced Structure types
 {
-    const owned = Game.getObjectById<AnyOwnedStructure>("blah");
+    const owned = Game.getObjectById<AnyOwnedStructure>('blah');
     const owner = owned!.owner.username;
     owned!.notifyWhenAttacked(false);
 
-    const unowned = Game.getObjectById<AnyStructure>("blah2")!;
+    const unowned = Game.getObjectById<AnyStructure>('blah2')!;
     const hp = unowned.hits / unowned.hitsMax;
 
     // test discriminated union
@@ -693,17 +711,20 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     // test discriminated union using filter functions on find
     const from = Game.rooms.myRoom.find(FIND_STRUCTURES, {
-        filter: s => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0,
+        filter: (s) =>
+            (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0,
     })[0];
     const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-        filter: s => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity,
+        filter: (s) =>
+            (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) &&
+            s.energy < s.energyCapacity,
     });
 
     Game.rooms.myRoom
         .find(FIND_MY_STRUCTURES, {
-            filter: s => s.structureType === STRUCTURE_RAMPART,
+            filter: (s) => s.structureType === STRUCTURE_RAMPART,
         })
-        .forEach(r => r.notifyWhenAttacked(false));
+        .forEach((r) => r.notifyWhenAttacked(false));
 }
 
 {
@@ -727,12 +748,12 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     tombstone.id;
 
-    const creep = Game.creeps["dave"];
+    const creep = Game.creeps['dave'];
     creep.withdraw(tombstone, RESOURCE_ENERGY);
 }
 
 {
-    if (Game.cpu.hasOwnProperty("getHeapStatistics")) {
+    if (Game.cpu.hasOwnProperty('getHeapStatistics')) {
         const heap = Game.cpu.getHeapStatistics!();
         heap.total_heap_size;
     }
@@ -741,9 +762,11 @@ function resources(o: GenericStore): ResourceConstant[] {
 // StructurePortal
 
 {
-    const portals = room.find<StructurePortal>(FIND_STRUCTURES, { filter: s => s.structureType === STRUCTURE_PORTAL });
+    const portals = room.find<StructurePortal>(FIND_STRUCTURES, {
+        filter: (s) => s.structureType === STRUCTURE_PORTAL,
+    });
     portals.forEach((p: StructurePortal) => {
-        const state = p.ticksToDecay === undefined ? "stable" : "unstable";
+        const state = p.ticksToDecay === undefined ? 'stable' : 'unstable';
         if (p.destination instanceof RoomPosition) {
             Game.notify(`Found ${state} inter-room portal to ${p.destination}`);
         } else {
@@ -756,23 +779,27 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     room.createConstructionSite(10, 10, STRUCTURE_EXTENSION);
-    room.createConstructionSite(10, 11, STRUCTURE_SPAWN, "mySpawn");
+    room.createConstructionSite(10, 11, STRUCTURE_SPAWN, 'mySpawn');
 
     const pos = new RoomPosition(10, 10, room.name);
     room.createConstructionSite(pos, STRUCTURE_EXTENSION);
-    room.createConstructionSite(pos, STRUCTURE_SPAWN, "mySpawn");
+    room.createConstructionSite(pos, STRUCTURE_SPAWN, 'mySpawn');
     pos.createConstructionSite(STRUCTURE_EXTENSION);
-    pos.createConstructionSite(STRUCTURE_SPAWN, "mySpawn");
+    pos.createConstructionSite(STRUCTURE_SPAWN, 'mySpawn');
 }
 
 // StructureLab
 
 {
-    const lab0 = Game.getObjectById<StructureLab>("lab0");
-    const lab1 = Game.getObjectById<StructureLab>("lab1");
-    const lab2 = Game.getObjectById<StructureLab>("lab2");
+    const lab0 = Game.getObjectById<StructureLab>('lab0');
+    const lab1 = Game.getObjectById<StructureLab>('lab1');
+    const lab2 = Game.getObjectById<StructureLab>('lab2');
     if (lab0 !== null && lab1 !== null && lab2 !== null) {
-        if (lab1.mineralAmount >= LAB_REACTION_AMOUNT && lab2.mineralAmount >= LAB_REACTION_AMOUNT && lab0.mineralType === null) {
+        if (
+            lab1.mineralAmount >= LAB_REACTION_AMOUNT &&
+            lab2.mineralAmount >= LAB_REACTION_AMOUNT &&
+            lab0.mineralType === null
+        ) {
             lab0.runReaction(lab1, lab2);
         }
     }
@@ -804,7 +831,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Room.Terrain
 
 {
-    const room = Game.rooms[""];
+    const room = Game.rooms[''];
 
     const myTerrain = room.getTerrain();
 
@@ -819,5 +846,5 @@ function resources(o: GenericStore): ResourceConstant[] {
         /*wall*/
     }
 
-    const enemyTerrain = new Room.Terrain("W2N5");
+    const enemyTerrain = new Room.Terrain('W2N5');
 }

@@ -1,9 +1,7 @@
-
-
 fbq('init', '<FB_PIXEL_ID>');
 
 // https://developers.facebook.com/ads/blog/post/2017/11/28/event-tracking-with-multiple-pixels-tracksingle/
-var viewContentParam:facebook.Pixel.ViewContentParameters = {currency: 'EUR', value: 15.23};
+var viewContentParam: facebook.Pixel.ViewContentParameters = { currency: 'EUR', value: 15.23 };
 fbq('trackSingle', '<FB_PIXEL_ID>', 'ViewContent', viewContentParam);
 fbq('trackSingleCustom', '<FB_PIXEL>', 'CustomContent', {});
 
@@ -11,7 +9,7 @@ fbq('track', 'PageView');
 
 // Standard event (can be used for conversion tracking
 // and optimizing in addition to audience building)
-var purchaseParam:facebook.Pixel.PurchaseParameters = {currency: 'EUR', value: 15.23};
+var purchaseParam: facebook.Pixel.PurchaseParameters = { currency: 'EUR', value: 15.23 };
 fbq('track', 'Purchase', purchaseParam);
 
 // Legacy conversion event (can only be used for conversion
@@ -21,7 +19,7 @@ fbq('track', 'Purchase', purchaseParam);
 
 var custom_params = {
     custom_param: 'custom_value',
-    content_type: 'product'
+    content_type: 'product',
 };
 fbq('trackCustom', 'MyCustomEvent', custom_params);
 
@@ -32,8 +30,8 @@ fbq('track', 'ViewContent', {
     content_category: 'Apparel & Accessories > Shoes',
     content_ids: ['1234'],
     content_type: 'product',
-    value: 0.50,
-    currency: 'USD'
+    value: 0.5,
+    currency: 'USD',
 });
 
 // Multiple events can also be added to each page.  Ex: Reach visitors
@@ -42,8 +40,8 @@ fbq('track', 'ViewContent', {
 fbq('track', 'ViewContent', {
     content_name: 'The Avengers Trailer',
     content_category: 'Entertainment',
-    value: 1.50,
+    value: 1.5,
     currency: 'USD',
 });
 
-fbq('track', 'CompleteRegistration', {currency: 'USD', value: 0.75});
+fbq('track', 'CompleteRegistration', { currency: 'USD', value: 0.75 });

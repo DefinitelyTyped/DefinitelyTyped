@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Stackdriver Debugger API v2 */
-    function load(name: "clouddebugger", version: "v2"): PromiseLike<void>;
-    function load(name: "clouddebugger", version: "v2", callback: () => any): void;
+    function load(name: 'clouddebugger', version: 'v2'): PromiseLike<void>;
+    function load(name: 'clouddebugger', version: 'v2', callback: () => any): void;
 
     const controller: clouddebugger.ControllerResource;
 
@@ -458,7 +458,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -514,7 +514,7 @@ declare namespace gapi.client {
              */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -560,7 +560,7 @@ declare namespace gapi.client {
              */
             register(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -595,7 +595,7 @@ declare namespace gapi.client {
             /** Deletes the breakpoint from the debuggee. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -633,7 +633,7 @@ declare namespace gapi.client {
             /** Gets breakpoint information. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -671,11 +671,11 @@ declare namespace gapi.client {
             /** Lists all breakpoints for the debuggee. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Only breakpoints with the specified action will pass the filter. */
-                "action.value"?: string;
+                'action.value'?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -732,7 +732,7 @@ declare namespace gapi.client {
             /** Sets the breakpoint to the debuggee. */
             set(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -770,7 +770,7 @@ declare namespace gapi.client {
             /** Lists all the debuggees that the user has access to. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

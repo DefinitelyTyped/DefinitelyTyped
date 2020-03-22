@@ -49,9 +49,11 @@ declare global {
              * Array or dictionary of `Multer.File` object populated by `array()`,
              * `fields()`, and `any()` middleware.
              */
-            files: {
-                [fieldname: string]: Multer.File[];
-            } | Multer.File[];
+            files:
+                | {
+                      [fieldname: string]: Multer.File[];
+                  }
+                | Multer.File[];
         }
     }
 }
@@ -107,20 +109,20 @@ declare class Multer {
     none(): RequestHandler;
 }
 
- /**
-  * Returns a Multer instance that provides several methods for generating
-  * middleware that process files uploaded in `multipart/form-data` format.
-  *
-  * The `StorageEngine` specified in `storage` will be used to store files. If
-  * `storage` is not set and `dest` is, files will be stored in `dest` on the
-  * local file system with random names. If neither are set, files will be stored
-  * in memory.
-  *
-  * In addition to files, all generated middleware process all text fields in
-  * the request. For each non-file field, the `Request.body` object will be
-  * populated with an entry mapping the field name to its string value, or array
-  * of string values if multiple fields share the same name.
-  */
+/**
+ * Returns a Multer instance that provides several methods for generating
+ * middleware that process files uploaded in `multipart/form-data` format.
+ *
+ * The `StorageEngine` specified in `storage` will be used to store files. If
+ * `storage` is not set and `dest` is, files will be stored in `dest` on the
+ * local file system with random names. If neither are set, files will be stored
+ * in memory.
+ *
+ * In addition to files, all generated middleware process all text fields in
+ * the request. For each non-file field, the `Request.body` object will be
+ * populated with an entry mapping the field name to its string value, or array
+ * of string values if multiple fields share the same name.
+ */
 declare function multer(options?: multer.Options): Multer;
 
 declare namespace multer {
@@ -169,7 +171,7 @@ declare namespace multer {
     interface FileFilterCallback {
         (error: Error): void;
         (error: null, acceptFile: boolean): void;
-     }
+    }
 
     /** Options for initializing a Multer instance. */
     interface Options {
@@ -217,11 +219,7 @@ declare namespace multer {
          * @param file Object containing information about the processed file.
          * @param callback  a function to control which files should be uploaded and which should be skipped.
          */
-        fileFilter?(
-            req: Request,
-            file: Express.Multer.File,
-            callback: FileFilterCallback,
-        ): void;
+        fileFilter?(req: Request, file: Express.Multer.File, callback: FileFilterCallback): void;
     }
 
     /**
@@ -246,7 +244,7 @@ declare namespace multer {
         _handleFile(
             req: Request,
             file: Express.Multer.File,
-            callback: (error?: any, info?: Partial<Express.Multer.File>) => void
+            callback: (error?: any, info?: Partial<Express.Multer.File>) => void,
         ): void;
         /**
          * Remove the file described by `file`, then invoke the callback with.
@@ -258,11 +256,7 @@ declare namespace multer {
          * @param file Object containing information about the processed file.
          * @param callback Callback to indicate completion.
          */
-        _removeFile(
-            req: Request,
-            file: Express.Multer.File,
-            callback: (error: Error) => void
-        ): void;
+        _removeFile(req: Request, file: Express.Multer.File, callback: (error: Error) => void): void;
     }
 
     interface DiskStorageOptions {
@@ -276,11 +270,13 @@ declare namespace multer {
          * @param file Object containing information about the processed file.
          * @param callback Callback to determine the destination path.
          */
-        destination?: string | ((
-            req: Request,
-            file: Express.Multer.File,
-            callback: (error: Error | null, destination: string) => void
-        ) => void);
+        destination?:
+            | string
+            | ((
+                  req: Request,
+                  file: Express.Multer.File,
+                  callback: (error: Error | null, destination: string) => void,
+              ) => void);
         /**
          * A function that determines the name of the uploaded file. If nothing
          * is passed, Multer will generate a 32 character pseudorandom hex string
@@ -293,7 +289,7 @@ declare namespace multer {
         filename?(
             req: Request,
             file: Express.Multer.File,
-            callback: (error: Error | null, filename: string) => void
+            callback: (error: Error | null, filename: string) => void,
         ): void;
     }
 

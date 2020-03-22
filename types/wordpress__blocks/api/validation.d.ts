@@ -14,5 +14,5 @@ import { Block } from '../';
 export function isValidBlockContent<T>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
-    originalBlockContent: string
+    originalBlockContent: string,
 ): boolean;

@@ -18,8 +18,9 @@ runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
 const tomsterCount = 2;
 warn('Too many tomsters!'); // $ExpectType void
 warn('Too many tomsters!', tomsterCount <= 3); // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3, { // $ExpectType void
-    id: 'ember-debug.too-many-tomsters'
+warn('Too many tomsters!', tomsterCount <= 3, {
+    // $ExpectType void
+    id: 'ember-debug.too-many-tomsters',
 });
 
 debug(); // $ExpectError
@@ -46,7 +47,8 @@ assert(); // $ExpectError
 // next is not called, so no warnings get the default behavior
 registerWarnHandler(); // $ExpectError
 registerWarnHandler(() => {}); // $ExpectType void
-registerWarnHandler((message, { id }, next) => { // $ExpectType void
+registerWarnHandler((message, { id }, next) => {
+    // $ExpectType void
     message; // $ExpectType string
     id; // $ExpectType string
     next; // $ExpectType () => void
@@ -55,7 +57,8 @@ registerWarnHandler((message, { id }, next) => { // $ExpectType void
 // next is not called, so no warnings get the default behavior
 registerDeprecationHandler(); // $ExpectError
 registerDeprecationHandler(() => {}); // $ExpectType void
-registerDeprecationHandler((message, { id, until }, next) => { // $ExpectType void
+registerDeprecationHandler((message, { id, until }, next) => {
+    // $ExpectType void
     message; // $ExpectType string
     id; // $ExpectType string
     until; // $ExpectType string
@@ -71,4 +74,8 @@ deprecate('missing options id', true, { until: 'v4.0.0' }); // $ExpectError
 deprecate('missing options until', true, { id: 'some.deprecation' }); // $ExpectError
 deprecate('a valid deprecation without url', true, { id: 'some.deprecation', until: 'v4.0.0' }); // $ExpectType void
 deprecate('incorrect options url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 123 }); // $ExpectError
-deprecate('a valid deprecation with url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 'https://example.com/ember-deprecations-yo' }); // $ExpectType void
+deprecate('a valid deprecation with url', true, {
+    id: 'some.deprecation',
+    until: 'v4.0.0',
+    url: 'https://example.com/ember-deprecations-yo',
+}); // $ExpectType void

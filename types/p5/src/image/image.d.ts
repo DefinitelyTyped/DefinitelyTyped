@@ -81,7 +81,7 @@ declare module '../../index' {
             extension: string,
             duration: number,
             framerate: number,
-            callback?: (p1: any[]) => any
+            callback?: (p1: any[]) => any,
         ): void;
     }
 }

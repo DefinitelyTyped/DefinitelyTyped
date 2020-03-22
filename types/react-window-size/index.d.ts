@@ -11,6 +11,4 @@ export interface WindowSizeProps {
     windowWidth: number;
 }
 
-export default function<T>(
-    ComposedComponent: ComponentType<T & WindowSizeProps>,
-): ComponentType<T>;
+export default function <T>(ComposedComponent: ComponentType<T & WindowSizeProps>): ComponentType<T>;

@@ -5,16 +5,17 @@ const instance = basicLightbox.create(`
 	<p>You can set the content of the lightbox with JS.</p>
 `);
 
-const instance2 = basicLightbox.create(`
+const instance2 = basicLightbox.create(
+    `
 	<h1>Not closable</h1>
 	<p>It's not possible to close this lightbox with a click.</p>
-`, {
-	closable: false
-});
-
-const instance3 = basicLightbox.create(
-	document.querySelector('#template')!
+`,
+    {
+        closable: false,
+    },
 );
+
+const instance3 = basicLightbox.create(document.querySelector('#template')!);
 
 const visible = basicLightbox.visible();
 

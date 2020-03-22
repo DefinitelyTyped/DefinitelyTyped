@@ -1,6 +1,6 @@
-import * as React from "react";
-import Select, * as ReactSelect from "react-select";
-import VirtualizedSelect from "react-virtualized-select";
+import * as React from 'react';
+import Select, * as ReactSelect from 'react-select';
+import VirtualizedSelect from 'react-virtualized-select';
 
 /*Example TValue.*/
 interface Example {
@@ -8,29 +8,28 @@ interface Example {
 }
 
 /*Example generic class.*/
-class ExampleSelectAsync extends VirtualizedSelect<Example> {
-}
+class ExampleSelectAsync extends VirtualizedSelect<Example> {}
 
-class ExampleSelectCreatable extends VirtualizedSelect<Example> {
-}
+class ExampleSelectCreatable extends VirtualizedSelect<Example> {}
 
 <div>
     <VirtualizedSelect
-      maxHeight={0}
-      optionHeight={0}
-      optionRenderer={() => <div/>}
-      selectComponent={Select}
-      options={[]}
+        maxHeight={0}
+        optionHeight={0}
+        optionRenderer={() => <div />}
+        selectComponent={Select}
+        options={[]}
     />
-    <ExampleSelectAsync async={true}
-      maxHeight={0}
-      optionHeight={0}
-      optionRenderer={() => <div/>}
-      selectComponent={Select}
-      loadOptions={(input: string) => Promise.resolve([{name: 'Hi'}])}
+    <ExampleSelectAsync
+        async={true}
+        maxHeight={0}
+        optionHeight={0}
+        optionRenderer={() => <div />}
+        selectComponent={Select}
+        loadOptions={(input: string) => Promise.resolve([{ name: 'Hi' }])}
     />
     <ExampleSelectCreatable
-      selectComponent={ReactSelect.Creatable}
-      isValidNewOption={(arg: {label: string}) => arg.label.length > 1}
+        selectComponent={ReactSelect.Creatable}
+        isValidNewOption={(arg: { label: string }) => arg.label.length > 1}
     />
 </div>;

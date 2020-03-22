@@ -18,6 +18,6 @@ moji('abcあいうアイウ123').reject('HG').toString();
 
 moji.addMojisyu('ZE', { start: 0xff01, end: 0xff5e });
 moji.addMojisyu('HK', {
-  regexp: /([\uff66-\uff9c]\uff9e)|([\uff8a-\uff8e]\uff9f)|([\uff61-\uff9f])/g,
-  list: ["｡", "｢", "｣"]
+    regexp: /([\uff66-\uff9c]\uff9e)|([\uff8a-\uff8e]\uff9f)|([\uff61-\uff9f])/g,
+    list: ['｡', '｢', '｣'],
 });

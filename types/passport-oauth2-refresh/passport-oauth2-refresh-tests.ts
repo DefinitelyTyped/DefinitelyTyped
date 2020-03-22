@@ -6,7 +6,7 @@ const strategyOptions1: StrategyOptions = {
     callbackURL: 'http://www.example.com/callback',
     clientID: 'dummy',
     clientSecret: 'secret',
-    tokenURL: 'http://www.example.com/token'
+    tokenURL: 'http://www.example.com/token',
 };
 
 function verifyFunction1(_accessToken: string, _refreshToken: string, _profile: any, verifyCallback: VerifyCallback) {

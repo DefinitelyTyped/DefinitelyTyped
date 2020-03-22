@@ -73,8 +73,10 @@ export function req(req: IncomingMessage): SerializedRequest;
 /**
  * Used internally by Pino for general request logging.
  */
-export function mapHttpRequest(req: IncomingMessage): {
-    req: SerializedRequest
+export function mapHttpRequest(
+    req: IncomingMessage,
+): {
+    req: SerializedRequest;
 };
 
 export interface SerializedResponse {
@@ -100,8 +102,10 @@ export function res(res: ServerResponse): SerializedResponse;
 /**
  * Used internally by Pino for general response logging.
  */
-export function mapHttpResponse(res: ServerResponse): {
-    res: SerializedResponse
+export function mapHttpResponse(
+    res: ServerResponse,
+): {
+    res: SerializedResponse;
 };
 
 export type CustomErrorSerializer = (err: SerializedError) => Record<string, any>;
@@ -120,7 +124,9 @@ export type CustomRequestSerializer = (req: SerializedRequest) => Record<string,
  * This allows custom serializers to work with the already serialized object.
  * The customSerializer accepts one parameter — the newly serialized response object — and returns the new (or updated) response object.
  */
-export function wrapRequestSerializer(customSerializer: CustomRequestSerializer): (req: IncomingMessage) => Record<string, any>;
+export function wrapRequestSerializer(
+    customSerializer: CustomRequestSerializer,
+): (req: IncomingMessage) => Record<string, any>;
 
 export type CustomResponseSerializer = (res: SerializedResponse) => Record<string, any>;
 
@@ -129,4 +135,6 @@ export type CustomResponseSerializer = (res: SerializedResponse) => Record<strin
  * This allows custom serializers to work with the already serialized object.
  * The customSerializer accepts one parameter — the newly serialized request object — and returns the new (or updated) request object.
  */
-export function wrapResponseSerializer(customSerializer: CustomResponseSerializer): (res: ServerResponse) => Record<string, any>;
+export function wrapResponseSerializer(
+    customSerializer: CustomResponseSerializer,
+): (res: ServerResponse) => Record<string, any>;

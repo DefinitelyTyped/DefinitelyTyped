@@ -9,18 +9,18 @@ interface Dictionary<T> {
 
 interface SpeakingURLOptions {
     separator?: string;
-    lang?: string|boolean;
+    lang?: string | boolean;
     symbols?: boolean;
     maintainCase?: boolean;
-    titleCase?: string[]|boolean;
+    titleCase?: string[] | boolean;
     truncate?: number;
     uric?: boolean;
     uricNoSlash?: boolean;
     mark?: boolean;
-    custom?: string[]|Dictionary<string>;
+    custom?: string[] | Dictionary<string>;
 }
 
-declare function getSlug(input: string, options?: SpeakingURLOptions|string): string;
+declare function getSlug(input: string, options?: SpeakingURLOptions | string): string;
 
 declare namespace getSlug {
     function createSlug(options: SpeakingURLOptions): (input: string) => string;

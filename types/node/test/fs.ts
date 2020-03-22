@@ -3,31 +3,31 @@ import * as assert from 'assert';
 import * as util from 'util';
 
 {
-    fs.writeFile("thebible.txt",
-        "Do unto others as you would have them do unto you.",
-        assert.ifError);
+    fs.writeFile('thebible.txt', 'Do unto others as you would have them do unto you.', assert.ifError);
 
-    fs.write(1234, "test", () => { });
+    fs.write(1234, 'test', () => {});
 
-    fs.writeFile("Harry Potter",
-        "\"You be wizzing, Harry,\" jived Dumbledore.",
+    fs.writeFile(
+        'Harry Potter',
+        '"You be wizzing, Harry," jived Dumbledore.',
         {
-            encoding: "ascii"
+            encoding: 'ascii',
         },
-        assert.ifError);
+        assert.ifError,
+    );
 
-    fs.writeFile("testfile", "content", "utf8", assert.ifError);
+    fs.writeFile('testfile', 'content', 'utf8', assert.ifError);
 
-    fs.writeFileSync("testfile", "content", "utf8");
-    fs.writeFileSync("testfile", "content", { encoding: "utf8" });
-    fs.writeFileSync("testfile", new DataView(new ArrayBuffer(1)), { encoding: "utf8" });
+    fs.writeFileSync('testfile', 'content', 'utf8');
+    fs.writeFileSync('testfile', 'content', { encoding: 'utf8' });
+    fs.writeFileSync('testfile', new DataView(new ArrayBuffer(1)), { encoding: 'utf8' });
 }
 
 {
-    fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
-    fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
-    fs.appendFileSync("testfile", "foobar", "utf8");
-    fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
+    fs.appendFile('testfile', 'foobar', 'utf8', assert.ifError);
+    fs.appendFile('testfile', 'foobar', { encoding: 'utf8' }, assert.ifError);
+    fs.appendFileSync('testfile', 'foobar', 'utf8');
+    fs.appendFileSync('testfile', 'foobar', { encoding: 'utf8' });
 }
 
 {
@@ -50,22 +50,29 @@ import * as util from 'util';
 
     buffer = fs.readFileSync('testfile', { flag: 'r' });
 
-    fs.readFile('testfile', 'utf8', (err, data) => content = data);
-    fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
-    fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
-    fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
+    fs.readFile('testfile', 'utf8', (err, data) => (content = data));
+    fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => (content = data));
+    fs.readFile('testfile', stringEncoding, (err, data) => (stringOrBuffer = data));
+    fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => (stringOrBuffer = data));
 
-    fs.readFile('testfile', (err, data) => buffer = data);
-    fs.readFile('testfile', null, (err, data) => buffer = data);
-    fs.readFile('testfile', { encoding: null }, (err, data) => buffer = data);
-    fs.readFile('testfile', nullEncoding, (err, data) => stringOrBuffer = data);
-    fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
+    fs.readFile('testfile', (err, data) => (buffer = data));
+    fs.readFile('testfile', null, (err, data) => (buffer = data));
+    fs.readFile('testfile', { encoding: null }, (err, data) => (buffer = data));
+    fs.readFile('testfile', nullEncoding, (err, data) => (stringOrBuffer = data));
+    fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => (stringOrBuffer = data));
 
-    fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
+    fs.readFile('testfile', { flag: 'r' }, (err, data) => (buffer = data));
 }
 
 {
-    fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {});
+    fs.read(
+        1,
+        new DataView(new ArrayBuffer(1)),
+        0,
+        1,
+        0,
+        (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {},
+    );
 }
 
 {
@@ -96,11 +103,11 @@ import * as util from 'util';
 
     let listB: Buffer[];
     listB = fs.readdirSync('path', { encoding: 'buffer' });
-    listB = fs.readdirSync("path", 'buffer');
+    listB = fs.readdirSync('path', 'buffer');
 
     const enc = 'buffer';
     fs.readdirSync('path', { encoding: enc });
-    fs.readdirSync('path', { });
+    fs.readdirSync('path', {});
 
     fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
 }
@@ -122,7 +129,7 @@ async function testPromisify() {
 
     const ln = util.promisify(fs.link);
     // $ExpectType Promise<void>
-    ln("abc", "def");
+    ln('abc', 'def');
 }
 
 {
@@ -146,23 +153,27 @@ async function testPromisify() {
         console.log(event, filename);
     });
 
-    fs.watch('/tmp/foo-', {
-        recursive: true,
-        persistent: true,
-        encoding: 'utf8'
-    }, (event, filename) => {
-        console.log(event, filename);
-    });
+    fs.watch(
+        '/tmp/foo-',
+        {
+            recursive: true,
+            persistent: true,
+            encoding: 'utf8',
+        },
+        (event, filename) => {
+            console.log(event, filename);
+        },
+    );
 }
 
 {
-    fs.access('/path/to/folder', (err) => { });
+    fs.access('/path/to/folder', (err) => {});
 
-    fs.access(Buffer.from(''), (err) => { });
+    fs.access(Buffer.from(''), (err) => {});
 
-    fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => { });
+    fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => {});
 
-    fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => { });
+    fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => {});
 
     fs.accessSync('/path/to/folder');
 
@@ -176,85 +187,97 @@ async function testPromisify() {
 {
     let s = '123';
     let b: Buffer;
-    fs.readlink('/path/to/folder', (err, linkString) => s = linkString);
-    fs.readlink('/path/to/folder', undefined, (err, linkString) => s = linkString);
-    fs.readlink('/path/to/folder', 'utf8', (err, linkString) => s = linkString);
-    fs.readlink('/path/to/folder', 'buffer', (err, linkString) => b = linkString);
-    fs.readlink('/path/to/folder', s, (err, linkString) => typeof linkString === 'string' ? s = linkString : b = linkString);
-    fs.readlink('/path/to/folder', {}, (err, linkString) => s = linkString);
-    fs.readlink('/path/to/folder', { encoding: undefined }, (err, linkString) => s = linkString);
-    fs.readlink('/path/to/folder', { encoding: 'utf8' }, (err, linkString) => s = linkString);
-    fs.readlink('/path/to/folder', { encoding: 'buffer' }, (err, linkString) => b = linkString);
-    fs.readlink('/path/to/folder', { encoding: s }, (err, linkString) => typeof linkString === "string" ? s = linkString : b = linkString);
+    fs.readlink('/path/to/folder', (err, linkString) => (s = linkString));
+    fs.readlink('/path/to/folder', undefined, (err, linkString) => (s = linkString));
+    fs.readlink('/path/to/folder', 'utf8', (err, linkString) => (s = linkString));
+    fs.readlink('/path/to/folder', 'buffer', (err, linkString) => (b = linkString));
+    fs.readlink('/path/to/folder', s, (err, linkString) =>
+        typeof linkString === 'string' ? (s = linkString) : (b = linkString),
+    );
+    fs.readlink('/path/to/folder', {}, (err, linkString) => (s = linkString));
+    fs.readlink('/path/to/folder', { encoding: undefined }, (err, linkString) => (s = linkString));
+    fs.readlink('/path/to/folder', { encoding: 'utf8' }, (err, linkString) => (s = linkString));
+    fs.readlink('/path/to/folder', { encoding: 'buffer' }, (err, linkString) => (b = linkString));
+    fs.readlink('/path/to/folder', { encoding: s }, (err, linkString) =>
+        typeof linkString === 'string' ? (s = linkString) : (b = linkString),
+    );
 
     s = fs.readlinkSync('/path/to/folder');
     s = fs.readlinkSync('/path/to/folder', undefined);
     s = fs.readlinkSync('/path/to/folder', 'utf8');
     b = fs.readlinkSync('/path/to/folder', 'buffer');
     const v1 = fs.readlinkSync('/path/to/folder', s);
-    typeof v1 === "string" ? s = v1 : b = v1;
+    typeof v1 === 'string' ? (s = v1) : (b = v1);
 
     s = fs.readlinkSync('/path/to/folder', {});
     s = fs.readlinkSync('/path/to/folder', { encoding: undefined });
     s = fs.readlinkSync('/path/to/folder', { encoding: 'utf8' });
     b = fs.readlinkSync('/path/to/folder', { encoding: 'buffer' });
     const v2 = fs.readlinkSync('/path/to/folder', { encoding: s });
-    typeof v2 === "string" ? s = v2 : b = v2;
+    typeof v2 === 'string' ? (s = v2) : (b = v2);
 }
 
 {
     let s = '123';
     let b: Buffer;
-    fs.realpath('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
-    fs.realpath('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
-    fs.realpath('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
-    fs.realpath('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
-    fs.realpath('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
-    fs.realpath('/path/to/folder', {}, (err, resolvedPath) => s = resolvedPath);
-    fs.realpath('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
-    fs.realpath('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
-    fs.realpath('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
-    fs.realpath('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
+    fs.realpath('/path/to/folder', (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath('/path/to/folder', undefined, (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath('/path/to/folder', 'utf8', (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath('/path/to/folder', 'buffer', (err, resolvedPath) => (b = resolvedPath));
+    fs.realpath('/path/to/folder', s, (err, resolvedPath) =>
+        typeof resolvedPath === 'string' ? (s = resolvedPath) : (b = resolvedPath),
+    );
+    fs.realpath('/path/to/folder', {}, (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => (b = resolvedPath));
+    fs.realpath('/path/to/folder', { encoding: s }, (err, resolvedPath) =>
+        typeof resolvedPath === 'string' ? (s = resolvedPath) : (b = resolvedPath),
+    );
 
     s = fs.realpathSync('/path/to/folder');
     s = fs.realpathSync('/path/to/folder', undefined);
     s = fs.realpathSync('/path/to/folder', 'utf8');
     b = fs.realpathSync('/path/to/folder', 'buffer');
     const v1 = fs.realpathSync('/path/to/folder', s);
-    typeof v1 === "string" ? s = v1 : b = v1;
+    typeof v1 === 'string' ? (s = v1) : (b = v1);
 
     s = fs.realpathSync('/path/to/folder', {});
     s = fs.realpathSync('/path/to/folder', { encoding: undefined });
     s = fs.realpathSync('/path/to/folder', { encoding: 'utf8' });
     b = fs.realpathSync('/path/to/folder', { encoding: 'buffer' });
     const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
-    typeof v2 === "string" ? s = v2 : b = v2;
+    typeof v2 === 'string' ? (s = v2) : (b = v2);
 
     // native
-    fs.realpath.native('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
-    fs.realpath.native('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
-    fs.realpath.native('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
-    fs.realpath.native('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
-    fs.realpath.native('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
-    fs.realpath.native('/path/to/folder', {}, (err, resolvedPath) => s = resolvedPath);
-    fs.realpath.native('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
-    fs.realpath.native('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
-    fs.realpath.native('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
-    fs.realpath.native('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
+    fs.realpath.native('/path/to/folder', (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath.native('/path/to/folder', undefined, (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath.native('/path/to/folder', 'utf8', (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath.native('/path/to/folder', 'buffer', (err, resolvedPath) => (b = resolvedPath));
+    fs.realpath.native('/path/to/folder', s, (err, resolvedPath) =>
+        typeof resolvedPath === 'string' ? (s = resolvedPath) : (b = resolvedPath),
+    );
+    fs.realpath.native('/path/to/folder', {}, (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath.native('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath.native('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => (s = resolvedPath));
+    fs.realpath.native('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => (b = resolvedPath));
+    fs.realpath.native('/path/to/folder', { encoding: s }, (err, resolvedPath) =>
+        typeof resolvedPath === 'string' ? (s = resolvedPath) : (b = resolvedPath),
+    );
 
     s = fs.realpathSync.native('/path/to/folder');
     s = fs.realpathSync.native('/path/to/folder', undefined);
     s = fs.realpathSync.native('/path/to/folder', 'utf8');
     b = fs.realpathSync.native('/path/to/folder', 'buffer');
     const v3 = fs.realpathSync.native('/path/to/folder', s);
-    typeof v3 === "string" ? s = v3 : b = v3;
+    typeof v3 === 'string' ? (s = v3) : (b = v3);
 
     s = fs.realpathSync.native('/path/to/folder', {});
     s = fs.realpathSync.native('/path/to/folder', { encoding: undefined });
     s = fs.realpathSync.native('/path/to/folder', { encoding: 'utf8' });
     b = fs.realpathSync.native('/path/to/folder', { encoding: 'buffer' });
     const v4 = fs.realpathSync.native('/path/to/folder', { encoding: s });
-    typeof v4 === "string" ? s = v4 : b = v4;
+    typeof v4 === 'string' ? (s = v4) : (b = v4);
 }
 
 {
@@ -272,11 +295,14 @@ async function testPromisify() {
 }
 
 {
-    fs.mkdir('some/test/path', {
-        recursive: true,
-        mode: 0o777,
-    }, () => {
-    });
+    fs.mkdir(
+        'some/test/path',
+        {
+            recursive: true,
+            mode: 0o777,
+        },
+        () => {},
+    );
 
     fs.mkdirSync('some/test/path', {
         recursive: true,
@@ -297,8 +323,11 @@ async function testPromisify() {
 }
 
 {
-    fs.writev(1, [Buffer.from('123')], (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
-    });
+    fs.writev(
+        1,
+        [Buffer.from('123')],
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {},
+    );
     const bytesWritten = fs.writevSync(1, [Buffer.from('123')]);
 }
 

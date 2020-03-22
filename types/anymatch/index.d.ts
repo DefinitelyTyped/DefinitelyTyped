@@ -6,8 +6,20 @@
 export = anymatch;
 
 declare function anymatch(matcher: anymatch.Matcher): CurrriedMatcher;
-declare function anymatch(matcher: anymatch.Matcher, testString: string | string[], returnIndex: true, startIndex?: number, endIndex?: number): number;
-declare function anymatch(matcher: anymatch.Matcher, testString: string | string[], returnIndex?: boolean, startIndex?: number, endIndex?: number): boolean;
+declare function anymatch(
+    matcher: anymatch.Matcher,
+    testString: string | string[],
+    returnIndex: true,
+    startIndex?: number,
+    endIndex?: number,
+): number;
+declare function anymatch(
+    matcher: anymatch.Matcher,
+    testString: string | string[],
+    returnIndex?: boolean,
+    startIndex?: number,
+    endIndex?: number,
+): boolean;
 
 declare namespace anymatch {
     type Matcher = MatcherType | MatcherType[];

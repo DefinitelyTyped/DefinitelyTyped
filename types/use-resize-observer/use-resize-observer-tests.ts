@@ -11,7 +11,7 @@ const defaultHeight = 1024;
 useResizeObserver(); // $ExpectType ObserverResultWithSize<HTMLElement>
 
 // without resize handler
-useResizeObserver({ }); // $ExpectType ObserverResultWithSize<HTMLElement>
+useResizeObserver({}); // $ExpectType ObserverResultWithSize<HTMLElement>
 useResizeObserver({ ref }); // $ExpectType ObserverResultWithSize<HTMLEmbedElement>
 
 // with resize handler
@@ -19,7 +19,7 @@ useResizeObserver({ onResize }); // $ExpectType ObserverResultForResizeHandler<H
 useResizeObserver({ ref, onResize }); // $ExpectType ObserverResultForResizeHandler<HTMLEmbedElement>
 
 // ObserverDefaults
-const o01: ObserverDefaults = { };
+const o01: ObserverDefaults = {};
 const o02: ObserverDefaults = { ref };
 const o03: ObserverDefaults = { ref, onResize };
 const o05: ObserverDefaults = { onResize };
@@ -28,7 +28,7 @@ const o05: ObserverDefaults = { onResize };
 usePolyfilledResizeObserver(); // $ExpectType ObserverResultWithSize<HTMLElement>
 
 // without resize handler
-usePolyfilledResizeObserver({ }); // $ExpectType ObserverResultWithSize<HTMLElement>
+usePolyfilledResizeObserver({}); // $ExpectType ObserverResultWithSize<HTMLElement>
 usePolyfilledResizeObserver({ ref }); // $ExpectType ObserverResultWithSize<HTMLEmbedElement>
 
 // with resize handler

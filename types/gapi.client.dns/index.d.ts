@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud DNS API v1 */
-    function load(name: "dns", version: "v1"): PromiseLike<void>;
-    function load(name: "dns", version: "v1", callback: () => any): void;
+    function load(name: 'dns', version: 'v1'): PromiseLike<void>;
+    function load(name: 'dns', version: 'v1', callback: () => any): void;
 
     const changes: dns.ChangesResource;
 

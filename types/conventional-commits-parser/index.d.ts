@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import * as Stream from "stream";
+import * as Stream from 'stream';
 
 /**
  * Returns an transform stream. If there is any malformed commits it will be
@@ -25,7 +25,8 @@ declare namespace conventionalCommitsParser {
      */
     function sync(commit: string, options?: Options): Commit;
 
-    type Commit<Fields extends string | number | symbol = string | number | symbol> = CommitBase & { [Field in Exclude<Fields, keyof CommitBase>]?: Commit.Field };
+    type Commit<Fields extends string | number | symbol = string | number | symbol> = CommitBase &
+        { [Field in Exclude<Fields, keyof CommitBase>]?: Commit.Field };
 
     namespace Commit {
         type Field = string | null;
@@ -295,11 +296,7 @@ declare namespace conventionalCommitsParser {
         type Prefixes = string[] | string | null;
     }
 
-    export {
-        Commit,
-        Options,
-        sync,
-    };
+    export { Commit, Options, sync };
 }
 
 export = conventionalCommitsParser;

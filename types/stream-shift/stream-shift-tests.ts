@@ -1,5 +1,5 @@
-import shift = require("stream-shift");
-import { createReadStream, createWriteStream } from "fs";
+import shift = require('stream-shift');
+import { createReadStream, createWriteStream } from 'fs';
 
 const stream = createReadStream(__filename);
 

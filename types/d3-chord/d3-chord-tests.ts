@@ -26,7 +26,7 @@ const matrix: number[][] = [
     [11975, 5871, 8916, 2868],
     [1951, 10048, 2060, 6171],
     [8010, 16145, 8090, 8045],
-    [1013, 990, 940, 6907]
+    [1013, 990, 940, 6907],
 ]; // From Circos Table Viewer example http://mkweb.bcgsc.ca/circos/guide/tables/
 
 let comparatorFn: ((a: number, b: number) => number) | null;
@@ -120,7 +120,7 @@ svgRibbon = svgRibbon.context(null);
 
 // source() -----------------------------------------------------------
 
-svgRibbon = svgRibbon.source(d => {
+svgRibbon = svgRibbon.source((d) => {
     return d.source; // datum is of type Chord
 });
 
@@ -128,7 +128,7 @@ subgroupAccessor = svgRibbon.source();
 
 // target() -----------------------------------------------------------
 
-svgRibbon = svgRibbon.target(d => {
+svgRibbon = svgRibbon.target((d) => {
     return d.target; // datum is of type Chord
 });
 
@@ -138,7 +138,7 @@ subgroupAccessor = svgRibbon.target();
 
 canvasRibbon = canvasRibbon.radius(30);
 
-svgRibbon = svgRibbon.radius(function(d) {
+svgRibbon = svgRibbon.radius(function (d) {
     console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
     console.log('Subgroup startAngle', d.startAngle); // datum is of type Chord
     return 30;
@@ -150,7 +150,7 @@ numAccessor = svgRibbon.radius();
 
 canvasRibbon = canvasRibbon.startAngle(0);
 
-svgRibbon = svgRibbon.startAngle(function(d) {
+svgRibbon = svgRibbon.startAngle(function (d) {
     console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
     return d.startAngle; // datum is of type ChordSubgroup
 });
@@ -161,7 +161,7 @@ numAccessor = svgRibbon.startAngle();
 
 canvasRibbon = canvasRibbon.endAngle(Math.PI);
 
-svgRibbon = svgRibbon.endAngle(function(d) {
+svgRibbon = svgRibbon.endAngle(function (d) {
     console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
     return d.endAngle; // datum is of type ChordSubgroup
 });
@@ -172,8 +172,8 @@ numAccessor = svgRibbon.endAngle();
 
 // use canvas
 const ribbon: d3Chord.Ribbon = {
-  source: {startAngle: 0.7524114, endAngle: 1.1212972, radius: 240},
-  target: {startAngle: 1.8617078, endAngle: 1.9842927, radius: 240}
+    source: { startAngle: 0.7524114, endAngle: 1.1212972, radius: 240 },
+    target: { startAngle: 1.8617078, endAngle: 1.9842927, radius: 240 },
 };
 
 canvasRibbon(ribbon); // render ribbon for first chord
@@ -192,6 +192,7 @@ let ribbonPaths: Selection<SVGPathElement, d3Chord.Chord, SVGGElement, d3Chord.C
 ribbonPaths = select<SVGGElement, any>('g')
     .datum(chords)
     .selectAll()
-    .data(chords => chords)
-    .enter().append('path')
+    .data((chords) => chords)
+    .enter()
+    .append('path')
     .attr('d', svgRibbon);

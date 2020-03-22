@@ -14,26 +14,48 @@
 
 /// <reference types="node" />
 
-
 import events = require('events');
 import tds = require('tedious');
 export interface ISqlType {
     type: ISqlTypeFactory;
 }
-export interface ISqlTypeWithNoParams extends ISqlType { type: ISqlTypeFactoryWithNoParams }
-export interface ISqlTypeWithLength extends ISqlType { type: ISqlTypeFactoryWithLength; length: number }
-export interface ISqlTypeWithScale extends ISqlType { type: ISqlTypeFactoryWithScale; scale: number }
-export interface ISqlTypeWithPrecisionScale extends ISqlType { type: ISqlTypeFactoryWithPrecisionScale; precision: number, scale: number }
-export interface ISqlTypeWithTvpType extends ISqlType { type: ISqlTypeFactoryWithTvpType; tvpType: any }
-
-export interface ISqlTypeFactory {
+export interface ISqlTypeWithNoParams extends ISqlType {
+    type: ISqlTypeFactoryWithNoParams;
 }
-export interface ISqlTypeFactoryWithNoParams extends ISqlTypeFactory { (): ISqlTypeWithNoParams; }
-export interface ISqlTypeFactoryWithLength extends ISqlTypeFactory { (length?: number): ISqlTypeWithLength }
-export interface ISqlTypeFactoryWithScale extends ISqlTypeFactory { (scale?: number): ISqlTypeWithScale }
-export interface ISqlTypeFactoryWithPrecisionScale extends ISqlTypeFactory { (precision?: number, scale?: number): ISqlTypeWithPrecisionScale; }
-export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType: any): ISqlTypeWithTvpType }
+export interface ISqlTypeWithLength extends ISqlType {
+    type: ISqlTypeFactoryWithLength;
+    length: number;
+}
+export interface ISqlTypeWithScale extends ISqlType {
+    type: ISqlTypeFactoryWithScale;
+    scale: number;
+}
+export interface ISqlTypeWithPrecisionScale extends ISqlType {
+    type: ISqlTypeFactoryWithPrecisionScale;
+    precision: number;
+    scale: number;
+}
+export interface ISqlTypeWithTvpType extends ISqlType {
+    type: ISqlTypeFactoryWithTvpType;
+    tvpType: any;
+}
 
+export interface ISqlTypeFactory {}
+export interface ISqlTypeFactoryWithNoParams extends ISqlTypeFactory {
+    (): ISqlTypeWithNoParams;
+}
+export interface ISqlTypeFactoryWithLength extends ISqlTypeFactory {
+    (length?: number): ISqlTypeWithLength;
+}
+export interface ISqlTypeFactoryWithScale extends ISqlTypeFactory {
+    (scale?: number): ISqlTypeWithScale;
+}
+export interface ISqlTypeFactoryWithPrecisionScale extends ISqlTypeFactory {
+    (precision?: number, scale?: number): ISqlTypeWithPrecisionScale;
+}
+export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory {
+    (tvpType: any): ISqlTypeWithTvpType;
+}
 
 export declare var VarChar: ISqlTypeFactoryWithLength;
 export declare var NVarChar: ISqlTypeFactoryWithLength;
@@ -109,7 +131,7 @@ export declare var MAX: number;
 export declare var fix: boolean;
 export declare var Promise: any;
 
-interface IMap extends Array<{ js: any, sql: any }> {
+interface IMap extends Array<{ js: any; sql: any }> {
     register(jstype: any, sql: any): void;
 }
 
@@ -129,12 +151,12 @@ export interface IColumnMetadata {
         caseSensitive: boolean;
         identity: boolean;
         readOnly: boolean;
-    }
+    };
 }
 export interface IResult<T> {
     recordsets: IRecordSet<T>[];
     recordset: IRecordSet<T>;
-    rowsAffected: number[],
+    rowsAffected: number[];
     output: { [key: string]: any };
 }
 
@@ -153,12 +175,12 @@ export interface IRecordSet<T> extends Array<T> {
 type IIsolationLevel = number;
 
 export declare var ISOLATION_LEVEL: {
-    READ_UNCOMMITTED: IIsolationLevel
-    READ_COMMITTED: IIsolationLevel
-    REPEATABLE_READ: IIsolationLevel
-    SERIALIZABLE: IIsolationLevel
-    SNAPSHOT: IIsolationLevel
-}
+    READ_UNCOMMITTED: IIsolationLevel;
+    READ_COMMITTED: IIsolationLevel;
+    REPEATABLE_READ: IIsolationLevel;
+    SERIALIZABLE: IIsolationLevel;
+    SNAPSHOT: IIsolationLevel;
+};
 
 export interface IOptions extends tds.ConnectionOptions {
     beforeConnect?: void;
@@ -204,7 +226,7 @@ export interface config {
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.
      */
-    beforeConnect?: (conn: tds.Connection) => void
+    beforeConnect?: (conn: tds.Connection) => void;
 }
 
 export declare class ConnectionPool extends events.EventEmitter {
@@ -232,7 +254,7 @@ export declare class ConnectionPool extends events.EventEmitter {
 }
 
 export declare class ConnectionError implements Error {
-    constructor(message: string, code?: any)
+    constructor(message: string, code?: any);
     public name: string;
     public message: string;
     public code: string;
@@ -281,7 +303,7 @@ interface IRequestParameters {
         scale: number;
         precision: number;
         tvpType: any;
-    }
+    };
 }
 
 /**
@@ -311,7 +333,10 @@ export declare class Request extends events.EventEmitter {
     public constructor(preparedStatement: PreparedStatement);
     public execute(procedure: string): Promise<IProcedureResult<any>>;
     public execute<Entity>(procedure: string): Promise<IProcedureResult<Entity>>;
-    public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: IProcedureResult<Entity>, returnValue?: any) => void): void;
+    public execute<Entity>(
+        procedure: string,
+        callback: (err?: any, recordsets?: IProcedureResult<Entity>, returnValue?: any) => void,
+    ): void;
     public input(name: string, value: any): Request;
     public input(name: string, type: (() => ISqlType) | ISqlType, value: any): Request;
     public output(name: string, type: (() => ISqlType) | ISqlType, value?: any): Request;
@@ -337,7 +362,7 @@ export declare class Request extends events.EventEmitter {
 }
 
 export declare class RequestError implements Error {
-    constructor(message: string, code?: any)
+    constructor(message: string, code?: any);
     public name: string;
     public message: string;
     public code: string;
@@ -362,7 +387,7 @@ export declare class Transaction extends events.EventEmitter {
 }
 
 export declare class TransactionError implements Error {
-    constructor(message: string, code?: any)
+    constructor(message: string, code?: any);
     public name: string;
     public message: string;
     public code: string;
@@ -389,7 +414,7 @@ export declare class PreparedStatement extends events.EventEmitter {
 }
 
 export declare class PreparedStatementError implements Error {
-    constructor(message: string, code?: any)
+    constructor(message: string, code?: any);
     public name: string;
     public message: string;
     public code: string;

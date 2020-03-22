@@ -20,9 +20,9 @@ class PostStore {
         return query<{ posts: Post[] }>({
             client: new ApolloClient({
                 link: {} as any,
-                cache: {} as any
+                cache: {} as any,
             }),
-            query: PostsQuery
+            query: PostsQuery,
         });
     }
 

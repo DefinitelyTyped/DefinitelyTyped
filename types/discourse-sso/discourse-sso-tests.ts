@@ -9,7 +9,7 @@ if (sso.validate('payload', 'sig')) {
         external_id: '1',
         email: 'omg@mail.com',
         username: 'myuser',
-        name: 'This Guy'
+        name: 'This Guy',
     };
 
     const loginString: string = sso.buildLoginString(userParams);

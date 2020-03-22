@@ -18,9 +18,4 @@ export interface Url {
     pathname: string;
 }
 
-export {
-    encode,
-    decode,
-    parse,
-    format
-};
+export { encode, decode, parse, format };

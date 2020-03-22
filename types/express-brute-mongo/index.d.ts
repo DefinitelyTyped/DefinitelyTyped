@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Collection } from "mongodb";
+import { Collection } from 'mongodb';
 
 /**
  * @summary MongoDB store adapter.

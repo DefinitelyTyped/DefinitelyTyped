@@ -24,7 +24,7 @@ export interface ZoomInterpolator extends Function {
 }
 
 export interface ColorGammaInterpolationFactory extends Function {
-    (a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+    (a: string | ColorCommonInstance, b: string | ColorCommonInstance): (t: number) => string;
     /**
      * Returns a new interpolator factory of the same type using the specified *gamma*.
      * For example, to interpolate from purple to orange with a gamma of 2.2 in RGB space: `d3.interpolateRgb.gamma(2.2)("purple", "orange")`.
@@ -49,59 +49,65 @@ export type ZoomView = [number, number, number];
 /**
  * Returns an `null` constant interpolator.
  */
-export function interpolate(a: any, b: null): ((t: number) => null);
+export function interpolate(a: any, b: null): (t: number) => null;
 
 /**
  * Returns an boolean constant interpolator of value `b`.
  */
-export function interpolate(a: any, b: boolean): ((t: number) => boolean);
+export function interpolate(a: any, b: boolean): (t: number) => boolean;
 
 /**
  * Returns a `interpolateNumber` interpolator.
  */
-export function interpolate(a: number | { valueOf(): number }, b: number): ((t: number) => number);
+export function interpolate(a: number | { valueOf(): number }, b: number): (t: number) => number;
 
 /**
  * Returns a `interpolateRgb` interpolator.
  */
-export function interpolate(a: string | ColorCommonInstance, b: ColorCommonInstance): ((t: number) => string);
+export function interpolate(a: string | ColorCommonInstance, b: ColorCommonInstance): (t: number) => string;
 
 /**
  * Returns a `interpolateDate` interpolator.
  */
-export function interpolate(a: Date, b: Date): ((t: number) => Date);
+export function interpolate(a: Date, b: Date): (t: number) => Date;
 
 /**
  * Returns a `interpolateString` interpolator. If `b` is a string coercible to a color use use `interpolateRgb`.
  */
-export function interpolate(a: string | { toString(): string }, b: string): ((t: number) => string);
+export function interpolate(a: string | { toString(): string }, b: string): (t: number) => string;
 
 /**
  * Returns a `interpolateArray` interpolator.
  */
-export function interpolate<U extends any[]>(a: any[], b: U): ((t: number) => U);
+export function interpolate<U extends any[]>(a: any[], b: U): (t: number) => U;
 
 /**
  * Returns a `interpolateNumber` interpolator.
  */
-export function interpolate(a: number | { valueOf(): number }, b: { valueOf(): number }): ((t: number) => number);
+export function interpolate(a: number | { valueOf(): number }, b: { valueOf(): number }): (t: number) => number;
 
 /**
  * Returns a `interpolateObject` interpolator.
  */
-export function interpolate<U extends object>(a: any, b: U): ((t: number) => U);
+export function interpolate<U extends object>(a: any, b: U): (t: number) => U;
 
 /**
  * Returns an interpolator between the two numbers `a` and `b`.
  * The returned interpolator is equivalent to: `(t) => a * (1 - t) + b * t`.
  */
-export function interpolateNumber(a: number | { valueOf(): number }, b: number | { valueOf(): number }): ((t: number) => number);
+export function interpolateNumber(
+    a: number | { valueOf(): number },
+    b: number | { valueOf(): number },
+): (t: number) => number;
 
 /**
  * Returns an interpolator between the two numbers `a` and `b`; the interpolator is similar to `interpolateNumber`,
  * except it will round the resulting value to the nearest integer.
  */
-export function interpolateRound(a: number | { valueOf(): number }, b: number | { valueOf(): number }): ((t: number) => number);
+export function interpolateRound(
+    a: number | { valueOf(): number },
+    b: number | { valueOf(): number },
+): (t: number) => number;
 
 /**
  * Returns an interpolator between the two strings `a` and `b`.
@@ -116,7 +122,10 @@ export function interpolateRound(a: number | { valueOf(): number }, b: number | 
  * The remaining static parts (of string `b`) are a space between the two numbers (`" "`), and the suffix (`"px Comic-Sans"`).
  * The result of the interpolator at `t` = 0.5 is `"400 24px Comic-Sans"`.
  */
-export function interpolateString(a: string | { toString(): string }, b: string | { toString(): string }): ((t: number) => string);
+export function interpolateString(
+    a: string | { toString(): string },
+    b: string | { toString(): string },
+): (t: number) => string;
 
 /**
  * Returns an interpolator between the two dates `a` and `b`.
@@ -124,9 +133,9 @@ export function interpolateString(a: string | { toString(): string }, b: string 
  * Note: *no defensive copy* of the returned date is created; the same Date instance is returned for every evaluation of the interpolator.
  * No copy is made for performance reasons; interpolators are often part of the inner loop of animated transitions.
  */
-export function interpolateDate(a: Date, b: Date): ((t: number) => Date);
+export function interpolateDate(a: Date, b: Date): (t: number) => Date;
 
-export type ArrayInterpolator<A extends any[]> = ((t: number) => A);
+export type ArrayInterpolator<A extends any[]> = (t: number) => A;
 
 /**
  * Returns an interpolator between the two arrays `a` and `b`. Internally, an array template is created that is the same length in `b`.
@@ -152,21 +161,21 @@ export function interpolateArray<A extends any[]>(a: any[], b: A): ArrayInterpol
  * Note: *no defensive copy* of the template object is created; modifications of the returned object may adversely affect subsequent evaluation of the interpolator.
  * No copy is made for performance reasons; interpolators are often part of the inner loop of animated transitions.
  */
-export function interpolateObject<U extends object>(a: any, b: U): ((t: number) => U);
+export function interpolateObject<U extends object>(a: any, b: U): (t: number) => U;
 
 /**
  * Returns an interpolator between the two 2D CSS transforms represented by `a` and `b`.
  * Each transform is decomposed to a standard representation of translate, rotate, *x*-skew and scale; these component transformations are then interpolated.
  * This behavior is standardized by CSS: see [matrix decomposition for animation](http://www.w3.org/TR/css3-2d-transforms/#matrix-decomposition).
  */
-export function interpolateTransformCss(a: string, b: string): ((t: number) => string);
+export function interpolateTransformCss(a: string, b: string): (t: number) => string;
 
 /**
  * Returns an interpolator between the two 2D SVG transforms represented by `a` and `b`.
  * Each transform is decomposed to a standard representation of translate, rotate, *x*-skew and scale; these component transformations are then interpolated.
  * This behavior is standardized by CSS: see [matrix decomposition for animation](http://www.w3.org/TR/css3-2d-transforms/#matrix-decomposition).
  */
-export function interpolateTransformSvg(a: string, b: string): ((t: number) => string);
+export function interpolateTransformSvg(a: string, b: string): (t: number) => string;
 
 /**
  * Returns an interpolator between the two views `a` and `b` of a two-dimensional plane,
@@ -184,7 +193,7 @@ export function interpolateZoom(a: ZoomView, b: ZoomView): ZoomInterpolator;
  * Returns a discrete interpolator for the given array of values. The returned interpolator maps `t` in `[0, 1 / n)` to values[0],
  * `t` in `[1 / n, 2 / n)` to `values[1]`, and so on, where `n = values.length`. In effect, this is a lightweight quantize scale with a fixed domain of [0, 1].
  */
-export function interpolateDiscrete<T>(values: T[]): ((t: number) => T);
+export function interpolateDiscrete<T>(values: T[]): (t: number) => T;
 
 // Sampling ------------------------------------------------------------------
 
@@ -197,7 +206,7 @@ export function interpolateDiscrete<T>(values: T[]): ((t: number) => T);
  * Caution: this method will not work with interpolators that do not return defensive copies of their output,
  * such as `d3.interpolateArray`, `d3.interpolateDate` and `d3.interpolateObject`. For those interpolators, you must wrap the interpolator and create a copy for each returned value.
  */
-export function quantize<T>(interpolator: ((t: number) => T), n: number): T[];
+export function quantize<T>(interpolator: (t: number) => T, n: number): T[];
 
 // Color Spaces
 
@@ -212,7 +221,7 @@ export const interpolateRgb: ColorGammaInterpolationFactory;
  * Implicit control points are generated such that the interpolator returns `colors[0]` at `t = 0` and `colors[colors.length - 1]` at `t = 1`.
  * Opacity interpolation is not currently supported. See also `d3.interpolateBasis`, and see [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic) for examples.
  */
-export function interpolateRgbBasis(colors: Array<string | ColorCommonInstance>): ((t: number) => string);
+export function interpolateRgbBasis(colors: Array<string | ColorCommonInstance>): (t: number) => string;
 
 /**
  * Returns a uniform nonrational B-spline interpolator through the specified array of colors, which are converted to RGB color space.
@@ -220,37 +229,43 @@ export function interpolateRgbBasis(colors: Array<string | ColorCommonInstance>)
  * this is useful, for example, to create cyclical color scales. Opacity interpolation is not currently supported.
  * See also `d3.interpolateBasisClosed, and see [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic) for examples.
  */
-export function interpolateRgbBasisClosed(colors: Array<string | ColorCommonInstance>): ((t: number) => string);
+export function interpolateRgbBasisClosed(colors: Array<string | ColorCommonInstance>): (t: number) => string;
 
 /**
  * Returns an HSL color space interpolator between the two colors *a* and *b*. The colors *a* and *b* need not be in HSL;
  * they will be converted to HSL using `d3.hsl`. If either color’s hue or saturation is NaN, the opposing color’s channel value is used.
  * The shortest path between hues is used. The return value of the interpolator is an RGB string.
  */
-export function interpolateHsl(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+export function interpolateHsl(a: string | ColorCommonInstance, b: string | ColorCommonInstance): (t: number) => string;
 
 /**
  * Like `interpolateHsl`, but does not use the shortest path between hues.
  */
-export function interpolateHslLong(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+export function interpolateHslLong(
+    a: string | ColorCommonInstance,
+    b: string | ColorCommonInstance,
+): (t: number) => string;
 
 /**
  * Returns a Lab color space interpolator between the two colors *a* and *b*. The colors *a* and *b* need not be in Lab;
  * they will be converted to Lab using `d3.lab`. The return value of the interpolator is an RGB string.
  */
-export function interpolateLab(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+export function interpolateLab(a: string | ColorCommonInstance, b: string | ColorCommonInstance): (t: number) => string;
 
 /**
  * Returns an HCL color space interpolator between the two colors `a` and `b`. The colors `a` and `b` need not be in HCL;
  * they will be converted to HCL using `d3.hcl`. If either color’s hue or chroma is NaN, the opposing color’s channel value is used.
  * The shortest path between hues is used. The return value of the interpolator is an RGB string.
  */
-export function interpolateHcl(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+export function interpolateHcl(a: string | ColorCommonInstance, b: string | ColorCommonInstance): (t: number) => string;
 
 /**
  * Like `interpolateHcl`, but does not use the shortest path between hues.
  */
-export function interpolateHclLong(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+export function interpolateHclLong(
+    a: string | ColorCommonInstance,
+    b: string | ColorCommonInstance,
+): (t: number) => string;
 
 /**
  * Returns a Cubehelix color space interpolator between the two colors `a` and `b` using a configurable `gamma`.
@@ -269,7 +284,7 @@ export const interpolateCubehelixLong: ColorGammaInterpolationFactory;
  * Returns an interpolator between the two hue angles `a` and `b`. If either hue is NaN, the opposing value is used.
  * The shortest path between hues is used. The return value of the interpolator is a number in `[0, 360)`.
  */
-export function interpolateHue(a: number, b: number): ((t: number) => number);
+export function interpolateHue(a: number, b: number): (t: number) => number;
 
 // Splines -------------------------------------------------------------------
 
@@ -278,14 +293,14 @@ export function interpolateHue(a: number, b: number): ((t: number) => number);
  * Implicit control points are generated such that the interpolator returns `values[0]` at `t` = 0 and `values[values.length - 1]` at `t` = 1.
  * See also [`d3.curveBasis`](https://github.com/d3/d3-shape#curveBasis).
  */
-export function interpolateBasis(splineNodes: number[]): ((t: number) => number);
+export function interpolateBasis(splineNodes: number[]): (t: number) => number;
 
 /**
  * Returns a uniform nonrational B-spline interpolator through the specified array of `values`, which must be numbers.
  * The control points are implicitly repeated such that the resulting one-dimensional spline has cyclical C² continuity when repeated around `t` in [0,1].
  * See also [`d3.curveBasisClosed`](https://github.com/d3/d3-shape#curveBasisClosed).
  */
-export function interpolateBasisClosed(splineNodes: number[]): ((t: number) => number);
+export function interpolateBasisClosed(splineNodes: number[]): (t: number) => number;
 
 // Piecewise -----------------------------------------------------------------
 
@@ -295,7 +310,10 @@ export function interpolateBasisClosed(splineNodes: number[]): ((t: number) => n
  * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
  * For example, to blend through three different zoom views: `d3.piecewise(d3.interpolateZoom, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
  */
-export function piecewise(interpolate: (a: ZoomView, b: ZoomView) => ZoomInterpolator, values: ZoomView[]): ZoomInterpolator;
+export function piecewise(
+    interpolate: (a: ZoomView, b: ZoomView) => ZoomInterpolator,
+    values: ZoomView[],
+): ZoomInterpolator;
 
 /**
  * Returns a piecewise array interpolator, composing array interpolators for each adjacent pair of arrays.
@@ -303,7 +321,10 @@ export function piecewise(interpolate: (a: ZoomView, b: ZoomView) => ZoomInterpo
  * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
  * For example, to blend through three different arrays: `d3.piecewise(d3.interpolateArray, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
  */
-export function piecewise<A extends any[]>(interpolate: (a: any[], b: A) => ArrayInterpolator<A>, values: A[]): ArrayInterpolator<A>;
+export function piecewise<A extends any[]>(
+    interpolate: (a: any[], b: A) => ArrayInterpolator<A>,
+    values: A[],
+): ArrayInterpolator<A>;
 
 /**
  * Returns a piecewise interpolator, composing interpolators for each adjacent pair of values.
@@ -311,4 +332,7 @@ export function piecewise<A extends any[]>(interpolate: (a: any[], b: A) => Arra
  * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
  * For example, to blend through red, green and blue: `d3.piecewise(d3.interpolateRgb.gamma(2.2), ["red", "green", "blue"])`.
  */
-export function piecewise<TData, Interpolator>(interpolate: (a: TData, b: TData) => Interpolator, values: TData[]): (t: number) => any;
+export function piecewise<TData, Interpolator>(
+    interpolate: (a: TData, b: TData) => Interpolator,
+    values: TData[],
+): (t: number) => any;

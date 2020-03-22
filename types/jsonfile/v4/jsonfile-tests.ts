@@ -4,31 +4,31 @@
 import * as jsonfile from 'jsonfile';
 
 const file = '/tmp/data.json';
-const obj = {name: 'JP'};
+const obj = { name: 'JP' };
 
 jsonfile.readFile(file, (err: NodeJS.ErrnoException | null, obj: any) => {
-  console.dir(obj);
+    console.dir(obj);
 });
 
 console.dir(jsonfile.readFileSync(file));
 
 jsonfile.writeFile(file, obj, (err: NodeJS.ErrnoException) => {
-  console.error(err);
+    console.error(err);
 });
 
-jsonfile.writeFile(file, obj, {spaces: 2}, (err: NodeJS.ErrnoException) => {
-  console.error(err);
+jsonfile.writeFile(file, obj, { spaces: 2 }, (err: NodeJS.ErrnoException) => {
+    console.error(err);
 });
 
-jsonfile.writeFile(file, obj, {spaces: 2, EOL: '\r\n'}, (err: NodeJS.ErrnoException) => {
-  console.error(err);
+jsonfile.writeFile(file, obj, { spaces: 2, EOL: '\r\n' }, (err: NodeJS.ErrnoException) => {
+    console.error(err);
 });
 
-jsonfile.writeFile(file, obj, {flag: 'a'}, (err: NodeJS.ErrnoException) => {
-  console.error(err);
+jsonfile.writeFile(file, obj, { flag: 'a' }, (err: NodeJS.ErrnoException) => {
+    console.error(err);
 });
 
 jsonfile.writeFileSync(file, obj);
-jsonfile.writeFileSync(file, obj, {spaces: 2});
-jsonfile.writeFileSync(file, obj, {spaces: 2, EOL: '\r\n'});
-jsonfile.writeFileSync(file, obj, {flag: 'a'});
+jsonfile.writeFileSync(file, obj, { spaces: 2 });
+jsonfile.writeFileSync(file, obj, { spaces: 2, EOL: '\r\n' });
+jsonfile.writeFileSync(file, obj, { flag: 'a' });

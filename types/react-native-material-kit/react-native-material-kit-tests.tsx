@@ -12,24 +12,18 @@ import {
     MKSpinner,
     MKRadioButton,
     MKCheckbox,
-    setTheme
+    setTheme,
 } from 'react-native-material-kit';
 
 //// BUTTON
 
-const ButtonTest = () =>
-    <MKButton
-        style={{ backgroundColor: MKColor.Amber }}
-        onPress={() => console.log('hi, raised button!')}
-    >
-        <Text style={{color: 'white', fontWeight: 'bold'}}>
-            RAISED BUTTON
-        </Text>
-    </MKButton>;
+const ButtonTest = () => (
+    <MKButton style={{ backgroundColor: MKColor.Amber }} onPress={() => console.log('hi, raised button!')}>
+        <Text style={{ color: 'white', fontWeight: 'bold' }}>RAISED BUTTON</Text>
+    </MKButton>
+);
 
-const ButtonBuilderTest = new MKButton.Builder()
-  .withBackgroundColor(MKColor.Teal)
-  .build();
+const ButtonBuilderTest = new MKButton.Builder().withBackgroundColor(MKColor.Teal).build();
 
 //// TEXT FIELD
 
@@ -39,17 +33,17 @@ interface MKTextFieldTestState {
 
 class MKTextFieldTest extends React.Component<any, MKTextFieldTestState> {
     state = {
-        value: ''
+        value: '',
     };
 
     render() {
         return (
             <MKTextField
-              tintColor={MKColor.Lime}
-              textInputStyle={{color: MKColor.Orange}}
-              placeholder="Text"
-              value={this.state.value}
-              onTextChange={a => this.setState({value: a})}
+                tintColor={MKColor.Lime}
+                textInputStyle={{ color: MKColor.Orange }}
+                placeholder="Text"
+                value={this.state.value}
+                onTextChange={(a) => this.setState({ value: a })}
             />
         );
     }
@@ -57,28 +51,28 @@ class MKTextFieldTest extends React.Component<any, MKTextFieldTestState> {
 
 //// SWITCH
 
-const MKSwitchTest = () =>
+const MKSwitchTest = () => (
     <MKSwitch
         onColor="rgba(255,152,0,.3)"
         thumbOnColor={MKColor.Orange}
         rippleColor="rgba(255,152,0,.2)"
         onPress={() => console.log('orange switch pressed')}
-        onCheckedChange={checked =>
-            console.log('orange switch checked', checked)}
-    />;
+        onCheckedChange={(checked) => console.log('orange switch checked', checked)}
+    />
+);
 
 //// ICON TOGGLE
 
-const MKIconToggleTest = () =>
+const MKIconToggleTest = () => (
     <MKIconToggle
         checked={true}
-        onCheckedChange={checked =>
-            console.log('orange switch checked', checked)}
+        onCheckedChange={(checked) => console.log('orange switch checked', checked)}
         onPress={() => console.log('pressed')}
     >
         <Text>Off</Text>
         <Text>On</Text>
-    </MKIconToggle>;
+    </MKIconToggle>
+);
 
 //// PROGRESS
 const MKProgressTest = () => <MKProgress progress={0.2} />;
@@ -91,17 +85,11 @@ interface MKSliderTestState {
 
 class MKSliderTest extends React.Component<null, MKSliderTestState> {
     state = {
-        curValue: 3
+        curValue: 3,
     };
 
     render() {
-        return (
-            <MKSlider
-                min={10}
-                max={100}
-                onChange={curValue => this.setState({curValue})}
-            />
-        );
+        return <MKSlider min={10} max={100} onChange={(curValue) => this.setState({ curValue })} />;
     }
 }
 
@@ -114,7 +102,7 @@ interface MKRangeSliderTestState {
 class MKRangeSliderTest extends React.Component<null, MKRangeSliderTestState> {
     state = {
         min: 0,
-        max: 2
+        max: 2,
     };
 
     render() {
@@ -124,12 +112,14 @@ class MKRangeSliderTest extends React.Component<null, MKRangeSliderTestState> {
                 max={100}
                 minValue={30}
                 maxValue={50}
-                onChange={(curValue) => this.setState({
-                    min: curValue.min,
-                    max: curValue.max,
-                })}
+                onChange={(curValue) =>
+                    this.setState({
+                        min: curValue.min,
+                        max: curValue.max,
+                    })
+                }
                 onConfirm={(curValue) => {
-                    console.log("Slider drag ended");
+                    console.log('Slider drag ended');
                     console.log(curValue);
                 }}
             />
@@ -148,21 +138,18 @@ class MKRadioButtonTest extends React.Component<null, null> {
         super(null);
         this.radioGroup = new MKRadioButton.Group();
 
-        setTheme({radioStyle: {
-            fillColor: `rgba(${MKColor.RGBTeal},.8)`,
-            borderOnColor: `rgba(${MKColor.RGBTeal},.6)`,
-            borderOffColor: `rgba(${MKColor.RGBTeal},.3)`,
-            rippleColor: `rgba(${MKColor.RGBTeal},.15)`,
-        }});
+        setTheme({
+            radioStyle: {
+                fillColor: `rgba(${MKColor.RGBTeal},.8)`,
+                borderOnColor: `rgba(${MKColor.RGBTeal},.6)`,
+                borderOffColor: `rgba(${MKColor.RGBTeal},.3)`,
+                rippleColor: `rgba(${MKColor.RGBTeal},.15)`,
+            },
+        });
     }
 
     render() {
-        return (
-            <MKRadioButton
-                checked={true}
-                group={this.radioGroup}
-            />
-        );
+        return <MKRadioButton checked={true} group={this.radioGroup} />;
     }
 }
 
@@ -171,17 +158,17 @@ class MKCheckboxTest extends React.Component<null, null> {
     constructor() {
         super(null);
 
-        setTheme({checkboxStyle: {
-            fillColor: MKColor.Teal,
-            borderOnColor: MKColor.Teal,
-            borderOffColor: MKColor.Teal,
-            rippleColor: `rgba(${MKColor.RGBTeal},.15)`,
-        }});
+        setTheme({
+            checkboxStyle: {
+                fillColor: MKColor.Teal,
+                borderOnColor: MKColor.Teal,
+                borderOffColor: MKColor.Teal,
+                rippleColor: `rgba(${MKColor.RGBTeal},.15)`,
+            },
+        });
     }
 
     render() {
-        return (
-            <MKCheckbox checked={true} />
-        );
+        return <MKCheckbox checked={true} />;
     }
 }

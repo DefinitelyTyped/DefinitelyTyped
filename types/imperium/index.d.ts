@@ -34,10 +34,13 @@ export function evaluateRouteAction(req: express.Request, expr: string, key: str
 
 export function evaluateUserActions(req: express.Request, roles: Role[]): Promise<Action[]>;
 
-export function evaluateUserAction(action: RoleParams, context: { [key: string]: string[] }): { [key: string]: string[] };
+export function evaluateUserAction(
+    action: RoleParams,
+    context: { [key: string]: string[] },
+): { [key: string]: string[] };
 
 export class Imperium {
-    constructor()
+    constructor();
 
     context: string[];
     roles: Roles;
@@ -77,7 +80,7 @@ export interface Action {
 }
 
 export class Role {
-    constructor(imperium: Imperium, roleName: string)
+    constructor(imperium: Imperium, roleName: string);
 
     // Imperium instance to retreive child role
     imperium: Imperium;
@@ -94,5 +97,5 @@ export class Role {
 }
 
 export class UnauthorizedError extends Error {
-    constructor(message: string, status: number, context: any)
+    constructor(message: string, status: number, context: any);
 }

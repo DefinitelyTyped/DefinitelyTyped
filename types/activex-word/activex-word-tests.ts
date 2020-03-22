@@ -1,7 +1,7 @@
 /// <reference types="windows-script-host" />
 
 // tslint:disable-next-line no-unnecessary-generics
-const collectionToArray = <T>(col: {Item(index: any): T}): T[] => {
+const collectionToArray = <T>(col: { Item(index: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -26,7 +26,7 @@ const activeDoc = app.ActiveDocument;
     const rngThreeWords = activeDoc.Range(activeDoc.Words.Item(1).Start, activeDoc.Words.Item(3).End);
     const rngParagraphs = activeDoc.Range(
         activeDoc.Paragraphs.Item(2).Range.Start,
-        activeDoc.Paragraphs.Item(3).Range.End
+        activeDoc.Paragraphs.Item(3).Range.End,
     );
 })();
 
@@ -40,10 +40,7 @@ const activeDoc = app.ActiveDocument;
     rngDoc = activeDoc.Range(0, 0);
     rngDoc.InsertBefore('Hello');
 
-    rngDoc = activeDoc.Range(
-        activeDoc.Paragraphs.Item(2).Range.Start,
-        activeDoc.Paragraphs.Item(3).Range.End
-    );
+    rngDoc = activeDoc.Range(activeDoc.Paragraphs.Item(2).Range.Start, activeDoc.Paragraphs.Item(3).Range.End);
 
     // using the Range property
 
@@ -80,7 +77,9 @@ const activeDoc = app.ActiveDocument;
 
     dlg = app.Dialogs.Item(Word.WdWordDialog.wdDialogToolsOptionsUserInfo);
     dlg.Display();
-    if ((dlg as any).Name !== '') { dlg.Execute(); }
+    if ((dlg as any).Name !== '') {
+        dlg.Execute();
+    }
 
     // returning and changing dialog box settings
 
@@ -116,10 +115,7 @@ const activeDoc = app.ActiveDocument;
     paragraphFormat.Space1();
 
     // Applying formatting to a range
-    let rngFormat = activeDoc.Range(
-        activeDoc.Paragraphs.Item(1).Range.Start,
-        activeDoc.Paragraphs.Item(3).Range.End
-    );
+    let rngFormat = activeDoc.Range(activeDoc.Paragraphs.Item(1).Range.Start, activeDoc.Paragraphs.Item(3).Range.End);
     rngFormat.Font.Name = 'Arial';
     rngFormat.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
 
@@ -144,8 +140,8 @@ const activeDoc = app.ActiveDocument;
 
     // Increase margins by .5 inches
     const pageSetup = activeDoc.PageSetup;
-    pageSetup.LeftMargin += app.InchesToPoints(.5);
-    pageSetup.RightMargin += app.InchesToPoints(.5);
+    pageSetup.LeftMargin += app.InchesToPoints(0.5);
+    pageSetup.RightMargin += app.InchesToPoints(0.5);
 })();
 
 // Assigning ranges -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/assigning-ranges
@@ -211,7 +207,9 @@ const activeDoc = app.ActiveDocument;
     find2.Text = 'blue';
     find2.Forward = true;
     find2.Execute();
-    if (find2.Found) { find2.Parent.Bold = true; }
+    if (find2.Found) {
+        find2.Parent.Bold = true;
+    }
 
     // Using the Replacement object
 
@@ -222,7 +220,19 @@ const activeDoc = app.ActiveDocument;
     find3.Replacement.Text = 'Hello';
     find3.Forward = true;
     find3.Wrap = Word.WdFindWrap.wdFindContinue;
-    find3.Execute(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, Word.WdReplace.wdReplaceAll);
+    find3.Execute(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        Word.WdReplace.wdReplaceAll,
+    );
 
     const find4 = app.ActiveDocument.Content.Find;
     find4.ClearFormatting();
@@ -230,25 +240,36 @@ const activeDoc = app.ActiveDocument;
     find4.Font.Bold = true;
     find4.Replacement.ClearFormatting();
     find4.Replacement.Font.Bold = false;
-    find4.Execute("", undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, Word.WdReplace.wdReplaceAll);
+    find4.Execute(
+        '',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        Word.WdReplace.wdReplaceAll,
+    );
 })();
 
 // looping through a collection -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/looping-through-a-collection
 (() => {
-    collectionToArray(app.Documents)
-        .forEach(openDocument => WScript.Echo(openDocument.Name));
+    collectionToArray(app.Documents).forEach((openDocument) => WScript.Echo(openDocument.Name));
 
-    const strMarks = collectionToArray<Word.Bookmark>(activeDoc.Bookmarks)
-        .map(bookmark => bookmark.Name);
+    const strMarks = collectionToArray<Word.Bookmark>(activeDoc.Bookmarks).map((bookmark) => bookmark.Name);
 
     collectionToArray<Word.Field>(activeDoc.Fields)
-        .filter(dateField => dateField.Code.Text.indexOf('Date', 1) !== -1)
-        .forEach(dateField => dateField.Update());
+        .filter((dateField) => dateField.Code.Text.indexOf('Date', 1) !== -1)
+        .forEach((dateField) => dateField.Update());
 
-    const exists = collectionToArray<Word.AutoTextEntry>(activeDoc.AttachedTemplate.AutoTextEntries)
-        .some(autotextEntry => autotextEntry.Name === 'Filename');
+    const exists = collectionToArray<Word.AutoTextEntry>(activeDoc.AttachedTemplate.AutoTextEntries).some(
+        (autotextEntry) => autotextEntry.Name === 'Filename',
+    );
     if (exists) {
-            WScript.Echo('The Filename AutoText entry exists.');
+        WScript.Echo('The Filename AutoText entry exists.');
     }
 })();
 
@@ -267,12 +288,13 @@ const activeDoc = app.ActiveDocument;
     if (app.Selection.Tables.Count >= 1) {
         app.Selection.Tables.Item(1).Rows.Item(1).Shading.Texture = Word.WdTextureIndex.wdTexture10Percent;
     } else {
-        WScript.Echo('Selection doesn\'t include a table');
+        WScript.Echo("Selection doesn't include a table");
     }
 
     if (app.Selection.Tables.Count >= 1) {
-        collectionToArray<Word.Table>(app.Selection.Tables)
-            .forEach(table => table.Rows.Item(1).Shading.Texture = Word.WdTextureIndex.wdTexture30Percent);
+        collectionToArray<Word.Table>(app.Selection.Tables).forEach(
+            (table) => (table.Rows.Item(1).Shading.Texture = Word.WdTextureIndex.wdTexture30Percent),
+        );
     }
 })();
 
@@ -302,7 +324,7 @@ const activeDoc = app.ActiveDocument;
     find.Format = true;
     find.Forward = true;
     find.Wrap = Word.WdFindWrap.wdFindStop;
-    find.Text = "";
+    find.Text = '';
     find.Execute();
     if (find.Found) {
         WScript.Echo(app.Selection.Text);
@@ -325,7 +347,7 @@ const activeDoc = app.ActiveDocument;
 
     const rngParagraphs = activeDoc.Range(
         activeDoc.Paragraphs.Item(1).Range.Start,
-        activeDoc.Paragraphs.Item(4).Range.End
+        activeDoc.Paragraphs.Item(4).Range.End,
     );
     rngParagraphs.Select();
 })();
@@ -346,7 +368,7 @@ const activeDoc = app.ActiveDocument;
 
     const docNum = parseInt(app.System.PrivateProfileString('C:\\My Documents\\Macro.ini', 'DocTracker', 'DocNum'), 10);
 
-    const section = 'HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\12.0\\Word\Options';
+    const section = 'HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\12.0\\WordOptions';
     const programDir = app.System.PrivateProfileString('', section, 'PROGRAMDIR');
     WScript.Echo(`The program directory for Word is ${programDir}`);
 

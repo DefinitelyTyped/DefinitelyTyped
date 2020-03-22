@@ -8,43 +8,43 @@
 
 /** Nice and simple notifications for electron apps */
 export interface ICustomConfig {
-    width?: number,
-    height?: number,
-    padding?: number,
-    borderRadius?: number,
-    displayTime?: number,
-    animationSteps?: number,
-    animationStepMs?: number,
-    animateInParallel?: boolean,
-    appIcon?: string,
-    pathToModule?: string,
-    logging?: boolean,
-    defaultWindow?: Electron.BrowserWindowConstructorOptions,
-    defaultStyleContainer?: any,
-    defaultStyleAppIcon?: any,
-    defaultStyleImage?: any,
-    defaultStyleClose?: any,
-    defaultStyleText?: any
+    width?: number;
+    height?: number;
+    padding?: number;
+    borderRadius?: number;
+    displayTime?: number;
+    animationSteps?: number;
+    animationStepMs?: number;
+    animateInParallel?: boolean;
+    appIcon?: string;
+    pathToModule?: string;
+    logging?: boolean;
+    defaultWindow?: Electron.BrowserWindowConstructorOptions;
+    defaultStyleContainer?: any;
+    defaultStyleAppIcon?: any;
+    defaultStyleImage?: any;
+    defaultStyleClose?: any;
+    defaultStyleText?: any;
 }
 
 export interface ICloseNotificationEvent {
-    event: 'close' | 'show' | 'click',
-    id: number
+    event: 'close' | 'show' | 'click';
+    id: number;
 }
 
 export interface INotificationEvent extends ICloseNotificationEvent {
-    closeNotification: (reason: any) => void,
+    closeNotification: (reason: any) => void;
 }
 
 export interface INotification {
-    title: string,
-    text?: string,
-    image?: string,
-    url?: string,
-    sound?: string,
-    onClickFunc?: (event: INotificationEvent) => void,
-    onShowFunc?: (event: INotificationEvent) => void,
-    onCloseFunc?: (event: ICloseNotificationEvent) => void
+    title: string;
+    text?: string;
+    image?: string;
+    url?: string;
+    sound?: string;
+    onClickFunc?: (event: INotificationEvent) => void;
+    onShowFunc?: (event: INotificationEvent) => void;
+    onCloseFunc?: (event: ICloseNotificationEvent) => void;
 }
 
 /** Change some config options. Can be run multiple times, also between notify()-calls to change electron-notifys behaviour. */

@@ -7,20 +7,20 @@ import sequencify = require('sequencify');
 const items: sequencify.TaskMap = {
     a: {
         name: 'a',
-        dep: []
+        dep: [],
         // other properties as needed
     },
     b: {
         name: 'b',
-        dep: ['a']
+        dep: ['a'],
     },
     c: {
         name: 'c',
-        dep: ['a']
+        dep: ['a'],
     },
     d: {
         name: 'd',
-        dep: ['c']
+        dep: ['c'],
     },
 };
 

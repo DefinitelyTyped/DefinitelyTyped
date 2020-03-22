@@ -16,13 +16,11 @@ export as namespace simpleStorage;
 declare var simpleStorage: simplestoragejs.SimpleStorage;
 
 declare namespace simplestoragejs {
-
     /**
      * {@link simpleStorage} API is a subset of {@link http://www.jstorage.info/|jStorage} with slight modifications, so for most cases it should work out of the box if you are converting from {@link http://www.jstorage.info/|jStorage}. Main difference is between return values - if an action failed because of an error (storage full, storage not available, invalid data used etc.), you get the error object as the return value. {@link http://www.jstorage.info/|jStorage} never indicated anything if an error occurred.
      * @see https://github.com/andris9/simpleStorage#usage
      */
     export interface SimpleStorage {
-
         version: string;
 
         /**
@@ -40,7 +38,7 @@ declare namespace simplestoragejs {
          * @param [options] Optional options object.
          * @see https://github.com/andris9/simpleStorage#setkey-value-options
          */
-        set(key: string, value: any, options?: SetOptions): boolean|Error;
+        set(key: string, value: any, options?: SetOptions): boolean | Error;
 
         /**
          * Retrieve a value from local storage.
@@ -64,7 +62,7 @@ declare namespace simplestoragejs {
          * @param key The key to be deleted.
          * @see https://github.com/andris9/simpleStorage#deletekeykey
          */
-        deleteKey(key: string): boolean|Error;
+        deleteKey(key: string): boolean | Error;
 
         /**
          * Set a millisecond timeout. When the timeout is reached, the key is removed automatically from local storage.
@@ -73,7 +71,7 @@ declare namespace simplestoragejs {
          * @param ttl Timeout in milliseconds. If the value is 0, timeout is cleared from the key.
          * @see https://github.com/andris9/simpleStorage#setttlkey-ttl
          */
-        setTTL(key: string, ttl: number): boolean|Error;
+        setTTL(key: string, ttl: number): boolean | Error;
 
         /**
          * Retrieve remaining milliseconds for a key with TTL.
@@ -81,21 +79,21 @@ declare namespace simplestoragejs {
          * @param key The key to be checked.
          * @see https://github.com/andris9/simpleStorage#getttlkey
          */
-        getTTL(key: string): number|boolean;
+        getTTL(key: string): number | boolean;
 
         /**
          * Clear all values.
          * Returns <code>true</code> if storage was flushed or <code>{@link Error}</code> object if storage was not flushed because of an error.
          * @see https://github.com/andris9/simpleStorage#flush
          */
-        flush(): boolean|Error;
+        flush(): boolean | Error;
 
         /**
          * Retrieve all used keys as an array.
          * Returns an array of keys.
          * @see https://github.com/andris9/simpleStorage#index
          */
-        index(): [string]|boolean;
+        index(): [string] | boolean;
 
         /**
          * Get used storage in symbol count.
@@ -113,5 +111,4 @@ declare namespace simplestoragejs {
          */
         TTL?: number;
     }
-
 }

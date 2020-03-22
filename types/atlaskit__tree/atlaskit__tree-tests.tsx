@@ -1,7 +1,7 @@
-import Tree from "@atlaskit/tree";
+import Tree from '@atlaskit/tree';
 
-import * as React from "react";
-import { render } from "react-dom";
+import * as React from 'react';
+import { render } from 'react-dom';
 
 declare const container: Element;
 
@@ -12,19 +12,19 @@ render(
             items: {
                 1: {
                     id: 1,
-                    children: []
+                    children: [],
                 },
-                "string-id": {
-                    id: "string-id",
-                    children: [1, "another"],
+                'string-id': {
+                    id: 'string-id',
+                    children: [1, 'another'],
                     hasChildren: true,
                     isExpanded: false,
                     isChildrenLoading: false,
                     data: {
-                        myVar: "this can be anything"
-                    }
-                }
-            }
+                        myVar: 'this can be anything',
+                    },
+                },
+            },
         }}
         renderItem={() => <div />}
         onExpand={() => {}}
@@ -35,7 +35,7 @@ render(
         isDragEnabled
         isNestingEnabled
     />,
-    container
+    container,
 );
 
 // Check that default props work too.

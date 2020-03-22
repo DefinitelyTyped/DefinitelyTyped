@@ -11,19 +11,18 @@ GoogleMapsLoader.VERSION = '3.14';
 GoogleMapsLoader.WINDOW_CALLBACK_NAME = '__google_maps_api_provider_initializator__';
 
 var callback: GoogleMapsLoader.CallBack = function (google) {
-    var uluru = {lat: -25.363, lng: 131.044};
+    var uluru = { lat: -25.363, lng: 131.044 };
 
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 4,
-        center: uluru
+        center: uluru,
     });
 
     var marker = new google.maps.Marker({
         position: uluru,
-        map: map
+        map: map,
     });
 };
-
 
 GoogleMapsLoader.createLoader();
 
@@ -33,7 +32,7 @@ GoogleMapsLoader.load(callback);
 GoogleMapsLoader.release(callback);
 
 GoogleMapsLoader.onLoad(function () {
-    console.log("loaded!")
+    console.log('loaded!');
 });
 
 var url: string = GoogleMapsLoader.createUrl();

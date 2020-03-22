@@ -43,7 +43,7 @@ function test_dimmer() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).dimmer({
@@ -55,7 +55,7 @@ function test_dimmer() {
         useCSS: true,
         duration: {
             show: 200,
-            hide: 300
+            hide: 300,
         },
         transition: 'fade',
         onShow() {
@@ -70,12 +70,12 @@ function test_dimmer() {
         selector: {
             dimmable: '.dimmable',
             dimmer: '.dimmer',
-            content: '.content'
+            content: '.content',
         },
         template: {
             dimmer() {
                 return $();
-            }
+            },
         },
         className: {
             active: 'active',
@@ -85,11 +85,11 @@ function test_dimmer() {
             pageDimmer: 'pageDimmer',
             hide: 'hide',
             show: 'show',
-            transition: 'transition'
+            transition: 'transition',
         },
         error: {
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).dimmer(); // $ExpectType JQuery<HTMLElement>
 

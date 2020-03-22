@@ -11,7 +11,7 @@ declare const MyDb: {
 registerWaiter(MyDb, MyDb.hasPendingTransactions);
 registerWaiter(); // $ExpectError
 
-registerHelper('boot', app => {
+registerHelper('boot', (app) => {
     app.advanceReadiness(); // $ExpectType void
     app.deferReadiness(); // $ExpectType void
     app.register('foo', class {}); // $ExpectType void
@@ -19,7 +19,7 @@ registerHelper('boot', app => {
     app.register(); // $ExpectError
 });
 
-registerAsyncHelper('boot', app => {
+registerAsyncHelper('boot', (app) => {
     app.advanceReadiness();
     app.deferReadiness();
     app.register('foo', class {});

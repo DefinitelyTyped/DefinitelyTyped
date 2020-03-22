@@ -32,11 +32,7 @@ interface dynaTrace {
      * @param sendPreview - Force sending of preview signals which haven't been closed yet.
      * @param killUnfinished - Kills unfinished actions and sends them immediately. Handle with care, actions might be inaccurate.
      */
-    sendSignal(
-        forceSync: boolean,
-        sendPreview: boolean,
-        killUnfinished: boolean
-    ): void;
+    sendSignal(forceSync: boolean, sendPreview: boolean, killUnfinished: boolean): void;
     /**
      * @description parentAction: optional id of parent action.
      *     - if parameter is not passed => appended to currently running action
@@ -52,12 +48,7 @@ interface dynaTrace {
      *  as subaction to action with given id.
      * @returns id of created action
      */
-    enterAction(
-        name: string,
-        type: string,
-        time?: number,
-        parentAction?: number | boolean
-    ): number;
+    enterAction(name: string, type: string, time?: number, parentAction?: number | boolean): number;
     /**
      * @description stops the action that is represented by the given tracking object.
      * @param actionId - id of action to leave. must be the value returned by enterAction
@@ -98,7 +89,7 @@ interface dynaTrace {
      * @description Indicates start of a third party resource
      * @param type - i = image, s = script, c = custom
      */
-    startThirdParty(type: "i" | "s" | "c", url: string): void;
+    startThirdParty(type: 'i' | 's' | 'c', url: string): void;
     /**
      * @description Indicates stop of a third party resource
      * @param url - Complete URL of resource (must match URL provided in startThirdParty).
@@ -108,12 +99,7 @@ interface dynaTrace {
      * @param stop - Absolute stop time in milliseconds. When parameter is not passed or <= 0,
      *     time of stopThirdParty call is used.
      */
-    stopThirdParty(
-        url: string,
-        success: boolean,
-        start?: number,
-        stop?: number
-    ): void;
+    stopThirdParty(url: string, success: boolean, start?: number, stop?: number): void;
     /**
      * @description Adds a listener that is called when the user is leaving the page,
      * but before the monitor signal is sent
@@ -142,7 +128,7 @@ interface dynaTrace {
         playTime: number,
         bufferingCount: number,
         bufferingTime: number,
-        type: "_info_" | "_warn_" | "_error_"
+        type: '_info_' | '_warn_' | '_error_',
     ): void;
     /**
      * @description Indicates the start of a user input. User inputs must always
@@ -154,12 +140,7 @@ interface dynaTrace {
      * @param addInfo - Additional info for user input such as key, mouse button, etc ('F5', 'RETURN',...)
      * @param validTime - How long should the user input be able to open actions? default is 30ms
      */
-    beginUserInput(
-        domNode: any,
-        type: string,
-        addInfo: string,
-        validTime: number
-    ): any;
+    beginUserInput(domNode: any, type: string, addInfo: string, validTime: number): any;
     /**
      * @description the user input object returned by beginUserInput
      */

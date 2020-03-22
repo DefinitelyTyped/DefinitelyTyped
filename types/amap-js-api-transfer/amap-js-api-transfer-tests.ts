@@ -6,7 +6,7 @@ declare const lnglatTuple: [number, number];
 new AMap.Transfer();
 // $ExpectType Transfer
 new AMap.Transfer({
-    city: 'city'
+    city: 'city',
 });
 // $ExpectType Transfer
 const transfer = new AMap.Transfer({
@@ -20,7 +20,7 @@ const transfer = new AMap.Transfer({
     hideMarkers: false,
     isOutline: true,
     outlineColor: 'green',
-    autoFitView: true
+    autoFitView: true,
 });
 
 // $ExpectType void

@@ -5,12 +5,18 @@
 
 /// <reference types="node" />
 
-import events = require("events");
-import stream = require("stream");
-import pgTypes = require("pg-types");
+import events = require('events');
+import stream = require('stream');
+import pgTypes = require('pg-types');
 
-export declare function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-export declare function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+export declare function connect(
+    connection: string,
+    callback: (err: Error, client: Client, done: (err?: any) => void) => void,
+): void;
+export declare function connect(
+    config: ClientConfig,
+    callback: (err: Error, client: Client, done: (err?: any) => void) => void,
+): void;
 export declare function end(): void;
 
 export interface ConnectionConfig {
@@ -29,7 +35,7 @@ export interface Defaults extends ConnectionConfig {
     parseInt8?: boolean;
 }
 
-import { TlsOptions } from "tls";
+import { TlsOptions } from 'tls';
 
 export interface ClientConfig extends ConnectionConfig {
     ssl?: boolean | TlsOptions;
@@ -82,8 +88,8 @@ export declare class Pool extends events.EventEmitter {
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
-    on(event: "error", listener: (err: Error, client: Client) => void): this;
-    on(event: "connect" | "acquire", listener: (client: Client) => void): this;
+    on(event: 'error', listener: (err: Error, client: Client) => void): this;
+    on(event: 'connect' | 'acquire', listener: (client: Client) => void): this;
 }
 
 export declare class Client extends events.EventEmitter {
@@ -107,20 +113,20 @@ export declare class Client extends events.EventEmitter {
     pauseDrain(): void;
     resumeDrain(): void;
 
-    on(event: "drain", listener: () => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "notification" | "notice", listener: (message: any) => void): this;
-    on(event: "end", listener: () => void): this;
+    on(event: 'drain', listener: () => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: 'notification' | 'notice', listener: (message: any) => void): this;
+    on(event: 'end', listener: () => void): this;
 }
 
 export declare class Query extends events.EventEmitter {
-    on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "end", listener: (result: ResultBuilder) => void): this;
+    on(event: 'row', listener: (row: any, result?: ResultBuilder) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: 'end', listener: (result: ResultBuilder) => void): this;
 }
 
 export declare class Events extends events.EventEmitter {
-    on(event: "error", listener: (err: Error, client: Client) => void): this;
+    on(event: 'error', listener: (err: Error, client: Client) => void): this;
 }
 
 export const types: typeof pgTypes;

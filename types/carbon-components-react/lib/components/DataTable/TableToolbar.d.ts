@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export interface TableToolbarProps { }
+export interface TableToolbarProps {}
 
 declare const TableToolbar: React.FC<TableToolbarProps>;
 

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import I18n = require("i18n-js");
+import I18n = require('i18n-js');
 
 export function getLanguages(): Promise<string[]>;
 

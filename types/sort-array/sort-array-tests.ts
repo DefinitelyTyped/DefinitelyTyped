@@ -8,7 +8,7 @@ interface AlphabetItem {
 const alphabet: AlphabetItem[] = [
     { letter: 'b', position: 2 },
     { letter: 'a', position: 1 },
-    { letter: 'c', position: 3 }
+    { letter: 'c', position: 3 },
 ];
 
 // $ExpectType AlphabetItem[]
@@ -25,10 +25,7 @@ interface Input {
     inner: { number: number };
 }
 
-const input: Input[] = [
-    { inner: { number: 5 } },
-    { inner: { number: 3 } }
-];
+const input: Input[] = [{ inner: { number: 5 } }, { inner: { number: 3 } }];
 
 // Allow to use without types
 

@@ -29,6 +29,6 @@ declare class ResponseLike extends Stream.Readable {
         statusCode: number,
         headers: { [header: string]: string | string[] | undefined },
         body: Buffer,
-        url: string
+        url: string,
     );
 }

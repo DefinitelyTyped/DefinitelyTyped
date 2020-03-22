@@ -84,7 +84,7 @@ declare namespace adone.collection {
 
         then<T1 = Buffer, T2 = never>(
             onfulfilled?: ((value: Buffer) => T1 | PromiseLike<T1>) | null,
-            onrejected?: ((reason: any) => T2 | PromiseLike<T2>) | null
+            onrejected?: ((reason: any) => T2 | PromiseLike<T2>) | null,
         ): PromiseLike<T1 | T2>;
 
         catch<T>(onrejected?: ((reason: any) => T | PromiseLike<T>) | null): PromiseLike<T | Buffer>;

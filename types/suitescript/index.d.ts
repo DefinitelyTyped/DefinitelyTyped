@@ -10,72 +10,70 @@ declare namespace nlobjRecord.prototype {
      *
      */
     interface GetSubListRet {
-
         /**
          *
          */
-        prototype : {
+        prototype: {
+            /**
+             *
+             */
+            addButton: /*no type*/ {};
 
             /**
              *
              */
-            addButton : /*no type*/{};
+            setLabel: /* nlobjSubList.prototype.setLabel */ any;
 
             /**
              *
              */
-            setLabel : /* nlobjSubList.prototype.setLabel */ any;
+            setHelpText: /* nlobjSubList.prototype.setHelpText */ any;
 
             /**
              *
              */
-            setHelpText : /* nlobjSubList.prototype.setHelpText */ any;
+            setDisplayType: /* nlobjSubList.prototype.setDisplayType */ any;
 
             /**
              *
              */
-            setDisplayType : /* nlobjSubList.prototype.setDisplayType */ any;
+            setLineItemValue: /* nlobjSubList.prototype.setLineItemValue */ any;
 
             /**
              *
              */
-            setLineItemValue : /* nlobjSubList.prototype.setLineItemValue */ any;
+            setLineItemMatrixValue: /* nlobjSubList.prototype.setLineItemMatrixValue */ any;
 
             /**
              *
              */
-            setLineItemMatrixValue : /* nlobjSubList.prototype.setLineItemMatrixValue */ any;
+            setLineItemValues: /* nlobjSubList.prototype.setLineItemValues */ any;
 
             /**
              *
              */
-            setLineItemValues : /* nlobjSubList.prototype.setLineItemValues */ any;
+            getLineItemCount: /* nlobjSubList.prototype.getLineItemCount */ string | number;
 
             /**
              *
              */
-            getLineItemCount : /* nlobjSubList.prototype.getLineItemCount */ string|number;
+            addField: /* nlobjSubList.prototype.addField */ any;
 
             /**
              *
              */
-            addField : /* nlobjSubList.prototype.addField */ any;
+            setUniqueField: /* nlobjSubList.prototype.setUniqueField */ any;
 
             /**
              *
              */
-            setUniqueField : /* nlobjSubList.prototype.setUniqueField */ any;
+            addRefreshButton: /* nlobjSubList.prototype.addRefreshButton */ any;
 
             /**
              *
              */
-            addRefreshButton : /* nlobjSubList.prototype.addRefreshButton */ any;
-
-            /**
-             *
-             */
-            addMarkAllButtons : /* nlobjSubList.prototype.addMarkAllButtons */ any;
-        }
+            addMarkAllButtons: /* nlobjSubList.prototype.addMarkAllButtons */ any;
+        };
     }
 }
 declare namespace nlobjRecord.prototype.GetSubListRet.prototype {
@@ -85,22 +83,20 @@ declare namespace nlobjRecord.prototype.GetSubListRet.prototype {
      *
      */
     interface AddButtonRet {
-
         /**
          *
          */
-        prototype : {
+        prototype: {
+            /**
+             *
+             */
+            setLabel: /* nlobjButton.prototype.setLabel */ any;
 
             /**
              *
              */
-            setLabel : /* nlobjButton.prototype.setLabel */ any;
-
-            /**
-             *
-             */
-            setDisabled : /* nlobjButton.prototype.setDisabled */ any;
-        }
+            setDisabled: /* nlobjButton.prototype.setDisabled */ any;
+        };
     }
 }
 declare namespace nlobjRecord.prototype {
@@ -110,112 +106,110 @@ declare namespace nlobjRecord.prototype {
      *
      */
     interface GetFieldRet {
-
         /**
          *
          */
-        prototype : {
+        prototype: {
+            /**
+             *
+             */
+            getName: /* nlobjField.prototype.getName */ any;
 
             /**
              *
              */
-            getName : /* nlobjField.prototype.getName */ any;
+            getLabel: /* nlobjField.prototype.getLabel */ any;
 
             /**
              *
              */
-            getLabel : /* nlobjField.prototype.getLabel */ any;
+            getType: /* nlobjField.prototype.getType */ any;
 
             /**
              *
              */
-            getType : /* nlobjField.prototype.getType */ any;
+            isHidden: /* nlobjField.prototype.isHidden */ any;
 
             /**
              *
              */
-            isHidden : /* nlobjField.prototype.isHidden */ any;
+            isMandatory: /* nlobjField.prototype.isMandatory */ any;
 
             /**
              *
              */
-            isMandatory : /* nlobjField.prototype.isMandatory */ any;
+            isDisabled: /* nlobjField.prototype.isDisabled */ any;
 
             /**
              *
              */
-            isDisabled : /* nlobjField.prototype.isDisabled */ any;
+            setLabel: /* nlobjField.prototype.setLabel */ any;
 
             /**
              *
              */
-            setLabel : /* nlobjField.prototype.setLabel */ any;
+            setAlias: /* nlobjField.prototype.setAlias */ any;
 
             /**
              *
              */
-            setAlias : /* nlobjField.prototype.setAlias */ any;
+            setDefaultValue: /* nlobjField.prototype.setDefaultValue */ any;
 
             /**
              *
              */
-            setDefaultValue : /* nlobjField.prototype.setDefaultValue */ any;
+            setDisabled: /* nlobjField.prototype.setDisabled */ any;
 
             /**
              *
              */
-            setDisabled : /* nlobjField.prototype.setDisabled */ any;
+            setMandatory: /* nlobjField.prototype.setMandatory */ any;
 
             /**
              *
              */
-            setMandatory : /* nlobjField.prototype.setMandatory */ any;
+            setMaxLength: /* nlobjField.prototype.setMaxLength */ any;
 
             /**
              *
              */
-            setMaxLength : /* nlobjField.prototype.setMaxLength */ any;
+            setDisplayType: /* nlobjField.prototype.setDisplayType */ any;
 
             /**
              *
              */
-            setDisplayType : /* nlobjField.prototype.setDisplayType */ any;
+            setBreakType: /* nlobjField.prototype.setBreakType */ any;
 
             /**
              *
              */
-            setBreakType : /* nlobjField.prototype.setBreakType */ any;
+            setLayoutType: /* nlobjField.prototype.setLayoutType */ any;
 
             /**
              *
              */
-            setLayoutType : /* nlobjField.prototype.setLayoutType */ any;
+            setLinkText: /* nlobjField.prototype.setLinkText */ any;
 
             /**
              *
              */
-            setLinkText : /* nlobjField.prototype.setLinkText */ any;
+            setDisplaySize: /* nlobjField.prototype.setDisplaySize */ any;
 
             /**
              *
              */
-            setDisplaySize : /* nlobjField.prototype.setDisplaySize */ any;
+            setPadding: /* nlobjField.prototype.setPadding */ any;
 
             /**
              *
              */
-            setPadding : /* nlobjField.prototype.setPadding */ any;
+            setHelpText: /* nlobjField.prototype.setHelpText */ any;
 
             /**
              *
              */
-            setHelpText : /* nlobjField.prototype.setHelpText */ any;
-
-            /**
-             *
-             */
-            addSelectOption : /* nlobjField.prototype.addSelectOption */ any;
-        }
+            addSelectOption: /* nlobjField.prototype.addSelectOption */ any;
+        };
     }
 }
 declare namespace nlobjPortlet.prototype {
@@ -225,27 +219,25 @@ declare namespace nlobjPortlet.prototype {
      *
      */
     interface AddEditColumn0 {
-
         /**
          *
          */
-        prototype : {
+        prototype: {
+            /**
+             *
+             */
+            setLabel: /* nlobjColumn.prototype.setLabel */ any;
 
             /**
              *
              */
-            setLabel : /* nlobjColumn.prototype.setLabel */ any;
+            setURL: /* nlobjColumn.prototype.setURL */ any;
 
             /**
              *
              */
-            setURL : /* nlobjColumn.prototype.setURL */ any;
-
-            /**
-             *
-             */
-            addParamToURL : /* nlobjColumn.prototype.addParamToURL */ any;
-        }
+            addParamToURL: /* nlobjColumn.prototype.addParamToURL */ any;
+        };
     }
 }
 declare namespace nlobjForm.prototype {
@@ -255,22 +247,20 @@ declare namespace nlobjForm.prototype {
      *
      */
     interface AddTabRet {
-
         /**
          *
          */
-        prototype : {
+        prototype: {
+            /**
+             *
+             */
+            setLabel: /* nlobjTab.prototype.setLabel */ any;
 
             /**
              *
              */
-            setLabel : /* nlobjTab.prototype.setLabel */ any;
-
-            /**
-             *
-             */
-            setHelpText : /* nlobjTab.prototype.setHelpText */ any;
-        }
+            setHelpText: /* nlobjTab.prototype.setHelpText */ any;
+        };
     }
 }
 declare namespace nlobjAssistant.prototype {
@@ -280,62 +270,60 @@ declare namespace nlobjAssistant.prototype {
      *
      */
     interface SetCurrentStep0 {
-
         /**
          *
          */
-        prototype : {
+        prototype: {
+            /**
+             *
+             */
+            setLabel: /* nlobjAssistantStep.prototype.setLabel */ any;
 
             /**
              *
              */
-            setLabel : /* nlobjAssistantStep.prototype.setLabel */ any;
+            setHelpText: /* nlobjAssistantStep.prototype.setHelpText */ any;
 
             /**
              *
              */
-            setHelpText : /* nlobjAssistantStep.prototype.setHelpText */ any;
+            getStepNumber: /* nlobjAssistantStep.prototype.getStepNumber */ any;
 
             /**
              *
              */
-            getStepNumber : /* nlobjAssistantStep.prototype.getStepNumber */ any;
+            getFieldValue: /* nlobjAssistantStep.prototype.getFieldValue */ any;
 
             /**
              *
              */
-            getFieldValue : /* nlobjAssistantStep.prototype.getFieldValue */ any;
+            getFieldValues: /* nlobjAssistantStep.prototype.getFieldValues */ string[];
 
             /**
              *
              */
-            getFieldValues : /* nlobjAssistantStep.prototype.getFieldValues */ string[];
+            getLineItemCount: /* nlobjAssistantStep.prototype.getLineItemCount */ string | number;
 
             /**
              *
              */
-            getLineItemCount : /* nlobjAssistantStep.prototype.getLineItemCount */ string|number;
+            getLineItemValue: /* nlobjAssistantStep.prototype.getLineItemValue */ string;
 
             /**
              *
              */
-            getLineItemValue : /* nlobjAssistantStep.prototype.getLineItemValue */ string;
+            getAllFields: /* nlobjAssistantStep.prototype.getAllFields */ string[];
 
             /**
              *
              */
-            getAllFields : /* nlobjAssistantStep.prototype.getAllFields */ string[];
+            getAllLineItems: /* nlobjAssistantStep.prototype.getAllLineItems */ any;
 
             /**
              *
              */
-            getAllLineItems : /* nlobjAssistantStep.prototype.getAllLineItems */ any;
-
-            /**
-             *
-             */
-            getAllLineItemFields : /* nlobjAssistantStep.prototype.getAllLineItemFields */ any;
-        }
+            getAllLineItemFields: /* nlobjAssistantStep.prototype.getAllLineItemFields */ any;
+        };
     }
 }
 declare namespace nlobjForm.prototype {
@@ -345,32 +333,30 @@ declare namespace nlobjForm.prototype {
      *
      */
     interface AddFieldGroupRet {
-
         /**
          *
          */
-        prototype : {
+        prototype: {
+            /**
+             *
+             */
+            setLabel: /* nlobjFieldGroup.prototype.setLabel */ any;
 
             /**
              *
              */
-            setLabel : /* nlobjFieldGroup.prototype.setLabel */ any;
+            setCollapsible: /* nlobjFieldGroup.prototype.setCollapsible */ any;
 
             /**
              *
              */
-            setCollapsible : /* nlobjFieldGroup.prototype.setCollapsible */ any;
+            setSingleColumn: /* nlobjFieldGroup.prototype.setSingleColumn */ any;
 
             /**
              *
              */
-            setSingleColumn : /* nlobjFieldGroup.prototype.setSingleColumn */ any;
-
-            /**
-             *
-             */
-            setShowBorder : /* nlobjFieldGroup.prototype.setShowBorder */ any;
-        }
+            setShowBorder: /* nlobjFieldGroup.prototype.setShowBorder */ any;
+        };
     }
 }
 declare namespace nlobjForm.prototype {
@@ -380,22 +366,20 @@ declare namespace nlobjForm.prototype {
      *
      */
     interface AddButtonRet {
-
         /**
          *
          */
-        prototype : {
+        prototype: {
+            /**
+             *
+             */
+            setLabel: /* nlobjButton.prototype.setLabel */ any;
 
             /**
              *
              */
-            setLabel : /* nlobjButton.prototype.setLabel */ any;
-
-            /**
-             *
-             */
-            setDisabled : /* nlobjButton.prototype.setDisabled */ any;
-        }
+            setDisabled: /* nlobjButton.prototype.setDisabled */ any;
+        };
     }
 }
 
@@ -414,12 +398,16 @@ declare namespace nlobjForm.prototype {
  * @param initializeValues
  * @return
  */
-declare function nlapiCopyRecord(type:string, id:any, initializeValues?:any):nlobjRecord;
+declare function nlapiCopyRecord(type: string, id: any, initializeValues?: any): nlobjRecord;
 
-declare function nlapiDisableLineItemField(type:string, fldnam:string, val:boolean):void;
-declare function nlapiDisableField(fldnam:string, val:any):void;
-declare function nlapiLoadSearch(fldnam:string, val:any):void;
-declare function nlapiCreateSearch(type:string, filters:nlobjSearchFilter|nlobjSearchFilter[], columns:nlobjSearchColumn|nlobjSearchColumn[]):nlobjSearch;
+declare function nlapiDisableLineItemField(type: string, fldnam: string, val: boolean): void;
+declare function nlapiDisableField(fldnam: string, val: any): void;
+declare function nlapiLoadSearch(fldnam: string, val: any): void;
+declare function nlapiCreateSearch(
+    type: string,
+    filters: nlobjSearchFilter | nlobjSearchFilter[],
+    columns: nlobjSearchColumn | nlobjSearchColumn[],
+): nlobjSearch;
 
 /**
  * Load an existing record from the system.
@@ -441,7 +429,7 @@ declare function nlapiCreateSearch(type:string, filters:nlobjSearchFilter|nlobjS
  * @param initializeValues
  * @return
  */
-declare function nlapiLoadRecord(type:string, id:any, initializeValues?:any):nlobjRecord;
+declare function nlapiLoadRecord(type: string, id: any, initializeValues?: any): nlobjRecord;
 
 /**
  * Instantiate a new nlobjRecord object containing all the default field data for that record type.
@@ -459,7 +447,7 @@ declare function nlapiLoadRecord(type:string, id:any, initializeValues?:any):nlo
  * @param initializeValues
  * @return
  */
-declare function nlapiCreateRecord(type:string, initializeValues?:any):nlobjRecord;
+declare function nlapiCreateRecord(type: string, initializeValues?: any): nlobjRecord;
 
 /**
  * Submit a record to the system for creation or update.
@@ -480,7 +468,7 @@ declare function nlapiCreateRecord(type:string, initializeValues?:any):nlobjReco
  * @param ignoreMandatoryFields?
  * @return
  */
-declare function nlapiSubmitRecord(record:any, doSourcing?:boolean, ignoreMandatoryFields?:boolean):any;
+declare function nlapiSubmitRecord(record: any, doSourcing?: boolean, ignoreMandatoryFields?: boolean): any;
 
 /**
  * Delete a record from the system.
@@ -500,7 +488,7 @@ declare function nlapiSubmitRecord(record:any, doSourcing?:boolean, ignoreMandat
  * @param id
  * @return
  */
-declare function nlapiDeleteRecord(type:string, id:any):void;
+declare function nlapiDeleteRecord(type: string, id: any): void;
 
 /**
  * Perform a record search using an existing search or filters and columns.
@@ -528,7 +516,7 @@ declare function nlapiDeleteRecord(type:string, id:any):void;
  * @param filters
  * @param columns
  */
-declare function nlapiSearchRecord(type:string, id:any, filters:any, columns:any):nlobjSearchResult[];
+declare function nlapiSearchRecord(type: string, id: any, filters: any, columns: any): nlobjSearchResult[];
 
 /**
  * Perform a global record search across the system.
@@ -541,7 +529,7 @@ declare function nlapiSearchRecord(type:string, id:any, filters:any, columns:any
  * @since    2008.1
  * @param keywords
  */
-declare function nlapiSearchGlobal(keywords:string):nlobjSearchResult[];
+declare function nlapiSearchGlobal(keywords: string): nlobjSearchResult[];
 
 /**
  * Perform a duplicate record search using Duplicate Detection criteria.
@@ -558,7 +546,7 @@ declare function nlapiSearchGlobal(keywords:string):nlobjSearchResult[];
  * @param fields
  * @param id?
  */
-declare function nlapiSearchDuplicate(type:string, fields:any, id?:any):nlobjSearchResult[];
+declare function nlapiSearchDuplicate(type: string, fields: any, id?: any): nlobjSearchResult[];
 
 /**
  * Create a new record using values from an existing record of a different type.
@@ -584,7 +572,7 @@ declare function nlapiSearchDuplicate(type:string, fields:any, id?:any):nlobjSea
  * @param transformValues?
  * @return
  */
-declare function nlapiTransformRecord(type:string, id:any, transformType:string, transformValues?:any):nlobjRecord;
+declare function nlapiTransformRecord(type: string, id: any, transformType: string, transformValues?: any): nlobjRecord;
 
 /**
  * void a transaction based on type and id .
@@ -600,7 +588,7 @@ declare function nlapiTransformRecord(type:string, id:any, transformType:string,
  * @param id
  * @return
  */
-declare function nlapiVoidTransaction(type:string, id:string):string;
+declare function nlapiVoidTransaction(type: string, id: string): string;
 
 /**
  * Fetch the value of one or more fields on a record. This API uses search to look up the fields and is much
@@ -619,8 +607,8 @@ declare function nlapiVoidTransaction(type:string, id:string):string;
  * @param fields
  * @param text?
  */
-declare function nlapiLookupField(type:string, id:number, fields:string, text?:boolean):string;
-declare function nlapiLookupField(type:string, id:number, fields:string[], text?:boolean):any;
+declare function nlapiLookupField(type: string, id: number, fields: string, text?: boolean): string;
+declare function nlapiLookupField(type: string, id: number, fields: string[], text?: boolean): any;
 
 /**
  * Submit the values of a field or set of fields for an existing record.
@@ -642,7 +630,7 @@ declare function nlapiLookupField(type:string, id:number, fields:string[], text?
  * @param doSourcing?
  * @return
  */
-declare function nlapiSubmitField(type:string, id:any, fields:any, values:any, doSourcing?:boolean):void;
+declare function nlapiSubmitField(type: string, id: any, fields: any, values: any, doSourcing?: boolean): void;
 
 /**
  * Attach a single record to another with optional properties.
@@ -663,7 +651,7 @@ declare function nlapiSubmitField(type:string, id:any, fields:any, values:any, d
  * @param properties?
  * @return
  */
-declare function nlapiAttachRecord(type1:string, id1:any, type2:string, id2:any, properties?:any):void;
+declare function nlapiAttachRecord(type1: string, id1: any, type2: string, id2: any, properties?: any): void;
 
 /**
  * Detach a single record from another with optional properties.
@@ -684,7 +672,7 @@ declare function nlapiAttachRecord(type1:string, id1:any, type2:string, id2:any,
  * @param properties?
  * @return
  */
-declare function nlapiDetachRecord(type1:string, id1:any, type2:string, id2:any, properties?:any):void;
+declare function nlapiDetachRecord(type1: string, id1: any, type2: string, id2: any, properties?: any): void;
 
 /**
  * Resolve a URL to a resource or object in the system.
@@ -702,7 +690,7 @@ declare function nlapiDetachRecord(type1:string, id1:any, type2:string, id2:any,
  * @param pagemode?
  * @return
  */
-declare function nlapiResolveURL(type:string, subtype:string, id?:string, pagemode?:string):string;
+declare function nlapiResolveURL(type: string, subtype: string, id?: string, pagemode?: string): string;
 
 /**
  * Redirect the user to a page. Only valid in the UI on Suitelets and User Events. In Client scripts this will initialize the redirect URL used upon submit.
@@ -722,7 +710,13 @@ declare function nlapiResolveURL(type:string, subtype:string, id?:string, pagemo
  * @param parameters?
  * @return
  */
-declare function nlapiSetRedirectURL(type:string, identifier:string, id?:string|number, editmode?:boolean, parameters?:any):void;
+declare function nlapiSetRedirectURL(
+    type: string,
+    identifier: string,
+    id?: string | number,
+    editmode?: boolean,
+    parameters?: any,
+): void;
 
 /**
  * Request a URL to an external or internal resource.
@@ -747,7 +741,7 @@ declare function nlapiSetRedirectURL(type:string, identifier:string, id?:string|
  * @param method
  * @return
  */
-declare function nlapiRequestURL(url:string, postdata?:any, headers?:any, callback?:any, method?:any):any;
+declare function nlapiRequestURL(url: string, postdata?: any, headers?: any, callback?: any, method?: any): any;
 
 /**
  * Return context information about the current user/script.
@@ -757,7 +751,7 @@ declare function nlapiRequestURL(url:string, postdata?:any, headers?:any, callba
  * @since    2007.0
  * @return
  */
-declare function nlapiGetContext():any;
+declare function nlapiGetContext(): any;
 
 /**
  * Return the internal ID for the currently logged in user. Returns -4 when called from online forms or "Available without Login" Suitelets.
@@ -767,7 +761,7 @@ declare function nlapiGetContext():any;
  * @since    2005.0
  * @return
  */
-declare function nlapiGetUser():any;
+declare function nlapiGetUser(): any;
 
 /**
  * Return the internal ID for the current user's role. Returns 31 (Online Form User) when called from online forms or "Available without Login" Suitelets.
@@ -777,7 +771,7 @@ declare function nlapiGetUser():any;
  * @since    2005.0
  * @return
  */
-declare function nlapiGetRole():any;
+declare function nlapiGetRole(): any;
 
 /**
  * Return the internal ID for the current user's department.
@@ -787,7 +781,7 @@ declare function nlapiGetRole():any;
  * @since    2005.0
  * @return
  */
-declare function nlapiGetDepartment():any;
+declare function nlapiGetDepartment(): any;
 
 /**
  * Return the internal ID for the current user's location.
@@ -797,7 +791,7 @@ declare function nlapiGetDepartment():any;
  * @since    2005.0
  * @return
  */
-declare function nlapiGetLocation():any;
+declare function nlapiGetLocation(): any;
 
 /**
  * Return the internal ID for the current user's subsidiary.
@@ -807,7 +801,7 @@ declare function nlapiGetLocation():any;
  * @since    2008.1
  * @return
  */
-declare function nlapiGetSubsidiary():any;
+declare function nlapiGetSubsidiary(): any;
 
 /**
  * Return the recordtype corresponding to the current page or userevent script.
@@ -817,7 +811,7 @@ declare function nlapiGetSubsidiary():any;
  * @since    2007.0
  * @return
  */
-declare function nlapiGetRecordType():string;
+declare function nlapiGetRecordType(): string;
 
 /**
  * Return the internal ID corresponding to the current page or userevent script.
@@ -827,7 +821,7 @@ declare function nlapiGetRecordType():string;
  * @since    2007.0
  * @return
  */
-declare function nlapiGetRecordId():any;
+declare function nlapiGetRecordId(): any;
 
 /**
  * Send out an email and associate it with records in the system.
@@ -862,7 +856,19 @@ declare function nlapiGetRecordId():any;
  * @param replyTo
  * @return
  */
-declare function nlapiSendEmail(author:number, recipient:string|number, subject:string, body:string|nlobjFile[], cc?:string|string[], bcc?:string|string[], records?:any, attachments?:nlobjFile|nlobjFile[], notifySenderOnBounce?:boolean, internalOnly?:boolean, replyTo?:string):void;
+declare function nlapiSendEmail(
+    author: number,
+    recipient: string | number,
+    subject: string,
+    body: string | nlobjFile[],
+    cc?: string | string[],
+    bcc?: string | string[],
+    records?: any,
+    attachments?: nlobjFile | nlobjFile[],
+    notifySenderOnBounce?: boolean,
+    internalOnly?: boolean,
+    replyTo?: string,
+): void;
 
 /**
  * Sends a single on-demand campaign email to a specified recipient and returns a campaign response ID to track the email.
@@ -878,7 +884,7 @@ declare function nlapiSendEmail(author:number, recipient:string|number, subject:
  * @param recipientid
  * @return
  */
-declare function nlapiSendCampaignEmail(campaigneventid:any, recipientid:any):any;
+declare function nlapiSendCampaignEmail(campaigneventid: any, recipientid: any): any;
 
 /**
  * Send out a fax and associate it with records in the system. This requires fax preferences to be configured.
@@ -902,7 +908,7 @@ declare function nlapiSendCampaignEmail(campaigneventid:any, recipientid:any):an
  * @param files
  * @return
  */
-declare function nlapiSendFax(from:any, to:any, subject:string, body:string, records:any, files:any):any;
+declare function nlapiSendFax(from: any, to: any, subject: string, body: string, records: any, files: any): any;
 
 /**
  * Return field definition for a field.
@@ -914,7 +920,7 @@ declare function nlapiSendFax(from:any, to:any, subject:string, body:string, rec
  * @param fldnam
  * @return
  */
-declare function nlapiGetField(fldnam:string):any;
+declare function nlapiGetField(fldnam: string): any;
 
 /**
  * Return field definition for a matrix field.
@@ -930,7 +936,7 @@ declare function nlapiGetField(fldnam:string):any;
  * @param column
  * @return
  */
-declare function nlapiGetMatrixField(type:string, fldnam:string, column:any):any;
+declare function nlapiGetMatrixField(type: string, fldnam: string, column: any): any;
 
 /**
  * Return field definition for a sublist field.
@@ -946,7 +952,7 @@ declare function nlapiGetMatrixField(type:string, fldnam:string, column:any):any
  * @param linenum?
  * @return
  */
-declare function nlapiGetLineItemField(type:string, fldnam:string, linenum?:any):any;
+declare function nlapiGetLineItemField(type: string, fldnam: string, linenum?: any): any;
 
 /**
  * Return an nlobjField containing sublist field metadata.
@@ -964,7 +970,7 @@ declare function nlapiGetLineItemField(type:string, fldnam:string, linenum?:any)
  * @param column
  * @return
  */
-declare function nlapiGetLineItemMatrixField(type:string, fldnam:string, linenum:any, column:any):any;
+declare function nlapiGetLineItemMatrixField(type: string, fldnam: string, linenum: any, column: any): any;
 
 /**
  * Return the value of a field on the current record on a page.
@@ -976,7 +982,7 @@ declare function nlapiGetLineItemMatrixField(type:string, fldnam:string, linenum
  * @param fldnam
  * @return
  */
-declare function nlapiGetFieldValue(fldnam:string):string;
+declare function nlapiGetFieldValue(fldnam: string): string;
 
 /**
  * Set the value of a field on the current record on a page.
@@ -996,7 +1002,12 @@ declare function nlapiGetFieldValue(fldnam:string):string;
  * @param synchronous?
  * @return
  */
-declare function nlapiSetFieldValue(fldnam:string, value:string, firefieldchanged?:boolean, synchronous?:boolean):any;
+declare function nlapiSetFieldValue(
+    fldnam: string,
+    value: string,
+    firefieldchanged?: boolean,
+    synchronous?: boolean,
+): any;
 
 /**
  * Return the display value of a select field's current selection on the current record on a page.
@@ -1008,7 +1019,7 @@ declare function nlapiSetFieldValue(fldnam:string, value:string, firefieldchange
  * @param fldnam
  * @return
  */
-declare function nlapiGetFieldText(fldnam:string):string;
+declare function nlapiGetFieldText(fldnam: string): string;
 
 /**
  * Set the value of a field on the current record on a page using it's label.
@@ -1027,7 +1038,7 @@ declare function nlapiGetFieldText(fldnam:string):string;
  * @param synchronous?
  * @return
  */
-declare function nlapiSetFieldText(fldnam:string, txt:string, firefieldchanged?:boolean, synchronous?:boolean):any;
+declare function nlapiSetFieldText(fldnam: string, txt: string, firefieldchanged?: boolean, synchronous?: boolean): any;
 
 /**
  * Return the values of a multiselect field on the current record on a page.
@@ -1038,7 +1049,7 @@ declare function nlapiSetFieldText(fldnam:string, txt:string, firefieldchanged?:
  * @since    2005.0
  * @param fldnam
  */
-declare function nlapiGetFieldValues(fldnam:string):void;
+declare function nlapiGetFieldValues(fldnam: string): void;
 
 /**
  * Set the values of a multiselect field on the current record on a page.
@@ -1058,7 +1069,12 @@ declare function nlapiGetFieldValues(fldnam:string):void;
  * @param synchronous?
  * @return
  */
-declare function nlapiSetFieldValues(fldnam:string, values:any, firefieldchanged?:boolean, synchronous?:boolean):any;
+declare function nlapiSetFieldValues(
+    fldnam: string,
+    values: any,
+    firefieldchanged?: boolean,
+    synchronous?: boolean,
+): any;
 
 /**
  * Return the values (via display text) of a multiselect field on the current record.
@@ -1069,7 +1085,7 @@ declare function nlapiSetFieldValues(fldnam:string, values:any, firefieldchanged
  * @since    2009.1
  * @param fldnam
  */
-declare function nlapiGetFieldTexts(fldnam:string):void;
+declare function nlapiGetFieldTexts(fldnam: string): void;
 
 /**
  * Set the values (via display text) of a multiselect field on the current record on a page.
@@ -1089,7 +1105,7 @@ declare function nlapiGetFieldTexts(fldnam:string):void;
  * @param synchronous?
  * @return
  */
-declare function nlapiSetFieldTexts(fldnam:string, texts:any, firefieldchanged?:boolean, synchronous?:boolean):any;
+declare function nlapiSetFieldTexts(fldnam: string, texts: any, firefieldchanged?: boolean, synchronous?: boolean): any;
 
 /**
  * Get the value of a matrix header field
@@ -1105,7 +1121,7 @@ declare function nlapiSetFieldTexts(fldnam:string, texts:any, firefieldchanged?:
  * @param column
  * @return
  */
-declare function nlapiGetMatrixValue(type:string, fldnam:string, column:any):string;
+declare function nlapiGetMatrixValue(type: string, fldnam: string, column: any): string;
 
 /**
  * Set the value of a matrix header field
@@ -1128,7 +1144,14 @@ declare function nlapiGetMatrixValue(type:string, fldnam:string, column:any):str
  * @param synchronous?
  * @return
  */
-declare function nlapiSetMatrixValue(type:string, fldnam:string, column:any, value:string, firefieldchanged?:boolean, synchronous?:boolean):any;
+declare function nlapiSetMatrixValue(
+    type: string,
+    fldnam: string,
+    column: any,
+    value: string,
+    firefieldchanged?: boolean,
+    synchronous?: boolean,
+): any;
 
 /**
  * Get the current value of a sublist field on the current record on a page.
@@ -1144,7 +1167,7 @@ declare function nlapiSetMatrixValue(type:string, fldnam:string, column:any, val
  * @param column
  * @return
  */
-declare function nlapiGetCurrentLineItemMatrixValue(type:string, fldnam:string, column:any):string;
+declare function nlapiGetCurrentLineItemMatrixValue(type: string, fldnam: string, column: any): string;
 
 /**
  * Set the current value of a sublist field on the current record on a page.
@@ -1168,7 +1191,14 @@ declare function nlapiGetCurrentLineItemMatrixValue(type:string, fldnam:string, 
  * @param synchronous?
  * @return
  */
-declare function nlapiSetCurrentLineItemMatrixValue(type:string, fldnam:string, column:any, value:string, firefieldchanged?:boolean, synchronous?:boolean):any;
+declare function nlapiSetCurrentLineItemMatrixValue(
+    type: string,
+    fldnam: string,
+    column: any,
+    value: string,
+    firefieldchanged?: boolean,
+    synchronous?: boolean,
+): any;
 
 /**
  * Return the value of a sublist matrix field on the current record on a page.
@@ -1185,7 +1215,7 @@ declare function nlapiSetCurrentLineItemMatrixValue(type:string, fldnam:string, 
  * @param linenum
  * @param column
  */
-declare function nlapiGetLineItemMatrixValue(type:string, fldnam:string, linenum:any, column:any):void;
+declare function nlapiGetLineItemMatrixValue(type: string, fldnam: string, linenum: any, column: any): void;
 
 /**
  * Return the value of a sublist field on the current record on a page.
@@ -1201,7 +1231,7 @@ declare function nlapiGetLineItemMatrixValue(type:string, fldnam:string, linenum
  * @param linenum
  * @return
  */
-declare function nlapiGetLineItemValue(type:string, fldnam:string, linenum:any):string;
+declare function nlapiGetLineItemValue(type: string, fldnam: string, linenum: any): string;
 
 /**
  * Return the value of a sublist field on the current record on a page.
@@ -1219,7 +1249,7 @@ declare function nlapiGetLineItemValue(type:string, fldnam:string, linenum:any):
  * @param timezone
  * @return
  */
-declare function nlapiGetLineItemDateTimeValue(type:string, fldnam:string, linenum:any, timezone:string):string;
+declare function nlapiGetLineItemDateTimeValue(type: string, fldnam: string, linenum: any, timezone: string): string;
 
 /**
  * Set the value of a sublist field on the current record on a page.
@@ -1236,7 +1266,7 @@ declare function nlapiGetLineItemDateTimeValue(type:string, fldnam:string, linen
  * @param linenum
  * @param value
  */
-declare function nlapiSetLineItemValue(type:string, fldnam:string, linenum:any, value:string|number):void;
+declare function nlapiSetLineItemValue(type: string, fldnam: string, linenum: any, value: string | number): void;
 
 /**
  * Set the value of a sublist field on the current record on a page.
@@ -1255,7 +1285,13 @@ declare function nlapiSetLineItemValue(type:string, fldnam:string, linenum:any, 
  * @param value
  * @param timezone
  */
-declare function nlapiSetLineItemDateTimeValue(type:string, fldnam:string, linenum:any, value:any, timezone:string):void;
+declare function nlapiSetLineItemDateTimeValue(
+    type: string,
+    fldnam: string,
+    linenum: any,
+    value: any,
+    timezone: string,
+): void;
 
 /**
  * Return the label of a select field's current selection for a particular line.
@@ -1271,7 +1307,7 @@ declare function nlapiSetLineItemDateTimeValue(type:string, fldnam:string, linen
  * @param linenum
  * @return
  */
-declare function nlapiGetLineItemText(type:string, fldnam:string, linenum:any):string;
+declare function nlapiGetLineItemText(type: string, fldnam: string, linenum: any): string;
 
 /**
  * Return the 1st line number that a sublist field value appears in
@@ -1287,7 +1323,7 @@ declare function nlapiGetLineItemText(type:string, fldnam:string, linenum:any):s
  * @param val
  * @return
  */
-declare function nlapiFindLineItemValue(type:string, fldnam:string, val:string):any;
+declare function nlapiFindLineItemValue(type: string, fldnam: string, val: string): any;
 
 /**
  * Return the 1st line number that a matrix field value appears in
@@ -1305,7 +1341,7 @@ declare function nlapiFindLineItemValue(type:string, fldnam:string, val:string):
  * @param val
  * @return
  */
-declare function nlapiFindLineItemMatrixValue(type:string, fldnam:string, column:any, val:string):any;
+declare function nlapiFindLineItemMatrixValue(type: string, fldnam: string, column: any, val: string): any;
 
 /**
  * Return the number of columns for a matrix field
@@ -1319,7 +1355,7 @@ declare function nlapiFindLineItemMatrixValue(type:string, fldnam:string, column
  * @param fldnam
  * @return
  */
-declare function nlapiGetMatrixCount(type:string, fldnam:string):any;
+declare function nlapiGetMatrixCount(type: string, fldnam: string): any;
 
 /**
  * Return the number of sublists in a sublist on the current record on a page.
@@ -1331,7 +1367,7 @@ declare function nlapiGetMatrixCount(type:string, fldnam:string):any;
  * @param type
  * @return
  */
-declare function nlapiGetLineItemCount(type:string):string|number;
+declare function nlapiGetLineItemCount(type: string): string | number;
 
 /**
  * Insert and select a new line into the sublist on a page or userevent.
@@ -1344,7 +1380,7 @@ declare function nlapiGetLineItemCount(type:string):string|number;
  * @param type
  * @param line?
  */
-declare function nlapiInsertLineItem(type:string, line?:any):void;
+declare function nlapiInsertLineItem(type: string, line?: any): void;
 
 /**
  * Remove the currently selected line from the sublist on a page or userevent.
@@ -1358,7 +1394,7 @@ declare function nlapiInsertLineItem(type:string, line?:any):void;
  * @param line?
  * @return
  */
-declare function nlapiRemoveLineItem(type:string, line?:any):any;
+declare function nlapiRemoveLineItem(type: string, line?: any): any;
 
 /**
  * Set the value of a field on the currently selected line.
@@ -1379,7 +1415,13 @@ declare function nlapiRemoveLineItem(type:string, line?:any):any;
  * @param synchronous?
  * @return
  */
-declare function nlapiSetCurrentLineItemValue(type:string, fldnam:string, value:string|number, firefieldchanged?:boolean, synchronous?:boolean):void;
+declare function nlapiSetCurrentLineItemValue(
+    type: string,
+    fldnam: string,
+    value: string | number,
+    firefieldchanged?: boolean,
+    synchronous?: boolean,
+): void;
 
 /**
  * Set the value of a field on the currently selected line.
@@ -1398,7 +1440,12 @@ declare function nlapiSetCurrentLineItemValue(type:string, fldnam:string, value:
  * @param timezone
  * @return
  */
-declare function nlapiSetCurrentLineItemDateTimeValue(type:string, fldnam:string, value:string, timezone:string):any;
+declare function nlapiSetCurrentLineItemDateTimeValue(
+    type: string,
+    fldnam: string,
+    value: string,
+    timezone: string,
+): any;
 
 /**
  * Set the value of a field on the currently selected line using it's label.
@@ -1419,7 +1466,13 @@ declare function nlapiSetCurrentLineItemDateTimeValue(type:string, fldnam:string
  * @param synchronous?
  * @return
  */
-declare function nlapiSetCurrentLineItemText(type:string, fldnam:string, txt:string, firefieldchanged?:boolean, synchronous?:boolean):any;
+declare function nlapiSetCurrentLineItemText(
+    type: string,
+    fldnam: string,
+    txt: string,
+    firefieldchanged?: boolean,
+    synchronous?: boolean,
+): any;
 
 /**
  * Return the value of a field on the currently selected line.
@@ -1433,7 +1486,7 @@ declare function nlapiSetCurrentLineItemText(type:string, fldnam:string, txt:str
  * @param fldnam
  * @return
  */
-declare function nlapiGetCurrentLineItemValue(type:string, fldnam:string):string;
+declare function nlapiGetCurrentLineItemValue(type: string, fldnam: string): string;
 
 /**
  * Return the value of a field on the currently selected line.
@@ -1449,7 +1502,7 @@ declare function nlapiGetCurrentLineItemValue(type:string, fldnam:string):string
  * @param timezone
  * @return
  */
-declare function nlapiGetCurrentLineItemDateTimeValue(type:string, fldnam:string, timezone:string):string;
+declare function nlapiGetCurrentLineItemDateTimeValue(type: string, fldnam: string, timezone: string): string;
 
 /**
  * Return the label of a select field's current selection on the currently selected line.
@@ -1463,7 +1516,7 @@ declare function nlapiGetCurrentLineItemDateTimeValue(type:string, fldnam:string
  * @param fldnam
  * @return
  */
-declare function nlapiGetCurrentLineItemText(type:string, fldnam:string):string;
+declare function nlapiGetCurrentLineItemText(type: string, fldnam: string): string;
 
 /**
  * Return the line number for the currently selected line.
@@ -1475,7 +1528,7 @@ declare function nlapiGetCurrentLineItemText(type:string, fldnam:string):string;
  * @param type
  * @return
  */
-declare function nlapiGetCurrentLineItemIndex(type:string):any;
+declare function nlapiGetCurrentLineItemIndex(type: string): any;
 
 /**
  * Disable a sublist field.
@@ -1494,7 +1547,7 @@ declare function nlapiGetCurrentLineItemIndex(type:string):any;
  * @param linenum
  * @return
  */
-declare function nlapiSetLineItemDisabled(type:string, fldnam:string, disable:boolean, linenum:any):any;
+declare function nlapiSetLineItemDisabled(type: string, fldnam: string, disable: boolean, linenum: any): any;
 
 /**
  * Return field mandatoriness.
@@ -1506,7 +1559,7 @@ declare function nlapiSetLineItemDisabled(type:string, fldnam:string, disable:bo
  * @param fldnam
  * @return
  */
-declare function nlapiGetFieldMandatory(fldnam:string):boolean;
+declare function nlapiGetFieldMandatory(fldnam: string): boolean;
 
 /**
  * Return sublist field mandatoriness.
@@ -1521,7 +1574,7 @@ declare function nlapiGetFieldMandatory(fldnam:string):boolean;
  * @param fldnam
  * @return
  */
-declare function nlapiGetLineItemMandatory(type:string, fldnam:string):boolean;
+declare function nlapiGetLineItemMandatory(type: string, fldnam: string): boolean;
 
 /**
  * Make a field mandatory.
@@ -1535,7 +1588,7 @@ declare function nlapiGetLineItemMandatory(type:string, fldnam:string):boolean;
  * @param mandatory
  * @return
  */
-declare function nlapiSetFieldMandatory(fldnam:string, mandatory:boolean):any;
+declare function nlapiSetFieldMandatory(fldnam: string, mandatory: boolean): any;
 
 /**
  * Make a sublist field mandatory.
@@ -1552,7 +1605,7 @@ declare function nlapiSetFieldMandatory(fldnam:string, mandatory:boolean):any;
  * @param mandatory
  * @return
  */
-declare function nlapiSetLineItemMandatory(type:string, fldnam:string, mandatory:boolean):any;
+declare function nlapiSetLineItemMandatory(type: string, fldnam: string, mandatory: boolean): any;
 
 /**
  * Select an existing line in a sublist.
@@ -1566,7 +1619,7 @@ declare function nlapiSetLineItemMandatory(type:string, fldnam:string, mandatory
  * @param linenum
  * @return
  */
-declare function nlapiSelectLineItem(type:string, linenum:any):any;
+declare function nlapiSelectLineItem(type: string, linenum: any): any;
 
 /**
  * Save changes made on the currently selected line to the sublist.
@@ -1578,7 +1631,7 @@ declare function nlapiSelectLineItem(type:string, linenum:any):any;
  * @param type
  * @return
  */
-declare function nlapiCommitLineItem(type:string):any;
+declare function nlapiCommitLineItem(type: string): any;
 
 /**
  * Cancel any changes made on the currently selected line.
@@ -1591,7 +1644,7 @@ declare function nlapiCommitLineItem(type:string):any;
  * @param type
  * @return
  */
-declare function nlapiCancelLineItem(type:string):any;
+declare function nlapiCancelLineItem(type: string): any;
 
 /**
  * Select a new line in a sublist.
@@ -1604,7 +1657,7 @@ declare function nlapiCancelLineItem(type:string):any;
  * @param type
  * @return
  */
-declare function nlapiSelectNewLineItem(type:string):any;
+declare function nlapiSelectNewLineItem(type: string): any;
 
 /**
  * Refresh the sublist table.
@@ -1617,7 +1670,7 @@ declare function nlapiSelectNewLineItem(type:string):any;
  * @since 2005.0
  * @param type
  */
-declare function nlapiRefreshLineItems(type:string):void;
+declare function nlapiRefreshLineItems(type: string): void;
 
 /**
  * Adds a select option to a scripted select or multiselect field.
@@ -1636,7 +1689,7 @@ declare function nlapiRefreshLineItems(type:string):void;
  * @param selected?
  * @return
  */
-declare function nlapiInsertSelectOption(fldnam:string, value:string, text:string, selected?:boolean):any;
+declare function nlapiInsertSelectOption(fldnam: string, value: string, text: string, selected?: boolean): any;
 
 /**
  * Removes a select option (or all if value is null) from a scripted select or multiselect field.
@@ -1651,7 +1704,7 @@ declare function nlapiInsertSelectOption(fldnam:string, value:string, text:strin
  * @param value
  * @return
  */
-declare function nlapiRemoveSelectOption(fldnam:string, value:string):any;
+declare function nlapiRemoveSelectOption(fldnam: string, value: string): any;
 
 /**
  * Adds a select option to a scripted select or multiselect sublist field.
@@ -1672,7 +1725,13 @@ declare function nlapiRemoveSelectOption(fldnam:string, value:string):any;
  * @param selected?
  * @return
  */
-declare function nlapiInsertLineItemOption(type:string, fldnam:string, value:string, text:string, selected?:boolean):any;
+declare function nlapiInsertLineItemOption(
+    type: string,
+    fldnam: string,
+    value: string,
+    text: string,
+    selected?: boolean,
+): any;
 
 /**
  * Removes a select option (or all if value is null) from a scripted select or multiselect sublist field.
@@ -1689,7 +1748,7 @@ declare function nlapiInsertLineItemOption(type:string, fldnam:string, value:str
  * @param value
  * @return
  */
-declare function nlapiRemoveLineItemOption(type:string, fldnam:string, value:string):any;
+declare function nlapiRemoveLineItemOption(type: string, fldnam: string, value: string): any;
 
 /**
  * Returns true if any changes have been made to a sublist.
@@ -1702,7 +1761,7 @@ declare function nlapiRemoveLineItemOption(type:string, fldnam:string, value:str
  * @param type
  * @return
  */
-declare function nlapiIsLineItemChanged(type:string):boolean;
+declare function nlapiIsLineItemChanged(type: string): boolean;
 
 /**
  * Return an record object containing the data being submitted to the system for the currenr record.
@@ -1713,7 +1772,7 @@ declare function nlapiIsLineItemChanged(type:string):boolean;
  * @since 2008.1
  * @return
  */
-declare function nlapiGetNewRecord():any;
+declare function nlapiGetNewRecord(): any;
 
 /**
  * Return an record object containing the current record's data prior to the write operation.
@@ -1724,7 +1783,7 @@ declare function nlapiGetNewRecord():any;
  * @since 2008.1
  * @return
  */
-declare function nlapiGetOldRecord():any;
+declare function nlapiGetOldRecord(): any;
 
 /**
  * Create an nlobjError object that can be used to abort script execution and configure error notification
@@ -1740,7 +1799,7 @@ declare function nlapiGetOldRecord():any;
  * @param suppressEmail?
  * @return
  */
-declare function nlapiCreateError(code:string, details:string, suppressEmail?:boolean):any;
+declare function nlapiCreateError(code: string, details: string, suppressEmail?: boolean): any;
 
 /**
  * Return a new entry form page.
@@ -1755,7 +1814,7 @@ declare function nlapiCreateError(code:string, details:string, suppressEmail?:bo
  * @param hideHeader?
  * @return
  */
-declare function nlapiCreateForm(title:string, hideHeader?:boolean):nlobjForm;
+declare function nlapiCreateForm(title: string, hideHeader?: boolean): nlobjForm;
 
 /**
  * Return a new list page.
@@ -1770,7 +1829,7 @@ declare function nlapiCreateForm(title:string, hideHeader?:boolean):nlobjForm;
  * @param hideHeader?
  * @return
  */
-declare function nlapiCreateList(title:string, hideHeader?:boolean):any;
+declare function nlapiCreateList(title: string, hideHeader?: boolean): any;
 
 /**
  * Return a new assistant page.
@@ -1785,7 +1844,7 @@ declare function nlapiCreateList(title:string, hideHeader?:boolean):any;
  * @param hideHeader?
  * @return
  */
-declare function nlapiCreateAssistant(title:string, hideHeader?:boolean):any;
+declare function nlapiCreateAssistant(title: string, hideHeader?: boolean): any;
 
 /**
  * Load a file from the file cabinet (via its internal ID or path).
@@ -1799,7 +1858,7 @@ declare function nlapiCreateAssistant(title:string, hideHeader?:boolean):any;
  * @param id
  * @return
  */
-declare function nlapiLoadFile(id:any):any;
+declare function nlapiLoadFile(id: any): any;
 
 /**
  * Add/update a file in the file cabinet.
@@ -1813,7 +1872,7 @@ declare function nlapiLoadFile(id:any):any;
  * @param file
  * @return
  */
-declare function nlapiSubmitFile(file:nlobjFile):any;
+declare function nlapiSubmitFile(file: nlobjFile): any;
 
 /**
  * Delete a file from the file cabinet.
@@ -1827,7 +1886,7 @@ declare function nlapiSubmitFile(file:nlobjFile):any;
  * @param id
  * @return
  */
-declare function nlapiDeleteFile(id:any):any;
+declare function nlapiDeleteFile(id: any): any;
 
 /**
  * Instantiate a file object (specifying the name, type, and contents which are base-64 encoded for binary types.)
@@ -1844,7 +1903,7 @@ declare function nlapiDeleteFile(id:any):any;
  * @param contents
  * @return
  */
-declare function nlapiCreateFile(name:string, type:string, contents:string):nlobjFile;
+declare function nlapiCreateFile(name: string, type: string, contents: string): nlobjFile;
 
 /**
  * Perform a mail merge operation using any template and up to 2 records and returns an nlobjFile with the results.
@@ -1869,7 +1928,14 @@ declare function nlapiCreateFile(name:string, type:string, contents:string):nlob
  * @param fields?
  * @return
  */
-declare function nlapiMergeRecord(id:any, baseType:string, baseId:any, altType?:string, altId?:any, fields?:any):any;
+declare function nlapiMergeRecord(
+    id: any,
+    baseType: string,
+    baseId: any,
+    altType?: string,
+    altId?: any,
+    fields?: any,
+): any;
 
 /**
  * Print a record (transaction) gievn its type, id, and output format.
@@ -1889,7 +1955,7 @@ declare function nlapiMergeRecord(id:any, baseType:string, baseId:any, altType?:
  * @param properties?
  * @return
  */
-declare function nlapiPrintRecord(type:string, id:any, format?:string, properties?:any):any;
+declare function nlapiPrintRecord(type: string, id: any, format?: string, properties?: any): any;
 
 /**
  * Generate a PDF from XML using the BFO report writer (see http://big.faceless.org/products/report/).
@@ -1903,7 +1969,7 @@ declare function nlapiPrintRecord(type:string, id:any, format?:string, propertie
  * @param input
  * @return
  */
-declare function nlapiXMLToPDF(input:string):any;
+declare function nlapiXMLToPDF(input: string): any;
 
 /**
  * Create a template renderer used to generate various outputs based on a template.
@@ -1915,7 +1981,7 @@ declare function nlapiXMLToPDF(input:string):any;
  * @return {nlobjTemplateRenderer}
  * @return
  */
-declare function nlapiCreateTemplateRenderer():any;
+declare function nlapiCreateTemplateRenderer(): any;
 
 /**
  * Create an email merger used to assemble subject and body text of an email from a given
@@ -1929,7 +1995,7 @@ declare function nlapiCreateTemplateRenderer():any;
  * @param id
  * @return
  */
-declare function nlapiCreateEmailMerger(id:any):any;
+declare function nlapiCreateEmailMerger(id: any): any;
 
 /**
  * Create an entry in the script execution log (note that execution log entries are automatically purged after 30 days).
@@ -1945,7 +2011,7 @@ declare function nlapiCreateEmailMerger(id:any):any;
  * @param details?
  * @return
  */
-declare function nlapiLogExecution(type:string, title:string, details?:string):any;
+declare function nlapiLogExecution(type: string, title: string, details?: string): any;
 
 /**
  * Queue a scheduled script for immediate execution and return the status QUEUED if successfull.
@@ -1963,7 +2029,7 @@ declare function nlapiLogExecution(type:string, title:string, details?:string):a
  * @param parameters
  * @return
  */
-declare function nlapiScheduleScript(script:string, deployment:string, parameters?:any):string;
+declare function nlapiScheduleScript(script: string, deployment: string, parameters?: any): string;
 
 /**
  * Return a URL with a generated OAuth token.
@@ -1977,7 +2043,7 @@ declare function nlapiScheduleScript(script:string, deployment:string, parameter
  * @param ssoAppKey
  * @return
  */
-declare function nlapiOutboundSSO(ssoAppKey:string):string;
+declare function nlapiOutboundSSO(ssoAppKey: string): string;
 
 /**
  * Loads a configuration record
@@ -1991,7 +2057,7 @@ declare function nlapiOutboundSSO(ssoAppKey:string):string;
  * @param type
  * @return
  */
-declare function nlapiLoadConfiguration(type:string):any;
+declare function nlapiLoadConfiguration(type: string): any;
 
 /**
  * Commits all changes to a configuration record.
@@ -2004,7 +2070,7 @@ declare function nlapiLoadConfiguration(type:string):any;
  * @since 2009.2
  * @param setup
  */
-declare function nlapiSubmitConfiguration(setup:any):void;
+declare function nlapiSubmitConfiguration(setup: any): void;
 
 /**
  * Convert a String into a Date object.
@@ -2018,7 +2084,7 @@ declare function nlapiSubmitConfiguration(setup:any):void;
  * @param format
  * @return
  */
-declare function nlapiStringToDate(str:string, format?:string):Date;
+declare function nlapiStringToDate(str: string, format?: string): Date;
 
 /**
  * Convert a Date object into a String
@@ -2032,7 +2098,7 @@ declare function nlapiStringToDate(str:string, format?:string):Date;
  * @param formattype?
  * @return
  */
-declare function nlapiDateToString(d:Date, formattype?:string):string;
+declare function nlapiDateToString(d: Date, formattype?: string): string;
 
 /**
  * Add days to a Date object and returns a new Date
@@ -2046,7 +2112,7 @@ declare function nlapiDateToString(d:Date, formattype?:string):string;
  * @param days
  * @return
  */
-declare function nlapiAddDays(d:any, days:any):any;
+declare function nlapiAddDays(d: any, days: any): any;
 
 /**
  * Add months to a Date object and returns a new Date.
@@ -2060,7 +2126,7 @@ declare function nlapiAddDays(d:any, days:any):any;
  * @param months
  * @return
  */
-declare function nlapiAddMonths(d:any, months:any):any;
+declare function nlapiAddMonths(d: any, months: any): any;
 
 /**
  * Format a number for data entry into a currency field.
@@ -2072,7 +2138,7 @@ declare function nlapiAddMonths(d:any, months:any):any;
  * @param str
  * @return
  */
-declare function nlapiFormatCurrency(str:string):string;
+declare function nlapiFormatCurrency(str: string): string;
 
 /**
  * Encrypt a String using a SHA-1 hash function
@@ -2084,7 +2150,7 @@ declare function nlapiFormatCurrency(str:string):string;
  * @param s
  * @return
  */
-declare function nlapiEncrypt(s:string, algotithm:string, key?:string):string;
+declare function nlapiEncrypt(s: string, algotithm: string, key?: string): string;
 
 /**
  * Escape a String for use in an XML document.
@@ -2096,7 +2162,7 @@ declare function nlapiEncrypt(s:string, algotithm:string, key?:string):string;
  * @param text
  * @return
  */
-declare function nlapiEscapeXML(text:string):string;
+declare function nlapiEscapeXML(text: string): string;
 
 /**
  * Convert a String into an XML document. Note that in Server SuiteScript XML is supported natively by the JS runtime using the e4x standard (http://en.wikipedia.org/wiki/E4X)
@@ -2109,7 +2175,7 @@ declare function nlapiEscapeXML(text:string):string;
  * @param str
  * @return
  */
-declare function nlapiStringToXML(str:string):any;
+declare function nlapiStringToXML(str: string): any;
 
 /**
  * Convert an XML document into a String.  Note that in Server SuiteScript XML is supported natively by the JS runtime using the e4x standard (http://en.wikipedia.org/wiki/E4X)
@@ -2122,7 +2188,7 @@ declare function nlapiStringToXML(str:string):any;
  * @param xml
  * @return
  */
-declare function nlapiXMLToString(xml:any):string;
+declare function nlapiXMLToString(xml: any): string;
 
 /**
  * Validate that a given XML document conforms to a given XML schema. XML Schema Definition (XSD) is the expected schema format.
@@ -2138,7 +2204,7 @@ declare function nlapiXMLToString(xml:any):string;
  * @param schemaDocument
  * @param schemaFolderId
  */
-declare function nlapiValidateXML(xmlDocument:any, schemaDocument:any, schemaFolderId:string):void;
+declare function nlapiValidateXML(xmlDocument: any, schemaDocument: any, schemaFolderId: string): void;
 
 /**
  * select a value from an XML node using XPath. Supports custom namespaces (nodes in default namespace can be referenced using "nlapi" as the prefix)
@@ -2152,9 +2218,9 @@ declare function nlapiValidateXML(xmlDocument:any, schemaDocument:any, schemaFol
  * @param xpath
  * @return
  */
-declare function nlapiSelectValue(node:any, xpath:string):string;
+declare function nlapiSelectValue(node: any, xpath: string): string;
 
-declare function nlapiYieldScript():void;
+declare function nlapiYieldScript(): void;
 
 /**
  * Select an array of values from an XML node using XPath. Supports custom namespaces (nodes in default namespace can be referenced using "nlapi" as the prefix)
@@ -2167,7 +2233,7 @@ declare function nlapiYieldScript():void;
  * @param node
  * @param xpath
  */
-declare function nlapiSelectValues(node:any, xpath:string):void;
+declare function nlapiSelectValues(node: any, xpath: string): void;
 
 /**
  * Select a node from an XML node using XPath. Supports custom namespaces (nodes in default namespace can be referenced using "nlapi" as the prefix)
@@ -2181,7 +2247,7 @@ declare function nlapiSelectValues(node:any, xpath:string):void;
  * @param xpath
  * @return
  */
-declare function nlapiSelectNode(node:any, xpath:string):any;
+declare function nlapiSelectNode(node: any, xpath: string): any;
 
 /**
  * Select an array of nodes from an XML node using XPath. Supports custom namespaces (nodes in default namespace can be referenced using "nlapi" as the prefix)
@@ -2194,7 +2260,7 @@ declare function nlapiSelectNode(node:any, xpath:string):any;
  * @param node
  * @param xpath
  */
-declare function nlapiSelectNodes(node:any, xpath:string):any;
+declare function nlapiSelectNodes(node: any, xpath: string): any;
 
 /**
  * Calculate exchange rate between two currencies as of today or an optional effective date.
@@ -2211,7 +2277,7 @@ declare function nlapiSelectNodes(node:any, xpath:string):any;
  * @param date?
  * @return
  */
-declare function nlapiExchangeRate(fromCurrency:any, toCurrency:any, date?:string):any;
+declare function nlapiExchangeRate(fromCurrency: any, toCurrency: any, date?: string): any;
 
 /**
  * Initiates a workflow on-demand and returns the workflow instance ID for the workflow-record combination.
@@ -2228,7 +2294,7 @@ declare function nlapiExchangeRate(fromCurrency:any, toCurrency:any, date?:strin
  * @param workflowid
  * @return
  */
-declare function nlapiInitiateWorkflow(recordtype:string, id:any, workflowid:any):any;
+declare function nlapiInitiateWorkflow(recordtype: string, id: any, workflowid: any): any;
 
 /**
  * Initiates a workflow on-demand and returns the workflow instance ID for the workflow-record combination.
@@ -2246,7 +2312,7 @@ declare function nlapiInitiateWorkflow(recordtype:string, id:any, workflowid:any
  * @param parameters
  * @return
  */
-declare function nlapiInitiateWorkflowAsync(recordType:any, id:any, workflowId:any, parameters:any):string;
+declare function nlapiInitiateWorkflowAsync(recordType: any, id: any, workflowId: any, parameters: any): string;
 
 /**
  * Triggers a workflow on a record.
@@ -2267,7 +2333,7 @@ declare function nlapiInitiateWorkflowAsync(recordType:any, id:any, workflowId:a
  * @param stateid
  * @return
  */
-declare function nlapiTriggerWorkflow(recordtype:string, id:any, workflowid:any, actionid:any, stateid:any):any;
+declare function nlapiTriggerWorkflow(recordtype: string, id: any, workflowid: any, actionid: any, stateid: any): any;
 
 /**
  * Create a subrecord on a sublist field on the current record on a page.
@@ -2280,7 +2346,7 @@ declare function nlapiTriggerWorkflow(recordtype:string, id:any, workflowid:any,
  * @param type
  * @param fldnam
  */
-declare function nlapiCreateCurrentLineSubrecord(type:string, fldnam:string):void;
+declare function nlapiCreateCurrentLineSubrecord(type: string, fldnam: string): void;
 
 /**
  * edit a subrecord on a sublist field on the current record on a page.
@@ -2293,7 +2359,7 @@ declare function nlapiCreateCurrentLineSubrecord(type:string, fldnam:string):voi
  * @param type
  * @param fldnam
  */
-declare function nlapiEditCurrentLineItemSubrecord(type:string, fldnam:string):void;
+declare function nlapiEditCurrentLineItemSubrecord(type: string, fldnam: string): void;
 
 /**
  * remove a subrecord on a sublist field on the current record on a page.
@@ -2306,7 +2372,7 @@ declare function nlapiEditCurrentLineItemSubrecord(type:string, fldnam:string):v
  * @param type
  * @param fldnam
  */
-declare function nlapiRemoveCurrentLineItemSubrecord(type:string, fldnam:string):void;
+declare function nlapiRemoveCurrentLineItemSubrecord(type: string, fldnam: string): void;
 
 /**
  * view a subrecord on a sublist field on the current record on a page.
@@ -2319,7 +2385,7 @@ declare function nlapiRemoveCurrentLineItemSubrecord(type:string, fldnam:string)
  * @param type
  * @param fldnam
  */
-declare function nlapiViewCurrentLineItemSubrecord(type:string, fldnam:string):void;
+declare function nlapiViewCurrentLineItemSubrecord(type: string, fldnam: string): void;
 
 /**
  * view a subrecord on a sublist field on the current record on a page.
@@ -2333,7 +2399,7 @@ declare function nlapiViewCurrentLineItemSubrecord(type:string, fldnam:string):v
  * @param fldnam
  * @param linenum
  */
-declare function nlapiViewLineItemSubrecord(type:string, fldnam:string, linenum:any):void;
+declare function nlapiViewLineItemSubrecord(type: string, fldnam: string, linenum: any): void;
 
 /**
  * get a cache object.
@@ -2344,7 +2410,7 @@ declare function nlapiViewLineItemSubrecord(type:string, fldnam:string, linenum:
  * @param name
  * @return
  */
-declare function nlapiGetCache(name:string):any;
+declare function nlapiGetCache(name: string): any;
 
 /**
  * create a subrecord on body field on the current record on a page.
@@ -2355,7 +2421,7 @@ declare function nlapiGetCache(name:string):any;
  * @since 2011.2
  * @param fldnam
  */
-declare function createSubrecord(fldnam:string):void;
+declare function createSubrecord(fldnam: string): void;
 
 /**
  * edit a subrecord on body field on the current record on a page.
@@ -2366,7 +2432,7 @@ declare function createSubrecord(fldnam:string):void;
  * @since 2011.2
  * @param fldnam
  */
-declare function editSubrecord(fldnam:string):void;
+declare function editSubrecord(fldnam: string): void;
 
 /**
  * remove a subrecord on body field on the current record on a page.
@@ -2377,7 +2443,7 @@ declare function editSubrecord(fldnam:string):void;
  * @since 2011.2
  * @param fldnam
  */
-declare function removeSubrecord(fldnam:string):void;
+declare function removeSubrecord(fldnam: string): void;
 
 /**
  * view a subrecord on body field on the current record on a page.
@@ -2388,51 +2454,48 @@ declare function removeSubrecord(fldnam:string):void;
  * @since 2011.2
  * @param fldnam
  */
-declare function viewSubrecord(fldnam:string):void;
+declare function viewSubrecord(fldnam: string): void;
 
-
-declare interface nlobjSearch {
-
-}
+declare interface nlobjSearch {}
 
 declare interface StandardLine {
-    getEntityId():number;
-    getId():number;
-    getSubsidiaryId():number;
-    getTaxableAmount():string;
-    getTaxAmount():string;
-    getTaxItemId():number;
-    getTaxType():string;
-    isPosting():boolean;
-    isTaxable():boolean;
+    getEntityId(): number;
+    getId(): number;
+    getSubsidiaryId(): number;
+    getTaxableAmount(): string;
+    getTaxAmount(): string;
+    getTaxItemId(): number;
+    getTaxType(): string;
+    isPosting(): boolean;
+    isTaxable(): boolean;
 }
 
 declare interface StandardLines {
     getCount(): number;
-    getLine(index:number):StandardLine;
+    getLine(index: number): StandardLine;
 }
 
 declare interface CustomLine {
-    isBookSpecific():boolean;
-    setBookSpecific(bookSpecific:boolean):void;
-    setAccountId(accountId:number):void;
-    setClassId(classId:number):void;
-    setCreditAmount(credit:string):void;
-    setDebitAmount(debit:string):void;
-    setDepartmentId(departmentId:number):void;
-    setLocationId(locationId:number):void;
-    setMemo(memo:string):void;
+    isBookSpecific(): boolean;
+    setBookSpecific(bookSpecific: boolean): void;
+    setAccountId(accountId: number): void;
+    setClassId(classId: number): void;
+    setCreditAmount(credit: string): void;
+    setDebitAmount(debit: string): void;
+    setDepartmentId(departmentId: number): void;
+    setLocationId(locationId: number): void;
+    setMemo(memo: string): void;
 }
 
 declare interface CustomLines {
-    addNewLine():CustomLine;
-    getCount():number;
-    getLine(index:number):CustomLine;
+    addNewLine(): CustomLine;
+    getCount(): number;
+    getLine(index: number): CustomLine;
 }
 
 declare interface AccountingBook {
-    getId():number;
-    isPrimary():boolean;
+    getId(): number;
+    isPrimary(): boolean;
 }
 
 /**
@@ -2445,7 +2508,6 @@ declare interface AccountingBook {
  * @since 2008.2
  */
 declare interface nlobjRecord {
-
     /**
      *
      * @return
@@ -2463,7 +2525,7 @@ declare interface nlobjRecord {
      * @since 2008.1
      * @return
      */
-    getId(): string|number;
+    getId(): string | number;
 
     /**
      * Return the recordType corresponding to this record.
@@ -2491,7 +2553,7 @@ declare interface nlobjRecord {
      * @param fldnam
      * @return
      */
-    getField(fldnam:string): () => void;
+    getField(fldnam: string): () => void;
 
     /**
      * Return sublist metadata for sublist.
@@ -2506,7 +2568,7 @@ declare interface nlobjRecord {
      * @param type
      * @return
      */
-    getSubList(type:string): () => void;
+    getSubList(type: string): () => void;
 
     /**
      * Return field metadata for field.
@@ -2525,7 +2587,7 @@ declare interface nlobjRecord {
      * @param column
      * @return
      */
-    getMatrixField(type:string, fldnam:string, column:any): () => void;
+    getMatrixField(type: string, fldnam: string, column: any): () => void;
 
     /**
      * Return metadata for sublist field.
@@ -2544,7 +2606,7 @@ declare interface nlobjRecord {
      * @param linenum?
      * @return
      */
-    getLineItemField(type:string, fldnam:string, linenum?:any): () => void;
+    getLineItemField(type: string, fldnam: string, linenum?: any): () => void;
 
     /**
      * Return metadata for sublist field.
@@ -2565,7 +2627,7 @@ declare interface nlobjRecord {
      * @param column
      * @return
      */
-    getLineItemMatrixField(type:string, fldnam:string, linenum:any, column:any): () => void;
+    getLineItemMatrixField(type: string, fldnam: string, linenum: any, column: any): () => void;
 
     /**
      * Set the value of a field.
@@ -2582,7 +2644,7 @@ declare interface nlobjRecord {
      * @param value
      * @return
      */
-    setFieldValue(name:string, value:string|number): any;
+    setFieldValue(name: string, value: string | number): any;
 
     /**
      * Set the values of a multi-select field.
@@ -2597,7 +2659,7 @@ declare interface nlobjRecord {
      * @param name
      * @param values
      */
-    setFieldValues(name:string, values:any): void;
+    setFieldValues(name: string, values: any): void;
 
     /**
      * Return the value of a field.
@@ -2612,7 +2674,7 @@ declare interface nlobjRecord {
      * @param name
      * @return
      */
-    getFieldValue(name:string): string;
+    getFieldValue(name: string): string;
 
     /**
      * Return the selected values of a multi-select field as an Array.
@@ -2626,7 +2688,7 @@ declare interface nlobjRecord {
      * @since 2008.1
      * @param name
      */
-    getFieldValues(name:string): string[];
+    getFieldValues(name: string): string[];
 
     /**
      * Set the value (via display value) of a select field.
@@ -2644,7 +2706,7 @@ declare interface nlobjRecord {
      * @param text
      * @return
      */
-    setFieldText(name:string, text:string): any;
+    setFieldText(name: string, text: string): any;
 
     /**
      * Set the values (via display values) of a multi-select field.
@@ -2662,7 +2724,7 @@ declare interface nlobjRecord {
      * @param texts
      * @return
      */
-    setFieldTexts(name:string, texts:any): any;
+    setFieldTexts(name: string, texts: any): any;
 
     /**
      * Return the display value for a select field.
@@ -2678,7 +2740,7 @@ declare interface nlobjRecord {
      * @param name
      * @return
      */
-    getFieldText(name:string): string;
+    getFieldText(name: string): string;
 
     /**
      * Return the selected display values of a multi-select field as an Array.
@@ -2693,7 +2755,7 @@ declare interface nlobjRecord {
      * @since 2008.2
      * @param name
      */
-    getFieldTexts(name:string): void;
+    getFieldTexts(name: string): void;
 
     /**
      * Get the value of a matrix header field.
@@ -2712,7 +2774,7 @@ declare interface nlobjRecord {
      * @param column
      * @return
      */
-    getMatrixValue(type:string, name:string, column:any): string;
+    getMatrixValue(type: string, name: string, column: any): string;
 
     /**
      * Set the value of a matrix header field.
@@ -2733,7 +2795,7 @@ declare interface nlobjRecord {
      * @param value
      * @return
      */
-    setMatrixValue(type:string, name:string, column:any, value:string): any;
+    setMatrixValue(type: string, name: string, column: any, value: string): any;
 
     /**
      * Return an Array of all field names on the record.
@@ -2759,7 +2821,7 @@ declare interface nlobjRecord {
      * @since 2008.2
      * @param group
      */
-    getAllLineItemFields(group:string): void;
+    getAllLineItemFields(group: string): void;
 
     /**
      * Set the value of a sublist field.
@@ -2778,7 +2840,7 @@ declare interface nlobjRecord {
      * @param line
      * @param value
      */
-    setLineItemValue(group:string, name:string, line:any, value:string): void;
+    setLineItemValue(group: string, name: string, line: any, value: string): void;
 
     /**
      * Set the value of a sublist field.
@@ -2799,7 +2861,7 @@ declare interface nlobjRecord {
      * @param value
      * @param timezone
      */
-    setLineItemDateTimeValue(group:string, name:string, line:any, value:any, timezone:string): void;
+    setLineItemDateTimeValue(group: string, name: string, line: any, value: any, timezone: string): void;
 
     /**
      * Return the value of a sublist field.
@@ -2816,7 +2878,7 @@ declare interface nlobjRecord {
      * @param name
      * @param line
      */
-    getLineItemValue(group:string, name:string, line:any): string;
+    getLineItemValue(group: string, name: string, line: any): string;
 
     /**
      * Return the value of a sublist field.
@@ -2835,7 +2897,7 @@ declare interface nlobjRecord {
      * @param line
      * @param timezone
      */
-    getLineItemDateTimeValue(group:string, name:string, line:any, timezone:string): void;
+    getLineItemDateTimeValue(group: string, name: string, line: any, timezone: string): void;
 
     /**
      * Return the text value of a sublist field.
@@ -2854,7 +2916,7 @@ declare interface nlobjRecord {
      * @param line
      * @return
      */
-    getLineItemText(group:string, name:string, line:any): string;
+    getLineItemText(group: string, name: string, line: any): string;
 
     /**
      * Set the current value of a sublist field.
@@ -2872,9 +2934,21 @@ declare interface nlobjRecord {
      * @param value
      * @return
      */
-    setCurrentLineItemValue(group:string, name:string, value:string|number, firefieldchanged?:boolean, synchronous?:boolean):void;
+    setCurrentLineItemValue(
+        group: string,
+        name: string,
+        value: string | number,
+        firefieldchanged?: boolean,
+        synchronous?: boolean,
+    ): void;
 
-    setCurrentLineItemText(group:string, name:string, value:string|number, firefieldchanged?:boolean, synchronous?:boolean):void;
+    setCurrentLineItemText(
+        group: string,
+        name: string,
+        value: string | number,
+        firefieldchanged?: boolean,
+        synchronous?: boolean,
+    ): void;
 
     /**
      * Set the current value of a sublist field.
@@ -2894,7 +2968,7 @@ declare interface nlobjRecord {
      * @param timezone
      * @return
      */
-    setCurrentLineItemDateTimeValue(group:string, name:string, value:string, timezone:string): any;
+    setCurrentLineItemDateTimeValue(group: string, name: string, value: string, timezone: string): any;
 
     /**
      * Return the current value of a sublist field.
@@ -2911,7 +2985,7 @@ declare interface nlobjRecord {
      * @param name
      * @return
      */
-    getCurrentLineItemValue(group:string, name:string): string;
+    getCurrentLineItemValue(group: string, name: string): string;
 
     /**
      * Return the current value of a sublist field.
@@ -2930,7 +3004,7 @@ declare interface nlobjRecord {
      * @param timezone
      * @return
      */
-    getCurrentLineItemDateTimeValue(group:string, name:string, timezone:string): string;
+    getCurrentLineItemDateTimeValue(group: string, name: string, timezone: string): string;
 
     /**
      * Return the current display value of a sublist field.
@@ -2947,7 +3021,7 @@ declare interface nlobjRecord {
      * @param name
      * @return
      */
-    getCurrentLineItemText(group:string, name:string): string;
+    getCurrentLineItemText(group: string, name: string): string;
 
     /**
      * Set the current value of a sublist matrix field.
@@ -2968,7 +3042,7 @@ declare interface nlobjRecord {
      * @param value
      * @return
      */
-    setCurrentLineItemMatrixValue(group:string, name:string, column:any, value:string): any;
+    setCurrentLineItemMatrixValue(group: string, name: string, column: any, value: string): any;
 
     /**
      * Return the current value of a sublist matrix field.
@@ -2987,7 +3061,7 @@ declare interface nlobjRecord {
      * @param column
      * @return
      */
-    getCurrentLineItemMatrixValue(group:string, name:string, column:any): string;
+    getCurrentLineItemMatrixValue(group: string, name: string, column: any): string;
 
     /**
      * Return the number of columns for a matrix field.
@@ -3004,7 +3078,7 @@ declare interface nlobjRecord {
      * @param name
      * @return
      */
-    getMatrixCount(group:string, name:string): any;
+    getMatrixCount(group: string, name: string): any;
 
     /**
      * Return the number of lines in a sublist.
@@ -3017,7 +3091,7 @@ declare interface nlobjRecord {
      * @since 2009.2
      * @param group
      */
-    getLineItemCount(group:string): string|number;
+    getLineItemCount(group: string): string | number;
 
     /**
      * Return line number for 1st occurence of field value in a sublist column.
@@ -3036,7 +3110,7 @@ declare interface nlobjRecord {
      * @param value
      * @return
      */
-    findLineItemValue(group:string, fldnam:string, value:string): any;
+    findLineItemValue(group: string, fldnam: string, value: string): any;
 
     /**
      * Return line number for 1st occurence of field value in a sublist column.
@@ -3057,7 +3131,7 @@ declare interface nlobjRecord {
      * @param value
      * @return
      */
-    findLineItemMatrixValue(group:string, fldnam:string, column:any, value:string): any;
+    findLineItemMatrixValue(group: string, fldnam: string, column: any, value: string): any;
 
     /**
      * Insert a new line into a sublist.
@@ -3072,7 +3146,7 @@ declare interface nlobjRecord {
      * @param group
      * @param line?
      */
-    insertLineItem(group:string, line?:any): void;
+    insertLineItem(group: string, line?: any): void;
 
     /**
      * Remove an existing line from a sublist.
@@ -3087,7 +3161,7 @@ declare interface nlobjRecord {
      * @param group
      * @param line?
      */
-    removeLineItem(group:string, line?:any): void;
+    removeLineItem(group: string, line?: any): void;
 
     /**
      * Insert and select a new line in a sublist.
@@ -3102,7 +3176,7 @@ declare interface nlobjRecord {
      * @param group
      * @return
      */
-    selectNewLineItem(group:string): any;
+    selectNewLineItem(group: string): any;
 
     /**
      * Select an existing line in a sublist.
@@ -3119,7 +3193,7 @@ declare interface nlobjRecord {
      * @param line
      * @return
      */
-    selectLineItem(group:string, line:any): any;
+    selectLineItem(group: string, line: any): any;
 
     /**
      * Commit the current line in a sublist.
@@ -3134,7 +3208,7 @@ declare interface nlobjRecord {
      * @param group
      * @return
      */
-    commitLineItem(group:string): any;
+    commitLineItem(group: string): any;
 
     /**
      * set the value of a field.
@@ -3152,7 +3226,7 @@ declare interface nlobjRecord {
      * @param timezone
      * @return
      */
-    setDateTimeValue(name:string, value:string, timezone:string): any;
+    setDateTimeValue(name: string, value: string, timezone: string): any;
 
     /**
      * Return the value of a field on the current record on a page.
@@ -3166,7 +3240,7 @@ declare interface nlobjRecord {
      * @param timezone
      * @return
      */
-    getDateTimeValue(fldnam:string, timezone:string): string;
+    getDateTimeValue(fldnam: string, timezone: string): string;
 }
 
 /**
@@ -3179,7 +3253,6 @@ declare interface nlobjRecord {
  * @since 2009.2
  */
 declare interface nlobjConfiguration {
-
     /**
      *
      * @return
@@ -3212,7 +3285,7 @@ declare interface nlobjConfiguration {
      * @param fldnam
      * @return
      */
-    getField(fldnam:string): () => void;
+    getField(fldnam: string): () => void;
 
     /**
      * set the value of a field.
@@ -3229,7 +3302,7 @@ declare interface nlobjConfiguration {
      * @param value
      * @return
      */
-    setFieldValue(name:string, value:string): any;
+    setFieldValue(name: string, value: string): any;
 
     /**
      * Set the values of a multi-select field.
@@ -3247,7 +3320,7 @@ declare interface nlobjConfiguration {
      * @param value
      * @return
      */
-    setFieldValues(name:string, value:any): any;
+    setFieldValues(name: string, value: any): any;
 
     /**
      * return the value of a field.
@@ -3262,7 +3335,7 @@ declare interface nlobjConfiguration {
      * @param name
      * @return
      */
-    getFieldValue(name:string): string;
+    getFieldValue(name: string): string;
 
     /**
      * return the selected values of a multi-select field as an Array.
@@ -3277,7 +3350,7 @@ declare interface nlobjConfiguration {
      * @since 2009.2
      * @param name
      */
-    getFieldValues(name:string): string[];
+    getFieldValues(name: string): string[];
 
     /**
      * set the value (via display value) of a field.
@@ -3295,7 +3368,7 @@ declare interface nlobjConfiguration {
      * @param text
      * @return
      */
-    setFieldText(name:string, text:string): any;
+    setFieldText(name: string, text: string): any;
 
     /**
      * set the values (via display values) of a multi-select field.
@@ -3313,7 +3386,7 @@ declare interface nlobjConfiguration {
      * @param texts
      * @return
      */
-    setFieldTexts(name:string, texts:any): any;
+    setFieldTexts(name: string, texts: any): any;
 
     /**
      * return the text value of a field.
@@ -3329,7 +3402,7 @@ declare interface nlobjConfiguration {
      * @param name
      * @return
      */
-    getFieldText(name:string): string;
+    getFieldText(name: string): string;
 
     /**
      * return the selected text values of a multi-select field as an Array.
@@ -3342,7 +3415,7 @@ declare interface nlobjConfiguration {
      * @since 2009.2
      * @param name
      */
-    getFieldTexts(name:string): void;
+    getFieldTexts(name: string): void;
 
     /**
      * return an Array of all field names on the record.
@@ -3366,7 +3439,6 @@ declare interface nlobjConfiguration {
  * @since 2009.1
  */
 declare interface nlobjFile {
-
     /**
      *
      * @return
@@ -3397,7 +3469,7 @@ declare interface nlobjFile {
      * @param name
      * @return
      */
-    setName(name:string): any;
+    setName(name: string): any;
 
     /**
      * return the internal ID of the folder that this file is in.
@@ -3423,7 +3495,7 @@ declare interface nlobjFile {
      * @param folder
      * @return
      */
-    setFolder(folder:any): any;
+    setFolder(folder: any): any;
 
     /**
      * sets the character encoding for the file.
@@ -3437,7 +3509,7 @@ declare interface nlobjFile {
      * @param encoding
      * @return
      */
-    setEncoding(encoding:string): any;
+    setEncoding(encoding: string): any;
 
     /**
      * return true if the file is "Available without Login".
@@ -3463,7 +3535,7 @@ declare interface nlobjFile {
      * @param online
      * @return
      */
-    setIsOnline(online:boolean): any;
+    setIsOnline(online: boolean): any;
 
     /**
      * return true if the file is inactive.
@@ -3489,7 +3561,7 @@ declare interface nlobjFile {
      * @param inactive
      * @return
      */
-    setIsInactive(inactive:boolean): any;
+    setIsInactive(inactive: boolean): any;
 
     /**
      * return the file description.
@@ -3515,7 +3587,7 @@ declare interface nlobjFile {
      * @param descr
      * @return
      */
-    setDescription(descr:string): any;
+    setDescription(descr: string): any;
 
     /**
      * Return the id of the file (if stored in the FC).
@@ -3593,7 +3665,6 @@ declare interface nlobjFile {
  * @since 2007.0
  */
 declare interface nlobjSearchFilter {
-
     /**
      *
      * @param name
@@ -3603,7 +3674,7 @@ declare interface nlobjSearchFilter {
      * @param value2
      * @return
      */
-    new (name:string, join:string, operator:string, value:any, value2:string): any;
+    new (name: string, join: string, operator: string, value: any, value2: string): any;
 
     /**
      * Return the name of this search filter.
@@ -3655,7 +3726,6 @@ declare interface nlobjSearchFilter {
  * @since 2007.0
  */
 declare interface nlobjSearchColumn {
-
     /**
      *
      * @param name
@@ -3663,7 +3733,7 @@ declare interface nlobjSearchColumn {
      * @param summary
      * @return
      */
-    new (name:string, join?:string, summary?:string): nlobjSearchColumn;
+    new (name: string, join?: string, summary?: string): nlobjSearchColumn;
 
     /**
      * return the name of this search column.
@@ -3734,13 +3804,13 @@ declare interface nlobjSearchColumn {
      * @param order
      * @return
      */
-    setSort(order:any): (name:string, join:string, summary:string) => void;
+    setSort(order: any): (name: string, join: string, summary: string) => void;
 
-    setLabel(label:string): nlobjSearchColumn;
+    setLabel(label: string): nlobjSearchColumn;
 }
 
 declare class nlobjSearchColumn {
-    constructor (name:string, join?:string, summary?:string);
+    constructor(name: string, join?: string, summary?: string);
 }
 
 /**
@@ -3751,7 +3821,6 @@ declare class nlobjSearchColumn {
  * @constructor
  */
 declare interface nlobjSearchResult {
-
     /**
      *
      * @return
@@ -3792,7 +3861,7 @@ declare interface nlobjSearchResult {
      * @param summary
      * @return
      */
-    getValue(name:string, join:string, summary:string): string;
+    getValue(name: string, join: string, summary: string): string;
 
     /**
      * return the text value of this return column if it's a select field.
@@ -3810,7 +3879,7 @@ declare interface nlobjSearchResult {
      * @param summary
      * @return
      */
-    getText(name:string, join:string, summary:string): string;
+    getText(name: string, join: string, summary: string): string;
 
     /**
      * return an array of all nlobjSearchColumn objects returned in this search.
@@ -3832,7 +3901,6 @@ declare interface nlobjSearchResult {
  * @constructor
  */
 declare interface nlobjContext {
-
     /**
      *
      * @return
@@ -4007,7 +4075,7 @@ declare interface nlobjContext {
      * @param name
      * @return
      */
-    getFeature(name:string): boolean;
+    getFeature(name: string): boolean;
 
     /**
      * return current user's permission level (0-4) for this permission
@@ -4021,7 +4089,7 @@ declare interface nlobjContext {
      * @param name
      * @return
      */
-    getPermission(name:string): any;
+    getPermission(name: string): any;
 
     /**
      * return system or script preference selection for current user
@@ -4035,7 +4103,7 @@ declare interface nlobjContext {
      * @param name
      * @return
      */
-    getPreference(name:string): string;
+    getPreference(name: string): string;
 
     /**
      * return value of session object set by script
@@ -4049,7 +4117,7 @@ declare interface nlobjContext {
      * @param name
      * @return
      */
-    getSessionObject(name:string): string;
+    getSessionObject(name: string): string;
 
     /**
      * set the value of a session object using a key.
@@ -4065,7 +4133,7 @@ declare interface nlobjContext {
      * @param value
      * @return
      */
-    setSessionObject(name:string, value:string): any;
+    setSessionObject(name: string, value: string): any;
 
     /**
      * return an array containing the names of all keys used to set session objects
@@ -4150,7 +4218,7 @@ declare interface nlobjContext {
      * @param pct
      * @return
      */
-    setPercentComplete(pct:any): any;
+    setPercentComplete(pct: any): any;
 
     /**
      * return a system/script setting. Types are SCRIPT, SESSION, FEATURE, PERMISSION
@@ -4162,7 +4230,7 @@ declare interface nlobjContext {
      * @param type
      * @param name
      */
-    getSetting(type:string, name:string): void;
+    getSetting(type: string, name: string): void;
 
     /**
      * set a system/script setting. Only supported type is SESSION
@@ -4176,7 +4244,7 @@ declare interface nlobjContext {
      * @param name
      * @param value
      */
-    setSetting(type:string, name:string, value:string): void;
+    setSetting(type: string, name: string, value: string): void;
 
     /**
      * return an Object containing name/value pairs of color groups to their corresponding RGB hex color based on the currenly logged in user's color them preferences.
@@ -4211,7 +4279,6 @@ declare interface nlobjContext {
  * @constructor
  */
 declare interface nlobjError {
-
     /**
      *
      * @return
@@ -4291,7 +4358,7 @@ declare interface nlobjError {
 }
 
 declare class nlobjError {
-    constructor (name:string, join?:string, summary?:string);
+    constructor(name: string, join?: string, summary?: string);
 }
 
 /**
@@ -4304,7 +4371,6 @@ declare class nlobjError {
  * @since 2008.1
  */
 declare interface nlobjServerResponse {
-
     /**
      *
      * @return
@@ -4335,7 +4401,7 @@ declare interface nlobjServerResponse {
      * @param name
      * @return
      */
-    getHeader(name:string): string;
+    getHeader(name: string): string;
 
     /**
      * return all the values of a header returned.
@@ -4348,7 +4414,7 @@ declare interface nlobjServerResponse {
      * @since 2008.1
      * @param name
      */
-    getHeaders(name:string): void;
+    getHeaders(name: string): void;
 
     /**
      * return an Array of all headers returned.
@@ -4406,7 +4472,6 @@ declare interface nlobjServerResponse {
  * @constructor
  */
 declare interface nlobjResponse {
-
     /**
      *
      * @return
@@ -4429,7 +4494,7 @@ declare interface nlobjResponse {
      * @param value
      * @return
      */
-    addHeader(name:string, value:string): any;
+    addHeader(name: string, value: string): any;
 
     /**
      * set the value of a response header.
@@ -4445,7 +4510,7 @@ declare interface nlobjResponse {
      * @param value
      * @return
      */
-    setHeader(name:string, value:string): any;
+    setHeader(name: string, value: string): any;
 
     /**
      * return the value of a response header.
@@ -4471,7 +4536,7 @@ declare interface nlobjResponse {
      * @since 2008.2
      * @param name
      */
-    getHeaders(name:string): void;
+    getHeaders(name: string): void;
 
     /**
      * return an Array of all response headers
@@ -4513,7 +4578,7 @@ declare interface nlobjResponse {
      * @param disposition
      * @return
      */
-    setContentType(type:string, name?:string, disposition?:string): void;
+    setContentType(type: string, name?: string, disposition?: string): void;
 
     /**
      * sets the redirect URL for the response. all URLs must be internal unless the Suitelet is being executed in an "Available without Login" context
@@ -4536,7 +4601,7 @@ declare interface nlobjResponse {
      * @param parameters?
      * @return
      */
-    sendRedirect(type:string, subtype:string, id?:string|number, pagemode?:boolean, parameters?:any): any;
+    sendRedirect(type: string, subtype: string, id?: string | number, pagemode?: boolean, parameters?: any): any;
 
     /**
      * write information (text/xml/html) to the response.
@@ -4550,7 +4615,7 @@ declare interface nlobjResponse {
      * @param output
      * @return
      */
-    write(output:string): any;
+    write(output: string): any;
 
     /**
      * write line information (text/xml/html) to the response.
@@ -4564,7 +4629,7 @@ declare interface nlobjResponse {
      * @param output
      * @return
      */
-    writeLine(output:string): any;
+    writeLine(output: string): any;
 
     /**
      * write a UI object page.
@@ -4578,7 +4643,7 @@ declare interface nlobjResponse {
      * @param pageobject
      * @return
      */
-    writePage(pageobject:any): any;
+    writePage(pageobject: any): any;
 
     /**
      * sets the character encoding for the response.
@@ -4591,9 +4656,9 @@ declare interface nlobjResponse {
      * @param encoding
      * @return
      */
-    setEncoding(encoding:string): any;
+    setEncoding(encoding: string): any;
 
-    getCode():string;
+    getCode(): string;
 }
 
 /**
@@ -4604,7 +4669,6 @@ declare interface nlobjResponse {
  * @constructor
  */
 declare interface nlobjRequest {
-
     /**
      *
      * @return
@@ -4623,7 +4687,7 @@ declare interface nlobjRequest {
      * @param name
      * @return
      */
-    getParameter(name:string): string;
+    getParameter(name: string): string;
 
     /**
      * return the values of a request parameter as an Array.
@@ -4636,7 +4700,7 @@ declare interface nlobjRequest {
      * @since 2008.2
      * @param name
      */
-    getParameterValues(name:string): void;
+    getParameterValues(name: string): void;
 
     /**
      * return an Object containing all the request parameters and their values.
@@ -4665,7 +4729,7 @@ declare interface nlobjRequest {
      * @param line
      * @return
      */
-    getLineItemValue(group:string, name:string, line:any): string;
+    getLineItemValue(group: string, name: string, line: any): string;
 
     /**
      * return the number of lines in a sublist.
@@ -4679,7 +4743,7 @@ declare interface nlobjRequest {
      * @param group
      * @return
      */
-    getLineItemCount(group:string): string|number;
+    getLineItemCount(group: string): string | number;
 
     /**
      * return the value of a request header.
@@ -4693,7 +4757,7 @@ declare interface nlobjRequest {
      * @param name
      * @return
      */
-    getHeader(name:string): string;
+    getHeader(name: string): string;
 
     /**
      * return an Object containing all the request headers and their values.
@@ -4719,7 +4783,7 @@ declare interface nlobjRequest {
      * @param name
      * @return
      */
-    getFile(name:string): nlobjFile;
+    getFile(name: string): nlobjFile;
 
     /**
      * return an Object containing field names to file objects for all uploaded files.
@@ -4775,7 +4839,6 @@ declare interface nlobjRequest {
  * @constructor
  */
 declare interface nlobjPortlet {
-
     /**
      *
      * @return
@@ -4789,7 +4852,7 @@ declare interface nlobjPortlet {
      * @since 2008.2
      * @param title
      */
-    setTitle(title:string): void;
+    setTitle(title: string): void;
 
     /**
      * set the entire contents of the HTML portlet (will be placed inside a <TD>...</TD>).
@@ -4798,7 +4861,7 @@ declare interface nlobjPortlet {
      * @since 2008.2
      * @param html
      */
-    setHtml(html:string): void;
+    setHtml(html: string): void;
 
     /**
      * add a column (nlobjColumn) to this LIST portlet and return it.
@@ -4813,7 +4876,7 @@ declare interface nlobjPortlet {
      * @param label
      * @param align?
      */
-    addColumn(name:string, type:string, label:string, align?:string): void;
+    addColumn(name: string, type: string, label: string, align?: string): void;
 
     /**
      * add an Edit column (nlobjColumn) to the left of the column specified (supported on LIST portlets only).
@@ -4829,7 +4892,7 @@ declare interface nlobjPortlet {
      * @param showHref?
      * @return
      */
-    addEditColumn(column:() => void, showView:boolean, showHref?:string): () => void;
+    addEditColumn(column: () => void, showView: boolean, showHref?: string): () => void;
 
     /**
      * add a row (nlobjSearchResult or Array of name-value pairs) to this LIST portlet.
@@ -4838,7 +4901,7 @@ declare interface nlobjPortlet {
      * @since 2008.2
      * @param row
      */
-    addRow(row:any): void;
+    addRow(row: any): void;
 
     /**
      * add multiple rows (Array of nlobjSearchResults or name-value pair Arrays) to this LIST portlet.
@@ -4847,7 +4910,7 @@ declare interface nlobjPortlet {
      * @since 2008.2
      * @param rows
      */
-    addRows(rows:any): void;
+    addRows(rows: any): void;
 
     /**
      * add a field (nlobjField) to this FORM portlet and return it.
@@ -4865,7 +4928,7 @@ declare interface nlobjPortlet {
      * @param source
      * @return
      */
-    addField(name:string, type:string, label?:string, source?:any): () => void;
+    addField(name: string, type: string, label?: string, source?: any): () => void;
 
     /**
      * add a FORM submit button to this FORM portlet.
@@ -4876,7 +4939,7 @@ declare interface nlobjPortlet {
      * @param url
      * @param label?
      */
-    setSubmitButton(url:string, label?:string): void;
+    setSubmitButton(url: string, label?: string): void;
 
     /**
      * add a line (containing text or simple HTML) with optional indenting and URL to this LINKS portlet.
@@ -4889,7 +4952,7 @@ declare interface nlobjPortlet {
      * @param url?
      * @param indent
      */
-    addLine(text:string, url?:string, indent?:any): void;
+    addLine(text: string, url?: string, indent?: any): void;
 }
 
 /**
@@ -4900,7 +4963,6 @@ declare interface nlobjPortlet {
  * @constructor
  */
 declare interface nlobjList {
-
     /**
      *
      * @return
@@ -4914,7 +4976,7 @@ declare interface nlobjList {
      * @since 2008.2
      * @param title
      */
-    setTitle(title:string): void;
+    setTitle(title: string): void;
 
     /**
      * set the global style for this list: grid|report|plain|normal.
@@ -4923,7 +4985,7 @@ declare interface nlobjList {
      * @since 2008.2
      * @param style
      */
-    setStyle(style:string): void;
+    setStyle(style: string): void;
 
     /**
      * set the Client SuiteScript used for this page.
@@ -4932,7 +4994,7 @@ declare interface nlobjList {
      * @since 2008.2
      * @param script
      */
-    setScript(script:any): void;
+    setScript(script: any): void;
 
     /**
      * add a column (nlobjColumn) to this list and return it.
@@ -4950,7 +5012,7 @@ declare interface nlobjList {
      * @param align?
      * @return
      */
-    addColumn(name:string, type:string, label:string, align?:string): () => void;
+    addColumn(name: string, type: string, label: string, align?: string): () => void;
 
     /**
      * add an Edit column (nlobjColumn) to the left of the column specified.
@@ -4966,7 +5028,7 @@ declare interface nlobjList {
      * @param showHref?
      * @return
      */
-    addEditColumn(column:() => void, showView:boolean, showHref?:string): () => void;
+    addEditColumn(column: () => void, showView: boolean, showHref?: string): () => void;
 
     /**
      * add a row (Array of name-value pairs or nlobjSearchResult) to this portlet.
@@ -4975,7 +5037,7 @@ declare interface nlobjList {
      * @since 2008.2
      * @param row
      */
-    addRow(row:any): void;
+    addRow(row: any): void;
 
     /**
      * add multiple rows (Array of nlobjSearchResults or name-value pair Arrays) to this portlet.
@@ -4984,7 +5046,7 @@ declare interface nlobjList {
      * @since 2008.2
      * @param rows
      */
-    addRows(rows:any): void;
+    addRows(rows: any): void;
 
     /**
      * add a button (nlobjButton) to the footer of this page.
@@ -4997,7 +5059,7 @@ declare interface nlobjList {
      * @param label
      * @param script
      */
-    addButton(name:string, label:string, script:string): void;
+    addButton(name: string, label: string, script: string): void;
 
     /**
      * add a navigation cross-link to the page.
@@ -5010,7 +5072,7 @@ declare interface nlobjList {
      * @param title
      * @param url
      */
-    addPageLink(type:string, title:string, url:string): void;
+    addPageLink(type: string, title: string, url: string): void;
 }
 
 /**
@@ -5021,7 +5083,6 @@ declare interface nlobjList {
  * @constructor
  */
 declare interface nlobjForm {
-
     /**
      *
      * @return
@@ -5035,7 +5096,7 @@ declare interface nlobjForm {
      * @since 2008.2
      * @param title
      */
-    setTitle(title:string): void;
+    setTitle(title: string): void;
 
     /**
      * set additional title Html. INTERNAL ONLY
@@ -5044,7 +5105,7 @@ declare interface nlobjForm {
      * @since 2008.2
      * @param html
      */
-    addTitleHtml(html:any): void;
+    addTitleHtml(html: any): void;
 
     /**
      * set the Client Script definition used for this page.
@@ -5053,7 +5114,7 @@ declare interface nlobjForm {
      * @since 2008.2
      * @param script
      */
-    setScript(script:any): void;
+    setScript(script: any): void;
 
     /**
      * set the values for all the fields on this form.
@@ -5062,7 +5123,7 @@ declare interface nlobjForm {
      * @since 2008.2
      * @param values
      */
-    setFieldValues(values:any): void;
+    setFieldValues(values: any): void;
 
     /**
      * add a navigation cross-link to the page.
@@ -5075,7 +5136,7 @@ declare interface nlobjForm {
      * @param title
      * @param url
      */
-    addPageLink(type:string, title:string, url:string): void;
+    addPageLink(type: string, title: string, url: string): void;
 
     /**
      * add a button to this form.
@@ -5091,7 +5152,7 @@ declare interface nlobjForm {
      * @param script
      * @return
      */
-    addButton(name:string, label:string, script?:string): nlobjButton;
+    addButton(name: string, label: string, script?: string): nlobjButton;
 
     /**
      * get a button from this form by name.
@@ -5105,7 +5166,7 @@ declare interface nlobjForm {
      * @param name
      * @return
      */
-    getButton(name:string): nlobjButton;
+    getButton(name: string): nlobjButton;
 
     /**
      * add a reset button to this form.
@@ -5117,7 +5178,7 @@ declare interface nlobjForm {
      * @param label?
      * @return
      */
-    addResetButton(label?:string): nlobjButton;
+    addResetButton(label?: string): nlobjButton;
 
     /**
      * add a submit button to this form.
@@ -5129,7 +5190,7 @@ declare interface nlobjForm {
      * @param label?
      * @return
      */
-    addSubmitButton(label?:string): nlobjButton;
+    addSubmitButton(label?: string): nlobjButton;
 
     /**
      * add a tab (nlobjTab) to this form and return it.
@@ -5143,7 +5204,7 @@ declare interface nlobjForm {
      * @param label
      * @return
      */
-    addTab(name:string, label:string): nlobjTab;
+    addTab(name: string, label: string): nlobjTab;
 
     /**
      * add a field (nlobjField) to this form and return it.
@@ -5163,7 +5224,7 @@ declare interface nlobjForm {
      * @param tab?
      * @return
      */
-    addField(name:string, type:string, label?:string, sourceOrRadio?:any, tab?:string): nlobjField;
+    addField(name: string, type: string, label?: string, sourceOrRadio?: any, tab?: string): nlobjField;
 
     /**
      *
@@ -5173,7 +5234,15 @@ declare interface nlobjForm {
      * @param scriptId
      * @param value
      */
-    addCredentialField(name:string, label:string, website?:string, scriptId?:string, value?:string, entityMatch?:boolean, tab?:string): nlobjField;
+    addCredentialField(
+        name: string,
+        label: string,
+        website?: string,
+        scriptId?: string,
+        value?: string,
+        entityMatch?: boolean,
+        tab?: string,
+    ): nlobjField;
 
     /**
      * add a subtab (nlobjTab) to this form and return it.
@@ -5189,7 +5258,7 @@ declare interface nlobjForm {
      * @param tab?
      * @return
      */
-    addSubTab(name:string, label:string, tab?:string): nlobjTab;
+    addSubTab(name: string, label: string, tab?: string): nlobjTab;
 
     /**
      * add a sublist (nlobjSubList) to this form and return it.
@@ -5207,7 +5276,7 @@ declare interface nlobjForm {
      * @param tab?
      * @return
      */
-    addSubList(name:string, type:string, label:string, tab?:string): nlobjSubList;
+    addSubList(name: string, type: string, label: string, tab?: string): nlobjSubList;
 
     /**
      * insert a tab (nlobjTab) before another tab (name).
@@ -5221,7 +5290,7 @@ declare interface nlobjForm {
      * @param nexttab
      * @return
      */
-    insertTab(tab:() => void, nexttab:string): nlobjTab;
+    insertTab(tab: () => void, nexttab: string): nlobjTab;
 
     /**
      * insert a field (nlobjField) before another field (name).
@@ -5235,7 +5304,7 @@ declare interface nlobjForm {
      * @param nextfld
      * @return
      */
-    insertField(field:() => void, nextfld:string): nlobjField;
+    insertField(field: () => void, nextfld: string): nlobjField;
 
     /**
      * insert a subtab (nlobjTab) before another subtab or sublist (name).
@@ -5249,7 +5318,7 @@ declare interface nlobjForm {
      * @param nextsubtab
      * @return
      */
-    insertSubTab(subtab:() => void, nextsubtab:string): nlobjTab;
+    insertSubTab(subtab: () => void, nextsubtab: string): nlobjTab;
 
     /**
      * insert a sublist (nlobjSubList) before another subtab or sublist (name).
@@ -5263,7 +5332,7 @@ declare interface nlobjForm {
      * @param nextsublist
      * @return
      */
-    insertSubList(sublist:() => void, nextsublist:string): nlobjSubList;
+    insertSubList(sublist: () => void, nextsublist: string): nlobjSubList;
 
     /**
      * return a tab (nlobjTab) on this form.
@@ -5275,7 +5344,7 @@ declare interface nlobjForm {
      * @param name
      * @return
      */
-    getTab(name:string): nlobjTab;
+    getTab(name: string): nlobjTab;
 
     /**
      * return a field (nlobjField) on this form.
@@ -5289,7 +5358,7 @@ declare interface nlobjForm {
      * @param radio?
      * @return
      */
-    getField(name:string, radio?:string): nlobjField;
+    getField(name: string, radio?: string): nlobjField;
 
     /**
      * return a subtab (nlobjTab) on this form.
@@ -5301,7 +5370,7 @@ declare interface nlobjForm {
      * @param name
      * @return
      */
-    getSubTab(name:string): nlobjTab;
+    getSubTab(name: string): nlobjTab;
 
     /**
      * return a sublist (nlobjSubList) on this form.
@@ -5313,7 +5382,7 @@ declare interface nlobjForm {
      * @param name
      * @return
      */
-    getSubList(name:string): nlobjSubList;
+    getSubList(name: string): nlobjSubList;
 
     /**
      * add a field group to the form.
@@ -5331,7 +5400,7 @@ declare interface nlobjForm {
      * @param tab
      * @return
      */
-    addFieldGroup(name:string, label:string, tab:any): nlobjFieldGroup;
+    addFieldGroup(name: string, label: string, tab: any): nlobjFieldGroup;
 
     /**
      * get a list of all tabs.
@@ -5357,7 +5426,6 @@ declare interface nlobjForm {
  * @since 2009.2
  */
 declare interface nlobjAssistant {
-
     /**
      *
      * @return
@@ -5376,7 +5444,7 @@ declare interface nlobjAssistant {
      * @param title
      * @return
      */
-    setTitle(title:string): any;
+    setTitle(title: string): any;
 
     /**
      * set the script ID for Client Script used for this form.
@@ -5390,7 +5458,7 @@ declare interface nlobjAssistant {
      * @param script
      * @return
      */
-    setScript(script:any): any;
+    setScript(script: any): any;
 
     /**
      * set the splash screen used for this page.
@@ -5408,7 +5476,7 @@ declare interface nlobjAssistant {
      * @param text2?
      * @return
      */
-    setSplash(title:string, text1:string, text2?:string): any;
+    setSplash(title: string, text1: string, text2?: string): any;
 
     /**
      * show/hide shortcut link. Always hidden on external pages
@@ -5422,7 +5490,7 @@ declare interface nlobjAssistant {
      * @param show
      * @return
      */
-    setShortcut(show:boolean): any;
+    setShortcut(show: boolean): any;
 
     /**
      * set the values for all the fields on this page.
@@ -5436,7 +5504,7 @@ declare interface nlobjAssistant {
      * @param values
      * @return
      */
-    setFieldValues(values:any): any;
+    setFieldValues(values: any): any;
 
     /**
      * if ordered, steps are show on left and must be completed sequentially, otherwise steps are shown on top and can be done in any order
@@ -5451,7 +5519,7 @@ declare interface nlobjAssistant {
      * @param ordered
      * @return
      */
-    setOrdered(ordered:boolean): any;
+    setOrdered(ordered: boolean): any;
 
     /**
      * if numbered, step numbers are displayed next to the step's label in the navigation area
@@ -5465,7 +5533,7 @@ declare interface nlobjAssistant {
      * @param numbered
      * @return
      */
-    setNumbered(numbered:boolean): any;
+    setNumbered(numbered: boolean): any;
 
     /**
      * return true if all the steps have been completed.
@@ -5491,7 +5559,7 @@ declare interface nlobjAssistant {
      * @param html
      * @return
      */
-    setFinished(html:string): any;
+    setFinished(html: string): any;
 
     /**
      * return true if the assistant has an error message to display for the current step.
@@ -5517,7 +5585,7 @@ declare interface nlobjAssistant {
      * @param html
      * @return
      */
-    setError(html:string): any;
+    setError(html: string): any;
 
     /**
      * mark a step as current. It will be highlighted accordingly when the page is displayed
@@ -5531,7 +5599,7 @@ declare interface nlobjAssistant {
      * @param step
      * @return
      */
-    setCurrentStep(step:() => void): any;
+    setCurrentStep(step: () => void): any;
 
     /**
      * add a step to the assistant.
@@ -5547,7 +5615,7 @@ declare interface nlobjAssistant {
      * @param label
      * @return
      */
-    addStep(name:string, label:string): () => void;
+    addStep(name: string, label: string): () => void;
 
     /**
      * add a field to this page and return it.
@@ -5569,7 +5637,7 @@ declare interface nlobjAssistant {
      * @param group?
      * @return
      */
-    addField(name:string, type:string, label?:string, source?:any, group?:string): () => void;
+    addField(name: string, type: string, label?: string, source?: any, group?: string): () => void;
 
     /**
      * add a sublist to this page and return it. For now only sublists of type inlineeditor are supported
@@ -5587,7 +5655,7 @@ declare interface nlobjAssistant {
      * @param label
      * @return
      */
-    addSubList(name:string, type:string, label:string): () => void;
+    addSubList(name: string, type: string, label: string): () => void;
 
     /**
      * add a field group to the page.
@@ -5603,7 +5671,7 @@ declare interface nlobjAssistant {
      * @param label
      * @return
      */
-    addFieldGroup(name:string, label:string): () => void;
+    addFieldGroup(name: string, label: string): () => void;
 
     /**
      * return an assistant step on this page.
@@ -5617,7 +5685,7 @@ declare interface nlobjAssistant {
      * @param name
      * @return
      */
-    getStep(name:string): () => void;
+    getStep(name: string): () => void;
 
     /**
      * return a field on this page.
@@ -5631,7 +5699,7 @@ declare interface nlobjAssistant {
      * @param name
      * @return
      */
-    getField(name:string): () => void;
+    getField(name: string): () => void;
 
     /**
      * return a sublist on this page.
@@ -5645,7 +5713,7 @@ declare interface nlobjAssistant {
      * @param name
      * @return
      */
-    getSubList(name:string): () => void;
+    getSubList(name: string): () => void;
 
     /**
      * return a field group on this page.
@@ -5659,7 +5727,7 @@ declare interface nlobjAssistant {
      * @param name
      * @return
      */
-    getFieldGroup(name:string): () => void;
+    getFieldGroup(name: string): () => void;
 
     /**
      * return an array of all the assistant steps for this assistant.
@@ -5780,7 +5848,7 @@ declare interface nlobjAssistant {
      * @param response
      * @return
      */
-    sendRedirect(response:() => void): any;
+    sendRedirect(response: () => void): any;
 }
 
 /**
@@ -5792,7 +5860,6 @@ declare interface nlobjAssistant {
  * @constructor
  */
 declare interface nlobjField {
-
     /**
      *
      * @return
@@ -5882,7 +5949,7 @@ declare interface nlobjField {
      * @param label
      * @return
      */
-    setLabel(label:string): () => void;
+    setLabel(label: string): () => void;
 
     /**
      * set the alias used to set the value for this field. Defaults to field name.
@@ -5895,7 +5962,7 @@ declare interface nlobjField {
      * @param alias
      * @return
      */
-    setAlias(alias:string): () => void;
+    setAlias(alias: string): () => void;
 
     /**
      * set the default value for this field.
@@ -5908,7 +5975,7 @@ declare interface nlobjField {
      * @param value
      * @return
      */
-    setDefaultValue(value:string): () => void;
+    setDefaultValue(value: string): () => void;
 
     /**
      * Disable field via field metadata.
@@ -5923,7 +5990,7 @@ declare interface nlobjField {
      * @param disabled
      * @return
      */
-    setDisabled(disabled:boolean): () => void;
+    setDisabled(disabled: boolean): () => void;
 
     /**
      * make this field mandatory.
@@ -5936,7 +6003,7 @@ declare interface nlobjField {
      * @param mandatory
      * @return
      */
-    setMandatory(mandatory:boolean): () => void;
+    setMandatory(mandatory: boolean): () => void;
 
     /**
      * set the maxlength for this field (only valid for certain field types).
@@ -5949,7 +6016,7 @@ declare interface nlobjField {
      * @param maxlength
      * @return
      */
-    setMaxLength(maxlength:any): () => void;
+    setMaxLength(maxlength: any): () => void;
 
     /**
      * set the display type for this field.
@@ -5962,7 +6029,7 @@ declare interface nlobjField {
      * @param type
      * @return
      */
-    setDisplayType(type:string): () => void;
+    setDisplayType(type: string): () => void;
 
     /**
      * set the break type (startcol|startrow|none) for this field. startrow is only used for fields with a layout type of outside
@@ -5978,7 +6045,7 @@ declare interface nlobjField {
      * @param breaktype
      * @return
      */
-    setBreakType(breaktype:string): () => void;
+    setBreakType(breaktype: string): () => void;
 
     /**
      * set the layout type and optionally the break type.
@@ -5993,7 +6060,7 @@ declare interface nlobjField {
      * @param breaktype?
      * @return
      */
-    setLayoutType(type:string, breaktype?:string): () => void;
+    setLayoutType(type: string, breaktype?: string): () => void;
 
     /**
      * set the text that gets displayed in lieu of the field value for URL fields.
@@ -6005,7 +6072,7 @@ declare interface nlobjField {
      * @param text
      * @return
      */
-    setLinkText(text:string): () => void;
+    setLinkText(text: string): () => void;
 
     /**
      * set the width and height for this field.
@@ -6020,7 +6087,7 @@ declare interface nlobjField {
      * @param height
      * @return
      */
-    setDisplaySize(width:any, height:any): () => void;
+    setDisplaySize(width: any, height: any): () => void;
 
     /**
      * set the amount of emppty vertical space (rows) between this field and the previous field.
@@ -6033,7 +6100,7 @@ declare interface nlobjField {
      * @param padding
      * @return
      */
-    setPadding(padding:any): () => void;
+    setPadding(padding: any): () => void;
 
     /**
      * set help text for this field. If inline is set on assistant pages, help is displayed inline below field
@@ -6051,7 +6118,7 @@ declare interface nlobjField {
      * @param inline?
      * @return
      */
-    setHelpText(help:string, inline?:string): () => void;
+    setHelpText(help: string, inline?: string): () => void;
 
     /**
      * add a select option to this field (valid for select/multiselect fields).
@@ -6065,7 +6132,7 @@ declare interface nlobjField {
      * @param text
      * @param selected?
      */
-    addSelectOption(value:string, text:string, selected?:boolean): void;
+    addSelectOption(value: string, text: string, selected?: boolean): void;
 }
 
 /**
@@ -6077,7 +6144,6 @@ declare interface nlobjField {
  * @constructor
  */
 declare interface nlobjSubList {
-
     /**
      *
      * @return
@@ -6092,7 +6158,7 @@ declare interface nlobjSubList {
      * @since 2008.2
      * @param label
      */
-    setLabel(label:string): void;
+    setLabel(label: string): void;
 
     /**
      * set helper text for this sublist.
@@ -6102,7 +6168,7 @@ declare interface nlobjSubList {
      * @since 2008.2
      * @param help
      */
-    setHelpText(help:string): void;
+    setHelpText(help: string): void;
 
     /**
      * set the displaytype for this sublist: hidden|normal.
@@ -6112,7 +6178,7 @@ declare interface nlobjSubList {
      * @since 2008.2
      * @param type
      */
-    setDisplayType(type:string): void;
+    setDisplayType(type: string): void;
 
     /**
      * set the value of a cell in this sublist.
@@ -6129,7 +6195,7 @@ declare interface nlobjSubList {
      * @param line
      * @param value
      */
-    setLineItemValue(field:string, line:any, value:string): void;
+    setLineItemValue(field: string, line: any, value: string): void;
 
     /**
      * set the value of a matrix cell in this sublist.
@@ -6149,7 +6215,7 @@ declare interface nlobjSubList {
      * @param value
      * @return
      */
-    setLineItemMatrixValue(field:string, line:any, column:any, value:string): any;
+    setLineItemMatrixValue(field: string, line: any, column: any, value: string): any;
 
     /**
      * set values for multiple lines (Array of nlobjSearchResults or name-value pair Arrays) in this sublist.
@@ -6159,7 +6225,7 @@ declare interface nlobjSubList {
      * @since 2008.2
      * @param values
      */
-    setLineItemValues(values:any): void;
+    setLineItemValues(values: any): void;
 
     /**
      * Return the number of lines in a sublist.
@@ -6171,7 +6237,7 @@ declare interface nlobjSubList {
      * @since 2010.1
      * @param group
      */
-    getLineItemCount(group:string): string|number;
+    getLineItemCount(group: string): string | number;
 
     /**
      * add a field (column) to this sublist.
@@ -6192,7 +6258,7 @@ declare interface nlobjSubList {
      * @param source
      * @return
      */
-    addField(name:string, type:string, label:string, source:any): () => void;
+    addField(name: string, type: string, label: string, source: any): () => void;
 
     /**
      * designate a field on sublist that must be unique across all lines (only supported on sublists of type inlineeditor, editor).
@@ -6206,7 +6272,7 @@ declare interface nlobjSubList {
      * @param fldnam
      * @return
      */
-    setUniqueField(fldnam:string): () => void;
+    setUniqueField(fldnam: string): () => void;
 
     /**
      * add a button to this sublist.
@@ -6225,7 +6291,7 @@ declare interface nlobjSubList {
      * @param script
      * @return
      */
-    addButton(name:string, label:string, script:string): () => void;
+    addButton(name: string, label: string, script: string): () => void;
 
     /**
      * add "Refresh" button to sublists of type "staticlist" to support manual refreshing of the sublist (without entire page reloads) if it's contents are very volatile
@@ -6258,7 +6324,6 @@ declare interface nlobjSubList {
  * @constructor
  */
 declare interface nlobjColumn {
-
     /**
      *
      * @return
@@ -6276,7 +6341,7 @@ declare interface nlobjColumn {
      * @since 2008.2
      * @param label
      */
-    setLabel(label:string): void;
+    setLabel(label: string): void;
 
     /**
      * set the base URL (optionally defined per row) for this column.
@@ -6291,7 +6356,7 @@ declare interface nlobjColumn {
      * @param value
      * @param perRow
      */
-    setURL(value:string, perRow:boolean): void;
+    setURL(value: string, perRow: boolean): void;
 
     /**
      * add a URL parameter (optionally defined per row) to this column's URL.
@@ -6308,7 +6373,7 @@ declare interface nlobjColumn {
      * @param value
      * @param perRow?
      */
-    addParamToURL(param:string, value:string, perRow?:boolean): void;
+    addParamToURL(param: string, value: string, perRow?: boolean): void;
 }
 
 /**
@@ -6319,7 +6384,6 @@ declare interface nlobjColumn {
  * @constructor
  */
 declare interface nlobjTab {
-
     /**
      *
      * @return
@@ -6336,7 +6400,7 @@ declare interface nlobjTab {
      * @param label
      * @return
      */
-    setLabel(label:string): () => void;
+    setLabel(label: string): () => void;
 
     /**
      * set helper text for this tab or subtab.
@@ -6348,7 +6412,7 @@ declare interface nlobjTab {
      * @param help
      * @return
      */
-    setHelpText(help:string): () => void;
+    setHelpText(help: string): () => void;
 }
 
 /**
@@ -6361,7 +6425,6 @@ declare interface nlobjTab {
  * @since 2009.2
  */
 declare interface nlobjAssistantStep {
-
     /**
      *
      * @return
@@ -6380,7 +6443,7 @@ declare interface nlobjAssistantStep {
      * @param label
      * @return
      */
-    setLabel(label:string): any;
+    setLabel(label: string): any;
 
     /**
      * set helper text for this assistant step.
@@ -6394,7 +6457,7 @@ declare interface nlobjAssistantStep {
      * @param help
      * @return
      */
-    setHelpText(help:string): () => void;
+    setHelpText(help: string): () => void;
 
     /**
      * return the index of this step in the assistant page (1-based)
@@ -6420,7 +6483,7 @@ declare interface nlobjAssistantStep {
      * @param name
      * @return
      */
-    getFieldValue(name:string): string;
+    getFieldValue(name: string): string;
 
     /**
      * return the selected values of a multi-select field as an Array entered by the user during this step.
@@ -6433,7 +6496,7 @@ declare interface nlobjAssistantStep {
      * @since 2009.2
      * @param name
      */
-    getFieldValues(name:string): string[];
+    getFieldValues(name: string): string[];
 
     /**
      * return the number of lines previously entered by the user in this step (or -1 if the sublist does not exist).
@@ -6447,7 +6510,7 @@ declare interface nlobjAssistantStep {
      * @param group
      * @return
      */
-    getLineItemCount(group:string): any;
+    getLineItemCount(group: string): any;
 
     /**
      * return the value of a sublist field entered by the user during this step.
@@ -6465,7 +6528,7 @@ declare interface nlobjAssistantStep {
      * @param line
      * @return
      */
-    getLineItemValue(group:string, name:string, line:any): string;
+    getLineItemValue(group: string, name: string, line: any): string;
 
     /**
      * return an array of the names of all fields entered by the user during this step.
@@ -6500,7 +6563,7 @@ declare interface nlobjAssistantStep {
      * @since 2009.2
      * @param group
      */
-    getAllLineItemFields(group:string): void;
+    getAllLineItemFields(group: string): void;
 }
 
 /**
@@ -6513,7 +6576,6 @@ declare interface nlobjAssistantStep {
  * @since 2009.2
  */
 declare interface nlobjFieldGroup {
-
     /**
      *
      * @return
@@ -6532,7 +6594,7 @@ declare interface nlobjFieldGroup {
      * @param label
      * @return
      */
-    setLabel(label:string): () => void;
+    setLabel(label: string): () => void;
 
     /**
      * set collapsibility property for this field group.
@@ -6549,7 +6611,7 @@ declare interface nlobjFieldGroup {
      * @param defaultcollapsed?
      * @return
      */
-    setCollapsible(collapsible:boolean, defaultcollapsed?:boolean): () => void;
+    setCollapsible(collapsible: boolean, defaultcollapsed?: boolean): () => void;
 
     /**
      * set singleColumn property for this field group.
@@ -6564,7 +6626,7 @@ declare interface nlobjFieldGroup {
      * @param singleColumn
      * @return
      */
-    setSingleColumn(singleColumn:boolean): () => void;
+    setSingleColumn(singleColumn: boolean): () => void;
 
     /**
      * set showBorder property for this field group.
@@ -6579,7 +6641,7 @@ declare interface nlobjFieldGroup {
      * @param showBorder
      * @return
      */
-    setShowBorder(showBorder:boolean): () => void;
+    setShowBorder(showBorder: boolean): () => void;
 }
 
 /**
@@ -6592,7 +6654,6 @@ declare interface nlobjFieldGroup {
  * @since 2009.2
  */
 declare interface nlobjButton {
-
     /**
      *
      * @return
@@ -6611,7 +6672,7 @@ declare interface nlobjButton {
      * @param label
      * @return
      */
-    setLabel(label:string): nlobjButton;
+    setLabel(label: string): nlobjButton;
 
     /**
      * disable or enable button.
@@ -6625,9 +6686,9 @@ declare interface nlobjButton {
      * @param disabled
      * @return
      */
-    setDisabled(disabled:boolean): nlobjButton;
+    setDisabled(disabled: boolean): nlobjButton;
 
-    setVisible(visible:boolean): nlobjButton;
+    setVisible(visible: boolean): nlobjButton;
 }
 
 /**
@@ -6640,7 +6701,6 @@ declare interface nlobjButton {
  * @since 2009.2
  */
 declare interface nlobjSelectOption {
-
     /**
      *
      * @return
@@ -6677,7 +6737,7 @@ declare interface nlobjSelectOption {
  *
  * @since 2012.2
  */
-declare function nlapiGetLogin():void;
+declare function nlapiGetLogin(): void;
 
 /**
  * @param {string} Job Type
@@ -6687,4 +6747,4 @@ declare function nlapiGetLogin():void;
  * @param jobType
  * @return
  */
-declare function nlapiGetJobManager(jobType:any):any;
+declare function nlapiGetJobManager(jobType: any): any;

@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/fx.html
      *
@@ -13,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface fx {
-    }
+    interface fx {}
     namespace fx {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/fx/Shadow.html
@@ -30,10 +27,13 @@ declare namespace dojox {
              * A toggle to disable animated transitions
              *
              */
-            "animate": boolean;
-            set(property:"animate", value: boolean): void;
-            get(property:"animate"): boolean;
-            watch(property:"animate", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'animate': boolean;
+            set(property: 'animate', value: boolean): void;
+            get(property: 'animate'): boolean;
+            watch(
+                property: 'animate',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -76,26 +76,35 @@ declare namespace dojox {
              * "" --> { node: "domNode", type: "attribute" }
              *
              */
-            "attributeMap": Object;
-            set(property:"attributeMap", value: Object): void;
-            get(property:"attributeMap"): Object;
-            watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'attributeMap': Object;
+            set(property: 'attributeMap', value: Object): void;
+            get(property: 'attributeMap'): Object;
+            watch(
+                property: 'attributeMap',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
              * widget state.
              *
              */
-            "baseClass": string;
-            set(property:"baseClass", value: string): void;
-            get(property:"baseClass"): string;
-            watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'baseClass': string;
+            set(property: 'baseClass', value: string): void;
+            get(property: 'baseClass'): string;
+            watch(
+                property: 'baseClass',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "class": string;
-            set(property:"class", value: string): void;
-            get(property:"class"): string;
-            watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'class': string;
+            set(property: 'class', value: string): void;
+            get(property: 'class'): string;
+            watch(
+                property: 'class',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Designates where children of the source DOM node will be placed.
              * "Children" in this case refers to both DOM nodes and widgets.
@@ -119,20 +128,26 @@ declare namespace dojox {
              * is null for widgets that don't, like TextBox.
              *
              */
-            "containerNode": HTMLElement;
-            set(property:"containerNode", value: HTMLElement): void;
-            get(property:"containerNode"): HTMLElement;
-            watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'containerNode': HTMLElement;
+            set(property: 'containerNode', value: HTMLElement): void;
+            get(property: 'containerNode'): HTMLElement;
+            watch(
+                property: 'containerNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * Bi-directional support, as defined by the HTML DIR
              * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
              * default direction.
              *
              */
-            "dir": string;
-            set(property:"dir", value: string): void;
-            get(property:"dir"): string;
-            watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'dir': string;
+            set(property: 'dir', value: string): void;
+            get(property: 'dir'): string;
+            watch(
+                property: 'dir',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This is our visible representation of the widget! Other DOM
              * Nodes may by assigned to other properties, usually through the
@@ -140,19 +155,25 @@ declare namespace dojox {
              * property is the canonical "top level" node in widget UI.
              *
              */
-            "domNode": HTMLElement;
-            set(property:"domNode", value: HTMLElement): void;
-            get(property:"domNode"): HTMLElement;
-            watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'domNode': HTMLElement;
+            set(property: 'domNode', value: HTMLElement): void;
+            get(property: 'domNode'): HTMLElement;
+            watch(
+                property: 'domNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * This widget or a widget it contains has focus, or is "active" because
              * it was recently clicked.
              *
              */
-            "focused": boolean;
-            set(property:"focused", value: boolean): void;
-            get(property:"focused"): boolean;
-            watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'focused': boolean;
+            set(property: 'focused', value: boolean): void;
+            get(property: 'focused'): boolean;
+            watch(
+                property: 'focused',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * A unique, opaque ID string that can be assigned by users or by the
              * system. If the developer passes an ID which is known not to be
@@ -160,10 +181,13 @@ declare namespace dojox {
              * used instead.
              *
              */
-            "id": string;
-            set(property:"id", value: string): void;
-            get(property:"id"): string;
-            watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'id': string;
+            set(property: 'id', value: string): void;
+            get(property: 'id'): string;
+            watch(
+                property: 'id',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Rarely used.  Overrides the default Dojo locale used to render this widget,
              * as defined by the HTML LANG attribute.
@@ -171,82 +195,112 @@ declare namespace dojox {
              * formatted according to RFC 3066 (like en-us).
              *
              */
-            "lang": string;
-            set(property:"lang", value: string): void;
-            get(property:"lang"): string;
-            watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'lang': string;
+            set(property: 'lang', value: string): void;
+            get(property: 'lang'): string;
+            watch(
+                property: 'lang',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The node we will be applying this shadow to
              *
              */
-            "node": HTMLElement;
-            set(property:"node", value: HTMLElement): void;
-            get(property:"node"): HTMLElement;
-            watch(property:"node", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'node': HTMLElement;
+            set(property: 'node', value: HTMLElement): void;
+            get(property: 'node'): HTMLElement;
+            watch(
+                property: 'node',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "observer": string;
-            set(property:"observer", value: string): void;
-            get(property:"observer"): string;
-            watch(property:"observer", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'observer': string;
+            set(property: 'observer', value: string): void;
+            get(property: 'observer'): string;
+            watch(
+                property: 'observer',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Overall opacity of the shadow
              *
              */
-            "opacity": number;
-            set(property:"opacity", value: number): void;
-            get(property:"opacity"): number;
-            watch(property:"opacity", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'opacity': number;
+            set(property: 'opacity', value: number): void;
+            get(property: 'opacity'): number;
+            watch(
+                property: 'opacity',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The document this widget belongs to.  If not specified to constructor, will default to
              * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
              *
              */
-            "ownerDocument": Object;
-            set(property:"ownerDocument", value: Object): void;
-            get(property:"ownerDocument"): Object;
-            watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'ownerDocument': Object;
+            set(property: 'ownerDocument', value: Object): void;
+            get(property: 'ownerDocument'): Object;
+            watch(
+                property: 'ownerDocument',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * How deep to make the shadow appear to be
              *
              */
-            "shadowOffset": number;
-            set(property:"shadowOffset", value: number): void;
-            get(property:"shadowOffset"): number;
-            watch(property:"shadowOffset", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'shadowOffset': number;
+            set(property: 'shadowOffset', value: number): void;
+            get(property: 'shadowOffset'): number;
+            watch(
+                property: 'shadowOffset',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Base location for drop-shadow images
              *
              */
-            "shadowPng": string;
-            set(property:"shadowPng", value: string): void;
-            get(property:"shadowPng"): string;
-            watch(property:"shadowPng", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'shadowPng': string;
+            set(property: 'shadowPng', value: string): void;
+            get(property: 'shadowPng'): string;
+            watch(
+                property: 'shadowPng',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * How wide (in px) to make the shadow
              *
              */
-            "shadowThickness": number;
-            set(property:"shadowThickness", value: number): void;
-            get(property:"shadowThickness"): number;
-            watch(property:"shadowThickness", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'shadowThickness': number;
+            set(property: 'shadowThickness', value: number): void;
+            get(property: 'shadowThickness'): number;
+            watch(
+                property: 'shadowThickness',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * pointer to original DOM node
              *
              */
-            "srcNodeRef": HTMLElement;
-            set(property:"srcNodeRef", value: HTMLElement): void;
-            get(property:"srcNodeRef"): HTMLElement;
-            watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'srcNodeRef': HTMLElement;
+            set(property: 'srcNodeRef', value: HTMLElement): void;
+            get(property: 'srcNodeRef'): HTMLElement;
+            watch(
+                property: 'srcNodeRef',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * HTML style attributes as cssText string or name/value hash
              *
              */
-            "style": string;
-            set(property:"style", value: string): void;
-            get(property:"style"): string;
-            watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'style': string;
+            set(property: 'style', value: string): void;
+            get(property: 'style'): string;
+            watch(
+                property: 'style',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * HTML title attribute.
              *
@@ -258,19 +312,25 @@ declare namespace dojox {
              * interpreted as HTML.
              *
              */
-            "title": string;
-            set(property:"title", value: string): void;
-            get(property:"title"): string;
-            watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'title': string;
+            set(property: 'title', value: string): void;
+            get(property: 'title'): string;
+            watch(
+                property: 'title',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
              * this specifies the tooltip to appear when the mouse is hovered over that text.
              *
              */
-            "tooltip": string;
-            set(property:"tooltip", value: string): void;
-            get(property:"tooltip"): string;
-            watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'tooltip': string;
+            set(property: 'tooltip', value: string): void;
+            get(property: 'tooltip'): string;
+            watch(
+                property: 'tooltip',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This method is deprecated, use get() or set() directly.
              *
@@ -731,7 +791,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
             /**
              * Called when the widget stops being "active" because
              * focus moved to something outside of it, or the user
@@ -1036,8 +1099,7 @@ declare namespace dojox {
          * An Alias to dojo.fx.easing. Moved to Core in Dojo 1.2.
          *
          */
-        interface easing {
-        }
+        interface easing {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/fx/_arg.html
          *
@@ -1051,9 +1113,9 @@ declare namespace dojox {
              */
             ShadowResizeArgs: {
                 (args: Object): {
-                    x: number
-                    y: number
-                }
+                    x: number;
+                    y: number;
+                };
             };
             /**
              * The node and CSS class to use for style manipulations.
@@ -1062,9 +1124,9 @@ declare namespace dojox {
              */
             StyleArgs: {
                 (args: Object): {
-                    node: HTMLElement
-                    cssClass: string
-                }
+                    node: HTMLElement;
+                    cssClass: string;
+                };
             };
         }
         /**
@@ -1763,7 +1825,9 @@ declare namespace dojox {
          * @param start An Integer (or an Array of integers) to use as a starting point
          * @param end An Integer (or an Array of integers) to use as an ending point
          */
-        interface _core{(start: number, end: number): void}
+        interface _core {
+            (start: number, end: number): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/fx/_core.html
          *
@@ -1780,7 +1844,9 @@ declare namespace dojox {
          * @param start An Integer (or an Array of integers) to use as a starting point
          * @param end An Integer (or an Array of integers) to use as an ending point
          */
-        interface _core{(start: any[], end: number): void}
+        interface _core {
+            (start: any[], end: number): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/fx/_core.html
          *
@@ -1797,7 +1863,9 @@ declare namespace dojox {
          * @param start An Integer (or an Array of integers) to use as a starting point
          * @param end An Integer (or an Array of integers) to use as an ending point
          */
-        interface _core{(start: number, end: any[]): void}
+        interface _core {
+            (start: number, end: any[]): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/fx/_core.html
          *
@@ -1814,24 +1882,28 @@ declare namespace dojox {
          * @param start An Integer (or an Array of integers) to use as a starting point
          * @param end An Integer (or an Array of integers) to use as an ending point
          */
-        interface _core{(start: any[], end: any[]): void}
+        interface _core {
+            (start: any[], end: any[]): void;
+        }
         module _core {
             /**
              * An Integer (or an Array of integers) to use as an ending point
              *
              */
-            var end: number
+            var end: number;
             /**
              * An Integer (or an Array of integers) to use as a starting point
              *
              */
-            var start: number
+            var start: number;
             /**
              * Returns the point on the line, or an array of points
              *
              * @param n a floating point number greater than 0 and less than 1
              */
-            interface getValue{(n: number): any}
+            interface getValue {
+                (n: number): any;
+            }
         }
 
         /**
@@ -1843,7 +1915,9 @@ declare namespace dojox {
          *
          * @param args offset: {x: int, y: int} this will be added to the target positionduration: Duration of the animation in milliseconds.win: a node or window object to scroll
          */
-        interface scroll{(args: Object): void}
+        interface scroll {
+            (args: Object): void;
+        }
         namespace ext_dojo {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/fx/ext-dojo/reverse.html
@@ -1858,119 +1932,133 @@ declare namespace dojox {
              * returned.
              *
              */
-            interface reverse{(): void}
+            interface reverse {
+                (): void;
+            }
             namespace reverse {
                 /**
                  * Synthetic event fired before a Animation begins playing (synchronous)
                  *
                  */
-                var beforeBegin: Object
+                var beforeBegin: Object;
                 /**
                  * A two element array of start and end values, or a _Line instance to be
                  * used in the Animation.
                  *
                  */
-                var curve: Object
+                var curve: Object;
                 /**
                  *
                  */
-                var curve: Object
+                var curve: Object;
                 /**
                  * The time in milliseconds to wait before starting animation after it
                  * has been .play()'ed
                  *
                  */
-                var delay: Object
+                var delay: Object;
                 /**
                  * The time in milliseconds the animation will take to run
                  *
                  */
-                var duration: number
+                var duration: number;
                 /**
                  * A Function to adjust the acceleration (or deceleration) of the progress
                  * across a _Line
                  *
                  */
-                var easing: Object
+                var easing: Object;
                 /**
                  * Synthetic event fired at each interval of the Animation
                  *
                  */
-                var onAnimate: Object
+                var onAnimate: Object;
                 /**
                  * Synthetic event fired as a Animation begins playing (useful?)
                  *
                  */
-                var onBegin: Object
+                var onBegin: Object;
                 /**
                  * Synthetic event fired after the final frame of the Animation
                  *
                  */
-                var onEnd: Object
+                var onEnd: Object;
                 /**
                  * Synthetic event fired when the Animation is paused
                  *
                  */
-                var onPause: Object
+                var onPause: Object;
                 /**
                  * Synthetic event fired any time the Animation is play()'ed
                  *
                  */
-                var onPlay: Object
+                var onPlay: Object;
                 /**
                  * Synthetic event fires when the Animation is stopped
                  *
                  */
-                var onStop: Object
+                var onStop: Object;
                 /**
                  * the time in milliseconds to wait before advancing to next frame
                  * (used as a fps timer: 1000/rate = fps)
                  *
                  */
-                var rate: Object
+                var rate: Object;
                 /**
                  * The number of times to loop the animation
                  *
                  */
-                var repeat: Object
+                var repeat: Object;
                 /**
                  * Sets the progress of the animation.
                  *
                  * @param percent A percentage in decimal notation (between and including 0.0 and 1.0).
                  * @param andPlay               OptionalIf true, play the animation after setting the progress.
                  */
-                interface gotoPercent{(percent: number, andPlay: boolean): Function}
+                interface gotoPercent {
+                    (percent: number, andPlay: boolean): Function;
+                }
                 /**
                  * Pauses a running animation.
                  *
                  */
-                interface pause{(): Function}
+                interface pause {
+                    (): Function;
+                }
                 /**
                  * Start the animation.
                  *
                  * @param delay               OptionalHow many milliseconds to delay before starting.
                  * @param gotoStart               OptionalIf true, starts the animation from the beginning; otherwise,starts it from its current position.
                  */
-                interface play{(delay: number, gotoStart: boolean): any}
+                interface play {
+                    (delay: number, gotoStart: boolean): any;
+                }
                 /**
                  * The key method added to an animation to enable reversal.
                  *
                  * @param keepPaused By default, calling reverse() will play the animation ifit was paused. Pass in true to keep it paused (will haveno effect if reverse is called while animation is playing).
                  * @param reverseEase               OptionalA function to use for the reverse easing. This allows forthe possibility of custom eases that are not in the dojo.fxlibrary.
                  */
-                interface reverse{(keepPaused: boolean, reverseEase: Function): Function}
+                interface reverse {
+                    (keepPaused: boolean, reverseEase: Function): Function;
+                }
                 /**
                  * Returns a string token representation of the status of
                  * the animation, one of: "paused", "playing", "stopped"
                  *
                  */
-                interface status{(): String}
+                interface status {
+                    (): String;
+                }
                 /**
                  * Stops a running animation.
                  *
                  * @param gotoEnd               OptionalIf true, the animation will end.
                  */
-                interface stop{(gotoEnd: boolean): Function}
+                interface stop {
+                    (gotoEnd: boolean): Function;
+                }
             }
 
             /**
@@ -1988,8 +2076,7 @@ declare namespace dojox {
              * there.
              *
              */
-            interface complex {
-            }
+            interface complex {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/fx/ext-dojo/NodeList.html
              *
@@ -1998,8 +2085,7 @@ declare namespace dojox {
              * These are experimental animations, in an experimental
              *
              */
-            interface NodeList {
-            }
+            interface NodeList {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/fx/ext-dojo/NodeList-style.html
              *
@@ -2009,75 +2095,72 @@ declare namespace dojox {
              * These are experimental animations, in an experimental
              *
              */
-            interface NodeList_style {
-            }
+            interface NodeList_style {}
         }
-
     }
-
 }
 
-declare module "dojox/fx" {
-    var exp: dojox.fx
-    export=exp;
+declare module 'dojox/fx' {
+    var exp: dojox.fx;
+    export = exp;
 }
-declare module "dojox/fx/Shadow" {
-    var exp: dojox.fx.Shadow
-    export=exp;
+declare module 'dojox/fx/Shadow' {
+    var exp: dojox.fx.Shadow;
+    export = exp;
 }
-declare module "dojox/fx/_core" {
-    var exp: dojox.fx._core
-    export=exp;
+declare module 'dojox/fx/_core' {
+    var exp: dojox.fx._core;
+    export = exp;
 }
-declare module "dojox/fx/scroll" {
-    var exp: dojox.fx.scroll
-    export=exp;
+declare module 'dojox/fx/scroll' {
+    var exp: dojox.fx.scroll;
+    export = exp;
 }
-declare module "dojox/fx/_arg" {
-    var exp: dojox.fx._arg
-    export=exp;
+declare module 'dojox/fx/_arg' {
+    var exp: dojox.fx._arg;
+    export = exp;
 }
-declare module "dojox/fx/easing" {
-    var exp: dojox.fx.easing
-    export=exp;
+declare module 'dojox/fx/easing' {
+    var exp: dojox.fx.easing;
+    export = exp;
 }
-declare module "dojox/fx/_base" {
-    var exp: dojox.fx._base
-    export=exp;
+declare module 'dojox/fx/_base' {
+    var exp: dojox.fx._base;
+    export = exp;
 }
-declare module "dojox/fx/flip" {
-    var exp: dojox.fx.flip
-    export=exp;
+declare module 'dojox/fx/flip' {
+    var exp: dojox.fx.flip;
+    export = exp;
 }
-declare module "dojox/fx/style" {
-    var exp: dojox.fx.style
-    export=exp;
+declare module 'dojox/fx/style' {
+    var exp: dojox.fx.style;
+    export = exp;
 }
-declare module "dojox/fx/text" {
-    var exp: dojox.fx.text
-    export=exp;
+declare module 'dojox/fx/text' {
+    var exp: dojox.fx.text;
+    export = exp;
 }
-declare module "dojox/fx/split" {
-    var exp: dojox.fx.split
-    export=exp;
+declare module 'dojox/fx/split' {
+    var exp: dojox.fx.split;
+    export = exp;
 }
-declare module "dojox/fx/Timeline" {
-    var exp: dojox.fx.Timeline
-    export=exp;
+declare module 'dojox/fx/Timeline' {
+    var exp: dojox.fx.Timeline;
+    export = exp;
 }
-declare module "dojox/fx/ext-dojo/reverse" {
-    var exp: dojox.fx.ext_dojo.reverse
-    export=exp;
+declare module 'dojox/fx/ext-dojo/reverse' {
+    var exp: dojox.fx.ext_dojo.reverse;
+    export = exp;
 }
-declare module "dojox/fx/ext-dojo/complex" {
-    var exp: dojox.fx.ext_dojo.complex
-    export=exp;
+declare module 'dojox/fx/ext-dojo/complex' {
+    var exp: dojox.fx.ext_dojo.complex;
+    export = exp;
 }
-declare module "dojox/fx/ext-dojo/NodeList" {
-    var exp: dojox.fx.ext_dojo.NodeList
-    export=exp;
+declare module 'dojox/fx/ext-dojo/NodeList' {
+    var exp: dojox.fx.ext_dojo.NodeList;
+    export = exp;
 }
-declare module "dojox/fx/ext-dojo/NodeList-style" {
-    var exp: dojox.fx.ext_dojo.NodeList_style
-    export=exp;
+declare module 'dojox/fx/ext-dojo/NodeList-style' {
+    var exp: dojox.fx.ext_dojo.NodeList_style;
+    export = exp;
 }

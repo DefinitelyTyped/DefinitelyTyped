@@ -1,2 +1,2 @@
-import { isMap } from "./index";
+import { isMap } from './index';
 export = isMap;

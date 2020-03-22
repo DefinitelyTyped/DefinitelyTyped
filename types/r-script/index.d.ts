@@ -12,15 +12,15 @@ interface R {
 }
 declare namespace R {
     interface Options {
-        dataframe?: "rows" | "colums" | "values";
-        matrix?: "rowmajor" | "columnmajor";
-        Date?: "ISO8601" | "epoch";
-        POSIXt?: "string" | "ISO8601" | "epoch" | "mongo";
-        factor?: "string" | "integer";
-        complex?: "string" | "list";
-        raw?: "base64" | "hex" | "mongo";
-        null?: "list" | "null";
-        na?: "null" | "string";
+        dataframe?: 'rows' | 'colums' | 'values';
+        matrix?: 'rowmajor' | 'columnmajor';
+        Date?: 'ISO8601' | 'epoch';
+        POSIXt?: 'string' | 'ISO8601' | 'epoch' | 'mongo';
+        factor?: 'string' | 'integer';
+        complex?: 'string' | 'list';
+        raw?: 'base64' | 'hex' | 'mongo';
+        null?: 'list' | 'null';
+        na?: 'null' | 'string';
         auto_unbox?: boolean;
         digits?: number;
         pretty?: boolean;

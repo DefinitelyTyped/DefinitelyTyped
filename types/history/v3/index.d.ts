@@ -6,7 +6,7 @@
 
 export as namespace History;
 
-export type Action = "POP" | "PUSH" | "REPLACE";
+export type Action = 'POP' | 'PUSH' | 'REPLACE';
 export type BeforeUnloadHook = () => string | boolean;
 export type CreateHistory<O, H> = (options?: HistoryOptions & O) => History & H;
 export type CreateHistoryEnhancer<O, H, E> = (createHistory: CreateHistory<O, H>) => CreateHistory<O, H & E>;
@@ -80,15 +80,15 @@ export type Search = string;
 
 export type TransitionHook = (location: Location, callback: (result: any) => void) => any;
 
-export { default as createHistory } from "history/lib/createBrowserHistory";
-export { default as createHashHistory } from "history/lib/createHashHistory";
-export { default as createMemoryHistory, MemoryHistory, MemoryHistoryOptions } from "history/lib/createMemoryHistory";
+export { default as createHistory } from 'history/lib/createBrowserHistory';
+export { default as createHashHistory } from 'history/lib/createHashHistory';
+export { default as createMemoryHistory, MemoryHistory, MemoryHistoryOptions } from 'history/lib/createMemoryHistory';
 
-export { default as useBasename, Basename, HistoryBasename, HistoryBasenameOptions } from "history/lib/useBasename";
-export { default as useBeforeUnload, HistoryBeforeUnload } from "history/lib/useBeforeUnload";
-export { default as useQueries, HistoryQueries } from "history/lib/useQueries";
+export { default as useBasename, Basename, HistoryBasename, HistoryBasenameOptions } from 'history/lib/useBasename';
+export { default as useBeforeUnload, HistoryBeforeUnload } from 'history/lib/useBeforeUnload';
+export { default as useQueries, HistoryQueries } from 'history/lib/useQueries';
 
-import * as Actions from "history/lib/actions";
+import * as Actions from 'history/lib/actions';
 export { Actions };
 
-export { locationsAreEqual } from "history/lib/LocationUtils";
+export { locationsAreEqual } from 'history/lib/LocationUtils';

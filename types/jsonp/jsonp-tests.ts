@@ -3,8 +3,7 @@ import jsonp = require('jsonp');
 /**
  * Dummy response callback.
  */
-const print = (err: Error | null, data: any) =>
-    console.log(err !== null ? err.message : data);
+const print = (err: Error | null, data: any) => console.log(err !== null ? err.message : data);
 
 /**
  * Tests jsonp request with default parameters.

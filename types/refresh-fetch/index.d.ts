@@ -5,15 +5,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export function configureRefreshFetch<T>(
-  configuration: {
+export function configureRefreshFetch<T>(configuration: {
     fetch: T;
     refreshToken: () => Promise<void>;
     shouldRefreshToken: (error: any) => boolean;
-  }): T;
+}): T;
 
-export function fetchJSON<ResponseBody>(url: string | Request | URL, options?: object): Promise<{
-  /* tslint:disable-next-line no-unnecessary-generics */
-  body: ResponseBody;
-  response: Response;
+export function fetchJSON<ResponseBody>(
+    url: string | Request | URL,
+    options?: object,
+): Promise<{
+    /* tslint:disable-next-line no-unnecessary-generics */
+    body: ResponseBody;
+    response: Response;
 }>;

@@ -8,5 +8,5 @@ export interface ModalBodyProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class ModalBody<T = {[key: string]: any}> extends React.Component<ModalBodyProps> {}
+declare class ModalBody<T = { [key: string]: any }> extends React.Component<ModalBodyProps> {}
 export default ModalBody;

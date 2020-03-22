@@ -1,5 +1,15 @@
 import * as React from 'react';
-import { DragDropContext, Draggable, DragStart, DragUpdate, Droppable, DroppableStateSnapshot, DropResult, resetServerContext, ResponderProvided } from 'react-beautiful-dnd';
+import {
+    DragDropContext,
+    Draggable,
+    DragStart,
+    DragUpdate,
+    Droppable,
+    DroppableStateSnapshot,
+    DropResult,
+    resetServerContext,
+    ResponderProvided,
+} from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
 
 interface Item {
@@ -8,7 +18,7 @@ interface Item {
 }
 
 const getItems = (count: number): Item[] => {
-    return Array.from({ length: count }, (v, k) => k).map(k => ({
+    return Array.from({ length: count }, (v, k) => k).map((k) => ({
         id: `item-${k}`,
         content: `item ${k}`,
     }));

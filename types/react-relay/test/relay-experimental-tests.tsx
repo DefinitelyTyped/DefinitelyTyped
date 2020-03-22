@@ -49,11 +49,11 @@ const variables = {};
  * Test of fetchQuery
  */
 const dispose = fetchQuery(environment, query, variables).subscribe({
-    start: subsctiption => {},
-    next: payload => {},
+    start: (subsctiption) => {},
+    next: (payload) => {},
     error: (error: Error) => {},
     complete: () => {},
-    unsubscribe: subscription => {},
+    unsubscribe: (subscription) => {},
 });
 
 dispose.unsubscribe();
@@ -264,7 +264,7 @@ function NonNullableArrayFragment() {
             props.users,
         );
 
-        return data.map(d => (
+        return data.map((d) => (
             <>
                 <h1>{d.name}</h1>
                 <div>
@@ -293,7 +293,7 @@ function NullableArrayFragment() {
             props.users,
         );
 
-        return data!.map(d => (
+        return data!.map((d) => (
             <>
                 <h1>{d.name}</h1>
                 <div>
@@ -322,7 +322,7 @@ function ArrayOfNullableFragment() {
             props.users,
         );
 
-        return data.map(d => (
+        return data.map((d) => (
             <>
                 <h1>{d.name}</h1>
                 <div>

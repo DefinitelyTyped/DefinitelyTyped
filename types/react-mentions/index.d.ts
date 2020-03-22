@@ -4,7 +4,7 @@
 //                 Eugene Fedorenko <https://github.com/efedorenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import * as React from "react";
+import * as React from 'react';
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 export {};
@@ -22,7 +22,8 @@ export const Mention: React.SFC<MentionProps>;
 /**
  * The properties for the @see MentionsInput component.
  */
-export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'onBlur' | 'onKeyDown' | 'onSelect'> {
+export interface MentionsInputProps
+    extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'onBlur' | 'onKeyDown' | 'onSelect'> {
     /**
      * If set to `true` a regular text input element will be rendered
      * instead of a textarea
@@ -37,7 +38,10 @@ export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HT
     value?: string;
     onChange?: OnChangeHandlerFunc;
     placeholder?: string;
-    onBlur?: (event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>, clickedSuggestion: boolean) => void;
+    onBlur?: (
+        event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>,
+        clickedSuggestion: boolean,
+    ) => void;
     onSelect?: (event: React.UIEvent) => void;
     onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>) => void;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
@@ -69,15 +73,20 @@ export interface MentionsInputComponent extends React.Component<MentionsInputPro
 /**
  * Used to reference MentionsInput element in a TSX file.
  */
-export interface MentionsInputClass extends React.ComponentClass<MentionsInputProps> {
-}
+export interface MentionsInputClass extends React.ComponentClass<MentionsInputProps> {}
 
 /**
  * Props definition for a mention subelement.
  */
 export interface MentionProps {
     onAdd?: (id: string | number, display: string) => void;
-    renderSuggestion?: (suggestion: SuggestionDataItem, search: string, highlightedDisplay: React.ReactNode, index: number, focused: boolean) => React.ReactNode;
+    renderSuggestion?: (
+        suggestion: SuggestionDataItem,
+        search: string,
+        highlightedDisplay: React.ReactNode,
+        index: number,
+        focused: boolean,
+    ) => React.ReactNode;
     className?: string;
     markup?: string;
     displayTransform?: DisplayTransformFunc;
@@ -114,7 +123,12 @@ export type DisplayTransformFunc = (id: string, display: string) => string;
 /**
  * Defines the function signature for implementing @see MentionsInputProps.onChange
  */
-export type OnChangeHandlerFunc = (event: { target: { value: string } }, newValue: string, newPlainTextValue: string, mentions: MentionItem[]) => void;
+export type OnChangeHandlerFunc = (
+    event: { target: { value: string } },
+    newValue: string,
+    newPlainTextValue: string,
+    mentions: MentionItem[],
+) => void;
 
 /**
  * The function to implement asynchronous loading of suggestions in @see MentionProps.data .

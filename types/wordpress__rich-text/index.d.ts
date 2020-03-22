@@ -265,7 +265,7 @@ export function removeFormat(value: Value, formatType: string, startIndex?: numb
 export function replace(
     value: Value,
     pattern: string | RegExp,
-    replacement: ((match: string, ...args: any[]) => string) | string
+    replacement: ((match: string, ...args: any[]) => string) | string,
 ): Value;
 
 /**

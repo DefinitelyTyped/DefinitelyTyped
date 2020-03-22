@@ -15,7 +15,7 @@ new PDFImage<boolean>('path', { combinedImage: true }).convertFile();
 // $ExpectError
 new PDFImage<false>('path', { combinedImage: true });
 
-new PDFImage('path', { convertOptions: { "-adaptive-blur": '' } });
+new PDFImage('path', { convertOptions: { '-adaptive-blur': '' } });
 
 // $ExpectError
 new PDFImage('path', { convertOptions: { invalidOptionKey: '' } });

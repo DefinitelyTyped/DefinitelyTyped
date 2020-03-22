@@ -272,7 +272,11 @@ declare namespace i18n {
      * @param [inheritance=false] - Disables inheritance if true
      */
     // tslint:disable-next-line:unified-signatures
-    function setLocale(requestOrResponse: Express.Request | Express.Response, locale: string, inheritance?: boolean): void;
+    function setLocale(
+        requestOrResponse: Express.Request | Express.Response,
+        locale: string,
+        inheritance?: boolean,
+    ): void;
     /**
      * Change the current active locale for specified response
      * @param objects - The object(s) to change locale on
@@ -445,7 +449,7 @@ interface i18nAPI {
     getCatalog(locale?: string): i18n.LocaleCatalog;
 }
 
-declare module "i18n" {
+declare module 'i18n' {
     export = i18n;
 }
 

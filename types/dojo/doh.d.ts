@@ -3,14 +3,11 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace doh {
     namespace plugins {
-        namespace alwaysAudio {
-        }
+        namespace alwaysAudio {}
 
-        namespace hello {
-        }
+        namespace hello {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/doh/plugins/remoteRobot.html
@@ -18,8 +15,7 @@ declare namespace doh {
          * Plugin that bridges the doh.robot and WebDriver APIs.
          *
          */
-        interface remoteRobot {
-        }
+        interface remoteRobot {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/doh/plugins/android-webdriver-robot.html
          *
@@ -82,7 +78,17 @@ declare namespace doh {
              * @param delay
              * @param async
              */
-            typeKey(sec: any, charCode: any, keyCode: any, alt: any, ctrl: any, shift: any, meta: any, delay: any, async: any): void;
+            typeKey(
+                sec: any,
+                charCode: any,
+                keyCode: any,
+                alt: any,
+                ctrl: any,
+                shift: any,
+                meta: any,
+                delay: any,
+                async: any,
+            ): void;
             /**
              *
              * @param chars
@@ -115,8 +121,7 @@ declare namespace doh {
      * Augments return value from doh/runner.
      *
      */
-    interface _nodeRunner {
-    }
+    interface _nodeRunner {}
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/doh/_rhinoRunner.html
      *
@@ -124,8 +129,7 @@ declare namespace doh {
      * Augments return value from doh/runner.
      *
      */
-    interface _rhinoRunner {
-    }
+    interface _rhinoRunner {}
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/doh/_parseURLargs.html
      *
@@ -402,8 +406,7 @@ declare namespace doh {
          *
          *
          */
-        interface _groups {
-        }
+        interface _groups {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/doh/_browserRunner._testTypes.html
          *
@@ -905,8 +908,7 @@ declare namespace doh {
          *
          *
          */
-        interface _groups {
-        }
+        interface _groups {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/doh/main._testTypes.html
          *
@@ -1654,8 +1656,7 @@ declare namespace doh {
          *
          *
          */
-        interface _groups {
-        }
+        interface _groups {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/doh/runner._testTypes.html
          *
@@ -1899,82 +1900,81 @@ declare namespace doh {
             waitForPageToLoad(submitActions: Function): any;
         }
     }
-
 }
 
-declare module "doh/_nodeRunner" {
-    var exp: doh._nodeRunner
-    export=exp;
+declare module 'doh/_nodeRunner' {
+    var exp: doh._nodeRunner;
+    export = exp;
 }
-declare module "doh/_parseURLargs" {
-    var exp: doh._parseURLargs
-    export=exp;
+declare module 'doh/_parseURLargs' {
+    var exp: doh._parseURLargs;
+    export = exp;
 }
-declare module "doh/_rhinoRunner" {
-    var exp: doh._rhinoRunner
-    export=exp;
+declare module 'doh/_rhinoRunner' {
+    var exp: doh._rhinoRunner;
+    export = exp;
 }
-declare module "doh/_browserRunner" {
-    var exp: doh._browserRunner
-    export=exp;
+declare module 'doh/_browserRunner' {
+    var exp: doh._browserRunner;
+    export = exp;
 }
-declare module "doh/_browserRunner._testTypes" {
-    var exp: doh._browserRunner._testTypes
-    export=exp;
+declare module 'doh/_browserRunner._testTypes' {
+    var exp: doh._browserRunner._testTypes;
+    export = exp;
 }
-declare module "doh/_browserRunner._groups" {
-    var exp: doh._browserRunner._groups
-    export=exp;
+declare module 'doh/_browserRunner._groups' {
+    var exp: doh._browserRunner._groups;
+    export = exp;
 }
-declare module "doh/_browserRunner.robot" {
-    var exp: doh._browserRunner.robot
-    export=exp;
+declare module 'doh/_browserRunner.robot' {
+    var exp: doh._browserRunner.robot;
+    export = exp;
 }
-declare module "doh/robot" {
-    var exp: doh.robot
-    export=exp;
+declare module 'doh/robot' {
+    var exp: doh.robot;
+    export = exp;
 }
-declare module "doh/robot._runsemaphore" {
-    var exp: doh.robot._runsemaphore
-    export=exp;
+declare module 'doh/robot._runsemaphore' {
+    var exp: doh.robot._runsemaphore;
+    export = exp;
 }
-declare module "doh/main" {
-    var exp: doh.main
-    export=exp;
+declare module 'doh/main' {
+    var exp: doh.main;
+    export = exp;
 }
-declare module "doh/main._groups" {
-    var exp: doh.main._groups
-    export=exp;
+declare module 'doh/main._groups' {
+    var exp: doh.main._groups;
+    export = exp;
 }
-declare module "doh/main._testTypes" {
-    var exp: doh.main._testTypes
-    export=exp;
+declare module 'doh/main._testTypes' {
+    var exp: doh.main._testTypes;
+    export = exp;
 }
-declare module "doh/main.robot" {
-    var exp: doh.main.robot
-    export=exp;
+declare module 'doh/main.robot' {
+    var exp: doh.main.robot;
+    export = exp;
 }
-declare module "doh/runner" {
-    var exp: doh.runner
-    export=exp;
+declare module 'doh/runner' {
+    var exp: doh.runner;
+    export = exp;
 }
-declare module "doh/runner._groups" {
-    var exp: doh.runner._groups
-    export=exp;
+declare module 'doh/runner._groups' {
+    var exp: doh.runner._groups;
+    export = exp;
 }
-declare module "doh/runner._testTypes" {
-    var exp: doh.runner._testTypes
-    export=exp;
+declare module 'doh/runner._testTypes' {
+    var exp: doh.runner._testTypes;
+    export = exp;
 }
-declare module "doh/runner.robot" {
-    var exp: doh.runner.robot
-    export=exp;
+declare module 'doh/runner.robot' {
+    var exp: doh.runner.robot;
+    export = exp;
 }
-declare module "doh/plugins/android-webdriver-robot" {
-    var exp: doh.plugins.android_webdriver_robot
-    export=exp;
+declare module 'doh/plugins/android-webdriver-robot' {
+    var exp: doh.plugins.android_webdriver_robot;
+    export = exp;
 }
-declare module "doh/plugins/remoteRobot" {
-    var exp: doh.plugins.remoteRobot
-    export=exp;
+declare module 'doh/plugins/remoteRobot' {
+    var exp: doh.plugins.remoteRobot;
+    export = exp;
 }

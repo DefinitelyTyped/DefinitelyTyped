@@ -5,6 +5,6 @@
 // TypeScript Version: 2.2
 
 export as namespace eg;
-import * as Axes from "./Axes";
+import * as Axes from './Axes';
 
 export = Axes;

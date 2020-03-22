@@ -6,8 +6,8 @@
 declare module 'weighted' {
     export interface RandomFunc {
         (): Number;
-    }  
+    }
 
-    export function select<T> (set: T[], weights: Number[], rand?: RandomFunc): T;
-    export function select<T> (obj: Object, rand?: RandomFunc): T;
+    export function select<T>(set: T[], weights: Number[], rand?: RandomFunc): T;
+    export function select<T>(obj: Object, rand?: RandomFunc): T;
 }

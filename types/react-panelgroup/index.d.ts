@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as React from "react";
+import * as React from 'react';
 
 /**
  * Interface used to define a number of options for a panel.
@@ -12,7 +12,7 @@ import * as React from "react";
 export interface PanelWidth {
     size?: number;
     minSize?: number;
-    resize?: "fixed" | "dynamic" | "stretch";
+    resize?: 'fixed' | 'dynamic' | 'stretch';
     snap?: number[];
 }
 
@@ -20,7 +20,7 @@ export interface PropTypes {
     spacing?: number;
     borderColor?: string;
     panelColor?: string;
-    direction?: "row" | "column";
+    direction?: 'row' | 'column';
     panelWidths?: Array<PanelWidth | null>;
     onUpdate?: (data: PanelWidth) => void;
 }

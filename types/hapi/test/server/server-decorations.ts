@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options
-import { Request, ResponseToolkit, Server } from "hapi";
+import { Request, ResponseToolkit, Server } from 'hapi';
 
 declare module 'hapi' {
     interface HandlerDecorations {
@@ -16,7 +16,7 @@ const server = new Server({
 });
 
 server.start();
-server.decorate('toolkit', 'success', function() {
+server.decorate('toolkit', 'success', function () {
     return this.response({ status: 'ok' });
 });
 server.decorate('handler', 'test', (route, options) => (req, h) => 123);
@@ -26,8 +26,8 @@ server.route({
     handler: {
         test: {
             test: 123,
-        }
-    }
+        },
+    },
 });
 
 console.log(server.decorations.toolkit);
@@ -49,7 +49,7 @@ function decorateServerWithParams(this: Server, x: number, y: string) {
 }
 
 server.decorate('server', 'withParams', decorateServerWithParams);
-server.withParams(1, "one");
+server.withParams(1, 'one');
 
 function decorateToolkitWithParams(this: ResponseToolkit, x: number, y: string) {
     return `${x} ${y}`;
@@ -63,8 +63,8 @@ server.route({
     method: 'GET',
     path: '/toolkitWithParams',
     handler: (r, h) => {
-        return h.withParams(1, "one");
-    }
+        return h.withParams(1, 'one');
+    },
 });
 
 // Test request + apply option types
@@ -81,14 +81,14 @@ function decorateRequestWithApply(request: Request) {
     };
 }
 
-server.decorate('request', 'withApply', decorateRequestWithApply, {apply: true});
+server.decorate('request', 'withApply', decorateRequestWithApply, { apply: true });
 
 server.route({
     method: 'GET',
     path: '/requestWithApply',
     handler: (r, h) => {
-        return r.withApply("one", 1);
-    }
+        return r.withApply('one', 1);
+    },
 });
 
 // Test extend option type
@@ -106,5 +106,5 @@ const decorateServerWithExtend = (existing: () => void) => {
     };
 };
 
-server.decorate('server', 'withExtend', decorateServerWithExtend, {extend: true});
-server.withExtend("one", 1);
+server.decorate('server', 'withExtend', decorateServerWithExtend, { extend: true });
+server.withExtend('one', 1);

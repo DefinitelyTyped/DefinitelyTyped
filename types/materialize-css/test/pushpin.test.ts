@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -17,7 +17,7 @@ const pushpin = new materialize.Pushpin(elem, {
         // $ExpectType "pinned" | "pin-top" | "pin-bottom"
         position;
     },
-    top: 1
+    top: 1,
 });
 
 // $ExpectType void
@@ -29,6 +29,6 @@ pushpin.options;
 // $ExpectType number
 pushpin.originalOffset;
 
-$(".whatever").pushpin();
-$(".whatever").pushpin({ top: 2 });
-$(".whatever").pushpin("destroy");
+$('.whatever').pushpin();
+$('.whatever').pushpin({ top: 2 });
+$('.whatever').pushpin('destroy');

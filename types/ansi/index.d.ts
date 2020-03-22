@@ -13,7 +13,7 @@
  */
 
 /// <reference types="node" />
-import { Stream } from "stream";
+import { Stream } from 'stream';
 
 interface CursorOptions {
     enabled: boolean;
@@ -174,7 +174,7 @@ declare namespace ansi {
     }
 
     interface Colorer {
-        [key: string]: (...anything: any[]) => (Cursor | Colorer);
+        [key: string]: (...anything: any[]) => Cursor | Colorer;
     }
 }
 

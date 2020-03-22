@@ -34,7 +34,7 @@ import {
     Viewport,
     useLeaflet,
     GeoJSON,
-    GeoJSONProps
+    GeoJSONProps,
 } from 'react-leaflet';
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -59,13 +59,13 @@ export class AnimateExample extends Component<undefined, AnimateExampleState> {
         this.setState({
             latlng: e.latlng,
         });
-    }
+    };
 
     toggleAnimate = () => {
         this.setState({
             animate: !this.state.animate,
         });
-    }
+    };
 
     render() {
         const marker = this.state.hasLocation ? (
@@ -79,11 +79,7 @@ export class AnimateExample extends Component<undefined, AnimateExampleState> {
         return (
             <div style={{ textAlign: 'center' }}>
                 <label>
-                    <input
-                        checked={this.state.animate}
-                        onChange={this.toggleAnimate}
-                        type='checkbox'
-                    />
+                    <input checked={this.state.animate} onChange={this.toggleAnimate} type="checkbox" />
                     Animate panning
                 </label>
                 <Map
@@ -96,7 +92,7 @@ export class AnimateExample extends Component<undefined, AnimateExampleState> {
                 >
                     <TileLayer
                         attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                        url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                     />
                     {marker}
                 </Map>
@@ -126,18 +122,18 @@ export class BoundsExample extends Component<undefined, BoundsExampleState> {
 
     onClickInner = () => {
         this.setState({ bounds: inner });
-    }
+    };
 
     onClickOuter = () => {
         this.setState({ bounds: outer });
-    }
+    };
 
     render() {
         return (
             <Map bounds={this.state.bounds}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
                 <Rectangle
                     bounds={outer}
@@ -177,9 +173,7 @@ interface MyMarkersListProps {
 }
 
 const MyMarkersList = ({ markers }: MyMarkersListProps) => {
-    const items = markers.map(({ key, ...props }) => (
-        <MyPopupMarker key={key} {...props} />
-    ));
+    const items = markers.map(({ key, ...props }) => <MyPopupMarker key={key} {...props} />);
     return <div style={{ display: 'none' }}>{items}</div>;
 };
 
@@ -208,7 +202,7 @@ export class CustomComponent extends Component<undefined, CustomComponentState> 
             <Map center={center} zoom={this.state.zoom}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
                 <MyMarkersList markers={markers} />
             </Map>
@@ -221,9 +215,7 @@ export class MarkerWithDivIconExample extends Component<undefined, undefined> {
     render() {
         return (
             <Map>
-                <Marker position={[0, 0]} icon={
-                    new L.DivIcon({})
-                } />
+                <Marker position={[0, 0]} icon={new L.DivIcon({})} />
             </Map>
         );
     }
@@ -253,17 +245,14 @@ export class DraggableExample extends Component<undefined, DraggableExampleState
 
     toggleDraggable = () => {
         this.setState({ draggable: !this.state.draggable });
-    }
+    };
 
     updatePosition = () => {
-        const {
-            lat,
-            lng,
-        } = (this.refs.marker as Marker).leafletElement.getLatLng();
+        const { lat, lng } = (this.refs.marker as Marker).leafletElement.getLatLng();
         this.setState({
             marker: { lat, lng },
         });
-    }
+    };
 
     render() {
         const position: L.LatLngExpression = [this.state.center.lat, this.state.center.lng];
@@ -273,13 +262,13 @@ export class DraggableExample extends Component<undefined, DraggableExampleState
             <Map center={position} zoom={this.state.zoom}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
                 <Marker
                     draggable={this.state.draggable}
                     ondragend={this.updatePosition}
                     position={markerPosition}
-                    ref='marker'
+                    ref="marker"
                 >
                     <Popup minWidth={90}>
                         <span onClick={this.toggleDraggable}>
@@ -309,14 +298,14 @@ export class EventsExample extends Component<undefined, EventsExampleState> {
 
     handleClick = () => {
         (this.refs.map as Map).leafletElement.locate();
-    }
+    };
 
     handleLocationFound = (e: L.LocationEvent) => {
         this.setState({
             hasLocation: true,
             latlng: e.latlng,
         });
-    }
+    };
 
     render() {
         const marker = this.state.hasLocation ? (
@@ -335,10 +324,11 @@ export class EventsExample extends Component<undefined, EventsExampleState> {
                 // NB: lowercase prop for Leaflet event handler
                 onlocationfound={this.handleLocationFound}
                 ref="map"
-                zoom={13}>
+                zoom={13}
+            >
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
                 {marker}
             </Map>
@@ -357,37 +347,39 @@ export class LayersControlExample extends Component<undefined, undefined> {
 
         return (
             <Map center={center} zoom={13}>
-                <LayersControl position='topright'>
-                    <BaseLayer checked name='OpenStreetMap.Mapnik'>
+                <LayersControl position="topright">
+                    <BaseLayer checked name="OpenStreetMap.Mapnik">
                         <TileLayer
                             attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                         />
                     </BaseLayer>
-                    <BaseLayer name='OpenStreetMap.BlackAndWhite'>
+                    <BaseLayer name="OpenStreetMap.BlackAndWhite">
                         <TileLayer
                             attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            url='http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'
+                            url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                         />
                     </BaseLayer>
-                    <Overlay name='Marker with popup'>
+                    <Overlay name="Marker with popup">
                         <Marker position={center}>
                             <Popup>
-                                <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
+                                <span>
+                                    A pretty CSS3 popup. <br /> Easily customizable.
+                                </span>
                             </Popup>
                         </Marker>
                     </Overlay>
-                    <Overlay checked name='Layer group with circles'>
+                    <Overlay checked name="Layer group with circles">
                         <LayerGroup>
-                            <Circle center={center} fillColor='blue' radius={200} />
-                            <Circle center={center} fillColor='red' radius={100} stroke={false} />
+                            <Circle center={center} fillColor="blue" radius={200} />
+                            <Circle center={center} fillColor="red" radius={100} stroke={false} />
                             <LayerGroup>
-                                <Circle center={[51.51, -0.08]} color='green' fillColor='green' radius={100} />
+                                <Circle center={[51.51, -0.08]} color="green" fillColor="green" radius={100} />
                             </LayerGroup>
                         </LayerGroup>
                     </Overlay>
-                    <Overlay name='Feature group'>
-                        <FeatureGroup color='purple'>
+                    <Overlay name="Feature group">
+                        <FeatureGroup color="purple">
                             <Popup>
                                 <span>Popup in FeatureGroup</span>
                             </Popup>
@@ -414,16 +406,16 @@ export class OtherLayersExample extends Component<undefined, undefined> {
             <Map center={center} zoom={13}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
                 <LayerGroup>
-                    <Circle center={center} fillColor='blue' radius={200} />
-                    <Circle center={center} fillColor='red' radius={100} stroke={false} />
+                    <Circle center={center} fillColor="blue" radius={200} />
+                    <Circle center={center} fillColor="red" radius={100} stroke={false} />
                     <LayerGroup>
-                        <Circle center={[51.51, -0.08]} color='green' fillColor='green' radius={100} />
+                        <Circle center={[51.51, -0.08]} color="green" fillColor="green" radius={100} />
                     </LayerGroup>
                 </LayerGroup>
-                <FeatureGroup color='purple'>
+                <FeatureGroup color="purple">
                     <Popup>
                         <span>Popup in FeatureGroup</span>
                     </Popup>
@@ -458,17 +450,17 @@ export class PaneExample extends Component<undefined, PaneExampleState> {
             <Map bounds={outer}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
                 {this.state.render ? (
-                    <Pane name='cyan-rectangle' style={{ zIndex: 500 }}>
-                        <Rectangle bounds={outer} color='cyan' />
+                    <Pane name="cyan-rectangle" style={{ zIndex: 500 }}>
+                        <Rectangle bounds={outer} color="cyan" />
                     </Pane>
                 ) : null}
-                <Pane name='yellow-rectangle' style={{ zIndex: 499 }}>
-                    <Rectangle bounds={inner} color='yellow' />
-                    <Pane name='purple-rectangle' className='purplePane-purplePane'>
-                        <Rectangle bounds={outer} color='purple' />
+                <Pane name="yellow-rectangle" style={{ zIndex: 499 }}>
+                    <Rectangle bounds={inner} color="yellow" />
+                    <Pane name="purple-rectangle" className="purplePane-purplePane">
+                        <Rectangle bounds={outer} color="purple" />
                     </Pane>
                 </Pane>
             </Map>
@@ -496,11 +488,13 @@ export class SimpleExample extends Component<undefined, SimpleExampleState> {
             <Map center={position} zoom={this.state.zoom}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
                 <Marker position={position}>
                     <Popup>
-                        <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
+                        <span>
+                            A pretty CSS3 popup. <br /> Easily customizable.
+                        </span>
                     </Popup>
                 </Marker>
             </Map>
@@ -510,19 +504,24 @@ export class SimpleExample extends Component<undefined, SimpleExampleState> {
 
 // svg-overlay.js
 export default class SVGOverlayExample extends Component {
-  render() {
-    return (
-      <Map center={[51.505, -0.09]} zoom={13}>
-        <SVGOverlay bounds={[[51.49, -0.08], [51.5, -0.06]]}>
-          <rect x="0" y="0" width="100%" height="100%" fill="blue" />
-          <circle r="5" cx="10" cy="10" fill="red" />
-          <text x="50%" y="50%" fill="white">
-            text
-          </text>
-        </SVGOverlay>
-      </Map>
-    );
-  }
+    render() {
+        return (
+            <Map center={[51.505, -0.09]} zoom={13}>
+                <SVGOverlay
+                    bounds={[
+                        [51.49, -0.08],
+                        [51.5, -0.06],
+                    ]}
+                >
+                    <rect x="0" y="0" width="100%" height="100%" fill="blue" />
+                    <circle r="5" cx="10" cy="10" fill="red" />
+                    <text x="50%" y="50%" fill="white">
+                        text
+                    </text>
+                </SVGOverlay>
+            </Map>
+        );
+    }
 }
 
 // tooltip.js
@@ -537,14 +536,22 @@ export class TooltipExample extends Component<undefined, TooltipExampleState> {
 
     onClickCircle = () => {
         this.setState({ clicked: this.state.clicked + 1 });
-    }
+    };
 
     render() {
         const center: L.LatLngExpression = [51.505, -0.09];
 
         const multiPolygon: L.LatLngExpression[][] = [
-            [[51.51, -0.12], [51.51, -0.13], [51.53, -0.13]],
-            [[51.51, -0.05], [51.51, -0.07], [51.53, -0.07]],
+            [
+                [51.51, -0.12],
+                [51.51, -0.13],
+                [51.53, -0.13],
+            ],
+            [
+                [51.51, -0.05],
+                [51.51, -0.07],
+                [51.53, -0.07],
+            ],
         ];
 
         const rectangle: L.LatLngBoundsExpression = [
@@ -552,32 +559,28 @@ export class TooltipExample extends Component<undefined, TooltipExampleState> {
             [51.5, -0.06],
         ];
 
-        const clickedText = this.state.clicked === 0
-            ? 'Click this Circle to change the Tooltip text'
-            : `Circle click: ${this.state.clicked}`;
+        const clickedText =
+            this.state.clicked === 0
+                ? 'Click this Circle to change the Tooltip text'
+                : `Circle click: ${this.state.clicked}`;
 
         return (
             <Map center={center} zoom={13}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
-                <Circle
-                    center={center}
-                    fillColor='blue'
-                    onclick={this.onClickCircle}
-                    radius={200}
-                >
+                <Circle center={center} fillColor="blue" onclick={this.onClickCircle} radius={200}>
                     <Tooltip>
                         <span>{clickedText}</span>
                     </Tooltip>
                 </Circle>
-                <CircleMarker center={[51.51, -0.12]} color='red' radius={20}>
+                <CircleMarker center={[51.51, -0.12]} color="red" radius={20}>
                     <Tooltip>
                         <span>Tooltip for CircleMarker</span>
                     </Tooltip>
                 </CircleMarker>
-                <Marker position={[51.510, -0.09]}>
+                <Marker position={[51.51, -0.09]}>
                     <Popup>
                         <span>Popup for Marker</span>
                     </Popup>
@@ -585,13 +588,13 @@ export class TooltipExample extends Component<undefined, TooltipExampleState> {
                         <span>Tooltip for Marker</span>
                     </Tooltip>
                 </Marker>
-                <Polygon color='purple' positions={multiPolygon}>
+                <Polygon color="purple" positions={multiPolygon}>
                     <Tooltip sticky>
                         <span>sticky Tooltip for Polygon</span>
                     </Tooltip>
                 </Polygon>
-                <Rectangle bounds={rectangle} color='black'>
-                    <Tooltip direction='bottom' offset={[0, 20]} opacity={1} permanent>
+                <Rectangle bounds={rectangle} color="black">
+                    <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent>
                         <span>permanent Tooltip for Rectangle</span>
                     </Tooltip>
                 </Rectangle>
@@ -612,8 +615,16 @@ export class VectorLayersExample extends Component<undefined, undefined> {
         ];
 
         const multiPolyline: L.LatLngExpression[][] = [
-            [[51.5, -0.1], [51.5, -0.12], [51.52, -0.12]],
-            [[51.5, -0.05], [51.5, -0.06], [51.52, -0.06]],
+            [
+                [51.5, -0.1],
+                [51.5, -0.12],
+                [51.52, -0.12],
+            ],
+            [
+                [51.5, -0.05],
+                [51.5, -0.06],
+                [51.52, -0.06],
+            ],
         ];
 
         const polygon: L.LatLngExpression[] = [
@@ -623,8 +634,16 @@ export class VectorLayersExample extends Component<undefined, undefined> {
         ];
 
         const multiPolygon: L.LatLngExpression[][] = [
-            [[51.51, -0.12], [51.51, -0.13], [51.53, -0.13]],
-            [[51.51, -0.05], [51.51, -0.07], [51.53, -0.07]],
+            [
+                [51.51, -0.12],
+                [51.51, -0.13],
+                [51.53, -0.13],
+            ],
+            [
+                [51.51, -0.05],
+                [51.51, -0.07],
+                [51.53, -0.07],
+            ],
         ];
 
         const rectangle: L.LatLngBoundsExpression = [
@@ -636,19 +655,19 @@ export class VectorLayersExample extends Component<undefined, undefined> {
             <Map center={center} zoom={13}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
-                <Circle center={center} fillColor='blue' radius={200} />
-                <CircleMarker center={[51.51, -0.12]} color='red' radius={20}>
+                <Circle center={center} fillColor="blue" radius={200} />
+                <CircleMarker center={[51.51, -0.12]} color="red" radius={20}>
                     <Popup>
                         <span>Popup in CircleMarker</span>
                     </Popup>
                 </CircleMarker>
-                <Polyline color='lime' positions={polyline} />
-                <Polyline color='lime' positions={multiPolyline} />
-                <Polygon color='purple' positions={polygon} />
-                <Polygon color='purple' positions={multiPolygon} />
-                <Rectangle bounds={rectangle} color='black' />
+                <Polyline color="lime" positions={polyline} />
+                <Polyline color="lime" positions={multiPolyline} />
+                <Polygon color="purple" positions={polygon} />
+                <Polygon color="purple" positions={multiPolygon} />
+                <Rectangle bounds={rectangle} color="black" />
             </Map>
         );
     }
@@ -671,20 +690,17 @@ class ViewportExample extends Component<undefined, ViewportExampleState> {
 
     onClickReset = () => {
         this.setState({ viewport: DEFAULT_VIEWPORT });
-    }
+    };
 
     onViewportChanged = (viewport: Viewport) => {
         this.setState({ viewport });
-    }
+    };
 
     render() {
         return (
-            <Map
-                onClick={this.onClickReset}
-                onViewportChanged={this.onViewportChanged}
-                viewport={this.state.viewport}>
+            <Map onClick={this.onClickReset} onViewportChanged={this.onViewportChanged} viewport={this.state.viewport}>
                 <TileLayer
-                    attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                    attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
             </Map>
@@ -712,22 +728,18 @@ export class WMSTileLayerExample extends Component<undefined, WMSTileLayerExampl
         this.setState({
             bluemarble: !this.state.bluemarble,
         });
-    }
+    };
 
     render() {
         return (
-            <Map
-                center={[this.state.lat, this.state.lng]}
-                zoom={this.state.zoom}
-                onclick={this.onClick}
-            >
+            <Map center={[this.state.lat, this.state.lng]} zoom={this.state.zoom} onclick={this.onClick}>
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
                 <WMSTileLayer
                     layers={this.state.bluemarble ? 'nasa:bluemarble' : 'ne:ne'}
-                    url='http://demo.opengeo.org/geoserver/ows?'
+                    url="http://demo.opengeo.org/geoserver/ows?"
                 />
             </Map>
         );
@@ -739,21 +751,20 @@ const ZoomControlExample = () => (
     <Map center={[51.505, -0.09]} zoom={13} zoomControl={false}>
         <TileLayer
             attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         />
-        <ZoomControl position='topright' />
+        <ZoomControl position="topright" />
     </Map>
 );
 
 // MapControl https://github.com/PaulLeCam/react-leaflet/issues/130
-class CenterControl extends MapControl {  // note we're extending MapControl from react-leaflet, not Component from react
+class CenterControl extends MapControl {
+    // note we're extending MapControl from react-leaflet, not Component from react
     componentWillMount() {
-        const centerControl = new L.Control({ position: 'bottomright' });  // see http://leafletjs.com/reference.html#control-positions for other positions
+        const centerControl = new L.Control({ position: 'bottomright' }); // see http://leafletjs.com/reference.html#control-positions for other positions
         const jsx = (
             // PUT YOUR JSX FOR THE COMPONENT HERE:
-            <div>
-                {/* add your JSX */}
-            </div>
+            <div>{/* add your JSX */}</div>
         );
 
         centerControl.onAdd = (map) => {
@@ -777,11 +788,7 @@ const CenterControlExample = () => (
 class LegendControl extends MapControl<MapControlProps & { className?: string }> {
     componentWillMount() {
         const legend = new L.Control({ position: 'bottomright' });
-        const jsx = (
-            <div>
-                {this.props.children}
-            </div>
-        );
+        const jsx = <div>{this.props.children}</div>;
 
         legend.onAdd = (map) => {
             const div = L.DomUtil.create('div', '');
@@ -796,9 +803,9 @@ class LegendControl extends MapControl<MapControlProps & { className?: string }>
 const legendControlComponent = withLeaflet<MapControlProps>(LegendControl);
 
 const LegendControlExample = () => (
-    <Map className="map" center={mapControlCenter} zoom={13} style={{ height: "300px" }}>
+    <Map className="map" center={mapControlCenter} zoom={13} style={{ height: '300px' }}>
         <TileLayer
-            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <LegendControl className="supportLegend">
@@ -839,33 +846,37 @@ const leafletComponent = withLeaflet<PolygonProps>(CustomPolygon);
 useLeaflet();
 
 const northDakota: GeoJSON.Feature = {
-    type: "Feature",
-    properties: {name: "North Dakota"},
+    type: 'Feature',
+    properties: { name: 'North Dakota' },
     geometry: {
-        type: "Polygon",
-        coordinates: [[
-            [-104.05, 48.99],
-            [-97.22,  48.98],
-            [-96.58,  45.94],
-            [-104.03, 45.94],
-            [-104.05, 48.99]
-        ]]
-    }
+        type: 'Polygon',
+        coordinates: [
+            [
+                [-104.05, 48.99],
+                [-97.22, 48.98],
+                [-96.58, 45.94],
+                [-104.03, 45.94],
+                [-104.05, 48.99],
+            ],
+        ],
+    },
 };
 
 const colorado: GeoJSON.Feature = {
-    type: "Feature",
-    properties: {name: "Colorado"},
+    type: 'Feature',
+    properties: { name: 'Colorado' },
     geometry: {
-        type: "Polygon",
-        coordinates: [[
-            [-109.05, 41.00],
-            [-102.06, 40.99],
-            [-102.03, 36.99],
-            [-109.04, 36.99],
-            [-109.05, 41.00]
-        ]]
-    }
+        type: 'Polygon',
+        coordinates: [
+            [
+                [-109.05, 41.0],
+                [-102.06, 40.99],
+                [-102.03, 36.99],
+                [-109.04, 36.99],
+                [-109.05, 41.0],
+            ],
+        ],
+    },
 };
 
 // GeoJSON
@@ -874,16 +885,18 @@ export class GeoJSONExample extends Component<undefined, undefined> {
 
     vp: Viewport = {
         center: [-102, 40],
-        zoom: 10
+        zoom: 10,
     };
 
     render() {
-        return (<Map viewport={this.vp}>
-            <TileLayer
-                url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            />
-            <GeoJSON data={this.polygons} />
-        </Map>);
+        return (
+            <Map viewport={this.vp}>
+                <TileLayer
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                />
+                <GeoJSON data={this.polygons} />
+            </Map>
+        );
     }
 }

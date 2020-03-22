@@ -3,7 +3,7 @@ import settings = require('electron-settings');
 function test_configure() {
     settings.configure({
         atomicSaving: false,
-        prettify: true
+        prettify: true,
     }) === undefined;
 }
 
@@ -14,14 +14,14 @@ function test_defaults() {
         c: false,
         d: {
             d1: 'd1',
-            d2: true
+            d2: true,
         },
-        e: ['e1', 'e2']
+        e: ['e1', 'e2'],
     }) === undefined;
 }
 
 async function test_has() {
-    await settings.has('a') === true;
+    (await settings.has('a')) === true;
 }
 
 function test_hasSync() {
@@ -29,7 +29,7 @@ function test_hasSync() {
 }
 
 async function test_get() {
-    await settings.get('b') === '';
+    (await settings.get('b')) === '';
 }
 
 function test_getSync() {
@@ -37,7 +37,7 @@ function test_getSync() {
 }
 
 async function test_set() {
-    await settings.set('c', true) === undefined;
+    (await settings.set('c', true)) === undefined;
 }
 
 function test_setSync() {
@@ -45,7 +45,7 @@ function test_setSync() {
 }
 
 async function test_delete() {
-    await settings.delete('d') === undefined;
+    (await settings.delete('d')) === undefined;
 }
 
 function test_deleteSync() {
@@ -53,7 +53,7 @@ function test_deleteSync() {
 }
 
 async function test_clear() {
-    await settings.clear() === undefined;
+    (await settings.clear()) === undefined;
 }
 
 function test_clearSync() {
@@ -61,7 +61,7 @@ function test_clearSync() {
 }
 
 async function test_applyDefaults() {
-    await settings.applyDefaults({ overwrite: true }) === undefined;
+    (await settings.applyDefaults({ overwrite: true })) === undefined;
 }
 
 function test_applyDefaultsSync() {
@@ -69,7 +69,7 @@ function test_applyDefaultsSync() {
 }
 
 async function test_resetToDefaults() {
-    await settings.resetToDefaults() === undefined;
+    (await settings.resetToDefaults()) === undefined;
 }
 
 function test_resetToDefaultsSync() {
@@ -77,7 +77,7 @@ function test_resetToDefaultsSync() {
 }
 
 function test_observe() {
-    const observer = settings.observe('b', evt => {
+    const observer = settings.observe('b', (evt) => {
         if (evt.oldValue !== evt.newValue) {
             console.log(evt.newValue);
         }
@@ -91,7 +91,7 @@ function test_getSettingsFilePath() {
 }
 
 function test_on_create() {
-    settings.on('create', pathToSettings => {
+    settings.on('create', (pathToSettings) => {
         pathToSettings === __dirname;
     }) === settings;
 }

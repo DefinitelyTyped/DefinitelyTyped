@@ -1,13 +1,25 @@
-import { DataProvider, SortCriterion, FetchByKeysParameters, ContainsKeysResults, FetchByKeysResults, FetchByOffsetParameters, FetchByOffsetResults, FetchListResult,
-   FetchListParameters } from '../ojdataprovider';
+import {
+    DataProvider,
+    SortCriterion,
+    FetchByKeysParameters,
+    ContainsKeysResults,
+    FetchByKeysResults,
+    FetchByOffsetParameters,
+    FetchByOffsetResults,
+    FetchListResult,
+    FetchListParameters,
+} from '../ojdataprovider';
 declare class ArrayDataProvider<K, D> implements DataProvider<K, D> {
-    constructor(data: any[] | (() => any[]), options?: {
-        sortComparators?: ArrayDataProvider.SortComparators<D>;
-        implicitSort?: Array<SortCriterion<D>>;
-        keys?: any[] | (() => any[]);
-        idAttribute?: string | string[];
-        keyAttributes?: string | string[];
-    });
+    constructor(
+        data: any[] | (() => any[]),
+        options?: {
+            sortComparators?: ArrayDataProvider.SortComparators<D>;
+            implicitSort?: Array<SortCriterion<D>>;
+            keys?: any[] | (() => any[]);
+            idAttribute?: string | string[];
+            keyAttributes?: string | string[];
+        },
+    );
     addEventListener(eventType: string, listener: EventListener): void;
     containsKeys(params: FetchByKeysParameters<K>): Promise<ContainsKeysResults<K>>;
     dispatchEvent(evt: Event): boolean;

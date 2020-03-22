@@ -69,50 +69,50 @@ declare namespace connect {
 
     interface SoftPhoneOptions {
         /*
-        * Whether to disable the ringtone.
-        */
+         * Whether to disable the ringtone.
+         */
         disableRingtone?: boolean;
         /*
-        * Whether to display the softphone in a frame.
-        */
+         * Whether to display the softphone in a frame.
+         */
         allowFramedSoftphone?: boolean;
         /*
-        * A URL for a custom ringtone.
-        */
+         * A URL for a custom ringtone.
+         */
         ringtoneUrl?: string;
-     }
+    }
 
     interface InitCCPOptions {
         /*
-        * The URL for the Connect CCP.
-        */
+         * The URL for the Connect CCP.
+         */
         ccpUrl: string;
         /*
-        * Whether to display the login view.
-        */
+         * Whether to display the login view.
+         */
         loginPopup?: boolean;
         /*
-        * Options specifying softphone configuration.
-        */
+         * Options specifying softphone configuration.
+         */
         softphone?: SoftPhoneOptions;
-     }
+    }
 
-     enum AgentStateType {
+    enum AgentStateType {
         INIT = 'init',
         ROUTABLE = 'routable',
         NOT_ROUTABLE = 'not_routable',
-        OFFLINE = 'offline'
+        OFFLINE = 'offline',
     }
 
     enum AgentAvailStates {
-        INIT = "Init",
-        BUSY = "Busy",
-        AFTER_CALL_WORK = "AfterCallWork",
-        CALLING_CUSTOMER = "CallingCustomer",
-        DIALING = "Dialing",
-        JOINING = "Joining",
-        PENDING_AVAILABLE = "PendingAvailable",
-        PENDING_BUSY = "PendingBusy"
+        INIT = 'Init',
+        BUSY = 'Busy',
+        AFTER_CALL_WORK = 'AfterCallWork',
+        CALLING_CUSTOMER = 'CallingCustomer',
+        DIALING = 'Dialing',
+        JOINING = 'Joining',
+        PENDING_AVAILABLE = 'PendingAvailable',
+        PENDING_BUSY = 'PendingBusy',
     }
 
     enum AgentErrorStates {
@@ -128,20 +128,20 @@ declare namespace connect {
         MISSED_CALL_AGENT = 'MissedCallAgent',
         MISSED_CALL_CUSTOMER = 'MissedCallCustomer',
         MULTIPLE_CCP_WINDOWS = 'MultipleCcpWindows',
-        REALTIME_COMMUNICATION_ERROR = 'RealtimeCommunicationError'
+        REALTIME_COMMUNICATION_ERROR = 'RealtimeCommunicationError',
     }
 
     enum EndpointType {
         PHONE_NUMBER = 'phone_number',
         AGENT = 'agent',
-        QUEUE = 'queue'
+        QUEUE = 'queue',
     }
 
     enum ConnectionType {
         AGENT = 'agent',
         INBOUND = 'inbound',
         OUTBOUND = 'outbound',
-        MONITORING = 'monitoring'
+        MONITORING = 'monitoring',
     }
 
     enum ConnectionStateType {
@@ -149,7 +149,7 @@ declare namespace connect {
         CONNECTING = 'connecting',
         CONNECTED = 'connected',
         HOLD = 'hold',
-        DISCONNECTED = 'disconnected'
+        DISCONNECTED = 'disconnected',
     }
 
     interface CONNECTION_ACTIVE_STATES {
@@ -164,25 +164,25 @@ declare namespace connect {
         CONNECTED = 'connected',
         MISSED = 'missed',
         ERROR = 'error',
-        ENDED = 'ended'
+        ENDED = 'ended',
     }
 
     enum CONTACT_ACTIVE_STATES {
         INCOMING = 'incoming',
         CONNECTING = 'connecting',
-        CONNECTED = 'connected'
+        CONNECTED = 'connected',
     }
 
     enum ContactType {
         VOICE = 'voice',
-        QUEUE_CALLBACK = 'queue_callback'
+        QUEUE_CALLBACK = 'queue_callback',
     }
 
     enum SoftphoneCallType {
         AUDIO_VIDEO = 'audio_video',
         VIDEO_ONLY = 'video_only',
         AUDIO_ONLY = 'audio_only',
-        NONE = 'none'
+        NONE = 'none',
     }
 
     enum SoftphoneErrorTypes {
@@ -194,7 +194,7 @@ declare namespace connect {
         USER_BUSY_ERROR = 'user_busy_error',
         WEBRTC_ERROR = 'webrtc_error',
         REALTIME_COMMUNICATION_ERROR = 'realtime_communication_error',
-        OTHER = 'other'
+        OTHER = 'other',
     }
 
     enum CTIExceptions {
@@ -207,29 +207,29 @@ declare namespace connect {
         PAGINATION_EXCEPTION = 'PaginationException',
         REFRESH_TOKEN_EXPIRED_EXCEPTION = 'RefreshTokenExpiredException',
         SEND_DATA_FAILED_EXCEPTION = 'SendDataFailedException',
-        UNAUTHORIZED_EXCEPTION = 'UnauthorizedException'
+        UNAUTHORIZED_EXCEPTION = 'UnauthorizedException',
     }
 
     /*
-    * A callback to receive notifications of success or failure.
-    */
+     * A callback to receive notifications of success or failure.
+     */
     type SuccessFailCallback = () => void;
 
     interface SuccessFailOptions {
         /*
-        * A {SuccessFailCallback} to receive a notification of success.
-        */
+         * A {SuccessFailCallback} to receive a notification of success.
+         */
         success?: SuccessFailCallback;
         /*
-        * A {SuccessFailCallback} to receive a notification of failure.
-        */
-       failure?: SuccessFailCallback;
+         * A {SuccessFailCallback} to receive a notification of failure.
+         */
+        failure?: SuccessFailCallback;
     }
     interface ConnectOptions extends SuccessFailOptions {
         /*
-        * A string containing a Connect Queue ARN.
-        */
-       queueARN?: string;
+         * A string containing a Connect Queue ARN.
+         */
+        queueARN?: string;
     }
 
     interface MuteState {
@@ -611,9 +611,9 @@ declare namespace connect {
 
     interface SendDigitOptions extends SuccessFailOptions {
         /*
-        * A string containing digits to send.
-        */
-       digits: string;
+         * A string containing digits to send.
+         */
+        digits: string;
     }
 
     interface Connection {
@@ -640,7 +640,7 @@ declare namespace connect {
         /**
          * Get the type of connection.
          */
-        getType(): "inbound" | "outbound" | "monitoring";
+        getType(): 'inbound' | 'outbound' | 'monitoring';
         /**
          * Determine if the connection is the contact's initial connection.
          */

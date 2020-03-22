@@ -5,8 +5,8 @@
 
 declare var addToHome: {
     /** Shows the popup.
-    * @param {boolean} overrideChecks Override all the compatibility checks and always show the popup.
-    */
+     * @param {boolean} overrideChecks Override all the compatibility checks and always show the popup.
+     */
     show: (overrideChecks: boolean) => void;
     /** Closes the popup. */
     close: () => void;

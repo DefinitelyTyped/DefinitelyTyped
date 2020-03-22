@@ -1,6 +1,6 @@
-import * as jaegerClient from "jaeger-client";
-import * as promClient from "prom-client";
-import * as opentracing from "opentracing";
+import * as jaegerClient from 'jaeger-client';
+import * as promClient from 'prom-client';
+import * as opentracing from 'opentracing';
 
 const tracingConfig: jaegerClient.TracingConfig = {};
 const tracingOptions: jaegerClient.TracingOptions = {};
@@ -8,7 +8,7 @@ const tracingOptions: jaegerClient.TracingOptions = {};
 const tracer = jaegerClient.initTracer(tracingConfig, tracingOptions);
 jaegerClient.initTracerFromEnv(tracingConfig, tracingOptions);
 
-const metrics = new jaegerClient.PrometheusMetricsFactory(promClient, "foo");
+const metrics = new jaegerClient.PrometheusMetricsFactory(promClient, 'foo');
 
 const textCodec = new jaegerClient.TextMapCodec({
     contextKey: 'trace-id',

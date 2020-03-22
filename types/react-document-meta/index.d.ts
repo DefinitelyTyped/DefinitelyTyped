@@ -12,6 +12,6 @@ export interface DocumentMetaProps {
     readonly canonical?: string;
 }
 
-declare class DocumentMeta extends React.Component<DocumentMetaProps> { }
+declare class DocumentMeta extends React.Component<DocumentMetaProps> {}
 
 export default DocumentMeta;

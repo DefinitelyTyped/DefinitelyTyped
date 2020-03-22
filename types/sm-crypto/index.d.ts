@@ -26,17 +26,26 @@ export namespace sm2 {
     function generateKeyPairHex(): KeyPairHex;
     function doEncrypt(msg: string, publicKey: string, cipherMode?: CipherMode): string;
     function doDecrypt(encryptData: string, privateKey: string, cipherMode?: CipherMode): string;
-    function doSignature(msg: string, privateKey: string, options?: {
-        pointPool?: KeyPairPoint[]
-        der?: boolean
-        hash?: boolean
-        publicKey?: string
-    }): string;
-    function doVerifySignature(msg: string, signHex: string, publicKey: string, options?: {
-        der?: boolean
-        hash?: boolean
-        publicKey?: string
-    }): boolean;
+    function doSignature(
+        msg: string,
+        privateKey: string,
+        options?: {
+            pointPool?: KeyPairPoint[];
+            der?: boolean;
+            hash?: boolean;
+            publicKey?: string;
+        },
+    ): string;
+    function doVerifySignature(
+        msg: string,
+        signHex: string,
+        publicKey: string,
+        options?: {
+            der?: boolean;
+            hash?: boolean;
+            publicKey?: string;
+        },
+    ): boolean;
     function getPoint(): KeyPairPoint;
 }
 

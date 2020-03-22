@@ -7,47 +7,31 @@ interface NativeKeyboard {
      * Show the messenger, the bare minimum which has to be passed to the function is
      * the onSubmit callback
      */
-    showMessenger(
-        options: NativeKeyboardShowOptions
-    ): void;
+    showMessenger(options: NativeKeyboardShowOptions): void;
 
     /**
      * It's likely your app only has 1 one page where you want to show the messenger,
      * so you want to hide it when the user navigates away. You can choose to do this
      * either animated (a quick slide down animation) or not.
      */
-    hideMessenger(
-        options?: NativeKeyboardHideOptions,
-        onSuccess?: () => void,
-        onError?: (err: any) => void
-    ): void;
+    hideMessenger(options?: NativeKeyboardHideOptions, onSuccess?: () => void, onError?: (err: any) => void): void;
 
     /**
      * Show a previously hidden keyboard
      */
-    showMessengerKeyboard(
-        onSuccess?: () => void,
-        onError?: (err: any) => void,
-    ): void;
+    showMessengerKeyboard(onSuccess?: () => void, onError?: (err: any) => void): void;
 
     /**
      * Hide the keyboard, but not the messenger bar
      */
-    hideMessengerKeyboard(
-        onSuccess?: () => void,
-        onError?: (err: any) => void,
-    ): void;
+    hideMessengerKeyboard(onSuccess?: () => void, onError?: (err: any) => void): void;
 
     /**
      * Manipulate the messenger while it's open. For instance if you want to
      * update the text programmatically based on what the user typed (by responding to
      * onTextChanged events).
      */
-    updateMessenger(
-        options: NativeKeyboardUpdateOptions,
-        onSuccess?: () => void,
-        onError?: (err: any) => void
-    ): void;
+    updateMessenger(options: NativeKeyboardUpdateOptions, onSuccess?: () => void, onError?: (err: any) => void): void;
 }
 
 interface NativeKeyboardUpdateOptions {

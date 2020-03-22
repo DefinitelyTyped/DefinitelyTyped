@@ -26,12 +26,12 @@ const action = promiseListener.createAsyncFunction({
     start: API_REQUEST,
     resolve: API_SUCCESS,
     reject: API_FAILURE,
-    setPayload: action => ({
+    setPayload: (action) => ({
         ...action,
         input: 'additional data',
     }),
-    getPayload: action => action.result,
-    getError: action => action.errors,
+    getPayload: (action) => action.result,
+    getError: (action) => action.errors,
 });
 
 // $ExpectType Promise<any>

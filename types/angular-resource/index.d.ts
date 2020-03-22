@@ -44,7 +44,9 @@ declare module 'angular' {
              * @param actions example: {update: { method: 'PUT' }, delete: deleteDescriptor } where deleteDescriptor: IActionDescriptor
              * @param options Hash with custom settings that should extend the default $resourceProvider behavior
              */
-            (url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<IResource<any>>;
+            (url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<
+                IResource<any>
+            >;
             <T>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<T>;
             <T, U>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): U;
         }
@@ -129,7 +131,7 @@ declare module 'angular' {
         // Also, static calls always return the IResource (or IResourceArray) retrieved
         // https://github.com/angular/js/blob/v1.2.0/src/ngResource/resource.js#L538-L549
         interface IResourceClass<T> {
-            new(dataOrParams?: any): T & IResource<T>;
+            new (dataOrParams?: any): T & IResource<T>;
             get: IResourceMethod<T>;
 
             query: IResourceArrayMethod<T>;

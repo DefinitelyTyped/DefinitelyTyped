@@ -6,10 +6,10 @@
 
 declare namespace Geohash {
     enum Direction {
-        North = "N",
-        South = "S",
-        East = "E",
-        West = "W"
+        North = 'N',
+        South = 'S',
+        East = 'E',
+        West = 'W',
     }
 
     interface Neighbours {
@@ -46,11 +46,7 @@ declare namespace Geohash {
      * @example
      *     var geohash = Geohash.encode(52.205, 0.119, 7); // geohash: 'u120fxw'
      */
-    function encode(
-        latitude: number,
-        longitude: number,
-        precision?: number
-    ): string;
+    function encode(latitude: number, longitude: number, precision?: number): string;
 
     /**
      * Decode geohash to latitude/longitude (location is approximate centre of geohash cell,

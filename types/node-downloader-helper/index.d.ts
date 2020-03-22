@@ -35,7 +35,7 @@ export enum DH_STATES {
     RESUMED = 'RESUMED',
     STOPPED = 'STOPPED',
     FINISHED = 'FINISHED',
-    FAILED = 'FAILED'
+    FAILED = 'FAILED',
 }
 
 export interface DownloaderHelper {

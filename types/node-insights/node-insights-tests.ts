@@ -7,7 +7,7 @@ const ACCOUNT_ID = 'test-account-id';
 const insights = new Insights({
     insertKey: INSERT_KEY,
     queryKey: QUERY_KEY,
-    accountId: ACCOUNT_ID
+    accountId: ACCOUNT_ID,
 });
 
 insights.add({ testAttribute: 1000 }, 'my-event-type');

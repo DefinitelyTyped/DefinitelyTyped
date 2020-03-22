@@ -3052,10 +3052,7 @@ declare module 'victory' {
          * When this prop is given as a function
          * it will be called with datum and active.
          */
-        innerRadius?: number | ((props: {
-            active?: boolean,
-            datum?: object,
-        }) => number);
+        innerRadius?: number | ((props: { active?: boolean; datum?: object }) => number);
         /**
          * the angular padding to add to the slice.
          * When this prop is given as a function it will be called with

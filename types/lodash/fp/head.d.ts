@@ -1,2 +1,2 @@
-import { head } from "../fp";
+import { head } from '../fp';
 export = head;

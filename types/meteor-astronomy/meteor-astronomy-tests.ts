@@ -19,10 +19,12 @@ const Post = Class.create<PostInterface>({
         name: String,
         title: {
             type: String,
-            validators: [{
-                type: 'minLength',
-                param: 3
-            }],
+            validators: [
+                {
+                    type: 'minLength',
+                    param: 3,
+                },
+            ],
         },
         userId: String,
         publishedAt: Date,
@@ -34,7 +36,7 @@ const Post = Class.create<PostInterface>({
         },
     },
     behaviors: {
-        timestamp: {}
+        timestamp: {},
     },
 });
 
@@ -53,7 +55,7 @@ post.title = 'input[name=title]';
 post.publishedAt = new Date();
 // Check if all fields are valid and update document
 // with only the fields that have changed.
-post.save({fields: ['title']});
+post.save({ fields: ['title'] });
 
 interface UserProfileInterface {
     nickname: string;
@@ -69,7 +71,7 @@ const UserProfile = Class.create<UserProfileInterface>({
         firstName: String,
         createdAt: Date,
         age: Number,
-    }
+    },
 });
 
 interface UserInterface extends Meteor.User {
@@ -98,7 +100,7 @@ const User = Class.create<UserInterface>({
         },
         address: {
             type: Object,
-            optional: true
+            optional: true,
         },
         phoneNumber: {
             type: String,
@@ -124,18 +126,20 @@ const User = Class.create<UserInterface>({
         },
     },
     indexes: {
-        fullName: { // Index name.
-            fields: { // List of fields.
+        fullName: {
+            // Index name.
+            fields: {
+                // List of fields.
                 phoneNumber: 1,
-                createdAt: 1
+                createdAt: 1,
             },
-            options: {}
-        }
-    }
+            options: {},
+        },
+    },
 });
 
 const user = User.findOne();
-user.set({username: 'user1'});
+user.set({ username: 'user1' });
 user.save();
 
 interface StatusInterface {
@@ -154,9 +158,9 @@ const Issue = Class.create({
     name: 'Issue',
     fields: {
         status: {
-            type: Status
-        }
-    }
+            type: Status,
+        },
+    },
 });
 
 Status.getValues(); // [0, 1, 2, 3]
@@ -175,7 +179,7 @@ const StatusBis = Enum.create<StatusBisInterface>({
         CLOSED: 'CLOSED',
         DONE: 'DONE',
         CANCELED: 'CANCELED',
-    }
+    },
 });
 
 StatusBis.getValues(); // [5, 6, 15, 16]
@@ -186,15 +190,18 @@ Status.getIdentifier(statusNumber); // "OPENED"
 
 // server.js
 Meteor.publish('posts', () => {
-    Post.find({}, {fields: {title: 1}});
+    Post.find({}, { fields: { title: 1 } });
 });
 
 Meteor.subscribe('posts');
-const post1 = Post.findOne({}, {defaults: false});
+const post1 = Post.findOne({}, { defaults: false });
 post1.name = 'New name';
 post1.getModifier(); // {$set: {name: 'New name'}} - it will not override tags
 post1.save();
 
-const user1 = User.findOne({}, {
-    disableEvents: true
-});
+const user1 = User.findOne(
+    {},
+    {
+        disableEvents: true,
+    },
+);

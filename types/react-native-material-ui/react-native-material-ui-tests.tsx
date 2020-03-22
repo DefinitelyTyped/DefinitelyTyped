@@ -14,21 +14,21 @@ import {
     BottomNavigation,
     Toolbar,
     IconToggle,
-    getTheme
+    getTheme,
 } from 'react-native-material-ui';
 
 const theme = {
     palette: {
         accentColor: COLOR.amber500,
-        primaryColor: COLOR.indigo700
+        primaryColor: COLOR.indigo700,
     },
-    fontFamily: 'System'
+    fontFamily: 'System',
 };
 
-const Example = () =>
+const Example = () => (
     <ThemeContext.Provider value={getTheme(theme)}>
         <View testID="viewTestID">
-            <ActionButton style={{ positionContainer: { marginBottom: 3 }}} />
+            <ActionButton style={{ positionContainer: { marginBottom: 3 } }} />
             <ActionButton icon="done" />
 
             <Avatar text="A" />
@@ -43,38 +43,33 @@ const Example = () =>
             <Button testID="buttonTestID" text="I'm a button" />
 
             <Card>
-                <ThemeContext.Consumer>
-                    {theme => <Text>Hello world!</Text> }
-                </ThemeContext.Consumer>
+                <ThemeContext.Consumer>{(theme) => <Text>Hello world!</Text>}</ThemeContext.Consumer>
             </Card>
 
-            <Checkbox label="Select me" value="chicken" onCheck={a => console.log(a)}/>
+            <Checkbox label="Select me" value="chicken" onCheck={(a) => console.log(a)} />
         </View>
-    </ThemeContext.Provider>;
+    </ThemeContext.Provider>
+);
 
-const DialogExample = () =>
+const DialogExample = () => (
     <Dialog>
         <Dialog.Title>
             <Text>Hello world</Text>
         </Dialog.Title>
 
         <Dialog.Content>
-            <Text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </Text>
+            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
         </Dialog.Content>
 
         <Dialog.Actions>
-            <DialogDefaultActions
-                actions={['Dismiss', 'Keep']}
-                onActionPress={() => {}}
-            />
+            <DialogDefaultActions actions={['Dismiss', 'Keep']} onActionPress={() => {}} />
         </Dialog.Actions>
-    </Dialog>;
+    </Dialog>
+);
 
-class BottomNavigationExample extends React.Component<null, {active: string}> {
+class BottomNavigationExample extends React.Component<null, { active: string }> {
     state = {
-        active: 'today'
+        active: 'today',
     };
 
     render() {
@@ -117,9 +112,9 @@ class BottomNavigationExample extends React.Component<null, {active: string}> {
     }
 }
 
-class ToolbarExample extends React.Component<{}, {search: string}> {
+class ToolbarExample extends React.Component<{}, { search: string }> {
     state = {
-        search: ''
+        search: '',
     };
 
     handleResults(search: string) {

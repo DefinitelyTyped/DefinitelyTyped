@@ -6,7 +6,7 @@
 /// <reference types="node" />
 import * as React from 'react';
 import BaseStore = require('fluxible/addons/BaseStore');
-import { ComponentContext } from "fluxible";
+import { ComponentContext } from 'fluxible';
 
 /**
  * Registers change listeners and retrieves state from stores using the `getStateFromStores`
@@ -20,10 +20,11 @@ import { ComponentContext } from "fluxible";
  * @returns React.Component
  */
 export function connectToStores(
- Component: typeof React.Component,
- stores: Array<typeof BaseStore> | string[],
- getStateFromStores: (context: ComponentContext, props: any) => any,
- customContextTypes?: any): typeof React.Component;
+    Component: typeof React.Component,
+    stores: Array<typeof BaseStore> | string[],
+    getStateFromStores: (context: ComponentContext, props: any) => any,
+    customContextTypes?: any,
+): typeof React.Component;
 
 /**
  * Provides context prop to all children as React context

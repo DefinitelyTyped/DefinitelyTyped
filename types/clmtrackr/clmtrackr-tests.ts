@@ -1,4 +1,4 @@
-import clm from "clmtrackr";
+import clm from 'clmtrackr';
 
 const ctracker = new clm.tracker();
 
@@ -8,17 +8,17 @@ ctracker.init({
     constantVelocity: true,
     searchWindow: 11,
     useWebGL: true,
-    scoreThreshold: 0.50,
+    scoreThreshold: 0.5,
     stopOnConvergence: false,
     /** object with parameters for facedetection : */
-    faceDetection: { useWebWorkers: true}
+    faceDetection: { useWebWorkers: true },
 });
 
-const video = document.getElementsByTagName("video")[0];
+const video = document.getElementsByTagName('video')[0];
 ctracker.start(video);
 const positions = ctracker.getCurrentPosition();
 if (positions) {
-    const canvas = document.getElementsByTagName("canvas")[0];
+    const canvas = document.getElementsByTagName('canvas')[0];
     ctracker.draw(canvas);
     positions.forEach(([x, y]) => {
         const sum: number = x + y;

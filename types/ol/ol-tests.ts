@@ -103,7 +103,7 @@ const styles: { [key: string]: Style } = {
     }),
 };
 
-const styleFunction: StyleFunction = feature => styles[feature.getGeometry().getType()];
+const styleFunction: StyleFunction = (feature) => styles[feature.getGeometry().getType()];
 
 /**
  * ==================================================
@@ -281,7 +281,7 @@ const layers = [osmLayer, vectorLayer, vectorTileLayer];
 const controls = defaultControls().extend([
     new FullScreen(),
     new MousePosition({
-        coordinateFormat: coord => toStringXY(coord!, 8),
+        coordinateFormat: (coord) => toStringXY(coord!, 8),
         undefinedHTML: '',
     }),
     new OverviewMap({
@@ -302,7 +302,7 @@ const controls = defaultControls().extend([
  */
 
 const drawInteractions: Draw[] = [];
-(Object.keys(GeometryType) as (keyof typeof GeometryType)[]).forEach(type => {
+(Object.keys(GeometryType) as (keyof typeof GeometryType)[]).forEach((type) => {
     const draw = new Draw({
         type: GeometryType[type],
     });
@@ -410,7 +410,7 @@ class CustomControl extends Control {
         this.mapViewport.addEventListener('click', this._boundListener);
         const view = map.getView();
         this._eventKeys.push(
-            view.on('change:center', evt => {
+            view.on('change:center', (evt) => {
                 console.log(evt.oldValue, view.getCenter());
             }),
         );
@@ -437,7 +437,7 @@ const overlay = new Overlay({
 
 map.addOverlay(overlay);
 
-map.on('click', evt => {
+map.on('click', (evt) => {
     if (overlay.getPosition() === undefined) overlay.setPosition(evt.coordinate);
     else overlay.setPosition(undefined);
 });

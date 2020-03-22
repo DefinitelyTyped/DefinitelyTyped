@@ -1,2 +1,2 @@
-import { cubicInOut } from "./index";
+import { cubicInOut } from './index';
 export = cubicInOut;

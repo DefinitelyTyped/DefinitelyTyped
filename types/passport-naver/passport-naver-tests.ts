@@ -1,6 +1,7 @@
 import { Strategy as NaverStrategy } from 'passport-naver';
 
-new NaverStrategy({
+new NaverStrategy(
+    {
         clientID: 'client',
         clientSecret: 'clientSecret',
         callbackURL: 'callbackUrl',

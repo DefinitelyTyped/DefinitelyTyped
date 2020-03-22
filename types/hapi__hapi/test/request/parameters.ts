@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-requestparams
-import { Lifecycle, Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from "@hapi/hapi";
+import { Lifecycle, Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from '@hapi/hapi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -14,7 +14,7 @@ const getAlbum: Lifecycle.Method = (request, h) => {
 const serverRoute1: ServerRoute = {
     path: '/{album}/{song?}',
     method: 'GET',
-    handler: getAlbum
+    handler: getAlbum,
 };
 
 // Example 2
@@ -26,7 +26,7 @@ const getPerson: Lifecycle.Method = (request, h) => {
 const serverRoute2: ServerRoute = {
     path: '/person/{name*2}',
     method: 'GET',
-    handler: getPerson
+    handler: getPerson,
 };
 
 const server = new Server(options);

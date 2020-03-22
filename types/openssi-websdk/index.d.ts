@@ -18,7 +18,7 @@ export class Agent {
         agent_name: string,
         agent_password: string,
         friendly_name: string,
-        log_level?: string
+        log_level?: string,
     );
 
     /**
@@ -48,16 +48,7 @@ export class Agent {
      * {'trace'|'debug'|'info'|'warn'|'error'|'fatal'} log_level The desired logging level.
      * Returns {void}
      */
-    setLoggingLevel(
-        log_level:
-        | string
-        | 'trace'
-        | 'debug'
-        | 'info'
-        | 'warn'
-        | 'error'
-        | 'fatal'
-    ): void;
+    setLoggingLevel(log_level: string | 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal'): void;
 
     /**
      * Get this agent's {AgentInfo}.
@@ -73,10 +64,7 @@ export class Agent {
      * {string} account_admin_agent_password The admin agent's password.
      * Returns {Promise<AgentInfo>} A promise that resolves with information about the agent that was created.
      */
-    createIdentity(
-        account_admin_agent_name: string,
-        account_admin_agent_password: string
-    ): Promise<AgentInfo>;
+    createIdentity(account_admin_agent_name: string, account_admin_agent_password: string): Promise<AgentInfo>;
 
     /**
      * Set this agent's role to TRUST_ANCHOR on the ledger, giving the agent the ability to publish schemas and
@@ -89,7 +77,7 @@ export class Agent {
     onboardAsTrustAnchor(
         account_admin_agent_name: string,
         account_admin_agent_password: string,
-        seed?: string
+        seed?: string,
     ): Promise<AgentInfo>;
 
     /**
@@ -125,11 +113,7 @@ export class Agent {
      * {string[]} attributes The list of attributes credentials based on this schema must have.
      * Returns {Promise<CredentialSchema>} A promise that resolves with the new schema record.
      */
-    createCredentialSchema(
-        name: string,
-        version: string,
-        attributes: string[]
-    ): Promise<CredentialSchema>;
+    createCredentialSchema(name: string, version: string, attributes: string[]): Promise<CredentialSchema>;
 
     /**
      * Get a {CredentialSchema} record.
@@ -146,28 +130,21 @@ export class Agent {
      * {QueryRoute} [route] A list of parameters used to proxy the request to other agents.
      * Returns {Promise<CredentialSchema[]>} A promise that resolves with a list of credential schemas.
      */
-    getCredentialSchemas(
-        opts?: CredentialSchemaQueryParams | null,
-        route?: QueryRoute
-    ): Promise<CredentialSchema[]>;
+    getCredentialSchemas(opts?: CredentialSchemaQueryParams | null, route?: QueryRoute): Promise<CredentialSchema[]>;
 
     /**
      * Create a {CredentialDefinition}
      * {CredentialSchemaID} schemaId The ledger ID for the schema.
      * Returns {Promise<CredentialDefinition>} The created credential definition.
      */
-    createCredentialDefinition(
-        schemaId: CredentialSchemaID
-    ): Promise<CredentialDefinition>;
+    createCredentialDefinition(schemaId: CredentialSchemaID): Promise<CredentialDefinition>;
 
     /**
      * Get a {CredentialDefinition}.
      * {CredentialDefinitionID} id The credential definition ID.
      * Returns {Promise<CredentialDefinition>} A promise that resolves with the credential definition.
      */
-    getCredentialDefinition(
-        id: CredentialDefinitionID
-    ): Promise<CredentialDefinition>;
+    getCredentialDefinition(id: CredentialDefinitionID): Promise<CredentialDefinition>;
 
     /**
      * Get a list of {CredentialDefinition}s matching the given parameters, or all of them, if no parameters are
@@ -178,7 +155,7 @@ export class Agent {
      */
     getCredentialDefinitions(
         opts?: CredentialDefinitionQueryParams,
-        route?: QueryRoute
+        route?: QueryRoute,
     ): Promise<CredentialDefinition[]>;
 
     /**
@@ -193,7 +170,7 @@ export class Agent {
         name: string,
         version: string,
         requestedAttributes?: any,
-        requestedPredicates?: any
+        requestedPredicates?: any,
     ): Promise<ProofSchema>;
 
     /**
@@ -201,9 +178,7 @@ export class Agent {
      * {ProofSchemaQueryParams} [opts] Query parameters.
      * Returns {Promise<ProofSchema[]>} A promise that resolves with a list of proof schemas
      */
-    verifierGetProofSchemas(
-        opts?: ProofSchemaQueryParams
-    ): Promise<ProofSchema[]>;
+    verifierGetProofSchemas(opts?: ProofSchemaQueryParams): Promise<ProofSchema[]>;
 
     /**
      * Get a {ProofSchema}
@@ -243,10 +218,7 @@ export class Agent {
      * {Properties} [properties] Optional metadata to add to the connection offer.
      * Returns {Promise<Connection>} The connection offer, or the active {Connection} if one is already established.
      */
-    createConnection(
-        to?: ConnectionRecipient | null,
-        properties?: Properties
-    ): Promise<Connection>;
+    createConnection(to?: ConnectionRecipient | null, properties?: Properties): Promise<Connection>;
 
     /**
      * Accept a connection offer.  If a connection id is passed, that connection will be updated from state
@@ -256,10 +228,7 @@ export class Agent {
      * {Properties} [properties] Optional metadata to add to the connection offer.
      * Returns {Promise<Connection>} The updated connection information.
      */
-    acceptConnection(
-        connection: string | Connection,
-        properties?: Properties
-    ): Promise<Connection>;
+    acceptConnection(connection: string | Connection, properties?: Properties): Promise<Connection>;
 
     /**
      * Waits for a {Connection} to enter the 'connected' or 'rejected'.
@@ -268,11 +237,7 @@ export class Agent {
      * {number} [retry_interval] The number of milliseconds to wait between each connection status check.
      * Returns {Promise<Connection>} The accepted {Connection}.
      */
-    waitForConnection(
-        id: string,
-        retries?: number,
-        retry_interval?: number
-    ): Promise<Connection>;
+    waitForConnection(id: string, retries?: number, retry_interval?: number): Promise<Connection>;
 
     /**
      * Get a {Credential}.
@@ -303,11 +268,7 @@ export class Agent {
      * {Properties} [properties] Optional metadata to add to the credential request.
      * Returns {Promise<Credential>} The created credential request.
      */
-    requestCredential(
-        to: RequestRecipient,
-        source: SchemaIDObj,
-        properties?: Properties
-    ): Promise<Credential>;
+    requestCredential(to: RequestRecipient, source: SchemaIDObj, properties?: Properties): Promise<Credential>;
 
     /**
      * Create a {@Credential} as an offer to the given holder.
@@ -322,7 +283,7 @@ export class Agent {
         to: RequestRecipient,
         source: CredentialDefinitionID | SchemaIDObj,
         attributes: any,
-        properties?: Properties
+        properties?: Properties,
     ): any;
 
     /**
@@ -341,11 +302,7 @@ export class Agent {
      * to 'outbound_offer'.
      * Returns {Promise<Credential>} A promise that resolves with the updated credential data.
      */
-    updateCredential(
-        id: string,
-        state: CredentialState,
-        attributes?: Promise<Credential>
-    ): any;
+    updateCredential(id: string, state: CredentialState, attributes?: Promise<Credential>): any;
 
     /**
      * Waits for a given {Credential} to enter the 'issued' or 'rejected' states.
@@ -354,11 +311,7 @@ export class Agent {
      * {number} [retry_interval] The amount of time, in milliseconds, to wait between checks.
      * Returns {Promise<Credential>} A promise that resolves with the finished credential.
      */
-    waitForCredential(
-        id: string,
-        retries?: number,
-        retry_interval?: number
-    ): Promise<Credential>;
+    waitForCredential(id: string, retries?: number, retry_interval?: number): Promise<Credential>;
 
     /**
      * Get the information for a {Verification}.
@@ -395,7 +348,7 @@ export class Agent {
         to: RequestRecipient,
         proof_schema_id: string,
         state: VerificationState,
-        properties?: Properties
+        properties?: Properties,
     ): Promise<Verification>;
 
     /**
@@ -413,7 +366,7 @@ export class Agent {
         id: string,
         state: VerificationState,
         choices?: ProofSelection,
-        self_attested_attributes?: any
+        self_attested_attributes?: any,
     ): Promise<Verification>;
 
     /**
@@ -423,11 +376,7 @@ export class Agent {
      * {number} [retry_interval] The amount of time, in milliseconds, to wait between checks.
      * Returns {Promise<Verification>} A promise that resolves with the completed verification.
      */
-    waitForVerification(
-        id: string,
-        retries?: number,
-        retry_interval?: number
-    ): Promise<Verification>;
+    waitForVerification(id: string, retries?: number, retry_interval?: number): Promise<Verification>;
 
     /**
      * Call Agent REST APIs and make request
@@ -520,7 +469,9 @@ export interface CredentialSchema {
  * {string} [id] The ID of the schema
  * {string} [name] The name of the schema
  */
-export interface CredentialSchemaQueryParams { [key: string]: any; }
+export interface CredentialSchemaQueryParams {
+    [key: string]: any;
+}
 
 /**
  * A set of parameters that cause the agent to collect a set of responses from other agents that it has connections
@@ -595,7 +546,9 @@ export interface CredentialDefinition {
  * {string} [id] The ID of the credential definition
  * {string} [schema_name] The name of the schema for the credential definition
  */
-export interface CredentialDefinitionQueryParams { [key: string]: any; }
+export interface CredentialDefinitionQueryParams {
+    [key: string]: any;
+}
 
 /**
  * Criteria which must be true pertaining to an attribute or predicate in a {ProofSchema}.  There is a logical
@@ -706,7 +659,9 @@ export interface ProofSchema {
  * {string} [name] The name of the proof schema
  * {string} [version] The version of the proof schema
  */
-export interface ProofSchemaQueryParams { [key: string]: any; }
+export interface ProofSchemaQueryParams {
+    [key: string]: any;
+}
 
 /**
  * A unique identifier use in communication on the Hyperledger Indy ledger.  They represent users, agents, issuers, verifiers, etc.
@@ -754,11 +709,7 @@ export interface ConnectionAgent {
 /**
  * Represents the state of a {Connection}.
  */
-export type ConnectionState =
-    | 'inbound_offer'
-    | 'outbound_offer'
-    | 'connected'
-    | 'rejected';
+export type ConnectionState = 'inbound_offer' | 'outbound_offer' | 'connected' | 'rejected';
 
 /**
  * Connections represent a channel for communication between two agents.
@@ -794,7 +745,9 @@ export interface Connection {
  *     'remote.pairwise.did': 'A4DXofjbeC97WZAHU5MVGK'
  * }
  */
-export interface ConnectionQueryParams { [key: string]: any; }
+export interface ConnectionQueryParams {
+    [key: string]: any;
+}
 
 /**
  * Describes the recipient of a {Connection}.  You must specify either the name of an agent in your agent's
@@ -869,7 +822,7 @@ export type CredentialState =
  */
 export interface Credential {
     offer?: {
-        attributes: {[key: string]: string};
+        attributes: { [key: string]: string };
         data: string;
     };
     schema_name: string;
@@ -899,7 +852,9 @@ export interface Credential {
  *     'to.name': 'test-holder'
  * }
  */
-export interface CredentialQueryParams { [key: string]: any; }
+export interface CredentialQueryParams {
+    [key: string]: any;
+}
 
 /**
  * Contains fields necessary to lookup a {CredentialSchema}.
@@ -980,7 +935,9 @@ export interface Verification {
  *     'to.name': { $ne: 'test-holder'}
  * }
  */
-export interface VerificationQueryParams { [key: string]: any; }
+export interface VerificationQueryParams {
+    [key: string]: any;
+}
 
 /**
  * Describes data that could be used to fill out a requested attribute in a proof request.  It's data describes

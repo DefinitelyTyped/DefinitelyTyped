@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-export type ColumnProps
-  = string
-  | boolean
-  | number
-  | {
-    size?: boolean | number | string
-    push?: string | number
-    pull?: string | number
-    offset?: string | number
-    order?: string | number
-  };
+export type ColumnProps =
+    | string
+    | boolean
+    | number
+    | {
+          size?: boolean | number | string;
+          push?: string | number;
+          pull?: string | number;
+          offset?: string | number;
+          order?: string | number;
+      };
 
 export interface ColProps extends React.HTMLProps<HTMLDivElement> {
     [key: string]: any;
@@ -25,5 +25,5 @@ export interface ColProps extends React.HTMLProps<HTMLDivElement> {
     widths?: string[];
 }
 
-declare class Col<T = {[key: string]: any}> extends React.Component<ColProps> {}
+declare class Col<T = { [key: string]: any }> extends React.Component<ColProps> {}
 export default Col;

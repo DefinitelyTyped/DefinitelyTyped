@@ -11,7 +11,11 @@ declare function ineum(command: 'user', userId: string, userName?: string, userE
 declare function ineum(command: 'meta', key: string, value: string): void;
 declare function ineum(command: 'autoClearResourceTimings' | 'wrapEventHandlers' | 'wrapTimers', enable: boolean): void;
 declare function ineum(command: 'getPageLoadId'): string | undefined;
-declare function ineum(command: 'reportError', error: string, opts?: {
-    componentStack: string
-}): void;
+declare function ineum(
+    command: 'reportError',
+    error: string,
+    opts?: {
+        componentStack: string;
+    },
+): void;
 declare function ineum(command: 'ignoreUrls' | 'ignoreErrorMessages' | 'whitelistedOrigins', values: RegExp[]): void;

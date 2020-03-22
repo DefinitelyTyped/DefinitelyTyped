@@ -1,2 +1,2 @@
-import { lte } from "../fp";
+import { lte } from '../fp';
 export = lte;

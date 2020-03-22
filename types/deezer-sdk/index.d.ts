@@ -246,17 +246,17 @@ declare namespace DeezerSdk {
     /**
      * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
      */
-    type WidgetFormat = "square" | "classic";
+    type WidgetFormat = 'square' | 'classic';
 
     /**
      * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
      */
-    type WidgetLayout = "light" | "dark";
+    type WidgetLayout = 'light' | 'dark';
 
     /**
      * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
      */
-    type WidgetSize = "small" | "medium" | "big";
+    type WidgetSize = 'small' | 'medium' | 'big';
 
     /**
      * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
@@ -289,7 +289,7 @@ declare namespace DeezerSdk {
      * {@link https://developers.deezer.com/sdk/javascript/api | DZ.api}\
      * {@link https://developers.deezer.com/api | API}
      */
-    type HttpMethod = "GET" | "POST" | "DELETE";
+    type HttpMethod = 'GET' | 'POST' | 'DELETE';
 
     /**
      * See: {@link https://developers.deezer.com/sdk/javascript/login | DZ.login}
@@ -299,7 +299,7 @@ declare namespace DeezerSdk {
             accessToken: string;
             expire: string;
         };
-        status: "connected" | "not_authorized";
+        status: 'connected' | 'not_authorized';
         userID: string;
     }
 
@@ -318,7 +318,7 @@ declare namespace DeezerSdk {
     /**
      * See: {@link https://developers.deezer.com/sdk/javascript/getloginstatus | DZ.getLoginStatus}
      */
-    type ConnectionStatus = "connected" | "notConnected" | "unknown" | "not_authorized";
+    type ConnectionStatus = 'connected' | 'notConnected' | 'unknown' | 'not_authorized';
 
     /**
      * See:
@@ -360,10 +360,7 @@ declare namespace DeezerSdk {
             autoplay?: boolean,
             onTracksLoaded?: (playQueue: PlayQueue) => void,
         ): void;
-        playTracks(
-            trackIds: ReadonlyArray<string>,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
+        playTracks(trackIds: ReadonlyArray<string>, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
 
         /**
          * Load and play an album into the current player.
@@ -388,15 +385,8 @@ declare namespace DeezerSdk {
             index?: number,
             onTracksLoaded?: (playQueue: PlayQueue) => void,
         ): void;
-        playAlbum(
-            albumId: number,
-            autoplay?: boolean,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
-        playAlbum(
-            albumId: number,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
+        playAlbum(albumId: number, autoplay?: boolean, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
+        playAlbum(albumId: number, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
 
         /**
          * Load and play a playlist into the current player.
@@ -421,15 +411,8 @@ declare namespace DeezerSdk {
             index?: number,
             onTracksLoaded?: (playQueue: PlayQueue) => void,
         ): void;
-        playPlaylist(
-            playlistId: number,
-            autoplay?: boolean,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
-        playPlaylist(
-            playlistId: number,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
+        playPlaylist(playlistId: number, autoplay?: boolean, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
+        playPlaylist(playlistId: number, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
 
         /**
          * Load and play a podcast into the current player.
@@ -454,15 +437,8 @@ declare namespace DeezerSdk {
             index?: number,
             onTracksLoaded?: (playQueue: PlayQueue) => void,
         ): void;
-        playPodcast(
-            podcastId: number,
-            autoplay?: boolean,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
-        playPodcast(
-            podcastId: number,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
+        playPodcast(podcastId: number, autoplay?: boolean, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
+        playPodcast(podcastId: number, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
 
         /**
          * Load and play an episode or a list of episodes into the current player.
@@ -492,10 +468,7 @@ declare namespace DeezerSdk {
             autoplay?: boolean,
             onTracksLoaded?: (playQueue: PlayQueue) => void,
         ): void;
-        playEpisodes(
-            episodeIds: ReadonlyArray<string>,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
+        playEpisodes(episodeIds: ReadonlyArray<string>, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
 
         /**
          * Load and play a radio into the current player.
@@ -519,11 +492,7 @@ declare namespace DeezerSdk {
             autoplay?: boolean,
             onTracksLoaded?: (playQueue: PlayQueue) => void,
         ): void;
-        playRadio(
-            id: number,
-            radioType?: RadioType,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
+        playRadio(id: number, radioType?: RadioType, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
 
         /**
          * The official docs for this method are incomplete, but the existing docs and a
@@ -550,11 +519,7 @@ declare namespace DeezerSdk {
             autoplay?: boolean,
             onTracksLoaded?: (playQueue: PlayQueue) => void,
         ): void;
-        playSmartRadio(
-            id: number,
-            radioType?: RadioType,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
+        playSmartRadio(id: number, radioType?: RadioType, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
 
         /**
          * Load and play external MP3 sources into the current player.
@@ -584,10 +549,7 @@ declare namespace DeezerSdk {
             autoplay?: boolean,
             onTracksLoaded?: (playQueue: PlayQueue) => void,
         ): void;
-        playExternalTracks(
-            mp3Sources: ReadonlyArray<Mp3Source>,
-            onTracksLoaded?: (playQueue: PlayQueue) => void,
-        ): void;
+        playExternalTracks(mp3Sources: ReadonlyArray<Mp3Source>, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
 
         /**
          * Append a track to the queue of the current player.
@@ -681,8 +643,8 @@ declare namespace DeezerSdk {
             trackInfo?: {
                 title: string;
                 artist: string;
-                cover: string ;
-            }
+                cover: string;
+            },
         ): void;
 
         //#endregion
@@ -739,7 +701,7 @@ declare namespace DeezerSdk {
     /**
      * See: {@link https://developers.deezer.com/sdk/javascript/loadtracks | Load tracks to a player}
      */
-    type RadioType = "radio" | "artist" | "user";
+    type RadioType = 'radio' | 'artist' | 'user';
 
     /**
      * See: {@link https://developers.deezer.com/sdk/javascript/loadtracks | Load tracks to a player}
@@ -810,23 +772,20 @@ declare namespace DeezerSdk {
          * See: {@link https://developers.deezer.com/sdk/javascript/events | List of events}
          */
         subscribe(
-            event: "player_loaded" | "player_play" | "player_paused"| "tracklist_changed",
-            callback: () => void
+            event: 'player_loaded' | 'player_play' | 'player_paused' | 'tracklist_changed',
+            callback: () => void,
         ): void;
         subscribe(
-            event: "player_position",
-            callback: (positionSecondsFloat_durationSecondsInt: [number, number]) => void
+            event: 'player_position',
+            callback: (positionSecondsFloat_durationSecondsInt: [number, number]) => void,
         ): void;
-        subscribe(event: "player_buffering", callback: (loadedPercentInt: number) => void): void;
-        subscribe(event: "volume_changed", callback: (volumePercentInt: number) => void): void;
-        subscribe(event: "shuffle_changed", callback: (shuffle: boolean) => void): void;
-        subscribe(event: "repeat_changed", callback: (repeatMode: RepeatMode) => void): void;
-        subscribe(event: "mute_changed", callback: (mute: boolean) => void): void;
-        subscribe(event: "track_end", callback: (trackPosition: number) => void): void;
-        subscribe(
-            event: "current_track",
-            callback: (currentTrackInfo: { index: number; track: Track; }) => void
-        ): void;
+        subscribe(event: 'player_buffering', callback: (loadedPercentInt: number) => void): void;
+        subscribe(event: 'volume_changed', callback: (volumePercentInt: number) => void): void;
+        subscribe(event: 'shuffle_changed', callback: (shuffle: boolean) => void): void;
+        subscribe(event: 'repeat_changed', callback: (repeatMode: RepeatMode) => void): void;
+        subscribe(event: 'mute_changed', callback: (mute: boolean) => void): void;
+        subscribe(event: 'track_end', callback: (trackPosition: number) => void): void;
+        subscribe(event: 'current_track', callback: (currentTrackInfo: { index: number; track: Track }) => void): void;
     }
 
     /**
@@ -839,18 +798,18 @@ declare namespace DeezerSdk {
      * in some situations anyway.
      */
     type PlayerEvent =
-        "player_loaded"
-        | "player_play"
-        | "player_paused"
-        | "player_position"
-        | "player_buffering"
-        | "volume_changed"
-        | "shuffle_changed"
-        | "repeat_changed"
-        | "mute_changed"
-        | "tracklist_changed"
-        | "track_end"
-        | "current_track";
+        | 'player_loaded'
+        | 'player_play'
+        | 'player_paused'
+        | 'player_position'
+        | 'player_buffering'
+        | 'volume_changed'
+        | 'shuffle_changed'
+        | 'repeat_changed'
+        | 'mute_changed'
+        | 'tracklist_changed'
+        | 'track_end'
+        | 'current_track';
 
     //#endregion
 }

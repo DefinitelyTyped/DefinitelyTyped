@@ -484,26 +484,26 @@ function dynamicSlides() {
             prevEl: '.swiper-button-prev',
         },
     });
-    document.querySelector('.prepend-2-slides').addEventListener('click', e => {
+    document.querySelector('.prepend-2-slides').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.prependSlide([
             `<div class="swiper-slide">Slide ${--prependNumber}</div>`,
             `<div class="swiper-slide">Slide ${--prependNumber}</div>`,
         ]);
     });
-    document.querySelector('.prepend-slide').addEventListener('click', e => {
+    document.querySelector('.prepend-slide').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.prependSlide(`<div class="swiper-slide">Slide ${--prependNumber}</div>`);
     });
-    document.querySelector('.append-slide').addEventListener('click', e => {
+    document.querySelector('.append-slide').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.appendSlide(`<div class="swiper-slide">Slide ${--appendNumber}</div>`);
     });
-    document.querySelector('.append-2-slides').addEventListener('click', e => {
+    document.querySelector('.append-2-slides').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.appendSlide([
             `<div class="swiper-slide">Slide ${--appendNumber}</div>`,
-            `<div class="swiper-slide">Slide ${--appendNumber}</div>`
+            `<div class="swiper-slide">Slide ${--appendNumber}</div>`,
         ]);
     });
 }
@@ -650,8 +650,8 @@ function responsiveBreakpoints() {
             320: {
                 slidesPerView: 1,
                 spaceBetween: 10,
-            }
-        }
+            },
+        },
     });
 }
 
@@ -719,18 +719,18 @@ function virtualSlides() {
             prevEl: '.swiper-button-prev',
         },
         virtual: {
-            slides
+            slides,
         },
     });
-    document.querySelector('.slide-1').addEventListener('click', e => {
+    document.querySelector('.slide-1').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.slideTo(0, 0);
     });
-    document.querySelector('.slide-250').addEventListener('click', e => {
+    document.querySelector('.slide-250').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.slideTo(249, 0);
     });
-    document.querySelector('.slide-500').addEventListener('click', e => {
+    document.querySelector('.slide-500').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.slideTo(499, 0);
     });
@@ -749,13 +749,17 @@ function slideableNavigation() {
         on: {
             init: () => {
                 const slider = this;
-                menuButton.addEventListener('click', () => {
-                    if (slider.activeIndex === 0) {
-                        slider.slideNext();
-                    } else {
-                        slider.slidePrev();
-                    }
-                }, true);
+                menuButton.addEventListener(
+                    'click',
+                    () => {
+                        if (slider.activeIndex === 0) {
+                            slider.slideNext();
+                        } else {
+                            slider.slidePrev();
+                        }
+                    },
+                    true,
+                );
             },
             slideChange: () => {
                 const slider = this;
@@ -765,7 +769,7 @@ function slideableNavigation() {
                     menuButton.classList.remove('cross');
                 }
             },
-        }
+        },
     });
 }
 

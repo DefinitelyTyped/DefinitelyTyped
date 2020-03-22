@@ -1,5 +1,5 @@
-import * as React from "react";
-import { MenuProps } from "../Menu/Menu";
+import * as React from 'react';
+import { MenuProps } from '../Menu/Menu';
 
 export type ComboboxInputProps = {
     buttonProps?: object;
@@ -15,8 +15,8 @@ export type ComboboxInputProps = {
     popoverProps?: object;
     validationState?: {
         state?: 'error' | 'warning' | 'information' | 'success';
-        text?: string
-    }
+        text?: string;
+    };
 } & { [x: string]: any };
 
 declare const ComboboxInput: React.FunctionComponent<ComboboxInputProps>;

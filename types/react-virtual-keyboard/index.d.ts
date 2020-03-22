@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
-import { KeyboardOptions, NavigateOptions } from "virtual-keyboard";
+import { Component } from 'react';
+import { KeyboardOptions, NavigateOptions } from 'virtual-keyboard';
 
 export interface ReactKeyboardOptions extends KeyboardOptions {
     accepted?: undefined; // You should use KeyboardProps.onAccepted event.
@@ -28,4 +28,4 @@ export interface KeyboardState {
     className: string;
 }
 
-export default class Keyboard extends Component<KeyboardProps, KeyboardState> { }
+export default class Keyboard extends Component<KeyboardProps, KeyboardState> {}

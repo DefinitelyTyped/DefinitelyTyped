@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import Remarkable = require("./lib");
+import Remarkable = require('./lib');
 
 export = Remarkable;
 export as namespace Remarkable;

@@ -6,13 +6,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import express = require("express");
+import express = require('express');
 
 declare function unless(options: unless.Options): express.RequestHandler;
-declare function unless(options: unless.Options["custom"]): express.RequestHandler;
+declare function unless(options: unless.Options['custom']): express.RequestHandler;
 
 declare namespace unless {
-    type pathFilter = string | RegExp | { url: string | RegExp, methods?: string[], method?: string | string[] };
+    type pathFilter = string | RegExp | { url: string | RegExp; methods?: string[]; method?: string | string[] };
 
     export interface Options {
         custom?: (req: express.Request) => boolean;

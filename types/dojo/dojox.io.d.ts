@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     namespace io {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/io/httpParse.html
@@ -15,14 +14,18 @@ declare namespace dojox {
          * @param topHeaders       OptionalExtra header information to add to each HTTP request (kind of HTTP inheritance)
          * @param partial       OptionalA true value indicates that the stream may not be finished, it may end arbitrarily in mid stream.The last XHR object will have a special property _lastIndex that indicates the how far alongthe httpStream could be successfully parsed into HTTP messages.
          */
-        interface httpParse { (httpStream: String, topHeaders?: String, partial?: boolean): void }
+        interface httpParse {
+            (httpStream: String, topHeaders?: String, partial?: boolean): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/io/xhrMultiPart.html
          *
          *
          * @param args
          */
-        interface xhrMultiPart { (args: Object): void }
+        interface xhrMultiPart {
+            (args: Object): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/io/xhrWindowNamePlugin.html
          *
@@ -33,7 +36,9 @@ declare namespace dojox {
          * @param httpAdapter       OptionalThis allows for adapting HTTP requests that could not otherwise besent with window.name, so you can use a convention for headers and PUT/DELETE methods.
          * @param trusted       Optional
          */
-        interface xhrWindowNamePlugin { (url: String, httpAdapter?: Function, trusted?: boolean): void }
+        interface xhrWindowNamePlugin {
+            (url: String, httpAdapter?: Function, trusted?: boolean): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/io/xhrScriptPlugin.html
          *
@@ -46,7 +51,9 @@ declare namespace dojox {
          * @param callbackParamName
          * @param httpAdapter       OptionalThis allows for adapting HTTP requests that could not otherwise besent with JSONP, so you can use a convention for headers and PUT/DELETE methods.
          */
-        interface xhrScriptPlugin { (url: String, callbackParamName: String, httpAdapter?: Function): void }
+        interface xhrScriptPlugin {
+            (url: String, callbackParamName: String, httpAdapter?: Function): void;
+        }
         namespace proxy {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/io/proxy/xip.html
@@ -159,37 +166,31 @@ declare namespace dojox {
                  *
                  *
                  */
-                interface _state {
-                }
+                interface _state {}
             }
-
         }
 
-        namespace xhrPlugins {
-        }
+        namespace xhrPlugins {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/io/scriptFrame.html
          *
          *
          */
-        interface scriptFrame {
-        }
+        interface scriptFrame {}
         namespace scriptFrame {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/io/scriptFrame._loadedIds.html
              *
              *
              */
-            interface _loadedIds {
-            }
+            interface _loadedIds {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/io/scriptFrame._waiters.html
              *
              *
              */
-            interface _waiters {
-            }
+            interface _waiters {}
         }
 
         /**
@@ -240,46 +241,45 @@ declare namespace dojox {
             send(method: String, args: Object): any;
         }
     }
-
 }
 
-declare module "dojox/io/httpParse" {
-    var exp: dojox.io.httpParse
-    export=exp;
+declare module 'dojox/io/httpParse' {
+    var exp: dojox.io.httpParse;
+    export = exp;
 }
-declare module "dojox/io/xhrMultiPart" {
-    var exp: dojox.io.xhrMultiPart
-    export=exp;
+declare module 'dojox/io/xhrMultiPart' {
+    var exp: dojox.io.xhrMultiPart;
+    export = exp;
 }
-declare module "dojox/io/xhrWindowNamePlugin" {
-    var exp: dojox.io.xhrWindowNamePlugin
-    export=exp;
+declare module 'dojox/io/xhrWindowNamePlugin' {
+    var exp: dojox.io.xhrWindowNamePlugin;
+    export = exp;
 }
-declare module "dojox/io/xhrScriptPlugin" {
-    var exp: dojox.io.xhrScriptPlugin
-    export=exp;
+declare module 'dojox/io/xhrScriptPlugin' {
+    var exp: dojox.io.xhrScriptPlugin;
+    export = exp;
 }
-declare module "dojox/io/windowName" {
-    var exp: dojox.io.windowName
-    export=exp;
+declare module 'dojox/io/windowName' {
+    var exp: dojox.io.windowName;
+    export = exp;
 }
-declare module "dojox/io/scriptFrame" {
-    var exp: dojox.io.scriptFrame
-    export=exp;
+declare module 'dojox/io/scriptFrame' {
+    var exp: dojox.io.scriptFrame;
+    export = exp;
 }
-declare module "dojox/io/scriptFrame._loadedIds" {
-    var exp: dojox.io.scriptFrame._loadedIds
-    export=exp;
+declare module 'dojox/io/scriptFrame._loadedIds' {
+    var exp: dojox.io.scriptFrame._loadedIds;
+    export = exp;
 }
-declare module "dojox/io/scriptFrame._waiters" {
-    var exp: dojox.io.scriptFrame._waiters
-    export=exp;
+declare module 'dojox/io/scriptFrame._waiters' {
+    var exp: dojox.io.scriptFrame._waiters;
+    export = exp;
 }
-declare module "dojox/io/proxy/xip" {
-    var exp: dojox.io.proxy.xip
-    export=exp;
+declare module 'dojox/io/proxy/xip' {
+    var exp: dojox.io.proxy.xip;
+    export = exp;
 }
-declare module "dojox/io/proxy/xip._state" {
-    var exp: dojox.io.proxy.xip._state
-    export=exp;
+declare module 'dojox/io/proxy/xip._state' {
+    var exp: dojox.io.proxy.xip._state;
+    export = exp;
 }

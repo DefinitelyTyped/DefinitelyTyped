@@ -26,8 +26,8 @@ const rowSize = 1;
 const rowSizeLabel = '';
 const rowSizeList: number[] = [1];
 const showRowSizeControls = false;
-const summaryLabelTemplate: (start: number, end: number, count: number) => any = (start, end, count) => "";
-const columns: Column[] = [{ key: '', render: (value, row: Book) => "" }];
+const summaryLabelTemplate: (start: number, end: number, count: number) => any = (start, end, count) => '';
+const columns: Column[] = [{ key: '', render: (value, row: Book) => '' }];
 const book: Book = { author: 'asdf', name: 'asdf' };
 const data: Book[] = [book];
 const page = 1;
@@ -44,41 +44,43 @@ const headerToolbarMode = 'filter';
 const filterValue = '';
 const showHeaderToolbarFilterIcon = false;
 
-const test = (<DataTable
-    title={title}
-    titleStyle={titleStyle}
-    filterHintText={filterHintText}
-    fixedHeader={fixedHeader}
-    fixedFooter={fixedFooter}
-    footerToolbarStyle={footerToolbarStyle}
-    stripedRows={stripedRows}
-    showRowHover={showRowHover}
-    selectable={selectable}
-    multiSelectable={multiSelectable}
-    enableSelectAll={enableSelectAll}
-    deselectOnClickaway={deselectOnClickaway}
-    showCheckboxes={showCheckboxes}
-    height={height}
-    showHeaderToolbar={showHeaderToolbar}
-    showFooterToolbar={showFooterToolbar}
-    rowSize={rowSize}
-    rowSizeLabel={rowSizeLabel}
-    rowSizeList={rowSizeList}
-    showRowSizeControls={showRowSizeControls}
-    summaryLabelTemplate={summaryLabelTemplate}
-    columns={columns}
-    data={data}
-    page={page}
-    toolbarIconRight={toolbarIconRight}
-    count={count}
-    tableStyle={tableStyle}
-    tableBodyStyle={tableBodyStyle}
-    tableHeaderColumnStyle={tableHeaderColumnStyle}
-    tableHeaderStyle={tableHeaderStyle}
-    tableRowColumnStyle={tableRowColumnStyle}
-    tableRowStyle={tableRowStyle}
-    tableWrapperStyle={tableWrapperStyle}
-    headerToolbarMode={headerToolbarMode}
-    filterValue={filterValue}
-    showHeaderToolbarFilterIcon={showHeaderToolbarFilterIcon}>
-</DataTable>);
+const test = (
+    <DataTable
+        title={title}
+        titleStyle={titleStyle}
+        filterHintText={filterHintText}
+        fixedHeader={fixedHeader}
+        fixedFooter={fixedFooter}
+        footerToolbarStyle={footerToolbarStyle}
+        stripedRows={stripedRows}
+        showRowHover={showRowHover}
+        selectable={selectable}
+        multiSelectable={multiSelectable}
+        enableSelectAll={enableSelectAll}
+        deselectOnClickaway={deselectOnClickaway}
+        showCheckboxes={showCheckboxes}
+        height={height}
+        showHeaderToolbar={showHeaderToolbar}
+        showFooterToolbar={showFooterToolbar}
+        rowSize={rowSize}
+        rowSizeLabel={rowSizeLabel}
+        rowSizeList={rowSizeList}
+        showRowSizeControls={showRowSizeControls}
+        summaryLabelTemplate={summaryLabelTemplate}
+        columns={columns}
+        data={data}
+        page={page}
+        toolbarIconRight={toolbarIconRight}
+        count={count}
+        tableStyle={tableStyle}
+        tableBodyStyle={tableBodyStyle}
+        tableHeaderColumnStyle={tableHeaderColumnStyle}
+        tableHeaderStyle={tableHeaderStyle}
+        tableRowColumnStyle={tableRowColumnStyle}
+        tableRowStyle={tableRowStyle}
+        tableWrapperStyle={tableWrapperStyle}
+        headerToolbarMode={headerToolbarMode}
+        filterValue={filterValue}
+        showHeaderToolbarFilterIcon={showHeaderToolbarFilterIcon}
+    ></DataTable>
+);

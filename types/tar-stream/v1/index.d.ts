@@ -19,8 +19,20 @@ export interface Headers {
     size?: number;
     mtime?: Date;
     linkname?: string | null;
-    type?: 'file' | 'link' | 'symlink' | 'character-device' | 'block-device' | 'directory' | 'fifo' |
-        'contiguous-file' | 'pax-header' | 'pax-global-header' | 'gnu-long-link-path' | 'gnu-long-path' | null;
+    type?:
+        | 'file'
+        | 'link'
+        | 'symlink'
+        | 'character-device'
+        | 'block-device'
+        | 'directory'
+        | 'fifo'
+        | 'contiguous-file'
+        | 'pax-header'
+        | 'pax-global-header'
+        | 'gnu-long-link-path'
+        | 'gnu-long-path'
+        | null;
     uname?: string;
     gname?: string;
     devmajor?: number;
@@ -35,7 +47,7 @@ export interface Pack extends stream.Readable {
 export interface Extract extends stream.Writable {
     destroy(error?: Error): void;
     on(event: string, listener: (...args: any[]) => void): this;
-    on(event: "entry", listener: (headers: Headers, stream: stream.PassThrough, next: () => void) => void): this;
+    on(event: 'entry', listener: (headers: Headers, stream: stream.PassThrough, next: () => void) => void): this;
 }
 
 export function extract(opts?: stream.WritableOptions): Extract;

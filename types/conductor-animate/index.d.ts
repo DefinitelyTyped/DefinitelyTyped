@@ -19,7 +19,7 @@ interface AnimatedProps {
     id: string;
 }
 
-declare class Animated extends React.PureComponent<AnimatedProps> { }
+declare class Animated extends React.PureComponent<AnimatedProps> {}
 
 interface ConductorProps {
     animations: Animations;
@@ -27,6 +27,6 @@ interface ConductorProps {
     config: { [K: string]: Config } | ((id: string, additional: object) => Config);
 }
 
-declare class Conductor extends React.PureComponent<ConductorProps> { }
+declare class Conductor extends React.PureComponent<ConductorProps> {}
 
 export { Animated, Conductor };

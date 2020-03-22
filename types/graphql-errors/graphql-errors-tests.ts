@@ -1,17 +1,12 @@
 import { GraphQLSchema, buildSchema } from 'graphql';
-import {
-    UserError,
-    maskErrors,
-    HandlerFunction,
-    setDefaultHandler
-} from 'graphql-errors';
+import { UserError, maskErrors, HandlerFunction, setDefaultHandler } from 'graphql-errors';
 
 // $ExpectType GraphQLSchema
 const schema: GraphQLSchema = buildSchema(`
   # graphql schema definition
 `);
 
-const customHandler: HandlerFunction = err => {
+const customHandler: HandlerFunction = (err) => {
     return { ...err, message: 'Internal error' };
 };
 
@@ -39,7 +34,7 @@ setDefaultHandler(customHandler);
 setDefaultHandler();
 
 // $ExpectError
-setDefaultHandler(err => {});
+setDefaultHandler((err) => {});
 
 /**
  * Thrown an user error

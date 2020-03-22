@@ -11,7 +11,7 @@ import { NumberInputTranslationKey } from '../lib/components/NumberInput';
 import { SideNavTranslationKey } from '../lib/components/UIShell/SideNav';
 
 export type CarbonTranslationKey =
-    DataTableTranslationKey
+    | DataTableTranslationKey
     | ListBoxFieldTranslationKey
     | ListBoxMenuIconTranslationKey
     | ListBoxSelectionTranslationKey

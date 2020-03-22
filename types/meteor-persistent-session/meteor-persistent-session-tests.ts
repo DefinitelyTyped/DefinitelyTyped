@@ -1,5 +1,3 @@
-
-
 Session.setTemp('a', 'a');
 Session.setPersistent('a', 'a');
 Session.setAuth('a', 'a');

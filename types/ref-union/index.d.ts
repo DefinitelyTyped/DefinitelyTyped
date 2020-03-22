@@ -54,6 +54,6 @@ declare var UnionType: {
     new (fields?: any[]): UnionType;
     (fields?: {}): UnionType;
     (fields?: any[]): UnionType;
-}
+};
 
 export = UnionType;

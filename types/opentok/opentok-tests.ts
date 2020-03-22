@@ -3,77 +3,77 @@ import OpenTok = require('opentok');
 const client = new OpenTok('API_KEY', 'API_SECRET');
 
 const sessionOptions: OpenTok.SessionOptions = {
-  mediaMode: 'routed',
-  archiveMode: 'manual',
-  location: '12.34.56.78',
+    mediaMode: 'routed',
+    archiveMode: 'manual',
+    location: '12.34.56.78',
 };
 
 client.createSession(sessionOptions, (err: Error, session: OpenTok.Session) => {
-  if (err) return console.log(err);
-  console.log(session.sessionId);
+    if (err) return console.log(err);
+    console.log(session.sessionId);
 });
 
 const tokenOptions: OpenTok.TokenOptions = {
-  role: 'subscriber',
-  data: 'name=Seth',
-  expireTime: 123456,
+    role: 'subscriber',
+    data: 'name=Seth',
+    expireTime: 123456,
 };
 
 const token = client.generateToken('SESSION_ID', tokenOptions);
 
 const archiveOptions: OpenTok.ArchiveOptions = {
-  name: 'name',
-  hasAudio: true,
-  hasVideo: true,
-  outputMode: 'individual',
+    name: 'name',
+    hasAudio: true,
+    hasVideo: true,
+    outputMode: 'individual',
 };
 
 const archiveCustomLayoutOptions: OpenTok.ArchiveOptions = {
-  outputMode: 'composed',
-  layout: {
-    type: 'custom',
-    stylesheet: 'derp',
-  }
+    outputMode: 'composed',
+    layout: {
+        type: 'custom',
+        stylesheet: 'derp',
+    },
 };
 
 const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
-  outputMode: 'composed',
-  layout: {
-    type: 'pip',
-  }
+    outputMode: 'composed',
+    layout: {
+        type: 'pip',
+    },
 };
 
 client.startArchive('SESSION_ID', archiveOptions, (err: Error, archive: OpenTok.Archive) => {
-  if (err) return console.log(err);
-  console.log(archive.id);
+    if (err) return console.log(err);
+    console.log(archive.id);
 });
 
 client.stopArchive('ARCHIVE_ID', (err: Error, archive: OpenTok.Archive) => {
-  if (err) return console.log(err);
-  console.log('Stopped archive:' + archive.id);
+    if (err) return console.log(err);
+    console.log('Stopped archive:' + archive.id);
 });
 
 client.getArchive('ARCHIVE_ID', (err: Error, archive: OpenTok.Archive) => {
-  if (err) return console.log(err);
-  console.log(archive);
+    if (err) return console.log(err);
+    console.log(archive);
 });
 
 client.deleteArchive('ARCHIVE_ID', (err: Error) => {
-  if (err) return console.log(err);
-  console.log('success');
+    if (err) return console.log(err);
+    console.log('success');
 });
 
 const listArchivesOptions: OpenTok.ListArchivesOptions = {
-  count: 10,
-  offset: 5,
-  sessionId: '9_JY17LWC6LeKsGQ2-DXQlBac32PLwRSI7TV0FKOIDEX0PsmejJOGhrRtAW3PWABpEW3C-cp',
-}
+    count: 10,
+    offset: 5,
+    sessionId: '9_JY17LWC6LeKsGQ2-DXQlBac32PLwRSI7TV0FKOIDEX0PsmejJOGhrRtAW3PWABpEW3C-cp',
+};
 
 client.listArchives(listArchivesOptions, (err: Error, archives: OpenTok.Archive[], totalCount: number) => {
-  if (err) return console.log(err);
+    if (err) return console.log(err);
 
-  console.log(totalCount + ' archives');
-  for (var i = 0; i < archives.length; i++) {
-    console.log(archives[i].id);
-  }
+    console.log(totalCount + ' archives');
+    for (var i = 0; i < archives.length; i++) {
+        console.log(archives[i].id);
+    }
 });

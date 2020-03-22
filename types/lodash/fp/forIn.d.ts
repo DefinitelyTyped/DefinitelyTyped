@@ -1,2 +1,2 @@
-import { forIn } from "../fp";
+import { forIn } from '../fp';
 export = forIn;

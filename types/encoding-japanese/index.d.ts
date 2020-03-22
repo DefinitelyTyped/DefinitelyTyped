@@ -5,18 +5,25 @@
 
 /// <reference types="node" />
 
-
 export type Encoding =
-    "UTF32" | "UTF16" | "UTF16BE" |
-    "UTF16LE" | "BINARY" | "ASCII" |
-    "JIS" | "UTF8" | "EUCJP" |
-    "SJIS" | "UNICODE" | "AUTO";
+    | 'UTF32'
+    | 'UTF16'
+    | 'UTF16BE'
+    | 'UTF16LE'
+    | 'BINARY'
+    | 'ASCII'
+    | 'JIS'
+    | 'UTF8'
+    | 'EUCJP'
+    | 'SJIS'
+    | 'UNICODE'
+    | 'AUTO';
 type RawType = string | Uint8Array | number[] | Buffer;
 
 interface ConvertOptions {
     to: Encoding;
     from?: Encoding;
-    type?: "string" | "arraybuffer" | "array";
+    type?: 'string' | 'arraybuffer' | 'array';
     bom?: boolean | string;
 }
 

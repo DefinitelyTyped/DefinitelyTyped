@@ -17,7 +17,7 @@ const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFu
         const fileField = req.files.field;
         if (isUploadedFile(fileField)) {
             console.log(fileField.name);
-            fileField.mv('/tmp/test', err => {
+            fileField.mv('/tmp/test', (err) => {
                 if (err) {
                     console.log('Error while copying file to target location');
                 }

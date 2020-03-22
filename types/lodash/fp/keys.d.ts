@@ -1,2 +1,2 @@
-import { keys } from "../fp";
+import { keys } from '../fp';
 export = keys;

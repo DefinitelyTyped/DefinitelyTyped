@@ -3,12 +3,12 @@
 // tslint:disable:no-irregular-whitespace
 
 /*!
-* Product: Dynamsoft Web Twain
-* Web Site: http://www.dynamsoft.com
-*
-* Copyright 2020, Dynamsoft Corporation
-* Author: Dynamsoft Support Team
-*/
+ * Product: Dynamsoft Web Twain
+ * Web Site: http://www.dynamsoft.com
+ *
+ * Copyright 2020, Dynamsoft Corporation
+ * Author: Dynamsoft Support Team
+ */
 
 interface Region {
     left: number;
@@ -55,7 +55,7 @@ declare namespace dynamsoft {
         /** Barcode Formats */
         enum EnumBarcodeFormat {
             All = 503317503,
-            OneD = 0x3FF,
+            OneD = 0x3ff,
             CODE_39 = 0x1,
             CODE_128 = 0x2,
             CODE_93 = 0x4,
@@ -69,7 +69,7 @@ declare namespace dynamsoft {
             PDF417 = 0x2000000,
             QR_CODE = 0x4000000,
             DATAMATRIX = 0x8000000,
-            AZTEC = 0x10000000
+            AZTEC = 0x10000000,
         }
 
         enum EnumErrorCode {
@@ -111,12 +111,12 @@ declare namespace dynamsoft {
             DBR_PARAMETER_VALUE_INVALID = 10038,
             DBR_DOMAIN_NOT_MATCHED = -10039,
             DBR_RESERVEDINFO_NOT_MATCHED = -10040,
-            DBR_DBRERR_AZTEC_LICENSE_INVALID = -10041
+            DBR_DBRERR_AZTEC_LICENSE_INVALID = -10041,
         }
 
         enum EnumConflictMode {
             ECM_Ignore = 1,
-            ECM_Overwrite = 2
+            ECM_Overwrite = 2,
         }
 
         enum EnumImagePixelFormat {
@@ -127,20 +127,20 @@ declare namespace dynamsoft {
             IPF_RGB_565 = 4,
             IPF_RGB_555 = 5,
             IPF_RGB_888 = 6,
-            IPF_ARGB_8888 = 7
+            IPF_ARGB_8888 = 7,
         }
 
         enum EnumResultType {
             EDT_CandidateText = 2,
             EDT_PartialText = 3,
             EDT_RawText = 1,
-            EDT_StandardText = 0
+            EDT_StandardText = 0,
         }
 
         enum EnumTerminateStage {
             ETS_Localized = 1,
             ETS_Prelocalized = 0,
-            ETS_Recognized = 2
+            ETS_Recognized = 2,
         }
     }
 
@@ -156,7 +156,7 @@ declare namespace dynamsoft {
         static length: number;
         static version: string;
 
-        /** 
+        /**
          * Append a new template string to current runtime settings.
          * @method BarcodeReader#decode
          * @param {string} content	A JSON string that represents the content of the settings.

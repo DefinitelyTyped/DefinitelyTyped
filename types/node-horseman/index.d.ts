@@ -124,7 +124,19 @@ declare class horseman {
      *  error - callback(msg, trace);
      *  timeout - callback(type)
      */
-    on(event: string | "timeout" | "tabCreated" | "tabClosed"| "resourceTimeout"| "urlChanged"| "resourceReceived"| "pageCreated"| "loadFinished", func: (...args: any[]) => void): this;
+    on(
+        event:
+            | string
+            | 'timeout'
+            | 'tabCreated'
+            | 'tabClosed'
+            | 'resourceTimeout'
+            | 'urlChanged'
+            | 'resourceReceived'
+            | 'pageCreated'
+            | 'loadFinished',
+        func: (...args: any[]) => void,
+    ): this;
 
     /** Open a url in Phantom. */
     open(url: string, method?: string | 'GET'): this;
@@ -135,11 +147,14 @@ declare class horseman {
     pageMaker(url: any, _page: any, ...args: any[]): any;
 
     /** Save the current page as a pdf. */
-    pdf(path: string, paperSize: {
-        format?: "A3" | "A4" | "A5" | "Legal" | "Letter" | "Tabloid",
-        orientation?: "portrait" | "landscape",
-        margin?: string
-    }): this;
+    pdf(
+        path: string,
+        paperSize: {
+            format?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
+            orientation?: 'portrait' | 'landscape';
+            margin?: string;
+        },
+    ): this;
 
     /** Get the plain text for the body of the page. */
     plainText(): string;

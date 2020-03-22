@@ -1,4 +1,4 @@
-import "jquery";
+import 'jquery';
 
 /**
  * Provides the functionality to handle events of the `tablesorter`.

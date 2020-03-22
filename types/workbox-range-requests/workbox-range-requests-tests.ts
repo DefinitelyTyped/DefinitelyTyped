@@ -1,11 +1,8 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
-import {
-    Plugin,
-    createPartialResponse,
-} from "workbox-range-requests";
+import { Plugin, createPartialResponse } from 'workbox-range-requests';
 
 //==============================================================================
 // WorkboxRangeRequests.Plugin

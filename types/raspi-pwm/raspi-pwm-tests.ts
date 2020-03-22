@@ -1,8 +1,8 @@
 import { Config, PWM } from 'raspi-pwm';
 
 const config: Config = {
-  pin: 'P1-3',
-  frequency: 1
+    pin: 'P1-3',
+    frequency: 1,
 };
 
 new PWM();

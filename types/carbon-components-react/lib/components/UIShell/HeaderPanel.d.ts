@@ -1,10 +1,10 @@
-import * as React from "react";
-import { ReactDivAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactDivAttr } from '../../../typings/shared';
 
-interface InheritedProps extends ReactDivAttr { }
+interface InheritedProps extends ReactDivAttr {}
 
 export interface HeaderPanelProps extends InheritedProps {
-    expanded?: boolean,
+    expanded?: boolean;
 }
 
 declare const HeaderPanel: React.FC<HeaderPanelProps>;

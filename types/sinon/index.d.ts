@@ -17,8 +17,8 @@
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
-interface Event { } // tslint:disable-line no-empty-interface
-interface Document { } // tslint:disable-line no-empty-interface
+interface Event {} // tslint:disable-line no-empty-interface
+interface Document {} // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
     interface SinonSpyCallApi {
@@ -902,7 +902,7 @@ declare namespace Sinon {
     }
 
     interface SinonFakeXMLHttpRequestStatic {
-        new(): SinonFakeXMLHttpRequest;
+        new (): SinonFakeXMLHttpRequest;
         /**
          * Default false.
          * When set to true, Sinon will check added filters if certain requests should be “unfaked”
@@ -914,7 +914,9 @@ declare namespace Sinon {
          * If the filter returns true, the request will not be faked.
          * @param filter
          */
-        addFilter(filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean): void;
+        addFilter(
+            filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean,
+        ): void;
         /**
          * By assigning a function to the onCreate property of the returned object from useFakeXMLHttpRequest()
          * you can subscribe to newly created FakeXMLHttpRequest objects. See below for the fake xhr object API.
@@ -1604,10 +1606,7 @@ declare namespace Sinon {
          * replacement can be any value, including spies, stubs and fakes.
          * This method only works on non-accessor properties, for replacing accessors, use sandbox.replaceGetter() and sandbox.replaceSetter().
          */
-        replace<T, TKey extends keyof T>(
-            obj: T,
-            prop: TKey,
-            replacement: T[TKey]): T[TKey];
+        replace<T, TKey extends keyof T>(obj: T, prop: TKey, replacement: T[TKey]): T[TKey];
         /**
          * Replaces getter for property on object with replacement argument. Attempts to replace an already replaced getter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1615,10 +1614,7 @@ declare namespace Sinon {
          * @param prop
          * @param replacement
          */
-        replaceGetter<T, TKey extends keyof T>(
-            obj: T,
-            prop: TKey,
-            replacement: () => T[TKey]): () => T[TKey];
+        replaceGetter<T, TKey extends keyof T>(obj: T, prop: TKey, replacement: () => T[TKey]): () => T[TKey];
         /**
          * Replaces setter for property on object with replacement argument. Attempts to replace an already replaced setter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1629,7 +1625,8 @@ declare namespace Sinon {
         replaceSetter<T, TKey extends keyof T>(
             obj: T,
             prop: TKey,
-            replacement: (val: T[TKey]) => void): (val: T[TKey]) => void;
+            replacement: (val: T[TKey]) => void,
+        ): (val: T[TKey]) => void;
 
         /**
          * Creates a new object with the given functions as the prototype and stubs all implemented functions.
@@ -1642,7 +1639,7 @@ declare namespace Sinon {
          */
         createStubInstance<TType>(
             constructor: StubbableType<TType>,
-            overrides?: { [K in keyof TType]?: any }
+            overrides?: { [K in keyof TType]?: any },
         ): SinonStubbedInstance<TType>;
     }
 

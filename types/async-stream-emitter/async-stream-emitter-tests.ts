@@ -26,7 +26,7 @@ const emitter = new AsyncStreamEmitter<string>();
 
 // Utility function.
 function wait(duration: number) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             resolve();
         }, duration);

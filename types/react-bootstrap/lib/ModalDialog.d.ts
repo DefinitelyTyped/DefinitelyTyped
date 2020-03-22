@@ -15,5 +15,5 @@ declare namespace ModalDialog {
         bsClass?: string;
     }
 }
-declare class ModalDialog extends React.Component<ModalDialog.ModalDialogProps> { }
+declare class ModalDialog extends React.Component<ModalDialog.ModalDialogProps> {}
 export = ModalDialog;

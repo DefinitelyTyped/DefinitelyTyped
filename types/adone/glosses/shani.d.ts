@@ -62,26 +62,167 @@ declare namespace adone {
                 (a: string, b: string, description: string, callback: DescribeCallback): void;
                 (a: string, b: string, description: string, options: DescribeOptions, callback: DescribeCallback): void;
                 (a: string, b: string, c: string, description: string, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, description: string, options: DescribeOptions, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, description: string, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, description: string, options: DescribeOptions, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, description: string, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, description: string, options: DescribeOptions, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, f: string, description: string, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, f: string, description: string, options: DescribeOptions, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, f: string, g: string, description: string, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, f: string, g: string, description: string, options: DescribeOptions, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, f: string, g: string, h: string, description: string, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, f: string, g: string, h: string, description: string, options: DescribeOptions, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, f: string, g: string, h: string, i: string, description: string, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, f: string, g: string, h: string, i: string, description: string, options: DescribeOptions, callback: DescribeCallback): void;
-                (a: string, b: string, c: string, d: string, e: string, f: string, g: string, h: string, i: string, j: string, description: string, callback: DescribeCallback): void;
                 (
-                    a: string, b: string, c: string,
-                    d: string, e: string, f: string,
-                    g: string, h: string, i: string,
-                    j: string, description: string, options: DescribeOptions,
-                    callback: DescribeCallback
+                    a: string,
+                    b: string,
+                    c: string,
+                    description: string,
+                    options: DescribeOptions,
+                    callback: DescribeCallback,
+                ): void;
+                (a: string, b: string, c: string, d: string, description: string, callback: DescribeCallback): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    description: string,
+                    options: DescribeOptions,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    description: string,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    description: string,
+                    options: DescribeOptions,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    description: string,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    description: string,
+                    options: DescribeOptions,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    g: string,
+                    description: string,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    g: string,
+                    description: string,
+                    options: DescribeOptions,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    g: string,
+                    h: string,
+                    description: string,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    g: string,
+                    h: string,
+                    description: string,
+                    options: DescribeOptions,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    g: string,
+                    h: string,
+                    i: string,
+                    description: string,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    g: string,
+                    h: string,
+                    i: string,
+                    description: string,
+                    options: DescribeOptions,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    g: string,
+                    h: string,
+                    i: string,
+                    j: string,
+                    description: string,
+                    callback: DescribeCallback,
+                ): void;
+                (
+                    a: string,
+                    b: string,
+                    c: string,
+                    d: string,
+                    e: string,
+                    f: string,
+                    g: string,
+                    h: string,
+                    i: string,
+                    j: string,
+                    description: string,
+                    options: DescribeOptions,
+                    callback: DescribeCallback,
                 ): void;
                 (a: string, ...args: Array<string | DescribeCallback>): void;
 
@@ -174,24 +315,38 @@ declare namespace adone {
                 (description: string, callback: HookCallback): void;
             }
 
-            type StartHookEvent = "start before hook" | "start after hook"
-                | "start before each hook" | "start after each hook"
-                | "start before test hook" | "start after test hook";
+            type StartHookEvent =
+                | 'start before hook'
+                | 'start after hook'
+                | 'start before each hook'
+                | 'start after each hook'
+                | 'start before test hook'
+                | 'start after test hook';
 
-            type EndHookEvent = "end before hook" | "end after hook"
-                | "end before each hook" | "end after each hook"
-                | "end before test hook" | "end after test hook";
+            type EndHookEvent =
+                | 'end before hook'
+                | 'end after hook'
+                | 'end before each hook'
+                | 'end after each hook'
+                | 'end before test hook'
+                | 'end after test hook';
 
             interface Emitter extends event.Emitter {
-                on(event: "enter block", listener: (event: { block: Block }) => void): this;
-                on(event: "exit block", listener: (event: { block: Block }) => void): this;
-                on(event: "start test", listener: (event: { block: Block, test: Test }) => void): this;
-                on(event: "end test", listener: (event: { block: Block, test: Test, meta: ExecutionResult }) => void): this;
-                on(event: "skip test", listener: (event: { block: Block, test: Test, runtime: boolean }) => void): this;
-                on(event: StartHookEvent, listener: (event: { block: Block, test: Test, hook: Hook }) => void): this;
-                on(event: EndHookEvent, listener: (event: { block: Block, test: Test, hook: Hook, meta: ExecutionResult }) => void): this;
-                on(event: "error", listener: (err: any) => void): this;
-                on(event: "done", listener: () => void): this;
+                on(event: 'enter block', listener: (event: { block: Block }) => void): this;
+                on(event: 'exit block', listener: (event: { block: Block }) => void): this;
+                on(event: 'start test', listener: (event: { block: Block; test: Test }) => void): this;
+                on(
+                    event: 'end test',
+                    listener: (event: { block: Block; test: Test; meta: ExecutionResult }) => void,
+                ): this;
+                on(event: 'skip test', listener: (event: { block: Block; test: Test; runtime: boolean }) => void): this;
+                on(event: StartHookEvent, listener: (event: { block: Block; test: Test; hook: Hook }) => void): this;
+                on(
+                    event: EndHookEvent,
+                    listener: (event: { block: Block; test: Test; hook: Hook; meta: ExecutionResult }) => void,
+                ): this;
+                on(event: 'error', listener: (err: any) => void): this;
+                on(event: 'done', listener: () => void): this;
 
                 /**
                  * Stops testing
@@ -250,7 +405,13 @@ declare namespace adone {
             class Test {
                 description: string;
 
-                constructor(description: string, callback: TestCallback, block: Block, runtimeContext: object, options: TestOptions);
+                constructor(
+                    description: string,
+                    callback: TestCallback,
+                    block: Block,
+                    runtimeContext: object,
+                    options: TestOptions,
+                );
 
                 /**
                  * Handles params from options

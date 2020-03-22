@@ -1,4 +1,3 @@
-
 import jsesc = require('jsesc');
 import Opts = jsesc.Opts;
 
@@ -18,40 +17,40 @@ str = jsesc.version;
 // ---- ---- ---- ---- ---- ---- ----
 
 opts = {
-	quotes: quotes
+    quotes: quotes,
 };
 opts = {
-	numbers: numbers
-}
-opts = {
-	wrap: bool
+    numbers: numbers,
 };
 opts = {
-	es6: bool
+    wrap: bool,
 };
 opts = {
-	escapeEverything: bool
+    es6: bool,
 };
 opts = {
-	minimal: bool
+    escapeEverything: bool,
 };
 opts = {
-	isScriptContext: bool
+    minimal: bool,
 };
 opts = {
-	compact: bool
+    isScriptContext: bool,
 };
 opts = {
-	indent: str
+    compact: bool,
 };
 opts = {
-	indentLevel: num
+    indent: str,
 };
 opts = {
-	json: bool
+    indentLevel: num,
 };
 opts = {
-	lowercaseHex: bool
+    json: bool,
+};
+opts = {
+    lowercaseHex: bool,
 };
 // ---- ---- ---- ---- ---- ---- ----
 

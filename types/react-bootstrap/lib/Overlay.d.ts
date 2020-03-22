@@ -15,5 +15,5 @@ declare namespace Overlay {
         shouldUpdatePosition?: boolean;
     }
 }
-declare class Overlay extends React.Component<Overlay.OverlayProps> { }
+declare class Overlay extends React.Component<Overlay.OverlayProps> {}
 export = Overlay;

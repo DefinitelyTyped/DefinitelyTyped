@@ -1,14 +1,8 @@
-import {
-  LargeObject,
-  LargeObjectManager,
-  LargeObjectManagerSettings,
-  ReadStream,
-  WriteStream
-} from "pg-large-object";
-import { Buffer } from "buffer";
-import pg = require("pg");
+import { LargeObject, LargeObjectManager, LargeObjectManagerSettings, ReadStream, WriteStream } from 'pg-large-object';
+import { Buffer } from 'buffer';
+import pg = require('pg');
 
-const buffer = new Buffer("");
+const buffer = new Buffer('');
 const bufferSize = 16384;
 const length = 16384;
 const oid = 1;
@@ -38,8 +32,8 @@ const writeConst = LargeObjectManager.WRITE; // $ExpectType number
 const readConst = LargeObjectManager.READ; // $ExpectType number
 const readWriteConst = LargeObjectManager.READWRITE; // $ExpectType number
 const config: LargeObjectManagerSettings = {
-  pg: new pg.Client(),
-  pgPromise: {}
+    pg: new pg.Client(),
+    pgPromise: {},
 };
 
 const lom = new LargeObjectManager(config);

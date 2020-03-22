@@ -111,7 +111,7 @@ interface RaygunOptions {
     /**
      * String which can be optionally set "onLoad" which will then boot the RealUserMonitoring side instead of waiting for the `load` event.
      */
-    from?: string | "onLoad";
+    from?: string | 'onLoad';
 }
 
 interface RaygunPayload {
@@ -124,16 +124,16 @@ interface RaygunPayload {
         };
         Environment: {
             UtcOffset: number;
-            "User-Language": string;
-            "Document-Mode": number;
-            "Browser-Width": number;
-            "Browser-Height": number;
-            "Screen-Width": number;
-            "Screen-Height": number;
-            "Color-Depth": number;
+            'User-Language': string;
+            'Document-Mode': number;
+            'Browser-Width': number;
+            'Browser-Height': number;
+            'Screen-Width': number;
+            'Screen-Height': number;
+            'Color-Depth': number;
             Browser: string;
-            "Browser-Name": string;
-            "Browser-Version": string;
+            'Browser-Name': string;
+            'Browser-Version': string;
             Platform: string;
         };
         Client: {
@@ -146,7 +146,7 @@ interface RaygunPayload {
             Url: string;
             QueryString: string;
             Headers: {
-                "User-Agent": string;
+                'User-Agent': string;
                 Referer: string;
                 Host: string;
             };
@@ -178,11 +178,7 @@ interface RaygunStatic {
     /**
      * Configures the Raygun provider.
      */
-    init(
-        apiKey: string,
-        options?: RaygunOptions,
-        customdata?: any
-    ): RaygunStatic;
+    init(apiKey: string, options?: RaygunOptions, customdata?: any): RaygunStatic;
 
     /**
      * Attaches custom data to any errors sent to Raygun.
@@ -218,7 +214,7 @@ interface RaygunStatic {
         email?: string,
         fullName?: string,
         firstName?: string,
-        uuid?: string
+        uuid?: string,
     ): RaygunStatic;
 
     /**
@@ -239,14 +235,12 @@ interface RaygunStatic {
     /**
      * Blacklist keys to prevent their values from being sent to Raygun.
      */
-    filterSensitiveData(
-        filteredKeys: ReadonlyArray<string | RegExp>
-    ): RaygunStatic;
+    filterSensitiveData(filteredKeys: ReadonlyArray<string | RegExp>): RaygunStatic;
 
     /**
      * Change the scope at which filters are applied. Defaults to `customData` by default.
      */
-    setFilterScope(scope: "all" | "customData"): RaygunStatic;
+    setFilterScope(scope: 'all' | 'customData'): RaygunStatic;
 
     /**
      * Whitelist damains which should transmit errors to Raygun.
@@ -256,19 +250,13 @@ interface RaygunStatic {
     /**
      * Executed before the payload is sent. If a truthy object is returned, Raygun will attempt to use that as the payload. Raygun will abort the send if `false` is returned.
      */
-    onBeforeSend(
-        callback: (payload: RaygunPayload) => RaygunPayload | boolean
-    ): RaygunStatic;
+    onBeforeSend(callback: (payload: RaygunPayload) => RaygunPayload | boolean): RaygunStatic;
 
     /**
      * Overrides the default automatic grouping and instead group errors together by the string returned by the callback.
      */
     groupingKey(
-        callback: (
-            payload: RaygunPayload,
-            stackTrace: TracekitStackTrace,
-            options: any
-        ) => string | void
+        callback: (payload: RaygunPayload, stackTrace: TracekitStackTrace, options: any) => string | void,
     ): RaygunStatic;
     onBeforeXHR(callback: (xhr: XMLHttpRequest) => void): RaygunStatic;
     onAfterSend(callback: (response: XMLHttpRequest) => void): RaygunStatic;
@@ -277,7 +265,7 @@ interface RaygunStatic {
     /**
      * Track Single Page Application route events.
      */
-    trackEvent(type: "pageView", options: { path: string }): void;
+    trackEvent(type: 'pageView', options: { path: string }): void;
 
     /**
      * Records a manual breadcrumb with the given message and metadata passed.
@@ -287,23 +275,19 @@ interface RaygunStatic {
     /**
      * Enables all breadcrumbs level or a type can be passed which will enable only that passed one.
      */
-    enableAutoBreadcrumbs(
-        type?: "XHR" | "Clicks" | "Console" | "Navigation"
-    ): void;
+    enableAutoBreadcrumbs(type?: 'XHR' | 'Clicks' | 'Console' | 'Navigation'): void;
 
     /**
      * Disables all breadcrumbs or a type can be passed to disable only that one.
      */
-    disableAutoBreadcrumbs(
-        type?: "XHR" | "Clicks" | "Console" | "Navigation"
-    ): void;
+    disableAutoBreadcrumbs(type?: 'XHR' | 'Clicks' | 'Console' | 'Navigation'): void;
 
     /**
      * Pass "breadcrumbsLevel" alongside a valid breadcrumbs level to set the current level. Passing options other than "breadcrumbsLevel" will set xhr hosts to ignore being
      */
     setBreadcrumbOption(
-        option?: string | "breadcrumbsLevel",
-        value?: string | "debug" | "info" | "warning" | "error"
+        option?: string | 'breadcrumbsLevel',
+        value?: string | 'debug' | 'info' | 'warning' | 'error',
     ): void;
 }
 
@@ -339,62 +323,41 @@ interface RaygunV2UserDetails {
     uuid?: string;
 }
 
-type BreadcrumbLevel = "debug" | "error" | "warning" | "info";
+type BreadcrumbLevel = 'debug' | 'error' | 'warning' | 'info';
 interface RaygunV2 {
-    (key: "options", value: RaygunOptions): void;
-    (key: "setUser", value: RaygunV2UserDetails): void;
+    (key: 'options', value: RaygunOptions): void;
+    (key: 'setUser', value: RaygunV2UserDetails): void;
+    (key: 'onBeforeSend', callback: (payload: RaygunPayload) => RaygunPayload | boolean): void;
+    (key: 'onBeforeXHR' | 'onAfterSend', callback: (xhr: XMLHttpRequest) => void): void;
     (
-        key: "onBeforeSend",
-        callback: (payload: RaygunPayload) => RaygunPayload | boolean
+        key: 'groupingKey',
+        value: (payload: RaygunPayload, stackTrace: TracekitStackTrace, options: any) => string | void,
     ): void;
-    (
-        key: "onBeforeXHR" | "onAfterSend",
-        callback: (xhr: XMLHttpRequest) => void
-    ): void;
-    (
-        key: "groupingKey",
-        value: (
-            payload: RaygunPayload,
-            stackTrace: TracekitStackTrace,
-            options: any
-        ) => string | void
-    ): void;
-    (key: "trackEvent", value: { type: string; path: string }): void;
-    (key: "apiKey" | "setVersion" | "setFilterScope", value: string): void;
+    (key: 'trackEvent', value: { type: string; path: string }): void;
+    (key: 'apiKey' | 'setVersion' | 'setFilterScope', value: string): void;
+    (key: 'attach' | 'enableCrashReporting' | 'enablePulse' | 'noConflict' | 'saveIfOffline', value: boolean): void;
+    (key: 'filterSensitiveData', values: Array<string | RegExp>): void;
+    (key: 'whitelistCrossOriginDomains' | 'withTags', values: string[]): void;
+    (key: 'send' | 'withCustomData', value: any): void;
+    (key: 'getRaygunInstance'): RaygunStatic;
     (
         key:
-            | "attach"
-            | "enableCrashReporting"
-            | "enablePulse"
-            | "noConflict"
-            | "saveIfOffline",
-        value: boolean
+            | 'detach'
+            | 'disableAutoBreadcrumbs'
+            | 'enableAutoBreadcrumbs'
+            | 'disableAutoBreadcrumbsConsole'
+            | 'enableAutoBreadcrumbsConsole'
+            | 'disableAutoBreadcrumbsNavigation'
+            | 'enableAutoBreadcrumbsNavigation'
+            | 'disableAutoBreadcrumbsClicks'
+            | 'enableAutoBreadcrumbsClicks'
+            | 'disableAutoBreadcrumbsXHR'
+            | 'enableAutoBreadcrumbsXHR'
+            | 'setAutoBreadcrumbsXHRIgnoredHosts',
     ): void;
-	(key: "filterSensitiveData", values: Array<string | RegExp>): void;
+    (key: 'setBreadcrumbLevel', level: BreadcrumbLevel): void;
     (
-        key: "whitelistCrossOriginDomains" | "withTags",
-        values: string[]
-    ): void;
-    (key: "send" | "withCustomData", value: any): void;
-    (key: "getRaygunInstance"): RaygunStatic;
-    (
-        key:
-            | "detach"
-            | "disableAutoBreadcrumbs"
-            | "enableAutoBreadcrumbs"
-            | "disableAutoBreadcrumbsConsole"
-            | "enableAutoBreadcrumbsConsole"
-            | "disableAutoBreadcrumbsNavigation"
-            | "enableAutoBreadcrumbsNavigation"
-            | "disableAutoBreadcrumbsClicks"
-            | "enableAutoBreadcrumbsClicks"
-            | "disableAutoBreadcrumbsXHR"
-            | "enableAutoBreadcrumbsXHR"
-            | "setAutoBreadcrumbsXHRIgnoredHosts"
-    ): void;
-    (key: "setBreadcrumbLevel", level: BreadcrumbLevel): void;
-    (
-        key: "recordBreadcrumb",
+        key: 'recordBreadcrumb',
         message:
             | string
             | {
@@ -403,7 +366,7 @@ interface RaygunV2 {
                   level: BreadcrumbLevel;
                   location: string;
               },
-        metadata: object
+        metadata: object,
     ): void;
 }
 

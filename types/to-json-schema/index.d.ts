@@ -15,10 +15,7 @@ export = toJsonSchema;
  * @param value Any javascript value
  * @param options optional options object
  */
-declare function toJsonSchema(
-    value: any,
-    options?: toJsonSchema.Options
-): toJsonSchema.JSONSchema3or4;
+declare function toJsonSchema(value: any, options?: toJsonSchema.Options): toJsonSchema.JSONSchema3or4;
 
 declare namespace toJsonSchema {
     interface JSONSchema3or4 {
@@ -55,14 +52,14 @@ declare namespace toJsonSchema {
         definitions?: JSONSchema4['definitions'];
 
         properties?: {
-            [k: string]: JSONSchema3or4
+            [k: string]: JSONSchema3or4;
         };
 
         patternProperties?: {
-            [k: string]: JSONSchema3or4
+            [k: string]: JSONSchema3or4;
         };
         dependencies?: {
-            [k: string]: JSONSchema3or4 | string | string[]
+            [k: string]: JSONSchema3or4 | string | string[];
         };
 
         enum?: JSONSchema4['enum'];
@@ -114,11 +111,7 @@ declare namespace toJsonSchema {
             type: JSONSchema4TypeName,
             schema: JSONSchema3or4,
             value: any,
-            defaultFunc: (
-                type: JSONSchema4TypeName,
-                schema: JSONSchema3or4,
-                value: any
-            ) => JSONSchema3or4
+            defaultFunc: (type: JSONSchema4TypeName, schema: JSONSchema3or4, value: any) => JSONSchema3or4,
         ): JSONSchema3or4;
 
         arrays?: {
@@ -151,10 +144,7 @@ declare namespace toJsonSchema {
              * @param defaultFunc standard function that is used to generate schema
              *                    from object. Takes just the `obj` param.
              */
-            preProcessFnc?(
-                obj: any,
-                defaultFunc: (obj: any) => JSONSchema3or4
-            ): JSONSchema3or4;
+            preProcessFnc?(obj: any, defaultFunc: (obj: any) => JSONSchema3or4): JSONSchema3or4;
             /**
              * By providing `postProcessFnc`, you can modify or replace generated
              * schema. This function will be called recursively for all the
@@ -170,7 +160,7 @@ declare namespace toJsonSchema {
             postProcessFnc?(
                 schema: JSONSchema3or4,
                 obj: any,
-                defaultFnc: (schema: JSONSchema3or4, obj: any) => JSONSchema3or4
+                defaultFnc: (schema: JSONSchema3or4, obj: any) => JSONSchema3or4,
             ): JSONSchema3or4;
             /**
              * if set to `false`, all object schemas will include JSON schema
@@ -193,10 +183,7 @@ declare namespace toJsonSchema {
              *                   schema. This function receives only `string` to be
              *                   converted to JSON schema
              */
-            preProcessFnc?(
-                value: string,
-                defaultFnc: (value: string) => JSONSchema3or4
-            ): JSONSchema3or4;
+            preProcessFnc?(value: string, defaultFnc: (value: string) => JSONSchema3or4): JSONSchema3or4;
             /**
              * When set to true format of the strings values may be detected based
              * on it's content.

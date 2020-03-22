@@ -12,7 +12,7 @@ let str: string;
 let buf: Buffer;
 
 got('todomvc.com')
-    .then(response => {
+    .then((response) => {
         str = response.body;
     })
     .catch((error: got.GotError) => {
@@ -50,44 +50,44 @@ got('todomvc.com', { json: true, form: true, encoding: null, hostname: 'todomvc'
     response.body; // $ExpectType any
 });
 
-got('todomvc.com', { form: true }).then(response => str = response.body);
-got('todomvc.com', { form: true, body: {} }).then(response => str = response.body);
-got('todomvc.com', { form: true, body: [{}] }).then(response => str = response.body);
-got('todomvc.com', { form: true, body: [{}], encoding: null }).then(response => buf = response.body);
-got('todomvc.com', { form: true, body: [{}], encoding: 'utf8' }).then(response => str = response.body);
-got('todomvc.com', {
-    form: true,
-    body: [{}],
-    encoding: 'utf8',
-    hostname: 'todomvc'
-}).then(response => str = response.body);
+got('todomvc.com', { form: true }).then((response) => (str = response.body));
+got('todomvc.com', { form: true, body: {} }).then((response) => (str = response.body));
+got('todomvc.com', { form: true, body: [{}] }).then((response) => (str = response.body));
+got('todomvc.com', { form: true, body: [{}], encoding: null }).then((response) => (buf = response.body));
+got('todomvc.com', { form: true, body: [{}], encoding: 'utf8' }).then((response) => (str = response.body));
 got('todomvc.com', {
     form: true,
     body: [{}],
     encoding: 'utf8',
     hostname: 'todomvc',
-    timeout: 2000
-}).then(response => str = response.body);
+}).then((response) => (str = response.body));
 got('todomvc.com', {
     form: true,
     body: [{}],
     encoding: 'utf8',
     hostname: 'todomvc',
-    timeout: { connect: 20, request: 20, socket: 20 }
-}).then(response => str = response.body);
+    timeout: 2000,
+}).then((response) => (str = response.body));
+got('todomvc.com', {
+    form: true,
+    body: [{}],
+    encoding: 'utf8',
+    hostname: 'todomvc',
+    timeout: { connect: 20, request: 20, socket: 20 },
+}).then((response) => (str = response.body));
 // following must lead to type checking error: got('todomvc.com', {form: true, body: ''}).then(response => str = response.body);
 
-got('todomvc.com', { encoding: null, hostname: 'todomvc' }).then(response => buf = response.body);
-got('todomvc.com', { encoding: 'utf8', hostname: 'todomvc' }).then(response => str = response.body);
+got('todomvc.com', { encoding: null, hostname: 'todomvc' }).then((response) => (buf = response.body));
+got('todomvc.com', { encoding: 'utf8', hostname: 'todomvc' }).then((response) => (str = response.body));
 
-got('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
+got('todomvc.com', { hostname: 'todomvc' }).then((response) => (str = response.body));
 
-got.get('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
-got.post('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
-got.put('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
-got.patch('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
-got.head('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
-got.delete('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
+got.get('todomvc.com', { hostname: 'todomvc' }).then((response) => (str = response.body));
+got.post('todomvc.com', { hostname: 'todomvc' }).then((response) => (str = response.body));
+got.put('todomvc.com', { hostname: 'todomvc' }).then((response) => (str = response.body));
+got.patch('todomvc.com', { hostname: 'todomvc' }).then((response) => (str = response.body));
+got.head('todomvc.com', { hostname: 'todomvc' }).then((response) => (str = response.body));
+got.delete('todomvc.com', { hostname: 'todomvc' }).then((response) => (str = response.body));
 
 got.stream('todomvc.com').pipe(fs.createWriteStream('index.html'));
 
@@ -106,8 +106,8 @@ let href: string | undefined;
 let progress: got.Progress;
 
 const stream = got.stream('todomvc.com');
-stream.addListener('request', (r) => req = r);
-stream.addListener('response', (r) => res = r);
+stream.addListener('request', (r) => (req = r));
+stream.addListener('response', (r) => (res = r));
 stream.addListener('redirect', (r, o) => {
     res = r;
     opts = o;
@@ -124,8 +124,8 @@ stream.addListener('uploadProgress', (p) => {
     progress = p;
 });
 
-stream.on('request', (r) => req = r);
-stream.on('response', (r) => res = r);
+stream.on('request', (r) => (req = r));
+stream.on('response', (r) => (res = r));
 stream.on('redirect', (r, o) => {
     res = r;
     opts = o;
@@ -142,8 +142,8 @@ stream.on('uploadProgress', (p) => {
     progress = p;
 });
 
-stream.once('request', (r) => req = r);
-stream.once('response', (r) => res = r);
+stream.once('request', (r) => (req = r));
+stream.once('response', (r) => (res = r));
 stream.once('redirect', (r, o) => {
     res = r;
     opts = o;
@@ -160,8 +160,8 @@ stream.once('uploadProgress', (p) => {
     progress = p;
 });
 
-stream.prependListener('request', (r) => req = r);
-stream.prependListener('response', (r) => res = r);
+stream.prependListener('request', (r) => (req = r));
+stream.prependListener('response', (r) => (res = r));
 stream.prependListener('redirect', (r, o) => {
     res = r;
     opts = o;
@@ -178,8 +178,8 @@ stream.prependListener('uploadProgress', (p) => {
     progress = p;
 });
 
-stream.prependOnceListener('request', (r) => req = r);
-stream.prependOnceListener('response', (r) => res = r);
+stream.prependOnceListener('request', (r) => (req = r));
+stream.prependOnceListener('response', (r) => (res = r));
 stream.prependOnceListener('redirect', (r, o) => {
     res = r;
     opts = o;
@@ -196,8 +196,8 @@ stream.prependOnceListener('uploadProgress', (p) => {
     progress = p;
 });
 
-stream.removeListener('request', (r) => req = r);
-stream.removeListener('response', (r) => res = r);
+stream.removeListener('request', (r) => (req = r));
+stream.removeListener('response', (r) => (res = r));
 stream.removeListener('redirect', (r, o) => {
     res = r;
     opts = o;
@@ -216,8 +216,8 @@ stream.removeListener('uploadProgress', (p) => {
 
 got('google.com', {
     headers: {
-        cookie: cookie.serialize('foo', 'bar')
-    }
+        cookie: cookie.serialize('foo', 'bar'),
+    },
 });
 
 const form = new FormData();
@@ -225,36 +225,35 @@ const form = new FormData();
 form.append('my_file', fs.createReadStream('/foo/bar.jpg'));
 
 got.post('google.com', {
-    body: form
+    body: form,
 });
 
 got('todomvc.com', {
     headers: {
-        'user-agent': `my-module/ (https://github.com/username/my-module)`
-    }
+        'user-agent': `my-module/ (https://github.com/username/my-module)`,
+    },
 });
 
-got('https://httpbin.org/404')
-    .catch(err => err instanceof got.HTTPError && err.statusCode === 404);
+got('https://httpbin.org/404').catch((err) => err instanceof got.HTTPError && err.statusCode === 404);
 
 got('todomvc', {
-    throwHttpErrors: false
+    throwHttpErrors: false,
 });
 
 got('todomvc', {
     agent: {
         http: new http.Agent(),
-        https: new https.Agent()
-    }
+        https: new https.Agent(),
+    },
 });
 
 got('todomvc', {
     cache: new Map(),
-}).then(res => res.fromCache);
+}).then((res) => res.fromCache);
 
 got('todomvc', {
     cache: new Keyv(),
-}).then(res => res.fromCache);
+}).then((res) => res.fromCache);
 
 got(new url.URL('http://todomvc.com'));
 
@@ -276,7 +275,9 @@ got.extend({ json: true })('/example').then(({ body }) => body);
 // $ExpectType Promise<any>
 got.extend({ json: true })('/example', { query: {} }).then(({ body }) => body);
 // $ExpectType Promise<any>
-got.extend({ baseUrl: 'https://localhost' }).extend({ json: true })('/example').then(({ body }) => body);
+got.extend({ baseUrl: 'https://localhost' })
+    .extend({ json: true })('/example')
+    .then(({ body }) => body);
 // $ExpectType Promise<string>
 got.extend({})('/example').then(({ body }) => body);
 // Form options:
@@ -314,16 +315,16 @@ got('http://todomvc.com', {
         methods: ['GET', 'POST'],
         statusCodes: [408, 504],
         maxRetryAfter: 1,
-        errorCodes: ['ETIMEDOUT']
-    }
+        errorCodes: ['ETIMEDOUT'],
+    },
 });
 // Test custom retry error code. See https://github.com/sindresorhus/got/blob/9f3a09948ff80057b12af0af60846cc5b8f0372d/test/retry.js#L155
 got('http://todomvc.com', {
     retry: {
         retries: 1,
         methods: ['GET'],
-        errorCodes: ['OH_SNAP']
-    }
+        errorCodes: ['OH_SNAP'],
+    },
 });
 
 got('http://todomvc.com', { throwHttpErrors: false });
@@ -338,8 +339,8 @@ got('http://todomvc.com', {
         socket: 4,
         response: 5,
         send: 6,
-        request: 7
-    }
+        request: 7,
+    },
 });
 
 // Test got.TimeoutError.
@@ -349,61 +350,63 @@ got('http://todomvc.com', { timeout: 1 }).catch((err) => err instanceof got.Time
 got('example.com', {
     hooks: {
         init: [
-            options => {
+            (options) => {
                 options.baseUrl = 'https://google.com';
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 got('example.com', {
     hooks: {
         beforeRequest: [
-            options => {
+            (options) => {
                 options.headers!['x-foo'] = 'bar';
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 got('example.com', {
     hooks: {
         beforeRedirect: [
-            options => {
+            (options) => {
                 if (options.hostname === 'deadSite') {
                     options.hostname = 'fallbackSite';
                 }
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 got('example.com', {
     hooks: {
         beforeRetry: [
             (options, error, retryCount) => {
-                if (error instanceof got.HTTPError && error.statusCode === 413) { // Payload too large
+                if (error instanceof got.HTTPError && error.statusCode === 413) {
+                    // Payload too large
                     options.body = 'new body';
                 }
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 got('example.com', {
     hooks: {
         beforeError: [
-            error => {
+            (error) => {
                 return error;
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 got('example.com', {
     hooks: {
         afterResponse: [
             (response, retryWithMergedOptions) => {
-                if (response.statusCode === 401) { // Unauthorized
+                if (response.statusCode === 401) {
+                    // Unauthorized
                     const updatedOptions = {
                         headers: {
-                            token: 'new token' // Refresh the access token
-                        }
+                            token: 'new token', // Refresh the access token
+                        },
                     };
 
                     // Make a new retry
@@ -412,9 +415,9 @@ got('example.com', {
 
                 // No changes otherwise
                 return response;
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 // Test async hooks.
 {
@@ -427,35 +430,35 @@ got('example.com', {
             beforeRequest: [
                 async () => {
                     await doSomethingAsync();
-                }
+                },
             ],
             beforeRedirect: [
                 async () => {
                     await doSomethingAsync();
-                }
+                },
             ],
             beforeRetry: [
                 async () => {
                     await doSomethingAsync();
-                }
+                },
             ],
             beforeError: [
                 async (error) => {
                     await doSomethingAsync();
                     return error;
-                }
+                },
             ],
             afterResponse: [
                 async (response) => {
                     await doSomethingAsync();
                     return response;
-                }
-            ]
-        }
+                },
+            ],
+        },
     });
 }
 
 // Test request option
 got('example.com', {
-    request: https.request
+    request: https.request,
 });

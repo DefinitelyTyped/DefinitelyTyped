@@ -1,3 +1,1 @@
-export declare class Scroll<T> {
-
-}
+export declare class Scroll<T> {}

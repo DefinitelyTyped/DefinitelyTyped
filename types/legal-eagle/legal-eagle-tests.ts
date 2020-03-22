@@ -3,7 +3,7 @@
 import legalEagle = require('legal-eagle');
 
 // from the package's README
-legalEagle({path: process.cwd()}, (err, summary) => {
+legalEagle({ path: process.cwd() }, (err, summary) => {
     if (err != null) {
         console.error(err);
         return;
@@ -22,10 +22,11 @@ legalEagle(
                 license: '...',
                 source: '...',
                 sourceText: '...',
-            }
+            },
         },
-        omitPermissive: true
-    }, (err, summary) => {
+        omitPermissive: true,
+    },
+    (err, summary) => {
         if (err) {
             console.error(err);
             return;
@@ -40,5 +41,5 @@ legalEagle(
 
             throw new Error(licensesMessage);
         }
-    }
+    },
 );

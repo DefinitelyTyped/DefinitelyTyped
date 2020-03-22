@@ -20,7 +20,7 @@ function test3() {
 function test4() {
     const services = xsenv.getServices({
         hana: { tag: 'hdb' },
-        scheduler: { label: 'jobs' }
+        scheduler: { label: 'jobs' },
     });
 
     const hanaCredentials = services.hana;

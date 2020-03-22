@@ -29,4 +29,4 @@ lambda.runHandler(event, { memoryLimitInMB: '1000' }, (err, data) => {
 // Other tests
 
 lambda = lambdaWrapper.wrap({ fooHandler: handler }, { handler: 'fooHandler' });
-lambda.run(event).then(data => data.resultProp);
+lambda.run(event).then((data) => data.resultProp);

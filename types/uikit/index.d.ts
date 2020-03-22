@@ -129,7 +129,10 @@ export namespace UIkit {
         ratio?: number;
     }
 
-    type Icon = (element: UIkitElement, options?: UIkitIconOptions) => {
+    type Icon = (
+        element: UIkitElement,
+        options?: UIkitIconOptions,
+    ) => {
         svg: Promise<any>;
     };
 
@@ -287,7 +290,10 @@ export namespace UIkit {
         'stroke-animation'?: boolean;
     }
 
-    type Svg = (element: UIkitElement, options?: UIkitSvgOptions) => {
+    type Svg = (
+        element: UIkitElement,
+        options?: UIkitSvgOptions,
+    ) => {
         svg: Promise<any>;
     };
 

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import JSONEditor, { JSONEditorOptions } from "jsoneditor";
+import * as React from 'react';
+import JSONEditor, { JSONEditorOptions } from 'jsoneditor';
 
 export interface ReactJsonEditorProps {
     values: {};

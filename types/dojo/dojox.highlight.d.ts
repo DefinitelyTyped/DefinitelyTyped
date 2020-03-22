@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/highlight.html
      *
@@ -13,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface highlight {
-    }
+    interface highlight {}
     namespace highlight {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/highlight/_base.html
@@ -110,24 +107,18 @@ declare namespace dojox {
         }
 
         namespace languages {
-            module _all {
-            }
+            module _all {}
 
-            module _dynamic {
-            }
+            module _dynamic {}
 
-            module _static {
-            }
+            module _static {}
 
-            module _www {
-            }
+            module _www {}
 
             namespace pygments {
-                module _html {
-                }
+                module _html {}
 
-                module _www {
-                }
+                module _www {}
 
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/highlight/languages/pygments/css.html
@@ -264,7 +255,6 @@ declare namespace dojox {
                         contains: any[];
                     }
                 }
-
             }
 
             /**
@@ -1512,7 +1502,6 @@ declare namespace dojox {
                     end: string;
                 }
             }
-
         }
 
         namespace widget {
@@ -1532,10 +1521,13 @@ declare namespace dojox {
                  * to 'this'.
                  *
                  */
-                "attachScope": Object;
-                set(property:"attachScope", value: Object): void;
-                get(property:"attachScope"): Object;
-                watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attachScope': Object;
+                set(property: 'attachScope', value: Object): void;
+                get(property: 'attachScope'): Object;
+                watch(
+                    property: 'attachScope',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                  * for each XXX attribute to be mapped to the DOM.
@@ -1578,26 +1570,35 @@ declare namespace dojox {
                  * "" --> { node: "domNode", type: "attribute" }
                  *
                  */
-                "attributeMap": Object;
-                set(property:"attributeMap", value: Object): void;
-                get(property:"attributeMap"): Object;
-                watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attributeMap': Object;
+                set(property: 'attributeMap', value: Object): void;
+                get(property: 'attributeMap'): Object;
+                watch(
+                    property: 'attributeMap',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                  * widget state.
                  *
                  */
-                "baseClass": string;
-                set(property:"baseClass", value: string): void;
-                get(property:"baseClass"): string;
-                watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'baseClass': string;
+                set(property: 'baseClass', value: string): void;
+                get(property: 'baseClass'): string;
+                watch(
+                    property: 'baseClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "class": string;
-                set(property:"class", value: string): void;
-                get(property:"class"): string;
-                watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'class': string;
+                set(property: 'class', value: string): void;
+                get(property: 'class'): string;
+                watch(
+                    property: 'class',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Designates where children of the source DOM node will be placed.
                  * "Children" in this case refers to both DOM nodes and widgets.
@@ -1621,29 +1622,38 @@ declare namespace dojox {
                  * is null for widgets that don't, like TextBox.
                  *
                  */
-                "containerNode": HTMLElement;
-                set(property:"containerNode", value: HTMLElement): void;
-                get(property:"containerNode"): HTMLElement;
-                watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'containerNode': HTMLElement;
+                set(property: 'containerNode', value: HTMLElement): void;
+                get(property: 'containerNode'): HTMLElement;
+                watch(
+                    property: 'containerNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * Used to provide a context require to the dojo/parser in order to be
                  * able to use relative MIDs (e.g. ./Widget) in the widget's template.
                  *
                  */
-                "contextRequire": Function;
-                set(property:"contextRequire", value: Function): void;
-                get(property:"contextRequire"): Function;
-                watch(property:"contextRequire", callback:{(property?:string, oldValue?:Function, newValue?: Function):void}) :{unwatch():void}
+                'contextRequire': Function;
+                set(property: 'contextRequire', value: Function): void;
+                get(property: 'contextRequire'): Function;
+                watch(
+                    property: 'contextRequire',
+                    callback: { (property?: string, oldValue?: Function, newValue?: Function): void },
+                ): { unwatch(): void };
                 /**
                  * Bi-directional support, as defined by the HTML DIR
                  * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                  * default direction.
                  *
                  */
-                "dir": string;
-                set(property:"dir", value: string): void;
-                get(property:"dir"): string;
-                watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'dir': string;
+                set(property: 'dir', value: string): void;
+                get(property: 'dir'): string;
+                watch(
+                    property: 'dir',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This is our visible representation of the widget! Other DOM
                  * Nodes may by assigned to other properties, usually through the
@@ -1651,19 +1661,25 @@ declare namespace dojox {
                  * property is the canonical "top level" node in widget UI.
                  *
                  */
-                "domNode": HTMLElement;
-                set(property:"domNode", value: HTMLElement): void;
-                get(property:"domNode"): HTMLElement;
-                watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'domNode': HTMLElement;
+                set(property: 'domNode', value: HTMLElement): void;
+                get(property: 'domNode'): HTMLElement;
+                watch(
+                    property: 'domNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * This widget or a widget it contains has focus, or is "active" because
                  * it was recently clicked.
                  *
                  */
-                "focused": boolean;
-                set(property:"focused", value: boolean): void;
-                get(property:"focused"): boolean;
-                watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'focused': boolean;
+                set(property: 'focused', value: boolean): void;
+                get(property: 'focused'): boolean;
+                watch(
+                    property: 'focused',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * A unique, opaque ID string that can be assigned by users or by the
                  * system. If the developer passes an ID which is known not to be
@@ -1671,85 +1687,118 @@ declare namespace dojox {
                  * used instead.
                  *
                  */
-                "id": string;
-                set(property:"id", value: string): void;
-                get(property:"id"): string;
-                watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'id': string;
+                set(property: 'id', value: string): void;
+                get(property: 'id'): string;
+                watch(
+                    property: 'id',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "lang": string;
-                set(property:"lang", value: string): void;
-                get(property:"lang"): string;
-                watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'lang': string;
+                set(property: 'lang', value: string): void;
+                get(property: 'lang'): string;
+                watch(
+                    property: 'lang',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "listType": string;
-                set(property:"listType", value: string): void;
-                get(property:"listType"): string;
-                watch(property:"listType", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'listType': string;
+                set(property: 'listType', value: string): void;
+                get(property: 'listType'): string;
+                watch(
+                    property: 'listType',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "observer": string;
-                set(property:"observer", value: string): void;
-                get(property:"observer"): string;
-                watch(property:"observer", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'observer': string;
+                set(property: 'observer', value: string): void;
+                get(property: 'observer'): string;
+                watch(
+                    property: 'observer',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * The document this widget belongs to.  If not specified to constructor, will default to
                  * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                  *
                  */
-                "ownerDocument": Object;
-                set(property:"ownerDocument", value: Object): void;
-                get(property:"ownerDocument"): Object;
-                watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'ownerDocument': Object;
+                set(property: 'ownerDocument', value: Object): void;
+                get(property: 'ownerDocument'): Object;
+                watch(
+                    property: 'ownerDocument',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "range": Object;
-                set(property:"range", value: Object): void;
-                get(property:"range"): Object;
-                watch(property:"range", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'range': Object;
+                set(property: 'range', value: Object): void;
+                get(property: 'range'): Object;
+                watch(
+                    property: 'range',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "searchContainerNode": boolean;
-                set(property:"searchContainerNode", value: boolean): void;
-                get(property:"searchContainerNode"): boolean;
-                watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'searchContainerNode': boolean;
+                set(property: 'searchContainerNode', value: boolean): void;
+                get(property: 'searchContainerNode'): boolean;
+                watch(
+                    property: 'searchContainerNode',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * pointer to original DOM node
                  *
                  */
-                "srcNodeRef": HTMLElement;
-                set(property:"srcNodeRef", value: HTMLElement): void;
-                get(property:"srcNodeRef"): HTMLElement;
-                watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'srcNodeRef': HTMLElement;
+                set(property: 'srcNodeRef', value: HTMLElement): void;
+                get(property: 'srcNodeRef'): HTMLElement;
+                watch(
+                    property: 'srcNodeRef',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "style": string;
-                set(property:"style", value: string): void;
-                get(property:"style"): string;
-                watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'style': string;
+                set(property: 'style', value: string): void;
+                get(property: 'style'): string;
+                watch(
+                    property: 'style',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                  * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                  *
                  */
-                "templatePath": string;
-                set(property:"templatePath", value: string): void;
-                get(property:"templatePath"): string;
-                watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'templatePath': string;
+                set(property: 'templatePath', value: string): void;
+                get(property: 'templatePath'): string;
+                watch(
+                    property: 'templatePath',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "templateString": string;
-                set(property:"templateString", value: string): void;
-                get(property:"templateString"): string;
-                watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'templateString': string;
+                set(property: 'templateString', value: string): void;
+                get(property: 'templateString'): string;
+                watch(
+                    property: 'templateString',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * HTML title attribute.
                  *
@@ -1761,35 +1810,47 @@ declare namespace dojox {
                  * interpreted as HTML.
                  *
                  */
-                "title": string;
-                set(property:"title", value: string): void;
-                get(property:"title"): string;
-                watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'title': string;
+                set(property: 'title', value: string): void;
+                get(property: 'title'): string;
+                watch(
+                    property: 'title',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                  * this specifies the tooltip to appear when the mouse is hovered over that text.
                  *
                  */
-                "tooltip": string;
-                set(property:"tooltip", value: string): void;
-                get(property:"tooltip"): string;
-                watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tooltip': string;
+                set(property: 'tooltip', value: string): void;
+                get(property: 'tooltip'): string;
+                watch(
+                    property: 'tooltip',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "url": string;
-                set(property:"url", value: string): void;
-                get(property:"url"): string;
-                watch(property:"url", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'url': string;
+                set(property: 'url', value: string): void;
+                get(property: 'url'): string;
+                watch(
+                    property: 'url',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Should we parse the template to find widgets that might be
                  * declared in markup inside it?  False by default.
                  *
                  */
-                "widgetsInTemplate": boolean;
-                set(property:"widgetsInTemplate", value: boolean): void;
-                get(property:"widgetsInTemplate"): boolean;
-                watch(property:"widgetsInTemplate", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'widgetsInTemplate': boolean;
+                set(property: 'widgetsInTemplate', value: boolean): void;
+                get(property: 'widgetsInTemplate'): boolean;
+                watch(
+                    property: 'widgetsInTemplate',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * This method is deprecated, use get() or set() directly.
                  *
@@ -2244,7 +2305,10 @@ declare namespace dojox {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(
+                    property: string,
+                    callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                ): { unwatch(): void };
                 /**
                  * Static method to get a template based on the templatePath or
                  * templateString key
@@ -2367,188 +2431,186 @@ declare namespace dojox {
                 onShow(): void;
             }
         }
-
     }
-
 }
 
-declare module "dojox/highlight" {
-    var exp: dojox.highlight
-    export=exp;
+declare module 'dojox/highlight' {
+    var exp: dojox.highlight;
+    export = exp;
 }
-declare module "dojox/highlight/_base" {
-    var exp: dojox.highlight._base
-    export=exp;
+declare module 'dojox/highlight/_base' {
+    var exp: dojox.highlight._base;
+    export = exp;
 }
-declare module "dojox/highlight/_base.constants" {
-    var exp: dojox.highlight._base.constants
-    export=exp;
+declare module 'dojox/highlight/_base.constants' {
+    var exp: dojox.highlight._base.constants;
+    export = exp;
 }
-declare module "dojox/highlight/languages/css" {
-    var exp: dojox.highlight.languages.css
-    export=exp;
+declare module 'dojox/highlight/languages/css' {
+    var exp: dojox.highlight.languages.css;
+    export = exp;
 }
-declare module "dojox/highlight/languages/css.defaultMode" {
-    var exp: dojox.highlight.languages.css.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/css.defaultMode' {
+    var exp: dojox.highlight.languages.css.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/delphi" {
-    var exp: dojox.highlight.languages.delphi
-    export=exp;
+declare module 'dojox/highlight/languages/delphi' {
+    var exp: dojox.highlight.languages.delphi;
+    export = exp;
 }
-declare module "dojox/highlight/languages/delphi.defaultMode" {
-    var exp: dojox.highlight.languages.delphi.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/delphi.defaultMode' {
+    var exp: dojox.highlight.languages.delphi.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/cpp" {
-    var exp: dojox.highlight.languages.cpp
-    export=exp;
+declare module 'dojox/highlight/languages/cpp' {
+    var exp: dojox.highlight.languages.cpp;
+    export = exp;
 }
-declare module "dojox/highlight/languages/cpp.defaultMode" {
-    var exp: dojox.highlight.languages.cpp.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/cpp.defaultMode' {
+    var exp: dojox.highlight.languages.cpp.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/django" {
-    var exp: dojox.highlight.languages.django
-    export=exp;
+declare module 'dojox/highlight/languages/django' {
+    var exp: dojox.highlight.languages.django;
+    export = exp;
 }
-declare module "dojox/highlight/languages/django.defaultMode" {
-    var exp: dojox.highlight.languages.django.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/django.defaultMode' {
+    var exp: dojox.highlight.languages.django.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/html" {
-    var exp: dojox.highlight.languages.html
-    export=exp;
+declare module 'dojox/highlight/languages/html' {
+    var exp: dojox.highlight.languages.html;
+    export = exp;
 }
-declare module "dojox/highlight/languages/html.HTML_ATTR" {
-    var exp: dojox.highlight.languages.html.HTML_ATTR
-    export=exp;
+declare module 'dojox/highlight/languages/html.HTML_ATTR' {
+    var exp: dojox.highlight.languages.html.HTML_ATTR;
+    export = exp;
 }
-declare module "dojox/highlight/languages/html.defaultMode" {
-    var exp: dojox.highlight.languages.html.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/html.defaultMode' {
+    var exp: dojox.highlight.languages.html.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/html.HTML_VALUE" {
-    var exp: dojox.highlight.languages.html.HTML_VALUE
-    export=exp;
+declare module 'dojox/highlight/languages/html.HTML_VALUE' {
+    var exp: dojox.highlight.languages.html.HTML_VALUE;
+    export = exp;
 }
-declare module "dojox/highlight/languages/html.HTML_DOCTYPE" {
-    var exp: dojox.highlight.languages.html.HTML_DOCTYPE
-    export=exp;
+declare module 'dojox/highlight/languages/html.HTML_DOCTYPE' {
+    var exp: dojox.highlight.languages.html.HTML_DOCTYPE;
+    export = exp;
 }
-declare module "dojox/highlight/languages/html.HTML_TAGS" {
-    var exp: dojox.highlight.languages.html.HTML_TAGS
-    export=exp;
+declare module 'dojox/highlight/languages/html.HTML_TAGS' {
+    var exp: dojox.highlight.languages.html.HTML_TAGS;
+    export = exp;
 }
-declare module "dojox/highlight/languages/groovy" {
-    var exp: dojox.highlight.languages.groovy
-    export=exp;
+declare module 'dojox/highlight/languages/groovy' {
+    var exp: dojox.highlight.languages.groovy;
+    export = exp;
 }
-declare module "dojox/highlight/languages/groovy.defaultMode" {
-    var exp: dojox.highlight.languages.groovy.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/groovy.defaultMode' {
+    var exp: dojox.highlight.languages.groovy.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/groovy.GROOVY_KEYWORDS" {
-    var exp: dojox.highlight.languages.groovy.GROOVY_KEYWORDS
-    export=exp;
+declare module 'dojox/highlight/languages/groovy.GROOVY_KEYWORDS' {
+    var exp: dojox.highlight.languages.groovy.GROOVY_KEYWORDS;
+    export = exp;
 }
-declare module "dojox/highlight/languages/javascript" {
-    var exp: dojox.highlight.languages.javascript
-    export=exp;
+declare module 'dojox/highlight/languages/javascript' {
+    var exp: dojox.highlight.languages.javascript;
+    export = exp;
 }
-declare module "dojox/highlight/languages/javascript.defaultMode" {
-    var exp: dojox.highlight.languages.javascript.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/javascript.defaultMode' {
+    var exp: dojox.highlight.languages.javascript.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/java" {
-    var exp: dojox.highlight.languages.java
-    export=exp;
+declare module 'dojox/highlight/languages/java' {
+    var exp: dojox.highlight.languages.java;
+    export = exp;
 }
-declare module "dojox/highlight/languages/java.defaultMode" {
-    var exp: dojox.highlight.languages.java.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/java.defaultMode' {
+    var exp: dojox.highlight.languages.java.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/python" {
-    var exp: dojox.highlight.languages.python
-    export=exp;
+declare module 'dojox/highlight/languages/python' {
+    var exp: dojox.highlight.languages.python;
+    export = exp;
 }
-declare module "dojox/highlight/languages/python.defaultMode" {
-    var exp: dojox.highlight.languages.python.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/python.defaultMode' {
+    var exp: dojox.highlight.languages.python.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/sql" {
-    var exp: dojox.highlight.languages.sql
-    export=exp;
+declare module 'dojox/highlight/languages/sql' {
+    var exp: dojox.highlight.languages.sql;
+    export = exp;
 }
-declare module "dojox/highlight/languages/sql.defaultMode" {
-    var exp: dojox.highlight.languages.sql.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/sql.defaultMode' {
+    var exp: dojox.highlight.languages.sql.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/xquery" {
-    var exp: dojox.highlight.languages.xquery
-    export=exp;
+declare module 'dojox/highlight/languages/xquery' {
+    var exp: dojox.highlight.languages.xquery;
+    export = exp;
 }
-declare module "dojox/highlight/languages/xquery.defaultMode" {
-    var exp: dojox.highlight.languages.xquery.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/xquery.defaultMode' {
+    var exp: dojox.highlight.languages.xquery.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/xquery.XQUERY_COMMENT" {
-    var exp: dojox.highlight.languages.xquery.XQUERY_COMMENT
-    export=exp;
+declare module 'dojox/highlight/languages/xquery.XQUERY_COMMENT' {
+    var exp: dojox.highlight.languages.xquery.XQUERY_COMMENT;
+    export = exp;
 }
-declare module "dojox/highlight/languages/xml" {
-    var exp: dojox.highlight.languages.xml
-    export=exp;
+declare module 'dojox/highlight/languages/xml' {
+    var exp: dojox.highlight.languages.xml;
+    export = exp;
 }
-declare module "dojox/highlight/languages/xml.defaultMode" {
-    var exp: dojox.highlight.languages.xml.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/xml.defaultMode' {
+    var exp: dojox.highlight.languages.xml.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/xml.XML_ATTR" {
-    var exp: dojox.highlight.languages.xml.XML_ATTR
-    export=exp;
+declare module 'dojox/highlight/languages/xml.XML_ATTR' {
+    var exp: dojox.highlight.languages.xml.XML_ATTR;
+    export = exp;
 }
-declare module "dojox/highlight/languages/xml.XML_COMMENT" {
-    var exp: dojox.highlight.languages.xml.XML_COMMENT
-    export=exp;
+declare module 'dojox/highlight/languages/xml.XML_COMMENT' {
+    var exp: dojox.highlight.languages.xml.XML_COMMENT;
+    export = exp;
 }
-declare module "dojox/highlight/languages/xml.XML_VALUE" {
-    var exp: dojox.highlight.languages.xml.XML_VALUE
-    export=exp;
+declare module 'dojox/highlight/languages/xml.XML_VALUE' {
+    var exp: dojox.highlight.languages.xml.XML_VALUE;
+    export = exp;
 }
-declare module "dojox/highlight/languages/pygments/css" {
-    var exp: dojox.highlight.languages.pygments.css
-    export=exp;
+declare module 'dojox/highlight/languages/pygments/css' {
+    var exp: dojox.highlight.languages.pygments.css;
+    export = exp;
 }
-declare module "dojox/highlight/languages/pygments/css.defaultMode" {
-    var exp: dojox.highlight.languages.pygments.css.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/pygments/css.defaultMode' {
+    var exp: dojox.highlight.languages.pygments.css.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/pygments/xml" {
-    var exp: dojox.highlight.languages.pygments.xml
-    export=exp;
+declare module 'dojox/highlight/languages/pygments/xml' {
+    var exp: dojox.highlight.languages.pygments.xml;
+    export = exp;
 }
-declare module "dojox/highlight/languages/pygments/xml.defaultMode" {
-    var exp: dojox.highlight.languages.pygments.xml.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/pygments/xml.defaultMode' {
+    var exp: dojox.highlight.languages.pygments.xml.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/pygments/html" {
-    var exp: dojox.highlight.languages.pygments.html
-    export=exp;
+declare module 'dojox/highlight/languages/pygments/html' {
+    var exp: dojox.highlight.languages.pygments.html;
+    export = exp;
 }
-declare module "dojox/highlight/languages/pygments/html.defaultMode" {
-    var exp: dojox.highlight.languages.pygments.html.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/pygments/html.defaultMode' {
+    var exp: dojox.highlight.languages.pygments.html.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/languages/pygments/javascript" {
-    var exp: dojox.highlight.languages.pygments.javascript
-    export=exp;
+declare module 'dojox/highlight/languages/pygments/javascript' {
+    var exp: dojox.highlight.languages.pygments.javascript;
+    export = exp;
 }
-declare module "dojox/highlight/languages/pygments/javascript.defaultMode" {
-    var exp: dojox.highlight.languages.pygments.javascript.defaultMode
-    export=exp;
+declare module 'dojox/highlight/languages/pygments/javascript.defaultMode' {
+    var exp: dojox.highlight.languages.pygments.javascript.defaultMode;
+    export = exp;
 }
-declare module "dojox/highlight/widget/Code" {
-    var exp: dojox.highlight.widget.Code
-    export=exp;
+declare module 'dojox/highlight/widget/Code' {
+    var exp: dojox.highlight.widget.Code;
+    export = exp;
 }

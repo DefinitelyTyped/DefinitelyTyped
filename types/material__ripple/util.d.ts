@@ -15,13 +15,17 @@
  * limitations under the License.
  */
 
-export function supportsCssVariables(windowObj: Window, forceRefresh?: boolean): boolean|undefined;
+export function supportsCssVariables(windowObj: Window, forceRefresh?: boolean): boolean | undefined;
 
 /**
  * Determine whether the current browser supports passive event listeners, and if so, use them.
  */
-export function applyPassive(globalObj?: Window, forceRefresh?: boolean): boolean|{passive: boolean};
+export function applyPassive(globalObj?: Window, forceRefresh?: boolean): boolean | { passive: boolean };
 
 export function getMatchesProperty(HTMLElementPrototype: object): string[];
 
-export function getNormalizedEventCoords(ev: Event, pageOffset: {x: number, y: number}, clientRect: ClientRect): {x: number, y: number};
+export function getNormalizedEventCoords(
+    ev: Event,
+    pageOffset: { x: number; y: number },
+    clientRect: ClientRect,
+): { x: number; y: number };

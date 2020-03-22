@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 interface IPipelineBuilder {
     /**
      * Returns a stream where all the internal steps are processed sequentially

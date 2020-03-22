@@ -15,7 +15,8 @@ class BaseCollection<T> {
 
     insert(document: T): Promise<T> {
         return new Promise((resolve, reject) => {
-            this.dataStore.insert<T>(document, (err: Error, newDoc: T) => {   // Callback is optional
+            this.dataStore.insert<T>(document, (err: Error, newDoc: T) => {
+                // Callback is optional
                 // newDoc is the newly inserted document, including its _id
                 if (err) {
                     reject(err);
@@ -100,23 +101,33 @@ class BaseCollection<T> {
 
     upsert(query: any, updateQuery: any): Promise<T[]> {
         const a: Promise<T[]> = new Promise((resolve, reject) => {
-            this.dataStore.update(query, updateQuery, { upsert: true }, (err: Error, numberOfUpdated: number, upsert: boolean) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    // resolve(newDoc);
-                }
-            });
+            this.dataStore.update(
+                query,
+                updateQuery,
+                { upsert: true },
+                (err: Error, numberOfUpdated: number, upsert: boolean) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        // resolve(newDoc);
+                    }
+                },
+            );
         });
 
         const b: Promise<T[]> = new Promise((resolve, reject) => {
-            this.dataStore.update(query, updateQuery, { upsert: true }, (err: Error, numberOfUpdated: number, affectedDocs: any, upsert: boolean) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    // resolve(newDoc);
-                }
-            });
+            this.dataStore.update(
+                query,
+                updateQuery,
+                { upsert: true },
+                (err: Error, numberOfUpdated: number, affectedDocs: any, upsert: boolean) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        // resolve(newDoc);
+                    }
+                },
+            );
         });
 
         return a || b;
@@ -153,7 +164,8 @@ let db = new Datastore();
 
 // Type 2: Persistent datastore with manual loading
 db = new Datastore({ filename: 'path/to/datafile' });
-db.load((err) => {    // Callback is optional
+db.load((err) => {
+    // Callback is optional
     // Now commands will be executed
 });
 
@@ -181,12 +193,13 @@ const doc: any = {
     today: new Date(),
     nestdbIsAwesome: true,
     notthere: null,
-    notToBeSaved: undefined,  // Will not be saved
+    notToBeSaved: undefined, // Will not be saved
     fruits: ['apple', 'orange', 'pear'],
-    infos: { name: 'nestdb' }
+    infos: { name: 'nestdb' },
 };
 
-db.insert(doc, (err: Error, newDoc: any) => {   // Callback is optional
+db.insert(doc, (err: Error, newDoc: any) => {
+    // Callback is optional
     // newDoc is the newly inserted document, including its _id
     // newDoc has no key called notToBeSaved since its value was undefined
 });
@@ -219,20 +232,20 @@ db.find({ system: 'solar', inhabited: true }, (err: Error, docs: any[]) => {
 });
 
 // Use the dot-notation to match fields in subdocuments
-db.find({ "humans.genders": 2 }, (err: Error, docs: any[]) => {
+db.find({ 'humans.genders': 2 }, (err: Error, docs: any[]) => {
     // docs contains Earth
 });
 
 // Use the dot-notation to navigate arrays of subdocuments
-db.find({ "completeData.planets.name": "Mars" }, (err: Error, docs: any[]) => {
+db.find({ 'completeData.planets.name': 'Mars' }, (err: Error, docs: any[]) => {
     // docs contains document 5
 });
 
-db.find({ "completeData.planets.name": "Jupiter" }, (err: Error, docs: any[]) => {
+db.find({ 'completeData.planets.name': 'Jupiter' }, (err: Error, docs: any[]) => {
     // docs is empty
 });
 
-db.find({ "completeData.planets.0.name": "Earth" }, (err: Error, docs: any[]) => {
+db.find({ 'completeData.planets.0.name': 'Earth' }, (err: Error, docs: any[]) => {
     // docs contains document 5
     // If we had tested against "Mars" docs would be empty because we are matching against a specific array element
 });
@@ -243,8 +256,7 @@ db.find({ humans: { genders: 2 } }, (err: Error, docs: any[]) => {
 });
 
 // Find all documents in the collection
-db.find({}, (err: Error, docs: any[]) => {
-});
+db.find({}, (err: Error, docs: any[]) => {});
 
 // The same rules apply when you want to only find one document
 db.findOne({ _id: 'id1' }, (err: Error, doc: any) => {
@@ -253,7 +265,7 @@ db.findOne({ _id: 'id1' }, (err: Error, doc: any) => {
 });
 
 // $lt, $lte, $gt and $gte work on numbers and strings
-db.find({ "humans.genders": { $gt: 5 } }, (err: Error, docs: any[]) => {
+db.find({ 'humans.genders': { $gt: 5 } }, (err: Error, docs: any[]) => {
     // docs contains Omicron Persei 8, whose humans have more than 5 genders (7).
 });
 
@@ -310,13 +322,16 @@ db.find({ $not: { planet: 'Earth' } }, (err: Error, docs: any[]) => {
     // docs contains Mars, Jupiter, Omicron Persei 8
 });
 
-db.find({
-    $where() {
-        return parseInt(Object.keys(this)[0], 10) > 6;
-    }
-}, (err: Error, docs: any[]) => {
-    // docs with more than 6 properties
-});
+db.find(
+    {
+        $where() {
+            return parseInt(Object.keys(this)[0], 10) > 6;
+        },
+    },
+    (err: Error, docs: any[]) => {
+        // docs with more than 6 properties
+    },
+);
 
 // You can mix normal queries, comparison queries and logical operators
 db.find({ $or: [{ planet: 'Earth' }, { planet: 'Mars' }], inhabited: true }, (err: Error, docs: any[]) => {
@@ -324,14 +339,20 @@ db.find({ $or: [{ planet: 'Earth' }, { planet: 'Mars' }], inhabited: true }, (er
 });
 
 // No query used means all results are returned (before the Cursor modifiers)
-db.find({}).sort({ planet: 1 }).skip(1).limit(2).exec((err: Error, docs: any[]) => {
-    // docs is [doc3, doc1]
-});
+db.find({})
+    .sort({ planet: 1 })
+    .skip(1)
+    .limit(2)
+    .exec((err: Error, docs: any[]) => {
+        // docs is [doc3, doc1]
+    });
 
 // You can sort in reverse order like this
-db.find({ system: 'solar' }).sort({ planet: -1 }).exec((err: Error, docs: any[]) => {
-    // docs is [doc1, doc3, doc2]
-});
+db.find({ system: 'solar' })
+    .sort({ planet: -1 })
+    .exec((err: Error, docs: any[]) => {
+        // docs is [doc1, doc3, doc2]
+    });
 
 // You can sort on one field, then another, and so on like this:
 db.find({}).sort({ firstField: 1, secondField: -1 });
@@ -360,9 +381,11 @@ db.find({ planet: 'Mars' }, { planet: 0, system: 1 }, (err: Error, docs: any[]) 
 
 // You can also use it in a Cursor way but this syntax is not compatible with MongoDB
 // If upstream compatibility is important don't use this method
-db.find({ planet: 'Mars' }).projection({ planet: 1, system: 1 }).exec((err: Error, docs: any[]) => {
-    // docs is [{ planet: 'Mars', system: 'solar', _id: 'id1' }]
-});
+db.find({ planet: 'Mars' })
+    .projection({ planet: 1, system: 1 })
+    .exec((err: Error, docs: any[]) => {
+        // docs is [{ planet: 'Mars', system: 'solar', _id: 'id1' }]
+    });
 
 // Count all planets in the solar system
 db.count({ system: 'solar' }, (err: Error, count: number) => {
@@ -389,13 +412,18 @@ db.update({ planet: 'Jupiter' }, { planet: 'Pluton' }, {}, (err: Error, numRepla
 });
 
 // Set an existing field's value
-db.update({ system: 'solar' }, { $set: { system: 'solar system' } }, { multi: true }, (err: Error, numReplaced: number) => {
-    // numReplaced = 3
-    // Field 'system' on Mars, Earth, Jupiter now has value 'solar system'
-});
+db.update(
+    { system: 'solar' },
+    { $set: { system: 'solar system' } },
+    { multi: true },
+    (err: Error, numReplaced: number) => {
+        // numReplaced = 3
+        // Field 'system' on Mars, Earth, Jupiter now has value 'solar system'
+    },
+);
 
 // Setting the value of a non-existing field in a subdocument by using the dot-notation
-db.update({ planet: 'Mars' }, { $set: { "data.satellites": 2, "data.red": true } }, {}, () => {
+db.update({ planet: 'Mars' }, { $set: { 'data.satellites': 2, 'data.red': true } }, {}, () => {
     // Mars document now is { _id: 'id1', system: 'solar', inhabited: false
     //                      , data: { satellites: 2, red: true }
     //                      }
@@ -416,13 +444,18 @@ db.update({ planet: 'Mars' }, { $unset: { planet: true } }, {}, () => {
 });
 
 // Upserting a document
-db.update({ planet: 'Pluton' }, {
-    planet: 'Pluton',
-    inhabited: false
-}, { upsert: true }, (err: Error, numReplaced: number, upsert: boolean) => {
-    // numReplaced = 1, upsert = { _id: 'id5', planet: 'Pluton', inhabited: false }
-    // A new document { _id: 'id5', planet: 'Pluton', inhabited: false } has been added to the collection
-});
+db.update(
+    { planet: 'Pluton' },
+    {
+        planet: 'Pluton',
+        inhabited: false,
+    },
+    { upsert: true },
+    (err: Error, numReplaced: number, upsert: boolean) => {
+        // numReplaced = 1, upsert = { _id: 'id5', planet: 'Pluton', inhabited: false }
+        // A new document { _id: 'id5', planet: 'Pluton', inhabited: false } has been added to the collection
+    },
+);
 
 // If you upsert with a modifier, the upserted doc is the query modified by the modifier
 // This is simpler than it sounds :)
@@ -489,17 +522,14 @@ db.ensureIndex({ fieldName: 'somefield' }, (err: Error) => {
 });
 
 // Using a unique constraint with the index
-db.ensureIndex({ fieldName: 'somefield', unique: true }, (err: Error) => {
-});
+db.ensureIndex({ fieldName: 'somefield', unique: true }, (err: Error) => {});
 
 // Using a sparse unique index
-db.ensureIndex({ fieldName: 'somefield', unique: true, sparse: true }, (err: Error) => {
-});
+db.ensureIndex({ fieldName: 'somefield', unique: true, sparse: true }, (err: Error) => {});
 
 // Example of using expireAfterSeconds to remove documents 1 hour
 // after their creation (db's timestampData option is true here)
-db.ensureIndex({ fieldName: 'somefield', expireAfterSeconds: 3600 }, (err: Error) => {
-});
+db.ensureIndex({ fieldName: 'somefield', expireAfterSeconds: 3600 }, (err: Error) => {});
 
 // Format of the error message when the unique constraint is not met
 db.insert({ somefield: 'nestdb' }, (err: Error) => {
@@ -512,16 +542,15 @@ db.insert({ somefield: 'nestdb' }, (err: Error) => {
 });
 
 // Remove index on field somefield
-db.removeIndex('somefield', (err: Error) => {
-});
+db.removeIndex('somefield', (err: Error) => {});
 
-db.addListener("compaction.done", () => { });
-db.on("compaction.done", () => { });
-db.once("compaction.done", () => { });
-db.prependListener("compaction.done", () => { });
-db.prependOnceListener("compaction.done", () => { });
-db.removeListener("compaction.done", () => { });
-db.off("compaction.done", () => { });
-db.listeners("compaction.done"); // $ExpectType (() => void)[]
-db.rawListeners("compaction.done"); // $ExpectType (() => void)[]
-db.listenerCount("compaction.done"); // $ExpectType number
+db.addListener('compaction.done', () => {});
+db.on('compaction.done', () => {});
+db.once('compaction.done', () => {});
+db.prependListener('compaction.done', () => {});
+db.prependOnceListener('compaction.done', () => {});
+db.removeListener('compaction.done', () => {});
+db.off('compaction.done', () => {});
+db.listeners('compaction.done'); // $ExpectType (() => void)[]
+db.rawListeners('compaction.done'); // $ExpectType (() => void)[]
+db.listenerCount('compaction.done'); // $ExpectType number

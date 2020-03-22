@@ -19,13 +19,35 @@ export { Icon } from './components/icon';
 export { Label } from './components/label';
 export { MediaObject, MediaObjectSection } from './components/media-object';
 export { Menu, MenuItem, MenuText } from './components/menu';
-export { Pagination, PaginationItem, PaginationPrevious, PaginationNext, PaginationEllipsis } from './components/pagination';
-export { Progress, ProgressMeter, ProgressMeterWithText, ProgressMeterText, NativeProgress } from './components/progress-bar';
+export {
+    Pagination,
+    PaginationItem,
+    PaginationPrevious,
+    PaginationNext,
+    PaginationEllipsis,
+} from './components/pagination';
+export {
+    Progress,
+    ProgressMeter,
+    ProgressMeterWithText,
+    ProgressMeterText,
+    NativeProgress,
+} from './components/progress-bar';
 export { ResponsiveNavigation, TitleBar, MenuIcon, TitleBarTitle } from './components/responsive';
 export { Switch, SwitchInput, SwitchPaddle, SwitchActive, SwitchInactive } from './components/switch';
 export { Thumbnail, ThumbnailLink } from './components/thumbnail';
 export { Tabs, TabItem, TabsContent, TabPanel } from './components/tabs';
 export { TopBar, TopBarTitle, TopBarLeft, TopBarRight } from './components/top-bar';
 export { GridContainer, Grid, Cell } from './components/xy-grid';
-export { Breakpoints, Colors, Sizes, Alignments, FloatTypes, InputTypes, GutterTypes, ExtendedBreakpoints, SpaceControls } from './enums';
+export {
+    Breakpoints,
+    Colors,
+    Sizes,
+    Alignments,
+    FloatTypes,
+    InputTypes,
+    GutterTypes,
+    ExtendedBreakpoints,
+    SpaceControls,
+} from './enums';
 export { Slider, TwoHandleSlider, SliderHandle, SliderFill } from './components/slider';

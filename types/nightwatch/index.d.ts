@@ -204,7 +204,7 @@ export interface NightwatchScreenshotOptions {
 }
 
 export interface NightwatchTestRunner {
-    "type"?: string;
+    type?: string;
     options?: {
         ui?: string;
     };
@@ -506,7 +506,7 @@ export interface NightwatchTestOptions extends NightwatchTestSettingGeneric {
 
 export interface NightwatchTestSuite {
     name: string;
-    "module": string;
+    module: string;
     group: string;
     results: any;
 }
@@ -614,8 +614,7 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     visible: this;
 }
 
-export interface NightwatchAssertions extends NightwatchCommonAssertions, NightwatchCustomAssertions {
-}
+export interface NightwatchAssertions extends NightwatchCommonAssertions, NightwatchCustomAssertions {}
 
 export interface NightwatchCommonAssertions {
     /**
@@ -844,9 +843,7 @@ export interface NightwatchCallbackResultError {
     state: Error | string;
 }
 
-export type NightwatchCallbackResult<T> =
-    | NightwatchTypedCallbackResult<T>
-    | NightwatchCallbackResultError;
+export type NightwatchCallbackResult<T> = NightwatchTypedCallbackResult<T> | NightwatchCallbackResultError;
 
 export interface NightwatchLogEntry {
     /**
@@ -862,132 +859,132 @@ export interface NightwatchLogEntry {
     /**
      * Severity level
      */
-    level: "SEVERE" | "WARNING" | "INFO" | "DEBUG";
+    level: 'SEVERE' | 'WARNING' | 'INFO' | 'DEBUG';
 
     source?: string;
 }
 
 export interface NightwatchKeys {
     /** Releases all held modifier keys. */
-    "NULL": string;
+    NULL: string;
     /** OS-specific keystroke sequence that performs a cancel action. */
-    "CANCEL": string;
+    CANCEL: string;
     /** The help key. This key only appears on older Apple keyboards in place of the Insert key. */
-    "HELP": string;
+    HELP: string;
     /** The backspace key. */
-    "BACK_SPACE": string;
+    BACK_SPACE: string;
     /** The tab key. */
-    "TAB": string;
+    TAB: string;
     /** The clear key. This key only appears on full-size Apple keyboards in place of Num Lock key. */
-    "CLEAR": string;
+    CLEAR: string;
     /** The return key. */
-    "RETURN": string;
+    RETURN: string;
     /** The enter (numpad) key. */
-    "ENTER": string;
+    ENTER: string;
     /** The shift key. */
-    "SHIFT": string;
+    SHIFT: string;
     /** The control key. */
-    "CONTROL": string;
+    CONTROL: string;
     /** The alt key. */
-    "ALT": string;
+    ALT: string;
     /** The pause key. */
-    "PAUSE": string;
+    PAUSE: string;
     /** The escape key. */
-    "ESCAPE": string;
+    ESCAPE: string;
 
     /** The space bar. */
-    "SPACE": string;
+    SPACE: string;
     /** The page up key. */
-    "PAGEUP": string;
+    PAGEUP: string;
     /** The page down key. */
-    "PAGEDOWN": string;
+    PAGEDOWN: string;
     /** The end key. */
-    "END": string;
+    END: string;
     /** The home key. */
-    "HOME": string;
+    HOME: string;
     /** The left arrow. */
-    "ARROW_LEFT": string;
-    "LEFT_ARROW": string;
+    ARROW_LEFT: string;
+    LEFT_ARROW: string;
     /** The up arrow. */
-    "ARROW_UP": string;
-    "UP_ARROW": string;
+    ARROW_UP: string;
+    UP_ARROW: string;
     /** The right arrow. */
-    "ARROW_RIGHT": string;
-    "RIGHT_ARROW": string;
+    ARROW_RIGHT: string;
+    RIGHT_ARROW: string;
     /** The down arrow. */
-    "ARROW_DOWN": string;
-    "DOWN_ARROW": string;
+    ARROW_DOWN: string;
+    DOWN_ARROW: string;
     /** The insert key. */
-    "INSERT": string;
+    INSERT: string;
     /** The delete key. */
-    "DELETE": string;
+    DELETE: string;
     /** The semicolon key. */
-    "SEMICOLON": string;
+    SEMICOLON: string;
     /** The equals key. */
-    "EQUALS": string;
+    EQUALS: string;
 
     /** The numpad zero key. */
-    "NUMPAD0": string;
+    NUMPAD0: string;
     /** The numpad one key. */
-    "NUMPAD1": string;
+    NUMPAD1: string;
     /** The numpad two key. */
-    "NUMPAD2": string;
+    NUMPAD2: string;
     /** The numpad three key. */
-    "NUMPAD3": string;
+    NUMPAD3: string;
     /** The numpad four key. */
-    "NUMPAD4": string;
+    NUMPAD4: string;
     /** The numpad five key. */
-    "NUMPAD5": string;
+    NUMPAD5: string;
     /** The numpad six key. */
-    "NUMPAD6": string;
+    NUMPAD6: string;
     /** The numpad seven key. */
-    "NUMPAD7": string;
+    NUMPAD7: string;
     /** The numpad eight key. */
-    "NUMPAD8": string;
+    NUMPAD8: string;
     /** The numpad nine key. */
-    "NUMPAD9": string;
+    NUMPAD9: string;
 
     /** The numpad multiply (*) key. */
-    "MULTIPLY": string;
+    MULTIPLY: string;
     /** The numpad add (+) key. */
-    "ADD": string;
+    ADD: string;
     /** The numpad separator (=) key. */
-    "SEPARATOR": string;
+    SEPARATOR: string;
     /** The numpad subtract (-) key. */
-    "SUBTRACT": string;
+    SUBTRACT: string;
     /** The numpad decimal (.) key. */
-    "DECIMAL": string;
+    DECIMAL: string;
     /** The numpad divide (/) key. */
-    "DIVIDE": string;
+    DIVIDE: string;
 
     /** The F1 key. */
-    "F1": string;
+    F1: string;
     /** The F2 key. */
-    "F2": string;
+    F2: string;
     /** The F3 key. */
-    "F3": string;
+    F3: string;
     /** The F4 key. */
-    "F4": string;
+    F4: string;
     /** The F5 key. */
-    "F5": string;
+    F5: string;
     /** The F6 key. */
-    "F6": string;
+    F6: string;
     /** The F7 key. */
-    "F7": string;
+    F7: string;
     /** The F8 key. */
-    "F8": string;
+    F8: string;
     /** The F9 key. */
-    "F9": string;
+    F9: string;
     /** The F10 key. */
-    "F10": string;
+    F10: string;
     /** The F11 key. */
-    "F11": string;
+    F11: string;
     /** The F12 key. */
-    "F12": string;
+    F12: string;
     /** The meta (Windows) key. */
-    "META": string;
+    META: string;
     /** The command (⌘) key. */
-    "COMMAND": string;
+    COMMAND: string;
 }
 
 export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, NightwatchCustomCommands {
@@ -1022,16 +1019,15 @@ export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, Nightw
 }
 
 // tslint:disable-next-line
-export interface NightwatchCustomCommands { }
+export interface NightwatchCustomCommands {}
 
 // tslint:disable-next-line
-export interface NightwatchCustomAssertions { }
+export interface NightwatchCustomAssertions {}
 
 // tslint:disable-next-line
-export interface NightwatchCustomPageObjects { }
+export interface NightwatchCustomPageObjects {}
 
-export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands {
-}
+export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands {}
 
 export type NightwatchTest = (browser: NightwatchBrowser) => void;
 
@@ -1040,15 +1036,14 @@ export interface NightwatchTestFunctions {
     after?: NightwatchTestHook;
     beforeEach?: NightwatchTestHook;
     afterEach?: NightwatchTestHook;
-    "@tags"?: string | string[];
-    "@disabled"?: boolean;
+    '@tags'?: string | string[];
+    '@disabled'?: boolean;
     [key: string]: any;
 }
 
 export type NightwatchTestHook =
     | ((browser: NightwatchBrowser, done: (err?: any) => void) => void)
-    | ((done: (err?: any) => void) => void)
-    ;
+    | ((done: (err?: any) => void) => void);
 
 export interface NightwatchTestHooks extends NightwatchGlobals {
     before?: NightwatchTestHook;
@@ -1063,7 +1058,14 @@ export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
  * Performs an assertion
  *
  */
-export type NightwatchAssert = (passed: boolean, receivedValue?: any, expectedValue?: any, message?: string, abortOnFailure?: boolean, originalStackTrace?: string) => void;
+export type NightwatchAssert = (
+    passed: boolean,
+    receivedValue?: any,
+    expectedValue?: any,
+    message?: string,
+    abortOnFailure?: boolean,
+    originalStackTrace?: string,
+) => void;
 
 /**
  * Abstract assertion class that will subclass all defined assertions
@@ -1101,7 +1103,15 @@ export interface Nightwatch {
     verify: NightwatchAssertions;
 }
 
-export type LocateStrategy = "class name" | "css selector" | "id" | "name" | "link text" | "partial link text" | "tag name" | "xpath";
+export type LocateStrategy =
+    | 'class name'
+    | 'css selector'
+    | 'id'
+    | 'name'
+    | 'link text'
+    | 'partial link text'
+    | 'tag name'
+    | 'xpath';
 
 /**
  * #### [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)
@@ -1134,7 +1144,11 @@ export interface EnhancedElementInstance<T> {
     selector: string;
 }
 
-export type EnhancedSectionInstance<Commands = {}, Elements = {}, Sections = {}> = EnhancedPageObject<Commands, Elements, Sections>;
+export type EnhancedSectionInstance<Commands = {}, Elements = {}, Sections = {}> = EnhancedPageObject<
+    Commands,
+    Elements,
+    Sections
+>;
 
 export interface EnhancedPageObjectSections {
     [name: string]: EnhancedSectionInstance<any, any, any>;
@@ -1148,29 +1162,36 @@ export interface EnhancedPageObjectSections {
  * ```
  * Every time a factory function like MyPage above is called, a new instance of the page object is instantiated.
  */
-export type EnhancedPageObject<Commands = {}, Elements = {}, Sections extends EnhancedPageObjectSections = {}> = Nightwatch & SharedCommands & NightwatchCustomCommands & Commands & {
-    /**
-     * A map of Element objects (see [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)) used by element selectors.
-     */
-    elements: {
-        [name: string]: EnhancedElementInstance<EnhancedPageObject<Commands, Elements, Sections>>;
+export type EnhancedPageObject<
+    Commands = {},
+    Elements = {},
+    Sections extends EnhancedPageObjectSections = {}
+> = Nightwatch &
+    SharedCommands &
+    NightwatchCustomCommands &
+    Commands & {
+        /**
+         * A map of Element objects (see [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)) used by element selectors.
+         */
+        elements: {
+            [name: string]: EnhancedElementInstance<EnhancedPageObject<Commands, Elements, Sections>>;
+        };
+
+        section: Sections;
+
+        /**
+         * The name of the page object as defined by its module name (not including the extension).
+         * This is the same name used to access the `page` object factory from the page reference in the command API.
+         */
+        name: string;
+
+        /**
+         * This command is an alias to url and also a convenience method because when called without any arguments
+         *  it performs a call to .url() with passing the value of `url` property on the page object.
+         * Uses `url` protocol command.
+         */
+        navigate(url?: string, callback?: () => void): EnhancedPageObject<Commands, Elements, Sections>;
     };
-
-    section: Sections;
-
-    /**
-     * The name of the page object as defined by its module name (not including the extension).
-     * This is the same name used to access the `page` object factory from the page reference in the command API.
-     */
-    name: string;
-
-    /**
-     * This command is an alias to url and also a convenience method because when called without any arguments
-     *  it performs a call to .url() with passing the value of `url` property on the page object.
-     * Uses `url` protocol command.
-     */
-    navigate(url?: string, callback?: () => void): EnhancedPageObject<Commands, Elements, Sections>;
-};
 
 export interface Cookie {
     name: string;
@@ -1180,7 +1201,7 @@ export interface Cookie {
     secure: boolean;
 }
 
-export interface SharedCommands extends ClientCommands, ElementCommands { }
+export interface SharedCommands extends ClientCommands, ElementCommands {}
 
 export interface ClientCommands {
     /**
@@ -1208,7 +1229,10 @@ export interface ClientCommands {
      *
      * @see cookie
      */
-    deleteCookie(cookieName: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+    deleteCookie(
+        cookieName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): this;
 
     /**
      * Delete all cookies visible to the current page.
@@ -1301,7 +1325,9 @@ export interface ClientCommands {
      *
      * @see sessionLogTypes
      */
-    getLogTypes(callback?: (this: NightwatchAPI, result: Array<"client" | "driver" | "browser" | "server">) => void): this;
+    getLogTypes(
+        callback?: (this: NightwatchAPI, result: Array<'client' | 'driver' | 'browser' | 'server'>) => void,
+    ): this;
 
     /**
      * Returns the title of the current page. Uses title protocol command.
@@ -1342,7 +1368,11 @@ export interface ClientCommands {
      *   });
      * };
      */
-    injectScript(scriptUrl: string, id?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    injectScript(
+        scriptUrl: string,
+        id?: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Utility command to test if the log type is available.
@@ -1426,9 +1456,9 @@ export interface ClientCommands {
      */
     perform(
         callback:
-            | (() => (undefined | Promise<any>))
+            | (() => undefined | Promise<any>)
             | ((done: () => void) => void)
-            | ((client: NightwatchAPI, done: () => void) => void)
+            | ((client: NightwatchAPI, done: () => void) => void),
     ): this;
 
     /**
@@ -1441,7 +1471,11 @@ export interface ClientCommands {
      *
      * @see windowSize
      */
-    resizeWindow(width: number, height: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    resizeWindow(
+        width: number,
+        height: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Take a screenshot of the current page and saves it as the given filename.
@@ -1453,7 +1487,10 @@ export interface ClientCommands {
      *
      * @see screenshot
      */
-    saveScreenshot(fileName: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    saveScreenshot(
+        fileName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): this;
 
     /**
      * Set a cookie, specified as a cookie JSON object, as defined [here](https://code.google.com/p/selenium/wiki/JsonWireProtocol#Cookie_JSON_Object).
@@ -1487,7 +1524,11 @@ export interface ClientCommands {
      *
      * @see windowPosition
      */
-    setWindowPosition(offsetX: number, offsetY: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    setWindowPosition(
+        offsetX: number,
+        offsetY: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Change focus to another window. The window to change focus to may be specified by its server assigned window handle, or by the value of its name attribute.
@@ -1510,7 +1551,10 @@ export interface ClientCommands {
      *
      * @see window
      */
-    switchWindow(handleOrName: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    switchWindow(
+        handleOrName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Convenience command that adds the specified hash (i.e. url fragment) to the current value of the `launch_url` as set in `nightwatch.json`.
@@ -1562,7 +1606,10 @@ export interface ElementCommands {
      *
      * @see elementIdClear
      */
-    clearValue(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+    clearValue(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): this;
 
     /**
      * Simulates a click event on the given DOM element. Uses `elementIdClick` protocol action internally.
@@ -1593,7 +1640,11 @@ export interface ElementCommands {
      *
      * @see elementIdAttribute
      */
-    getAttribute(selector: string, attribute: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void): this;
+    getAttribute(
+        selector: string,
+        attribute: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void,
+    ): this;
 
     /**
      * Retrieve the value of a css property for a given DOM element. Uses `elementIdCssProperty` protocol command.
@@ -1609,7 +1660,11 @@ export interface ElementCommands {
      *
      * @see elementIdCssProperty
      */
-    getCssProperty(selector: string, cssProperty: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    getCssProperty(
+        selector: string,
+        cssProperty: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): this;
 
     /**
      * Determine an element's size in pixels. Uses `elementIdSize` protocol command.
@@ -1626,7 +1681,10 @@ export interface ElementCommands {
      *
      * @see elementIdSize
      */
-    getElementSize(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void): this;
+    getElementSize(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void,
+    ): this;
 
     /**
      * Determine an element's location on the page. The point (0, 0) refers to the upper-left corner of the page.
@@ -1645,7 +1703,10 @@ export interface ElementCommands {
      *
      * @see elementIdLocation
      */
-    getLocation(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void): this;
+    getLocation(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+    ): this;
 
     /**
      * Determine an element's location on the screen once it has been scrolled into view. Uses `elementIdLocationInView` protocol command.
@@ -1662,7 +1723,10 @@ export interface ElementCommands {
      *
      * @see elementIdLocationInView
      */
-    getLocationInView(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void): this;
+    getLocationInView(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+    ): this;
 
     /**
      * Query for an element's tag name. Uses `elementIdName` protocol command.
@@ -1678,7 +1742,10 @@ export interface ElementCommands {
      *
      * @see elementIdName
      */
-    getTagName(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    getTagName(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): this;
 
     /**
      * Returns the visible text for the element. Uses `elementIdText` protocol command.
@@ -1710,7 +1777,10 @@ export interface ElementCommands {
      *
      * @see elementIdValue
      */
-    getValue(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    getValue(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): this;
 
     /**
      * Determine if an element is currently displayed. Uses `elementIdDisplayed` protocol command.
@@ -1726,7 +1796,10 @@ export interface ElementCommands {
      *
      * @see elementIdDisplayed
      */
-    isVisible(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void): this;
+    isVisible(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
+    ): this;
 
     /**
      * Move the mouse by an offset of the specified element. If an element is provided but no offset, the mouse will be moved to the center of the element.
@@ -1739,7 +1812,12 @@ export interface ElementCommands {
      *
      * @see moveTo
      */
-    moveToElement(selector: string, xoffset: number, yoffset: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    moveToElement(
+        selector: string,
+        xoffset: number,
+        yoffset: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Sends some text to an element. Can be used to set the value of a form element or to send a sequence of key strokes to an element. Any UTF-8 character may be specified.
@@ -1762,12 +1840,16 @@ export interface ElementCommands {
      *
      * @see elementIdValue
      */
-    setValue(selector: string, inputValue: string | string[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    setValue(
+        selector: string,
+        inputValue: string | string[],
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
     /**
      * Alias for `setValue`.
      * @see setValue
      */
-    sendKeys: SharedCommands["setValue"];
+    sendKeys: SharedCommands['setValue'];
 
     /**
      * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element. Uses `submit` protocol command.
@@ -1779,7 +1861,10 @@ export interface ElementCommands {
      *
      * @see submit
      */
-    submitForm(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    submitForm(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Opposite of `waitForElementPresent`. Waits a given time in milliseconds for an element to be not present (i.e. removed)
@@ -1799,7 +1884,13 @@ export interface ElementCommands {
      * @see waitForElementPresent
      * @since v0.4.0
      */
-    waitForElementNotPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementNotPresent(
+        selector: string,
+        time?: number,
+        abortOnFailure?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        message?: string,
+    ): this;
 
     /**
      * Opposite of `waitForElementVisible`. Waits a given time in milliseconds for an element to be not visible (i.e. hidden but existing)
@@ -1819,7 +1910,13 @@ export interface ElementCommands {
      * @since v0.4.0
      * @see waitForElementVisible
      */
-    waitForElementNotVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementNotVisible(
+        selector: string,
+        time?: number,
+        abortOnFailure?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        message?: string,
+    ): this;
 
     /**
      * Waits a given time in milliseconds for an element to be present in the page before performing any other commands or assertions.
@@ -1845,7 +1942,13 @@ export interface ElementCommands {
      *   browser.waitForElementPresent('body', 1000, false, function() {}, 'elemento %s no era presente en %d ms');
      * };
      */
-    waitForElementPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementPresent(
+        selector: string,
+        time?: number,
+        abortOnFailure?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        message?: string,
+    ): this;
 
     /**
      * Waits a given time in milliseconds for an element to be visible in the page before performing any other commands or assertions.
@@ -1871,17 +1974,29 @@ export interface ElementCommands {
      *   browser.waitForElementVisible('body', 1000, false, function() {}, 'elemento %s no era visible en %d ms');
      * };
      */
-    waitForElementVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementVisible(
+        selector: string,
+        time?: number,
+        abortOnFailure?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        message?: string,
+    ): this;
 }
 
-export interface WebDriverProtocol extends
-    WebDriverProtocolSessions, WebDriverProtocolNavigation,
-    WebDriverProtocolCommandContexts,
-    WebDriverProtocolElements, WebDriverProtocolElementState,
-    WebDriverProtocolElementInteraction, WebDriverProtocolElementLocation,
-    WebDriverProtocolDocumentHandling, WebDriverProtocolCookies,
-    WebDriverProtocolUserActions, WebDriverProtocolUserPrompts,
-    WebDriverProtocolScreenCapture, WebDriverProtocolMobileRelated { }
+export interface WebDriverProtocol
+    extends WebDriverProtocolSessions,
+        WebDriverProtocolNavigation,
+        WebDriverProtocolCommandContexts,
+        WebDriverProtocolElements,
+        WebDriverProtocolElementState,
+        WebDriverProtocolElementInteraction,
+        WebDriverProtocolElementLocation,
+        WebDriverProtocolDocumentHandling,
+        WebDriverProtocolCookies,
+        WebDriverProtocolUserActions,
+        WebDriverProtocolUserPrompts,
+        WebDriverProtocolScreenCapture,
+        WebDriverProtocolMobileRelated {}
 
 export interface WebDriverProtocolSessions {
     /**
@@ -1902,7 +2017,11 @@ export interface WebDriverProtocolSessions {
      *    });
      * }
      */
-    session(action?: string, sessionId?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Record<string, any>>) => void): this;
+    session(
+        action?: string,
+        sessionId?: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Record<string, any>>) => void,
+    ): this;
 
     /**
      * Returns a list of the currently active sessions.
@@ -1914,7 +2033,9 @@ export interface WebDriverProtocolSessions {
      *    });
      * }
      */
-    sessions(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<Record<string, any>>>) => void): this;
+    sessions(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<Record<string, any>>>) => void,
+    ): this;
 
     /**
      * Configure the amount of time that a particular type of operation can execute for before they are aborted and a |Timeout| error is returned to the client.
@@ -1926,7 +2047,11 @@ export interface WebDriverProtocolSessions {
      *    });
      * }
      */
-    timeouts(typeOfOperation: string, ms: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    timeouts(
+        typeOfOperation: string,
+        ms: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Set the amount of time, in milliseconds, that asynchronous scripts executed by `.executeAsync` are permitted to run before they are aborted and a |Timeout| error is returned to the client.
@@ -1938,7 +2063,10 @@ export interface WebDriverProtocolSessions {
      *    });
      * }
      */
-    timeoutsAsyncScript(ms: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    timeoutsAsyncScript(
+        ms: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Set the amount of time the driver should wait when searching for elements. If this command is never sent, the driver will default to an implicit wait of 0ms.
@@ -1950,15 +2078,23 @@ export interface WebDriverProtocolSessions {
      *    });
      * }
      */
-    timeoutsImplicitWait(ms: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    timeoutsImplicitWait(
+        ms: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Query the server's current status.
      */
-    status(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{
-        build: { version: string; revision: string; time: string };
-        status: { arch: string; name: string; version: string };
-    }>) => void): this;
+    status(
+        callback?: (
+            this: NightwatchAPI,
+            result: NightwatchCallbackResult<{
+                build: { version: string; revision: string; time: string };
+                status: { arch: string; name: string; version: string };
+            }>,
+        ) => void,
+    ): this;
 
     /**
      * Gets the text of the log type specified. To find out the available log types, use `.getLogTypes()`.
@@ -1984,7 +2120,12 @@ export interface WebDriverProtocolSessions {
      *    });
      * }
      */
-    sessionLogTypes(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<"client" | "driver" | "browser" | "server">>) => void): this;
+    sessionLogTypes(
+        callback?: (
+            this: NightwatchAPI,
+            result: NightwatchCallbackResult<Array<'client' | 'driver' | 'browser' | 'server'>>,
+        ) => void,
+    ): this;
 }
 
 export interface WebDriverProtocolNavigation {
@@ -2067,7 +2208,11 @@ export interface WebDriverProtocolCommandContexts {
     /**
      * Change focus to another window or close the current window. Shouldn't normally be used directly, instead `.switchWindow()` and `.closeWindow()` should be used.
      */
-    window(method: string, handleOrName?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    window(
+        method: string,
+        handleOrName?: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Retrieve the current window handle.
@@ -2104,7 +2249,10 @@ export interface WebDriverProtocolCommandContexts {
      *    });
      * }
      */
-    windowMaximize(handleOrName: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    windowMaximize(
+        handleOrName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Change or get the position of the specified window. If the second argument is a function it will be used as a callback and
@@ -2126,7 +2274,12 @@ export interface WebDriverProtocolCommandContexts {
      *    });
      * }
      */
-    windowPosition(windowHandle: string, offsetX: number, offsetY: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    windowPosition(
+        windowHandle: string,
+        offsetX: number,
+        offsetY: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
     /**
      * Change or get the position of the specified window. If the second argument is a function it will be used as a callback and
      * the call will perform a get request to retrieve the existing window position.
@@ -2147,7 +2300,10 @@ export interface WebDriverProtocolCommandContexts {
      *    });
      * }
      */
-    windowPosition(windowHandle: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void): this;
+    windowPosition(
+        windowHandle: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+    ): this;
 
     /**
      * Change or get the size of the specified window. If the second argument is a function it will be used as a callback and the call will perform a get request to retrieve the existing window size.
@@ -2167,7 +2323,12 @@ export interface WebDriverProtocolCommandContexts {
      *    });
      * }
      */
-    windowSize(windowHandle: string, width: number, height: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    windowSize(
+        windowHandle: string,
+        width: number,
+        height: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
     /**
      * Change or get the size of the specified window. If the second argument is a function it will be used as a callback and the call will perform a get request to retrieve the existing window size.
      *
@@ -2186,7 +2347,10 @@ export interface WebDriverProtocolCommandContexts {
      *    });
      * }
      */
-    windowSize(windowHandle: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void): this;
+    windowSize(
+        windowHandle: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void,
+    ): this;
 
     /**
      * Change focus to another frame on the page. If the frame id is missing or null, the server should switch to the page's default content.
@@ -2198,7 +2362,10 @@ export interface WebDriverProtocolCommandContexts {
      *    });
      * }
      */
-    frame(frameId: string | undefined | null, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    frame(
+        frameId: string | undefined | null,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Change focus to the parent context. If the current context is the top level browsing context, the context remains unchanged.
@@ -2241,7 +2408,11 @@ export interface WebDriverProtocolElements {
      *   }
      * }
      */
-    element(using: LocateStrategy, value: string, callback: (this: NightwatchAPI, result: NightwatchCallbackResult<{ ELEMENT: string }>) => void): this;
+    element(
+        using: LocateStrategy,
+        value: string,
+        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<{ ELEMENT: string }>) => void,
+    ): this;
 
     /**
      * Search for multiple elements on the page, starting from the document root. The located elements will be returned as web element JSON objects.
@@ -2281,7 +2452,11 @@ export interface WebDriverProtocolElements {
      *   }
      * }
      */
-    elements(using: LocateStrategy, value: string, callback: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ ELEMENT: string }>>) => void): this;
+    elements(
+        using: LocateStrategy,
+        value: string,
+        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ ELEMENT: string }>>) => void,
+    ): this;
 
     /**
      * Search for an element on the page, starting from the identified element. The located element will be returned as a Web Element JSON object.
@@ -2303,7 +2478,12 @@ export interface WebDriverProtocolElements {
      *   }
      * }
      */
-    elementIdElement(id: string, using: LocateStrategy, value: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ ELEMENT: string }>) => void): this;
+    elementIdElement(
+        id: string,
+        using: LocateStrategy,
+        value: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ ELEMENT: string }>) => void,
+    ): this;
 
     /**
      * Search for multiple elements on the page, starting from the identified element. The located element will be returned as a web element JSON objects.
@@ -2322,7 +2502,12 @@ export interface WebDriverProtocolElements {
      *   }
      * }
      */
-    elementIdElements(id: string, using: LocateStrategy, value: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ ELEMENT: string }>>) => void): this;
+    elementIdElements(
+        id: string,
+        using: LocateStrategy,
+        value: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ ELEMENT: string }>>) => void,
+    ): this;
 
     /**
      * Test if two web element IDs refer to the same DOM element.
@@ -2338,7 +2523,11 @@ export interface WebDriverProtocolElements {
      *   }
      * }
      */
-    elementIdEquals(id: string, otherId: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void): this;
+    elementIdEquals(
+        id: string,
+        otherId: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
+    ): this;
 
     /**
      * Get the element on the page that currently has focus. The element will be returned as a [Web Element](https://www.w3.org/TR/webdriver1/#dfn-web-elements) JSON object.
@@ -2352,31 +2541,47 @@ export interface WebDriverProtocolElements {
      *   }
      * }
      */
-    elementActive(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ ELEMENT: string }>) => void): this;
+    elementActive(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ ELEMENT: string }>) => void,
+    ): this;
 }
 
 export interface WebDriverProtocolElementState {
     /**
      * Get the value of an element's attribute.
      */
-    elementIdAttribute(id: string, attributeName: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void): this;
+    elementIdAttribute(
+        id: string,
+        attributeName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void,
+    ): this;
 
     /**
      * Retrieve the computed value of the given CSS property of the given element.
      *
      * The CSS property to query should be specified using the CSS property name, not the JavaScript property name (e.g. background-color instead of backgroundColor).
      */
-    elementIdCssProperty(id: string, cssPropertyName: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    elementIdCssProperty(
+        id: string,
+        cssPropertyName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): this;
 
     /**
      * Determine if an element is currently displayed.
      */
-    elementIdDisplayed(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void): this;
+    elementIdDisplayed(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
+    ): this;
 
     /**
      * Determine if an element is currently enabled.
      */
-    elementIdEnabled(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void): this;
+    elementIdEnabled(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
+    ): this;
 
     /**
      * Retrieve the qualified tag name of the given element.
@@ -2386,12 +2591,18 @@ export interface WebDriverProtocolElementState {
     /**
      * Determine if an OPTION element, or an INPUT element of type checkbox or radio button is currently selected.
      */
-    elementIdSelected(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void): this;
+    elementIdSelected(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
+    ): this;
 
     /**
      * Determine an element's size in pixels. The size will be returned as a JSON object with width and height properties.
      */
-    elementIdSize(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void): this;
+    elementIdSize(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void,
+    ): this;
 
     /**
      * Returns the visible text for the element.
@@ -2414,12 +2625,19 @@ export interface WebDriverProtocolElementInteraction {
      * Scrolls into view the form control element and then sends the provided keys to the element, or returns the current value of the element.
      * In case the element is not keyboard interactable, an <code>element not interactable error</code> is returned.
      */
-    elementIdValue(id: string, value: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    elementIdValue(
+        id: string,
+        value: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
     /**
      * Scrolls into view the form control element and then sends the provided keys to the element, or returns the current value of the element.
      * In case the element is not keyboard interactable, an <code>element not interactable error</code> is returned.
      */
-    elementIdValue(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    elementIdValue(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): this;
 
     /**
      * Send a sequence of key strokes to the active element. The sequence is defined in the same format as the `sendKeys` command.
@@ -2443,12 +2661,18 @@ export interface WebDriverProtocolElementLocation {
      *
      * The element's coordinates are returned as a JSON object with x and y properties.
      */
-    elementIdLocation(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void): this;
+    elementIdLocation(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+    ): this;
 
     /**
      * Determine an element's location on the screen once it has been scrolled into view.
      */
-    elementIdLocationInView(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void): this;
+    elementIdLocationInView(
+        id: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+    ): this;
 }
 
 export interface WebDriverProtocolDocumentHandling {
@@ -2478,7 +2702,11 @@ export interface WebDriverProtocolDocumentHandling {
      *    });
      * }
      */
-    execute<T>(body: ((this: undefined, ...data: any[]) => T) | string, args?: any[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void): this;
+    execute<T>(
+        body: ((this: undefined, ...data: any[]) => T) | string,
+        args?: any[],
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void,
+    ): this;
 
     /**
      * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. The executed script is assumed to be asynchronous.
@@ -2508,7 +2736,11 @@ export interface WebDriverProtocolDocumentHandling {
      *    });
      * }
      */
-    executeAsync<T>(script: ((this: undefined, ...data: any[]) => T) | string, args?: any[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void): this;
+    executeAsync<T>(
+        script: ((this: undefined, ...data: any[]) => T) | string,
+        args?: any[],
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void,
+    ): this;
 }
 
 export interface WebDriverProtocolCookies {
@@ -2536,7 +2768,10 @@ export interface WebDriverProtocolUserActions {
      *
      * The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button.
      */
-    mouseButtonClick(button: 0 | 1 | 2 | 'left' | 'middle' | 'right', callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    mouseButtonClick(
+        button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Click and hold the left mouse button (at the coordinates set by the last `moveTo` command). Note that the next mouse-related command that should follow is `mouseButtonUp` .
@@ -2545,7 +2780,10 @@ export interface WebDriverProtocolUserActions {
      * Can be used for implementing drag-and-drop. The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button,
      * and if you don't pass in a button but do pass in a callback, it will handle it correctly.
      */
-    mouseButtonDown(button: 0 | 1 | 2 | 'left' | 'middle' | 'right', callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    mouseButtonDown(
+        button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Releases the mouse button previously held (where the mouse is currently at). Must be called once for every `mouseButtonDown` command issued.
@@ -2553,7 +2791,10 @@ export interface WebDriverProtocolUserActions {
      * Can be used for implementing drag-and-drop. The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button,
      * and if you don't pass in a button but do pass in a callback, it will handle it correctly.
      */
-    mouseButtonUp(button: 0 | 1 | 2 | 'left' | 'middle' | 'right', callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    mouseButtonUp(
+        button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Move the mouse by an offset of the specified [Web Element ID](https://www.w3.org/TR/webdriver1/#dfn-web-elements) or relative to the current mouse cursor, if no element is specified.
@@ -2566,7 +2807,12 @@ export interface WebDriverProtocolUserActions {
      *   browser.moveTo(null, 110, 100);
      * };
      */
-    moveTo(element: string | null, xoffset: number, yoffset: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    moveTo(
+        element: string | null,
+        xoffset: number,
+        yoffset: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 }
 
 export interface WebDriverProtocolUserPrompts {
@@ -2604,12 +2850,17 @@ export interface WebDriverProtocolMobileRelated {
     /**
      * Get the current browser orientation.
      */
-    getOrientation(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<"LANDSCAPE" | "PORTRAIT">) => void): this;
+    getOrientation(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
+    ): this;
 
     /**
      * Sets the browser orientation.
      */
-    setOrientation(orientation: "LANDSCAPE" | "PORTRAIT", callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    setOrientation(
+        orientation: 'LANDSCAPE' | 'PORTRAIT',
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Get a list of the available contexts.

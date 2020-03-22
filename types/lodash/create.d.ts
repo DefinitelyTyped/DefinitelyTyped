@@ -1,2 +1,2 @@
-import { create } from "./index";
+import { create } from './index';
 export = create;

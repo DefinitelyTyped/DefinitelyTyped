@@ -1,5 +1,5 @@
-import * as React from "react";
-import MediaQuery = require("react-responsive");
+import * as React from 'react';
+import MediaQuery = require('react-responsive');
 
 class Test extends React.Component {
     render() {

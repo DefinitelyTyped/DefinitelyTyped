@@ -7,27 +7,45 @@ function test_basic_connect() {
 }
 
 function test_connect_config() {
-    const port1 = new SerialPort('', {
+    const port1 = new SerialPort(
+        '',
+        {
             baudRate: 0,
-            parser: SerialPort.parsers.Raw
-        }, (err: any) => {});
+            parser: SerialPort.parsers.Raw,
+        },
+        (err: any) => {},
+    );
 
-    const port2 = new SerialPort('', {
+    const port2 = new SerialPort(
+        '',
+        {
             baudRate: 0,
-            parser: SerialPort.parsers.Readline('\n', 'ascii')
-        }, (err: any) => {});
+            parser: SerialPort.parsers.Readline('\n', 'ascii'),
+        },
+        (err: any) => {},
+    );
 
-    const port3 = new SerialPort('', {
+    const port3 = new SerialPort(
+        '',
+        {
             baudRate: 0,
-            parser: SerialPort.parsers.ByteLength(7)
-        }, (err: any) => {});
+            parser: SerialPort.parsers.ByteLength(7),
+        },
+        (err: any) => {},
+    );
 
-    const port4 = new SerialPort('', {
+    const port4 = new SerialPort(
+        '',
+        {
             baudRate: 0,
-            parser: SerialPort.parsers.ByteDelimiter([3, 4, 5])
-        }, (err: any) => {});
+            parser: SerialPort.parsers.ByteDelimiter([3, 4, 5]),
+        },
+        (err: any) => {},
+    );
 
-    const port5 = new SerialPort('', {
+    const port5 = new SerialPort(
+        '',
+        {
             autoOpen: false,
             lock: false,
             baudRate: 115200,
@@ -40,9 +58,11 @@ function test_connect_config() {
             bufferSize: 1024,
             platformOptions: {
                 vmin: 1,
-                vtime: 1
-            }
-        }, (err: any) => {});
+                vtime: 1,
+            },
+        },
+        (err: any) => {},
+    );
 }
 
 function test_write() {

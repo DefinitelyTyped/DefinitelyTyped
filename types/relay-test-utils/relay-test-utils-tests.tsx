@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql, QueryRenderer } from 'react-relay';
 
 const environment = MockEnvironment.createMockEnvironment();
 
-environment.mock.resolveMostRecentOperation(operation => {
+environment.mock.resolveMostRecentOperation((operation) => {
     MockPayloadGenerator.generate(operation);
 });
 

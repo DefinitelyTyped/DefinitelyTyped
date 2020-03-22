@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface DropdownSkeletonProps {
-    inline?: boolean,
+    inline?: boolean;
 }
 
 declare const DropdownSkeleton: React.FC<DropdownSkeletonProps>;

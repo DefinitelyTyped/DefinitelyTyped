@@ -60,7 +60,7 @@ export default class App extends React.Component {
                 <Text style={styles.text}>{item.text}</Text>
             </View>
         );
-    }
+    };
 
     render() {
         return <AppIntroSlider renderItem={this._renderItem} slides={slides} />;

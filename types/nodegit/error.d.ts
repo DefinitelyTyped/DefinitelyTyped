@@ -30,7 +30,7 @@ export namespace Error {
         GITERR_CHERRYPICK = 27,
         GITERR_DESCRIBE = 28,
         GITERR_REBASE = 29,
-        GITERR_FILESYSTEM = 30
+        GITERR_FILESYSTEM = 30,
     }
 
     const enum CODE {
@@ -58,7 +58,7 @@ export namespace Error {
         EUNCOMMITTED = -22,
         EDIRECTORY = -23,
         PASSTHROUGH = -30,
-        ITEROVER = -31
+        ITEROVER = -31,
     }
 }
 

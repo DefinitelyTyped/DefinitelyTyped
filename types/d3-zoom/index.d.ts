@@ -90,7 +90,10 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element. The function returns a zoom transform object.
      */
-    transform(selection: Selection<ZoomRefElement, Datum, any, any>, transform: ValueFn<ZoomRefElement, Datum, ZoomTransform>): void;
+    transform(
+        selection: Selection<ZoomRefElement, Datum, any, any>,
+        transform: ValueFn<ZoomRefElement, Datum, ZoomTransform>,
+    ): void;
     /**
      * Sets the current zoom transform of the transitioning elements to the specified transform.
      * It defines a “zoom” tween to the specified transform using d3.interpolateZoom,
@@ -127,7 +130,10 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element. The function returns a zoom transform object.
      */
-    transform(transition: TransitionLike<ZoomRefElement, Datum>, transform: ValueFn<ZoomRefElement, Datum, ZoomTransform>): void;
+    transform(
+        transition: TransitionLike<ZoomRefElement, Datum>,
+        transform: ValueFn<ZoomRefElement, Datum, ZoomTransform>,
+    ): void;
 
     /**
      * Translates the current zoom transform of the selected elements by x and y,
@@ -157,7 +163,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * with this as the current DOM element.The function returns the amount of translation in x-direction.
      * @param y Amount of translation in y-direction.
      */
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
+    translateBy(
+        selection: Selection<ZoomRefElement, Datum, any, any>,
+        x: ValueFn<ZoomRefElement, Datum, number>,
+        y: number,
+    ): void;
     /**
      * Translates the current zoom transform of the selected elements by x and y,
      * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
@@ -174,7 +184,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.The function returns the amount of translation in y-direction.
      */
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateBy(
+        selection: Selection<ZoomRefElement, Datum, any, any>,
+        x: number,
+        y: ValueFn<ZoomRefElement, Datum, number>,
+    ): void;
     /**
      * Translates the current zoom transform of the selected elements by x and y,
      * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
@@ -193,7 +207,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.The function returns the amount of translation in y-direction.
      */
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateBy(
+        selection: Selection<ZoomRefElement, Datum, any, any>,
+        x: ValueFn<ZoomRefElement, Datum, number>,
+        y: ValueFn<ZoomRefElement, Datum, number>,
+    ): void;
     /**
      * Defines a “zoom” tween translating the current transform for the transitioning elements by x and y,
      * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
@@ -225,7 +243,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * with this as the current DOM element.The function returns the amount of translation in x-direction.
      * @param y Amount of translation in y-direction.
      */
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
+    translateBy(
+        transition: TransitionLike<ZoomRefElement, Datum>,
+        x: ValueFn<ZoomRefElement, Datum, number>,
+        y: number,
+    ): void;
     /**
      * Defines a “zoom” tween translating the current transform for the transitioning elements by x and y,
      * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
@@ -242,7 +264,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.The function returns the amount of translation in y-direction.
      */
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateBy(
+        transition: TransitionLike<ZoomRefElement, Datum>,
+        x: number,
+        y: ValueFn<ZoomRefElement, Datum, number>,
+    ): void;
     /**
      * Defines a “zoom” tween translating the current transform for the transitioning elements by x and y,
      * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
@@ -261,7 +287,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.The function returns the amount of translation in y-direction.
      */
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateBy(
+        transition: TransitionLike<ZoomRefElement, Datum>,
+        x: ValueFn<ZoomRefElement, Datum, number>,
+        y: ValueFn<ZoomRefElement, Datum, number>,
+    ): void;
 
     /**
      * Translates the current zoom transform of the selected elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
@@ -291,7 +321,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * with this as the current DOM element.The function returns the target x-position of translation.
      * @param y Target y-position of translation.
      */
-    translateTo(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
+    translateTo(
+        selection: Selection<ZoomRefElement, Datum, any, any>,
+        x: ValueFn<ZoomRefElement, Datum, number>,
+        y: number,
+    ): void;
     /**
      * Translates the current zoom transform of the selected elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
      * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
@@ -308,7 +342,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.The function returns the target y-position of translation.
      */
-    translateTo(selection: Selection<ZoomRefElement, Datum, any, any>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateTo(
+        selection: Selection<ZoomRefElement, Datum, any, any>,
+        x: number,
+        y: ValueFn<ZoomRefElement, Datum, number>,
+    ): void;
     /**
      * Translates the current zoom transform of the selected elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
      * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
@@ -327,7 +365,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.The function returns the target y-position of translation.
      */
-    translateTo(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateTo(
+        selection: Selection<ZoomRefElement, Datum, any, any>,
+        x: ValueFn<ZoomRefElement, Datum, number>,
+        y: ValueFn<ZoomRefElement, Datum, number>,
+    ): void;
     /**
      * Defines a “zoom” tween translating the current transform for the transitioning elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
      * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
@@ -359,7 +401,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * with this as the current DOM element.The function returns the target x-position of translation.
      * @param y Target y-position of translation.
      */
-    translateTo(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
+    translateTo(
+        transition: TransitionLike<ZoomRefElement, Datum>,
+        x: ValueFn<ZoomRefElement, Datum, number>,
+        y: number,
+    ): void;
     /**
      * Defines a “zoom” tween translating the current transform for the transitioning elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
      * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
@@ -376,7 +422,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.The function returns the target y-position of translation.
      */
-    translateTo(transition: TransitionLike<ZoomRefElement, Datum>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateTo(
+        transition: TransitionLike<ZoomRefElement, Datum>,
+        x: number,
+        y: ValueFn<ZoomRefElement, Datum, number>,
+    ): void;
     /**
      * Defines a “zoom” tween translating the current transform for the transitioning elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
      * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
@@ -395,7 +445,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.The function returns the target y-position of translation.
      */
-    translateTo(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateTo(
+        transition: TransitionLike<ZoomRefElement, Datum>,
+        x: ValueFn<ZoomRefElement, Datum, number>,
+        y: ValueFn<ZoomRefElement, Datum, number>,
+    ): void;
 
     /**
      * Scales the current zoom transform of the selected elements by k, such that the new k(1) = k(0)k.
@@ -507,14 +561,24 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * Returns the current constraint function.
      * The default implementation attempts to ensure that the viewport extent does not go outside the translate extent.
      */
-    constrain(): (transform: ZoomTransform, extent: [[number, number], [number, number]], translateExtent: [[number, number], [number, number]]) => ZoomTransform;
+    constrain(): (
+        transform: ZoomTransform,
+        extent: [[number, number], [number, number]],
+        translateExtent: [[number, number], [number, number]],
+    ) => ZoomTransform;
     /**
      * Sets the transform constraint function to the specified function and returns the zoom behavior.
      *
      * @param constraint A constraint function which returns a transform given the current transform, viewport extent and translate extent.
      * The default implementation attempts to ensure that the viewport extent does not go outside the translate extent.
      */
-    constrain(constraint: ((transform: ZoomTransform, extent: [[number, number], [number, number]], translateExtent: [[number, number], [number, number]]) => ZoomTransform)): this;
+    constrain(
+        constraint: (
+            transform: ZoomTransform,
+            extent: [[number, number], [number, number]],
+            translateExtent: [[number, number], [number, number]],
+        ) => ZoomTransform,
+    ): this;
 
     /**
      * Returns the current filter function.
@@ -687,7 +751,9 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     /**
      * Returns the current interpolation factory, which defaults to d3.interpolateZoom to implement smooth zooming.
      */
-    interpolate<InterpolationFactory extends (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView)>(): InterpolationFactory;
+    interpolate<
+        InterpolationFactory extends (a: ZoomView, b: ZoomView) => (t: number) => ZoomView
+    >(): InterpolationFactory;
 
     /**
      * Sets the interpolation factory for zoom transitions to the specified function.
@@ -699,7 +765,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      *
      * @param interpolatorFactory An interpolator factory to be used to generate interpolators between zooms for transitions.
      */
-    interpolate(interpolatorFactory: (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView)): this;
+    interpolate(interpolatorFactory: (a: ZoomView, b: ZoomView) => (t: number) => ZoomView): this;
 
     /**
      * Return the first currently-assigned listener matching the specified typenames, if any.

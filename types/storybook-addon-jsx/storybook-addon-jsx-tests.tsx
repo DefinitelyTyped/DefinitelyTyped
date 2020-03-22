@@ -23,7 +23,7 @@ storiesOf('Component with options', module).addWithJSX(
         skip: 2,
         enableBeautify: false,
         onBeforeRender: () => '',
-    }
+    },
 );
 
 storiesOf('Component with partial options', module).addWithJSX(
@@ -31,7 +31,7 @@ storiesOf('Component with partial options', module).addWithJSX(
     () => <div>Click the "?" mark at top-right to view the info.</div>,
     {
         skip: 2,
-    }
+    },
 );
 
 // Test `jsxDecorator` decorator

@@ -6,11 +6,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export as namespace Isotope
+export as namespace Isotope;
 export = Isotope;
 
 declare namespace Isotope {
-    type LayoutModes = 'masonry' | 'fitRows' | 'cellsByRow' | 'vertical' | 'packery' | 'masonryHorizontal' | 'fitColumns' | 'cellsByColumn' | 'horiz';
+    type LayoutModes =
+        | 'masonry'
+        | 'fitRows'
+        | 'cellsByRow'
+        | 'vertical'
+        | 'packery'
+        | 'masonryHorizontal'
+        | 'fitColumns'
+        | 'cellsByColumn'
+        | 'horiz';
     type Elements = HTMLElement[] | HTMLElement | JQuery | NodeList;
 
     interface IsotopeOptions {
@@ -270,7 +279,7 @@ interface Isotope {
 }
 
 declare const Isotope: {
-    prototype: Isotope,
+    prototype: Isotope;
     new (elementOrSelector: HTMLElement | string, options: Isotope.IsotopeOptions): Isotope;
     /**
      * Get the Isotope instance via its element. Isotope.data() is useful for getting the Isotope instance in JavaScript, after it has been initalized in HTML.

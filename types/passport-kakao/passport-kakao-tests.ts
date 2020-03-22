@@ -1,6 +1,7 @@
 import { Strategy as KakaoStrategy } from 'passport-kakao';
 
-new KakaoStrategy({
+new KakaoStrategy(
+    {
         clientID: 'client',
         clientSecret: 'clientSecret',
         callbackURL: 'callbackUrl',

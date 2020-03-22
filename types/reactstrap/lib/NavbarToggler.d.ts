@@ -9,5 +9,5 @@ export interface NavbarTogglerProps extends React.HTMLProps<HTMLAnchorElement> {
     cssModule?: CSSModule;
 }
 
-declare class NavbarToggler<T = {[key: string]: any}> extends React.Component<NavbarTogglerProps> {}
+declare class NavbarToggler<T = { [key: string]: any }> extends React.Component<NavbarTogglerProps> {}
 export default NavbarToggler;

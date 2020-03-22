@@ -8,5 +8,5 @@
 export * from './Workbox';
 export * from './messageSW';
 
-export * from "./types/WorkboxEvent";
-export * from "./types/WorkboxEventMap";
+export * from './types/WorkboxEvent';
+export * from './types/WorkboxEventMap';

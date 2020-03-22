@@ -22,7 +22,7 @@ declare namespace inert {
         /** lookupCompressed - if true, looks for for a pre-compressed version of the file with the same filename with an extension, depending on the accepted encoding. Defaults to false. */
         lookupCompressed?: boolean;
         /** lookupMap - an object which maps content encoding to expected file name extension. Defaults to `{ gzip: '.gz' }. */
-        lookupMap?: {[index: string]: string};
+        lookupMap?: { [index: string]: string };
         /**
          * etagMethod - specifies the method used to calculate the ETag header response. Available values:
          *  * 'hash' - SHA1 sum of the file contents, suitable for distributed deployments. Default value.

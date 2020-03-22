@@ -16,32 +16,21 @@ declare class CanvasCamera {
     createFrame(image: HTMLImageElement, element: HTMLCanvasElement): Frame;
     createRenderer(element: HTMLCanvasElement, parent: CanvasCamera): Renderer;
     initialize(fcanvas: HTMLCanvasElement, tcanvas: HTMLCanvasElement): void;
-    start(
-        options: CanvasCameraOptions,
-        onError?: (error?: any) => void,
-        onSuccess?: (data: any) => void
-    ): void;
-    stop(
-        onError?: (error?: any) => void,
-        onSuccess?: (data: any) => void
-    ): void;
-    flashMode(
-        flashMode: boolean,
-        onError?: (error?: any) => void,
-        onSuccess?: (data: any) => void
-    ): void;
+    start(options: CanvasCameraOptions, onError?: (error?: any) => void, onSuccess?: (data: any) => void): void;
+    stop(onError?: (error?: any) => void, onSuccess?: (data: any) => void): void;
+    flashMode(flashMode: boolean, onError?: (error?: any) => void, onSuccess?: (data: any) => void): void;
     cameraPosition(
         cameraFacing: 'front' | 'back',
         onError?: (error?: any) => void,
-        onSuccess?: (data: any) => void
+        onSuccess?: (data: any) => void,
     ): void;
     capture(data: any): void;
     enableRenderers(): void;
     disableRenderers(): void;
     setRenderingPresets(): CanvasCamera;
-    getUISize(): { width: number, height: number };
+    getUISize(): { width: number; height: number };
     getUIOrientation(): 'portrait' | 'landscape';
-    setRenderersSize(size: { width: number, height: number }): CanvasCamera;
+    setRenderersSize(size: { width: number; height: number }): CanvasCamera;
 }
 
 interface CanvasCameraOptions {
@@ -59,24 +48,24 @@ interface CanvasCameraOptions {
         /**
          * Number, optional, default: 352, width in pixels of the video to capture.
          */
-        width?: number,
+        width?: number;
 
         /**
          * Number, optional, default: 288, height in pixels of the video to capture.
          */
-        height?: number
+        height?: number;
     };
 
     capture?: {
         /**
          * Number, optional, default: 352, output canvas width in pixels.
          */
-        width?: number,
+        width?: number;
 
         /**
          * Number, optional, default: 288, output canvas height in pixels.
          */
-        height?: number
+        height?: number;
     };
 
     /**
@@ -136,7 +125,7 @@ declare class Frame {
 }
 
 declare class Renderer {
-    size: { width: number, height: number };
+    size: { width: number; height: number };
     type: 'file' | 'data';
     image: HTMLImageElement;
     context: CanvasRenderingContext2D;
@@ -164,7 +153,7 @@ declare class Renderer {
     disabled(): boolean;
     invert(): Renderer;
     resize(): Renderer;
-    setSize(size: { width: number, height: number }, auto?: boolean): Renderer;
+    setSize(size: { width: number; height: number }, auto?: boolean): Renderer;
     setOnBeforeDraw(onBeforeDraw: (frame?: Frame) => void): Renderer;
     setOnAfterDraw(onAfterDraw: (frame?: Frame) => void): Renderer;
 }

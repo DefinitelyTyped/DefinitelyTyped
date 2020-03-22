@@ -9,19 +9,19 @@ export interface BaseOperation {
 }
 
 export interface AddOperation extends BaseOperation {
-    op: "add";
+    op: 'add';
     value: any;
 }
 
 export interface RemoveOperation extends BaseOperation {
-    op: "remove";
+    op: 'remove';
 }
 
 /**
  * The JSON patch replace operation
  */
 export interface ReplaceOperation extends BaseOperation {
-    op: "replace";
+    op: 'replace';
     value: any;
 }
 
@@ -29,7 +29,7 @@ export interface ReplaceOperation extends BaseOperation {
  * The JSON patch move operation
  */
 export interface MoveOperation extends BaseOperation {
-    op: "move";
+    op: 'move';
     from: any;
 }
 
@@ -37,7 +37,7 @@ export interface MoveOperation extends BaseOperation {
  * The JSON patch copy operation.
  */
 export interface CopyOperation extends BaseOperation {
-    op: "copy";
+    op: 'copy';
     from: any;
 }
 
@@ -45,14 +45,20 @@ export interface CopyOperation extends BaseOperation {
  * The JSON patch test operation
  */
 export interface TestOperation extends BaseOperation {
-    op: "test";
+    op: 'test';
     value: any;
 }
 
 /**
  * All possible JSON patch operations
  */
-export type JsonPatchOperation = AddOperation | RemoveOperation | ReplaceOperation | MoveOperation | CopyOperation | TestOperation;
+export type JsonPatchOperation =
+    | AddOperation
+    | RemoveOperation
+    | ReplaceOperation
+    | MoveOperation
+    | CopyOperation
+    | TestOperation;
 
 /**
  * A JSON patch as specified in RFC 6902

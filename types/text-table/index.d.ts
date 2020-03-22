@@ -11,7 +11,7 @@ declare function table(
     rows: Array<Array<{}>>,
 
     /** A configuration object to customize table output. */
-    options?: table.Options
+    options?: table.Options,
 ): string;
 
 declare namespace table {

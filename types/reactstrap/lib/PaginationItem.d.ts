@@ -10,5 +10,5 @@ export interface PaginationItemProps extends React.HTMLAttributes<HTMLElement> {
     tag?: string | React.ReactType;
 }
 
-declare class PaginationItem<T = {[key: string]: any}> extends React.Component<PaginationItemProps> {}
+declare class PaginationItem<T = { [key: string]: any }> extends React.Component<PaginationItemProps> {}
 export default PaginationItem;

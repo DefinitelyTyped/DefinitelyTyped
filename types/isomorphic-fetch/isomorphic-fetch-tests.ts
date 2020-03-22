@@ -8,8 +8,7 @@ function test_isomorphicFetchTestCases_ambient() {
         .then((response: Response) => {
             return response.text();
         })
-        .catch((err) => {
-        });
+        .catch((err) => {});
 }
 
 function test_isomorphicFetchTestCases_commonjs() {
@@ -19,8 +18,7 @@ function test_isomorphicFetchTestCases_commonjs() {
         .then((response: Response) => {
             return response.text();
         })
-        .catch((err) => {
-        });
+        .catch((err) => {});
 }
 
 function test_isomorphicFetchTestCases_es6() {
@@ -30,37 +28,36 @@ function test_isomorphicFetchTestCases_es6() {
         .then((response: Response) => {
             return response.text();
         })
-        .catch((err) => {
-        });
+        .catch((err) => {});
 }
 
 function test_whatwgTestCases_ambient() {
     const headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    headers.append('Content-Type', 'application/json');
     let requestOptions: RequestInit = {
-        method: "POST",
+        method: 'POST',
         headers,
         mode: 'same-origin',
         credentials: 'omit',
-        cache: 'default'
+        cache: 'default',
     };
 
     expectSuccess(fetch('http://localhost:3000/poster', requestOptions), 'Post response:');
 
     requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+        },
     };
 
     expectSuccess(fetch('http://localhost:3000/poster', requestOptions), 'Post response:');
 
     requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+        },
     };
     const request: Request = new Request('http://localhost:3000/poster', requestOptions);
 
@@ -69,31 +66,31 @@ function test_whatwgTestCases_ambient() {
 
 function test_whatwgTestCases_commonjs() {
     const headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    headers.append('Content-Type', 'application/json');
     let requestOptions: RequestInit = {
-        method: "POST",
+        method: 'POST',
         headers,
         mode: 'same-origin',
         credentials: 'omit',
-        cache: 'default'
+        cache: 'default',
     };
 
     expectSuccess(fetchImportedViaCommonJS('http://localhost:3000/poster', requestOptions), 'Post response:');
 
     requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+        },
     };
 
     expectSuccess(fetchImportedViaCommonJS('http://localhost:3000/poster', requestOptions), 'Post response:');
 
     requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+        },
     };
     const request: Request = new Request('http://localhost:3000/poster', requestOptions);
 
@@ -102,31 +99,31 @@ function test_whatwgTestCases_commonjs() {
 
 function test_whatwgTestCases_es6() {
     const headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    headers.append('Content-Type', 'application/json');
     let requestOptions: RequestInit = {
-        method: "POST",
+        method: 'POST',
         headers,
         mode: 'same-origin',
         credentials: 'omit',
-        cache: 'default'
+        cache: 'default',
     };
 
     expectSuccess(fetchImportedViaES6Module('http://localhost:3000/poster', requestOptions), 'Post response:');
 
     requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+        },
     };
 
     expectSuccess(fetchImportedViaES6Module('http://localhost:3000/poster', requestOptions), 'Post response:');
 
     requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+        },
     };
     const request: Request = new Request('http://localhost:3000/poster', requestOptions);
 
@@ -134,9 +131,9 @@ function test_whatwgTestCases_es6() {
 }
 
 function expectSuccess(promise: Promise<Response>, responseText: string) {
-    promise.then((response: Response) => {
-        return response.text();
-    })
-    .then((text: string) => {
-    });
+    promise
+        .then((response: Response) => {
+            return response.text();
+        })
+        .then((text: string) => {});
 }

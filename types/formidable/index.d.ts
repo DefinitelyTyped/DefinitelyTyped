@@ -5,10 +5,9 @@
 
 /// <reference types="node" />
 
-
-import http = require("http");
-import stream = require("stream");
-import events = require("events");
+import http = require('http');
+import stream = require('stream');
+import events = require('events');
 
 export declare class IncomingForm extends events.EventEmitter {
     encoding: string;
@@ -30,7 +29,7 @@ export declare class IncomingForm extends events.EventEmitter {
 }
 
 export interface Fields {
-    [key: string]: string|Array<string>;
+    [key: string]: string | Array<string>;
 }
 
 export interface Files {

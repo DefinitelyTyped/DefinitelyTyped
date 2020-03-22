@@ -10,18 +10,18 @@ import { EventEmitter } from 'events';
 import { Stream } from 'stream';
 
 type SinkMap<InputStream extends EventEmitter, OutputStream extends EventEmitter> = {
-  find(mediaType: string): Sink<InputStream, OutputStream>;
-  import(mediaType: string, input: any, options: any): any;
-  list(): string[];
+    find(mediaType: string): Sink<InputStream, OutputStream>;
+    import(mediaType: string, input: any, options: any): any;
+    list(): string[];
 } & {
-  [mediaType: string]: Sink<InputStream, OutputStream>;
+    [mediaType: string]: Sink<InputStream, OutputStream>;
 };
 
 declare class DataFactoryExt extends DataFactory {
-  static asEvent: (p: any) => EventEmitter;
-  static waitFor: (event: any) => Promise<any>;
-  static Parsers: SinkMap<EventEmitter, Stream>;
-  static Serializers: SinkMap<Stream, EventEmitter>;
+    static asEvent: (p: any) => EventEmitter;
+    static waitFor: (event: any) => Promise<any>;
+    static Parsers: SinkMap<EventEmitter, Stream>;
+    static Serializers: SinkMap<Stream, EventEmitter>;
 }
 
 export = DataFactoryExt;

@@ -5,8 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import Dispatcher = require("./lib/Dispatcher");
+import Dispatcher = require('./lib/Dispatcher');
 
-export {
-    Dispatcher
-};
+export { Dispatcher };

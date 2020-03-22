@@ -1,4 +1,3 @@
-
 import passwordHasher = require('aspnet-identity-pw');
 
 function usageSync() {
@@ -10,11 +9,11 @@ function usageAsync() {
     var hashedPassword: string = null;
     var isValid: boolean = null;
 
-    passwordHasher.hashPassword('SomePassword', function(err, result) {
+    passwordHasher.hashPassword('SomePassword', function (err, result) {
         hashedPassword = result;
     });
 
-    passwordHasher.validatePassword('SomePassword', hashedPassword, function(err, result) {
+    passwordHasher.validatePassword('SomePassword', hashedPassword, function (err, result) {
         isValid = result;
     });
 }

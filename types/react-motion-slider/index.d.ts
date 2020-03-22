@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-declare module "react-motion-slider" {
-    import * as React from "react";
-    import { OpaqueConfig } from "react-motion";
+declare module 'react-motion-slider' {
+    import * as React from 'react';
+    import { OpaqueConfig } from 'react-motion';
 
     export interface SliderProps {
         /**
@@ -36,12 +36,12 @@ declare module "react-motion-slider" {
          * Offsets the slide to align either left, center, or right.
          * @default "left"
          */
-        align?: "left" | "center" | "right";
+        align?: 'left' | 'center' | 'right';
         /**
          * Enable touch and/or mouse dragging
          * @default true
          */
-        swipe?: boolean | "touch" | "mouse";
+        swipe?: boolean | 'touch' | 'mouse';
         /**
          * The amount the user must swipe to advance slides. (sliderWidth * swipeThreshold)
          * @default 0.5

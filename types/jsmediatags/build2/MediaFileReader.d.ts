@@ -23,11 +23,7 @@ export default class MediaFileReader {
     getSLongAt(offset: number, isBigEndian: boolean): number;
     getInteger24At(offset: number, isBigEndian: boolean): number;
     getStringAt(offset: number, length: number): string;
-    getStringWithCharsetAt(
-        offset: number,
-        length: number,
-        charset?: CharsetType,
-      ): DecodedString;
+    getStringWithCharsetAt(offset: number, length: number, charset?: CharsetType): DecodedString;
     getCharAt(offset: number): string;
     getSynchsafeInteger32At(offset: number): number;
 }

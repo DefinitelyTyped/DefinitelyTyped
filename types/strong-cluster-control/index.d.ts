@@ -31,7 +31,7 @@ declare namespace StrongClusterControl {
     }
 
     interface CMD {
-        SHUTDOWN: "CLUSTER_CONTROL_shutdown";
+        SHUTDOWN: 'CLUSTER_CONTROL_shutdown';
     }
 
     interface Control extends NodeJS.EventEmitter {
@@ -84,12 +84,12 @@ declare namespace StrongClusterControl {
          */
         terminate(id: number): this;
 
-        on(event: "start" | "stop" | "restart", handler: () => any): this;
-        on(event: "setSize" | "resize", handler: (size: number) => any): this;
-        on(event: "startWorker", handler: (worker: ClusterWorker) => any): this;
-        on(event: "startRestart", handler: (workers: pid[]) => any): this;
-        on(event: "stopWorker", handler: (worker: ClusterWorker, code: number, signal: string) => any): this;
-        on(event: "error", handler: (error: Error | Error[]) => any): this;
+        on(event: 'start' | 'stop' | 'restart', handler: () => any): this;
+        on(event: 'setSize' | 'resize', handler: (size: number) => any): this;
+        on(event: 'startWorker', handler: (worker: ClusterWorker) => any): this;
+        on(event: 'startRestart', handler: (workers: pid[]) => any): this;
+        on(event: 'stopWorker', handler: (worker: ClusterWorker, code: number, signal: string) => any): this;
+        on(event: 'error', handler: (error: Error | Error[]) => any): this;
     }
 }
 

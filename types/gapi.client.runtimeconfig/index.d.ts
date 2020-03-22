@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Runtime Configuration API v1 */
-    function load(name: "runtimeconfig", version: "v1"): PromiseLike<void>;
-    function load(name: "runtimeconfig", version: "v1", callback: () => any): void;
+    function load(name: 'runtimeconfig', version: 'v1'): PromiseLike<void>;
+    function load(name: 'runtimeconfig', version: 'v1', callback: () => any): void;
 
     const operations: runtimeconfig.OperationsResource;
 
@@ -89,7 +89,7 @@ declare namespace gapi.client {
              */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -125,7 +125,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -167,7 +167,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

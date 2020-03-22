@@ -11,7 +11,12 @@ export default class ElGamal {
     y: BigInt;
     x: BigInt;
     static generateAsync(primeBits?: number): Promise<ElGamal>;
-    constructor(p: BigInt | string | number, g: BigInt | string | number, y: BigInt | string | number, x: BigInt | string | number);
+    constructor(
+        p: BigInt | string | number,
+        g: BigInt | string | number,
+        y: BigInt | string | number,
+        x: BigInt | string | number,
+    );
     encryptAsync(m: BigInt | string | number, k?: BigInt | string | number): Promise<EncryptedValue>;
     decryptAsync(m: EncryptedValue): Promise<DecryptedValue>;
 }
@@ -39,4 +44,4 @@ export namespace Utils {
     function parseBigInt(obj: BigInt | string | number): BigInt | null;
 }
 
-export class MissingPrivateKeyError extends Error { }
+export class MissingPrivateKeyError extends Error {}

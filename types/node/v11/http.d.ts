@@ -1,12 +1,12 @@
-declare module "http" {
-    import * as events from "events";
-    import * as stream from "stream";
-    import { URL } from "url";
-    import { Socket, Server as NetServer } from "net";
+declare module 'http' {
+    import * as events from 'events';
+    import * as stream from 'stream';
+    import { URL } from 'url';
+    import { Socket, Server as NetServer } from 'net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
-        'accept'?: string;
+        accept?: string;
         'accept-language'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
@@ -16,12 +16,12 @@ declare module "http" {
         'access-control-allow-origin'?: string;
         'access-control-expose-headers'?: string;
         'access-control-max-age'?: string;
-        'age'?: string;
-        'allow'?: string;
+        age?: string;
+        allow?: string;
         'alt-svc'?: string;
-        'authorization'?: string;
+        authorization?: string;
         'cache-control'?: string;
-        'connection'?: string;
+        connection?: string;
         'content-disposition'?: string;
         'content-encoding'?: string;
         'content-language'?: string;
@@ -29,36 +29,36 @@ declare module "http" {
         'content-location'?: string;
         'content-range'?: string;
         'content-type'?: string;
-        'cookie'?: string;
-        'date'?: string;
-        'expect'?: string;
-        'expires'?: string;
-        'forwarded'?: string;
-        'from'?: string;
-        'host'?: string;
+        cookie?: string;
+        date?: string;
+        expect?: string;
+        expires?: string;
+        forwarded?: string;
+        from?: string;
+        host?: string;
         'if-match'?: string;
         'if-modified-since'?: string;
         'if-none-match'?: string;
         'if-unmodified-since'?: string;
         'last-modified'?: string;
-        'location'?: string;
-        'pragma'?: string;
+        location?: string;
+        pragma?: string;
         'proxy-authenticate'?: string;
         'proxy-authorization'?: string;
         'public-key-pins'?: string;
-        'range'?: string;
-        'referer'?: string;
+        range?: string;
+        referer?: string;
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
-        'tk'?: string;
-        'trailer'?: string;
+        tk?: string;
+        trailer?: string;
         'transfer-encoding'?: string;
-        'upgrade'?: string;
+        upgrade?: string;
         'user-agent'?: string;
-        'vary'?: string;
-        'via'?: string;
-        'warning'?: string;
+        vary?: string;
+        via?: string;
+        warning?: string;
         'www-authenticate'?: string;
         [header: string]: string | string[] | undefined;
     }
@@ -264,9 +264,13 @@ declare module "http" {
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
-    interface RequestOptions extends ClientRequestArgs { }
+    interface RequestOptions extends ClientRequestArgs {}
     function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    function request(
+        url: string | URL,
+        options: RequestOptions,
+        callback?: (res: IncomingMessage) => void,
+    ): ClientRequest;
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     let globalAgent: Agent;

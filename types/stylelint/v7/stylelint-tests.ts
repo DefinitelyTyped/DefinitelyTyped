@@ -1,15 +1,15 @@
-import { LinterOptions, FormatterType, SyntaxType, lint, LintResult, LinterResult } from "stylelint";
+import { LinterOptions, FormatterType, SyntaxType, lint, LintResult, LinterResult } from 'stylelint';
 
 const options: LinterOptions = {
-    code: "div { color: red }",
-    files: ["**/**.scss"],
-    formatter: "json",
+    code: 'div { color: red }',
+    files: ['**/**.scss'],
+    formatter: 'json',
     cache: true,
-    cacheLocation: "./stylelint.cache.json",
+    cacheLocation: './stylelint.cache.json',
     ignoreDisables: true,
     reportNeedlessDisables: true,
     ignorePath: true,
-    syntax: "scss"
+    syntax: 'scss',
 };
 
 lint(options).then((x: LinterResult) => {
@@ -19,6 +19,6 @@ lint(options).then((x: LinterResult) => {
     const results: LintResult[] = x.results;
 });
 
-const formatter: FormatterType = "json";
+const formatter: FormatterType = 'json';
 
-const syntax: SyntaxType = "scss";
+const syntax: SyntaxType = 'scss';

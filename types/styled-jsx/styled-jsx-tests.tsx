@@ -19,21 +19,35 @@ const styledGlobal = (
 );
 
 const buttonColor = 'red';
-const separatedCSS = css`button { color: ${buttonColor}; }`;
+const separatedCSS = css`
+    button {
+        color: ${buttonColor};
+    }
+`;
 const withSeparatedCSS = (
     <div>
         <style jsx>{separatedCSS}</style>
     </div>
 );
 
-const globalCSS = css.global`body { margin: 0; }`;
+const globalCSS = css.global`
+    body {
+        margin: 0;
+    }
+`;
 const withGlobalCSS = (
     <div>
-        <style jsx global>{globalCSS}</style>
+        <style jsx global>
+            {globalCSS}
+        </style>
     </div>
 );
 
-const resolvedCSS = css.resolve`a { color: green; }`;
+const resolvedCSS = css.resolve`
+    a {
+        color: green;
+    }
+`;
 const withResolvedCSS = (
     <div>
         <button className={resolvedCSS.className}>About</button>
@@ -41,7 +55,11 @@ const withResolvedCSS = (
     </div>
 );
 
-const dynamicResolvedCSS = css.resolve`a { color: ${buttonColor}; }`;
+const dynamicResolvedCSS = css.resolve`
+    a {
+        color: ${buttonColor};
+    }
+`;
 const withDynamicResolvedCSS = (
     <div>
         <button className={dynamicResolvedCSS.className}>About</button>
@@ -50,9 +68,7 @@ const withDynamicResolvedCSS = (
 );
 
 const stylesChildren = flushToReact();
-const jsxToRender = (
-    <head>{ stylesChildren }</head>
-);
+const jsxToRender = <head>{stylesChildren}</head>;
 
 const stylesAsString: string = flushToHTML();
 const html = `

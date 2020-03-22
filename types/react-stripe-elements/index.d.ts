@@ -34,8 +34,8 @@ export namespace ReactStripeElements {
         stripeAccount?: string;
     }
     type StripeProviderProps =
-        | { apiKey: string; stripe?: never } & StripeProviderOptions
-        | { apiKey?: never; stripe: stripe.Stripe | null } & StripeProviderOptions;
+        | ({ apiKey: string; stripe?: never } & StripeProviderOptions)
+        | ({ apiKey?: never; stripe: stripe.Stripe | null } & StripeProviderOptions);
 
     interface StripeOverrideProps {
         /*
@@ -65,8 +65,7 @@ export namespace ReactStripeElements {
         ): Promise<stripe.SetupIntentResponse>;
     }
 
-    interface StripeProps extends Omit<stripe.Stripe, keyof StripeOverrideProps>, StripeOverrideProps {
-    }
+    interface StripeProps extends Omit<stripe.Stripe, keyof StripeOverrideProps>, StripeOverrideProps {}
 
     interface InjectOptions {
         withRef?: boolean;
@@ -120,7 +119,9 @@ export class CardCVCElement extends CardCvcElement {}
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {}
 
-export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.PaymentRequestButtonElementProps> {}
+export class PaymentRequestButtonElement extends React.Component<
+    ReactStripeElements.PaymentRequestButtonElementProps
+> {}
 
 export class IbanElement extends React.Component<ReactStripeElements.ElementProps> {}
 

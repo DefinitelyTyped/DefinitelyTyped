@@ -32,16 +32,8 @@ declare class PseudoAudioParam {
     setValueAtTime(value: number, time: number): PseudoAudioParam;
     linearRampToValueAtTime(value: number, time: number): PseudoAudioParam;
     exponentialRampToValueAtTime(value: number, time: number): PseudoAudioParam;
-    setTargetAtTime(
-        value: number,
-        time: number,
-        timeConstant: number
-    ): PseudoAudioParam;
-    setValueCurveAtTime(
-        values: number[],
-        time: number,
-        duration: number
-    ): PseudoAudioParam;
+    setTargetAtTime(value: number, time: number, timeConstant: number): PseudoAudioParam;
+    setValueCurveAtTime(values: number[], time: number, duration: number): PseudoAudioParam;
     cancelScheduledValues(time: number): PseudoAudioParam;
     cancelAndHoldAtTime(time: number): PseudoAudioParam;
 }

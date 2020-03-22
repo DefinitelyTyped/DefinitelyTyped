@@ -7,10 +7,10 @@ declare namespace google.feeds {
     export class Feed {
         constructor();
         constructor(url: string);
-        findFeeds(query?: string, callback?: (result: findResult) => void ): void;
+        findFeeds(query?: string, callback?: (result: findResult) => void): void;
         getElementsByTagNameNS(node: string, ns: string, localName: string): any[];
         includeHistoricalEntries(): void;
-        load(callback?: (result: feedResult) => void ): void;
+        load(callback?: (result: feedResult) => void): void;
         setNumEntries(num: number): void;
         setResultFormat(format: string): void;
     }

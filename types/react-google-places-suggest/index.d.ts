@@ -5,13 +5,11 @@
 // TypeScript Version: 2.8
 
 /// <reference types="googlemaps" />
-import { Component, ReactNode } from "react";
+import { Component, ReactNode } from 'react';
 
 export default ReactGooglePlacesSuggest;
 
-declare class ReactGooglePlacesSuggest extends Component<
-    ReactGooglePlacesSuggest.Props
-    > { }
+declare class ReactGooglePlacesSuggest extends Component<ReactGooglePlacesSuggest.Props> {}
 
 declare namespace ReactGooglePlacesSuggest {
     type Prediction = google.maps.places.AutocompletePrediction;
@@ -21,14 +19,9 @@ declare namespace ReactGooglePlacesSuggest {
         autocompletionRequest: google.maps.places.AutocompletionRequest;
         children?: ReactNode;
         customRender?: (prediction?: Prediction) => JSX.Element | string;
-        customContainerRender?: (
-            predictions: ReadonlyArray<Prediction>
-        ) => JSX.Element | string;
+        customContainerRender?: (predictions: ReadonlyArray<Prediction>) => JSX.Element | string;
         googleMaps: typeof google.maps;
-        onSelectSuggest?: (
-            geocodedPrediction: GeocodedPrediction,
-            originalPrediction: Prediction
-        ) => any;
+        onSelectSuggest?: (geocodedPrediction: GeocodedPrediction, originalPrediction: Prediction) => any;
         textNoResults?: string | null;
     }
 }

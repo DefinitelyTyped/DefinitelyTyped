@@ -15,10 +15,8 @@
 // Library documentation : http://www.createjs.com/Docs/SoundJS/modules/SoundJS.html
 // Library documentation : http://www.createjs.com/Docs/TweenJS/modules/TweenJS.html
 
-
 /// <reference types="createjs-lib" />
 /// <reference types="easeljs" />
 /// <reference types="tweenjs" />
 /// <reference types="preloadjs" />
 /// <reference types="soundjs" />
-

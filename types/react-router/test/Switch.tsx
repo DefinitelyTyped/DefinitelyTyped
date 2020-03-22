@@ -7,17 +7,17 @@ const User = () => <h2>User</h2>;
 const Contact = () => <h2>Contact</h2>;
 
 const SwitchTest = () => (
-  <BrowserRouter>
-    <Switch>
-      <Redirect exact from="/" to="/home"/>
-      <Route path="/home" component={Home}/>
-      {[
-        <Route path="/user" component={User}/>,
-        <Route path="/about" component={About}/>,
-        <Route path={["/contact", "/connect"]} component={Contact}/>
-      ]}
-    </Switch>
-  </BrowserRouter>
+    <BrowserRouter>
+        <Switch>
+            <Redirect exact from="/" to="/home" />
+            <Route path="/home" component={Home} />
+            {[
+                <Route path="/user" component={User} />,
+                <Route path="/about" component={About} />,
+                <Route path={['/contact', '/connect']} component={Contact} />,
+            ]}
+        </Switch>
+    </BrowserRouter>
 );
 
 export default SwitchTest;

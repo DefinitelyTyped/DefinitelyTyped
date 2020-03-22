@@ -5,19 +5,11 @@
 // TypeScript Version: 3.0
 /// <reference types="node" />
 
-import { Context, Request, Response, Middleware } from "koa";
-import {
-    GraphQLError,
-    GraphQLSchema,
-    GraphQLFieldResolver,
-    ValidationContext,
-    ASTVisitor
-} from "graphql";
-import { GraphQLParams, RequestInfo } from "express-graphql";
+import { Context, Request, Response, Middleware } from 'koa';
+import { GraphQLError, GraphQLSchema, GraphQLFieldResolver, ValidationContext, ASTVisitor } from 'graphql';
+import { GraphQLParams, RequestInfo } from 'express-graphql';
 
-export type Options =
-    | ((request: Request, repsonse: Response, ctx: Context) => OptionsResult)
-    | OptionsResult;
+export type Options = ((request: Request, repsonse: Response, ctx: Context) => OptionsResult) | OptionsResult;
 
 export type OptionsResult = OptionsData | Promise<OptionsData>;
 

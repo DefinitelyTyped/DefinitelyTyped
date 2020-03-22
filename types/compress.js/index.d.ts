@@ -6,20 +6,11 @@
 export = Compress;
 
 declare class Compress {
-    attach(
-        el: string,
-        options: CompressOptions,
-    ): Promise<CompressResult[]>;
+    attach(el: string, options: CompressOptions): Promise<CompressResult[]>;
 
-    compress(
-        files: File[],
-        options: CompressOptions,
-    ): Promise<CompressResult[]>;
+    compress(files: File[], options: CompressOptions): Promise<CompressResult[]>;
 
-    static convertBase64ToFile(
-        base64: string,
-        mime?: string,
-    ): File;
+    static convertBase64ToFile(base64: string, mime?: string): File;
 }
 
 interface CompressOptions {

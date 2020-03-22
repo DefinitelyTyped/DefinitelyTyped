@@ -7,25 +7,23 @@ import jQuery = require('jquery');
 
 declare global {
     namespace ImageMapster {
-
-        type Select = "select";
-        type Deselect = "deselect";
-        type Set = "set";
-        type Get = "get";
-        type Highlight = "highlight";
-        type Unbind = "unbind";
-        type Resize = "resize";
-        type Snapshot = "snapshot";
-        type Rebind = "rebind";
-        type Keys = "keys";
-        type SetOptions = "set_options";
-        type GetOptions = "get_options";
-        type Tooltip = "tooltip";
-        type ToolTipCloseEvent = "area-mouseout" | "area-click" | "tooltip-click" | "image-mouseout";
-        type State = "highlight" | "select";
+        type Select = 'select';
+        type Deselect = 'deselect';
+        type Set = 'set';
+        type Get = 'get';
+        type Highlight = 'highlight';
+        type Unbind = 'unbind';
+        type Resize = 'resize';
+        type Snapshot = 'snapshot';
+        type Rebind = 'rebind';
+        type Keys = 'keys';
+        type SetOptions = 'set_options';
+        type GetOptions = 'get_options';
+        type Tooltip = 'tooltip';
+        type ToolTipCloseEvent = 'area-mouseout' | 'area-click' | 'tooltip-click' | 'image-mouseout';
+        type State = 'highlight' | 'select';
 
         interface RenderingOptions {
-
             /**
              * fade effect - can only be applied to "render_highlight".
              *
@@ -185,7 +183,6 @@ declare global {
         }
 
         interface AreaRenderingOptions extends RenderingOptions {
-
             key: string;
 
             /**
@@ -278,7 +275,6 @@ declare global {
         }
 
         interface OnClickData {
-
             /**
              * $(item) from boundList
              */
@@ -294,13 +290,12 @@ declare global {
         }
 
         interface OnStateChangeData {
-
             /**
              * map key
              */
             key: string;
 
-            state: "highlight" | "select";
+            state: 'highlight' | 'select';
 
             /**
              * indicating the current state (following the event)
@@ -309,7 +304,6 @@ declare global {
         }
 
         interface OnMouseData {
-
             /**
              * area key
              */
@@ -325,7 +319,6 @@ declare global {
         }
 
         interface OnGetListData {
-
             /**
              * primary mapKey for this area or area group
              */
@@ -345,7 +338,6 @@ declare global {
         }
 
         interface OnShowToolTipData {
-
             /**
              * jQuery object of the tooltip container
              */
@@ -365,7 +357,6 @@ declare global {
         }
 
         interface Options extends RenderingOptions {
-
             /**
              * an attribute identifying each imagemap area.
              *
@@ -476,7 +467,7 @@ declare global {
              * a "key" property identifying a valid mapKey, and additional
              * rendering options specific to that area or group
              */
-            areas?: AreaRenderingOptions[],
+            areas?: AreaRenderingOptions[];
 
             /**
              * add "classname" class to the wrapper created around the image, or
@@ -525,7 +516,7 @@ declare global {
              * ascending order by the area value from mapValue. If "desc" is
              * passed, the list will be sorted in descending order.
              */
-            sortList?: boolean | "asc" | "desc";
+            sortList?: boolean | 'asc' | 'desc';
 
             /**
              * time (in milliseconds) to wait for images to load before giving up
@@ -733,7 +724,6 @@ declare global {
     }
 
     interface JQuery {
-
         /**
          *
          * All images in the jQuery object will be bound. The specific example
@@ -977,7 +967,11 @@ declare global {
          * including those that are inherited, as well as any specifically assigned
          * to the area.
          */
-        mapster(method: ImageMapster.GetOptions, key?: string, effective?: boolean): ImageMapster.Options | ImageMapster.AreaRenderingOptions;
+        mapster(
+            method: ImageMapster.GetOptions,
+            key?: string,
+            effective?: boolean,
+        ): ImageMapster.Options | ImageMapster.AreaRenderingOptions;
 
         /**
          * tooltip: show/hide tooltips from code

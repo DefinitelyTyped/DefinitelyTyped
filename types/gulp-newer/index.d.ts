@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 interface IOptions {
     /**
      * Path to destination directory or file.

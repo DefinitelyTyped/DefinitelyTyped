@@ -92,7 +92,7 @@ export interface SerializerOptions {
 /**
  * [Document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
  */
-export type DocumentMode = "no-quirks" | "quirks" | "limited-quirks";
+export type DocumentMode = 'no-quirks' | 'quirks' | 'limited-quirks';
 
 // Default tree adapter
 
@@ -155,7 +155,7 @@ export interface DefaultTreeDocumentType extends DefaultTreeNode {
     /**
      * The name of the node.
      */
-    nodeName: "#documentType";
+    nodeName: '#documentType';
     /**
      * Document type name.
      */
@@ -177,7 +177,7 @@ export interface DefaultTreeDocument extends DefaultTreeParentNode {
     /**
      * The name of the node.
      */
-    nodeName: "#document";
+    nodeName: '#document';
     /**
      * [Document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
      */
@@ -191,7 +191,7 @@ export interface DefaultTreeDocumentFragment extends DefaultTreeParentNode {
     /**
      * The name of the node.
      */
-    nodeName: "#document-fragment";
+    nodeName: '#document-fragment';
 }
 
 /**
@@ -227,7 +227,7 @@ export interface DefaultTreeCommentNode extends DefaultTreeChildNode {
     /**
      * The name of the node.
      */
-    nodeName: "#comment";
+    nodeName: '#comment';
     /**
      * Comment text.
      */
@@ -245,7 +245,7 @@ export interface DefaultTreeTextNode extends DefaultTreeChildNode {
     /**
      * The name of the node.
      */
-    nodeName: "#text";
+    nodeName: '#text';
     /**
      * Text content.
      */
@@ -326,11 +326,7 @@ export interface TreeAdapter {
      * @param namespaceURI - Namespace of the element.
      * @param attrs - Attribute name-value pair array. Foreign attributes may contain `namespace` and `prefix` fields as well.
      */
-    createElement(
-        tagName: string,
-        namespaceURI: string,
-        attrs: Attribute[]
-    ): Element;
+    createElement(tagName: string, namespaceURI: string, attrs: Attribute[]): Element;
     /**
      * Creates a comment node.
      *
@@ -351,21 +347,14 @@ export interface TreeAdapter {
      * @param newNode -  Child node.
      * @param referenceNode -  Reference node.
      */
-    insertBefore(
-        parentNode: ParentNode,
-        newNode: Node,
-        referenceNode: Node
-    ): void;
+    insertBefore(parentNode: ParentNode, newNode: Node, referenceNode: Node): void;
     /**
      * Sets the `<template>` element content element.
      *
      * @param templateElement - `<template>` element.
      * @param contentElement -  Content element.
      */
-    setTemplateContent(
-        templateElement: Element,
-        contentElement: DocumentFragment
-    ): void;
+    setTemplateContent(templateElement: Element, contentElement: DocumentFragment): void;
     /**
      * Returns the `<template>` element content element.
      *
@@ -382,12 +371,7 @@ export interface TreeAdapter {
      * @param publicId - Document type public identifier.
      * @param systemId - Document type system identifier.
      */
-    setDocumentType(
-        document: Document,
-        name: string,
-        publicId: string,
-        systemId: string
-    ): void;
+    setDocumentType(document: Document, name: string, publicId: string, systemId: string): void;
     /**
      * Sets the [document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
      *
@@ -424,11 +408,7 @@ export interface TreeAdapter {
      * @param text - Text to insert.
      * @param referenceNode - Node to insert text before.
      */
-    insertTextBefore(
-        parentNode: ParentNode,
-        text: string,
-        referenceNode: Node
-    ): void;
+    insertTextBefore(parentNode: ParentNode, text: string, referenceNode: Node): void;
     /**
      * Copies attributes to the given element. Only attributes that are not yet present in the element are copied.
      *
@@ -569,15 +549,8 @@ export function parse(html: string, options?: ParserOptions): Document;
  * console.log(trFragment.childNodes[0].childNodes[0].tagName); //> 'td'
  * ```
  */
-export function parseFragment(
-    fragmentContext: Element,
-    html: string,
-    options?: ParserOptions
-): DocumentFragment;
-export function parseFragment(
-    html: string,
-    options?: ParserOptions
-): DocumentFragment;
+export function parseFragment(fragmentContext: Element, html: string, options?: ParserOptions): DocumentFragment;
+export function parseFragment(html: string, options?: ParserOptions): DocumentFragment;
 
 /**
  * Serializes an AST node to an HTML string.

@@ -63,7 +63,7 @@ holidaysBetweenResult = moment().holidaysBetween(moment(), false);
 holidaysBetweenResult = moment().holidaysBetween(moment(), true);
 
 let holidayDefinition: moment.HolidayDefinition = {
-    date: 'string'
+    date: 'string',
 };
 holidayDefinition = {
     date: 'string',
@@ -93,18 +93,18 @@ holidayDefinition = {
     keywords_n: ['array'],
     keywords_y: ['array'],
     regions: ['array'],
-    regions_n: ['array']
+    regions_n: ['array'],
 };
 
 const holidays: moment.Holidays = moment.holidays;
 let activeHolidays: moment.HolidaysMapping = moment.holidays.active;
 activeHolidays = {
-    'Some holiday name': holidayDefinition
+    'Some holiday name': holidayDefinition,
 };
 
 let lastActiveHolidays: moment.HolidaysMapping = moment.holidays.active_last;
 lastActiveHolidays = {
-    'Some holiday name': holidayDefinition
+    'Some holiday name': holidayDefinition,
 };
 
 let holidayModifier: moment.HolidayModifier = moment.modifyHolidays;
@@ -123,5 +123,8 @@ holidayModifier = holidayModifier.remove(['array']);
 holidayModifier = holidayModifier.undo();
 holidayModifier = holidayModifier.load('string');
 holidayModifier = holidayModifier.load(['string']);
-holidayModifier = holidayModifier.extendParser((m: moment.Moment, d: string): moment.Moment | moment.Moment[] | false | void => {
-});
+holidayModifier = holidayModifier.extendParser((m: moment.Moment, d: string):
+    | moment.Moment
+    | moment.Moment[]
+    | false
+    | void => {});

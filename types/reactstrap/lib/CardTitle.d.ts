@@ -8,5 +8,5 @@ export interface CardTitleProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class CardTitle<T = {[key: string]: any}> extends React.Component<CardTitleProps> {}
+declare class CardTitle<T = { [key: string]: any }> extends React.Component<CardTitleProps> {}
 export default CardTitle;

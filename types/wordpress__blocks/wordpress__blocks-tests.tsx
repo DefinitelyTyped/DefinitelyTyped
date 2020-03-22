@@ -90,7 +90,7 @@ blocks.findTransform(
             },
         },
     ],
-    transform => transform.type === 'block'
+    (transform) => transform.type === 'block',
 );
 
 declare const RAW_TRANSFORM_ARRAY: Array<blocks.TransformRaw<any>>;
@@ -386,7 +386,7 @@ blocks.doBlocksMatchTemplate([BLOCK_INSTANCE]);
 // $ExpectType boolean
 blocks.doBlocksMatchTemplate(
     [BLOCK_INSTANCE, BLOCK_INSTANCE],
-    [['core/test-block'], ['core/test-block-2', {}, [['core/test-block']]], ['core/test-block-2']]
+    [['core/test-block'], ['core/test-block-2', {}, [['core/test-block']]], ['core/test-block-2']],
 );
 
 // $ExpectType BlockInstance<{ [k: string]: any; }>[]
@@ -398,11 +398,17 @@ blocks.synchronizeBlocksWithTemplate([BLOCK_INSTANCE, BLOCK_INSTANCE]);
 // $ExpectType BlockInstance<{ [k: string]: any; }>[]
 blocks.synchronizeBlocksWithTemplate(
     [BLOCK_INSTANCE, BLOCK_INSTANCE],
-    [['my/foo', { foo: 'bar' }], ['my/foo', { foo: 'bar' }]]
+    [
+        ['my/foo', { foo: 'bar' }],
+        ['my/foo', { foo: 'bar' }],
+    ],
 );
 
 // $ExpectType BlockInstance<{ [k: string]: any; }>[]
-blocks.synchronizeBlocksWithTemplate(undefined, [['my/foo', { foo: 'bar' }], ['my/foo', { foo: 'bar' }]]);
+blocks.synchronizeBlocksWithTemplate(undefined, [
+    ['my/foo', { foo: 'bar' }],
+    ['my/foo', { foo: 'bar' }],
+]);
 
 //
 // utils

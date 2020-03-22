@@ -9,9 +9,9 @@ const generator = new MyES2015Generator(['arg1', 'arg2'], { opt1: 'foo', opt2: 3
 const eventEmitter: EventEmitter = generator;
 
 const env: {
-  adapter: {
-    promptModule: inquirer.PromptModule;
-  }
+    adapter: {
+        promptModule: inquirer.PromptModule;
+    };
 } = generator.env;
 const args: {} = generator.args;
 const resolved: string = generator.resolved;
@@ -23,26 +23,26 @@ generator.log('my message');
 
 generator.argument('arg1', {});
 generator.argument('arg2', {
-  description: 'second argument',
-  required: false,
-  optional: true,
-  type: String,
-  default: 'foo',
+    description: 'second argument',
+    required: false,
+    optional: true,
+    type: String,
+    default: 'foo',
 });
 generator.argument('arg2', {
-  description: 'second argument',
-  required: false,
-  type: Number,
-  default: 3,
+    description: 'second argument',
+    required: false,
+    type: Number,
+    default: 3,
 });
 generator.argument('arg3', {
-  optional: true,
-  type: Array,
-  default: ['an item'],
+    optional: true,
+    type: Array,
+    default: ['an item'],
 });
 generator.argument('arg4', {
-  type: Object,
-  default: {},
+    type: Object,
+    default: {},
 });
 
 const argsHelp = generator.argumentsHelp();
@@ -99,19 +99,19 @@ const help: string = generator.help();
 
 generator.option('name', {});
 generator.option('opt2', {
-  description: 'a description',
-  type: Boolean,
-  alias: 'h',
-  default: false,
-  hide: false,
+    description: 'a description',
+    type: Boolean,
+    alias: 'h',
+    default: false,
+    hide: false,
 });
 generator.option('opt3', {
-  type: String,
-  default: 'default value',
+    type: String,
+    default: 'default value',
 });
 generator.option('opt4', {
-  type: Number,
-  default: 3.2,
+    type: Number,
+    default: 3.2,
 });
 
 const optionValue1 = generator.options.opt1;
@@ -119,10 +119,10 @@ const optionValue1 = generator.options.opt1;
 const optionsHelp: string = generator.optionsHelp();
 
 const answers: Promise<Answers> = generator.prompt([] as Questions);
-const answers2: Promise<Answers> = generator.prompt([{store: true}] as Questions);
-const answers3: Promise<Answers> = generator.prompt([{type: "input"}] as Questions);
-const answers4: Promise<Answers> = generator.prompt({type: "input"});
-const answers5: Promise<Answers> = generator.prompt({type: "input", store: false});
+const answers2: Promise<Answers> = generator.prompt([{ store: true }] as Questions);
+const answers3: Promise<Answers> = generator.prompt([{ type: 'input' }] as Questions);
+const answers4: Promise<Answers> = generator.prompt({ type: 'input' });
+const answers5: Promise<Answers> = generator.prompt({ type: 'input', store: false });
 
 generator.registerTransformStream([]);
 
@@ -136,11 +136,11 @@ const sourceRoot: string = generator.sourceRoot();
 const sourceRoot2: string = generator.sourceRoot('new root');
 
 generator.spawnCommand('command', []);
-generator.spawnCommand('command', [ '-arg' ]);
+generator.spawnCommand('command', ['-arg']);
 generator.spawnCommand('command', [], {});
 
 generator.spawnCommandSync('command', []);
-generator.spawnCommandSync('command', [ '-arg' ]);
+generator.spawnCommandSync('command', ['-arg']);
 generator.spawnCommandSync('command', [], {});
 
 const tPath1: string = generator.templatePath();

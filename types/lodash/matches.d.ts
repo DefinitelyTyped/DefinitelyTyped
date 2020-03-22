@@ -1,2 +1,2 @@
-import { matches } from "./index";
+import { matches } from './index';
 export = matches;

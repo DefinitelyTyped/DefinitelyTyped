@@ -1,8 +1,8 @@
-import npmRun = require("npm-run");
+import npmRun = require('npm-run');
 
-npmRun("");
-npmRun.exec("");
-npmRun.execSync("");
-npmRun.spawn("", []);
-npmRun.spawnSync("", []);
-npmRun.sync("");
+npmRun('');
+npmRun.exec('');
+npmRun.execSync('');
+npmRun.spawn('', []);
+npmRun.spawnSync('', []);
+npmRun.sync('');

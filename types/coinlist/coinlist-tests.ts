@@ -33,4 +33,4 @@ coins.get('BTC', 'symbol');
 // $ExpectType string | undefined
 coins.get('BTC', 'id');
 
-coins.map(coin => coin.name);
+coins.map((coin) => coin.name);

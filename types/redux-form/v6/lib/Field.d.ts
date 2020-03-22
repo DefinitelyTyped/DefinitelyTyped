@@ -1,12 +1,6 @@
-import {
-    Component,
-    ReactElement,
-    ChangeEvent,
-    DragEvent,
-    FocusEvent
-} from "react";
-import { Dispatch } from "redux";
-import { ComponentConstructor, DataShape, FieldValue } from "../index";
+import { Component, ReactElement, ChangeEvent, DragEvent, FocusEvent } from 'react';
+import { Dispatch } from 'redux';
+import { ComponentConstructor, DataShape, FieldValue } from '../index';
 
 /**
  * These are the props to give to `Field`.
@@ -28,7 +22,7 @@ interface BaseFieldProps {
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    component?: ComponentConstructor<any> | "input" | "select" | "textarea";
+    component?: ComponentConstructor<any> | 'input' | 'select' | 'textarea';
 
     /**
      * Formats the value from the Redux store to be displayed in the field input.
@@ -90,7 +84,12 @@ interface BaseFieldProps {
  * @param previousAllValues All the values in the entire form before the current change.
  *                          This will be an Immutable Map if you are using Immutable JS.
  */
-export type Normalizer = (value: FieldValue, previousValue?: FieldValue, allValues?: any, previousAllValues?: any) => FieldValue;
+export type Normalizer = (
+    value: FieldValue,
+    previousValue?: FieldValue,
+    allValues?: any,
+    previousAllValues?: any,
+) => FieldValue;
 
 export type Formatter = (value: FieldValue, name: string) => FieldValue;
 

@@ -1,7 +1,7 @@
 import immediate = require('immediate');
 
 immediate(() => {});
-immediate(arg1 => {}); // $ExpectError
+immediate((arg1) => {}); // $ExpectError
 
 immediate(
     (arg1, arg2) => {
@@ -9,7 +9,7 @@ immediate(
         arg2; // $ExpectType number
     },
     'foo',
-    1
+    1,
 );
 // $ExpectError
 immediate((arg1, arg2) => {}, 'foo');

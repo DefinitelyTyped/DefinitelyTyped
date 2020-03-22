@@ -1,4 +1,4 @@
-import * as cloud from "wx-server-sdk";
+import * as cloud from 'wx-server-sdk';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -24,14 +24,14 @@ async () => {
 
 async () => {
     const res = await cloud.getTempFileURL({
-        fileList: ['cloud://xxx', 'cloud://yyy']
+        fileList: ['cloud://xxx', 'cloud://yyy'],
     });
     return res.fileList;
 };
 
 async () => {
     const res = await cloud.deleteFile({
-        fileList: ['cloud://xxx', 'cloud://yyy']
+        fileList: ['cloud://xxx', 'cloud://yyy'],
     });
     return res.fileList;
 };
@@ -44,7 +44,7 @@ async () => {
         data: {
             x: 1,
             y: 2,
-        }
+        },
     });
     return res.result;
 };
@@ -53,90 +53,109 @@ async function getVoIPSign() {
     const result = await cloud.getVoIPSign({
         groupId: 'xxx',
         timestamp: 1557056066,
-        nonce: 'yyy'
+        nonce: 'yyy',
     });
     return result.signature;
 }
 
 db.collection('articles').where({
-    _openid: _.eq('xxx')
+    _openid: _.eq('xxx'),
 });
 
 db.collection('articles').where({
     stat: {
         publishYear: 2018,
-        language: 'zh-CN'
-    }
+        language: 'zh-CN',
+    },
 });
 
 async () => {
     try {
-        return await db.collection('articles').where({
-          stat: _.eq({
-            publishYear: 2018,
-            language: 'zh-CN'
-          })
-        })
-        .get();
-      } catch (e) {
-        console.error(e);
-      }
-};
-
-async () => {
-    try {
-      return await db.collection('todos').limit(10).get();
+        return await db
+            .collection('articles')
+            .where({
+                stat: _.eq({
+                    publishYear: 2018,
+                    language: 'zh-CN',
+                }),
+            })
+            .get();
     } catch (e) {
-      console.error(e);
+        console.error(e);
     }
 };
 
 async () => {
     try {
-      return await db.collection('todos').doc('todo-identifiant-aleatoire').remove();
+        return await db.collection('todos').limit(10).get();
     } catch (e) {
-      console.error(e);
+        console.error(e);
+    }
+};
+
+async () => {
+    try {
+        return await db.collection('todos').doc('todo-identifiant-aleatoire').remove();
+    } catch (e) {
+        console.error(e);
     }
 };
 
 async () => {
     return db.collection('todos').add({
-      data: {
-        description: 'eat an apple',
-        location: {
-          type: 'MultiPolygon',
-          coordinates: [
-            [
-              [ [50, 50], [60, 80], [80, 60], [50, 50] ]
-            ],
-            [
-              [ [0, 0], [30, 20], [20, 30], [0, 0] ],
-              [ [10, 10], [16, 14], [14, 16], [10, 10]]
-            ]
-          ]
-        }
-      }
+        data: {
+            description: 'eat an apple',
+            location: {
+                type: 'MultiPolygon',
+                coordinates: [
+                    [
+                        [
+                            [50, 50],
+                            [60, 80],
+                            [80, 60],
+                            [50, 50],
+                        ],
+                    ],
+                    [
+                        [
+                            [0, 0],
+                            [30, 20],
+                            [20, 30],
+                            [0, 0],
+                        ],
+                        [
+                            [10, 10],
+                            [16, 14],
+                            [14, 16],
+                            [10, 10],
+                        ],
+                    ],
+                ],
+            },
+        },
     });
 };
 
-db.collection('scores').aggregate()
+db.collection('scores')
+    .aggregate()
     .addFields({
         totalHomework: $.sum('$homework'),
-        totalQuiz: $.sum('$quiz')
+        totalQuiz: $.sum('$quiz'),
     })
     .addFields({
-        totalScore: $.add(['$totalHomework', '$totalQuiz', '$extraCredit'])
+        totalScore: $.add(['$totalHomework', '$totalQuiz', '$extraCredit']),
     })
     .end();
 
-db.collection('items').aggregate()
+db.collection('items')
+    .aggregate()
     .bucket({
         groupBy: '$price',
         boundaries: [0, 50, 100],
         default: 'other',
         output: {
             count: $.sum(),
-            ids: $.push('$_id')
-        }
+            ids: $.push('$_id'),
+        },
     })
     .end();

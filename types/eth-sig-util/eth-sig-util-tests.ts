@@ -17,15 +17,18 @@ util.extractPublicKey({ data: 'test data', sig: messageSig });
 ////////////////////////////////////////////////////////////////////////////////
 // EIP-712 legacy draft utils
 
-const legacyTypedData = [{
-    type: 'uint32',
-    name: 'testValue',
-    value: 42,
-}, {
-    type: 'string',
-    name: 'testName',
-    value: 'test value',
-}];
+const legacyTypedData = [
+    {
+        type: 'uint32',
+        name: 'testValue',
+        value: 42,
+    },
+    {
+        type: 'string',
+        name: 'testName',
+        value: 'test value',
+    },
+];
 util.typedSignatureHash(legacyTypedData);
 const typedSigLegacy = util.signTypedDataLegacy(buffer32, { data: legacyTypedData });
 util.recoverTypedSignatureLegacy({ data: legacyTypedData, sig: typedSigLegacy });
@@ -57,12 +60,12 @@ const typedData = {
         ],
         Person: [
             { name: 'name', type: 'string' },
-            { name: 'wallet', type: 'address' }
+            { name: 'wallet', type: 'address' },
         ],
         Mail: [
             { name: 'from', type: 'Person' },
             { name: 'to', type: 'Person' },
-            { name: 'contents', type: 'string' }
+            { name: 'contents', type: 'string' },
         ],
     },
     primaryType: 'Mail',

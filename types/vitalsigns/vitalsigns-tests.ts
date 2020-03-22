@@ -1,5 +1,5 @@
-import express = require("express");
-import VitalSigns = require("vitalsigns");
+import express = require('express');
+import VitalSigns = require('vitalsigns');
 
 var vitals = new VitalSigns();
 
@@ -10,14 +10,17 @@ vitals.monitor('tick');
 vitals.unhealthyWhen('cpu', 'usage').equals(100);
 vitals.unhealthyWhen('tick', 'maxMs').greaterThan(500);
 
-vitals.monitor({
-    connections: () => new Object()
-}, { name: 'game' });
+vitals.monitor(
+    {
+        connections: () => new Object(),
+    },
+    { name: 'game' },
+);
 
 var vitals = new VitalSigns({
     autoCheck: 5000,
     httpHealthy: 200,
-    httpUnhealthy: 503
+    httpUnhealthy: 503,
 });
 
 vitals.monitor('cpu', { name: 'foo' });

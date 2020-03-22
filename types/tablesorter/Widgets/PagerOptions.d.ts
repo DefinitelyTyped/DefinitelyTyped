@@ -1,12 +1,12 @@
-import "jquery";
-import { AjaxDataProcessor } from "../Paging/AjaxDataProcessor";
-import { AjaxErrorHandler } from "../Paging/AjaxErrorHandler";
-import { AjaxUrlProcessor } from "../Paging/AjaxUrlProcessor";
-import { PagerClasses } from "../Paging/PagerClasses";
-import { PagerInitialRows } from "../Paging/PagerInitialRows";
-import { PagerOutputProcessor } from "../Paging/PagerOutputProcessor";
-import { PagerSelectors } from "../Paging/PagerSelectors";
-import { PageSize } from "../Paging/PageSize";
+import 'jquery';
+import { AjaxDataProcessor } from '../Paging/AjaxDataProcessor';
+import { AjaxErrorHandler } from '../Paging/AjaxErrorHandler';
+import { AjaxUrlProcessor } from '../Paging/AjaxUrlProcessor';
+import { PagerClasses } from '../Paging/PagerClasses';
+import { PagerInitialRows } from '../Paging/PagerInitialRows';
+import { PagerOutputProcessor } from '../Paging/PagerOutputProcessor';
+import { PagerSelectors } from '../Paging/PagerSelectors';
+import { PageSize } from '../Paging/PageSize';
 
 /**
  * Provides options for the `pager`-widget.

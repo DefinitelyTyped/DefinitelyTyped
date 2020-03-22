@@ -1,42 +1,42 @@
-import * as moment from "moment";
+import * as moment from 'moment';
 
-const dp = $("#picker").datetimepicker().data("DateTimePicker");
+const dp = $('#picker').datetimepicker().data('DateTimePicker');
 
 function test_cases() {
-    $("#datetimepicker").datetimepicker();
-    $("#datetimepicker").datetimepicker({
-        minDate: "2012-12-31"
+    $('#datetimepicker').datetimepicker();
+    $('#datetimepicker').datetimepicker({
+        minDate: '2012-12-31',
     });
 
-    $("#datetimepicker").data("DateTimePicker").maxDate("2012-12-31");
+    $('#datetimepicker').data('DateTimePicker').maxDate('2012-12-31');
 
     let startDate = moment(new Date(2012, 1, 20));
     const endDate = moment(new Date(2012, 1, 25));
 
-    $("#datetimepicker2")
+    $('#datetimepicker2')
         .datetimepicker()
-        .on("dp.change", ev => {
+        .on('dp.change', (ev) => {
             if (ev.date.valueOf() > endDate.valueOf()) {
-                $("#alert").show().find("strong").text("The start date must be before the end date.");
+                $('#alert').show().find('strong').text('The start date must be before the end date.');
             } else {
-                $("#alert").hide();
+                $('#alert').hide();
                 startDate = ev.date;
-                $("#date-start-display").text($("#date-start").data("date"));
+                $('#date-start-display').text($('#date-start').data('date'));
             }
         })
-        .on("dp.error", ev => {
-            console.log(`Error: ${ev.date.format("YYYY-MM-DD")}`);
+        .on('dp.error', (ev) => {
+            console.log(`Error: ${ev.date.format('YYYY-MM-DD')}`);
         })
-        .on("dp.update", ev => {
-            console.log(`Change: ${ev.change}, ${ev.viewDate.format("YYYY-MM-DD")}`);
+        .on('dp.update', (ev) => {
+            console.log(`Change: ${ev.change}, ${ev.viewDate.format('YYYY-MM-DD')}`);
         });
 }
 
 function test_date() {
-    let momentObj = moment("20111031", "YYYYMMDD");
+    let momentObj = moment('20111031', 'YYYYMMDD');
 
     dp.date(null);
-    dp.date("1969-07-21");
+    dp.date('1969-07-21');
     dp.date(new Date());
     dp.date(momentObj);
 
@@ -45,19 +45,19 @@ function test_date() {
 
 function test_format() {
     let boolFormat = false;
-    let strFormat = "YYYY-MM-DD";
+    let strFormat = 'YYYY-MM-DD';
     let momentFormat = moment.ISO_8601;
 
-    $("#picker").datetimepicker({
-        format: boolFormat
+    $('#picker').datetimepicker({
+        format: boolFormat,
     });
 
-    $("#picker").datetimepicker({
-        format: strFormat
+    $('#picker').datetimepicker({
+        format: strFormat,
     });
 
-    $("#picker").datetimepicker({
-        format: momentFormat
+    $('#picker').datetimepicker({
+        format: momentFormat,
     });
 
     dp.format(boolFormat);
@@ -72,19 +72,19 @@ function test_format() {
 
 function test_extraFormats() {
     let boolFormat = false;
-    let strFormats = ["YYYYMMDD", "YYYY/MM/DD"];
-    let mixFormats = ["YYYYMMDD", moment.ISO_8601];
+    let strFormats = ['YYYYMMDD', 'YYYY/MM/DD'];
+    let mixFormats = ['YYYYMMDD', moment.ISO_8601];
 
-    $("#picker").datetimepicker({
-        extraFormats: boolFormat
+    $('#picker').datetimepicker({
+        extraFormats: boolFormat,
     });
 
-    $("#picker").datetimepicker({
-        extraFormats: strFormats
+    $('#picker').datetimepicker({
+        extraFormats: strFormats,
     });
 
-    $("#picker").datetimepicker({
-        extraFormats: mixFormats
+    $('#picker').datetimepicker({
+        extraFormats: mixFormats,
     });
 
     dp.extraFormats(boolFormat);
@@ -94,19 +94,19 @@ function test_extraFormats() {
     strFormats = dp.extraFormats() as string[];
 
     dp.extraFormats(mixFormats);
-    mixFormats = dp.extraFormats() as Array<(string | moment.MomentBuiltinFormat)>;
+    mixFormats = dp.extraFormats() as Array<string | moment.MomentBuiltinFormat>;
 }
 
 function test_timeZone() {
     let nullTz = null;
-    let strFormats = "Africa/Abidjan";
+    let strFormats = 'Africa/Abidjan';
 
-    $("#picker").datetimepicker({
-        timeZone: nullTz
+    $('#picker').datetimepicker({
+        timeZone: nullTz,
     });
 
-    $("#picker").datetimepicker({
-        timeZone: strFormats
+    $('#picker').datetimepicker({
+        timeZone: strFormats,
     });
 
     dp.timeZone(nullTz);
@@ -118,19 +118,19 @@ function test_timeZone() {
 
 function test_widgetParent() {
     let nullW: null = null;
-    let str = "myId";
-    let jquery = $("#element");
+    let str = 'myId';
+    let jquery = $('#element');
 
-    $("#picker").datetimepicker({
-        widgetParent: nullW
+    $('#picker').datetimepicker({
+        widgetParent: nullW,
     });
 
-    $("#picker").datetimepicker({
-        widgetParent: str
+    $('#picker').datetimepicker({
+        widgetParent: str,
     });
 
-    $("#picker").datetimepicker({
-        widgetParent: jquery
+    $('#picker').datetimepicker({
+        widgetParent: jquery,
     });
 
     dp.widgetParent(nullW);
@@ -151,8 +151,8 @@ function inputParser(inputDate: string | Date | moment.Moment) {
     } else {
         const relativeDate = inputDate.match(relativeDatePattern);
         if (relativeDate !== null) {
-            const subDays = +relativeDate[0].replace("days ago", "").trim();
-            return moment().subtract(subDays, "day");
+            const subDays = +relativeDate[0].replace('days ago', '').trim();
+            return moment().subtract(subDays, 'day');
         } else {
             return moment();
         }
@@ -163,10 +163,10 @@ function test_parseInputDate() {
     let undef: undefined;
     let parser: BootstrapV3DatetimePicker.InputParser;
 
-    $("#picker").datetimepicker();
+    $('#picker').datetimepicker();
 
-    $("#picker").datetimepicker({
-        parseInputDate: inputParser
+    $('#picker').datetimepicker({
+        parseInputDate: inputParser,
     });
 
     undef = dp.parseInputDate() as undefined;

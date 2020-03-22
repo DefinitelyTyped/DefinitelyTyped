@@ -11,16 +11,14 @@ async () => {
     endpoint.addIceCandidate(candidate);
 
     endpoint.on('OnIceCandidate', ({ candidate }) => {
-        const value = kurento.getComplexType('IceCandidate')(
-            candidate
-        );
+        const value = kurento.getComplexType('IceCandidate')(candidate);
 
         endpoint.addIceCandidate(value);
     });
 
     const sdpAnswer = await endpoint.processOffer(sdpOffer);
 
-    endpoint.gatherCandidates(error => {
+    endpoint.gatherCandidates((error) => {
         // ok
     });
 

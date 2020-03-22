@@ -6,7 +6,7 @@ import initSqlJs3 = require('sql.js');
 
 const DB_PATH = 'data.db';
 
-initSqlJs().then(SQL => {
+initSqlJs().then((SQL) => {
     function createFile(path: string): void {
         const fd = fs.openSync(path, 'a');
         fs.closeSync(fd);

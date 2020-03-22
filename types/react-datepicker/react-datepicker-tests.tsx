@@ -13,25 +13,25 @@ const defaultLocale = getDefaultLocale();
     autoComplete=""
     autoFocus
     calendarClassName=""
-    calendarContainer={props => <div />}
+    calendarContainer={(props) => <div />}
     className=""
     clearButtonTitle=""
     customInput={<input />}
     customInputRef=""
     dateFormat=""
     dateFormatCalendar=""
-    dayClassName={date => ''}
+    dayClassName={(date) => ''}
     disabled
     disabledKeyboardNavigation
     dropdownMode="scroll"
     endDate={new Date()}
     excludeDates={[new Date()]}
     excludeTimes={[new Date()]}
-    filterDate={date => true}
+    filterDate={(date) => true}
     fixedHeight
     forceShowMonthNavigation
-    formatWeekDay={formattedDate => formattedDate[0]}
-    formatWeekNumber={date => 0}
+    formatWeekDay={(formattedDate) => formattedDate[0]}
+    formatWeekNumber={(date) => 0}
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""
     includeDates={[new Date()]}
@@ -49,18 +49,18 @@ const defaultLocale = getDefaultLocale();
     name=""
     nextMonthButtonLabel=""
     nextYearButtonLabel=""
-    onBlur={event => null}
+    onBlur={(event) => null}
     onCalendarClose={() => null}
     onCalendarOpen={() => null}
     onChange={(date: Date | null) => {}}
-    onChangeRaw={event => null}
-    onClickOutside={event => null}
+    onChangeRaw={(event) => null}
+    onClickOutside={(event) => null}
     onDayMouseEnter={(date: Date) => {}}
-    onFocus={event => null}
+    onFocus={(event) => null}
     onInputClick={() => null}
-    onInputError={err => err.code + err.msg}
-    onKeyDown={event => null}
-    onMonthChange={date => null}
+    onInputError={(err) => err.code + err.msg}
+    onKeyDown={(event) => null}
+    onMonthChange={(date) => null}
     onMonthMouseLeave={() => {}}
     onSelect={(date, event) => null}
     onWeekSelect={(firstDayOfWeek, weekNumber, event) => null}
@@ -70,7 +70,7 @@ const defaultLocale = getDefaultLocale();
     peekNextMonth
     placeholderText=""
     popperClassName=""
-    popperContainer={props => <div />}
+    popperContainer={(props) => <div />}
     popperModifiers={{
         flip: {
             enabled: false,

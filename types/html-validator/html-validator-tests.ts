@@ -17,7 +17,7 @@ validateHtml({
     data: testHtml,
     format: 'json',
     headers: {
-        'Content-Type': 'text/html'
+        'Content-Type': 'text/html',
     },
 }).then((validationResults: validateHtml.ParsedJsonAsValidationResults) => {
     if (validationResults.messages.length === 0) {

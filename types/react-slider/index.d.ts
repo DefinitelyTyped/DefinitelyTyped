@@ -124,19 +124,22 @@ declare namespace ReactSlider {
          * aria-valuetext for screen-readers.
          * Can be a static string, or a function that returns a string.
          */
-        ariaValuetext?: string | ((value: {index: number, value: number | number[], valueNow: number }) => string);
+        ariaValuetext?: string | ((value: { index: number; value: number | number[]; valueNow: number }) => string);
         /**
          * Provide a custom render function for the track node.
          * The render function will be passed two arguments. The first is
          * an object that should be added to your handle node.
          */
-        renderTrack?: (props: object, state: {index: number, value: number | number[] }) => JSX.Element;
+        renderTrack?: (props: object, state: { index: number; value: number | number[] }) => JSX.Element;
         /**
          * Provide a custom render function for dynamic thumb content.
          * The render function will be passed two arguments.The first is
          * an object that should be added to your thumb node,
          */
-        renderThumb?: (props: object, state: {index: number, value: number | number[], valueNow: number }) => JSX.Element;
+        renderThumb?: (
+            props: object,
+            state: { index: number; value: number | number[]; valueNow: number },
+        ) => JSX.Element;
     }
 }
 

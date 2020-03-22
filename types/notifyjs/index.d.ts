@@ -58,7 +58,6 @@ declare class Notify {
  * Interface for the Notify's optional parameter.
  */
 interface INotifyOption {
-
     /**
      * notification message body
      */
@@ -75,13 +74,13 @@ interface INotifyOption {
     tag?: string;
 
     /**
-    * number of seconds to close the notification automatically
-    */
+     * number of seconds to close the notification automatically
+     */
     timeout?: number;
 
     /**
-    * whether this notification should be silent or not
-    */
+     * whether this notification should be silent or not
+     */
     silent?: boolean;
 
     /**
@@ -115,4 +114,4 @@ interface INotifyOption {
      */
     requireInteraction?: boolean;
 }
-export = Notify
+export = Notify;

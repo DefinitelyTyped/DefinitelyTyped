@@ -34,7 +34,7 @@ data.registerStore<{ key: string }>('bad-persist', {
 });
 
 const HookComponent = () => {
-    const isTyping = data.useSelect(select => select('core/block-editor').isTyping<boolean>());
+    const isTyping = data.useSelect((select) => select('core/block-editor').isTyping<boolean>());
     const { resetBlocks } = data.useDispatch('core/block-editor');
     const dispatch = data.useDispatch();
     return (

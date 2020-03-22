@@ -22,7 +22,6 @@ declare namespace clc {
     export type ColumnOptions = columns.ColumnOptions;
     export type ColumnsOptions = columns.ColumnsOptions;
     export interface Color extends Format {
-
         readonly windowSize: typeof windowSize;
         readonly erase: typeof erase;
         readonly move: typeof move;

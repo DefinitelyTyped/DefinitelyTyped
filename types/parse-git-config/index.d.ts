@@ -81,7 +81,7 @@ declare namespace parse {
         expandKeys?: boolean;
     }
 
-    type ParseCallback = ((err: Error | null, config: Config) => void);
+    type ParseCallback = (err: Error | null, config: Config) => void;
 
     // TODO: Can this be defined more precisely?
     interface Config {

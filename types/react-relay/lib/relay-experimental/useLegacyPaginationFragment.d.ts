@@ -21,19 +21,13 @@ interface KeyType {
 
 type KeyReturnType<T extends KeyType> = (arg: T) => NonNullable<T[' $data']>;
 
-export function useLegacyPaginationFragment<
-    TQuery extends OperationType,
-    TKey extends KeyType
->(
+export function useLegacyPaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
 ): // tslint:disable-next-line no-unnecessary-generics
 ReturnType<TQuery, TKey, $Call<KeyReturnType<TKey>>>;
 
-export function useLegacyPaginationFragment<
-    TQuery extends OperationType,
-    TKey extends KeyType
->(
+export function useLegacyPaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey | null,
 ): // tslint:disable-next-line no-unnecessary-generics

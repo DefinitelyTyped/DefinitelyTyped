@@ -44,7 +44,10 @@ declare class SaneWatcher extends EventEmitter {
 
     addListener(event: 'ready', listener: () => void): this;
     addListener(event: 'error', listener: (error: Error) => void): this;
-    addListener(event: 'all', listener: (eventType: AllEventType, path: string, root: string, stat?: Stats) => void): this;
+    addListener(
+        event: 'all',
+        listener: (eventType: AllEventType, path: string, root: string, stat?: Stats) => void,
+    ): this;
     addListener(event: 'add' | 'change', listener: (path: string, root: string, stat: Stats) => void): this;
     addListener(event: 'delete', listener: (path: string, root: string) => void): this;
     on(event: 'ready', listener: () => void): this;
@@ -59,17 +62,26 @@ declare class SaneWatcher extends EventEmitter {
     once(event: 'delete', listener: (path: string, root: string) => void): this;
     prependListener(event: 'ready', listener: () => void): this;
     prependListener(event: 'error', listener: (error: Error) => void): this;
-    prependListener(event: 'all', listener: (eventType: AllEventType, path: string, root: string, stat?: Stats) => void): this;
+    prependListener(
+        event: 'all',
+        listener: (eventType: AllEventType, path: string, root: string, stat?: Stats) => void,
+    ): this;
     prependListener(event: 'add' | 'change', listener: (path: string, root: string, stat: Stats) => void): this;
     prependListener(event: 'delete', listener: (path: string, root: string) => void): this;
     prependOnceListener(event: 'ready', listener: () => void): this;
     prependOnceListener(event: 'error', listener: (error: Error) => void): this;
-    prependOnceListener(event: 'all', listener: (eventType: AllEventType, path: string, root: string, stat?: Stats) => void): this;
+    prependOnceListener(
+        event: 'all',
+        listener: (eventType: AllEventType, path: string, root: string, stat?: Stats) => void,
+    ): this;
     prependOnceListener(event: 'add' | 'change', listener: (path: string, root: string, stat: Stats) => void): this;
     prependOnceListener(event: 'delete', listener: (path: string, root: string) => void): this;
     removeListener(event: 'ready', listener: () => void): this;
     removeListener(event: 'error', listener: (error: Error) => void): this;
-    removeListener(event: 'all', listener: (eventType: AllEventType, path: string, root: string, stat?: Stats) => void): this;
+    removeListener(
+        event: 'all',
+        listener: (eventType: AllEventType, path: string, root: string, stat?: Stats) => void,
+    ): this;
     removeListener(event: 'add' | 'change', listener: (path: string, root: string, stat: Stats) => void): this;
     removeListener(event: 'delete', listener: (path: string, root: string) => void): this;
     removeAllListeners(event?: EventType): this;

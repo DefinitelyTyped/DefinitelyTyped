@@ -14,14 +14,10 @@ declare class vCard {
 
     version: CardVersion;
 
-    data: {[key: string]: vCard.Property | vCard.Property[] };
+    data: { [key: string]: vCard.Property | vCard.Property[] };
 
     /** Add a vCard property  */
-    add(
-        key: string,
-        value: string,
-        params?: { [key: string]: string | string[] }
-    ): vCard;
+    add(key: string, value: string, params?: { [key: string]: string | string[] }): vCard;
 
     /** Add a vCard property  */
     addProperty(prop: vCard.Property): vCard;
@@ -30,14 +26,10 @@ declare class vCard {
     get(key: string): vCard.Property | vCard.Property[];
 
     /** Parse a vcf formatted vCard */
-    parse(value: string|Buffer): vCard;
+    parse(value: string | Buffer): vCard;
 
     /** Set a vCard property */
-    set(
-        key: string,
-        value: string,
-        params?: { [key: string]: string | string[] }
-    ): vCard;
+    set(key: string, value: string, params?: { [key: string]: string | string[] }): vCard;
 
     /** Set a vCard property */
     setProperty(prop: vCard.Property): vCard;
@@ -57,11 +49,7 @@ declare class vCard {
     /** is equal to `.vcf` */
     static extension: '.vcf';
 
-    private static foldLine(
-        input: string,
-        maxLength?: number,
-        hardWrap?: boolean
-    ): string;
+    private static foldLine(input: string, maxLength?: number, hardWrap?: boolean): string;
 
     static format(card: vCard, version?: CardVersion): string;
 
@@ -76,7 +64,7 @@ declare class vCard {
     static normalize(input: string): string;
 
     /** Returns an *array* of vCard objects from a multiple-card string. */
-    static parse(value: string|Buffer): vCard[];
+    static parse(value: string | Buffer): vCard[];
 
     private static parseLines(lines: ReadonlyArray<string>): any;
 
@@ -85,11 +73,7 @@ declare class vCard {
 
 declare namespace vCard {
     class Property {
-        constructor(
-            field: string,
-            value: string,
-            params?: { [key: string]: string | string[]; }
-        );
+        constructor(field: string, value: string, params?: { [key: string]: string | string[] });
 
         /** Returns a deep-copied clone of the property */
         clone(): Property;
@@ -114,14 +98,9 @@ declare namespace vCard {
     }
 }
 
-type CardVersion =
-	"2.1" | "3.0" | "4.0";
+type CardVersion = '2.1' | '3.0' | '4.0';
 
-type jCardProperty = [
-    string,
-    { [key: string]: string | string[] },
-    string, string | string[]
-];
+type jCardProperty = [string, { [key: string]: string | string[] }, string, string | string[]];
 
 /** jCard standard format */
-type jCard = [ 'vcard', jCardProperty[] ];
+type jCard = ['vcard', jCardProperty[]];

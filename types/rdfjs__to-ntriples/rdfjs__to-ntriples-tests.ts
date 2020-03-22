@@ -5,11 +5,11 @@ import defaultGraph = require('@rdfjs/to-ntriples/lib/defaultGraph');
 import namedNode = require('@rdfjs/to-ntriples/lib/namedNode');
 import variable = require('@rdfjs/to-ntriples/lib/variable');
 
-const rdfBlankNode: RDF.BlankNode = <any> {};
-const rdfDefaultGraph: RDF.DefaultGraph = <any> {};
-const rdfNamedNode: RDF.NamedNode = <any> {};
-const rdfVariable: RDF.Variable = <any> {};
-const rdfQuad: RDF.Quad = <any> {};
+const rdfBlankNode: RDF.BlankNode = <any>{};
+const rdfDefaultGraph: RDF.DefaultGraph = <any>{};
+const rdfNamedNode: RDF.NamedNode = <any>{};
+const rdfVariable: RDF.Variable = <any>{};
+const rdfQuad: RDF.Quad = <any>{};
 
 const blankNodeString: string = blankNode(rdfBlankNode);
 let defaultGraphString: string = defaultGraph();

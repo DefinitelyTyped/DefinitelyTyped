@@ -7,13 +7,13 @@ const MyTgFancyBot = new tgfancy('token', {
         kickWithoutBan: true,
         ratelimiting: {
             maxRetries: 132,
-            timeout: 40000
+            timeout: 40000,
         },
         webSocket: {
             url: 'ws://example.ws',
-            autoOpen: true
-        }
-    }
+            autoOpen: true,
+        },
+    },
 });
 
 MyTgFancyBot.resolveChatId('chat id');

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { PureComponent, ReactType } from "react";
-import { Options as CompilerOptions, AST } from "idyll-compiler";
+import { PureComponent, ReactType } from 'react';
+import { Options as CompilerOptions, AST } from 'idyll-compiler';
 
 export interface IdyllDocumentProps {
     /**
@@ -46,7 +46,7 @@ export interface IdyllDocumentProps {
      */
     errorComponent?: ReactType<{
         className?: string;
-        children: Error["message"] | null;
+        children: Error['message'] | null;
     }>;
     /**
      * Compiler option for Idyll compiler when compiling markup

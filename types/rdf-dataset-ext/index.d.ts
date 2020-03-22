@@ -11,14 +11,23 @@ import { BaseQuad, DatasetCore, Quad, Stream, Term } from 'rdf-js';
  *
  * Returns the given dataset.
  */
-export function addAll<Q extends BaseQuad = Quad, D extends DatasetCore<Q> = DatasetCore<Q>>(dataset: D, iterable: Iterable<Q>): D;
+export function addAll<Q extends BaseQuad = Quad, D extends DatasetCore<Q> = DatasetCore<Q>>(
+    dataset: D,
+    iterable: Iterable<Q>,
+): D;
 
 /**
  * Deletes all quads in the given dataset which match the given subject, predicate, object, graph pattern.
  *
  * `.match` of dataset is used to find the matches and .delete to delete all matches. Returns the given dataset.
  */
-export function deleteMatch<D extends DatasetCore<BaseQuad> = DatasetCore>(dataset: D, subject?: Term, predicate?: Term, object?: Term, graph?: Term): D;
+export function deleteMatch<D extends DatasetCore<BaseQuad> = DatasetCore>(
+    dataset: D,
+    subject?: Term,
+    predicate?: Term,
+    object?: Term,
+    graph?: Term,
+): D;
 
 /**
  * Tests if the datasets a and b contain the same quads without doing a normalization step beforehand.

@@ -13,16 +13,16 @@ declare enum JavaAppletStatus {
      * @summary Applet is loading.
      */
     Loading = 1,
-        
+
     /**
      * @summary Applet has loaded completely and is ready to receive JavaScript calls.
      */
     Ready = 2,
-        
+
     /**
      * @summary Error while loading applet.
      */
-    Error = 3
+    Error = 3,
 }
 
 /**
@@ -36,19 +36,19 @@ interface JavaApplet extends HTMLAppletElement {
      * @type {Function}
      */
     onError?: Function;
-    
+
     /**
      * @summary Handler if the applet status is {@link JavaAppletStatus#Ready}. Applet has finished loading and is ready to receive JavaScript calls.
      * @type {Function}
      */
     onLoad?: Function;
-    
+
     /**
      * @summary Handler if the applet has stopped.
      * @type {Function}
      */
     onStop?: Function;
-    
+
     /**
      * @summary Java applet Status.
      * @type {JavaAppletStatus}

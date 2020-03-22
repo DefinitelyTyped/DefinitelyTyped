@@ -32,4 +32,3 @@ declare module 'react' {
         export function update(value: {}, spec: UpdateSpec): any;
     }
 }
-

@@ -14,15 +14,15 @@ export { prop, props, link, define, emit, shadow, name } from './api';
 
 // Public types ( Unfortunately TS doesn't have Opaque Types like Flow )
 export {
-  Constructor,
-  CustomElement,
-  ComponentProps,
-  PropOptions,
-  Renderer,
-  WithComponent,
-  WithLifecycle,
-  WithContext,
-  WithChildren,
-  WithUpdate,
-  WithRenderer
+    Constructor,
+    CustomElement,
+    ComponentProps,
+    PropOptions,
+    Renderer,
+    WithComponent,
+    WithLifecycle,
+    WithContext,
+    WithChildren,
+    WithUpdate,
+    WithRenderer,
 } from './types';

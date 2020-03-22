@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type TableProps = {
     headers: Array<string | React.ReactNode>;
@@ -17,7 +17,7 @@ export type TableProps = {
 } & { [x: string]: any };
 
 declare const Table: React.FunctionComponent<TableProps> & {
-    displayName: "Table";
+    displayName: 'Table';
 };
 
 export default Table;

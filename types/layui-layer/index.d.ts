@@ -101,7 +101,7 @@ declare namespace layer {
          * 'c'    //按钮居中对齐
          * 'r'    //按钮右对齐。默认值，不用设置
          */
-        btnAlign?: "l" | "c" | "r";
+        btnAlign?: 'l' | 'c' | 'r';
         /**
          * 关闭按钮
          * @description layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
@@ -364,9 +364,9 @@ declare namespace layer {
     }
 
     namespace callback {
-        type Yes = NonNullable<Options["yes"]>;
-        type Cancel = NonNullable<Options["cancel"]>;
-        type End = NonNullable<Options["end"]>;
+        type Yes = NonNullable<Options['yes']>;
+        type Cancel = NonNullable<Options['cancel']>;
+        type End = NonNullable<Options['end']>;
         type Prompt = (value: string, index: Index, elem: JQuery) => void;
     }
 

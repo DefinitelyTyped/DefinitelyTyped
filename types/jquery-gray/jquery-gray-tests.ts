@@ -1,4 +1,4 @@
-import { Options } from "jquery-gray";
+import { Options } from 'jquery-gray';
 
 // basic usage
 $('.images').gray();
@@ -9,8 +9,8 @@ $('.images').toggleClass('grayscale-off');
 const options: Options = {
     fade: true,
     classes: {
-        fade: 'grayscale-fade'
-    }
+        fade: 'grayscale-fade',
+    },
 };
 
 $('.images').gray(options);

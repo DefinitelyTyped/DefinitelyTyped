@@ -6,21 +6,26 @@
 // Based on https://github.com/facebook/jsx/blob/master/AST.md.
 // Extends existing types for ESTree AST from `@types/estree`.
 
-import {
-    BaseExpression,
-    BaseNode,
-    Expression,
-    Literal,
-    Node as ESTreeNode
-} from 'estree';
+import { BaseExpression, BaseNode, Expression, Literal, Node as ESTreeNode } from 'estree';
 
 export * from 'estree';
 
 export type Node =
-    ESTreeNode | JSXIdentifier | JSXNamespacedName | JSXMemberExpression |
-    JSXEmptyExpression | JSXExpressionContainer | JSXSpreadAttribute |
-    JSXAttribute | JSXOpeningElement | JSXOpeningFragment | JSXClosingElement |
-    JSXClosingFragment | JSXElement | JSXFragment | JSXText;
+    | ESTreeNode
+    | JSXIdentifier
+    | JSXNamespacedName
+    | JSXMemberExpression
+    | JSXEmptyExpression
+    | JSXExpressionContainer
+    | JSXSpreadAttribute
+    | JSXAttribute
+    | JSXOpeningElement
+    | JSXOpeningFragment
+    | JSXClosingElement
+    | JSXClosingFragment
+    | JSXElement
+    | JSXFragment
+    | JSXText;
 
 export interface JSXIdentifier extends BaseNode {
     type: 'JSXIdentifier';

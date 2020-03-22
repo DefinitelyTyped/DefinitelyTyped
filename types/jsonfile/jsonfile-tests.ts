@@ -19,11 +19,11 @@ jsonfile.readFile(file, (err, obj) => {
     obj;
 });
 
-jsonfile.readFile(file).then(obj => {
+jsonfile.readFile(file).then((obj) => {
     // $ExpectType any
     obj;
 });
-jsonfile.readFile(file, { encoding: 'utf8', throws: true }).then(obj => {
+jsonfile.readFile(file, { encoding: 'utf8', throws: true }).then((obj) => {
     // $ExpectType any
     obj;
 });
@@ -33,25 +33,25 @@ jsonfile.readFileSync(file);
 jsonfile.readFileSync(file, { encoding: 'utf8', throws: true });
 
 // $ExpectType void
-jsonfile.writeFile(file, obj, err => {
+jsonfile.writeFile(file, obj, (err) => {
     // $ExpectType ErrnoException
     err;
 });
 
 // $ExpectType void
-jsonfile.writeFile(file, obj, { spaces: 2 }, err => {
+jsonfile.writeFile(file, obj, { spaces: 2 }, (err) => {
     // $ExpectType ErrnoException
     err;
 });
 
 // $ExpectType void
-jsonfile.writeFile(file, obj, { spaces: 2, EOL: '\r\n' }, err => {
+jsonfile.writeFile(file, obj, { spaces: 2, EOL: '\r\n' }, (err) => {
     // $ExpectType ErrnoException
     err;
 });
 
 // $ExpectType void
-jsonfile.writeFile(file, obj, { flag: 'a' }, err => {
+jsonfile.writeFile(file, obj, { flag: 'a' }, (err) => {
     // $ExpectType ErrnoException
     err;
 });

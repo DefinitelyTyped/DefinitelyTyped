@@ -9,9 +9,9 @@ const defaultOptions: Options = {
 
 const d2u = new D2UConverter(defaultOptions);
 
-d2u.on('error', err => err)
-    .on('end', stats => stats)
-    .on('processing.end', data => data);
+d2u.on('error', (err) => err)
+    .on('end', (stats) => stats)
+    .on('processing.end', (data) => data);
 
 d2u.process(['docs/README.txt']);
 d2u.process(['docs/README.txt', 'examples/HelloWorld.js']);

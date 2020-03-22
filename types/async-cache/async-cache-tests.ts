@@ -6,10 +6,10 @@ const stats = new AsyncCache<number>({
     load(key, cb) {
         key; // $ExpectType string
         cb; // $ExpectType (error: any, asyncValue: number, maxAge?: number | undefined) => void
-    }
+    },
 });
 AsyncCache({
-    load(key, cb) {}
+    load(key, cb) {},
 });
 
 stats.get('', (er, stat) => {

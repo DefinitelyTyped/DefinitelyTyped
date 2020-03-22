@@ -23,7 +23,10 @@ export interface BatchResultInfo {
 
 export class Batch extends Writable {
     check(callback?: (batchInfo: BatchInfo) => void): Promise<BatchInfo>;
-    execute(input?: Record[] | Stream | string, callback?: (err: Error, result: RecordResult[] | BatchResultInfo[]) => void): Batch;
+    execute(
+        input?: Record[] | Stream | string,
+        callback?: (err: Error, result: RecordResult[] | BatchResultInfo[]) => void,
+    ): Batch;
     poll(interval: number, timeout: number): void;
     retrieve(callback?: (batchInfo: BatchInfo) => void): Promise<RecordResult[] | BatchResultInfo[]>;
     then(): Promise<any>;

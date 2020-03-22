@@ -46,22 +46,22 @@ class Foo {
 Object.defineProperties(
     Foo.prototype,
     autoBind({
-        increment: d(function(this: any) {
+        increment: d(function (this: any) {
             ++this._count;
         }),
-    })
+    }),
 );
 autoBind(
     {
-        increment: d(function(this: any) {
+        increment: d(function (this: any) {
             ++this._count;
         }),
     },
-    { overwriteDefinition: true }
+    { overwriteDefinition: true },
 );
 autoBind(
     {
-        increment: d(function(this: any) {
+        increment: d(function (this: any) {
             ++this._count;
         }),
     },
@@ -69,7 +69,7 @@ autoBind(
         resolveContext(ctx: any) {
             return ctx;
         },
-    }
+    },
 );
 
 Object.defineProperties(
@@ -78,7 +78,7 @@ Object.defineProperties(
         items: d(() => {
             return [];
         }),
-    })
+    }),
 );
 
 const foo = new Foo();

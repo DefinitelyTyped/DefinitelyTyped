@@ -7,15 +7,25 @@
 declare namespace MediumEditor {
     export interface MediumEditor {
         // Initialization Functions
-        new(elements: elementType, options?: CoreOptions): MediumEditor;
+        new (elements: elementType, options?: CoreOptions): MediumEditor;
         destroy(): void;
         setup(): void;
         addElements(elements: elementType): void;
         removeElements(elements: elementType): void;
 
         // Event Functions
-        on(targets: HTMLElement | NodeList, event: string, listener: EventListenerOrEventListenerObject, useCapture: boolean): MediumEditor;
-        off(targets: HTMLElement | NodeList, event: string, listener: EventListenerOrEventListenerObject, useCapture: boolean): MediumEditor;
+        on(
+            targets: HTMLElement | NodeList,
+            event: string,
+            listener: EventListenerOrEventListenerObject,
+            useCapture: boolean,
+        ): MediumEditor;
+        off(
+            targets: HTMLElement | NodeList,
+            event: string,
+            listener: EventListenerOrEventListenerObject,
+            useCapture: boolean,
+        ): MediumEditor;
         subscribe(name: string, listener: (data: any, editable: HTMLElement) => void): MediumEditor;
         unsubscribe(name: string, listener: (data: any, editable: HTMLElement) => void): MediumEditor;
         trigger(name: string, data: any, editable: HTMLElement): MediumEditor;
@@ -163,7 +173,7 @@ declare namespace MediumEditor {
         action?: string;
         aria?: string;
         tagNames?: string[];
-        style?: { prop: string, value: string };
+        style?: { prop: string; value: string };
         useQueryState?: boolean;
         contentDefault?: string;
         contentFA?: string;
@@ -181,6 +191,6 @@ declare namespace MediumEditor {
 
 declare var MediumEditor: MediumEditor.MediumEditor;
 
-declare module "medium-editor" {
+declare module 'medium-editor' {
     export = MediumEditor;
 }

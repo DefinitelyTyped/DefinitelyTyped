@@ -6,11 +6,11 @@ const comp: m.Component = {
     },
 };
 
-m.mount(document.getElementById('comp')!, comp)
+m.mount(document.getElementById('comp')!, comp);
 
-const vnode = m('div', 'Test')
+const vnode = m('div', 'Test');
 
-const s: m.Stream<number> = m.stream(1)
+const s: m.Stream<number> = m.stream(1);
 
 const qstr = m.buildQueryString({ a: 1, b: 'abc' });
 const params = m.parseQueryString(qstr);

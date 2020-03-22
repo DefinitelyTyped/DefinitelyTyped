@@ -7,21 +7,21 @@ export interface Documentable {
     experimental?: boolean;
 }
 
-export interface BaseType<T= string> {
+export interface BaseType<T = string> {
     type: T;
 }
 
-export interface StringType extends BaseType<"string"> {
+export interface StringType extends BaseType<'string'> {
     enum?: string[];
 }
 
-export interface ArrayType extends BaseType<"array"> {
+export interface ArrayType extends BaseType<'array'> {
     items: Field;
     minItems?: number;
     maxItems?: number;
 }
 
-export interface ObjectDefinition extends BaseType<"object"> {
+export interface ObjectDefinition extends BaseType<'object'> {
     properties?: Parameter[];
 }
 
@@ -29,19 +29,24 @@ export interface ObjectReference {
     $ref: string;
 }
 
-export type TypeDefinition = BaseType<"any"|"integer"|"number"|"boolean"> |
-    StringType | ArrayType | ObjectDefinition;
+export type TypeDefinition =
+    | BaseType<'any' | 'integer' | 'number' | 'boolean'>
+    | StringType
+    | ArrayType
+    | ObjectDefinition;
 
-export type Type = TypeDefinition & Documentable & {
-    id: string,
-};
+export type Type = TypeDefinition &
+    Documentable & {
+        id: string;
+    };
 
 export type Field = TypeDefinition | ObjectReference;
 
-export type Parameter = Field & Documentable & {
-    name: string,
-    optional?: boolean,
-};
+export type Parameter = Field &
+    Documentable & {
+        name: string;
+        optional?: boolean;
+    };
 
 export interface Command extends Documentable {
     name: string;
@@ -60,14 +65,16 @@ export interface Event extends Documentable {
 // this type.
 export interface Schema {
     version: {
-        major: string,
-        minor: string,
+        major: string;
+        minor: string;
     };
-    domains: Array<{
-        domain: string,
-        types?: Type[],
-        commands?: Command[],
-        events?: Event[],
-        dependencies?: string[],
-    } & Documentable>;
+    domains: Array<
+        {
+            domain: string;
+            types?: Type[];
+            commands?: Command[];
+            events?: Event[];
+            dependencies?: string[];
+        } & Documentable
+    >;
 }

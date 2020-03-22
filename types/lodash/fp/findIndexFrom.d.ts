@@ -1,2 +1,2 @@
-import { findIndexFrom } from "../fp";
+import { findIndexFrom } from '../fp';
 export = findIndexFrom;

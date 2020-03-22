@@ -51,7 +51,7 @@ const configMinify = {
             context: {
                 title: 'Minification demo',
             },
-            template: context => minify(MiniHtmlWebpackPlugin.defaultTemplate(context)),
+            template: (context) => minify(MiniHtmlWebpackPlugin.defaultTemplate(context)),
         }),
     ],
 };

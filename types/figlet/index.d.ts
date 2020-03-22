@@ -202,7 +202,7 @@ declare namespace figlet {
         | 'Octal'
         | 'Ogre'
         | 'Old Banner'
-        | 'Patorjk\'s Cheese'
+        | "Patorjk's Cheese"
         | 'Patorjk-HeX'
         | 'Pawp'
         | 'Peaks Slant'
@@ -295,16 +295,9 @@ declare namespace figlet {
         | 'Weird'
         | 'Wet Letter'
         | 'Whimsy'
-        | 'Wow'
-        ;
+        | 'Wow';
 
-    type KerningMethods =
-        | 'default'
-        | 'full'
-        | 'fitted'
-        | 'controlled smushing'
-        | 'universal smushing'
-        ;
+    type KerningMethods = 'default' | 'full' | 'fitted' | 'controlled smushing' | 'universal smushing';
     type PrintDirection = number;
 
     interface FittingRules {
@@ -364,7 +357,10 @@ declare namespace figlet {
     // tslint:disable-next-line: unified-signatures
     function textSync(txt: string, options: Options): string;
 
-    function metadata(font: Fonts, cb: (error: Error | null, fontOptions?: FontOptions, headerComment?: string) => void): void;
+    function metadata(
+        font: Fonts,
+        cb: (error: Error | null, fontOptions?: FontOptions, headerComment?: string) => void,
+    ): void;
 
     function defaults(opt?: Partial<Defaults>): Defaults;
 
@@ -400,7 +396,11 @@ declare function figlet(txt: string, font: figlet.Fonts, cb: (error: Error | nul
  * This `unified-signatures` is disabled because `Fonts` type is too long
  */
 // tslint:disable-next-line: unified-signatures
-declare function figlet(txt: string, options: figlet.Options | undefined, cb: (error: Error | null, result?: string) => void): void;
+declare function figlet(
+    txt: string,
+    options: figlet.Options | undefined,
+    cb: (error: Error | null, result?: string) => void,
+): void;
 
 export as namespace figlet;
 export = figlet;

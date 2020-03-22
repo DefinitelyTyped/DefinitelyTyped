@@ -6,7 +6,7 @@
 
 /// <reference types="jquery" />
 declare namespace JQueryAwesomeCursor {
-    type flip = "horizontal" | "vertical" | "both";
+    type flip = 'horizontal' | 'vertical' | 'both';
     type cssHandler = (name: string) => void;
 
     interface Options {

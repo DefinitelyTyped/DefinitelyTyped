@@ -11,7 +11,7 @@ robot.brain; // $ExpectType Brain<Adapter>
 robot.catchAll(() => null); // $ExpectType void
 robot.emit('test', 'arg'); // $ExpectType void
 robot.enter(() => null); // $ExpectType void
-robot.error(err => null); // $ExpectType void
+robot.error((err) => null); // $ExpectType void
 robot.hear(/hello/, () => null); // $ExpectType void
 robot.helpCommands(); // $ExpectType string[]
 robot.http('https://google.com'); // $ExpectType ScopedClient
@@ -58,7 +58,7 @@ robot.send(
     'Replying to friends',
 );
 robot.shutdown(); // $ExpectType void
-robot.topic(message => null); // $ExpectType void
+robot.topic((message) => null); // $ExpectType void
 
 const brain = new Brain(robot);
 brain; // $ExpectType Brain<Adapter>

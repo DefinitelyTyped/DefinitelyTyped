@@ -32,6 +32,6 @@ declare global {
         /**
          * Initialize appear plugin
          */
-        appear<T>(callback: ((element: HTMLElement, data: T) => void), options?: Options<T>): JQuery;
+        appear<T>(callback: (element: HTMLElement, data: T) => void, options?: Options<T>): JQuery;
     }
 }

@@ -38,8 +38,8 @@ declare namespace ReactTooltip {
      * at least using *EventMap will give developers some type hinting, but there's no way we can reliably
      * type this.
      */
-    type ElementEvents = (keyof HTMLElementEventMap) | string;
-    type WindowEvents = (keyof WindowEventMap) | string;
+    type ElementEvents = keyof HTMLElementEventMap | string;
+    type WindowEvents = keyof WindowEventMap | string;
 
     type GetContentCallback = (dataTip: string) => React.ReactNode;
     type GetContent = GetContentCallback | [GetContentCallback, number];

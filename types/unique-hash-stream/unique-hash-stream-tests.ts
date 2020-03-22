@@ -1,7 +1,7 @@
 import unique = require('unique-hash-stream');
 
 const stream = unique();
-unique(doc => {
+unique((doc) => {
     doc; // $ExpectType any
     return 'foo';
 });

@@ -27,7 +27,7 @@ declare namespace anchorjs {
     }
 
     interface AnchorStatic {
-        new(options?: AnchorOptions): Anchor;
+        new (options?: AnchorOptions): Anchor;
     }
 }
 

@@ -11,7 +11,7 @@ stream1.pipe(createWriteStream('combined.txt'));
 
 const stream2 = CombinedStream.create({
     maxDataSize: 1 << 32,
-    pauseStreams: false
+    pauseStreams: false,
 });
 
 stream1.destroy();
@@ -19,7 +19,7 @@ stream1.destroy();
 // should log true
 console.log(CombinedStream.isStreamLike(stream2));
 
-stream2.on('data', data => {
+stream2.on('data', (data) => {
     console.log(data);
 });
 
@@ -33,7 +33,7 @@ const arrowFunction = (): CombinedStream => {
     const stream3 = new CombinedStream();
 
     // test next function
-    stream3.append(next => {
+    stream3.append((next) => {
         stream3.append('hello world');
         next(createReadStream(''));
     });

@@ -1,6 +1,6 @@
-import nodes = require("ast-types/gen/nodes");
-import recast = require("recast");
-import Collection = require("../Collection");
+import nodes = require('ast-types/gen/nodes');
+import recast = require('recast');
+import Collection = require('../Collection');
 
 type ASTPath<N> = recast.NodePath<N, N>;
 type JSXElement = nodes.JSXElement;
@@ -24,7 +24,7 @@ export interface GlobalMethods {
 }
 
 type Defined<T> = T extends undefined ? never : T;
-type JSXElementChild = Defined<JSXElement["children"]>[0];
+type JSXElementChild = Defined<JSXElement['children']>[0];
 
 export interface TraversalMethods {
     /**

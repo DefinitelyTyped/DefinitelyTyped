@@ -6,10 +6,10 @@ const middleware = middlewareBuilder();
 io.use(middleware);
 
 io.on('connection', (socket) => {
-  socket.on('*', (packet) => {
-    // client.emit('foo', 'bar', 'baz')
-    packet.data === ['foo', 'bar', 'baz'];
-  });
+    socket.on('*', (packet) => {
+        // client.emit('foo', 'bar', 'baz')
+        packet.data === ['foo', 'bar', 'baz'];
+    });
 });
 
 io.listen(8000);
@@ -20,5 +20,4 @@ import patchBuilder = require('socketio-wildcard');
 const patch = patchBuilder(clientIo.Manager);
 patch(socket);
 
-socket.on('*', () => {
-});
+socket.on('*', () => {});

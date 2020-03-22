@@ -24,11 +24,11 @@ router.add('get', '/path/:id', () => {}, { name: 'foo', wildcardInPairs: true })
 
 // `RouteParams`
 router.build('foo', { string: 'a' }); // $ExpectType string
-router.build('foo', { stringArray: [ 'a', 'b' ] }); // $ExpectType string
+router.build('foo', { stringArray: ['a', 'b'] }); // $ExpectType string
 router.build('foo', { number: 1 }); // $ExpectType string
-router.build('foo', { numberArray: [ 1, 2 ] }); // $ExpectType string
+router.build('foo', { numberArray: [1, 2] }); // $ExpectType string
 router.build('foo', { boolean: true }); // $ExpectType string
-router.build('foo', { booleanArray: [ true, false ] }); // $ExpectType string
+router.build('foo', { booleanArray: [true, false] }); // $ExpectType string
 router.build('foo', { null: null }); // $ExpectType string
 
 const req: express.Request = {} as any;

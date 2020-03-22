@@ -132,7 +132,7 @@ function getLocalIpArray(): string[] {
     const ipArray: string[] = [];
     for (const dev in interfaces) {
         for (const iface of interfaces[dev]) {
-            if (iface.family === "IPv4" && !iface.internal) {
+            if (iface.family === 'IPv4' && !iface.internal) {
                 ipArray.push(iface.address);
             }
         }
@@ -143,16 +143,16 @@ function getLocalIpArray(): string[] {
 function serverTest2() {
     const server = http.createServer((req, rsp) => {
         rsp.writeHead(200);
-        rsp.end("Hello, world!");
+        rsp.end('Hello, world!');
     });
     server.listen(8888);
 
     const wsServer = new websocket.server({
         httpServer: server,
-        autoAcceptConnections: true
+        autoAcceptConnections: true,
     });
 
-    wsServer.on("connect", (conn) => {
+    wsServer.on('connect', (conn) => {
         conn.sendUTF(`Your IP Address is - ${conn.remoteAddress}`);
     });
 }
@@ -161,16 +161,16 @@ function clientTest2() {
     const ipArray = getLocalIpArray();
 
     const client = new websocket.client();
-    client.on('connect', conn => {
+    client.on('connect', (conn) => {
         console.log(`on connect`);
-        conn.on('frame', frame => {
+        conn.on('frame', (frame) => {
             console.log(`on frame - ${frame.binaryPayload.toString()}`);
         });
-        conn.on('message', data => {
+        conn.on('message', (data) => {
             console.log(`on message - ${data.utf8Data}`);
         });
     });
-    client.on('connectFailed', err => {
+    client.on('connectFailed', (err) => {
         console.log(`on failed: ${err}`);
     });
     client.connect(`ws://${ipArray[0]}:8888`, null, null, null, {
@@ -189,12 +189,12 @@ function clientTest3() {
         console.log('opened');
     };
 
-    client.onmessage = event => {
+    client.onmessage = (event) => {
         console.log('message');
         console.log(event);
     };
 
-    client.onclose = event => {
+    client.onclose = (event) => {
         console.log('closed');
         console.log(event);
     };
@@ -204,7 +204,7 @@ function testClientAbortApi() {
     const ipArray = getLocalIpArray();
     const client = new websocket.client();
     client.connect(`ws://${ipArray[0]}:8888`, undefined, undefined, undefined, {
-        localAddress: ipArray[0]
+        localAddress: ipArray[0],
     });
     client.abort();
 }

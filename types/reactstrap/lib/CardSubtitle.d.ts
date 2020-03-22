@@ -8,5 +8,5 @@ export interface CardSubtitleProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class CardSubtitle<T = {[key: string]: any}> extends React.Component<CardSubtitleProps> {}
+declare class CardSubtitle<T = { [key: string]: any }> extends React.Component<CardSubtitleProps> {}
 export default CardSubtitle;

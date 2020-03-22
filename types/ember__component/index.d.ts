@@ -6,10 +6,10 @@
 
 /// <reference types="jquery" />
 
-import CoreView from "@ember/component/-private/core-view";
-import ClassNamesSupport from "@ember/component/-private/class-names-support";
-import ViewMixin from "@ember/component/-private/view-mixin";
-import ActionSupport from "@ember/component/-private/action-support";
+import CoreView from '@ember/component/-private/core-view';
+import ClassNamesSupport from '@ember/component/-private/class-names-support';
+import ViewMixin from '@ember/component/-private/view-mixin';
+import ActionSupport from '@ember/component/-private/action-support';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 interface TemplateFactory {
@@ -21,11 +21,7 @@ interface TemplateFactory {
  * optional class. When a component has a class, its template's `this` value
  * is an instance of the component class.
  */
-export default class Component extends CoreView.extend(
-    ViewMixin,
-    ActionSupport,
-    ClassNamesSupport
-) {
+export default class Component extends CoreView.extend(ViewMixin, ActionSupport, ClassNamesSupport) {
     // methods
     readDOMAttr(name: string): string;
     // properties

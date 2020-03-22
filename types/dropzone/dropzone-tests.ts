@@ -176,13 +176,13 @@ const dropzone = new Dropzone('.test');
 
 dropzone.options.clickable = true;
 if (!dropzone.options.headers) {
-	dropzone.options.headers = {};
+    dropzone.options.headers = {};
 }
 dropzone.options.headers.test = 'test';
 dropzone.enable();
 dropzone.disable();
 
-dropzone.files.forEach(f => {
+dropzone.files.forEach((f) => {
     if (f.xhr) {
         console.log(f.xhr.readyState);
     }

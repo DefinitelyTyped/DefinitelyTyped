@@ -25,7 +25,7 @@ app.context.logger = {
 app.use((ctx, next) => {
     ctx.state.stateProperty = false;
     return next();
-})
+});
 
 app.use<{ a: boolean }>(async (ctx, next) => {
     ctx.state.a = true;
@@ -45,7 +45,7 @@ app.use((ctx, next) => {
 });
 
 // response
-app.use(ctx => {
+app.use((ctx) => {
     ctx.body = 'Hello World';
     ctx.body = ctx.URL.toString();
 });

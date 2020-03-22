@@ -5,9 +5,7 @@ console.log(NProgress.version);
 
 // $ExpectType NProgress
 NProgress.start();
-NProgress.inc()
-    .inc(0.2)
-    .done();
+NProgress.inc().inc(0.2).done();
 
 NProgress.set(0.5);
 NProgress.trickle();
@@ -24,5 +22,5 @@ NProgress.configure({
     trickleSpeed: 250,
     parent: '#content',
     // $ExpectError
-    foo: ''
+    foo: '',
 });

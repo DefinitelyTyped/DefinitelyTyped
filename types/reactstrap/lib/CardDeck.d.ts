@@ -8,5 +8,5 @@ export interface CardDeckProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class CardDeck<T = {[key: string]: any}> extends React.Component<CardDeckProps> {}
+declare class CardDeck<T = { [key: string]: any }> extends React.Component<CardDeckProps> {}
 export default CardDeck;

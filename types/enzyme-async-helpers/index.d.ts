@@ -9,19 +9,15 @@ import { ReactWrapper, EnzymeSelector } from 'enzyme';
 export function waitForState(
     wrapper: ReactWrapper,
     stateValidationFn: (state: object) => boolean,
-    config?: Config
+    config?: Config,
 ): Promise<void>;
 
-export function waitForElement(
-    wrapper: ReactWrapper,
-    elementSelector: EnzymeSelector,
-    config?: Config
-): Promise<void>;
+export function waitForElement(wrapper: ReactWrapper, elementSelector: EnzymeSelector, config?: Config): Promise<void>;
 
 export function waitForProps(
     wrapper: ReactWrapper,
     propsValidationFn: (props: object) => boolean,
-    config?: Config
+    config?: Config,
 ): Promise<void>;
 
 export interface Config {

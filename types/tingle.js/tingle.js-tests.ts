@@ -15,6 +15,6 @@ instance = new modal({
     },
 });
 
-instance.addFooterBtn('text', undefined, e => e.x);
+instance.addFooterBtn('text', undefined, (e) => e.x);
 
 instance.setStickyFooter(false);

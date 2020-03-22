@@ -1,5 +1,5 @@
-import AmChart from "./AmChart";
-import AmGraph from "./AmGraph";
+import AmChart from './AmChart';
+import AmGraph from './AmGraph';
 
 /**
  * ChartCursor is a class which displays a cursor which follows the mouse.
@@ -118,28 +118,26 @@ export default class ChartCursor {
      */
     addListener(
         type: string,
-        handler: (
-            e: {
-                chart: AmChart;
-                delta2X?: number;
-                delta2Y?: number;
-                deltaX?: number;
-                deltaY?: number;
-                end?: number;
-                finalX?: number;
-                finalY?: number;
-                index?: number;
-                initialX?: number;
-                initialY?: number;
-                mostCloseGraph?: AmGraph;
-                start?: number;
-                target?: ChartCursor;
-                type: string;
-                x?: number;
-                y?: number;
-                zooming?: boolean;
-            },
-        ) => void,
+        handler: (e: {
+            chart: AmChart;
+            delta2X?: number;
+            delta2Y?: number;
+            deltaX?: number;
+            deltaY?: number;
+            end?: number;
+            finalX?: number;
+            finalY?: number;
+            index?: number;
+            initialX?: number;
+            initialY?: number;
+            mostCloseGraph?: AmGraph;
+            start?: number;
+            target?: ChartCursor;
+            type: string;
+            x?: number;
+            y?: number;
+            zooming?: boolean;
+        }) => void,
     ): void;
 
     /**

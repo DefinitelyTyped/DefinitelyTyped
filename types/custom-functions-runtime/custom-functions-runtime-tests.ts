@@ -7,7 +7,7 @@ CustomFunctions.associate('ADD10', add10);
 
 CustomFunctions.associate({
     ADD10: add10,
-    RANDOM: (n: number) => n * Math.random()
+    RANDOM: (n: number) => n * Math.random(),
 });
 
 function callerAddress(invocation: CustomFunctions.Invocation) {
@@ -16,11 +16,13 @@ function callerAddress(invocation: CustomFunctions.Invocation) {
 
 async function getStockValues(ticker: string): Promise<number> {
     const response = await fetch(`myService.com/prices/${ticker}`);
-    return (await response.json())["price"];
+    return (await response.json())['price'];
 }
 
-async function getStockValuesCancellable(ticker: string,
-    invocation: CustomFunctions.CancelableInvocation): Promise<number> {
+async function getStockValuesCancellable(
+    ticker: string,
+    invocation: CustomFunctions.CancelableInvocation,
+): Promise<number> {
     const address = invocation.address;
     let shouldStop = false;
     invocation.onCanceled = () => (shouldStop = true);
@@ -31,13 +33,12 @@ async function getStockValuesCancellable(ticker: string,
     }
 
     const response = await fetch(`myService.com/prices/${ticker}`);
-    return (await response.json())["price"];
+    return (await response.json())['price'];
 }
 
-function stockPriceStream(ticker: string,
-    invocation: CustomFunctions.StreamingInvocation<number>) {
+function stockPriceStream(ticker: string, invocation: CustomFunctions.StreamingInvocation<number>) {
     const address = invocation.address;
-    const updateFrequency = 10 /* milliseconds*/;
+    const updateFrequency = 10; /* milliseconds*/
     let isPending = false;
 
     const timer = setInterval(async () => {

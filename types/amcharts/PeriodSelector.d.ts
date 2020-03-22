@@ -1,4 +1,4 @@
-import AmChart from "./AmChart";
+import AmChart from './AmChart';
 
 export default class PeriodSelector {
     /**
@@ -70,15 +70,7 @@ export default class PeriodSelector {
      */
     addListener(
         type: string,
-        handler: (
-            e: {
-                type: string;
-                startDate: Date;
-                endDate: Date;
-                predefinedPeriod: string;
-                count: number;
-            },
-        ) => void,
+        handler: (e: { type: string; startDate: Date; endDate: Date; predefinedPeriod: string; count: number }) => void,
     ): void;
 
     /**

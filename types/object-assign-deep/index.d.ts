@@ -7,7 +7,7 @@
 declare const objectAssignDeep: ObjectConstructor['assign'];
 
 interface Options {
-    arrayBehaviour: "replace" | "merge";
+    arrayBehaviour: 'replace' | 'merge';
 }
 
 interface objectAssignDeep {

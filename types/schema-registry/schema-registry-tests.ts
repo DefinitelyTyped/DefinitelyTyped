@@ -1,11 +1,13 @@
-import { RegistryClient, RegistryRequest, LivingAvroSchema } from "schema-registry";
+import { RegistryClient, RegistryRequest, LivingAvroSchema } from 'schema-registry';
 
 const config = {
-    host: "host", port: 2,
+    host: 'host',
+    port: 2,
 };
 const registryClient = new RegistryClient(config);
-const livingAvroSchema = new LivingAvroSchema("subject", "version", {
-    host: "host", port: 2,
+const livingAvroSchema = new LivingAvroSchema('subject', 'version', {
+    host: 'host',
+    port: 2,
 });
 
 // $ExpectType Promise<AvroSchemaResponseInterface> || RegistryRequest
@@ -25,14 +27,14 @@ registryClient.request({}, {});
 registryClient.isAlive();
 
 // $ExpectType Promise<AvroSchemaResponseInterface> || RegistryRequest
-registryClient.registerSubjectVersion("string", {});
+registryClient.registerSubjectVersion('string', {});
 // $ExpectError
 registryClient.registerSubjectVersion();
 // $ExpectError
-registryClient.registerSubjectVersion("string");
+registryClient.registerSubjectVersion('string');
 
 // $ExpectType Promise<AvroSchemaResponseInterface> || RegistryRequest
-registryClient.getVersionsForSubject("string");
+registryClient.getVersionsForSubject('string');
 // $ExpectError
 registryClient.getVersionsForSubject();
 // $ExpectError
@@ -46,17 +48,17 @@ registryClient.setConfig({});
 // $ExpectError
 registryClient.setConfig();
 // $ExpectError
-registryClient.setConfig("string");
+registryClient.setConfig('string');
 
 // $ExpectType Promise<AvroSchemaResponseInterface> || RegistryRequest
-registryClient.setSubjectConfig("string", {});
+registryClient.setSubjectConfig('string', {});
 // $ExpectError
 registryClient.setSubjectConfig();
 // $ExpectError
-registryClient.setSubjectConfig("string");
+registryClient.setSubjectConfig('string');
 
 // $ExpectType Promise<AvroSchemaResponseInterface> || RegistryRequest
-registryClient.getSubjectConfig("string");
+registryClient.getSubjectConfig('string');
 // $ExpectError
 registryClient.getSubjectConfig();
 // $ExpectError
@@ -75,16 +77,16 @@ registryClient.getSchemaById({});
 registryClient.getSubjects();
 
 // $ExpectType Promise<AvroSchemaResponseInterface> || RegistryRequest
-registryClient.getSubjectSchemaForVersion("string", 2);
+registryClient.getSubjectSchemaForVersion('string', 2);
 // $ExpectError
-registryClient.getSubjectSchemaForVersion("string", {});
+registryClient.getSubjectSchemaForVersion('string', {});
 // $ExpectError
-registryClient.getSubjectSchemaForVersion("string");
+registryClient.getSubjectSchemaForVersion('string');
 // $ExpectError
 registryClient.getSubjectSchemaForVersion({});
 
 // $ExpectType Promise<AvroSchemaResponseInterface> || RegistryRequest
-registryClient.getLatestSubjectSchema("string");
+registryClient.getLatestSubjectSchema('string');
 // $ExpectError
 registryClient.getLatestSubjectSchema({});
 // $ExpectError
@@ -93,9 +95,9 @@ registryClient.getLatestSubjectSchema(2);
 registryClient.getLatestSubjectSchema();
 
 // $ExpectType Promise<AvroSchemaResponseInterface> || RegistryRequest
-registryClient.checkSubjectRegistration("string", {});
+registryClient.checkSubjectRegistration('string', {});
 // $ExpectError
-registryClient.checkSubjectRegistration("string");
+registryClient.checkSubjectRegistration('string');
 // $ExpectError
 registryClient.checkSubjectRegistration(2);
 // $ExpectError

@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
 export abstract class AsyncIterator<T> implements EventEmitter {
     static STATES: ['INIT', 'OPEN', 'CLOSING', 'CLOSED', 'ENDED'];
@@ -38,8 +38,8 @@ export abstract class AsyncIterator<T> implements EventEmitter {
 
     getProperty(propertyName: string, callback?: (value: any) => void): any;
     setProperty(propertyName: string, value: any): void;
-    getProperties(): {[id: string]: any};
-    setProperties(properties: {[id: string]: any}): void;
+    getProperties(): { [id: string]: any };
+    setProperties(properties: { [id: string]: any }): void;
     copyProperties(source: AsyncIterator<any>, propertyNames: string[]): void;
 
     toString(): string;
@@ -163,8 +163,10 @@ export class SimpleTransformIterator<S, T> extends TransformIterator<S, T> {
 
     _insert(inserter: AsyncIterator<S>, done: () => void): void;
 
-    constructor(source?: AsyncIterator<S> | SimpleTransformIteratorOptions<S, T>,
-                options?: SimpleTransformIteratorOptions<S, T>);
+    constructor(
+        source?: AsyncIterator<S> | SimpleTransformIteratorOptions<S, T>,
+        options?: SimpleTransformIteratorOptions<S, T>,
+    );
 }
 
 export class MultiTransformIterator<S, T> extends TransformIterator<S, T> {

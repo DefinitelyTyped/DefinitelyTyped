@@ -1,5 +1,5 @@
-import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
+import { Component, CSSProperties } from 'react';
+import { CustomPickerProps, ColorState } from '../../..';
 
 export interface TwitterPickerDefaultStyle {
     card?: CSSProperties;
@@ -20,14 +20,14 @@ export interface TwitterPickerTriangleStyle {
 
 export interface TwitterPickerStyle {
     default?: TwitterPickerDefaultStyle;
-    "top-left-triangle"?: TwitterPickerTriangleStyle;
-    "top-right-triangle"?: TwitterPickerTriangleStyle;
+    'top-left-triangle'?: TwitterPickerTriangleStyle;
+    'top-right-triangle'?: TwitterPickerTriangleStyle;
 }
 
 export interface TwitterPickerProps extends CustomPickerProps {
     colors?: string[];
     width?: string;
-    triangle?: "hide" | "top-left" | "top-right";
+    triangle?: 'hide' | 'top-left' | 'top-right';
     onSwatchHover?(color: ColorState, event: MouseEvent): void;
     styles?: TwitterPickerStyle;
     className?: string;

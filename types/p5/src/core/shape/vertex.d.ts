@@ -120,7 +120,7 @@ declare module '../../../index' {
             z3: number,
             x4: number,
             y4: number,
-            z4: number
+            z4: number,
         ): p5;
 
         /**

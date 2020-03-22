@@ -2,8 +2,7 @@
 /// <reference path="../fs.d.ts" />
 
 declare module 'fs' {
-    interface BigIntStats extends StatsBase<BigInt> {
-    }
+    interface BigIntStats extends StatsBase<BigInt> {}
 
     class BigIntStats {
         atimeNs: BigInt;
@@ -20,8 +19,16 @@ declare module 'fs' {
         bigint: boolean;
     }
 
-    function stat(path: PathLike, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
-    function stat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
+    function stat(
+        path: PathLike,
+        options: BigIntOptions,
+        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
+    ): void;
+    function stat(
+        path: PathLike,
+        options: StatOptions,
+        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
+    ): void;
 
     namespace stat {
         function __promisify__(path: PathLike, options: BigIntOptions): Promise<BigIntStats>;

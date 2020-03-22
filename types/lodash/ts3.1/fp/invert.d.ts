@@ -1,2 +1,2 @@
-import { invert } from "../fp";
+import { invert } from '../fp';
 export = invert;

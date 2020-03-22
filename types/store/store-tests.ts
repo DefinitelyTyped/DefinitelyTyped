@@ -16,7 +16,7 @@ console.log('storage is supported: ', store.enabled === true);
 // https://github.com/marcuswestin/store.js/#api
 
 // Store current user
-store.set('user', { name:'Marcus' });
+store.set('user', { name: 'Marcus' });
 
 // Get current user
 store.get('user');
@@ -28,8 +28,8 @@ store.remove('user');
 store.clearAll();
 
 // Loop over all stored values
-store.each(function(value, key) {
-    console.log(key, '==', value)
+store.each(function (value, key) {
+    console.log(key, '==', value);
 });
 
 // https://github.com/marcuswestin/store.js/#write-your-own-plugin
@@ -41,19 +41,19 @@ declare global {
     }
 }
 
-const versionHistoryPlugin = function(this: StoreJsAPI) {
+const versionHistoryPlugin = function (this: StoreJsAPI) {
     const historyStore = this.namespace('history');
     return {
-        set: function(super_fn: () => any, key: string, value: any) {
+        set: function (super_fn: () => any, key: string, value: any) {
             const history = historyStore.get(key) || [];
             history.push(value);
             historyStore.set(key, history);
             return super_fn();
         },
-        getHistory: function(key: string) {
+        getHistory: function (key: string) {
             return historyStore.get(key);
-        }
-    }
+        },
+    };
 };
 store.addPlugin(versionHistoryPlugin);
 store.set('foo', 'bar 1');

@@ -12,4 +12,4 @@ export interface I18nProviderProps {
     missing?: string | ((language: string, id: string) => string);
 }
 
-export default class I18nProvider extends Component<I18nProviderProps> { }
+export default class I18nProvider extends Component<I18nProviderProps> {}

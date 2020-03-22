@@ -5,6 +5,6 @@
 
 declare function millisecond(ms: string | number): number;
 
-declare namespace millisecond { }
+declare namespace millisecond {}
 
 export = millisecond;

@@ -54,10 +54,9 @@ export interface CalculateObjectSizeOptions {
     ignoreUndefined?: boolean;
 }
 
-
 /**
  * Serialize a Javascript object.
- * 
+ *
  * @param object The Javascript object to serialize.
  * @param options Serialize options.
  * @return The Buffer object containing the serialized object.
@@ -66,17 +65,21 @@ export function serialize(object: any, options?: SerializeOptions): Buffer;
 
 /**
  * Serialize a Javascript object using a predefined Buffer and index into the buffer, useful when pre-allocating the space for serialization.
- * 
+ *
  * @param object The Javascript object to serialize.
  * @param buffer The Buffer you pre-allocated to store the serialized BSON object.
  * @param options Serialize options.
  * @returns The index pointing to the last written byte in the buffer
  */
-export function serializeWithBufferAndIndex(object: any, buffer: Buffer, options?: SerializeWithBufferAndIndexOptions): number;
+export function serializeWithBufferAndIndex(
+    object: any,
+    buffer: Buffer,
+    options?: SerializeWithBufferAndIndexOptions,
+): number;
 
 /**
  * Deserialize data as BSON.
- * 
+ *
  * @param buffer The buffer containing the serialized set of BSON documents.
  * @param options Deserialize options.
  * @returns The deserialized Javascript Object.
@@ -94,7 +97,7 @@ export function calculateObjectSize(object: any, options?: CalculateObjectSizeOp
 
 /**
  * Deserialize stream data as BSON documents.
- * 
+ *
  * @param data The buffer containing the serialized set of BSON documents.
  * @param startIndex The start index in the data Buffer where the deserialization is to start.
  * @param numberOfDocuments Number of documents to deserialize
@@ -109,12 +112,11 @@ export function deserializeStream(
     numberOfDocuments: number,
     documents: Array<any>,
     docStartIndex: number,
-    options?: DeserializeOptions
+    options?: DeserializeOptions,
 ): number;
-  
+
 /** A class representation of the BSON Binary type. */
 export class Binary {
-
     static readonly SUBTYPE_DEFAULT: number;
     static readonly SUBTYPE_FUNCTION: number;
     static readonly SUBTYPE_BYTE_ARRAY: number;
@@ -148,7 +150,6 @@ export class Binary {
 
 /** A class representation of the BSON Code type. */
 export class Code {
-
     /**
      * @param code A string or function.
      * @param scope An optional scope for the function.
@@ -157,7 +158,6 @@ export class Code {
 
     readonly code: string | Function;
     readonly scope?: any;
-
 }
 
 /**
@@ -201,7 +201,6 @@ export class Int32 {
  * with 'Long' replaced by 'Timestamp' (changed to inheritance in js-node@2.0.0)
  */
 declare class LongLike<T> {
-
     /**
      * @param low The low (signed) 32 bits.
      * @param high The high (signed) 32 bits.
@@ -285,7 +284,6 @@ declare class LongLike<T> {
     toString(radix?: number): string;
     /** Returns the bitwise-XOR of `this` and the given `other`. */
     xor(other: T): T;
-
 }
 
 /**
@@ -294,7 +292,6 @@ declare class LongLike<T> {
  * implementation is derived from LongLib in GWT.
  */
 export class Long extends LongLike<Long> {
-
     static readonly MAX_VALUE: Long;
     static readonly MIN_VALUE: Long;
     static readonly NEG_ONE: Long;
@@ -316,12 +313,10 @@ export class Long extends LongLike<Long> {
      * @param opt_radix The radix in which the text is written. {default:10}
      */
     static fromString(s: string, opt_radix?: number): Long;
-
 }
 
 /** A class representation of the BSON Decimal128 type. */
 export class Decimal128 {
-
     /** Create a Decimal128 instance from a string representation. */
     static fromString(s: string): Decimal128;
 
@@ -401,19 +396,17 @@ export class ObjectId {
 }
 
 /**
- * ObjectID (with capital "D") is deprecated. Use ObjectId (lowercase "d") instead. 
+ * ObjectID (with capital "D") is deprecated. Use ObjectId (lowercase "d") instead.
  * @deprecated
  */
 export { ObjectId as ObjectID };
 
 /** A class representation of the BSON RegExp type. */
 export class BSONRegExp {
-
     constructor(pattern: string, options: string);
 
     readonly pattern: string;
     readonly options: string;
-
 }
 
 /**
@@ -421,17 +414,14 @@ export class BSONRegExp {
  * @deprecated
  */
 export class Symbol {
-
     constructor(value: string);
 
     /** Access the wrapped string value. */
     valueOf(): string;
-
 }
 
 /** A class representation of the BSON Timestamp type. */
 export class Timestamp extends LongLike<Timestamp> {
-
     static readonly MAX_VALUE: Timestamp;
     static readonly MIN_VALUE: Timestamp;
     static readonly NEG_ONE: Timestamp;
@@ -453,7 +443,6 @@ export class Timestamp extends LongLike<Timestamp> {
      * @param opt_radix The radix in which the text is written. {default:10}
      */
     static fromString(str: string, opt_radix?: number): Timestamp;
-
 }
 
 /**
@@ -461,7 +450,6 @@ export class Timestamp extends LongLike<Timestamp> {
  * @namespace EJSON
  */
 export namespace EJSON {
-
     /**
      * Parse an Extended JSON string, constructing the JavaScript value or object described by that
      * string.
@@ -482,7 +470,7 @@ export namespace EJSON {
      * // prints { int32: 10 }
      * console.log(EJSON.parse(text));
      */
-    export function parse(text: string, options?: {relaxed?: boolean;}): {};
+    export function parse(text: string, options?: { relaxed?: boolean }): {};
 
     /**
      * Deserializes an Extended JSON object into a plain JavaScript object with native/BSON types
@@ -492,7 +480,7 @@ export namespace EJSON {
      * @param {object} [options] Optional settings passed to the parse method
      * @return {object}
      */
-    export function deserialize(ejson: {}, options?: {relaxed?: boolean;}): {};
+    export function deserialize(ejson: {}, options?: { relaxed?: boolean }): {};
 
     /**
      * Serializes an object to an Extended JSON string, and reparse it as a JavaScript object.
@@ -502,7 +490,7 @@ export namespace EJSON {
      * @param {object} [options] Optional settings passed to the `stringify` function
      * @return {object}
      */
-    export function serialize(bson: {}, options?: {relaxed?: boolean;}): {};
+    export function serialize(bson: {}, options?: { relaxed?: boolean }): {};
 
     /**
      * Converts a BSON document to an Extended JSON string, optionally replacing values if a replacer
@@ -527,10 +515,7 @@ export namespace EJSON {
      * // prints '{"int32":10}'
      * console.log(EJSON.stringify(doc));
      */
-    export function stringify(
-        value: {}, 
-        options?: {relaxed?: boolean;}
-    ): string;
+    export function stringify(value: {}, options?: { relaxed?: boolean }): string;
 
     /**
      * Converts a BSON document to an Extended JSON string, optionally replacing values if a replacer
@@ -557,9 +542,9 @@ export namespace EJSON {
      */
 
     export function stringify(
-        value: {}, 
-        replacer: ((key: string, value: any) => any) | Array<string|number>, 
-        options?: {relaxed?: boolean;}
+        value: {},
+        replacer: ((key: string, value: any) => any) | Array<string | number>,
+        options?: { relaxed?: boolean },
     ): string;
     /**
      * Converts a BSON document to an Extended JSON string, optionally replacing values if a replacer
@@ -585,9 +570,9 @@ export namespace EJSON {
      * console.log(EJSON.stringify(doc));
      */
     export function stringify(
-        value: {}, 
-        replacer: ((key: string, value: any) => any) | Array<string | number>, 
-        indents?: string | number, 
-        options?: {relaxed?: boolean;}
-        ): string;  
+        value: {},
+        replacer: ((key: string, value: any) => any) | Array<string | number>,
+        indents?: string | number,
+        options?: { relaxed?: boolean },
+    ): string;
 }

@@ -1,4 +1,4 @@
-import { Node, parse, stringify } from "scss-parser";
+import { Node, parse, stringify } from 'scss-parser';
 
 declare const node: Node;
 

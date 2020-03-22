@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-import * as http from "http";
+import * as http from 'http';
 
 export = deluge;
 
@@ -90,13 +90,20 @@ declare namespace deluge {
          * @param dlPath
          * @param callback
          */
-        add(magnet: string, dlPath: string | DownloadOptions, callback: (error: string, result: boolean, response: http.ServerResponse) => void): void;
+        add(
+            magnet: string,
+            dlPath: string | DownloadOptions,
+            callback: (error: string, result: boolean, response: http.ServerResponse) => void,
+        ): void;
         /**
          * Connect the WebUI to the wanted daemon
          * @param hostID
          * @param callback
          */
-        connect(hostID: string, callback: (error: string, result: boolean, response: http.ServerResponse) => void): void;
+        connect(
+            hostID: string,
+            callback: (error: string, result: boolean, response: http.ServerResponse) => void,
+        ): void;
         /**
          * Get the list of all the hosts that the WebUI can connect to
          * @param callback
@@ -117,6 +124,9 @@ declare namespace deluge {
          * {'http://example.org/': 'uid=1234;pass=xxxx;'}
          * @object cookies
          */
-        setCookies(cookies: { [key: string]: string }, callback: (error: string, result: boolean, response: http.ServerResponse) => void): void;
+        setCookies(
+            cookies: { [key: string]: string },
+            callback: (error: string, result: boolean, response: http.ServerResponse) => void,
+        ): void;
     }
 }

@@ -8,14 +8,13 @@ KafkaAvro.init({
         registry: 'http://schema-registry:8081',
     },
 }).then((client: KafkaAvro.Kafka) => {
-    client
-        .send({
-            topic: 'kafka-topic',
-            key: 'message-key',
-            messages: {
-                name: 'John',
-                lastName: 'Doe',
-                age: 53,
-            },
-        });
+    client.send({
+        topic: 'kafka-topic',
+        key: 'message-key',
+        messages: {
+            name: 'John',
+            lastName: 'Doe',
+            age: 53,
+        },
+    });
 });

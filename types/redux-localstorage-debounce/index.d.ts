@@ -3,10 +3,13 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { StorageAdapter } from "redux-localstorage";
+import { StorageAdapter } from 'redux-localstorage';
 
 export interface DebounceOptions {
     maxWait?: number;
     [key: string]: any;
 }
-export default function debounce(wait: number, options?: number | DebounceOptions): <A>(adapter: StorageAdapter<A>) => StorageAdapter<A>;
+export default function debounce(
+    wait: number,
+    options?: number | DebounceOptions,
+): <A>(adapter: StorageAdapter<A>) => StorageAdapter<A>;

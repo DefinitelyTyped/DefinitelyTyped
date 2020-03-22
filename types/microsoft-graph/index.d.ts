@@ -12,833 +12,833 @@
 
 export as namespace microsoftgraph;
 
-export type RiskLevel = "low" | "medium" | "high" | "hidden" | "none" | "unknownFutureValue";
+export type RiskLevel = 'low' | 'medium' | 'high' | 'hidden' | 'none' | 'unknownFutureValue';
 export type AppliedConditionalAccessPolicyResult =
-    | "success"
-    | "failure"
-    | "notApplied"
-    | "notEnabled"
-    | "unknown"
-    | "unknownFutureValue";
-export type ConditionalAccessStatus = "success" | "failure" | "notApplied" | "unknownFutureValue";
-export type GroupType = "unifiedGroups" | "azureAD" | "unknownFutureValue";
-export type OperationResult = "success" | "failure" | "timeout" | "unknownFutureValue";
+    | 'success'
+    | 'failure'
+    | 'notApplied'
+    | 'notEnabled'
+    | 'unknown'
+    | 'unknownFutureValue';
+export type ConditionalAccessStatus = 'success' | 'failure' | 'notApplied' | 'unknownFutureValue';
+export type GroupType = 'unifiedGroups' | 'azureAD' | 'unknownFutureValue';
+export type OperationResult = 'success' | 'failure' | 'timeout' | 'unknownFutureValue';
 export type RiskState =
-    | "none"
-    | "confirmedSafe"
-    | "remediated"
-    | "dismissed"
-    | "atRisk"
-    | "confirmedCompromised"
-    | "unknownFutureValue";
+    | 'none'
+    | 'confirmedSafe'
+    | 'remediated'
+    | 'dismissed'
+    | 'atRisk'
+    | 'confirmedCompromised'
+    | 'unknownFutureValue';
 export type RiskDetail =
-    | "none"
-    | "adminGeneratedTemporaryPassword"
-    | "userPerformedSecuredPasswordChange"
-    | "userPerformedSecuredPasswordReset"
-    | "adminConfirmedSigninSafe"
-    | "aiConfirmedSigninSafe"
-    | "userPassedMFADrivenByRiskBasedPolicy"
-    | "adminDismissedAllRiskForUser"
-    | "adminConfirmedSigninCompromised"
-    | "hidden"
-    | "adminConfirmedUserCompromised"
-    | "unknownFutureValue";
+    | 'none'
+    | 'adminGeneratedTemporaryPassword'
+    | 'userPerformedSecuredPasswordChange'
+    | 'userPerformedSecuredPasswordReset'
+    | 'adminConfirmedSigninSafe'
+    | 'aiConfirmedSigninSafe'
+    | 'userPassedMFADrivenByRiskBasedPolicy'
+    | 'adminDismissedAllRiskForUser'
+    | 'adminConfirmedSigninCompromised'
+    | 'hidden'
+    | 'adminConfirmedUserCompromised'
+    | 'unknownFutureValue';
 export type RiskEventType =
-    | "unlikelyTravel"
-    | "anonymizedIPAddress"
-    | "maliciousIPAddress"
-    | "unfamiliarFeatures"
-    | "malwareInfectedIPAddress"
-    | "suspiciousIPAddress"
-    | "leakedCredentials"
-    | "investigationsThreatIntelligence"
-    | "generic"
-    | "adminConfirmedUserCompromised"
-    | "mcasImpossibleTravel"
-    | "mcasSuspiciousInboxManipulationRules"
-    | "investigationsThreatIntelligenceSigninLinked"
-    | "maliciousIPAddressValidCredentialsBlockedIP"
-    | "unknownFutureValue";
+    | 'unlikelyTravel'
+    | 'anonymizedIPAddress'
+    | 'maliciousIPAddress'
+    | 'unfamiliarFeatures'
+    | 'malwareInfectedIPAddress'
+    | 'suspiciousIPAddress'
+    | 'leakedCredentials'
+    | 'investigationsThreatIntelligence'
+    | 'generic'
+    | 'adminConfirmedUserCompromised'
+    | 'mcasImpossibleTravel'
+    | 'mcasSuspiciousInboxManipulationRules'
+    | 'investigationsThreatIntelligenceSigninLinked'
+    | 'maliciousIPAddressValidCredentialsBlockedIP'
+    | 'unknownFutureValue';
 export type PhoneType =
-    | "home"
-    | "business"
-    | "mobile"
-    | "other"
-    | "assistant"
-    | "homeFax"
-    | "businessFax"
-    | "otherFax"
-    | "pager"
-    | "radio";
-export type EducationUserRole = "student" | "teacher" | "none" | "unknownFutureValue";
-export type EducationExternalSource = "sis" | "manual" | "unknownFutureValue";
-export type EducationGender = "female" | "male" | "other" | "unknownFutureValue";
-export type AttendeeType = "required" | "optional" | "resource";
-export type ActivityDomain = "unknown" | "work" | "personal" | "unrestricted";
-export type FreeBusyStatus = "free" | "tentative" | "busy" | "oof" | "workingElsewhere" | "unknown";
+    | 'home'
+    | 'business'
+    | 'mobile'
+    | 'other'
+    | 'assistant'
+    | 'homeFax'
+    | 'businessFax'
+    | 'otherFax'
+    | 'pager'
+    | 'radio';
+export type EducationUserRole = 'student' | 'teacher' | 'none' | 'unknownFutureValue';
+export type EducationExternalSource = 'sis' | 'manual' | 'unknownFutureValue';
+export type EducationGender = 'female' | 'male' | 'other' | 'unknownFutureValue';
+export type AttendeeType = 'required' | 'optional' | 'resource';
+export type ActivityDomain = 'unknown' | 'work' | 'personal' | 'unrestricted';
+export type FreeBusyStatus = 'free' | 'tentative' | 'busy' | 'oof' | 'workingElsewhere' | 'unknown';
 export type LocationType =
-    | "default"
-    | "conferenceRoom"
-    | "homeAddress"
-    | "businessAddress"
-    | "geoCoordinates"
-    | "streetAddress"
-    | "hotel"
-    | "restaurant"
-    | "localBusiness"
-    | "postalAddress";
-export type PhysicalAddressType = "unknown" | "home" | "business" | "other";
-export type LocationUniqueIdType = "unknown" | "locationStore" | "directory" | "private" | "bing";
-export type DayOfWeek = "sunday" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday";
-export type AutomaticRepliesStatus = "disabled" | "alwaysEnabled" | "scheduled";
-export type ExternalAudienceScope = "none" | "contactsOnly" | "all";
+    | 'default'
+    | 'conferenceRoom'
+    | 'homeAddress'
+    | 'businessAddress'
+    | 'geoCoordinates'
+    | 'streetAddress'
+    | 'hotel'
+    | 'restaurant'
+    | 'localBusiness'
+    | 'postalAddress';
+export type PhysicalAddressType = 'unknown' | 'home' | 'business' | 'other';
+export type LocationUniqueIdType = 'unknown' | 'locationStore' | 'directory' | 'private' | 'bing';
+export type DayOfWeek = 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
+export type AutomaticRepliesStatus = 'disabled' | 'alwaysEnabled' | 'scheduled';
+export type ExternalAudienceScope = 'none' | 'contactsOnly' | 'all';
 export type MailTipsType =
-    | "automaticReplies"
-    | "mailboxFullStatus"
-    | "customMailTip"
-    | "externalMemberCount"
-    | "totalMemberCount"
-    | "maxMessageSize"
-    | "deliveryRestriction"
-    | "moderationStatus"
-    | "recipientScope"
-    | "recipientSuggestions";
-export type RecipientScopeType = "none" | "internal" | "external" | "externalPartner" | "externalNonPartner";
-export type ExchangeIdFormat = "entryId" | "ewsId" | "immutableEntryId" | "restId" | "restImmutableEntryId";
-export type TimeZoneStandard = "windows" | "iana";
-export type BodyType = "text" | "html";
-export type Importance = "low" | "normal" | "high";
-export type InferenceClassificationType = "focused" | "other";
-export type FollowupFlagStatus = "notFlagged" | "complete" | "flagged";
+    | 'automaticReplies'
+    | 'mailboxFullStatus'
+    | 'customMailTip'
+    | 'externalMemberCount'
+    | 'totalMemberCount'
+    | 'maxMessageSize'
+    | 'deliveryRestriction'
+    | 'moderationStatus'
+    | 'recipientScope'
+    | 'recipientSuggestions';
+export type RecipientScopeType = 'none' | 'internal' | 'external' | 'externalPartner' | 'externalNonPartner';
+export type ExchangeIdFormat = 'entryId' | 'ewsId' | 'immutableEntryId' | 'restId' | 'restImmutableEntryId';
+export type TimeZoneStandard = 'windows' | 'iana';
+export type BodyType = 'text' | 'html';
+export type Importance = 'low' | 'normal' | 'high';
+export type InferenceClassificationType = 'focused' | 'other';
+export type FollowupFlagStatus = 'notFlagged' | 'complete' | 'flagged';
 export type MeetingMessageType =
-    | "none"
-    | "meetingRequest"
-    | "meetingCancelled"
-    | "meetingAccepted"
-    | "meetingTenativelyAccepted"
-    | "meetingDeclined";
+    | 'none'
+    | 'meetingRequest'
+    | 'meetingCancelled'
+    | 'meetingAccepted'
+    | 'meetingTenativelyAccepted'
+    | 'meetingDeclined';
 export type CalendarColor =
-    | "lightBlue"
-    | "lightGreen"
-    | "lightOrange"
-    | "lightGray"
-    | "lightYellow"
-    | "lightTeal"
-    | "lightPink"
-    | "lightBrown"
-    | "lightRed"
-    | "maxColor"
-    | "auto";
-export type ResponseType = "none" | "organizer" | "tentativelyAccepted" | "accepted" | "declined" | "notResponded";
-export type Sensitivity = "normal" | "personal" | "private" | "confidential";
+    | 'lightBlue'
+    | 'lightGreen'
+    | 'lightOrange'
+    | 'lightGray'
+    | 'lightYellow'
+    | 'lightTeal'
+    | 'lightPink'
+    | 'lightBrown'
+    | 'lightRed'
+    | 'maxColor'
+    | 'auto';
+export type ResponseType = 'none' | 'organizer' | 'tentativelyAccepted' | 'accepted' | 'declined' | 'notResponded';
+export type Sensitivity = 'normal' | 'personal' | 'private' | 'confidential';
 export type RecurrencePatternType =
-    | "daily"
-    | "weekly"
-    | "absoluteMonthly"
-    | "relativeMonthly"
-    | "absoluteYearly"
-    | "relativeYearly";
-export type WeekIndex = "first" | "second" | "third" | "fourth" | "last";
-export type RecurrenceRangeType = "endDate" | "noEnd" | "numbered";
-export type EventType = "singleInstance" | "occurrence" | "exception" | "seriesMaster";
-export type SelectionLikelihoodInfo = "notSpecified" | "high";
-export type WebsiteType = "other" | "home" | "work" | "blog" | "profile";
+    | 'daily'
+    | 'weekly'
+    | 'absoluteMonthly'
+    | 'relativeMonthly'
+    | 'absoluteYearly'
+    | 'relativeYearly';
+export type WeekIndex = 'first' | 'second' | 'third' | 'fourth' | 'last';
+export type RecurrenceRangeType = 'endDate' | 'noEnd' | 'numbered';
+export type EventType = 'singleInstance' | 'occurrence' | 'exception' | 'seriesMaster';
+export type SelectionLikelihoodInfo = 'notSpecified' | 'high';
+export type WebsiteType = 'other' | 'home' | 'work' | 'blog' | 'profile';
 export type CategoryColor =
-    | "preset0"
-    | "preset1"
-    | "preset2"
-    | "preset3"
-    | "preset4"
-    | "preset5"
-    | "preset6"
-    | "preset7"
-    | "preset8"
-    | "preset9"
-    | "preset10"
-    | "preset11"
-    | "preset12"
-    | "preset13"
-    | "preset14"
-    | "preset15"
-    | "preset16"
-    | "preset17"
-    | "preset18"
-    | "preset19"
-    | "preset20"
-    | "preset21"
-    | "preset22"
-    | "preset23"
-    | "preset24"
-    | "none";
+    | 'preset0'
+    | 'preset1'
+    | 'preset2'
+    | 'preset3'
+    | 'preset4'
+    | 'preset5'
+    | 'preset6'
+    | 'preset7'
+    | 'preset8'
+    | 'preset9'
+    | 'preset10'
+    | 'preset11'
+    | 'preset12'
+    | 'preset13'
+    | 'preset14'
+    | 'preset15'
+    | 'preset16'
+    | 'preset17'
+    | 'preset18'
+    | 'preset19'
+    | 'preset20'
+    | 'preset21'
+    | 'preset22'
+    | 'preset23'
+    | 'preset24'
+    | 'none';
 export type MessageActionFlag =
-    | "any"
-    | "call"
-    | "doNotForward"
-    | "followUp"
-    | "fyi"
-    | "forward"
-    | "noResponseNecessary"
-    | "read"
-    | "reply"
-    | "replyToAll"
-    | "review";
-export type InstallIntent = "available" | "required" | "uninstall" | "availableWithoutEnrollment";
-export type MobileAppPublishingState = "notPublished" | "processing" | "published";
-export type WindowsArchitecture = "none" | "x86" | "x64" | "arm" | "neutral";
-export type ManagedAppAvailability = "global" | "lineOfBusiness";
+    | 'any'
+    | 'call'
+    | 'doNotForward'
+    | 'followUp'
+    | 'fyi'
+    | 'forward'
+    | 'noResponseNecessary'
+    | 'read'
+    | 'reply'
+    | 'replyToAll'
+    | 'review';
+export type InstallIntent = 'available' | 'required' | 'uninstall' | 'availableWithoutEnrollment';
+export type MobileAppPublishingState = 'notPublished' | 'processing' | 'published';
+export type WindowsArchitecture = 'none' | 'x86' | 'x64' | 'arm' | 'neutral';
+export type ManagedAppAvailability = 'global' | 'lineOfBusiness';
 export type MobileAppContentFileUploadState =
-    | "success"
-    | "transientError"
-    | "error"
-    | "unknown"
-    | "azureStorageUriRequestSuccess"
-    | "azureStorageUriRequestPending"
-    | "azureStorageUriRequestFailed"
-    | "azureStorageUriRequestTimedOut"
-    | "azureStorageUriRenewalSuccess"
-    | "azureStorageUriRenewalPending"
-    | "azureStorageUriRenewalFailed"
-    | "azureStorageUriRenewalTimedOut"
-    | "commitFileSuccess"
-    | "commitFilePending"
-    | "commitFileFailed"
-    | "commitFileTimedOut";
-export type WindowsDeviceType = "none" | "desktop" | "mobile" | "holographic" | "team";
-export type VppTokenAccountType = "business" | "education";
-export type MicrosoftStoreForBusinessLicenseType = "offline" | "online";
+    | 'success'
+    | 'transientError'
+    | 'error'
+    | 'unknown'
+    | 'azureStorageUriRequestSuccess'
+    | 'azureStorageUriRequestPending'
+    | 'azureStorageUriRequestFailed'
+    | 'azureStorageUriRequestTimedOut'
+    | 'azureStorageUriRenewalSuccess'
+    | 'azureStorageUriRenewalPending'
+    | 'azureStorageUriRenewalFailed'
+    | 'azureStorageUriRenewalTimedOut'
+    | 'commitFileSuccess'
+    | 'commitFilePending'
+    | 'commitFileFailed'
+    | 'commitFileTimedOut';
+export type WindowsDeviceType = 'none' | 'desktop' | 'mobile' | 'holographic' | 'team';
+export type VppTokenAccountType = 'business' | 'education';
+export type MicrosoftStoreForBusinessLicenseType = 'offline' | 'online';
 export type ComplianceStatus =
-    | "unknown"
-    | "notApplicable"
-    | "compliant"
-    | "remediated"
-    | "nonCompliant"
-    | "error"
-    | "conflict"
-    | "notAssigned";
-export type MdmAppConfigKeyType = "stringType" | "integerType" | "realType" | "booleanType" | "tokenType";
-export type InstallState = "notApplicable" | "installed" | "failed" | "notInstalled" | "uninstallFailed" | "unknown";
+    | 'unknown'
+    | 'notApplicable'
+    | 'compliant'
+    | 'remediated'
+    | 'nonCompliant'
+    | 'error'
+    | 'conflict'
+    | 'notAssigned';
+export type MdmAppConfigKeyType = 'stringType' | 'integerType' | 'realType' | 'booleanType' | 'tokenType';
+export type InstallState = 'notApplicable' | 'installed' | 'failed' | 'notInstalled' | 'uninstallFailed' | 'unknown';
 export type Windows10EditionType =
-    | "windows10Enterprise"
-    | "windows10EnterpriseN"
-    | "windows10Education"
-    | "windows10EducationN"
-    | "windows10MobileEnterprise"
-    | "windows10HolographicEnterprise"
-    | "windows10Professional"
-    | "windows10ProfessionalN"
-    | "windows10ProfessionalEducation"
-    | "windows10ProfessionalEducationN"
-    | "windows10ProfessionalWorkstation"
-    | "windows10ProfessionalWorkstationN";
-export type AppListType = "none" | "appsInListCompliant" | "appsNotInListCompliant";
+    | 'windows10Enterprise'
+    | 'windows10EnterpriseN'
+    | 'windows10Education'
+    | 'windows10EducationN'
+    | 'windows10MobileEnterprise'
+    | 'windows10HolographicEnterprise'
+    | 'windows10Professional'
+    | 'windows10ProfessionalN'
+    | 'windows10ProfessionalEducation'
+    | 'windows10ProfessionalEducationN'
+    | 'windows10ProfessionalWorkstation'
+    | 'windows10ProfessionalWorkstationN';
+export type AppListType = 'none' | 'appsInListCompliant' | 'appsNotInListCompliant';
 export type AndroidRequiredPasswordType =
-    | "deviceDefault"
-    | "alphabetic"
-    | "alphanumeric"
-    | "alphanumericWithSymbols"
-    | "lowSecurityBiometric"
-    | "numeric"
-    | "numericComplex"
-    | "any";
+    | 'deviceDefault'
+    | 'alphabetic'
+    | 'alphanumeric'
+    | 'alphanumericWithSymbols'
+    | 'lowSecurityBiometric'
+    | 'numeric'
+    | 'numericComplex'
+    | 'any';
 export type WebBrowserCookieSettings =
-    | "browserDefault"
-    | "blockAlways"
-    | "allowCurrentWebSite"
-    | "allowFromWebsitesVisited"
-    | "allowAlways";
+    | 'browserDefault'
+    | 'blockAlways'
+    | 'allowCurrentWebSite'
+    | 'allowFromWebsitesVisited'
+    | 'allowAlways';
 export type AndroidWorkProfileRequiredPasswordType =
-    | "deviceDefault"
-    | "lowSecurityBiometric"
-    | "required"
-    | "atLeastNumeric"
-    | "numericComplex"
-    | "atLeastAlphabetic"
-    | "atLeastAlphanumeric"
-    | "alphanumericWithSymbols";
+    | 'deviceDefault'
+    | 'lowSecurityBiometric'
+    | 'required'
+    | 'atLeastNumeric'
+    | 'numericComplex'
+    | 'atLeastAlphabetic'
+    | 'atLeastAlphanumeric'
+    | 'alphanumericWithSymbols';
 export type AndroidWorkProfileCrossProfileDataSharingType =
-    | "deviceDefault"
-    | "preventAny"
-    | "allowPersonalToWork"
-    | "noRestrictions";
-export type AndroidWorkProfileDefaultAppPermissionPolicyType = "deviceDefault" | "prompt" | "autoGrant" | "autoDeny";
+    | 'deviceDefault'
+    | 'preventAny'
+    | 'allowPersonalToWork'
+    | 'noRestrictions';
+export type AndroidWorkProfileDefaultAppPermissionPolicyType = 'deviceDefault' | 'prompt' | 'autoGrant' | 'autoDeny';
 export type RatingAustraliaMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "mature"
-    | "agesAbove15"
-    | "agesAbove18";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'mature'
+    | 'agesAbove15'
+    | 'agesAbove18';
 export type RatingAustraliaTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "preschoolers"
-    | "children"
-    | "general"
-    | "parentalGuidance"
-    | "mature"
-    | "agesAbove15"
-    | "agesAbove15AdultViolence";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'preschoolers'
+    | 'children'
+    | 'general'
+    | 'parentalGuidance'
+    | 'mature'
+    | 'agesAbove15'
+    | 'agesAbove15AdultViolence';
 export type RatingCanadaMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "agesAbove14"
-    | "agesAbove18"
-    | "restricted";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'agesAbove14'
+    | 'agesAbove18'
+    | 'restricted';
 export type RatingCanadaTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "children"
-    | "childrenAbove8"
-    | "general"
-    | "parentalGuidance"
-    | "agesAbove14"
-    | "agesAbove18";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'children'
+    | 'childrenAbove8'
+    | 'general'
+    | 'parentalGuidance'
+    | 'agesAbove14'
+    | 'agesAbove18';
 export type RatingFranceMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "agesAbove10"
-    | "agesAbove12"
-    | "agesAbove16"
-    | "agesAbove18";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'agesAbove10'
+    | 'agesAbove12'
+    | 'agesAbove16'
+    | 'agesAbove18';
 export type RatingFranceTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "agesAbove10"
-    | "agesAbove12"
-    | "agesAbove16"
-    | "agesAbove18";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'agesAbove10'
+    | 'agesAbove12'
+    | 'agesAbove16'
+    | 'agesAbove18';
 export type RatingGermanyMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "agesAbove6"
-    | "agesAbove12"
-    | "agesAbove16"
-    | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'agesAbove6'
+    | 'agesAbove12'
+    | 'agesAbove16'
+    | 'adults';
 export type RatingGermanyTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "agesAbove6"
-    | "agesAbove12"
-    | "agesAbove16"
-    | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'agesAbove6'
+    | 'agesAbove12'
+    | 'agesAbove16'
+    | 'adults';
 export type RatingIrelandMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "agesAbove12"
-    | "agesAbove15"
-    | "agesAbove16"
-    | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'agesAbove12'
+    | 'agesAbove15'
+    | 'agesAbove16'
+    | 'adults';
 export type RatingIrelandTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "children"
-    | "youngAdults"
-    | "parentalSupervision"
-    | "mature";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'children'
+    | 'youngAdults'
+    | 'parentalSupervision'
+    | 'mature';
 export type RatingJapanMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "agesAbove15"
-    | "agesAbove18";
-export type RatingJapanTelevisionType = "allAllowed" | "allBlocked" | "explicitAllowed";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'agesAbove15'
+    | 'agesAbove18';
+export type RatingJapanTelevisionType = 'allAllowed' | 'allBlocked' | 'explicitAllowed';
 export type RatingNewZealandMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "mature"
-    | "agesAbove13"
-    | "agesAbove15"
-    | "agesAbove16"
-    | "agesAbove18"
-    | "restricted"
-    | "agesAbove16Restricted";
-export type RatingNewZealandTelevisionType = "allAllowed" | "allBlocked" | "general" | "parentalGuidance" | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'mature'
+    | 'agesAbove13'
+    | 'agesAbove15'
+    | 'agesAbove16'
+    | 'agesAbove18'
+    | 'restricted'
+    | 'agesAbove16Restricted';
+export type RatingNewZealandTelevisionType = 'allAllowed' | 'allBlocked' | 'general' | 'parentalGuidance' | 'adults';
 export type RatingUnitedKingdomMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "universalChildren"
-    | "parentalGuidance"
-    | "agesAbove12Video"
-    | "agesAbove12Cinema"
-    | "agesAbove15"
-    | "adults";
-export type RatingUnitedKingdomTelevisionType = "allAllowed" | "allBlocked" | "caution";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'universalChildren'
+    | 'parentalGuidance'
+    | 'agesAbove12Video'
+    | 'agesAbove12Cinema'
+    | 'agesAbove15'
+    | 'adults';
+export type RatingUnitedKingdomTelevisionType = 'allAllowed' | 'allBlocked' | 'caution';
 export type RatingUnitedStatesMoviesType =
-    | "allAllowed"
-    | "allBlocked"
-    | "general"
-    | "parentalGuidance"
-    | "parentalGuidance13"
-    | "restricted"
-    | "adults";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'general'
+    | 'parentalGuidance'
+    | 'parentalGuidance13'
+    | 'restricted'
+    | 'adults';
 export type RatingUnitedStatesTelevisionType =
-    | "allAllowed"
-    | "allBlocked"
-    | "childrenAll"
-    | "childrenAbove7"
-    | "general"
-    | "parentalGuidance"
-    | "childrenAbove14"
-    | "adults";
-export type RatingAppsType = "allAllowed" | "allBlocked" | "agesAbove4" | "agesAbove9" | "agesAbove12" | "agesAbove17";
-export type RequiredPasswordType = "deviceDefault" | "alphanumeric" | "numeric";
-export type IosNotificationAlertType = "deviceDefault" | "banner" | "modal" | "none";
-export type StateManagementSetting = "notConfigured" | "blocked" | "allowed";
-export type FirewallPreSharedKeyEncodingMethodType = "deviceDefault" | "none" | "utF8";
-export type FirewallCertificateRevocationListCheckMethodType = "deviceDefault" | "none" | "attempt" | "require";
+    | 'allAllowed'
+    | 'allBlocked'
+    | 'childrenAll'
+    | 'childrenAbove7'
+    | 'general'
+    | 'parentalGuidance'
+    | 'childrenAbove14'
+    | 'adults';
+export type RatingAppsType = 'allAllowed' | 'allBlocked' | 'agesAbove4' | 'agesAbove9' | 'agesAbove12' | 'agesAbove17';
+export type RequiredPasswordType = 'deviceDefault' | 'alphanumeric' | 'numeric';
+export type IosNotificationAlertType = 'deviceDefault' | 'banner' | 'modal' | 'none';
+export type StateManagementSetting = 'notConfigured' | 'blocked' | 'allowed';
+export type FirewallPreSharedKeyEncodingMethodType = 'deviceDefault' | 'none' | 'utF8';
+export type FirewallCertificateRevocationListCheckMethodType = 'deviceDefault' | 'none' | 'attempt' | 'require';
 export type FirewallPacketQueueingMethodType =
-    | "deviceDefault"
-    | "disabled"
-    | "queueInbound"
-    | "queueOutbound"
-    | "queueBoth";
+    | 'deviceDefault'
+    | 'disabled'
+    | 'queueInbound'
+    | 'queueOutbound'
+    | 'queueBoth';
 export type AppLockerApplicationControlType =
-    | "notConfigured"
-    | "enforceComponentsAndStoreApps"
-    | "auditComponentsAndStoreApps"
-    | "enforceComponentsStoreAppsAndSmartlocker"
-    | "auditComponentsStoreAppsAndSmartlocker";
+    | 'notConfigured'
+    | 'enforceComponentsAndStoreApps'
+    | 'auditComponentsAndStoreApps'
+    | 'enforceComponentsStoreAppsAndSmartlocker'
+    | 'auditComponentsStoreAppsAndSmartlocker';
 export type ApplicationGuardBlockFileTransferType =
-    | "notConfigured"
-    | "blockImageAndTextFile"
-    | "blockImageFile"
-    | "blockNone"
-    | "blockTextFile";
+    | 'notConfigured'
+    | 'blockImageAndTextFile'
+    | 'blockImageFile'
+    | 'blockNone'
+    | 'blockTextFile';
 export type ApplicationGuardBlockClipboardSharingType =
-    | "notConfigured"
-    | "blockBoth"
-    | "blockHostToContainer"
-    | "blockContainerToHost"
-    | "blockNone";
-export type BitLockerEncryptionMethod = "aesCbc128" | "aesCbc256" | "xtsAes128" | "xtsAes256";
-export type DiagnosticDataSubmissionMode = "userDefined" | "none" | "basic" | "enhanced" | "full";
-export type EdgeCookiePolicy = "userDefined" | "allow" | "blockThirdParty" | "blockAll";
-export type VisibilitySetting = "notConfigured" | "hide" | "show";
+    | 'notConfigured'
+    | 'blockBoth'
+    | 'blockHostToContainer'
+    | 'blockContainerToHost'
+    | 'blockNone';
+export type BitLockerEncryptionMethod = 'aesCbc128' | 'aesCbc256' | 'xtsAes128' | 'xtsAes256';
+export type DiagnosticDataSubmissionMode = 'userDefined' | 'none' | 'basic' | 'enhanced' | 'full';
+export type EdgeCookiePolicy = 'userDefined' | 'allow' | 'blockThirdParty' | 'blockAll';
+export type VisibilitySetting = 'notConfigured' | 'hide' | 'show';
 export type DefenderThreatAction =
-    | "deviceDefault"
-    | "clean"
-    | "quarantine"
-    | "remove"
-    | "allow"
-    | "userDefined"
-    | "block";
+    | 'deviceDefault'
+    | 'clean'
+    | 'quarantine'
+    | 'remove'
+    | 'allow'
+    | 'userDefined'
+    | 'block';
 export type WeeklySchedule =
-    | "userDefined"
-    | "everyday"
-    | "sunday"
-    | "monday"
-    | "tuesday"
-    | "wednesday"
-    | "thursday"
-    | "friday"
-    | "saturday";
+    | 'userDefined'
+    | 'everyday'
+    | 'sunday'
+    | 'monday'
+    | 'tuesday'
+    | 'wednesday'
+    | 'thursday'
+    | 'friday'
+    | 'saturday';
 export type DefenderMonitorFileActivity =
-    | "userDefined"
-    | "disable"
-    | "monitorAllFiles"
-    | "monitorIncomingFilesOnly"
-    | "monitorOutgoingFilesOnly";
+    | 'userDefined'
+    | 'disable'
+    | 'monitorAllFiles'
+    | 'monitorIncomingFilesOnly'
+    | 'monitorOutgoingFilesOnly';
 export type DefenderPromptForSampleSubmission =
-    | "userDefined"
-    | "alwaysPrompt"
-    | "promptBeforeSendingPersonalData"
-    | "neverSendData"
-    | "sendAllDataWithoutPrompting";
-export type DefenderScanType = "userDefined" | "disabled" | "quick" | "full";
-export type DefenderCloudBlockLevelType = "notConfigured" | "high" | "highPlus" | "zeroTolerance";
-export type WindowsStartMenuAppListVisibilityType = "userDefined" | "collapse" | "remove" | "disableSettingsApp";
-export type WindowsStartMenuModeType = "userDefined" | "fullScreen" | "nonFullScreen";
-export type WindowsSpotlightEnablementSettings = "notConfigured" | "disabled" | "enabled";
+    | 'userDefined'
+    | 'alwaysPrompt'
+    | 'promptBeforeSendingPersonalData'
+    | 'neverSendData'
+    | 'sendAllDataWithoutPrompting';
+export type DefenderScanType = 'userDefined' | 'disabled' | 'quick' | 'full';
+export type DefenderCloudBlockLevelType = 'notConfigured' | 'high' | 'highPlus' | 'zeroTolerance';
+export type WindowsStartMenuAppListVisibilityType = 'userDefined' | 'collapse' | 'remove' | 'disableSettingsApp';
+export type WindowsStartMenuModeType = 'userDefined' | 'fullScreen' | 'nonFullScreen';
+export type WindowsSpotlightEnablementSettings = 'notConfigured' | 'disabled' | 'enabled';
 export type AutomaticUpdateMode =
-    | "userDefined"
-    | "notifyDownload"
-    | "autoInstallAtMaintenanceTime"
-    | "autoInstallAndRebootAtMaintenanceTime"
-    | "autoInstallAndRebootAtScheduledTime"
-    | "autoInstallAndRebootWithoutEndUserControl";
-export type SafeSearchFilterType = "userDefined" | "strict" | "moderate";
-export type EdgeSearchEngineType = "default" | "bing";
-export type PrereleaseFeatures = "userDefined" | "settingsOnly" | "settingsAndExperimentations" | "notAllowed";
-export type EditionUpgradeLicenseType = "productKey" | "licenseFile";
+    | 'userDefined'
+    | 'notifyDownload'
+    | 'autoInstallAtMaintenanceTime'
+    | 'autoInstallAndRebootAtMaintenanceTime'
+    | 'autoInstallAndRebootAtScheduledTime'
+    | 'autoInstallAndRebootWithoutEndUserControl';
+export type SafeSearchFilterType = 'userDefined' | 'strict' | 'moderate';
+export type EdgeSearchEngineType = 'default' | 'bing';
+export type PrereleaseFeatures = 'userDefined' | 'settingsOnly' | 'settingsAndExperimentations' | 'notAllowed';
+export type EditionUpgradeLicenseType = 'productKey' | 'licenseFile';
 export type WindowsDeliveryOptimizationMode =
-    | "userDefined"
-    | "httpOnly"
-    | "httpWithPeeringNat"
-    | "httpWithPeeringPrivateGroup"
-    | "httpWithInternetPeering"
-    | "simpleDownload"
-    | "bypassMode";
+    | 'userDefined'
+    | 'httpOnly'
+    | 'httpWithPeeringNat'
+    | 'httpWithPeeringPrivateGroup'
+    | 'httpWithInternetPeering'
+    | 'simpleDownload'
+    | 'bypassMode';
 export type SharedPCAccountDeletionPolicyType =
-    | "immediate"
-    | "diskSpaceThreshold"
-    | "diskSpaceThresholdOrInactiveThreshold";
-export type SharedPCAllowedAccountType = "guest" | "domain";
+    | 'immediate'
+    | 'diskSpaceThreshold'
+    | 'diskSpaceThresholdOrInactiveThreshold';
+export type SharedPCAllowedAccountType = 'guest' | 'domain';
 export type WindowsUpdateType =
-    | "userDefined"
-    | "all"
-    | "businessReadyOnly"
-    | "windowsInsiderBuildFast"
-    | "windowsInsiderBuildSlow"
-    | "windowsInsiderBuildRelease";
-export type InternetSiteSecurityLevel = "userDefined" | "medium" | "mediumHigh" | "high";
-export type SiteSecurityLevel = "userDefined" | "low" | "mediumLow" | "medium" | "mediumHigh" | "high";
+    | 'userDefined'
+    | 'all'
+    | 'businessReadyOnly'
+    | 'windowsInsiderBuildFast'
+    | 'windowsInsiderBuildSlow'
+    | 'windowsInsiderBuildRelease';
+export type InternetSiteSecurityLevel = 'userDefined' | 'medium' | 'mediumHigh' | 'high';
+export type SiteSecurityLevel = 'userDefined' | 'low' | 'mediumLow' | 'medium' | 'mediumHigh' | 'high';
 export type WindowsUserAccountControlSettings =
-    | "userDefined"
-    | "alwaysNotify"
-    | "notifyOnAppChanges"
-    | "notifyOnAppChangesWithoutDimming"
-    | "neverNotify";
+    | 'userDefined'
+    | 'alwaysNotify'
+    | 'notifyOnAppChanges'
+    | 'notifyOnAppChangesWithoutDimming'
+    | 'neverNotify';
 export type MiracastChannel =
-    | "userDefined"
-    | "one"
-    | "two"
-    | "three"
-    | "four"
-    | "five"
-    | "six"
-    | "seven"
-    | "eight"
-    | "nine"
-    | "ten"
-    | "eleven"
-    | "thirtySix"
-    | "forty"
-    | "fortyFour"
-    | "fortyEight"
-    | "oneHundredFortyNine"
-    | "oneHundredFiftyThree"
-    | "oneHundredFiftySeven"
-    | "oneHundredSixtyOne"
-    | "oneHundredSixtyFive";
+    | 'userDefined'
+    | 'one'
+    | 'two'
+    | 'three'
+    | 'four'
+    | 'five'
+    | 'six'
+    | 'seven'
+    | 'eight'
+    | 'nine'
+    | 'ten'
+    | 'eleven'
+    | 'thirtySix'
+    | 'forty'
+    | 'fortyFour'
+    | 'fortyEight'
+    | 'oneHundredFortyNine'
+    | 'oneHundredFiftyThree'
+    | 'oneHundredFiftySeven'
+    | 'oneHundredSixtyOne'
+    | 'oneHundredSixtyFive';
 export type WelcomeScreenMeetingInformation =
-    | "userDefined"
-    | "showOrganizerAndTimeOnly"
-    | "showOrganizerAndTimeAndSubject";
+    | 'userDefined'
+    | 'showOrganizerAndTimeOnly'
+    | 'showOrganizerAndTimeAndSubject';
 export type DeviceComplianceActionType =
-    | "noAction"
-    | "notification"
-    | "block"
-    | "retire"
-    | "wipe"
-    | "removeResourceAccessProfiles"
-    | "pushNotification";
-export type DeviceThreatProtectionLevel = "unavailable" | "secured" | "low" | "medium" | "high" | "notSet";
+    | 'noAction'
+    | 'notification'
+    | 'block'
+    | 'retire'
+    | 'wipe'
+    | 'removeResourceAccessProfiles'
+    | 'pushNotification';
+export type DeviceThreatProtectionLevel = 'unavailable' | 'secured' | 'low' | 'medium' | 'high' | 'notSet';
 export type PolicyPlatformType =
-    | "android"
-    | "iOS"
-    | "macOS"
-    | "windowsPhone81"
-    | "windows81AndLater"
-    | "windows10AndLater"
-    | "androidWorkProfile"
-    | "all";
+    | 'android'
+    | 'iOS'
+    | 'macOS'
+    | 'windowsPhone81'
+    | 'windows81AndLater'
+    | 'windows10AndLater'
+    | 'androidWorkProfile'
+    | 'all';
 export type IosUpdatesInstallStatus =
-    | "success"
-    | "available"
-    | "idle"
-    | "unknown"
-    | "downloading"
-    | "downloadFailed"
-    | "downloadRequiresComputer"
-    | "downloadInsufficientSpace"
-    | "downloadInsufficientPower"
-    | "downloadInsufficientNetwork"
-    | "installing"
-    | "installInsufficientSpace"
-    | "installInsufficientPower"
-    | "installPhoneCallInProgress"
-    | "installFailed"
-    | "notSupportedOperation"
-    | "sharedDeviceUserLoggedInError";
-export type DeviceManagementExchangeConnectorSyncType = "fullSync" | "deltaSync";
-export type MdmAuthority = "unknown" | "intune" | "sccm" | "office365";
-export type WindowsHelloForBusinessPinUsage = "allowed" | "required" | "disallowed";
-export type Enablement = "notConfigured" | "enabled" | "disabled";
-export type VppTokenState = "unknown" | "valid" | "expired" | "invalid" | "assignedToExternalMDM";
-export type VppTokenSyncStatus = "none" | "inProgress" | "completed" | "failed";
-export type DeviceManagementExchangeConnectorStatus = "none" | "connectionPending" | "connected" | "disconnected";
-export type DeviceManagementExchangeConnectorType = "onPremises" | "hosted" | "serviceToService" | "dedicated";
-export type MobileThreatPartnerTenantState = "unavailable" | "available" | "enabled" | "unresponsive";
+    | 'success'
+    | 'available'
+    | 'idle'
+    | 'unknown'
+    | 'downloading'
+    | 'downloadFailed'
+    | 'downloadRequiresComputer'
+    | 'downloadInsufficientSpace'
+    | 'downloadInsufficientPower'
+    | 'downloadInsufficientNetwork'
+    | 'installing'
+    | 'installInsufficientSpace'
+    | 'installInsufficientPower'
+    | 'installPhoneCallInProgress'
+    | 'installFailed'
+    | 'notSupportedOperation'
+    | 'sharedDeviceUserLoggedInError';
+export type DeviceManagementExchangeConnectorSyncType = 'fullSync' | 'deltaSync';
+export type MdmAuthority = 'unknown' | 'intune' | 'sccm' | 'office365';
+export type WindowsHelloForBusinessPinUsage = 'allowed' | 'required' | 'disallowed';
+export type Enablement = 'notConfigured' | 'enabled' | 'disabled';
+export type VppTokenState = 'unknown' | 'valid' | 'expired' | 'invalid' | 'assignedToExternalMDM';
+export type VppTokenSyncStatus = 'none' | 'inProgress' | 'completed' | 'failed';
+export type DeviceManagementExchangeConnectorStatus = 'none' | 'connectionPending' | 'connected' | 'disconnected';
+export type DeviceManagementExchangeConnectorType = 'onPremises' | 'hosted' | 'serviceToService' | 'dedicated';
+export type MobileThreatPartnerTenantState = 'unavailable' | 'available' | 'enabled' | 'unresponsive';
 export type DeviceManagementPartnerTenantState =
-    | "unknown"
-    | "unavailable"
-    | "enabled"
-    | "terminated"
-    | "rejected"
-    | "unresponsive";
-export type DeviceManagementPartnerAppType = "unknown" | "singleTenantApp" | "multiTenantApp";
-export type ActionState = "none" | "pending" | "canceled" | "active" | "done" | "failed" | "notSupported";
-export type ManagedDeviceOwnerType = "unknown" | "company" | "personal";
+    | 'unknown'
+    | 'unavailable'
+    | 'enabled'
+    | 'terminated'
+    | 'rejected'
+    | 'unresponsive';
+export type DeviceManagementPartnerAppType = 'unknown' | 'singleTenantApp' | 'multiTenantApp';
+export type ActionState = 'none' | 'pending' | 'canceled' | 'active' | 'done' | 'failed' | 'notSupported';
+export type ManagedDeviceOwnerType = 'unknown' | 'company' | 'personal';
 export type ComplianceState =
-    | "unknown"
-    | "compliant"
-    | "noncompliant"
-    | "conflict"
-    | "error"
-    | "inGracePeriod"
-    | "configManager";
+    | 'unknown'
+    | 'compliant'
+    | 'noncompliant'
+    | 'conflict'
+    | 'error'
+    | 'inGracePeriod'
+    | 'configManager';
 export type ManagementAgentType =
-    | "eas"
-    | "mdm"
-    | "easMdm"
-    | "intuneClient"
-    | "easIntuneClient"
-    | "configurationManagerClient"
-    | "configurationManagerClientMdm"
-    | "configurationManagerClientMdmEas"
-    | "unknown"
-    | "jamf"
-    | "googleCloudDevicePolicyController";
+    | 'eas'
+    | 'mdm'
+    | 'easMdm'
+    | 'intuneClient'
+    | 'easIntuneClient'
+    | 'configurationManagerClient'
+    | 'configurationManagerClientMdm'
+    | 'configurationManagerClientMdmEas'
+    | 'unknown'
+    | 'jamf'
+    | 'googleCloudDevicePolicyController';
 export type DeviceEnrollmentType =
-    | "unknown"
-    | "userEnrollment"
-    | "deviceEnrollmentManager"
-    | "appleBulkWithUser"
-    | "appleBulkWithoutUser"
-    | "windowsAzureADJoin"
-    | "windowsBulkUserless"
-    | "windowsAutoEnrollment"
-    | "windowsBulkAzureDomainJoin"
-    | "windowsCoManagement";
+    | 'unknown'
+    | 'userEnrollment'
+    | 'deviceEnrollmentManager'
+    | 'appleBulkWithUser'
+    | 'appleBulkWithoutUser'
+    | 'windowsAzureADJoin'
+    | 'windowsBulkUserless'
+    | 'windowsAutoEnrollment'
+    | 'windowsBulkAzureDomainJoin'
+    | 'windowsCoManagement';
 export type DeviceRegistrationState =
-    | "notRegistered"
-    | "registered"
-    | "revoked"
-    | "keyConflict"
-    | "approvalPending"
-    | "certificateReset"
-    | "notRegisteredPendingEnrollment"
-    | "unknown";
-export type DeviceManagementExchangeAccessState = "none" | "unknown" | "allowed" | "blocked" | "quarantined";
+    | 'notRegistered'
+    | 'registered'
+    | 'revoked'
+    | 'keyConflict'
+    | 'approvalPending'
+    | 'certificateReset'
+    | 'notRegisteredPendingEnrollment'
+    | 'unknown';
+export type DeviceManagementExchangeAccessState = 'none' | 'unknown' | 'allowed' | 'blocked' | 'quarantined';
 export type DeviceManagementExchangeAccessStateReason =
-    | "none"
-    | "unknown"
-    | "exchangeGlobalRule"
-    | "exchangeIndividualRule"
-    | "exchangeDeviceRule"
-    | "exchangeUpgrade"
-    | "exchangeMailboxPolicy"
-    | "other"
-    | "compliant"
-    | "notCompliant"
-    | "notEnrolled"
-    | "unknownLocation"
-    | "mfaRequired"
-    | "azureADBlockDueToAccessPolicy"
-    | "compromisedPassword"
-    | "deviceNotKnownWithManagedApp";
+    | 'none'
+    | 'unknown'
+    | 'exchangeGlobalRule'
+    | 'exchangeIndividualRule'
+    | 'exchangeDeviceRule'
+    | 'exchangeUpgrade'
+    | 'exchangeMailboxPolicy'
+    | 'other'
+    | 'compliant'
+    | 'notCompliant'
+    | 'notEnrolled'
+    | 'unknownLocation'
+    | 'mfaRequired'
+    | 'azureADBlockDueToAccessPolicy'
+    | 'compromisedPassword'
+    | 'deviceNotKnownWithManagedApp';
 export type ManagedDevicePartnerReportedHealthState =
-    | "unknown"
-    | "activated"
-    | "deactivated"
-    | "secured"
-    | "lowSeverity"
-    | "mediumSeverity"
-    | "highSeverity"
-    | "unresponsive"
-    | "compromised"
-    | "misconfigured";
+    | 'unknown'
+    | 'activated'
+    | 'deactivated'
+    | 'secured'
+    | 'lowSeverity'
+    | 'mediumSeverity'
+    | 'highSeverity'
+    | 'unresponsive'
+    | 'compromised'
+    | 'misconfigured';
 export type DeviceManagementSubscriptionState =
-    | "pending"
-    | "active"
-    | "warning"
-    | "disabled"
-    | "deleted"
-    | "blocked"
-    | "lockedOut";
-export type ManagedAppDataStorageLocation = "oneDriveForBusiness" | "sharePoint" | "localStorage";
-export type ManagedAppDataTransferLevel = "allApps" | "managedApps" | "none";
-export type ManagedAppClipboardSharingLevel = "allApps" | "managedAppsWithPasteIn" | "managedApps" | "blocked";
-export type ManagedAppPinCharacterSet = "numeric" | "alphanumericAndSymbol";
+    | 'pending'
+    | 'active'
+    | 'warning'
+    | 'disabled'
+    | 'deleted'
+    | 'blocked'
+    | 'lockedOut';
+export type ManagedAppDataStorageLocation = 'oneDriveForBusiness' | 'sharePoint' | 'localStorage';
+export type ManagedAppDataTransferLevel = 'allApps' | 'managedApps' | 'none';
+export type ManagedAppClipboardSharingLevel = 'allApps' | 'managedAppsWithPasteIn' | 'managedApps' | 'blocked';
+export type ManagedAppPinCharacterSet = 'numeric' | 'alphanumericAndSymbol';
 export type ManagedAppDataEncryptionType =
-    | "useDeviceSettings"
-    | "afterDeviceRestart"
-    | "whenDeviceLockedExceptOpenFiles"
-    | "whenDeviceLocked";
+    | 'useDeviceSettings'
+    | 'afterDeviceRestart'
+    | 'whenDeviceLockedExceptOpenFiles'
+    | 'whenDeviceLocked';
 export type WindowsInformationProtectionEnforcementLevel =
-    | "noProtection"
-    | "encryptAndAuditOnly"
-    | "encryptAuditAndPrompt"
-    | "encryptAuditAndBlock";
-export type WindowsInformationProtectionPinCharacterRequirements = "notAllow" | "requireAtLeastOne" | "allow";
-export type ManagedAppFlaggedReason = "none" | "rootedDevice";
+    | 'noProtection'
+    | 'encryptAndAuditOnly'
+    | 'encryptAuditAndPrompt'
+    | 'encryptAuditAndBlock';
+export type WindowsInformationProtectionPinCharacterRequirements = 'notAllow' | 'requireAtLeastOne' | 'allow';
+export type ManagedAppFlaggedReason = 'none' | 'rootedDevice';
 export type NotificationTemplateBrandingOptions =
-    | "none"
-    | "includeCompanyLogo"
-    | "includeCompanyName"
-    | "includeContactInformation";
-export type RemoteAssistanceOnboardingStatus = "notOnboarded" | "onboarding" | "onboarded";
+    | 'none'
+    | 'includeCompanyLogo'
+    | 'includeCompanyName'
+    | 'includeContactInformation';
+export type RemoteAssistanceOnboardingStatus = 'notOnboarded' | 'onboarding' | 'onboarded';
 export type DeviceEnrollmentFailureReason =
-    | "unknown"
-    | "authentication"
-    | "authorization"
-    | "accountValidation"
-    | "userValidation"
-    | "deviceNotSupported"
-    | "inMaintenance"
-    | "badRequest"
-    | "featureNotSupported"
-    | "enrollmentRestrictionsEnforced"
-    | "clientDisconnected"
-    | "userAbandonment";
-export type ApplicationType = "universal" | "desktop";
-export type PlannerPreviewType = "automatic" | "noPreview" | "checklist" | "description" | "reference";
-export type OperationStatus = "NotStarted" | "Running" | "Completed" | "Failed";
-export type OnenotePatchInsertPosition = "After" | "Before";
-export type OnenotePatchActionType = "Replace" | "Append" | "Delete" | "Insert" | "Prepend";
-export type OnenoteSourceService = "Unknown" | "OneDrive" | "OneDriveForBusiness" | "OnPremOneDriveForBusiness";
-export type OnenoteUserRole = "Owner" | "Contributor" | "Reader" | "None";
-export type DataPolicyOperationStatus = "notStarted" | "running" | "complete" | "failed" | "unknownFutureValue";
-export type Status = "active" | "updated" | "deleted" | "ignored" | "unknownFutureValue";
-export type AlertFeedback = "unknown" | "truePositive" | "falsePositive" | "benignPositive" | "unknownFutureValue";
-export type AlertSeverity = "unknown" | "informational" | "low" | "medium" | "high" | "unknownFutureValue";
-export type AlertStatus = "unknown" | "newAlert" | "inProgress" | "resolved" | "dismissed" | "unknownFutureValue";
-export type ConnectionDirection = "unknown" | "inbound" | "outbound" | "unknownFutureValue";
-export type ConnectionStatus = "unknown" | "attempted" | "succeeded" | "blocked" | "failed" | "unknownFutureValue";
-export type EmailRole = "unknown" | "sender" | "recipient" | "unknownFutureValue";
+    | 'unknown'
+    | 'authentication'
+    | 'authorization'
+    | 'accountValidation'
+    | 'userValidation'
+    | 'deviceNotSupported'
+    | 'inMaintenance'
+    | 'badRequest'
+    | 'featureNotSupported'
+    | 'enrollmentRestrictionsEnforced'
+    | 'clientDisconnected'
+    | 'userAbandonment';
+export type ApplicationType = 'universal' | 'desktop';
+export type PlannerPreviewType = 'automatic' | 'noPreview' | 'checklist' | 'description' | 'reference';
+export type OperationStatus = 'NotStarted' | 'Running' | 'Completed' | 'Failed';
+export type OnenotePatchInsertPosition = 'After' | 'Before';
+export type OnenotePatchActionType = 'Replace' | 'Append' | 'Delete' | 'Insert' | 'Prepend';
+export type OnenoteSourceService = 'Unknown' | 'OneDrive' | 'OneDriveForBusiness' | 'OnPremOneDriveForBusiness';
+export type OnenoteUserRole = 'Owner' | 'Contributor' | 'Reader' | 'None';
+export type DataPolicyOperationStatus = 'notStarted' | 'running' | 'complete' | 'failed' | 'unknownFutureValue';
+export type Status = 'active' | 'updated' | 'deleted' | 'ignored' | 'unknownFutureValue';
+export type AlertFeedback = 'unknown' | 'truePositive' | 'falsePositive' | 'benignPositive' | 'unknownFutureValue';
+export type AlertSeverity = 'unknown' | 'informational' | 'low' | 'medium' | 'high' | 'unknownFutureValue';
+export type AlertStatus = 'unknown' | 'newAlert' | 'inProgress' | 'resolved' | 'dismissed' | 'unknownFutureValue';
+export type ConnectionDirection = 'unknown' | 'inbound' | 'outbound' | 'unknownFutureValue';
+export type ConnectionStatus = 'unknown' | 'attempted' | 'succeeded' | 'blocked' | 'failed' | 'unknownFutureValue';
+export type EmailRole = 'unknown' | 'sender' | 'recipient' | 'unknownFutureValue';
 export type FileHashType =
-    | "unknown"
-    | "sha1"
-    | "sha256"
-    | "md5"
-    | "authenticodeHash256"
-    | "lsHash"
-    | "ctph"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'sha1'
+    | 'sha256'
+    | 'md5'
+    | 'authenticodeHash256'
+    | 'lsHash'
+    | 'ctph'
+    | 'unknownFutureValue';
 export type LogonType =
-    | "unknown"
-    | "interactive"
-    | "remoteInteractive"
-    | "network"
-    | "batch"
-    | "service"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'interactive'
+    | 'remoteInteractive'
+    | 'network'
+    | 'batch'
+    | 'service'
+    | 'unknownFutureValue';
 export type ProcessIntegrityLevel =
-    | "unknown"
-    | "untrusted"
-    | "low"
-    | "medium"
-    | "high"
-    | "system"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'untrusted'
+    | 'low'
+    | 'medium'
+    | 'high'
+    | 'system'
+    | 'unknownFutureValue';
 export type RegistryHive =
-    | "unknown"
-    | "currentConfig"
-    | "currentUser"
-    | "localMachineSam"
-    | "localMachineSecurity"
-    | "localMachineSoftware"
-    | "localMachineSystem"
-    | "usersDefault"
-    | "unknownFutureValue";
-export type RegistryOperation = "unknown" | "create" | "modify" | "delete" | "unknownFutureValue";
+    | 'unknown'
+    | 'currentConfig'
+    | 'currentUser'
+    | 'localMachineSam'
+    | 'localMachineSecurity'
+    | 'localMachineSoftware'
+    | 'localMachineSystem'
+    | 'usersDefault'
+    | 'unknownFutureValue';
+export type RegistryOperation = 'unknown' | 'create' | 'modify' | 'delete' | 'unknownFutureValue';
 export type RegistryValueType =
-    | "unknown"
-    | "binary"
-    | "dword"
-    | "dwordLittleEndian"
-    | "dwordBigEndian"
-    | "expandSz"
-    | "link"
-    | "multiSz"
-    | "none"
-    | "qword"
-    | "qwordlittleEndian"
-    | "sz"
-    | "unknownFutureValue";
+    | 'unknown'
+    | 'binary'
+    | 'dword'
+    | 'dwordLittleEndian'
+    | 'dwordBigEndian'
+    | 'expandSz'
+    | 'link'
+    | 'multiSz'
+    | 'none'
+    | 'qword'
+    | 'qwordlittleEndian'
+    | 'sz'
+    | 'unknownFutureValue';
 export type SecurityNetworkProtocol =
-    | "ip"
-    | "icmp"
-    | "igmp"
-    | "ggp"
-    | "ipv4"
-    | "tcp"
-    | "pup"
-    | "udp"
-    | "idp"
-    | "ipv6"
-    | "ipv6RoutingHeader"
-    | "ipv6FragmentHeader"
-    | "ipSecEncapsulatingSecurityPayload"
-    | "ipSecAuthenticationHeader"
-    | "icmpV6"
-    | "ipv6NoNextHeader"
-    | "ipv6DestinationOptions"
-    | "nd"
-    | "raw"
-    | "ipx"
-    | "spx"
-    | "spxII"
-    | "unknownFutureValue"
-    | "unknown";
-export type UserAccountSecurityType = "unknown" | "standard" | "power" | "administrator" | "unknownFutureValue";
-export type CallDirection = "incoming" | "outgoing";
+    | 'ip'
+    | 'icmp'
+    | 'igmp'
+    | 'ggp'
+    | 'ipv4'
+    | 'tcp'
+    | 'pup'
+    | 'udp'
+    | 'idp'
+    | 'ipv6'
+    | 'ipv6RoutingHeader'
+    | 'ipv6FragmentHeader'
+    | 'ipSecEncapsulatingSecurityPayload'
+    | 'ipSecAuthenticationHeader'
+    | 'icmpV6'
+    | 'ipv6NoNextHeader'
+    | 'ipv6DestinationOptions'
+    | 'nd'
+    | 'raw'
+    | 'ipx'
+    | 'spx'
+    | 'spxII'
+    | 'unknownFutureValue'
+    | 'unknown';
+export type UserAccountSecurityType = 'unknown' | 'standard' | 'power' | 'administrator' | 'unknownFutureValue';
+export type CallDirection = 'incoming' | 'outgoing';
 export type CallState =
-    | "incoming"
-    | "establishing"
-    | "established"
-    | "hold"
-    | "transferring"
-    | "transferAccepted"
-    | "redirecting"
-    | "terminating"
-    | "terminated"
-    | "unknownFutureValue";
-export type ChangeType = "created" | "updated" | "deleted";
-export type MediaDirection = "inactive" | "sendOnly" | "receiveOnly" | "sendReceive";
-export type MediaState = "active" | "inactive" | "unknownFutureValue";
-export type Modality = "audio" | "video" | "videoBasedScreenSharing" | "data" | "unknownFutureValue";
-export type RejectReason = "none" | "busy" | "forbidden" | "unknownFutureValue";
-export type ScreenSharingRole = "viewer" | "sharer";
+    | 'incoming'
+    | 'establishing'
+    | 'established'
+    | 'hold'
+    | 'transferring'
+    | 'transferAccepted'
+    | 'redirecting'
+    | 'terminating'
+    | 'terminated'
+    | 'unknownFutureValue';
+export type ChangeType = 'created' | 'updated' | 'deleted';
+export type MediaDirection = 'inactive' | 'sendOnly' | 'receiveOnly' | 'sendReceive';
+export type MediaState = 'active' | 'inactive' | 'unknownFutureValue';
+export type Modality = 'audio' | 'video' | 'videoBasedScreenSharing' | 'data' | 'unknownFutureValue';
+export type RejectReason = 'none' | 'busy' | 'forbidden' | 'unknownFutureValue';
+export type ScreenSharingRole = 'viewer' | 'sharer';
 export type Tone =
-    | "tone0"
-    | "tone1"
-    | "tone2"
-    | "tone3"
-    | "tone4"
-    | "tone5"
-    | "tone6"
-    | "tone7"
-    | "tone8"
-    | "tone9"
-    | "star"
-    | "pound"
-    | "a"
-    | "b"
-    | "c"
-    | "d"
-    | "flash";
-export type TeamVisibilityType = "private" | "public" | "hiddenMembership" | "unknownFutureValue";
-export type ClonableTeamParts = "apps" | "tabs" | "settings" | "channels" | "members";
-export type GiphyRatingType = "moderate" | "strict" | "unknownFutureValue";
+    | 'tone0'
+    | 'tone1'
+    | 'tone2'
+    | 'tone3'
+    | 'tone4'
+    | 'tone5'
+    | 'tone6'
+    | 'tone7'
+    | 'tone8'
+    | 'tone9'
+    | 'star'
+    | 'pound'
+    | 'a'
+    | 'b'
+    | 'c'
+    | 'd'
+    | 'flash';
+export type TeamVisibilityType = 'private' | 'public' | 'hiddenMembership' | 'unknownFutureValue';
+export type ClonableTeamParts = 'apps' | 'tabs' | 'settings' | 'channels' | 'members';
+export type GiphyRatingType = 'moderate' | 'strict' | 'unknownFutureValue';
 export type TeamsAsyncOperationType =
-    | "invalid"
-    | "cloneTeam"
-    | "archiveTeam"
-    | "unarchiveTeam"
-    | "createTeam"
-    | "unknownFutureValue";
+    | 'invalid'
+    | 'cloneTeam'
+    | 'archiveTeam'
+    | 'unarchiveTeam'
+    | 'createTeam'
+    | 'unknownFutureValue';
 export type TeamsAsyncOperationStatus =
-    | "invalid"
-    | "notStarted"
-    | "inProgress"
-    | "succeeded"
-    | "failed"
-    | "unknownFutureValue";
-export type TeamsAppDistributionMethod = "store" | "organization" | "sideloaded" | "unknownFutureValue";
+    | 'invalid'
+    | 'notStarted'
+    | 'inProgress'
+    | 'succeeded'
+    | 'failed'
+    | 'unknownFutureValue';
+export type TeamsAppDistributionMethod = 'store' | 'organization' | 'sideloaded' | 'unknownFutureValue';
 export interface Entity {
     // Read-only.
     id?: string;

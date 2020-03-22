@@ -1,4 +1,4 @@
-import { Client, Policy, EnginePrototypeOrObject, DecoratedResult, CachedObject } from "catbox";
+import { Client, Policy, EnginePrototypeOrObject, DecoratedResult, CachedObject } from 'catbox';
 
 const Memory: EnginePrototypeOrObject = {
     async start(): Promise<void> {},
@@ -12,8 +12,12 @@ const Memory: EnginePrototypeOrObject = {
     },
     async set(): Promise<void> {},
     async drop(): Promise<void> {},
-    isReady(): boolean { return true; },
-    validateSegmentName(segment: string): null { return null; },
+    isReady(): boolean {
+        return true;
+    },
+    validateSegmentName(segment: string): null {
+        return null;
+    },
 };
 
 const client = new Client<string>(Memory, { partition: 'cache' });
@@ -21,9 +25,13 @@ const client = new Client<string>(Memory, { partition: 'cache' });
 client.start().then(() => {});
 client.stop().then(() => {});
 
-const cache = new Policy({
-    expiresIn: 5000,
-}, client, 'cache');
+const cache = new Policy(
+    {
+        expiresIn: 5000,
+    },
+    client,
+    'cache',
+);
 
 cache.set('foo', 'bar', 5000).then(() => {});
 
@@ -35,9 +43,13 @@ cache.isReady();
 
 cache.stats();
 
-const decoratedCache = new Policy({
-    getDecoratedValue: true,
-}, client, 'cache2');
+const decoratedCache = new Policy(
+    {
+        getDecoratedValue: true,
+    },
+    client,
+    'cache2',
+);
 
 decoratedCache.get('test').then((a: DecoratedResult<string>) => {
     const res: string = a.value;

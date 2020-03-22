@@ -9,14 +9,17 @@ metrics.histogram('mykey', 11, ['a', 'b', 'c'], Date.now());
 metrics.histogram('mykey', 11, ['a', 'b', 'c'], Date.now());
 metrics.flush();
 metrics.flush(() => {});
-metrics.flush(() => {}, err => {});
+metrics.flush(
+    () => {},
+    (err) => {},
+);
 
 const metricsLogger = new metrics.BufferedMetricsLogger({
     apiKey: 'TESTKEY',
     host: 'myhost',
     prefix: 'myapp.',
     flushIntervalSeconds: 15,
-    defaultTags: ['env:staging', 'region:us-east-1']
+    defaultTags: ['env:staging', 'region:us-east-1'],
 });
 metricsLogger.gauge('mygauge', 42);
 metricsLogger.gauge('mykey', 11, ['a', 'b', 'c'], Date.now());
@@ -27,4 +30,7 @@ metricsLogger.histogram('test.service_time', 0.248);
 metricsLogger.histogram('mykey', 11, ['a', 'b', 'c'], Date.now());
 metricsLogger.flush();
 metricsLogger.flush(() => {});
-metricsLogger.flush(() => {}, err => {});
+metricsLogger.flush(
+    () => {},
+    (err) => {},
+);

@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Store, Reducer, Middleware, AnyAction } from "redux";
-import BroadcastChannel from "broadcast-channel";
+import { Store, Reducer, Middleware, AnyAction } from 'redux';
+import BroadcastChannel from 'broadcast-channel';
 
 export interface Stamp {
     $uuid: string;

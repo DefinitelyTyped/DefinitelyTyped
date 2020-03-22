@@ -1,6 +1,10 @@
-import * as Regression from "regression";
+import * as Regression from 'regression';
 
-const data: ReadonlyArray<[number, number]> = [[0, 0], [1, 1], [2, 2]];
+const data: ReadonlyArray<[number, number]> = [
+    [0, 0],
+    [1, 1],
+    [2, 2],
+];
 const result1 = Regression.linear(data);
 const result2 = Regression.exponential(data);
 const result3 = Regression.logarithmic(data);

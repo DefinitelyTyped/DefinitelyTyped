@@ -5,7 +5,6 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nodeunit.d.ts
 
-
 export interface ITestCase {
     (testCase: { [property: string]: ITestBody | ITestGroup | void }): void;
 }

@@ -1,2 +1,2 @@
-import { takeRightWhile } from "./index";
+import { takeRightWhile } from './index';
 export = takeRightWhile;

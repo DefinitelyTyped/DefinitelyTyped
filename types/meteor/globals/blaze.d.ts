@@ -99,7 +99,13 @@ declare module Blaze {
 
     function render(templateOrView: Template | View, parentNode: Node, nextNode?: Node, parentView?: View): View;
 
-    function renderWithData(templateOrView: Template | View, data: Object | Function, parentNode: Node, nextNode?: Node, parentView?: View): View;
+    function renderWithData(
+        templateOrView: Template | View,
+        data: Object | Function,
+        parentNode: Node,
+        nextNode?: Node,
+        parentView?: View,
+    ): View;
 
     function toHTML(templateOrView: Template | View): string;
 

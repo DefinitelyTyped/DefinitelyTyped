@@ -11,5 +11,5 @@ declare namespace TabPane {
         unmountOnExit?: boolean;
     }
 }
-declare class TabPane extends React.Component<TabPane.TabPaneProps> { }
+declare class TabPane extends React.Component<TabPane.TabPaneProps> {}
 export = TabPane;

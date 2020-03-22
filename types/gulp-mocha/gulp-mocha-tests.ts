@@ -1,7 +1,6 @@
-import * as gulp from "gulp";
-import mocha = require("gulp-mocha");
+import * as gulp from 'gulp';
+import mocha = require('gulp-mocha');
 
 gulp.task('default', function () {
-    return gulp.src('test.js', {read: false})
-        .pipe(mocha({reporter: 'nyan'}));
+    return gulp.src('test.js', { read: false }).pipe(mocha({ reporter: 'nyan' }));
 });

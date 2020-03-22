@@ -19,7 +19,7 @@
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
 
-declare module "material-ui" {
+declare module 'material-ui' {
     export import AppBar = __MaterialUI.AppBar;
     export import AppBarProps = __MaterialUI.AppBarProps;
     export import AutoComplete = __MaterialUI.AutoComplete;
@@ -161,8 +161,7 @@ declare namespace __MaterialUI {
     export interface ThemeWrapperProps {
         theme: Styles.MuiTheme;
     }
-    export class ThemeWrapper extends React.Component<ThemeWrapperProps> {
-    }
+    export class ThemeWrapper extends React.Component<ThemeWrapperProps> {}
 
     export namespace Styles {
         interface Spacing {
@@ -411,7 +410,7 @@ declare namespace __MaterialUI {
                 connectorLineColor?: string;
             };
             svgIcon?: {
-                color?: string,
+                color?: string;
             };
             table?: {
                 backgroundColor?: string;
@@ -517,14 +516,15 @@ declare namespace __MaterialUI {
 
         export function muiThemeable(): <
             TComponent extends React.ComponentClass<P> | React.StatelessComponent<P>,
-            P extends {muiTheme?: MuiTheme}
-        >(component: TComponent) => TComponent;
+            P extends { muiTheme?: MuiTheme }
+        >(
+            component: TComponent,
+        ) => TComponent;
 
         export interface MuiThemeProviderProps {
             muiTheme?: MuiTheme;
         }
-        export class MuiThemeProvider extends React.Component<MuiThemeProviderProps> {
-        }
+        export class MuiThemeProvider extends React.Component<MuiThemeProviderProps> {}
 
         export function getMuiTheme(...muiTheme: MuiTheme[]): MuiTheme;
 
@@ -572,13 +572,10 @@ declare namespace __MaterialUI {
         titleStyle?: React.CSSProperties;
         zDepth?: number;
     }
-    export class AppBar extends React.Component<AppBarProps> {
-    }
+    export class AppBar extends React.Component<AppBarProps> {}
 
-    export interface AppCanvasProps {
-    }
-    export class AppCanvas extends React.Component<AppCanvasProps> {
-    }
+    export interface AppCanvasProps {}
+    export class AppCanvas extends React.Component<AppCanvasProps> {}
 
     namespace propTypes {
         type horizontal = 'left' | 'middle' | 'right';
@@ -592,7 +589,7 @@ declare namespace __MaterialUI {
         }
 
         interface utils {
-            getWeekArray(date: Date, firstDayOfWeek: number): Array<Array<(Date | null)>>;
+            getWeekArray(date: Date, firstDayOfWeek: number): Array<Array<Date | null>>;
             getYear(date: Date): number;
             setYear(date: Date, year: number): Date;
             addDays(date: Date, days: number): Date;
@@ -603,7 +600,13 @@ declare namespace __MaterialUI {
         }
 
         type corners = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
-        type cornersAndCenter = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right';
+        type cornersAndCenter =
+            | 'bottom-center'
+            | 'bottom-left'
+            | 'bottom-right'
+            | 'top-center'
+            | 'top-left'
+            | 'top-right';
     }
 
     export interface AutoCompleteProps<DataItem> extends TextFieldProps {
@@ -611,7 +614,7 @@ declare namespace __MaterialUI {
         animated?: boolean;
         animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
         dataSource: DataItem[];
-        dataSourceConfig?: { text: string; value: string; };
+        dataSourceConfig?: { text: string; value: string };
         disableFocusRipple?: boolean;
         errorStyle?: React.CSSProperties;
         errorText?: React.ReactNode;
@@ -660,8 +663,7 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
         onClick?: React.MouseEventHandler<{}>;
     }
-    export class Avatar extends React.Component<AvatarProps> {
-    }
+    export class Avatar extends React.Component<AvatarProps> {}
 
     export interface BadgeProps {
         badgeContent: React.ReactNode;
@@ -671,8 +673,7 @@ declare namespace __MaterialUI {
         secondary?: boolean;
         style?: React.CSSProperties;
     }
-    export class Badge extends React.Component<BadgeProps> {
-    }
+    export class Badge extends React.Component<BadgeProps> {}
 
     export interface BeforeAfterWrapperProps {
         afterElementType?: string;
@@ -682,8 +683,7 @@ declare namespace __MaterialUI {
         elementType?: string;
         style?: React.CSSProperties;
     }
-    export class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps> {
-    }
+    export class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps> {}
 
     // non generally overridden elements of EnhancedButton
     export interface SharedEnhancedButtonProps<T> {
@@ -715,8 +715,7 @@ declare namespace __MaterialUI {
         containerElement?: React.ReactNode | string;
         disabled?: boolean;
     }
-    export class EnhancedButton extends React.Component<EnhancedButtonProps> {
-    }
+    export class EnhancedButton extends React.Component<EnhancedButtonProps> {}
 
     export interface FlatButtonProps extends React.DOMAttributes<{}>, SharedEnhancedButtonProps<FlatButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
@@ -727,7 +726,7 @@ declare namespace __MaterialUI {
         hoverColor?: string;
         icon?: React.ReactNode;
         label?: React.ReactNode;
-        labelPosition?: "before" | "after";
+        labelPosition?: 'before' | 'after';
         labelStyle?: React.CSSProperties;
         linkButton?: boolean;
         onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
@@ -739,8 +738,7 @@ declare namespace __MaterialUI {
         secondary?: boolean;
         style?: React.CSSProperties;
     }
-    export class FlatButton extends React.Component<FlatButtonProps> {
-    }
+    export class FlatButton extends React.Component<FlatButtonProps> {}
 
     export interface RaisedButtonProps extends SharedEnhancedButtonProps<RaisedButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
@@ -754,7 +752,7 @@ declare namespace __MaterialUI {
         icon?: React.ReactNode;
         label?: React.ReactNode;
         labelColor?: string;
-        labelPosition?: "before" | "after";
+        labelPosition?: 'before' | 'after';
         labelStyle?: React.CSSProperties;
         linkButton?: boolean;
         onMouseDown?: React.MouseEventHandler<{}>;
@@ -769,10 +767,11 @@ declare namespace __MaterialUI {
         secondary?: boolean;
         style?: React.CSSProperties;
     }
-    export class RaisedButton extends React.Component<RaisedButtonProps> {
-    }
+    export class RaisedButton extends React.Component<RaisedButtonProps> {}
 
-    export interface FloatingActionButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<FloatingActionButton> {
+    export interface FloatingActionButtonProps
+        extends React.HTMLAttributes<{}>,
+            SharedEnhancedButtonProps<FloatingActionButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
         className?: string;
@@ -791,8 +790,7 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
         zDepth?: number;
     }
-    export class FloatingActionButton extends React.Component<FloatingActionButtonProps> {
-    }
+    export class FloatingActionButton extends React.Component<FloatingActionButtonProps> {}
 
     export interface IconButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<IconButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
@@ -814,8 +812,7 @@ declare namespace __MaterialUI {
         tooltipStyles?: React.CSSProperties;
         touch?: boolean;
     }
-    export class IconButton extends React.Component<IconButtonProps> {
-    }
+    export class IconButton extends React.Component<IconButtonProps> {}
 
     namespace BottomNavigation {
         export interface BottomNavigationProps {
@@ -824,7 +821,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
         }
 
-        export class BottomNavigation extends React.Component<BottomNavigationProps> { }
+        export class BottomNavigation extends React.Component<BottomNavigationProps> {}
 
         export interface BottomNavigationItemProps extends SharedEnhancedButtonProps<BottomNavigationItem> {
             className?: string;
@@ -832,7 +829,7 @@ declare namespace __MaterialUI {
             label?: React.ReactNode;
         }
 
-        export class BottomNavigationItem extends React.Component<BottomNavigationItemProps> { }
+        export class BottomNavigationItem extends React.Component<BottomNavigationItemProps> {}
     }
 
     namespace Card {
@@ -847,8 +844,7 @@ declare namespace __MaterialUI {
             showExpandableButton?: boolean;
             style?: React.CSSProperties;
         }
-        export class Card extends React.Component<CardProps> {
-        }
+        export class Card extends React.Component<CardProps> {}
 
         export interface CardActionsProps {
             actAsExpander?: boolean;
@@ -857,16 +853,14 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             className?: string;
         }
-        export class CardActions extends React.Component<CardActionsProps> {
-        }
+        export class CardActions extends React.Component<CardActionsProps> {}
 
         export interface CardExpandableProps {
             expanded?: boolean;
             onExpanding?(isExpanded: boolean): void;
             style?: React.CSSProperties;
         }
-        export class CardExpandable extends React.Component<CardExpandableProps> {
-        }
+        export class CardExpandable extends React.Component<CardExpandableProps> {}
 
         export interface CardHeaderProps {
             actAsExpander?: boolean;
@@ -886,8 +880,7 @@ declare namespace __MaterialUI {
             closeIcon?: React.ReactNode;
             iconStyle?: React.CSSProperties;
         }
-        export class CardHeader extends React.Component<CardHeaderProps> {
-        }
+        export class CardHeader extends React.Component<CardHeaderProps> {}
 
         export interface CardMediaProps {
             actAsExpander?: boolean;
@@ -899,8 +892,7 @@ declare namespace __MaterialUI {
             overlayStyle?: React.CSSProperties;
             style?: React.CSSProperties;
         }
-        export class CardMedia extends React.Component<CardMediaProps> {
-        }
+        export class CardMedia extends React.Component<CardMediaProps> {}
 
         export interface CardTextProps {
             actAsExpander?: boolean;
@@ -909,8 +901,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             className?: string;
         }
-        export class CardText extends React.Component<CardTextProps> {
-        }
+        export class CardText extends React.Component<CardTextProps> {}
 
         export interface CardTitleProps {
             actAsExpander?: boolean;
@@ -924,8 +915,7 @@ declare namespace __MaterialUI {
             titleColor?: string;
             titleStyle?: React.CSSProperties;
         }
-        export class CardTitle extends React.Component<CardTitleProps> {
-        }
+        export class CardTitle extends React.Component<CardTitleProps> {}
     }
 
     export interface ChipProps {
@@ -940,8 +930,7 @@ declare namespace __MaterialUI {
         deleteIconStyle?: React.CSSProperties;
     }
 
-    export class Chip extends React.Component<ChipProps> {
-    }
+    export class Chip extends React.Component<ChipProps> {}
 
     namespace DatePicker {
         export interface DatePickerProps {
@@ -949,7 +938,7 @@ declare namespace __MaterialUI {
             DateTimeFormat?: typeof Intl.DateTimeFormat;
             autoOk?: boolean;
             cancelLabel?: React.ReactNode;
-            container?: "dialog" | "inline";
+            container?: 'dialog' | 'inline';
             defaultDate?: Date;
             dialogContainerStyle?: React.CSSProperties;
             disableYearSelection?: boolean;
@@ -959,7 +948,7 @@ declare namespace __MaterialUI {
             locale?: string;
             maxDate?: Date;
             minDate?: Date;
-            mode?: "portrait" | "landscape";
+            mode?: 'portrait' | 'landscape';
             okLabel?: React.ReactNode;
             onChange?(e: any, date: Date): void; // e is always null
             onDismiss?(): void;
@@ -1008,14 +997,14 @@ declare namespace __MaterialUI {
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             autoOk?: boolean;
             cancelLabel?: React.ReactNode;
-            container?: "dialog" | "inline";
+            container?: 'dialog' | 'inline';
             disableYearSelection?: boolean;
             firstDayOfWeek?: number;
             initialDate?: Date;
             locale?: string;
             maxDate?: Date;
             minDate?: Date;
-            mode?: "portrait" | "landscape";
+            mode?: 'portrait' | 'landscape';
             okLabel?: React.ReactNode;
             onAccept?(d: Date): void;
             onDismiss?(): void;
@@ -1063,16 +1052,14 @@ declare namespace __MaterialUI {
         titleClassName?: string;
         titleStyle?: React.CSSProperties;
     }
-    export class Dialog extends React.Component<DialogProps> {
-    }
+    export class Dialog extends React.Component<DialogProps> {}
 
     export interface DividerProps {
         className?: string;
         inset?: boolean;
         style?: React.CSSProperties;
     }
-    export class Divider extends React.Component<DividerProps> {
-    }
+    export class Divider extends React.Component<DividerProps> {}
 
     export interface DrawerProps {
         className?: string;
@@ -1090,22 +1077,20 @@ declare namespace __MaterialUI {
         width?: number | string;
         zDepth?: number;
     }
-    export class Drawer extends React.Component<DrawerProps> {
-    }
+    export class Drawer extends React.Component<DrawerProps> {}
 
     namespace GridList {
         export interface GridListProps {
-            cellHeight?: number|'auto';
+            cellHeight?: number | 'auto';
             cols?: number;
             padding?: number;
             style?: React.CSSProperties;
         }
-        export class GridList extends React.Component<GridListProps> {
-        }
+        export class GridList extends React.Component<GridListProps> {}
 
         export interface GridTileProps {
             actionIcon?: React.ReactElement;
-            actionPosition?: "left" | "right";
+            actionPosition?: 'left' | 'right';
             cols?: number;
             containerElement?: string | React.ReactElement | React.ComponentClass<any>;
             rows?: number;
@@ -1114,12 +1099,11 @@ declare namespace __MaterialUI {
             subtitleStyle?: React.CSSProperties;
             title?: React.ReactNode;
             titleBackground?: string;
-            titlePosition?: "top" | "bottom";
+            titlePosition?: 'top' | 'bottom';
             titleStyle?: React.CSSProperties;
             onClick?: React.MouseEventHandler<{}>;
         }
-        export class GridTile extends React.Component<GridTileProps> {
-        }
+        export class GridTile extends React.Component<GridTileProps> {}
     }
 
     export interface FontIconProps extends React.HTMLAttributes<{}>, React.Props<FontIcon> {
@@ -1130,8 +1114,7 @@ declare namespace __MaterialUI {
         onMouseLeave?: React.MouseEventHandler<{}>;
         style?: React.CSSProperties;
     }
-    export class FontIcon extends React.Component<FontIconProps> {
-    }
+    export class FontIcon extends React.Component<FontIconProps> {}
 
     export interface SvgIconProps extends React.SVGAttributes<{}>, React.Props<SvgIcon> {
         // <svg/> is the element that get the 'other' properties
@@ -1142,8 +1125,7 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
         viewBox?: string;
     }
-    export class SvgIcon extends React.Component<SvgIconProps> {
-    }
+    export class SvgIcon extends React.Component<SvgIconProps> {}
 
     namespace List {
         export interface ListProps extends React.HTMLAttributes<{}> {}
@@ -1182,8 +1164,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             value?: any;
         }
-        export class ListItem extends React.Component<ListItemProps> {
-        }
+        export class ListItem extends React.Component<ListItemProps> {}
 
         export interface SelectableProps {
             onChange?(e: React.SyntheticEvent<{}>, value: any): void;
@@ -1192,7 +1173,9 @@ declare namespace __MaterialUI {
         }
 
         // union types for higher order components in TypeScript 1.8: https://github.com/Microsoft/TypeScript/issues/4362
-        export function makeSelectable<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
+        export function makeSelectable<P extends {}>(
+            component: React.ComponentClass<P>,
+        ): React.ComponentClass<P & SelectableProps>;
     }
 
     namespace Menus {
@@ -1215,8 +1198,7 @@ declare namespace __MaterialUI {
             valueLink?: ReactLink<any | any[]>;
             width?: string | number;
         }
-        export class Menu extends React.Component<MenuProps> {
-        }
+        export class Menu extends React.Component<MenuProps> {}
 
         export interface MenuItemProps extends List.ListItemProps {
             // <ListItem/> is the element that get the 'other' properties
@@ -1237,8 +1219,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             containerElement?: React.ReactNode | string;
         }
-        export class MenuItem extends React.Component<MenuItemProps> {
-        }
+        export class MenuItem extends React.Component<MenuItemProps> {}
 
         export interface IconMenuProps {
             // <Menu/> is the element that get the 'other' properties
@@ -1274,8 +1255,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             value?: any | any[];
         }
-        export class IconMenu extends React.Component<IconMenuProps> {
-        }
+        export class IconMenu extends React.Component<IconMenuProps> {}
 
         export interface DropDownMenuProps {
             // <div/> is the element that gets the 'other' properties
@@ -1302,8 +1282,7 @@ declare namespace __MaterialUI {
             underlineStyle?: React.CSSProperties;
             value?: any;
         }
-        export class DropDownMenu extends React.Component<DropDownMenuProps> {
-        }
+        export class DropDownMenu extends React.Component<DropDownMenuProps> {}
     }
 
     export interface OverlayProps extends React.Props<Overlay> {
@@ -1312,8 +1291,7 @@ declare namespace __MaterialUI {
         transitionEnabled?: boolean;
         onClick?: React.MouseEventHandler<{}>;
     }
-    export class Overlay extends React.Component<OverlayProps> {
-    }
+    export class Overlay extends React.Component<OverlayProps> {}
 
     export interface PaperProps extends React.HTMLAttributes<{}>, React.Props<Paper> {
         circle?: boolean;
@@ -1324,8 +1302,7 @@ declare namespace __MaterialUI {
         width?: number | string;
         height?: number | string;
     }
-    export class Paper extends React.Component<PaperProps> {
-    }
+    export class Paper extends React.Component<PaperProps> {}
 
     namespace Popover {
         export interface PopoverAnimationProps {
@@ -1348,24 +1325,21 @@ declare namespace __MaterialUI {
             useLayerForClickAway?: boolean;
             zDepth?: number;
         }
-        export class Popover extends React.Component<PopoverProps> {
-        }
+        export class Popover extends React.Component<PopoverProps> {}
 
         export interface PopoverAnimationVerticalProps extends PopoverAnimationProps {
             className?: string;
             targetOrigin?: propTypes.origin;
             zDepth?: number;
         }
-        export class PopoverAnimationVertical extends React.Component<PopoverAnimationVerticalProps> {
-        }
+        export class PopoverAnimationVertical extends React.Component<PopoverAnimationVerticalProps> {}
 
         export interface PopoverAnimationDefaultProps extends PopoverAnimationProps {
             className?: string;
             targetOrigin?: propTypes.origin;
             zDepth?: number;
         }
-        export class PopoverAnimationDefault extends React.Component<PopoverAnimationDefaultProps> {
-        }
+        export class PopoverAnimationDefault extends React.Component<PopoverAnimationDefaultProps> {}
     }
 
     export interface CircularProgressProps {
@@ -1373,25 +1347,23 @@ declare namespace __MaterialUI {
         innerStyle?: React.CSSProperties;
         max?: number;
         min?: number;
-        mode?: "determinate" | "indeterminate";
+        mode?: 'determinate' | 'indeterminate';
         size?: number;
         style?: React.CSSProperties;
         thickness?: number;
         value?: number;
     }
-    export class CircularProgress extends React.Component<CircularProgressProps> {
-    }
+    export class CircularProgress extends React.Component<CircularProgressProps> {}
 
     export interface LinearProgressProps {
         color?: string;
         max?: number;
         min?: number;
-        mode?: "determinate" | "indeterminate";
+        mode?: 'determinate' | 'indeterminate';
         style?: React.CSSProperties;
         value?: number;
     }
-    export class LinearProgress extends React.Component<LinearProgressProps> {
-    }
+    export class LinearProgress extends React.Component<LinearProgressProps> {}
 
     export interface RefreshIndicatorProps {
         color?: string;
@@ -1399,12 +1371,11 @@ declare namespace __MaterialUI {
         loadingColor?: string;
         percentage?: number;
         size?: number;
-        status?: "ready" | "loading" | "hide";
+        status?: 'ready' | 'loading' | 'hide';
         style?: React.CSSProperties;
         top: number;
     }
-    export class RefreshIndicator extends React.Component<RefreshIndicatorProps> {
-    }
+    export class RefreshIndicator extends React.Component<RefreshIndicatorProps> {}
 
     export interface SelectFieldProps {
         // <DropDownMenu/> is the element that get the 'other' properties
@@ -1444,8 +1415,7 @@ declare namespace __MaterialUI {
         selectedMenuItemStyle?: React.CSSProperties;
         openImmediately?: boolean;
     }
-    export class SelectField extends React.Component<SelectFieldProps> {
-    }
+    export class SelectField extends React.Component<SelectFieldProps> {}
 
     export interface SliderProps {
         axis?: 'x' | 'x-reverse' | 'y' | 'y-reverse';
@@ -1468,8 +1438,7 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
         value?: number;
     }
-    export class Slider extends React.Component<SliderProps> {
-    }
+    export class Slider extends React.Component<SliderProps> {}
 
     namespace Switches {
         // what's not commonly overridden by Checkbox, RadioButton, or Toggle
@@ -1524,7 +1493,7 @@ declare namespace __MaterialUI {
             defaultChecked?: boolean;
             disabled?: boolean;
             iconStyle?: React.CSSProperties;
-            labelPosition?: "left" | "right";
+            labelPosition?: 'left' | 'right';
             labelStyle?: React.CSSProperties;
             onCheck?(event: React.MouseEvent<{}>, checked: boolean): void;
             style?: React.CSSProperties;
@@ -1561,7 +1530,7 @@ declare namespace __MaterialUI {
         export interface RadioButtonGroupProps {
             className?: string;
             defaultSelected?: any;
-            labelPosition?: "left" | "right";
+            labelPosition?: 'left' | 'right';
             name: string;
             onChange?(e: React.FormEvent<{}>, selected: string): void;
             style?: React.CSSProperties;
@@ -1583,7 +1552,7 @@ declare namespace __MaterialUI {
             iconStyle?: React.CSSProperties;
             inputStyle?: React.CSSProperties;
             label?: React.ReactNode;
-            labelPosition?: "left" | "right";
+            labelPosition?: 'left' | 'right';
             labelStyle?: React.CSSProperties;
             onToggle?(e: React.MouseEvent<{}>, isInputChecked: boolean): void;
             rippleStyle?: React.CSSProperties;
@@ -1614,8 +1583,7 @@ declare namespace __MaterialUI {
         open: boolean;
         style?: React.CSSProperties;
     }
-    export class Snackbar extends React.Component<SnackbarProps> {
-    }
+    export class Snackbar extends React.Component<SnackbarProps> {}
 
     namespace Stepper {
         export interface StepProps {
@@ -1624,8 +1592,7 @@ declare namespace __MaterialUI {
             disabled?: boolean;
             style?: React.CSSProperties;
         }
-        export class Step extends React.Component<StepProps> {
-        }
+        export class Step extends React.Component<StepProps> {}
 
         export interface StepButtonProps extends SharedEnhancedButtonProps<StepButton> {
             active?: boolean;
@@ -1637,16 +1604,14 @@ declare namespace __MaterialUI {
             onTouchStart?: React.TouchEventHandler<{}>;
             style?: React.CSSProperties;
         }
-        export class StepButton extends React.Component<StepButtonProps> {
-        }
+        export class StepButton extends React.Component<StepButtonProps> {}
 
         export interface StepContentProps {
             active?: boolean;
             last?: boolean;
             style?: React.CSSProperties;
         }
-        export class StepContent extends React.Component<StepContentProps> {
-        }
+        export class StepContent extends React.Component<StepContentProps> {}
 
         export interface StepLabelProps {
             active?: boolean;
@@ -1656,8 +1621,7 @@ declare namespace __MaterialUI {
             iconContainerStyle?: React.CSSProperties;
             style?: React.CSSProperties;
         }
-        export class StepLabel extends React.Component<StepLabelProps> {
-        }
+        export class StepLabel extends React.Component<StepLabelProps> {}
 
         export interface SnackbarProps extends React.Props<Snackbar> {
             action?: string;
@@ -1679,19 +1643,17 @@ declare namespace __MaterialUI {
         export interface StepperProps {
             activeStep?: number;
             linear?: boolean;
-            orientation?: "horizontal" | "vertical";
+            orientation?: 'horizontal' | 'vertical';
             style?: React.CSSProperties;
         }
-        export class Stepper extends React.Component<StepperProps> {
-        }
+        export class Stepper extends React.Component<StepperProps> {}
     }
 
     export interface SubheaderProps {
         inset?: boolean;
         style?: React.CSSProperties;
     }
-    export class Subheader extends React.Component<SubheaderProps> {
-    }
+    export class Subheader extends React.Component<SubheaderProps> {}
 
     namespace Table {
         export interface TableProps {
@@ -1714,8 +1676,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             wrapperStyle?: React.CSSProperties;
         }
-        export class Table extends React.Component<TableProps> {
-        }
+        export class Table extends React.Component<TableProps> {}
 
         export interface TableRowProps {
             // <tr/> is element that get the 'other' properties
@@ -1741,8 +1702,7 @@ declare namespace __MaterialUI {
             striped?: boolean;
             style?: React.CSSProperties;
         }
-        export class TableRow extends React.Component<TableRowProps> {
-        }
+        export class TableRow extends React.Component<TableRowProps> {}
 
         export interface TableRowColumnProps {
             // <td/> is element that get the 'other' properties
@@ -1762,8 +1722,7 @@ declare namespace __MaterialUI {
             colSpan?: number;
             rowSpan?: number;
         }
-        export class TableRowColumn extends React.Component<TableRowColumnProps> {
-        }
+        export class TableRowColumn extends React.Component<TableRowColumnProps> {}
 
         export interface TableHeaderProps {
             adjustForCheckbox?: boolean;
@@ -1776,8 +1735,7 @@ declare namespace __MaterialUI {
             selectAllSelected?: boolean;
             style?: React.CSSProperties;
         }
-        export class TableHeader extends React.Component<TableHeaderProps> {
-        }
+        export class TableHeader extends React.Component<TableHeaderProps> {}
 
         export interface TableHeaderColumnProps {
             // <th/> is element that get the 'other' properties
@@ -1793,8 +1751,7 @@ declare namespace __MaterialUI {
             colSpan?: number;
             rowSpan?: number;
         }
-        export class TableHeaderColumn extends React.Component<TableHeaderColumnProps> {
-        }
+        export class TableHeaderColumn extends React.Component<TableHeaderColumnProps> {}
 
         export interface TableBodyProps {
             /** @deprecated Instead, use property on Table */
@@ -1823,8 +1780,7 @@ declare namespace __MaterialUI {
             stripedRows?: boolean;
             style?: React.CSSProperties;
         }
-        export class TableBody extends React.Component<TableBodyProps> {
-        }
+        export class TableBody extends React.Component<TableBodyProps> {}
 
         export interface TableFooterProps {
             // <tfoot/> is element that get the 'other' properties
@@ -1832,8 +1788,7 @@ declare namespace __MaterialUI {
             className?: string;
             style?: React.CSSProperties;
         }
-        export class TableFooter extends React.Component<TableFooterProps> {
-        }
+        export class TableFooter extends React.Component<TableFooterProps> {}
     }
 
     namespace Tabs {
@@ -1850,8 +1805,7 @@ declare namespace __MaterialUI {
             tabTemplateStyle?: React.CSSProperties;
             value?: any;
         }
-        export class Tabs extends React.Component<TabsProps> {
-        }
+        export class Tabs extends React.Component<TabsProps> {}
 
         export interface TabProps extends SharedEnhancedButtonProps<Tab> {
             buttonStyle?: React.CSSProperties;
@@ -1863,8 +1817,7 @@ declare namespace __MaterialUI {
             value?: any;
             disabled?: boolean;
         }
-        export class Tab extends React.Component<TabProps> {
-        }
+        export class Tab extends React.Component<TabProps> {}
     }
 
     export interface TextFieldProps {
@@ -1932,7 +1885,7 @@ declare namespace __MaterialUI {
         dialogBodyStyle?: React.CSSProperties;
         dialogStyle?: React.CSSProperties;
         disabled?: boolean;
-        format?: "ampm" | "24hr";
+        format?: 'ampm' | '24hr';
         minutesStep?: number;
         okLabel?: React.ReactNode;
         onChange?(e: any, time: Date): void;
@@ -1984,33 +1937,29 @@ declare namespace __MaterialUI {
             noGutter?: boolean;
             style?: React.CSSProperties;
         }
-        export class Toolbar extends React.Component<ToolbarProps> {
-        }
+        export class Toolbar extends React.Component<ToolbarProps> {}
 
         export interface ToolbarGroupProps {
             className?: string;
             firstChild?: boolean;
-            float?: "left" | "right";
+            float?: 'left' | 'right';
             lastChild?: boolean;
             style?: React.CSSProperties;
         }
-        export class ToolbarGroup extends React.Component<ToolbarGroupProps> {
-        }
+        export class ToolbarGroup extends React.Component<ToolbarGroupProps> {}
 
         export interface ToolbarSeparatorProps {
             className?: string;
             style?: React.CSSProperties;
         }
-        export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps> {
-        }
+        export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps> {}
 
         export interface ToolbarTitleProps extends React.HTMLAttributes<{}>, React.Props<ToolbarTitle> {
             className?: string;
             style?: React.CSSProperties;
             text?: string;
         }
-        export class ToolbarTitle extends React.Component<ToolbarTitleProps> {
-        }
+        export class ToolbarTitle extends React.Component<ToolbarTitleProps> {}
     }
 
     export namespace Utils {
@@ -2044,7 +1993,7 @@ declare namespace __MaterialUI {
             getStyleAttributeAsNumber(el: HTMLElement, attr: string): number;
             hasClass(el: Element, className: string): boolean;
             isDescendant(parent: Node, child: Node): boolean;
-            offset(el: Element): { top: number, left: number };
+            offset(el: Element): { top: number; left: number };
             removeClass(el: Element, className: string): void;
             toggleClass(el: Element, className: string): void;
             withoutTransition(el: HTMLElement, callback: () => void): void;
@@ -2059,7 +2008,7 @@ declare namespace __MaterialUI {
         }
         export let Events: Events;
     }
-}    // __MaterialUI
+} // __MaterialUI
 
 declare module 'material-ui/AppBar' {
     export import AppBar = __MaterialUI.AppBar;
@@ -2076,7 +2025,7 @@ declare module 'material-ui/Avatar' {
     export default Avatar;
 }
 
-declare module "material-ui/Badge" {
+declare module 'material-ui/Badge' {
     export import Badge = __MaterialUI.Badge;
     export default Badge;
 }
@@ -2168,7 +2117,7 @@ declare module 'material-ui/Dialog' {
     export default Dialog;
 }
 
-declare module "material-ui/Divider" {
+declare module 'material-ui/Divider' {
     export import Divider = __MaterialUI.Divider;
     export default Divider;
 }
@@ -2198,18 +2147,18 @@ declare module 'material-ui/FontIcon' {
     export default FontIcon;
 }
 
-declare module "material-ui/GridList" {
+declare module 'material-ui/GridList' {
     export import GridList = __MaterialUI.GridList.GridList;
     export import GridTile = __MaterialUI.GridList.GridTile;
     export default GridList;
 }
 
-declare module "material-ui/GridList/GridList" {
+declare module 'material-ui/GridList/GridList' {
     export import GridList = __MaterialUI.GridList.GridList;
     export default GridList;
 }
 
-declare module "material-ui/GridList/GridTile" {
+declare module 'material-ui/GridList/GridTile' {
     export import GridTile = __MaterialUI.GridList.GridTile;
     export default GridTile;
 }
@@ -2219,7 +2168,7 @@ declare module 'material-ui/IconButton' {
     export default IconButton;
 }
 
-declare module "material-ui/IconMenu" {
+declare module 'material-ui/IconMenu' {
     export import IconMenu = __MaterialUI.Menus.IconMenu;
     export default IconMenu;
 }
@@ -2251,13 +2200,13 @@ declare module 'material-ui/List/makeSelectable' {
     export default makeSelectable;
 }
 
-declare module "material-ui/Menu" {
+declare module 'material-ui/Menu' {
     export import Menu = __MaterialUI.Menus.Menu;
     export import MenuItem = __MaterialUI.Menus.MenuItem;
     export default Menu;
 }
 
-declare module "material-ui/MenuItem" {
+declare module 'material-ui/MenuItem' {
     export import MenuItem = __MaterialUI.Menus.MenuItem;
     export default MenuItem;
 }
@@ -7213,7 +7162,7 @@ declare module 'material-ui/styles/zIndex' {
     export default zIndex;
 }
 
-declare module "material-ui/styles/colors" {
+declare module 'material-ui/styles/colors' {
     export const red50: string;
     export const red100: string;
     export const red200: string;
@@ -7930,9 +7879,9 @@ declare namespace __MaterialUI.Styles {
 }
 
 declare module 'material-ui/svg-icons' {
-// DO NOT EDIT
-// This code is generated by scripts/material-ui/generate.js
-// {{{
+    // DO NOT EDIT
+    // This code is generated by scripts/material-ui/generate.js
+    // {{{
     export import ActionAccessibility = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/action/accessibility');
     export import ActionAccessible = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/action/accessible');
     export import ActionAccountBalance = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/action/account-balance');
@@ -8893,20 +8842,20 @@ declare module 'material-ui/svg-icons' {
     export import ToggleStar = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star');
     export import ToggleStarBorder = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star-border');
     export import ToggleStarHalf = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star-half');
-// }}}
+    // }}}
     export import NavigationArrowDropRight = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/navigation-arrow-drop-right');
 }
 
 declare module 'material-ui/internal/AppCanvas' {
-    export interface AppCanvasProps extends React.Props<AppCanvas> { }
-    class AppCanvas extends React.Component<AppCanvasProps> { }
+    export interface AppCanvasProps extends React.Props<AppCanvas> {}
+    class AppCanvas extends React.Component<AppCanvasProps> {}
     export default AppCanvas;
 }
 declare module 'material-ui/internal/AutoLockScrolling' {
     export interface AutoLockScrollingProps extends React.Props<AutoLockScrolling> {
         lock: boolean;
     }
-    class AutoLockScrolling extends React.Component<AutoLockScrollingProps> { }
+    class AutoLockScrolling extends React.Component<AutoLockScrollingProps> {}
     export default AutoLockScrolling;
 }
 declare module 'material-ui/internal/BeforeAfterWrapper' {
@@ -8918,7 +8867,7 @@ declare module 'material-ui/internal/BeforeAfterWrapper' {
         elementType?: string;
         style?: React.CSSProperties;
     }
-    class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps> { }
+    class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps> {}
     export default BeforeAfterWrapper;
 }
 declare module 'material-ui/internal/CircleRipple' {
@@ -8928,33 +8877,31 @@ declare module 'material-ui/internal/CircleRipple' {
         opacity?: number;
         style?: React.CSSProperties;
     }
-    class CircleRipple extends React.Component<CircleRippleProps> { }
+    class CircleRipple extends React.Component<CircleRippleProps> {}
     export default CircleRipple;
 }
 declare module 'material-ui/internal/ClearFix' {
     export interface ClearFixProps extends React.Props<ClearFix> {
         style?: React.CSSProperties;
     }
-    class ClearFix extends React.Component<ClearFixProps> { }
+    class ClearFix extends React.Component<ClearFixProps> {}
     export default ClearFix;
 }
 declare module 'material-ui/internal/ClickAwayListener' {
     export interface ClickAwayListenerProps extends React.Props<ClickAwayListener> {
         onClickAway?: any;
     }
-    class ClickAwayListener extends React.Component<ClickAwayListenerProps> { }
+    class ClickAwayListener extends React.Component<ClickAwayListenerProps> {}
     export default ClickAwayListener;
 }
 declare module 'material-ui/internal/EnhancedButton' {
-    export interface EnhancedButtonProps extends __MaterialUI.SharedEnhancedButtonProps<EnhancedButton> {
-    }
-    class EnhancedButton extends React.Component<EnhancedButtonProps> { }
+    export interface EnhancedButtonProps extends __MaterialUI.SharedEnhancedButtonProps<EnhancedButton> {}
+    class EnhancedButton extends React.Component<EnhancedButtonProps> {}
     export default EnhancedButton;
 }
 declare module 'material-ui/internal/EnhancedSwitch' {
-    export interface EnhancedSwitchProps extends __MaterialUI.Switches.CommonEnhancedSwitchProps<EnhancedSwitch> {
-    }
-    class EnhancedSwitch extends React.Component<EnhancedSwitchProps> { }
+    export interface EnhancedSwitchProps extends __MaterialUI.Switches.CommonEnhancedSwitchProps<EnhancedSwitch> {}
+    class EnhancedSwitch extends React.Component<EnhancedSwitchProps> {}
     export default EnhancedSwitch;
 }
 declare module 'material-ui/internal/ExpandTransition' {
@@ -8966,7 +8913,7 @@ declare module 'material-ui/internal/ExpandTransition' {
         transitionDelay?: number;
         transitionDuration?: number;
     }
-    class ExpandTransition extends React.Component<ExpandTransitionProps> { }
+    class ExpandTransition extends React.Component<ExpandTransitionProps> {}
     export default ExpandTransition;
 }
 declare module 'material-ui/internal/ExpandTransitionChild' {
@@ -8976,7 +8923,7 @@ declare module 'material-ui/internal/ExpandTransitionChild' {
         transitionDelay?: number;
         transitionDuration?: number;
     }
-    class ExpandTransitionChild extends React.Component<ExpandTransitionChildProps> { }
+    class ExpandTransitionChild extends React.Component<ExpandTransitionChildProps> {}
     export default ExpandTransitionChild;
 }
 declare module 'material-ui/internal/FocusRipple' {
@@ -8987,7 +8934,7 @@ declare module 'material-ui/internal/FocusRipple' {
         show?: boolean;
         style?: React.CSSProperties;
     }
-    class FocusRipple extends React.Component<FocusRippleProps> { }
+    class FocusRipple extends React.Component<FocusRippleProps> {}
     export default FocusRipple;
 }
 declare module 'material-ui/internal/Overlay' {
@@ -8998,7 +8945,7 @@ declare module 'material-ui/internal/Overlay' {
         transitionEnabled?: boolean;
         onClick?: React.MouseEventHandler<{}>;
     }
-    class Overlay extends React.Component<OverlayProps> { }
+    class Overlay extends React.Component<OverlayProps> {}
     export default Overlay;
 }
 declare module 'material-ui/internal/RenderToLayer' {
@@ -9008,7 +8955,7 @@ declare module 'material-ui/internal/RenderToLayer' {
         render: Function;
         useLayerForClickAway?: boolean;
     }
-    class RenderToLayer extends React.Component<RenderToLayerProps> { }
+    class RenderToLayer extends React.Component<RenderToLayerProps> {}
     export default RenderToLayer;
 }
 declare module 'material-ui/internal/ScaleIn' {
@@ -9018,7 +8965,7 @@ declare module 'material-ui/internal/ScaleIn' {
         maxScale?: number;
         minScale?: number;
     }
-    class ScaleIn extends React.Component<ScaleInProps> { }
+    class ScaleIn extends React.Component<ScaleInProps> {}
     export default ScaleIn;
 }
 declare module 'material-ui/internal/ScaleInChild' {
@@ -9028,7 +8975,7 @@ declare module 'material-ui/internal/ScaleInChild' {
         minScale?: number;
         style?: React.CSSProperties;
     }
-    class ScaleInChild extends React.Component<ScaleInChildProps> { }
+    class ScaleInChild extends React.Component<ScaleInChildProps> {}
     export default ScaleInChild;
 }
 declare module 'material-ui/internal/SlideIn' {
@@ -9038,7 +8985,7 @@ declare module 'material-ui/internal/SlideIn' {
         enterDelay?: number;
         style?: React.CSSProperties;
     }
-    class SlideIn extends React.Component<SlideInProps> { }
+    class SlideIn extends React.Component<SlideInProps> {}
     export default SlideIn;
 }
 declare module 'material-ui/internal/SlideInChild' {
@@ -9048,7 +8995,7 @@ declare module 'material-ui/internal/SlideInChild' {
         getLeaveDirection: Function;
         style?: React.CSSProperties;
     }
-    class SlideInChild extends React.Component<SlideInChildProps> { }
+    class SlideInChild extends React.Component<SlideInChildProps> {}
     export default SlideInChild;
 }
 declare module 'material-ui/internal/Tooltip' {
@@ -9061,7 +9008,7 @@ declare module 'material-ui/internal/Tooltip' {
         touch?: boolean;
         verticalPosition?: __MaterialUI.propTypes.vertical;
     }
-    class Tooltip extends React.Component<TooltipProps> { }
+    class Tooltip extends React.Component<TooltipProps> {}
     export default Tooltip;
 }
 declare module 'material-ui/internal/TouchRipple' {
@@ -9072,6 +9019,6 @@ declare module 'material-ui/internal/TouchRipple' {
         opacity?: number;
         style?: React.CSSProperties;
     }
-    class TouchRipple extends React.Component<TouchRippleProps> { }
+    class TouchRipple extends React.Component<TouchRippleProps> {}
     export default TouchRipple;
 }

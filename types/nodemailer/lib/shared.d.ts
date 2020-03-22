@@ -7,27 +7,30 @@ import * as stream from 'stream';
 export type LoggerLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 
 export interface Logger {
-  level(level: LoggerLevel): void;
-  trace(...params: any[]): void;
-  debug(...params: any[]): void;
-  info(...params: any[]): void;
-  warn(...params: any[]): void;
-  error(...params: any[]): void;
-  fatal(...params: any[]): void;
+    level(level: LoggerLevel): void;
+    trace(...params: any[]): void;
+    debug(...params: any[]): void;
+    info(...params: any[]): void;
+    warn(...params: any[]): void;
+    error(...params: any[]): void;
+    fatal(...params: any[]): void;
 }
 
 export interface ResolveHostnameOptions {
-  host?: string;
-  servername?: string | false;
+    host?: string;
+    servername?: string | false;
 }
 
 export interface ResolveHostnameValue {
-  host: string;
-  servername: string | false;
-  _cached?: true;
+    host: string;
+    servername: string | false;
+    _cached?: true;
 }
 
-export function resolveHostname(options: ResolveHostnameOptions | null | undefined, callback: (err: Error | null, value: ResolveHostnameValue) => void): void;
+export function resolveHostname(
+    options: ResolveHostnameOptions | null | undefined,
+    callback: (err: Error | null, value: ResolveHostnameValue) => void,
+): void;
 
 /** Parses connection url to a structured configuration object */
 export function parseConnectionUrl(url: string): SMTPConnection.Options;
@@ -44,7 +47,11 @@ export function callbackPromise(resolve: (...args: any[]) => void, reject: (err:
  * for example the `html` or `text` value as a String or a Buffer but not as
  * a file path or an URL.
  */
-export function resolveContent(data: object | any[], key: string | number, callback: (err: Error | null, value: Buffer | string) => void): void;
+export function resolveContent(
+    data: object | any[],
+    key: string | number,
+    callback: (err: Error | null, value: Buffer | string) => void,
+): void;
 export function resolveContent(data: object | any[], key: string | number): Promise<Buffer | string>;
 /** Copies properties from source objects to target objects */
 export function assign(target: object, ...sources: object[]): object;

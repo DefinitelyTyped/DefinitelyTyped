@@ -13,9 +13,9 @@ export type OnTransitionEndCallback = () => void;
 
 export type OnSwitchingCallback = (index: number, type: OnSwitchingCallbackTypeDescriptor) => void;
 
-export type OnSwitchingCallbackTypeDescriptor = "move" | "end";
+export type OnSwitchingCallbackTypeDescriptor = 'move' | 'end';
 
-export type AxisType = "x" | "x-reverse" | "y" | "y-reverse";
+export type AxisType = 'x' | 'x-reverse' | 'y' | 'y-reverse';
 
 export interface SpringConfig {
     duration: string;
@@ -57,4 +57,4 @@ export interface SwipeableViewsState {
     displaySameSlide?: boolean;
 }
 
-export default class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> { }
+export default class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> {}

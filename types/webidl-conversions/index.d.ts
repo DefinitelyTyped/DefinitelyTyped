@@ -73,11 +73,11 @@ declare const WebIDLConversions: {
 
 	DOMTimeStamp(V: any, opts?: WebIDLConversions.Options): number;
 	// tslint:disable:ban-types
-	Function<V>(V: V, opts?: WebIDLConversions.Options): V extends ((...args: any[]) => any) ? V : Function;
+	Function<V>(V: V, opts?: WebIDLConversions.Options): V extends (...args: any[]) => any ? V : Function;
 	VoidFunction<V>(
 		V: V,
 		opts?: WebIDLConversions.Options,
-	): V extends ((...args: any[]) => any) ? (...args: Parameters<V>) => void : Function;
+	): V extends (...args: any[]) => any ? (...args: Parameters<V>) => void : Function;
 };
 
 // This can't use ES6 style exports, as those can't have spaces in export names.

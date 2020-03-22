@@ -19,7 +19,7 @@ chalkPipe('blue.bold')('Hello world!');
 
     link('Link!');
 
-    const text =  chalkPipe('underline', chalk.blue)('Link!');
+    const text = chalkPipe('underline', chalk.blue)('Link!');
 
     text;
 }

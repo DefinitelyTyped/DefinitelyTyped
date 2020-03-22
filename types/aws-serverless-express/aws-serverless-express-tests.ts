@@ -16,16 +16,16 @@ const mockContext = {
     getRemainingTimeInMillis: () => 2000,
     done: () => false,
     fail: (error: any) => false,
-    succeed: (message: string) => false
+    succeed: (message: string) => false,
 };
 
 const app = express();
 app.use(eventContext());
 app.get('/', (req, res) => {
-  if (req.apiGateway) {
-    req.apiGateway.event;
-    req.apiGateway.context;
-  }
+    if (req.apiGateway) {
+        req.apiGateway.event;
+        req.apiGateway.context;
+    }
 });
 
 const server = awsServerlessExpress.createServer(app, () => {}, []);
@@ -33,4 +33,7 @@ const server = awsServerlessExpress.createServer(app, () => {}, []);
 awsServerlessExpress.proxy(server, mockEvent, mockContext);
 awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CALLBACK', () => {});
 awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CONTEXT_SUCCEED');
-awsServerlessExpress.proxy(server, mockEvent, mockContext, 'PROMISE').promise.then((response: awsServerlessExpress.Response) => {}).catch(err => {});
+awsServerlessExpress
+    .proxy(server, mockEvent, mockContext, 'PROMISE')
+    .promise.then((response: awsServerlessExpress.Response) => {})
+    .catch((err) => {});

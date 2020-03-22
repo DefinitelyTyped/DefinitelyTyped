@@ -3,7 +3,7 @@ import { PayloadSerializers } from './RSocketSerialization';
 import { RequesterLeaseHandler, ResponderLeaseHandler } from './RSocketLease';
 
 export interface RSocketMachine<D, M> extends ReactiveSocket<D, M> {
-  setRequestHandler(requestHandler?: Partial<Responder<D, M>>): void;
+    setRequestHandler(requestHandler?: Partial<Responder<D, M>>): void;
 }
 
 export function createServerMachine<D, M>(
@@ -13,7 +13,7 @@ export function createServerMachine<D, M>(
     serializers?: PayloadSerializers<D, M>,
     errorHandler?: (e: Error) => void,
     requesterLeaseHandler?: RequesterLeaseHandler,
-    responderLeaseHandler?: ResponderLeaseHandler
+    responderLeaseHandler?: ResponderLeaseHandler,
 ): RSocketMachine<D, M>;
 
 export function createClientMachine<D, M>(
@@ -24,5 +24,5 @@ export function createClientMachine<D, M>(
     requestHandler?: Partial<Responder<D, M>>,
     errorHandler?: (e: Error) => void,
     requesterLeaseHandler?: RequesterLeaseHandler,
-    responderLeaseHandler?: ResponderLeaseHandler
+    responderLeaseHandler?: ResponderLeaseHandler,
 ): RSocketMachine<D, M>;

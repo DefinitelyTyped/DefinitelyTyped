@@ -7292,7 +7292,15 @@ export class Transaction {
     /**
      * The Square product that processed the transaction. See [TransactionProduct](#type-transactionproduct) for possible values.
      */
-    product?: 'REGISTER' | 'EXTERNAL_API' | 'BILLING' | 'APPOINTMENTS' | 'INVOICES' | 'ONLINE_STORE' | 'PAYROLL' | 'OTHER';
+    product?:
+        | 'REGISTER'
+        | 'EXTERNAL_API'
+        | 'BILLING'
+        | 'APPOINTMENTS'
+        | 'INVOICES'
+        | 'ONLINE_STORE'
+        | 'PAYROLL'
+        | 'OTHER';
     /**
      * If the transaction was created in the Square Point of Sale app, this value is the ID generated for the
      * transaction by Square Point of Sale. This ID has no relationship to the transaction's canonical `id`, which is
@@ -9845,18 +9853,18 @@ export class ApiClient {
         oauth2: {
             type: string;
             accessToken: string;
-        }
+        };
         oauth2ClientSecret: {
             type: string;
             in: string;
             name: string;
-        }
+        };
     };
 
     /**
      * The default HTTP headers to be included for all API calls.
      */
-    defaultHeaders: {[key: string]: string};
+    defaultHeaders: { [key: string]: string };
 
     /**
      *  The default HTTP timeout for all API calls.
@@ -10207,7 +10215,9 @@ export class MobileAuthorizationApi {
      * `Authorization: Bearer ACCESS_TOKEN` Replace `ACCESS_TOKEN` with a [valid production authorization credential]
      * @link https://docs.connect.squareup.com/get-started#step-4-understand-the-different-application-credentials
      */
-    createMobileAuthorizationCode(body: CreateMobileAuthorizationCodeRequest): Promise<CreateMobileAuthorizationCodeResponse>;
+    createMobileAuthorizationCode(
+        body: CreateMobileAuthorizationCodeRequest,
+    ): Promise<CreateMobileAuthorizationCodeResponse>;
 }
 
 export class OAuthApi {
@@ -10321,7 +10331,9 @@ export class PaymentsApi {
      * After cancelling the payment, you can submit your CreatePayment request again. Note that if no payment with the
      * specified idempotency key is found, no action is taken, the end  point returns successfully.
      */
-    cancelPaymentByIdempotencyKey(body: CancelPaymentByIdempotencyKeyRequest): Promise<CancelPaymentByIdempotencyKeyResponse>;
+    cancelPaymentByIdempotencyKey(
+        body: CancelPaymentByIdempotencyKeyRequest,
+    ): Promise<CancelPaymentByIdempotencyKeyResponse>;
     /**
      * Completes a payment. By default, payments are set to complete immediately after they are created.
      * If you set autocomplete to false when creating a payment, you can complete the payment using this endpoint.

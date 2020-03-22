@@ -6,14 +6,12 @@ import inquirer = require('../..');
  * @template T
  * The type of the answers.
  */
-declare class Choice<T extends inquirer.Answers = inquirer.Answers> implements
-    inquirer.ListChoiceOptions<T>,
-    inquirer.CheckboxChoiceOptions<T>,
-    inquirer.ExpandChoiceOptions<T> {
+declare class Choice<T extends inquirer.Answers = inquirer.Answers>
+    implements inquirer.ListChoiceOptions<T>, inquirer.CheckboxChoiceOptions<T>, inquirer.ExpandChoiceOptions<T> {
     /**
      * @inheritdoc
      */
-    type?: "choice";
+    type?: 'choice';
 
     /**
      * @inheritdoc

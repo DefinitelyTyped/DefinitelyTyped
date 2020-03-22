@@ -1,7 +1,7 @@
-import "jquery";
-import { RelativeSortDefinition } from "../Sorting/RelativeSortDefinition";
-import { SortDefinition } from "../Sorting/SortDefinition";
-import { TriggerCallbackHandler } from "./TriggerCallbackHandler";
+import 'jquery';
+import { RelativeSortDefinition } from '../Sorting/RelativeSortDefinition';
+import { SortDefinition } from '../Sorting/SortDefinition';
+import { TriggerCallbackHandler } from './TriggerCallbackHandler';
 
 /**
  * The names and the data-types of the trigger.
@@ -10,7 +10,7 @@ export interface TriggerNameMap<TElement = HTMLElement> {
     /**
      * Applies a sort to the table.
      */
-    sorton: [ReadonlyArray<(SortDefinition | RelativeSortDefinition)>, TriggerCallbackHandler<TElement>?];
+    sorton: [ReadonlyArray<SortDefinition | RelativeSortDefinition>, TriggerCallbackHandler<TElement>?];
 
     /**
      * Resets the sorting.

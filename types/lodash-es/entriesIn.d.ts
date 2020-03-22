@@ -1,2 +1,2 @@
-import { entriesIn } from "lodash";
+import { entriesIn } from 'lodash';
 export default entriesIn;

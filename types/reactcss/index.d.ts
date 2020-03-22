@@ -4,26 +4,26 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react"
+import * as React from 'react';
 
 interface LoopableProps extends React.Props<any> {
-    "nth-child": number
-    "first-child"?: boolean
-    "last-child"?: boolean
-    even?: boolean
-    odd?: boolean
+    'nth-child': number;
+    'first-child'?: boolean;
+    'last-child'?: boolean;
+    even?: boolean;
+    odd?: boolean;
 }
 
 interface HoverProps<T> extends React.Props<T> {
-    hover?: boolean
+    hover?: boolean;
 }
 
 interface Classes<T> {
-    default: Partial<T>
-    [scope: string]: Partial<T>
+    default: Partial<T>;
+    [scope: string]: Partial<T>;
 }
 
-export type CSS = React.CSSProperties
-export function hover<A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A>
-export function loop(index: number, length: number): LoopableProps
-export default function reactCSS<T>(classes: Classes<T>, ...activations: Array<any>): T
+export type CSS = React.CSSProperties;
+export function hover<A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A>;
+export function loop(index: number, length: number): LoopableProps;
+export default function reactCSS<T>(classes: Classes<T>, ...activations: Array<any>): T;

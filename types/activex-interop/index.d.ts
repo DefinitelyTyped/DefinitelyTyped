@@ -5,11 +5,11 @@
 // TypeScript Version: 2.6
 
 // tslint:disable-next-line no-empty-interface
-interface ActiveXObjectNameMap { }
+interface ActiveXObjectNameMap {}
 
 interface ActiveXObject {
     new <K extends keyof ActiveXObjectNameMap>(progid: K): ActiveXObjectNameMap[K];
-    new(s: string): any;
+    new (s: string): any;
 }
 declare var ActiveXObject: ActiveXObject;
 
@@ -102,7 +102,7 @@ declare class VarDate {
 }
 
 interface DateConstructor {
-    new(vd: VarDate): Date;
+    new (vd: VarDate): Date;
 }
 
 interface Date {

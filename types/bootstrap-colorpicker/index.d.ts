@@ -10,13 +10,7 @@ type ColorFormat = 'hex' | 'rgb' | 'rgba';
 
 type ColorPickerAlignOptions = 'right' | 'left';
 
-type ColorPickerEvents = 'create' |
-    'showPicker' |
-    'hidePicker' |
-    'changeColor' |
-    'disable' |
-    'enable' |
-    'destroy';
+type ColorPickerEvents = 'create' | 'showPicker' | 'hidePicker' | 'changeColor' | 'disable' | 'enable' | 'destroy';
 
 /**
  * You can set colorpicker options either as a plugin parameter or data-* attributes
@@ -24,56 +18,56 @@ type ColorPickerEvents = 'create' |
 interface ColorPickerOptions {
     /**
      * If not false, forces the color format to be hex, rgb or rgba, otherwise the format is automatically detected.
-     * 
+     *
      * Default: false
      */
     format?: ColorFormat;
 
     /**
      * If not false, sets the color to this value.
-     * 
+     *
      * Default: false
      */
     color?: string;
 
     /**
      * If not false, the picker will be contained inside this element, otherwise it will be appended to the document body.
-     * 
+     *
      * Default: false
      */
     container?: boolean;
 
     /**
      * Children selector for the component or element that trigger the colorpicker and which background color will change (needs an inner <i> element).
-     * 
+     *
      * Default: '.add-on, .input-group-addon'
      */
     component?: string | JQuery;
 
     /**
      * Children selector for the input that will store the picker selected value.
-     * 
+     *
      * Default: 'input'
      */
     input?: string | JQuery;
 
     /**
      * If true, put a '#' (number sign) before hex strings.
-     * 
+     *
      * Default: true
      */
     hexNumberSignPrefix?: boolean;
 
     /**
      * If true, the hue and alpha channel bars will be rendered horizontally, above the saturation selector.
-     * 
+     *
      * Default: false
      */
     horizontal?: boolean;
 
     /**
      * If true, forces to show the colorpicker as an inline element.
-     * 
+     *
      * Default: false
      */
     inline?: boolean;
@@ -95,35 +89,35 @@ interface ColorPickerOptions {
 
     /**
      * 	By default, the colorpicker is aligned to the right of the input. If you need to switch it to the left, set align to 'left'.
-     * 
+     *
      * Default: 'right'
      */
     align?: ColorPickerAlignOptions;
 
     /**
      * Adds this class to the colorpicker widget.
-     * 
+     *
      * Default: null
      */
     customClass?: string;
 
     /**
      * 	List of pre selected colors (hex format). If you choose one of these colors, the alias is returned instead of the hex code.
-     * 
+     *
      * Default: null
      */
     colorSelectors?: object;
 
     /**
      * Fallback color string that will be applied when the color failed to be parsed. If null, it will keep the current color if any.
-     * 
+     *
      * Default: null
      */
     fallbackColor?: string;
 
     /**
      * 	Fallback color format (e.g. when not specified or for alias mode, when selecting non aliased colors)
-     * 
+     *
      * Default: hex
      */
     fallbackFormat?: string;
@@ -264,7 +258,12 @@ interface JQuery {
     off(events: ColorPickerEvents, selector?: string, handler?: (event: ColorPickerEventObject) => any): JQuery;
     off(events: ColorPickerEvents, handler: (event: ColorPickerEventObject) => any): JQuery;
 
-    on(events: ColorPickerEvents, selector: string, data: any, handler?: (event: ColorPickerEventObject) => any): JQuery;
+    on(
+        events: ColorPickerEvents,
+        selector: string,
+        data: any,
+        handler?: (event: ColorPickerEventObject) => any,
+    ): JQuery;
     on(events: ColorPickerEvents, selector: string, handler: (event: ColorPickerEventObject) => any): JQuery;
     on(events: ColorPickerEvents, handler: (event: ColorPickerEventObject) => any): JQuery;
 }

@@ -15,12 +15,12 @@ import * as url from 'url';
     ws.on('open', () => {
         const array = new Float32Array(5);
         for (let i = 0; i < array.length; ++i) array[i] = i / 2;
-        ws.send(array, {binary: true, mask: true});
+        ws.send(array, { binary: true, mask: true });
     });
 }
 
 {
-    const wss = new WebSocket.Server({port: 8081});
+    const wss = new WebSocket.Server({ port: 8081 });
     wss.on('connection', (ws, req) => {
         ws.on('message', (message) => console.log('received: %s', message));
         ws.send('something');
@@ -34,7 +34,7 @@ import * as url from 'url';
 }
 
 {
-    const wss = new WebSocket.Server({port: 8082});
+    const wss = new WebSocket.Server({ port: 8082 });
 
     const broadcast = (data: any) => {
         wss.clients.forEach((ws) => ws.send(data));
@@ -44,16 +44,16 @@ import * as url from 'url';
 {
     const wsc = new WebSocket('ws://echo.websocket.org/');
 
-    wsc.on('open',  () => wsc.send(Date.now().toString(), {mask: true}));
+    wsc.on('open', () => wsc.send(Date.now().toString(), { mask: true }));
     wsc.on('close', () => console.log('disconnected'));
     wsc.on('error', (error) => {
         console.log(`unexpected response: ${error}`);
     });
 
     wsc.on('message', (data: string) => {
-        console.log(`Roundtrip time: ${(Date.now() - parseInt(data, 10))} ms`);
+        console.log(`Roundtrip time: ${Date.now() - parseInt(data, 10)} ms`);
         setTimeout(() => {
-            wsc.send(Date.now().toString(), {mask: true});
+            wsc.send(Date.now().toString(), { mask: true });
         }, 500);
     });
 }
@@ -65,8 +65,8 @@ import * as url from 'url';
 
 {
     const verifyClient = (
-      info: { origin: string, secure: boolean, req: http.IncomingMessage },
-      callback: (res: boolean) => void
+        info: { origin: string; secure: boolean; req: http.IncomingMessage },
+        callback: (res: boolean) => void,
     ): void => {
         callback(true);
     };
@@ -74,7 +74,7 @@ import * as url from 'url';
     const wsv = new WebSocket.Server({
         server: http.createServer(),
         clientTracking: true,
-        perMessageDeflate: true
+        perMessageDeflate: true,
     });
 
     wsv.on('connection', function connection(ws) {
@@ -84,7 +84,7 @@ import * as url from 'url';
 
 {
     new WebSocket.Server({ noServer: true, perMessageDeflate: false });
-    new WebSocket.Server({ noServer: true, perMessageDeflate: { } });
+    new WebSocket.Server({ noServer: true, perMessageDeflate: {} });
     new WebSocket.Server({
         noServer: true,
         perMessageDeflate: {
@@ -101,11 +101,11 @@ import * as url from 'url';
                 memLevel: 0,
                 strategy: 0,
                 dictionary: new Buffer('test'),
-                info: false
+                info: false,
             },
             zlibInflateOptions: {
-                chunkSize: 0
-            }
+                chunkSize: 0,
+            },
         },
         verifyClient: (info: any, cb: any) => {
             cb(true, 123, 'message', { Upgrade: 'websocket' });
@@ -116,7 +116,7 @@ import * as url from 'url';
 {
     const ws = new WebSocket('ws://www.host.com/path', {
         timeout: 5000,
-        maxPayload: 10 * 1024 * 1024
+        maxPayload: 10 * 1024 * 1024,
     });
     ws.on('open', () => ws.send('something assume to be really long'));
 }
@@ -141,7 +141,7 @@ import * as url from 'url';
     const ws = new WebSocket('ws://www.host.com/path');
 
     const duplex = WebSocket.createWebSocketStream(ws, {
-        allowHalfOpen: true
+        allowHalfOpen: true,
     });
 
     duplex.pipe(process.stdout);

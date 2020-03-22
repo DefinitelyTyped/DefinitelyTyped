@@ -18,25 +18,25 @@ board = chessboardjs.ChessBoard('board', ruyLopez);
 let position: chessboardjs.BoardPositionType = {
     d6: chessboardjs.Piece.bK,
     d4: chessboardjs.Piece.wP,
-    e4: chessboardjs.Piece.wK
+    e4: chessboardjs.Piece.wK,
 };
 board = chessboardjs.ChessBoard('board', position);
 
 // Multiple boards
 const config1: chessboardjs.BoardConfig = {
     position: 'start',
-    showNotation: false
+    showNotation: false,
 };
 const board1 = chessboardjs.ChessBoard('board1', config1);
 
 const board2 = chessboardjs.ChessBoard('board2', {
     position: 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R',
-    showNotation: false
+    showNotation: false,
 });
 
 const board3 = chessboardjs.ChessBoard('board3', {
     position: 'r1k4r/p2nb1p1/2b4p/1p1n1p2/2PP4/3Q1NB1/1P3PPP/R5K1',
-    showNotation: false
+    showNotation: false,
 });
 
 /**
@@ -46,7 +46,7 @@ const board3 = chessboardjs.ChessBoard('board3', {
 // Get Position
 const cfg: chessboardjs.BoardConfig = {
     draggable: true,
-    position: 'start'
+    position: 'start',
 };
 board = chessboardjs.ChessBoard('board', cfg);
 const pos: chessboardjs.BoardPositionType = board.position();
@@ -67,7 +67,7 @@ board.position(ruyLopez, false);
 position = {
     a4: chessboardjs.Piece.bK,
     c4: chessboardjs.Piece.wK,
-    a7: chessboardjs.Piece.wR
+    a7: chessboardjs.Piece.wR,
 };
 board.position(position);
 

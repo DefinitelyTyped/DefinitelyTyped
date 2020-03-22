@@ -6,17 +6,17 @@ new ChunkExtractor({ stats: {} });
 new ChunkExtractor({ statsFile: './path/to/stats' });
 
 const {
-	collectChunks,
-	getLinkElements,
-	getLinkTags,
-	getScriptElements,
-	getScriptTags,
-	getStyleElements,
-	getStyleTags,
+    collectChunks,
+    getLinkElements,
+    getLinkTags,
+    getScriptElements,
+    getScriptTags,
+    getStyleElements,
+    getStyleTags,
     requireEntrypoint,
     getInlineStyleTags,
     getInlineStyleElements,
-    getCssString
+    getCssString,
 } = new ChunkExtractor({ stats: {} });
 
 // collectChunks
@@ -30,8 +30,8 @@ const {
 
 // Some example attributes for get functions.
 const attributes = {
-    type: "module",
-    "data-type": "loadable"
+    type: 'module',
+    'data-type': 'loadable',
 };
 
 // An attribute function for get functions.
@@ -43,7 +43,7 @@ const attrFn: AttrFn = (chunk) => {
         path: chunk.path,
         scriptType: chunk.scriptType,
         type: chunk.type,
-        url: chunk.url
+        url: chunk.url,
     };
 };
 
@@ -51,12 +51,8 @@ const attrFn: AttrFn = (chunk) => {
 {
     // Should return an array of React elements
     const elements: Array<React.ReactElement<{}>> = getLinkElements();
-    const elementsWithAttrs: Array<React.ReactElement<{}>> = getLinkElements(
-        attributes
-    );
-    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getLinkElements(
-        attrFn
-    );
+    const elementsWithAttrs: Array<React.ReactElement<{}>> = getLinkElements(attributes);
+    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getLinkElements(attrFn);
 }
 
 // getLinkTags
@@ -71,12 +67,8 @@ const attrFn: AttrFn = (chunk) => {
 {
     // Should return an array of React elements
     const elements: Array<React.ReactElement<{}>> = getScriptElements();
-    const elementsWithAttrs: Array<React.ReactElement<{}>> = getScriptElements(
-        attributes
-    );
-    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getScriptElements(
-        attrFn
-    );
+    const elementsWithAttrs: Array<React.ReactElement<{}>> = getScriptElements(attributes);
+    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getScriptElements(attrFn);
 }
 
 // getScriptTags
@@ -91,12 +83,8 @@ const attrFn: AttrFn = (chunk) => {
 {
     // Should return an array of React elements
     const elements: Array<React.ReactElement<{}>> = getStyleElements();
-    const elementsWithAttrs: Array<React.ReactElement<{}>> = getStyleElements(
-        attributes
-    );
-    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getStyleElements(
-        attrFn
-    );
+    const elementsWithAttrs: Array<React.ReactElement<{}>> = getStyleElements(attributes);
+    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getStyleElements(attrFn);
 }
 
 // getStyleTags
@@ -111,24 +99,16 @@ const attrFn: AttrFn = (chunk) => {
 {
     // Should return a promise of inline style links as a string.
     const elements: Promise<string> = getInlineStyleTags();
-    const elementsWithAttrs: Promise<string> = getInlineStyleTags(
-        attributes
-    );
-    const elementsWithAttrFn: Promise<string> = getInlineStyleTags(
-        attrFn
-    );
+    const elementsWithAttrs: Promise<string> = getInlineStyleTags(attributes);
+    const elementsWithAttrFn: Promise<string> = getInlineStyleTags(attrFn);
 }
 
 // getInlineStyleElements
 {
     // Should return a promise with an array of React elements
     const elements: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements();
-    const elementsWithAttrs: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements(
-        attributes
-    );
-    const elementsWithAttrFn: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements(
-        attrFn
-    );
+    const elementsWithAttrs: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements(attributes);
+    const elementsWithAttrFn: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements(attrFn);
 }
 
 // getCssString

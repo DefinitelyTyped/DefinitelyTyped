@@ -5,15 +5,15 @@ import * as ko from 'knockout';
 const resourceStore = {
     en: {
         translation: {
-            testTranslation: 'Test translation'
-        }
+            testTranslation: 'Test translation',
+        },
     },
 
     de: {
         translation: {
-            testTranslation: 'Test-Übersetzung'
-        }
-    }
+            testTranslation: 'Test-Übersetzung',
+        },
+    },
 };
 i18nextko.init(resourceStore, 'en', ko);
 

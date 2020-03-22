@@ -79,7 +79,7 @@ export interface SendMoneyOpts {
     /**
      * Type send is required when sending money
      */
-    type: "send";
+    type: 'send';
     /**
      * A bitcoin address, litecoin address, ethereum address, or an email of the recipient
      */
@@ -123,7 +123,7 @@ export interface TransferMoneyOpts {
     /**
      * Type transfer is required when transferring bitcoin or ethereum between accounts
      */
-    type: "transfer";
+    type: 'transfer';
     /**
      * ID of the receiving account
      */
@@ -146,7 +146,7 @@ export interface RequestMoneyOpts {
     /**
      * Type request is required when sending money
      */
-    type: "request";
+    type: 'request';
     /**
      * An email of the recipient
      */
@@ -314,14 +314,23 @@ export interface Price {
     };
     warnings?: [
         {
-            id: string
-            message: string
-            url: string
-        }
+            id: string;
+            message: string;
+            url: string;
+        },
     ];
 }
 
-export type ResourceType = "account" | "transaction" | "address" | "user" | "buy" | "sell" | "deposit" | "withdrawal" | "payment_method";
+export type ResourceType =
+    | 'account'
+    | 'transaction'
+    | 'address'
+    | 'user'
+    | 'buy'
+    | 'sell'
+    | 'deposit'
+    | 'withdrawal'
+    | 'payment_method';
 
 /**
  * Base interface for all resources
@@ -337,7 +346,7 @@ export class User implements Resource {
     /**
      * Resource type, constant "user"
      */
-    resource: "user";
+    resource: 'user';
 
     /**
      * Resource ID
@@ -458,7 +467,7 @@ export class Address implements Resource {
     /**
      * Type of resource, constant string "address"
      */
-    resource: "address";
+    resource: 'address';
 
     /**
      * Bitcoin, Litecoin or Ethereum address
@@ -477,7 +486,7 @@ export class Address implements Resource {
     getTransactions(opts: {}, cb: (error: Error | null, result: Transaction[]) => void): void;
 }
 
-export type AccountType = "wallet" | "fiat" | "multisig" | "vault" | "multisig_vault";
+export type AccountType = 'wallet' | 'fiat' | 'multisig' | 'vault' | 'multisig_vault';
 
 /**
  * Account resource represents all of a user’s accounts, including bitcoin, litecoin and ethereum wallets, fiat currency accounts,
@@ -489,7 +498,7 @@ export class Account implements Resource {
     /**
      * Type of resource, constant string "account"
      */
-    resource: "account";
+    resource: 'account';
 
     /**
      * Resource ID
@@ -755,16 +764,32 @@ export interface ResourceRef {
     resource_path: string;
 }
 
-export type TransactionType = "send" | "request" | "transfer" | "buy" | "sell" | "fiat_deposit" | "fiat_withdrawal" | "exchange_deposit"
-    | "exchange_withdrawal" | "vault_withdrawal";
+export type TransactionType =
+    | 'send'
+    | 'request'
+    | 'transfer'
+    | 'buy'
+    | 'sell'
+    | 'fiat_deposit'
+    | 'fiat_withdrawal'
+    | 'exchange_deposit'
+    | 'exchange_withdrawal'
+    | 'vault_withdrawal';
 
-export type TransactionStatus = "pending" | "completed" | "failed" | "expired" | "canceled" | "waiting_for_signature" | "waiting_for_clearing";
+export type TransactionStatus =
+    | 'pending'
+    | 'completed'
+    | 'failed'
+    | 'expired'
+    | 'canceled'
+    | 'waiting_for_signature'
+    | 'waiting_for_clearing';
 
 export class Transaction implements Resource {
     /**
      * Constant "transaction"
      */
-    resource: "transaction";
+    resource: 'transaction';
 
     /**
      * Transaction type
@@ -854,7 +879,7 @@ export class Transaction implements Resource {
     cancel(cb: (error: Error | null, result: Transaction) => void): void;
 }
 
-export type BuyStatus = "created" | "completed" | "canceled";
+export type BuyStatus = 'created' | 'completed' | 'canceled';
 
 /**
  * Buy resource
@@ -863,7 +888,7 @@ export class Buy implements Resource {
     /**
      * Constant "buy"
      */
-    resource: "buy";
+    resource: 'buy';
 
     /**
      * Status
@@ -991,7 +1016,7 @@ export interface UnitPrice {
     scale: number;
 }
 
-export type SellStatus = "created" | "completed" | "canceled";
+export type SellStatus = 'created' | 'completed' | 'canceled';
 
 /**
  * Sell resource
@@ -1000,7 +1025,7 @@ export class Sell implements Resource {
     /**
      * Constant "sell"
      */
-    resource: "sell";
+    resource: 'sell';
 
     /**
      * Status of the sell. Currently available values: created, completed, canceled
@@ -1082,7 +1107,7 @@ export class Sell implements Resource {
     commit(cb: (error: Error | null, result: Sell) => void): void;
 }
 
-export type DepositStatus = "created" | "completed" | "canceled";
+export type DepositStatus = 'created' | 'completed' | 'canceled';
 
 /**
  * Deposit resource represents a deposit of funds using a payment method (e.g. a bank). Each committed deposit also has an associated transaction.
@@ -1090,7 +1115,7 @@ export type DepositStatus = "created" | "completed" | "canceled";
  * These deposits will never complete and receive an associated transaction unless they are committed separately.
  */
 export class Deposit implements Resource {
-    resource: "deposit";
+    resource: 'deposit';
 
     /**
      * Resource ID
@@ -1159,7 +1184,7 @@ export class Deposit implements Resource {
     commit(cb: (error: Error | null, result: Deposit) => void): void;
 }
 
-export type WithdrawalStatus = "created" | "completed" | "canceled";
+export type WithdrawalStatus = 'created' | 'completed' | 'canceled';
 
 /**
  * Withdrawal resource represents a withdrawal of funds using a payment method (e.g. a bank). Each committed withdrawal also has a associated
@@ -1168,7 +1193,7 @@ export type WithdrawalStatus = "created" | "completed" | "canceled";
  * never complete and receive an associated transaction unless they are committed separately.
  */
 export class Withdrawal implements Resource {
-    resource: "deposit";
+    resource: 'deposit';
 
     /**
      * Resource ID
@@ -1237,8 +1262,16 @@ export class Withdrawal implements Resource {
     commit(cb: (error: Error | null, result: Withdrawal) => void): void;
 }
 
-export type PaymentMethodType = "ach_bank_account" | "sepa_bank_account" | "ideal_bank_account" | "fiat_account" | "bank_wire"
-    | "credit_card" | "secure3d_card" | "eft_bank_account" | "interac";
+export type PaymentMethodType =
+    | 'ach_bank_account'
+    | 'sepa_bank_account'
+    | 'ideal_bank_account'
+    | 'fiat_account'
+    | 'bank_wire'
+    | 'credit_card'
+    | 'secure3d_card'
+    | 'eft_bank_account'
+    | 'interac';
 
 /**
  * Payment method resource represents the different kinds of payment methods that can be used when buying and selling bitcoin, litecoin or
@@ -1261,7 +1294,7 @@ export interface PaymentMethod extends Resource {
     /**
      * Resource type, constant "payment_method"
      */
-    resource: "payment_method";
+    resource: 'payment_method';
 
     /**
      * Payment method type
@@ -1338,20 +1371,22 @@ export interface PaymentMethodLimit {
  * Currencies which have or had no representation in ISO 4217 may use a custom code (e.g. BTC).
  */
 export interface Currencies {
-    data: [{
-        /**
-         * Abbreviation e.g. "USD" or "BTC"
-         */
-        id: string;
-        /**
-         * Full name e.g. "United Arab Emirates Dirham"
-         */
-        name: string;
-        /**
-         * Floating-point number in a string
-         */
-        min_size: string;
-    }];
+    data: [
+        {
+            /**
+             * Abbreviation e.g. "USD" or "BTC"
+             */
+            id: string;
+            /**
+             * Full name e.g. "United Arab Emirates Dirham"
+             */
+            name: string;
+            /**
+             * Floating-point number in a string
+             */
+            min_size: string;
+        },
+    ];
 }
 
 export interface ExchangeRate {

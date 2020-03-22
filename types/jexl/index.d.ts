@@ -122,7 +122,7 @@ declare class Jexl {
  * xpath-like drilldown into native Javascript objects.
  */
 declare class BuildableJexl extends Jexl {
-    Jexl: { new(): Jexl };
+    Jexl: { new (): Jexl };
 }
 
 declare const exportJexl: BuildableJexl;

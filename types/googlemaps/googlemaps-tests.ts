@@ -1,6 +1,6 @@
 // Test file for Google Maps JavaScript API Definition file
 
-const version = google.maps.version;  // $ExpectType string
+const version = google.maps.version; // $ExpectType string
 
 let mapOptions: google.maps.MapOptions = {
     backgroundColor: '#fff',
@@ -188,13 +188,13 @@ data.loadGeoJson('http://magicGeoJsonSource.com');
 
 data.loadGeoJson('http://magicGeoJsonSource.com', { idPropertyName: 'test' });
 
-data.loadGeoJson('http://magicGeoJsonSource.com', { idPropertyName: 'test' }, features => {
+data.loadGeoJson('http://magicGeoJsonSource.com', { idPropertyName: 'test' }, (features) => {
     for (let i = 0, len = features.length; i < len; i++) {
         console.log(features[i].getId());
     }
 });
 
-data.toGeoJson(feature => {});
+data.toGeoJson((feature) => {});
 
 let dataMouseEvent: google.maps.Data.MouseEvent = {
     feature,
@@ -233,7 +233,7 @@ let lineString = new google.maps.Data.LineString([
     { lat: 52.201203, lng: -1.72437 },
     { lat: 52.201203, lng: -2.72437 },
 ]);
-lineString.forEachLatLng(latLng => console.log(`${latLng.lat} ${latLng.lng}`));
+lineString.forEachLatLng((latLng) => console.log(`${latLng.lat} ${latLng.lng}`));
 
 data.setDrawingMode('LineString');
 data.setDrawingMode(null);
@@ -451,85 +451,85 @@ marker.setZIndex(null);
 
 marker.addListener('animation_changed', () => {});
 
-marker.addListener('animation_changed', event => {}); // $ExpectError
+marker.addListener('animation_changed', (event) => {}); // $ExpectError
 
-marker.addListener('click', event => {
+marker.addListener('click', (event) => {
     event; // $ExpectType MouseEvent
 });
 
 marker.addListener('clickable_changed', () => {});
 
-marker.addListener('clickable_changed', event => {}); // $ExpectError
+marker.addListener('clickable_changed', (event) => {}); // $ExpectError
 
 marker.addListener('cursor_changed', () => {});
 
-marker.addListener('cursor_changed', event => {}); // $ExpectError
+marker.addListener('cursor_changed', (event) => {}); // $ExpectError
 
-marker.addListener('dblclick', event => {
+marker.addListener('dblclick', (event) => {
     event; // $ExpectType MouseEvent
 });
 
-marker.addListener('drag', event => {
+marker.addListener('drag', (event) => {
     event; // $ExpectType MouseEvent
 });
 
-marker.addListener('dragend', event => {
+marker.addListener('dragend', (event) => {
     event; // $ExpectType MouseEvent
 });
 
-marker.addListener('draggable_changed', event => {}); // $ExpectError
+marker.addListener('draggable_changed', (event) => {}); // $ExpectError
 
-marker.addListener('dragstart', event => {
+marker.addListener('dragstart', (event) => {
     event; // $ExpectType MouseEvent
 });
 
 marker.addListener('flat_changed', () => {});
 
-marker.addListener('flat_changed', event => {}); // $ExpectError
+marker.addListener('flat_changed', (event) => {}); // $ExpectError
 
 marker.addListener('icon_changed', () => {});
 
-marker.addListener('icon_changed', event => {}); // $ExpectError
+marker.addListener('icon_changed', (event) => {}); // $ExpectError
 
-marker.addListener('mousedown', event => {
+marker.addListener('mousedown', (event) => {
     event; // $ExpectType MouseEvent
 });
 
-marker.addListener('mouseout', event => {
+marker.addListener('mouseout', (event) => {
     event; // $ExpectType MouseEvent
 });
 
-marker.addListener('mouseover', event => {
+marker.addListener('mouseover', (event) => {
     event; // $ExpectType MouseEvent
 });
 
-marker.addListener('mouseup', event => {
+marker.addListener('mouseup', (event) => {
     event; // $ExpectType MouseEvent
 });
 
 marker.addListener('position_changed', () => {});
 
-marker.addListener('position_changed', event => {}); // $ExpectError
+marker.addListener('position_changed', (event) => {}); // $ExpectError
 
-marker.addListener('rightclick', event => {
+marker.addListener('rightclick', (event) => {
     event; // $ExpectType MouseEvent
 });
 
 marker.addListener('shape_changed', () => {});
 
-marker.addListener('shape_changed', event => {}); // $ExpectError
+marker.addListener('shape_changed', (event) => {}); // $ExpectError
 
 marker.addListener('title_changed', () => {});
 
-marker.addListener('title_changed', event => {}); // $ExpectError
+marker.addListener('title_changed', (event) => {}); // $ExpectError
 
 marker.addListener('visible_changed', () => {});
 
-marker.addListener('visible_changed', event => {}); // $ExpectError
+marker.addListener('visible_changed', (event) => {}); // $ExpectError
 
 marker.addListener('zindex_changed', () => {});
 
-marker.addListener('zindex_changed', event => {}); // $ExpectError
+marker.addListener('zindex_changed', (event) => {}); // $ExpectError
 
 /***** OverlayView *****/
 // https://developers.google.com/maps/documentation/javascript/customoverlays
@@ -750,15 +750,9 @@ const placeResult = autocomplete.getPlace();
 placeResult.name; // $ExpectType string
 
 /***** google.maps.places.AutocompleteService *****/
-new google.maps.places.AutocompleteService()
-    .getPlacePredictions(
-        {input: 'Kyiv, Ukr'},
-        (result) => {
-            result[0]
-                .structured_formatting
-                .secondary_text_matched_substrings; // $ExpectType PredictionSubstring[] | undefined
-        }
-    );
+new google.maps.places.AutocompleteService().getPlacePredictions({ input: 'Kyiv, Ukr' }, (result) => {
+    result[0].structured_formatting.secondary_text_matched_substrings; // $ExpectType PredictionSubstring[] | undefined
+});
 
 /***** google.maps.ImageMapType *****/
 const imageMapType = new google.maps.ImageMapType({
@@ -810,27 +804,27 @@ const directionsWaypointStopover: google.maps.DirectionsWaypoint = {
 /***** google.maps.DirectionsService *****/
 let directionsService = new google.maps.DirectionsService();
 
-directionsService.route({
-    avoidFerries: true,
-    avoidHighways: true,
-    avoidTolls: true,
-    destination: 'destination',
-    origin: 'origin',
-    provideRouteAlternatives: true,
-    transitOptions: {
-        arrivalTime: new Date(),
-        departureTime: new Date(),
-        modes: [
-            google.maps.TransitMode.BUS,
-            google.maps.TransitMode.RAIL
-        ],
-        routingPreference: google.maps.TransitRoutePreference.FEWER_TRANSFERS
+directionsService.route(
+    {
+        avoidFerries: true,
+        avoidHighways: true,
+        avoidTolls: true,
+        destination: 'destination',
+        origin: 'origin',
+        provideRouteAlternatives: true,
+        transitOptions: {
+            arrivalTime: new Date(),
+            departureTime: new Date(),
+            modes: [google.maps.TransitMode.BUS, google.maps.TransitMode.RAIL],
+            routingPreference: google.maps.TransitRoutePreference.FEWER_TRANSFERS,
+        },
+        travelMode: google.maps.TravelMode.TRANSIT,
+        unitSystem: google.maps.UnitSystem.IMPERIAL,
     },
-    travelMode: google.maps.TravelMode.TRANSIT,
-    unitSystem: google.maps.UnitSystem.IMPERIAL
-}, (result: google.maps.DirectionsResult, status: google.maps.DirectionsStatus) => {
-    const routes = result.routes; // $ExpectType DirectionsRoute[]
-    const legs = routes[0].legs; // $ExpectType DirectionsLeg[]
-    const steps = legs[0].steps; // $ExpectType DirectionsStep[]
-    steps[0].steps; // $ExpectType BaseDirectionsStep[]
-});
+    (result: google.maps.DirectionsResult, status: google.maps.DirectionsStatus) => {
+        const routes = result.routes; // $ExpectType DirectionsRoute[]
+        const legs = routes[0].legs; // $ExpectType DirectionsLeg[]
+        const steps = legs[0].steps; // $ExpectType DirectionsStep[]
+        steps[0].steps; // $ExpectType BaseDirectionsStep[]
+    },
+);

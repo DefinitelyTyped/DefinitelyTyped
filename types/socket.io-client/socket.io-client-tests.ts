@@ -23,8 +23,8 @@ function testUsingWithTheExpressFramework() {
 }
 
 function testRestrictingYourselfToANamespace() {
-    var chat = io.connect('http://localhost/chat')
-        , news = io.connect('http://localhost/news');
+    var chat = io.connect('http://localhost/chat'),
+        news = io.connect('http://localhost/news');
 
     chat.on('connect', function () {
         chat.emit('hi!');
@@ -49,8 +49,7 @@ function testUsingItJustAsACrossBrowserWebSocket() {
     socket.on('connect', function () {
         socket.emit('hi');
 
-        socket.on('message', function (msg: any) {
-        });
+        socket.on('message', function (msg: any) {});
     });
 }
 

@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
-
-
 import express = require('express');
 
 declare function less(root: string, options?: less.Options): express.RequestHandler;

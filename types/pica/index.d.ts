@@ -15,26 +15,20 @@ declare class Pica {
     resize(
         from: HTMLCanvasElement | HTMLImageElement | File | Blob,
         to: HTMLCanvasElement,
-        options?: PicaResizeOptions
+        options?: PicaResizeOptions,
     ): Promise<HTMLCanvasElement>;
 
     /**
      * Convenience method, similar to canvas.toBlob(), but with promise interface & polyfill for old browsers.
      */
-    toBlob(
-        canvas: HTMLCanvasElement,
-        mimeType: string,
-        quality?: number
-    ): Promise<Blob>;
+    toBlob(canvas: HTMLCanvasElement, mimeType: string, quality?: number): Promise<Blob>;
 
     /**
      * Supplementary method, not recommended for direct use.
      * Resize Uint8Array with raw RGBA bitmap (don't confuse with jpeg / png / ... binaries).
      * It does not use tiles & webworkers. Left for special cases when you really need to process raw binary data (for example, if you decode jpeg files "manually").
      */
-    resizeBuffer(
-        options: PicaResizeBufferOptions
-    ): Promise<number[]>;
+    resizeBuffer(options: PicaResizeBufferOptions): Promise<number[]>;
 }
 
 interface PicaOptions {

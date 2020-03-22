@@ -14,5 +14,5 @@ export interface ToastHeaderProps extends React.HTMLAttributes<HTMLElement> {
     closeAriaLabel?: string;
 }
 
-declare class ToastHeader<T = {[key: string]: any}> extends React.Component<ToastHeaderProps> {}
+declare class ToastHeader<T = { [key: string]: any }> extends React.Component<ToastHeaderProps> {}
 export default ToastHeader;

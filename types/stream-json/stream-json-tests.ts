@@ -20,7 +20,7 @@ import * as StreamValues from 'stream-json/streamers/StreamValues';
 import * as emit from 'stream-json/utils/emit';
 import * as withParser from 'stream-json/utils/withParser';
 
-const used = (array: any[]) => array.forEach(value => console.log(!!value));
+const used = (array: any[]) => array.forEach((value) => console.log(!!value));
 
 {
     // creating parser with the main module
@@ -50,7 +50,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     asm.dropToLevel(0);
 
     parser.on('keyValue', (value: string) =>
-        console.log(value, asm.key, asm.stack.length, asm.done, asm.depth, asm.path)
+        console.log(value, asm.key, asm.stack.length, asm.done, asm.depth, asm.path),
     );
     asm.on('done', (asm: Assembler) => console.log(JSON.stringify(asm.current)));
 }
@@ -142,17 +142,17 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     { name: 'numberChunk', value: '0' },
                     { name: 'endNumber' },
                     { name: 'numberValue', value: '0' },
-                ]
-            })
+                ],
+            }),
         )
         .pipe(Replace.make({ filter: /\b_\w*\b/i, allowEmptyReplacement: true }))
         .pipe(
             Replace.replace({
                 filter: (stack: FilterBase.Stack, token: FilterBase.Token) => stack.length > 2,
                 replacement: (stack: FilterBase.Stack, token: FilterBase.Token) => [
-                    { name: token.name === 'startArray' ? 'trueValue' : 'falseValue' }
-                ]
-            })
+                    { name: token.name === 'startArray' ? 'trueValue' : 'falseValue' },
+                ],
+            }),
         );
 
     Replace.withParser({ filter: '_meta' });
@@ -221,8 +221,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(
         StreamArray.make({
@@ -232,8 +232,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(StreamArray.streamArray());
 
@@ -261,8 +261,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(
         StreamObject.make({
@@ -272,8 +272,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(StreamObject.streamObject());
 
@@ -301,8 +301,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(
         StreamValues.make({
@@ -312,8 +312,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
-        })
+            },
+        }),
     );
     parser.pipe(StreamValues.streamValues());
 

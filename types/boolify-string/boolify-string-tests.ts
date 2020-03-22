@@ -1,4 +1,3 @@
-
 import boolifyString = require('boolify-string');
 
 console.log(boolifyString('true')); // #=> true

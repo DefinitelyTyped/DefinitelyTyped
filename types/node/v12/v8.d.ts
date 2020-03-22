@@ -1,5 +1,5 @@
-declare module "v8" {
-    import { Readable } from "stream";
+declare module 'v8' {
+    import { Readable } from 'stream';
 
     interface HeapSpaceInfo {
         space_name: string;
@@ -119,8 +119,7 @@ declare module "v8" {
      * and only stores the part of their underlying `ArrayBuffers` that they are referring to.
      * @experimental
      */
-    class DefaultSerializer extends Serializer {
-    }
+    class DefaultSerializer extends Serializer {}
 
     /**
      * @experimental
@@ -180,8 +179,7 @@ declare module "v8" {
      * and only stores the part of their underlying `ArrayBuffers` that they are referring to.
      * @experimental
      */
-    class DefaultDeserializer extends Deserializer {
-    }
+    class DefaultDeserializer extends Deserializer {}
 
     /**
      * Uses a `DefaultSerializer` to serialize value into a buffer.

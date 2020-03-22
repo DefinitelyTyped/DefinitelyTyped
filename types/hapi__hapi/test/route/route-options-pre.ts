@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre
-import { Lifecycle, Request, ResponseToolkit, Server } from "@hapi/hapi";
+import { Lifecycle, Request, ResponseToolkit, Server } from '@hapi/hapi';
 
 const server = new Server({
     port: 8000,
@@ -25,14 +25,14 @@ server.route({
             [
                 // m1 and m2 executed in parallel
                 { method: pre1, assign: 'm1' },
-                { method: pre2, assign: 'm2' }
+                { method: pre2, assign: 'm2' },
             ],
             { method: pre3, assign: 'm3' },
         ],
         handler(request, h) {
             return request.pre.m3 + '!\n';
-        }
-    }
+        },
+    },
 });
 
 server.start();

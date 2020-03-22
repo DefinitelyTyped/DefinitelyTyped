@@ -10,14 +10,13 @@ import {
     PassportLocalSchema,
     PassportLocalModel,
     PassportLocalOptions,
-    PassportLocalErrorMessages
+    PassportLocalErrorMessages,
 } from 'mongoose';
 import passportLocalMongoose = require('passport-local-mongoose');
 
 import { Router, Request, Response } from 'express';
 import * as passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-
 
 //#region Test Models
 interface User extends PassportLocalDocument {
@@ -34,7 +33,7 @@ const UserSchema = new Schema({
     hash: String,
     salt: String,
     attempts: Number,
-    last: Date
+    last: Date,
 }) as PassportLocalSchema;
 
 let options: PassportLocalOptions = <PassportLocalOptions>{};
@@ -55,7 +54,7 @@ options.populateFields = 'undefined';
 options.encoding = 'hex';
 options.limitAttempts = false;
 options.maxAttempts = Infinity;
-options.passwordValidator = function(password: string, cb: (err: any) => void): void {};
+options.passwordValidator = function (password: string, cb: (err: any) => void): void {};
 options.usernameQueryFields = [];
 
 let errorMessages: PassportLocalErrorMessages = {};
@@ -77,46 +76,47 @@ interface UserModel<T extends Document> extends PassportLocalModel<T> {}
 let UserModel: UserModel<User> = model<User>('User', UserSchema);
 //#endregion
 
-
 //#region Test Passport/Passport-Local
 passport.use(UserModel.createStrategy());
 
-passport.use('login', new LocalStrategy({
-        passReqToCallback: true,
-        usernameField: 'username',
-        passwordField: 'password'
-    },
-    (req: any, username: string, password: string, done: (err: any, res: any, msg?: any) => void) => {
-        process.nextTick(() => {
-            UserModel
-            .findOne({ 'username': username })
-            .exec((err: any, user: User) => {
-                if (err) {
-                    console.log(err);
-                    return done(err, null);
-                }
-
-                if (!user) {
-                    console.log(errorMessages.IncorrectUsernameError);
-                    return done(null, false, errorMessages.IncorrectUsernameError);
-                }
-
-                user.authenticate(password, function(autherr: any, authuser: User, autherrmsg: any) {
-                    if (autherr) {
-                        console.log(autherr);
-                        return done(autherr, null);
+passport.use(
+    'login',
+    new LocalStrategy(
+        {
+            passReqToCallback: true,
+            usernameField: 'username',
+            passwordField: 'password',
+        },
+        (req: any, username: string, password: string, done: (err: any, res: any, msg?: any) => void) => {
+            process.nextTick(() => {
+                UserModel.findOne({ username: username }).exec((err: any, user: User) => {
+                    if (err) {
+                        console.log(err);
+                        return done(err, null);
                     }
 
-                    if (!authuser) {
-                        console.log(errorMessages.IncorrectPasswordError);
-                        return done(null, false, errorMessages.IncorrectPasswordError);
+                    if (!user) {
+                        console.log(errorMessages.IncorrectUsernameError);
+                        return done(null, false, errorMessages.IncorrectUsernameError);
                     }
 
-                    return done(null, authuser);
+                    user.authenticate(password, function (autherr: any, authuser: User, autherrmsg: any) {
+                        if (autherr) {
+                            console.log(autherr);
+                            return done(autherr, null);
+                        }
+
+                        if (!authuser) {
+                            console.log(errorMessages.IncorrectPasswordError);
+                            return done(null, false, errorMessages.IncorrectPasswordError);
+                        }
+
+                        return done(null, authuser);
+                    });
                 });
             });
-        });
-    })
+        },
+    ),
 );
 
 passport.serializeUser(UserModel.serializeUser());
@@ -124,7 +124,7 @@ passport.deserializeUser(UserModel.deserializeUser());
 
 let router: Router = Router();
 
-router.post('/login', passport.authenticate('local'), function(req: Request, res: Response) {
-  res.redirect('/');
+router.post('/login', passport.authenticate('local'), function (req: Request, res: Response) {
+    res.redirect('/');
 });
 //#endregion

@@ -13,7 +13,7 @@ server.route({
     path: '/',
     handler: function (request, reply) {
         reply('Hello, world!');
-    }
+    },
 });
 
 server.route({
@@ -21,36 +21,43 @@ server.route({
     path: '/{name}',
     handler: function (request, reply) {
         reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
-    }
+    },
 });
 
-server.register({
-    register: Good,
-    options: {
-        reporters: {
-            console: [{
-                module: 'good-squeeze',
-                name: 'Squeeze',
-                args: [{
-                    response: '*',
-                    log: '*'
-                }]
-            }, {
-                module: 'good-console'
-            }, 'stdout']
-        }
-    }
-}, (err) => {
-
-    if (err) {
-        throw err; // something bad happened loading the plugin
-    }
-
-    server.start((err) => {
-
+server.register(
+    {
+        register: Good,
+        options: {
+            reporters: {
+                console: [
+                    {
+                        module: 'good-squeeze',
+                        name: 'Squeeze',
+                        args: [
+                            {
+                                response: '*',
+                                log: '*',
+                            },
+                        ],
+                    },
+                    {
+                        module: 'good-console',
+                    },
+                    'stdout',
+                ],
+            },
+        },
+    },
+    (err) => {
         if (err) {
-            throw err;
+            throw err; // something bad happened loading the plugin
         }
-        server.log('info', 'Server running at: ' + server.info!.uri);
-    });
-});
+
+        server.start((err) => {
+            if (err) {
+                throw err;
+            }
+            server.log('info', 'Server running at: ' + server.info!.uri);
+        });
+    },
+);

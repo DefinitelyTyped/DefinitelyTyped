@@ -28,7 +28,7 @@ function useExperimentalHooks() {
 
     return () => {
         startTransition(() => {
-            setToggle(toggle => !toggle);
+            setToggle((toggle) => !toggle);
         });
 
         // The function must be synchronous, even if it can start an asynchronous update

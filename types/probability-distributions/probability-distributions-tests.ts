@@ -1,4 +1,4 @@
-import * as pd from "probability-distributions";
+import * as pd from 'probability-distributions';
 
 pd.prng(0); // $ExpectType number
 pd.rbeta(0, 0, 0, 0); // $ExpectType number[]
@@ -19,8 +19,8 @@ pd.dpois(0, 0); // $ExpectType number[]
 pd.rpois(0, 0); // $ExpectType number[]
 pd.dunif(0, 0, 0); // $ExpectType number
 pd.runif(0, 0, 0); // $ExpectType number[]
-pd.rword(0, ""); // $ExpectType string
+pd.rword(0, ''); // $ExpectType string
 pd.sample([], 0, true, 0); // $ExpectType any[]
-pd.visualize([], "", 0); // $ExpectType any
+pd.visualize([], '', 0); // $ExpectType any
 pd.rfml(0, 0, 0, 0, 0); // $ExpectType number[]
 pd.ruf(0); // $ExpectType number[]

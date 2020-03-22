@@ -3,10 +3,7 @@ declare namespace AMap {
         /**
          * 计算两个经纬度点之间的实际距离
          */
-        function distance(
-            point1: LocationValue,
-            point2: LocationValue | LocationValue[]
-        ): number;
+        function distance(point1: LocationValue, point2: LocationValue | LocationValue[]): number;
         /**
          * 计算一个经纬度路径围成区域的实际面积
          */
@@ -22,55 +19,35 @@ declare namespace AMap {
         /**
          * 计算两个经纬度面的交叉区域
          */
-        function ringRingClip(
-            ring1: LocationValue[],
-            ring2: LocationValue[]
-        ): Array<[number, number]>;
+        function ringRingClip(ring1: LocationValue[], ring2: LocationValue[]): Array<[number, number]>;
         /**
          * 判断两个经纬度面是否交叉
          */
-        function doesRingRingIntersect(
-            ring1: LocationValue[],
-            ring2: LocationValue[]
-        ): boolean;
+        function doesRingRingIntersect(ring1: LocationValue[], ring2: LocationValue[]): boolean;
         /**
          * 判断经纬度路径和经纬度面是否交叉
          */
-        function doesLineRingIntersect(
-            line: LocationValue[],
-            ring: LocationValue[]
-        ): boolean;
+        function doesLineRingIntersect(line: LocationValue[], ring: LocationValue[]): boolean;
         /**
          * 判断两个经纬度路径是否相交
          */
-        function doesLineLineIntersect(
-            line1: LocationValue[],
-            line2: LocationValue[]
-        ): boolean;
+        function doesLineLineIntersect(line1: LocationValue[], line2: LocationValue[]): boolean;
         /**
          * 判断线段和多个环是否相交
          */
         function doesSegmentPolygonIntersect(
             point1: LocationValue,
             point2: LocationValue,
-            polygon: LocationValue[][]
+            polygon: LocationValue[][],
         ): boolean;
         /**
          * 判断线段和一个环是否相交
          */
-        function doesSegmentRingIntersect(
-            point1: LocationValue,
-            point2: LocationValue,
-            ring: LocationValue[]
-        ): boolean;
+        function doesSegmentRingIntersect(point1: LocationValue, point2: LocationValue, ring: LocationValue[]): boolean;
         /**
          * 判断线段和一个路径是否相交
          */
-        function doesSegmentLineIntersect(
-            point1: LocationValue,
-            point2: LocationValue,
-            line: LocationValue[]
-        ): boolean;
+        function doesSegmentLineIntersect(point1: LocationValue, point2: LocationValue, line: LocationValue[]): boolean;
         /**
          * 判断两个线段是否相交
          */
@@ -78,7 +55,7 @@ declare namespace AMap {
             point1: LocationValue,
             point2: LocationValue,
             point3: LocationValue,
-            point4: LocationValue
+            point4: LocationValue,
         ): boolean;
         /**
          * 判断点是否在环内
@@ -109,7 +86,7 @@ declare namespace AMap {
         function closestOnSegment(
             point1: LocationValue,
             point2: LocationValue,
-            point3: LocationValue
+            point3: LocationValue,
         ): [number, number];
         /**
          * 计算line上距离P最近的点
@@ -121,11 +98,7 @@ declare namespace AMap {
          * @param point2 P2
          * @param point3 P3
          */
-        function distanceToSegment(
-            point1: LocationValue,
-            point2: LocationValue,
-            point3: LocationValue
-        ): number;
+        function distanceToSegment(point1: LocationValue, point2: LocationValue, point3: LocationValue): number;
         /**
          * 计算P到line的距离
          */
@@ -141,7 +114,7 @@ declare namespace AMap {
             point1: LocationValue,
             point2: LocationValue,
             point3: LocationValue,
-            tolerance?: number
+            tolerance?: number,
         ): boolean;
         /**
          * 判断P是否在line上
@@ -149,44 +122,29 @@ declare namespace AMap {
          * @param line 线
          * @param tolerance 误差范围
          */
-        function isPointOnLine(
-            point: LocationValue,
-            line: LocationValue[],
-            tolerance?: number
-        ): boolean;
+        function isPointOnLine(point: LocationValue, line: LocationValue[], tolerance?: number): boolean;
         /**
          * 判断P是否在ring的边上
          * @param point 点P
          * @param ring 环
          * @param tolerance 误差范围
          */
-        function isPointOnRing(
-            point: LocationValue,
-            ring: LocationValue[],
-            tolerance?: number
-        ): boolean;
+        function isPointOnRing(point: LocationValue, ring: LocationValue[], tolerance?: number): boolean;
         /**
          * 判断P是否在多个ring的边上
          * @param point 点P
          * @param polygon 多边形
          * @param tolerance 误差范围
          */
-        function isPointOnPolygon(
-            point: LocationValue,
-            polygon: LocationValue[][],
-            tolerance?: number
-        ): boolean;
+        function isPointOnPolygon(point: LocationValue, polygon: LocationValue[][], tolerance?: number): boolean;
 
-        function doesPolygonPolygonIntersect(
-            polygon1: LocationValue[],
-            polygon2: LocationValue[]
-        ): boolean;
+        function doesPolygonPolygonIntersect(polygon1: LocationValue[], polygon2: LocationValue[]): boolean;
 
         function distanceToPolygon(point: LocationValue, polygon: LocationValue[]): number;
 
         function triangulateShape(
             shape1: LngLat[] | Pixel[] | [number, number],
-            shape2: LngLat[] | Pixel[] | [number, number]
+            shape2: LngLat[] | Pixel[] | [number, number],
         ): number[];
     }
 }

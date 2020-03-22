@@ -8,7 +8,17 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     namespace aria {
-        type IAriaAttribute = 'ariaHidden'|'ariaChecked'|'ariaReadonly'|'ariaDisabled'|'ariaRequired'|'ariaInvalid'|'ariaValue'|'tabindex'|'bindKeydown'|'bindRoleForClick';
+        type IAriaAttribute =
+            | 'ariaHidden'
+            | 'ariaChecked'
+            | 'ariaReadonly'
+            | 'ariaDisabled'
+            | 'ariaRequired'
+            | 'ariaInvalid'
+            | 'ariaValue'
+            | 'tabindex'
+            | 'bindKeydown'
+            | 'bindRoleForClick';
 
         type IAriaProviderOptions = {
             [key in IAriaAttribute]?: boolean;

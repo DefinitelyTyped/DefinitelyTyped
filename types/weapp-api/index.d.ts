@@ -42,21 +42,21 @@ declare namespace wx {
 
     interface referrerInfo {
         /** 来源小程序、公众号或 App 的 appId */
-        appId: string,
+        appId: string;
         /** 来源小程序传过来的数据，scene=1037或1038时支持 */
-        extraData: Object
+        extraData: Object;
     }
 
     interface onLaunchOptions {
         /** 启动小程序的路径 */
-        path: string,
+        path: string;
         /** 启动小程序的场景值 */
-        scene: number,
+        scene: number;
         /** 启动小程序的query参数 */
-        query: Object,
-        shareTicket: string,
+        query: Object;
+        shareTicket: string;
         /** 来源信息。从另一个小程序、公众号或App进入小程序时返回。范泽返回{} */
-        referrerInfo: referrerInfo
+        referrerInfo: referrerInfo;
     }
 
     type onLaunchCallback = (options: onLaunchOptions) => void;
@@ -87,7 +87,7 @@ declare namespace wx {
          * 3. 如果回调中又重定向到另一个不存在的页面，将推入微信客户端原生的页面不存在提示页面，并且不再第二次回调。
          */
         onPageNotFound?: NoneParamCallback;
-        [key: string]: any
+        [key: string]: any;
     }
 
     //  网络
@@ -239,7 +239,6 @@ declare namespace wx {
      */
     function connectSocket(options: ConnectSocketOptions): void;
 
-
     /** 监听WebSocket连接打开事件。 */
     function onSocketOpen(callback: OneParamCallback): void;
 
@@ -261,7 +260,6 @@ declare namespace wx {
      * 并在 wx.onSocketOpen 回调之后才能发送。
      */
     function sendSocketMessage(options: SendSocketMessageOptions): void;
-
 
     /**
      * 监听WebSocket接受到服务器的消息事件。
@@ -407,7 +405,6 @@ declare namespace wx {
         fail?: ResponseCallback;
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: ResponseCallback;
-
     }
     /** 播放音乐，同时只能有一首音乐正在播放。 */
     function playBackgroundAudio(options: PlayBackgroundAudioOptions): void;
@@ -495,7 +492,7 @@ declare namespace wx {
     function chooseVideo(options: ChooseVideoOptions): void;
 
     // 数据缓存
-    interface  StorageInfo {
+    interface StorageInfo {
         //  当前 storage 中所有的 key
         keys: Array<string>;
         //  当前占用的空间大小, 单位 KB
@@ -504,7 +501,7 @@ declare namespace wx {
         limitSize: number;
     }
     type StorageInfoCallback = (res: StorageInfoOptions) => void;
-    interface StorageInfoOptions extends CommonCallbackOptions{
+    interface StorageInfoOptions extends CommonCallbackOptions {
         success?: StorageInfoCallback;
     }
     /**
@@ -583,10 +580,10 @@ declare namespace wx {
         //  经度，浮点数，范围为-180~180，负数表示西经
         longitude: number;
     }
-    interface GetCenterLocationSuccCbOptions extends CommonCallbackOptions{
+    interface GetCenterLocationSuccCbOptions extends CommonCallbackOptions {
         success(res: LocationBaseOptions): void;
     }
-    interface translateMarkerOptions extends CommonCallbackOptions{
+    interface translateMarkerOptions extends CommonCallbackOptions {
         //  指定 marker
         markerId: number;
         //  指定 marker 移动到的目标点
@@ -608,15 +605,15 @@ declare namespace wx {
     }
     interface GetReginSuccessCallbackOptions {
         //  西南角经纬度
-        southwest: number,
+        southwest: number;
         //  东北角经纬度
         northeast: number;
     }
-    interface GetReginOptions extends CommonCallbackOptions{
+    interface GetReginOptions extends CommonCallbackOptions {
         success?(callback: (res: GetReginSuccessCallbackOptions) => void): void;
     }
-    interface GetScaleOptions extends CommonCallbackOptions{
-        success?(callback: (res: {scale: number}) => void): void;
+    interface GetScaleOptions extends CommonCallbackOptions {
+        success?(callback: (res: { scale: number }) => void): void;
     }
     interface MapContext {
         //  获取当前地图中心的经纬度。返回的是 gcj02 坐标系，可以用于 wx.openLocation()
@@ -698,7 +695,6 @@ declare namespace wx {
      * 获取网络类型。
      */
     function getNetworkType(options: GetNetworkTypeOptions): void;
-
 
     interface SystemInfo {
         /** 手机型号 */
@@ -793,7 +789,7 @@ declare namespace wx {
     //  调试  TODO
 
     // 路由
-    interface routerOptions extends CommonCallbackOptions{
+    interface routerOptions extends CommonCallbackOptions {
         //  需要跳转的应用内非 tabBar 的页面的路径, 路径后可以带参数。参数与路径之间使用 ? 分隔，参数键与参数值用 = 相连，不同参数用 & 分隔；如 'path?key=value&key2=value2'
         url: string;
     }
@@ -827,7 +823,7 @@ declare namespace wx {
     // 界面
     // 交互
     // tapIndex为用户点击的按钮序号，从上到下的顺序，从0开始
-    type ActionSheetSuccessCallback = (res: {tapIndex: number}) => void;
+    type ActionSheetSuccessCallback = (res: { tapIndex: number }) => void;
 
     interface ActionSheetOptions {
         // 必填，按钮的文字数组，数组长度最大为 6
@@ -851,7 +847,7 @@ declare namespace wx {
         complete?: ResponseCallback;
     }
 
-    interface LoadingOptions extends CommonCallbackOptions{
+    interface LoadingOptions extends CommonCallbackOptions {
         // must，提示的内容
         title: string;
         //  默认false。是否显示透明蒙层，防止触摸穿透
@@ -859,7 +855,7 @@ declare namespace wx {
     }
 
     type icon = 'success' | 'loading' | 'none';
-    interface ToastOptions extends CommonCallbackOptions{
+    interface ToastOptions extends CommonCallbackOptions {
         // 提示的内容
         title: string;
         // 图标，默认值'success'
@@ -872,7 +868,7 @@ declare namespace wx {
         mask: boolean;
     }
 
-    interface ModalOptions extends CommonCallbackOptions{
+    interface ModalOptions extends CommonCallbackOptions {
         // 提示的内容
         title: string;
         // 提示的内容
@@ -901,7 +897,7 @@ declare namespace wx {
      * 显示 loading 提示框。需主动调用 wx.hideLoading 才能关闭提示框
      * @param options
      */
-    function showLoading(options:  LoadingOptions): void;
+    function showLoading(options: LoadingOptions): void;
     /**
      * 隐藏消息提示框
      * @param options
@@ -918,14 +914,13 @@ declare namespace wx {
      */
     function showModal(options: ModalOptions): void;
 
-
     interface NavigationBarColorAnimationOptions {
         //  动画变化时间，单位 ms，默认0
         animation?: number;
         //  动画变化方式.动画从头到尾的速度是相同的,动画以低速开始,动画以低速结束,动画以低速开始和结束
-        timingFunc?: 'linear' | 'easeIn' | 'easeOut' | 'easeInOut'
+        timingFunc?: 'linear' | 'easeIn' | 'easeOut' | 'easeInOut';
     }
-    interface NavigationBarColorOptions extends CommonCallbackOptions{
+    interface NavigationBarColorOptions extends CommonCallbackOptions {
         // 前景颜色值，包括按钮、标题、状态栏的颜色，仅支持 #ffffff 和 #000000
         frontColor: string;
         // 背景颜色值，有效值为十六进制颜色
@@ -933,7 +928,7 @@ declare namespace wx {
         //  动画效果
         animation: NavigationBarColorAnimationOptions;
     }
-    interface NavigationBarTitleOptions extends CommonCallbackOptions{
+    interface NavigationBarTitleOptions extends CommonCallbackOptions {
         //  动态设置当前页面的标题
         title: string;
     }
@@ -955,7 +950,7 @@ declare namespace wx {
 
     //  背景
     function setBackgroundTextStyle(): void;
-    interface BackgroundColorOptions extends CommonCallbackOptions{
+    interface BackgroundColorOptions extends CommonCallbackOptions {
         // 窗口的背景色，必须为十六进制颜色值
         backgroundColor?: string;
         // 顶部窗口的背景色，必须为十六进制颜色值，仅 iOS 支持
@@ -965,7 +960,7 @@ declare namespace wx {
     }
     function setBackgroundColor(): void;
     //  Tab Bar
-    interface TabBarItemOptions extends CommonCallbackOptions{
+    interface TabBarItemOptions extends CommonCallbackOptions {
         //  tabBar 的哪一项，从左边算起
         index: number;
         //  tab 上的按钮文字
@@ -981,7 +976,7 @@ declare namespace wx {
      */
     function setTabBarItem(options: TabBarItemOptions): void;
 
-    interface TabBarStyleOptions extends CommonCallbackOptions{
+    interface TabBarStyleOptions extends CommonCallbackOptions {
         //  tab 上的文字默认颜色，HexColor
         color: string;
         //  tab 上的文字选中时的颜色，HexColor
@@ -996,7 +991,7 @@ declare namespace wx {
      */
     function setTabBarStyle(options: TabBarItemOptions): void;
 
-    interface TabBarAnimationOptions extends CommonCallbackOptions{
+    interface TabBarAnimationOptions extends CommonCallbackOptions {
         //  是否需要动画效果
         animation: boolean;
     }
@@ -1009,7 +1004,7 @@ declare namespace wx {
      */
     function showTabBar(options: TabBarAnimationOptions): void;
 
-    interface TabBarRedDotOptions extends CommonCallbackOptions{
+    interface TabBarRedDotOptions extends CommonCallbackOptions {
         //  tabBar 的哪一项，从左边算起
         index: number;
     }
@@ -1024,7 +1019,7 @@ declare namespace wx {
      */
     function showTabBarRedDot(options: TabBarRedDotOptions): void;
 
-    interface TabBarBadgeOptions extends CommonCallbackOptions{
+    interface TabBarBadgeOptions extends CommonCallbackOptions {
         //  tabBar 的哪一项，从左边算起
         index: number;
         //  显示的文本，超过 4 个字符则显示成 ...
@@ -1050,7 +1045,7 @@ declare namespace wx {
         variant?: string;
     }
     //  字体
-    interface FontFaceOptions extends CommonCallbackOptions{
+    interface FontFaceOptions extends CommonCallbackOptions {
         //  定义的字体名称
         family: string;
         //  字体资源的地址。建议格式为 TTF 和 WOFF，WOFF2 在低版本的iOS上会不兼容。
@@ -1072,7 +1067,7 @@ declare namespace wx {
     function startPullDownRefresh(options?: CommonCallbackOptions): void;
 
     //  滚动
-    interface PageScrollToOptions extends CommonCallbackOptions{
+    interface PageScrollToOptions extends CommonCallbackOptions {
         //  滚动到页面的目标位置，单位 px
         scrollTop: number;
         //  滚动动画的时长，单位 ms。默认300
@@ -1267,12 +1262,29 @@ declare namespace wx {
          */
         matrix(a: number, b: number, c: number, d: number, tx: number, ty: number): Animation;
         /** 同transform-function matrix3d */
-        matrix3d(a1: number, b1: number, c1: number, d1: number, a2: number, b2: number, c2: number, d2: number, a3: number, b3: number, c3: number, d3: number, a4: number, b4: number, c4: number, d4: number): Animation;
+        matrix3d(
+            a1: number,
+            b1: number,
+            c1: number,
+            d1: number,
+            a2: number,
+            b2: number,
+            c2: number,
+            d2: number,
+            a3: number,
+            b3: number,
+            c3: number,
+            d3: number,
+            a4: number,
+            b4: number,
+            c4: number,
+            d4: number,
+        ): Animation;
     }
 
     interface CanvasAction {
         method: string;
-        data: Array<CanvasAction> | Array<number | string>
+        data: Array<CanvasAction> | Array<number | string>;
     }
     type LineCapType = 'butt' | 'round' | 'square';
     type LineJoinType = 'bevel' | 'round' | 'miter';
@@ -1281,7 +1293,7 @@ declare namespace wx {
      */
     interface CanvasContext {
         /** 获取当前context上存储的绘图动作 */
-        getActions(): Array<CanvasAction>
+        getActions(): Array<CanvasAction>;
         /** 清空当前的存储绘图动作 */
         clearActions(): void;
         /**
@@ -1564,7 +1576,7 @@ declare namespace wx {
             //  插件appId
             appId: string;
             //  插件版本号
-            vetsion: string
+            vetsion: string;
         };
     }
     /**
@@ -1607,7 +1619,7 @@ declare namespace wx {
     type PaymentSignType = 'MD5';
     interface RequestPaymentOptions {
         /** 时间戳从1970年1月1日00:00:00至今的秒数,即当前的时间 */
-        timeStamp: string|number;
+        timeStamp: string | number;
         /** 随机字符串，长度为32个字符以下。 */
         nonceStr: string;
         /** 统一下单接口返回的 prepay_id 参数值，提交格式如：prepay_id=* */
@@ -1642,7 +1654,16 @@ declare namespace wx {
      * 保存到相册 wx.saveImageToPhotosAlbum, wx.saveVideoToPhotosAlbum、
      * 摄像头 <camera />组件
      */
-    type Scope = 'userInfo' | 'userLocation' | 'address' | 'invoiceTitle' | 'invoice' | 'werun' | 'record' | 'writePhotosAlbum' | 'camera';
+    type Scope =
+        | 'userInfo'
+        | 'userLocation'
+        | 'address'
+        | 'invoiceTitle'
+        | 'invoice'
+        | 'werun'
+        | 'record'
+        | 'writePhotosAlbum'
+        | 'camera';
     interface AuthorizeOptions extends CommonCallbackOptions {
         //  需要获取权限的 scope，详见 scope 列表
         scope: Scope;
@@ -1653,7 +1674,7 @@ declare namespace wx {
     function authorize(options: AuthorizeOptions): void;
 
     // 设置
-    interface SettingOptions extends CommonCallbackOptions{
+    interface SettingOptions extends CommonCallbackOptions {
         success?(res: AuthSetting): void;
     }
     /**
@@ -1681,7 +1702,6 @@ declare namespace wx {
 }
 //  end of wx namespace
 
-
 interface Page {
     /**
      * setData 函数用于将数据从逻辑层发送到视图层，
@@ -1700,7 +1720,6 @@ interface PageConstructor {
     (options: wx.PageOptions): void;
 }
 declare var Page: PageConstructor;
-
 
 interface App {
     /**
@@ -1751,13 +1770,4 @@ declare function setInterval(callback: any, delay: number, rest: any): number;
  */
 declare function clearInterval(timeoutID: number): number;
 
-export {
-    wx,
-    App,
-    Page,
-    getApp,
-    setTimeout,
-    clearTimeout,
-    setInterval,
-    clearInterval
-}
+export { wx, App, Page, getApp, setTimeout, clearTimeout, setInterval, clearInterval };

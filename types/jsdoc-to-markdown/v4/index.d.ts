@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-export type StyleListFormat = "none" | "grouped" | "table" | "dl";
-export type RenderListFormat = "list" | "table";
-export type MemberIndexFormat = "grouped" | "list";
+export type StyleListFormat = 'none' | 'grouped' | 'table' | 'dl';
+export type RenderListFormat = 'list' | 'table';
+export type MemberIndexFormat = 'grouped' | 'list';
 
 export interface RenderOptions {
     /**
@@ -36,15 +36,15 @@ export interface RenderOptions {
     /**
      * Use an installed package containing helper and/or partial overrides.
      */
-    plugin?: string|string[];
+    plugin?: string | string[];
     /**
      * handlebars helper files to override or extend the default set.
      */
-    helper?: string|string[];
+    helper?: string | string[];
     /**
      * handlebars partial files to override or extend the default set.
      */
-    partial?: string|string[];
+    partial?: string | string[];
     /**
      * Format identifier names in the code style,
      * (i.e. format using backticks or <code></code>).
@@ -82,7 +82,7 @@ export interface JsdocOptions {
      * One or more filenames to process.
      * Accepts globs (e.g. *.js). Either files, source or data must be supplied.
      */
-    files: string|string[];
+    files: string | string[];
     /**
      * A string containing source code to process.
      * Either files, source or data must be supplied.

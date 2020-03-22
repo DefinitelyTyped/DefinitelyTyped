@@ -1,9 +1,5 @@
-import * as React from "react";
-import {
-    BreadcrumbsProvider,
-    Breadcrumbs,
-    BreadcrumbsItem,
-} from "react-breadcrumbs-dynamic";
+import * as React from 'react';
+import { BreadcrumbsProvider, Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 
 class Test1 extends React.Component {
     render() {
@@ -19,23 +15,21 @@ class Test1 extends React.Component {
 }
 
 const customProps = {
-    yay: "yay"
+    yay: 'yay',
 };
 
 class Test2 extends React.Component {
     render() {
         return (
-            <BreadcrumbsProvider
-                shouldBreadcrumbsUpdate={() => {}}
-            >
+            <BreadcrumbsProvider shouldBreadcrumbsUpdate={() => {}}>
                 <div>
                     <Breadcrumbs
-                        container={"nav"}
+                        container={'nav'}
                         containerProps={customProps}
-                        item={"a"}
-                        finalItem={"strong"}
+                        item={'a'}
+                        finalItem={'strong'}
                         finalProps={customProps}
-                        separator={"<span>/</span>"}
+                        separator={'<span>/</span>'}
                         renameProps={customProps}
                         duplicateProps={customProps}
                     />

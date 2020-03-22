@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import passport = require("passport");
-import express = require("express");
+import passport = require('passport');
+import express = require('express');
 
 export interface Profile extends passport.Profile {
     id: string;
@@ -29,10 +29,19 @@ export interface StrategyOptionWithRequest extends StrategyOption {
     passReqToCallback: boolean;
 }
 
-export type VerifyFunction =
-    (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
-export type VerifyFunctionWithRequest =
-    (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
+export type VerifyFunction = (
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile,
+    done: (error: any, user?: any, info?: any) => void,
+) => void;
+export type VerifyFunctionWithRequest = (
+    req: express.Request,
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile,
+    done: (error: any, user?: any, info?: any) => void,
+) => void;
 
 export class Strategy extends passport.Strategy {
     constructor(options: StrategyOption, verify: VerifyFunction);

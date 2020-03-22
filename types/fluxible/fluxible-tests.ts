@@ -7,12 +7,11 @@ const TestStore = createStore({
     storeName: 'TestStore',
 
     handlers: {
-        ACTION_NAME: 'actionHandler'
+        ACTION_NAME: 'actionHandler',
     },
 
     statics: {
-        staticMethod() {
-        }
+        staticMethod() {},
     },
 
     initialize() {},
@@ -20,7 +19,7 @@ const TestStore = createStore({
 
 class ExtendedStore extends BaseStore {
     static handlers = {
-        ACTION_NAME: 'actionHandler'
+        ACTION_NAME: 'actionHandler',
     };
 
     actionHandler() {
@@ -29,7 +28,7 @@ class ExtendedStore extends BaseStore {
 }
 
 const app = new Fluxible({
-    component: {}
+    component: {},
 });
 
 app.registerStore(TestStore);

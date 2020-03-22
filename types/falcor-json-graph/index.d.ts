@@ -7,7 +7,6 @@
 export = FalcorJsonGraph;
 
 declare namespace FalcorJsonGraph {
-
     // NOTE: The following types are described at https://github.com/Netflix/falcor/tree/master/lib/typedefs .
 
     /**
@@ -95,9 +94,8 @@ declare namespace FalcorJsonGraph {
     }
 
     function ref(path: string | FalcorJsonGraph.PathSet, props?: FalcorJsonGraph.Sentinel): FalcorJsonGraph.Reference;
-    function atom (value: any, props?: FalcorJsonGraph.Sentinel): FalcorJsonGraph.Atom;
+    function atom(value: any, props?: FalcorJsonGraph.Sentinel): FalcorJsonGraph.Atom;
     function error(errorValue: any, props?: FalcorJsonGraph.Sentinel): FalcorJsonGraph.Error;
     function pathValue(path: string | FalcorJsonGraph.PathSet, value: any): FalcorJsonGraph.PathValue;
     function pathInvalidation(path: string | FalcorJsonGraph.PathSet): FalcorJsonGraph.InvalidPath;
 }
-

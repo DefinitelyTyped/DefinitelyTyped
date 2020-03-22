@@ -25,29 +25,31 @@ declare namespace SemanticUI {
     type NagSettings = NagSettings.Param;
 
     namespace NagSettings {
-        type Param = (Pick<_Impl, 'persist'> |
-            Pick<_Impl, 'displayTime'> |
-            Pick<_Impl, 'animation'> |
-            Pick<_Impl, 'context'> |
-            Pick<_Impl, 'detachable'> |
-            Pick<_Impl, 'expires'> |
-            Pick<_Impl, 'domain'> |
-            Pick<_Impl, 'path'> |
-            Pick<_Impl, 'storageMethod'> |
-            Pick<_Impl, 'key'> |
-            Pick<_Impl, 'value'> |
-            Pick<_Impl, 'speed'> |
-            Pick<_Impl, 'easing'> |
-            Pick<_Impl, 'onHide'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
+        type Param = (
+            | Pick<_Impl, 'persist'>
+            | Pick<_Impl, 'displayTime'>
+            | Pick<_Impl, 'animation'>
+            | Pick<_Impl, 'context'>
+            | Pick<_Impl, 'detachable'>
+            | Pick<_Impl, 'expires'>
+            | Pick<_Impl, 'domain'>
+            | Pick<_Impl, 'path'>
+            | Pick<_Impl, 'storageMethod'>
+            | Pick<_Impl, 'key'>
+            | Pick<_Impl, 'value'>
+            | Pick<_Impl, 'speed'>
+            | Pick<_Impl, 'easing'>
+            | Pick<_Impl, 'onHide'>
+            | Pick<_Impl, 'className'>
+            | Pick<_Impl, 'selector'>
+            | Pick<_Impl, 'error'>
+            | Pick<_Impl, 'namespace'>
+            | Pick<_Impl, 'name'>
+            | Pick<_Impl, 'silent'>
+            | Pick<_Impl, 'debug'>
+            | Pick<_Impl, 'performance'>
+            | Pick<_Impl, 'verbose'>
+        ) &
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
@@ -178,9 +180,7 @@ declare namespace SemanticUI {
         type AnimationSettings = AnimationSettings.Param;
 
         namespace AnimationSettings {
-            type Param = (Pick<_Impl, 'show'> |
-                Pick<_Impl, 'hide'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = (Pick<_Impl, 'show'> | Pick<_Impl, 'hide'>) & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -197,9 +197,7 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'bottom'> |
-                Pick<_Impl, 'fixed'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = (Pick<_Impl, 'bottom'> | Pick<_Impl, 'fixed'>) & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -216,8 +214,7 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'close'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = Pick<_Impl, 'close'> & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -230,9 +227,7 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'noCookieStorage'> |
-                Pick<_Impl, 'noStorage'> |
-                Pick<_Impl, 'method'>) &
+            type Param = (Pick<_Impl, 'noCookieStorage'> | Pick<_Impl, 'noStorage'> | Pick<_Impl, 'method'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {

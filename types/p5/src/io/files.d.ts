@@ -62,7 +62,7 @@ declare module '../../index' {
             jsonpOptions?: object,
             datatype?: string,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): object | any[];
 
         /**
@@ -92,7 +92,7 @@ declare module '../../index' {
             path: string,
             datatype: string,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): object | any[];
 
         /**
@@ -120,7 +120,7 @@ declare module '../../index' {
         loadJSON(
             path: string,
             callback: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): object | any[];
 
         /**
@@ -154,7 +154,7 @@ declare module '../../index' {
         loadStrings(
             filename: string,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): string[];
 
         /**
@@ -210,7 +210,7 @@ declare module '../../index' {
             filename: string,
             options: string,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): object;
 
         /**
@@ -263,7 +263,7 @@ declare module '../../index' {
         loadTable(
             filename: string,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): object;
 
         /**
@@ -341,7 +341,7 @@ declare module '../../index' {
             datatype?: string,
             data?: object | boolean,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): Promise<any>;
 
         /**
@@ -366,7 +366,7 @@ declare module '../../index' {
             path: string,
             data: object | boolean,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): Promise<any>;
 
         /**
@@ -412,7 +412,7 @@ declare module '../../index' {
             datatype?: string,
             data?: object | boolean,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): Promise<any>;
 
         /**
@@ -433,7 +433,7 @@ declare module '../../index' {
             path: string,
             data: object | boolean,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): Promise<any>;
 
         /**
@@ -452,7 +452,7 @@ declare module '../../index' {
         httpPost(
             path: string,
             callback: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): Promise<any>;
 
         /**
@@ -487,7 +487,7 @@ declare module '../../index' {
             datatype?: string,
             data?: object,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): Promise<any>;
 
         /**
@@ -514,7 +514,7 @@ declare module '../../index' {
             path: string,
             options: object,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): Promise<any>;
         createWriter(name: string, extension?: string): PrintWriter;
 

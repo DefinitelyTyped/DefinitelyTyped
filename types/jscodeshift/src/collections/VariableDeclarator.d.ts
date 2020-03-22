@@ -1,6 +1,6 @@
-import nodes = require("ast-types/gen/nodes");
-import recast = require("recast");
-import Collection = require("../Collection");
+import nodes = require('ast-types/gen/nodes');
+import recast = require('recast');
+import Collection = require('../Collection');
 
 type ASTPath<N> = recast.NodePath<N, N>;
 

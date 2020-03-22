@@ -2,11 +2,9 @@
 // =============================
 $.dynatableSetup({ features: { pushState: false }, dataset: { perPageDefault: 5, perPageOptions: [2, 5, 10] } });
 
-
 // Without any settings (using all defaults)
 // =========================================
 var dynatableWithDefaultSettings = $('#example-table').dynatable();
-
 
 // Building a config piece by piece
 // ================================
@@ -17,11 +15,11 @@ var featsConfig: JQueryDynatable.Features = {
     pushState: true,
     search: true,
     recordCount: true,
-    perPageSelect: true
+    perPageSelect: true,
 };
 var featsPartialConfig: JQueryDynatable.Features = {
     search: false,
-    paginate: false
+    paginate: false,
 };
 // JQueryDynatable.Column
 var col: JQueryDynatable.Column = {
@@ -36,7 +34,7 @@ var col: JQueryDynatable.Column = {
     },
     sorts: ['un', 'deux'],
     hidden: false,
-    textAlign: 'right'
+    textAlign: 'right',
 };
 // JQueryDynatable.Table
 var tableConfig: JQueryDynatable.Table = {
@@ -44,10 +42,10 @@ var tableConfig: JQueryDynatable.Table = {
     columns: [col], // Just for fun & testing... because will be reset by dynatable
     headRowSelector: '.my-head-row-selector',
     bodyRowSelector: 'tbody tr',
-    headRowClass: 'custom-head-row-class'
+    headRowClass: 'custom-head-row-class',
 };
 var tablePartialConfig: JQueryDynatable.Table = {
-    defaultColumnIdStyle: 'trimDash'
+    defaultColumnIdStyle: 'trimDash',
 };
 // JQueryDynatable.Inputs
 var tableInputs: JQueryDynatable.Inputs = {
@@ -85,8 +83,9 @@ var tableInputs: JQueryDynatable.Inputs = {
     recordCountFilteredTemplate: ' (found from {recordsTotal} total entries)',
     recordCountText: 'Rendering',
     recordCountTextTemplate: '{text} {pageTemplate} {totalTemplate} {filteredTemplate}',
-    recordCountTemplate: '<span id="dynatable-record-count-{elementId}" class="dynatable-record-count">!!{textTemplate}!!</span>',
-    processingText: 'Working...'
+    recordCountTemplate:
+        '<span id="dynatable-record-count-{elementId}" class="dynatable-record-count">!!{textTemplate}!!</span>',
+    processingText: 'Working...',
 };
 // JQueryDynatable.Dataset
 var tableDataset: JQueryDynatable.Dataset = {
@@ -105,7 +104,7 @@ var tableDataset: JQueryDynatable.Dataset = {
     sorts: {},
     sortsKeys: [],
     sortTypes: {},
-    records: null
+    records: null,
 };
 // JQueryDynatable.Writers
 var tableWriters: JQueryDynatable.Writers = {
@@ -142,14 +141,14 @@ var tableWriters: JQueryDynatable.Writers = {
     _attributeWriter: function exampleAttributeWriter(record) {
         // `this` is the column object in settings.columns
         return record[this.id];
-    }
+    },
 };
 // JQueryDynatable.Readers
 var tableReaders: JQueryDynatable.Readers = {
     _rowReader: null,
     _attributeReader: function exampleAttributeReader(cell, record) {
         return $(cell).html();
-    }
+    },
 };
 // JQueryDynatable.Params
 var tableParams: JQueryDynatable.Params = {
@@ -162,7 +161,7 @@ var tableParams: JQueryDynatable.Params = {
     records: 'records',
     record: null,
     queryRecordCount: 'queryRecordCount',
-    totalRecordCount: 'totalRecordCount'
+    totalRecordCount: 'totalRecordCount',
 };
 var dynatableOptions: JQueryDynatable.Options = {
     // Grouping config components
@@ -172,7 +171,7 @@ var dynatableOptions: JQueryDynatable.Options = {
     dataset: tableDataset,
     writers: tableWriters,
     readers: tableReaders,
-    params: tableParams
+    params: tableParams,
 };
 // Init with the options
 var dynatableWithOptions = $('#example-with-options').dynatable(dynatableOptions);
@@ -184,16 +183,14 @@ var dynatableWithInlineOptions = $('#example-with-inline-options').dynatable({
     features: {
         paginate: false,
         search: false,
-        sort: true
-    }
+        sort: true,
+    },
 });
-
 
 // Using $element
 // ==============
 var dtable: JQueryDynatable.Dynatable = $('#testing-element').dynatable().data('dynatable');
 dtable.$element.addClass('some-class-to-be-added-on-the-element');
-
 
 // Using the API
 // =============
@@ -207,15 +204,19 @@ dtable.paginationPage.set(2);
 // paginationPerPage API
 dtable.paginationPerPage.set(1, true);
 // processingIndicator API
-setTimeout(function() { dtable.processingIndicator.show(); }, 1000);
-setTimeout(function() { dtable.processingIndicator.hide(); }, 3000);
+setTimeout(function () {
+    dtable.processingIndicator.show();
+}, 1000);
+setTimeout(function () {
+    dtable.processingIndicator.hide();
+}, 3000);
 // queries API
 // records API
 // recordsCount API
 // settings API
 // sorts API
 dtable.sorts.clear();
-dtable.sorts.add('theRank', -1) // 1=ASCENDING, -1=DESCENDING
+dtable.sorts.add('theRank', -1); // 1=ASCENDING, -1=DESCENDING
 dtable.sorts.remove('country');
 dtable.process();
 // sortsHeaders API

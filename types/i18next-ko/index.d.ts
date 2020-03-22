@@ -19,7 +19,7 @@ export function t(key: string): KnockoutComputed<string>;
 export interface i18nextkoResourceStore {
     [language: string]: {
         translation: {
-            [key: string]: string
-        }
+            [key: string]: string;
+        };
     };
 }

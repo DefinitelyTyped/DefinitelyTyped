@@ -15,7 +15,7 @@ interface Options {
     headers: {
         [key: string]: any;
         'Content-Type': 'application/json';
-        'Accept': 'application/json';
+        Accept: 'application/json';
         'User-Agent': string;
         'X-CC-Api-Key': string;
         'X-CC-Version': string;
@@ -312,7 +312,7 @@ interface ChargeResource extends BaseCharge {
             hash: string;
             confirmations_accumulated: number;
             confirmations_required: number;
-        }
+        };
     }>;
 
     /**
@@ -408,7 +408,13 @@ interface EventResource<T = ChargeResource | CheckoutResource> {
     /**
      * Event type.
      */
-    type: 'charge:created' | 'charge:confirmed' | 'charge:failed' | 'charge:delayed' | 'charge:pending' | 'charge:resolved';
+    type:
+        | 'charge:created'
+        | 'charge:confirmed'
+        | 'charge:failed'
+        | 'charge:delayed'
+        | 'charge:pending'
+        | 'charge:resolved';
 
     /**
      * Event creation time.
@@ -493,7 +499,10 @@ export namespace resources {
         /**
          * List charges.
          */
-        static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Charge>): Promise<[Charge[], Pagination]>;
+        static list(
+            paginationOptions: PaginationRequest,
+            callback?: PaginationCallback<Charge>,
+        ): Promise<[Charge[], Pagination]>;
 
         /**
          * Fetch all charges.
@@ -525,7 +534,10 @@ export namespace resources {
         /**
          * List checkouts.
          */
-        static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Checkout>): Promise<[Checkout[], Pagination]>;
+        static list(
+            paginationOptions: PaginationRequest,
+            callback?: PaginationCallback<Checkout>,
+        ): Promise<[Checkout[], Pagination]>;
 
         /**
          * Fetch all checkouts.
@@ -540,7 +552,11 @@ export namespace resources {
         /**
          * Update a checkout by ID.
          */
-        static updateById(checkoutId: CheckoutResource['id'], update: UpdateCheckout, callback?: Callback<Checkout>): Promise<Checkout>;
+        static updateById(
+            checkoutId: CheckoutResource['id'],
+            update: UpdateCheckout,
+            callback?: Callback<Checkout>,
+        ): Promise<Checkout>;
 
         /**
          * Delete a checkout by ID.
@@ -567,7 +583,10 @@ export namespace resources {
         /**
          * List events.
          */
-        static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Event>): Promise<[Event[], Pagination]>;
+        static list(
+            paginationOptions: PaginationRequest,
+            callback?: PaginationCallback<Event>,
+        ): Promise<[Event[], Pagination]>;
 
         /**
          * Fetch all events.
@@ -575,11 +594,7 @@ export namespace resources {
         static all(paginationOptions: PaginationRequest, callback?: Callback<Event[]>): Promise<Event[]>;
     }
 
-    export {
-        Event,
-        Charge,
-        Checkout,
-    };
+    export { Event, Charge, Checkout };
 }
 
 /**
@@ -596,12 +611,4 @@ declare namespace Webhook {
     function verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
 }
 
-export {
-    Webhook,
-    Pagination,
-    ChargeResource,
-    CheckoutResource,
-    CreateCheckout,
-    EventResource,
-    CreateCharge,
-};
+export { Webhook, Pagination, ChargeResource, CheckoutResource, CreateCheckout, EventResource, CreateCharge };

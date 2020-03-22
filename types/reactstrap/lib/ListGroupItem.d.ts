@@ -14,5 +14,5 @@ export interface ListGroupItemProps extends React.HTMLAttributes<HTMLElement> {
     onClick?: React.MouseEventHandler<any>;
 }
 
-declare class ListGroupItem<T = {[key: string]: any}> extends React.Component<ListGroupItemProps> {}
+declare class ListGroupItem<T = { [key: string]: any }> extends React.Component<ListGroupItemProps> {}
 export default ListGroupItem;

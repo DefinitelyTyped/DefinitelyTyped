@@ -7,10 +7,10 @@
 import * as React from 'react';
 
 export interface TabfilterProps {
-    rows: string | string[] | { [name: string]: boolean; };
-	onFilterUpdate: (filteredArray: string[], currentFilters: any[]) => any[] | void;
-	rowClass?: string;
-	initialFilters?: string | string[] | { [name: string]: boolean; };
+    rows: string | string[] | { [name: string]: boolean };
+    onFilterUpdate: (filteredArray: string[], currentFilters: any[]) => any[] | void;
+    rowClass?: string;
+    initialFilters?: string | string[] | { [name: string]: boolean };
 }
 
 export class TableFilter extends React.Component<TabfilterProps> {}

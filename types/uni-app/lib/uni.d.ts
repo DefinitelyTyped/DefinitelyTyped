@@ -39,7 +39,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/window/communication?id=off](http://uniapp.dcloud.io/api/window/communication?id=off)
      */
-    $off(eventName?: string | any [], callback?: () => void): void;
+    $off(eventName?: string | any[], callback?: () => void): void;
     /**
      * 通过id 获取 subNVues 原生子窗体的实例
      *
@@ -969,11 +969,31 @@ interface SubNVue {
     /**
      * 显示原生子窗体
      */
-    show(options?: 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in'): void;
+    show(
+        options?:
+            | 'slide-in-right'
+            | 'slide-in-left'
+            | 'slide-in-top'
+            | 'slide-in-bottom'
+            | 'fade-in'
+            | 'zoom-out'
+            | 'zoom-fade-out'
+            | 'pop-in',
+    ): void;
     /**
      * 隐藏原生子窗体
      */
-    hide(options?: 'slide-out-right' | 'slide-out-left' | 'slide-out-top' | 'slide-out-bottom' | 'fade-out' | 'zoom-in' | 'zoom-fade-in' | 'pop-out'): void;
+    hide(
+        options?:
+            | 'slide-out-right'
+            | 'slide-out-left'
+            | 'slide-out-top'
+            | 'slide-out-bottom'
+            | 'fade-out'
+            | 'zoom-in'
+            | 'zoom-fade-in'
+            | 'pop-out',
+    ): void;
     /**
      * 设置原生子窗体的样式
      */
@@ -1178,7 +1198,7 @@ interface UploadFileOption {
     /**
      * 需要上传的文件列表。使用 files 时，filePath 和 name 不生效。仅 5+App 支持
      */
-    files?: UploadFileOptionFiles [];
+    files?: UploadFileOptionFiles[];
     /**
      * HTTP 请求 Header, header 中不能设置 Referer
      */
@@ -1326,7 +1346,7 @@ interface ConnectSocketOption {
     /**
      * 子协议数组
      */
-    protocols?: string [];
+    protocols?: string[];
     /**
      * 接口调用成功的回调函数
      */
@@ -1432,11 +1452,11 @@ interface ChooseImageOptions {
     /**
      * original 原图，compressed 压缩图，默认二者都有
      */
-    sizeType?: string | string [];
+    sizeType?: string | string[];
     /**
      * album 从相册选图，camera 使用相机，默认二者都有
      */
-    sourceType?: string | string [];
+    sourceType?: string | string[];
     /**
      * 成功则返回图片的本地文件路径列表 tempFilePaths
      */
@@ -1455,11 +1475,11 @@ interface ChooseImageSuccessCallbackResult {
     /**
      * 图片的本地文件路径列表
      */
-    tempFilePaths?: string | any [];
+    tempFilePaths?: string | any[];
     /**
      * 图片的本地文件列表，每一项是一个 File 对象
      */
-    tempFiles?: ChooseImageSuccessCallbackResultFile | ChooseImageSuccessCallbackResultFile [];
+    tempFiles?: ChooseImageSuccessCallbackResultFile | ChooseImageSuccessCallbackResultFile[];
 }
 
 interface ChooseImageSuccessCallbackResultFile {
@@ -1485,7 +1505,7 @@ interface PreviewImageOptions {
     /**
      * 需要预览的图片链接列表
      */
-    urls?: string | any [];
+    urls?: string | any[];
     /**
      * 图片指示器样式
      * - default: 底部圆点指示器
@@ -1519,7 +1539,7 @@ interface LongPressActionsOptions {
     /**
      * 按钮的文字数组
      */
-    itemList?: string [];
+    itemList?: string[];
     /**
      * 按钮的文字颜色，字符串格式，默认为"#000000"
      */
@@ -2101,7 +2121,7 @@ interface ChooseVideoOptions {
     /**
      * album 从相册选视频，camera 使用相机拍摄，默认为：['album', 'camera']
      */
-    sourceType?: string | any [];
+    sourceType?: string | any[];
     /**
      * 是否压缩所选的视频源文件，默认值为true，需要压缩
      */
@@ -2538,7 +2558,7 @@ interface GetStorageInfoSuccess {
     /**
      * 当前storage中所有的 key
      */
-    keys?: string [];
+    keys?: string[];
     /**
      * 当前占用的空间大小, 单位 kb
      */
@@ -2795,11 +2815,11 @@ interface MapContextIncludePointsOptions {
     /**
      * 要显示在可视区域内的坐标点列表，[{latitude, longitude}]
      */
-    points?: LocationObject [];
+    points?: LocationObject[];
     /**
      * 坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的padding一致。开发者工具暂不支持padding参数。
      */
-    padding?: number [];
+    padding?: number[];
 }
 
 interface MapContextGetRegionOptions {
@@ -3196,7 +3216,7 @@ interface ScanCodeOptions {
     /**
      * 扫码类型，参数类型是数组，二维码是'qrCode'，一维码是'barCode'，DataMatrix是‘datamatrix’，pdf417是‘pdf417’。
      */
-    scanType?: any [];
+    scanType?: any[];
     /**
      * 成功返回的回调函数
      */
@@ -3346,14 +3366,14 @@ interface OnBluetoothDeviceFoundResult {
     /**
      * 设备列表信息
      */
-    devices?: BluetoothDeviceInfo [];
+    devices?: BluetoothDeviceInfo[];
 }
 
 interface StartBluetoothDevicesDiscoveryOptions {
     /**
      * 蓝牙设备主 service 的 uuid 列表
      */
-    services?: any [];
+    services?: any[];
     /**
      * 是否允许重复上报同一设备， 如果允许重复上报，则onDeviceFound 方法会多次上报同一设备，但是 RSSI 值会有不同
      */
@@ -3417,7 +3437,7 @@ interface GetBluetoothDevicesSuccess {
     /**
      * uuid 对应的的已连接设备列表
      */
-    devices?: BluetoothDeviceInfo [];
+    devices?: BluetoothDeviceInfo[];
     /**
      * 成功：ok，错误：详细信息
      */
@@ -3440,11 +3460,11 @@ interface BluetoothDeviceInfo {
     /**
      * 当前蓝牙设备的广播数据段中的ManufacturerData数据段 （注意：vConsole 无法打印出 ArrayBuffer 类型数据）
      */
-    advertisData?: any [];
+    advertisData?: any[];
     /**
      * 当前蓝牙设备的广播数据段中的ServiceUUIDs数据段
      */
-    advertisServiceUUIDs?: any [];
+    advertisServiceUUIDs?: any[];
     /**
      * 当前蓝牙设备的广播数据段中的LocalName数据段
      */
@@ -3452,14 +3472,14 @@ interface BluetoothDeviceInfo {
     /**
      * 当前蓝牙设备的广播数据段中的ServiceData数据段
      */
-    serviceData?: any [];
+    serviceData?: any[];
 }
 
 interface GetConnectedBluetoothDevicesOptions {
     /**
      * 蓝牙设备主 service 的 uuid 列表
      */
-    services?: any [];
+    services?: any[];
     /**
      * 成功则返回本机蓝牙适配器状态
      */
@@ -3478,7 +3498,7 @@ interface GetConnectedBluetoothDevicesSuccess {
     /**
      * 搜索到的设备列表
      */
-    devices?: GetConnectedBluetoothDevicesSuccessData [];
+    devices?: GetConnectedBluetoothDevicesSuccessData[];
     /**
      * 成功：ok，错误：详细信息
      */
@@ -3572,7 +3592,7 @@ interface GetBLEDeviceServicesSuccess {
     /**
      * 设备服务列表
      */
-    services?: GetBLEDeviceServicesSuccessData [];
+    services?: GetBLEDeviceServicesSuccessData[];
     /**
      * 成功：ok，错误：详细信息
      */
@@ -3617,7 +3637,7 @@ interface GetBLEDeviceCharacteristicsSuccess {
     /**
      * 设备特征值列表
      */
-    characteristics?: GetBLEDeviceCharacteristicsSuccessData [];
+    characteristics?: GetBLEDeviceCharacteristicsSuccessData[];
     /**
      * 成功：ok，错误：详细信息
      */
@@ -3689,7 +3709,7 @@ interface WriteBLECharacteristicValueOptions {
     /**
      * 蓝牙设备特征值对应的二进制值
      */
-    value?: any [];
+    value?: any[];
     /**
      * 成功则返回本机蓝牙适配器状态
      */
@@ -3751,14 +3771,14 @@ interface OnBLECharacteristicValueChangeSuccess {
     /**
      * 特征值最新的值 （注意：vConsole 无法打印出 ArrayBuffer 类型数据）
      */
-    value?: any [];
+    value?: any[];
 }
 
 interface StartBeaconDiscoveryOptions {
     /**
      * iBeacon设备广播的 uuids
      */
-    uuids?: any [];
+    uuids?: any[];
     /**
      * 接口调用成功的回调函数
      */
@@ -3807,7 +3827,7 @@ interface GetBeaconsRes {
     /**
      * 接口调用成功的回调函数
      */
-    beacons?: Beacon [];
+    beacons?: Beacon[];
     /**
      * 调用结果
      */
@@ -3871,7 +3891,7 @@ interface StartHCEOptions {
     /**
      * 需要注册到系统的 AID 列表，每个 AID 为 String 类型
      */
-    aid_list?: any [];
+    aid_list?: any[];
     /**
      * 接口调用成功的回调函数
      */
@@ -3909,7 +3929,7 @@ interface HCEMessageRes {
     /**
      * 客户端接收到 NFC 设备的指令
      */
-    data?: any [];
+    data?: any[];
     /**
      * 此参数当且仅当 messageType=2 时有效
      */
@@ -3920,7 +3940,7 @@ interface SendHCEMessageOptions {
     /**
      * 二进制数据
      */
-    data?: any [];
+    data?: any[];
     /**
      * 接口调用成功的回调函数
      */
@@ -4030,7 +4050,7 @@ interface SetWifiListOptions {
     /**
      * Wi-Fi 的SSID
      */
-    wifiList?: WiFiItem [];
+    wifiList?: WiFiItem[];
     /**
      * 接口调用成功的回调函数
      */
@@ -4201,7 +4221,7 @@ interface ShowActionSheetOptions {
     /**
      * 按钮的文字数组
      */
-    itemList?: any [];
+    itemList?: any[];
     /**
      * 按钮的文字颜色，默认为"#000000"
      */
@@ -4596,7 +4616,17 @@ interface NavigateToOptions {
      * - zoom-fade-out: 从小到大逐渐放大并且从透明到不透明逐渐显示效果
      * - pop-in: 从右侧平移入栈动画效果
      */
-    animationType?: 'auto' | 'none' | 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in';
+    animationType?:
+        | 'auto'
+        | 'none'
+        | 'slide-in-right'
+        | 'slide-in-left'
+        | 'slide-in-top'
+        | 'slide-in-bottom'
+        | 'fade-in'
+        | 'zoom-out'
+        | 'zoom-fade-out'
+        | 'pop-in';
     /**
      * 窗口显示动画的持续时间，单位为 ms
      */
@@ -4676,7 +4706,7 @@ interface CreateIntersectionObserverOptions {
     /**
      * 所有阈值
      */
-    thresholds?: any [];
+    thresholds?: any[];
     /**
      * 初始的相交比例
      */
@@ -4705,7 +4735,17 @@ interface NavigateBackOptions {
      * - zoom-fade-in: 从大逐渐缩小并且从不透明到透明逐渐隐藏关闭动画
      * - pop-out: 从右侧平移出栈动画效果
      */
-    animationType?: 'auto' | 'none' | 'slide-out-right' | 'slide-out-left' | 'slide-out-top' | 'slide-out-bottom' | 'fade-out' | 'zoom-in' | 'zoom-fade-in' | 'pop-out';
+    animationType?:
+        | 'auto'
+        | 'none'
+        | 'slide-out-right'
+        | 'slide-out-left'
+        | 'slide-out-top'
+        | 'slide-out-bottom'
+        | 'fade-out'
+        | 'zoom-in'
+        | 'zoom-fade-in'
+        | 'pop-out';
     /**
      * 窗口关闭动画的持续时间，单位为 ms
      */
@@ -5064,11 +5104,11 @@ interface NodeField {
     /**
      * 指定属性名列表，返回节点对应属性名的当前属性值（只能获得组件文档中标注的常规属性值，id class style 和事件绑定的属性值不可获取）
      */
-    properties?: string [];
+    properties?: string[];
     /**
      * 指定样式名列表，返回节点对应样式名的当前值
      */
-    computedStyle?: string [];
+    computedStyle?: string[];
     /**
      * 是否返回节点对应的 Context 对象
      */
@@ -5079,11 +5119,11 @@ interface IntersectionObserver {
     /**
      * 使用选择器指定一个节点，作为参照区域之一
      */
-    relativeTo(selector?: string, margins?: any []): void;
+    relativeTo(selector?: string, margins?: any[]): void;
     /**
      * 指定页面显示区域作为参照区域之一
      */
-    relativeToViewport(margins?: any []): void;
+    relativeToViewport(margins?: any[]): void;
     /**
      * 指定目标节点并开始监听相交状态变化情况
      */
@@ -5353,7 +5393,7 @@ interface CanvasContext {
     /**
      * 设置线条的宽度
      */
-    setLineDash(pattern?: any [], offset?: number): void;
+    setLineDash(pattern?: any[], offset?: number): void;
     /**
      * 设置最大斜接长度
      */
@@ -5445,7 +5485,17 @@ interface CanvasContext {
     /**
      * 绘制图像到画布
      */
-    drawImage(imageResource?: string, dx?: number, dy?: number, dWidth?: number, dHeigt?: number, sx?: number, sy?: number, sWidth?: number, sHeight?: number): void;
+    drawImage(
+        imageResource?: string,
+        dx?: number,
+        dy?: number,
+        dWidth?: number,
+        dHeigt?: number,
+        sx?: number,
+        sy?: number,
+        sWidth?: number,
+        sHeight?: number,
+    ): void;
     /**
      * 设置全局画笔透明度
      */
@@ -5481,7 +5531,14 @@ interface CanvasContext {
     /**
      * 使用矩阵重新设置（覆盖）当前变换的方法
      */
-    setTransform(scaleX?: number, skewX?: number, skewY?: number, scaleY?: number, translateX?: number, translateY?: number): void;
+    setTransform(
+        scaleX?: number,
+        skewX?: number,
+        skewY?: number,
+        scaleY?: number,
+        translateX?: number,
+        translateY?: number,
+    ): void;
 }
 
 interface CanvasTextMetrics {
@@ -5600,7 +5657,7 @@ interface CanvasGetImageDataRes {
     /**
      * 图像像素点数据，一维数组，每四项表示一个像素点的rgba
      */
-    data?: any [];
+    data?: any[];
 }
 
 interface CanvasPutImageDataOptions {
@@ -5611,7 +5668,7 @@ interface CanvasPutImageDataOptions {
     /**
      * 图像像素点数据，一维数组，每四项表示一个像素点的rgba
      */
-    data?: any [];
+    data?: any[];
     /**
      * 源图像数据在目标画布中的位置偏移量（x 轴方向的偏移量）
      */
@@ -5970,7 +6027,7 @@ interface GetProviderRes {
     /**
      * 得到的服务供应商
      */
-    provider?: any [];
+    provider?: any[];
 }
 
 interface LoginOptions {
@@ -6028,7 +6085,7 @@ interface LoginRes {
     /**
      * 支付宝小程序登录成功的授权 scope
      */
-    authSucessScope?: string [];
+    authSucessScope?: string[];
 }
 
 interface CheckSessionOptions {
@@ -6465,7 +6522,7 @@ interface AddCardOptions {
     /**
      * 需要添加的卡券列表
      */
-    cardList?: AddCardData [];
+    cardList?: AddCardData[];
     /**
      * 接口调用成功的回调函数
      */
@@ -6495,7 +6552,7 @@ interface AddCardRes {
     /**
      * 卡券 id
      */
-    cardList?: CardData [];
+    cardList?: CardData[];
 }
 
 interface CardData {
@@ -6521,7 +6578,7 @@ interface OpenCardOptions {
     /**
      * 需要打开的卡券列表
      */
-    cardList?: OpenCardData [];
+    cardList?: OpenCardData[];
     /**
      * 接口调用成功的回调函数
      */
@@ -6769,7 +6826,7 @@ interface CheckIsSupportSoterAuthenticationRes {
     /**
      * 接口调用成功的回调函数
      */
-    supportMode?: any [];
+    supportMode?: any[];
     /**
      * 接口调用结果
      */
@@ -6780,7 +6837,7 @@ interface StartSoterAuthenticationOptions {
     /**
      * 请求使用的可接受的生物认证方式
      */
-    requestAuthModes?: any [];
+    requestAuthModes?: any[];
     /**
      * 挑战因子
      */

@@ -4,10 +4,10 @@ import * as Hapi from 'hapi';
 
 var routeMoreConfig: Hapi.RouteAdditionalConfigurationOptions = {
     auth: false,
-}
+};
 routeMoreConfig = {
     auth: 'some_strategy',
-}
+};
 routeMoreConfig = {
     auth: {
         mode: 'required',
@@ -21,5 +21,5 @@ routeMoreConfig = {
         // Will over write values in access
         scope: false,
         entity: 'any',
-    }
-}
+    },
+};

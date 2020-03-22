@@ -6,7 +6,7 @@ import moment = require('moment');
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => { },
+    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => {},
 };
 
 const ctx = new CanvasRenderingContext2D();
@@ -32,7 +32,7 @@ const chart: Chart = new Chart(ctx, {
                 data: [1, 3, 5],
                 barThickness: 'flex',
                 minBarLength: 2,
-            }
+            },
         ],
     },
     options: {
@@ -46,7 +46,7 @@ const chart: Chart = new Chart(ctx, {
             text: ['foo', 'bar'],
         },
         tooltips: {
-            filter: data => Number(data.yLabel) > 0,
+            filter: (data) => Number(data.yLabel) > 0,
             intersect: true,
             mode: 'index',
             itemSort: (a, b, data) => Math.random() - 0.5,
@@ -137,7 +137,7 @@ const scaleOptions: Chart.RadialLinearScale = {
         color: 'rgba(0, 0, 0, 0.1)',
         lineWidth: 1,
         borderDash: [],
-        borderDashOffset: 0.0
+        borderDashOffset: 0.0,
     },
     pointLabels: {
         callback: () => 'pointLabels callback',
@@ -145,7 +145,7 @@ const scaleOptions: Chart.RadialLinearScale = {
         fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
         fontSize: 10,
         fontStyle: 'normal',
-        lineHeight: 1.2
+        lineHeight: 1.2,
     },
     ticks: tickOptions,
     display: false,
@@ -165,8 +165,8 @@ const scaleOptions: Chart.RadialLinearScale = {
         zeroLineBorderDash: [],
         zeroLineBorderDashOffset: 0.0,
         offsetGridLines: false,
-        z: 9
-    }
+        z: 9,
+    },
 };
 const radarChartOptions: Chart.RadialChartOptions = {
     legend: { display: false },
@@ -221,69 +221,77 @@ if (radialChart.aspectRatio !== null) {
 console.log(radialChart.options === radialChart.config.options);
 
 const chartWithScriptedOptions = new Chart(new CanvasRenderingContext2D(), {
-    type: "bar",
+    type: 'bar',
     data: {
-        labels: ["a", "b", "c", "d", "e"],
-        datasets: [{
-            label: "test",
-            data: [1, 3, 5, 4, 2],
-            backgroundColor: ({ dataset, dataIndex }): ChartColor => {
-                if (dataset === undefined || dataset.data === undefined || dataIndex === undefined) {
-                    return "black";
-                }
-                const value = dataset.data[dataIndex];
-                if (typeof value !== "number") {
-                    return "black";
-                }
-                return value > 3 ? "red" : "green";
+        labels: ['a', 'b', 'c', 'd', 'e'],
+        datasets: [
+            {
+                label: 'test',
+                data: [1, 3, 5, 4, 2],
+                backgroundColor: ({ dataset, dataIndex }): ChartColor => {
+                    if (dataset === undefined || dataset.data === undefined || dataIndex === undefined) {
+                        return 'black';
+                    }
+                    const value = dataset.data[dataIndex];
+                    if (typeof value !== 'number') {
+                        return 'black';
+                    }
+                    return value > 3 ? 'red' : 'green';
+                },
+                borderWidth: ({ dataset, dataIndex }): BorderWidth => {
+                    if (dataset === undefined || dataset.data === undefined || dataIndex === undefined) {
+                        return 1;
+                    }
+                    return { top: 1, right: 1, bottom: 0, left: 1 };
+                },
             },
-            borderWidth: ({ dataset, dataIndex }): BorderWidth => {
-                if (dataset === undefined || dataset.data === undefined || dataIndex === undefined) {
-                    return 1;
-                }
-                return { top: 1, right: 1, bottom: 0, left: 1 };
-            }
-        }],
-    }
+        ],
+    },
 });
 
 // linear scale
 const linearScaleChart: Chart = new Chart(ctx, {
     type: 'bar',
     data: {
-        datasets: [{
-            backgroundColor: '#000',
-            borderColor: '#f00',
-            data: [],
-            type: 'line',
-        }]
+        datasets: [
+            {
+                backgroundColor: '#000',
+                borderColor: '#f00',
+                data: [],
+                type: 'line',
+            },
+        ],
     },
     options: {
         scales: {
             displayFormats: {
                 month: 'MMM YYYY',
             },
-            xAxes: [{
-                type: 'time',
-                distribution: 'series',
-                ticks: {
-                    source: 'data',
-                    autoSkip: true,
-                    sampleSize: 1,
-                }
-            }],
-            yAxes: [{
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Closing price ($)'
-                }
-            }]
+            xAxes: [
+                {
+                    type: 'time',
+                    distribution: 'series',
+                    ticks: {
+                        source: 'data',
+                        autoSkip: true,
+                        sampleSize: 1,
+                    },
+                },
+            ],
+            yAxes: [
+                {
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Closing price ($)',
+                    },
+                },
+            ],
         },
         tooltips: {
             intersect: false,
             mode: 'index',
-        }
-    }
+        },
+    },
 });
 
 // custom tooltips
@@ -323,10 +331,10 @@ const doughnutChart = new Chart(ctx, {
                 backgroundColor: '#ff0000',
                 borderColor: '#000000',
                 borderWidth: 3,
-                data: [1, 3, 5]
-            }
-        ]
-    }
+                data: [1, 3, 5],
+            },
+        ],
+    },
 });
 
 // Testing Model properties
@@ -413,24 +421,21 @@ if (doughnutChart.getDatasetMeta(0).data.length > 0) {
 
 // Time Cartesian Axis
 const timeAxisChartData: Chart.ChartData = {
-    datasets: [{
-        data: [
-            { x: new Date(), y: 1 },
-            { y: new Date(), t: 1 },
-            { t: new Date(), y: 1 },
-            { x: moment(), y: 1 },
-            { y: moment(), t: 1 },
-            { t: moment(), y: 1 },
-        ]
-    }]
+    datasets: [
+        {
+            data: [
+                { x: new Date(), y: 1 },
+                { y: new Date(), t: 1 },
+                { t: new Date(), y: 1 },
+                { x: moment(), y: 1 },
+                { y: moment(), t: 1 },
+                { t: moment(), y: 1 },
+            ],
+        },
+    ],
 };
 
 // Labels
 const timeLabelsChartData: Chart.ChartData = {
-    labels: [
-        'a', 'b', 'c',
-        1, 2, 3,
-        new Date(), new Date(), new Date(),
-        moment(), moment(), moment(),
-    ],
+    labels: ['a', 'b', 'c', 1, 2, 3, new Date(), new Date(), new Date(), moment(), moment(), moment()],
 };

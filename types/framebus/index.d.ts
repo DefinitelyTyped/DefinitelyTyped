@@ -43,7 +43,7 @@ export function target(origin: string): FrameBus;
  * @param args The data to give to subscribers
  * @param last Give subscribers a function for easy, direct replies
  */
-export function publish(event: string, ...args: any[]/* fn:  callback(data:)*/): boolean;
+export function publish(event: string, ...args: any[] /* fn:  callback(data:)*/): boolean;
 
 /**
  * publish = pub = trigger = emit

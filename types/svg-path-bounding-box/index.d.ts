@@ -5,9 +5,7 @@
 
 export = svgPathBoundingBox;
 
-declare function svgPathBoundingBox(
-    path: string,
-): svgPathBoundingBox.BoundingBoxView;
+declare function svgPathBoundingBox(path: string): svgPathBoundingBox.BoundingBoxView;
 
 declare namespace svgPathBoundingBox {
     /**
@@ -32,14 +30,7 @@ declare namespace svgPathBoundingBox {
 
         addY(y: number): void;
 
-        addQuadraticCurve(
-            p0x: number,
-            p0y: number,
-            p1x: number,
-            p1y: number,
-            p2x: number,
-            p2y: number,
-        ): void;
+        addQuadraticCurve(p0x: number, p0y: number, p1x: number, p1y: number, p2x: number, p2y: number): void;
 
         /** @see http://blog.hackers-cafe.net/2009/06/how-to-calculate-bezier-curves-bounding.html */
         addBezierCurve(

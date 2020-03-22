@@ -4,17 +4,32 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.3
-export type Types = 'any' | 'alternatives' | 'array' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy' | 'number' | 'object' | 'string';
+export type Types =
+    | 'any'
+    | 'alternatives'
+    | 'array'
+    | 'boolean'
+    | 'binary'
+    | 'date'
+    | 'function'
+    | 'lazy'
+    | 'number'
+    | 'object'
+    | 'string';
 
-export type LanguageOptions = string | boolean | null | {
-    [key: string]: LanguageOptions;
-};
+export type LanguageOptions =
+    | string
+    | boolean
+    | null
+    | {
+          [key: string]: LanguageOptions;
+      };
 
 export type LanguageRootOptions = {
     root?: string;
     key?: string;
-    messages?: { wrapArrays?: boolean; };
-} & Partial<Record<Types, LanguageOptions>> & { [key: string]: LanguageOptions; };
+    messages?: { wrapArrays?: boolean };
+} & Partial<Record<Types, LanguageOptions>> & { [key: string]: LanguageOptions };
 
 export interface ValidationOptions {
     /**
@@ -224,7 +239,9 @@ export interface ValidationErrorItem {
     context?: Context;
 }
 
-export type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | ValidationErrorItem[] | Error;
+export type ValidationErrorFunction = (
+    errors: ValidationErrorItem[],
+) => string | ValidationErrorItem | ValidationErrorItem[] | Error;
 
 export interface ValidationResult<T> extends Pick<Promise<T>, 'then' | 'catch'> {
     error: ValidationError;
@@ -237,7 +254,8 @@ export interface SchemaMap {
     [key: string]: SchemaLike | SchemaLike[];
 }
 
-export type Schema = AnySchema
+export type Schema =
+    | AnySchema
     | ArraySchema
     | AlternativesSchema
     | BinarySchema
@@ -1004,8 +1022,7 @@ export interface AlternativesSchema extends AnySchema {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface LazySchema extends AnySchema {
-}
+export interface LazySchema extends AnySchema {}
 
 export interface Reference extends JoiObject {
     (value: any, validationOptions: ValidationOptions): any;
@@ -1029,7 +1046,7 @@ export type ExtensionBoundSchema = Schema & {
 
 export interface Rules<P extends object = any> {
     name: string;
-    params?: ObjectSchema | {[key in keyof P]: SchemaLike; };
+    params?: ObjectSchema | { [key in keyof P]: SchemaLike };
     setup?(this: ExtensionBoundSchema, params: P): Schema | void;
     validate?(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): any;
     description?: string | ((params: P) => string);
@@ -1139,7 +1156,12 @@ export function lazy(cb: () => Schema, options?: LazyOptions): LazySchema;
  */
 export function validate<T>(value: T, schema: SchemaLike, options?: ValidationOptions): ValidationResult<T>;
 export function validate<T, R>(value: T, schema: SchemaLike, callback: (err: ValidationError, value: T) => R): R;
-export function validate<T, R>(value: T, schema: SchemaLike, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
+export function validate<T, R>(
+    value: T,
+    schema: SchemaLike,
+    options: ValidationOptions,
+    callback: (err: ValidationError, value: T) => R,
+): R;
 
 /**
  * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
@@ -1183,7 +1205,7 @@ export function reach(schema: ObjectSchema, path: string | string[]): Schema;
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.
  */
-export function extend(extension: Extension|Extension[], ...extensions: Array<Extension|Extension[]>): any;
+export function extend(extension: Extension | Extension[], ...extensions: Array<Extension | Extension[]>): any;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

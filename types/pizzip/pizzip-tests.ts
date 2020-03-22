@@ -12,7 +12,7 @@ new PizZip('data', {
     checkCRC32: true,
     createFolders: true,
     optimizedBinaryString: true,
-    decodeFileName: a => '',
+    decodeFileName: (a) => '',
 });
 
 zip.file('Hello.txt', 'Hello World\n')
@@ -24,10 +24,10 @@ zip.file('Hello.txt', 'Hello World\n')
     .folder('css')
     .remove('css');
 
-zip.load('content', { decodeFileName: bytes => 'encoding' });
-zip.file(/file/).map(z => z);
-zip.folder(/^vid/).map(z => z);
-zip.filter((relativePath, file) => true).map(z => z);
+zip.load('content', { decodeFileName: (bytes) => 'encoding' });
+zip.file(/file/).map((z) => z);
+zip.folder(/^vid/).map((z) => z);
+zip.filter((relativePath, file) => true).map((z) => z);
 zip.folder('subfolder').load('data');
 
 const file = zip.file('');
@@ -44,7 +44,7 @@ if (file) {
 const noOptionsTest: string = zip.generate();
 const noTypeTest: string = zip.generate({ base64: true });
 const b64Test: string = zip.generate({ type: 'base64', compression: 'DEFLATE' });
-const stringTest: string = zip.generate({ type: 'string', encodeFileName: s => new Buffer(s) });
+const stringTest: string = zip.generate({ type: 'string', encodeFileName: (s) => new Buffer(s) });
 const arrBufTest: ArrayBuffer = zip.generate({ type: 'arraybuffer', mimeType: '' });
 const blobTest: Blob = zip.generate({ type: 'blob', compressionOptions: { level: 1 } });
 const bufTest: Buffer = zip.generate({ type: 'nodebuffer', platform: 'DOS' });

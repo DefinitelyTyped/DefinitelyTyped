@@ -11,102 +11,102 @@ declare namespace jQueryTagsInput {
         /**
          * Url for autocomplete
          */
-         autocomplete_url?: string;
+        autocomplete_url?: string;
 
         /**
          * Autocomplete options
          */
-         autocomplete?: object;
+        autocomplete?: object;
 
         /**
          * Height of tag
          */
-         height?: string;
+        height?: string;
 
         /**
          * Width of tag
          */
-         width?: string;
+        width?: string;
 
         /**
          * Interactive tags
          */
-         interactive?: boolean;
+        interactive?: boolean;
 
         /**
          * Placeholder of field when tags is empty
          */
-         defaultText?: string;
+        defaultText?: string;
 
         /**
          * Callback function on add tag
          */
-         onAddTag?: (addedValue: string) => void;
+        onAddTag?: (addedValue: string) => void;
 
         /**
          * Callback function on remove tag
          */
-         onRemoveTag?: (removedValue: string) => void;
+        onRemoveTag?: (removedValue: string) => void;
 
         /**
          * Callback function on change list of tags
          */
-         onChange?: (element: JQuery, changedValue: string) => void;
+        onChange?: (element: JQuery, changedValue: string) => void;
 
         /**
          * Delimiters on tags creation
          */
-         delimiter?: string[]|string;
+        delimiter?: string[] | string;
 
         /**
          * Remove with tag backspace
          */
-         removeWithBackspace ?: boolean;
+        removeWithBackspace?: boolean;
 
         /**
          * Minimun char length for tag
          */
-         minChars?: number;
+        minChars?: number;
 
         /**
          * Max char length for tag
          */
-         maxChars?: number;
+        maxChars?: number;
 
         /**
          * Placeholder color of tags
          */
-         placeholderColor?: string;
-     }
- }
- interface JQuery {
+        placeholderColor?: string;
+    }
+}
+interface JQuery {
     /**
      * Transform input field to work with tags
      * @param options for creation
      */
-     tagsInput(options?: jQueryTagsInput.Options): JQuery;
+    tagsInput(options?: jQueryTagsInput.Options): JQuery;
 
     /**
      * Add a new tag to list
      * @param tag value
      */
-     addTag(tag: string): boolean;
+    addTag(tag: string): boolean;
 
     /**
      * Remove tag with value from list
      * @param tag to be removed
      */
-     removeTag(tag: string): boolean;
+    removeTag(tag: string): boolean;
 
     /**
      * Add a new tags
      * @param tags string separated by delimiter
      */
-     importTags(tags: string): void;
+    importTags(tags: string): void;
 
     /**
      * Verify if tag exists
      * @param tag value
      */
-     tagExist(tag: string): boolean;
- }
+    tagExist(tag: string): boolean;
+}

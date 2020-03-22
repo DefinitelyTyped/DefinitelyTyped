@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import ndarray = require("ndarray");
+import ndarray = require('ndarray');
 
 type GLenum = number;
 
@@ -40,6 +40,7 @@ declare function texture2d(
     gl: WebGLRenderingContext,
     input: InputType | RawObject | [number, number],
     format?: GLenum,
-    type?: GLenum): Texture;
+    type?: GLenum,
+): Texture;
 
 export = texture2d;

@@ -5,28 +5,28 @@
 // TypeScript Version: 2.8
 
 /// <reference types="node"/>
-import { Transform, Writable } from "stream";
+import { Transform, Writable } from 'stream';
 
 export type TagType =
-    'm' /* master element (contains other EBML sub-elements of the next lower level) */ |
-    'u' /* unsigned integer. Some of these are UIDs, coded as 128-bit numbers */ |
-    'i' /* signed integer */ |
-    'f' /* IEEE-754 floating point number */ |
-    's' /* printable ASCII text string */ |
-    '8' /* printable utf-8 Unicode text string */ |
-    'd' /* a 64-bit signed timestamp, in nanoseconds after (or before) `2001-01-01T00:00UTC` */ |
-    'b' /* binary data, otherwise uninterpreted */;
+    | 'm'
+    | /* master element (contains other EBML sub-elements of the next lower level) */ 'u'
+    | /* unsigned integer. Some of these are UIDs, coded as 128-bit numbers */ 'i'
+    | /* signed integer */ 'f'
+    | /* IEEE-754 floating point number */ 's'
+    | /* printable ASCII text string */ '8'
+    | /* printable utf-8 Unicode text string */ 'd'
+    | /* a 64-bit signed timestamp, in nanoseconds after (or before) `2001-01-01T00:00UTC` */ 'b' /* binary data, otherwise uninterpreted */;
 
 export namespace Tag {
     interface DataTypeToTypeMap extends Record<TagType, any> {
-        'm': undefined;
-        'u': number;
-        'i': number;
-        'f': number;
-        's': string;
+        m: undefined;
+        u: number;
+        i: number;
+        f: number;
+        s: string;
         '8': string;
-        'd': Date;
-        'b': number;
+        d: Date;
+        b: number;
     }
 }
 export interface Tag<T extends TagType> extends TagMetadata {
@@ -75,7 +75,7 @@ export namespace tools {
      * @param [start=0] position in buffer
      * @returns value / length object
      */
-    function readVint(buffer: Buffer, start?: number): {length: number, value: number};
+    function readVint(buffer: Buffer, start?: number): { length: number; value: number };
 
     /**
      * write variable length integer
@@ -181,16 +181,13 @@ export interface EBMLBinaryTagSchema extends EBMLTagSchemaBase {
 }
 
 /** Type of `Decoder`'s output and `Encoder`'s input */
-export type StateAndTagData =
-    ['tag', Tag<any>] |
-    ['start', TagMetadata] |
-    ['end', TagMetadata];
+export type StateAndTagData = ['tag', Tag<any>] | ['start', TagMetadata] | ['end', TagMetadata];
 
 /**
  * @event 'data' `StateAndTagData`
  */
 export namespace Decoder {
-    type State = 1 /* tag */ | 2 /* size */ | 3 /* content*/;
+    type State = 1 | /* tag */ 2 | /* size */ 3 /* content*/;
 
     interface EventListenerMap {
         data: (chunk: StateAndTagData) => void;
@@ -223,7 +220,10 @@ export class Decoder extends Transform {
     once(event: string | symbol, listener: (...args: any[]) => void): this;
     prependListener<K extends keyof Decoder.EventListenerMap>(event: K, listener: Decoder.EventListenerMap[K]): this;
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-    prependOnceListener<K extends keyof Decoder.EventListenerMap>(event: K, listener: Decoder.EventListenerMap[K]): this;
+    prependOnceListener<K extends keyof Decoder.EventListenerMap>(
+        event: K,
+        listener: Decoder.EventListenerMap[K],
+    ): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     removeListener<K extends keyof Decoder.EventListenerMap>(event: K, listener: Decoder.EventListenerMap[K]): this;
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;

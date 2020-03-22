@@ -1,4 +1,3 @@
-
 // From https://hapijs.com/api/16.1.1#serverbindcontext
 
 import * as Hapi from 'hapi';
@@ -8,14 +7,12 @@ interface HandlerThis {
 }
 
 const handler: Hapi.RouteHandler = function (this: HandlerThis, request, reply) {
-
     return reply(this.message);
 };
 
 var register: Hapi.PluginFunction<{}> = function (server, options, next) {
-
     const bind: HandlerThis = {
-        message: 'hello'
+        message: 'hello',
     };
 
     server.bind(bind);

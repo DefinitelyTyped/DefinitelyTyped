@@ -1,11 +1,11 @@
-import AmBalloon from "./AmBalloon";
-import AmChart from "./AmChart";
-import AmLegend from "./AmLegend";
-import ExportSettings from "./ExportSettings";
-import GaugeArrow from "./GaugeArrow";
-import GaugeAxis from "./GaugeAxis";
-import Label from "./Label";
-import Title from "./Title";
+import AmBalloon from './AmBalloon';
+import AmChart from './AmChart';
+import AmLegend from './AmLegend';
+import ExportSettings from './ExportSettings';
+import GaugeArrow from './GaugeArrow';
+import GaugeAxis from './GaugeAxis';
+import Label from './Label';
+import Title from './Title';
 
 /**
  * AmAngularGauge Extension for AmChart to create gauge charts.
@@ -551,15 +551,7 @@ export default class AmAngularGauge extends AmChart {
     /**
      * Adds event listener to the object.
      */
-    addListener(
-        type: string,
-        handler: (
-            e: {
-                type: string;
-                chart: AmChart;
-            },
-        ) => void,
-    ): void;
+    addListener(type: string, handler: (e: { type: string; chart: AmChart }) => void): void;
 
     /**
      * Adds title to the top of the chart. Pie, Radar positions are updated so that they won't overlap.

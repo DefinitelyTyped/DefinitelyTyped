@@ -8,10 +8,12 @@ someVar = umzug;
 
 umzug.up().then((migrations: Umzug.Migration[]) => null);
 
-umzug.execute({
-  migrations: ['some-id', 'some-other-id'],
-  method: 'up'
-}).then((migrations: Umzug.Migration[]) => null);
+umzug
+    .execute({
+        migrations: ['some-id', 'some-other-id'],
+        method: 'up',
+    })
+    .then((migrations: Umzug.Migration[]) => null);
 
 umzug.pending().then((migrations: Umzug.Migration[]) => null);
 
@@ -21,7 +23,9 @@ umzug.up().then((migrations: Umzug.Migration[]) => null);
 
 umzug.up({ to: '20141101203500-task' }).then((migrations: Umzug.Migration[]) => null);
 
-umzug.up({ migrations: ['20141101203500-task', '20141101203501-task-2'] }).then((migrations: Umzug.Migration[]) => null);
+umzug
+    .up({ migrations: ['20141101203500-task', '20141101203501-task-2'] })
+    .then((migrations: Umzug.Migration[]) => null);
 
 umzug.up('20141101203500-task').then((migrations: Umzug.Migration[]) => null); // Runs just the passed migration
 umzug.up(['20141101203500-task', '20141101203501-task-2']).then((migrations: Umzug.Migration[]) => null);
@@ -30,7 +34,9 @@ umzug.down().then((migrations: Umzug.Migration[]) => null);
 
 umzug.down({ to: '20141031080000-task' }).then((migrations: Umzug.Migration[]) => null);
 
-umzug.down({ migrations: ['20141101203500-task', '20141101203501-task-2'] }).then((migrations: Umzug.Migration[]) => null);
+umzug
+    .down({ migrations: ['20141101203500-task', '20141101203501-task-2'] })
+    .then((migrations: Umzug.Migration[]) => null);
 
 umzug.down('20141101203500-task').then((migrations: Umzug.Migration[]) => null);
 umzug.down(['20141101203500-task', '20141101203501-task-2']).then((migrations: Umzug.Migration[]) => null);
@@ -41,7 +47,6 @@ umzug.on('migrating', (name: string, migration: Umzug.Migration) => null);
 umzug.on('migrated', (name: string, migration: Umzug.Migration) => null);
 umzug.on('reverting', (name: string, migration: Umzug.Migration) => null);
 umzug.on('reverted', (name: string, migration: Umzug.Migration) => null);
-
 
 new Umzug({
     // The storage.
@@ -75,7 +80,7 @@ new Umzug({
 
         // A function that receives and returns the to be executed function.
         // This can be used to modify the function.
-        wrap: <T> (fun: T) => fun,
+        wrap: <T>(fun: T) => fun,
     },
 });
 
@@ -120,7 +125,6 @@ new Umzug({
         // Defaults to `Sequelize.STRING`
         columnType: Sequelize.STRING(100),
     },
-
 });
 
 const mongodb = new MongoDB.Db('database', new MongoDB.Server('host', 21017));
@@ -145,7 +149,6 @@ new Umzug({
          * The name of the collection used by the connection.
          * Defaults to 'migrations'
          */
-        collectionName: 'migrations'
+        collectionName: 'migrations',
     },
-
 });

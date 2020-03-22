@@ -12,8 +12,8 @@ emojione.emojioneList = {
         unicode: ['foobar'],
         fname: 'foobar',
         uc: 'foobar',
-        isCanonical: false
-    }
+        isCanonical: false,
+    },
 };
 const myShort: string = emojione.toShort('hi');
 const myImage1: string = emojione.toImage('hi');

@@ -11,5 +11,5 @@ declare namespace CarouselItem {
         onAnimateOutEnd?: Function;
     }
 }
-declare class CarouselItem extends React.Component<CarouselItem.CarouselItemProps> { }
+declare class CarouselItem extends React.Component<CarouselItem.CarouselItemProps> {}
 export = CarouselItem;

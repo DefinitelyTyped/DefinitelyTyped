@@ -190,7 +190,7 @@ declare class Complex {
     /**
      * Returns the real part of the number if imaginary part is zero. Otherwise null.
      */
-    valueOf(): number|undefined;
+    valueOf(): number | undefined;
 
     /**
      * Calculate the sine of the complex number.

@@ -1,2 +1,2 @@
-import { dropLast } from "../fp";
+import { dropLast } from '../fp';
 export = dropLast;

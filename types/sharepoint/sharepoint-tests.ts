@@ -11,34 +11,31 @@ function retrieveWebsite(resultpanel: HTMLElement) {
     const oWebsite = clientContext.get_web();
     clientContext.load(oWebsite);
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        resultpanel.innerHTML = "Web site title: " + oWebsite.get_title();
+        resultpanel.innerHTML = 'Web site title: ' + oWebsite.get_title();
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 function retrieveWebsiteProps(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
 
-    clientContext.load(oWebsite, "Description", "Created");
+    clientContext.load(oWebsite, 'Description', 'Created');
 
     clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        resultpanel.innerHTML = "Description: " + oWebsite.get_description() +
-            "<br/>Date created: " + oWebsite.get_created();
+        resultpanel.innerHTML =
+            'Description: ' + oWebsite.get_description() + '<br/>Date created: ' + oWebsite.get_created();
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -46,22 +43,19 @@ function writeWebsiteProps(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
 
-    oWebsite.set_description("This is an updated description.");
+    oWebsite.set_description('This is an updated description.');
     oWebsite.update();
 
-    clientContext.load(oWebsite, "Description");
+    clientContext.load(oWebsite, 'Description');
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        resultpanel.innerHTML = "Web site description: " + oWebsite.get_description();
+        resultpanel.innerHTML = 'Web site description: ' + oWebsite.get_description();
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -73,26 +67,22 @@ function readAllProps(resultpanel: HTMLElement) {
     const collList = oWebsite.get_lists();
     clientContext.load(collList);
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
         const listEnumerator = collList.getEnumerator();
 
-        let listInfo = "";
+        let listInfo = '';
         while (listEnumerator.moveNext()) {
             const oList = listEnumerator.get_current();
-            listInfo += "Title: " + oList.get_title() + " Created: " +
-                oList.get_created().toString() + "<br/>";
+            listInfo += 'Title: ' + oList.get_title() + ' Created: ' + oList.get_created().toString() + '<br/>';
         }
 
         resultpanel.innerHTML = listInfo;
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -102,28 +92,24 @@ function readSpecificProps(resultpanel: HTMLElement) {
 
     const collList = oWebsite.get_lists();
 
-    clientContext.load(collList, "Include(Title, Id)");
+    clientContext.load(collList, 'Include(Title, Id)');
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
         const listEnumerator = collList.getEnumerator();
 
-        let listInfo = "";
+        let listInfo = '';
         while (listEnumerator.moveNext()) {
             const oList = listEnumerator.get_current();
-            listInfo += "Title: " + oList.get_title() +
-                " ID: " + oList.get_id().toString() + "<br/>";
+            listInfo += 'Title: ' + oList.get_title() + ' ID: ' + oList.get_id().toString() + '<br/>';
         }
 
         resultpanel.innerHTML = listInfo;
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -132,25 +118,21 @@ function readColl(resultpanel: HTMLElement) {
     const oWebsite = clientContext.get_web();
     const collList = oWebsite.get_lists();
 
-    const listInfoCollection = clientContext.loadQuery(collList, "Include(Title, Id)");
+    const listInfoCollection = clientContext.loadQuery(collList, 'Include(Title, Id)');
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        let listInfo = "";
+        let listInfo = '';
         for (const oList of listInfoCollection) {
-            listInfo += "Title: " + oList.get_title() +
-                " ID: " + oList.get_id().toString() + "<br/>";
+            listInfo += 'Title: ' + oList.get_title() + ' ID: ' + oList.get_id().toString() + '<br/>';
         }
 
         resultpanel.innerHTML = listInfo;
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -159,16 +141,12 @@ function readFilter(resultpanel: HTMLElement) {
     const oWebsite = clientContext.get_web();
     const collList = oWebsite.get_lists();
 
-    const listInfoArray = clientContext.loadQuery(collList,
-        "Include(Title,Fields.Include(Title,InternalName))");
+    const listInfoArray = clientContext.loadQuery(collList, 'Include(Title,Fields.Include(Title,InternalName))');
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        let listInfo = "";
+        let listInfo = '';
 
         for (const oList of listInfoArray) {
             const collField = oList.get_fields();
@@ -176,12 +154,16 @@ function readFilter(resultpanel: HTMLElement) {
 
             while (fieldEnumerator.moveNext()) {
                 const oField = fieldEnumerator.get_current();
-                const regEx = new RegExp("name", "ig");
+                const regEx = new RegExp('name', 'ig');
 
                 if (regEx.test(oField.get_internalName())) {
-                    listInfo += "List: " + oList.get_title() +
-                        "<br/>&nbsp;&nbsp;&nbsp;&nbsp;Field Title: " + oField.get_title() +
-                        "<br/>&nbsp;&nbsp;&nbsp;&nbsp;Field Internal name: " + oField.get_internalName();
+                    listInfo +=
+                        'List: ' +
+                        oList.get_title() +
+                        '<br/>&nbsp;&nbsp;&nbsp;&nbsp;Field Title: ' +
+                        oField.get_title() +
+                        '<br/>&nbsp;&nbsp;&nbsp;&nbsp;Field Internal name: ' +
+                        oField.get_internalName();
                 }
             }
         }
@@ -190,7 +172,7 @@ function readFilter(resultpanel: HTMLElement) {
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -200,23 +182,20 @@ function createList(resultpanel: HTMLElement) {
     const oWebsite = clientContext.get_web();
 
     const listCreationInfo = new SP.ListCreationInformation();
-    listCreationInfo.set_title("My Announcements List");
+    listCreationInfo.set_title('My Announcements List');
     listCreationInfo.set_templateType(SP.ListTemplateType.announcements);
 
     const oList = oWebsite.get_lists().add(listCreationInfo);
     clientContext.load(oList);
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
         resultpanel.innerHTML = "Go to the <a href='../Lists/My Announcements List'>list</a>.";
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -224,35 +203,30 @@ function updateList(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
 
-    const oList = oWebsite.get_lists().getByTitle("My Announcements List");
-    oList.set_description("New Announcements List");
+    const oList = oWebsite.get_lists().getByTitle('My Announcements List');
+    oList.set_description('New Announcements List');
     oList.update();
 
     clientContext.load(oList);
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
         resultpanel.innerHTML = "Check the description in the <a href='../Lists/My Announcements List'>list</a>.";
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
 function addField(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("My Announcements List");
+    const oList = oWebsite.get_lists().getByTitle('My Announcements List');
 
-    const oField = oList.get_fields().addFieldAsXml(
-        "<Field DisplayName='MyField' Type='Number' />",
-        true,
-        SP.AddFieldOptions.defaultValue
-    );
+    const oField = oList
+        .get_fields()
+        .addFieldAsXml("<Field DisplayName='MyField' Type='Number' />", true, SP.AddFieldOptions.defaultValue);
 
     const fieldNumber = clientContext.castTo(oField, SP.FieldNumber) as SP.FieldNumber;
     fieldNumber.set_maximumValue(100);
@@ -261,39 +235,33 @@ function addField(resultpanel: HTMLElement) {
 
     clientContext.load(oField);
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
         resultpanel.innerHTML = "The <a href='../Lists/My Announcements List'>list</a> with a new field.";
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
 function deleteList(resultpanel: HTMLElement) {
-    const listTitle = "My Announcements List";
+    const listTitle = 'My Announcements List';
 
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
     const oList = oWebsite.get_lists().getByTitle(listTitle);
     oList.deleteObject();
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        resultpanel.innerHTML = listTitle + " deleted.";
+        resultpanel.innerHTML = listTitle + ' deleted.';
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -301,72 +269,66 @@ function deleteList(resultpanel: HTMLElement) {
 function createFolder(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Shared Documents");
+    const oList = oWebsite.get_lists().getByTitle('Shared Documents');
 
     const itemCreateInfo = new SP.ListItemCreationInformation();
     itemCreateInfo.set_underlyingObjectType(SP.FileSystemObjectType.folder);
-    itemCreateInfo.set_leafName("My new folder!");
+    itemCreateInfo.set_leafName('My new folder!');
     const oListItem = oList.addItem(itemCreateInfo);
     oListItem.update();
 
     clientContext.load(oListItem);
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        resultpanel.innerHTML = "Go to the <a href='../Lists/Shared Documents'>document library</a> to see your new folder.";
+        resultpanel.innerHTML =
+            "Go to the <a href='../Lists/Shared Documents'>document library</a> to see your new folder.";
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
 function updateFolder(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Shared Documents");
+    const oList = oWebsite.get_lists().getByTitle('Shared Documents');
 
     const oListItem = oList.getItemById(1);
-    oListItem.set_item("FileLeafRef", "My updated folder");
+    oListItem.set_item('FileLeafRef', 'My updated folder');
     oListItem.update();
 
     clientContext.load(oListItem);
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        resultpanel.innerHTML = "Go to the <a href='../Lists/Shared Documents'>document library</a> to see your updated folder.";
+        resultpanel.innerHTML =
+            "Go to the <a href='../Lists/Shared Documents'>document library</a> to see your updated folder.";
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
 function deleteFolder(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Shared Documents");
+    const oList = oWebsite.get_lists().getByTitle('Shared Documents');
 
     const oListItem = oList.getItemById(1);
     oListItem.deleteObject();
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        resultpanel.innerHTML = "Go to the <a href='../Lists/Shared Documents'>document library</a> to make sure the folder is no longer there.";
+        resultpanel.innerHTML =
+            "Go to the <a href='../Lists/Shared Documents'>document library</a> to make sure the folder is no longer there.";
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -379,71 +341,79 @@ interface Announcements {
 function readItems(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle<Announcements>("Announcements");
+    const oList = oWebsite.get_lists().getByTitle<Announcements>('Announcements');
     const camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
-        '<View><Query><Where><Geq><FieldRef Name=\'ID\'/>' +
-        '<Value Type=\'Number\'>1</Value></Geq></Where></Query>' +
-        '<RowLimit>10</RowLimit></View>'
+        "<View><Query><Where><Geq><FieldRef Name='ID'/>" +
+            "<Value Type='Number'>1</Value></Geq></Where></Query>" +
+            '<RowLimit>10</RowLimit></View>',
     );
     const collListItem = oList.getItems(camlQuery);
 
     clientContext.load(collListItem);
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
         const listItemEnumerator = collListItem.getEnumerator();
 
-        let listItemInfo = "";
+        let listItemInfo = '';
         while (listItemEnumerator.moveNext()) {
             const oListItem = listItemEnumerator.get_current();
-            listItemInfo += "ID: " + oListItem.get_id() + "<br/>" +
-                "Title: " + oListItem.get_item("Title") + "<br/>" +
-                "Body: " + oListItem.get_item("Body") + "<br/>";
+            listItemInfo +=
+                'ID: ' +
+                oListItem.get_id() +
+                '<br/>' +
+                'Title: ' +
+                oListItem.get_item('Title') +
+                '<br/>' +
+                'Body: ' +
+                oListItem.get_item('Body') +
+                '<br/>';
         }
 
         resultpanel.innerHTML = listItemInfo;
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
 function readInclude(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const oList = oWebsite.get_lists().getByTitle('Announcements');
     const camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml('<View><RowLimit>100</RowLimit></View>');
 
     const collListItem = oList.getItems(camlQuery);
 
-    clientContext.load(collListItem, "Include(Id, DisplayName, HasUniqueRoleAssignments)");
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.load(collListItem, 'Include(Id, DisplayName, HasUniqueRoleAssignments)');
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
         const listItemEnumerator = collListItem.getEnumerator();
 
-        let listItemInfo = "";
+        let listItemInfo = '';
         while (listItemEnumerator.moveNext()) {
             const oListItem = listItemEnumerator.get_current();
-            listItemInfo += "ID: " + oListItem.get_id() + "<br/>" +
-                "Display name: " + oListItem.get_displayName() + "<br/>" +
-                "Unique role assignments: " + oListItem.get_hasUniqueRoleAssignments() + "<br/>";
+            listItemInfo +=
+                'ID: ' +
+                oListItem.get_id() +
+                '<br/>' +
+                'Display name: ' +
+                oListItem.get_displayName() +
+                '<br/>' +
+                'Unique role assignments: ' +
+                oListItem.get_hasUniqueRoleAssignments() +
+                '<br/>';
         }
 
         resultpanel.innerHTML = listItemInfo;
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -451,72 +421,64 @@ function readInclude(resultpanel: HTMLElement) {
 function createListItem(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const oList = oWebsite.get_lists().getByTitle('Announcements');
 
     const itemCreateInfo = new SP.ListItemCreationInformation();
     const oListItem = oList.addItem(itemCreateInfo);
-    oListItem.set_item("Title", "My New Item!");
-    oListItem.set_item("Body", "Hello World!");
+    oListItem.set_item('Title', 'My New Item!');
+    oListItem.set_item('Body', 'Hello World!');
     oListItem.update();
 
     clientContext.load(oListItem);
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
         resultpanel.innerHTML = "Go to the <a href='../Lists/Announcements'>list</a> to see your new item.";
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
 function updateListItem(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const oList = oWebsite.get_lists().getByTitle('Announcements');
 
     const oListItem = oList.getItemById(1);
-    oListItem.set_item("Title", "My updated title");
+    oListItem.set_item('Title', 'My updated title');
     oListItem.update();
 
     clientContext.load(oListItem);
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
         resultpanel.innerHTML = "Go to the <a href='../Lists/Announcements'>list</a> to see your updated item.";
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
 function deleteListItem(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const oList = oWebsite.get_lists().getByTitle('Announcements');
 
     const oListItem = oList.getItemById(1);
     oListItem.deleteObject();
 
-    clientContext.executeQueryAsync(
-        successHandler,
-        errorHandler
-    );
+    clientContext.executeQueryAsync(successHandler, errorHandler);
 
     function successHandler() {
-        resultpanel.innerHTML = "Go to the <a href='../Lists/Announcements'>list</a> to make sure the item is no longer there.";
+        resultpanel.innerHTML =
+            "Go to the <a href='../Lists/Announcements'>list</a> to make sure the item is no longer there.";
     }
 
     function errorHandler() {
-        resultpanel.innerHTML = "Request failed: " + arguments[1].get_message();
+        resultpanel.innerHTML = 'Request failed: ' + arguments[1].get_message();
     }
 }
 
@@ -526,14 +488,14 @@ namespace CSR {
 
     /** Creates new overrides. Call .register() at the end.*/
     export function override(listTemplateType?: number, baseViewId?: number | string): CSR {
-        return new csr(listTemplateType, baseViewId)
-            .onPreRender(hookFormContext)
-            .onPostRender(fixCsrCustomLayout);
+        return new csr(listTemplateType, baseViewId).onPreRender(hookFormContext).onPostRender(fixCsrCustomLayout);
 
         function hookFormContext(preRenderContext: SPClientTemplates.RenderContext /* FormRenderContexWithHook */) {
             const ctx = preRenderContext as FormRenderContexWithHook;
-            if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-                || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
+            if (
+                ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm ||
+                ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm
+            ) {
                 for (const fieldSchemaInForm of ctx.ListSchema.Field) {
                     if (!ctx.FormContextHook) {
                         ctx.FormContextHook = {};
@@ -557,15 +519,22 @@ namespace CSR {
                             }
                         };
                     }
-                    ensureFormContextHookField(ctx.FormContextHook, fieldSchemaInForm.Name).fieldSchema = fieldSchemaInForm;
+                    ensureFormContextHookField(
+                        ctx.FormContextHook,
+                        fieldSchemaInForm.Name,
+                    ).fieldSchema = fieldSchemaInForm;
                 }
             }
         }
 
-        function fixCsrCustomLayout(postRenderContext: SPClientTemplates.RenderContext /* SPClientTemplates.RenderContext_Form */) {
+        function fixCsrCustomLayout(
+            postRenderContext: SPClientTemplates.RenderContext /* SPClientTemplates.RenderContext_Form */,
+        ) {
             const ctx = postRenderContext as SPClientTemplates.RenderContext_Form;
-            if (ctx.ControlMode === SPClientTemplates.ClientControlMode.Invalid
-                || ctx.ControlMode === SPClientTemplates.ClientControlMode.View) {
+            if (
+                ctx.ControlMode === SPClientTemplates.ClientControlMode.Invalid ||
+                ctx.ControlMode === SPClientTemplates.ClientControlMode.View
+            ) {
                 return;
             }
 
@@ -603,33 +572,47 @@ namespace CSR {
     // typescripttempltes.ts
     declare const Strings: any;
     export function getFieldValue(ctx: SPClientTemplates.RenderContext_Form, fieldName: string): any {
-        if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-            || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
+        if (
+            ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm ||
+            ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm
+        ) {
             const contextWithHook = ctx as FormRenderContexWithHook;
-            if (contextWithHook.FormContextHook
-                && contextWithHook.FormContextHook[fieldName]
-                && contextWithHook.FormContextHook[fieldName].getValue) {
+            if (
+                contextWithHook.FormContextHook &&
+                contextWithHook.FormContextHook[fieldName] &&
+                contextWithHook.FormContextHook[fieldName].getValue
+            ) {
                 return contextWithHook.FormContextHook[fieldName].getValue();
             }
         }
         return null;
     }
 
-    export function getFieldSchema(ctx: SPClientTemplates.RenderContext_Form, fieldName: string): SPClientTemplates.FieldSchema_InForm {
-        if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-            || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
+    export function getFieldSchema(
+        ctx: SPClientTemplates.RenderContext_Form,
+        fieldName: string,
+    ): SPClientTemplates.FieldSchema_InForm {
+        if (
+            ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm ||
+            ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm
+        ) {
             const contextWithHook = ctx as FormRenderContexWithHook;
-            if (contextWithHook.FormContextHook
-                && contextWithHook.FormContextHook[fieldName]) {
+            if (contextWithHook.FormContextHook && contextWithHook.FormContextHook[fieldName]) {
                 return contextWithHook.FormContextHook[fieldName].fieldSchema;
             }
         }
         return null;
     }
 
-    export function addUpdatedValueCallback(ctx: SPClientTemplates.RenderContext_Form, fieldName: string, callback: UpdatedValueCallback): void {
-        if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-            || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
+    export function addUpdatedValueCallback(
+        ctx: SPClientTemplates.RenderContext_Form,
+        fieldName: string,
+        callback: UpdatedValueCallback,
+    ): void {
+        if (
+            ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm ||
+            ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm
+        ) {
             const contextWithHook = ctx as FormRenderContexWithHook;
             if (contextWithHook.FormContextHook) {
                 const f = ensureFormContextHookField(contextWithHook.FormContextHook, fieldName);
@@ -644,12 +627,19 @@ namespace CSR {
         }
     }
 
-    export function removeUpdatedValueCallback(ctx: SPClientTemplates.RenderContext_Form, fieldName: string, callback: UpdatedValueCallback): void {
-        if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-            || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
+    export function removeUpdatedValueCallback(
+        ctx: SPClientTemplates.RenderContext_Form,
+        fieldName: string,
+        callback: UpdatedValueCallback,
+    ): void {
+        if (
+            ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm ||
+            ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm
+        ) {
             const contextWithHook = ctx as FormRenderContexWithHook;
             if (contextWithHook.FormContextHook) {
-                const callbacks = ensureFormContextHookField(contextWithHook.FormContextHook, fieldName).updatedValueCallbacks;
+                const callbacks = ensureFormContextHookField(contextWithHook.FormContextHook, fieldName)
+                    .updatedValueCallbacks;
                 const index = callbacks.indexOf(callback);
                 if (index !== -1) {
                     callbacks.splice(index, 1);
@@ -664,7 +654,10 @@ namespace CSR {
         return $get(id) as HTMLInputElement;
     }
 
-    export function getFieldTemplate(field: SPClientTemplates.FieldSchema, mode: SPClientTemplates.ClientControlMode): SPClientTemplates.FieldCallback {
+    export function getFieldTemplate(
+        field: SPClientTemplates.FieldSchema,
+        mode: SPClientTemplates.ClientControlMode,
+    ): SPClientTemplates.FieldCallback {
         const ctx = {
             ListTemplateType: 1,
             FieldControlModes: {},
@@ -765,7 +758,10 @@ namespace CSR {
             return this;
         }
 
-        onPreRenderField(field: string, callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void): CSR {
+        onPreRenderField(
+            field: string,
+            callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void,
+        ): CSR {
             return this.onPreRender((ctx: SPClientTemplates.RenderContext) => {
                 const ctxInView = ctx as SPClientTemplates.RenderContext_InView;
 
@@ -781,7 +777,10 @@ namespace CSR {
             });
         }
 
-        onPostRenderField(field: string, callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void): CSR {
+        onPostRenderField(
+            field: string,
+            callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void,
+        ): CSR {
             return this.onPostRender((ctx: SPClientTemplates.RenderContext) => {
                 const ctxInView = ctx as SPClientTemplates.RenderContext_InView;
 
@@ -798,49 +797,57 @@ namespace CSR {
         }
 
         makeReadOnly(fieldName: string): CSR {
-            return this
-                .onPreRenderField(fieldName, (schema, ctx) => {
-                    if (ctx.ControlMode === SPClientTemplates.ClientControlMode.Invalid
-                        || ctx.ControlMode === SPClientTemplates.ClientControlMode.DisplayForm) return;
-                    (schema as SPClientTemplates.FieldSchema_InForm).ReadOnlyField = true;
-                    (schema as SPClientTemplates.FieldSchema_InView).ReadOnly = "TRUE";
+            return this.onPreRenderField(fieldName, (schema, ctx) => {
+                if (
+                    ctx.ControlMode === SPClientTemplates.ClientControlMode.Invalid ||
+                    ctx.ControlMode === SPClientTemplates.ClientControlMode.DisplayForm
+                )
+                    return;
+                (schema as SPClientTemplates.FieldSchema_InForm).ReadOnlyField = true;
+                (schema as SPClientTemplates.FieldSchema_InView).ReadOnly = 'TRUE';
 
-                    if (ctx.ControlMode === SPClientTemplates.ClientControlMode.View) {
-                        const ctxInView = ctx as SPClientTemplates.RenderContext_InView;
-                        if (ctxInView.inGridMode) {
-                            // TODO: Disable editing in grid mode
-                        }
-                    } else {
-                        const ctxInForm = ctx as SPClientTemplates.RenderContext_FieldInForm;
-                        if (schema.Type !== 'User' && schema.Type !== 'UserMulti') {
-                            const template = getFieldTemplate(schema, SPClientTemplates.ClientControlMode.DisplayForm);
-                            ctxInForm.Templates.Fields[fieldName] = template;
-                            ctxInForm.FormContext.registerGetValueCallback(fieldName, () => ctxInForm.ListData.Items[0][fieldName]);
-                        }
+                if (ctx.ControlMode === SPClientTemplates.ClientControlMode.View) {
+                    const ctxInView = ctx as SPClientTemplates.RenderContext_InView;
+                    if (ctxInView.inGridMode) {
+                        // TODO: Disable editing in grid mode
                     }
-                })
-                .onPostRenderField(fieldName, (postRenderSchema, ctx) => {
-                    const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm_User;
-                    if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-                        || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
-                        if (schema.Type === 'User' || schema.Type === 'UserMulti') {
-                            SP.SOD.executeFunc('clientpeoplepicker.js', 'SPClientPeoplePicker', () => {
-                                const topSpanId = schema.Name + '_' + schema.Id + '_$ClientPeoplePicker';
-                                let retryCount = 10;
-                                const callback = () => {
-                                    const pp = SPClientPeoplePicker.SPClientPeoplePickerDict[topSpanId];
-                                    if (!pp) {
-                                        if (retryCount--) setTimeout(callback, 1);
-                                    } else {
-                                        pp.SetEnabledState(false);
-                                        pp.DeleteProcessedUser = function deleteProcessedUser() { /*dummy function*/};
-                                    }
-                                };
-                                callback();
-                            });
-                        }
+                } else {
+                    const ctxInForm = ctx as SPClientTemplates.RenderContext_FieldInForm;
+                    if (schema.Type !== 'User' && schema.Type !== 'UserMulti') {
+                        const template = getFieldTemplate(schema, SPClientTemplates.ClientControlMode.DisplayForm);
+                        ctxInForm.Templates.Fields[fieldName] = template;
+                        ctxInForm.FormContext.registerGetValueCallback(
+                            fieldName,
+                            () => ctxInForm.ListData.Items[0][fieldName],
+                        );
                     }
-                });
+                }
+            }).onPostRenderField(fieldName, (postRenderSchema, ctx) => {
+                const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm_User;
+                if (
+                    ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm ||
+                    ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm
+                ) {
+                    if (schema.Type === 'User' || schema.Type === 'UserMulti') {
+                        SP.SOD.executeFunc('clientpeoplepicker.js', 'SPClientPeoplePicker', () => {
+                            const topSpanId = schema.Name + '_' + schema.Id + '_$ClientPeoplePicker';
+                            let retryCount = 10;
+                            const callback = () => {
+                                const pp = SPClientPeoplePicker.SPClientPeoplePickerDict[topSpanId];
+                                if (!pp) {
+                                    if (retryCount--) setTimeout(callback, 1);
+                                } else {
+                                    pp.SetEnabledState(false);
+                                    pp.DeleteProcessedUser = function deleteProcessedUser() {
+                                        /*dummy function*/
+                                    };
+                                }
+                            };
+                            callback();
+                        });
+                    }
+                }
+            });
         }
 
         makeHidden(fieldName: string): CSR {
@@ -862,7 +869,7 @@ namespace CSR {
                     const pHolderId = ctxInForm.FormUniqueId + ctxInForm.FormContext.listAttributes.Id + fieldName;
                     const placeholder = $get(pHolderId);
                     let current = placeholder;
-                    while (current.tagName.toUpperCase() !== "TR") {
+                    while (current.tagName.toUpperCase() !== 'TR') {
                         current = current.parentElement;
                     }
                     const row = current as HTMLTableRowElement;
@@ -872,15 +879,17 @@ namespace CSR {
         }
 
         filteredLookup(fieldName: string, camlFilter: string, listname?: string, lookupField?: string): CSR {
-            return this.fieldEdit(fieldName, SPFieldCascadedLookup_Edit)
-                .fieldNew(fieldName, SPFieldCascadedLookup_Edit);
+            return this.fieldEdit(fieldName, SPFieldCascadedLookup_Edit).fieldNew(
+                fieldName,
+                SPFieldCascadedLookup_Edit,
+            );
 
             function SPFieldCascadedLookup_Edit(rCtx: SPClientTemplates.RenderContext_FieldInForm) {
                 const parseRegex = /\{[^\}]+\}/g;
                 const dependencyExpressions: string[] = [];
                 let result: RegExpExecArray;
                 function nextResult() {
-                   return result = parseRegex.exec(camlFilter);
+                    return (result = parseRegex.exec(camlFilter));
                 }
                 while (nextResult()) {
                     dependencyExpressions.push(stripBraces(result[0]));
@@ -890,17 +899,17 @@ namespace CSR {
                 let _dropdownElt: HTMLSelectElement;
                 let _myData: SPClientTemplates.ClientFormContext;
 
-                if (rCtx == null)
-                    return '';
+                if (rCtx == null) return '';
                 _myData = SPClientTemplates.Utility.GetFormContextForCurrentField(rCtx);
 
-                if (_myData == null || _myData.fieldSchema == null)
-                    return '';
+                if (_myData == null || _myData.fieldSchema == null) return '';
 
                 const _schema = _myData.fieldSchema as SPClientTemplates.FieldSchema_InForm_Lookup;
 
                 const validators = new SPClientForms.ClientValidation.ValidatorSet();
-                validators.RegisterValidator(new BooleanValueValidator(() => _optionsLoaded, "Wait until lookup values loaded and try again"));
+                validators.RegisterValidator(
+                    new BooleanValueValidator(() => _optionsLoaded, 'Wait until lookup values loaded and try again'),
+                );
 
                 if (_myData.fieldSchema.Required) {
                     validators.RegisterValidator(new SPClientForms.ClientValidation.RequiredValidator());
@@ -914,16 +923,16 @@ namespace CSR {
                 let _optionsLoaded = false;
                 let pendingLoads = 0;
 
-                if (_noValueSelected)
-                    _valueStr = '';
+                if (_noValueSelected) _valueStr = '';
 
                 _myData.registerInitCallback(_myData.fieldName, InitLookupControl);
 
                 _myData.registerFocusCallback(_myData.fieldName, function focusCallback() {
-                    if (_dropdownElt != null)
-                        _dropdownElt.focus();
+                    if (_dropdownElt != null) _dropdownElt.focus();
                 });
-                _myData.registerValidationErrorCallback(_myData.fieldName, function validationErrorCallback(errorResult) {
+                _myData.registerValidationErrorCallback(_myData.fieldName, function validationErrorCallback(
+                    errorResult,
+                ) {
                     SPFormControl_AppendValidationErrorMessage(_dropdownId, errorResult);
                 });
                 _myData.registerGetValueCallback(_myData.fieldName, GetCurrentLookupValue);
@@ -933,8 +942,7 @@ namespace CSR {
 
                 function InitLookupControl() {
                     _dropdownElt = document.getElementById(_dropdownId) as HTMLSelectElement;
-                    if (_dropdownElt != null)
-                        AddEvtHandler(_dropdownElt, "onchange", OnLookupValueChanged);
+                    if (_dropdownElt != null) AddEvtHandler(_dropdownElt, 'onchange', OnLookupValueChanged);
 
                     SP.SOD.executeFunc('sp.js', 'SP.ClientContext', () => {
                         bindDependentControls(dependencyExpressions);
@@ -944,7 +952,12 @@ namespace CSR {
 
                 function BuildLookupDropdownControl() {
                     let result = '<span dir="' + STSHtmlEncode(_myData.fieldSchema.Direction) + '">';
-                    result += '<select id="' + STSHtmlEncode(_dropdownId) + '" title="' + STSHtmlEncode(_myData.fieldSchema.Title) + '">';
+                    result +=
+                        '<select id="' +
+                        STSHtmlEncode(_dropdownId) +
+                        '" title="' +
+                        STSHtmlEncode(_myData.fieldSchema.Title) +
+                        '">';
                     result += '</select><br/></span>';
                     return result;
                 }
@@ -959,16 +972,25 @@ namespace CSR {
                 }
 
                 function GetCurrentLookupValue() {
-                    if (_dropdownElt == null)
-                        return '';
-                    return _dropdownElt.value === '0' || _dropdownElt.value === '' ? '' : _dropdownElt.value + ';#' + (_dropdownElt.options[_dropdownElt.selectedIndex] as any /* TODO remove `as any` */).text;
+                    if (_dropdownElt == null) return '';
+                    return _dropdownElt.value === '0' || _dropdownElt.value === ''
+                        ? ''
+                        : _dropdownElt.value +
+                              ';#' +
+                              (_dropdownElt.options[_dropdownElt.selectedIndex] as any) /* TODO remove `as any` */.text;
                 }
 
                 function stripBraces(input: string): string {
                     return input.substring(1, input.length - 1);
                 }
 
-                function getDependencyValue(expr: string, value: string, listId: string, expressionParts: string[], callback: () => void) {
+                function getDependencyValue(
+                    expr: string,
+                    value: string,
+                    listId: string,
+                    expressionParts: string[],
+                    callback: () => void,
+                ) {
                     const isLookupValue = !!listId;
                     if (isLookupValue) {
                         const lookup = SPClientTemplates.Utility.ParseLookupValue(value);
@@ -993,33 +1015,40 @@ namespace CSR {
                         ctx.load(item);
                         ctx.load(field);
 
-                        ctx.executeQueryAsync((o, e) => {
-                            let value = item.get_item(field.get_internalName());
+                        ctx.executeQueryAsync(
+                            (o, e) => {
+                                let value = item.get_item(field.get_internalName());
 
-                            if (field.get_typeAsString() === 'Lookup') {
-                                field = ctx.castTo(field, SP.FieldLookup) as SP.Field;
-                                const lookup = (value as SP.FieldLookupValue);
-                                value = lookup.get_lookupId() + ';#' + lookup.get_lookupValue();
-                                listId = (field as SP.FieldLookup).get_lookupList();
-                            }
+                                if (field.get_typeAsString() === 'Lookup') {
+                                    field = ctx.castTo(field, SP.FieldLookup) as SP.Field;
+                                    const lookup = value as SP.FieldLookupValue;
+                                    value = lookup.get_lookupId() + ';#' + lookup.get_lookupValue();
+                                    listId = (field as SP.FieldLookup).get_lookupList();
+                                }
 
-                            getDependencyValue(expr, value, listId, expressionParts, callback);
-                        }, (o, args) => { console.log(args.get_message()); });
+                                getDependencyValue(expr, value, listId, expressionParts, callback);
+                            },
+                            (o, args) => {
+                                console.log(args.get_message());
+                            },
+                        );
                     }
                 }
 
                 function bindDependentControls(dependencyExpressions: string[]) {
-                    dependencyExpressions.forEach(expr => {
-                        const exprParts = expr.split(".");
+                    dependencyExpressions.forEach((expr) => {
+                        const exprParts = expr.split('.');
                         const field = exprParts.shift();
 
-                        CSR.addUpdatedValueCallback(rCtx, field,
-                            (v, s) => {
-                                getDependencyValue(expr, v,
-                                    (s as SPClientTemplates.FieldSchema_InForm_Lookup).LookupListId,
-                                    exprParts.slice(0),
-                                    loadOptions);
-                            });
+                        CSR.addUpdatedValueCallback(rCtx, field, (v, s) => {
+                            getDependencyValue(
+                                expr,
+                                v,
+                                (s as SPClientTemplates.FieldSchema_InForm_Lookup).LookupListId,
+                                exprParts.slice(0),
+                                loadOptions,
+                            );
+                        });
                     });
                 }
 
@@ -1043,91 +1072,103 @@ namespace CSR {
                     if (predicate.substr(0, 5) === '<View') {
                         query.set_viewXml(predicate);
                     } else {
-                        query.set_viewXml('<View Scope="RecursiveAll"><Query><Where>' +
-                            predicate +
-                            '</Where></Query> ' +
-                            '<ViewFields><FieldRef Name="ID" /><FieldRef Name="Title"/></ViewFields></View>');
+                        query.set_viewXml(
+                            '<View Scope="RecursiveAll"><Query><Where>' +
+                                predicate +
+                                '</Where></Query> ' +
+                                '<ViewFields><FieldRef Name="ID" /><FieldRef Name="Title"/></ViewFields></View>',
+                        );
                     }
                     const results = list.getItems(query);
                     ctx.load(results);
 
-                    ctx.executeQueryAsync((o, e) => {
-                        let selected = false;
+                    ctx.executeQueryAsync(
+                        (o, e) => {
+                            let selected = false;
 
-                        while (_dropdownElt.options.length) {
-                            (_dropdownElt.options as any /* TODO remove `as any` */).remove(0);
-                        }
-
-                        if (!_schema.Required) {
-                            const defaultOpt = new Option(Strings.STS.L_LookupFieldNoneOption, '0', selected, selected);
-                            (_dropdownElt.options as any /* TODO remove `as any` */).add(defaultOpt);
-                            selected = _selectedValue === 0;
-                        }
-                        let isEmptyList = true;
-
-                        const enumerator = results.getEnumerator();
-                        while (enumerator.moveNext()) {
-                            const c = enumerator.get_current();
-                            let id: number;
-                            let text: string;
-
-                            if (!lookupField) {
-                                id = c.get_id();
-                                text = c.get_item('Title');
-                            } else {
-                                const value = c.get_item(lookupField) as SP.FieldLookupValue;
-                                id = value.get_lookupId();
-                                text = value.get_lookupValue();
+                            while (_dropdownElt.options.length) {
+                                (_dropdownElt.options as any) /* TODO remove `as any` */
+                                    .remove(0);
                             }
-                            const isSelected = _selectedValue === id;
-                            if (isSelected) {
-                                selected = true;
+
+                            if (!_schema.Required) {
+                                const defaultOpt = new Option(
+                                    Strings.STS.L_LookupFieldNoneOption,
+                                    '0',
+                                    selected,
+                                    selected,
+                                );
+                                (_dropdownElt.options as any) /* TODO remove `as any` */
+                                    .add(defaultOpt);
+                                selected = _selectedValue === 0;
                             }
-                            const opt = new Option(text, id.toString(), isSelected, isSelected);
-                            (_dropdownElt.options as any /* TODO remove `as any` */).add(opt);
-                            isEmptyList = false;
-                        }
-                        pendingLoads--;
-                        _optionsLoaded = true;
-                        if (!pendingLoads) {
-                            if (isFirstLoad) {
-                                if (_selectedValue === 0 && !selected) {
-                                    _dropdownElt.selectedIndex = 0;
+                            let isEmptyList = true;
+
+                            const enumerator = results.getEnumerator();
+                            while (enumerator.moveNext()) {
+                                const c = enumerator.get_current();
+                                let id: number;
+                                let text: string;
+
+                                if (!lookupField) {
+                                    id = c.get_id();
+                                    text = c.get_item('Title');
+                                } else {
+                                    const value = c.get_item(lookupField) as SP.FieldLookupValue;
+                                    id = value.get_lookupId();
+                                    text = value.get_lookupValue();
+                                }
+                                const isSelected = _selectedValue === id;
+                                if (isSelected) {
+                                    selected = true;
+                                }
+                                const opt = new Option(text, id.toString(), isSelected, isSelected);
+                                (_dropdownElt.options as any) /* TODO remove `as any` */
+                                    .add(opt);
+                                isEmptyList = false;
+                            }
+                            pendingLoads--;
+                            _optionsLoaded = true;
+                            if (!pendingLoads) {
+                                if (isFirstLoad) {
+                                    if (_selectedValue === 0 && !selected) {
+                                        _dropdownElt.selectedIndex = 0;
+                                        OnLookupValueChanged();
+                                    }
+                                } else {
+                                    if (_selectedValue !== 0 && !selected) {
+                                        _dropdownElt.selectedIndex = 0;
+                                    }
                                     OnLookupValueChanged();
                                 }
-                            } else {
-                                if (_selectedValue !== 0 && !selected) {
-                                    _dropdownElt.selectedIndex = 0;
-                                }
-                                OnLookupValueChanged();
                             }
-                        }
-                    }, (o, args) => { console.log(args.get_message()); });
+                        },
+                        (o, args) => {
+                            console.log(args.get_message());
+                        },
+                    );
                 }
             }
         }
 
         koEditField(fieldName: string, template: string, vm: KoFieldInForm, dependencyFields?: string[]): CSR {
-            return this.fieldEdit(fieldName, koEditField_Edit)
-                .fieldNew(fieldName, koEditField_Edit);
+            return this.fieldEdit(fieldName, koEditField_Edit).fieldNew(fieldName, koEditField_Edit);
 
             function koEditField_Edit(rCtx: SPClientTemplates.RenderContext_FieldInForm) {
-                if (rCtx == null)
-                    return '';
+                if (rCtx == null) return '';
                 const _myData = SPClientTemplates.Utility.GetFormContextForCurrentField(rCtx);
 
-                if (_myData == null || _myData.fieldSchema == null)
-                    return '';
+                if (_myData == null || _myData.fieldSchema == null) return '';
                 const elementId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$' + _myData.fieldSchema.Type;
 
                 vm.renderingContext = rCtx;
 
                 if (dependencyFields) {
-                    dependencyFields.forEach(dependencyField => {
+                    dependencyFields.forEach((dependencyField) => {
                         if (!vm[dependencyField]) {
                             vm[dependencyField] = ko.observable(CSR.getFieldValue(rCtx, dependencyField));
                         }
-                        CSR.addUpdatedValueCallback(rCtx, dependencyField, v => {
+                        CSR.addUpdatedValueCallback(rCtx, dependencyField, (v) => {
                             vm[dependencyField](v);
                         });
                     });
@@ -1137,7 +1178,9 @@ namespace CSR {
                     vm.value = ko.observable();
                 }
 
-                vm.value.subscribe(v => { _myData.updateControlValue(fieldName, v); });
+                vm.value.subscribe((v) => {
+                    _myData.updateControlValue(fieldName, v);
+                });
                 _myData.registerGetValueCallback(fieldName, () => vm.value());
 
                 _myData.registerInitCallback(fieldName, () => {
@@ -1154,14 +1197,18 @@ namespace CSR {
             return this.onPostRenderField(targetField, (postRenderSchema, postRenderContext) => {
                 const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm;
                 const ctx = postRenderContext as SPClientTemplates.RenderContext_FieldInForm;
-                if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-                    || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
+                if (
+                    ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm ||
+                    ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm
+                ) {
                     const targetControl = CSR.getControl(schema as SPClientTemplates.FieldSchema_InForm);
                     sourceField.forEach((field) => {
-                        CSR.addUpdatedValueCallback(ctx, field, v => {
+                        CSR.addUpdatedValueCallback(ctx, field, (v) => {
                             dependentValues[field] = v;
-                            targetControl.value = transform.apply(this,
-                                sourceField.map(n => dependentValues[n] || ''));
+                            targetControl.value = transform.apply(
+                                this,
+                                sourceField.map((n) => dependentValues[n] || ''),
+                            );
                         });
                     });
                 }
@@ -1179,21 +1226,21 @@ namespace CSR {
         }
 
         autofill(fieldName: string, init: (ctx: AutoFillFieldContext) => () => void): CSR {
-            return this
-                .fieldNew(fieldName, SPFieldLookup_Autofill_Edit)
-                .fieldEdit(fieldName, SPFieldLookup_Autofill_Edit);
+            return this.fieldNew(fieldName, SPFieldLookup_Autofill_Edit).fieldEdit(
+                fieldName,
+                SPFieldLookup_Autofill_Edit,
+            );
 
             function SPFieldLookup_Autofill_Edit(rCtx: SPClientTemplates.RenderContext_FieldInForm) {
-                if (rCtx == null)
-                    return '';
+                if (rCtx == null) return '';
                 const _myData = SPClientTemplates.Utility.GetFormContextForCurrentField(rCtx);
 
-                if (_myData == null || _myData.fieldSchema == null)
-                    return '';
+                if (_myData == null || _myData.fieldSchema == null) return '';
 
                 let _autoFillControl: SPClientAutoFill;
                 let _textInputElt: HTMLInputElement;
-                const _textInputId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$' + _myData.fieldSchema.Type + 'Field';
+                const _textInputId =
+                    _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$' + _myData.fieldSchema.Type + 'Field';
                 const _autofillContainerId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$AutoFill';
 
                 const validators = new SPClientForms.ClientValidation.ValidatorSet();
@@ -1204,10 +1251,11 @@ namespace CSR {
 
                 _myData.registerInitCallback(_myData.fieldName, initAutoFillControl);
                 _myData.registerFocusCallback(_myData.fieldName, function focusCallback() {
-                    if (_textInputElt != null)
-                        _textInputElt.focus();
+                    if (_textInputElt != null) _textInputElt.focus();
                 });
-                _myData.registerValidationErrorCallback(_myData.fieldName, function validationErrorCallback(errorResult) {
+                _myData.registerValidationErrorCallback(_myData.fieldName, function validationErrorCallback(
+                    errorResult,
+                ) {
                     SPFormControl_AppendValidationErrorMessage(_textInputId, errorResult);
                 });
                 _myData.registerGetValueCallback(_myData.fieldName, () => _myData.fieldValue);
@@ -1218,7 +1266,7 @@ namespace CSR {
                 function initAutoFillControl() {
                     _textInputElt = document.getElementById(_textInputId) as HTMLInputElement;
 
-                    SP.SOD.executeFunc("autofill.js", "SPClientAutoFill", () => {
+                    SP.SOD.executeFunc('autofill.js', 'SPClientAutoFill', () => {
                         _autoFillControl = new SPClientAutoFill(_textInputId, _autofillContainerId, (_) => callback());
                         const callback = init({
                             renderContext: rCtx,
@@ -1243,13 +1291,25 @@ namespace CSR {
                 // }
                 function buildAutoFillControl() {
                     const result: string[] = [];
-                    result.push('<div dir="' + STSHtmlEncode(_myData.fieldSchema.Direction) + '" style="position: relative;">');
-                    result.push('<input type="text" id="' + STSHtmlEncode(_textInputId) + '" title="' + STSHtmlEncode(_myData.fieldSchema.Title) + '"/>');
+                    result.push(
+                        '<div dir="' + STSHtmlEncode(_myData.fieldSchema.Direction) + '" style="position: relative;">',
+                    );
+                    result.push(
+                        '<input type="text" id="' +
+                            STSHtmlEncode(_textInputId) +
+                            '" title="' +
+                            STSHtmlEncode(_myData.fieldSchema.Title) +
+                            '"/>',
+                    );
 
-                    result.push("<div class='sp-peoplepicker-autoFillContainer' id='" + STSHtmlEncode(_autofillContainerId) + "'></div>");
-                    result.push("</div>");
+                    result.push(
+                        "<div class='sp-peoplepicker-autoFillContainer' id='" +
+                            STSHtmlEncode(_autofillContainerId) +
+                            "'></div>",
+                    );
+                    result.push('</div>');
 
-                    return result.join("");
+                    return result.join('');
                 }
             }
         }
@@ -1266,15 +1326,14 @@ namespace CSR {
                 const _selectedValue = SPClientTemplates.Utility.ParseLookupValue(_valueStr);
                 const _noValueSelected = _selectedValue.LookupId === 0;
                 ctx.control.value = _selectedValue.LookupValue;
-                $addHandler(ctx.control, "blur", _ => {
+                $addHandler(ctx.control, 'blur', (_) => {
                     if (ctx.control.value === '') {
                         _myData.fieldValue = '';
                         _myData.updateControlValue(fieldName, _myData.fieldValue);
                     }
                 });
 
-                if (_noValueSelected)
-                    _myData.fieldValue = '';
+                if (_noValueSelected) _myData.fieldValue = '';
 
                 const _autoFillControl = ctx.autofill;
                 _autoFillControl.AutoFillMinTextLength = 2;
@@ -1283,9 +1342,12 @@ namespace CSR {
 
                 return () => {
                     const value = ctx.control.value;
-                    _autoFillControl.PopulateAutoFill([AutoFillOptionBuilder.buildLoadingItem('Please wait...')], onSelectItem);
+                    _autoFillControl.PopulateAutoFill(
+                        [AutoFillOptionBuilder.buildLoadingItem('Please wait...')],
+                        onSelectItem,
+                    );
 
-                    SP.SOD.executeFunc("sp.search.js", "Microsoft.SharePoint.Client.Search.Query", () => {
+                    SP.SOD.executeFunc('sp.search.js', 'Microsoft.SharePoint.Client.Search.Query', () => {
                         const Search = Microsoft.SharePoint.Client.Search.Query;
                         const ctx = SP.ClientContext.get_current();
                         const query = new Search.KeywordQuery(ctx);
@@ -1309,22 +1371,45 @@ namespace CSR {
 
                                 const items = [];
                                 for (const row of rows) {
-                                    items.push(AutoFillOptionBuilder.buildOptionItem(parseInt(row["ListItemId"], 10), row["Title"]));
+                                    items.push(
+                                        AutoFillOptionBuilder.buildOptionItem(
+                                            parseInt(row['ListItemId'], 10),
+                                            row['Title'],
+                                        ),
+                                    );
                                 }
 
                                 items.push(AutoFillOptionBuilder.buildSeparatorItem());
 
                                 if (relevantResults.get_totalRows() === 0)
-                                    items.push(AutoFillOptionBuilder.buildFooterItem("No results. Please refine your query."));
+                                    items.push(
+                                        AutoFillOptionBuilder.buildFooterItem('No results. Please refine your query.'),
+                                    );
                                 else
-                                    items.push(AutoFillOptionBuilder.buildFooterItem("Showing " + rows.length + " of" + relevantResults.get_totalRows() + " items!"));
+                                    items.push(
+                                        AutoFillOptionBuilder.buildFooterItem(
+                                            'Showing ' +
+                                                rows.length +
+                                                ' of' +
+                                                relevantResults.get_totalRows() +
+                                                ' items!',
+                                        ),
+                                    );
 
                                 _autoFillControl.PopulateAutoFill(items, onSelectItem);
                             },
                             (sender, args) => {
-                                _autoFillControl.PopulateAutoFill([AutoFillOptionBuilder.buildFooterItem("Error executing query/ See log for details.")], onSelectItem);
+                                _autoFillControl.PopulateAutoFill(
+                                    [
+                                        AutoFillOptionBuilder.buildFooterItem(
+                                            'Error executing query/ See log for details.',
+                                        ),
+                                    ],
+                                    onSelectItem,
+                                );
                                 console.log(args.get_message());
-                            });
+                            },
+                        );
                     });
                 };
 
@@ -1333,7 +1418,8 @@ namespace CSR {
                     targetElement.value = item[SPClientAutoFill.DisplayTextProperty];
                     _selectedValue.LookupId = item[SPClientAutoFill.KeyProperty];
                     _selectedValue.LookupValue = item[SPClientAutoFill.DisplayTextProperty];
-                    _myData.fieldValue = item[SPClientAutoFill.KeyProperty] + ';#' + item[SPClientAutoFill.TitleTextProperty];
+                    _myData.fieldValue =
+                        item[SPClientAutoFill.KeyProperty] + ';#' + item[SPClientAutoFill.TitleTextProperty];
                     _myData.updateControlValue(_myData.fieldSchema.Name, _myData.fieldValue);
                 }
             });
@@ -1344,23 +1430,32 @@ namespace CSR {
                 const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm_Lookup;
                 const ctx = postRenderContext as SPClientTemplates.RenderContext_FieldInForm;
                 let control: HTMLInputElement;
-                if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-                    || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm)
-
+                if (
+                    ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm ||
+                    ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm
+                )
                     control = CSR.getControl(schema);
                 if (control) {
                     let weburl = _spPageContextInfo.webServerRelativeUrl;
                     if (weburl[weburl.length - 1] === '/') {
                         weburl = weburl.substring(0, weburl.length - 1);
                     }
-                    let newFormUrl = weburl + '/_layouts/listform.aspx/listform.aspx?PageType=8'
-                        + "&ListId=" + encodeURIComponent('{' + schema.LookupListId + '}');
+                    let newFormUrl =
+                        weburl +
+                        '/_layouts/listform.aspx/listform.aspx?PageType=8' +
+                        '&ListId=' +
+                        encodeURIComponent('{' + schema.LookupListId + '}');
                     if (contentTypeId) {
                         newFormUrl += '&ContentTypeId=' + contentTypeId;
                     }
 
                     const link = document.createElement('a');
-                    link.href = "javascript:NewItem2(event, \'" + newFormUrl + "&Source=" + encodeURIComponent(document.location.href) + "')";
+                    link.href =
+                        "javascript:NewItem2(event, '" +
+                        newFormUrl +
+                        '&Source=' +
+                        encodeURIComponent(document.location.href) +
+                        "')";
                     link.textContent = prompt;
                     if (control.nextElementSibling) {
                         control.parentElement.insertBefore(link, control.nextElementSibling);
@@ -1369,7 +1464,7 @@ namespace CSR {
                     }
 
                     if (showDialog) {
-                        $addHandler(link, "click", (e: Sys.UI.DomEvent) => {
+                        $addHandler(link, 'click', (e: Sys.UI.DomEvent) => {
                             SP.SOD.executeFunc('sp.ui.dialog.js', 'SP.UI.ModalDialog.ShowPopupDialog', () => {
                                 SP.UI.ModalDialog.ShowPopupDialog(newFormUrl);
                             });
@@ -1399,7 +1494,12 @@ namespace CSR {
             return item;
         }
 
-        static buildOptionItem(id: number, title: string, displayText?: string, subDisplayText?: string): ISPClientAutoFillData {
+        static buildOptionItem(
+            id: number,
+            title: string,
+            displayText?: string,
+            subDisplayText?: string,
+        ): ISPClientAutoFillData {
             const item = {};
 
             item[SPClientAutoFill.KeyProperty] = id;
@@ -1460,13 +1560,19 @@ namespace CSR {
             @param fieldName Internal name of the field.
             @param callbacks pre-render callbacks.
         */
-        onPreRenderField(field: string, callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void): CSR;
+        onPreRenderField(
+            field: string,
+            callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void,
+        ): CSR;
 
         /** Sets post-render callbacks. Callback called after rendered html inserted to DOM. Correctly handles form rendering.
             @param fieldName Internal name of the field.
             @param callbacks post-render callbacks.
         */
-        onPostRenderField(field: string, callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void): CSR;
+        onPostRenderField(
+            field: string,
+            callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void,
+        ): CSR;
 
         /** Registers overrides in client-side templating engine.*/
         register(): void;
@@ -1480,7 +1586,9 @@ namespace CSR {
             @param template New view template.
         */
         // tslint:disable-next-line: unified-signatures
-        view(template: (ctx: SPClientTemplates.RenderContext_InView | SPClientTemplates.RenderContext_Form) => string): CSR;
+        view(
+            template: (ctx: SPClientTemplates.RenderContext_InView | SPClientTemplates.RenderContext_Form) => string,
+        ): CSR;
 
         /** Override Item rendering template.
             @param template New item template.
@@ -1491,7 +1599,11 @@ namespace CSR {
             @param template New item template.
         */
         // tslint:disable-next-line: unified-signatures
-        item(template: (ctx: SPClientTemplates.RenderContext_ItemInView | SPClientTemplates.RenderContext_Form) => string): CSR;
+        item(
+            template: (
+                ctx: SPClientTemplates.RenderContext_ItemInView | SPClientTemplates.RenderContext_Form,
+            ) => string,
+        ): CSR;
 
         /** Override Header rendering template.
             @param template New header template.
@@ -1638,13 +1750,13 @@ namespace CSR {
     }
 
     function ensureFormContextHookField(hook: FormContextHook, fieldName: string): FormContextHookField {
-        return hook[fieldName] = hook[fieldName] || {
-            updatedValueCallbacks: []
-        };
+        return (hook[fieldName] = hook[fieldName] || {
+            updatedValueCallbacks: [],
+        });
     }
 
     class BooleanValueValidator implements SPClientForms.ClientValidation.IValidator {
-        constructor(public valueGetter: () => boolean, public validationMessage: string) { }
+        constructor(public valueGetter: () => boolean, public validationMessage: string) {}
 
         Validate(value: any): SPClientForms.ClientValidation.ValidationResult {
             return new SPClientForms.ClientValidation.ValidationResult(!this.valueGetter(), this.validationMessage);
@@ -1653,7 +1765,7 @@ namespace CSR {
 }
 
 if (typeof SP === 'object' && SP && typeof SP.SOD === 'object' && SP.SOD) {
-    SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("typescripttemplates.ts");
+    SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('typescripttemplates.ts');
 }
 
 // mquery.ts
@@ -1671,7 +1783,7 @@ namespace spdevlab {
             _options = {
                 tableCnt: '.spdev-rep-tb',
                 addCnt: '.spdev-rep-tb-add',
-                removeCnt: '.spdev-rep-tb-del'
+                removeCnt: '.spdev-rep-tb-del',
             };
 
             // public methods
@@ -1694,7 +1806,7 @@ namespace spdevlab {
             }
 
             _showUI() {
-                m$(this._domContainer).css("display", "");
+                m$(this._domContainer).css('display', '');
             }
 
             _initEvents() {
@@ -1702,9 +1814,9 @@ namespace spdevlab {
                     if (m$.isDefinedAndNotNull(this._rowTemplateContent)) {
                         m$(this._tableContainer).append(this._rowTemplateContent);
 
-                        m$("tr:last-child " + this._options.removeCnt, this._tableContainer).click((e) => {
+                        m$('tr:last-child ' + this._options.removeCnt, this._tableContainer).click((e) => {
                             const targetElement = e.currentTarget as HTMLElement;
-                            const parentRow = m$(targetElement).parents("tr").first();
+                            const parentRow = m$(targetElement).parents('tr').first();
 
                             m$(parentRow).remove();
                         });
@@ -1715,7 +1827,7 @@ namespace spdevlab {
             }
 
             _initRowTemplate() {
-                const templateId = m$(this._tableContainer).attr("template-id");
+                const templateId = m$(this._tableContainer).attr('template-id');
 
                 if (m$.isDefinedAndNotNull(templateId)) {
                     this._rowTemplateId = templateId;
@@ -1727,7 +1839,7 @@ namespace spdevlab {
             static initTables() {
                 // init templates
                 m$('script').forEach((template: HTMLElement) => {
-                    const id = m$(template).attr("dynamic-table-template-id");
+                    const id = m$(template).attr('dynamic-table-template-id');
 
                     if (m$.isDefinedAndNotNull(id)) {
                         DynamicTable._templates[id] = template.innerHTML;
@@ -1735,11 +1847,11 @@ namespace spdevlab {
                 });
 
                 // init tables
-                m$(".spdev-rep-tb-cnt").forEach(divContainer => {
+                m$('.spdev-rep-tb-cnt').forEach((divContainer) => {
                     const dynamicTable = new DynamicTable();
 
                     dynamicTable.init(divContainer, {
-                        removeCnt: '.spdev-rep-tb-del-override'
+                        removeCnt: '.spdev-rep-tb-del-override',
                     });
                 });
             }
@@ -1773,10 +1885,10 @@ namespace _ {
     // Load the people picker
     function loadPeoplePicker(peoplePickerElementId: string) {
         const schema: ISPClientPeoplePickerSchema = {
-            PrincipalAccountType: "User",
+            PrincipalAccountType: 'User',
             AllowMultipleValues: false,
             Width: 300,
-            OnUserResolvedClientScript: onUserResolvedClientScript
+            OnUserResolvedClientScript: onUserResolvedClientScript,
         };
 
         SPClientPeoplePicker.InitializeStandalonePeoplePicker(peoplePickerElementId, null, schema);
@@ -1793,49 +1905,77 @@ namespace _ {
             const personProperties = peopleManager.getPropertiesFor(accountName);
 
             context.load(personProperties);
-            context.executeQueryAsync((sender, args) => {
-                $get("basicInfo").style.display = 'block';
+            context.executeQueryAsync(
+                (sender, args) => {
+                    $get('basicInfo').style.display = 'block';
 
-                const userPic = personProperties.get_userProfileProperties()["PictureURL"];
-                $get("pic").innerHTML = '<img src="' + userPic + '" alt=' + personProperties.get_displayName() + '" width=92 height=92 />';
+                    const userPic = personProperties.get_userProfileProperties()['PictureURL'];
+                    $get('pic').innerHTML =
+                        '<img src="' +
+                        userPic +
+                        '" alt=' +
+                        personProperties.get_displayName() +
+                        '" width=92 height=92 />';
 
-                $get("name").innerHTML = '<a href="' + personProperties.get_userUrl() + '">' + personProperties.get_displayName() + '</a>';
-                $get("email").innerHTML = '<a href="mailto:' + personProperties.get_email() + '">' + personProperties.get_email() + '</a>';
-                $get("title").innerHTML = personProperties.get_title();
-                $get("department").innerHTML = person.EntityData.Department;
-                $get("phone").innerHTML = person.EntityData.MobilePhone;
+                    $get('name').innerHTML =
+                        '<a href="' +
+                        personProperties.get_userUrl() +
+                        '">' +
+                        personProperties.get_displayName() +
+                        '</a>';
+                    $get('email').innerHTML =
+                        '<a href="mailto:' +
+                        personProperties.get_email() +
+                        '">' +
+                        personProperties.get_email() +
+                        '</a>';
+                    $get('title').innerHTML = personProperties.get_title();
+                    $get('department').innerHTML = person.EntityData.Department;
+                    $get('phone').innerHTML = person.EntityData.MobilePhone;
 
-                const properties = personProperties.get_userProfileProperties();
-                let messageText = "";
-                for (const key in properties) {
-                    if (properties.hasOwnProperty(key))
-                        continue;
-                    messageText += "<br />[" + key + "]: \"" + properties[key] + "\"";
-                }
-                $get("detailInfo").innerHTML = messageText;
+                    const properties = personProperties.get_userProfileProperties();
+                    let messageText = '';
+                    for (const key in properties) {
+                        if (properties.hasOwnProperty(key)) continue;
+                        messageText += '<br />[' + key + ']: "' + properties[key] + '"';
+                    }
+                    $get('detailInfo').innerHTML = messageText;
 
-                if (isIframe) {
-                    partResize();
-                }
-            }, (sender, args) => { alert('Error: ' + args.get_message()); });
+                    if (isIframe) {
+                        partResize();
+                    }
+                },
+                (sender, args) => {
+                    alert('Error: ' + args.get_message());
+                },
+            );
         }
     }
 
     function partProperties() {
         if (editmode === 1) {
-            $get("editmodehdr").style.display = "inline";
-            $get("content").style.display = "none";
+            $get('editmodehdr').style.display = 'inline';
+            $get('content').style.display = 'none';
         } else if (includeDetails) {
             $get('detailInfo').style.display = 'block';
 
-            $get("editmodehdr").style.display = "none";
-            $get("content").style.display = "inline";
+            $get('editmodehdr').style.display = 'none';
+            $get('content').style.display = 'inline';
         }
     }
 
     function partResize() {
         const bounds = Sys.UI.DomElement.getBounds(document.body);
-        parent.postMessage('<message senderId=' + queryString['SenderId'] + '>resize(' + bounds.width + ',' + bounds.height + ')</message>', '*');
+        parent.postMessage(
+            '<message senderId=' +
+                queryString['SenderId'] +
+                '>resize(' +
+                bounds.width +
+                ',' +
+                bounds.height +
+                ')</message>',
+            '*',
+        );
     }
 
     function prepareVisual() {
@@ -1851,7 +1991,7 @@ namespace _ {
             m$.ready(() => {
                 const nav = new SP.UI.Controls.Navigation('navigation', {
                     appIconUrl: queryString['SPHostLogo'],
-                    appTitle: document.title
+                    appTitle: document.title,
                 });
                 nav.setVisible(true);
                 $get('apppart-notification').style.display = 'block';
@@ -1883,12 +2023,14 @@ namespace MySP {
         /** To use this function, you must ensure that jQuery and CSOMPromise js files are loaded to the page */
         executeQueryPromise(): JQueryPromise<any> {
             const deferred = jQuery.Deferred();
-            this.executeQueryAsync(function done(sender, args) {
-                deferred.resolve(sender, args);
-            },
+            this.executeQueryAsync(
+                function done(sender, args) {
+                    deferred.resolve(sender, args);
+                },
                 function fail(sender, args) {
                     deferred.reject(sender, args);
-                });
+                },
+            );
             return deferred.promise();
         }
 
@@ -1902,7 +2044,7 @@ namespace MySP {
     }
 }
 
-SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("CSOMPromise.ts");
+SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CSOMPromise.ts');
 
 namespace _ {
     let context: MySP.ClientContextPromise;
@@ -1919,8 +2061,12 @@ namespace _ {
         context = MySP.ClientContextPromise.get_current();
         site = context.get_site();
         web = context.get_web();
-        $('#listExisting').click(function listExistingClick() { listGroups(); });
-        $('#createTerms').click(function createTermsClick() { createTerms(); });
+        $('#listExisting').click(function listExistingClick() {
+            listGroups();
+        });
+        $('#createTerms').click(function createTermsClick() {
+            createTerms();
+        });
     });
 
     // When the listExisting button is clicked, start by loading
@@ -1959,10 +2105,10 @@ namespace _ {
         while (groupEnum.moveNext()) {
             (() => {
                 const currentGroup = groupEnum.get_current();
-                const groupName = document.createElement("div");
-                groupName.setAttribute("style", "float:none;cursor:pointer");
+                const groupName = document.createElement('div');
+                groupName.setAttribute('style', 'float:none;cursor:pointer');
                 const groupID = currentGroup.get_id();
-                groupName.setAttribute("id", groupID.toString());
+                groupName.setAttribute('id', groupID.toString());
                 $(groupName).click(() => showTermSets(groupID));
                 groupName.appendChild(document.createTextNode(currentGroup.get_name()));
                 $('#report').append(groupName);
@@ -1992,9 +2138,9 @@ namespace _ {
         // term sets that it contains will be inaccessible to our code.
         context.load(currentGroup);
         let termSets: SP.Taxonomy.TermSetCollection;
-        context.executeQueryPromise()
-            .then(
-            () => {
+        context
+            .executeQueryPromise()
+            .then(() => {
                 // The group is now available becuase this is the
                 // success callback. So now we'll load and populate the
                 // term set collection. We have to do this before we can
@@ -2019,17 +2165,21 @@ namespace _ {
                 while (termSetEnum.moveNext()) {
                     (() => {
                         const currentTermSet = termSetEnum.get_current();
-                        const termSetName = document.createElement("div");
-                        termSetName.appendChild(document.createTextNode(" + " + currentTermSet.get_name()));
-                        termSetName.setAttribute("style", "float:none;cursor:pointer;");
+                        const termSetName = document.createElement('div');
+                        termSetName.appendChild(document.createTextNode(' + ' + currentTermSet.get_name()));
+                        termSetName.setAttribute('style', 'float:none;cursor:pointer;');
                         const termSetID = currentTermSet.get_id();
-                        termSetName.setAttribute("id", termSetID.toString());
-                        $(termSetName).click(e => showTerms(e, groupID, termSetID));
+                        termSetName.setAttribute('id', termSetID.toString());
+                        $(termSetName).click((e) => showTerms(e, groupID, termSetID));
                         parentDiv.appendChild(termSetName);
                     })();
                 }
             })
-            .fail(() => parentDiv.appendChild(document.createTextNode("An error occurred in loading the term sets for this group")));
+            .fail(() =>
+                parentDiv.appendChild(
+                    document.createTextNode('An error occurred in loading the term sets for this group'),
+                ),
+            );
     }
 
     // This is the function that runs when the user clicks one of the divs
@@ -2086,27 +2236,31 @@ namespace _ {
                 while (termsEnum.moveNext()) {
                     const currentTerm = termsEnum.get_current();
 
-                    const term = document.createElement("div");
-                    term.appendChild(document.createTextNode("    - " + currentTerm.get_name()));
-                    term.setAttribute("style", "float:none;margin-left:10px;");
+                    const term = document.createElement('div');
+                    term.appendChild(document.createTextNode('    - ' + currentTerm.get_name()));
+                    term.setAttribute('style', 'float:none;margin-left:10px;');
                     parentDiv.appendChild(term);
                 }
             })
-            .fail(() => parentDiv.appendChild(document.createTextNode("An error occurred when trying to retrieve terms in this term set")));
+            .fail(() =>
+                parentDiv.appendChild(
+                    document.createTextNode('An error occurred when trying to retrieve terms in this term set'),
+                ),
+            );
     }
 
     // Runs when the executeQueryAsync method in the onListTaxonomySession function has failed.
     // In this case, clear the report area in the page and tell the user what went wrong.
     function onFailRetrieveGroups(sender, args) {
         $('#report').children().remove();
-        $('#report').append("Failed to retrieve groups. Error:" + args.get_message());
+        $('#report').append('Failed to retrieve groups. Error:' + args.get_message());
     }
 
     // Runs when the executeQueryAsync method in the listGroups function has failed.
     // In this case, clear the report area in the page and tell the user what went wrong.
     function onFailListTaxonomySession(sender, args) {
         $('#report').children().remove();
-        $('#report').append("Failed to get session. Error: " + args.get_message());
+        $('#report').append('Failed to get session. Error: ' + args.get_message());
     }
 
     // When the createTerms button is clicked, start by loading
@@ -2131,16 +2285,16 @@ namespace _ {
         const guidTerm4 = SP.Guid.newGuid();
 
         // Create a new group
-        const myGroup = termStore.createGroup("CustomTerms", guidGroupValue);
+        const myGroup = termStore.createGroup('CustomTerms', guidGroupValue);
 
         // Create a new term set in the newly-created group
-        const myTermSet = myGroup.createTermSet("Privacy", guidTermSetValue, 1033);
+        const myTermSet = myGroup.createTermSet('Privacy', guidTermSetValue, 1033);
 
         // Create four new terms in the newly-created  term set
-        myTermSet.createTerm("Top Secret", 1033, guidTerm1);
-        myTermSet.createTerm("Company Confidential", 1033, guidTerm2);
-        myTermSet.createTerm("Partners Only", 1033, guidTerm3);
-        myTermSet.createTerm("Public", 1033, guidTerm4);
+        myTermSet.createTerm('Top Secret', 1033, guidTerm1);
+        myTermSet.createTerm('Company Confidential', 1033, guidTerm2);
+        myTermSet.createTerm('Partners Only', 1033, guidTerm3);
+        myTermSet.createTerm('Public', 1033, guidTerm4);
 
         // Ensure the groups variable has been set, because when this all succeeds we will
         // effectively run the same code as if the user had clicked the listGroups button
@@ -2162,14 +2316,14 @@ namespace _ {
     // In this case, clear the report area in the page and tell the user what went wrong.
     function onFailAddTerms(sender, args) {
         $('#report').children().remove();
-        $('#report').append("Failed to add terms. Error: " + args.get_message());
+        $('#report').append('Failed to add terms. Error: ' + args.get_message());
     }
 
     // Runs when the executeQueryAsync method in the createTerms function has failed.
     // In this case, clear the report area in the page and tell the user what went wrong.
     function onFailTaxonomySession(sender, args) {
         $('#report').children().remove();
-        $('#report').append("Failed to get session. Error: " + args.get_message());
+        $('#report').append('Failed to get session. Error: ' + args.get_message());
     }
 }
 
@@ -2188,7 +2342,7 @@ function createPage(evt) {
         SP.SOD.execute('sp.publishing.js', 'SP.Publishing', () => {
             const context = SP.ClientContext.get_current();
 
-            const hostUrl = decodeURIComponent(JSRequest.QueryString["SPHostUrl"]);
+            const hostUrl = decodeURIComponent(JSRequest.QueryString['SPHostUrl']);
             const hostcontext = new SP.AppContextSite(context, hostUrl);
             const web = hostcontext.get_web();
             const pubWeb = SP.Publishing.PublishingWeb.getPublishingWeb(context, web);
@@ -2214,28 +2368,31 @@ function createPage(evt) {
                                 // We can then use that value to build the Url to the new page
                                 // and set the href or our link to that Url.
                                 function done() {
-                                    const link = document.getElementById("linkToPage");
-                                    link.setAttribute("href", web.get_url() + "/Pages/" + listItem.get_fieldValues().FileLeafRef);
-                                    link.innerText = "Go to new page!";
+                                    const link = document.getElementById('linkToPage');
+                                    link.setAttribute(
+                                        'href',
+                                        web.get_url() + '/Pages/' + listItem.get_fieldValues().FileLeafRef,
+                                    );
+                                    link.innerText = 'Go to new page!';
                                 },
 
                                 // Failure callback after getting the actual list item that is
                                 // represented by the Publishing Page.
                                 function fail(sender, args) {
                                     alert('Failed to get new page: ' + args.get_message());
-                                }
+                                },
                             );
                         },
                         // Failure callback after trying to add a new Publishing Page.
                         function fail(sender, args) {
                             alert('Failed to Add Page: ' + args.get_message());
-                        }
+                        },
                     );
                 },
                 // Failure callback after trying to get the host Web as a PublishingWeb.
                 function fail(sender, args) {
                     alert('Failed to get the PublishingWeb: ' + args.get_message());
-                }
+                },
             );
         });
     });
@@ -2277,7 +2434,7 @@ namespace SampleReputation {
         SP.SOD.registerSod('typescripttemplates.ts', '/SPTypeScript/Extensions/typescripttemplates.js');
         SP.SOD.executeFunc('typescripttemplates.ts', 'CSR', () => {
             CSR.override(10004, 1)
-                .onPreRender(preRenderContext => {
+                .onPreRender((preRenderContext) => {
                     const ctx = preRenderContext as MyList;
                     ctx.listId = ctx.listName.substring(1, 37);
                 })
@@ -2298,12 +2455,27 @@ namespace SampleReputation {
         const ctx = renderContext as MyList;
         const rows = ctx.ListData.Row;
         let result = '';
-        for (const row of  rows) {
+        for (const row of rows) {
             const item = new MyItem(row);
-            result += '\
-			    <li>' + item.title + '\
-					<a style="cursor: pointer;" onclick="SampleReputation.setLike(' + item.id + ', \'' + ctx.listId + '\')" >\
-						<span id="likesCountText' + item.id + '">' + getLikeText(item.isLikedByCurrentUser) + '</span><span id="likesCount' + item.id + '">' + item.likesCount + '</span>\
+            result +=
+                '\
+			    <li>' +
+                item.title +
+                '\
+					<a style="cursor: pointer;" onclick="SampleReputation.setLike(' +
+                item.id +
+                ", '" +
+                ctx.listId +
+                '\')" >\
+						<span id="likesCountText' +
+                item.id +
+                '">' +
+                getLikeText(item.isLikedByCurrentUser) +
+                '</span><span id="likesCount' +
+                item.id +
+                '">' +
+                item.likesCount +
+                '</span>\
 					</a>\
 			    </li>';
         }
@@ -2327,7 +2499,8 @@ namespace SampleReputation {
                 },
                 (sender, args) => {
                     alert(args.get_message());
-                });
+                },
+            );
         });
     }
 
@@ -2336,13 +2509,13 @@ namespace SampleReputation {
 
 // code from https://github.com/gandjustas/SharePointAngularTS
 namespace App {
-    "use strict";
-    const app = angular.module("app", []);
+    'use strict';
+    const app = angular.module('app', []);
 }
 
 // Install the angularjs.TypeScript.DefinitelyTyped NuGet package
 namespace App {
-    "use strict";
+    'use strict';
 
     interface Iappcontroller {
         title: string;
@@ -2350,10 +2523,10 @@ namespace App {
     }
 
     class appcontroller implements Iappcontroller, ng.IController {
-        title: string = "appcontroller";
+        title: string = 'appcontroller';
         lists: SP.List[];
 
-        static $inject: string[] = ["$SharePoint", "$spnotify"];
+        static $inject: string[] = ['$SharePoint', '$spnotify'];
 
         constructor(private readonly $SharePoint: App.SharePoint, private readonly $n: App.SpNotify) {
             this.activate();
@@ -2363,34 +2536,32 @@ namespace App {
             const loading = this.$n.showLoading(true);
             this.$SharePoint
                 .getLists()
-                .then(l => this.lists = l)
+                .then((l) => (this.lists = l))
                 .catch((e: string) => this.$n.show(e, true))
                 .finally(() => this.$n.remove(loading));
         }
 
-        $onInit() {
-        }
+        $onInit() {}
     }
 
-    angular.module("app").controller("appcontroller", [appcontroller]);
+    angular.module('app').controller('appcontroller', [appcontroller]);
 }
 
 namespace App {
-    "use strict";
+    'use strict';
 
     export interface SharePoint {
         getLists(): ng.IPromise<SP.List[]>;
     }
 
     class SharePointServcie implements SharePoint {
-        static $inject: string[] = ["$q"];
+        static $inject: string[] = ['$q'];
 
-        constructor(public $q: ng.IQService) {
-        }
+        constructor(public $q: ng.IQService) {}
 
         getLists() {
             const promise = this.$q.defer<SP.List[]>();
-            SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
+            SP.SOD.executeFunc('sp.js', 'SP.ClientContext', () => {
                 const ctx = SP.ClientContext.get_current();
                 const hostUrl = decodeURIComponent(SP.ScriptHelpers.getDocumentQueryPairs()['SPHostUrl']);
                 const appCtx = new SP.AppContextSite(ctx, hostUrl);
@@ -2398,25 +2569,29 @@ namespace App {
                 const lists = hostWeb.get_lists();
                 ctx.load(lists);
 
-                ctx.executeQueryAsync(() => {
-                    const result: SP.List[] = [];
-                    for (const e = lists.getEnumerator(); e.moveNext(); /* nothing */) {
-                        result.push(e.get_current());
-                    }
-                    promise.resolve(result);
-                },
-                    (o, args) => { promise.reject(args.get_message()); });
+                ctx.executeQueryAsync(
+                    () => {
+                        const result: SP.List[] = [];
+                        for (const e = lists.getEnumerator(); e.moveNext() /* nothing */; ) {
+                            result.push(e.get_current());
+                        }
+                        promise.resolve(result);
+                    },
+                    (o, args) => {
+                        promise.reject(args.get_message());
+                    },
+                );
             });
             return promise.promise;
         }
     }
 
-    angular.module("app").service("$SharePoint", SharePointServcie);
+    angular.module('app').service('$SharePoint', SharePointServcie);
 }
 
 // Install the angularjs.TypeScript.DefinitelyTyped NuGet package
 namespace App {
-    "use strict";
+    'use strict';
 
     export interface SpNotify {
         showLoading(sticky?: boolean): string;
@@ -2440,5 +2615,5 @@ namespace App {
         }
     }
 
-    angular.module("app").service("$spnotify", NotifyImpl);
+    angular.module('app').service('$spnotify', NotifyImpl);
 }

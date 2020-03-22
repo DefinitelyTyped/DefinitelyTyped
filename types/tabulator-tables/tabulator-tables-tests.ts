@@ -33,7 +33,7 @@ table
     .then(() => {
         // run code after table has been successfuly updated
     })
-    .catch(error => {
+    .catch((error) => {
         // handle error loading data
     });
 
@@ -57,7 +57,7 @@ table
     .then(() => {
         // run code after column has been scrolled to
     })
-    .catch(error => {
+    .catch((error) => {
         // handle error scrolling to column
     });
 
@@ -66,11 +66,11 @@ table
         { id: 1, name: 'bob' },
         { id: 3, name: 'steve' },
     ])
-    .then(rows => {
+    .then((rows) => {
         // rows - array of the row components for the rows updated or added
         // run code after data has been updated
     })
-    .catch(error => {
+    .catch((error) => {
         // handle error updating data
     });
 
@@ -83,7 +83,7 @@ table
     .then(() => {
         // run code after data has been updated
     })
-    .catch(error => {
+    .catch((error) => {
         // handle error updating data
     });
 
@@ -106,12 +106,12 @@ colDef.sorterParams = (col: Tabulator.ColumnComponent, dir: Tabulator.SortDirect
 };
 colDef.sorterParams = { format: 'DD/MM/YY' };
 colDef.formatterParams = {
-    invalidPlaceholder: val => {
+    invalidPlaceholder: (val) => {
         return '';
     },
 };
 
-colDef.formatterParams = cell => {
+colDef.formatterParams = (cell) => {
     // cell - the cell component
 
     // do some processing and return the param object
@@ -232,7 +232,7 @@ colDef.editorParams = {
     values: selectParamValues,
 };
 
-colDef.editorParams = cell => {
+colDef.editorParams = (cell) => {
     return {};
 };
 
@@ -334,7 +334,7 @@ row.delete()
     .then(() => {
         // run code after row has been deleted
     })
-    .catch(error => {
+    .catch((error) => {
         // handle error deleting row
     });
 
@@ -345,7 +345,7 @@ options.keybindings = {
     navNext: false,
 };
 
-options.downloadDataFormatter = data => {
+options.downloadDataFormatter = (data) => {
     //  data.forEach(function(row){
     //    row.age = row.age >= 18 ? "adult" : "child";
 };
@@ -433,11 +433,11 @@ options.paginationDataReceived = {
     a: 'b',
 };
 
-options.clipboardPasteParser = clipboard => {
+options.clipboardPasteParser = (clipboard) => {
     return []; // return array
 };
 
-options.cellEditing = cell => {
+options.cellEditing = (cell) => {
     console.log(cell);
 };
 
@@ -452,12 +452,12 @@ colDef.editorParams = { search: true };
 table.getHtml(true, true, { columnCalcs: true });
 
 table.download('pdf', 'data.pdf', {
-    documentProcessing: doc => {},
+    documentProcessing: (doc) => {},
 });
 
 table.download('pdf', 'data.pdf', {
     orientation: 'portrait',
-    autoTable: doc => {
+    autoTable: (doc) => {
         doc.text('SOME TEXT', 1, 1);
         return {
             styles: {
@@ -518,7 +518,7 @@ let field = group.getField();
 
 options.tabEndNewRow = true;
 options.tabEndNewRow = { name: 'steve', age: 62 };
-options.tabEndNewRow = row => {
+options.tabEndNewRow = (row) => {
     return { name: 'steve', age: 62 };
 };
 
@@ -603,7 +603,7 @@ table
     .then(() => {
         // run code after column has been scrolled to
     })
-    .catch(error => {
+    .catch((error) => {
         // handle error scrolling to column
     });
 
@@ -613,7 +613,7 @@ table.download('csv', 'data.csv', { delimiter: '.' }, 'visible');
 table.download('html', 'data.html');
 table.download('html', 'data.html', { style: true });
 table.download('xlsx', 'data.xlsx', {
-    documentProcessing: workbook => {
+    documentProcessing: (workbook) => {
         return workbook;
     },
 });

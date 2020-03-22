@@ -132,7 +132,16 @@ declare namespace VBIDE {
          * @param MatchCase [MatchCase=false]
          * @param PatternSearch [PatternSearch=false]
          */
-        Find(Target: string, StartLine: number, StartColumn: number, EndLine: number, EndColumn: number, WholeWord?: boolean, MatchCase?: boolean, PatternSearch?: boolean): boolean;
+        Find(
+            Target: string,
+            StartLine: number,
+            StartColumn: number,
+            EndLine: number,
+            EndColumn: number,
+            WholeWord?: boolean,
+            MatchCase?: boolean,
+            PatternSearch?: boolean,
+        ): boolean;
         InsertLines(Line: number, String: string): void;
         Lines(StartLine: number, Count: number): string;
         Name: string;
@@ -389,7 +398,25 @@ declare namespace VBIDE {
 }
 
 interface ActiveXObject {
-    on(obj: VBIDE.CommandBarEvents, event: 'Click', argNames: ['CommandBarControl', 'handled', 'CancelDefault'], handler: (this: VBIDE.CommandBarEvents, parameter: {readonly CommandBarControl: any, readonly handled: boolean, readonly CancelDefault: boolean}) => void): void;
-    on(obj: VBIDE.References, event: 'ItemAdded' | 'ItemRemoved', argNames: ['Reference'], handler: (this: VBIDE.References, parameter: {readonly Reference: VBIDE.Reference}) => void): void;
-    on(obj: VBIDE.ReferencesEvents, event: 'ItemAdded' | 'ItemRemoved', argNames: ['Reference'], handler: (this: VBIDE.ReferencesEvents, parameter: {readonly Reference: VBIDE.Reference}) => void): void;
+    on(
+        obj: VBIDE.CommandBarEvents,
+        event: 'Click',
+        argNames: ['CommandBarControl', 'handled', 'CancelDefault'],
+        handler: (
+            this: VBIDE.CommandBarEvents,
+            parameter: { readonly CommandBarControl: any; readonly handled: boolean; readonly CancelDefault: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: VBIDE.References,
+        event: 'ItemAdded' | 'ItemRemoved',
+        argNames: ['Reference'],
+        handler: (this: VBIDE.References, parameter: { readonly Reference: VBIDE.Reference }) => void,
+    ): void;
+    on(
+        obj: VBIDE.ReferencesEvents,
+        event: 'ItemAdded' | 'ItemRemoved',
+        argNames: ['Reference'],
+        handler: (this: VBIDE.ReferencesEvents, parameter: { readonly Reference: VBIDE.Reference }) => void,
+    ): void;
 }

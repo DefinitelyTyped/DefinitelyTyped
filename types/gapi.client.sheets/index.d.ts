@@ -1022,8 +1022,7 @@ declare namespace gapi.client {
         }
 
         // tslint:disable-next-line:no-empty-interface
-        interface ClearValuesRequest {
-        }
+        interface ClearValuesRequest {}
 
         interface ClearValuesResponse {
             /**
@@ -3411,33 +3410,35 @@ declare namespace gapi.client {
                 resource: SearchDeveloperMetadataRequest;
             }): client.Request<SearchDeveloperMetadataResponse>;
 
-            search(request: {
-                       /** V1 error format. */
-                       '$.xgafv'?: string;
-                       /** OAuth access token. */
-                       access_token?: string;
-                       /** Data format for response. */
-                       alt?: string;
-                       /** JSONP */
-                       callback?: string;
-                       /** Selector specifying which fields to include in a partial response. */
-                       fields?: string;
-                       /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                       key?: string;
-                       /** OAuth 2.0 token for the current user. */
-                       oauth_token?: string;
-                       /** Returns response with indentations and line breaks. */
-                       prettyPrint?: boolean;
-                       /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                       quotaUser?: string;
-                       /** The ID of the spreadsheet to retrieve metadata from. */
-                       spreadsheetId: string;
-                       /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                       uploadType?: string;
-                       /** Upload protocol for media (e.g. "raw", "multipart"). */
-                       upload_protocol?: string;
-                   },
-                   body: SearchDeveloperMetadataRequest): client.Request<SearchDeveloperMetadataResponse>;
+            search(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The ID of the spreadsheet to retrieve metadata from. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: SearchDeveloperMetadataRequest,
+            ): client.Request<SearchDeveloperMetadataResponse>;
         }
 
         interface SheetsResource {
@@ -3476,35 +3477,37 @@ declare namespace gapi.client {
                 resource: CopySheetToAnotherSpreadsheetRequest;
             }): client.Request<SheetProperties>;
 
-            copyTo(request: {
-                       /** V1 error format. */
-                       '$.xgafv'?: string;
-                       /** OAuth access token. */
-                       access_token?: string;
-                       /** Data format for response. */
-                       alt?: string;
-                       /** JSONP */
-                       callback?: string;
-                       /** Selector specifying which fields to include in a partial response. */
-                       fields?: string;
-                       /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                       key?: string;
-                       /** OAuth 2.0 token for the current user. */
-                       oauth_token?: string;
-                       /** Returns response with indentations and line breaks. */
-                       prettyPrint?: boolean;
-                       /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                       quotaUser?: string;
-                       /** The ID of the sheet to copy. */
-                       sheetId: number;
-                       /** The ID of the spreadsheet containing the sheet to copy. */
-                       spreadsheetId: string;
-                       /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                       uploadType?: string;
-                       /** Upload protocol for media (e.g. "raw", "multipart"). */
-                       upload_protocol?: string;
-                   },
-                   body: CopySheetToAnotherSpreadsheetRequest): client.Request<SheetProperties>;
+            copyTo(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The ID of the sheet to copy. */
+                    sheetId: number;
+                    /** The ID of the spreadsheet containing the sheet to copy. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: CopySheetToAnotherSpreadsheetRequest,
+            ): client.Request<SheetProperties>;
         }
 
         interface ValuesResource {
@@ -3580,60 +3583,62 @@ declare namespace gapi.client {
                 resource: ValueRange;
             }): client.Request<AppendValuesResponse>;
 
-            append(request: {
-                       /** V1 error format. */
-                       '$.xgafv'?: string;
-                       /** OAuth access token. */
-                       access_token?: string;
-                       /** Data format for response. */
-                       alt?: string;
-                       /** JSONP */
-                       callback?: string;
-                       /** Selector specifying which fields to include in a partial response. */
-                       fields?: string;
-                       /**
-                        * Determines if the update response should include the values
-                        * of the cells that were appended. By default, responses
-                        * do not include the updated values.
-                        */
-                       includeValuesInResponse?: boolean;
-                       /** How the input data should be inserted. */
-                       insertDataOption?: string;
-                       /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                       key?: string;
-                       /** OAuth 2.0 token for the current user. */
-                       oauth_token?: string;
-                       /** Returns response with indentations and line breaks. */
-                       prettyPrint?: boolean;
-                       /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                       quotaUser?: string;
-                       /**
-                        * The A1 notation of a range to search for a logical table of data.
-                        * Values will be appended after the last row of the table.
-                        */
-                       range: string;
-                       /**
-                        * Determines how dates, times, and durations in the response should be
-                        * rendered. This is ignored if response_value_render_option is
-                        * FORMATTED_VALUE.
-                        * The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-                        */
-                       responseDateTimeRenderOption?: string;
-                       /**
-                        * Determines how values in the response should be rendered.
-                        * The default render option is ValueRenderOption.FORMATTED_VALUE.
-                        */
-                       responseValueRenderOption?: string;
-                       /** The ID of the spreadsheet to update. */
-                       spreadsheetId: string;
-                       /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                       uploadType?: string;
-                       /** Upload protocol for media (e.g. "raw", "multipart"). */
-                       upload_protocol?: string;
-                       /** How the input data should be interpreted. */
-                       valueInputOption?: string;
-                   },
-                   body: ValueRange): client.Request<AppendValuesResponse>;
+            append(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /**
+                     * Determines if the update response should include the values
+                     * of the cells that were appended. By default, responses
+                     * do not include the updated values.
+                     */
+                    includeValuesInResponse?: boolean;
+                    /** How the input data should be inserted. */
+                    insertDataOption?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /**
+                     * The A1 notation of a range to search for a logical table of data.
+                     * Values will be appended after the last row of the table.
+                     */
+                    range: string;
+                    /**
+                     * Determines how dates, times, and durations in the response should be
+                     * rendered. This is ignored if response_value_render_option is
+                     * FORMATTED_VALUE.
+                     * The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
+                     */
+                    responseDateTimeRenderOption?: string;
+                    /**
+                     * Determines how values in the response should be rendered.
+                     * The default render option is ValueRenderOption.FORMATTED_VALUE.
+                     */
+                    responseValueRenderOption?: string;
+                    /** The ID of the spreadsheet to update. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                    /** How the input data should be interpreted. */
+                    valueInputOption?: string;
+                },
+                body: ValueRange,
+            ): client.Request<AppendValuesResponse>;
 
             /**
              * Clears one or more ranges of values from a spreadsheet.
@@ -3670,33 +3675,35 @@ declare namespace gapi.client {
                 resource: BatchClearValuesRequest;
             }): client.Request<BatchClearValuesResponse>;
 
-            batchClear(request: {
-                           /** V1 error format. */
-                           '$.xgafv'?: string;
-                           /** OAuth access token. */
-                           access_token?: string;
-                           /** Data format for response. */
-                           alt?: string;
-                           /** JSONP */
-                           callback?: string;
-                           /** Selector specifying which fields to include in a partial response. */
-                           fields?: string;
-                           /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                           key?: string;
-                           /** OAuth 2.0 token for the current user. */
-                           oauth_token?: string;
-                           /** Returns response with indentations and line breaks. */
-                           prettyPrint?: boolean;
-                           /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                           quotaUser?: string;
-                           /** The ID of the spreadsheet to update. */
-                           spreadsheetId: string;
-                           /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                           uploadType?: string;
-                           /** Upload protocol for media (e.g. "raw", "multipart"). */
-                           upload_protocol?: string;
-                       },
-                       body: BatchClearValuesRequest): client.Request<BatchClearValuesResponse>;
+            batchClear(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The ID of the spreadsheet to update. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: BatchClearValuesRequest,
+            ): client.Request<BatchClearValuesResponse>;
 
             /**
              * Clears one or more ranges of values from a spreadsheet.
@@ -3734,33 +3741,35 @@ declare namespace gapi.client {
                 resource: BatchClearValuesByDataFilterRequest;
             }): client.Request<BatchClearValuesByDataFilterResponse>;
 
-            batchClearByDataFilter(request: {
-                                       /** V1 error format. */
-                                       '$.xgafv'?: string;
-                                       /** OAuth access token. */
-                                       access_token?: string;
-                                       /** Data format for response. */
-                                       alt?: string;
-                                       /** JSONP */
-                                       callback?: string;
-                                       /** Selector specifying which fields to include in a partial response. */
-                                       fields?: string;
-                                       /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                                       key?: string;
-                                       /** OAuth 2.0 token for the current user. */
-                                       oauth_token?: string;
-                                       /** Returns response with indentations and line breaks. */
-                                       prettyPrint?: boolean;
-                                       /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                                       quotaUser?: string;
-                                       /** The ID of the spreadsheet to update. */
-                                       spreadsheetId: string;
-                                       /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                                       uploadType?: string;
-                                       /** Upload protocol for media (e.g. "raw", "multipart"). */
-                                       upload_protocol?: string;
-                                   },
-                                   body: BatchClearValuesByDataFilterRequest): client.Request<BatchClearValuesByDataFilterResponse>;
+            batchClearByDataFilter(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The ID of the spreadsheet to update. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: BatchClearValuesByDataFilterRequest,
+            ): client.Request<BatchClearValuesByDataFilterResponse>;
 
             /**
              * Returns one or more ranges of values from a spreadsheet.
@@ -3852,33 +3861,35 @@ declare namespace gapi.client {
                 resource: BatchGetValuesByDataFilterRequest;
             }): client.Request<BatchGetValuesByDataFilterResponse>;
 
-            batchGetByDataFilter(request: {
-                                     /** V1 error format. */
-                                     '$.xgafv'?: string;
-                                     /** OAuth access token. */
-                                     access_token?: string;
-                                     /** Data format for response. */
-                                     alt?: string;
-                                     /** JSONP */
-                                     callback?: string;
-                                     /** Selector specifying which fields to include in a partial response. */
-                                     fields?: string;
-                                     /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                                     key?: string;
-                                     /** OAuth 2.0 token for the current user. */
-                                     oauth_token?: string;
-                                     /** Returns response with indentations and line breaks. */
-                                     prettyPrint?: boolean;
-                                     /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                                     quotaUser?: string;
-                                     /** The ID of the spreadsheet to retrieve data from. */
-                                     spreadsheetId: string;
-                                     /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                                     uploadType?: string;
-                                     /** Upload protocol for media (e.g. "raw", "multipart"). */
-                                     upload_protocol?: string;
-                                 },
-                                 body: BatchGetValuesByDataFilterRequest): client.Request<BatchGetValuesByDataFilterResponse>;
+            batchGetByDataFilter(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The ID of the spreadsheet to retrieve data from. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: BatchGetValuesByDataFilterRequest,
+            ): client.Request<BatchGetValuesByDataFilterResponse>;
 
             /**
              * Sets values in one or more ranges of a spreadsheet.
@@ -3915,33 +3926,35 @@ declare namespace gapi.client {
                 resource: BatchUpdateValuesRequest;
             }): client.Request<BatchUpdateValuesResponse>;
 
-            batchUpdate(request: {
-                            /** V1 error format. */
-                            '$.xgafv'?: string;
-                            /** OAuth access token. */
-                            access_token?: string;
-                            /** Data format for response. */
-                            alt?: string;
-                            /** JSONP */
-                            callback?: string;
-                            /** Selector specifying which fields to include in a partial response. */
-                            fields?: string;
-                            /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                            key?: string;
-                            /** OAuth 2.0 token for the current user. */
-                            oauth_token?: string;
-                            /** Returns response with indentations and line breaks. */
-                            prettyPrint?: boolean;
-                            /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                            quotaUser?: string;
-                            /** The ID of the spreadsheet to update. */
-                            spreadsheetId: string;
-                            /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                            uploadType?: string;
-                            /** Upload protocol for media (e.g. "raw", "multipart"). */
-                            upload_protocol?: string;
-                        },
-                        body: BatchUpdateValuesRequest): client.Request<BatchUpdateValuesResponse>;
+            batchUpdate(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The ID of the spreadsheet to update. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: BatchUpdateValuesRequest,
+            ): client.Request<BatchUpdateValuesResponse>;
 
             /**
              * Sets values in one or more ranges of a spreadsheet.
@@ -3978,33 +3991,35 @@ declare namespace gapi.client {
                 resource: BatchUpdateValuesByDataFilterRequest;
             }): client.Request<BatchUpdateValuesByDataFilterResponse>;
 
-            batchUpdateByDataFilter(request: {
-                                        /** V1 error format. */
-                                        '$.xgafv'?: string;
-                                        /** OAuth access token. */
-                                        access_token?: string;
-                                        /** Data format for response. */
-                                        alt?: string;
-                                        /** JSONP */
-                                        callback?: string;
-                                        /** Selector specifying which fields to include in a partial response. */
-                                        fields?: string;
-                                        /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                                        key?: string;
-                                        /** OAuth 2.0 token for the current user. */
-                                        oauth_token?: string;
-                                        /** Returns response with indentations and line breaks. */
-                                        prettyPrint?: boolean;
-                                        /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                                        quotaUser?: string;
-                                        /** The ID of the spreadsheet to update. */
-                                        spreadsheetId: string;
-                                        /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                                        uploadType?: string;
-                                        /** Upload protocol for media (e.g. "raw", "multipart"). */
-                                        upload_protocol?: string;
-                                    },
-                                    body: BatchUpdateValuesByDataFilterRequest): client.Request<BatchUpdateValuesByDataFilterResponse>;
+            batchUpdateByDataFilter(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The ID of the spreadsheet to update. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: BatchUpdateValuesByDataFilterRequest,
+            ): client.Request<BatchUpdateValuesByDataFilterResponse>;
 
             /**
              * Clears values from a spreadsheet.
@@ -4043,35 +4058,37 @@ declare namespace gapi.client {
                 resource: ClearValuesRequest;
             }): client.Request<ClearValuesResponse>;
 
-            clear(request: {
-                      /** V1 error format. */
-                      '$.xgafv'?: string;
-                      /** OAuth access token. */
-                      access_token?: string;
-                      /** Data format for response. */
-                      alt?: string;
-                      /** JSONP */
-                      callback?: string;
-                      /** Selector specifying which fields to include in a partial response. */
-                      fields?: string;
-                      /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                      key?: string;
-                      /** OAuth 2.0 token for the current user. */
-                      oauth_token?: string;
-                      /** Returns response with indentations and line breaks. */
-                      prettyPrint?: boolean;
-                      /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                      quotaUser?: string;
-                      /** The A1 notation of the values to clear. */
-                      range: string;
-                      /** The ID of the spreadsheet to update. */
-                      spreadsheetId: string;
-                      /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                      uploadType?: string;
-                      /** Upload protocol for media (e.g. "raw", "multipart"). */
-                      upload_protocol?: string;
-                  },
-                  body: ClearValuesRequest): client.Request<ClearValuesResponse>;
+            clear(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The A1 notation of the values to clear. */
+                    range: string;
+                    /** The ID of the spreadsheet to update. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: ClearValuesRequest,
+            ): client.Request<ClearValuesResponse>;
 
             /**
              * Returns a range of values from a spreadsheet.
@@ -4188,59 +4205,61 @@ declare namespace gapi.client {
                 resource: ValueRange;
             }): client.Request<UpdateValuesResponse>;
 
-            update(request: {
-                       /** V1 error format. */
-                       '$.xgafv'?: string;
-                       /** OAuth access token. */
-                       access_token?: string;
-                       /** Data format for response. */
-                       alt?: string;
-                       /** JSONP */
-                       callback?: string;
-                       /** Selector specifying which fields to include in a partial response. */
-                       fields?: string;
-                       /**
-                        * Determines if the update response should include the values
-                        * of the cells that were updated. By default, responses
-                        * do not include the updated values.
-                        * If the range to write was larger than than the range actually written,
-                        * the response will include all values in the requested range (excluding
-                        * trailing empty rows and columns).
-                        */
-                       includeValuesInResponse?: boolean;
-                       /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                       key?: string;
-                       /** OAuth 2.0 token for the current user. */
-                       oauth_token?: string;
-                       /** Returns response with indentations and line breaks. */
-                       prettyPrint?: boolean;
-                       /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                       quotaUser?: string;
-                       /** The A1 notation of the values to update. */
-                       range: string;
-                       /**
-                        * Determines how dates, times, and durations in the response should be
-                        * rendered. This is ignored if response_value_render_option is
-                        * FORMATTED_VALUE.
-                        * The default dateTime render option is
-                        * DateTimeRenderOption.SERIAL_NUMBER.
-                        */
-                       responseDateTimeRenderOption?: string;
-                       /**
-                        * Determines how values in the response should be rendered.
-                        * The default render option is ValueRenderOption.FORMATTED_VALUE.
-                        */
-                       responseValueRenderOption?: string;
-                       /** The ID of the spreadsheet to update. */
-                       spreadsheetId: string;
-                       /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                       uploadType?: string;
-                       /** Upload protocol for media (e.g. "raw", "multipart"). */
-                       upload_protocol?: string;
-                       /** How the input data should be interpreted. */
-                       valueInputOption?: string;
-                   },
-                   body: ValueRange): client.Request<UpdateValuesResponse>;
+            update(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /**
+                     * Determines if the update response should include the values
+                     * of the cells that were updated. By default, responses
+                     * do not include the updated values.
+                     * If the range to write was larger than than the range actually written,
+                     * the response will include all values in the requested range (excluding
+                     * trailing empty rows and columns).
+                     */
+                    includeValuesInResponse?: boolean;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The A1 notation of the values to update. */
+                    range: string;
+                    /**
+                     * Determines how dates, times, and durations in the response should be
+                     * rendered. This is ignored if response_value_render_option is
+                     * FORMATTED_VALUE.
+                     * The default dateTime render option is
+                     * DateTimeRenderOption.SERIAL_NUMBER.
+                     */
+                    responseDateTimeRenderOption?: string;
+                    /**
+                     * Determines how values in the response should be rendered.
+                     * The default render option is ValueRenderOption.FORMATTED_VALUE.
+                     */
+                    responseValueRenderOption?: string;
+                    /** The ID of the spreadsheet to update. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                    /** How the input data should be interpreted. */
+                    valueInputOption?: string;
+                },
+                body: ValueRange,
+            ): client.Request<UpdateValuesResponse>;
         }
 
         interface SpreadsheetsResource {
@@ -4294,33 +4313,35 @@ declare namespace gapi.client {
                 resource: BatchUpdateSpreadsheetRequest;
             }): client.Request<BatchUpdateSpreadsheetResponse>;
 
-            batchUpdate(request: {
-                            /** V1 error format. */
-                            '$.xgafv'?: string;
-                            /** OAuth access token. */
-                            access_token?: string;
-                            /** Data format for response. */
-                            alt?: string;
-                            /** JSONP */
-                            callback?: string;
-                            /** Selector specifying which fields to include in a partial response. */
-                            fields?: string;
-                            /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                            key?: string;
-                            /** OAuth 2.0 token for the current user. */
-                            oauth_token?: string;
-                            /** Returns response with indentations and line breaks. */
-                            prettyPrint?: boolean;
-                            /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                            quotaUser?: string;
-                            /** The spreadsheet to apply the updates to. */
-                            spreadsheetId: string;
-                            /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                            uploadType?: string;
-                            /** Upload protocol for media (e.g. "raw", "multipart"). */
-                            upload_protocol?: string;
-                        },
-                        body: BatchUpdateSpreadsheetRequest): client.Request<BatchUpdateSpreadsheetResponse>;
+            batchUpdate(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The spreadsheet to apply the updates to. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: BatchUpdateSpreadsheetRequest,
+            ): client.Request<BatchUpdateSpreadsheetResponse>;
 
             /** Creates a spreadsheet, returning the newly created spreadsheet. */
             create(request: {
@@ -4350,31 +4371,33 @@ declare namespace gapi.client {
                 resource: Spreadsheet;
             }): client.Request<Spreadsheet>;
 
-            create(request: {
-                       /** V1 error format. */
-                       '$.xgafv'?: string;
-                       /** OAuth access token. */
-                       access_token?: string;
-                       /** Data format for response. */
-                       alt?: string;
-                       /** JSONP */
-                       callback?: string;
-                       /** Selector specifying which fields to include in a partial response. */
-                       fields?: string;
-                       /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                       key?: string;
-                       /** OAuth 2.0 token for the current user. */
-                       oauth_token?: string;
-                       /** Returns response with indentations and line breaks. */
-                       prettyPrint?: boolean;
-                       /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                       quotaUser?: string;
-                       /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                       uploadType?: string;
-                       /** Upload protocol for media (e.g. "raw", "multipart"). */
-                       upload_protocol?: string;
-                   },
-                   body: Spreadsheet): client.Request<Spreadsheet>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Spreadsheet,
+            ): client.Request<Spreadsheet>;
 
             /**
              * Returns the spreadsheet at the given ID.
@@ -4486,33 +4509,35 @@ declare namespace gapi.client {
                 resource: GetSpreadsheetByDataFilterRequest;
             }): client.Request<Spreadsheet>;
 
-            getByDataFilter(request: {
-                                /** V1 error format. */
-                                '$.xgafv'?: string;
-                                /** OAuth access token. */
-                                access_token?: string;
-                                /** Data format for response. */
-                                alt?: string;
-                                /** JSONP */
-                                callback?: string;
-                                /** Selector specifying which fields to include in a partial response. */
-                                fields?: string;
-                                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                                key?: string;
-                                /** OAuth 2.0 token for the current user. */
-                                oauth_token?: string;
-                                /** Returns response with indentations and line breaks. */
-                                prettyPrint?: boolean;
-                                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                                quotaUser?: string;
-                                /** The spreadsheet to request. */
-                                spreadsheetId: string;
-                                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                                uploadType?: string;
-                                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                                upload_protocol?: string;
-                            },
-                            body: GetSpreadsheetByDataFilterRequest): client.Request<Spreadsheet>;
+            getByDataFilter(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The spreadsheet to request. */
+                    spreadsheetId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: GetSpreadsheetByDataFilterRequest,
+            ): client.Request<Spreadsheet>;
 
             developerMetadata: DeveloperMetadataResource;
             sheets: SheetsResource;

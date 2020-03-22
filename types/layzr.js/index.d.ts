@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Layzr {
-    type LayzrEvents = "src:before" | "src:after";
+    type LayzrEvents = 'src:before' | 'src:after';
 
     interface LayzrInstance {
         /**
@@ -33,19 +33,13 @@ declare namespace Layzr {
          * @param name Event name
          * @param handler Event handler
          */
-        on(
-            name: LayzrEvents,
-            handler: (element: HTMLElement) => void
-        ): LayzrInstance;
+        on(name: LayzrEvents, handler: (element: HTMLElement) => void): LayzrInstance;
         /**
          * This event is emitted immediately before/after an image source is set. The image node is passed to the event handler. Fires once.
          * @param name Event name
          * @param handler Event handler
          */
-        once(
-            name: LayzrEvents,
-            handler: (element: HTMLElement) => void
-        ): LayzrInstance;
+        once(name: LayzrEvents, handler: (element: HTMLElement) => void): LayzrInstance;
         /**
          * Update the elements Layzr is checking.
          */

@@ -9,5 +9,5 @@ export interface NavItemProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class NavItem<T = {[key: string]: any}> extends React.Component<NavItemProps> {}
+declare class NavItem<T = { [key: string]: any }> extends React.Component<NavItemProps> {}
 export default NavItem;

@@ -1,9 +1,9 @@
 import proxyaddr = require('proxy-addr');
 import { createServer } from 'http';
 
-createServer(req => {
+createServer((req) => {
     // $ExpectType string
-    proxyaddr(req, addr => addr === '127.0.0.1');
+    proxyaddr(req, (addr) => addr === '127.0.0.1');
     proxyaddr(req, (addr, i) => i < 1);
 
     proxyaddr(req, '127.0.0.1');

@@ -1,6 +1,4 @@
-
-
-let str : string;
+let str: string;
 str = oAuth2Server.pubSubNames.authCodes;
 str = oAuth2Server.pubSubNames.refreshTokens;
 
@@ -21,7 +19,5 @@ oAuth2Server.callMethod.authCodeGrant(
     'response_type',
     ['scope1', 'scope'],
     'state',
-    (err : Meteor.Error, result : OAuth2Server.AuthCodeGrantResult) => {
-
-    }
+    (err: Meteor.Error, result: OAuth2Server.AuthCodeGrantResult) => {},
 );

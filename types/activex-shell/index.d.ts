@@ -195,7 +195,7 @@ declare namespace Shell32 {
         SHIFT = 1,
         CTRL = 2,
         ALT = 4,
-        Extended = 8
+        Extended = 8,
     }
 
     // tslint:disable-next-line no-const-enum
@@ -207,7 +207,7 @@ declare namespace Shell32 {
         Minimized = 2,
 
         /** Activates the window and displays it as a maximized window. */
-        Maximized = 3
+        Maximized = 3,
     }
 
     /** Constants for Folder2.OfflineStatus */
@@ -286,7 +286,7 @@ declare namespace Shell32 {
         SFVVO_DOUBLECLICKINWEBVIEW = 0x00000080,
 
         /** The **Active Desktop – View as Web Page** option is enabled. */
-        SFVVO_DESKTOPHTML = 0x00000200
+        SFVVO_DESKTOPHTML = 0x00000200,
     }
 
     // tslint:disable-next-line no-const-enum
@@ -296,7 +296,7 @@ declare namespace Shell32 {
         EditMode = 3,
         DeselectAllButThis = 4,
         ScrollIntoView = 8,
-        Focus = 16
+        Focus = 16,
     }
 
     // tslint:disable-next-line no-const-enum
@@ -326,7 +326,7 @@ declare namespace Shell32 {
         NoLinkInfo = 64,
 
         /** Call the Windows Installer. */
-        InvokeMSI = 128
+        InvokeMSI = 128,
     }
 
     // tslint:disable-next-line no-const-enum
@@ -636,7 +636,12 @@ declare namespace Shell32 {
         readonly Application: any;
 
         /** Browse the name space for a Folder */
-        BrowseForFolder(Hwnd: number, Title: string, Options: number | BrowseInfoFlags, RootFolder?: string | ShellSpecialFolderConstants): Folder3;
+        BrowseForFolder(
+            Hwnd: number,
+            Title: string,
+            Options: number | BrowseInfoFlags,
+            RootFolder?: string | ShellSpecialFolderConstants,
+        ): Folder3;
 
         /** Determine if the current user can start/stop the named service. */
         CanStartStopService(ServiceName: string): boolean;
@@ -692,7 +697,9 @@ declare namespace Shell32 {
          *
          * `IsOS_Professional` -- Returns **true** if the operating system is Windows XP Professional Edition (_Windows XP only_)
          */
-        GetSystemInformation(Name: 'DirectoryServiceAvailable' | 'IsOS_DomainMember' | 'IsOS_Personal' | 'IsOS_Professional'): boolean;
+        GetSystemInformation(
+            Name: 'DirectoryServiceAvailable' | 'IsOS_DomainMember' | 'IsOS_Personal' | 'IsOS_Professional',
+        ): boolean;
 
         /**
          * `DoubleClickTime` -- The double-click time, in milliseconds
@@ -706,7 +713,14 @@ declare namespace Shell32 {
          *
          * `ProcessorSpeed` -- The processor speed, in megahertz (MHz)
          */
-        GetSystemInformation(Name: 'DoubleClickTime' | 'PhysicalMemoryInstalled' | 'ProcessorArchitecture' | 'ProcessorLevel' | 'ProcessorSpeed'): number;
+        GetSystemInformation(
+            Name:
+                | 'DoubleClickTime'
+                | 'PhysicalMemoryInstalled'
+                | 'ProcessorArchitecture'
+                | 'ProcessorLevel'
+                | 'ProcessorSpeed',
+        ): number;
 
         /** Display shell help */
         Help(): void;
@@ -996,11 +1010,15 @@ declare namespace Shell32 {
 
 interface ActiveXObject {
     on(
-        obj: Shell32.ShellFolderView, event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked', handler: (
-            this: Shell32.ShellFolderView, parameter: {}) => void): void;
+        obj: Shell32.ShellFolderView,
+        event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked',
+        handler: (this: Shell32.ShellFolderView, parameter: {}) => void,
+    ): void;
     on(
-        obj: Shell32.ShellFolderViewOC, event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked',
-        handler: (this: Shell32.ShellFolderViewOC, parameter: {}) => void): void;
+        obj: Shell32.ShellFolderViewOC,
+        event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked',
+        handler: (this: Shell32.ShellFolderViewOC, parameter: {}) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
@@ -1009,7 +1027,7 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: Shell32.FolderItems3): Enumerator<Shell32.ShellFolderItem>;
-    new(col: Shell32.FolderItemVerbs): Enumerator<Shell32.FolderItemVerb>;
-    new(col: Shell32.ShellWindows): Enumerator<SHDocVw.InternetExplorer>;
+    new (col: Shell32.FolderItems3): Enumerator<Shell32.ShellFolderItem>;
+    new (col: Shell32.FolderItemVerbs): Enumerator<Shell32.FolderItemVerb>;
+    new (col: Shell32.ShellWindows): Enumerator<SHDocVw.InternetExplorer>;
 }

@@ -6,10 +6,16 @@ declare namespace adone.math {
      */
     namespace simd {
         namespace I {
-            type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray
-                | Int16Array | Uint16Array
-                | Int32Array | Uint32Array
-                | Float32Array | Float64Array;
+            type TypedArray =
+                | Int8Array
+                | Uint8Array
+                | Uint8ClampedArray
+                | Int16Array
+                | Uint16Array
+                | Int32Array
+                | Uint32Array
+                | Float32Array
+                | Float64Array;
 
             /**
              * 128-bits divided into 4 lanes storing single precision floating point values.
@@ -24,9 +30,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Float32x4".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Float32x4;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Float32x4;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -187,7 +193,19 @@ declare namespace adone.math {
                  * @param value An instance of a SIMD data type to store into the typed array.
                  * @return The value that has been stored (a SIMD data type).
                  */
-                store3(tarray: Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array, index: number, value: Float32x4): Float32x4;
+                store3(
+                    tarray:
+                        | Uint8Array
+                        | Uint8ClampedArray
+                        | Int16Array
+                        | Uint16Array
+                        | Int32Array
+                        | Uint32Array
+                        | Float32Array
+                        | Float64Array,
+                    index: number,
+                    value: Float32x4,
+                ): Float32x4;
 
                 /**
                  * Creates a new SIMD data type with a float conversion from a Int32x4.
@@ -251,9 +269,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Int32x4".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Int32x4;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Int32x4;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -484,9 +502,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Int16x8".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Int16x8;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Int16x8;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -503,7 +521,16 @@ declare namespace adone.math {
                  * @param s7 A 16bit int specifying the value of the lane.
                  * @return SIMD.Int16x8 object
                  */
-                (s0?: number, s1?: number, s2?: number, s3?: number, s4?: number, s5?: number, s6?: number, s7?: number): Int16x8;
+                (
+                    s0?: number,
+                    s1?: number,
+                    s2?: number,
+                    s3?: number,
+                    s4?: number,
+                    s5?: number,
+                    s6?: number,
+                    s7?: number,
+                ): Int16x8;
 
                 prototype: Int16x8;
 
@@ -518,12 +545,33 @@ declare namespace adone.math {
                 /**
                  * Returns a new instance with the lane values swizzled.
                  */
-                swizzle(a: Int16x8, l1: number, l2: number, l3: number, l4: number, l5: number, l6: number, l7: number, l8: number): Int16x8;
+                swizzle(
+                    a: Int16x8,
+                    l1: number,
+                    l2: number,
+                    l3: number,
+                    l4: number,
+                    l5: number,
+                    l6: number,
+                    l7: number,
+                    l8: number,
+                ): Int16x8;
 
                 /**
                  * Returns a new instance with the lane values shuffled.
                  */
-                shuffle(a: Int16x8, b: Int16x8, l1: number, l2: number, l3: number, l4: number, l5: number, l6: number, l7: number, l8: number): Int16x8;
+                shuffle(
+                    a: Int16x8,
+                    b: Int16x8,
+                    l1: number,
+                    l2: number,
+                    l3: number,
+                    l4: number,
+                    l5: number,
+                    l6: number,
+                    l7: number,
+                    l8: number,
+                ): Int16x8;
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Int16x8. Throws a TypeError otherwise.
@@ -671,9 +719,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Int8x16".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Int8x16;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Int8x16;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -714,7 +762,7 @@ declare namespace adone.math {
                     s12?: number,
                     s13?: number,
                     s14?: number,
-                    s15?: number
+                    s15?: number,
                 ): Int8x16;
 
                 prototype: Int8x16;
@@ -747,7 +795,7 @@ declare namespace adone.math {
                     l13: number,
                     l14: number,
                     l15: number,
-                    l16: number
+                    l16: number,
                 ): Int8x16;
 
                 /**
@@ -771,7 +819,7 @@ declare namespace adone.math {
                     l13: number,
                     l14: number,
                     l15: number,
-                    l16: number
+                    l16: number,
                 ): Int8x16;
 
                 /**
@@ -920,9 +968,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Uint32x4".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Uint32x4;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Uint32x4;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -1151,9 +1199,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Uint16x8".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Uint16x8;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Uint16x8;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -1170,7 +1218,16 @@ declare namespace adone.math {
                  * @param s7 A 16bit uint specifying the value of the lane.
                  * @return SIMD.Uint16x8 object
                  */
-                (s0?: number, s1?: number, s2?: number, s3?: number, s4?: number, s5?: number, s6?: number, s7?: number): Uint16x8;
+                (
+                    s0?: number,
+                    s1?: number,
+                    s2?: number,
+                    s3?: number,
+                    s4?: number,
+                    s5?: number,
+                    s6?: number,
+                    s7?: number,
+                ): Uint16x8;
 
                 prototype: Uint16x8;
 
@@ -1185,12 +1242,33 @@ declare namespace adone.math {
                 /**
                  * Returns a new instance with the lane values swizzled.
                  */
-                swizzle(a: Uint16x8, l1: number, l2: number, l3: number, l4: number, l5: number, l6: number, l7: number, l8: number): Uint16x8;
+                swizzle(
+                    a: Uint16x8,
+                    l1: number,
+                    l2: number,
+                    l3: number,
+                    l4: number,
+                    l5: number,
+                    l6: number,
+                    l7: number,
+                    l8: number,
+                ): Uint16x8;
 
                 /**
                  * Returns a new instance with the lane values shuffled.
                  */
-                shuffle(a: Uint16x8, b: Uint16x8, l1: number, l2: number, l3: number, l4: number, l5: number, l6: number, l7: number, l8: number): Uint16x8;
+                shuffle(
+                    a: Uint16x8,
+                    b: Uint16x8,
+                    l1: number,
+                    l2: number,
+                    l3: number,
+                    l4: number,
+                    l5: number,
+                    l6: number,
+                    l7: number,
+                    l8: number,
+                ): Uint16x8;
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Uint16x8. Throws a TypeError otherwise.
@@ -1336,9 +1414,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Uint8x16".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Uint8x16;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Uint8x16;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -1379,7 +1457,7 @@ declare namespace adone.math {
                     s12?: number,
                     s13?: number,
                     s14?: number,
-                    s15?: number
+                    s15?: number,
                 ): Uint8x16;
 
                 prototype: Uint8x16;
@@ -1412,7 +1490,7 @@ declare namespace adone.math {
                     l13: number,
                     l14: number,
                     l15: number,
-                    l16: number
+                    l16: number,
                 ): Uint8x16;
 
                 /**
@@ -1436,7 +1514,7 @@ declare namespace adone.math {
                     l13: number,
                     l14: number,
                     l15: number,
-                    l16: number
+                    l16: number,
                 ): Uint8x16;
 
                 /**
@@ -1583,9 +1661,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Bool32x4".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Bool32x4;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Bool32x4;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -1660,9 +1738,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Bool16x8".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Bool16x8;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Bool16x8;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -1679,7 +1757,16 @@ declare namespace adone.math {
                  * @param s7 A 16bit bool specifying the value of the lane.
                  * @return SIMD.Bool16x8 object
                  */
-                (s0?: boolean, s1?: boolean, s2?: boolean, s3?: boolean, s4?: boolean, s5?: boolean, s6?: boolean, s7?: boolean): Bool16x8;
+                (
+                    s0?: boolean,
+                    s1?: boolean,
+                    s2?: boolean,
+                    s3?: boolean,
+                    s4?: boolean,
+                    s5?: boolean,
+                    s6?: boolean,
+                    s7?: boolean,
+                ): Bool16x8;
 
                 prototype: Bool16x8;
 
@@ -1741,9 +1828,9 @@ declare namespace adone.math {
                  * The initial value of the @@toStringTag property is the String value "SIMD.Bool8x16".
                  */
                 [Symbol.toStringTag]: string;
-                [Symbol.toPrimitive](hint: "string"): string;
-                [Symbol.toPrimitive](hint: "number"): number;
-                [Symbol.toPrimitive](hint: "default"): Bool8x16;
+                [Symbol.toPrimitive](hint: 'string'): string;
+                [Symbol.toPrimitive](hint: 'number'): number;
+                [Symbol.toPrimitive](hint: 'default'): Bool8x16;
                 [Symbol.toPrimitive](hint: string): any;
             }
 
@@ -1769,7 +1856,8 @@ declare namespace adone.math {
                  * @return SIMD.Bool8x16 object
                  */
                 (
-                    s0?: boolean, s1?: boolean,
+                    s0?: boolean,
+                    s1?: boolean,
                     s2?: boolean,
                     s3?: boolean,
                     s4?: boolean,
@@ -1783,7 +1871,7 @@ declare namespace adone.math {
                     s12?: boolean,
                     s13?: boolean,
                     s14?: boolean,
-                    s15?: boolean
+                    s15?: boolean,
                 ): Bool8x16;
 
                 prototype: Bool8x16;

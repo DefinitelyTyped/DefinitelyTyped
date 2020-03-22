@@ -34,8 +34,7 @@ declare namespace PouchDB {
     }
 
     interface Static {
-        new<Content extends {}>(name: string | null,
-                                options: AdapterCordovaSqlite.Configuration): Database<Content>;
+        new <Content extends {}>(name: string | null, options: AdapterCordovaSqlite.Configuration): Database<Content>;
     }
 }
 

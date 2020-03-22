@@ -9,7 +9,7 @@ async function selectQuery() {
 
     const json = await response.json();
 
-    json.results.bindings.forEach(binding => {
+    json.results.bindings.forEach((binding) => {
         console.log(`${binding.name.value} (${binding.name.termType})`);
     });
 }
@@ -41,13 +41,13 @@ async function updateQuery() {
 }
 
 async function oneTimeAuth() {
-    const endpoint = new SparqlHttp({endpointUrl: 'http://example.com/endpoint'});
+    const endpoint = new SparqlHttp({ endpointUrl: 'http://example.com/endpoint' });
 
     // authorize a single query
     endpoint.selectQuery('query', {
         headers: {
-            Authorization: 'Bearer token'
-        }
+            Authorization: 'Bearer token',
+        },
     });
 }
 
@@ -55,7 +55,7 @@ async function createAuthorizedCLient() {
     new SparqlHttp({
         endpointUrl: 'http://example.com/endpoint',
         defaultHeaders: {
-            Authorization: 'Bearer token'
-        }
+            Authorization: 'Bearer token',
+        },
     });
 }

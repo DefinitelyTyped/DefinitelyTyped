@@ -11,10 +11,10 @@ interface MyFantasticProps extends nodered.NodeProperties {
 }
 
 export = (RED: nodered.Red) => {
-    RED.nodes.registerType('my-fantastic-node', function(this: MyFantasticNode, props: MyFantasticProps) {
+    RED.nodes.registerType('my-fantastic-node', function (this: MyFantasticNode, props: MyFantasticProps) {
         RED.nodes.createNode(this, props);
         const config = RED.nodes.getNode(props.config);
-        RED.nodes.eachNode(node => {
+        RED.nodes.eachNode((node) => {
             RED.nodes.getNode(node.id);
         });
         this.log('Something fantastic happened.');
@@ -25,10 +25,10 @@ export = (RED: nodered.Red) => {
         this.status({ fill: 'red', shape: 'dot', text: 'status' });
         this.status({});
         this.send({ payload: 'Milk' });
-        this.send([[
-            { payload: 'FirstMessageFirstNode' },
-            { payload: 'SecondMessageFirstNode' },
-        ], { payload: "MessageSecondNode" }]);
+        this.send([
+            [{ payload: 'FirstMessageFirstNode' }, { payload: 'SecondMessageFirstNode' }],
+            { payload: 'MessageSecondNode' },
+        ]);
         this.on('close', () => {
             this.someResource.close();
         });

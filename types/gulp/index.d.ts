@@ -5,11 +5,11 @@
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as vfs from "vinyl-fs";
-import * as chokidar from "chokidar";
-import * as Undertaker from "undertaker";
-import * as fs from "fs";
-import { Duplex } from "stream";
+import * as vfs from 'vinyl-fs';
+import * as chokidar from 'chokidar';
+import * as Undertaker from 'undertaker';
+import * as fs from 'fs';
+import { Duplex } from 'stream';
 
 declare namespace GulpClient {
     type Globs = string | string[];

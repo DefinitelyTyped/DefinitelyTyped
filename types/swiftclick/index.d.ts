@@ -13,7 +13,7 @@ interface SwiftClickStatic {
     attach(contextEl: Element): SwiftClickObject;
 }
 
-declare module "swiftclick" {
+declare module 'swiftclick' {
     export = SwiftClick;
 }
 

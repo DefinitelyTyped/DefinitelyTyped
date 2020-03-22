@@ -2,8 +2,8 @@ import * as L from 'leaflet';
 import 'leaflet-rastercoords';
 
 const img = [
-    3831,  // original width of image (here from `example/karta.jpg`)
-    3101   // original height of image
+    3831, // original width of image (here from `example/karta.jpg`)
+    3101, // original height of image
 ];
 // create the map
 const map = L.map('map');
@@ -18,5 +18,5 @@ map.setView(rc.unproject([img[0], img[1]]), 2);
 
 // the tile layer containing the image generated with `gdal2tiles --leaflet -p raster -w none <img> tiles`
 L.tileLayer('./tiles/{z}/{x}/{y}.png', {
-  noWrap: true
+    noWrap: true,
 }).addTo(map);

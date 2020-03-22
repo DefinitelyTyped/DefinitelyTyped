@@ -1,5 +1,5 @@
 import * as ng from 'angular';
-import uiGrid = require("ui-grid");
+import uiGrid = require('ui-grid');
 
 interface IMyEntity {
     name: string;
@@ -10,7 +10,9 @@ var columnDef: uiGrid.IColumnDefOf<IMyEntity>;
 columnDef.aggregationHideLabel = true;
 columnDef.aggregationHideLabel = false;
 columnDef.aggregationType = 1;
-columnDef.aggregationType = function () { return 1; };
+columnDef.aggregationType = function () {
+    return 1;
+};
 columnDef.cellClass = 'test';
 columnDef.cellClass = (grid, gridRow, gridCol, rowIndex, colIndex) => {
     //types of grid, gridRow, gridCol, rowIndex and colIndex are flowed in correctly
@@ -25,7 +27,7 @@ columnDef.cellTooltip = function (gridRow: uiGrid.IGridRow, gridCol: uiGrid.IGri
 columnDef.defaultSort = {
     direction: 'ASC',
     ignoreSort: false,
-    priority: 1
+    priority: 1,
 };
 columnDef.displayName = 'Jumper';
 columnDef.enableColumnMenu = false;
@@ -41,13 +43,18 @@ columnDef.filter = {
     ariaLabel: 'testing',
     noTerm: false,
     flags: {
-        caseSensitive: true
+        caseSensitive: true,
     },
     type: 1,
-    selectOptions: [{value: 4, label: 'test'}],
-    disableCancelFilterButton: false
+    selectOptions: [{ value: 4, label: 'test' }],
+    disableCancelFilterButton: false,
 };
-columnDef.filter.condition = (searchTerm: string, cellValue: any, row: uiGrid.IGridRow, column: uiGrid.IGridColumn): boolean => {
+columnDef.filter.condition = (
+    searchTerm: string,
+    cellValue: any,
+    row: uiGrid.IGridRow,
+    column: uiGrid.IGridColumn,
+): boolean => {
     return true;
 };
 // the condition function does not need to declare all the parameters
@@ -58,17 +65,16 @@ columnDef.filterCellFiltered = false;
 columnDef.filterHeaderTemplate = '<div blah="test"></div>';
 columnDef.filters = [columnDef.filter];
 columnDef.footerCellClass = (grid, gridRow, gridCol, rowRenderIndex, colRenderIndex) => {
-        //types for grid, gridRow, gridCol, rowRenderIndex, and colRenderIndex flow in properly
-        return `${grid.footerHeight}-${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
-    };
+    //types for grid, gridRow, gridCol, rowRenderIndex, and colRenderIndex flow in properly
+    return `${grid.footerHeight}-${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
+};
 columnDef.footerCellClass = 'theClass';
 columnDef.footerCellFilter = 'currency:$';
 columnDef.footerCellTemplate = '<div class="yoshi"></div>';
-columnDef.headerCellClass =
-    (grid, gridRow, gridCol, rowRenderIndex, colRenderIndex) => {
-        //types for grid, gridRow, gridCol, rowRenderIndex, and colRenderIndex flow in properly
-        return `${grid.footerHeight}-${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
-    };
+columnDef.headerCellClass = (grid, gridRow, gridCol, rowRenderIndex, colRenderIndex) => {
+    //types for grid, gridRow, gridCol, rowRenderIndex, and colRenderIndex flow in properly
+    return `${grid.footerHeight}-${gridRow.entity.age}-${rowRenderIndex + 1}-${gridCol.field}-${colRenderIndex - 1}`;
+};
 columnDef.headerCellClass = 'classy';
 columnDef.headerCellFilter = 'currency:$';
 columnDef.headerCellTemplate = '<div class="yoshi"></div>';
@@ -79,27 +85,39 @@ columnDef.headerTooltip = (col) => {
     return col.displayName;
 };
 columnDef.maxWidth = 200;
-columnDef.menuItems = [{
-    title: 'title',
-    icon: 'ico',
-    action: ($event: ng.IAngularEvent) => {
-        alert('click');
+columnDef.menuItems = [
+    {
+        title: 'title',
+        icon: 'ico',
+        action: ($event: ng.IAngularEvent) => {
+            alert('click');
+        },
+        shown: () => {
+            return true;
+        },
+        active: () => {
+            return false;
+        },
+        context: { a: 'lala' },
+        leaveOpen: false,
     },
-    shown: () => { return true; },
-    active: () => { return false },
-    context: {a: 'lala'},
-    leaveOpen: false
-}];
+];
 columnDef.minWidth = 100;
 columnDef.name = 'MyColumn';
 columnDef.sort = {
     direction: 'ASC',
     ignoreSort: false,
-    priority: 1
+    priority: 1,
 };
 columnDef.sortCellFiltered = false;
 columnDef.sortDirectionCycle = [null, 'asc', 'desc'];
-columnDef.sortingAlgorithm = (a: any, b: any, rowA: uiGrid.IGridRowOf<IMyEntity>, rowB: uiGrid.IGridRowOf<IMyEntity>, direction: string) => {
+columnDef.sortingAlgorithm = (
+    a: any,
+    b: any,
+    rowA: uiGrid.IGridRowOf<IMyEntity>,
+    rowB: uiGrid.IGridRowOf<IMyEntity>,
+    direction: string,
+) => {
     return -1;
 };
 columnDef.suppressRemoveSort = false;
@@ -107,7 +125,6 @@ columnDef.type = 'Date';
 columnDef.visible = true;
 columnDef.width = 100;
 columnDef.width = '*';
-
 
 var gridApi: uiGrid.IGridApiOf<IMyEntity>;
 var gridInstance: uiGrid.IGridInstanceOf<IMyEntity>;
@@ -124,12 +141,12 @@ gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
 
 var gridOptions: uiGrid.IGridOptionsOf<IMyEntity> = {
-    data: [{name: 'Bob', age: 100}],
+    data: [{ name: 'Bob', age: 100 }],
     onRegisterApi: (api) => {
         api.selection.on.rowSelectionChanged(null, (row) => {
             console.log(row.entity.name);
-        })
-    }
+        });
+    },
 };
 gridOptions.isRowSelectable = () => true;
 gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.ALWAYS;
@@ -140,11 +157,11 @@ gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.WHEN_NEEDED;
 gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER;
 
 interface IAnotherEntity {
-    anObject: string
+    anObject: string;
 }
 var anotherGridInstance: uiGrid.IGridInstance;
 var rowEntityToScrollTo = {
-    anObject: 'inGridOptionsData'
+    anObject: 'inGridOptionsData',
 };
 var columnDefToScrollTo: uiGrid.IColumnDef;
 anotherGridInstance.scrollTo();

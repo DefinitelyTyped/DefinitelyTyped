@@ -11,7 +11,11 @@ class pLoader extends Hls.DefaultConfig.loader {
         this.load = (context: Hls.LoaderContext, cfg: Hls.LoaderConfig, callbacks: Hls.LoaderCallbacks) => {
             if (context.type === 'manifest') {
                 const onSuccess = callbacks.onSuccess;
-                callbacks.onSuccess = (response: Hls.LoaderResponse, stats: Hls.LoaderStats, context: Hls.LoaderContext) => {
+                callbacks.onSuccess = (
+                    response: Hls.LoaderResponse,
+                    stats: Hls.LoaderStats,
+                    context: Hls.LoaderContext,
+                ) => {
                     response.data = process(response.data as string);
                     onSuccess(response, stats, context);
                 };
@@ -22,13 +26,13 @@ class pLoader extends Hls.DefaultConfig.loader {
 }
 
 if (Hls.isSupported()) {
-    const video = <HTMLVideoElement> document.getElementById('video');
+    const video = <HTMLVideoElement>document.getElementById('video');
     const hls = new Hls({
         pLoader,
         startFragPrefetch: true,
         debug: {
-            log: (...args: any[]) => console.log(...args)
-        }
+            log: (...args: any[]) => console.log(...args),
+        },
     });
 
     const version: string = Hls.version;
@@ -39,22 +43,25 @@ if (Hls.isSupported()) {
         console.log('src: ', hls.media.src);
     }
 
-    hls.once(Hls.Events.MANIFEST_PARSED, (event: "hlsManifestParsed", data: Hls.manifestParsedData) => {
+    hls.once(Hls.Events.MANIFEST_PARSED, (event: 'hlsManifestParsed', data: Hls.manifestParsedData) => {
         video.play();
     });
 
-    const onFragBuffered = (event: "hlsFragBuffered", data: Hls.fragBufferedData) => {
+    const onFragBuffered = (event: 'hlsFragBuffered', data: Hls.fragBufferedData) => {
         // DO SOMETHING
     };
 
     hls.on(Hls.Events.FRAG_BUFFERED, onFragBuffered);
     hls.off(Hls.Events.FRAG_BUFFERED, onFragBuffered);
 
-    hls.on(Hls.Events.FRAG_LOAD_EMERGENCY_ABORTED, (event: "hlsFragLoadEmergencyAborted", data: Hls.fragLoadEmergencyAbortedData) => {
-        console.log('frag: ', data.frag);
-    });
+    hls.on(
+        Hls.Events.FRAG_LOAD_EMERGENCY_ABORTED,
+        (event: 'hlsFragLoadEmergencyAborted', data: Hls.fragLoadEmergencyAbortedData) => {
+            console.log('frag: ', data.frag);
+        },
+    );
 
-    hls.on(Hls.Events.ERROR, (event: "hlsError", data: Hls.errorData) => {
+    hls.on(Hls.Events.ERROR, (event: 'hlsError', data: Hls.errorData) => {
         const errorType = data.type;
         const errorDetails = data.details;
         const errorFatal = data.fatal;

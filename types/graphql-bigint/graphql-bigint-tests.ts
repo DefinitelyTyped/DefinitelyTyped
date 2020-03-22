@@ -8,6 +8,6 @@ const fooType = new GraphQLObjectType({
         created: {
             type: GraphQLBigInt,
             description: 'BigInt foo was created',
-        }
-    }
+        },
+    },
 });

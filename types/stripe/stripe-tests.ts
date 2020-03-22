@@ -14,7 +14,7 @@ stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K', {
     timeout: 1000,
     host: 'api.example.com',
     port: 123,
-    telemetry: true
+    telemetry: true,
 });
 
 stripe = new Stripe('sk_test_BF573NobVn98OiIsPAv7A04K', {});
@@ -33,25 +33,25 @@ stripe.setAppInfo({
 stripe.setTelemetryEnabled(true); // $ExpectType void
 stripe.getTelemetryEnabled(); // $ExpectType boolean
 
-stripe.on('request', event => {});
-stripe.on('response', event => {});
-stripe.once('request', event => {});
-stripe.once('response', event => {});
-stripe.off('request', event => {});
-stripe.off('response', event => {});
+stripe.on('request', (event) => {});
+stripe.on('response', (event) => {});
+stripe.once('request', (event) => {});
+stripe.once('response', (event) => {});
+stripe.off('request', (event) => {});
+stripe.off('response', (event) => {});
 
 // generic list tests
 // ##################################################################################
-stripe.balance.listTransactions().then(items => {
+stripe.balance.listTransactions().then((items) => {
     items; // $ExpectType IList<IBalanceTransaction>
 });
-stripe.balance.listTransactions().autoPagingEach(async item => {
+stripe.balance.listTransactions().autoPagingEach(async (item) => {
     item; // $ExpectType IBalanceTransaction
 });
 stripe.balance
     .listTransactions()
     .autoPagingToArray({ limit: 1 })
-    .then(items => {
+    .then((items) => {
         items; // $ExpectType IBalanceTransaction[]
     });
 async function testAutoPaging() {
@@ -66,24 +66,24 @@ async function testAutoPaging() {
 stripe.balance.retrieve((err, balance) => {
     // asynchronously called
 });
-stripe.balance.retrieve().then(balance => {
+stripe.balance.retrieve().then((balance) => {
     // asynchronously called
 });
 
 stripe.balance.retrieveTransaction('txn_17xMvmBoqMA9o2xkYNH2ewNj', (err, balanceTransaction) => {
     // asynchronously called
 });
-stripe.balance.retrieveTransaction('txn_17xMvmBoqMA9o2xkYNH2ewNj').then(balanceTransaction => {
+stripe.balance.retrieveTransaction('txn_17xMvmBoqMA9o2xkYNH2ewNj').then((balanceTransaction) => {
     // asynchronously called
 });
 
 stripe.balance.listTransactions({ limit: 3 }, (err, transactions) => {
     // asynchronously called
 });
-stripe.balance.listTransactions({ limit: 3 }).then(transactions => {
+stripe.balance.listTransactions({ limit: 3 }).then((transactions) => {
     // asynchronously called
 });
-stripe.balance.listTransactions().then(transactions => {
+stripe.balance.listTransactions().then((transactions) => {
     // asynchronously called
 });
 //#endregion
@@ -94,17 +94,17 @@ stripe.balance.listTransactions().then(transactions => {
 stripe.balanceTransactions.retrieve('txn_17xMvmBoqMA9o2xkYNH2ewNj', (err, balanceTransaction) => {
     // asynchronously called
 });
-stripe.balanceTransactions.retrieve('txn_17xMvmBoqMA9o2xkYNH2ewNj').then(balanceTransaction => {
+stripe.balanceTransactions.retrieve('txn_17xMvmBoqMA9o2xkYNH2ewNj').then((balanceTransaction) => {
     // asynchronously called
 });
 
 stripe.balanceTransactions.list({ limit: 3 }, (err, balanceTransactions) => {
     // asynchronously called
 });
-stripe.balanceTransactions.list({ limit: 3 }).then(balanceTransactions => {
+stripe.balanceTransactions.list({ limit: 3 }).then((balanceTransactions) => {
     // asynchronously called
 });
-stripe.balanceTransactions.list().then(balanceTransactions => {
+stripe.balanceTransactions.list().then((balanceTransactions) => {
     // asynchronously called
 });
 //#endregion
@@ -130,29 +130,29 @@ stripe.charges
         source: 'tok_17wV94BoqMA9o2xkhlAd3ALf', // obtained with Stripe.js
         description: 'Charge for test@example.com',
     })
-    .then(charge => {
+    .then((charge) => {
         // asynchronously called
 
         charge.payment_intent; // $ExpectType string
         charge.payment_method; // $ExpectType string
         charge.payment_method_details; // $ExpectType IPaymentMethodDetails
 
-        charge.refunds.create().then(refund => {
+        charge.refunds.create().then((refund) => {
             const reason = refund.failure_reason;
             // asynchronously called
         });
-        charge.refunds.create({ amount: 100 }).then(refund => {
+        charge.refunds.create({ amount: 100 }).then((refund) => {
             // asynchronously called
         });
 
-        charge.refunds.retrieve('re_15jzA4Ee31JkLCeQcxbTbjaL').then(refund => {
+        charge.refunds.retrieve('re_15jzA4Ee31JkLCeQcxbTbjaL').then((refund) => {
             const status: 'pending' | 'succeeded' | 'failed' | 'canceled' = refund.status;
         });
 
-        charge.refunds.update('re_15jzA4Ee31JkLCeQcxbTbjaL', { metadata: { test: 'data' } }).then(refund => {});
+        charge.refunds.update('re_15jzA4Ee31JkLCeQcxbTbjaL', { metadata: { test: 'data' } }).then((refund) => {});
 
-        charge.refunds.list({ limit: 3 }).then(refund => {});
-        charge.refunds.list().then(refund => {});
+        charge.refunds.list({ limit: 3 }).then((refund) => {});
+        charge.refunds.list().then((refund) => {});
     });
 stripe.charges.create(
     {
@@ -175,7 +175,7 @@ stripe.charges.retrieve('ch_15fvyXEe31JkLCeQOo0SwFk9', (err, charge) => {
         charge.application_fee.amount;
     }
 });
-stripe.charges.retrieve('ch_15fvyXEe31JkLCeQOo0SwFk9').then(charge => {
+stripe.charges.retrieve('ch_15fvyXEe31JkLCeQOo0SwFk9').then((charge) => {
     // asynchronously called
     if (typeof charge.application_fee === 'object') {
         charge.application_fee.amount;
@@ -196,47 +196,47 @@ stripe.charges
     .update('ch_15fvyXEe31JkLCeQOo0SwFk9', {
         description: 'Charge for test@example.com',
     })
-    .then(charge => {
+    .then((charge) => {
         // asynchronously called
     });
 
 stripe.charges.capture('ch_15fvyXEe31JkLCeQOo0SwFk9', { amount: 1 }, {}, (err, charge) => {
     // asynchronously called
 });
-stripe.charges.capture('ch_15fvyXEe31JkLCeQOo0SwFk9', { amount: 1 }, {}).then(charge => {
+stripe.charges.capture('ch_15fvyXEe31JkLCeQOo0SwFk9', { amount: 1 }, {}).then((charge) => {
     // asynchronously called
 });
 stripe.charges.capture('ch_15fvyXEe31JkLCeQOo0SwFk9', {}, {}, (err, charge) => {
     // asynchronously called
 });
-stripe.charges.capture('ch_15fvyXEe31JkLCeQOo0SwFk9', {}).then(charge => {
+stripe.charges.capture('ch_15fvyXEe31JkLCeQOo0SwFk9', {}).then((charge) => {
     // asynchronously called
 });
-stripe.charges.capture('ch_15fvyXEe31JkLCeQOo0SwFk9').then(charge => {
+stripe.charges.capture('ch_15fvyXEe31JkLCeQOo0SwFk9').then((charge) => {
     // asynchronously called
 });
 
 stripe.charges.list({ limit: 3 }, (err, charges) => {
     // asynchronously called
 });
-stripe.charges.list({ limit: 3 }).then(charges => {
+stripe.charges.list({ limit: 3 }).then((charges) => {
     // asynchronously called
 });
 
 stripe.charges.refund('ch_15fvyXEe31JkLCeQOo0SwFk9', {}, (err, refund) => {
     // asynchronously called
 });
-stripe.charges.refund('ch_15fvyXEe31JkLCeQOo0SwFk9', {}).then(refund => {
+stripe.charges.refund('ch_15fvyXEe31JkLCeQOo0SwFk9', {}).then((refund) => {
     // asynchronously called
 });
-stripe.charges.refund('ch_15fvyXEe31JkLCeQOo0SwFk9').then(refund => {
+stripe.charges.refund('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refund) => {
     // asynchronously called
 });
 
 stripe.charges.retrieveRefund('ch_15fvyXEe31JkLCeQOo0SwFk9', 're_15jzA4Ee31JkLCeQcxbTbjaL', (err, refund) => {
     // asynchronously called
 });
-stripe.charges.retrieveRefund('ch_15fvyXEe31JkLCeQOo0SwFk9', 're_15jzA4Ee31JkLCeQcxbTbjaL').then(refund => {
+stripe.charges.retrieveRefund('ch_15fvyXEe31JkLCeQOo0SwFk9', 're_15jzA4Ee31JkLCeQcxbTbjaL').then((refund) => {
     // asynchronously called
 });
 
@@ -246,7 +246,7 @@ stripe.charges.createRefund('ch_15fvyXEe31JkLCeQOo0SwFk9', {}, (err, refund) => 
 stripe.charges.createRefund('ch_15fvyXEe31JkLCeQOo0SwFk9', (err, refund) => {
     // asynchronously called
 });
-stripe.charges.createRefund('ch_15fvyXEe31JkLCeQOo0SwFk9').then(refund => {
+stripe.charges.createRefund('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refund) => {
     // asynchronously called
 });
 
@@ -260,34 +260,34 @@ stripe.charges.updateRefund(
 );
 stripe.charges
     .updateRefund('ch_15fvyXEe31JkLCeQOo0SwFk9', 're_15jzA4Ee31JkLCeQcxbTbjaL', { metadata: { key: 'value' } })
-    .then(refund => {
+    .then((refund) => {
         // asynchronously called
     });
 
 stripe.charges.listRefunds('ch_15fvyXEe31JkLCeQOo0SwFk9', (err, refunds) => {
     // asynchronously called
 });
-stripe.charges.listRefunds('ch_15fvyXEe31JkLCeQOo0SwFk9').then(refunds => {
+stripe.charges.listRefunds('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refunds) => {
     // asynchronously called
 });
 stripe.charges.listRefunds('ch_15fvyXEe31JkLCeQOo0SwFk9', { limit: 3 }, (err, refunds) => {
     // asynchronously called
 });
-stripe.charges.listRefunds('ch_15fvyXEe31JkLCeQOo0SwFk9', { limit: 3 }).then(refunds => {
+stripe.charges.listRefunds('ch_15fvyXEe31JkLCeQOo0SwFk9', { limit: 3 }).then((refunds) => {
     // asynchronously called
 });
 
 stripe.charges.markAsSafe('ch_15fvyXEe31JkLCeQOo0SwFk9', (err, refunds) => {
     // asynchronously called
 });
-stripe.charges.markAsSafe('ch_15fvyXEe31JkLCeQOo0SwFk9').then(refunds => {
+stripe.charges.markAsSafe('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refunds) => {
     // asynchronously called
 });
 
 stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9', (err, refunds) => {
     // asynchronously called
 });
-stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then(refunds => {
+stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refunds) => {
     // asynchronously called
 });
 
@@ -316,10 +316,10 @@ stripe.checkout.sessions.create(
     },
 );
 
-stripe.checkout.sessions.retrieve('ch_test_123').then(session => {
+stripe.checkout.sessions.retrieve('ch_test_123').then((session) => {
     session; // $ExpectType ICheckoutSession
 });
-stripe.checkout.sessions.retrieve('ch_test_123', { expand: ['payment_intent'] }).then(session => {
+stripe.checkout.sessions.retrieve('ch_test_123', { expand: ['payment_intent'] }).then((session) => {
     session.payment_intent; // $ExpectType string | IPaymentIntent
 });
 
@@ -446,18 +446,18 @@ stripe.creditNotes
         amount: 100,
         invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb',
     })
-    .then(creditNote => {
+    .then((creditNote) => {
         creditNote; // $ExpectType ICreditNote
     });
 
 stripe.creditNotes.retrieve('cn_1FsAjKFpRTWZADwSy2clIZum', (err, creditNote) => {
     creditNote; // $ExpectType ICreditNote
 });
-stripe.creditNotes.retrieve('cn_1FsAjKFpRTWZADwSy2clIZum').then(creditNote => {
+stripe.creditNotes.retrieve('cn_1FsAjKFpRTWZADwSy2clIZum').then((creditNote) => {
     creditNote; // $ExpectType ICreditNote
 });
 
-stripe.creditNotes.retrieve('cn_1FsAjKFpRTWZADwSy2clIZum', { expand: ['refund'] }).then(creditNote => {
+stripe.creditNotes.retrieve('cn_1FsAjKFpRTWZADwSy2clIZum', { expand: ['refund'] }).then((creditNote) => {
     creditNote.refund;
 });
 
@@ -474,14 +474,14 @@ stripe.creditNotes
     .update('cn_1FsAjKFpRTWZADwSy2clIZum', {
         memo: 'foobar',
     })
-    .then(creditNote => {
+    .then((creditNote) => {
         creditNote; // $ExpectType ICreditNote
     });
 
 stripe.creditNotes.list({ invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb', limit: 3 }, (err, creditNotes) => {
     creditNotes; // $ExpectType IList<ICreditNote>
 });
-stripe.creditNotes.list({ invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb', limit: 3 }).then(creditNotes => {
+stripe.creditNotes.list({ invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb', limit: 3 }).then((creditNotes) => {
     creditNotes; // $ExpectType IList<ICreditNote>
 });
 
@@ -489,7 +489,7 @@ stripe.creditNotes.voidCreditNote('cn_1FsAjKFpRTWZADwSy2clIZum', (err, creditNot
     creditNote; // $ExpectType ICreditNote
 });
 
-stripe.creditNotes.voidCreditNote('cn_1FsAjKFpRTWZADwSy2clIZum').then(creditNote => {
+stripe.creditNotes.voidCreditNote('cn_1FsAjKFpRTWZADwSy2clIZum').then((creditNote) => {
     creditNote; // $ExpectType ICreditNote
 });
 
@@ -522,31 +522,31 @@ stripe.customers
         source: 'tok_15V2YhEe31JkLCeQy9iUgsJX', // obtained with Stripe.js
         metadata: null, // IOptionsMetadata test
     })
-    .then(customer => {
+    .then((customer) => {
         // asynchronously called
-        customer.cards.create({ card: 'tok_17wV94BoqMA9o2xkhlAd3ALf' }).then(customer => {});
-        customer.cards.retrieve('card_17xMvXBoqMA9o2xkq6W5gamx').then(card => {
+        customer.cards.create({ card: 'tok_17wV94BoqMA9o2xkhlAd3ALf' }).then((customer) => {});
+        customer.cards.retrieve('card_17xMvXBoqMA9o2xkq6W5gamx').then((card) => {
             const strCustomer: string = card.customer as string;
             const objCustomer: customers.ICustomer = card.customer as customers.ICustomer;
         });
-        customer.cards.update('card_17xMvXBoqMA9o2xkq6W5gamx', { name: 'Test' }).then(card => {});
-        customer.cards.list().then(cards => {});
-        customer.cards.del('card_17xMvXBoqMA9o2xkq6W5gamx').then(confirmation => {});
+        customer.cards.update('card_17xMvXBoqMA9o2xkq6W5gamx', { name: 'Test' }).then((card) => {});
+        customer.cards.list().then((cards) => {});
+        customer.cards.del('card_17xMvXBoqMA9o2xkq6W5gamx').then((confirmation) => {});
 
-        customer.subscriptions.create({ items: [{ plan: 'gold' }], trial_period_days: 7 }).then(subscription => {});
+        customer.subscriptions.create({ items: [{ plan: 'gold' }], trial_period_days: 7 }).then((subscription) => {});
         customer.subscriptions
             .create({ items: [{ plan: 'gold' }], trial_end: 'now', billing_cycle_anchor: 1516881177, prorate: true })
-            .then(subscription => {});
+            .then((subscription) => {});
         customer.subscriptions
             .create({ items: [{ plan: 'gold' }], trial_end: 1516881177, billing: 'send_invoice', days_until_due: 7 })
-            .then(subscription => {});
+            .then((subscription) => {});
         customer.subscriptions
             .create({ items: [{ plan: 'gold' }], billing: 'charge_automatically' })
-            .then(subscription => {});
-        customer.subscriptions.retrieve('sub_8Eluur5KoIKxuy').then(subscription => {
+            .then((subscription) => {});
+        customer.subscriptions.retrieve('sub_8Eluur5KoIKxuy').then((subscription) => {
             customer.subscriptions
                 .update('sub_8Eluur5KoIKxuy', { items: [{ id: subscription.items.data[0].id, plan: 'silver' }] })
-                .then(subscription => {});
+                .then((subscription) => {});
         });
         customer.subscriptions.update('sub_8Eluur5KoIKxuy', { trial_end: 'now', billing_cycle_anchor: 'now' });
         customer.subscriptions.update('sub_8Eluur5KoIKxuy', {
@@ -556,9 +556,9 @@ stripe.customers
             billing_cycle_anchor: 'unchanged',
             cancel_at_period_end: false,
         });
-        customer.subscriptions.list().then(subscriptions => {});
-        customer.subscriptions.del('sub_8Eluur5KoIKxuy').then(subscription => {});
-        customer.subscriptions.deleteDiscount('sub_8Eluur5KoIKxuy').then(confirmation => {});
+        customer.subscriptions.list().then((subscriptions) => {});
+        customer.subscriptions.del('sub_8Eluur5KoIKxuy').then((subscription) => {});
+        customer.subscriptions.deleteDiscount('sub_8Eluur5KoIKxuy').then((confirmation) => {});
 
         const str = '123';
         // IAddress tests:
@@ -637,7 +637,7 @@ stripe.customers
         },
         { stripe_account: '' },
     )
-    .then(customer => {});
+    .then((customer) => {});
 
 // {"now"} for trial_end
 stripe.customers.create({
@@ -662,7 +662,7 @@ stripe.customers.retrieve('cus_5rfJKDJkuxzh5Q', (err, customer) => {
         card.brand;
     });
 });
-stripe.customers.retrieve('cus_5rfJKDJkuxzh5Q').then(customer => {
+stripe.customers.retrieve('cus_5rfJKDJkuxzh5Q').then((customer) => {
     // asynchronously called
 });
 
@@ -684,32 +684,32 @@ stripe.customers
     .update('cus_5rfJKDJkuxzh5Q', {
         description: 'Customer for test@example.com',
     })
-    .then(customer => {
+    .then((customer) => {
         // asynchronously called
     });
 
 stripe.customers.del('cus_5rfJKDJkuxzh5Q', (err, confirmation) => {
     // asynchronously called
 });
-stripe.customers.del('cus_5rfJKDJkuxzh5Q').then(confirmation => {
+stripe.customers.del('cus_5rfJKDJkuxzh5Q').then((confirmation) => {
     // asynchronously called
 });
 
 stripe.customers.list({ limit: 3 }, (err, customers) => {
     // asynchronously called
 });
-stripe.customers.list({ limit: 3 }).then(customers => {
+stripe.customers.list({ limit: 3 }).then((customers) => {
     // asynchronously called
 });
 
-stripe.customers.list({ email: 'test@example.com' }).then(customers => {
+stripe.customers.list({ email: 'test@example.com' }).then((customers) => {
     // asynchronously called
 });
 
 stripe.customers.createCard('cus_5rfJKDJkuxzh5Q', { card: 'tok_15V2YhEe31JkLCeQy9iUgsJX' }, (err, card) => {
     // asynchronously called
 });
-stripe.customers.createCard('cus_5rfJKDJkuxzh5Q', { card: 'tok_15V2YhEe31JkLCeQy9iUgsJX' }).then(card => {
+stripe.customers.createCard('cus_5rfJKDJkuxzh5Q', { card: 'tok_15V2YhEe31JkLCeQy9iUgsJX' }).then((card) => {
     // asynchronously called
 });
 
@@ -717,7 +717,7 @@ stripe.customers.createSource('cus_5rfJKDJkuxzh5Q', { source: 'tok_15V2YhEe31JkL
     const card = source as Stripe.ICard;
     const bankAcc = source as Stripe.IBankAccount;
 });
-stripe.customers.createSource('cus_5rfJKDJkuxzh5Q', { source: 'tok_15V2YhEe31JkLCeQy9iUgsJX' }).then(source => {
+stripe.customers.createSource('cus_5rfJKDJkuxzh5Q', { source: 'tok_15V2YhEe31JkLCeQy9iUgsJX' }).then((source) => {
     const card = source as Stripe.ICard;
     const bankAcc = source as Stripe.IBankAccount;
 });
@@ -746,7 +746,7 @@ stripe.customers
             number: '4242424242424242',
         },
     })
-    .then(card => {
+    .then((card) => {
         // asynchronously called
         const obj: Stripe.ICard = card;
     });
@@ -796,7 +796,7 @@ stripe.customers
             routing_number: '110000000',
         },
     })
-    .then(bankAcc => {
+    .then((bankAcc) => {
         // asynchronously called
         bankAcc; // $ExpectType IBankAccount
     });
@@ -810,7 +810,7 @@ stripe.customers.retrieveCard('cus_5rfJKDJkuxzh5Q', 'card_15fvyXEe31JkLCeQ9KMktP
     // asynchronously called
     const obj: Stripe.ICard = card;
 });
-stripe.customers.retrieveCard('cus_5rfJKDJkuxzh5Q', 'card_15fvyXEe31JkLCeQ9KMktP5S').then(card => {
+stripe.customers.retrieveCard('cus_5rfJKDJkuxzh5Q', 'card_15fvyXEe31JkLCeQ9KMktP5S').then((card) => {
     // asynchronously called
     const obj: Stripe.ICard = card;
 });
@@ -827,7 +827,7 @@ stripe.customers.updateCard(
 
 stripe.customers
     .updateCard('cus_5rfJKDJkuxzh5Q', 'card_15fvyXEe31JkLCeQ9KMktP5S', { name: 'Jane Austen' })
-    .then(card => {
+    .then((card) => {
         // asynchronously called
         const obj: Stripe.ICard = card;
     });
@@ -835,28 +835,28 @@ stripe.customers
 stripe.customers.deleteCard('cus_5rfJKDJkuxzh5Q', 'card_15fvyXEe31JkLCeQ9KMktP5S', (err, confirmation) => {
     // asynchronously called
 });
-stripe.customers.deleteCard('cus_5rfJKDJkuxzh5Q', 'card_15fvyXEe31JkLCeQ9KMktP5S').then(confirmation => {
+stripe.customers.deleteCard('cus_5rfJKDJkuxzh5Q', 'card_15fvyXEe31JkLCeQ9KMktP5S').then((confirmation) => {
     // asynchronously called
 });
 
 stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc', null, (err, cards) => {
     // asynchronously called
 });
-stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc', null).then(cards => {
+stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc', null).then((cards) => {
     // asynchronously called
 });
 
 stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc', (err, cards) => {
     // asynchronously called
 });
-stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc').then(cards => {
+stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc').then((cards) => {
     // asynchronously called
 });
 
 stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null, (err, cards) => {
     // asynchronously called
 });
-stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null).then(cards => {
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null).then((cards) => {
     // asynchronously called
 });
 stripe.customers
@@ -864,7 +864,7 @@ stripe.customers
         object: 'card',
         limit: 100,
     })
-    .then(cards => {
+    .then((cards) => {
         // asynchronously called
     });
 stripe.customers
@@ -872,14 +872,14 @@ stripe.customers
         object: 'bank_account',
         limit: 100,
     })
-    .then(cards => {
+    .then((cards) => {
         // asynchronously called
     });
 
 stripe.customers.retrieveSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp', (err, subscription) => {
     // asynchronously called
 });
-stripe.customers.retrieveSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp').then(subscription => {
+stripe.customers.retrieveSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp').then((subscription) => {
     // asynchronously called
 });
 
@@ -895,49 +895,49 @@ stripe.customers
     .updateSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp', {
         items: [{ id: 'si_62U5U5BoqBA2o2xp6Eqcl6J7', plan: 'platypi-dev' }],
     })
-    .then(subscription => {
+    .then((subscription) => {
         // asynchronously called
     });
 
 stripe.customers.cancelSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp', null, (err, confirmation) => {
     // asynchronously called
 });
-stripe.customers.cancelSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp', null).then(confirmation => {
+stripe.customers.cancelSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp', null).then((confirmation) => {
     // asynchronously called
 });
 
 stripe.customers.cancelSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp', (err, confirmation) => {
     // asynchronously called
 });
-stripe.customers.cancelSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp').then(confirmation => {
+stripe.customers.cancelSubscription('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp').then((confirmation) => {
     // asynchronously called
 });
 
 stripe.customers.listSubscriptions('cu_15fvyVEe31JkLCeQvr155iqc', null, (err, subscriptions) => {
     // asynchronously called
 });
-stripe.customers.listSubscriptions('cu_15fvyVEe31JkLCeQvr155iqc', null).then(subscriptions => {
+stripe.customers.listSubscriptions('cu_15fvyVEe31JkLCeQvr155iqc', null).then((subscriptions) => {
     // asynchronously called
 });
 
 stripe.customers.listSubscriptions('cu_15fvyVEe31JkLCeQvr155iqc', (err, subscriptions) => {
     // asynchronously called
 });
-stripe.customers.listSubscriptions('cu_15fvyVEe31JkLCeQvr155iqc').then(subscriptions => {
+stripe.customers.listSubscriptions('cu_15fvyVEe31JkLCeQvr155iqc').then((subscriptions) => {
     // asynchronously called
 });
 
 stripe.customers.deleteDiscount('cus_5rfJKDJkuxzh5Q', (err, confirmation) => {
     // asynchronously called
 });
-stripe.customers.deleteDiscount('cus_5rfJKDJkuxzh5Q').then(confirmation => {
+stripe.customers.deleteDiscount('cus_5rfJKDJkuxzh5Q').then((confirmation) => {
     // asynchronously called
 });
 
 stripe.customers.deleteSubscriptionDiscount('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp', (err, confirmation) => {
     // asynchronously called
 });
-stripe.customers.deleteSubscriptionDiscount('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp').then(confirmation => {
+stripe.customers.deleteSubscriptionDiscount('cus_5rfJKDJkuxzh5Q', 'sub_5rfJxnBLGSwsYp').then((confirmation) => {
     // asynchronously called
 });
 
@@ -952,7 +952,7 @@ stripe.customers.createBalanceTransaction(
 
 stripe.customers
     .createBalanceTransaction('cus_5rfJKDJkuxzh5Q', { amount: -1000, currency: 'usd' })
-    .then(transaction => {
+    .then((transaction) => {
         // asynchronously called
     });
 
@@ -970,7 +970,7 @@ stripe.customers
     .updateBalanceTransaction('cus_5rfJKDJkuxzh5Q', 'cbtxn_1FKTaPJzPJMCPpdPMDh9CxBe', {
         description: 'Some description',
     })
-    .then(transaction => {
+    .then((transaction) => {
         // asynchronously called
     });
 
@@ -984,7 +984,7 @@ stripe.customers.retrieveBalanceTransaction(
 
 stripe.customers
     .retrieveBalanceTransaction('cus_5rfJKDJkuxzh5Q', 'cbtxn_1FKTaPJzPJMCPpdPMDh9CxBe')
-    .then(transaction => {
+    .then((transaction) => {
         // asynchronously called
     });
 
@@ -992,7 +992,7 @@ stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc', null, (e
     // asynchronously called
 });
 
-stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc', null).then(transactions => {
+stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc', null).then((transactions) => {
     // asynchronously called
 });
 
@@ -1000,7 +1000,7 @@ stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc', (err, tr
     // asynchronously called
 });
 
-stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc').then(transactions => {
+stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc').then((transactions) => {
     // asynchronously called
 });
 
@@ -1094,7 +1094,7 @@ stripe.topups
         source: 'sourceId',
         transfer_group: 'transfer group',
     })
-    .then(topup => {
+    .then((topup) => {
         topup; // $ExpectType ITopup
     });
 
@@ -1102,7 +1102,7 @@ stripe.topups.retrieve('tu_123456789', (err, topup) => {
     topup; // $ExpetType ITopup
 });
 
-stripe.topups.retrieve('tu_123456789').then(topup => {
+stripe.topups.retrieve('tu_123456789').then((topup) => {
     topup; // $ExpectType ITopup
 });
 
@@ -1114,7 +1114,7 @@ stripe.topups.update('tu_123456789', { metadata: { order_id: '6735' }, descripti
     topup; // $ExpectType ITopup
 });
 
-stripe.topups.update('tu_123456789', { metadata: { order_id: '6735' } }).then(topup => {
+stripe.topups.update('tu_123456789', { metadata: { order_id: '6735' } }).then((topup) => {
     topup; // $ExpectType ITopup
 });
 
@@ -1126,7 +1126,7 @@ stripe.topups.list({ amount: { gt: '24', lt: '50' }, limit: 3, status: 'succeede
     topups; // $ExpectType IList<ITopup>
 });
 
-stripe.topups.list({ limit: 3 }).then(topups => {
+stripe.topups.list({ limit: 3 }).then((topups) => {
     topups; // $ExpectType IList<ITopup>
 });
 
@@ -1134,7 +1134,7 @@ stripe.topups.cancel('tu_123456789', (err, topup) => {
     topup; // $ExpectType ITopup
 });
 
-stripe.topups.cancel('tu_123456789').then(topup => {
+stripe.topups.cancel('tu_123456789').then((topup) => {
     topup; // $ExpectType ITopup
 });
 
@@ -1164,7 +1164,7 @@ stripe.transfers
         source_type: 'bank_account',
         transfer_group: 'Order_X',
     })
-    .then(reversal => {
+    .then((reversal) => {
         // asynchronously called
     });
 
@@ -1177,7 +1177,7 @@ stripe.transfers.createReversal('tr_17F2JBFuhr4V1legrq97JrFE', (err, reversal) =
     // asynchronously called
 });
 
-stripe.transfers.createReversal('tr_17F2JBFuhr4V1legrq97JrFE').then(reversal => {
+stripe.transfers.createReversal('tr_17F2JBFuhr4V1legrq97JrFE').then((reversal) => {
     // asynchronously called
 });
 
@@ -1212,14 +1212,14 @@ stripe.accounts
             },
         },
     })
-    .then(customer => {
+    .then((customer) => {
         // asynchronously called
     });
 
 stripe.accounts.retrieve('acct_17wV8KBoqMA9o2xk', (err, account) => {
     // asynchronously called
 });
-stripe.accounts.retrieve('acct_17wV8KBoqMA9o2xk').then(account => {
+stripe.accounts.retrieve('acct_17wV8KBoqMA9o2xk').then((account) => {
     // asynchronously called
 
     // account should have external_accounts property
@@ -1243,7 +1243,7 @@ stripe.accounts
             support_phone: '555-867-5309',
         },
     })
-    .then(account => {
+    .then((account) => {
         // asynchronously called
     });
 
@@ -1255,7 +1255,7 @@ stripe.accounts
             },
         },
     })
-    .then(account => {
+    .then((account) => {
         // asynchronously called
     });
 
@@ -1272,7 +1272,7 @@ stripe.accounts
             },
         },
     })
-    .then(account => {
+    .then((account) => {
         // asynchronously called
     });
 
@@ -1327,7 +1327,7 @@ stripe.accounts
             },
         },
     })
-    .then(account => {
+    .then((account) => {
         // asynchronously called
     });
 
@@ -1382,39 +1382,41 @@ stripe.accounts
             },
         },
     })
-    .then(account => {
+    .then((account) => {
         // asynchronously called
     });
 
 stripe.accounts.del('acct_17wV8KBoqMA9o2xk', (err, confirmation) => {});
-stripe.accounts.del('acct_17wV8KBoqMA9o2xk').then(confirmation => {});
+stripe.accounts.del('acct_17wV8KBoqMA9o2xk').then((confirmation) => {});
 
 stripe.accounts.reject('acct_17wV8KBoqMA9o2xk', { reason: 'fraud' }, (err, account) => {
     // asynchronously called
 });
-stripe.accounts.reject('acct_17wV8KBoqMA9o2xk', { reason: 'fraud' }).then(account => {
+stripe.accounts.reject('acct_17wV8KBoqMA9o2xk', { reason: 'fraud' }).then((account) => {
     // asynchronously called
 });
 
 stripe.accounts.list({ limit: 3 }, (err, accounts) => {
     // asynchronously called
 });
-stripe.accounts.list({ limit: 3 }).then(accounts => {
+stripe.accounts.list({ limit: 3 }).then((accounts) => {
     // asynchronously called
 });
-stripe.accounts.retrieve('acct_17wV8KBoqMA9o2xk').then(accounts => {
+stripe.accounts.retrieve('acct_17wV8KBoqMA9o2xk').then((accounts) => {
     const payouts_enabled: boolean = accounts.payouts_enabled;
 });
-stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk').then(loginLink => {
+stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk').then((loginLink) => {
     const object: string = loginLink.object;
     const created: number = loginLink.created;
     const url: string = loginLink.url;
 });
-stripe.accounts.createLoginLink('acct_17wV8KBoqMA9o2xk', { redirect_url: 'http://localhost:3000' }).then(loginLink => {
-    const object: string = loginLink.object;
-    const created: number = loginLink.created;
-    const url: string = loginLink.url;
-});
+stripe.accounts
+    .createLoginLink('acct_17wV8KBoqMA9o2xk', { redirect_url: 'http://localhost:3000' })
+    .then((loginLink) => {
+        const object: string = loginLink.object;
+        const created: number = loginLink.created;
+        const url: string = loginLink.url;
+    });
 
 //#endregion
 
@@ -1428,7 +1430,7 @@ stripe.accounts
             executive: true,
         },
     })
-    .then(person => {
+    .then((person) => {
         const email: string = person.email;
     });
 stripe.accounts
@@ -1437,16 +1439,16 @@ stripe.accounts
         last_name: 'Doe',
         phone: '15551234567',
     })
-    .then(person => {
+    .then((person) => {
         const first_name: string = person.first_name;
         const last_name: string = person.last_name;
     });
 
-stripe.accounts.deletePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then(person => {
+stripe.accounts.deletePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then((person) => {
     const email: string = person.email;
 });
 
-stripe.accounts.retrievePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then(person => {
+stripe.accounts.retrievePerson('acct_17wV8KBoqMA9o2xk', 'person_G1SCYvWQBpvF37').then((person) => {
     const email: string = person.email;
 });
 
@@ -1456,16 +1458,18 @@ stripe.accounts
         { relationship: { executive: true }, limit: 3 },
         { stripe_account: 'acct_17wV8KOoqMF9a2xk' },
     )
-    .then(persons => {
+    .then((persons) => {
         const email: string = persons.data[0].email;
     });
-stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { relationship: { executive: true }, limit: 3 }).then(persons => {
+stripe.accounts
+    .listPersons('acct_17wV8KBoqMA9o2xk', { relationship: { executive: true }, limit: 3 })
+    .then((persons) => {
+        const email: string = persons.data[0].email;
+    });
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { stripe_account: 'acct_17wV8KOoqMF9a2xk' }).then((persons) => {
     const email: string = persons.data[0].email;
 });
-stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk', { stripe_account: 'acct_17wV8KOoqMF9a2xk' }).then(persons => {
-    const email: string = persons.data[0].email;
-});
-stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk').then(persons => {
+stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk').then((persons) => {
     const email: string = persons.data[0].email;
 });
 //#endregion
@@ -1474,89 +1478,93 @@ stripe.accounts.listPersons('acct_17wV8KBoqMA9o2xk').then(persons => {
 // ##################################################################################
 
 // Authorizations
-stripe.issuing.authorizations.approve('iauth_h1i4AfJvb7x60ib4t6HYQah4').then(authorization => {
-	// asynchronously called
+stripe.issuing.authorizations.approve('iauth_h1i4AfJvb7x60ib4t6HYQah4').then((authorization) => {
+    // asynchronously called
 });
-stripe.issuing.authorizations.decline('iauth_h1i4AfJvb7x60ib4t6HYQah4').then(authorization => {
-	// asynchronously called
+stripe.issuing.authorizations.decline('iauth_h1i4AfJvb7x60ib4t6HYQah4').then((authorization) => {
+    // asynchronously called
 });
-stripe.issuing.authorizations.list({ card: 'ic_hl1LlYJvbh660ib4viYdZdj4' }).then(authorization => {
-	// asynchronously called
+stripe.issuing.authorizations.list({ card: 'ic_hl1LlYJvbh660ib4viYdZdj4' }).then((authorization) => {
+    // asynchronously called
 });
-stripe.issuing.authorizations.retrieve('iauth_h1i4AfJvb7x60ib4t6HYQah4').then(authorization => {
-	// asynchronously called
+stripe.issuing.authorizations.retrieve('iauth_h1i4AfJvb7x60ib4t6HYQah4').then((authorization) => {
+    // asynchronously called
 });
-stripe.issuing.authorizations.update('iauth_h1i4AfJvb7x60ib4t6HYQah4', { metadata: {} }).then(authorization => {
-	// asynchronously called
+stripe.issuing.authorizations.update('iauth_h1i4AfJvb7x60ib4t6HYQah4', { metadata: {} }).then((authorization) => {
+    // asynchronously called
 });
 
 // Cardholders
-stripe.issuing.cardholders.create({
-	billing: {
-		address: {
-			line1: '1 Remote Way',
-			line2: 'Mistro Inc',
-			city: 'San Francisco',
-			state: 'CA',
-			postal_code: '94104',
-			country: 'US',
-		}
-	},
-	name: 'John Doe',
-	type: 'business_entity',
-}).then(cardholder => {
-	// asynchronously called
+stripe.issuing.cardholders
+    .create({
+        billing: {
+            address: {
+                line1: '1 Remote Way',
+                line2: 'Mistro Inc',
+                city: 'San Francisco',
+                state: 'CA',
+                postal_code: '94104',
+                country: 'US',
+            },
+        },
+        name: 'John Doe',
+        type: 'business_entity',
+    })
+    .then((cardholder) => {
+        // asynchronously called
+    });
+stripe.issuing.cardholders.list({ email: 'hello@mistro.io' }).then((cardholder) => {
+    // asynchronously called
 });
-stripe.issuing.cardholders.list({ email: 'hello@mistro.io' }).then(cardholder => {
-	// asynchronously called
+stripe.issuing.cardholders.retrieve('ich_jd4b0pJvb7x60u442RQUnv2f').then((cardholder) => {
+    // asynchronously called
 });
-stripe.issuing.cardholders.retrieve('ich_jd4b0pJvb7x60u442RQUnv2f').then(cardholder => {
-	// asynchronously called
-});
-stripe.issuing.cardholders.update('ich_jd4b0pJvb7x60u442RQUnv2f', { metadata: {} }).then(cardholder => {
-	// asynchronously called
-});
-
-stripe.issuing.cards.create({ currency: 'usd', type: 'physical' }).then(card => {
-	// asynchronously called
-});
-stripe.issuing.cards.list({ cardholder: 'ich_jd4b0pJvb7x60u442RQUnv2f'}).then(card => {
-	// asynchronously called
-});
-stripe.issuing.cards.retrieve('ic_hl1LlYJvbh660ib4viYdZdj4').then(card => {
-	// asynchronously called
-});
-stripe.issuing.cards.retrieveDetails('ic_hl1LlYJvbh660ib4viYdZdj4').then(card => {
-	// asynchronously called
-});
-stripe.issuing.cards.update('ic_hl1LlYJvbh660ib4viYdZdj4', { metadata: {} }).then(card => {
-	// asynchronously called
+stripe.issuing.cardholders.update('ich_jd4b0pJvb7x60u442RQUnv2f', { metadata: {} }).then((cardholder) => {
+    // asynchronously called
 });
 
-stripe.issuing.disputes.create({
-	disputed_transaction: 'ipi_6diQkdnvb7x60ib4j9amJDBW',
-	reason: 'fraudlent',
-}).then(dispute => {
-	// asynchronously called
+stripe.issuing.cards.create({ currency: 'usd', type: 'physical' }).then((card) => {
+    // asynchronously called
 });
-stripe.issuing.disputes.list({ limit: 3 }).then(dispute => {
-	// asynchronously called
+stripe.issuing.cards.list({ cardholder: 'ich_jd4b0pJvb7x60u442RQUnv2f' }).then((card) => {
+    // asynchronously called
 });
-stripe.issuing.disputes.retrieve('ipi_6diQkdnvb7x60ib4j9amJDBW').then(dispute => {
-	// asynchronously called
+stripe.issuing.cards.retrieve('ic_hl1LlYJvbh660ib4viYdZdj4').then((card) => {
+    // asynchronously called
 });
-stripe.issuing.disputes.update('ipi_6diQkdnvb7x60ib4j9amJDBW', { metadata: {} }).then(dispute => {
-	// asynchronously called
+stripe.issuing.cards.retrieveDetails('ic_hl1LlYJvbh660ib4viYdZdj4').then((card) => {
+    // asynchronously called
+});
+stripe.issuing.cards.update('ic_hl1LlYJvbh660ib4viYdZdj4', { metadata: {} }).then((card) => {
+    // asynchronously called
 });
 
-stripe.issuing.transactions.list({ limit: 3}).then(dispute => {
-	// asynchronously called
+stripe.issuing.disputes
+    .create({
+        disputed_transaction: 'ipi_6diQkdnvb7x60ib4j9amJDBW',
+        reason: 'fraudlent',
+    })
+    .then((dispute) => {
+        // asynchronously called
+    });
+stripe.issuing.disputes.list({ limit: 3 }).then((dispute) => {
+    // asynchronously called
 });
-stripe.issuing.transactions.retrieve('ipi_6diQkdnvb7x60ib4j9amJDBW').then(dispute => {
-	// asynchronously called
+stripe.issuing.disputes.retrieve('ipi_6diQkdnvb7x60ib4j9amJDBW').then((dispute) => {
+    // asynchronously called
 });
-stripe.issuing.transactions.update('ipi_6diQkdnvb7x60ib4j9amJDBW', { metadata: {} }).then(dispute => {
-	// asynchronously called
+stripe.issuing.disputes.update('ipi_6diQkdnvb7x60ib4j9amJDBW', { metadata: {} }).then((dispute) => {
+    // asynchronously called
+});
+
+stripe.issuing.transactions.list({ limit: 3 }).then((dispute) => {
+    // asynchronously called
+});
+stripe.issuing.transactions.retrieve('ipi_6diQkdnvb7x60ib4j9amJDBW').then((dispute) => {
+    // asynchronously called
+});
+stripe.issuing.transactions.update('ipi_6diQkdnvb7x60ib4j9amJDBW', { metadata: {} }).then((dispute) => {
+    // asynchronously called
 });
 
 // ##endregion
@@ -1568,7 +1576,7 @@ stripe.issuing.transactions.update('ipi_6diQkdnvb7x60ib4j9amJDBW', { metadata: {
 
 //#region Application Fees tests
 // ##################################################################################
-stripe.applicationFees.retrieveRefund('fee_1Eq2auEELBA7Bnp1FpeuNccq', 'fr_1Eq2auEELBA7Bnp1sNrbVAO9').then(refund => {
+stripe.applicationFees.retrieveRefund('fee_1Eq2auEELBA7Bnp1FpeuNccq', 'fr_1Eq2auEELBA7Bnp1sNrbVAO9').then((refund) => {
     refund; // $ExpectType IApplicationFeeRefund
 });
 
@@ -1586,7 +1594,7 @@ stripe.reviews.approve('prv_1FhJ93BZBR5SQORgPByBqMbC', (err, review) => {
     review; // $ExpectType IReview
 });
 
-stripe.reviews.approve('prv_1FhJ93BZBR5SQORgPByBqMbC').then(review => {
+stripe.reviews.approve('prv_1FhJ93BZBR5SQORgPByBqMbC').then((review) => {
     review; // $ExpectType IReview
 });
 
@@ -1594,7 +1602,7 @@ stripe.reviews.retrieve('prv_1FhJ93BZBR5SQORgPByBqMbC', (err, review) => {
     review; // $ExpectType IReview
 });
 
-stripe.reviews.retrieve('prv_1FhJ93BZBR5SQORgPByBqMbC').then(review => {
+stripe.reviews.retrieve('prv_1FhJ93BZBR5SQORgPByBqMbC').then((review) => {
     review; // $ExpectType IReview
 });
 
@@ -1602,7 +1610,7 @@ stripe.reviews.list({ limit: 3 }, (err, reviews) => {
     reviews; // $ExpectType IList<IReview>
 });
 
-stripe.reviews.list({ limit: 3 }).then(reviews => {
+stripe.reviews.list({ limit: 3 }).then((reviews) => {
     reviews; // $ExpectType IList<IReview>
 });
 
@@ -1615,7 +1623,7 @@ stripe.accounts.createExternalAccount('', { external_account: 'btok_8E264Lxsbyvj
     const card = extAcc as Stripe.ICard;
     const bankAcc = extAcc as Stripe.IBankAccount;
 });
-stripe.accounts.createExternalAccount('', { external_account: 'tok_15V2YhEe31JkLCeQy9iUgsJX' }).then(extAcc => {
+stripe.accounts.createExternalAccount('', { external_account: 'tok_15V2YhEe31JkLCeQy9iUgsJX' }).then((extAcc) => {
     const card = extAcc as Stripe.ICard;
     const bankAcc = extAcc as Stripe.IBankAccount;
 });
@@ -1626,13 +1634,13 @@ stripe.accounts
         { external_account: 'tok_15V2YhEe31JkLCeQy9iUgsJX' },
         { stripe_account: 'acct_17wV8KOoqMF9a2xk' },
     )
-    .then(extAcc => {
+    .then((extAcc) => {
         const card = extAcc as Stripe.ICard;
         const bankAcc = extAcc as Stripe.IBankAccount;
     });
 stripe.accounts
     .createExternalAccount('', { external_account: 'tok_15V2YhEe31JkLCeQy9iUgsJX' }, 'acct_17wV8KOoqMF9a2xk')
-    .then(extAcc => {
+    .then((extAcc) => {
         const card = extAcc as Stripe.ICard;
         const bankAcc = extAcc as Stripe.IBankAccount;
     });
@@ -1687,7 +1695,7 @@ stripe.products
         type: 'service',
         attributes: ['color'],
     })
-    .then(product => {
+    .then((product) => {
         // asynchronously called
         const prodType: 'service' | 'good' = product.type;
     });
@@ -1702,7 +1710,7 @@ stripe.oauth
         grant_type: 'authorization_code',
         code: 'ac_123456789',
     })
-    .then(response => {
+    .then((response) => {
         // asynchronously called
         const connected_account_id = response.stripe_user_id;
     });
@@ -1712,12 +1720,12 @@ stripe.oauth
         grant_type: 'refresh_token',
         refresh_token: 'random_refresh_token',
     })
-    .then(response => {
+    .then((response) => {
         // asynchronously called
         const access_token = response.access_token;
     });
 
-stripe.oauth.deauthorize('ac_123456789', 'userid_123456789').then(response => {
+stripe.oauth.deauthorize('ac_123456789', 'userid_123456789').then((response) => {
     // asynchronously called
     const stripe_user_id = response.stripe_user_id;
 });
@@ -1768,14 +1776,14 @@ stripe.webhookEndpoints
         url: 'https://example.com/success',
         enabled_events: ['plan.updated'],
     })
-    .then(webhookEndpoint => {
+    .then((webhookEndpoint) => {
         // asynchronously called
     });
 
 stripe.webhookEndpoints.retrieve('we_1FdwxEJmFhanyRvFIL756jiC', (err, webhookEndpoint) => {
     // asynchronously called
 });
-stripe.webhookEndpoints.retrieve('we_1FdwxEJmFhanyRvFIL756jiC').then(webhookEndpoint => {
+stripe.webhookEndpoints.retrieve('we_1FdwxEJmFhanyRvFIL756jiC').then((webhookEndpoint) => {
     // asynchronously called
 });
 
@@ -1792,17 +1800,17 @@ stripe.webhookEndpoints
     .update('we_1FdwxEJmFhanyRvFIL756jiC', {
         metadata: { key: 'value' },
     })
-    .then(coupon => {
+    .then((coupon) => {
         // asynchronously called
     });
 
 stripe.webhookEndpoints.del('we_1FdwxEJmFhanyRvFIL756jiC', (err, confirmation) => {});
-stripe.webhookEndpoints.del('we_1FdwxEJmFhanyRvFIL756jiC').then(confirmation => {});
+stripe.webhookEndpoints.del('we_1FdwxEJmFhanyRvFIL756jiC').then((confirmation) => {});
 
 stripe.webhookEndpoints.list({ limit: 3 }, (err, coupons) => {
     // asynchronously called
 });
-stripe.webhookEndpoints.list({ limit: 3 }).then(coupons => {
+stripe.webhookEndpoints.list({ limit: 3 }).then((coupons) => {
     // asynchronously called
 });
 
@@ -1831,14 +1839,14 @@ stripe.coupons
         duration_in_months: 3,
         id: '25OFF',
     })
-    .then(coupon => {
+    .then((coupon) => {
         // asynchronously called
     });
 
 stripe.coupons.retrieve('25OFF', (err, coupon) => {
     // asynchronously called
 });
-stripe.coupons.retrieve('25OFF').then(coupon => {
+stripe.coupons.retrieve('25OFF').then((coupon) => {
     // asynchronously called
 });
 
@@ -1855,17 +1863,17 @@ stripe.coupons
     .update('25OFF', {
         metadata: { key: 'value' },
     })
-    .then(coupon => {
+    .then((coupon) => {
         // asynchronously called
     });
 
 stripe.coupons.del('25OFF', (err, confirmation) => {});
-stripe.coupons.del('25OFF').then(confirmation => {});
+stripe.coupons.del('25OFF').then((confirmation) => {});
 
 stripe.coupons.list({ limit: 3 }, (err, coupons) => {
     // asynchronously called
 });
-stripe.coupons.list({ limit: 3 }).then(coupons => {
+stripe.coupons.list({ limit: 3 }).then((coupons) => {
     // asynchronously called
 });
 
@@ -1883,7 +1891,7 @@ stripe.fileLinks.create(
 
 stripe.fileLinks
     .create({ file: 'file_1FgxGXBZBR5SQORg4FkgjG2O', expires_at: 1542822417, metadata: { any: 'any' } })
-    .then(fileLink => {
+    .then((fileLink) => {
         fileLink; // $ExpectType IFileLink
     });
 
@@ -1891,7 +1899,7 @@ stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7', (err, fileLink) => {
     fileLink; // $ExpectType IFileLink
 });
 
-stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7').then(fileLink => {
+stripe.fileLinks.retrieve('link_1FhJXrBZBR5SQORg2hZCYnZ7').then((fileLink) => {
     fileLink; // $ExpectType IFileLink
 });
 
@@ -1907,7 +1915,7 @@ stripe.fileLinks.update('link_1FhJXrBZBR5SQORg2hZCYnZ7', { expires_at: 154282241
     fileLink; // $ExpectType IFileLink
 });
 
-stripe.fileLinks.update('link_1FhJXrBZBR5SQORg2hZCYnZ7', {}).then(fileLink => {
+stripe.fileLinks.update('link_1FhJXrBZBR5SQORg2hZCYnZ7', {}).then((fileLink) => {
     fileLink; // $ExpectType IFileLink
 });
 
@@ -1915,7 +1923,7 @@ stripe.fileLinks.list({ limit: 3 }, (err, fileLinks) => {
     // asynchronously called
 });
 
-stripe.fileLinks.list({ limit: 3 }).then(fileLinks => {
+stripe.fileLinks.list({ limit: 3 }).then((fileLinks) => {
     // asynchronously called
 });
 
@@ -1941,14 +1949,14 @@ stripe.invoices
     .create({
         customer: 'cus_5rfJKDJkuxzh5Q',
     })
-    .then(invoice => {
+    .then((invoice) => {
         // asynchronously called
     });
 
 stripe.invoices.retrieve('in_15fvyXEe31JkLCeQH7QbgZZb', (err, invoice) => {
     // asynchronously called
 });
-stripe.invoices.retrieve('in_15fvyXEe31JkLCeQH7QbgZZb').then(invoice => {
+stripe.invoices.retrieve('in_15fvyXEe31JkLCeQH7QbgZZb').then((invoice) => {
     // asynchronously called
 });
 
@@ -1956,40 +1964,42 @@ stripe.invoices.retrieveLines('in_15fvyXEe31JkLCeQH7QbgZZb', { limit: 5 }, (err,
     // asynchronously called
     lines.data[0].type = 'invoiceitem';
 });
-stripe.invoices.retrieveLines('in_15fvyXEe31JkLCeQH7QbgZZb', { limit: 5 }).then(lines => {
+stripe.invoices.retrieveLines('in_15fvyXEe31JkLCeQH7QbgZZb', { limit: 5 }).then((lines) => {
     // asynchronously called
 });
-stripe.invoices.listLineItems('in_15fvyXEe31JkLCeQH7QbgZZb', { limit: 5 }).then(lines => {
+stripe.invoices.listLineItems('in_15fvyXEe31JkLCeQH7QbgZZb', { limit: 5 }).then((lines) => {
     lines; // $ExpectType IList<IInvoiceLineItem>
 });
 
 stripe.invoices.retrieveUpcoming('cus_5rfJKDJkuxzh5Q', null, (err, upcoming) => {
     // asynchronously called
 });
-stripe.invoices.retrieveUpcoming('cus_5rfJKDJkuxzh5Q', null).then(upcoming => {
+stripe.invoices.retrieveUpcoming('cus_5rfJKDJkuxzh5Q', null).then((upcoming) => {
     // asynchronously called
 });
 
 stripe.invoices.retrieveUpcoming('cus_5rfJKDJkuxzh5Q', (err, upcoming) => {
     // asynchronously called
 });
-stripe.invoices.retrieveUpcoming('cus_5rfJKDJkuxzh5Q').then(upcoming => {
+stripe.invoices.retrieveUpcoming('cus_5rfJKDJkuxzh5Q').then((upcoming) => {
     // asynchronously called
 });
-stripe.subscriptions.create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' }).then(subscription => {
-    // asynchronously called
+stripe.subscriptions
+    .create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' })
+    .then((subscription) => {
+        // asynchronously called
 
-    stripe.invoices
-        .retrieveUpcoming({
-            customer: 'cus_5rfJKDJkuxzh5Q',
-            subscription: subscription.id,
-        })
-        .then(invoices => {
-            invoices; // $ExpectType IInvoice
-        });
-});
+        stripe.invoices
+            .retrieveUpcoming({
+                customer: 'cus_5rfJKDJkuxzh5Q',
+                subscription: subscription.id,
+            })
+            .then((invoices) => {
+                invoices; // $ExpectType IInvoice
+            });
+    });
 
-stripe.invoices.listUpcomingLineItems({ limit: 5 }).then(lines => {
+stripe.invoices.listUpcomingLineItems({ limit: 5 }).then((lines) => {
     lines; // $ExpectType IList<IInvoiceLineItem>
 });
 
@@ -2008,49 +2018,49 @@ stripe.invoices
         auto_advance: false,
         closed: true,
     })
-    .then(invoice => {
+    .then((invoice) => {
         // asynchronously called
     });
 
 stripe.invoices.pay('in_15fvyXEe31JkLCeQH7QbgZZb', (err, invoice) => {
     // asynchronously called
 });
-stripe.invoices.pay('in_15fvyXEe31JkLCeQH7QbgZZb').then(invoice => {
+stripe.invoices.pay('in_15fvyXEe31JkLCeQH7QbgZZb').then((invoice) => {
     // asynchronously called
 });
 
-stripe.invoices.pay('in_15fvyXEe31JkLCeQH7QbgZZb', { source: 'source_id' }).then(invoice => {
+stripe.invoices.pay('in_15fvyXEe31JkLCeQH7QbgZZb', { source: 'source_id' }).then((invoice) => {
     // asynchronously called
 });
 
-stripe.invoices.pay('in_15fvyXEe31JkLCeQH7QbgZZb', { paid_out_of_band: true }).then(invoice => {
+stripe.invoices.pay('in_15fvyXEe31JkLCeQH7QbgZZb', { paid_out_of_band: true }).then((invoice) => {
     // asynchronously called
 });
 
-stripe.invoices.pay('in_15fvyXEe31JkLCeQH7QbgZZb', { forgive: true }).then(invoice => {
+stripe.invoices.pay('in_15fvyXEe31JkLCeQH7QbgZZb', { forgive: true }).then((invoice) => {
     // asynchronously called
 });
 
-stripe.invoices.finalizeInvoice('in_15fvyXEe31JkLCeQH7QbgZZb').then(invoice => {
+stripe.invoices.finalizeInvoice('in_15fvyXEe31JkLCeQH7QbgZZb').then((invoice) => {
     invoice; // $ExpectType IInvoice
 });
 
-stripe.invoices.finalizeInvoice('in_15fvyXEe31JkLCeQH7QbgZZb', { auto_advance: true }).then(invoice => {
+stripe.invoices.finalizeInvoice('in_15fvyXEe31JkLCeQH7QbgZZb', { auto_advance: true }).then((invoice) => {
     invoice; // $ExpectType IInvoice
 });
 
 stripe.invoices.list({ customer: 'cus_5rfJKDJkuxzh5Q', limit: 3 }, (err, invoices) => {
     // asynchronously called
 });
-stripe.invoices.list({ customer: 'cus_5rfJKDJkuxzh5Q', limit: 3 }).then(invoices => {
+stripe.invoices.list({ customer: 'cus_5rfJKDJkuxzh5Q', limit: 3 }).then((invoices) => {
     // asynchronously called
 });
 
-stripe.invoices.retrieve('in_15fvyXEe31JkLCeQH7QbgZZb', { expand: ['subscription'] }).then(invoice => {
+stripe.invoices.retrieve('in_15fvyXEe31JkLCeQH7QbgZZb', { expand: ['subscription'] }).then((invoice) => {
     invoice.subscription;
 });
 
-stripe.invoices.sendInvoice('in_15fvyXEe31JkLCeQH7QbgZZb').then(invoice => {
+stripe.invoices.sendInvoice('in_15fvyXEe31JkLCeQH7QbgZZb').then((invoice) => {
     // asynchronously called
 });
 
@@ -2078,7 +2088,7 @@ stripe.invoiceItems
         pending: true,
         limit: 3,
     })
-    .then(invoiceItems => {
+    .then((invoiceItems) => {
         // asynchronously called
     });
 
@@ -2103,14 +2113,14 @@ stripe.paymentIntents
         payment_method_types: ['card', 'ideal', 'sepa_debit'],
         customer: 'cus_5rfJKDJkuxzh5Q',
     })
-    .then(intent => {});
+    .then((intent) => {});
 
 stripe.paymentIntents.list({}, (err, intent) => {});
-stripe.paymentIntents.list({}).then(intent => {});
+stripe.paymentIntents.list({}).then((intent) => {});
 stripe.paymentIntents.list((err, intent) => {});
-stripe.paymentIntents.list().then(intent => {});
+stripe.paymentIntents.list().then((intent) => {});
 stripe.paymentIntents.list({ customer: 'cus_5rfJKDJkuxzh5Q' }, (err, intent) => {});
-stripe.paymentIntents.list({ customer: 'cus_5rfJKDJkuxzh5Q' }).then(intent => {});
+stripe.paymentIntents.list({ customer: 'cus_5rfJKDJkuxzh5Q' }).then((intent) => {});
 
 stripe.paymentIntents.update(
     'pi_Aabcxyz01aDfoo',
@@ -2125,23 +2135,25 @@ stripe.paymentIntents
         amount: 2001,
         currency: 'usd',
     })
-    .then(intent => {});
+    .then((intent) => {});
 
 stripe.paymentIntents.retrieve('pi_Aabcxyz01aDfoo', (err, intent) => {});
-stripe.paymentIntents.retrieve('pi_Aabcxyz01aDfoo').then(intent => {});
+stripe.paymentIntents.retrieve('pi_Aabcxyz01aDfoo').then((intent) => {});
 
 stripe.paymentIntents.confirm('pi_Aabcxyz01aDfoo', {}, (err, intent) => {});
-stripe.paymentIntents.confirm('pi_Aabcxyz01aDfoo', {}).then(intent => {});
+stripe.paymentIntents.confirm('pi_Aabcxyz01aDfoo', {}).then((intent) => {});
 
 stripe.paymentIntents.capture('pi_Aabcxyz01aDfoo', {}, (err, intent) => {});
-stripe.paymentIntents.capture('pi_Aabcxyz01aDfoo', {}).then(intent => {});
+stripe.paymentIntents.capture('pi_Aabcxyz01aDfoo', {}).then((intent) => {});
 
 stripe.paymentIntents.cancel('pi_Aabcxyz01aDfoo', (err, intent) => {});
-stripe.paymentIntents.cancel('pi_Aabcxyz01aDfoo').then(intent => {});
+stripe.paymentIntents.cancel('pi_Aabcxyz01aDfoo').then((intent) => {});
 stripe.paymentIntents.cancel('pi_Aabcxyz01aDfoo', {}, (err, intent) => {});
-stripe.paymentIntents.cancel('pi_Aabcxyz01aDfoo', {}).then(intent => {});
+stripe.paymentIntents.cancel('pi_Aabcxyz01aDfoo', {}).then((intent) => {});
 stripe.paymentIntents.cancel('pi_Aabcxyz01aDfoo', { cancellation_reason: 'duplicate' }, (err, intent) => {});
-stripe.paymentIntents.cancel('pi_Aabcxyz01aDfoo', { cancellation_reason: 'requested_by_customer' }).then(intent => {});
+stripe.paymentIntents
+    .cancel('pi_Aabcxyz01aDfoo', { cancellation_reason: 'requested_by_customer' })
+    .then((intent) => {});
 //#endregion
 
 //#region Setup Intents test
@@ -2158,14 +2170,14 @@ stripe.setupIntents
         customer: 'cus_5rfJKDJkuxzh5Q',
         payment_method_types: ['card'],
     })
-    .then(intent => {});
+    .then((intent) => {});
 
 stripe.setupIntents.list({}, (err, intent) => {});
-stripe.setupIntents.list({}).then(intent => {});
+stripe.setupIntents.list({}).then((intent) => {});
 stripe.setupIntents.list((err, intent) => {});
-stripe.setupIntents.list().then(intent => {});
+stripe.setupIntents.list().then((intent) => {});
 stripe.setupIntents.list({ limit: 10 }, (err, intent) => {});
-stripe.setupIntents.list({ customer: 'cus_5rfJKDJkuxzh5Q' }).then(intent => {});
+stripe.setupIntents.list({ customer: 'cus_5rfJKDJkuxzh5Q' }).then((intent) => {});
 
 stripe.setupIntents.update(
     'seti_123456789',
@@ -2178,22 +2190,22 @@ stripe.setupIntents
     .update('seti_123456789', {
         customer: 'cus_5rfJKDJkuxzh5Q',
     })
-    .then(intent => {});
+    .then((intent) => {});
 
 stripe.setupIntents.retrieve('seti_123456789', (err, intent) => {});
-stripe.setupIntents.retrieve('seti_123456789').then(intent => {});
+stripe.setupIntents.retrieve('seti_123456789').then((intent) => {});
 
 stripe.setupIntents.confirm('seti_123456789', {}, (err, intent) => {});
-stripe.setupIntents.confirm('seti_123456789', {}).then(intent => {});
-stripe.setupIntents.confirm('seti_123456789', {client_secret: 'seti_987654321'}, (err, intent) => {});
-stripe.setupIntents.confirm('seti_123456789', {client_secret: 'seti_987654321'}).then(intent => {});
+stripe.setupIntents.confirm('seti_123456789', {}).then((intent) => {});
+stripe.setupIntents.confirm('seti_123456789', { client_secret: 'seti_987654321' }, (err, intent) => {});
+stripe.setupIntents.confirm('seti_123456789', { client_secret: 'seti_987654321' }).then((intent) => {});
 
 stripe.setupIntents.cancel('seti_123456789', (err, intent) => {});
-stripe.setupIntents.cancel('seti_123456789').then(intent => {});
+stripe.setupIntents.cancel('seti_123456789').then((intent) => {});
 stripe.setupIntents.cancel('seti_123456789', {}, (err, intent) => {});
-stripe.setupIntents.cancel('seti_123456789', {}).then(intent => {});
+stripe.setupIntents.cancel('seti_123456789', {}).then((intent) => {});
 stripe.setupIntents.cancel('seti_123456789', { cancellation_reason: 'duplicate' }, (err, intent) => {});
-stripe.setupIntents.cancel('seti_123456789', { cancellation_reason: 'requested_by_customer' }).then(intent => {});
+stripe.setupIntents.cancel('seti_123456789', { cancellation_reason: 'requested_by_customer' }).then((intent) => {});
 //#endregion
 
 //#region Payouts tests
@@ -2212,7 +2224,7 @@ stripe.payouts
         currency: 'usd',
         description: 'The Payout',
     })
-    .then(payout => {});
+    .then((payout) => {});
 stripe.payouts.create(
     {
         amount: 2000,
@@ -2235,19 +2247,19 @@ stripe.payouts
             stripe_account: 'acct_abc12345678',
         },
     )
-    .then(payout => {});
+    .then((payout) => {});
 
 stripe.payouts.retrieve('po_5rfJKDJkuxzh5Q', (err, payout) => {});
-stripe.payouts.retrieve('po_5rfJKDJkuxzh5Q').then(payout => {});
+stripe.payouts.retrieve('po_5rfJKDJkuxzh5Q').then((payout) => {});
 stripe.payouts.retrieve('po_5rfJKDJkuxzh5Q', { stripe_account: 'acct_abc12345678' }, (err, payout) => {});
-stripe.payouts.retrieve('po_5rfJKDJkuxzh5Q', { stripe_account: 'acct_abc12345678' }).then(payout => {});
+stripe.payouts.retrieve('po_5rfJKDJkuxzh5Q', { stripe_account: 'acct_abc12345678' }).then((payout) => {});
 
 stripe.payouts.update(
     'po_5rfJKDJkuxzh5Q',
     { metadata: { key: 'value' } },
     (err: Stripe.IStripeError, payout: Stripe.payouts.IPayout) => {},
 );
-stripe.payouts.update('po_5rfJKDJkuxzh5Q', { metadata: { key: 'value' } }).then(payout => {});
+stripe.payouts.update('po_5rfJKDJkuxzh5Q', { metadata: { key: 'value' } }).then((payout) => {});
 stripe.payouts.update(
     'po_5rfJKDJkuxzh5Q',
     { metadata: { key: 'value' } },
@@ -2256,21 +2268,21 @@ stripe.payouts.update(
 );
 stripe.payouts
     .update('po_5rfJKDJkuxzh5Q', { metadata: { key: 'value' } }, { stripe_account: 'acct_abc12345678' })
-    .then(payout => {});
+    .then((payout) => {});
 
 stripe.payouts.list({ limit: 100 }, { stripe_account: 'acct_abc12345678' }, (err, payouts) => {});
-stripe.payouts.list({ limit: 100 }, { stripe_account: 'acct_abc12345678' }).then(payouts => {});
+stripe.payouts.list({ limit: 100 }, { stripe_account: 'acct_abc12345678' }).then((payouts) => {});
 stripe.payouts.list({ limit: 100 }, (err, payouts) => {});
-stripe.payouts.list({ limit: 100 }).then(payouts => {});
+stripe.payouts.list({ limit: 100 }).then((payouts) => {});
 stripe.payouts.list({ stripe_account: 'acct_abc12345678' }, (err, payouts) => {});
-stripe.payouts.list({ stripe_account: 'acct_abc12345678' }).then(payouts => {});
+stripe.payouts.list({ stripe_account: 'acct_abc12345678' }).then((payouts) => {});
 stripe.payouts.list((err, payouts) => {});
-stripe.payouts.list().then(payouts => {});
+stripe.payouts.list().then((payouts) => {});
 
 stripe.payouts.cancel('po_5rfJKDJkuxzh5Q', { stripe_account: 'acct_abc12345678' }, (err, payout) => {});
-stripe.payouts.cancel('po_5rfJKDJkuxzh5Q', { stripe_account: 'acct_abc12345678' }).then(payout => {});
+stripe.payouts.cancel('po_5rfJKDJkuxzh5Q', { stripe_account: 'acct_abc12345678' }).then((payout) => {});
 stripe.payouts.cancel('po_5rfJKDJkuxzh5Q', (err, payout) => {});
-stripe.payouts.cancel('po_5rfJKDJkuxzh5Q').then(payout => {});
+stripe.payouts.cancel('po_5rfJKDJkuxzh5Q').then((payout) => {});
 
 //#endregion
 
@@ -2310,7 +2322,7 @@ stripe.plans
             name: 'Amazing Gold Plan',
         },
     })
-    .then(plan => {
+    .then((plan) => {
         // asynchronously called
     });
 
@@ -2322,7 +2334,7 @@ stripe.plans
         interval: 'month',
         product: 'prod_UT1t06yZ3iBEHi',
     })
-    .then(plan => {
+    .then((plan) => {
         // asynchronously called
         const productId = plan.product as string;
     });
@@ -2337,7 +2349,7 @@ stripe.plans.retrieve(
         const product = plan.product as Stripe.products.IProduct;
     },
 );
-stripe.plans.retrieve('gold-plan').then(plan => {
+stripe.plans.retrieve('gold-plan').then((plan) => {
     // asynchronously called
 });
 
@@ -2350,20 +2362,20 @@ stripe.plans.update(
         // asynchronously called
     },
 );
-stripe.plans.update('gold-plan', { nickname: 'New gold plan nickname' }).then(plan => {
+stripe.plans.update('gold-plan', { nickname: 'New gold plan nickname' }).then((plan) => {
     // asynchronously called
 });
-stripe.plans.update('gold-plan', { active: true }).then(plan => {
+stripe.plans.update('gold-plan', { active: true }).then((plan) => {
     // asynchronously called
 });
-stripe.plans.update('gold-plan', { trial_period_days: 1 }).then(plan => {
+stripe.plans.update('gold-plan', { trial_period_days: 1 }).then((plan) => {
     // asynchronously called
 });
 
 stripe.plans.del('gold-plan', (err, confirmation) => {
     // asynchronously called
 });
-stripe.plans.del('gold-plan').then(confirmation => {
+stripe.plans.del('gold-plan').then((confirmation) => {
     // asynchronously called
 });
 
@@ -2371,21 +2383,21 @@ stripe.plans.list({ active: true, product: 'prod_someproduct' }, (err, plans) =>
     // asynchronously called
     plans.data[0].tiers[0].unit_amount; // $ExpectType number
 });
-stripe.plans.list({ active: true, product: 'prod_someproduct' }).then(plans => {
+stripe.plans.list({ active: true, product: 'prod_someproduct' }).then((plans) => {
     // asynchronously called
 });
 
 stripe.plans.list(null, (err, plans) => {
     // asynchronously called
 });
-stripe.plans.list(null).then(plans => {
+stripe.plans.list(null).then((plans) => {
     // asynchronously called
 });
 
 stripe.plans.list((err, plans) => {
     // asynchronously called
 });
-stripe.plans.list().then(plans => {
+stripe.plans.list().then((plans) => {
     // asynchronously called
 });
 
@@ -2422,22 +2434,24 @@ stripe.subscriptions.create(
     },
 );
 
-stripe.subscriptions.create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' }).then(subscription => {
-    // asynchronously called
+stripe.subscriptions
+    .create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' })
+    .then((subscription) => {
+        // asynchronously called
 
-    stripe.subscriptions.update(
-        'sub_8QwCiwZ9tmMSpt',
-        { items: [{ id: subscription.items.data[0].id, plan: 'platypi' }] },
-        (err, subscription) => {
-            // asynchronously called
-        },
-    );
-    stripe.subscriptions
-        .update('sub_8QwCiwZ9tmMSpt', { items: [{ id: subscription.items.data[0].id, plan: 'platypi' }] })
-        .then(subscription => {
-            // asynchronously called
-        });
-});
+        stripe.subscriptions.update(
+            'sub_8QwCiwZ9tmMSpt',
+            { items: [{ id: subscription.items.data[0].id, plan: 'platypi' }] },
+            (err, subscription) => {
+                // asynchronously called
+            },
+        );
+        stripe.subscriptions
+            .update('sub_8QwCiwZ9tmMSpt', { items: [{ id: subscription.items.data[0].id, plan: 'platypi' }] })
+            .then((subscription) => {
+                // asynchronously called
+            });
+    });
 
 stripe.subscriptions.retrieve('sub_8QwCiwZ9tmMSpt', (err, subscription) => {
     // asynchronously called
@@ -2445,7 +2459,7 @@ stripe.subscriptions.retrieve('sub_8QwCiwZ9tmMSpt', (err, subscription) => {
         subscription.customer.email;
     }
 });
-stripe.subscriptions.retrieve('sub_8QwCiwZ9tmMSpt').then(subscription => {
+stripe.subscriptions.retrieve('sub_8QwCiwZ9tmMSpt').then((subscription) => {
     // asynchronously called
     if (typeof subscription.customer === 'object') {
         subscription.customer.email;
@@ -2455,14 +2469,14 @@ stripe.subscriptions.retrieve('sub_8QwCiwZ9tmMSpt').then(subscription => {
 stripe.subscriptions.del('sub_8QwCiwZ9tmMSpt', (err, subscription) => {
     // asynchronously called
 });
-stripe.subscriptions.del('sub_8QwCiwZ9tmMSpt').then(subscription => {
+stripe.subscriptions.del('sub_8QwCiwZ9tmMSpt').then((subscription) => {
     // asynchronously called
 });
 
 stripe.subscriptions.list({ customer: 'cus_5rfJKDJkuxzh5Q', plan: 'platypi-dev' }, (err, subscriptions) => {
     // asynchronously called
 });
-stripe.subscriptions.list({ customer: 'cus_5rfJKDJkuxzh5Q', plan: 'platypi-dev' }).then(subscriptions => {
+stripe.subscriptions.list({ customer: 'cus_5rfJKDJkuxzh5Q', plan: 'platypi-dev' }).then((subscriptions) => {
     // asynchronously called
 });
 
@@ -2471,7 +2485,7 @@ stripe.subscriptions.list({ customer: 'cus_5rfJKDJkuxzh5Q', plan: 'platypi-dev' 
 //#region Sources tests
 // ##################################################################################
 
-stripe.sources.retrieve('tok_15V2YhEe31JkLCeQy9iUgsJX').then(source => {
+stripe.sources.retrieve('tok_15V2YhEe31JkLCeQy9iUgsJX').then((source) => {
     // asynchronously called
     source.card; // $ExpectType ICardHashInfo
 });
@@ -2487,9 +2501,11 @@ stripe.subscriptionItems.create(
         // asynchronously called
     },
 );
-stripe.subscriptionItems.create({ subscription: 'sub_C9giwDfCeN8fwt', plan: 'platypi-dev' }).then(subscriptionItem => {
-    // asynchronously called
-});
+stripe.subscriptionItems
+    .create({ subscription: 'sub_C9giwDfCeN8fwt', plan: 'platypi-dev' })
+    .then((subscriptionItem) => {
+        // asynchronously called
+    });
 
 stripe.subscriptionItems
     .create({
@@ -2498,35 +2514,35 @@ stripe.subscriptionItems
         prorate: true,
         proration_date: Math.round(new Date().valueOf() / 1000),
     })
-    .then(subscriptionItem => {
+    .then((subscriptionItem) => {
         // asynchronously called
     });
 
 stripe.subscriptionItems.retrieve('si_C9gimdd2l9qvCU', (err, subscriptionItem) => {
     // asynchronously called
 });
-stripe.subscriptionItems.retrieve('si_C9gimdd2l9qvCU').then(subscriptionItem => {
+stripe.subscriptionItems.retrieve('si_C9gimdd2l9qvCU').then((subscriptionItem) => {
     // asynchronously called
 });
 
 stripe.subscriptionItems.update('si_C9gimdd2l9qvCU', { plan: 'platypi' }, (err, subscriptionItem) => {
     // asynchronously called
 });
-stripe.subscriptionItems.update('si_C9gimdd2l9qvCU', { plan: 'platypi' }).then(subscriptionItem => {
+stripe.subscriptionItems.update('si_C9gimdd2l9qvCU', { plan: 'platypi' }).then((subscriptionItem) => {
     // asynchronously called
 });
 
 stripe.subscriptionItems.del('si_C9gimdd2l9qvCU', (err, subscriptionItem) => {
     // asynchronously called
 });
-stripe.subscriptionItems.del('si_C9gimdd2l9qvCU').then(subscriptionItem => {
+stripe.subscriptionItems.del('si_C9gimdd2l9qvCU').then((subscriptionItem) => {
     // asynchronously called
 });
 
 stripe.subscriptionItems.list({ subscription: 'si_C9gimdd2l9qvCU' }, (err, subscriptionItems) => {
     // asynchronously called
 });
-stripe.subscriptionItems.list({ subscription: 'si_C9gimdd2l9qvCU' }).then(subscriptionItems => {
+stripe.subscriptionItems.list({ subscription: 'si_C9gimdd2l9qvCU' }).then((subscriptionItems) => {
     // asynchronously called
 });
 
@@ -2537,7 +2553,7 @@ stripe.subscriptionItems.list({ subscription: 'si_C9gimdd2l9qvCU' }).then(subscr
 
 stripe.ephemeralKeys
     .create({ customer: 'cus_5rfJKDJkuxzh5Q' }, { stripe_version: '2017-08-15' })
-    .then(ephemeralKeys => {
+    .then((ephemeralKeys) => {
         // asynchronously called
     });
 
@@ -2567,7 +2583,7 @@ stripe.charges
         amount: 123,
         currency: 'usd',
     })
-    .catch(err => {
+    .catch((err) => {
         if (err instanceof Stripe.errors.StripeCardError) {
             const type = err.type;
         }

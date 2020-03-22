@@ -341,7 +341,12 @@ declare namespace DAO {
         Execute(Query: string, Options?: RecordsetOptionEnum): void;
         readonly hDbc: number;
         readonly Name: string;
-        OpenRecordset(Name: string, Type?: RecordsetTypeEnum, Options?: RecordsetOptionEnum, LockEdit?: LockTypeEnum): Recordset;
+        OpenRecordset(
+            Name: string,
+            Type?: RecordsetTypeEnum,
+            Options?: RecordsetOptionEnum,
+            LockEdit?: LockTypeEnum,
+        ): Recordset;
         readonly QueryDefs: QueryDefs;
         QueryTimeout: number;
         readonly RecordsAffected: number;
@@ -388,14 +393,29 @@ declare namespace DAO {
         readonly Containers: Containers;
         CreateProperty(Name?: string, Type?: DataTypeEnum, Value?: any, DDL?: boolean): Property;
         CreateQueryDef(Name?: string, SQLText?: string): QueryDef;
-        CreateRelation(Name?: string, Table?: string, ForeignTable?: string, Attributes?: RelationAttributeEnum): Relation;
-        CreateTableDef(Name?: string, Attributes?: TableDefAttributeEnum, SourceTableName?: string, Connect?: string): TableDef;
+        CreateRelation(
+            Name?: string,
+            Table?: string,
+            ForeignTable?: string,
+            Attributes?: RelationAttributeEnum,
+        ): Relation;
+        CreateTableDef(
+            Name?: string,
+            Attributes?: TableDefAttributeEnum,
+            SourceTableName?: string,
+            Connect?: string,
+        ): TableDef;
         DesignMasterID: string;
         Execute(Query: string, Options?: RecordsetOptionEnum): void;
         MakeReplica(PathName: string, Description: string, Options?: ReplicaTypeEnum): void;
         readonly Name: string;
         NewPassword(bstrOld: string, bstrNew: string): void;
-        OpenRecordset(Name: string, Type?: RecordsetTypeEnum, Options?: RecordsetOptionEnum, LockEdit?: LockTypeEnum): Recordset;
+        OpenRecordset(
+            Name: string,
+            Type?: RecordsetTypeEnum,
+            Options?: RecordsetOptionEnum,
+            LockEdit?: LockTypeEnum,
+        ): Recordset;
         PopulatePartial(DbPathName: string): void;
         readonly Properties: Properties;
         readonly QueryDefs: QueryDefs;
@@ -437,7 +457,13 @@ declare namespace DAO {
          * @param Options `dbEncrypt` and `dbDecrypt` are deprecated, and unsupported for ACCDB
          * @param password Deprecated, and unsupported for ACCDB
          */
-        CompactDatabase(SrcName: string, DstName: string, DstLocale?: LanguageConstants | string, Options?: DatabaseTypeEnum, password?: string): void;
+        CompactDatabase(
+            SrcName: string,
+            DstName: string,
+            DstLocale?: LanguageConstants | string,
+            Options?: DatabaseTypeEnum,
+            password?: string,
+        ): void;
 
         /**
          * @param Locale  Specify one of the following:
@@ -461,7 +487,12 @@ declare namespace DAO {
         /**
          * @param Connect ODBC connection string; prepend with `ODBC;`
          */
-        OpenConnection(Name: string, Options?: DriverPromptEnum | RecordsetOptionEnum.dbRunAsync, ReadOnly?: boolean, Connect?: string): Connection;
+        OpenConnection(
+            Name: string,
+            Options?: DriverPromptEnum | RecordsetOptionEnum.dbRunAsync,
+            ReadOnly?: boolean,
+            Connect?: string,
+        ): Connection;
         OpenDatabase(Name: string, Exclusive?: boolean, ReadOnly?: boolean, Connect?: string): Database;
         readonly Properties: Properties;
         RegisterDatabase(Dsn: string, Driver: string, Silent: boolean, Attributes: string): void;
@@ -734,7 +765,22 @@ declare namespace DAO {
         readonly RecordStatus: number;
         Requery(NewQueryDef?: QueryDef): void;
         readonly Restartable: boolean;
-        Seek(Comparison: string, Key1: any, Key2?: any, Key3?: any, Key4?: any, Key5?: any, Key6?: any, Key7?: any, Key8?: any, Key9?: any, Key10?: any, Key11?: any, Key12?: any, Key13?: any): void;
+        Seek(
+            Comparison: string,
+            Key1: any,
+            Key2?: any,
+            Key3?: any,
+            Key4?: any,
+            Key5?: any,
+            Key6?: any,
+            Key7?: any,
+            Key8?: any,
+            Key9?: any,
+            Key10?: any,
+            Key11?: any,
+            Key12?: any,
+            Key13?: any,
+        ): void;
         Sort: string;
         readonly StillExecuting: boolean;
         readonly Transactions: boolean;
@@ -866,7 +912,12 @@ declare namespace DAO {
         /**
          * @param Connect ODBC connection string; prepend with `ODBC;`
          */
-        OpenConnection(Name: string, Options?: DriverPromptEnum | RecordsetOptionEnum.dbRunAsync, ReadOnly?: boolean, Connect?: string): Connection;
+        OpenConnection(
+            Name: string,
+            Options?: DriverPromptEnum | RecordsetOptionEnum.dbRunAsync,
+            ReadOnly?: boolean,
+            Connect?: string,
+        ): Connection;
         OpenDatabase(Name: string, Exclusive?: boolean, ReadOnly?: boolean, Connect?: string): Database;
         readonly Properties: Properties;
         Rollback(): void;

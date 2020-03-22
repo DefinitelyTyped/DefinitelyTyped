@@ -6,7 +6,7 @@ const flags = {
 };
 
 const variants = {
-    superVariant: new Rox.Variant('value1', ['value1', 'value2'])
+    superVariant: new Rox.Variant('value1', ['value1', 'value2']),
 };
 
 const configurations = {

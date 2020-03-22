@@ -11,7 +11,7 @@ const urlRecord = whatwgUrl.parseURL('http://example.com');
 
 if (urlRecord !== null) {
     // $ExpectType URLRecord | null
-    whatwgUrl.basicURLParse('http://example.com', {url: urlRecord});
+    whatwgUrl.basicURLParse('http://example.com', { url: urlRecord });
 
     // $ExpectType string
     whatwgUrl.serializeURL(urlRecord);

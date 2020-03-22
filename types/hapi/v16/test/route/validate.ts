@@ -1,4 +1,3 @@
-
 // Added from: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/16065#issuecomment-302216131
 
 import * as Hapi from 'hapi';
@@ -29,7 +28,11 @@ interface CustomValidationOptions extends Joi.ValidationOptions {
     myOption: number;
 }
 
-const inputValidationFunction: Hapi.ValidationFunctionForRouteInput<CustomValidationOptions> = (value, options, next) => {
+const inputValidationFunction: Hapi.ValidationFunctionForRouteInput<CustomValidationOptions> = (
+    value,
+    options,
+    next,
+) => {
     options.myOption; // check custom options
     options.context.auth.artifacts; // check context
     next(null, value); // check with value
@@ -42,11 +45,15 @@ const validateWithFunctions: Hapi.RouteValidationConfigurationObject<CustomValid
     payload: inputValidationFunction,
     query: inputValidationFunction,
     options: {
-        myOption: 18
-    }
+        myOption: 18,
+    },
 };
 
-const responseValidationFunction: Hapi.ValidationFunctionForRouteResponse<CustomValidationOptions> = (value, options, next) => {
+const responseValidationFunction: Hapi.ValidationFunctionForRouteResponse<CustomValidationOptions> = (
+    value,
+    options,
+    next,
+) => {
     options.myOption; // check custom options
     options.context.auth.isAuthenticated; // check context
     next(null, value); // check with value
@@ -58,7 +65,7 @@ config = {
     response: {
         schema: responseValidationFunction,
         options: {
-            myOption: 18
-        }
-    } as Hapi.RouteResponseConfigurationObject<CustomValidationOptions>
+            myOption: 18,
+        },
+    } as Hapi.RouteResponseConfigurationObject<CustomValidationOptions>,
 };

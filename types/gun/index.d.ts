@@ -20,7 +20,7 @@ declare namespace Gun {
         ? never
         : AccessObject<T>;
     type AccessObject<T> = T extends object
-        ? { [key in keyof T]: (AlwaysDisallowedType<T[key]> extends never ? never : AccessObject<T[key]>) }
+        ? { [key in keyof T]: AlwaysDisallowedType<T[key]> extends never ? never : AccessObject<T[key]> }
         : T;
     /** These types cannot be stored on Gun's root level */
     type DisallowPrimitives<Open, T> = Open extends false
@@ -87,7 +87,7 @@ declare namespace Gun {
          */
         put(
             data: Partial<AlwaysDisallowedType<DisallowPrimitives<IsTop, DisallowArray<DataType>>>>,
-            callback?: AckCallback
+            callback?: AckCallback,
         ): ChainReference<DataType, ReferenceKey, IsTop>;
         /**
          * Where to read data from.
@@ -110,8 +110,8 @@ declare namespace Gun {
                     any
                 >,
                 /** the key, ID, or property name of the data. */
-                paramB: Record<'off' | 'to' | 'next' | 'the' | 'on' | 'as' | 'back' | 'rid' | 'id', any>
-            ) => void
+                paramB: Record<'off' | 'to' | 'next' | 'the' | 'on' | 'as' | 'back' | 'rid' | 'id', any>,
+            ) => void,
         ): ChainReference<DataType[K], K, IsTop extends 'pre_root' ? 'root' : false>;
         /**
          * Change the configuration of the gun database instance.
@@ -146,9 +146,9 @@ declare namespace Gun {
         on(
             callback: (
                 data: DisallowPrimitives<IsTop, AlwaysDisallowedType<ArrayAsRecord<DataType>>>,
-                key: ReferenceKey
+                key: ReferenceKey,
             ) => void,
-            option?: { change: boolean } | boolean
+            option?: { change: boolean } | boolean,
         ): ChainReference<DataType, ReferenceKey>;
         /**
          * Get the current data without subscribing to updates. Or `undefined` if it cannot be found.
@@ -156,10 +156,10 @@ declare namespace Gun {
          */
         once(
             callback?: (
-                data: (DisallowPrimitives<IsTop, AlwaysDisallowedType<ArrayAsRecord<DataType>>>) | undefined,
-                key: ReferenceKey
+                data: DisallowPrimitives<IsTop, AlwaysDisallowedType<ArrayAsRecord<DataType>>> | undefined,
+                key: ReferenceKey,
             ) => void,
-            option?: { wait: number }
+            option?: { wait: number },
         ): ChainReference<DataType, ReferenceKey>;
         /**
          * **.set does not means 'set data', it means a Mathematical Set**
@@ -178,7 +178,7 @@ declare namespace Gun {
                         : never
                     : never
             >,
-            callback?: AckCallback
+            callback?: AckCallback,
         ): ChainReference<ArrayOf<DataType>>;
         /**
          * Map iterates over each property and item on a node, passing it down the chain,
@@ -186,7 +186,7 @@ declare namespace Gun {
          * It also subscribes to every item as well and listens for newly inserted items.
          */
         map(
-            callback?: (value: ArrayOf<DataType>, key: DataType) => ArrayOf<DataType> | undefined
+            callback?: (value: ArrayOf<DataType>, key: DataType) => ArrayOf<DataType> | undefined,
         ): ChainReference<ArrayOf<DataType>, ReferenceKey>;
         /**
          * Undocumented, but extremely useful and mentioned in the document
@@ -236,7 +236,7 @@ declare namespace Gun {
          * `<script src="https://cdn.jsdelivr.net/npm/gun/lib/then.js"></script>`!
          */
         then?<TResult1 = ArrayAsRecord<DataType>>(
-            onfulfilled?: (value: TResult1) => TResult1 | PromiseLike<TResult1>
+            onfulfilled?: (value: TResult1) => TResult1 | PromiseLike<TResult1>,
         ): Promise<TResult1>;
         /**
          * Returns a promise for you to use.
@@ -247,7 +247,7 @@ declare namespace Gun {
         promise?<
             TResult1 = { put: ArrayAsRecord<DataType>; key: ReferenceKey; gun: ChainReference<DataType, ReferenceKey> }
         >(
-            onfulfilled?: (value: TResult1) => TResult1 | PromiseLike<TResult1>
+            onfulfilled?: (value: TResult1) => TResult1 | PromiseLike<TResult1>,
         ): Promise<TResult1>;
         /**
          * bye lets you change data after that browser peer disconnects.
@@ -271,9 +271,9 @@ declare namespace Gun {
             callback: (
                 this: ChainReference<DataType, ReferenceKey>,
                 data: ArrayAsRecord<DataType>,
-                key: ReferenceKey
+                key: ReferenceKey,
             ) => void,
-            seconds: number
+            seconds: number,
         ): ChainReference<DataType, ReferenceKey>;
         /**
          * After you save some data in an unordered list, you may need to remove it.
@@ -289,7 +289,7 @@ declare namespace Gun {
          */
         time?(
             callback: (data: ArrayOf<DataType>, key: ReferenceKey, time: number) => void,
-            alsoReceiveNOldEvents?: number
+            alsoReceiveNOldEvents?: number,
         ): ChainReference<DataType, ReferenceKey>;
         /** Pushes data to a Timegraph with it's time set to Gun.state()'s time */
         time?(data: ArrayOf<DataType>): void;
@@ -306,7 +306,7 @@ declare namespace Gun {
             alias: string,
             pass: string,
             cb?: (ack: { ok: 0; pub: string } | { err: string }) => void,
-            opt?: {}
+            opt?: {},
         ): ChainReference;
         /**
          * Authenticates a user, previously created via User.create.
@@ -328,9 +328,9 @@ declare namespace Gun {
                           sea: CryptoKeyPair;
                           soul: string;
                       }
-                    | { err: string }
+                    | { err: string },
             ) => void,
-            opt?: {}
+            opt?: {},
         ): ChainReference;
         /**
          * Returns the key pair in the form of an object as below.
@@ -417,7 +417,7 @@ declare namespace Gun {
                     salt: any;
                     hash: string;
                     length: any;
-                }>
+                }>,
             ): Promise<string | undefined>;
             /**
              * This generates a cryptographically secure public/private key pair - be careful not to leak the private keys!

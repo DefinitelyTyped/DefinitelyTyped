@@ -23,26 +23,28 @@ const updateZoomAndTakePhoto = () => {
         if (!input) {
             return;
         }
-        const inputRange = <HTMLInputElement> input;
+        const inputRange = <HTMLInputElement>input;
         inputRange.min = capabilities.zoom.min.toString();
         inputRange.max = capabilities.zoom.max.toString();
         inputRange.step = capabilities.zoom.step.toString();
         inputRange.value = track.getSettings().zoom.toString();
 
         inputRange.oninput = (event) => {
-            const input: HTMLInputElement = <HTMLInputElement> event.target;
-            track.applyConstraints({advanced: [{zoom: Number(input.value)}]});
+            const input: HTMLInputElement = <HTMLInputElement>event.target;
+            track.applyConstraints({ advanced: [{ zoom: Number(input.value) }] });
         };
         inputRange.hidden = false;
     };
 
-    navigator.mediaDevices.getUserMedia({video: true})
+    navigator.mediaDevices
+        .getUserMedia({ video: true })
         .then(gotMedia)
-        .catch(err => console.error('getUserMedia() failed: ', err));
+        .catch((err) => console.error('getUserMedia() failed: ', err));
 
     const takePhoto = () => {
-        imageCapture.takePhoto()
-            .then(blob => {
+        imageCapture
+            .takePhoto()
+            .then((blob) => {
                 console.log(`Photo taken: ${blob.type}, ${blob.size}B`);
 
                 const image = document.querySelector('img');
@@ -51,13 +53,13 @@ const updateZoomAndTakePhoto = () => {
                 }
                 image.src = URL.createObjectURL(blob);
             })
-            .catch(err => console.error('takePhoto() failed: ', err));
+            .catch((err) => console.error('takePhoto() failed: ', err));
     };
 };
 
 // Example 2 (from the spec):
 const repeatGrab = () => {
-    const canvas = <HTMLCanvasElement> document.querySelector('canvas');
+    const canvas = <HTMLCanvasElement>document.querySelector('canvas');
 
     let interval: number;
     let track: MediaStreamTrack;
@@ -66,15 +68,17 @@ const repeatGrab = () => {
         track = mediastream.getVideoTracks()[0];
         const imageCapture = new ImageCapture(track);
         interval = setInterval(() => {
-            imageCapture.grabFrame()
+            imageCapture
+                .grabFrame()
                 .then(processFrame)
-                .catch(err => console.error('grabFrame() failed: ', err));
+                .catch((err) => console.error('grabFrame() failed: ', err));
         }, 1000);
     };
 
-    navigator.mediaDevices.getUserMedia({video: true})
+    navigator.mediaDevices
+        .getUserMedia({ video: true })
         .then(gotMedia)
-        .catch(err => console.error('getUserMedia() failed: ', err));
+        .catch((err) => console.error('getUserMedia() failed: ', err));
 
     const processFrame = (imgData: ImageBitmap) => {
         canvas.width = imgData.width;
@@ -94,21 +98,23 @@ const repeatGrab = () => {
 
 // Example 3 (from the spec):
 const grabAndPostProcessFrame = () => {
-    const canvas = <HTMLCanvasElement> document.querySelector('canvas');
+    const canvas = <HTMLCanvasElement>document.querySelector('canvas');
 
     let track: MediaStreamTrack;
 
     const gotMedia = (mediastream: MediaStream) => {
         track = mediastream.getVideoTracks()[0];
         const imageCapture = new ImageCapture(track);
-        imageCapture.grabFrame()
+        imageCapture
+            .grabFrame()
             .then(processFrame)
-            .catch(err => console.error('grabFrame() failed: ', err));
+            .catch((err) => console.error('grabFrame() failed: ', err));
     };
 
-    navigator.mediaDevices.getUserMedia({video: true})
+    navigator.mediaDevices
+        .getUserMedia({ video: true })
         .then(gotMedia)
-        .catch(err => console.error('getUserMedia() failed: ', err));
+        .catch((err) => console.error('getUserMedia() failed: ', err));
 
     const processFrame = (imageBitmap: ImageBitmap) => {
         track.stop();
@@ -128,7 +134,7 @@ const grabAndPostProcessFrame = () => {
 
         const data = imageData.data;
         for (let i = 0; i < data.length; i += 4) {
-            data[i] = 255 - data[i];     // red
+            data[i] = 255 - data[i]; // red
             data[i + 1] = 255 - data[i + 1]; // green
             data[i + 2] = 255 - data[i + 2]; // blue
         }
@@ -142,7 +148,7 @@ const updateFocusAndTrakePhoto = () => {
     let imageCapture: ImageCapture;
 
     const gotMedia = (mediastream: MediaStream) => {
-        const video = <HTMLVideoElement> document.querySelector('video');
+        const video = <HTMLVideoElement>document.querySelector('video');
         video.srcObject = mediastream;
 
         const track = mediastream.getVideoTracks()[0];
@@ -155,7 +161,7 @@ const updateFocusAndTrakePhoto = () => {
         }
 
         // Map focus distance to a slider element.
-        const input = <HTMLInputElement> document.querySelector('input[type="range"]');
+        const input = <HTMLInputElement>document.querySelector('input[type="range"]');
         input.min = capabilities.focusDistance.min.toString();
         input.max = capabilities.focusDistance.max.toString();
         input.step = capabilities.focusDistance.step.toString();
@@ -163,27 +169,31 @@ const updateFocusAndTrakePhoto = () => {
 
         input.oninput = (event) => {
             track.applyConstraints({
-                advanced: [{
-                    focusMode: "manual",
-                    focusDistance: Number((<HTMLInputElement> event.target).value)
-                }]
+                advanced: [
+                    {
+                        focusMode: 'manual',
+                        focusDistance: Number((<HTMLInputElement>event.target).value),
+                    },
+                ],
             });
         };
         input.hidden = false;
     };
 
-    navigator.mediaDevices.getUserMedia({video: true})
+    navigator.mediaDevices
+        .getUserMedia({ video: true })
         .then(gotMedia)
-        .catch(err => console.error('getUserMedia() failed: ', err));
+        .catch((err) => console.error('getUserMedia() failed: ', err));
 
     const takePhoto = () => {
-        imageCapture.takePhoto()
-            .then(blob => {
+        imageCapture
+            .takePhoto()
+            .then((blob) => {
                 console.log(`Photo taken: ${blob.type}, ${blob.size}B`);
 
-                const image = <HTMLImageElement> document.querySelector('img');
+                const image = <HTMLImageElement>document.querySelector('img');
                 image.src = URL.createObjectURL(blob);
             })
-            .catch(err => console.error('takePhoto() failed: ', err));
+            .catch((err) => console.error('takePhoto() failed: ', err));
     };
 };

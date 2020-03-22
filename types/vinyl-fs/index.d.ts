@@ -10,7 +10,7 @@
 declare global {
     namespace NodeJS {
         interface WritableStream {
-            write(buffer: any/* Vinyl.File */, cb?: (err?: Error | null) => void): boolean;
+            write(buffer: any /* Vinyl.File */, cb?: (err?: Error | null) => void): boolean;
         }
     }
 }
@@ -151,7 +151,7 @@ export interface DestOptions {
  * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
  * @param opt Options Vinyl source options, changes the way the files are read, found, or stored in the vinyl stream
  */
-export function src(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
+export function src(globs: string | string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
 
 /**
  * On write the stream will save the vinyl File to disk at the folder/cwd specified.
@@ -181,22 +181,25 @@ export function dest(getFolderPath: (file: File) => string): NodeJS.ReadWriteStr
  * The file will be modified after being written to this stream:
  * cwd, base, and path will be overwritten to match the folder
  */
-export function symlink(folder: string, opts?: {
-    /**
-     * Specify the working directory the folder is relative to
-     * Default is process.cwd()
-     */
-    cwd?: string;
+export function symlink(
+    folder: string,
+    opts?: {
+        /**
+         * Specify the working directory the folder is relative to
+         * Default is process.cwd()
+         */
+        cwd?: string;
 
-    /** Specify the mode the directory should be created with. Default is the process mode */
-    mode?: number | string;
+        /** Specify the mode the directory should be created with. Default is the process mode */
+        mode?: number | string;
 
-    /**
-     * Specify the mode the directory should be created with
-     * Default is the process mode
-     */
-    dirMode?: number
-}): NodeJS.ReadWriteStream;
+        /**
+         * Specify the mode the directory should be created with
+         * Default is the process mode
+         */
+        dirMode?: number;
+    },
+): NodeJS.ReadWriteStream;
 
 /**
  * On write the stream will create a symbolic link (i.e. symlink) on disk at the folder/cwd generated from getFolderPath.
@@ -204,16 +207,19 @@ export function symlink(folder: string, opts?: {
  * The file will be modified after being written to this stream:
  * cwd, base, and path will be overwritten to match the folder
  */
-export function symlink(getFolderPath: (File: File) => string, opts?: {
-    /**
-     * Specify the working directory the folder is relative to
-     * Default is process.cwd()
-     */
-    cwd?: string;
+export function symlink(
+    getFolderPath: (File: File) => string,
+    opts?: {
+        /**
+         * Specify the working directory the folder is relative to
+         * Default is process.cwd()
+         */
+        cwd?: string;
 
-    /**
-     * Specify the mode the directory should be created with
-     * Default is the process mode
-     */
-    dirMode?: number
-}): NodeJS.ReadWriteStream;
+        /**
+         * Specify the mode the directory should be created with
+         * Default is the process mode
+         */
+        dirMode?: number;
+    },
+): NodeJS.ReadWriteStream;

@@ -1,13 +1,13 @@
-import { Client } from "fb-watchman";
+import { Client } from 'fb-watchman';
 
 const client = new Client();
 const clientB = new Client({});
 
-client.capabilityCheck({ optional: [], required: ['relative_root'] }, e => {
-	if (e) {
-	  client.end();
-	  return;
-	}
+client.capabilityCheck({ optional: [], required: ['relative_root'] }, (e) => {
+    if (e) {
+        client.end();
+        return;
+    }
 });
 client.connect();
 

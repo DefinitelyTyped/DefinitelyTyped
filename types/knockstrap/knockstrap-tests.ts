@@ -25,7 +25,6 @@ ko.stringTemplateEngine.instance.addTemplate('test', {});
 ko.stringTemplateEngine.instance.removeTemplate('test');
 ko.stringTemplateEngine.instance.isTemplateExist('test');
 
-
 var alertbh = ko.bindingHandlers.alert;
 var carouselbh = ko.bindingHandlers.carousel;
 var checkboxbh = ko.bindingHandlers.checkbox;

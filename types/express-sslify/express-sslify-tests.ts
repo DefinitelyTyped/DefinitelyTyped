@@ -14,5 +14,5 @@ express.use(
         trustXForwardedHostHeader: booleanFlag,
         trustAzureHeader: booleanFlag,
         trustProtoHeader: booleanFlag,
-    })
+    }),
 );

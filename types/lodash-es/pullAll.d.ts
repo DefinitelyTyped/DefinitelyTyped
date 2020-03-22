@@ -1,2 +1,2 @@
-import { pullAll } from "lodash";
+import { pullAll } from 'lodash';
 export default pullAll;

@@ -7,7 +7,6 @@
  * Type Script Declaration for node-getopt
  */
 
-
 interface OptionMap {
     [index: string]: string | string[] | boolean;
 }

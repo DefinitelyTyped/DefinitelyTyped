@@ -1,2 +1,2 @@
-import { round } from "../fp";
+import { round } from '../fp';
 export = round;

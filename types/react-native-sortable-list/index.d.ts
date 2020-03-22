@@ -142,17 +142,17 @@ export default class SortableList<T, K> extends Component<SortableListProps<T, K
     /**
      * scrolls by a given y offset, either immediately or with a smooth animation
      */
-    scrollBy({dx, dy, animated}: { dx?: number; dy?: number; animated?: boolean }): void;
+    scrollBy({ dx, dy, animated }: { dx?: number; dy?: number; animated?: boolean }): void;
 
     /**
      * scrolls to a given y offset, either immediately or with a smooth animation
      */
-    scrollTo({x, y, animated}: { x?: number; y?: number; animated?: boolean }): void;
+    scrollTo({ x, y, animated }: { x?: number; y?: number; animated?: boolean }): void;
 
     /**
      * scrolls to a given row key, either immediately or with a smooth animation
      */
-    scrollToRowKey({key, animated}: { key?: K; animated?: boolean }): void;
+    scrollToRowKey({ key, animated }: { key?: K; animated?: boolean }): void;
 }
 
 export { RowProps };

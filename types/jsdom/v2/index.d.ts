@@ -7,8 +7,6 @@
 /// <reference types="node" />
 /// <reference types="jquery" />
 
-
-
 import EventEmitter = NodeJS.EventEmitter;
 
 /**
@@ -23,7 +21,7 @@ import EventEmitter = NodeJS.EventEmitter;
  * @param urlOrSource may be a URL, file name, or HTML fragment
  * @param scriptUrlsOrSources a string or array of strings, containing file names or URLs that will be inserted as
  * @param config  Configuration object
- * @param callback 
+ * @param callback
  */
 export declare function env(urlOrHtml: string, scripts: string, config: Config, callback?: Callback): void;
 export declare function env(urlOrHtml: string, scripts: string, callback: Callback): void;
@@ -39,8 +37,7 @@ export interface VirtualConsole extends EventEmitter {
     sendTo(console: Console): VirtualConsole;
 }
 
-export interface VirtualConsoleOptions {
-}
+export interface VirtualConsoleOptions {}
 
 export interface WindowProperties {
     parsingMode?: string; // html, xml, auto, undefined
@@ -60,9 +57,7 @@ export interface WindowProperties {
 }
 
 // tough-cookie
-export interface CookieJar {
-
-}
+export interface CookieJar {}
 
 export declare function createVirtualConsole(options?: VirtualConsoleOptions): VirtualConsole;
 export declare function getVirtualConsole(window: Window): VirtualConsole;
@@ -71,7 +66,11 @@ export declare function nodeLocation(node: Node): any;
 export declare function reconfigureWindow(window: Window, newProps: WindowProperties): void;
 export declare function changeURL(window: Window, url: string): void;
 
-export declare function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
+export declare function jQueryify(
+    window: Window,
+    jqueryUrl: string,
+    callback: (window: Window, jquery: JQuery) => any,
+): void;
 
 export declare var debugMode: boolean;
 
@@ -114,7 +113,7 @@ export interface FeatureOptions {
     /**
      * Enables/disables JavaScript execution
      * Default: ["script"]
-     * Allowed: ["script"] or false, 
+     * Allowed: ["script"] or false,
      * Default for jsdom.env: false
      */
     ProcessExternalResources?: string[] | boolean;

@@ -1,2 +1,2 @@
-import { ary } from "lodash";
+import { ary } from 'lodash';
 export default ary;

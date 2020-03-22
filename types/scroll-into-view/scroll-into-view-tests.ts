@@ -1,6 +1,6 @@
-import scrollIntoView = require("scroll-into-view");
+import scrollIntoView = require('scroll-into-view');
 
-var someElement: HTMLElement
+var someElement: HTMLElement;
 scrollIntoView(someElement);
 
 scrollIntoView(someElement, {
@@ -15,8 +15,8 @@ scrollIntoView(someElement, {
         top: 0,
         left: 1,
         topOffset: 20,
-        leftOffset: 20
-    }
+        leftOffset: 20,
+    },
 });
 
 scrollIntoView(someElement, function (type) {

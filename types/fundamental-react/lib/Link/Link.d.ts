@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type LinkProps = {
     className?: string;
@@ -9,7 +9,7 @@ export type LinkProps = {
 } & React.HTMLAttributes<HTMLAnchorElement>;
 
 declare const Link: React.FunctionComponent<LinkProps> & {
-    displayName: "Link";
+    displayName: 'Link';
 };
 
 export default Link;

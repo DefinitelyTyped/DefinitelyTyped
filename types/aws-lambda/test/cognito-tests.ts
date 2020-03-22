@@ -1,7 +1,7 @@
 // TODO: Update test to read all event properties, and write all result
 //       properties, like the user will.
 
-import { CognitoUserPoolTriggerHandler } from "aws-lambda";
+import { CognitoUserPoolTriggerHandler } from 'aws-lambda';
 
 const handler: CognitoUserPoolTriggerHandler = async (event, context, callback) => {
     num = event.version;

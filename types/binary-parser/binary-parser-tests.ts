@@ -1,4 +1,4 @@
-import { Parser } from "binary-parser";
+import { Parser } from 'binary-parser';
 
 // Build an IP packet header Parser
 const ipHeader = new Parser()
@@ -15,11 +15,11 @@ const ipHeader = new Parser()
     .uint16('checksum')
     .array('src', {
         type: 'uint8',
-        length: 4
+        length: 4,
     })
     .array('dst', {
         type: 'uint8',
-        length: 4
+        length: 4,
     });
 
 // Prepare buffer to parse.
@@ -46,33 +46,33 @@ const parser4 = new Parser()
     // Statically sized array
     .array('data', {
         type: 'int32',
-        length: 8
+        length: 8,
     })
 
     // Dynamically sized array (references another variable)
     .uint8('dataLength')
     .array('data2', {
         type: 'int32',
-        length: 'dataLength'
+        length: 'dataLength',
     })
 
     // Dynamically sized array (with some calculation)
     .array('data3', {
         type: 'int32',
-        length: () => 4 // other fields are available through this
+        length: () => 4, // other fields are available through this
     })
 
     // Statically sized array
     .array('data4', {
         type: 'int32',
-        lengthInBytes: 16
+        lengthInBytes: 16,
     })
 
     // Dynamically sized array (references another variable)
     .uint8('dataLengthInBytes')
     .array('data5', {
         type: 'int32',
-        lengthInBytes: 'dataLengthInBytes'
+        lengthInBytes: 'dataLengthInBytes',
     })
 
     // Dynamically sized array (with some calculation)
@@ -84,32 +84,27 @@ const parser4 = new Parser()
     // Dynamically sized array (with stop-check on parsed item)
     .array('data7', {
         type: 'int32',
-        readUntil: (item, buffer) => true // stop when specific item is parsed. buffer can be used to perform a read-ahead.
+        readUntil: (item, buffer) => true, // stop when specific item is parsed. buffer can be used to perform a read-ahead.
     });
 
-const parser5 = new Parser()
-    .array('ipv4', {
-        type: 'uint8',
-        length: '4',
-        formatter: (arr) => { }
-    });
+const parser5 = new Parser().array('ipv4', {
+    type: 'uint8',
+    length: '4',
+    formatter: (arr) => {},
+});
 
 const parser6 = new Parser()
-    .nest("nested", {
-        type: new Parser()
-            .array("points", {
-                type: new Parser()
-                    .uint8("x")
-                    .uint8("y"),
-                length: 2
-            })
+    .nest('nested', {
+        type: new Parser().array('points', {
+            type: new Parser().uint8('x').uint8('y'),
+            length: 2,
+        }),
     })
-    .choice("optional", {
-        tag: "nested.points[0].x",
+    .choice('optional', {
+        tag: 'nested.points[0].x',
         choices: {
-            1: new Parser()
-                .uint8("number")
-        }
+            1: new Parser().uint8('number'),
+        },
     });
 
 const result = parser6.parse(Buffer.from([0x01, 0x02, 0x03, 0x04, 0x05]));

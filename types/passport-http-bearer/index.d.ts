@@ -7,8 +7,8 @@
 /// <reference types="passport"/>
 /// <reference types="express" />
 
-import passport = require("passport");
-import express = require("express");
+import passport = require('passport');
+import express = require('express');
 
 interface IStrategyOptions {
     scope?: string | Array<string>;
@@ -25,7 +25,11 @@ interface VerifyFunction {
 }
 
 interface VerifyFunctionWithRequest {
-    (req: express.Request, token: string, done: (error: any, user?: any, options?: IVerifyOptions | string) => void): void;
+    (
+        req: express.Request,
+        token: string,
+        done: (error: any, user?: any, options?: IVerifyOptions | string) => void,
+    ): void;
 }
 
 declare class Strategy implements passport.Strategy {

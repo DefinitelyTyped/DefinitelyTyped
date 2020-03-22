@@ -29,7 +29,13 @@ import MDCShortTopAppBarFoundation from './short/foundation';
 import MDCTopAppBarFoundation from './standard/foundation';
 import { MDCRipple } from 'material__ripple';
 
-export { MDCTopAppBarBaseFoundation, MDCTopAppBarAdapter, MDCTopAppBarFoundation, MDCFixedTopAppBarFoundation, MDCShortTopAppBarFoundation };
+export {
+    MDCTopAppBarBaseFoundation,
+    MDCTopAppBarAdapter,
+    MDCTopAppBarFoundation,
+    MDCFixedTopAppBarFoundation,
+    MDCShortTopAppBarFoundation,
+};
 
 export class MDCTopAppBar extends MDCComponent<MDCTopAppBarAdapter, MDCTopAppBarFoundation> {
     initialize(rippleFactory?: (el: Element) => MDCRipple): void;

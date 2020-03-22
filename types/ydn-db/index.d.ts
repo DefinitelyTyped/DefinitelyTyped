@@ -4,303 +4,315 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface FullTextSource {
-  storeName: string;
-  keyPath: string;
-  weight?: number;
+    storeName: string;
+    keyPath: string;
+    weight?: number;
 }
 
 interface FullTextCatalog {
-  name: string;
-  lang: string;
-  sources: FullTextSource[];
+    name: string;
+    lang: string;
+    sources: FullTextSource[];
 }
 
 interface IndexSchemaJson {
-  name?: string;
-  keyPath: string|string[];
-  type?: string;
-  unique?: boolean;
-  multiEntry?: boolean;
+    name?: string;
+    keyPath: string | string[];
+    type?: string;
+    unique?: boolean;
+    multiEntry?: boolean;
 }
 
 interface StoreSchemaJson {
-  autoIncrement?: boolean;
-  dispatchEvents?: boolean;
-  name?: string;
-  indexes?: IndexSchemaJson[];
-  keyPath?: string;
-  type?: string;
+    autoIncrement?: boolean;
+    dispatchEvents?: boolean;
+    name?: string;
+    indexes?: IndexSchemaJson[];
+    keyPath?: string;
+    type?: string;
 }
 
 interface DatabaseSchemaJson {
-  version?: number;
-  stores: StoreSchemaJson[];
-  fullTextCatalogs?: FullTextCatalog[];
+    version?: number;
+    stores: StoreSchemaJson[];
+    fullTextCatalogs?: FullTextCatalog[];
 }
 
 interface StorageOptions {
-  mechanisms?: string[];
-  size?: number;
-  autoSchema?: boolean;
-  isSerial?: boolean;
-  requestType?: string;
+    mechanisms?: string[];
+    size?: number;
+    autoSchema?: boolean;
+    isSerial?: boolean;
+    requestType?: string;
 }
 
 declare namespace ydn.db {
-  export class Request {
-    abort(): any;
-    always(callback: (data: any) => void): any;
-    done(callback: (data: any) => void): any;
-    fail(callback: (data: any) => void): any;
-    then(success_callback: (data: any) => any, error_callback: (data: Error) => any): any;
-    canAbort(): boolean;
-  }
+    export class Request {
+        abort(): any;
+        always(callback: (data: any) => void): any;
+        done(callback: (data: any) => void): any;
+        fail(callback: (data: any) => void): any;
+        then(success_callback: (data: any) => any, error_callback: (data: Error) => any): any;
+        canAbort(): boolean;
+    }
 
-  export function cmp(first: any, second: any): number;
+    export function cmp(first: any, second: any): number;
 
-  export function deleteDatabase(db_name: string, type?: string): void;
+    export function deleteDatabase(db_name: string, type?: string): void;
 
-  export class Key {
-    constructor(json: Object);
-    constructor(key_string: string);
-    constructor(store_name: string, id: any, parent_key?: Key);
-  }
+    export class Key {
+        constructor(json: Object);
+        constructor(key_string: string);
+        constructor(store_name: string, id: any, parent_key?: Key);
+    }
 
-  export class Iterator {
-    join(peer_store_name: string, peer_field_name?: string, value?: any): any;
-    getKey(): any;
-    getPrimaryKey(): any;
-    reset(): Iterator;
-    restrict(peer_field_name: string, value: any): any;
-    resume(key: any, index_key: any): Iterator;
-    reverse(key: any, index_key: any): Iterator;
-  }
+    export class Iterator {
+        join(peer_store_name: string, peer_field_name?: string, value?: any): any;
+        getKey(): any;
+        getPrimaryKey(): any;
+        reset(): Iterator;
+        restrict(peer_field_name: string, value: any): any;
+        resume(key: any, index_key: any): Iterator;
+        reverse(key: any, index_key: any): Iterator;
+    }
 
-  enum EventType {
-    created,
-    deleted,
-    error,
-    fail,
-    ready,
-    updated
-  }
+    enum EventType {
+        created,
+        deleted,
+        error,
+        fail,
+        ready,
+        updated,
+    }
 
-  enum Policy {
-    all,
-    atomic,
-    multi,
-    repeat,
-    single
-  }
+    enum Policy {
+        all,
+        atomic,
+        multi,
+        repeat,
+        single,
+    }
 
-  enum TransactionMode {
-    readonly,
-    readwrite
-  }
+    enum TransactionMode {
+        readonly,
+        readwrite,
+    }
 
-  enum Op {
-        ">", "<", "=", ">=", "<=", "^"
-  }
+    enum Op {
+        '>',
+        '<',
+        '=',
+        '>=',
+        '<=',
+        '^',
+    }
 
-  export class IndexKeyIterator extends Iterator {
-    constructor(store_name: string, index_name: string, key_range?: any, reverse?: boolean);
+    export class IndexKeyIterator extends Iterator {
+        constructor(store_name: string, index_name: string, key_range?: any, reverse?: boolean);
 
-    static where(store_name: string, index_name: string, op: Op, value: any, op2: Op, value2: any): any;
+        static where(store_name: string, index_name: string, op: Op, value: any, op2: Op, value2: any): any;
+    }
 
-  }
+    export class KeyIterator extends Iterator {
+        constructor(store_name: string, key_range?: any, reverse?: boolean);
 
-  export class KeyIterator extends Iterator {
-    constructor(store_name: string, key_range?: any, reverse?: boolean);
+        static where(store_name: string, op: Op, value: any, op2: Op, value2: any): any;
+    }
 
-    static where(store_name: string, op: Op, value: any, op2: Op, value2: any): any;
+    export class ValueIterator extends Iterator {
+        constructor(store_name: string, key_range?: any, reverse?: boolean);
 
-  }
+        static where(store_name: string, op: Op, value: any, op2: Op, value2: any): any;
+    }
 
-  export class ValueIterator extends Iterator {
-    constructor(store_name: string, key_range?: any, reverse?: boolean);
+    export class IndexValueIterator extends Iterator {
+        constructor(store_name: string, index_name: string, key_range?: any, reverse?: boolean);
 
-    static where(store_name: string, op: Op, value: any, op2: Op, value2: any): any;
+        static where(store_name: string, index_name: string, op: Op, value: any, op2: Op, value2: any): any;
+    }
 
-  }
+    export class Streamer {
+        constructor(storage: ydn.db.Storage, store_name: string, opt_field_name?: string);
 
-  export class IndexValueIterator extends Iterator {
-    constructor(store_name: string, index_name: string, key_range?: any, reverse?: boolean);
+        push(key: any, value?: any): any;
 
-    static where(store_name: string, index_name: string, op: Op, value: any, op2: Op, value2: any): any;
+        collect(callback: (values: any[]) => void): any;
 
-  }
+        setSink(callback: (key: any, value: any, toWait: () => boolean) => void): any;
+    }
 
-  export class Streamer {
-    constructor(storage: ydn.db.Storage, store_name: string, opt_field_name?: string);
+    export class ICursor {
+        getKey(i?: number): any;
+        getPrimaryKey(i?: number): any;
+        getValue(i?: number): any;
+        clear(i?: number): Request;
+        update(value: Object, i?: number): Request;
+    }
 
-    push(key: any, value?: any): any;
+    export class Query {
+        count(): Request;
+        open(callback: (ICursor: any) => void, Iterator: any, TransactionMode: any): Request;
+        patch(Object: any): Request;
+        patch(field_name: string, value: any): Request;
+        patch(field_names: string[], value: any[]): Request;
+        order(field_name: string): Query;
+        order(field_name: string, descending: boolean): Query;
+        order(field_names: string[]): Query;
+        order(field_names: string[], descending: boolean): Query;
+        reverse(): Query;
+        list(): Request;
+        list(limit: number): Request;
+        where(field_name: string, op: Op, value: any): any;
+        where(field_name: string, op: Op, value: any, op2: Op, value2: any): any;
+    }
 
-    collect(callback: (values: any[]) => void): any;
+    export class DbOperator {
+        add(store_name: string, value: any, key: any): Request;
+        add(store_name: string, value: any): Request;
 
-    setSink(callback: (key: any, value: any, toWait: () => boolean) => void): any;
-  }
+        clear(store_name: string, key_or_key_range: any): Request;
+        clear(store_name: string): Request;
+        clear(store_names: string[]): Request;
 
-  export class ICursor {
-    getKey(i?: number): any;
-    getPrimaryKey(i?: number): any;
-    getValue(i?: number): any;
-    clear(i?: number): Request;
-    update(value: Object, i?: number): Request;
-  }
+        count(store_name: string, key_range?: any): Request;
+        count(store_name: string, index_name: string, key_range: any): Request;
+        count(store_names: string[]): Request;
 
-  export class Query {
-    count(): Request;
-    open(callback: (ICursor: any) => void, Iterator: any, TransactionMode: any): Request;
-    patch(Object: any): Request;
-    patch(field_name: string, value: any): Request;
-    patch(field_names: string[], value: any[]): Request;
-    order(field_name: string): Query;
-    order(field_name: string, descending: boolean): Query;
-    order(field_names: string[]): Query;
-    order(field_names: string[], descending: boolean): Query;
-    reverse(): Query;
-    list(): Request;
-    list(limit: number): Request;
-    where(field_name: string, op: Op, value: any): any;
-    where(field_name: string, op: Op, value: any, op2: Op, value2: any): any;
-  }
+        executeSql(sql: string, params?: any[]): Request;
 
-  export class DbOperator {
+        from(store_name: string): Query;
+        from(store_name: string, op: Op, value: any): Query;
+        from(store_name: string, op: Op, value: any, op2: Op, value2: any): Query;
 
-    add(store_name: string, value: any, key: any): Request;
-    add(store_name: string, value: any): Request;
+        get(store_name: string, key: any): Request;
 
-    clear(store_name: string, key_or_key_range: any): Request;
-    clear(store_name: string): Request;
-    clear(store_names: string[]): Request;
+        keys(iter: Iterator, limit?: number): Request;
+        keys(store_name: string, key_range?: Object, limit?: number, offset?: number, reverse?: boolean): Request;
+        keys(
+            store_name: string,
+            index_name: string,
+            key_range?: Object,
+            limit?: number,
+            offset?: number,
+            reverse?: boolean,
+        ): Request;
+        keys(store_name: string, limit?: boolean, offset?: number): Request;
 
-    count(store_name: string, key_range?: any): Request;
-    count(store_name: string, index_name: string, key_range: any): Request;
-    count(store_names: string[]): Request;
+        open(next_callback: (cursor: ICursor) => any, iterator: Iterator, mode: TransactionMode): Request;
 
-    executeSql(sql: string, params?: any[]): Request;
+        put(store_name: string, value: any, key: any): Request;
+        put(store_name: string, value: any[], key: any[]): Request;
+        put(store_name: string, value: any): Request;
+        put(store_name: string, value: any[]): Request;
 
-    from(store_name: string): Query;
-    from(store_name: string, op: Op, value: any): Query;
-    from(store_name: string, op: Op, value: any, op2: Op, value2: any): Query;
+        remove(store_name: string, id_or_key_range: any): Request;
+        remove(store_name: string, index_name: string, id_or_key_range: any): Request;
+        clear(store_name: string, key_or_key_range: any): Request;
 
-    get(store_name: string, key: any): Request;
+        scan(solver: (keys: any[], values: any[]) => any, iterators: Iterator[]): Request;
 
-    keys(iter: Iterator, limit?: number): Request;
-    keys(store_name: string, key_range?: Object, limit?: number, offset?: number, reverse?: boolean): Request;
-    keys(store_name: string, index_name: string, key_range?: Object, limit?: number, offset?: number, reverse?: boolean): Request;
-    keys(store_name: string, limit?: boolean, offset?: number): Request;
+        values(iter: Iterator, limit?: number): Request;
+        values(store_name: string, key_range?: Object, limit?: number, offset?: number, reverse?: boolean): Request;
+        values(
+            store_name: string,
+            index_name: string,
+            key_range?: Object,
+            limit?: number,
+            offset?: number,
+            reverse?: boolean,
+        ): Request;
+        values(store_name: string, ids?: Array<any>): Request;
+        values(keys?: Array<any>): Request;
+    }
 
-    open(next_callback: (cursor: ICursor) => any, iterator: Iterator, mode: TransactionMode): Request;
+    export class Storage extends DbOperator {
+        constructor(db_name?: string, schema?: DatabaseSchemaJson, options?: StorageOptions);
 
-    put(store_name: string, value: any, key: any): Request;
-    put(store_name: string, value: any[], key: any[]): Request;
-    put(store_name: string, value: any): Request;
-    put(store_name: string, value: any[]): Request;
+        addEventListener(type: EventType, handler: (event: any) => void, capture?: boolean): any;
+        addEventListener(type: EventType[], handler: (event: any) => void, capture?: boolean): any;
 
-    remove(store_name: string, id_or_key_range: any): Request;
-    remove(store_name: string, index_name: string, id_or_key_range: any): Request;
-    clear(store_name: string, key_or_key_range: any): Request;
+        branch(
+            thread: Policy,
+            isSerial: boolean,
+            scope: string[],
+            mode: TransactionMode,
+            maxRequest: number,
+        ): DbOperator;
 
-    scan(solver: (keys: any[], values: any[]) => any, iterators: Iterator[]): Request;
+        close(): any;
 
-    values(iter: Iterator, limit?: number): Request;
-    values(store_name: string, key_range?: Object, limit?: number, offset?: number, reverse?: boolean): Request;
-    values(store_name: string, index_name: string, key_range?: Object, limit?: number, offset?: number, reverse?: boolean): Request;
-    values(store_name: string, ids?: Array<any>): Request;
-    values(keys?: Array<any>): Request;
-  }
+        get(store_name: string, key: any): Request;
 
-  export class Storage extends DbOperator {
+        getName(callback: any): string;
 
-    constructor(db_name?: string, schema?: DatabaseSchemaJson, options?: StorageOptions);
+        getSchema(callback: any): DatabaseSchemaJson;
 
-    addEventListener(type: EventType, handler: (event: any) => void, capture?: boolean): any;
-    addEventListener(type: EventType[], handler: (event: any) => void, capture?: boolean): any;
+        getType(): string;
 
-    branch(thread: Policy, isSerial: boolean, scope: string[], mode: TransactionMode, maxRequest: number): DbOperator;
+        onReady(Error?: any): any;
 
-    close(): any;
+        removeEventListener(type: EventType, handler: (event: any) => void, capture?: boolean): any;
+        removeEventListener(type: EventType[], handler: (event: any) => void, capture?: boolean): any;
 
-    get(store_name: string, key: any): Request;
+        run(callback: (iStorage: ydn.db.Storage) => void, store_names: string[], mode: TransactionMode): Request;
 
-    getName(callback: any): string;
+        search(catalog_name: string, query: string, limit?: number, threshold?: number): Request;
 
-    getSchema(callback: any): DatabaseSchemaJson;
+        setName(name: string): any;
 
-    getType(): string;
-
-    onReady(Error?: any): any;
-
-    removeEventListener(type: EventType, handler: (event: any) => void, capture?: boolean): any;
-    removeEventListener(type: EventType[], handler: (event: any) => void, capture?: boolean): any;
-
-    run(callback: (iStorage: ydn.db.Storage) => void, store_names: string[], mode: TransactionMode): Request;
-
-    search(catalog_name: string, query: string, limit?: number, threshold?: number): Request;
-
-    setName(name: string): any;
-
-    transaction(callback: (tx: any) => void, store_names: string[], mode: TransactionMode, completed_handler: (type: string, e?: Error) => void): any;
-
-  }
+        transaction(
+            callback: (tx: any) => void,
+            store_names: string[],
+            mode: TransactionMode,
+            completed_handler: (type: string, e?: Error) => void,
+        ): any;
+    }
 }
 
 declare namespace ydb.db.algo {
+    export class Solver {}
 
-  export class Solver {
+    export class NestedLoop extends Solver {
+        constructor(out: { push: (value: any) => void }, limit?: number);
+    }
 
-  }
+    export class SortedMerge extends Solver {
+        constructor(out: { push: (value: any) => void }, limit?: number);
+    }
 
-  export class NestedLoop extends Solver {
-    constructor(out: { push: (value: any) => void }, limit?: number);
-  }
-
-  export class SortedMerge extends Solver {
-    constructor(out: { push: (value: any) => void }, limit?: number);
-  }
-
-  export class ZigzagMerge extends Solver {
-    constructor(out: { push: (value: any) => void }, limit?: number);
-  }
-
+    export class ZigzagMerge extends Solver {
+        constructor(out: { push: (value: any) => void }, limit?: number);
+    }
 }
 
 declare namespace ydn.db.events {
+    export class Event {
+        name: string;
 
-  export class Event {
+        type: ydn.db.EventType;
+    }
 
-    name: string;
+    export class RecordEvent extends Event {
+        getStoreName(): string;
 
-    type: ydn.db.EventType;
-  }
+        getKey(): any;
 
-  export class RecordEvent extends Event {
+        getValue(): any;
+    }
 
-    getStoreName(): string;
+    export class StorageEvent extends Event {
+        getError(): Error;
 
-    getKey(): any;
+        getVersion(): number;
 
-    getValue(): any;
-  }
+        getOldVersion(): number;
+    }
 
+    export class StoreEvent extends Event {
+        getStoreName(): string;
 
-  export class StorageEvent extends Event {
+        getKeys(): any[];
 
-    getError(): Error;
-
-    getVersion(): number;
-
-    getOldVersion(): number;
-  }
-
-
-  export class StoreEvent extends Event {
-
-    getStoreName(): string;
-
-    getKeys(): any[];
-
-    getValues(): any[];
-  }
+        getValues(): any[];
+    }
 }

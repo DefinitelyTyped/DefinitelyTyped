@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import * as parse5 from "parse5";
+import * as parse5 from 'parse5';
 
 declare namespace treeAdapter {
     /**
@@ -74,11 +74,11 @@ declare namespace treeAdapter {
         /**
          * The type of the node.
          */
-        type: "directive";
+        type: 'directive';
         /**
          * Node name.
          */
-        name: "!doctype";
+        name: '!doctype';
         /**
          * Serialized doctype {@link name}, {@link publicId} and {@link systemId}.
          */
@@ -86,15 +86,15 @@ declare namespace treeAdapter {
         /**
          * Document type name.
          */
-        "x-name": string;
+        'x-name': string;
         /**
          * Document type public identifier.
          */
-        "x-publicId": string;
+        'x-publicId': string;
         /**
          * Document type system identifier.
          */
-        "x-systemId": string;
+        'x-systemId': string;
     }
 
     /**
@@ -104,15 +104,15 @@ declare namespace treeAdapter {
         /**
          * The type of the node.
          */
-        type: "root";
+        type: 'root';
         /**
          * The name of the node.
          */
-        name: "root";
+        name: 'root';
         /**
          * [Document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
          */
-        "x-mode": parse5.DocumentMode;
+        'x-mode': parse5.DocumentMode;
     }
 
     /**
@@ -122,11 +122,11 @@ declare namespace treeAdapter {
         /**
          * The type of the node.
          */
-        type: "root";
+        type: 'root';
         /**
          * The name of the node.
          */
-        name: "root";
+        name: 'root';
     }
 
     /**
@@ -152,11 +152,11 @@ declare namespace treeAdapter {
         /**
          * Element attribute namespaces.
          */
-        "x-attribsNamespace": { [name: string]: string };
+        'x-attribsNamespace': { [name: string]: string };
         /**
          * Element attribute namespace-related prefixes.
          */
-        "x-attribsPrefix": { [name: string]: string };
+        'x-attribsPrefix': { [name: string]: string };
         /**
          * Element source code location info. Available if location info is enabled via ParserOptions.
          */
@@ -170,7 +170,7 @@ declare namespace treeAdapter {
         /**
          * The name of the node.
          */
-        name: "comment";
+        name: 'comment';
         /**
          * Comment text.
          */
@@ -192,7 +192,7 @@ declare namespace treeAdapter {
         /**
          * The name of the node.
          */
-        name: "text";
+        name: 'text';
         /**
          * Text content.
          */

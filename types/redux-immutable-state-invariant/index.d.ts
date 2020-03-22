@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Redux from "redux";
+import * as Redux from 'redux';
 
 interface immutableStateInvariantMiddlewareOptions {
     isImmutable?: (value: any) => boolean;

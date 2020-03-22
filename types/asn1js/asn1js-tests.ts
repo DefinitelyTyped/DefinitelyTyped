@@ -1,7 +1,7 @@
-import { LocalLengthBlock, Null } from "asn1js";
-import { OctetString } from "asn1js";
-import { ObjectIdentifier } from "asn1js";
-import { UTCTime } from "asn1js";
+import { LocalLengthBlock, Null } from 'asn1js';
+import { OctetString } from 'asn1js';
+import { ObjectIdentifier } from 'asn1js';
+import { UTCTime } from 'asn1js';
 
 let t = new LocalLengthBlock();
 
@@ -22,7 +22,7 @@ let t = new LocalLengthBlock();
     test.toBER();
     test.fromBER(new Uint8Array(0).buffer, 0, 0);
     test.isEqual(test);
-    OctetString.blockName() === "name";
+    OctetString.blockName() === 'name';
 }
 
 {
@@ -32,21 +32,21 @@ let t = new LocalLengthBlock();
 
     test.toBER();
     test.fromBER(new Uint8Array(0).buffer, 0, 0);
-    OctetString.blockName() === "name";
+    OctetString.blockName() === 'name';
 }
 
 {
     // UTCTime
     let test = new UTCTime();
     test = new UTCTime({
-        value: ""
+        value: '',
     });
     test = new UTCTime({
-        valueDate: new Date()
+        valueDate: new Date(),
     });
     let json = test.toJSON();
 
     test.toBER();
     test.fromBER(new Uint8Array(0).buffer, 0, 0);
-    OctetString.blockName() === "name";
+    OctetString.blockName() === 'name';
 }

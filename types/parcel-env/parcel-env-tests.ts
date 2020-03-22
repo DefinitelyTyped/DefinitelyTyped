@@ -1,5 +1,3 @@
-
-
 interface SomeModule {
     someMethod(): void;
 }
@@ -11,9 +9,9 @@ let otherModule = require('./otherModule');
 otherModule.otherMethod();
 
 // check if HMR is enabled
-if(module.hot) {
+if (module.hot) {
     // accept update of dependency
-    module.hot.accept("./handler.js", function() {
+    module.hot.accept('./handler.js', function () {
         //...
     });
 }
@@ -21,13 +19,12 @@ if(module.hot) {
 module.exports = null;
 
 // check if HMR is enabled
-if(module.hot) {
-
+if (module.hot) {
     // accept itself
     module.hot.accept();
 
     // dispose handler
-    module.hot.dispose(function() {
+    module.hot.dispose(function () {
         // revoke the side effect
         //...
     });
@@ -39,38 +36,35 @@ class ModuleData {
 
 if (module.hot) {
     module.hot.accept((err: Error) => {
-       //...
+        //...
     });
 
-    module.hot.decline("./someModule");
+    module.hot.decline('./someModule');
 
     module.hot.dispose((data: ModuleData) => {
         data.updated = true;
         // ...
     });
 
-    let disposeHandler: ((data: ModuleData) => void) = data => {
+    let disposeHandler: (data: ModuleData) => void = (data) => {
         // ...
     };
     module.hot.addDisposeHandler(disposeHandler);
     module.hot.removeDisposeHandler(disposeHandler);
 
-    module.hot.check(true, (err: Error, outdatedModules: (string|number)[]) => {
-       // ...
+    module.hot.check(true, (err: Error, outdatedModules: (string | number)[]) => {
+        // ...
     });
 
-    module.hot.apply({ ignoreUnaccepted: true }, (err: Error, outdatedModules: (string|number)[]) => {
+    module.hot.apply({ ignoreUnaccepted: true }, (err: Error, outdatedModules: (string | number)[]) => {
         // ...
     });
 
     var status: string = module.hot.status();
-    let statusHandler: ((status: string) => void) = status => {
+    let statusHandler: (status: string) => void = (status) => {
         // ...
     };
     module.hot.status(statusHandler);
     module.hot.addStatusHandler(statusHandler);
     module.hot.removeStatusHandler(statusHandler);
 }
-
-
-

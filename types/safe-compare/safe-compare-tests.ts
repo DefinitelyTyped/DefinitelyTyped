@@ -1,4 +1,4 @@
-import safeCompare = require("safe-compare");
+import safeCompare = require('safe-compare');
 
 safeCompare('foo', 'foo'); // $ExpectType boolean
 safeCompare('hello world', 'hello world'); // $ExpectType boolean

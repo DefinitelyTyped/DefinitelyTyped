@@ -116,14 +116,11 @@ declare function favicons(
     source: string | Buffer | string[],
     configuration?: Partial<favicons.Configuration>,
 ): Promise<favicons.FavIconResponse>;
-declare function favicons(
-    source: string | Buffer | string[],
-    callback?: favicons.Callback
-): void;
+declare function favicons(source: string | Buffer | string[], callback?: favicons.Callback): void;
 declare function favicons(
     source: string | Buffer | string[],
     configuration?: Partial<favicons.Configuration>,
-    callback?: favicons.Callback
+    callback?: favicons.Callback,
 ): void;
 
 export = favicons;

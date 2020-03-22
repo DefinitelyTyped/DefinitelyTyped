@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     namespace mdnd {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/mdnd/AreaManager.html
@@ -19,17 +17,17 @@ declare namespace dojox {
              * CSS class enabled an area if areaClass is defined
              *
              */
-            "areaClass": string;
+            'areaClass': string;
             /**
              * Enable the refresh of registered areas on drag start.
              *
              */
-            "autoRefresh": boolean;
+            'autoRefresh': boolean;
             /**
              * CSS class enabled a drag handle.
              *
              */
-            "dragHandleClass": string;
+            'dragHandleClass': string;
             /**
              * To add an item programmatically.
              *
@@ -147,16 +145,16 @@ declare namespace dojox {
              * default mouse move offset
              *
              */
-            "interval": number;
+            'interval': number;
             /**
              * Default mouse margin
              *
              */
-            "marginMouse": number;
+            'marginMouse': number;
             /**
              *
              */
-            "recursiveTimer": number;
+            'recursiveTimer': number;
             /**
              * Check if an autoScroll have to be launched.
              *
@@ -205,7 +203,7 @@ declare namespace dojox {
              * the drop indicator node
              *
              */
-            "node": HTMLElement;
+            'node': HTMLElement;
             /**
              * destroy the dropIndicator
              *
@@ -270,18 +268,18 @@ declare namespace dojox {
              * if they track the main node to more than 3 pixels.
              *
              */
-            "dragDistance": number;
+            'dragDistance': number;
             /**
              * The node on which the user clicks to drag the main node.
              *
              */
-            "handle": HTMLElement;
+            'handle': HTMLElement;
             /**
              * A flag to control a drag action if a form element has been focused.
              * If true, the drag action is not executed.
              *
              */
-            "skip": boolean;
+            'skip': boolean;
             /**
              * Delecte associated events
              *
@@ -376,34 +374,34 @@ declare namespace dojox {
              * be draggable dnd item nodes
              *
              */
-            "allowNested": boolean;
+            'allowNested': boolean;
             /**
              *
              */
-            "copyOnly": boolean;
+            'copyOnly': boolean;
             /**
              * The DOM node the mouse is currently hovered over
              *
              */
-            "current": HTMLElement;
+            'current': HTMLElement;
             /**
              *
              */
-            "generateText": boolean;
+            'generateText': boolean;
             /**
              *
              */
-            "horizontal": boolean;
+            'horizontal': boolean;
             /**
              *
              */
-            "isSource": boolean;
+            'isSource': boolean;
             /**
              * Map from an item's id (which is also the DOMNode's id) to
              * the dojo/dnd/Container.Item itself.
              *
              */
-            "map": Object;
+            'map': Object;
             /**
              * The set of id's that are currently selected, such that this.selection[id] == 1
              * if the node w/that id is selected.  Can iterate over selected node's id's like:
@@ -411,23 +409,23 @@ declare namespace dojox {
              * for(var id in this.selection)
              *
              */
-            "selection": Object;
+            'selection': Object;
             /**
              *
              */
-            "singular": boolean;
+            'singular': boolean;
             /**
              *
              */
-            "skipForm": boolean;
+            'skipForm': boolean;
             /**
              *
              */
-            "targetState": string;
+            'targetState': string;
             /**
              *
              */
-            "withHandles": boolean;
+            'withHandles': boolean;
             /**
              * removes all data items from the map
              *
@@ -622,7 +620,7 @@ declare namespace dojox {
                  * size by default of dropIndicator (display only into a D&D Area)
                  *
                  */
-                "dropIndicatorSize": Object;
+                'dropIndicatorSize': Object;
                 /**
                  * Check if a dragNode is accepted into a dojo target.
                  *
@@ -993,52 +991,50 @@ declare namespace dojox {
                 updateAreas(areaList: any[]): void;
             }
         }
-
     }
-
 }
 
-declare module "dojox/mdnd/AutoScroll" {
-    var exp: dojox.mdnd.AutoScroll
-    export=exp;
+declare module 'dojox/mdnd/AutoScroll' {
+    var exp: dojox.mdnd.AutoScroll;
+    export = exp;
 }
-declare module "dojox/mdnd/DropIndicator" {
-    var exp: dojox.mdnd.DropIndicator
-    export=exp;
+declare module 'dojox/mdnd/DropIndicator' {
+    var exp: dojox.mdnd.DropIndicator;
+    export = exp;
 }
-declare module "dojox/mdnd/AreaManager" {
-    var exp: dojox.mdnd.AreaManager
-    export=exp;
+declare module 'dojox/mdnd/AreaManager' {
+    var exp: dojox.mdnd.AreaManager;
+    export = exp;
 }
-declare module "dojox/mdnd/LazyManager" {
-    var exp: dojox.mdnd.LazyManager
-    export=exp;
+declare module 'dojox/mdnd/LazyManager' {
+    var exp: dojox.mdnd.LazyManager;
+    export = exp;
 }
-declare module "dojox/mdnd/Moveable" {
-    var exp: dojox.mdnd.Moveable
-    export=exp;
+declare module 'dojox/mdnd/Moveable' {
+    var exp: dojox.mdnd.Moveable;
+    export = exp;
 }
-declare module "dojox/mdnd/PureSource" {
-    var exp: dojox.mdnd.PureSource
-    export=exp;
+declare module 'dojox/mdnd/PureSource' {
+    var exp: dojox.mdnd.PureSource;
+    export = exp;
 }
-declare module "dojox/mdnd/adapter/DndFromDojo" {
-    var exp: dojox.mdnd.adapter.DndFromDojo
-    export=exp;
+declare module 'dojox/mdnd/adapter/DndFromDojo' {
+    var exp: dojox.mdnd.adapter.DndFromDojo;
+    export = exp;
 }
-declare module "dojox/mdnd/adapter/DndToDojo" {
-    var exp: dojox.mdnd.adapter.DndToDojo
-    export=exp;
+declare module 'dojox/mdnd/adapter/DndToDojo' {
+    var exp: dojox.mdnd.adapter.DndToDojo;
+    export = exp;
 }
-declare module "dojox/mdnd/dropMode/DefaultDropMode" {
-    var exp: dojox.mdnd.dropMode.DefaultDropMode
-    export=exp;
+declare module 'dojox/mdnd/dropMode/DefaultDropMode' {
+    var exp: dojox.mdnd.dropMode.DefaultDropMode;
+    export = exp;
 }
-declare module "dojox/mdnd/dropMode/OverDropMode" {
-    var exp: dojox.mdnd.dropMode.OverDropMode
-    export=exp;
+declare module 'dojox/mdnd/dropMode/OverDropMode' {
+    var exp: dojox.mdnd.dropMode.OverDropMode;
+    export = exp;
 }
-declare module "dojox/mdnd/dropMode/VerticalDropMode" {
-    var exp: dojox.mdnd.dropMode.VerticalDropMode
-    export=exp;
+declare module 'dojox/mdnd/dropMode/VerticalDropMode' {
+    var exp: dojox.mdnd.dropMode.VerticalDropMode;
+    export = exp;
 }

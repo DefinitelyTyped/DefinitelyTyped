@@ -1,2 +1,2 @@
-import { isArguments } from "../fp";
+import { isArguments } from '../fp';
 export = isArguments;

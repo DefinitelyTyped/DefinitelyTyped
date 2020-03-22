@@ -1,9 +1,7 @@
 import webpack = require('webpack');
 import { RawSourceMap } from 'source-map';
 
-const {
-    optimize,
-} = webpack;
+const { optimize } = webpack;
 
 let plugins: webpack.Plugin[];
 
@@ -15,9 +13,7 @@ let plugins: webpack.Plugin[];
  * optimize
  */
 
-const {
-    AggressiveMergingPlugin,
-} = optimize;
+const { AggressiveMergingPlugin } = optimize;
 
 plugins = [
     new AggressiveMergingPlugin(),
@@ -41,23 +37,23 @@ declare const __dirname: string;
 configuration = {
     module: {
         loaders: [
-            { test: /\.jade$/, loader: "jade" },
+            { test: /\.jade$/, loader: 'jade' },
             // => "jade" loader is used for ".jade" files
 
-            { test: /\.css$/, loader: "style!css" },
+            { test: /\.css$/, loader: 'style!css' },
             // => "style" and "css" loader is used for ".css" files
             // Alternative syntax:
-            { test: /\.css$/, loaders: ["style", "css"] },
-        ]
-    }
+            { test: /\.css$/, loaders: ['style', 'css'] },
+        ],
+    },
 };
 
-rule = { test: /\.png$/, loader: "url-loader?mimetype=image/png" };
+rule = { test: /\.png$/, loader: 'url-loader?mimetype=image/png' };
 
 rule = {
     test: /\.png$/,
-    loader: "url-loader",
-    query: { mimetype: "image/png" }
+    loader: 'url-loader',
+    query: { mimetype: 'image/png' },
 };
 
 //
@@ -65,16 +61,14 @@ rule = {
 //
 
 configuration = {
-    entry: "./entry.js",
+    entry: './entry.js',
     output: {
         path: __dirname,
-        filename: "bundle.js"
+        filename: 'bundle.js',
     },
     module: {
-        loaders: [
-            { test: /\.css$/, loader: "style!css" }
-        ]
-    }
+        loaders: [{ test: /\.css$/, loader: 'style!css' }],
+    },
 };
 
 //
@@ -82,61 +76,61 @@ configuration = {
 //
 
 configuration = {
-    entry: () => './demo'
+    entry: () => './demo',
 };
 
 configuration = {
-    entry: () => ['./demo', './demo2']
+    entry: () => ['./demo', './demo2'],
 };
 
 configuration = {
-    entry: () => new Promise((resolve) => resolve('./demo'))
+    entry: () => new Promise((resolve) => resolve('./demo')),
 };
 
 configuration = {
-    entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+    entry: () => new Promise((resolve) => resolve(['./demo', './demo2'])),
 };
 
 //
 // https://webpack.js.org/configuration/externals/
 //
 configuration = {
-    externals : {
-        react: 'react'
+    externals: {
+        react: 'react',
     },
 };
 
 configuration = {
-    externals : {
-        lodash : {
+    externals: {
+        lodash: {
             commonjs: 'lodash',
             amd: 'lodash',
-            root: '_' // indicates global variable
-        }
-      },
+            root: '_', // indicates global variable
+        },
+    },
 };
 
 configuration = {
-    externals : {
-        subtract : {
-            root: ['math', 'subtract']
-        }
-    }
+    externals: {
+        subtract: {
+            root: ['math', 'subtract'],
+        },
+    },
 };
 
 configuration = {
     externals: [
         // Disable TSLint for allowing non-arrow functions
         /* tslint:disable-next-line */
-        function(context, request, callback) {
-          if (/^yourregex$/.test(request)) {
-            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
-            /* tslint:disable-next-line */
-            return callback(null, 'commonjs ' + request);
-          }
-          callback({}, {});
-        }
-      ]
+        function (context, request, callback) {
+            if (/^yourregex$/.test(request)) {
+                // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+                /* tslint:disable-next-line */
+                return callback(null, 'commonjs ' + request);
+            }
+            callback({}, {});
+        },
+    ],
 };
 
 configuration = {
@@ -145,41 +139,41 @@ configuration = {
             // String
             react: 'react',
             // Object
-            lodash : {
+            lodash: {
                 commonjs: 'lodash',
                 amd: 'lodash',
-                root: '_' // indicates global variable
+                root: '_', // indicates global variable
             },
             // Array
-            subtract: ['./math', 'subtract']
-            },
-            // Disable TSLint for allowing non-arrow functions
-            /* tslint:disable-next-line */
-            function(context, request, callback) {
-              if (/^yourregex$/.test(request)) {
+            subtract: ['./math', 'subtract'],
+        },
+        // Disable TSLint for allowing non-arrow functions
+        /* tslint:disable-next-line */
+        function (context, request, callback) {
+            if (/^yourregex$/.test(request)) {
                 // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
                 /* tslint:disable-next-line */
                 return callback(null, 'commonjs ' + request);
-              }
-              callback({}, {});
-            },
-            // Regex
-            /^(jquery|\$)$/i
-    ]
+            }
+            callback({}, {});
+        },
+        // Regex
+        /^(jquery|\$)$/i,
+    ],
 };
 
 configuration = {
     externals: [
-        "add",
+        'add',
         {
             subtract: {
-                root: "subtract",
-                commonjs2: "./subtract",
-                commonjs: ["./math", "subtract"],
-                amd: "subtract"
-            }
-        }
-    ]
+                root: 'subtract',
+                commonjs2: './subtract',
+                commonjs: ['./math', 'subtract'],
+                amd: 'subtract',
+            },
+        },
+    ],
 };
 
 //
@@ -188,24 +182,24 @@ configuration = {
 
 configuration = {
     entry: {
-        app: "./app.js",
-        vendor: ["jquery", "underscore"],
+        app: './app.js',
+        vendor: ['jquery', 'underscore'],
     },
     output: {
-        filename: "bundle.js"
+        filename: 'bundle.js',
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            filename: "vendor.bundle.js",
+            name: 'vendor',
+            filename: 'vendor.bundle.js',
         }),
-    ]
+    ],
 };
 
 configuration = {
-    entry: { a: "./a", b: "./b" },
-    output: { filename: "[name].js" },
-    plugins: [new webpack.optimize.CommonsChunkPlugin({ name: "init.js" })]
+    entry: { a: './a', b: './b' },
+    output: { filename: '[name].js' },
+    plugins: [new webpack.optimize.CommonsChunkPlugin({ name: 'init.js' })],
 };
 
 //
@@ -215,10 +209,8 @@ configuration = {
 configuration = {
     // ...
     module: {
-        loaders: [
-            { test: /\.css$/, loader: "style-loader!css-loader" }
-        ]
-    }
+        loaders: [{ test: /\.css$/, loader: 'style-loader!css-loader' }],
+    },
 };
 
 //
@@ -227,40 +219,38 @@ configuration = {
 
 configuration = {
     entry: {
-        p1: "./page1",
-        p2: "./page2",
-        p3: "./page3"
+        p1: './page1',
+        p2: './page2',
+        p3: './page3',
     },
     output: {
-        filename: "[name].entry.chunk.js"
-    }
+        filename: '[name].entry.chunk.js',
+    },
 };
 
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 configuration = {
     entry: {
-        p1: "./page1",
-        p2: "./page2",
-        p3: "./page3"
+        p1: './page1',
+        p2: './page2',
+        p3: './page3',
     },
     output: {
-        filename: "[name].entry.chunk.js"
+        filename: '[name].entry.chunk.js',
     },
-    plugins: [
-        new CommonsChunkPlugin({ name: "commons.chunk.js" })
-    ]
+    plugins: [new CommonsChunkPlugin({ name: 'commons.chunk.js' })],
 };
 
 configuration = {
     entry: {
-        p1: "./page1",
-        p2: "./page2",
-        p3: "./page3",
-        ap1: "./admin/page1",
-        ap2: "./admin/page2"
+        p1: './page1',
+        p2: './page2',
+        p3: './page3',
+        ap1: './admin/page1',
+        ap2: './admin/page2',
     },
     output: {
-        filename: "[name].js"
+        filename: '[name].js',
     },
 };
 // <script>s required:
@@ -272,16 +262,16 @@ configuration = {
 
 configuration = {
     entry: {
-        p1: "./page1",
-        p2: "./page2",
-        commons: "./entry-for-the-commons-chunk"
+        p1: './page1',
+        p2: './page2',
+        commons: './entry-for-the-commons-chunk',
     },
     plugins: [
         new CommonsChunkPlugin({
-            name: "commons",
-            filename: "commons.js",
+            name: 'commons',
+            filename: 'commons.js',
         }),
-    ]
+    ],
 };
 
 //
@@ -290,64 +280,54 @@ configuration = {
 
 configuration = {
     output: {
-        path: path.join(__dirname, "assets", "[hash]"),
-        publicPath: "assets/[hash]/",
-        filename: "output.[hash].bundle.js",
-        chunkFilename: "[id].[hash].bundle.js"
-    }
+        path: path.join(__dirname, 'assets', '[hash]'),
+        publicPath: 'assets/[hash]/',
+        filename: 'output.[hash].bundle.js',
+        chunkFilename: '[id].[hash].bundle.js',
+    },
 };
 
-configuration = { output: { chunkFilename: "[chunkhash].bundle.js" } };
+configuration = { output: { chunkFilename: '[chunkhash].bundle.js' } };
 
 //
 // https://webpack.github.io/docs/configuration.html
 //
 
 configuration = {
-    entry: [
-        "./entry1",
-        "./entry2"
-    ]
+    entry: ['./entry1', './entry2'],
 };
 
 configuration = {
-    devtool: "inline-source-map"
+    devtool: 'inline-source-map',
 };
 
 configuration = {
-    devtool: false
+    devtool: false,
 };
 
 configuration = {
     resolve: {
-        modules: [__dirname]
-    }
+        modules: [__dirname],
+    },
 };
 
 rule = {
     test: /\.jsx$/,
-    include: [
-        path.resolve(__dirname, "app/src"),
-        path.resolve(__dirname, "app/test")
-    ],
-    exclude: [
-        path.resolve(__dirname, "node_modules")
-    ],
-    loader: "babel-loader"
+    include: [path.resolve(__dirname, 'app/src'), path.resolve(__dirname, 'app/test')],
+    exclude: [path.resolve(__dirname, 'node_modules')],
+    loader: 'babel-loader',
 };
 
 declare const require: any;
 declare const path: any;
 configuration = {
     plugins: [
-        function(this: webpack.Compiler) {
-            this.plugin("done", stats => {
-                require("fs").writeFileSync(
-                    path.join(__dirname, "...", "stats.json"),
-                    JSON.stringify(stats.toJson()));
+        function (this: webpack.Compiler) {
+            this.plugin('done', (stats) => {
+                require('fs').writeFileSync(path.join(__dirname, '...', 'stats.json'), JSON.stringify(stats.toJson()));
             });
-        }
-    ]
+        },
+    ],
 };
 
 //
@@ -375,35 +355,33 @@ plugin = new webpack.ContextReplacementPlugin(
     resourceRegExp,
     newContentResource,
     newContentRecursive,
-    newContentRegExp);
-plugin = new webpack.ContextReplacementPlugin(
-    resourceRegExp,
-    newContentResource,
-    newContentRecursive);
-plugin = new webpack.ContextReplacementPlugin(
-    resourceRegExp,
-    newContentResource);
+    newContentRegExp,
+);
+plugin = new webpack.ContextReplacementPlugin(resourceRegExp, newContentResource, newContentRecursive);
+plugin = new webpack.ContextReplacementPlugin(resourceRegExp, newContentResource);
 plugin = new webpack.ContextReplacementPlugin(resourceRegExp);
 plugin = new webpack.DllPlugin({
     context: 'dir-context',
     name: 'dll-name',
-    path: 'manifest-path'
+    path: 'manifest-path',
 });
-plugin = new webpack.DllPlugin([{
-    context: 'dir-context',
-    name: 'dll-name',
-    path: 'manifest-path'
-}]);
+plugin = new webpack.DllPlugin([
+    {
+        context: 'dir-context',
+        name: 'dll-name',
+        path: 'manifest-path',
+    },
+]);
 plugin = new webpack.DllReferencePlugin({
     content: 'dll content',
     context: 'dir-context',
     manifest: {
         content: 'dll content',
-        name: 'dll name'
+        name: 'dll name',
     },
     name: 'dll name',
     scope: 'dll prefix',
-    sourceType: 'var'
+    sourceType: 'var',
 });
 plugin = new webpack.IgnorePlugin(requestRegExp);
 plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
@@ -412,7 +390,7 @@ plugin = new webpack.PrefetchPlugin(context, request);
 plugin = new webpack.PrefetchPlugin(request);
 plugin = new webpack.BannerPlugin('banner');
 plugin = new webpack.BannerPlugin({
-    banner: 'banner'
+    banner: 'banner',
 });
 plugin = new webpack.BannerPlugin({
     banner: 'banner',
@@ -420,7 +398,7 @@ plugin = new webpack.BannerPlugin({
     exclude: /index/,
     include: 'test',
     raw: false,
-    test: ['test', /index/]
+    test: ['test', /index/],
 });
 plugin = new webpack.optimize.DedupePlugin();
 plugin = new webpack.optimize.LimitChunkCountPlugin(options);
@@ -430,18 +408,18 @@ plugin = new webpack.optimize.OccurrenceOrderPlugin(preferEntry);
 plugin = new webpack.optimize.UglifyJsPlugin(options);
 plugin = new webpack.optimize.UglifyJsPlugin();
 plugin = new webpack.optimize.UglifyJsPlugin({
-    parallel: true
+    parallel: true,
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     parallel: {
         cache: true,
-        workers: 2
-    }
+        workers: 2,
+    },
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
-        warnings: false
-    }
+        warnings: false,
+    },
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,
@@ -449,22 +427,22 @@ plugin = new webpack.optimize.UglifyJsPlugin({
     beautify: true,
     test: 'foo',
     exclude: /node_modules/,
-    include: 'test'
+    include: 'test',
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     mangle: {
-        reserved: ['$super', '$', 'exports', 'require']
-    }
+        reserved: ['$super', '$', 'exports', 'require'],
+    },
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
-    comments: (astNode: any, comment: any) => false
+    comments: (astNode: any, comment: any) => false,
 });
 plugin = new webpack.optimize.CommonsChunkPlugin(options);
 plugin = new CommonsChunkPlugin({
-    name: "commons",
+    name: 'commons',
     // (the commons chunk name)
 
-    filename: "commons.js",
+    filename: 'commons.js',
     // (the filename of the commons chunk)
 
     // minChunks: 3,
@@ -498,22 +476,20 @@ plugin = new CommonsChunkPlugin({
 });
 plugin = new webpack.DefinePlugin(definitions);
 plugin = new webpack.DefinePlugin({
-    VERSION: JSON.stringify("5fa3b9"),
+    VERSION: JSON.stringify('5fa3b9'),
     BROWSER_SUPPORTS_HTML5: true,
-    TWO: "1+1",
-    "typeof window": JSON.stringify("object")
+    TWO: '1+1',
+    'typeof window': JSON.stringify('object'),
 });
 plugin = new webpack.ProvidePlugin(definitions);
 plugin = new webpack.ProvidePlugin({
-    $: "jquery"
+    $: 'jquery',
 });
 plugin = new webpack.SourceMapDevToolPlugin({
     //// asset matching
     test: /\.js$/,
     // include: Condition | Condition[],
-    exclude: [
-        /node_modules/
-    ],
+    exclude: [/node_modules/],
     //
     //// file and reference
     filename: null, // | string
@@ -525,7 +501,7 @@ plugin = new webpack.SourceMapDevToolPlugin({
     //// quality/performance
     module: true,
     columns: true,
-    lineToLine: false // | { test?: Condition | Condition[], ... }
+    lineToLine: false, // | { test?: Condition | Condition[], ... }
 });
 plugin = new webpack.EvalSourceMapDevToolPlugin(false);
 plugin = new webpack.HotModuleReplacementPlugin();
@@ -534,17 +510,19 @@ plugin = new webpack.NoErrorsPlugin();
 plugin = new webpack.NoEmitOnErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
 plugin = new webpack.LoaderOptionsPlugin({
-    debug: true
+    debug: true,
 });
 plugin = new webpack.EnvironmentPlugin(['a', 'b']);
 plugin = new webpack.EnvironmentPlugin({ a: true, b: 'c' });
-plugin = new webpack.ProgressPlugin((percent: number, message: string) => { });
-plugin = new webpack.ProgressPlugin((percent: number, message: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => { });
+plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
+plugin = new webpack.ProgressPlugin(
+    (percent: number, message: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => {},
+);
 plugin = new webpack.HashedModuleIdsPlugin();
 plugin = new webpack.HashedModuleIdsPlugin({
     hashFunction: 'sha256',
     hashDigest: 'hex',
-    hashDigestLength: 20
+    hashDigestLength: 20,
 });
 
 //
@@ -552,11 +530,14 @@ plugin = new webpack.HashedModuleIdsPlugin({
 //
 
 // returns a Compiler instance
-webpack({
-    // configuration
-}, (err, stats) => {
-    // ...
-});
+webpack(
+    {
+        // configuration
+    },
+    (err, stats) => {
+        // ...
+    },
+);
 
 // returns a Compiler instance
 let compiler = webpack({
@@ -567,73 +548,88 @@ compiler.run((err, stats) => {
     // ...
 });
 // or
-compiler.watch({ // watch options:
-    aggregateTimeout: 300, // wait so long for more changes
-    poll: true // use polling instead of native watchers
-    // pass a number to set the polling interval
-}, (err, stats) => {
-    // ...
-});
+compiler.watch(
+    {
+        // watch options:
+        aggregateTimeout: 300, // wait so long for more changes
+        poll: true, // use polling instead of native watchers
+        // pass a number to set the polling interval
+    },
+    (err, stats) => {
+        // ...
+    },
+);
 // or
-compiler.watch({ // watch options:
-    ignored: 'foo/**/*'
-}, (err, stats) => {
-    // ...
-});
+compiler.watch(
+    {
+        // watch options:
+        ignored: 'foo/**/*',
+    },
+    (err, stats) => {
+        // ...
+    },
+);
 // or
-compiler.watch({ // watch options:
-    ignored: /node_modules/
-}, (err, stats) => {
-    // ...
-});
+compiler.watch(
+    {
+        // watch options:
+        ignored: /node_modules/,
+    },
+    (err, stats) => {
+        // ...
+    },
+);
 
 declare function handleFatalError(err: Error): void;
 declare function handleSoftErrors(errs: string[]): void;
 declare function handleWarnings(errs: string[]): void;
 declare function successfullyCompiled(): void;
 
-webpack({
-    // configuration
-}, (err, stats) => {
-    if (err) {
-        handleFatalError(err);
-        return;
-    }
-    const jsonStats = stats.toJson();
-    const jsonStatsWithAllOptions = stats.toJson({
-        assets: true,
-        assetsSort: "field",
-        cached: true,
-        children: true,
-        chunks: true,
-        chunkModules: true,
-        chunkOrigins: true,
-        chunksSort: "field",
-        context: "../src/",
-        errors: true,
-        errorDetails: true,
-        hash: true,
-        modules: true,
-        modulesSort: "field",
-        publicPath: true,
-        reasons: true,
-        source: true,
-        timings: true,
-        version: true,
-        warnings: true,
-        warningsFilter: ["filter", /filter/],
-        excludeAssets: ["filter", "excluded"]
-    });
+webpack(
+    {
+        // configuration
+    },
+    (err, stats) => {
+        if (err) {
+            handleFatalError(err);
+            return;
+        }
+        const jsonStats = stats.toJson();
+        const jsonStatsWithAllOptions = stats.toJson({
+            assets: true,
+            assetsSort: 'field',
+            cached: true,
+            children: true,
+            chunks: true,
+            chunkModules: true,
+            chunkOrigins: true,
+            chunksSort: 'field',
+            context: '../src/',
+            errors: true,
+            errorDetails: true,
+            hash: true,
+            modules: true,
+            modulesSort: 'field',
+            publicPath: true,
+            reasons: true,
+            source: true,
+            timings: true,
+            version: true,
+            warnings: true,
+            warningsFilter: ['filter', /filter/],
+            excludeAssets: ['filter', 'excluded'],
+        });
 
-    if (jsonStats.errors.length > 0) {
-        handleSoftErrors(jsonStats.errors);
-        return;
-    }
-    if (jsonStats.warnings.length > 0) {
-        handleWarnings(jsonStats.warnings);
-    }
-    successfullyCompiled();
-});
+        if (jsonStats.errors.length > 0) {
+            handleSoftErrors(jsonStats.errors);
+            return;
+        }
+        if (jsonStats.warnings.length > 0) {
+            handleWarnings(jsonStats.warnings);
+        }
+        successfullyCompiled();
+    },
+);
 
 declare const fs: any;
 
@@ -641,7 +637,7 @@ compiler = webpack({});
 compiler.outputFileSystem = fs;
 compiler.run((err, stats) => {
     // ...
-    const fileContent = fs.readFileSync("...");
+    const fileContent = fs.readFileSync('...');
 });
 
 //
@@ -650,13 +646,10 @@ compiler.run((err, stats) => {
 
 rule = {
     test: {
-        or: [
-            require.resolve("./a"),
-            require.resolve("./c"),
-        ]
+        or: [require.resolve('./a'), require.resolve('./c')],
     },
-    loader: "./loader",
-    options: "third"
+    loader: './loader',
+    options: 'third',
 };
 
 configuration = {
@@ -666,47 +659,38 @@ configuration = {
                 oneOf: [
                     {
                         test: {
-                            and: [
-                                /a.\.js$/,
-                                /b\.js$/
-                            ]
+                            and: [/a.\.js$/, /b\.js$/],
                         },
-                        loader: "./loader?first"
+                        loader: './loader?first',
                     },
                     {
-                        test: [
-                            require.resolve("./a"),
-                            require.resolve("./c"),
-                        ],
-                        issuer: require.resolve("./b"),
+                        test: [require.resolve('./a'), require.resolve('./c')],
+                        issuer: require.resolve('./b'),
                         use: [
-                            "./loader?second-1",
+                            './loader?second-1',
                             {
-                                loader: "./loader",
-                                options: "second-2"
+                                loader: './loader',
+                                options: 'second-2',
                             },
                             {
-                                loader: "./loader",
+                                loader: './loader',
                                 options: {
-                                    get: () => "second-3"
-                                }
-                            }
-                        ]
+                                    get: () => 'second-3',
+                                },
+                            },
+                        ],
                     },
                     {
                         test: {
-                            or: [
-                                require.resolve("./a"),
-                                require.resolve("./c"),
-                            ]
+                            or: [require.resolve('./a'), require.resolve('./c')],
                         },
-                        loader: "./loader",
-                        options: "third"
-                    }
-                ]
-            }
-        ]
-    }
+                        loader: './loader',
+                        options: 'third',
+                    },
+                ],
+            },
+        ],
+    },
 };
 
 class TestResolvePlugin implements webpack.ResolvePlugin {
@@ -721,7 +705,7 @@ const performance: webpack.Options.Performance = {
     hints: 'error',
     maxEntrypointSize: 400000,
     maxAssetSize: 100000,
-    assetFilter: assetFilename => assetFilename.endsWith('.js'),
+    assetFilter: (assetFilename) => assetFilename.endsWith('.js'),
 };
 
 configuration = {
@@ -735,7 +719,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 
     this.addDependency('');
 
-    this.resolve('context', 'request', (err: Error, result: string) => { });
+    this.resolve('context', 'request', (err: Error, result: string) => {});
 
     this.emitWarning('warning message');
     this.emitWarning(new Error('warning message'));
@@ -747,6 +731,6 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 }
 
 (loader as webpack.loader.Loader).raw = true;
-(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => { };
+(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);

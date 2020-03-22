@@ -1,13 +1,8 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
-import {
-    Workbox,
-    WorkboxEvent,
-    WorkboxEventMap,
-    messageSW,
-} from "workbox-window";
+import { Workbox, WorkboxEvent, WorkboxEventMap, messageSW } from 'workbox-window';
 
 //==============================================================================
 // WorkboxWindow.Workbox

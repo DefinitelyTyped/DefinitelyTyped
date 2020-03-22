@@ -59,7 +59,7 @@ type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFuncti
 type MethodDecorator = <T>(
     target: object,
     propertyKey: string | symbol,
-    descriptor: TypedPropertyDescriptor<T>
+    descriptor: TypedPropertyDescriptor<T>,
 ) => TypedPropertyDescriptor<T>;
 export type Decorator = ClassDecorator & MethodDecorator;
 

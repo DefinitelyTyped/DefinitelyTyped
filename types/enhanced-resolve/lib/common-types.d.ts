@@ -42,9 +42,11 @@ export interface ResolverRequest {
 export interface LoggingCallbackTools {
     log?(msg: string): void;
     stack?: string[] | undefined;
-    missing?: string[] | {
-        push: (item: string) => void;
-    };
+    missing?:
+        | string[]
+        | {
+              push: (item: string) => void;
+          };
 }
 
 export interface LoggingCallbackWrapper extends LoggingCallbackTools {
@@ -61,15 +63,19 @@ export interface AbstractInputFileSystem {
     readdirSync?(path: string): string[];
     readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
     readFile(
-        filename: string, options: {
+        filename: string,
+        options: {
             encoding: string;
             flag?: string;
-        }, callback: (err: NodeJS.ErrnoException, data: string) => void
+        },
+        callback: (err: NodeJS.ErrnoException, data: string) => void,
     ): void;
     readFile(
-        filename: string, options: {
+        filename: string,
+        options: {
             flag?: string;
-        }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+        },
+        callback: (err: NodeJS.ErrnoException, data: Buffer) => void,
     ): void;
     readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     readFileSync?(filename: string): Buffer;

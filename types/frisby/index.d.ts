@@ -13,7 +13,7 @@ export import nodeFetch = require('node-fetch'); // Import all definitions from 
 
 // #region Joi Methods
 // Reference file: https://github.com/hapijs/joi
-export import Joi = require("joi");
+export import Joi = require('joi');
 // #endregion
 
 // #region Frisby FrisbySpec Methods

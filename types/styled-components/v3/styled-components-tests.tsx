@@ -70,20 +70,20 @@ const TomatoButton = styled(MyButton)`
 
 const CustomizableButton = styled(MyButton)`
     /* Adapt the colors based on primary prop */
-    background: ${props => (props.primary ? 'palevioletred' : 'white')};
-    color: ${props => (props.primary ? 'white' : 'palevioletred')};
+    background: ${(props) => (props.primary ? 'palevioletred' : 'white')};
+    color: ${(props) => (props.primary ? 'white' : 'palevioletred')};
 
     font-size: 1em;
     margin: 1em;
     padding: 0.25em 1em;
-    border: 2px solid ${props => props.theme.primary};
+    border: 2px solid ${(props) => props.theme.primary};
     border-radius: 3px;
 `;
 
 const example = css`
     font-size: 1.5em;
     text-align: center;
-    color: ${props => props.theme.primary};
+    color: ${(props) => props.theme.primary};
     border-color: ${'red'};
 `;
 
@@ -116,9 +116,7 @@ class Example extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <Wrapper>
-                    <Title>
-                        Hello World, this is my first styled component!
-                    </Title>
+                    <Title>Hello World, this is my first styled component!</Title>
 
                     <Input placeholder="@mxstbr" type="text" />
                     <TomatoButton name="demo" />
@@ -148,11 +146,11 @@ injectGlobal`
 
 // css which uses function interpolations with common props
 const cssWithFunc1 = css`
-    font-size: ${props => props.theme.fontSizePt}pt;
+    font-size: ${(props) => props.theme.fontSizePt}pt;
 `;
 const cssWithFunc2 = css`
   ${cssWithFunc1}
-  ${props => cssWithFunc1}
+  ${(props) => cssWithFunc1}
   ${[cssWithFunc1, cssWithValues1]}
 `;
 // such css can be used in styled components
@@ -200,15 +198,13 @@ const Article = styled.section`
     & > ${Link} {
         color: green;
     }
-    ${p => (p.theme.useAlternativeLink ? AlternativeLink : Link)} {
+    ${(p) => (p.theme.useAlternativeLink ? AlternativeLink : Link)} {
         color: black
     }
 `;
 
 // A Link instance should be backed by an HTMLAnchorElement
-const ComposedLink = () => (
-    <Link onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />
-);
+const ComposedLink = () => <Link onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />;
 
 /**
  * construction via string tag
@@ -223,11 +219,7 @@ const LinkFromString = styled('a')`
 `;
 
 // A LinkFromString instance should be backed by an HTMLAnchorElement
-const MyOtherComponent = () => (
-    <LinkFromString
-        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined}
-    />
-);
+const MyOtherComponent = () => <LinkFromString onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />;
 
 // Create a <LinkFromStringWithProps> react component that renders an <a>
 // which takes extra props
@@ -243,10 +235,7 @@ const LinkFromStringWithProps = styled('a')`
 
 // A LinkFromStringWithProps instance should be backed by an HTMLAnchorElement
 const MyOtherComponentWithProps = () => (
-    <LinkFromStringWithProps
-        canClick={false}
-        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined}
-    />
+    <LinkFromStringWithProps canClick={false} onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />
 );
 
 // Create a <LinkFromStringWithPropsAndGenerics> react component that renders an <a>
@@ -254,7 +243,7 @@ const MyOtherComponentWithProps = () => (
 const LinkFromStringWithPropsAndGenerics = styled<LinkProps, 'a'>('a')`
     font-size: 1.5em;
     text-align: center;
-    color: ${a => (a.canClick ? 'palevioletred' : 'gray')};
+    color: ${(a) => (a.canClick ? 'palevioletred' : 'gray')};
 `;
 
 // A LinkFromStringWithPropsAndGenerics instance should be backed by an HTMLAnchorElement
@@ -310,8 +299,8 @@ const AttrsInput = styled.input.attrs({
     border-radius: 3px;
 
     /* here we use the dynamically computed props */
-    margin: ${props => props.margin};
-    padding: ${props => props.padding};
+    margin: ${(props) => props.margin};
+    padding: ${(props) => props.padding};
 `;
 
 /**
@@ -357,9 +346,9 @@ const TomatoExtendButton = ExtendButton.extend`
 
 // Define our button, but with the use of props.theme this time
 const ThemedButton = styled.button`
-    color: ${props => props.theme.fg};
-    border: 2px solid ${props => props.theme.fg};
-    background: ${props => props.theme.bg};
+    color: ${(props) => props.theme.fg};
+    border: 2px solid ${(props) => props.theme.fg};
+    background: ${(props) => props.theme.bg};
 
     font-size: 1em;
     margin: 1em;
@@ -414,9 +403,7 @@ interface WithThemeProps {
     text: string;
 }
 
-const Component = (props: WithThemeProps) => (
-    <div style={{ color: props.theme.color }}>{props.text}</div>
-);
+const Component = (props: WithThemeProps) => <div style={{ color: props.theme.color }}>{props.text}</div>;
 
 const ComponentWithTheme = withTheme(Component);
 
@@ -470,9 +457,7 @@ const css2 = sheet2.getStyleElement();
 
 const sheet3 = new ServerStyleSheet();
 const appStream = ReactDOMServer.renderToNodeStream(<Title>Hello world</Title>);
-const wrappedCssStream: NodeJS.ReadableStream = sheet3.interleaveWithNodeStream(
-    appStream,
-);
+const wrappedCssStream: NodeJS.ReadableStream = sheet3.interleaveWithNodeStream(appStream);
 
 /**
  * StyledComponent.withComponent
@@ -517,19 +502,17 @@ const WithComponentAbbr = WithComponentH1.withComponent('abbr');
 
 const WithComponentAnchor = WithComponentH1.withComponent('a');
 const AnchorContainer = () => (
-    <WithComponentAnchor href="https://example.com">
-        withComponent Anchor
-    </WithComponentAnchor>
+    <WithComponentAnchor href="https://example.com">withComponent Anchor</WithComponentAnchor>
 );
 
 const WithComponentRandomHeading = WithComponentH1.withComponent(Random);
 
-const WithComponentCompA: React.SFC<{ a: number; className?: string }> = ({
-    className,
-}) => <div className={className} />;
-const WithComponentCompB: React.SFC<{ b: number; className?: string }> = ({
-    className,
-}) => <div className={className} />;
+const WithComponentCompA: React.SFC<{ a: number; className?: string }> = ({ className }) => (
+    <div className={className} />
+);
+const WithComponentCompB: React.SFC<{ b: number; className?: string }> = ({ className }) => (
+    <div className={className} />
+);
 const WithComponentStyledA = styled(WithComponentCompA)`
     color: ${(props: { color: string }) => props.color};
 `;
@@ -538,11 +521,6 @@ const WithComponentFirstStyledA = styled(WithComponentStyledA).attrs({
     a: 1,
 })``;
 
-const WithComponentFirstStyledB = WithComponentFirstStyledA.withComponent(
-    WithComponentCompB,
-);
+const WithComponentFirstStyledB = WithComponentFirstStyledA.withComponent(WithComponentCompB);
 
-const test = () => [
-    <WithComponentFirstStyledA color={'black'} />,
-    <WithComponentFirstStyledB b={2} color={'black'} />,
-];
+const test = () => [<WithComponentFirstStyledA color={'black'} />, <WithComponentFirstStyledB b={2} color={'black'} />];

@@ -11,18 +11,39 @@ import * as JSData from 'js-data';
 import * as ng from 'angular';
 
 declare module 'js-data' {
-
     interface DSProvider {
-        defaults:DSConfiguration;
+        defaults: DSConfiguration;
     }
 
     interface DS {
-        bindAll<T>(resourceName:string, params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T & DSInstanceShorthands<T>>)=>void):Function;
-        bindOne<T>(resourceName:string, id:string | number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T & DSInstanceShorthands<T>)=>void):Function;
+        bindAll<T>(
+            resourceName: string,
+            params: DSFilterParams,
+            scope: ng.IScope,
+            expr: string,
+            cb?: (err: DSError, items: Array<T & DSInstanceShorthands<T>>) => void,
+        ): Function;
+        bindOne<T>(
+            resourceName: string,
+            id: string | number,
+            scope: ng.IScope,
+            expr: string,
+            cb?: (err: DSError, item: T & DSInstanceShorthands<T>) => void,
+        ): Function;
     }
 
     interface DSResourceDefinition<T> {
-        bindAll(params:DSFilterParams, scope:ng.IScope, expr:string, cb?:(err:DSError, items:Array<T & DSInstanceShorthands<T>>)=>void):Function;
-        bindOne(id:string | number, scope:ng.IScope, expr:string, cb?:(err:DSError, item:T & DSInstanceShorthands<T>)=>void):Function;
+        bindAll(
+            params: DSFilterParams,
+            scope: ng.IScope,
+            expr: string,
+            cb?: (err: DSError, items: Array<T & DSInstanceShorthands<T>>) => void,
+        ): Function;
+        bindOne(
+            id: string | number,
+            scope: ng.IScope,
+            expr: string,
+            cb?: (err: DSError, item: T & DSInstanceShorthands<T>) => void,
+        ): Function;
     }
 }

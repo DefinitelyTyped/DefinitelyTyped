@@ -1,8 +1,6 @@
-import * as React from "react";
-import ModalFilterPicker, {
-    ModalFilterPickerOption
-} from "react-native-modal-filter-picker";
-import { View, Button, Text } from "react-native";
+import * as React from 'react';
+import ModalFilterPicker, { ModalFilterPickerOption } from 'react-native-modal-filter-picker';
+import { View, Button, Text } from 'react-native';
 
 interface MyModalFilterPickerOption extends ModalFilterPickerOption {
     customField: string;
@@ -10,21 +8,21 @@ interface MyModalFilterPickerOption extends ModalFilterPickerOption {
 
 const modalFilterPickerOptions: MyModalFilterPickerOption[] = [
     {
-        label: "some-label-1",
-        key: "some-key-1",
-        customField: "some-customfield-1"
+        label: 'some-label-1',
+        key: 'some-key-1',
+        customField: 'some-customfield-1',
     },
     {
-        label: "some-label-2",
-        key: "some-key-2",
-        customField: "some-customfield-2"
-    }
+        label: 'some-label-2',
+        key: 'some-key-2',
+        customField: 'some-customfield-2',
+    },
 ];
 
 const renderPicker = () => (
     <ModalFilterPicker
         options={modalFilterPickerOptions}
-        onSelect={key => {
+        onSelect={(key) => {
             console.log(key);
         }}
         onCancel={() => {}}
@@ -48,7 +46,7 @@ const renderPicker = () => (
         )}
         renderList={() => <View />}
         renderCancelButton={() => <Button title="Cancel" onPress={() => {}} />}
-        keyboardShouldPersistTaps={"never"}
+        keyboardShouldPersistTaps={'never'}
         autoFocus={false}
     />
 );
@@ -56,7 +54,7 @@ const renderPicker = () => (
 const renderPickerWithRequiredPropsOnly = () => (
     <ModalFilterPicker
         options={modalFilterPickerOptions}
-        onSelect={key => {
+        onSelect={(key) => {
             console.log(key);
         }}
         onCancel={() => {}}

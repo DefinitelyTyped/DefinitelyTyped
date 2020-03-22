@@ -1,12 +1,10 @@
-require.d.ts
-==========
+# require.d.ts
 
 This is a typescript definitions file for require.js.
 
-Usage
-=====
+# Usage
 
-Compile *.ts files as AMD modules:
+Compile \*.ts files as AMD modules:
 
 <pre>
 tsc --module AMD main.ts
@@ -18,7 +16,7 @@ export classes so they can be accessed from an import:
 // File main.ts
 export class Main  {
 
-	run() {  
+	run() {
 		...
 	}
 }
@@ -40,37 +38,35 @@ The sample config will load all required shims and AMD modules and then kick off
 ```javascript
 //file config.ts
 require.config({
-	baseUrl: 'lib',
+    baseUrl: 'lib',
 
-	paths: {
-		'jquery': 'lib/jquery-x.x.x',
-		'underscore': 'lib/underscore-x.x.x',
-		'backbone': 'lib/backbone-x.x.x'
-	},
+    paths: {
+        jquery: 'lib/jquery-x.x.x',
+        underscore: 'lib/underscore-x.x.x',
+        backbone: 'lib/backbone-x.x.x',
+    },
 
-	shim: {
-		jquery: {
-			exports: '$'
-		},
+    shim: {
+        jquery: {
+            exports: '$',
+        },
 
-		underscore: {
-			exports: '_'
-		},
+        underscore: {
+            exports: '_',
+        },
 
-		backbone: {
-			deps: ['underscore', 'jquery'],
-			exports: 'Backbone'
-		}
-	}
+        backbone: {
+            deps: ['underscore', 'jquery'],
+            exports: 'Backbone',
+        },
+    },
 });
 
 // load AMD module main.ts (compiled to main.js)
 // and include shims $, _, Backbone
 
 require(['main'], (main, $, _, Backbone) => {
-
-	var app = main.AppMain();
-	app.run();
-
+    var app = main.AppMain();
+    app.run();
 });
 ```

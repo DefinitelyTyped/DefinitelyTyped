@@ -1,10 +1,10 @@
-import InCallManager from "react-native-incall-manager";
+import InCallManager from 'react-native-incall-manager';
 
-InCallManager.start({ media: "video" });
+InCallManager.start({ media: 'video' });
 
 InCallManager.start();
 
-InCallManager.stop({ busytone: "video" });
+InCallManager.stop({ busytone: 'video' });
 
 InCallManager.stop();
 
@@ -28,11 +28,11 @@ InCallManager.checkRecordPermission();
 
 InCallManager.requestRecordPermission();
 
-InCallManager.getAudioUri("", "");
+InCallManager.getAudioUri('', '');
 
 InCallManager.startRingtone();
 
-InCallManager.startRingtone("", [], "", 0);
+InCallManager.startRingtone('', [], '', 0);
 
 InCallManager.stopRingtone();
 

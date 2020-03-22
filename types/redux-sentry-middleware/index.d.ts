@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Action, Middleware } from "redux";
-import * as Sentry from "@sentry/browser";
+import { Action, Middleware } from 'redux';
+import * as Sentry from '@sentry/browser';
 
 declare namespace createSentryMiddleware {
     interface Options<T> {
@@ -20,5 +20,8 @@ declare namespace createSentryMiddleware {
 }
 
 // tslint:disable-next-line: no-unnecessary-generics
-declare function createSentryMiddleware<T>(sentry: typeof Sentry, options?: createSentryMiddleware.Options<T>): Middleware;
+declare function createSentryMiddleware<T>(
+    sentry: typeof Sentry,
+    options?: createSentryMiddleware.Options<T>,
+): Middleware;
 export = createSentryMiddleware;

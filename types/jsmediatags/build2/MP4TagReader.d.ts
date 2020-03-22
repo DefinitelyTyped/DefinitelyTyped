@@ -1,11 +1,4 @@
-import {
-    CallbackType,
-    LoadCallbackType,
-    CharsetType,
-    ByteRange,
-    TagType,
-    TagFrame
-} from '../types';
+import { CallbackType, LoadCallbackType, CharsetType, ByteRange, TagType, TagFrame } from '../types';
 import MediaFileReader from './MediaFileReader';
 import MediaTagReader from './MediaTagReader';
 
@@ -20,8 +13,8 @@ export default class MP4TagReader extends MediaTagReader {
         mediaFileReader: MediaFileReader,
         offset: number,
         parentAtomFullName: string,
-        callbacks: LoadCallbackType
-      ): void;
+        callbacks: LoadCallbackType,
+    ): void;
 
     _isContainerAtom(atomName: string): boolean;
 
@@ -36,10 +29,10 @@ export default class MP4TagReader extends MediaTagReader {
         length: number,
         tagsToRead?: string[],
         parentAtomFullName?: string,
-        indent?: string
-      ): void;
+        indent?: string,
+    ): void;
 
     _readMetadataAtom(data: MediaFileReader, offset: number): TagFrame;
 
-    getShortcuts(): {[key: string]: string|string[]};
+    getShortcuts(): { [key: string]: string | string[] };
 }

@@ -1,4 +1,4 @@
-import { UINT32 } from "cuint";
+import { UINT32 } from 'cuint';
 
 const u = UINT32(1, 2);
 const d = u.fromBits(4, 5, 6);

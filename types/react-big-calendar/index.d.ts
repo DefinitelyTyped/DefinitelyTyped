@@ -22,19 +22,26 @@ import { Validator } from 'prop-types';
 import * as React from 'react';
 
 export type DayPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
-export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => React.HTMLAttributes<HTMLDivElement>;
+export type EventPropGetter<T> = (
+    event: T,
+    start: stringOrDate,
+    end: stringOrDate,
+    isSelected: boolean,
+) => React.HTMLAttributes<HTMLDivElement>;
 export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
 export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
 export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
-export type ViewsProps = View[] | {
-    work_week?: boolean | React.ComponentType<any> & ViewStatic,
-    day?: boolean | React.ComponentType<any> & ViewStatic,
-    agenda?: boolean | React.ComponentType<any> & ViewStatic,
-    month?: boolean | React.ComponentType<any> & ViewStatic,
-    week?: boolean | React.ComponentType<any> & ViewStatic
-};
+export type ViewsProps =
+    | View[]
+    | {
+          work_week?: boolean | (React.ComponentType<any> & ViewStatic);
+          day?: boolean | (React.ComponentType<any> & ViewStatic);
+          agenda?: boolean | (React.ComponentType<any> & ViewStatic);
+          month?: boolean | (React.ComponentType<any> & ViewStatic);
+          week?: boolean | (React.ComponentType<any> & ViewStatic);
+      };
 export type DayLayoutAlgorithm = 'overlap' | 'no-overlap';
 export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
@@ -331,10 +338,9 @@ export interface MoveOptions {
     today: Date;
 }
 
-export class Calendar<
-    TEvent extends object = Event,
-    TResource extends object = object
-> extends React.Component<CalendarProps<TEvent, TResource>> {}
+export class Calendar<TEvent extends object = Event, TResource extends object = object> extends React.Component<
+    CalendarProps<TEvent, TResource>
+> {}
 
 export interface components {
     dateCellWrapper: React.ComponentType;

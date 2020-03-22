@@ -11,12 +11,12 @@ declare namespace PageJS {
          * Expose Route
          * @type {Route}
          */
-        Route: Route
+        Route: Route;
         /**
          * Export Context
          * @type {Context}
          */
-        Context: Context
+        Context: Context;
         /**
          *  Defines a route mapping path to the given callback(s).
          *
@@ -175,19 +175,19 @@ declare namespace PageJS {
          * @param {string}  path    path
          * @param {Options} options Options
          */
-        new (path: string, options?: RouteOptions): Route
+        new (path: string, options?: RouteOptions): Route;
         /**
          * Return route middleware with the given callback `fn()`.
          * @param {Callback} callback Callback
          */
-        middleware(fn: Callback): Callback
+        middleware(fn: Callback): Callback;
         /**
          * Check if this route matches `path`, if so populate `params`.
          * @param  {string}  path   path
          * @param  {{}}    params params
          * @return {boolean}       true if matched, false otherwise
          */
-        match(path: string, params?: {}): boolean
+        match(path: string, params?: {}): boolean;
     }
 
     interface RouteOptions {
@@ -195,12 +195,12 @@ declare namespace PageJS {
          * enable case-sensitive routes
          * @type {[type]}
          */
-        sensitive?: boolean
+        sensitive?: boolean;
         /**
          * enable strict matching for trailing slashes
          * @type {[type]}
          */
-        strict?: boolean
+        strict?: boolean;
     }
 
     interface Options {
@@ -239,7 +239,7 @@ declare namespace PageJS {
          * @param {string} path  path
          * @param {any}    state state
          */
-        new (path: string, state?: any): Context
+        new (path: string, state?: any): Context;
         [idx: string]: any;
         /**
          * Saves the context using replaceState(). For example this is useful for caching HTML or other resources that were loaded for when a user presses "back".
@@ -248,7 +248,7 @@ declare namespace PageJS {
         /**
          * Push state
          */
-        pushState: () => void
+        pushState: () => void;
         /**
          *  If true, marks the context as handled to prevent default 404 behaviour. For example this is useful for the routes with interminate quantity of the callbacks.
          */
@@ -284,7 +284,7 @@ declare namespace PageJS {
     }
 }
 
-declare module "page" {
+declare module 'page' {
     const page: PageJS.Static;
     export default page;
 }

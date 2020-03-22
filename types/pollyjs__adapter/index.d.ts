@@ -6,13 +6,15 @@
 import { Headers, Request } from '@pollyjs/core';
 
 export default class Adapter {
-  static readonly name: string;
-  static readonly type: string;
-  connect(): void;
-  disconnect(): void;
-  passthroughRequest(pollyRequest: Request): Promise<{
-    statusCode: number;
-    headers: Headers;
-    body: string;
-  }>;
+    static readonly name: string;
+    static readonly type: string;
+    connect(): void;
+    disconnect(): void;
+    passthroughRequest(
+        pollyRequest: Request,
+    ): Promise<{
+        statusCode: number;
+        headers: Headers;
+        body: string;
+    }>;
 }

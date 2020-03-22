@@ -10,5 +10,5 @@ export interface PromiseRejection<E> {
 
 export type PromiseResult<T, E = unknown> = PromiseResolution<T> | PromiseRejection<E>;
 
-export type PromiseTuple<T extends [unknown, ...unknown[]]> = {[P in keyof T]: Promise<T[P]>};
-export type PromiseResultTuple<T extends [unknown, ...unknown[]]> = {[P in keyof T]: PromiseResult<T[P]>};
+export type PromiseTuple<T extends [unknown, ...unknown[]]> = { [P in keyof T]: Promise<T[P]> };
+export type PromiseResultTuple<T extends [unknown, ...unknown[]]> = { [P in keyof T]: PromiseResult<T[P]> };

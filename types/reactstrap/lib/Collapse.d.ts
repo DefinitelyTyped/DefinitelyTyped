@@ -27,5 +27,5 @@ export interface UncontrolledCollapseProps extends CollapseProps {
     toggleEvents?: string[];
 }
 
-declare class Collapse<T = {[key: string]: any}> extends React.Component<CollapseProps> {}
+declare class Collapse<T = { [key: string]: any }> extends React.Component<CollapseProps> {}
 export default Collapse;

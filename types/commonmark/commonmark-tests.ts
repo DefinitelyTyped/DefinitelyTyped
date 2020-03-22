@@ -20,7 +20,8 @@ function logNode(node: commonmark.Node) {
         node.prev,
         node.sourcepos,
         node.title,
-        node.type);
+        node.type,
+    );
 }
 
 const parser = new commonmark.Parser({ smart: true, time: true });
@@ -41,8 +42,8 @@ const htmlRenderer = new commonmark.HtmlRenderer({
     smart: true,
     sourcepos: true,
     time: true,
-    softbreak: "<br/>",
- });
+    softbreak: '<br/>',
+});
 const html = htmlRenderer.render(node);
 console.log(html);
 

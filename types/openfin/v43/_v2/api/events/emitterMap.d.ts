@@ -13,4 +13,10 @@ export declare type ApplicationEmitterAccessor = ['application', string];
 export declare type WindowEmitterAccessor = ['window', string, string];
 export declare type ExternalWindowEmitterAccessor = ['external-window', string];
 export declare type HotkeyEmitterAccessor = ['global-hotkey'];
-export declare type EmitterAccessor = SystemEmitterAccessor | ApplicationEmitterAccessor | WindowEmitterAccessor | ExternalWindowEmitterAccessor | HotkeyEmitterAccessor | string[];
+export declare type EmitterAccessor =
+    | SystemEmitterAccessor
+    | ApplicationEmitterAccessor
+    | WindowEmitterAccessor
+    | ExternalWindowEmitterAccessor
+    | HotkeyEmitterAccessor
+    | string[];

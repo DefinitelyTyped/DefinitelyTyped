@@ -7,7 +7,7 @@ const camera = new PiCamera({
     output: './test.jpg',
     width: 1920,
     height: 1080,
-    nopreview: true
+    nopreview: true,
 });
 
 const camera2 = new PiCamera({
@@ -19,17 +19,23 @@ const camera2 = new PiCamera({
     nopreview: true,
 });
 
-camera.snap().then((result) => {
-    log(`Your picture was captured ${result}`);
-}).catch((error: Error) => {
-    log(`error happened while taking picture, message: ${error}`);
-});
+camera
+    .snap()
+    .then((result) => {
+        log(`Your picture was captured ${result}`);
+    })
+    .catch((error: Error) => {
+        log(`error happened while taking picture, message: ${error}`);
+    });
 
-camera2.record().then((result) => {
-    log(`Your video was captured ${result}`);
-}).catch((error: Error) => {
-    log(`error happened while taking picture, message: ${error}`);
-});
+camera2
+    .record()
+    .then((result) => {
+        log(`Your video was captured ${result}`);
+    })
+    .catch((error: Error) => {
+        log(`error happened while taking picture, message: ${error}`);
+    });
 
 const widthValue = camera.get('width');
 log(widthValue);

@@ -7,10 +7,16 @@
 import * as React from 'react';
 
 // Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+export type Omit<T, K extends keyof T> = Pick<
+    T,
+    ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never; [x: number]: never })[keyof T]
+>;
 
 export namespace Radio {
-    type RadioProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'name' | 'role' | 'type' | 'aria-checked'> & {
+    type RadioProps = Omit<
+        React.InputHTMLAttributes<HTMLInputElement>,
+        'value' | 'name' | 'role' | 'type' | 'aria-checked'
+    > & {
         value: any;
     };
 }

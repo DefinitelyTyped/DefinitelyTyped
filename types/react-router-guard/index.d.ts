@@ -8,25 +8,14 @@ import * as H from 'history';
 
 export const history: H.History;
 
-export {
-    Loadable
-} from 'react-loadable';
+export { Loadable } from 'react-loadable';
 
-export {
-    BrowserRouter,
-    Link,
-    NavLink,
-    Route,
-    Router,
-    Switch,
-} from 'react-router-dom';
+export { BrowserRouter, Link, NavLink, Route, Router, Switch } from 'react-router-dom';
 
-export {
-    Redirect,
-} from 'react-router';
+export { Redirect } from 'react-router';
 
 export function lazy<T extends React.ComponentType<any>>(
-    factory: () => Promise<{ default: T }>
+    factory: () => Promise<{ default: T }>,
 ): React.LazyExoticComponent<T>;
 
 export interface RouterGuardConfigProps {

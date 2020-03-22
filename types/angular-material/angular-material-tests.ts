@@ -4,111 +4,115 @@ interface TestScope extends ng.IScope {
     [index: string]: any;
 }
 
-myApp.config((
-    $mdAriaProvider: ng.material.IAriaProvider,
-    $mdThemingProvider: ng.material.IThemingProvider,
-    $mdIconProvider: ng.material.IIconProvider,
-    $mdProgressCircularProvider: ng.material.IProgressCircularProvider,
-    $mdDialogProvider: ng.material.IDialogProvider) => {
-    $mdThemingProvider.alwaysWatchTheme(true);
-    const neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
-        500: 'ff0000'
-    });
-    // Register the new color palette map with the name <code>neonRed</code>
-    $mdThemingProvider.definePalette('neonRed', neonRedMap);
-    // Use that theme for the primary intentions
-    $mdThemingProvider.theme('default')
-        .primaryPalette('neonRed')
-        .accentPalette('blue')
-        .backgroundPalette('grey')
-        .warnPalette('red')
-        .dark(true);
+myApp.config(
+    (
+        $mdAriaProvider: ng.material.IAriaProvider,
+        $mdThemingProvider: ng.material.IThemingProvider,
+        $mdIconProvider: ng.material.IIconProvider,
+        $mdProgressCircularProvider: ng.material.IProgressCircularProvider,
+        $mdDialogProvider: ng.material.IDialogProvider,
+    ) => {
+        $mdThemingProvider.alwaysWatchTheme(true);
+        const neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
+            500: 'ff0000',
+        });
+        // Register the new color palette map with the name <code>neonRed</code>
+        $mdThemingProvider.definePalette('neonRed', neonRedMap);
+        // Use that theme for the primary intentions
+        $mdThemingProvider
+            .theme('default')
+            .primaryPalette('neonRed')
+            .accentPalette('blue')
+            .backgroundPalette('grey')
+            .warnPalette('red')
+            .dark(true);
 
-    const browserColors: ng.material.IBrowserColors = {
-        theme: 'default',
-        palette: 'neonRed',
-        hue: '500'
-    };
-    const removeColors = $mdThemingProvider.enableBrowserColor(browserColors);
-    removeColors();
+        const browserColors: ng.material.IBrowserColors = {
+            theme: 'default',
+            palette: 'neonRed',
+            hue: '500',
+        };
+        const removeColors = $mdThemingProvider.enableBrowserColor(browserColors);
+        removeColors();
 
-    // Disable theming generation at runtime
-    $mdThemingProvider.disableTheming();
+        // Disable theming generation at runtime
+        $mdThemingProvider.disableTheming();
 
-    $mdIconProvider
-        .defaultIconSet('my/app/icons.svg')       // Register a default set of SVG icons
-        .iconSet('social', 'my/app/social.svg')   // Register a named icon set of SVGs
-        .icon('android', 'my/app/android.svg')    // Register a specific icon (by name)
-        .icon('work:chair', 'my/app/chair.svg');  // Register icon in a specific set
+        $mdIconProvider
+            .defaultIconSet('my/app/icons.svg') // Register a default set of SVG icons
+            .iconSet('social', 'my/app/social.svg') // Register a named icon set of SVGs
+            .icon('android', 'my/app/android.svg') // Register a specific icon (by name)
+            .icon('work:chair', 'my/app/chair.svg'); // Register icon in a specific set
 
-    // Example of changing the default progress options.
-    $mdProgressCircularProvider.configure({
-        progressSize: 100,
-        strokeWidth: 20,
-        duration: 800,
-        easeFn(t, b, c, d) {
-            t /= d;
-            return c * t * t + b;
-        },
-        easeFnIndeterminate(t, b, c, d) {
-            return c * Math.pow(2, (t / d - 1) * 10) + b;
-        }
-    });
-
-    // Globally disables all ARIA warnings.
-    $mdAriaProvider.disableWarnings();
-
-    // Add custom dialog preset
-    $mdDialogProvider.addPreset('testPreset', {
-        methods: ['entityName'],
-        options: () => {
-            return {
-                template:
-                    '<md-dialog>' +
-                    'This is a custom preset' +
-                    '</md-dialog>',
-                controllerAs: 'dialog',
-                bindToController: true,
-                clickOutsideToClose: true,
-                escapeToClose: true
-            };
-        }
-    });
-});
-
-myApp.controller('BottomSheetController', ($scope: TestScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
-    $scope['openBottomSheet'] = () => {
-        $mdBottomSheet.show({
-            template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
-            clickOutsideToClose: true,
-            disableBackdrop: true,
-            disableParentScroll: false,
+        // Example of changing the default progress options.
+        $mdProgressCircularProvider.configure({
+            progressSize: 100,
+            strokeWidth: 20,
+            duration: 800,
+            easeFn(t, b, c, d) {
+                t /= d;
+                return c * t * t + b;
+            },
+            easeFnIndeterminate(t, b, c, d) {
+                return c * Math.pow(2, (t / d - 1) * 10) + b;
+            },
         });
 
-        const options: ng.material.IBottomSheetOptions = {};
+        // Globally disables all ARIA warnings.
+        $mdAriaProvider.disableWarnings();
 
-        options.resolve = {
-            nativePromise: () => Promise.resolve(),
-            angularPromise: () => $q.resolve(),
-            annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
-            annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
+        // Add custom dialog preset
+        $mdDialogProvider.addPreset('testPreset', {
+            methods: ['entityName'],
+            options: () => {
+                return {
+                    template: '<md-dialog>' + 'This is a custom preset' + '</md-dialog>',
+                    controllerAs: 'dialog',
+                    bindToController: true,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                };
+            },
+        });
+    },
+);
+
+myApp.controller(
+    'BottomSheetController',
+    ($scope: TestScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
+        $scope['openBottomSheet'] = () => {
+            $mdBottomSheet.show({
+                template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
+                clickOutsideToClose: true,
+                disableBackdrop: true,
+                disableParentScroll: false,
+            });
+
+            const options: ng.material.IBottomSheetOptions = {};
+
+            options.resolve = {
+                nativePromise: () => Promise.resolve(),
+                angularPromise: () => $q.resolve(),
+                annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
+                annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()],
+            };
+
+            options.controller = 'TestController';
+            options.controller = function TestController(param: any) {};
+            options.controller = class {};
+            options.controller = ['fakeService', function TestController(fake: any) {}];
+            options.controller = ['fakeService', class {}];
+
+            options.parent = (scope, element) => new Element();
+            options.parent = (scope, element) => angular.element(new Element());
+            options.parent = '#container';
+            options.parent = new Element();
+            options.parent = angular.element(new Element());
         };
-
-        options.controller = 'TestController';
-        options.controller = (function TestController(param: any) { });
-        options.controller = (class { });
-        options.controller = ['fakeService', function TestController(fake: any) { }];
-        options.controller = ['fakeService', class { }];
-
-        options.parent = (scope, element) => new Element();
-        options.parent = (scope, element) => angular.element(new Element());
-        options.parent = '#container';
-        options.parent = new Element();
-        options.parent = angular.element(new Element());
-    };
-    $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
-    $scope['cancelBottomSheet'] = $mdBottomSheet.cancel.bind($mdBottomSheet, 'cancel');
-});
+        $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
+        $scope['cancelBottomSheet'] = $mdBottomSheet.cancel.bind($mdBottomSheet, 'cancel');
+    },
+);
 
 myApp.controller('ColorController', ($scope: TestScope, $mdColor: ng.material.IColorService) => {
     const colorExpression: ng.material.IColorExpression = { color: '#FFFFFF' };
@@ -128,7 +132,7 @@ myApp.controller('ColorController', ($scope: TestScope, $mdColor: ng.material.IC
 myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.IDialogService, $q: ng.IQService) => {
     $scope['openDialog'] = () => {
         $mdDialog.show({
-            template: '<md-dialog>Hello!</md-dialog>'
+            template: '<md-dialog>Hello!</md-dialog>',
         });
     };
     $scope['alertDialog'] = () => {
@@ -165,24 +169,25 @@ myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.
         $mdDialog.show({
             template: '<md-dialog>Hello!</md-dialog>',
             contentElement: '#myDialog',
-            clickOutsideToClose: true
+            clickOutsideToClose: true,
         });
     };
     $scope['hideDialog'] = $mdDialog.hide.bind($mdDialog, 'hide');
     $scope['cancelDialog'] = $mdDialog.cancel.bind($mdDialog, 'cancel');
 
-    const alertPreset: ng.material.IAlertDialog = $mdDialog.alert()
+    const alertPreset: ng.material.IAlertDialog = $mdDialog
+        .alert()
         .resolve({
             nativePromise: () => Promise.resolve(),
             angularPromise: () => $q.resolve(),
             annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
-            annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
+            annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()],
         })
         .controller('TestController')
-        .controller(function TestController(param) { })
-        .controller(class { })
-        .controller(['fakeService', function TestController(fake) { }])
-        .controller(['fakeService', class { }]);
+        .controller(function TestController(param) {})
+        .controller(class {})
+        .controller(['fakeService', function TestController(fake) {}])
+        .controller(['fakeService', class {}]);
 
     const dialogOptions: ng.material.IDialogOptions = {};
 
@@ -190,31 +195,29 @@ myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.
         nativePromise: () => Promise.resolve(),
         angularPromise: () => $q.resolve(),
         annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
-        annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
+        annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()],
     };
 
     dialogOptions.controller = 'TestController';
-    dialogOptions.controller = (function TestController(param) { });
-    dialogOptions.controller = (class { });
-    dialogOptions.controller = ['fakeService', function TestController(fake) { }];
-    dialogOptions.controller = ['fakeService', class { }];
+    dialogOptions.controller = function TestController(param) {};
+    dialogOptions.controller = class {};
+    dialogOptions.controller = ['fakeService', function TestController(fake) {}];
+    dialogOptions.controller = ['fakeService', class {}];
 
     $mdDialog.show({
-        onShowing(scope, element) { },
-        onComplete(scope, element) { },
-        onRemoving(element, removePromise) { },
+        onShowing(scope, element) {},
+        onComplete(scope, element) {},
+        onRemoving(element, removePromise) {},
     });
 
     $mdDialog.show({
-        onShowing: (scope, element) => { },
-        onComplete: (scope, element) => { },
-        onRemoving: (element, removePromise) => { },
+        onShowing: (scope, element) => {},
+        onComplete: (scope, element) => {},
+        onRemoving: (element, removePromise) => {},
     });
 
     // Show custom dialog preset
-    $mdDialog.show(
-        $mdDialog['testPreset']().entityName('Product #6')
-    );
+    $mdDialog.show($mdDialog['testPreset']().entityName('Product #6'));
 });
 
 class IconDirective implements ng.IDirective {
@@ -235,9 +238,12 @@ class IconDirective implements ng.IDirective {
 myApp.directive('icon-directive', ($mdIcon: ng.material.IIcon) => new IconDirective($mdIcon));
 
 myApp.controller('MediaController', ($scope: TestScope, $mdMedia: ng.material.IMedia) => {
-    $scope.$watch(() => $mdMedia('lg'), (big: boolean) => {
-        $scope['bigScreen'] = big;
-    });
+    $scope.$watch(
+        () => $mdMedia('lg'),
+        (big: boolean) => {
+            $scope['bigScreen'] = big;
+        },
+    );
     $scope['screenIsSmall'] = $mdMedia('sm');
     $scope['customQuery'] = $mdMedia('(min-width: 1234px)');
     $scope['anotherCustom'] = $mdMedia('max-width: 300px');
@@ -259,7 +265,7 @@ myApp.controller('SidenavController', ($scope: TestScope, $mdSidenav: ng.materia
         instance.isLockedOpen();
     });
 
-    $scope['onClose'] = $mdSidenav(componentId).onClose(() => { });
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
 });
 
 myApp.controller('ToastController', ($scope: TestScope, $mdToast: ng.material.IToastService, $q: ng.IQService) => {
@@ -279,15 +285,15 @@ myApp.controller('ToastController', ($scope: TestScope, $mdToast: ng.material.IT
                 nativePromise: () => Promise.resolve(),
                 angularPromise: () => $q.resolve(),
                 annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
-                annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
-            }
+                annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()],
+            },
         };
 
         options.controller = 'TestController';
-        options.controller = (function TestController(param) { });
-        options.controller = (class { });
-        options.controller = ['fakeService', function TestController(fake) { }];
-        options.controller = ['fakeService', class { }];
+        options.controller = function TestController(param) {};
+        options.controller = class {};
+        options.controller = ['fakeService', function TestController(fake) {}];
+        options.controller = ['fakeService', class {}];
 
         $mdToast.show(options);
     };
@@ -320,7 +326,7 @@ myApp.controller('ThemeController', ($element: JQuery, $scope: TestScope, $mdThe
         const browserColors: ng.material.IBrowserColors = {
             theme: 'default',
             palette: 'neonRed',
-            hue: '500'
+            hue: '500',
         };
         const remove: () => void = $mdTheming.setBrowserColor(browserColors);
     };
@@ -329,7 +335,7 @@ myApp.controller('ThemeController', ($element: JQuery, $scope: TestScope, $mdThe
         const newTheme: ng.material.IDefineThemeOptions = {
             primary: 'blue',
             accent: 'orange',
-            dark: true
+            dark: true,
         };
         $mdTheming.defineTheme('newTheme', newTheme);
     };
@@ -347,36 +353,37 @@ myApp.controller('PanelController', ($scope: TestScope, $mdPanel: ng.material.IP
                 nativePromise: () => Promise.resolve(),
                 angularPromise: () => $q.resolve(),
                 annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
-                annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
-            }
+                annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()],
+            },
         };
 
         config.controller = 'TestController';
-        config.controller = (function TestController(param) { });
-        config.controller = (class { });
-        config.controller = ['fakeService', function TestController(fake) { }];
-        config.controller = ['fakeService', class { }];
+        config.controller = function TestController(param) {};
+        config.controller = class {};
+        config.controller = ['fakeService', function TestController(fake) {}];
+        config.controller = ['fakeService', class {}];
 
         config.onDomAdded = (paneRef) => Promise.resolve();
         config.onDomAdded = () => $q.reject();
-        config.onDomAdded = () => { };
+        config.onDomAdded = () => {};
 
         config.onOpenComplete = (paneRef) => Promise.resolve();
         config.onOpenComplete = () => $q.reject();
-        config.onOpenComplete = () => { };
+        config.onOpenComplete = () => {};
 
         config.onRemoving = (paneRef) => Promise.resolve();
         config.onRemoving = () => $q.reject();
-        config.onRemoving = () => { };
+        config.onRemoving = () => {};
 
         config.onDomRemoved = (paneRef) => Promise.resolve();
         config.onDomRemoved = () => $q.reject();
-        config.onDomRemoved = () => { };
+        config.onDomRemoved = () => {};
 
         $mdPanel.create(config);
 
         let panelRef = $mdPanel.create(config);
-        panelRef.open()
+        panelRef
+            .open()
             .then((ref: ng.material.IPanelRef) => {
                 ref.addClass('foo');
                 ref.removeClass('bar');
@@ -388,12 +395,13 @@ myApp.controller('PanelController', ($scope: TestScope, $mdPanel: ng.material.IP
     };
 
     $scope['openPanel'] = () => {
-        $mdPanel.open({
-            template: '<h1>Hello!</h1>',
-            hasBackdrop: true,
-            disableParentScroll: true,
-            zIndex: 150
-        })
+        $mdPanel
+            .open({
+                template: '<h1>Hello!</h1>',
+                hasBackdrop: true,
+                disableParentScroll: true,
+                zIndex: 150,
+            })
             .then((panelRef: ng.material.IPanelRef) => {
                 panelRef.addClass('foo');
                 panelRef.removeClass('bar');
@@ -403,7 +411,7 @@ myApp.controller('PanelController', ($scope: TestScope, $mdPanel: ng.material.IP
 
     $scope['newPanelPosition'] = () => {
         $mdPanel.newPanelPosition().absolute().center();
-        $mdPanel.newPanelPosition().relativeTo('.demo-menu-open-button').addPanelPosition("ALIGN_START", "BELOW");
+        $mdPanel.newPanelPosition().relativeTo('.demo-menu-open-button').addPanelPosition('ALIGN_START', 'BELOW');
     };
 
     $scope['newPanelAnimation'] = () => {
@@ -428,5 +436,5 @@ function mdUtil($mdUtil: ng.material.IUtilService) {
     $mdUtil.debounce(() => {});
 
     // $ExpectType () => string
-    $mdUtil.debounce((): string => "");
+    $mdUtil.debounce((): string => '');
 }

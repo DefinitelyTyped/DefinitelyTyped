@@ -10,10 +10,10 @@ const app = new Koa();
 app.use(
     mount(
         '/graphql',
-        graphqlHTTP(req => {
+        graphqlHTTP((req) => {
             return {
                 schema,
             };
-        })
-    )
+        }),
+    ),
 );

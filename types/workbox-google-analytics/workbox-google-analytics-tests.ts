@@ -1,11 +1,8 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
-import {
-    InitializeOptions,
-    initialize,
-} from "workbox-google-analytics";
+import { InitializeOptions, initialize } from 'workbox-google-analytics';
 
 //==============================================================================
 // WorkboxGoogleAnalytics.initialize

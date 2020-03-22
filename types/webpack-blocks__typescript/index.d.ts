@@ -11,7 +11,7 @@ declare namespace typescript {
 
     interface BabelOptions {
         babelrc?: boolean;
-        presets?: string[][] | Array<Array<{ targets?: string, modules?: boolean }>>;
+        presets?: string[][] | Array<Array<{ targets?: string; modules?: boolean }>>;
     }
 
     interface Options {

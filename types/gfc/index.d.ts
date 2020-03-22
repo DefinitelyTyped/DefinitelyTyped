@@ -11,28 +11,20 @@ import { ExecOptions, ExecException, ExecSyncOptions } from 'child_process';
 export = gitFirstCommit;
 
 declare function gitFirstCommit(
-    options?: gitFirstCommit.Options<gitFirstCommit.ExecOptionsWithEncoding>
+    options?: gitFirstCommit.Options<gitFirstCommit.ExecOptionsWithEncoding>,
 ): Promise<{ stdout: string | Buffer; stderr: string | Buffer }>;
 declare function gitFirstCommit(
     cwd: string,
-    options?: gitFirstCommit.Options<gitFirstCommit.ExecOptionsWithEncoding>
+    options?: gitFirstCommit.Options<gitFirstCommit.ExecOptionsWithEncoding>,
 ): Promise<{ stdout: string | Buffer; stderr: string | Buffer }>;
 declare function gitFirstCommit(
     cwd: string,
-    callback: (
-        error: ExecException | null,
-        stdout: string | Buffer,
-        stderr: string | Buffer
-    ) => void
+    callback: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
 ): void;
 declare function gitFirstCommit(
     cwd: string,
     options: gitFirstCommit.Options<gitFirstCommit.ExecOptionsWithEncoding>,
-    callback: (
-        error: ExecException | null,
-        stdout: string | Buffer,
-        stderr: string | Buffer
-    ) => void
+    callback: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
 ): void;
 
 declare namespace gitFirstCommit {

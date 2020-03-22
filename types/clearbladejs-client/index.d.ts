@@ -14,7 +14,7 @@ declare namespace CbClient {
     enum MessagingQOS {
         MESSAGING_QOS_AT_MOST_ONCE = 0,
         MESSAGING_QOS_AT_LEAST_ONCE = 1,
-        MESSAGING_QOS_EXACTLY_ONCE = 2
+        MESSAGING_QOS_EXACTLY_ONCE = 2,
     }
 
     interface InitOptions {
@@ -74,41 +74,21 @@ declare namespace CbClient {
 
         init(options: InitOptions): void;
         setUser(email: string, password: string): void;
-        registerUser(
-            email: string,
-            password: string,
-            callback: CbCallback
-        ): void;
+        registerUser(email: string, password: string, callback: CbCallback): void;
         isCurrentUserAuthenticated(callback: CbCallback): void;
         logoutUser(callback: CbCallback): void;
         loginAnon(callback: CbCallback): void;
         loginUser(email: string, password: string, callback: CbCallback): void;
-        loginUserMqtt(
-            email: string,
-            password: string,
-            callback: CbCallback
-        ): void;
+        loginUserMqtt(email: string, password: string, callback: CbCallback): void;
         registerMasterCallback(callback: CbCallback): void;
-        Collection(
-            options:
-                | string
-                | CollectionOptionsWithName
-                | CollectionOptionsWithID
-        ): Collection;
-        Query(
-            options: string | QueryOptionsWithName | QueryOptionsWithID
-        ): QueryObj;
+        Collection(options: string | CollectionOptionsWithName | CollectionOptionsWithID): Collection;
+        Query(options: string | QueryOptionsWithName | QueryOptionsWithID): QueryObj;
         Item(data: object, collectionID: string | ItemOptions): Item;
         Code(): Code;
         User(): AppUser;
         Messaging(options: MessagingOptions, callback: CbCallback): Messaging;
         MessagingStats(): MessagingStats;
-        sendPush(
-            users: string[],
-            payload: object,
-            appId: string,
-            callback: CbCallback
-        ): void;
+        sendPush(users: string[], payload: object, appId: string, callback: CbCallback): void;
         getEdges(query: Query, callback: CbCallback): void;
         Edge(): Edge;
         Metrics(): Metrics;
@@ -145,18 +125,18 @@ declare namespace CbClient {
     }
 
     enum QuerySortDirections {
-        QUERY_SORT_ASCENDING = "ASC",
-        QUERY_SORT_DESCENDING = "DESC"
+        QUERY_SORT_ASCENDING = 'ASC',
+        QUERY_SORT_DESCENDING = 'DESC',
     }
 
     enum QueryConditions {
-        QUERY_EQUAL = "EQ",
-        QUERY_NOTEQUAL = "NEQ",
-        QUERY_GREATERTHAN = "GT",
-        QUERY_GREATERTHAN_EQUAL = "GTE",
-        QUERY_LESSTHAN = "LT",
-        QUERY_LESSTHAN_EQUAL = "LTE",
-        QUERY_MATCHES = "RE"
+        QUERY_EQUAL = 'EQ',
+        QUERY_NOTEQUAL = 'NEQ',
+        QUERY_GREATERTHAN = 'GT',
+        QUERY_GREATERTHAN_EQUAL = 'GTE',
+        QUERY_LESSTHAN = 'LT',
+        QUERY_LESSTHAN_EQUAL = 'LTE',
+        QUERY_MATCHES = 'RE',
     }
 
     type QueryValue = string | number | boolean;
@@ -166,12 +146,8 @@ declare namespace CbClient {
         limit?: number;
     }
 
-    interface QueryOptionsWithName
-        extends CollectionOptionsWithName,
-            QueryOptions {}
-    interface QueryOptionsWithID
-        extends CollectionOptionsWithID,
-            QueryOptions {}
+    interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOptions {}
+    interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions {}
 
     interface Query {
         SELECTCOLUMNS?: string[];
@@ -200,17 +176,8 @@ declare namespace CbClient {
         offset: number;
         limit: number;
 
-        addSortToQuery(
-            query: QueryObj,
-            direction: QuerySortDirections,
-            column: string
-        ): void;
-        addFilterToQuery(
-            query: QueryObj,
-            condition: QueryConditions,
-            key: string,
-            value: QueryValue
-        ): void;
+        addSortToQuery(query: QueryObj, direction: QuerySortDirections, column: string): void;
+        addFilterToQuery(query: QueryObj, condition: QueryConditions, key: string, value: QueryValue): void;
         ascending(field: string): void;
         descending(field: string): void;
         equalTo(field: string, value: QueryValue): void;
@@ -265,11 +232,7 @@ declare namespace CbClient {
         getUser(callback: CbCallback): void;
         setUser(data: object, callback: CbCallback): void;
         allUsers(query: Query, callback: CbCallback): void;
-        setPassword(
-            old_password: string,
-            new_password: string,
-            callback: CbCallback
-        ): void;
+        setPassword(old_password: string, new_password: string, callback: CbCallback): void;
         count(query: Query, callback: CbCallback): void;
     }
 
@@ -288,30 +251,21 @@ declare namespace CbClient {
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
-        getMessageHistory(
-            topic: string,
-            last: number,
-            count: number,
-            callback: CbCallback
-        ): void;
+        getMessageHistory(topic: string, last: number, count: number, callback: CbCallback): void;
         getAndDeleteMessageHistory(
             topic: string,
             count: number,
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         currentTopics(callback: CbCallback): void;
         publish(topic: string, payload: object): void;
         publishREST(topic: string, payload: object, callback: CbCallback): void;
-        subscribe(
-            topic: string,
-            options: MessagingSubscribeOptions,
-            messageCallback: MessageCallback
-        ): void;
+        subscribe(topic: string, options: MessagingSubscribeOptions, messageCallback: MessageCallback): void;
         unsubscribe(topic: string, options: MessagingSubscribeOptions): void;
         disconnect(): void;
     }
@@ -350,12 +304,7 @@ declare namespace CbClient {
         endpoint: string;
         systemKey: string;
 
-        getAveragePayloadSize(
-            topic: string,
-            start: number,
-            stop: number,
-            callback: CbCallback
-        ): void;
+        getAveragePayloadSize(topic: string, start: number, stop: number, callback: CbCallback): void;
         getOpenConnections(callback: CbCallback): void;
         getCurrentSubscribers(topic: string, callback: CbCallback): void;
     }
@@ -366,11 +315,7 @@ declare namespace CbClient {
         systemKey: string;
         systemSecret: string;
 
-        updateEdgeByName(
-            name: string,
-            object: object,
-            callback: CbCallback
-        ): void;
+        updateEdgeByName(name: string, object: object, callback: CbCallback): void;
         deleteEdgeByName(name: string, callback: CbCallback): void;
         create(newEdge: object, name: string, callback: CbCallback): void;
         columns(callback: CbCallback): void;
@@ -396,20 +341,10 @@ declare namespace CbClient {
         systemSecret: string;
 
         getDeviceByName(name: string, callback: CbCallback): void;
-        updateDeviceByName(
-            name: string,
-            object: object,
-            trigger: boolean,
-            callback: CbCallback
-        ): void;
+        updateDeviceByName(name: string, object: object, trigger: boolean, callback: CbCallback): void;
         deleteDeviceByName(name: string, callback: CbCallback): void;
         fetch(query: Query, callback: CbCallback): void;
-        update(
-            query: Query,
-            object: object,
-            trigger: boolean,
-            callback: CbCallback
-        ): void;
+        update(query: Query, object: object, trigger: boolean, callback: CbCallback): void;
         delete(query: Query, callback: CbCallback): void;
         create(newDevice: object, callback: CbCallback): void;
         columns(callback: CbCallback): void;

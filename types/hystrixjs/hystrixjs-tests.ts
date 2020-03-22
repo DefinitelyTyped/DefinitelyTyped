@@ -37,7 +37,7 @@ const metricsFactory = hystrixjs.metricsFactory;
 
 const metrics = metricsFactory.getOrCreate({
     commandKey: 'metricsKey',
-    commandGroup: 'metricsGroup'
+    commandGroup: 'metricsGroup',
 });
 metrics.markSuccess();
 metrics.markFailure();
@@ -47,7 +47,7 @@ metrics.incrementExecutionCount();
 metrics.decrementExecutionCount();
 metrics.getCurrentExecutionCount();
 metrics.addExecutionTime(3000);
-metrics.getRollingCount("FAILURE");
+metrics.getRollingCount('FAILURE');
 const healthcounts = metrics.getHealthCounts();
 console.log(healthcounts.totalCount);
 console.log(healthcounts.errorCount);

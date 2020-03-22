@@ -105,7 +105,7 @@ declare namespace CloudflareApps {
         fragment: string;
         host: string;
         path: string;
-        scheme: "https" | "http";
+        scheme: 'https' | 'http';
         query: URLQuery;
     }
 
@@ -114,7 +114,7 @@ declare namespace CloudflareApps {
     }
 
     interface ElementLocation {
-        method: "before" | "prepend" | "append" | "after" | "replace";
+        method: 'before' | 'prepend' | 'append' | 'after' | 'replace';
         selector: string;
     }
 }

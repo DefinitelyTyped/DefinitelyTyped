@@ -3,7 +3,10 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Reducer } from "redux";
+import { Reducer } from 'redux';
 
-export default function recycleState<A> (reducer: Reducer<A>, actions: string[], initialState?: A | Reducer<A>): Reducer<A>;
-
+export default function recycleState<A>(
+    reducer: Reducer<A>,
+    actions: string[],
+    initialState?: A | Reducer<A>,
+): Reducer<A>;

@@ -17,7 +17,7 @@ const theme = {
     },
     zIndicies: {
         base: 100,
-    }
+    },
 };
 
 export const themeWithVariants: Theme = {

@@ -1,18 +1,17 @@
 function testSimplemde() {
-
     function customMarkdownParser(markdown: string) {
-        return "<div>" + markdown + "</div>";
+        return '<div>' + markdown + '</div>';
     }
 
     function testInit() {
         var simplemde1 = new SimpleMDE();
-        var simplemde2 = new SimpleMDE({ element: document.getElementById("MyID") });
+        var simplemde2 = new SimpleMDE({ element: document.getElementById('MyID') });
     }
 
     function testAccessValue() {
         var simplemde = new SimpleMDE();
         var value: string = simplemde.value();
-        simplemde.value("This text will appear in the editor");
+        simplemde.value('This text will appear in the editor');
     }
 
     function testConfiguration() {
@@ -23,74 +22,84 @@ function testSimplemde() {
             autofocus: true,
             autosave: {
                 enabled: true,
-                uniqueId: "MyUniqueID",
-                delay: 1000
+                uniqueId: 'MyUniqueID',
+                delay: 1000,
             },
             blockStyles: {
-                bold: "__",
-                italic: "_"
+                bold: '__',
+                italic: '_',
             },
-            element: document.getElementById("MyID"),
+            element: document.getElementById('MyID'),
             forceSync: true,
-            hideIcons: ["guide", "heading"],
+            hideIcons: ['guide', 'heading'],
             indentWithTabs: false,
-            initialValue: "Hello world!",
+            initialValue: 'Hello world!',
             insertTexts: {
-                horizontalRule: ["", "\n\n-----\n\n"],
-                image: ["![](http://", ")"],
-                link: ["[", "](http://)"],
-                table: ["", "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"]
+                horizontalRule: ['', '\n\n-----\n\n'],
+                image: ['![](http://', ')'],
+                link: ['[', '](http://)'],
+                table: [
+                    '',
+                    '\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n',
+                ],
             },
             lineWrapping: false,
             parsingConfig: {
                 allowAtxHeaderWithoutSpace: true,
                 strikethrough: false,
-                underscoresBreakWords: true
+                underscoresBreakWords: true,
             },
-            placeholder: "Type here...",
+            placeholder: 'Type here...',
             previewRender: function (plainText) {
                 return customMarkdownParser(plainText); // Returns HTML from a custom parser
             },
             promptURLs: true,
             renderingConfig: {
                 singleLineBreaks: false,
-                codeSyntaxHighlighting: true
+                codeSyntaxHighlighting: true,
             },
             shortcuts: {
-                drawTable: "Cmd-Alt-T",
-                toggleCodeBlock: null
+                drawTable: 'Cmd-Alt-T',
+                toggleCodeBlock: null,
             },
-            showIcons: ["code", "table"],
+            showIcons: ['code', 'table'],
             spellChecker: false,
             status: false,
             styleSelectedText: false,
             tabSize: 4,
             toolbar: false,
-            toolbarTips: false
+            toolbarTips: false,
         });
 
         simplemde = new SimpleMDE({
-            previewRender: function (plainText, preview) { // Async method
+            previewRender: function (plainText, preview) {
+                // Async method
                 setTimeout(function () {
                     preview.innerHTML = customMarkdownParser(plainText);
                 }, 250);
 
-                return "Loading...";
+                return 'Loading...';
             },
-            status: ["autosave", "lines", "words", "cursor"] // Optional usage
+            status: ['autosave', 'lines', 'words', 'cursor'], // Optional usage
         });
 
         simplemde = new SimpleMDE({
-            status: ["autosave", "lines", "words", "cursor", {
-                className: "keystrokes",
-                defaultValue: function (el) {
-                    this.keystrokes = 0;
-                    el.innerHTML = "0 Keystrokes";
+            status: [
+                'autosave',
+                'lines',
+                'words',
+                'cursor',
+                {
+                    className: 'keystrokes',
+                    defaultValue: function (el) {
+                        this.keystrokes = 0;
+                        el.innerHTML = '0 Keystrokes';
+                    },
+                    onUpdate: function (el) {
+                        el.innerHTML = ++this.keystrokes + ' Keystrokes';
+                    },
                 },
-                onUpdate: function (el) {
-                    el.innerHTML = ++this.keystrokes + " Keystrokes";
-                }
-            }] // Another optional usage, with a custom status bar item that counts keystrokes
+            ], // Another optional usage, with a custom status bar item that counts keystrokes
         });
     }
 
@@ -99,43 +108,44 @@ function testSimplemde() {
 
         // Customize only the order of existing buttons
         simplemde = new SimpleMDE({
-            toolbar: ["bold", "italic", "heading", "|", "quote"]
+            toolbar: ['bold', 'italic', 'heading', '|', 'quote'],
         });
 
         // Customize all information and/or add your own icons
         simplemde = new SimpleMDE({
-            toolbar: [{
-                name: "bold",
-                action: SimpleMDE.toggleBold,
-                className: "fa fa-bold",
-                title: "Bold"
-            },
+            toolbar: [
                 {
-                    name: "custom",
+                    name: 'bold',
+                    action: SimpleMDE.toggleBold,
+                    className: 'fa fa-bold',
+                    title: 'Bold',
+                },
+                {
+                    name: 'custom',
                     action: function customFunction(editor) {
                         // Add your own code
                     },
-                    className: "fa fa-star",
-                    title: "Custom Button"
+                    className: 'fa fa-star',
+                    title: 'Custom Button',
                 },
-                "|" // Separator
-            ]
+                '|', // Separator
+            ],
         });
     }
 
     function testKeyboardShortcuts() {
         var simplemde = new SimpleMDE({
             shortcuts: {
-                "toggleOrderedList": "Ctrl-Alt-K", // alter the shortcut for toggleOrderedList
-                "toggleCodeBlock": null, // unbind Ctrl-Alt-C
-                "drawTable": "Cmd-Alt-T" // bind Cmd-Alt-T to drawTable action, which doesn't come with a default shortcut
-            }
+                toggleOrderedList: 'Ctrl-Alt-K', // alter the shortcut for toggleOrderedList
+                toggleCodeBlock: null, // unbind Ctrl-Alt-C
+                drawTable: 'Cmd-Alt-T', // bind Cmd-Alt-T to drawTable action, which doesn't come with a default shortcut
+            },
         });
     }
 
     function testEventHandling() {
         var simplemde = new SimpleMDE();
-        simplemde.codemirror.on("change", function () {
+        simplemde.codemirror.on('change', function () {
             console.log(simplemde.value());
         });
     }

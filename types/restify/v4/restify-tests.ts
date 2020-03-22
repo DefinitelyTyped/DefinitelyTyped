@@ -1,41 +1,42 @@
-import * as restify from "restify";
-import * as url from "url";
+import * as restify from 'restify';
+import * as url from 'url';
 
 let server = restify.createServer({
     formatters: {
         'application/foo': function formatFoo(req: restify.Request, res: restify.Response, body: any) {
-            if (body instanceof Error)
-                return body.stack;
+            if (body instanceof Error) return body.stack;
 
-            if (body)
-                return body.toString('base64');
+            if (body) return body.toString('base64');
 
             return body;
-        }
-    }
+        },
+    },
 });
 
 server = restify.createServer({
-    ca: "test",
-    certificate: "test",
-    key: "test",
+    ca: 'test',
+    certificate: 'test',
+    key: 'test',
     formatters: {},
     log: {},
-    name: "test",
+    name: 'test',
     spdy: {},
-    version: "",
-    responseTimeHeader: "",
-    responseTimeFormatter: (durationInMilliseconds: number) => { },
-    socketio: false
+    version: '',
+    responseTimeHeader: '',
+    responseTimeFormatter: (durationInMilliseconds: number) => {},
+    socketio: false,
 });
 
 server.pre(restify.pre.sanitizePath());
 
-server.on('someEvent', () => { });
+server.on('someEvent', () => {});
 
-server.use((req: restify.Request, res: restify.Response, next: restify.Next) => { });
-server.use([(req: restify.Request, res: restify.Response, next: restify.Next) => { }]);
-server.use((req: restify.Request, res: restify.Response, next: restify.Next) => { }, (req: restify.Request, res: restify.Response, next: restify.Next) => { });
+server.use((req: restify.Request, res: restify.Response, next: restify.Next) => {});
+server.use([(req: restify.Request, res: restify.Response, next: restify.Next) => {}]);
+server.use(
+    (req: restify.Request, res: restify.Response, next: restify.Next) => {},
+    (req: restify.Request, res: restify.Response, next: restify.Next) => {},
+);
 
 function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.header('key', 'val');
@@ -235,17 +236,17 @@ new restify.RequestThrottledError();
 new restify.ResourceNotFoundError();
 new restify.WrongAcceptError();
 
-server.name = "";
-server.version = "";
+server.name = '';
+server.version = '';
 server.log = {};
-server.acceptable = ["test"];
-server.url = "";
+server.acceptable = ['test'];
+server.url = '';
 
 server.address().port;
 server.address().family;
 server.address().address;
 
-server.listen("somePath", send);
+server.listen('somePath', send);
 server.close();
 
 server.use(restify.acceptParser(server.acceptable));
@@ -255,26 +256,33 @@ server.use(restify.queryParser());
 server.use(restify.jsonp());
 server.use(restify.gzipResponse());
 server.use(restify.bodyParser());
-server.use(restify.CORS({
-    origins: ['https://foo.com', 'http://bar.com', 'http://baz.com:8081'],
-    credentials: true,
-    headers: ['x-foo']
-}));
-server.use(restify.throttle({
-    burst: 100,
-    rate: 50,
-    ip: true,
-    overrides: {
-        '192.168.1.1': {
-            rate: 0,
-            burst: 0
-        }
-    }
-}));
+server.use(
+    restify.CORS({
+        origins: ['https://foo.com', 'http://bar.com', 'http://baz.com:8081'],
+        credentials: true,
+        headers: ['x-foo'],
+    }),
+);
+server.use(
+    restify.throttle({
+        burst: 100,
+        rate: 50,
+        ip: true,
+        overrides: {
+            '192.168.1.1': {
+                rate: 0,
+                burst: 0,
+            },
+        },
+    }),
+);
 
-server.on('after', restify.auditLogger({
-    log: () => { }
-}));
+server.on(
+    'after',
+    restify.auditLogger({
+        log: () => {},
+    }),
+);
 
 server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
     route.spec.method === 'GET';
@@ -282,10 +290,10 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     route.spec.path === '/some/path';
     route.spec.path === /\/some\/path\/.*/;
     route.spec.versions === ['v1'];
-    restify.auditLogger({ log: () => { } })(req, res, route, err);
+    restify.auditLogger({ log: () => {} })(req, res, route, err);
 });
 
-(restify as any).defaultResponseHeaders = function(this: restify.Request, data: any) {
+(restify as any).defaultResponseHeaders = function (this: restify.Request, data: any) {
     this.header('Server', 'helloworld');
 };
 
@@ -295,27 +303,27 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
 
 let client = restify.createJsonClient({
     url: 'https://api.us-west-1.joyentcloud.com',
-    version: '*'
+    version: '*',
 });
 
 client = restify.createStringClient({
-    accept: "test",
+    accept: 'test',
     connectTimeout: 30,
     dtrace: {},
     gzip: {},
     headers: {},
     log: {},
     retry: {},
-    signRequest: () => { },
-    url: "",
-    userAgent: "",
-    version: ""
+    signRequest: () => {},
+    url: '',
+    userAgent: '',
+    version: '',
 });
 
-client.head('test', (err: any, req: restify.Request, res: restify.Response) => { });
-client.put('path', {}, (err: any, req: restify.Request, res: restify.Response, obj: any) => { });
-client.patch('path', {}, (err: any, req: restify.Request, res: restify.Response, obj: any) => { });
-client.del('path', (err: any, req: restify.Request, res: restify.Response) => { });
+client.head('test', (err: any, req: restify.Request, res: restify.Response) => {});
+client.put('path', {}, (err: any, req: restify.Request, res: restify.Response, obj: any) => {});
+client.patch('path', {}, (err: any, req: restify.Request, res: restify.Response, obj: any) => {});
+client.del('path', (err: any, req: restify.Request, res: restify.Response) => {});
 
 client.post('/foo', { hello: 'world' }, (err: any, req: restify.Request, res: restify.Response, obj: any) => {
     console.log('%d -> %j', res.statusCode, res.headers);
@@ -327,7 +335,7 @@ client.get('/foo/bar', (err: any, req: restify.Request, res: restify.Response, d
 });
 
 const client2 = restify.createClient({
-    url: 'http://127.0.0.1'
+    url: 'http://127.0.0.1',
 });
 
 client2.get('/str/mcavage', (err: any, req: any) => {

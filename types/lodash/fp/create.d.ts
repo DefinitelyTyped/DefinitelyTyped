@@ -1,2 +1,2 @@
-import { create } from "../fp";
+import { create } from '../fp';
 export = create;

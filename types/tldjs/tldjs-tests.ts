@@ -37,7 +37,7 @@ tld.isValidHostname('my.fake.domain'); // returns `true`
 tld.isValidHostname('localhost'); // returns `false`
 tld.isValidHostname('https://user:password@example.co.uk:8080/some/path?and&query#hash'); // returns `true`
 
-tld.extractHostname('https://www.npmjs.com/package/tldjs') // returns 'www.npmjs.com'
+tld.extractHostname('https://www.npmjs.com/package/tldjs'); // returns 'www.npmjs.com'
 
 tld.parse('https://spark-public.s3.amazonaws.com/dataanalysis/loansData.csv');
 // { hostname: 'spark-public.s3.amazonaws.com',
@@ -59,7 +59,7 @@ tld.parse('gopher://domain.unknown/');
 //   subdomain: ''
 // }
 
-tld.parse('https://192.168.0.0')
+tld.parse('https://192.168.0.0');
 // { hostname: '192.168.0.0',
 //   isValid: true,
 //   isIp: true,
@@ -69,10 +69,10 @@ tld.parse('https://192.168.0.0')
 //   subdomain: null
 // }
 
-tld.getDomain('localhost');           // returns null
-tld.getSubdomain('vhost.localhost');  // returns null
+tld.getDomain('localhost'); // returns null
+tld.getSubdomain('vhost.localhost'); // returns null
 
 const tld2 = tld.fromUserSettings({ validHosts: ['localhost'] });
 
-tld2.getDomain('localhost');           // returns 'localhost'
-tld2.getSubdomain('vhost.localhost');  // returns 'vhost'
+tld2.getDomain('localhost'); // returns 'localhost'
+tld2.getSubdomain('vhost.localhost'); // returns 'vhost'

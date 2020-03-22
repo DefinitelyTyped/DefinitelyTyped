@@ -1,8 +1,8 @@
 import apiFetch, { Middleware, Schema } from '@wordpress/api-fetch';
 
 async function foo() {
-    apiFetch<Schema.Post[]>({ path: '/wp/v2/posts' }).then(posts =>
-        posts.map(({ date, title }) => `Post "${title.rendered}" at ${date}`)
+    apiFetch<Schema.Post[]>({ path: '/wp/v2/posts' }).then((posts) =>
+        posts.map(({ date, title }) => `Post "${title.rendered}" at ${date}`),
     );
     const response = await apiFetch({ parse: false });
     if (response.ok) {
@@ -18,7 +18,7 @@ const x: Middleware = async (undefined, next) => {
 apiFetch.use(apiFetch.fetchAllMiddleware);
 apiFetch.use(apiFetch.createRootURLMiddleware('https://foo.bar/wp-json'));
 
-apiFetch.setFetchHandler(options => {
+apiFetch.setFetchHandler((options) => {
     const { url, path, data, method } = options;
 
     return fetch(url || path || '', {

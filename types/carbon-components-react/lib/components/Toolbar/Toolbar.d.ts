@@ -1,23 +1,23 @@
-import * as React from "react";
-import { ReactAttr, ReactDivAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactAttr, ReactDivAttr } from '../../../typings/shared';
 
 // Toolbar
 
-interface ToolbarInheritedProps extends ReactDivAttr { }
+interface ToolbarInheritedProps extends ReactDivAttr {}
 
-export interface ToolbarProps extends ToolbarInheritedProps { }
+export interface ToolbarProps extends ToolbarInheritedProps {}
 
 declare const Toolbar: React.FC<ToolbarProps>;
 
 // ToolbarItem
 
 interface ToolbarItemInheritedProps {
-    children?: ReactAttr["children"],
+    children?: ReactAttr['children'];
 }
 
 export interface ToolbarItemProps extends ToolbarItemInheritedProps {
-    placeholderText?: string,
-    type?: string,
+    placeholderText?: string;
+    type?: string;
 }
 
 export declare const ToolbarItem: React.FC<ToolbarItemProps>;
@@ -25,7 +25,7 @@ export declare const ToolbarItem: React.FC<ToolbarItemProps>;
 // ToolbarTitle
 
 export interface ToolbarTitleProps {
-    title?: string,
+    title?: string;
 }
 
 export declare const ToolbarTitle: React.RefForwardingComponent<HTMLLIElement, ToolbarTitleProps>;
@@ -33,10 +33,10 @@ export declare const ToolbarTitle: React.RefForwardingComponent<HTMLLIElement, T
 // ToolbarOption
 
 interface ToolbarOptionInheritedProps {
-    children?: ReactAttr["children"],
+    children?: ReactAttr['children'];
 }
 
-export interface ToolbarOptionProps extends ToolbarOptionInheritedProps { }
+export interface ToolbarOptionProps extends ToolbarOptionInheritedProps {}
 
 export declare const ToolbarOption: React.RefForwardingComponent<HTMLLIElement, ToolbarOptionProps>;
 

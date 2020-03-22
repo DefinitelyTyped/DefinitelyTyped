@@ -2,7 +2,7 @@ import etag = require('etag');
 
 // $ExpectType string
 etag('str');
-etag('str', {weak: true});
+etag('str', { weak: true });
 etag(new Buffer(''));
 etag({
     ctime: new Date(),

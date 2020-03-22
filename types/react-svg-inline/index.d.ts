@@ -13,8 +13,32 @@ declare namespace svgInline {
         classSuffix?: string;
         component?: React.ReactNode;
         fill?: string;
-        cleanup?: boolean | Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup">;
-        cleanupExceptions?: Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup">;
+        cleanup?:
+            | boolean
+            | Array<
+                  | 'title'
+                  | 'desc'
+                  | 'comment'
+                  | 'defs'
+                  | 'width'
+                  | 'height'
+                  | 'fill'
+                  | 'sketchMSShapeGroup'
+                  | 'sketchMSPage'
+                  | 'sketchMSLayerGroup'
+              >;
+        cleanupExceptions?: Array<
+            | 'title'
+            | 'desc'
+            | 'comment'
+            | 'defs'
+            | 'width'
+            | 'height'
+            | 'fill'
+            | 'sketchMSShapeGroup'
+            | 'sketchMSPage'
+            | 'sketchMSLayerGroup'
+        >;
         width?: string;
         height?: string;
         accessibilityLabel?: string;

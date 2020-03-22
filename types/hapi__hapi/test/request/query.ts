@@ -1,5 +1,5 @@
 // Added test in addition to docs, for request.query
-import { Lifecycle, Request, RequestQuery, ResponseToolkit, Server, ServerOptions, ServerRoute } from "@hapi/hapi";
+import { Lifecycle, Request, RequestQuery, ResponseToolkit, Server, ServerOptions, ServerRoute } from '@hapi/hapi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -17,7 +17,7 @@ const handlerFn: Lifecycle.Method = (request, h) => {
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: handlerFn
+    handler: handlerFn,
 };
 
 const server = new Server(options);

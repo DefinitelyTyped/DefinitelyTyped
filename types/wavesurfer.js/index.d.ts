@@ -40,7 +40,12 @@ declare class WaveSurfer extends Observer {
     init(): void;
     isPlaying(): boolean;
     isReady(): boolean;
-    load(url: string | HTMLMediaElement, peaks?: ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>, preload?: string, duration?: number): void;
+    load(
+        url: string | HTMLMediaElement,
+        peaks?: ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>,
+        preload?: string,
+        duration?: number,
+    ): void;
     loadBlob(url: Blob | File): void;
     pause(): Promise<void> | undefined;
     play(start?: number, end?: number): Promise<void> | undefined;
@@ -72,9 +77,24 @@ declare namespace WaveSurfer {
         clearWave(): void;
         createWrapper(): void;
         destroy(): void;
-        drawBars(peaks: ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>, channelIndex: number, start: number, end: number): void;
-        drawPeaks(peaks: ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>, length: number, start: number, end: number): void;
-        drawWave(peaks: ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>, channelIndex: number, start: number, end: number): void;
+        drawBars(
+            peaks: ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>,
+            channelIndex: number,
+            start: number,
+            end: number,
+        ): void;
+        drawPeaks(
+            peaks: ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>,
+            length: number,
+            start: number,
+            end: number,
+        ): void;
+        drawWave(
+            peaks: ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>,
+            channelIndex: number,
+            start: number,
+            end: number,
+        ): void;
         getScrollX(): number;
         getWidth(): number;
         handleEvent(e: Event, noPrevent: boolean): number;
@@ -139,7 +159,7 @@ declare namespace WaveSurfer {
         plugins?: PluginDefinition[];
         progressColor?: string;
         removeMediaElementOnDestroy?: boolean;
-        renderer?: { new(container: HTMLElement, params: WaveSurferParams): WaveRenderer };
+        renderer?: { new (container: HTMLElement, params: WaveSurferParams): WaveRenderer };
         responsive?: boolean | number;
         scrollParent?: boolean;
         skipLength?: number;
@@ -153,7 +173,7 @@ declare namespace WaveSurfer {
         staticProps?: object;
         deferInit?: boolean;
         params: object;
-        instance: { new(params: object, ws: WaveSurfer): WaveSurferPlugin };
+        instance: { new (params: object, ws: WaveSurfer): WaveSurferPlugin };
     }
 
     interface ListenerDescriptor {

@@ -28,26 +28,17 @@ declare namespace googletag {
     }
 
     interface Service {
+        addEventListener(eventType: 'slotRenderEnded', listener: (event: events.SlotRenderEndedEvent) => void): Service;
+        addEventListener(eventType: 'slotRequested', listener: (event: events.SlotRequestedEvent) => void): Service;
         addEventListener(
-          eventType: "slotRenderEnded",
-            listener: (event: events.SlotRenderEndedEvent) => void
+            eventType: 'slotResponseReceived',
+            listener: (event: events.SlotResponseReceived) => void,
         ): Service;
         addEventListener(
-            eventType: "slotRequested",
-              listener: (event: events.SlotRequestedEvent) => void
+            eventType: 'slotVisibilityChanged',
+            listener: (event: events.SlotVisibilityChangedEvent) => void,
         ): Service;
-        addEventListener(
-            eventType: "slotResponseReceived",
-              listener: (event: events.SlotResponseReceived) => void
-        ): Service;
-        addEventListener(
-          eventType: "slotVisibilityChanged",
-            listener: (event: events.SlotVisibilityChangedEvent) => void
-        ): Service;
-        addEventListener(
-          eventType: string,
-            listener: (event: events.Event) => void
-        ): Service;
+        addEventListener(eventType: string, listener: (event: events.Event) => void): Service;
         getSlots(): Slot[];
     }
 
@@ -152,7 +143,7 @@ declare namespace googletag {
         getAttributeKeys(): string[];
         getTargeting(key: string): string[];
         getTargetingKeys(): string[];
-        refresh(opt_slots?: Slot[], opt_options?: {changeCorrelator: boolean}): void;
+        refresh(opt_slots?: Slot[], opt_options?: { changeCorrelator: boolean }): void;
         set(key: string, value: string): PubAdsService;
         setCategoryExclusion(categoryExclusion: string): PubAdsService;
         setCentering(centerAds: boolean): void;

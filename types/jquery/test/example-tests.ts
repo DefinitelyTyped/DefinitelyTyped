@@ -14,9 +14,7 @@
 
 function examples() {
     function add_0() {
-        $('div').css('border', '2px solid red')
-            .add('p')
-            .css('background', 'yellow');
+        $('div').css('border', '2px solid red').add('p').css('background', 'yellow');
     }
 
     function add_1() {
@@ -57,7 +55,7 @@ function examples() {
     }
 
     function add_class_2() {
-        $('div').addClass(function(index, currentClass) {
+        $('div').addClass(function (index, currentClass) {
             var addedClass = '';
 
             if (currentClass === 'red') {
@@ -82,37 +80,37 @@ function examples() {
     }
 
     function ajax_complete_0() {
-        $(document).ajaxComplete(function(event, request, settings) {
+        $(document).ajaxComplete(function (event, request, settings) {
             $('#msg').append('<li>Request Complete.</li>');
         });
     }
 
     function ajax_error_0() {
-        $(document).ajaxError(function(event, request, settings) {
+        $(document).ajaxError(function (event, request, settings) {
             $('#msg').append('<li>Error requesting page ' + settings.url + '</li>');
         });
     }
 
     function ajax_send_0() {
-        $(document).ajaxSend(function(event, request, settings) {
+        $(document).ajaxSend(function (event, request, settings) {
             $('#msg').append('<li>Starting request at ' + settings.url + '</li>');
         });
     }
 
     function ajax_start_0() {
-        $(document).ajaxStart(function() {
+        $(document).ajaxStart(function () {
             $('#loading').show();
         });
     }
 
     function ajax_stop_0() {
-        $(document).ajaxStop(function() {
+        $(document).ajaxStop(function () {
             $('#loading').hide();
         });
     }
 
     function ajax_success_0() {
-        $(document).ajaxSuccess(function(event, request, settings) {
+        $(document).ajaxSuccess(function (event, request, settings) {
             $('#msg').append('<li>Successful Request!</li>');
         });
     }
@@ -130,52 +128,58 @@ function examples() {
     function animate_0() {
         // Using multiple unit types within one animation.
 
-        $('#go').click(function() {
-            $('#block').animate({
-                width: '70%',
-                opacity: 0.4,
-                marginLeft: '0.6in',
-                fontSize: '3em',
-                borderWidth: '10px',
-            }, 1500);
+        $('#go').click(function () {
+            $('#block').animate(
+                {
+                    width: '70%',
+                    opacity: 0.4,
+                    marginLeft: '0.6in',
+                    fontSize: '3em',
+                    borderWidth: '10px',
+                },
+                1500,
+            );
         });
     }
 
     function animate_1() {
-        $('#right').click(function() {
+        $('#right').click(function () {
             $('.block').animate({ left: '+=50px' }, 'slow');
         });
 
-        $('#left').click(function() {
+        $('#left').click(function () {
             $('.block').animate({ left: '-=50px' }, 'slow');
         });
     }
 
     function animate_2() {
-        $('#go1').click(function() {
+        $('#go1').click(function () {
             $('#block1')
-                .animate({
-                    width: '90%',
-                }, {
-                    queue: false,
-                    duration: 3000,
-                })
+                .animate(
+                    {
+                        width: '90%',
+                    },
+                    {
+                        queue: false,
+                        duration: 3000,
+                    },
+                )
                 .animate({ fontSize: '24px' }, 1500)
                 .animate({ borderRightWidth: '15px' }, 1500);
         });
 
-        $('#go2').click(function() {
+        $('#go2').click(function () {
             $('#block2')
                 .animate({ width: '90%' }, 1000)
                 .animate({ fontSize: '24px' }, 1000)
                 .animate({ borderLeftWidth: '15px' }, 1000);
         });
 
-        $('#go3').click(function() {
+        $('#go3').click(function () {
             $('#go1').add('#go2').click();
         });
 
-        $('#go4').click(function() {
+        $('#go4').click(function () {
             $('div').css({
                 width: '',
                 fontSize: '',
@@ -185,78 +189,105 @@ function examples() {
     }
 
     function animate_3() {
-        $('#go').click(function() {
-            $('.block:first').animate({
-                left: 100,
-            }, {
-                duration: 1000,
-                step: function(now, fx) {
-                    $('.block:gt(0)').css('left', now);
+        $('#go').click(function () {
+            $('.block:first').animate(
+                {
+                    left: 100,
                 },
-            });
+                {
+                    duration: 1000,
+                    step: function (now, fx) {
+                        $('.block:gt(0)').css('left', now);
+                    },
+                },
+            );
         });
     }
 
     function animate_4() {
-        $('p').animate({
-            height: 'toggle',
-            opacity: 'toggle',
-        }, 'slow');
+        $('p').animate(
+            {
+                height: 'toggle',
+                opacity: 'toggle',
+            },
+            'slow',
+        );
     }
 
     function animate_5() {
-        $('p').animate({
-            left: 50,
-            opacity: 1,
-        }, 500);
+        $('p').animate(
+            {
+                left: 50,
+                opacity: 1,
+            },
+            500,
+        );
     }
 
     function animate_6() {
-        $('p').animate({
-            left: '50px',
-            opacity: 1,
-        }, {
-            duration: 500,
-            queue: false,
-        });
+        $('p').animate(
+            {
+                left: '50px',
+                opacity: 1,
+            },
+            {
+                duration: 500,
+                queue: false,
+            },
+        );
     }
 
     function animate_7() {
-        $('p').animate({
-            opacity: 'show',
-        }, 'slow', 'easein');
+        $('p').animate(
+            {
+                opacity: 'show',
+            },
+            'slow',
+            'easein',
+        );
     }
 
     function animate_8() {
-        $('p').animate({
-            height: 'toggle',
-            opacity: 'toggle',
-        }, {
-            duration: 'slow',
-        });
+        $('p').animate(
+            {
+                height: 'toggle',
+                opacity: 'toggle',
+            },
+            {
+                duration: 'slow',
+            },
+        );
     }
 
     function animate_9() {
-        $('p').animate({
-            opacity: 'show',
-        }, {
-            duration: 'slow',
-            easing: 'easein',
-        });
+        $('p').animate(
+            {
+                opacity: 'show',
+            },
+            {
+                duration: 'slow',
+                easing: 'easein',
+            },
+        );
     }
 
     function animate_10() {
-        $('p').animate({
-            height: 200,
-            width: 400,
-            opacity: 0.5,
-        }, 1000, 'linear', function() {
-            alert('all done');
-        });
+        $('p').animate(
+            {
+                height: 200,
+                width: 400,
+                opacity: 0.5,
+            },
+            1000,
+            'linear',
+            function () {
+                alert('all done');
+            },
+        );
     }
 
     function animated_0() {
-        $('#run').click(function() {
+        $('#run').click(function () {
             $('div:animated').toggleClass('colored');
         });
 
@@ -285,11 +316,19 @@ function examples() {
 
     function attr_0() {
         $('input')
-            .change(function() {
+            .change(function () {
                 var $input = $(this);
-                $('p').html('.attr( \'checked\' ): <b>' + $input.attr('checked') + '</b><br>' +
-                    '.prop( \'checked\' ): <b>' + $input.prop('checked') + '</b><br>' +
-                    '.is( \':checked\' ): <b>' + $input.is(':checked') + '</b>');
+                $('p').html(
+                    ".attr( 'checked' ): <b>" +
+                        $input.attr('checked') +
+                        '</b><br>' +
+                        ".prop( 'checked' ): <b>" +
+                        $input.prop('checked') +
+                        '</b><br>' +
+                        ".is( ':checked' ): <b>" +
+                        $input.is(':checked') +
+                        '</b>',
+                );
             })
             .change();
     }
@@ -310,46 +349,46 @@ function examples() {
 
     function attr_3() {
         $('div')
-            .attr('id', function(arr) {
+            .attr('id', function (arr) {
                 return 'div-id' + arr;
             })
-            .each(function() {
-                $('span', this).html('(id = \'<b>' + this.id + '</b>\')');
+            .each(function () {
+                $('span', this).html("(id = '<b>" + this.id + "</b>')");
             });
     }
 
     function attr_4() {
-        $('img').attr('src', function() {
+        $('img').attr('src', function () {
             return '/resources/' + this.title;
         });
     }
 
     function attribute_contains_prefix_0() {
-        $('a[hreflang|=\'en\']').css('border', '3px dotted green');
+        $("a[hreflang|='en']").css('border', '3px dotted green');
     }
 
     function attribute_contains_0() {
-        $('input[name*=\'man\']').val('has man in it!');
+        $("input[name*='man']").val('has man in it!');
     }
 
     function attribute_contains_word_0() {
-        $('input[name~=\'man\']').val('mr. man is in it!');
+        $("input[name~='man']").val('mr. man is in it!');
     }
 
     function attribute_ends_with_0() {
-        $('input[name$=\'letter\']').val('a letter');
+        $("input[name$='letter']").val('a letter');
     }
 
     function attribute_equals_0() {
-        $('input[value=\'Hot Fuzz\']').next().text('Hot Fuzz');
+        $("input[value='Hot Fuzz']").next().text('Hot Fuzz');
     }
 
     function attribute_not_equal_0() {
-        $('input[name!=\'newsletter\']').next().append('<b>; not newsletter</b>');
+        $("input[name!='newsletter']").next().append('<b>; not newsletter</b>');
     }
 
     function attribute_starts_with_0() {
-        $('input[name^=\'news\']').val('news here!');
+        $("input[name^='news']").val('news here!');
     }
 
     function before_0() {
@@ -365,20 +404,20 @@ function examples() {
     }
 
     function bind_0() {
-        $('p').bind('click', function(event) {
+        $('p').bind('click', function (event) {
             var str = '( ' + event.pageX + ', ' + event.pageY + ' )';
             $('span').text('Click happened! ' + str);
         });
-        $('p').bind('dblclick', function() {
+        $('p').bind('dblclick', function () {
             $('span').text('Double-click happened in ' + this.nodeName);
         });
-        $('p').bind('mouseenter mouseleave', function(event) {
+        $('p').bind('mouseenter mouseleave', function (event) {
             $(this).toggleClass('over');
         });
     }
 
     function bind_1() {
-        $('p').bind('click', function() {
+        $('p').bind('click', function () {
             alert($(this).text());
         });
     }
@@ -388,31 +427,35 @@ function examples() {
             alert(event.data.foo);
         }
 
-        $('p').bind('click', {
-            foo: 'bar',
-        }, handler);
+        $('p').bind(
+            'click',
+            {
+                foo: 'bar',
+            },
+            handler,
+        );
     }
 
     function bind_3() {
-        $('form').bind('submit', function() {
+        $('form').bind('submit', function () {
             return false;
         });
     }
 
     function bind_4() {
-        $('form').bind('submit', function(event) {
+        $('form').bind('submit', function (event) {
             event.preventDefault();
         });
     }
 
     function bind_5() {
-        $('form').bind('submit', function(event) {
+        $('form').bind('submit', function (event) {
             event.stopPropagation();
         });
     }
 
     function bind_6() {
-        $('p').bind('myCustomEvent', function(e, myName, myValue) {
+        $('p').bind('myCustomEvent', function (e, myName, myValue) {
             $(this).text(myName + ', hi there!');
             $('span')
                 .stop()
@@ -421,20 +464,20 @@ function examples() {
                 .fadeIn(30)
                 .fadeOut(1000);
         });
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').trigger('myCustomEvent', ['John']);
         });
     }
 
     function bind_7() {
         $('div.test').bind({
-            click: function() {
+            click: function () {
                 $(this).addClass('active');
             },
-            mouseenter: function() {
+            mouseenter: function () {
                 $(this).addClass('inside');
             },
-            mouseleave: function() {
+            mouseleave: function () {
                 $(this).removeClass('inside');
             },
         });
@@ -448,19 +491,19 @@ function examples() {
         var input = $(':button').addClass('marked');
         $('div').text('For this type jQuery found ' + input.length + '.');
         // Prevent the form from submitting
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             event.preventDefault();
         });
     }
 
     function callbacks_add_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value: string) {
+        var foo = function (value: string) {
             console.log('foo: ' + value);
         };
 
         // Another function to also be added to the list
-        var bar = function(value: string) {
+        var bar = function (value: string) {
             console.log('bar: ' + value);
         };
 
@@ -486,7 +529,7 @@ function examples() {
 
     function callbacks_disable_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value: string) {
+        var foo = function (value: string) {
             console.log(value);
         };
 
@@ -509,7 +552,7 @@ function examples() {
 
     function callbacks_disabled_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value: string) {
+        var foo = function (value: string) {
             console.log('foo:' + value);
         };
 
@@ -532,12 +575,12 @@ function examples() {
 
     function callbacks_empty_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value1: string, value2: string) {
+        var foo = function (value1: string, value2: string) {
             console.log('foo: ' + value1 + ',' + value2);
         };
 
         // Another function to also be added to the list
-        var bar = function(value1: string, value2: string) {
+        var bar = function (value1: string, value2: string) {
             console.log('bar: ' + value1 + ',' + value2);
         };
 
@@ -559,7 +602,7 @@ function examples() {
 
     function callbacks_fire_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value: string) {
+        var foo = function (value: string) {
             console.log('foo:' + value);
         };
 
@@ -573,7 +616,7 @@ function examples() {
         callbacks.fire('world'); // Outputs: "foo: world"
 
         // Add another function to the list
-        var bar = function(value: string) {
+        var bar = function (value: string) {
             console.log('bar:' + value);
         };
 
@@ -589,7 +632,7 @@ function examples() {
 
     function callbacks_fired_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value: string) {
+        var foo = function (value: string) {
             console.log('foo:' + value);
         };
 
@@ -608,7 +651,7 @@ function examples() {
 
     function callbacks_fire_with_0() {
         // A sample logging function to be added to a callbacks list
-        var log = function(value1: string, value2: string) {
+        var log = function (value1: string, value2: string) {
             console.log('Received: ' + value1 + ',' + value2);
         };
 
@@ -626,12 +669,12 @@ function examples() {
 
     function callbacks_has_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value1: string, value2: string) {
+        var foo = function (value1: string, value2: string) {
             console.log('Received: ' + value1 + ',' + value2);
         };
 
         // A second function which will not be added to the list
-        var bar = function(value1: string, value2: string) {
+        var bar = function (value1: string, value2: string) {
             console.log('foobar');
         };
 
@@ -649,7 +692,7 @@ function examples() {
 
     function callbacks_lock_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value: string) {
+        var foo = function (value: string) {
             console.log('foo:' + value);
         };
 
@@ -674,15 +717,15 @@ function examples() {
 
     function callbacks_lock_1() {
         // Simple function for logging results
-        var log = function(value: string) {
+        var log = function (value: string) {
             $('#log').append('<p>' + value + '</p>');
         };
 
         // Two sample functions to be added to a callbacks list
-        var foo = function(value: string) {
+        var foo = function (value: string) {
             log('foo: ' + value);
         };
-        var bar = function(value: string) {
+        var bar = function (value: string) {
             log('bar: ' + value);
         };
 
@@ -721,7 +764,7 @@ function examples() {
 
     function callbacks_locked_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value: string) {
+        var foo = function (value: string) {
             console.log('foo: ' + value);
         };
 
@@ -744,7 +787,7 @@ function examples() {
 
     function callbacks_remove_0() {
         // A sample logging function to be added to a callbacks list
-        var foo = function(value: string) {
+        var foo = function (value: string) {
             console.log('foo: ' + value);
         };
 
@@ -768,9 +811,9 @@ function examples() {
 
     function change_0() {
         $('select')
-            .change(function() {
+            .change(function () {
                 var str = '';
-                $('select option:selected').each(function() {
+                $('select option:selected').each(function () {
                     str += $(this).text() + ' ';
                 });
                 $('div').text(str);
@@ -779,32 +822,29 @@ function examples() {
     }
 
     function change_1() {
-        $('input[type=\'text\']').change(function() {
+        $("input[type='text']").change(function () {
             // Check input( $( this ).val() ) for validity here
         });
     }
 
     function checkbox_0() {
-        var input = $('form input:checkbox')
-            .wrap('<span></span>')
-            .parent()
-            .css({
-                background: 'yellow',
-                border: '3px red solid',
-            });
+        var input = $('form input:checkbox').wrap('<span></span>').parent().css({
+            background: 'yellow',
+            border: '3px red solid',
+        });
 
         $('div')
             .text('For this type jQuery found ' + input.length + '.')
             .css('color', 'red');
 
         // Prevent the form from submitting
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             event.preventDefault();
         });
     }
 
     function checked_0() {
-        var countChecked = function() {
+        var countChecked = function () {
             var n = $('input:checked').length;
             $('div').text(n + (n === 1 ? ' is' : ' are') + ' checked!');
         };
@@ -814,7 +854,7 @@ function examples() {
     }
 
     function checked_1() {
-        $('input').on('click', function() {
+        $('input').on('click', function () {
             $('#log').html($('input:checked').val() + ' is checked!');
         });
     }
@@ -824,7 +864,7 @@ function examples() {
     }
 
     function children_0() {
-        $('#container').click(function(event) {
+        $('#container').click(function (event) {
             $('*').removeClass('hilite');
             var kids = $(event.target).children();
             var len = kids.addClass('hilite').length;
@@ -853,23 +893,29 @@ function examples() {
     }
 
     function clear_queue_0() {
-        $('#start').click(function() {
+        $('#start').click(function () {
             var myDiv = $('div');
             myDiv.show('slow');
-            myDiv.animate({
-                left: '+=200',
-            }, 5000);
+            myDiv.animate(
+                {
+                    left: '+=200',
+                },
+                5000,
+            );
 
-            myDiv.queue(function() {
+            myDiv.queue(function () {
                 var that = $(this);
                 that.addClass('newcolor');
                 that.dequeue();
             });
 
-            myDiv.animate({
-                left: '-=200',
-            }, 1500);
-            myDiv.queue(function() {
+            myDiv.animate(
+                {
+                    left: '-=200',
+                },
+                1500,
+            );
+            myDiv.queue(function () {
                 var that = $(this);
                 that.removeClass('newcolor');
                 that.dequeue();
@@ -877,7 +923,7 @@ function examples() {
             myDiv.slideUp();
         });
 
-        $('#stop').click(function() {
+        $('#stop').click(function () {
             var myDiv = $('div');
             myDiv.clearQueue();
             myDiv.stop();
@@ -885,7 +931,7 @@ function examples() {
     }
 
     function click_0() {
-        $('p').click(function() {
+        $('p').click(function () {
             $(this).slideUp();
         });
     }
@@ -899,26 +945,26 @@ function examples() {
     }
 
     function closest_0() {
-        $(document).on('click', function(event) {
+        $(document).on('click', function (event) {
             $(event.target).closest('li').toggleClass('hilight');
         });
     }
 
     function closest_1() {
         var listElements = $('li').css('color', 'blue');
-        $(document).on('click', function(event) {
+        $(document).on('click', function (event) {
             $(event.target).closest(listElements).toggleClass('hilight');
         });
     }
 
     function contains_0() {
-        $('div:contains(\'John\')').css('text-decoration', 'underline');
+        $("div:contains('John')").css('text-decoration', 'underline');
     }
 
     function contents_0() {
         $('p')
             .contents()
-            .filter(function() {
+            .filter(function () {
                 return this.nodeType !== 1;
             })
             .wrap('<b></b>');
@@ -929,34 +975,31 @@ function examples() {
     }
 
     function contextmenu_0() {
-        $('p').contextmenu(function() {
+        $('p').contextmenu(function () {
             alert('Hello World!');
         });
     }
 
     function contextmenu_1() {
         var div = $('div:first');
-        div.contextmenu(function() {
+        div.contextmenu(function () {
             div.toggleClass('contextmenu');
         });
     }
 
     function css_0() {
-        $('div').click(function() {
+        $('div').click(function () {
             var color = $(this).css('background-color');
-            $('#result').html('That div is <span style=\'color:' +
-                color + ';\'>' + color + '</span>.');
+            $('#result').html("That div is <span style='color:" + color + ";'>" + color + '</span>.');
         });
     }
 
     function css_1() {
-        $('div').click(function() {
+        $('div').click(function () {
             var html = ['The clicked div has the following styles:'];
 
-            var styleProps = $(this).css([
-                'width', 'height', 'color', 'background-color',
-            ]);
-            $.each(styleProps, function(prop, value) {
+            var styleProps = $(this).css(['width', 'height', 'color', 'background-color']);
+            $.each(styleProps, function (prop, value) {
                 html.push(prop + ': ' + value);
             });
 
@@ -965,13 +1008,13 @@ function examples() {
     }
 
     function css_2() {
-        $('p').on('mouseover', function() {
+        $('p').on('mouseover', function () {
             $(this).css('color', 'red');
         });
     }
 
     function css_3() {
-        $('#box').one('click', function() {
+        $('#box').one('click', function () {
             $(this).css('width', '+=200');
         });
     }
@@ -979,21 +1022,23 @@ function examples() {
     function css_4() {
         var words = $('p').first().text().split(/\s+/);
         var text = words.join('</span> <span>');
-        $('p').first().html('<span>' + text + '</span>');
-        $('span').on('click', function() {
+        $('p')
+            .first()
+            .html('<span>' + text + '</span>');
+        $('span').on('click', function () {
             $(this).css('background-color', 'yellow');
         });
     }
 
     function css_5() {
         $('p')
-            .on('mouseenter', function() {
+            .on('mouseenter', function () {
                 $(this).css({
                     'background-color': 'yellow',
                     'font-weight': 'bolder',
                 });
             })
-            .on('mouseleave', function() {
+            .on('mouseleave', function () {
                 var styles = {
                     backgroundColor: '#ddd',
                     fontWeight: '',
@@ -1003,12 +1048,12 @@ function examples() {
     }
 
     function css_6() {
-        $('div').on('click', function() {
+        $('div').on('click', function () {
             $(this).css({
-                width: function(index, value) {
+                width: function (index, value) {
                     return parseFloat(value) * 1.2;
                 },
-                height: function(index, value) {
+                height: function (index, value) {
                     return parseFloat(value) * 1.2;
                 },
             });
@@ -1022,22 +1067,22 @@ function examples() {
     }
 
     function data_1() {
-        $('button').click(function() {
+        $('button').click(function () {
             var value;
 
             switch ($('button').index(this)) {
-                case 0 :
+                case 0:
                     value = $('div').data('blah');
                     break;
-                case 1 :
+                case 1:
                     $('div').data('blah', 'hello');
                     value = 'Stored!';
                     break;
-                case 2 :
+                case 2:
                     $('div').data('blah', 86);
                     value = 'Stored!';
                     break;
-                case 3 :
+                case 3:
                     $('div').removeData('blah');
                     value = 'Removed!';
                     break;
@@ -1048,22 +1093,22 @@ function examples() {
     }
 
     function data_2() {
-        $('button').click(function() {
+        $('button').click(function () {
             var value;
 
             switch ($('button').index(this)) {
-                case 0 :
+                case 0:
                     value = $('div').data('blah');
                     break;
-                case 1 :
+                case 1:
                     $('div').data('blah', 'hello');
                     value = 'Stored!';
                     break;
-                case 2 :
+                case 2:
                     $('div').data('blah', 86);
                     value = 'Stored!';
                     break;
-                case 3 :
+                case 3:
                     $('div').removeData('blah');
                     value = 'Removed!';
                     break;
@@ -1074,36 +1119,36 @@ function examples() {
     }
 
     function dblclick_0() {
-        $('p').dblclick(function() {
+        $('p').dblclick(function () {
             alert('Hello World!');
         });
     }
 
     function dblclick_1() {
         var divdbl = $('div:first');
-        divdbl.dblclick(function() {
+        divdbl.dblclick(function () {
             divdbl.toggleClass('dbl');
         });
     }
 
     function deferred_always_0() {
-        $.get('test.php').always(function() {
+        $.get('test.php').always(function () {
             alert('$.get completed with success or error callback arguments');
         });
     }
 
     function deferred_catch_0() {
         $.get('test.php')
-            .then(function() {
+            .then(function () {
                 alert('$.get succeeded');
             })
-            .catch(function() {
+            .catch(function () {
                 alert('$.get failed!');
             });
     }
 
     function deferred_done_0() {
-        $.get('test.php').done(function() {
+        $.get('test.php').done(function () {
             alert('$.get succeeded');
         });
     }
@@ -1127,60 +1172,60 @@ function examples() {
 
         // Add handlers to be called when dfd is resolved
         dfd
-        // .done() can take any number of functions or arrays of functions
+            // .done() can take any number of functions or arrays of functions
             .done([fn1, fn2], fn3, [fn2, fn1])
             // We can chain done methods, too
-            .done(function(n) {
-                $('p').append(n + ' we\'re done.');
+            .done(function (n) {
+                $('p').append(n + " we're done.");
             });
 
         // Resolve the Deferred object when the button is clicked
-        $('button').on('click', function() {
+        $('button').on('click', function () {
             dfd.resolve('and');
         });
     }
 
     function deferred_fail_0() {
         $.get('test.php')
-            .done(function() {
+            .done(function () {
                 alert('$.get succeeded');
             })
-            .fail(function() {
+            .fail(function () {
                 alert('$.get failed!');
             });
     }
 
     function deferred_pipe_0() {
         var defer = $.Deferred<number>(),
-            filtered = defer.pipe(function(value) {
+            filtered = defer.pipe(function (value) {
                 return value * 2;
             });
 
         defer.resolve(5);
-        filtered.done(function(value) {
+        filtered.done(function (value) {
             alert('Value is ( 2*5 = ) 10: ' + value);
         });
     }
 
     function deferred_pipe_1() {
         var defer = $.Deferred<number>(),
-            filtered = defer.pipe(null, function(value) {
+            filtered = defer.pipe(null, function (value) {
                 return value * 3;
             });
 
         defer.reject(6);
-        filtered.fail(function(value) {
+        filtered.fail(function (value) {
             alert('Value is ( 3*6 = ) 18: ' + value);
         });
     }
 
     function deferred_pipe_2(url: string, url2: string) {
         var request = $.ajax(url, { dataType: 'json' }),
-            chained = request.pipe(function(data) {
+            chained = request.pipe(function (data) {
                 return $.ajax(url2, { data: { user: data.userId } });
             });
 
-        chained.done(function(data) {
+        chained.done(function (data) {
             // data retrieved from url2 as provided by the first request
         });
     }
@@ -1190,12 +1235,12 @@ function examples() {
             var dfd = jQuery.Deferred<string>();
 
             // Resolve after a random interval
-            setTimeout(function() {
+            setTimeout(function () {
                 dfd.resolve('hurray');
             }, Math.floor(400 + Math.random() * 2000));
 
             // Reject after a random interval
-            setTimeout(function() {
+            setTimeout(function () {
                 dfd.reject('sorry');
             }, Math.floor(400 + Math.random() * 2000));
 
@@ -1213,13 +1258,13 @@ function examples() {
 
         // Attach a done, fail, and progress handler for the asyncEvent
         $.when(asyncEvent()).then(
-            function(status) {
+            function (status) {
                 alert(status + ', things are going well');
             },
-            function(status) {
+            function (status) {
                 alert(status + ', you fail this time');
             },
-            function(status) {
+            function (status) {
                 $('body').append(status);
             },
         );
@@ -1228,7 +1273,7 @@ function examples() {
     function deferred_promise_1() {
         // Existing object
         var obj = {
-                hello: function(name: string) {
+                hello: function (name: string) {
                     alert('Hello ' + name);
                 },
             },
@@ -1242,30 +1287,31 @@ function examples() {
         defer.resolve('John');
 
         // Use the object as a Promise
-        _obj.done(function(name) {
+        _obj.done(function (name) {
             _obj.hello(name); // Will alert "Hello John"
         }).hello('Karl'); // Will alert "Hello Karl"
     }
 
     function deferred_then_0() {
         $.get('test.php').then(
-            function() {
+            function () {
                 alert('$.get succeeded');
-            }, function() {
+            },
+            function () {
                 alert('$.get failed!');
             },
         );
     }
 
     function deferred_then_1() {
-        var filterResolve = function() {
+        var filterResolve = function () {
             var defer = $.Deferred<number>(),
-                filtered = defer.then(function(value) {
+                filtered = defer.then(function (value) {
                     return value * 2;
                 });
 
             defer.resolve(5);
-            filtered.done(function(value) {
+            filtered.done(function (value) {
                 $('p').html('Value is ( 2*5 = ) 10: ' + value);
             });
         };
@@ -1275,60 +1321,60 @@ function examples() {
 
     function deferred_then_2() {
         var defer = $.Deferred(),
-            filtered = defer.then(null, function(value) {
+            filtered = defer.then(null, function (value) {
                 return value * 3;
             });
 
         defer.reject(6);
-        filtered.fail(function(value) {
+        filtered.fail(function (value) {
             alert('Value is ( 3*6 = ) 18: ' + value);
         });
     }
 
     function deferred_then_3(url: string, url2: string) {
         var request = $.ajax(url, { dataType: 'json' }),
-            chained = request.then(function(data) {
+            chained = request.then(function (data) {
                 return $.ajax(url2, { data: { user: data.userId } });
             });
 
-        chained.done(function(data) {
+        chained.done(function (data) {
             // data retrieved from url2 as provided by the first request
         });
     }
 
     function delay_0() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('div.first').slideUp(300).delay(800).fadeIn(400);
             $('div.second').slideUp(300).fadeIn(400);
         });
     }
 
     function delegate_0() {
-        $('body').delegate('p', 'click', function() {
+        $('body').delegate('p', 'click', function () {
             $(this).after('<p>Another paragraph!</p>');
         });
     }
 
     function delegate_1() {
-        $('body').delegate('p', 'click', function() {
+        $('body').delegate('p', 'click', function () {
             alert($(this).text());
         });
     }
 
     function delegate_2() {
-        $('body').delegate('a', 'click', function() {
+        $('body').delegate('a', 'click', function () {
             return false;
         });
     }
 
     function delegate_3() {
-        $('body').delegate('a', 'click', function(event) {
+        $('body').delegate('a', 'click', function (event) {
             event.preventDefault();
         });
     }
 
     function delegate_4() {
-        $('body').delegate('p', 'myCustomEvent', function(e, myName, myValue) {
+        $('body').delegate('p', 'myCustomEvent', function (e, myName, myValue) {
             $(this).text('Hi there!');
             $('span')
                 .stop()
@@ -1337,17 +1383,17 @@ function examples() {
                 .fadeIn(30)
                 .fadeOut(1000);
         });
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').trigger('myCustomEvent');
         });
     }
 
     function dequeue_0() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('div')
                 .animate({ left: '+=200px' }, 2000)
                 .animate({ top: '0px' }, 600)
-                .queue(function() {
+                .queue(function () {
                     $(this).toggleClass('red').dequeue();
                 })
                 .animate({ left: '10px', top: '30px' }, 700);
@@ -1360,11 +1406,11 @@ function examples() {
     }
 
     function detach_0() {
-        $('p').click(function() {
+        $('p').click(function () {
             $(this).toggleClass('off');
         });
         var p: JQuery | null;
-        $('button').click(function() {
+        $('button').click(function () {
             if (p) {
                 p.appendTo('body');
                 p = null;
@@ -1379,8 +1425,8 @@ function examples() {
     }
 
     function each_0() {
-        $(document.body).click(function() {
-            $('div').each(function(i) {
+        $(document.body).click(function () {
+            $('div').each(function (i) {
                 if (this.style.color !== 'blue') {
                     this.style.color = 'blue';
                 } else {
@@ -1391,16 +1437,16 @@ function examples() {
     }
 
     function each_1() {
-        $('span').click(function() {
-            $('li').each(function() {
+        $('span').click(function () {
+            $('li').each(function () {
                 $(this).toggleClass('example');
             });
         });
     }
 
     function each_2() {
-        $('button').click(function() {
-            $('div').each(function(index, element) {
+        $('button').click(function () {
+            $('div').each(function (index, element) {
                 // element == this;
                 $(element).css('backgroundColor', 'yellow');
                 if ($(this).is('#stop')) {
@@ -1416,13 +1462,11 @@ function examples() {
     }
 
     function empty_0() {
-        $('td:empty')
-            .text('Was empty!')
-            .css('background', 'rgb(255,220,200)');
+        $('td:empty').text('Was empty!').css('background', 'rgb(255,220,200)');
     }
 
     function empty_1() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').empty();
         });
     }
@@ -1432,10 +1476,7 @@ function examples() {
     }
 
     function end_1() {
-        $('p')
-            .find('span')
-            .end()
-            .css('border', '2px red solid');
+        $('p').find('span').end().css('border', '2px red solid');
     }
 
     function eq_0() {
@@ -1447,7 +1488,7 @@ function examples() {
         $('ul.nav li:eq(1)').css('backgroundColor', '#ff0');
 
         // Applies italics to text of the second <li> within each <ul class="nav">
-        $('ul.nav').each(function(index) {
+        $('ul.nav').each(function (index) {
             $(this).find('li:eq(1)').css('fontStyle', 'italic');
         });
 
@@ -1469,7 +1510,7 @@ function examples() {
     }
 
     function event_current_target_0() {
-        $('p').click(function(event) {
+        $('p').click(function (event) {
             alert(event.currentTarget === this); // true
         });
     }
@@ -1479,25 +1520,23 @@ function examples() {
 
         for (var i = 0; i < 5; i++) {
             const j = i;
-            $('button').eq(i).on('click', { value: i }, function(event) {
-                var msgs = [
-                    'button = ' + $(this).index(),
-                    'event.data.value = ' + event.data.value,
-                    'i = ' + j,
-                ];
-                logDiv.append(msgs.join(', ') + '<br>');
-            });
+            $('button')
+                .eq(i)
+                .on('click', { value: i }, function (event) {
+                    var msgs = ['button = ' + $(this).index(), 'event.data.value = ' + event.data.value, 'i = ' + j];
+                    logDiv.append(msgs.join(', ') + '<br>');
+                });
         }
     }
 
     function event_delegate_target_0() {
-        $('.box').on('click', 'button', function(event) {
+        $('.box').on('click', 'button', function (event) {
             $(event.delegateTarget).css('background-color', 'red');
         });
     }
 
     function event_is_default_prevented_0() {
-        $('a').click(function(event) {
+        $('a').click(function (event) {
             alert(event.isDefaultPrevented()); // false
             event.preventDefault();
             alert(event.isDefaultPrevented()); // true
@@ -1515,7 +1554,7 @@ function examples() {
             $('#stop-log').append('<div>' + msg + '</div>');
         }
 
-        $('button').click(function(event) {
+        $('button').click(function (event) {
             immediatePropStopped(event);
             event.stopImmediatePropagation();
             immediatePropStopped(event);
@@ -1533,7 +1572,7 @@ function examples() {
             $('#stop-log').append('<div>' + msg + '</div>');
         }
 
-        $('button').click(function(event) {
+        $('button').click(function (event) {
             propStopped(event);
             event.stopPropagation();
             propStopped(event);
@@ -1541,34 +1580,34 @@ function examples() {
     }
 
     function event_meta_key_0() {
-        $('#checkMetaKey').click(function(event) {
+        $('#checkMetaKey').click(function (event) {
             $('#display').text(event.metaKey);
         });
     }
 
     function event_namespace_0() {
-        $('p').on('test.something', function(event) {
+        $('p').on('test.something', function (event) {
             alert(event.namespace);
         });
-        $('button').click(function(event) {
+        $('button').click(function (event) {
             $('p').trigger('test.something');
         });
     }
 
     function event_page_x_0() {
-        $(document).on('mousemove', function(event) {
+        $(document).on('mousemove', function (event) {
             $('#log').text('pageX: ' + event.pageX + ', pageY: ' + event.pageY);
         });
     }
 
     function event_page_y_0() {
-        $(document).on('mousemove', function(event) {
+        $(document).on('mousemove', function (event) {
             $('#log').text('pageX: ' + event.pageX + ', pageY: ' + event.pageY);
         });
     }
 
     function event_prevent_default_0() {
-        $('a').click(function(event) {
+        $('a').click(function (event) {
             event.preventDefault();
             $('<div>')
                 .append('default ' + event.type + ' prevented')
@@ -1577,43 +1616,43 @@ function examples() {
     }
 
     function event_related_target_0() {
-        $('a').mouseout(function(event) {
+        $('a').mouseout(function (event) {
             alert((event.relatedTarget as HTMLElement).nodeName); // "DIV"
         });
     }
 
     function event_result_0() {
-        $('button').click(function(event) {
+        $('button').click(function (event) {
             return 'hey';
         });
-        $('button').click(function(event) {
+        $('button').click(function (event) {
             $('p').html(event.result);
         });
     }
 
     function event_stop_immediate_propagation_0() {
-        $('p').click(function(event) {
+        $('p').click(function (event) {
             event.stopImmediatePropagation();
         });
-        $('p').click(function(event) {
+        $('p').click(function (event) {
             // This function won't be executed
             $(this).css('background-color', '#f00');
         });
-        $('div').click(function(event) {
+        $('div').click(function (event) {
             // This function will be executed
             $(this).css('background-color', '#f00');
         });
     }
 
     function event_stop_propagation_0() {
-        $('p').click(function(event) {
+        $('p').click(function (event) {
             event.stopPropagation();
             // Do something
         });
     }
 
     function event_target_0() {
-        $('body').click(function(event) {
+        $('body').click(function (event) {
             $('#log').html('clicked: ' + (event.target as Node).nodeName);
         });
     }
@@ -1630,9 +1669,8 @@ function examples() {
     }
 
     function event_time_stamp_0() {
-        var last: number,
-            diff: number;
-        $('div').click(function(event) {
+        var last: number, diff: number;
+        $('div').click(function (event) {
             if (last) {
                 diff = event.timeStamp - last;
                 $('div').append('time since last event: ' + diff + '<br>');
@@ -1644,32 +1682,32 @@ function examples() {
     }
 
     function event_type_0() {
-        $('a').click(function(event) {
+        $('a').click(function (event) {
             alert(event.type); // "click"
         });
     }
 
     function event_which_0() {
-        $('#whichkey').on('keydown', function(event) {
+        $('#whichkey').on('keydown', function (event) {
             $('#log').html(event.type + ': ' + event.which);
         });
     }
 
     function event_which_1() {
-        $('#whichkey').on('mousedown', function(event) {
+        $('#whichkey').on('mousedown', function (event) {
             $('#log').html(event.type + ': ' + event.which);
         });
     }
 
     function fade_in_0() {
-        $(document.body).click(function() {
+        $(document.body).click(function () {
             $('div:hidden:first').fadeIn('slow');
         });
     }
 
     function fade_in_1() {
-        $('a').click(function() {
-            $('div').fadeIn(3000, function() {
+        $('a').click(function () {
+            $('div').fadeIn(3000, function () {
                 $('span').fadeIn(100);
             });
             return false;
@@ -1677,27 +1715,30 @@ function examples() {
     }
 
     function fade_out_0() {
-        $('p').click(function() {
+        $('p').click(function () {
             $('p').fadeOut('slow');
         });
     }
 
     function fade_out_1() {
-        $('span').click(function() {
-            $(this).fadeOut(1000, function() {
-                $('div').text('\'' + $(this).text() + '\' has faded!');
+        $('span').click(function () {
+            $(this).fadeOut(1000, function () {
+                $('div').text("'" + $(this).text() + "' has faded!");
                 $(this).remove();
             });
         });
-        $('span').hover(function() {
-            $(this).addClass('hilite');
-        }, function() {
-            $(this).removeClass('hilite');
-        });
+        $('span').hover(
+            function () {
+                $(this).addClass('hilite');
+            },
+            function () {
+                $(this).removeClass('hilite');
+            },
+        );
     }
 
     function fade_out_2() {
-        $('#btn1').click(function() {
+        $('#btn1').click(function () {
             function complete(this: HTMLElement) {
                 $('<div>').text(this.id).appendTo('#log');
             }
@@ -1706,29 +1747,29 @@ function examples() {
             $('#box2').fadeOut(1600, complete);
         });
 
-        $('#btn2').click(function() {
+        $('#btn2').click(function () {
             $('div').show();
             $('#log').empty();
         });
     }
 
     function fade_to_0() {
-        $('p:first').click(function() {
+        $('p:first').click(function () {
             $(this).fadeTo('slow', 0.33);
         });
     }
 
     function fade_to_1() {
-        $('div').click(function() {
+        $('div').click(function () {
             $(this).fadeTo('fast', Math.random());
         });
     }
 
     function fade_to_2() {
-        var getPos = function(n: number) {
-            return (Math.floor(n) * 90) + 'px';
+        var getPos = function (n: number) {
+            return Math.floor(n) * 90 + 'px';
         };
-        $('p').each(function(n) {
+        $('p').each(function (n) {
             var r = Math.floor(Math.random() * 3);
             var tmp = $(this).text();
             $(this).text($('p:eq(' + r + ')').text());
@@ -1736,29 +1777,26 @@ function examples() {
             $(this).css('left', getPos(n));
         });
         $('div')
-            .each(function(n) {
+            .each(function (n) {
                 $(this).css('left', getPos(n));
             })
             .css('cursor', 'pointer')
-            .click(function() {
-                $(this).fadeTo(250, 0.25, function() {
-                    $(this)
-                        .css('cursor', '')
-                        .prev()
-                        .css({
-                            'font-weight': 'bolder',
-                            'font-style': 'italic',
-                        });
+            .click(function () {
+                $(this).fadeTo(250, 0.25, function () {
+                    $(this).css('cursor', '').prev().css({
+                        'font-weight': 'bolder',
+                        'font-style': 'italic',
+                    });
                 });
             });
     }
 
     function fade_toggle_0() {
-        $('button:first').click(function() {
+        $('button:first').click(function () {
             $('p:first').fadeToggle('slow', 'linear');
         });
-        $('button:last').click(function() {
-            $('p:last').fadeToggle('fast', function() {
+        $('button:last').click(function () {
+            $('p:last').fadeToggle('fast', function () {
                 $('#log').append('<div>finished</div>');
             });
         });
@@ -1772,22 +1810,19 @@ function examples() {
         $('div')
             .text('For this type jQuery found ' + input.length + '.')
             .css('color', 'red');
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             event.preventDefault();
         });
     }
 
     function filter_0() {
-        $('div')
-            .css('background', '#c8ebcc')
-            .filter('.middle')
-            .css('border-color', 'red');
+        $('div').css('background', '#c8ebcc').filter('.middle').css('border-color', 'red');
     }
 
     function filter_1() {
         $('div')
             .css('background', '#b4b0da')
-            .filter(function(index) {
+            .filter(function (index) {
                 return index === 1 || $(this).attr('id') === 'fourth';
             })
             .css('border', '3px double red');
@@ -1817,13 +1852,16 @@ function examples() {
         $('p')
             .html(newText)
             .find('span')
-            .hover(function() {
-                $(this).addClass('hilite');
-            }, function() {
-                $(this).removeClass('hilite');
-            })
+            .hover(
+                function () {
+                    $(this).addClass('hilite');
+                },
+                function () {
+                    $(this).removeClass('hilite');
+                },
+            )
             .end()
-            .find(':contains(\'t\')')
+            .find(":contains('t')")
             .css({
                 'font-style': 'italic',
                 'font-weight': 'bolder',
@@ -1834,38 +1872,38 @@ function examples() {
         var horiz = $('#path').width()! - 20,
             vert = $('#path').height()! - 20;
 
-        var btns: { [key: string]: () => void; } = {
-            bstt: function() {
+        var btns: { [key: string]: () => void } = {
+            bstt: function () {
                 $('div.box').stop(true, true);
             },
-            bs: function() {
+            bs: function () {
                 $('div.box').stop();
             },
-            bsft: function() {
+            bsft: function () {
                 $('div.box').stop(false, true);
             },
-            bf: function() {
+            bf: function () {
                 $('div.box').finish();
             },
-            bcf: function() {
+            bcf: function () {
                 $('div.box').clearQueue().finish();
             },
-            bsff: function() {
+            bsff: function () {
                 $('div.box').stop(false, false);
             },
-            bstf: function() {
+            bstf: function () {
                 $('div.box').stop(true, false);
             },
-            bcs: function() {
+            bcs: function () {
                 $('div.box').clearQueue().stop();
             },
         };
 
-        $('button.b').on('click', function() {
+        $('button.b').on('click', function () {
             btns[this.id]();
         });
 
-        $('#go').on('click', function() {
+        $('#go').on('click', function () {
             $('.box')
                 .clearQueue()
                 .stop()
@@ -1873,26 +1911,38 @@ function examples() {
                     left: 10,
                     top: 10,
                 })
-                .animate({
-                    top: vert,
-                }, 3000)
-                .animate({
-                    left: horiz,
-                }, 3000)
-                .animate({
-                    top: 10,
-                }, 3000);
+                .animate(
+                    {
+                        top: vert,
+                    },
+                    3000,
+                )
+                .animate(
+                    {
+                        left: horiz,
+                    },
+                    3000,
+                )
+                .animate(
+                    {
+                        top: 10,
+                    },
+                    3000,
+                );
         });
     }
 
     function first_child_0() {
         $('div span:first-child')
             .css('text-decoration', 'underline')
-            .hover(function() {
-                $(this).addClass('sogreen');
-            }, function() {
-                $(this).removeClass('sogreen');
-            });
+            .hover(
+                function () {
+                    $(this).addClass('sogreen');
+                },
+                function () {
+                    $(this).removeClass('sogreen');
+                },
+            );
     }
 
     function first_of_type_0() {
@@ -1908,40 +1958,40 @@ function examples() {
     }
 
     function focus_0() {
-        $('#content').delegate('*', 'focus blur', function() {
+        $('#content').delegate('*', 'focus blur', function () {
             var elem = $(this);
-            setTimeout(function() {
+            setTimeout(function () {
                 elem.toggleClass('focused', elem.is(':focus'));
             }, 0);
         });
     }
 
     function focus_1() {
-        $('input').focus(function() {
+        $('input').focus(function () {
             $(this).next('span').css('display', 'inline').fadeOut(1000);
         });
     }
 
     function focus_2() {
-        $('input[type=text]').focus(function() {
+        $('input[type=text]').focus(function () {
             $(this).blur();
         });
     }
 
     function focus_3() {
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#login').focus();
         });
     }
 
     function focusin_0() {
-        $('p').focusin(function() {
+        $('p').focusin(function () {
             $(this).find('span').css('display', 'inline').fadeOut(1000);
         });
     }
 
     function get_0() {
-        $('*', document.body).click(function(event) {
+        $('*', document.body).click(function (event) {
             event.stopPropagation();
             var domElement = $(this).get(0);
             $('span:first').text('Clicked on - ' + domElement.nodeName);
@@ -1968,7 +2018,7 @@ function examples() {
     function attribute_has_0() {
         // Using .one() so the handler is executed at most once
         // per element per event type
-        $('div[id]').one('click', function() {
+        $('div[id]').one('click', function () {
             var idString = $(this).text() + ' = ' + $(this).attr('id');
             $(this).text(idString);
         });
@@ -1979,9 +2029,7 @@ function examples() {
     }
 
     function has_1() {
-        $('ul').append('<li>' +
-            ( $('ul').has('li').length ? 'Yes' : 'No' ) +
-            '</li>');
+        $('ul').append('<li>' + ($('ul').has('li').length ? 'Yes' : 'No') + '</li>');
         $('ul').has('li').addClass('full');
     }
 
@@ -2000,19 +2048,19 @@ function examples() {
             $('div').text('The height for the ' + element + ' is ' + height + 'px.');
         }
 
-        $('#getp').click(function() {
+        $('#getp').click(function () {
             showHeight('paragraph', $('p').height()!);
         });
-        $('#getd').click(function() {
+        $('#getd').click(function () {
             showHeight('document', $(document).height()!);
         });
-        $('#getw').click(function() {
+        $('#getw').click(function () {
             showHeight('window', $(window).height()!);
         });
     }
 
     function height_1() {
-        $('div').one('click', function() {
+        $('div').one('click', function () {
             $(this).height(30).css({
                 cursor: 'auto',
                 backgroundColor: 'green',
@@ -2031,26 +2079,28 @@ function examples() {
 
     function hide_0() {
         $('p').hide();
-        $('a').click(function(event) {
+        $('a').click(function (event) {
             event.preventDefault();
             $(this).hide();
         });
     }
 
     function hide_1() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').hide('slow');
         });
     }
 
     function hide_2() {
-        $('#hider').click(function() {
-            $('span:last-child').hide('fast', function() {
+        $('#hider').click(function () {
+            $('span:last-child').hide('fast', function () {
                 // Use arguments.callee so we don't need a named function
-                $(this).prev().hide('fast', arguments.callee as any);
+                $(this)
+                    .prev()
+                    .hide('fast', arguments.callee as any);
             });
         });
-        $('#shower').click(function() {
+        $('#shower').click(function () {
             $('span').show(2000);
         });
     }
@@ -2059,8 +2109,8 @@ function examples() {
         for (var i = 0; i < 5; i++) {
             $('<div>').appendTo(document.body);
         }
-        $('div').click(function() {
-            $(this).hide(2000, function() {
+        $('div').click(function () {
+            $(this).hide(2000, function () {
                 $(this).remove();
             });
         });
@@ -2072,31 +2122,25 @@ function examples() {
             .hide()
             .end()
             .filter(':even')
-            .hover(function() {
-                $(this)
-                    .toggleClass('active')
-                    .next()
-                    .stop(true, true)
-                    .slideToggle();
+            .hover(function () {
+                $(this).toggleClass('active').next().stop(true, true).slideToggle();
             });
     }
 
     function html_0() {
-        $('p').click(function() {
+        $('p').click(function () {
             var htmlString = $(this).html();
             $(this).text(htmlString);
         });
     }
 
     function html_1() {
-        $('div').html('<span class=\'red\'>Hello <b>Again</b></span>');
+        $('div').html("<span class='red'>Hello <b>Again</b></span>");
     }
 
     function html_2() {
         $('div').html('<b>Wow!</b> Such excitement...');
-        $('div b')
-            .append(document.createTextNode('!!!'))
-            .css('color', 'red');
+        $('div b').append(document.createTextNode('!!!')).css('color', 'red');
     }
 
     function id_0() {
@@ -2115,13 +2159,13 @@ function examples() {
         $('div')
             .text('For this type jQuery found ' + input.length + '.')
             .css('color', 'red');
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             event.preventDefault();
         });
     }
 
     function index_0() {
-        $('div').click(function() {
+        $('div').click(function () {
             // `this` is the DOM element that was clicked
             var index = $('div').index(this);
             $('span').text('That was div index #' + index);
@@ -2159,7 +2203,7 @@ function examples() {
 
     function inner_height_1() {
         var modHeight = 70;
-        $('div').one('click', function() {
+        $('div').one('click', function () {
             $(this).innerHeight(modHeight).addClass('mod');
             modHeight -= 8;
         });
@@ -2172,7 +2216,7 @@ function examples() {
 
     function inner_width_1() {
         var modWidth = 60;
-        $('div').one('click', function() {
+        $('div').one('click', function () {
             $(this).innerWidth(modWidth).addClass('mod');
             modWidth -= 8;
         });
@@ -2181,10 +2225,11 @@ function examples() {
     function input_0() {
         var allInputs = $(':input');
         var formChildren = $('form > *');
-        $('#messages').text('Found ' + allInputs.length + ' inputs and the form has ' +
-            formChildren.length + ' children.');
+        $('#messages').text(
+            'Found ' + allInputs.length + ' inputs and the form has ' + formChildren.length + ' children.',
+        );
 
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             event.preventDefault();
         });
     }
@@ -2198,15 +2243,15 @@ function examples() {
     }
 
     function is_0() {
-        $('div').one('click', function() {
+        $('div').one('click', function () {
             if ($(this).is(':first-child')) {
-                $('p').text('It\'s the first div.');
+                $('p').text("It's the first div.");
             } else if ($(this).is('.blue,.red')) {
-                $('p').text('It\'s a blue or red div.');
-            } else if ($(this).is(':contains(\'Peter\')')) {
-                $('p').text('It\'s Peter!');
+                $('p').text("It's a blue or red div.");
+            } else if ($(this).is(":contains('Peter')")) {
+                $('p').text("It's Peter!");
             } else {
-                $('p').html('It\'s nothing <em>special</em>.');
+                $('p').html("It's nothing <em>special</em>.");
             }
             $('p').hide().slideDown('slow');
             $(this).css({
@@ -2217,18 +2262,18 @@ function examples() {
     }
 
     function is_1() {
-        var isFormParent = $('input[type=\'checkbox\']').parent().is('form');
+        var isFormParent = $("input[type='checkbox']").parent().is('form');
         $('div').text('isFormParent = ' + isFormParent);
     }
 
     function is_2() {
-        var isFormParent = $('input[type=\'checkbox\']').parent().is('form');
+        var isFormParent = $("input[type='checkbox']").parent().is('form');
         $('div').text('isFormParent = ' + isFormParent);
     }
 
     function is_3() {
         var alt = $('#browsers li:nth-child(2n)').css('background', '#0ff');
-        $('li').click(function() {
+        $('li').click(function () {
             var li = $(this);
             if (li.is(alt)) {
                 li.slideUp();
@@ -2240,7 +2285,7 @@ function examples() {
 
     function is_4() {
         var alt = $('#browsers li:nth-child(2n)').css('background', '#0ff');
-        $('li').click(function() {
+        $('li').click(function () {
             if (alt.is(this)) {
                 $(this).slideUp();
             } else {
@@ -2257,7 +2302,8 @@ function examples() {
         //     alert('a is a jQuery object!');
         // }
 
-        if (b.jquery) { // Truthy, since it's a string
+        if (b.jquery) {
+            // Truthy, since it's a string
             alert('b is a jQuery object!');
         }
     }
@@ -2271,20 +2317,18 @@ function examples() {
             method: 'POST',
             url: 'some.php',
             data: { name: 'John', location: 'Boston' },
-        })
-            .done(function(msg) {
-                alert('Data Saved: ' + msg);
-            });
+        }).done(function (msg) {
+            alert('Data Saved: ' + msg);
+        });
     }
 
     function jQuery_ajax_1() {
         $.ajax({
             url: 'test.html',
             cache: false,
-        })
-            .done(function(html) {
-                $('#results').append(html);
-            });
+        }).done(function (html) {
+            $('#results').append(html);
+        });
     }
 
     function jQuery_ajax_2(handleResponse: JQuery.jqXHR.DoneCallback) {
@@ -2307,11 +2351,11 @@ function examples() {
             dataType: 'html',
         });
 
-        request.done(function(msg) {
+        request.done(function (msg) {
             $('#log').html(msg);
         });
 
-        request.fail(function(jqXHR, textStatus) {
+        request.fail(function (jqXHR, textStatus) {
             alert('Request failed: ' + textStatus);
         });
     }
@@ -2351,22 +2395,22 @@ function examples() {
     }
 
     function jQuery_data_1() {
-        $('button').click(function() {
+        $('button').click(function () {
             var value,
                 div = $('div')[0];
             switch ($('button').index(this)) {
-                case 0 :
+                case 0:
                     value = jQuery.data(div, 'blah');
                     break;
-                case 1 :
+                case 1:
                     jQuery.data(div, 'blah', 'hello');
                     value = 'Stored!';
                     break;
-                case 2 :
+                case 2:
                     jQuery.data(div, 'blah', 86);
                     value = 'Stored!';
                     break;
-                case 3 :
+                case 3:
                     jQuery.removeData(div, 'blah');
                     value = 'Removed!';
                     break;
@@ -2376,11 +2420,11 @@ function examples() {
     }
 
     function jQuery_dequeue_0() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('div')
                 .animate({ left: '+=200px' }, 2000)
                 .animate({ top: '0px' }, 600)
-                .queue(function() {
+                .queue(function () {
                     $(this).toggleClass('red');
                     $.dequeue(this);
                 })
@@ -2392,26 +2436,26 @@ function examples() {
         var arr = ['one', 'two', 'three', 'four', 'five'];
         var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
 
-        jQuery.each(arr, function(i, val) {
+        jQuery.each(arr, function (i, val) {
             $('#' + val).text('Mine is ' + val + '.');
 
             // Will stop running after "three"
-            return ( val !== 'three' );
+            return val !== 'three';
         });
 
-        jQuery.each(obj, function(i, val) {
+        jQuery.each(obj, function (i, val) {
             $('#' + i).append(document.createTextNode(' - ' + val));
         });
     }
 
     function jQuery_each_1() {
-        $.each(['a', 'b', 'c'], function(i, l) {
+        $.each(['a', 'b', 'c'], function (i, l) {
             alert('Index #' + i + ': ' + l);
         });
     }
 
     function jQuery_each_2() {
-        $.each({ name: 'John', lang: 'JS' }, function(k, v) {
+        $.each({ name: 'John', lang: 'JS' }, function (k, v) {
             alert('Key: ' + k + ', Value: ' + v);
         });
     }
@@ -2420,26 +2464,26 @@ function examples() {
         var arr = ['one', 'two', 'three', 'four', 'five'];
         var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
 
-        jQuery.each(arr, function(i, val) {
+        jQuery.each(arr, function (i, val) {
             $('#' + val).text('Mine is ' + val + '.');
 
             // Will stop running after "three"
-            return ( val !== 'three' );
+            return val !== 'three';
         });
 
-        jQuery.each(obj, function(i, val) {
+        jQuery.each(obj, function (i, val) {
             $('#' + i).append(document.createTextNode(' - ' + val));
         });
     }
 
     function jQuery_each_4() {
-        $.each(['a', 'b', 'c'], function(i, l) {
+        $.each(['a', 'b', 'c'], function (i, l) {
             alert('Index #' + i + ': ' + l);
         });
     }
 
     function jQuery_each_5() {
-        $.each({ name: 'John', lang: 'JS' }, function(k, v) {
+        $.each({ name: 'John', lang: 'JS' }, function (k, v) {
             alert('Key: ' + k + ', Value: ' + v);
         });
     }
@@ -2507,18 +2551,18 @@ function examples() {
 
     function jQuery_fx_interval_0() {
         jQuery.fx.interval = 100;
-        $('input').click(function() {
+        $('input').click(function () {
             $('div').toggle(3000);
         });
     }
 
     function jQuery_fx_off_0() {
-        var toggleFx = function() {
+        var toggleFx = function () {
             $.fx.off = !$.fx.off;
         };
         toggleFx();
         $('button').click(toggleFx);
-        $('input').click(function() {
+        $('input').click(function () {
             $('div').toggle('slow');
         });
     }
@@ -2536,57 +2580,59 @@ function examples() {
     }
 
     function jQuery_get_3() {
-        $.get('test.php', function(data) {
+        $.get('test.php', function (data) {
             alert('Data Loaded: ' + data);
         });
     }
 
     function jQuery_get_4() {
-        $.get('test.cgi', { name: 'John', time: '2pm' })
-            .done(function(data) {
-                alert('Data Loaded: ' + data);
-            });
+        $.get('test.cgi', { name: 'John', time: '2pm' }).done(function (data) {
+            alert('Data Loaded: ' + data);
+        });
     }
 
     function jQuery_get_5() {
-        $.get('test.php', function(data) {
-            $('body')
-                .append('Name: ' + data.name) // John
-                .append('Time: ' + data.time); //  2pm
-        }, 'json');
+        $.get(
+            'test.php',
+            function (data) {
+                $('body')
+                    .append('Name: ' + data.name) // John
+                    .append('Time: ' + data.time); //  2pm
+            },
+            'json',
+        );
     }
 
     function jQuery_get_json_0() {
-        (function() {
+        (function () {
             var flickerAPI = 'http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?';
             $.getJSON(flickerAPI, {
                 tags: 'mount rainier',
                 tagmode: 'any',
                 format: 'json',
-            })
-                .done(function(data) {
-                    $.each(data.items as any[], function(i, item) {
-                        $('<img>').attr('src', item.media.m).appendTo('#images');
-                        if (i === 3) {
-                            return false;
-                        }
-                    });
+            }).done(function (data) {
+                $.each(data.items as any[], function (i, item) {
+                    $('<img>').attr('src', item.media.m).appendTo('#images');
+                    if (i === 3) {
+                        return false;
+                    }
                 });
+            });
         })();
     }
 
     function jQuery_get_json_1() {
-        $.getJSON('test.js', function(json) {
+        $.getJSON('test.js', function (json) {
             console.log('JSON Data: ' + json.users[3].name);
         });
     }
 
     function jQuery_get_json_2() {
         $.getJSON('test.js', { name: 'John', time: '2pm' })
-            .done(function(json) {
+            .done(function (json) {
                 console.log('JSON Data: ' + json.users[3].name);
             })
-            .fail(function(jqxhr, textStatus, error) {
+            .fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ', ' + error;
                 console.log('Request Failed: ' + err);
             });
@@ -2594,20 +2640,29 @@ function examples() {
 
     function jQuery_get_script_1() {
         var url = 'https://code.jquery.com/color/jquery.color.js';
-        $.getScript(url, function() {
-            $('#go').click(function() {
+        $.getScript(url, function () {
+            $('#go').click(function () {
                 $('.block')
-                    .animate({
-                        backgroundColor: 'rgb(255, 180, 180)',
-                    }, 1000)
+                    .animate(
+                        {
+                            backgroundColor: 'rgb(255, 180, 180)',
+                        },
+                        1000,
+                    )
                     .delay(500)
-                    .animate({
-                        backgroundColor: 'olive',
-                    }, 1000)
+                    .animate(
+                        {
+                            backgroundColor: 'olive',
+                        },
+                        1000,
+                    )
                     .delay(500)
-                    .animate({
-                        backgroundColor: '#00f',
-                    }, 1000);
+                    .animate(
+                        {
+                            backgroundColor: '#00f',
+                        },
+                        1000,
+                    );
             });
         });
     }
@@ -2625,12 +2680,12 @@ function examples() {
         var arr = [1, 9, 3, 8, 6, 1, 5, 9, 4, 7, 3, 8, 6, 9, 1];
         $('div').text(arr.join(', '));
 
-        arr = jQuery.grep(arr, function(n, i) {
-            return ( n !== 5 && i > 4 );
+        arr = jQuery.grep(arr, function (n, i) {
+            return n !== 5 && i > 4;
         });
         $('p').text(arr.join(', '));
 
-        arr = jQuery.grep(arr, function(a) {
+        arr = jQuery.grep(arr, function (a) {
             return a !== 9;
         });
 
@@ -2638,15 +2693,19 @@ function examples() {
     }
 
     function jQuery_grep_1() {
-        $.grep([0, 1, 2], function(n, i) {
+        $.grep([0, 1, 2], function (n, i) {
             return n > 0;
         });
     }
 
     function jQuery_grep_2() {
-        $.grep([0, 1, 2], function(n, i) {
-            return n > 0;
-        }, true);
+        $.grep(
+            [0, 1, 2],
+            function (n, i) {
+                return n > 0;
+            },
+            true,
+        );
     }
 
     function jQuery_has_data_0() {
@@ -2660,7 +2719,7 @@ function examples() {
         $.removeData(p, 'testing');
         $p.append(jQuery.hasData(p) + ' '); // false
 
-        $p.on('click', function() {});
+        $p.on('click', function () {});
         $p.append(jQuery.hasData(p) + ' '); // true
 
         $p.off('click');
@@ -2669,7 +2728,7 @@ function examples() {
 
     function jQuery_hold_ready_0() {
         $.holdReady(true);
-        $.getScript('myplugin.js', function() {
+        $.getScript('myplugin.js', function () {
             $.holdReady(false);
         });
     }
@@ -2695,29 +2754,23 @@ function examples() {
     function jQuery_is_function_0() {
         function stub() {}
 
-        var objs = [
-            function() {},
-            { x: 15, y: 20 },
-            null,
-            stub,
-            'function',
-        ];
+        var objs = [function () {}, { x: 15, y: 20 }, null, stub, 'function'];
 
-        jQuery.each(objs, function(i) {
+        jQuery.each(objs, function (i) {
             var isFunc = jQuery.isFunction(objs[i]);
             $('span').eq(i).text(isFunc);
         });
     }
 
     function jQuery_is_function_1() {
-        $.isFunction(function() {});
+        $.isFunction(function () {});
     }
 
     function jQuery_is_numeric_0() {
         // true (numeric)
         $.isNumeric('-10');
         $.isNumeric('0');
-        $.isNumeric(0xFF);
+        $.isNumeric(0xff);
         $.isNumeric('0xFF');
         $.isNumeric('8e5');
         $.isNumeric('3.1415');
@@ -2769,64 +2822,64 @@ function examples() {
         var arr = ['a', 'b', 'c', 'd', 'e'];
         $('div').text(arr.join(', '));
 
-        arr = jQuery.map(arr, function(n, i) {
-            return ( n.toUpperCase() + i );
+        arr = jQuery.map(arr, function (n, i) {
+            return n.toUpperCase() + i;
         });
         $('p').text(arr.join(', '));
 
-        arr = jQuery.map(arr, function(a) {
+        arr = jQuery.map(arr, function (a) {
             return a + a;
         });
         $('span').text(arr.join(', '));
     }
 
     function jQuery_map_1() {
-        $.map([0, 1, 2], function(n) {
+        $.map([0, 1, 2], function (n) {
             return n + 4;
         });
     }
 
     function jQuery_map_2() {
-        $.map([0, 1, 2], function(n) {
+        $.map([0, 1, 2], function (n) {
             return n > 0 ? n + 1 : null;
         });
     }
 
     function jQuery_map_3() {
-        $.map([0, 1, 2], function(n) {
+        $.map([0, 1, 2], function (n) {
             return [n, n + 1];
         });
     }
 
     function jQuery_map_4() {
         var dimensions = { width: 10, height: 15, length: 20 };
-        var _dimensions = $.map(dimensions, function(value, index) {
+        var _dimensions = $.map(dimensions, function (value, index) {
             return value * 2;
         });
     }
 
     function jQuery_map_5() {
         var dimensions = { width: 10, height: 15, length: 20 };
-        var keys = $.map(dimensions, function(value, key) {
+        var keys = $.map(dimensions, function (value, key) {
             return key;
         });
     }
 
     function jQuery_map_6() {
-        $.map([0, 1, 2, 3], function(a) {
+        $.map([0, 1, 2, 3], function (a) {
             return a * a;
         });
     }
 
     function jQuery_map_7() {
-        $.map([0, 1, 52, 97], function(a) {
-            return (a > 50 ? a - 45 : null);
+        $.map([0, 1, 52, 97], function (a) {
+            return a > 50 ? a - 45 : null;
         });
     }
 
     function jQuery_map_8() {
         var array = [0, 1, 52, 97];
-        var _array = $.map(array, function(a, index) {
+        var _array = $.map(array, function (a, index) {
             return [a - 45, index];
         });
     }
@@ -2855,8 +2908,8 @@ function examples() {
 
     function jQuery_no_conflict_1() {
         jQuery.noConflict();
-        (function($) {
-            $(function() {
+        (function ($) {
+            $(function () {
                 // More code using $ as alias to jQuery
             });
         })(jQuery);
@@ -2925,15 +2978,13 @@ function examples() {
         $log.append(html);
 
         // Gather the parsed HTML's node names
-        $.each(html, function(i, el) {
+        $.each(html, function (i, el) {
             nodeNames[i] = '<li>' + el.nodeName + '</li>';
         });
 
         // Insert the node names
         $log.append('<h3>Node Names:</h3>');
-        $('<ol></ol>')
-            .append(nodeNames.join(''))
-            .appendTo($log);
+        $('<ol></ol>').append(nodeNames.join('')).appendTo($log);
     }
 
     function jQuery_parse_json_0() {
@@ -2942,7 +2993,7 @@ function examples() {
     }
 
     function jQuery_parse_xml_0() {
-        var xml = '<rss version=\'2.0\'><channel><title>RSS Title</title></channel></rss>',
+        var xml = "<rss version='2.0'><channel><title>RSS Title</title></channel></rss>",
             xmlDoc = $.parseXML(xml),
             $xml = $(xmlDoc),
             $title = $xml.find('title');
@@ -2974,41 +3025,45 @@ function examples() {
     }
 
     function jQuery_post_4() {
-        $.post('test.php', function(data) {
+        $.post('test.php', function (data) {
             alert('Data Loaded: ' + data);
         });
     }
 
     function jQuery_post_5() {
-        $.post('test.php', { name: 'John', time: '2pm' })
-            .done(function(data) {
-                alert('Data Loaded: ' + data);
-            });
+        $.post('test.php', { name: 'John', time: '2pm' }).done(function (data) {
+            alert('Data Loaded: ' + data);
+        });
     }
 
     function jQuery_post_6() {
-        $.post('test.php', { func: 'getNameAndTime' }, function(data) {
-            console.log(data.name); // John
-            console.log(data.time); // 2pm
-        }, 'json');
+        $.post(
+            'test.php',
+            { func: 'getNameAndTime' },
+            function (data) {
+                console.log(data.name); // John
+                console.log(data.time); // 2pm
+            },
+            'json',
+        );
     }
 
     function jQuery_post_7() {
         // Attach a submit handler to the form
-        $('#searchForm').submit(function(event) {
+        $('#searchForm').submit(function (event) {
             // Stop form from submitting normally
             event.preventDefault();
 
             // Get some values from elements on the page:
             var $form = $(this),
-                term = $form.find('input[name=\'s\']').val(),
+                term = $form.find("input[name='s']").val(),
                 url = $form.attr('action')!;
 
             // Send the data using post
             var posting = $.post(url, { s: term });
 
             // Put the results in a div
-            posting.done(function(data) {
+            posting.done(function (data) {
                 var content = $(data).find('#content');
                 $('#result').empty().append(content);
             });
@@ -3018,7 +3073,7 @@ function examples() {
     function jQuery_proxy_0() {
         var me = {
             type: 'zombie',
-            test: function(event: JQuery.TriggeredEvent) {
+            test: function (event: JQuery.TriggeredEvent) {
                 // Without proxy, `this` would refer to the event target
                 // use event.target to reference that element.
                 var element = event.target as Element;
@@ -3033,7 +3088,7 @@ function examples() {
 
         var you = {
             type: 'person',
-            test: function(event: JQuery.TriggeredEvent) {
+            test: function (event: JQuery.TriggeredEvent) {
                 $('#log').append(this.type + ' ');
             },
         };
@@ -3045,7 +3100,7 @@ function examples() {
 
         // attach click handlers to #test
         $('#test')
-        // this === "zombie"; handler unbound after first click
+            // this === "zombie"; handler unbound after first click
             .on('click', $.proxy(me.test, me))
 
             // this === "person"
@@ -3061,7 +3116,7 @@ function examples() {
     function jQuery_proxy_1() {
         var obj = {
             name: 'John',
-            test: function() {
+            test: function () {
                 $('#log').append(this.name);
                 $('#test').off('click', obj.test);
             },
@@ -3075,11 +3130,10 @@ function examples() {
             type: 'dog',
 
             // Note that event comes *after* one and two
-            test: function(one: typeof you, two: typeof they, event: JQuery.TriggeredEvent<HTMLElement>) {
+            test: function (one: typeof you, two: typeof they, event: JQuery.TriggeredEvent<HTMLElement>) {
                 $('#log')
-
-                // `one` maps to `you`, the 1st additional
-                // argument in the $.proxy function call
+                    // `one` maps to `you`, the 1st additional
+                    // argument in the $.proxy function call
                     .append('<h3>Hello ' + one.type + ':</h3>')
 
                     // The `this` keyword refers to `me`
@@ -3106,12 +3160,11 @@ function examples() {
         // of `me`, with `you` and `they` as additional arguments
         var proxy = $.proxy(me.test, me, you, they);
 
-        $('#test')
-            .on('click', proxy);
+        $('#test').on('click', proxy);
     }
 
     function jQuery_queue_0() {
-        $('#show').click(function() {
+        $('#show').click(function () {
             var n = jQuery.queue($('div')[0], 'fx');
             $('span').text('Queue length is: ' + n.length);
         });
@@ -3119,14 +3172,20 @@ function examples() {
         function runIt() {
             $('div')
                 .show('slow')
-                .animate({
-                    left: '+=200',
-                }, 2000)
+                .animate(
+                    {
+                        left: '+=200',
+                    },
+                    2000,
+                )
                 .slideToggle(1000)
                 .slideToggle('fast')
-                .animate({
-                    left: '-=200',
-                }, 1500)
+                .animate(
+                    {
+                        left: '-=200',
+                    },
+                    1500,
+                )
                 .hide('slow')
                 .show(1200)
                 .slideUp('normal', runIt);
@@ -3136,16 +3195,14 @@ function examples() {
     }
 
     function jQuery_queue_1() {
-        $(document.body).click(function() {
-            var divs = $('div')
-                .show('slow')
-                .animate({ left: '+=200' }, 2000);
-            jQuery.queue(divs[0], 'fx', function() {
+        $(document.body).click(function () {
+            var divs = $('div').show('slow').animate({ left: '+=200' }, 2000);
+            jQuery.queue(divs[0], 'fx', function () {
                 $(this).addClass('newcolor');
                 jQuery.dequeue(this);
             });
             divs.animate({ left: '-=200' }, 500);
-            jQuery.queue(divs[0], 'fx', function() {
+            jQuery.queue(divs[0], 'fx', function () {
                 $(this).removeClass('newcolor');
                 jQuery.dequeue(this);
             });
@@ -3154,45 +3211,40 @@ function examples() {
     }
 
     function jQuery_queue_2() {
-        $('#start').click(function() {
-            var divs = $('div')
-                .show('slow')
-                .animate({ left: '+=200' }, 5000);
-            jQuery.queue(divs[0], 'fx', function() {
+        $('#start').click(function () {
+            var divs = $('div').show('slow').animate({ left: '+=200' }, 5000);
+            jQuery.queue(divs[0], 'fx', function () {
                 $(this).addClass('newcolor');
                 jQuery.dequeue(this);
             });
             divs.animate({ left: '-=200' }, 1500);
-            jQuery.queue(divs[0], 'fx', function() {
+            jQuery.queue(divs[0], 'fx', function () {
                 $(this).removeClass('newcolor');
                 jQuery.dequeue(this);
             });
             divs.slideUp();
         });
-        $('#stop').click(function() {
+        $('#stop').click(function () {
             jQuery.queue($('div')[0], 'fx', []);
             $('div').stop();
         });
     }
 
     function jQuery_ready_0() {
-        $.when($.ready).then(function() {
+        $.when($.ready).then(function () {
             // Document is ready.
         });
     }
 
     function jQuery_ready_1() {
-        $.when(
-            $.getJSON('ajax/test.json'),
-            $.ready,
-        ).done(function(data) {
+        $.when($.getJSON('ajax/test.json'), $.ready).done(function (data) {
             // Document is ready.
             // Value of test.json is passed as `data`.
         });
     }
 
     function jQuery_ready_exception_0() {
-        jQuery.readyException = function(error) {
+        jQuery.readyException = function (error) {
             console.error(error);
         };
     }
@@ -3210,8 +3262,8 @@ function examples() {
 
     function jQuery_trim_0() {
         var str = '         lots of spaces before and after         ';
-        $('#original').html('Original String: \'' + str + '\'');
-        $('#trimmed').html('$.trim()\'ed: \'' + $.trim(str) + '\'');
+        $('#original').html("Original String: '" + str + "'");
+        $('#trimmed').html("$.trim()'ed: '" + $.trim(str) + "'");
     }
 
     function jQuery_trim_1() {
@@ -3231,7 +3283,8 @@ function examples() {
         $('div:eq(1)').text('Pre-unique there are ' + divs.length + ' elements.');
 
         divs = jQuery.unique(divs);
-        $('div:eq(2)').text('Post-unique there are ' + divs.length + ' elements.')
+        $('div:eq(2)')
+            .text('Post-unique there are ' + divs.length + ' elements.')
             .css('color', 'red');
     }
 
@@ -3244,12 +3297,13 @@ function examples() {
         $('div:eq(1)').text('Pre-unique there are ' + divs.length + ' elements.');
 
         divs = jQuery.uniqueSort(divs);
-        $('div:eq(2)').text('Post-unique there are ' + divs.length + ' elements.')
+        $('div:eq(2)')
+            .text('Post-unique there are ' + divs.length + ' elements.')
             .css('color', 'red');
     }
 
     function jQuery_when_0() {
-        $.when($.ajax('/page1.php'), $.ajax('/page2.php')).done(function(a1, a2) {
+        $.when($.ajax('/page1.php'), $.ajax('/page2.php')).done(function (a1, a2) {
             // a1 and a2 are arguments resolved for the page1 and page2 ajax requests, respectively.
             // Each argument is an array with the following structure: [ data, statusText, jqXHR ]
 
@@ -3261,8 +3315,7 @@ function examples() {
     }
 
     function jQuery_when_1(myFunc: any, myFailure: any) {
-        $.when($.ajax('/page1.php'), $.ajax('/page2.php'))
-            .then(myFunc, myFailure);
+        $.when($.ajax('/page1.php'), $.ajax('/page2.php')).then(myFunc, myFailure);
     }
 
     function jQuery_0() {
@@ -3293,28 +3346,27 @@ function examples() {
         $('<div/>', {
             class: 'test',
             text: 'Click me!',
-            click: function() {
+            click: function () {
                 $(this).toggleClass('test');
             },
-        })
-            .appendTo('body');
+        }).appendTo('body');
     }
 
     function jQuery_7() {
-        $(function() {
+        $(function () {
             // Document is ready
         });
     }
 
     function jQuery_8() {
-        jQuery(function($) {
+        jQuery(function ($) {
             // Your code using failsafe $ alias here...
         });
     }
 
     function keydown_0() {
         var xTriggered = 0;
-        $('#target').keydown(function(event) {
+        $('#target').keydown(function (event) {
             if (event.which == 13) {
                 event.preventDefault();
             }
@@ -3324,14 +3376,14 @@ function examples() {
             // $.print(event);
         });
 
-        $('#other').click(function() {
+        $('#other').click(function () {
             $('#target').keydown();
         });
     }
 
     function keypress_0() {
         var xTriggered = 0;
-        $('#target').keypress(function(event) {
+        $('#target').keypress(function (event) {
             if (event.which == 13) {
                 event.preventDefault();
             }
@@ -3341,25 +3393,27 @@ function examples() {
             // $.print(event);
         });
 
-        $('#other').click(function() {
+        $('#other').click(function () {
             $('#target').keypress();
         });
     }
 
     function keyup_0() {
         var xTriggered = 0;
-        $('#target').keyup(function(event) {
-            xTriggered++;
-            var msg = 'Handler for .keyup() called ' + xTriggered + ' time(s).';
-            // $.print(msg, 'html');
-            // $.print(event);
-        }).keydown(function(event) {
-            if (event.which == 13) {
-                event.preventDefault();
-            }
-        });
+        $('#target')
+            .keyup(function (event) {
+                xTriggered++;
+                var msg = 'Handler for .keyup() called ' + xTriggered + ' time(s).';
+                // $.print(msg, 'html');
+                // $.print(event);
+            })
+            .keydown(function (event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                }
+            });
 
-        $('#other').click(function() {
+        $('#other').click(function () {
             $('#target').keyup();
         });
     }
@@ -3372,21 +3426,27 @@ function examples() {
     function last_child_0() {
         $('div span:last-child')
             .css({ color: 'red', fontSize: '80%' })
-            .hover(function() {
-                $(this).addClass('solast');
-            }, function() {
-                $(this).removeClass('solast');
-            });
+            .hover(
+                function () {
+                    $(this).addClass('solast');
+                },
+                function () {
+                    $(this).removeClass('solast');
+                },
+            );
     }
 
     function last_of_type_0() {
         $('span:last-of-type')
             .css({ color: 'red', fontSize: '80%' })
-            .hover(function() {
-                $(this).addClass('solast');
-            }, function() {
-                $(this).removeClass('solast');
-            });
+            .hover(
+                function () {
+                    $(this).addClass('solast');
+                },
+                function () {
+                    $(this).removeClass('solast');
+                },
+            );
     }
 
     function last_0() {
@@ -3399,11 +3459,10 @@ function examples() {
 
     function length_0() {
         $(document.body)
-            .click(function() {
+            .click(function () {
                 $(document.body).append($('<div>'));
                 var n = $('div').length;
-                $('span').text('There are ' + n + ' divs.' +
-                    'Click to add more.');
+                $('span').text('There are ' + n + ' divs.' + 'Click to add more.');
             })
             // Trigger the click to start
             .trigger('click');
@@ -3414,7 +3473,7 @@ function examples() {
     }
 
     function load_1() {
-        $('#success').load('/not-here.php', function(response, status, xhr) {
+        $('#success').load('/not-here.php', function (response, status, xhr) {
             if (status == 'error') {
                 var msg = 'Sorry but there was an error: ';
                 $('#error').html(msg + xhr.status + ' ' + xhr.statusText);
@@ -3431,7 +3490,7 @@ function examples() {
     }
 
     function load_4() {
-        $('#feeds').load('feeds.php', { limit: 25 }, function() {
+        $('#feeds').load('feeds.php', { limit: 25 }, function () {
             alert('The last 25 entries in the feed have been loaded');
         });
     }
@@ -3442,16 +3501,18 @@ function examples() {
     }
 
     function map_0() {
-        $('p')
-            .append($('input').map(function() {
-                return $(this).val() as string;
-            })
+        $('p').append(
+            $('input')
+                .map(function () {
+                    return $(this).val() as string;
+                })
                 .get()
-                .join(', '));
+                .join(', '),
+        );
     }
 
     function map_1() {
-        var mappedItems = $('li').map(function(index) {
+        var mappedItems = $('li').map(function (index) {
             var replacement: Element | null = $('<li>').text($(this).text()).get(0);
             if (index === 0) {
                 // Make the first item all caps
@@ -3475,32 +3536,32 @@ function examples() {
 
     function mousedown_0() {
         $('p')
-            .mouseup(function() {
-                $(this).append('<span style=\'color:#f00;\'>Mouse up.</span>');
+            .mouseup(function () {
+                $(this).append("<span style='color:#f00;'>Mouse up.</span>");
             })
-            .mousedown(function() {
-                $(this).append('<span style=\'color:#00f;\'>Mouse down.</span>');
+            .mousedown(function () {
+                $(this).append("<span style='color:#00f;'>Mouse down.</span>");
             });
     }
 
     function mouseenter_0() {
         var i = 0;
         $('div.overout')
-            .mouseover(function() {
+            .mouseover(function () {
                 $('p:first', this).text('mouse over');
                 $('p:last', this).text(++i);
             })
-            .mouseout(function() {
+            .mouseout(function () {
                 $('p:first', this).text('mouse out');
             });
 
         var n = 0;
         $('div.enterleave')
-            .mouseenter(function() {
+            .mouseenter(function () {
                 $('p:first', this).text('mouse enter');
                 $('p:last', this).text(++n);
             })
-            .mouseleave(function() {
+            .mouseleave(function () {
                 $('p:first', this).text('mouse leave');
             });
     }
@@ -3508,27 +3569,27 @@ function examples() {
     function mouseleave_0() {
         var i = 0;
         $('div.overout')
-            .mouseover(function() {
+            .mouseover(function () {
                 $('p:first', this).text('mouse over');
             })
-            .mouseout(function() {
+            .mouseout(function () {
                 $('p:first', this).text('mouse out');
                 $('p:last', this).text(++i);
             });
 
         var n = 0;
         $('div.enterleave')
-            .mouseenter(function() {
+            .mouseenter(function () {
                 $('p:first', this).text('mouse enter');
             })
-            .mouseleave(function() {
+            .mouseleave(function () {
                 $('p:first', this).text('mouse leave');
                 $('p:last', this).text(++n);
             });
     }
 
     function mousemove_0() {
-        $('div').mousemove(function(event) {
+        $('div').mousemove(function (event) {
             var pageCoords = '( ' + event.pageX + ', ' + event.pageY + ' )';
             var clientCoords = '( ' + event.clientX + ', ' + event.clientY + ' )';
             $('span:first').text('( event.pageX, event.pageY ) : ' + pageCoords);
@@ -3539,20 +3600,20 @@ function examples() {
     function mouseout_0() {
         var i = 0;
         $('div.overout')
-            .mouseout(function() {
+            .mouseout(function () {
                 $('p:first', this).text('mouse out');
                 $('p:last', this).text(++i);
             })
-            .mouseover(function() {
+            .mouseover(function () {
                 $('p:first', this).text('mouse over');
             });
 
         var n = 0;
         $('div.enterleave')
-            .on('mouseenter', function() {
+            .on('mouseenter', function () {
                 $('p:first', this).text('mouse enter');
             })
-            .on('mouseleave', function() {
+            .on('mouseleave', function () {
                 $('p:first', this).text('mouse leave');
                 $('p:last', this).text(++n);
             });
@@ -3561,37 +3622,41 @@ function examples() {
     function mouseover_0() {
         var i = 0;
         $('div.overout')
-            .mouseover(function() {
+            .mouseover(function () {
                 i += 1;
-                $(this).find('span').text('mouse over x ' + i);
+                $(this)
+                    .find('span')
+                    .text('mouse over x ' + i);
             })
-            .mouseout(function() {
+            .mouseout(function () {
                 $(this).find('span').text('mouse out ');
             });
 
         var n = 0;
         $('div.enterleave')
-            .mouseenter(function() {
+            .mouseenter(function () {
                 n += 1;
-                $(this).find('span').text('mouse enter x ' + n);
+                $(this)
+                    .find('span')
+                    .text('mouse enter x ' + n);
             })
-            .mouseleave(function() {
+            .mouseleave(function () {
                 $(this).find('span').text('mouse leave');
             });
     }
 
     function mouseup_0() {
         $('p')
-            .mouseup(function() {
-                $(this).append('<span style=\'color:#f00;\'>Mouse up.</span>');
+            .mouseup(function () {
+                $(this).append("<span style='color:#f00;'>Mouse up.</span>");
             })
-            .mousedown(function() {
-                $(this).append('<span style=\'color:#00f;\'>Mouse down.</span>');
+            .mousedown(function () {
+                $(this).append("<span style='color:#00f;'>Mouse down.</span>");
             });
     }
 
     function attribute_multiple_0() {
-        $('input[id][name$=\'man\']').val('only this one');
+        $("input[id][name$='man']").val('only this one');
     }
 
     function multiple_0() {
@@ -3600,7 +3665,7 @@ function examples() {
 
     function multiple_1() {
         var list = $('div, p, span')
-            .map(function() {
+            .map(function () {
                 return this.tagName;
             })
             .get()
@@ -3633,13 +3698,9 @@ function examples() {
     }
 
     function next_until_0() {
-        $('#term-2')
-            .nextUntil('dt')
-            .css('background-color', 'red');
+        $('#term-2').nextUntil('dt').css('background-color', 'red');
         var term3 = document.getElementById('term-3')!;
-        $('#term-1')
-            .nextUntil(term3, 'dd')
-            .css('color', 'green');
+        $('#term-1').nextUntil(term3, 'dd').css('color', 'green');
     }
 
     function not_0() {
@@ -3648,8 +3709,7 @@ function examples() {
     }
 
     function not_1() {
-        $('div').not('.green, #blueone')
-            .css('border-color', 'red');
+        $('div').not('.green, #blueone').css('border-color', 'red');
     }
 
     function not_2() {
@@ -3669,7 +3729,7 @@ function examples() {
     }
 
     function nth_child_1() {
-        $('button').click(function() {
+        $('button').click(function () {
             var str = $(this).text();
             $('tr').css('background', 'white');
             $('tr' + str).css('background', '#ff0000');
@@ -3682,7 +3742,7 @@ function examples() {
     }
 
     function nth_last_child_1() {
-        $('button').click(function() {
+        $('button').click(function () {
             var str = $(this).text();
             $('tr').css('background', 'white');
             $('tr' + str).css('background', '#ff0000');
@@ -3695,7 +3755,7 @@ function examples() {
     }
 
     function nth_last_of_type_1() {
-        $('button').click(function() {
+        $('button').click(function () {
             var str = $(this).text();
             $('tr').css('background', 'white');
             $('tr' + str).css('background', '#ff0000');
@@ -3704,9 +3764,7 @@ function examples() {
     }
 
     function nth_of_type_0() {
-        $('span:nth-of-type(2)')
-            .append('<span> is 2nd sibling span</span>')
-            .addClass('nth');
+        $('span:nth-of-type(2)').append('<span> is 2nd sibling span</span>').addClass('nth');
     }
 
     function odd_0() {
@@ -3718,17 +3776,11 @@ function examples() {
             $('div').show().fadeOut('slow');
         }
 
-        $('#bind').click(function() {
-            $('body')
-                .on('click', '#theone', flash)
-                .find('#theone')
-                .text('Can Click!');
+        $('#bind').click(function () {
+            $('body').on('click', '#theone', flash).find('#theone').text('Can Click!');
         });
-        $('#unbind').click(function() {
-            $('body')
-                .off('click', '#theone', flash)
-                .find('#theone')
-                .text('Does nothing...');
+        $('#unbind').click(function () {
+            $('body').off('click', '#theone', flash).find('#theone').text('Does nothing...');
         });
     }
 
@@ -3741,7 +3793,7 @@ function examples() {
     }
 
     function off_3() {
-        var foo = function() {
+        var foo = function () {
             // Code to handle some kind of event
         };
 
@@ -3753,14 +3805,14 @@ function examples() {
     }
 
     function off_4() {
-        var validate = function() {
+        var validate = function () {
             // Code to validate form entries
         };
 
         // Delegate events under the ".validator" namespace
         $('form').on('click.validator', 'button', validate);
 
-        $('form').on('keypress.validator', 'input[type=\'text\']', validate);
+        $('form').on('keypress.validator', "input[type='text']", validate);
 
         // Remove event handlers in the ".validator" namespace
         $('form').off('.validator');
@@ -3773,11 +3825,10 @@ function examples() {
     }
 
     function offset_1() {
-        $('*', document.body).click(function(event) {
+        $('*', document.body).click(function (event) {
             var offset = $(this).offset()!;
             event.stopPropagation();
-            $('#result').text(this.tagName +
-                ' coords ( ' + offset.left + ', ' + offset.top + ' )');
+            $('#result').text(this.tagName + ' coords ( ' + offset.left + ', ' + offset.top + ' )');
         });
     }
 
@@ -3790,13 +3841,13 @@ function examples() {
     }
 
     function on_0() {
-        $('p').on('click', function() {
+        $('p').on('click', function () {
             alert($(this).text());
         });
     }
 
     function on_1() {
-        function myHandler(event: JQuery.TriggeredEvent<HTMLElement, { foo: string; }>) {
+        function myHandler(event: JQuery.TriggeredEvent<HTMLElement, { foo: string }>) {
             alert(event.data.foo);
         }
 
@@ -3808,33 +3859,33 @@ function examples() {
     }
 
     function on_3() {
-        $('form').on('submit', function(event) {
+        $('form').on('submit', function (event) {
             event.preventDefault();
         });
     }
 
     function on_4() {
-        $('form').on('submit', function(event) {
+        $('form').on('submit', function (event) {
             event.stopPropagation();
         });
     }
 
     function on_5() {
-        $('div').on('click', function(event, person) {
+        $('div').on('click', function (event, person) {
             alert('Hello, ' + person.name);
         });
         $('div').trigger('click', { name: 'Jim' });
     }
 
     function on_6() {
-        $('div').on('click', function(event, salutation, name) {
+        $('div').on('click', function (event, salutation, name) {
             alert(salutation + ', ' + name);
         });
         $('div').trigger('click', ['Goodbye', 'Jim']);
     }
 
     function on_7() {
-        $('p').on('myCustomEvent', function(event, myName) {
+        $('p').on('myCustomEvent', function (event, myName) {
             $(this).text(myName + ', hi there!');
             $('span')
                 .stop()
@@ -3843,18 +3894,20 @@ function examples() {
                 .fadeIn(30)
                 .fadeOut(1000);
         });
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').trigger('myCustomEvent', ['John']);
         });
     }
 
     function on_8() {
         $('div.test').on({
-            click: function() {
+            click: function () {
                 $(this).toggleClass('active');
-            }, mouseenter: function() {
+            },
+            mouseenter: function () {
                 $(this).addClass('inside');
-            }, mouseleave: function() {
+            },
+            mouseleave: function () {
                 $(this).removeClass('inside');
             },
         });
@@ -3862,51 +3915,50 @@ function examples() {
 
     function on_9() {
         var count = 0;
-        $('body').on('click', 'p', function() {
-            $(this).after('<p>Another paragraph! ' + (++count) + '</p>');
+        $('body').on('click', 'p', function () {
+            $(this).after('<p>Another paragraph! ' + ++count + '</p>');
         });
     }
 
     function on_10() {
-        $('body').on('click', 'p', function() {
+        $('body').on('click', 'p', function () {
             alert($(this).text());
         });
     }
 
     function on_11() {
-        $('body').on('click', 'a', function(event) {
+        $('body').on('click', 'a', function (event) {
             event.preventDefault();
         });
     }
 
     function on_12() {
-        $('#cart').on('mouseenter mouseleave', function(event) {
+        $('#cart').on('mouseenter mouseleave', function (event) {
             $(this).toggleClass('active');
         });
     }
 
     function one_0() {
         var n = 0;
-        $('div').one('click', function() {
+        $('div').one('click', function () {
             var index = $('div').index(this);
             $(this).css({
                 borderStyle: 'inset',
                 cursor: 'auto',
             });
-            $('p').text('Div at index #' + index + ' clicked.' +
-                ' That\'s ' + (++n) + ' total clicks.');
+            $('p').text('Div at index #' + index + ' clicked.' + " That's " + ++n + ' total clicks.');
         });
     }
 
     function one_1() {
-        $('p').one('click', function() {
+        $('p').one('click', function () {
             alert($(this).text());
         });
     }
 
     function one_2() {
         var n = 0;
-        $('.target').one('click mouseenter', function() {
+        $('.target').one('click mouseenter', function () {
             $('.count').html((++n).toString());
         });
     }
@@ -3921,14 +3973,12 @@ function examples() {
 
     function outer_height_0() {
         var p = $('p:first');
-        $('p:last').text(
-            'outerHeight:' + p.outerHeight() +
-            ' , outerHeight( true ):' + p.outerHeight(true));
+        $('p:last').text('outerHeight:' + p.outerHeight() + ' , outerHeight( true ):' + p.outerHeight(true));
     }
 
     function outer_height_1() {
         var modHeight = 60;
-        $('div').one('click', function() {
+        $('div').one('click', function () {
             $(this).outerHeight(modHeight).addClass('mod');
             modHeight -= 8;
         });
@@ -3936,14 +3986,12 @@ function examples() {
 
     function outer_width_0() {
         var p = $('p:first');
-        $('p:last').text(
-            'outerWidth:' + p.outerWidth() +
-            ' , outerWidth( true ):' + p.outerWidth(true));
+        $('p:last').text('outerWidth:' + p.outerWidth() + ' , outerWidth( true ):' + p.outerWidth(true));
     }
 
     function outer_width_1() {
         var modWidth = 60;
-        $('div').one('click', function() {
+        $('div').one('click', function () {
             $(this).outerWidth(modWidth).addClass('mod');
             modWidth -= 8;
         });
@@ -3954,7 +4002,7 @@ function examples() {
     }
 
     function parent_1() {
-        $('*', document.body).each(function() {
+        $('*', document.body).each(function () {
             var parentTag = $(this).parent().get(0).tagName;
             $(this).prepend(document.createTextNode(parentTag + ' > '));
         });
@@ -3965,8 +4013,9 @@ function examples() {
     }
 
     function parents_0() {
-        var parentEls = $('b').parents()
-            .map(function() {
+        var parentEls = $('b')
+            .parents()
+            .map(function () {
                 return this.tagName;
             })
             .get()
@@ -3977,27 +4026,20 @@ function examples() {
     function parents_1() {
         function showParents() {
             $('div').css('border-color', 'white');
-            var len = $('span.selected')
-                .parents('div')
-                .css('border', '2px red solid')
-                .length;
+            var len = $('span.selected').parents('div').css('border', '2px red solid').length;
             $('b').text('Unique div parents: ' + len);
         }
 
-        $('span').click(function() {
+        $('span').click(function () {
             $(this).toggleClass('selected');
             showParents();
         });
     }
 
     function parents_until_0() {
-        $('li.item-a')
-            .parentsUntil('.level-1')
-            .css('background-color', 'red');
+        $('li.item-a').parentsUntil('.level-1').css('background-color', 'red');
 
-        $('li.item-2')
-            .parentsUntil($('ul.level-1'), '.yes')
-            .css('border', '3px solid green');
+        $('li.item-2').parentsUntil($('ul.level-1'), '.yes').css('border', '3px solid green');
     }
 
     function password_0() {
@@ -4010,7 +4052,7 @@ function examples() {
             .css('color', 'red');
 
         // Prevent form submission
-        $('form').submit(function() {
+        $('form').submit(function () {
             return false;
         });
     }
@@ -4040,7 +4082,7 @@ function examples() {
     function prev_0() {
         var $curr = $('#start');
         $curr.css('background', '#f99');
-        $('button').click(function() {
+        $('button').click(function () {
             $curr = $curr.prev();
             $('div').css('background', '');
             $curr.css('background', '#f99');
@@ -4056,80 +4098,87 @@ function examples() {
     }
 
     function prev_until_0() {
-        $('#term-2').prevUntil('dt')
-            .css('background-color', 'red');
+        $('#term-2').prevUntil('dt').css('background-color', 'red');
 
         var term1 = document.getElementById('term-1')!;
-        $('#term-3').prevUntil(term1, 'dd')
-            .css('color', 'green');
+        $('#term-3').prevUntil(term1, 'dd').css('color', 'green');
     }
 
     function promise_0() {
         var div = $('<div>');
 
-        div.promise().done(function(this: typeof div, arg1) {
+        div.promise().done(function (this: typeof div, arg1) {
             // Will fire right away and alert "true"
             alert(this === div && arg1 === div);
         });
     }
 
     function promise_1() {
-        $('button').on('click', function() {
+        $('button').on('click', function () {
             $('p').append('Started...');
 
-            $('div').each(function(i) {
-                $(this).fadeIn().fadeOut(1000 * ( i + 1 ));
+            $('div').each(function (i) {
+                $(this)
+                    .fadeIn()
+                    .fadeOut(1000 * (i + 1));
             });
 
-            $('div').promise().done(function() {
-                $('p').append(' Finished! ');
-            });
+            $('div')
+                .promise()
+                .done(function () {
+                    $('p').append(' Finished! ');
+                });
         });
     }
 
     function promise_2() {
-        var effect = function() {
+        var effect = function () {
             return $('div').fadeIn(800).delay(1200).fadeOut();
         };
 
-        $('button').on('click', function() {
+        $('button').on('click', function () {
             $('p').append(' Started... ');
 
-            $.when(effect()).done(function() {
+            $.when(effect()).done(function () {
                 $('p').append(' Finished! ');
             });
         });
     }
 
     function prop_0() {
-        $('input').change(function() {
-            var $input = $(this);
-            $('p').html(
-                '.attr( "checked" ): <b>' + $input.attr('checked') + '</b><br>' +
-                '.prop( "checked" ): <b>' + $input.prop('checked') + '</b><br>' +
-                '.is( ":checked" ): <b>' + $input.is(':checked') + '</b>');
-        }).change();
+        $('input')
+            .change(function () {
+                var $input = $(this);
+                $('p').html(
+                    '.attr( "checked" ): <b>' +
+                        $input.attr('checked') +
+                        '</b><br>' +
+                        '.prop( "checked" ): <b>' +
+                        $input.prop('checked') +
+                        '</b><br>' +
+                        '.is( ":checked" ): <b>' +
+                        $input.is(':checked') +
+                        '</b>',
+                );
+            })
+            .change();
     }
 
     function prop_1() {
-        $('input[type=\'checkbox\']').prop({
+        $("input[type='checkbox']").prop({
             disabled: true,
         });
     }
 
     function push_stack_0() {
-        jQuery([])
-            .pushStack(document.getElementsByTagName('div'))
-            .remove()
-            .end();
+        jQuery([]).pushStack(document.getElementsByTagName('div')).remove().end();
     }
 
     function queue_0() {
         var div = $('div');
 
         function runIt() {
-            div
-                .show('slow')
+            div.show('slow')
                 .animate({ left: '+=200' }, 2000)
                 .slideToggle(1000)
                 .slideToggle('fast')
@@ -4150,15 +4199,15 @@ function examples() {
     }
 
     function queue_1() {
-        $(document.body).click(function() {
+        $(document.body).click(function () {
             $('div')
                 .show('slow')
                 .animate({ left: '+=200' }, 2000)
-                .queue(function() {
+                .queue(function () {
                     $(this).addClass('newcolor').dequeue();
                 })
                 .animate({ left: '-=200' }, 500)
-                .queue(function() {
+                .queue(function () {
                     $(this).removeClass('newcolor').dequeue();
                 })
                 .slideUp();
@@ -4166,67 +4215,62 @@ function examples() {
     }
 
     function queue_2() {
-        $('#start').click(function() {
+        $('#start').click(function () {
             $('div')
                 .show('slow')
                 .animate({ left: '+=200' }, 5000)
-                .queue(function() {
+                .queue(function () {
                     $(this).addClass('newcolor').dequeue();
                 })
                 .animate({ left: '-=200' }, 1500)
-                .queue(function() {
+                .queue(function () {
                     $(this).removeClass('newcolor').dequeue();
                 })
                 .slideUp();
         });
-        $('#stop').click(function() {
-            $('div')
-                .queue('fx', [])
-                .stop();
+        $('#stop').click(function () {
+            $('div').queue('fx', []).stop();
         });
     }
 
     function radio_0() {
-        var input = $('form input:radio')
-            .wrap('<span></span>')
-            .parent()
-            .css({
-                background: 'yellow',
-                border: '3px red solid',
-            });
+        var input = $('form input:radio').wrap('<span></span>').parent().css({
+            background: 'yellow',
+            border: '3px red solid',
+        });
 
         $('div')
             .text('For this type jQuery found ' + input.length + '.')
             .css('color', 'red');
 
         // Prevent form submission
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             event.preventDefault();
         });
     }
 
     function ready_0() {
-        $(function() {
+        $(function () {
             $('p').text('The DOM is now loaded and can be manipulated.');
         });
     }
 
     function remove_0() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').remove();
         });
     }
 
     function remove_1() {
-        $('button').click(function() {
-            $('p').remove(':contains(\'Hello\')');
+        $('button').click(function () {
+            $('p').remove(":contains('Hello')");
         });
     }
 
     function remove_attr_0() {
-        (function() {
+        (function () {
             var inputTitle = $('input').attr('title')!;
-            $('button').click(function() {
+            $('button').click(function () {
                 var input = $(this).next();
 
                 if (input.attr('title') === inputTitle) {
@@ -4264,8 +4308,7 @@ function examples() {
 
     function remove_prop_0(para: JQuery) {
         para = $('p');
-        para
-            .prop('luggageCode', 1234)
+        para.prop('luggageCode', 1234)
             .append('The secret luggage code is: ', String(para.prop('luggageCode')), '. ')
             .removeProp('luggageCode')
             .append('Now the secret luggage code is: ', String(para.prop('luggageCode')), '. ');
@@ -4276,7 +4319,7 @@ function examples() {
     }
 
     function replace_with_0() {
-        $('button').click(function() {
+        $('button').click(function () {
             $(this).replaceWith('<div>' + $(this).text() + '</div>');
         });
     }
@@ -4286,14 +4329,14 @@ function examples() {
     }
 
     function replace_with_2() {
-        $('p').click(function() {
+        $('p').click(function () {
             $(this).replaceWith($('div'));
         });
     }
 
     function replace_with_3() {
-        $('button').on('click', function() {
-            var $container = $('div.container').replaceWith(function() {
+        $('button').on('click', function () {
+            var $container = $('div.container').replaceWith(function () {
                 return $(this).contents();
             });
 
@@ -4311,13 +4354,13 @@ function examples() {
             .css('color', 'red');
 
         // Prevent form submission
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             event.preventDefault();
         });
     }
 
     function resize_0() {
-        $(window).resize(function() {
+        $(window).resize(function () {
             $('body').prepend('<div>' + $(window).width() + '</div>');
         });
     }
@@ -4330,7 +4373,7 @@ function examples() {
         $('p').clone().appendTo(document.body);
         $('p').clone().appendTo(document.body);
         $('p').clone().appendTo(document.body);
-        $(window).scroll(function() {
+        $(window).scroll(function () {
             $('span').css('display', 'inline').fadeOut('slow');
         });
     }
@@ -4354,7 +4397,7 @@ function examples() {
     }
 
     function select_0() {
-        $(':input').select(function() {
+        $(':input').select(function () {
             $('div').text('Something was selected').show().fadeOut(1000);
         });
     }
@@ -4365,9 +4408,9 @@ function examples() {
 
     function selected_0() {
         $('select')
-            .change(function() {
+            .change(function () {
                 var str = '';
-                $('select option:selected').each(function() {
+                $('select option:selected').each(function () {
                     str += $(this).text() + ' ';
                 });
                 $('div').text(str);
@@ -4381,7 +4424,7 @@ function examples() {
             $('#results').text(str);
         }
 
-        $('input[type=\'checkbox\'], input[type=\'radio\']').on('click', showValues);
+        $("input[type='checkbox'], input[type='radio']").on('click', showValues);
         $('select').on('change', showValues);
         showValues();
     }
@@ -4390,7 +4433,7 @@ function examples() {
         function showValues() {
             var fields = $(':input').serializeArray();
             $('#results').empty();
-            jQuery.each(fields, function(i, field) {
+            jQuery.each(fields, function (i, field) {
                 $('#results').append(field.value + ' ');
             });
         }
@@ -4401,19 +4444,21 @@ function examples() {
     }
 
     function show_0() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').show('slow');
         });
     }
 
     function show_1() {
-        $('#showr').click(function() {
-            $('div').first().show('fast', function showNext() {
-                $(this).next('div').show('fast', showNext);
-            });
+        $('#showr').click(function () {
+            $('div')
+                .first()
+                .show('fast', function showNext() {
+                    $(this).next('div').show('fast', showNext);
+                });
         });
 
-        $('#hidr').click(function() {
+        $('#hidr').click(function () {
             $('div').hide(1000);
         });
     }
@@ -4426,9 +4471,9 @@ function examples() {
         // Can pass in function name
         $('button').click(doIt);
 
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             if ($('input').val() === 'yes') {
-                $('p').show(4000, function() {
+                $('p').show(4000, function () {
                     $(this).text('Ok, DONE! (now showing)');
                 });
             }
@@ -4440,9 +4485,7 @@ function examples() {
     }
 
     function siblings_0() {
-        var len = $('.hilite').siblings()
-            .css('color', 'red')
-            .length;
+        var len = $('.hilite').siblings().css('color', 'red').length;
         $('b').text(len);
     }
 
@@ -4454,8 +4497,7 @@ function examples() {
         function colorEm() {
             var $div = $('div');
             var start = Math.floor(Math.random() * $div.length);
-            var end: number | undefined = Math.floor(Math.random() * ( $div.length - start )) +
-                start + 1;
+            var end: number | undefined = Math.floor(Math.random() * ($div.length - start)) + start + 1;
             if (end === $div.length) {
                 end = undefined;
             }
@@ -4465,9 +4507,7 @@ function examples() {
             } else {
                 $div.slice(start).css('background', 'yellow');
             }
-            $('span').text('$( \'div\' ).slice( ' + start +
-                (end ? ', ' + end : '') +
-                ').css( \'background\', \'yellow\' );');
+            $('span').text("$( 'div' ).slice( " + start + (end ? ', ' + end : '') + ").css( 'background', 'yellow' );");
         }
 
         $('button').click(colorEm);
@@ -4494,7 +4534,7 @@ function examples() {
     }
 
     function slide_down_0() {
-        $(document.body).click(function() {
+        $(document.body).click(function () {
             if ($('div:first').is(':hidden')) {
                 $('div').slideDown('slow');
             } else {
@@ -4504,31 +4544,27 @@ function examples() {
     }
 
     function slide_down_1() {
-        $('div').click(function() {
+        $('div').click(function () {
             $(this).css({
                 borderStyle: 'inset',
                 cursor: 'wait',
             });
-            $('input').slideDown(1000, function() {
-                $(this)
-                    .css('border', '2px red inset')
-                    .filter('.middle')
-                    .css('background', 'yellow')
-                    .focus();
+            $('input').slideDown(1000, function () {
+                $(this).css('border', '2px red inset').filter('.middle').css('background', 'yellow').focus();
                 $('div').css('visibility', 'hidden');
             });
         });
     }
 
     function slide_toggle_0() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').slideToggle('slow');
         });
     }
 
     function slide_toggle_1() {
-        $('#aa').click(function() {
-            $('div:not(.still)').slideToggle('slow', function() {
+        $('#aa').click(function () {
+            $('div:not(.still)').slideToggle('slow', function () {
                 var n = parseInt($('span').text(), 10);
                 $('span').text(n + 1);
             });
@@ -4536,7 +4572,7 @@ function examples() {
     }
 
     function slide_up_0() {
-        $(document.body).click(function() {
+        $(document.body).click(function () {
             if ($('div:first').is(':hidden')) {
                 $('div').show('slow');
             } else {
@@ -4546,26 +4582,28 @@ function examples() {
     }
 
     function slide_up_1() {
-        $('button').click(function() {
-            $(this).parent().slideUp('slow', function() {
-                $('#msg').text($('button', this).text() + ' has completed.');
-            });
+        $('button').click(function () {
+            $(this)
+                .parent()
+                .slideUp('slow', function () {
+                    $('#msg').text($('button', this).text() + ' has completed.');
+                });
         });
     }
 
     function stop_0() {
         // Start animation
-        $('#go').click(function() {
+        $('#go').click(function () {
             $('.block').animate({ left: '+=100px' }, 2000);
         });
 
         // Stop animation when button is clicked
-        $('#stop').click(function() {
+        $('#stop').click(function () {
             $('.block').stop();
         });
 
         // Start animation in the opposite direction
-        $('#back').click(function() {
+        $('#back').click(function () {
             $('.block').animate({ left: '-=100px' }, 2000);
         });
     }
@@ -4574,7 +4612,7 @@ function examples() {
         var $block = $('.block');
 
         // Toggle a sliding animation animation
-        $('#toggle').on('click', function() {
+        $('#toggle').on('click', function () {
             $block.stop().slideToggle(1000);
         });
     }
@@ -4591,20 +4629,22 @@ function examples() {
         $('#result').text('jQuery matched ' + submitEl.length + ' elements.');
 
         // Prevent form submission
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             event.preventDefault();
         });
 
         // Extra JS to make the HTML easier to edit (None of this is relevant to the ':submit' selector)
-        $('#exampleTable').find('td').each(function(i, el) {
-            var inputEl = $(el).children(),
-                inputType = inputEl.attr('type') ? ' type=\'' + inputEl.attr('type') + '\'' : '';
-            $(el).before('<td>' + inputEl[0].nodeName + inputType + '</td>');
-        });
+        $('#exampleTable')
+            .find('td')
+            .each(function (i, el) {
+                var inputEl = $(el).children(),
+                    inputType = inputEl.attr('type') ? " type='" + inputEl.attr('type') + "'" : '';
+                $(el).before('<td>' + inputEl[0].nodeName + inputType + '</td>');
+            });
     }
 
     function submit_1() {
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             if ($('input:first').val() === 'correct') {
                 $('span').text('Validated...').show();
                 return;
@@ -4616,7 +4656,7 @@ function examples() {
     }
 
     function submit_2() {
-        $('form').submit(function() {
+        $('form').submit(function () {
             // return this.some_flag_variable;
         });
     }
@@ -4636,7 +4676,7 @@ function examples() {
             .css('color', 'red');
 
         // Prevent form submission
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
             event.preventDefault();
         });
     }
@@ -4663,36 +4703,36 @@ function examples() {
     }
 
     function toggle_0() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').toggle();
         });
     }
 
     function toggle_1() {
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').toggle('slow');
         });
     }
 
     function toggle_2() {
         var flip = 0;
-        $('button').click(function() {
+        $('button').click(function () {
             $('p').toggle(flip++ % 2 === 0);
         });
     }
 
     function toggle_class_0() {
-        $('p').click(function() {
+        $('p').click(function () {
             $(this).toggleClass('highlight');
         });
     }
 
     function toggle_class_1() {
         var count = 0;
-        $('p').each(function() {
+        $('p').each(function () {
             var $thisParagraph = $(this);
             var count = 0;
-            $thisParagraph.click(function() {
+            $thisParagraph.click(function () {
                 count++;
                 $thisParagraph.find('span').text('clicks: ' + count);
                 $thisParagraph.toggleClass('highlight', count % 3 === 0);
@@ -4703,23 +4743,23 @@ function examples() {
     function toggle_class_2() {
         var cls = ['', 'a', 'a b', 'a b c'];
         var divs = $('div.wrap').children();
-        var appendClass = function() {
-            divs.append(function() {
-                return '<div>' + ( this.className || 'none' ) + '</div>';
+        var appendClass = function () {
+            divs.append(function () {
+                return '<div>' + (this.className || 'none') + '</div>';
             });
         };
 
         appendClass();
 
-        $('button').on('click', function() {
+        $('button').on('click', function () {
             var tc = this.className || undefined;
             divs.toggleClass(tc!);
             appendClass();
         });
 
-        $('a').on('click', function(event) {
+        $('a').on('click', function (event) {
             event.preventDefault();
-            divs.empty().each(function(i) {
+            divs.empty().each(function (i) {
                 this.className = cls[i];
             });
             appendClass();
@@ -4727,11 +4767,11 @@ function examples() {
     }
 
     function trigger_0() {
-        $('button:first').click(function() {
+        $('button:first').click(function () {
             update($('span:first'));
         });
 
-        $('button:last').click(function() {
+        $('button:last').click(function () {
             $('button:first').trigger('click');
             update($('span:last'));
         });
@@ -4756,7 +4796,7 @@ function examples() {
 
     function trigger_3() {
         $('p')
-            .click(function(event, a, b) {
+            .click(function (event, a, b) {
                 // When a normal click fires, a and b are undefined
                 // for a trigger like below a refers to "foo" and b refers to "bar"
             })
@@ -4779,13 +4819,13 @@ function examples() {
     }
 
     function trigger_handler_0() {
-        $('#old').click(function() {
+        $('#old').click(function () {
             $('input').trigger('focus');
         });
-        $('#new').click(function() {
+        $('#new').click(function () {
             $('input').triggerHandler('focus');
         });
-        $('input').focus(function() {
+        $('input').focus(function () {
             $('<span>Focused!</span>').appendTo('body').fadeOut(1000);
         });
     }
@@ -4795,15 +4835,11 @@ function examples() {
             $('div').show().fadeOut('slow');
         }
 
-        $('#bind').click(function() {
-            $('#theone')
-                .bind('click', aClick)
-                .text('Can Click!');
+        $('#bind').click(function () {
+            $('#theone').bind('click', aClick).text('Can Click!');
         });
-        $('#unbind').click(function() {
-            $('#theone')
-                .unbind('click', aClick)
-                .text('Does nothing...');
+        $('#unbind').click(function () {
+            $('#theone').unbind('click', aClick).text('Does nothing...');
         });
     }
 
@@ -4816,7 +4852,7 @@ function examples() {
     }
 
     function unbind_3() {
-        var foo = function() {
+        var foo = function () {
             // Code to handle some kind of event
         };
 
@@ -4830,15 +4866,11 @@ function examples() {
             $('div').show().fadeOut('slow');
         }
 
-        $('#bind').click(function() {
-            $('body')
-                .delegate('#theone', 'click', aClick)
-                .find('#theone').text('Can Click!');
+        $('#bind').click(function () {
+            $('body').delegate('#theone', 'click', aClick).find('#theone').text('Can Click!');
         });
-        $('#unbind').click(function() {
-            $('body')
-                .undelegate('#theone', 'click', aClick)
-                .find('#theone').text('Does nothing...');
+        $('#unbind').click(function () {
+            $('body').undelegate('#theone', 'click', aClick).find('#theone').text('Does nothing...');
         });
     }
 
@@ -4851,7 +4883,7 @@ function examples() {
     }
 
     function undelegate_3() {
-        var foo = function() {
+        var foo = function () {
             // Code to handle some kind of event
         };
 
@@ -4863,14 +4895,14 @@ function examples() {
     }
 
     function undelegate_4() {
-        var foo = function() {
+        var foo = function () {
             // Code to handle some kind of event
         };
 
         // Delegate events under the ".whatever" namespace
         $('form').delegate(':button', 'click.whatever', foo);
 
-        $('form').delegate('input[type=\'text\'] ', 'keypress.whatever', foo);
+        $('form').delegate("input[type='text'] ", 'keypress.whatever', foo);
 
         // Unbind all events delegated under the ".whatever" namespace
         $('form').undelegate('.whatever');
@@ -4878,7 +4910,7 @@ function examples() {
 
     function unwrap_0() {
         var pTags = $('p');
-        $('button').click(function() {
+        $('button').click(function () {
             if (pTags.parent().is('div')) {
                 pTags.unwrap();
             } else {
@@ -4890,11 +4922,10 @@ function examples() {
     function val_0() {
         function displayVals() {
             var singleValues = $('#single').val();
-            var multipleValues = $('#multiple').val() as string[] || [];
+            var multipleValues = ($('#multiple').val() as string[]) || [];
             // When using jQuery 3:
             // var multipleValues = $( "#multiple" ).val();
-            $('p').html('<b>Single:</b> ' + singleValues +
-                ' <b>Multiple:</b> ' + multipleValues.join(', '));
+            $('p').html('<b>Single:</b> ' + singleValues + ' <b>Multiple:</b> ' + multipleValues.join(', '));
         }
 
         $('select').change(displayVals);
@@ -4903,7 +4934,7 @@ function examples() {
 
     function val_1() {
         $('input')
-            .keyup(function() {
+            .keyup(function () {
                 var value = $(this).val() as string;
                 $('p').text(value);
             })
@@ -4911,15 +4942,15 @@ function examples() {
     }
 
     function val_2() {
-        $('button').click(function() {
+        $('button').click(function () {
             var text = $(this).text();
             $('input').val(text);
         });
     }
 
     function val_3() {
-        $('input').on('blur', function() {
-            $(this).val(function(i, val) {
+        $('input').on('blur', function () {
+            $(this).val(function (i, val) {
                 return val.toUpperCase();
             });
         });
@@ -4932,10 +4963,10 @@ function examples() {
     }
 
     function visible_0() {
-        $('div:visible').click(function() {
+        $('div:visible').click(function () {
             $(this).css('background', 'yellow');
         });
-        $('button').click(function() {
+        $('button').click(function () {
             $('div:hidden').show('fast');
         });
     }
@@ -4945,20 +4976,20 @@ function examples() {
             $('div').text('The width for the ' + ele + ' is ' + w + 'px.');
         }
 
-        $('#getp').click(function() {
+        $('#getp').click(function () {
             showWidth('paragraph', $('p').width()!);
         });
-        $('#getd').click(function() {
+        $('#getd').click(function () {
             showWidth('document', $(document).width()!);
         });
-        $('#getw').click(function() {
+        $('#getw').click(function () {
             showWidth('window', $(window).width()!);
         });
     }
 
     function width_1() {
         var modWidth = 50;
-        $('div').one('click', function() {
+        $('div').one('click', function () {
             $(this).width(modWidth).addClass('mod');
             modWidth -= 8;
         });
@@ -5009,6 +5040,6 @@ function examples() {
     }
 
     function wrap_inner_3() {
-        $('p').wrapInner($('<span class=\'red\'></span>'));
+        $('p').wrapInner($("<span class='red'></span>"));
     }
 }

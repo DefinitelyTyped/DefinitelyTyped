@@ -1,26 +1,34 @@
-import * as ProxyVerifier from "proxy-verifier";
+import * as ProxyVerifier from 'proxy-verifier';
 
 const proxy: ProxyVerifier.Proxy = {
-	ipAddress: "123.123.123.123",
-	port: 8080,
-	auth: "test",
-	protocol: "socks5",
-	protocols: [ "socks5", "https" ]
+    ipAddress: '123.123.123.123',
+    port: 8080,
+    auth: 'test',
+    protocol: 'socks5',
+    protocols: ['socks5', 'https'],
 };
 
 const requestOptions = {
-	method: "GET"
+    method: 'GET',
 };
 
 const testOptions = {
-	testUrl: "www.example.com",
-	testFn: (data: string, status: number, headers: ProxyVerifier.Headers) => {}
+    testUrl: 'www.example.com',
+    testFn: (data: string, status: number, headers: ProxyVerifier.Headers) => {},
 };
 
-function cb(error: any, result: string | ProxyVerifier.Result | ProxyVerifier.ProtocolResult | ProxyVerifier.CustomTestResult | ProxyVerifier.AllResults) {
-	if (error) console.error(error);
+function cb(
+    error: any,
+    result:
+        | string
+        | ProxyVerifier.Result
+        | ProxyVerifier.ProtocolResult
+        | ProxyVerifier.CustomTestResult
+        | ProxyVerifier.AllResults,
+) {
+    if (error) console.error(error);
 
-	console.log(result);
+    console.log(result);
 }
 
 ProxyVerifier.testAll(proxy, requestOptions, cb);

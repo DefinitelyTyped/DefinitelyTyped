@@ -1,5 +1,5 @@
-import * as RDF from "rdf-js";
-import * as DataFactory from "rdf-data-model";
+import * as RDF from 'rdf-js';
+import * as DataFactory from 'rdf-data-model';
 
 function test_datafactory() {
     const namedNode: RDF.NamedNode = DataFactory.namedNode('http://example.org');
@@ -16,7 +16,7 @@ function test_datafactory() {
     const defaultGraph1: RDF.DefaultGraph = DataFactory.defaultGraphInstance;
     const defaultGraph2: RDF.DefaultGraph = DataFactory.defaultGraph();
 
-    const term: RDF.Term = <any> {};
+    const term: RDF.Term = <any>{};
     const triple: RDF.Quad = DataFactory.triple(term, term, term);
     const quad: RDF.Quad = DataFactory.quad(term, term, term, term);
 }

@@ -129,7 +129,7 @@ export enum InlineFunctions {
     Disabled = 0,
     SimpleFunctions = 1,
     WithArguments = 2,
-    WithArgumentsAndVariables = 3
+    WithArgumentsAndVariables = 3,
 }
 export interface MangleOptions {
     /** Pass true to mangle names visible in scopes where `eval` or with are used. */
@@ -181,7 +181,7 @@ export enum OutputQuoteStyle {
     PreferDouble = 0,
     AlwaysSingle = 1,
     AlwaysDouble = 2,
-    AlwaysOriginal = 3
+    AlwaysOriginal = 3,
 }
 
 export interface MinifyOptions {

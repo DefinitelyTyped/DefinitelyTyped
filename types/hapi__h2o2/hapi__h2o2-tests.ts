@@ -13,7 +13,7 @@ async function main() {
             // ResponseToolkit augmentation
             // https://github.com/hapijs/h2o2#hproxyoptions
             return h.proxy({ host: 'example.com', port: 80, protocol: 'http' });
-        }
+        },
     });
 
     server.route({
@@ -25,9 +25,9 @@ async function main() {
             proxy: {
                 host: '10.33.33.1',
                 port: '443',
-                protocol: 'https'
-            }
-        }
+                protocol: 'https',
+            },
+        },
     });
 
     server.route({
@@ -37,11 +37,10 @@ async function main() {
             // HandlerDecorations augmentation
             // https://github.com/hapijs/h2o2#using-the-uri-option
             proxy: {
-                uri: 'https://some.upstream.service.com/that/has?what=you&want=todo'
-            }
-        }
+                uri: 'https://some.upstream.service.com/that/has?what=you&want=todo',
+            },
+        },
     });
-
 
     server.route({
         method: 'GET',
@@ -50,9 +49,9 @@ async function main() {
             // HandlerDecorations augmentation
             // https://github.com/hapijs/h2o2#custom-uri-template-values
             proxy: {
-                uri: '{protocol}://{host}:{port}/go/to/{path}'
-            }
-        }
+                uri: '{protocol}://{host}:{port}/go/to/{path}',
+            },
+        },
     });
 
     server.route({
@@ -62,9 +61,9 @@ async function main() {
             // HandlerDecorations augmentation
             // https://github.com/hapijs/h2o2#custom-uri-template-values
             proxy: {
-                uri: 'https://some.upstream.service.com/some/path/to/{bar}'
-            }
-        }
+                uri: 'https://some.upstream.service.com/some/path/to/{bar}',
+            },
+        },
     });
 
     server.route({
@@ -77,7 +76,7 @@ async function main() {
                 async mapUri(request) {
                     console.log('doing some additional stuff before redirecting');
                     return {
-                        uri: 'https://some.upstream.service.com/'
+                        uri: 'https://some.upstream.service.com/',
                     };
                 },
 
@@ -85,7 +84,7 @@ async function main() {
                     console.log('receiving the response from the upstream.');
                     const payload = await wreck.read(res, { json: true });
 
-                    console.log('some payload manipulation if you want to.')
+                    console.log('some payload manipulation if you want to.');
                     let response = h.response(payload);
 
                     // TODO find a quicker way to do this
@@ -101,9 +100,9 @@ async function main() {
                         }
                     }
                     return response;
-                }
-            }
-        }
+                },
+            },
+        },
     });
 
     await server.start();
@@ -124,8 +123,8 @@ async function main() {
 var proxyOptions: h2o2.ProxyHandlerOptions = {
     host: '10.33.33.1',
     port: '443',
-    protocol: 'https'  // errors correctly if misspelt
-}
+    protocol: 'https', // errors correctly if misspelt
+};
 
 const badProtocolDemo: hapi.ServerRoute = {
     method: 'GET',
@@ -133,10 +132,10 @@ const badProtocolDemo: hapi.ServerRoute = {
     handler: {
         proxy: {
             host: '10.33.33.1',
-            port: '443'
+            port: '443',
             // port: null // detected as incompatible
-        }
-    }
+        },
+    },
 };
 
 const replyViaToolkit: hapi.ServerRoute = {
@@ -146,11 +145,14 @@ const replyViaToolkit: hapi.ServerRoute = {
         return h.proxy({
             host: '10.33.33.1',
             port: '443',
-            protocol: 'https'
+            protocol: 'https',
         });
-    }
+    },
 };
 
 if (!module.parent) {
-    main().then(() => console.log('done'), err => console.error(err.stack));
+    main().then(
+        () => console.log('done'),
+        (err) => console.error(err.stack),
+    );
 }

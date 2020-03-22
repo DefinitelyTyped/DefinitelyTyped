@@ -40,7 +40,7 @@ function test_shape() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).shape({
@@ -55,18 +55,18 @@ function test_shape() {
         },
         selector: {
             sides: 'sides',
-            side: 'side'
+            side: 'side',
         },
         className: {
             animating: 'animating',
             hidden: 'hidden',
             loading: 'loading',
-            active: 'active'
+            active: 'active',
         },
         error: {
             side: 'side',
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).shape(); // $ExpectType JQuery<HTMLElement>
 

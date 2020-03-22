@@ -21,15 +21,9 @@ declare class Liftoff extends EventEmitter {
      * Launches your application with provided options, builds an environment,
      * and invokes your callback, passing the calculated environment as the first argument.
      */
-    launch(
-        opts: Liftoff.LaunchOptions,
-        callback: (this: this, env: Liftoff.LiftoffEnv) => void
-    ): void;
+    launch(opts: Liftoff.LaunchOptions, callback: (this: this, env: Liftoff.LiftoffEnv) => void): void;
 
-    addListener(
-        event: 'require',
-        listener: (name: string, module: ExtensionDescriptor) => void
-    ): this;
+    addListener(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
     addListener(event: 'requireFail', listener: (name: string, err: any) => void): this;
     addListener(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
     on(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
@@ -38,33 +32,15 @@ declare class Liftoff extends EventEmitter {
     once(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
     once(event: 'requireFail', listener: (name: string, err: any) => void): this;
     once(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
-    prependListener(
-        event: 'require',
-        listener: (name: string, module: ExtensionDescriptor) => void
-    ): this;
+    prependListener(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
     prependListener(event: 'requireFail', listener: (name: string, err: any) => void): this;
-    prependListener(
-        event: 'respawn',
-        listener: (flags: string[], child: NodeJS.Process) => void
-    ): this;
-    prependOnceListener(
-        event: 'require',
-        listener: (name: string, module: ExtensionDescriptor) => void
-    ): this;
+    prependListener(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
+    prependOnceListener(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
     prependOnceListener(event: 'requireFail', listener: (name: string, err: any) => void): this;
-    prependOnceListener(
-        event: 'respawn',
-        listener: (flags: string[], child: NodeJS.Process) => void
-    ): this;
-    removeListener(
-        event: 'require',
-        listener: (name: string, module: ExtensionDescriptor) => void
-    ): this;
+    prependOnceListener(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
+    removeListener(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
     removeListener(event: 'requireFail', listener: (name: string, err: any) => void): this;
-    removeListener(
-        event: 'respawn',
-        listener: (flags: string[], child: NodeJS.Process) => void
-    ): this;
+    removeListener(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;
     off(event: 'require', listener: (name: string, module: ExtensionDescriptor) => void): this;
     off(event: 'requireFail', listener: (name: string, err: any) => void): this;
     off(event: 'respawn', listener: (flags: string[], child: NodeJS.Process) => void): this;

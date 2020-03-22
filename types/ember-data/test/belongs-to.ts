@@ -18,7 +18,7 @@ declare module 'ember-data/types/registries/model' {
 const folder = Folder.create();
 assertType<Folder>(folder.get('parent'));
 assertType<string>(folder.get('parent').get('name'));
-folder.get('parent').then(parent => {
+folder.get('parent').then((parent) => {
     assertType<Folder>(parent);
     assertType<string>(parent.get('name'));
     folder.set('parent', parent);

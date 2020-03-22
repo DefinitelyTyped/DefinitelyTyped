@@ -1,2 +1,2 @@
-import { identical } from "../fp";
+import { identical } from '../fp';
 export = identical;

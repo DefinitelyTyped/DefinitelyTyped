@@ -3,9 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 ///<reference types="node" />
-
 
 import events = require('events');
 
@@ -14,15 +12,30 @@ export declare function open(connectionString: string, callback?: OpenCallback):
 export declare function query(connectionString: string, query: string): StreamEvents;
 export declare function query(connectionString: string, query: string, callback: QueryCallback<any>): StreamEvents;
 export declare function query(connectionString: string, query: string, params: any[]): StreamEvents;
-export declare function query(connectionString: string, query: string, params: any[], callback: QueryCallback<any>): StreamEvents;
+export declare function query(
+    connectionString: string,
+    query: string,
+    params: any[],
+    callback: QueryCallback<any>,
+): StreamEvents;
 
 export declare function query<T>(connectionString: string, query: string, callback: QueryCallback<T>): StreamEvents;
-export declare function query<T>(connectionString: string, query: string, params: any[], callback: QueryCallback<T>): StreamEvents;
+export declare function query<T>(
+    connectionString: string,
+    query: string,
+    params: any[],
+    callback: QueryCallback<T>,
+): StreamEvents;
 
 export declare function queryRaw(connectionString: string, query: string): StreamEvents;
 export declare function queryRaw(connectionString: string, query: string, callback: QueryRawCallback): StreamEvents;
 export declare function queryRaw(connectionString: string, query: string, params: any[]): StreamEvents;
-export declare function queryRaw(connectionString: string, query: string, params: any[], callback: QueryRawCallback): StreamEvents;
+export declare function queryRaw(
+    connectionString: string,
+    query: string,
+    params: any[],
+    callback: QueryRawCallback,
+): StreamEvents;
 
 interface OpenCallback {
     (err?: Error, connection?: Connection): void;
@@ -71,4 +84,4 @@ interface Connection {
     close(immediately: boolean, callback?: ErrorCallback);
 }
 
-interface StreamEvents extends events.EventEmitter { }
+interface StreamEvents extends events.EventEmitter {}

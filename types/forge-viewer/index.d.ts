@@ -24,220 +24,220 @@
 declare namespace Autodesk {
     namespace Viewing {
         enum ErrorCodes {
-          UNKNOWN_FAILURE = 1,
-          BAD_DATA = 2,
-          NETWORK_FAILURE = 3,
-          NETWORK_ACCESS_DENIED = 4,
-          NETWORK_FILE_NOT_FOUND = 5,
-          NETWORK_SERVER_ERROR = 6,
-          NETWORK_UNHANDLED_RESPONSE_CODE = 7,
-          BROWSER_WEBGL_NOT_SUPPORTED = 8,
-          BAD_DATA_NO_VIEWABLE_CONTENT = 9,
-          BROWSER_WEBGL_DISABLED = 10,
-          BAD_DATA_MODEL_IS_EMPTY = 11,
-          RTC_ERROR = 12,
-          UNSUPORTED_FILE_EXTENSION = 13,
-          VIEWER_INTERNAL_ERROR = 14,
+            UNKNOWN_FAILURE = 1,
+            BAD_DATA = 2,
+            NETWORK_FAILURE = 3,
+            NETWORK_ACCESS_DENIED = 4,
+            NETWORK_FILE_NOT_FOUND = 5,
+            NETWORK_SERVER_ERROR = 6,
+            NETWORK_UNHANDLED_RESPONSE_CODE = 7,
+            BROWSER_WEBGL_NOT_SUPPORTED = 8,
+            BAD_DATA_NO_VIEWABLE_CONTENT = 9,
+            BROWSER_WEBGL_DISABLED = 10,
+            BAD_DATA_MODEL_IS_EMPTY = 11,
+            RTC_ERROR = 12,
+            UNSUPORTED_FILE_EXTENSION = 13,
+            VIEWER_INTERNAL_ERROR = 14,
         }
 
         enum SelectionMode {
-          MIXED,
-          REGULAR,
-          OVERLAYED,
-          LEAF_OBJECT,
-          FIRST_OBJECT,
-          LAST_OBJECT,
+            MIXED,
+            REGULAR,
+            OVERLAYED,
+            LEAF_OBJECT,
+            FIRST_OBJECT,
+            LAST_OBJECT,
         }
 
         enum ProgressState {
-          ROOT_LOADED,
-          LOADING,
-          RENDERING,
+            ROOT_LOADED,
+            LOADING,
+            RENDERING,
         }
 
         enum KeyCode {
-          BACKSPACE = 8,
-          TAB = 9,
-          ENTER = 13,
-          SHIFT = 16,
-          CONTROL = 17,
-          ALT = 18,
-          ESCAPE = 27,
-          SPACE = 32,
-          PAGEUP = 33,
-          PAGEDOWN = 34,
-          END = 35,
-          HOME = 36,
-          LEFT = 37,
-          UP = 38,
-          RIGHT = 39,
-          DOWN = 40,
-          INSERT = 45,
-          DELETE = 46,
-          ZERO = 48,
-          SEMICOLONMOZ = 59,
-          EQUALSMOZ = 61,
-          a = 65,
-          b = 66,
-          c = 67,
-          d = 68,
-          e = 69,
-          f = 70,
-          g = 71,
-          h = 72,
-          i = 73,
-          j = 74,
-          k = 75,
-          l = 76,
-          m = 77,
-          n = 78,
-          o = 79,
-          p = 80,
-          q = 81,
-          r = 82,
-          s = 83,
-          t = 84,
-          u = 85,
-          v = 86,
-          w = 87,
-          x = 88,
-          y = 89,
-          z = 90,
-          LCOMMAND = 91,
-          RCOMMAND = 93,
-          PLUS = 107,
-          PLUSMOZ = 171,
-          DASHMOZ = 109,
-          F1 = 112,
-          F2 = 113,
-          F3 = 114,
-          F4 = 115,
-          F5 = 116,
-          F6 = 117,
-          F7 = 118,
-          F8 = 119,
-          F9 = 120,
-          F10 = 121,
-          F11 = 122,
-          F12 = 123,
-          DASHMOZNEW = 173,
-          SEMICOLON = 186,
-          EQUALS = 187,
-          COMMA = 188,
-          DASH = 189,
-          PERIOD = 190,
-          SLASH = 191,
-          LBRACKET = 219,
-          RBRACKET = 221,
-          SINGLEQUOTE = 222,
-          COMMANDMOZ = 224,
+            BACKSPACE = 8,
+            TAB = 9,
+            ENTER = 13,
+            SHIFT = 16,
+            CONTROL = 17,
+            ALT = 18,
+            ESCAPE = 27,
+            SPACE = 32,
+            PAGEUP = 33,
+            PAGEDOWN = 34,
+            END = 35,
+            HOME = 36,
+            LEFT = 37,
+            UP = 38,
+            RIGHT = 39,
+            DOWN = 40,
+            INSERT = 45,
+            DELETE = 46,
+            ZERO = 48,
+            SEMICOLONMOZ = 59,
+            EQUALSMOZ = 61,
+            a = 65,
+            b = 66,
+            c = 67,
+            d = 68,
+            e = 69,
+            f = 70,
+            g = 71,
+            h = 72,
+            i = 73,
+            j = 74,
+            k = 75,
+            l = 76,
+            m = 77,
+            n = 78,
+            o = 79,
+            p = 80,
+            q = 81,
+            r = 82,
+            s = 83,
+            t = 84,
+            u = 85,
+            v = 86,
+            w = 87,
+            x = 88,
+            y = 89,
+            z = 90,
+            LCOMMAND = 91,
+            RCOMMAND = 93,
+            PLUS = 107,
+            PLUSMOZ = 171,
+            DASHMOZ = 109,
+            F1 = 112,
+            F2 = 113,
+            F3 = 114,
+            F4 = 115,
+            F5 = 116,
+            F6 = 117,
+            F7 = 118,
+            F8 = 119,
+            F9 = 120,
+            F10 = 121,
+            F11 = 122,
+            F12 = 123,
+            DASHMOZNEW = 173,
+            SEMICOLON = 186,
+            EQUALS = 187,
+            COMMA = 188,
+            DASH = 189,
+            PERIOD = 190,
+            SLASH = 191,
+            LBRACKET = 219,
+            RBRACKET = 221,
+            SINGLEQUOTE = 222,
+            COMMANDMOZ = 224,
         }
 
         interface ViewerEvent {
-          (event: any): void;
+            (event: any): void;
         }
 
         interface Viewer3DConfig {
-          startOnInitialize?: boolean;
-          theme?: 'dark-theme'|'light-theme'|string;
-          [key: string]: any;
+            startOnInitialize?: boolean;
+            theme?: 'dark-theme' | 'light-theme' | string;
+            [key: string]: any;
         }
 
         interface ViewerConfig {
-          disableBrowserContextMenu?: boolean;
-          disabledExtensions?: {
-            bimwalk?: boolean;
-            hyperlink?: boolean;
-            measure?: boolean;
-            scalarisSimulation?: boolean;
-            section?: boolean;
-          };
-          extensions?: string[];
-          useConsolidation?: boolean;
-          consolidationMemoryLimit?: number;
-          sharedPropertyDbPath?: string;
-          bubbleNode?: BubbleNode;
-          canvasConfig?: any;
-          startOnInitialize?: boolean;
-          experimental?: any[];
-          theme?: 'dark-theme'|'light-theme'|string;
-          [key: string]: any;
+            disableBrowserContextMenu?: boolean;
+            disabledExtensions?: {
+                bimwalk?: boolean;
+                hyperlink?: boolean;
+                measure?: boolean;
+                scalarisSimulation?: boolean;
+                section?: boolean;
+            };
+            extensions?: string[];
+            useConsolidation?: boolean;
+            consolidationMemoryLimit?: number;
+            sharedPropertyDbPath?: string;
+            bubbleNode?: BubbleNode;
+            canvasConfig?: any;
+            startOnInitialize?: boolean;
+            experimental?: any[];
+            theme?: 'dark-theme' | 'light-theme' | string;
+            [key: string]: any;
         }
 
         interface ItemSelectedObserver {
-          onItemSelected(viewer: Viewer3D): void;
+            onItemSelected(viewer: Viewer3D): void;
         }
 
         interface SelectionVisibility {
-          hasVisible: boolean;
-          hasHidden: boolean;
+            hasVisible: boolean;
+            hasHidden: boolean;
         }
 
         interface ThumbnailOptions {
-          urn: string;
-          width: number;
-          height: number;
-          guid: string;
-          acmsession: (string);
+            urn: string;
+            width: number;
+            height: number;
+            guid: string;
+            acmsession: string;
         }
 
         interface FileLoaderOptions {
-          ids?: string;
-          sharedPropertyDbPath?: string;
-          [key: string]: any;
+            ids?: string;
+            sharedPropertyDbPath?: string;
+            [key: string]: any;
         }
 
         interface LoadModelOptions {
-          fileLoader?: FileLoader;
-          loadOptions?: object;
-          sharedPropertyDbPath?: string;
-          ids?: string;
-          [key: string]: any;
+            fileLoader?: FileLoader;
+            loadOptions?: object;
+            sharedPropertyDbPath?: string;
+            ids?: string;
+            [key: string]: any;
         }
 
         interface PropertyOptions {
-          propFilter?: string[];
-          ignoreHidden?: boolean;
-          [key: string]: any;
+            propFilter?: string[];
+            ignoreHidden?: boolean;
+            [key: string]: any;
         }
 
         interface ResizePanelOptions {
-          dockingPanels?: UI.DockingPanel[];
-          viewer?: Viewer3D;
-          dimensions?: {
-            width: number;
-            height: number;
-          };
+            dockingPanels?: UI.DockingPanel[];
+            viewer?: Viewer3D;
+            dimensions?: {
+                width: number;
+                height: number;
+            };
         }
 
         class FileLoader {
-          constructor(viewer: Viewer3D);
+            constructor(viewer: Viewer3D);
 
-          is3d(): boolean;
-          loadFile(url: string, options: FileLoaderOptions, onSuccess: () => void, onError: () => void): void;
+            is3d(): boolean;
+            loadFile(url: string, options: FileLoaderOptions, onSuccess: () => void, onError: () => void): void;
         }
 
         interface ViewerItem {
-          children?: ViewerItem[];
-          guid: string;
-          hasThumbnail: boolean;
-          name: string;
-          parent: ViewerItem;
-          progress: string;
-          role: '3d'|'2d'|string;
-          size: number;
-          status: string;
-          success: string;
-          type: 'view'|'geometry'|string;
-          viewableID: string;
+            children?: ViewerItem[];
+            guid: string;
+            hasThumbnail: boolean;
+            name: string;
+            parent: ViewerItem;
+            progress: string;
+            role: '3d' | '2d' | string;
+            size: number;
+            status: string;
+            success: string;
+            type: 'view' | 'geometry' | string;
+            viewableID: string;
         }
 
         interface ExtensionOptions {
-          defaultModelStructureTitle: string;
-          extensions: string[];
-          startOnInitialize: boolean;
-          viewableName: string;
-          [key: string]: any;
+            defaultModelStructureTitle: string;
+            extensions: string[];
+            startOnInitialize: boolean;
+            viewableName: string;
+            [key: string]: any;
         }
 
         const AGGREGATE_FIT_TO_VIEW_EVENT = 'aggregateFitToView';
@@ -292,63 +292,63 @@ declare namespace Autodesk {
         const WEBGL_CONTEXT_LOST_EVENT = 'webGlContextLost';
 
         interface ViewerEventArgs {
-          target?: Viewer3D;
-          model?: ViewerItem;
-          type: string;
-          [key: string]: any;
+            target?: Viewer3D;
+            model?: ViewerItem;
+            type: string;
+            [key: string]: any;
         }
 
         interface BubbleNodeSearchProps {
-          role?: '3d'|'2d'|string;
-          type?: 'view'|'geometry'|string;
-          mime?: string;
+            role?: '3d' | '2d' | string;
+            type?: 'view' | 'geometry' | string;
+            mime?: string;
         }
 
         class BubbleNode {
-          static MODEL_NODE: BubbleNodeSearchProps;
-          static GEOMETRY_SVF_NODE: BubbleNodeSearchProps;
-          static SHEET_NODE: BubbleNodeSearchProps;
-          static GEOMETRY_F2D_NODE: BubbleNodeSearchProps;
-          static VIEWABLE_NODE: BubbleNodeSearchProps;
+            static MODEL_NODE: BubbleNodeSearchProps;
+            static GEOMETRY_SVF_NODE: BubbleNodeSearchProps;
+            static SHEET_NODE: BubbleNodeSearchProps;
+            static GEOMETRY_F2D_NODE: BubbleNodeSearchProps;
+            static VIEWABLE_NODE: BubbleNodeSearchProps;
 
-          parent: BubbleNode;
-          id: number;
-          data: ViewerItem;
-          isLeaf: boolean;
-          sharedPropertyDbPath: string;
-          lodNode: object;
-          children: BubbleNode[];
+            parent: BubbleNode;
+            id: number;
+            data: ViewerItem;
+            isLeaf: boolean;
+            sharedPropertyDbPath: string;
+            lodNode: object;
+            children: BubbleNode[];
 
-          constructor(rawNode: object, parent?: BubbleNode);
+            constructor(rawNode: object, parent?: BubbleNode);
 
-          findByGuid(guid: string): BubbleNode;
-          findParentGeom2Dor3D(): BubbleNode;
-          findPropertyDbPath(): string;
-          findViewableParent(): BubbleNode;
-          getDefaultGeometry(): any;
-          getLodNode(): boolean;
-          getNamedViews(): string[];
-          getPlacementTransform(): object;
-          getRootNode(): BubbleNode;
-          getTag(tag: string): any;
-          getViewableRootPath(): string;
-          guid(): string;
-          is2D(): boolean;
-          is2DGeom(): boolean;
-          is3D(): boolean;
-          is3DGeom(): boolean;
-          isGeometry(): boolean;
-          isGeomLeaf(): boolean;
-          isMetadata(): boolean;
-          isViewable(): boolean;
-          isViewPreset(): boolean;
-          name(): string;
-          search(propsToMatch: BubbleNodeSearchProps): BubbleNode[];
-          searchByTag(tagsToMatch: object): BubbleNode[];
-          setTag(tag: string, value: any): void;
-          traverse(cb: (bubble: BubbleNode) => boolean): boolean;
-          urn(searchParent?: boolean): string;
-          useAsDefault(): boolean;
+            findByGuid(guid: string): BubbleNode;
+            findParentGeom2Dor3D(): BubbleNode;
+            findPropertyDbPath(): string;
+            findViewableParent(): BubbleNode;
+            getDefaultGeometry(): any;
+            getLodNode(): boolean;
+            getNamedViews(): string[];
+            getPlacementTransform(): object;
+            getRootNode(): BubbleNode;
+            getTag(tag: string): any;
+            getViewableRootPath(): string;
+            guid(): string;
+            is2D(): boolean;
+            is2DGeom(): boolean;
+            is3D(): boolean;
+            is3DGeom(): boolean;
+            isGeometry(): boolean;
+            isGeomLeaf(): boolean;
+            isMetadata(): boolean;
+            isViewable(): boolean;
+            isViewPreset(): boolean;
+            name(): string;
+            search(propsToMatch: BubbleNodeSearchProps): BubbleNode[];
+            searchByTag(tagsToMatch: object): BubbleNode[];
+            setTag(tag: string, value: any): void;
+            traverse(cb: (bubble: BubbleNode) => boolean): boolean;
+            urn(searchParent?: boolean): string;
+            useAsDefault(): boolean;
         }
 
         let theExtensionManager: ExtensionManager;
@@ -371,8 +371,12 @@ declare namespace Autodesk {
 
         class Document {
             constructor(dataJSON: object, path: string, acmsession: string);
-            static load(documentId: string, successCallback: (doc: Document) => void,
-            errorCallback: (errorCode: ErrorCodes, errorMsg: string, messages: any[]) => void, accessControlProperties?: any): void;
+            static load(
+                documentId: string,
+                successCallback: (doc: Document) => void,
+                errorCallback: (errorCode: ErrorCodes, errorMsg: string, messages: any[]) => void,
+                accessControlProperties?: any,
+            ): void;
             static getSubItemsWithProperties(item: object, properties: Properties, recursive: boolean): object[];
 
             acmSessionId: string;
@@ -395,7 +399,12 @@ declare namespace Autodesk {
             getViewableItems(document: Document): void;
             getViewablePath(item: object, outLoadOptions?: object): string;
             getViewGeometry(item: object): object;
-            load(documentId: string, onSuccessCallback: () => void, onErrorCallback: () => void, accessControlProperties?: object): void;
+            load(
+                documentId: string,
+                onSuccessCallback: () => void,
+                onErrorCallback: () => void,
+                accessControlProperties?: object,
+            ): void;
             requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
         }
 
@@ -425,12 +434,12 @@ declare namespace Autodesk {
             extensionsAsync: { [key: string]: Extension };
 
             registerExtension(extensionId: string, extension: object): boolean;
-            getExtension(extensionId: string): Extension|null;
+            getExtension(extensionId: string): Extension | null;
             unregisterExtension(extensionId: string): boolean;
             registerExternalExtension(extensionId: string, urlPath: string): boolean;
-            getExternalPath(extensionId: string): string|null;
+            getExternalPath(extensionId: string): string | null;
             unregisterExternalExtension(extensionId: string): boolean;
-            getRegisteredExtensions(): Array<{ id: string, inMemory: boolean, isAsync: boolean}>;
+            getRegisteredExtensions(): Array<{ id: string; inMemory: boolean; isAsync: boolean }>;
             popuplateOptions(options: any): void;
         }
 
@@ -478,17 +487,29 @@ declare namespace Autodesk {
             clearThemingColors(): void;
             fetchTopology(maxSizeMB: number): Promise<object>;
             getBoundingBox(): THREE.Box3;
-            getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
+            getBulkProperties(
+                dbIds: number[],
+                propFilter?: string[],
+                successCallback?: (r: PropertyResult[]) => void,
+                errorCallback?: (err: any) => void,
+            ): void;
             getData(): any;
             getFragmentList(): any;
             getGeometryList(): any;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
-            getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
+            getProperties(
+                dbId: number,
+                successCallback?: (r: PropertyResult) => void,
+                errorCallback?: (err: any) => void,
+            ): void;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
             getDocumentNode(): object;
-            getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
+            getExternalIdMapping(
+                onSuccessCallback: (idMapping: { [key: string]: number }) => void,
+                onErrorCallback: () => void,
+            ): any;
             getFastLoadList(): any;
             getFragmentMap(): any;
             getInstanceTree(): InstanceTree;
@@ -512,7 +533,12 @@ declare namespace Autodesk {
             isObjectTreeLoaded(): boolean;
             pageToModel(): void;
             pointInClip(): void;
-            search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
+            search(
+                text: string,
+                onSuccessCallback: () => void,
+                onErrorCallback: () => void,
+                attributeNames?: string[],
+            ): void;
             setData(data: object): void;
             setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
             setUUID(urn: string): void;
@@ -621,29 +647,28 @@ declare namespace Autodesk {
             title: string;
         }
 
-        class ScreenMode {
-        }
+        class ScreenMode {}
 
         abstract class ScreenModeDelegate {
-          constructor(viewer: Viewer3D);
+            constructor(viewer: Viewer3D);
 
-          doScreenModeChange(oldMode: ScreenMode, newMode: ScreenMode): void;
-          fullscreenEventListener(): void;
-          getEscapeMode(): ScreenMode | undefined;
-          getMode(): ScreenMode;
-          getNextMode(): ScreenMode | undefined;
-          isModeSupported(mode: ScreenMode): boolean;
-          onScreenModeChanged(oldMode: ScreenMode, newMode: ScreenMode): void;
-          setMode(mode: ScreenMode): boolean;
-          uninitialize(): void;
+            doScreenModeChange(oldMode: ScreenMode, newMode: ScreenMode): void;
+            fullscreenEventListener(): void;
+            getEscapeMode(): ScreenMode | undefined;
+            getMode(): ScreenMode;
+            getNextMode(): ScreenMode | undefined;
+            isModeSupported(mode: ScreenMode): boolean;
+            onScreenModeChanged(oldMode: ScreenMode, newMode: ScreenMode): void;
+            setMode(mode: ScreenMode): boolean;
+            uninitialize(): void;
         }
 
         class AppScreenModeDelegate extends ScreenModeDelegate {
-          constructor(viewer: Viewer3D);
+            constructor(viewer: Viewer3D);
         }
 
         class NullScreenModeDelegate extends ScreenModeDelegate {
-          constructor(viewer: Viewer3D);
+            constructor(viewer: Viewer3D);
         }
 
         class Viewer3D {
@@ -658,7 +683,16 @@ declare namespace Autodesk {
             started: boolean;
             toolbar: UI.ToolBar;
 
-            start(urn?: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
+            start(
+                urn?: string,
+                onSuccesfullCallback?: () => void,
+                onErrorCallback?: (
+                    errorCode: number,
+                    errorMessage: string,
+                    statusCode: number,
+                    statusText: string,
+                ) => void,
+            ): any;
             startWithDocumentNode(avDocument: Document, manifestNode: any, options: object): Promise<void>;
             registerUniversalHotkeys(): void;
             createControls(): void;
@@ -675,17 +709,22 @@ declare namespace Autodesk {
             activateDefaultNavigationTools(is2d: boolean): void;
             registerDimensionSpecificHotkeys(is2d: boolean): void;
             onModelAdded(model: Model, preserveTools: boolean): void;
-            loadModel(url: string, options: object, onSuccessCallback?: (model: Model) => void, onErrorCallback?: (errorCode: number, errorMessage: string, errorArgs: any) => void): any;
+            loadModel(
+                url: string,
+                options: object,
+                onSuccessCallback?: (model: Model) => void,
+                onErrorCallback?: (errorCode: number, errorMessage: string, errorArgs: any) => void,
+            ): any;
             unloadModel(model: Model): void;
-            loadDocumentNode(avDocument: Document, manifestNode: any/*BubbleNode*/, options?: object): Promise<Model>;
-            unloadDocumentNode(manifestNode: any/*BubbleNode*/): boolean;
+            loadDocumentNode(avDocument: Document, manifestNode: any /*BubbleNode*/, options?: object): Promise<Model>;
+            unloadDocumentNode(manifestNode: any /*BubbleNode*/): boolean;
             getDimensions(): Private.Dimensions;
             resize(): void;
-            getHotkeyManager(): any/*HotkeyManager*/;
+            getHotkeyManager(): any /*HotkeyManager*/;
             getCamera(): THREE.Camera;
             getState(filter?: any): any;
             restoreState(viewerState: any, filter?: any, immediate?: boolean): boolean;
-            setView(viewNode: any/*BubbleNode*/, options: object): boolean;
+            setView(viewNode: any /*BubbleNode*/, options: object): boolean;
             setViewFromArray(params: number[]): void;
             getCameraFromViewArray(paramas: number[]): THREE.Camera;
             getViewArrayFromCamera(): number[];
@@ -693,16 +732,40 @@ declare namespace Autodesk {
             activateLayerState(name: string): void;
             getLayerStates(): any[];
             setViewFromFile(model: Model): void;
-            getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
-            getObjectTree(onSuccessCallback?: (objTree: InstanceTree) => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
+            getProperties(
+                dbId: number,
+                successCallback?: (r: PropertyResult) => void,
+                errorCallback?: (
+                    errorCode: number,
+                    errorMessage: string,
+                    statusCode: number,
+                    statusText: string,
+                ) => void,
+            ): any;
+            getObjectTree(
+                onSuccessCallback?: (objTree: InstanceTree) => void,
+                onErrorCallback?: (
+                    errorCode: number,
+                    errorMessage: string,
+                    statusCode: number,
+                    statusText: string,
+                ) => void,
+            ): any;
             setCanvasClickBehavior(config: any): void;
             search(text: string, onSuccess: any, onError: any, attributeNames: string[]): void;
             getHiddenNodes(): number[];
             getIsolatedNodes(): number[];
-            isolate(node?: number[]|number, model?: Model): void;
-            setBackgroundColor(red: number, green: number, blue: number, red2: number, green2: number, blue2: number): void;
+            isolate(node?: number[] | number, model?: Model): void;
+            setBackgroundColor(
+                red: number,
+                green: number,
+                blue: number,
+                red2: number,
+                green2: number,
+                blue2: number,
+            ): void;
             toggleSelect(dbId: number, model: Model, selectionType: number): void;
-            select(dbIds: number[]|number, model?: Model, selectionType?: number): void;
+            select(dbIds: number[] | number, model?: Model, selectionType?: number): void;
             clearSelection(): void;
             getSelectionVisibility(): any;
             getSelectionCount(): number;
@@ -711,8 +774,8 @@ declare namespace Autodesk {
             getAggregateSelection(callback?: (model: Model, dbId: number) => void): any[];
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
-            hide(node: number|number[]): void;
-            show(node: number|number[]): void;
+            hide(node: number | number[]): void;
+            show(node: number | number[]): void;
             showAll(): void;
             toggleVisibility(dbId: number, model?: Model): void;
             areAllVisible(): boolean;
@@ -748,7 +811,7 @@ declare namespace Autodesk {
             hidePoints(hide: boolean): void;
             setDisplayEdges(show: boolean): void;
             applyCamera(camera: THREE.Camera, fit: boolean): void;
-            fitToView(ids?: null|number[], model?: Model, immediate?: boolean): void;
+            fitToView(ids?: null | number[], model?: Model, immediate?: boolean): void;
             setClickConfig(what: string, where: string, newAction: string[]): boolean;
             getClickConfig(what: string, where: string): string[];
             setClickToSetCOI(state: boolean, updatePrefs?: boolean): void;
@@ -794,8 +857,8 @@ declare namespace Autodesk {
             setTheme(name: string): void;
             setThemingColor(dbId: number, color: THREE.Vector4, model?: Model, recursive?: boolean): void;
             clearThemingColors(model: Model): void;
-            hideModel(model: number|Model): boolean;
-            showModel(model: number|Model, preserveTools: boolean): boolean;
+            hideModel(model: number | Model): boolean;
+            showModel(model: number | Model, preserveTools: boolean): boolean;
             getVisibleModels(): Model[];
             restoreDefaultSettings(): void;
             disableHighlight(disable: boolean): void;
@@ -840,18 +903,31 @@ declare namespace Autodesk {
             createUI(model: Model): void;
             onFullScreenModeEvent(event: object): void;
             onProgressBarUpdate(event: object): void;
-            addOptionToggle(parent: Element, tooltip: string, initialState: any, onchange: (checked: boolean) => void, saveKey: boolean): void;
-            addOptionList(parent: Element, label: string, optionList: string[], initialIndex: number, onchange: (index: number) => void, saveKey: boolean): void;
+            addOptionToggle(
+                parent: Element,
+                tooltip: string,
+                initialState: any,
+                onchange: (checked: boolean) => void,
+                saveKey: boolean,
+            ): void;
+            addOptionList(
+                parent: Element,
+                label: string,
+                optionList: string[],
+                initialIndex: number,
+                onchange: (index: number) => void,
+                saveKey: boolean,
+            ): void;
             showViewer3dOptions(show: boolean): void;
             showRenderingOptions(show: boolean): void;
             showLayerManager(show: boolean): void;
             initHotkeys(model: Model): void;
-            setModelStructurePanel(modelStructurePanel: any/*Autodesk.Viewing.UI.ModelStructurePanel*/): void;
-            setLayersPanel(layersPanel: any/*Autodesk.Viewing.UI.LayersPanel*/): void;
-            setPropertyPanel(propertyPanel: any/*Autodesk.Viewing.UI.PropertyPanel*/): void;
-            getPropertyPanel(createDefault?: boolean): any/*Autodesk.Viewing.UI.PropertyPanel*/;
-            setSettingsPanel(settingsPanel: any/*Autodesk.Viewing.UI.SettingsPanel*/): void;
-            getSettingsPanel(createDefault?: boolean, model?: Model): any/*Autodesk.Viewing.UI.SettingsPanel*/;
+            setModelStructurePanel(modelStructurePanel: any /*Autodesk.Viewing.UI.ModelStructurePanel*/): void;
+            setLayersPanel(layersPanel: any /*Autodesk.Viewing.UI.LayersPanel*/): void;
+            setPropertyPanel(propertyPanel: any /*Autodesk.Viewing.UI.PropertyPanel*/): void;
+            getPropertyPanel(createDefault?: boolean): any /*Autodesk.Viewing.UI.PropertyPanel*/;
+            setSettingsPanel(settingsPanel: any /*Autodesk.Viewing.UI.SettingsPanel*/): void;
+            getSettingsPanel(createDefault?: boolean, model?: Model): any /*Autodesk.Viewing.UI.SettingsPanel*/;
             createSettingsPanel(model: Model): void;
             initModelTools(model: Model): void;
             setPropertiesOnSelect(onSelect: boolean): void;
@@ -877,8 +953,8 @@ declare namespace Autodesk {
             removeScene(name: string): void;
             clearScene(name: string): void;
             hasScene(name: string): boolean;
-            addMesh(mesh: THREE.Mesh|THREE.Mesh[], name: string): boolean;
-            removeMesh(mesh: THREE.Mesh|THREE.Mesh[], name: string): boolean;
+            addMesh(mesh: THREE.Mesh | THREE.Mesh[], name: string): boolean;
+            removeMesh(mesh: THREE.Mesh | THREE.Mesh[], name: string): boolean;
             hasMesh(mesh: THREE.Mesh, name: string): boolean;
         }
 
@@ -888,10 +964,10 @@ declare namespace Autodesk {
         }
 
         namespace Extensions {
-          class ViewerPropertyPanel extends UI.PropertyPanel {
-            constructor(viewer: GuiViewer3D);
-            currentNodeIds: object[];
-          }
+            class ViewerPropertyPanel extends UI.PropertyPanel {
+                constructor(viewer: GuiViewer3D);
+                currentNodeIds: object[];
+            }
         }
 
         namespace Private {
@@ -900,38 +976,43 @@ declare namespace Autodesk {
             const env: string;
 
             function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
-            function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number,
-                                  d: number, type: string): number;
-            function calculatePrecision(value: string|number): number;
+            function convertUnits(
+                fromUnits: string,
+                toUnits: string,
+                calibrationFactor: number,
+                d: number,
+                type: string,
+            ): number;
+            function calculatePrecision(value: string | number): number;
 
             interface PreferencesOptions {
-              localStorage?: boolean;
-              prefix?: string;
+                localStorage?: boolean;
+                prefix?: string;
             }
 
             class Preferences {
-              constructor(viewer: Viewer3D, options: PreferencesOptions);
+                constructor(viewer: Viewer3D, options: PreferencesOptions);
 
-              add(name: string, defaultValue: any, tags?: string[]|string): boolean;
-              addListeners(name: string, onChangedCallback: () => void, onResetCallback: () => void): void;
-              get(): any;
-              hasTag(name: string, tag: string): boolean;
-              load(defaultValues: object): void;
-              remove(name: string, removeFromWebStorage?: boolean): boolean;
-              removeListeners(name: string): void;
-              reset(tag?: string, include?: boolean): void;
-              set(name: string, value: any, notify?: boolean): boolean;
-              tag(tag: string, names?: string[]|string): void;
-              untag(tag: string, names?: string[]|string): void;
+                add(name: string, defaultValue: any, tags?: string[] | string): boolean;
+                addListeners(name: string, onChangedCallback: () => void, onResetCallback: () => void): void;
+                get(): any;
+                hasTag(name: string, tag: string): boolean;
+                load(defaultValues: object): void;
+                remove(name: string, removeFromWebStorage?: boolean): boolean;
+                removeListeners(name: string): void;
+                reset(tag?: string, include?: boolean): void;
+                set(name: string, value: any, notify?: boolean): boolean;
+                tag(tag: string, names?: string[] | string): void;
+                untag(tag: string, names?: string[] | string): void;
             }
 
             class ViewerState {
-              constructor(viewer: Viewer3D);
+                constructor(viewer: Viewer3D);
 
-              areEqual(viewerStateA: object, viewerStateB: object, filter?: object): boolean;
-              getSeedUrn(): string;
-              getState(filter?: object): object;
-              restoreState(viewerState: object, filter?: object, immediate?: boolean): boolean;
+                areEqual(viewerStateA: object, viewerStateB: object, filter?: object): boolean;
+                getSeedUrn(): string;
+                getState(filter?: object): object;
+                restoreState(viewerState: object, filter?: object, immediate?: boolean): boolean;
             }
 
             interface HitTestResult {
@@ -948,14 +1029,20 @@ declare namespace Autodesk {
             }
 
             namespace HudMessage {
-               function displayMessage(container: Element, messageSpec: {
-                    msgTitleKey: string,
-                    msgTitleDefault?: string,
-                    messageKey: string,
-                    messageDefaultValue?: string,
-                    buttonText?: string,
-                    checkboxChecked?: boolean
-                }, closeCallback?: (event: any) => void, buttonCallback?: (event: any) => void, checkboxCallback?: (event: any) => void): void;
+                function displayMessage(
+                    container: Element,
+                    messageSpec: {
+                        msgTitleKey: string;
+                        msgTitleDefault?: string;
+                        messageKey: string;
+                        messageDefaultValue?: string;
+                        buttonText?: string;
+                        checkboxChecked?: boolean;
+                    },
+                    closeCallback?: (event: any) => void,
+                    buttonCallback?: (event: any) => void,
+                    checkboxCallback?: (event: any) => void,
+                ): void;
 
                 function dismiss(): boolean;
             }
@@ -967,7 +1054,12 @@ declare namespace Autodesk {
 
                 addOverlay(overlayName: string, mesh: any): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
-                createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
+                createOverlayScene(
+                    name: string,
+                    materialPre?: THREE.Material,
+                    materialPost?: THREE.Material,
+                    camera?: any,
+                ): void;
                 hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
@@ -1013,273 +1105,299 @@ declare namespace Autodesk {
         }
 
         namespace UI {
-          interface DockingPanelOptions {
-            localizeTitle?: boolean;
-            [key: string]: any;
-          }
+            interface DockingPanelOptions {
+                localizeTitle?: boolean;
+                [key: string]: any;
+            }
 
-          interface ScrollContainerOptions {
-            left: boolean;
-            heightAdjustment: number;
-            marginTop: number;
-            [key: string]: any;
-          }
+            interface ScrollContainerOptions {
+                left: boolean;
+                heightAdjustment: number;
+                marginTop: number;
+                [key: string]: any;
+            }
 
-          interface ContentSize {
-            height: number;
-            width: number;
-          }
+            interface ContentSize {
+                height: number;
+                width: number;
+            }
 
-          interface ResizeOptions {
-            maxHeight: number;
-            [key: string]: any;
-          }
+            interface ResizeOptions {
+                maxHeight: number;
+                [key: string]: any;
+            }
 
-          interface AddPropertyOptions {
-            localizeCategory: boolean;
-            localizeProperty: boolean;
-            [key: string]: any;
-          }
+            interface AddPropertyOptions {
+                localizeCategory: boolean;
+                localizeProperty: boolean;
+                [key: string]: any;
+            }
 
-          interface ControlOptions {
-            collapsible?: boolean;
-            [key: string]: any;
-          }
+            interface ControlOptions {
+                collapsible?: boolean;
+                [key: string]: any;
+            }
 
-          interface AddControlOptions {
-            index?: object;
-            [key: string]: any;
-          }
+            interface AddControlOptions {
+                index?: object;
+                [key: string]: any;
+            }
 
-          interface DisplayCategoryOptions {
-            localize?: boolean;
-            [key: string]: any;
-          }
+            interface DisplayCategoryOptions {
+                localize?: boolean;
+                [key: string]: any;
+            }
 
-          interface MenuItem {
-            title: string;
-            target: () => void | MenuItem[];
-          }
+            interface MenuItem {
+                title: string;
+                target: () => void | MenuItem[];
+            }
 
-          const COLLAPSED_CHANGED = 'Control.VisibilityChanged';
-          const VISIBILITY_CHANGED = 'Control.CollapsedChanged';
-          const CONTROL_ADDED = 'ControlGroup.ControlAdded';
-          const CONTROL_REMOVED = 'ControlGroup.ControlRemoved';
-          const SIZE_CHANGED = 'ControlGroup.SizeChanged';
+            const COLLAPSED_CHANGED = 'Control.VisibilityChanged';
+            const VISIBILITY_CHANGED = 'Control.CollapsedChanged';
+            const CONTROL_ADDED = 'ControlGroup.ControlAdded';
+            const CONTROL_REMOVED = 'ControlGroup.ControlRemoved';
+            const SIZE_CHANGED = 'ControlGroup.SizeChanged';
 
-          class DockingPanel {
-            constructor(parentContainer: HTMLElement, id: string, title: string, options?: DockingPanelOptions);
+            class DockingPanel {
+                constructor(parentContainer: HTMLElement, id: string, title: string, options?: DockingPanelOptions);
 
-            closer: HTMLElement;
-            container: HTMLElement;
-            content: Node;
-            footer: HTMLElement;
-            scrollContainer: HTMLElement;
-            title: HTMLElement;
-            titleLabel: string;
+                closer: HTMLElement;
+                container: HTMLElement;
+                content: Node;
+                footer: HTMLElement;
+                scrollContainer: HTMLElement;
+                title: HTMLElement;
+                titleLabel: string;
 
-            addEventListener(target: object, eventId: string, callback: () => void): void;
-            addVisibilityListener(callback: (state: boolean) => void): void;
-            createCloseButton(): HTMLElement;
-            createFooter(): HTMLElement;
-            createScrollContainer(options: ScrollContainerOptions): void;
-            createTitleBar(title: string): HTMLElement;
-            getContainerBoundingRect(): ClientRect;
-            getContentSize(): ContentSize;
-            initialize(): void;
-            initializeCloseHandler(closer: HTMLElement): void;
-            initializeMoveHandlers(mover: HTMLElement): void;
-            isVisible(): boolean;
-            onEndMove(event: MouseEvent, endX: number, endY: number): void;
-            onMove(event: MouseEvent, currentX: number, currentY: number): void;
-            onStartMove(event: MouseEvent, startX: number, startY: number): void;
-            onTitleClick(event: Event): void;
-            onTitleDoubleClick(event: Event): void;
-            removeEventListener(target: object, eventId: string, callback: () => void): boolean;
-            resizeToContent(options: ResizeOptions): void;
-            setTitle(text: string, options: DockingPanelOptions): void;
-            setVisible(show: boolean): void;
-            uninitialize(): void;
-            visibilityChanged(): void;
-          }
+                addEventListener(target: object, eventId: string, callback: () => void): void;
+                addVisibilityListener(callback: (state: boolean) => void): void;
+                createCloseButton(): HTMLElement;
+                createFooter(): HTMLElement;
+                createScrollContainer(options: ScrollContainerOptions): void;
+                createTitleBar(title: string): HTMLElement;
+                getContainerBoundingRect(): ClientRect;
+                getContentSize(): ContentSize;
+                initialize(): void;
+                initializeCloseHandler(closer: HTMLElement): void;
+                initializeMoveHandlers(mover: HTMLElement): void;
+                isVisible(): boolean;
+                onEndMove(event: MouseEvent, endX: number, endY: number): void;
+                onMove(event: MouseEvent, currentX: number, currentY: number): void;
+                onStartMove(event: MouseEvent, startX: number, startY: number): void;
+                onTitleClick(event: Event): void;
+                onTitleDoubleClick(event: Event): void;
+                removeEventListener(target: object, eventId: string, callback: () => void): boolean;
+                resizeToContent(options: ResizeOptions): void;
+                setTitle(text: string, options: DockingPanelOptions): void;
+                setVisible(show: boolean): void;
+                uninitialize(): void;
+                visibilityChanged(): void;
+            }
 
-          class LayersPanel extends DockingPanel {
-            build(): void;
-            createNode(node: object, parent: HTMLElement): void;
-            getNodeClass(node: object): string;
-            getNodeLabel(node: object): string;
-            isGroupCollapsed(node: object): boolean;
-            isGroupNode(node: object): boolean;
-            onClick(node: object, event: Event): void;
-            onDoubleClick(node: object, event: Event): void;
-            onIconClick(node: object, event: Event): void;
-            onImageClick(node: object, event: Event): void;
-            onRightClick(node: object, event: Event): void;
-            setGroupCollapsed(node: object, collapse: boolean): void;
-            setLayerVisible(node: object, collapse: boolean): void;
-            shouldInclude(node: object): boolean;
-            update(): void;
-          }
+            class LayersPanel extends DockingPanel {
+                build(): void;
+                createNode(node: object, parent: HTMLElement): void;
+                getNodeClass(node: object): string;
+                getNodeLabel(node: object): string;
+                isGroupCollapsed(node: object): boolean;
+                isGroupNode(node: object): boolean;
+                onClick(node: object, event: Event): void;
+                onDoubleClick(node: object, event: Event): void;
+                onIconClick(node: object, event: Event): void;
+                onImageClick(node: object, event: Event): void;
+                onRightClick(node: object, event: Event): void;
+                setGroupCollapsed(node: object, collapse: boolean): void;
+                setLayerVisible(node: object, collapse: boolean): void;
+                shouldInclude(node: object): boolean;
+                update(): void;
+            }
 
-          class PropertyPanel extends DockingPanel {
-            addProperty(name: string, value: string, category: string, options?: AddPropertyOptions): boolean;
-            areDefaultPropertiesShown(): void;
-            displayCategory(category: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
-            displayProperty(property: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
-            getCategoryClass(category: object): string;
-            getPropertyClass(property: object): string;
-            hasProperties(): boolean;
-            highlight(text: string, options: object): void;
-            isCategoryCollapsed(category: object): boolean;
-            onCategoryClick(category: object, event: Event): void;
-            onCategoryDoubleClick(category: object, event: Event): void;
-            onCategoryIconClick(category: object, event: Event): void;
-            onCategoryRightClick(category: object, event: Event): void;
-            onPropertyClick(property: object, event: Event): void;
-            onPropertyDoubleClick(property: object, event: Event): void;
-            onPropertyIconClick(property: object, event: Event): void;
-            onPropertyRightClick(property: object, event: Event): void;
-            removeAllProperties(): void;
-            removeProperty(name: string, value: string, category: string, options?: object): boolean;
-            setCategoryCollapsed(category: object, collapsed: boolean): void;
-            setProperties(properties: Array<{displayName: string, displayValue: any}>, options?: object): void;
-            showDefaultProperties(): void;
-            showNoProperties(): void;
-          }
+            class PropertyPanel extends DockingPanel {
+                addProperty(name: string, value: string, category: string, options?: AddPropertyOptions): boolean;
+                areDefaultPropertiesShown(): void;
+                displayCategory(category: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
+                displayProperty(property: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
+                getCategoryClass(category: object): string;
+                getPropertyClass(property: object): string;
+                hasProperties(): boolean;
+                highlight(text: string, options: object): void;
+                isCategoryCollapsed(category: object): boolean;
+                onCategoryClick(category: object, event: Event): void;
+                onCategoryDoubleClick(category: object, event: Event): void;
+                onCategoryIconClick(category: object, event: Event): void;
+                onCategoryRightClick(category: object, event: Event): void;
+                onPropertyClick(property: object, event: Event): void;
+                onPropertyDoubleClick(property: object, event: Event): void;
+                onPropertyIconClick(property: object, event: Event): void;
+                onPropertyRightClick(property: object, event: Event): void;
+                removeAllProperties(): void;
+                removeProperty(name: string, value: string, category: string, options?: object): boolean;
+                setCategoryCollapsed(category: object, collapsed: boolean): void;
+                setProperties(properties: Array<{ displayName: string; displayValue: any }>, options?: object): void;
+                showDefaultProperties(): void;
+                showNoProperties(): void;
+            }
 
-          class SettingsPanel extends DockingPanel {
-            addCheckbox(tabId: string, caption: string, initialState: boolean,
-                        onchange: () => void, options?: object): string;
-            addControl(tabId: string, control: object|HTMLElement, options: object|undefined): string;
-            addDropDownMenu(tabId: string, caption: string, items: MenuItem[],
-                            initialItemIndex: number, onchange: () => void, options: object|undefined): string;
-            addSlider(tabId: string, caption: string, min: number, max: number, initialValue: number,
-                      onchange: () => void, options: object|undefined): string;
-            addTab(tabId: string, tabTitle: string, options: object|undefined): boolean;
-            getControl(controlId: string): object;
-            hasTab(tabId: string): boolean;
-            isTabSelected(tabId: string): boolean;
-            removeCheckbox(checkboxId: string|Control): boolean;
-            removeControl(controlId: string|Control): boolean;
-            removeDropdownMenu(dropdownMenuId: string|Control): boolean;
-            removeSlider(sliderId: string|Control): boolean;
-            removeTab(tabId: string): boolean;
-            selectTab(tabId: string): boolean;
-            setVisible(show: boolean, skipTransition?: boolean): void;
-          }
+            class SettingsPanel extends DockingPanel {
+                addCheckbox(
+                    tabId: string,
+                    caption: string,
+                    initialState: boolean,
+                    onchange: () => void,
+                    options?: object,
+                ): string;
+                addControl(tabId: string, control: object | HTMLElement, options: object | undefined): string;
+                addDropDownMenu(
+                    tabId: string,
+                    caption: string,
+                    items: MenuItem[],
+                    initialItemIndex: number,
+                    onchange: () => void,
+                    options: object | undefined,
+                ): string;
+                addSlider(
+                    tabId: string,
+                    caption: string,
+                    min: number,
+                    max: number,
+                    initialValue: number,
+                    onchange: () => void,
+                    options: object | undefined,
+                ): string;
+                addTab(tabId: string, tabTitle: string, options: object | undefined): boolean;
+                getControl(controlId: string): object;
+                hasTab(tabId: string): boolean;
+                isTabSelected(tabId: string): boolean;
+                removeCheckbox(checkboxId: string | Control): boolean;
+                removeControl(controlId: string | Control): boolean;
+                removeDropdownMenu(dropdownMenuId: string | Control): boolean;
+                removeSlider(sliderId: string | Control): boolean;
+                removeTab(tabId: string): boolean;
+                selectTab(tabId: string): boolean;
+                setVisible(show: boolean, skipTransition?: boolean): void;
+            }
 
-          class ModelStructurePanel extends DockingPanel {
-            addClass(id: string, className: string): boolean;
-            getNodeClass(node: object): string;
-            getNodeLabel(node: object): string;
-            isGroupCollapsed(node: object): boolean;
-            isGroupNode(node: object): boolean;
-            onClick(node: object, event: Event): void;
-            onDoubleClick(node: object, event: Event): void;
-            onHover(node: object, event: Event): void;
-            onIconClick(node: object, event: Event): void;
-            onRightClick(node: object, event: Event): void;
-            removeClass(id: string, className: string): boolean;
-            setGroupCollapsed(node: object, collapsed: boolean): void;
-            setModel(instanceTree: object, modelTitle: string): void;
-            setSelection(nodes: Model[]): void;
-            shouldInclude(node: Model): boolean;
-          }
+            class ModelStructurePanel extends DockingPanel {
+                addClass(id: string, className: string): boolean;
+                getNodeClass(node: object): string;
+                getNodeLabel(node: object): string;
+                isGroupCollapsed(node: object): boolean;
+                isGroupNode(node: object): boolean;
+                onClick(node: object, event: Event): void;
+                onDoubleClick(node: object, event: Event): void;
+                onHover(node: object, event: Event): void;
+                onIconClick(node: object, event: Event): void;
+                onRightClick(node: object, event: Event): void;
+                removeClass(id: string, className: string): boolean;
+                setGroupCollapsed(node: object, collapsed: boolean): void;
+                setModel(instanceTree: object, modelTitle: string): void;
+                setSelection(nodes: Model[]): void;
+                shouldInclude(node: Model): boolean;
+            }
 
-          class ObjectContextMenu {
-            constructor(viewer: Viewer3D);
+            class ObjectContextMenu {
+                constructor(viewer: Viewer3D);
 
-            buildMenu(event: Event, status: object): MenuItem[];
-            hide(): boolean;
-            show(event: Event): void;
-          }
+                buildMenu(event: Event, status: object): MenuItem[];
+                hide(): boolean;
+                show(event: Event): void;
+            }
 
-          class ControlEventArgs {
-            VISIBILITY_CHANGED: 'Control.VisibilityChanged';
-            COLLAPSED_CHANGED: 'Control.CollapsedChanged';
-            ACTIVE_BUTTON_CHANGED: 'RadioButtonGroup.ActiveButtonChanged';
-            STATE_CHANGED: 'Button.StateChanged';
-            CLICK: 'click';
-          }
+            class ControlEventArgs {
+                VISIBILITY_CHANGED: 'Control.VisibilityChanged';
+                COLLAPSED_CHANGED: 'Control.CollapsedChanged';
+                ACTIVE_BUTTON_CHANGED: 'RadioButtonGroup.ActiveButtonChanged';
+                STATE_CHANGED: 'Button.StateChanged';
+                CLICK: 'click';
+            }
 
-          class Control {
-            constructor(id?: string, options?: ControlOptions);
+            class Control {
+                constructor(id?: string, options?: ControlOptions);
 
-            Event: ControlEventArgs;
-            addClass(cssClass: string): void;
-            getDimensions(): object;
-            getId(): string;
-            getPosition(): object;
-            getToolTip(): string;
-            isCollapsed(): boolean;
-            isCollapsible(): boolean;
-            isVisible(): boolean;
-            removeClass(cssClass: string): void;
-            setCollapsed(collapsed: boolean): boolean;
-            setToolTip(toolTipText: string): boolean;
-            setVisible(visible: boolean): boolean;
+                Event: ControlEventArgs;
+                addClass(cssClass: string): void;
+                getDimensions(): object;
+                getId(): string;
+                getPosition(): object;
+                getToolTip(): string;
+                isCollapsed(): boolean;
+                isCollapsible(): boolean;
+                isVisible(): boolean;
+                removeClass(cssClass: string): void;
+                setCollapsed(collapsed: boolean): boolean;
+                setToolTip(toolTipText: string): boolean;
+                setVisible(visible: boolean): boolean;
 
-            // Events
-            addEventListener(type: string,
-                             listener?: ViewerEvent,
-                             options?: boolean | AddEventListenerOptions): void;
-            dispatchEvent(evt: Event): boolean;
-            removeEventListener(type: string,
-                                listener?: ViewerEvent,
-                                options?: boolean | EventListenerOptions): void;
-          }
+                // Events
+                addEventListener(
+                    type: string,
+                    listener?: ViewerEvent,
+                    options?: boolean | AddEventListenerOptions,
+                ): void;
+                dispatchEvent(evt: Event): boolean;
+                removeEventListener(
+                    type: string,
+                    listener?: ViewerEvent,
+                    options?: boolean | EventListenerOptions,
+                ): void;
+            }
 
-          class ControlGroup extends Control {
-            container: HTMLElement;
+            class ControlGroup extends Control {
+                container: HTMLElement;
 
-            addControl(control: Control, options?: AddControlOptions): boolean;
-            getControl(controlId: string): Control;
-            getControlId(index: number): string;
-            getNumberOfControls(): number;
-            indexOf(control: string|Control): number;
-            removeControl(control: string|Control): boolean;
-            setCollapsed(collapsed: boolean): boolean;
-          }
+                addControl(control: Control, options?: AddControlOptions): boolean;
+                getControl(controlId: string): Control;
+                getControlId(index: number): string;
+                getNumberOfControls(): number;
+                indexOf(control: string | Control): number;
+                removeControl(control: string | Control): boolean;
+                setCollapsed(collapsed: boolean): boolean;
+            }
 
-          class ToolBar extends ControlGroup {
-            constructor(id: string, options?: object);
-          }
+            class ToolBar extends ControlGroup {
+                constructor(id: string, options?: object);
+            }
 
-          class RadioButtonGroup extends ControlGroup {
-            constructor(id: string, options?: object);
+            class RadioButtonGroup extends ControlGroup {
+                constructor(id: string, options?: object);
 
-            Event: ControlEventArgs;
+                Event: ControlEventArgs;
 
-            addControl(control: Control, options: object): boolean;
-            getActiveButton(): Button;
-            removeControl(control: string | Control): boolean;
-          }
+                addControl(control: Control, options: object): boolean;
+                getActiveButton(): Button;
+                removeControl(control: string | Control): boolean;
+            }
 
-          class Button extends Control {
-            constructor(id: string, options?: object);
+            class Button extends Control {
+                constructor(id: string, options?: object);
 
-            Event: ControlEventArgs;
+                Event: ControlEventArgs;
 
-            getState(): Button.State;
-            onClick: (event: Event) => void;
-            onMouseOut: (event: Event) => void;
-            onMouseOver: (event: Event) => void;
-            setIcon(iconClass: string): void;
-            setState(state: Button.State): boolean;
-          }
+                getState(): Button.State;
+                onClick: (event: Event) => void;
+                onMouseOut: (event: Event) => void;
+                onMouseOver: (event: Event) => void;
+                setIcon(iconClass: string): void;
+                setState(state: Button.State): boolean;
+            }
 
-          // NOTE: TypeScript doesn't support enum inside class. This seems to be commonly used workaround.
-          namespace Button {
-            enum State { ACTIVE, INACTIVE, DISABLED }
-          }
+            // NOTE: TypeScript doesn't support enum inside class. This seems to be commonly used workaround.
+            namespace Button {
+                enum State {
+                    ACTIVE,
+                    INACTIVE,
+                    DISABLED,
+                }
+            }
 
-          class ComboButton extends Button {
-            constructor(id: string, options?: object);
+            class ComboButton extends Button {
+                constructor(id: string, options?: object);
 
-            addControl(): void;
-            restoreDefault(): void;
-            saveAsDefault(): void;
-          }
+                addControl(): void;
+                restoreDefault(): void;
+                saveAsDefault(): void;
+            }
         }
     }
 }

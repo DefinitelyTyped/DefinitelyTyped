@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-declare module "i18next-sprintf-postprocessor" {
-    import * as i18next from "i18next";
+declare module 'i18next-sprintf-postprocessor' {
+    import * as i18next from 'i18next';
 
-    module "i18next" {
+    module 'i18next' {
         interface TFunction {
             (key: string, ...args: any[]): string;
         }
@@ -15,11 +15,13 @@ declare module "i18next-sprintf-postprocessor" {
 
     interface I18nextSprintfPostProcessor extends i18next.PostProcessorModule {
         name: string;
-        type: "postProcessor";
+        type: 'postProcessor';
         process(value: any, key: string, options: any): any;
-        overloadTranslationOptionHandler(args: string[]): {
-            postProcess: "sprintf",
-            sprintf: string[]
+        overloadTranslationOptionHandler(
+            args: string[],
+        ): {
+            postProcess: 'sprintf';
+            sprintf: string[];
         };
     }
 
@@ -27,7 +29,7 @@ declare module "i18next-sprintf-postprocessor" {
     export = sprintf;
 }
 
-declare module "i18next-sprintf-postprocessor/dist/commonjs" {
-    import sprintf = require("i18next-sprintf-postprocessor");
+declare module 'i18next-sprintf-postprocessor/dist/commonjs' {
+    import sprintf = require('i18next-sprintf-postprocessor');
     export default sprintf;
 }

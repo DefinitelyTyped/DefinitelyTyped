@@ -22,20 +22,23 @@ export interface ControllerMixin extends ActionHandler {
     transitionToRoute(name: string, ...args: any[]): void;
     transitionToRoute(...args: any[]): void;
     model: any;
-    queryParams: string | string[] | Array<{ [key: string]: {
-        type?: QueryParamTypes,
-        scope?: QueryParamScopeTypes,
-        as?: string
-    }}>;
+    queryParams:
+        | string
+        | string[]
+        | Array<{
+              [key: string]: {
+                  type?: QueryParamTypes;
+                  scope?: QueryParamScopeTypes;
+                  as?: string;
+              };
+          }>;
     target: object;
 }
 export const ControllerMixin: Mixin<ControllerMixin>;
 // tslint:disable-next-line:no-empty-interface
 export default class Controller extends EmberObject.extend(ControllerMixin) {}
 export function inject(): ComputedProperty<Controller>;
-export function inject<K extends keyof Registry>(
-    name: K
-): ComputedProperty<Registry[K]>;
+export function inject<K extends keyof Registry>(name: K): ComputedProperty<Registry[K]>;
 export function inject(target: object, propertyKey: string | symbol): void;
 
 // A type registry for Ember `Controller`s. Meant to be declaration-merged

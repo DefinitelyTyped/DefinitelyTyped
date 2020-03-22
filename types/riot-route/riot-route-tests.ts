@@ -2,8 +2,7 @@ import route = require('riot-route');
 import routeFromTag from 'riot-route/lib/tag';
 
 /* () */
-route((collection, id, action) => {
-});
+route((collection, id, action) => {});
 
 route('/fruit', (name) => {
     console.log('The list of fruits');
@@ -11,7 +10,9 @@ route('/fruit', (name) => {
 
 /* create() */
 const subRoute = route.create();
-subRoute('/fruit/apple', () => { /* */ });
+subRoute('/fruit/apple', () => {
+    /* */
+});
 
 /* () */
 route('customers/267393/edit');

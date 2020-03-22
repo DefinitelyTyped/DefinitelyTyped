@@ -21,14 +21,16 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 4.2.0
      * @see https://eslint.org/docs/rules/getter-return
      */
-    'getter-return': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            allowImplicit: boolean;
-        }>
-    ]>;
+    'getter-return': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                allowImplicit: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow using an async function as a `Promise` executor.
@@ -69,9 +71,7 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-cond-assign
      */
-    'no-cond-assign': Linter.RuleEntry<[
-        'except-parens' | 'always'
-    ]>;
+    'no-cond-assign': Linter.RuleEntry<['except-parens' | 'always']>;
 
     /**
      * Rule to disallow the use of `console`.
@@ -79,11 +79,13 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.0.2
      * @see https://eslint.org/docs/rules/no-console
      */
-    'no-console': Linter.RuleEntry<[
-        Partial<{
-            allow: Array<keyof Console>;
-        }>
-    ]>;
+    'no-console': Linter.RuleEntry<
+        [
+            Partial<{
+                allow: Array<keyof Console>;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow constant expressions in conditions.
@@ -94,14 +96,16 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.4.1
      * @see https://eslint.org/docs/rules/no-constant-condition
      */
-    'no-constant-condition': Linter.RuleEntry<[
-        {
-            /**
-             * @default true
-             */
-            checkLoops: boolean;
-        }
-    ]>;
+    'no-constant-condition': Linter.RuleEntry<
+        [
+            {
+                /**
+                 * @default true
+                 */
+                checkLoops: boolean;
+            },
+        ]
+    >;
 
     /**
      * Rule to disallow control characters in regular expressions.
@@ -167,14 +171,16 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.0.2
      * @see https://eslint.org/docs/rules/no-empty
      */
-    'no-empty': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            allowEmptyCatch: boolean;
-        }>
-    ]>;
+    'no-empty': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                allowEmptyCatch: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow empty character classes in regular expressions.
@@ -215,33 +221,35 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.1.4
      * @see https://eslint.org/docs/rules/no-extra-parens
      */
-    'no-extra-parens': Linter.RuleEntry<[
-        'all',
-        Partial<{
-            /**
-             * @default true,
-             */
-            conditionalAssign: boolean;
-            /**
-             * @default true
-             */
-            returnAssign: boolean;
-            /**
-             * @default true
-             */
-            nestedBinaryExpressions: boolean;
-            /**
-             * @default 'none'
-             */
-            ignoreJSX: 'none' | 'all' | 'multi-line' | 'single-line';
-            /**
-             * @default true
-             */
-            enforceForArrowConditionals: boolean;
-        }>
-    ]> | Linter.RuleEntry<[
-        'functions'
-    ]>;
+    'no-extra-parens':
+        | Linter.RuleEntry<
+              [
+                  'all',
+                  Partial<{
+                      /**
+                       * @default true,
+                       */
+                      conditionalAssign: boolean;
+                      /**
+                       * @default true
+                       */
+                      returnAssign: boolean;
+                      /**
+                       * @default true
+                       */
+                      nestedBinaryExpressions: boolean;
+                      /**
+                       * @default 'none'
+                       */
+                      ignoreJSX: 'none' | 'all' | 'multi-line' | 'single-line';
+                      /**
+                       * @default true
+                       */
+                      enforceForArrowConditionals: boolean;
+                  }>,
+              ]
+          >
+        | Linter.RuleEntry<['functions']>;
 
     /**
      * Rule to disallow unnecessary semicolons.
@@ -274,9 +282,7 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.6.0
      * @see https://eslint.org/docs/rules/no-inner-declarations
      */
-    'no-inner-declarations': Linter.RuleEntry<[
-        'functions' | 'both'
-    ]>;
+    'no-inner-declarations': Linter.RuleEntry<['functions' | 'both']>;
 
     /**
      * Rule to disallow invalid regular expression strings in `RegExp` constructors.
@@ -287,11 +293,13 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.1.4
      * @see https://eslint.org/docs/rules/no-invalid-regexp
      */
-    'no-invalid-regexp': Linter.RuleEntry<[
-        Partial<{
-            allowConstructorFlags: string[];
-        }>
-    ]>;
+    'no-invalid-regexp': Linter.RuleEntry<
+        [
+            Partial<{
+                allowConstructorFlags: string[];
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow irregular whitespace.
@@ -302,26 +310,28 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.9.0
      * @see https://eslint.org/docs/rules/no-irregular-whitespace
      */
-    'no-irregular-whitespace': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default true
-             */
-            skipStrings: boolean;
-            /**
-             * @default false
-             */
-            skipComments: boolean;
-            /**
-             * @default false
-             */
-            skipRegExps: boolean;
-            /**
-             * @default false
-             */
-            skipTemplates: boolean;
-        }>
-    ]>;
+    'no-irregular-whitespace': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                skipStrings: boolean;
+                /**
+                 * @default false
+                 */
+                skipComments: boolean;
+                /**
+                 * @default false
+                 */
+                skipRegExps: boolean;
+                /**
+                 * @default false
+                 */
+                skipTemplates: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow characters which are made with multiple code points in character class syntax.
@@ -461,12 +471,14 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.5.0
      * @see https://eslint.org/docs/rules/valid-typeof
      */
-    'valid-typeof': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            requireStringLiterals: boolean;
-        }>
-    ]>;
+    'valid-typeof': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                requireStringLiterals: boolean;
+            }>,
+        ]
+    >;
 }

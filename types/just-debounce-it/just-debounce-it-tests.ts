@@ -1,4 +1,4 @@
-import debounce = require("just-debounce-it");
+import debounce = require('just-debounce-it');
 
 const doThings = () => 1;
 

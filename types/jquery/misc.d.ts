@@ -65,9 +65,19 @@ declare namespace JQuery {
         type ErrorTextStatus = 'timeout' | 'error' | 'abort' | 'parsererror';
         type TextStatus = SuccessTextStatus | ErrorTextStatus;
 
-        type SuccessCallback<TContext> = (this: TContext, data: any, textStatus: SuccessTextStatus, jqXHR: jqXHR) => void;
+        type SuccessCallback<TContext> = (
+            this: TContext,
+            data: any,
+            textStatus: SuccessTextStatus,
+            jqXHR: jqXHR,
+        ) => void;
 
-        type ErrorCallback<TContext> = (this: TContext, jqXHR: jqXHR, textStatus: ErrorTextStatus, errorThrown: string) => void;
+        type ErrorCallback<TContext> = (
+            this: TContext,
+            jqXHR: jqXHR,
+            textStatus: ErrorTextStatus,
+            errorThrown: string,
+        ) => void;
 
         type CompleteCallback<TContext> = (this: TContext, jqXHR: jqXHR, textStatus: TextStatus) => void;
 
@@ -663,7 +673,10 @@ declare namespace JQuery {
         // #endregion
 
         // Writable properties on XMLHttpRequest
-        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials'>> {
+        interface XHRFields
+            extends Partial<
+                Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials'>
+            > {
             msCaching?: string;
         }
     }
@@ -674,18 +687,42 @@ declare namespace JQuery {
     }
 
     namespace Transport {
-        type SuccessCallback = (status: number, statusText: Ajax.TextStatus, responses?: PlainObject, headers?: string) => void;
+        type SuccessCallback = (
+            status: number,
+            statusText: Ajax.TextStatus,
+            responses?: PlainObject,
+            headers?: string,
+        ) => void;
     }
 
     /**
      * @see \`{@link https://api.jquery.com/jquery.ajax/#jqXHR }\`
      */
-    interface jqXHR<TResolve = any> extends Promise3<TResolve, jqXHR<TResolve>, never,
-        Ajax.SuccessTextStatus, Ajax.ErrorTextStatus, never,
-        jqXHR<TResolve>, string, never>,
-        Pick<XMLHttpRequest, 'abort' | 'getAllResponseHeaders' | 'getResponseHeader' | 'overrideMimeType' | 'readyState' | 'responseText' |
-            'setRequestHeader' | 'status' | 'statusText'>,
-        Partial<Pick<XMLHttpRequest, 'responseXML'>> {
+    interface jqXHR<TResolve = any>
+        extends Promise3<
+                TResolve,
+                jqXHR<TResolve>,
+                never,
+                Ajax.SuccessTextStatus,
+                Ajax.ErrorTextStatus,
+                never,
+                jqXHR<TResolve>,
+                string,
+                never
+            >,
+            Pick<
+                XMLHttpRequest,
+                | 'abort'
+                | 'getAllResponseHeaders'
+                | 'getResponseHeader'
+                | 'overrideMimeType'
+                | 'readyState'
+                | 'responseText'
+                | 'setRequestHeader'
+                | 'status'
+                | 'statusText'
+            >,
+            Partial<Pick<XMLHttpRequest, 'responseXML'>> {
         responseJSON?: any;
         abort(statusText?: string): void;
 
@@ -699,11 +736,13 @@ declare namespace JQuery {
     }
 
     namespace jqXHR {
-        interface DoneCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve, Ajax.SuccessTextStatus, TjqXHR> { }
+        interface DoneCallback<TResolve = any, TjqXHR = jqXHR<TResolve>>
+            extends Deferred.Callback3<TResolve, Ajax.SuccessTextStatus, TjqXHR> {}
 
-        interface FailCallback<TjqXHR> extends Deferred.Callback3<TjqXHR, Ajax.ErrorTextStatus, string> { }
+        interface FailCallback<TjqXHR> extends Deferred.Callback3<TjqXHR, Ajax.ErrorTextStatus, string> {}
 
-        interface AlwaysCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve | TjqXHR, Ajax.TextStatus, TjqXHR | string> { }
+        interface AlwaysCallback<TResolve = any, TjqXHR = jqXHR<TResolve>>
+            extends Deferred.Callback3<TResolve | TjqXHR, Ajax.TextStatus, TjqXHR | string> {}
     }
 
     // #endregion
@@ -1134,11 +1173,8 @@ callbacks.fire( "world" );
     // #region CSS hooks
 
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
-    type CSSHook<TElement> =
-        Partial<_CSSHook<TElement>> & (
-            Pick<_CSSHook<TElement>, 'get'> |
-            Pick<_CSSHook<TElement>, 'set'>
-        );
+    type CSSHook<TElement> = Partial<_CSSHook<TElement>> &
+        (Pick<_CSSHook<TElement>, 'get'> | Pick<_CSSHook<TElement>, 'set'>);
 
     interface _CSSHook<TElement> {
         get(elem: TElement, computed: any, extra: any): any;
@@ -1158,7 +1194,7 @@ callbacks.fire( "world" );
     /**
      * Any object that has a then method.
      */
-    interface Thenable<T> extends PromiseLike<T> { }
+    interface Thenable<T> extends PromiseLike<T> {}
 
     // NOTE: This is a private copy of the global Promise interface. It is used by JQuery.PromiseBase to indicate compatibility with other Promise implementations.
     //       The global Promise interface cannot be used directly as it may be modified, as in the case of @types/bluebird-global.
@@ -1166,21 +1202,25 @@ callbacks.fire( "world" );
      * Represents the completion of an asynchronous operation
      */
     interface _Promise<T> {
-        readonly [Symbol.toStringTag]: "Promise";
+        readonly [Symbol.toStringTag]: 'Promise';
         /**
          * Attaches callbacks for the resolution and/or rejection of the Promise.
          * @param onfulfilled The callback to execute when the Promise is resolved.
          * @param onrejected The callback to execute when the Promise is rejected.
          * @returns A Promise for the completion of which ever callback is executed.
          */
-        then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
-                                             onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): _Promise<TResult1 | TResult2>;
+        then<TResult1 = T, TResult2 = never>(
+            onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+            onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
+        ): _Promise<TResult1 | TResult2>;
         /**
          * Attaches a callback for only the rejection of the Promise.
          * @param onrejected The callback to execute when the Promise is rejected.
          * @returns A Promise for the completion of the callback.
          */
-        catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null): _Promise<T | TResult>;
+        catch<TResult = never>(
+            onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
+        ): _Promise<T | TResult>;
     }
 
     // Type parameter guide
@@ -1202,10 +1242,7 @@ callbacks.fire( "world" );
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
-    interface PromiseBase<TR, TJ, TN,
-        UR, UJ, UN,
-        VR, VJ, VN,
-        SR, SJ, SN> extends _Promise<TR>, PromiseLike<TR> {
+    interface PromiseBase<TR, TJ, TN, UR, UJ, UN, VR, VJ, VN, SR, SJ, SN> extends _Promise<TR>, PromiseLike<TR> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
@@ -1219,8 +1256,10 @@ $.get( "test.php" ).always(function() {
 });
 ```
          */
-        always(alwaysCallback: TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>>): this;
+        always(
+            alwaysCallback: TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>,
+            ...alwaysCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
@@ -1281,8 +1320,10 @@ $( "button" ).on( "click", function() {
 </html>
 ```
          */
-        done(doneCallback: TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>>): this;
+        done(
+            doneCallback: TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>,
+            ...doneCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
          * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
@@ -1300,8 +1341,10 @@ $.get( "test.php" )
   });
 ```
          */
-        fail(failCallback: TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>>): this;
+        fail(
+            failCallback: TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>,
+            ...failCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
@@ -1310,8 +1353,10 @@ $.get( "test.php" )
          * @see \`{@link https://api.jquery.com/deferred.progress/ }\`
          * @since 1.7
          */
-        progress(progressCallback: TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>>): this;
+        progress(
+            progressCallback: TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>,
+            ...progressCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>>
+        ): this;
         /**
          * Return a Deferred's Promise object.
          * @param target Object onto which the promise methods have to be attached
@@ -1446,33 +1491,76 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARF | ARP,
+            AJD | AJF | AJP,
+            AND | ANF | ANP,
+            BRD | BRF | BRP,
+            BJD | BJF | BJP,
+            BND | BNF | BNP,
+            CRD | CRF | CRP,
+            CJD | CJF | CJP,
+            CND | CNF | CNP,
+            RRD | RRF | RRP,
+            RJD | RJF | RJP,
+            RND | RNF | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1510,26 +1598,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+        pipe<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: null,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARF | ARP,
+            AJF | AJP,
+            ANF | ANP,
+            BRF | BRP,
+            BJF | BJP,
+            BNF | BNP,
+            CRF | CRP,
+            CJF | CJP,
+            CNF | CNP,
+            RRF | RRP,
+            RJF | RJP,
+            RNF | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1567,26 +1688,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: null,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: null,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARP,
+            AJD | AJP,
+            AND | ANP,
+            BRD | BRP,
+            BJD | BJP,
+            BND | BNP,
+            CRD | CRP,
+            CJD | CJP,
+            CND | CNP,
+            RRD | RRP,
+            RJD | RJP,
+            RND | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1612,19 +1766,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: null,
-                progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+        pipe<
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: null,
+            failFilter: null,
+            progressFilter?: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1674,26 +1838,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter?: null,
+        ): PromiseBase<
+            ARD | ARF,
+            AJD | AJF,
+            AND | ANF,
+            BRD | BRF,
+            BJD | BJF,
+            BND | BNF,
+            CRD | CRF,
+            CJD | CJF,
+            CND | CNF,
+            RRD | RRF,
+            RJD | RJF,
+            RND | RNF
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1731,19 +1928,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: null,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        pipe<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            doneFilter: null,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter?: null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1781,19 +1988,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter?: null,
-                progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter?: null,
+            progressFilter?: null,
+        ): PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND>;
 
         // #endregion
 
@@ -1874,33 +2091,76 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARF | ARP,
+            AJD | AJF | AJP,
+            AND | ANF | ANP,
+            BRD | BRF | BRP,
+            BJD | BJF | BJP,
+            BND | BNF | BNP,
+            CRD | CRF | CRP,
+            CJD | CJF | CJP,
+            CND | CNF | CNP,
+            RRD | RRF | RRP,
+            RJD | RJF | RJP,
+            RND | RNF | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1932,26 +2192,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+        then<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: null,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARF | ARP,
+            AJF | AJP,
+            ANF | ANP,
+            BRF | BRP,
+            BJF | BJP,
+            BNF | BNP,
+            CRF | CRP,
+            CJF | CJP,
+            CNF | CNP,
+            RRF | RRP,
+            RJF | RJP,
+            RNF | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2004,26 +2297,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: null,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: null,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARP,
+            AJD | AJP,
+            AND | ANP,
+            BRD | BRP,
+            BJD | BJP,
+            BND | BNP,
+            CRD | CRP,
+            CJD | CJP,
+            CND | CNP,
+            RRD | RRP,
+            RJD | RJP,
+            RND | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2043,19 +2369,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: null,
-                progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+        then<
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: null,
+            failFilter: null,
+            progressFilter?: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2130,26 +2466,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter?: null,
+        ): PromiseBase<
+            ARD | ARF,
+            AJD | AJF,
+            AND | ANF,
+            BRD | BRF,
+            BJD | BJF,
+            BND | BNF,
+            CRD | CRF,
+            CJD | CJF,
+            CND | CNF,
+            RRD | RRF,
+            RJD | RJF,
+            RND | RNF
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2181,19 +2550,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: null,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        then<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            doneFilter: null,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter?: null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2246,19 +2625,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter?: null,
-                progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter?: null,
+            progressFilter?: null,
+        ): PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND>;
 
         // #endregion
 
@@ -2278,48 +2667,50 @@ $.get( "test.php" )
   } );
 ```
          */
-        catch<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                failFilter?: ((t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        catch<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            failFilter?:
+                | ((
+                      t: TJ,
+                      u: UJ,
+                      v: VJ,
+                      ...s: SJ[]
+                  ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF)
+                | null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
     }
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
-    interface Promise3<TR, TJ, TN,
-        UR, UJ, UN,
-        VR, VJ, VN> extends PromiseBase<TR, TJ, TN,
-        UR, UJ, UN,
-        VR, VJ, VN,
-        never, never, never> { }
+    interface Promise3<TR, TJ, TN, UR, UJ, UN, VR, VJ, VN>
+        extends PromiseBase<TR, TJ, TN, UR, UJ, UN, VR, VJ, VN, never, never, never> {}
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
-    interface Promise2<TR, TJ, TN,
-        UR, UJ, UN> extends PromiseBase<TR, TJ, TN,
-        UR, UJ, UN,
-        never, never, never,
-        never, never, never> { }
+    interface Promise2<TR, TJ, TN, UR, UJ, UN>
+        extends PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never> {}
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
-    interface Promise<TR, TJ = any, TN = any> extends PromiseBase<TR, TJ, TN,
-        TR, TJ, TN,
-        TR, TJ, TN,
-        TR, TJ, TN> { }
+    interface Promise<TR, TJ = any, TN = any> extends PromiseBase<TR, TJ, TN, TR, TJ, TN, TR, TJ, TN, TR, TJ, TN> {}
 
     interface DeferredStatic {
         // https://jquery.com/upgrade-guide/3.0/#callback-exit
@@ -2330,7 +2721,9 @@ $.get( "test.php" )
          * @see \`{@link https://api.jquery.com/jQuery.Deferred/ }\`
          * @since 1.5
          */
-        <TR = any, TJ = any, TN = any>(beforeStart?: (this: Deferred<TR, TJ, TN>, deferred: Deferred<TR, TJ, TN>) => void): Deferred<TR, TJ, TN>;
+        <TR = any, TJ = any, TN = any>(
+            beforeStart?: (this: Deferred<TR, TJ, TN>, deferred: Deferred<TR, TJ, TN>) => void,
+        ): Deferred<TR, TJ, TN>;
     }
 
     interface Deferred<TR, TJ = any, TN = any> {
@@ -2393,8 +2786,10 @@ $.get( "test.php" ).always(function() {
 });
 ```
          */
-        always(alwaysCallback: TypeOrArray<Deferred.Callback<TR | TJ>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback<TR | TJ>>>): this;
+        always(
+            alwaysCallback: TypeOrArray<Deferred.Callback<TR | TJ>>,
+            ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback<TR | TJ>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
@@ -2455,8 +2850,10 @@ $( "button" ).on( "click", function() {
 </html>
 ```
          */
-        done(doneCallback: TypeOrArray<Deferred.Callback<TR>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.Callback<TR>>>): this;
+        done(
+            doneCallback: TypeOrArray<Deferred.Callback<TR>>,
+            ...doneCallbacks: Array<TypeOrArray<Deferred.Callback<TR>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
          * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
@@ -2474,8 +2871,10 @@ $.get( "test.php" )
   });
 ```
          */
-        fail(failCallback: TypeOrArray<Deferred.Callback<TJ>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.Callback<TJ>>>): this;
+        fail(
+            failCallback: TypeOrArray<Deferred.Callback<TJ>>,
+            ...failCallbacks: Array<TypeOrArray<Deferred.Callback<TJ>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
@@ -2484,8 +2883,10 @@ $.get( "test.php" )
          * @see \`{@link https://api.jquery.com/deferred.progress/ }\`
          * @since 1.7
          */
-        progress(progressCallback: TypeOrArray<Deferred.Callback<TN>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.Callback<TN>>>): this;
+        progress(
+            progressCallback: TypeOrArray<Deferred.Callback<TN>>,
+            ...progressCallbacks: Array<TypeOrArray<Deferred.Callback<TN>>>
+        ): this;
         /**
          * Return a Deferred's Promise object.
          * @param target Object onto which the promise methods have to be attached
@@ -2620,33 +3021,67 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARF | ARP,
+            AJD | AJF | AJP,
+            AND | ANF | ANP,
+            BRD | BRF | BRP,
+            BJD | BJF | BJP,
+            BND | BNF | BNP,
+            CRD | CRF | CRP,
+            CJD | CJF | CJP,
+            CND | CNF | CNP,
+            RRD | RRF | RRP,
+            RJD | RJF | RJP,
+            RND | RNF | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2684,26 +3119,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+        pipe<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: null,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARF | ARP,
+            AJF | AJP,
+            ANF | ANP,
+            BRF | BRP,
+            BJF | BJP,
+            BNF | BNP,
+            CRF | CRP,
+            CJF | CJP,
+            CNF | CNP,
+            RRF | RRP,
+            RJF | RJP,
+            RNF | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2741,26 +3203,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: null,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: null,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARP,
+            AJD | AJP,
+            AND | ANP,
+            BRD | BRP,
+            BJD | BJP,
+            BND | BNP,
+            CRD | CRP,
+            CJD | CJP,
+            CND | CNP,
+            RRD | RRP,
+            RJD | RJP,
+            RND | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2786,19 +3275,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: null,
-                progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+        pipe<
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: null,
+            failFilter: null,
+            progressFilter?: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2848,26 +3344,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter?: null,
+        ): PromiseBase<
+            ARD | ARF,
+            AJD | AJF,
+            AND | ANF,
+            BRD | BRF,
+            BJD | BJF,
+            BND | BNF,
+            CRD | CRF,
+            CJD | CJF,
+            CND | CNF,
+            RRD | RRF,
+            RJD | RJF,
+            RND | RNF
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2905,19 +3428,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: null,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        pipe<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            doneFilter: null,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter?: null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2955,19 +3485,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter?: null,
-                progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter?: null,
+            progressFilter?: null,
+        ): PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND>;
 
         // #endregion
 
@@ -3048,33 +3585,67 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARF | ARP,
+            AJD | AJF | AJP,
+            AND | ANF | ANP,
+            BRD | BRF | BRP,
+            BJD | BJF | BJP,
+            BND | BNF | BNP,
+            CRD | CRF | CRP,
+            CJD | CJF | CJP,
+            CND | CNF | CNP,
+            RRD | RRF | RRP,
+            RJD | RJF | RJP,
+            RND | RNF | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter A function that is called when the Deferred is resolved.
@@ -3106,26 +3677,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+        then<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: null,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARF | ARP,
+            AJF | AJP,
+            ANF | ANP,
+            BRF | BRP,
+            BJF | BJP,
+            BNF | BNP,
+            CRF | CRP,
+            CJF | CJP,
+            CNF | CNP,
+            RRF | RRP,
+            RJF | RJP,
+            RNF | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter A function that is called when the Deferred is resolved.
@@ -3178,26 +3776,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: null,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: null,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARP,
+            AJD | AJP,
+            AND | ANP,
+            BRD | BRP,
+            BJD | BJP,
+            BND | BNP,
+            CRD | CRP,
+            CJD | CJP,
+            CND | CNP,
+            RRD | RRP,
+            RJD | RJP,
+            RND | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter A function that is called when the Deferred is resolved.
@@ -3217,19 +3842,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: null,
-                progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+        then<
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never
+        >(
+            doneFilter: null,
+            failFilter: null,
+            progressFilter?: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -3304,26 +3936,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter?: null,
+        ): PromiseBase<
+            ARD | ARF,
+            AJD | AJF,
+            AND | ANF,
+            BRD | BRF,
+            BJD | BJF,
+            BND | BNF,
+            CRD | CRF,
+            CJD | CJF,
+            CND | CNF,
+            RRD | RRF,
+            RJD | RJF,
+            RND | RNF
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -3355,19 +4014,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: null,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        then<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            doneFilter: null,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter?: null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -3420,19 +4086,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter?: null,
-                progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter?: null,
+            progressFilter?: null,
+        ): PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND>;
 
         // #endregion
 
@@ -3452,45 +4125,54 @@ $.get( "test.php" )
   } );
 ```
          */
-        catch<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                failFilter?: ((...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        catch<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never
+        >(
+            failFilter?:
+                | ((
+                      ...t: TJ[]
+                  ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF)
+                | null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
     }
 
     namespace Deferred {
         type CallbackBase<T, U, V, R> = (t: T, u: U, v: V, ...r: R[]) => void;
 
-        interface Callback3<T, U, V> extends CallbackBase<T, U, V, never> { }
+        interface Callback3<T, U, V> extends CallbackBase<T, U, V, never> {}
 
         type Callback<T> = (...args: T[]) => void;
 
         /**
          * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
-        interface DoneCallback<TResolve> extends Callback<TResolve> { }
+        interface DoneCallback<TResolve> extends Callback<TResolve> {}
 
         /**
          * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
-        interface FailCallback<TReject> extends Callback<TReject> { }
+        interface FailCallback<TReject> extends Callback<TReject> {}
 
         /**
          * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
-        interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> { }
+        interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> {}
 
         /**
          * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
-        interface ProgressCallback<TNotify> extends Callback<TNotify> { }
+        interface ProgressCallback<TNotify> extends Callback<TNotify> {}
     }
 
     // #endregion
@@ -3573,8 +4255,13 @@ $.get( "test.php" )
          * @since 1.8
          */
         prefilter<TElement>(
-            callback: (this: Animation<TElement>, element: TElement, props: PlainObject, opts: EffectsOptions<TElement>) => Animation<TElement> | _Falsy | void,
-            prepend?: boolean
+            callback: (
+                this: Animation<TElement>,
+                element: TElement,
+                props: PlainObject,
+                opts: EffectsOptions<TElement>,
+            ) => Animation<TElement> | _Falsy | void,
+            prepend?: boolean,
         ): void;
         /**
          * A "Tweener" is a function responsible for creating a tween object, and you might want to override these if you want to implement complex values ( like a clip/transform array matrix ) in a single property.
@@ -3596,11 +4283,18 @@ $.get( "test.php" )
      * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
      * @since 1.8
      */
-    interface Animation<TElement> extends Promise3<
-        Animation<TElement>, Animation<TElement>, Animation<TElement>,
-        true | undefined, false, number,
-        never, never, number
-    > {
+    interface Animation<TElement>
+        extends Promise3<
+            Animation<TElement>,
+            Animation<TElement>,
+            Animation<TElement>,
+            true | undefined,
+            false,
+            number,
+            never,
+            never,
+            number
+        > {
         /**
          * The duration specified in ms
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
@@ -3695,7 +4389,14 @@ jQuery.Tween.propHooks[ property ] = {
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
-        <TElement>(elem: TElement, options: EffectsOptions<TElement>, prop: string, end: number, easing?: string, unit?: string): Tween<TElement>;
+        <TElement>(
+            elem: TElement,
+            options: EffectsOptions<TElement>,
+            prop: string,
+            end: number,
+            easing?: string,
+            unit?: string,
+        ): Tween<TElement>;
     }
 
     /**
@@ -3774,21 +4475,24 @@ jQuery.Tween.propHooks[ property ] = {
      * @since 1.8
      */
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
-    type PropHook<TElement> = {
-        /**
-         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
-         * @since 1.8
-         */
-        get(tween: Tween<TElement>): any;
-    } | {
-        /**
-         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
-         * @since 1.8
-         */
-        set(tween: Tween<TElement>): void;
-    } | {
-        [key: string]: never;
-    };
+    type PropHook<TElement> =
+        | {
+              /**
+               * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
+               * @since 1.8
+               */
+              get(tween: Tween<TElement>): any;
+          }
+        | {
+              /**
+               * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
+               * @since 1.8
+               */
+              set(tween: Tween<TElement>): void;
+          }
+        | {
+              [key: string]: never;
+          };
 
     /**
      * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
@@ -3951,7 +4655,7 @@ $( "input" ).click(function() {
     // #region Queue
 
     // TODO: Is the first element always a string or is that specific to the 'fx' queue?
-    type Queue<TElement> = { 0: string; } & Array<QueueFunction<TElement>>;
+    type Queue<TElement> = { 0: string } & Array<QueueFunction<TElement>>;
 
     type QueueFunction<TElement> = (this: TElement, next: () => void) => void;
 
@@ -3961,24 +4665,28 @@ $( "input" ).click(function() {
     // #region Speed
 
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
-    type SpeedSettings<TElement> = {
-        /**
-         * A string or number determining how long the animation will run.
-         */
-        duration: Duration;
-    } | {
-        /**
-         * A string indicating which easing function to use for the transition.
-         */
-        easing: string;
-    } | {
-        /**
-         * A function to call once the animation is complete.
-         */
-        complete(this: TElement): void;
-    } | {
-        [key: string]: never;
-    };
+    type SpeedSettings<TElement> =
+        | {
+              /**
+               * A string or number determining how long the animation will run.
+               */
+              duration: Duration;
+          }
+        | {
+              /**
+               * A string indicating which easing function to use for the transition.
+               */
+              easing: string;
+          }
+        | {
+              /**
+               * A function to call once the animation is complete.
+               */
+              complete(this: TElement): void;
+          }
+        | {
+              [key: string]: never;
+          };
 
     // #endregion
 
@@ -4535,12 +5243,7 @@ $( "p" ).click(function( event ) {
     /**
      * Base type for jQuery events that have been triggered (including events triggered on plain objects).
      */
-    interface TriggeredEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends Event {
+    interface TriggeredEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any> extends Event {
         /**
          * The current DOM element within the event bubbling phase.
          * @see \`{@link https://api.jquery.com/event.currentTarget/ }\`
@@ -4759,12 +5462,8 @@ $( "button" ).click(function( event ) {
     // region Event
     // #region Event
 
-    interface EventBase<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface EventBase<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -4997,48 +5696,28 @@ $( "#checkMetaKey" ).click(function( event ) {
         originalEvent?: _Event;
     }
 
-    interface ChangeEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface ChangeEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'change';
     }
 
-    interface ResizeEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface ResizeEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'resize';
     }
 
-    interface ScrollEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface ScrollEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'scroll';
     }
 
-    interface SelectEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface SelectEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'select';
     }
 
-    interface SubmitEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface SubmitEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'submit';
     }
 
@@ -5047,12 +5726,8 @@ $( "#checkMetaKey" ).click(function( event ) {
     // region UIEvent
     // #region UIEvent
 
-    interface UIEventBase<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface UIEventBase<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // Event
 
         bubbles: boolean;
@@ -5070,12 +5745,8 @@ $( "#checkMetaKey" ).click(function( event ) {
     // region MouseEvent
     // #region MouseEvent
 
-    interface MouseEventBase<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface MouseEventBase<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -5297,12 +5968,8 @@ $( "#checkMetaKey" ).click(function( event ) {
         originalEvent?: _MouseEvent;
     }
 
-    interface ClickEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface ClickEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -5319,12 +5986,8 @@ $( "#checkMetaKey" ).click(function( event ) {
         type: 'click';
     }
 
-    interface ContextMenuEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface ContextMenuEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -5341,12 +6004,8 @@ $( "#checkMetaKey" ).click(function( event ) {
         type: 'contextmenu';
     }
 
-    interface DoubleClickEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DoubleClickEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -5363,12 +6022,8 @@ $( "#checkMetaKey" ).click(function( event ) {
         type: 'dblclick';
     }
 
-    interface MouseDownEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface MouseDownEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -5385,32 +6040,20 @@ $( "#checkMetaKey" ).click(function( event ) {
         type: 'mousedown';
     }
 
-    interface MouseEnterEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface MouseEnterEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // Special handling by jQuery.
         type: 'mouseover';
     }
 
-    interface MouseLeaveEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface MouseLeaveEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // Special handling by jQuery.
         type: 'mouseout';
     }
 
-    interface MouseMoveEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface MouseMoveEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -5427,30 +6070,18 @@ $( "#checkMetaKey" ).click(function( event ) {
         type: 'mousemove';
     }
 
-    interface MouseOutEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface MouseOutEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'mouseout';
     }
 
-    interface MouseOverEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface MouseOverEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'mouseover';
     }
 
-    interface MouseUpEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface MouseUpEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -5470,84 +6101,48 @@ $( "#checkMetaKey" ).click(function( event ) {
     // region DragEvent
     // #region DragEvent
 
-    interface DragEventBase<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DragEventBase<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         originalEvent?: _DragEvent;
     }
 
-    interface DragEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DragEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'drag';
     }
 
-    interface DragEndEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DragEndEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'dragend';
     }
 
-    interface DragEnterEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DragEnterEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'dragenter';
     }
 
-    interface DragExitEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DragExitEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'dragexit';
     }
 
-    interface DragLeaveEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DragLeaveEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'dragleave';
     }
 
-    interface DragOverEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DragOverEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'dragover';
     }
 
-    interface DragStartEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DragStartEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'dragstart';
     }
 
-    interface DropEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface DropEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'drop';
     }
 
@@ -5558,12 +6153,8 @@ $( "#checkMetaKey" ).click(function( event ) {
     // region KeyboardEvent
     // #region KeyboardEvent
 
-    interface KeyboardEventBase<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface KeyboardEventBase<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -5785,30 +6376,18 @@ $( "#checkMetaKey" ).click(function( event ) {
         originalEvent?: _KeyboardEvent;
     }
 
-    interface KeyDownEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface KeyDownEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'keydown';
     }
 
-    interface KeyPressEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface KeyPressEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'keypress';
     }
 
-    interface KeyUpEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface KeyUpEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'keyup';
     }
 
@@ -5817,12 +6396,8 @@ $( "#checkMetaKey" ).click(function( event ) {
     // region TouchEvent
     // #region TouchEvent
 
-    interface TouchEventBase<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface TouchEventBase<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -6044,39 +6619,23 @@ $( "#checkMetaKey" ).click(function( event ) {
         originalEvent?: _TouchEvent;
     }
 
-    interface TouchCancelEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface TouchCancelEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'touchcancel';
     }
 
-    interface TouchEndEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface TouchEndEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'touchend';
     }
 
-    interface TouchMoveEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface TouchMoveEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'touchmove';
     }
 
-    interface TouchStartEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface TouchStartEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'touchstart';
     }
 
@@ -6085,12 +6644,8 @@ $( "#checkMetaKey" ).click(function( event ) {
     // region FocusEvent
     // #region FocusEvent
 
-    interface FocusEventBase<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface FocusEventBase<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -6312,39 +6867,23 @@ $( "#checkMetaKey" ).click(function( event ) {
         originalEvent?: _FocusEvent;
     }
 
-    interface BlurEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface BlurEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'blur';
     }
 
-    interface FocusEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface FocusEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'focus';
     }
 
-    interface FocusInEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface FocusInEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'focusin';
     }
 
-    interface FocusOutEvent<
-        TDelegateTarget = any,
-        TData = any,
-        TCurrentTarget = any,
-        TTarget = any
-    > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+    interface FocusOutEvent<TDelegateTarget = any, TData = any, TCurrentTarget = any, TTarget = any>
+        extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'focusout';
     }
 
@@ -6352,12 +6891,7 @@ $( "#checkMetaKey" ).click(function( event ) {
 
     // #endregion
 
-    interface TypeToTriggeredEventMap<
-        TDelegateTarget,
-        TData,
-        TCurrentTarget,
-        TTarget
-    > {
+    interface TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // Event
 
         change: ChangeEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
@@ -6418,10 +6952,10 @@ $( "#checkMetaKey" ).click(function( event ) {
     // Extra parameters can be passed from trigger()
     type EventHandlerBase<TContext, T> = (this: TContext, t: T, ...args: any[]) => any;
 
-    type EventHandler<
+    type EventHandler<TCurrentTarget, TData = undefined> = EventHandlerBase<
         TCurrentTarget,
-        TData = undefined
-    > = EventHandlerBase<TCurrentTarget, TriggeredEvent<TCurrentTarget, TData>>;
+        TriggeredEvent<TCurrentTarget, TData>
+    >;
 
     type TypeEventHandler<
         TDelegateTarget,
@@ -6429,32 +6963,27 @@ $( "#checkMetaKey" ).click(function( event ) {
         TCurrentTarget,
         TTarget,
         TType extends keyof TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>
-    > = EventHandlerBase<TCurrentTarget, TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>[TType]>;
-
-    interface TypeEventHandlers<
-        TDelegateTarget,
-        TData,
+    > = EventHandlerBase<
         TCurrentTarget,
-        TTarget
-    > extends _TypeEventHandlers<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>[TType]
+    >;
+
+    interface TypeEventHandlers<TDelegateTarget, TData, TCurrentTarget, TTarget>
+        extends _TypeEventHandlers<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // No idea why it's necessary to include `object` in the union but otherwise TypeScript complains that
         // derived types of Event are not assignable to Event.
-        [type: string]: TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, string> |
-                        false |
-                        undefined |
-                        object;
+        [type: string]:
+            | TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, string>
+            | false
+            | undefined
+            | object;
     }
 
-    type _TypeEventHandlers<
-        TDelegateTarget,
-        TData,
-        TCurrentTarget,
-        TTarget
-    > = {
+    type _TypeEventHandlers<TDelegateTarget, TData, TCurrentTarget, TTarget> = {
         [TType in keyof TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>]?:
-            TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, TType> |
-            false |
-            object;
+            | TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, TType>
+            | false
+            | object;
     };
 
     // region Event extensions
@@ -6480,81 +7009,103 @@ $( "#checkMetaKey" ).click(function( event ) {
      * @see \`{@link https://learn.jquery.com/events/event-extensions/#special-event-hooks }\`
      */
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
-    type SpecialEventHook<TTarget, TData> = {
-        /**
-         * Indicates whether this event type should be bubbled when the `.trigger()` method is called; by default it is `false`, meaning that a triggered event will bubble to the element's parents up to the document (if attached to a document) and then to the window. Note that defining `noBubble` on an event will effectively prevent that event from being used for delegated events with `.trigger()`.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#nobubble-boolean }\`
-         */
-        noBubble: boolean;
-    } | {
-        /**
-         * When defined, these string properties specify that a special event should be handled like another event type until the event is delivered. The `bindType` is used if the event is attached directly, and the `delegateType` is used for delegated events. These types are generally DOM event types, and _should not_ be a special event themselves.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
-         */
-        bindType: string;
-    } | {
-        /**
-         * When defined, these string properties specify that a special event should be handled like another event type until the event is delivered. The `bindType` is used if the event is attached directly, and the `delegateType` is used for delegated events. These types are generally DOM event types, and _should not_ be a special event themselves.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
-         */
-        delegateType: string;
-    } | {
-        /**
-         * The setup hook is called the first time an event of a particular type is attached to an element; this provides the hook an opportunity to do processing that will apply to all events of this type on this element. The `this` keyword will be a reference to the element where the event is being attached and `eventHandle` is jQuery's event handler function. In most cases the `namespaces` argument should not be used, since it only represents the namespaces of the _first_ event being attached; subsequent events may not have this same namespaces.
-         *
-         * This hook can perform whatever processing it desires, including attaching its own event handlers to the element or to other elements and recording setup information on the element using the `jQuery.data()` method. If the setup hook wants jQuery to add a browser event (via `addEventListener` or `attachEvent`, depending on browser) it should return `false`. In all other cases, jQuery will not add the browser event, but will continue all its other bookkeeping for the event. This would be appropriate, for example, if the event was never fired by the browser but invoked by `.trigger()`. To attach the jQuery event handler in the setup hook, use the `eventHandle` argument.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#setup-function-data-object-namespaces-eventhandle-function }\`
-         */
-        setup(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
-    } | {
-        /**
-         * The teardown hook is called when the final event of a particular type is removed from an element. The `this` keyword will be a reference to the element where the event is being cleaned up. This hook should return `false` if it wants jQuery to remove the event from the browser's event system (via `removeEventListener` or `detachEvent`). In most cases, the setup and teardown hooks should return the same value.
-         *
-         * If the setup hook attached event handlers or added data to an element through a mechanism such as `jQuery.data()`, the teardown hook should reverse the process and remove them. jQuery will generally remove the data and events when an element is totally removed from the document, but failing to remove data or events on teardown will cause a memory leak if the element stays in the document.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#teardown-function }\`
-         */
-        teardown(this: TTarget): void | false;
-    } | {
-        /**
-         * Each time an event handler is added to an element through an API such as `.on()`, jQuery calls this hook. The `this` keyword will be the element to which the event handler is being added, and the `handleObj` argument is as described in the section above. The return value of this hook is ignored.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#add-function-handleobj }\`
-         */
-        add(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
-    } | {
-        /**
-         * When an event handler is removed from an element using an API such as `.off()`, this hook is called. The `this` keyword will be the element where the handler is being removed, and the `handleObj` argument is as described in the section above. The return value of this hook is ignored.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#remove-function-handleobj }\`
-         */
-        remove(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
-    } | {
-        /**
-         * Called when the `.trigger()` or `.triggerHandler()` methods are used to trigger an event for the special type from code, as opposed to events that originate from within the browser. The `this` keyword will be the element being triggered, and the event argument will be a `jQuery.Event` object constructed from the caller's input. At minimum, the event type, data, namespace, and target properties are set on the event. The data argument represents additional data passed by `.trigger()` if present.
-         *
-         * The trigger hook is called early in the process of triggering an event, just after the `jQuery.Event` object is constructed and before any handlers have been called. It can process the triggered event in any way, for example by calling `event.stopPropagation()` or `event.preventDefault()` before returning. If the hook returns `false`, jQuery does not perform any further event triggering actions and returns immediately. Otherwise, it performs the normal trigger processing, calling any event handlers for the element and bubbling the event (unless propagation is stopped in advance or `noBubble` was specified for the special event) to call event handlers attached to parent elements.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#trigger-function-event-jquery-event-data-object }\`
-         */
-        trigger(this: TTarget, event: Event, data: TData): void | false;
-    } | {
-        /**
-         * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`. So, `.trigger( "submit" )` will execute the `submit()` method on the element if one exists. When a `_default` hook is specified, the hook is called just prior to checking for and executing the element's default method. If this hook returns the value `false` the element's default method will be called; otherwise it is not.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#_default-function-event-jquery-event-data-object }\`
-         */
-        _default(event: TriggeredEvent<TTarget, TData>, data: TData): void | false;
-    } | {
-        /**
-         * jQuery calls a handle hook when the event has occurred and jQuery would normally call the user's event handler specified by `.on()` or another event binding method. If the hook exists, jQuery calls it _instead_ of that event handler, passing it the event and any data passed from `.trigger()` if it was not a native event. The `this` keyword is the DOM element being handled, and `event.handleObj` property has the detailed event information.
-         *
-         * Based in the information it has, the handle hook should decide whether to call the original handler function which is in `event.handleObj.handler`. It can modify information in the event object before calling the original handler, but _must restore_ that data before returning or subsequent unrelated event handlers may act unpredictably. In most cases, the handle hook should return the result of the original handler, but that is at the discretion of the hook. The handle hook is unique in that it is the only special event function hook that is called under its original special event name when the type is mapped using `bindType` and `delegateType`. For that reason, it is almost always an error to have anything other than a handle hook present if the special event defines a `bindType` and `delegateType`, since those other hooks will never be called.
-         * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
-         */
-        handle(this: TTarget, event: TriggeredEvent<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
-    } | {
-        preDispatch(this: TTarget, event: Event): false | void;
-    } | {
-        postDispatch(this: TTarget, event: Event): void;
-    } | {
-        [key: string]: never;
-    };
+    type SpecialEventHook<TTarget, TData> =
+        | {
+              /**
+               * Indicates whether this event type should be bubbled when the `.trigger()` method is called; by default it is `false`, meaning that a triggered event will bubble to the element's parents up to the document (if attached to a document) and then to the window. Note that defining `noBubble` on an event will effectively prevent that event from being used for delegated events with `.trigger()`.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#nobubble-boolean }\`
+               */
+              noBubble: boolean;
+          }
+        | {
+              /**
+               * When defined, these string properties specify that a special event should be handled like another event type until the event is delivered. The `bindType` is used if the event is attached directly, and the `delegateType` is used for delegated events. These types are generally DOM event types, and _should not_ be a special event themselves.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
+               */
+              bindType: string;
+          }
+        | {
+              /**
+               * When defined, these string properties specify that a special event should be handled like another event type until the event is delivered. The `bindType` is used if the event is attached directly, and the `delegateType` is used for delegated events. These types are generally DOM event types, and _should not_ be a special event themselves.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
+               */
+              delegateType: string;
+          }
+        | {
+              /**
+               * The setup hook is called the first time an event of a particular type is attached to an element; this provides the hook an opportunity to do processing that will apply to all events of this type on this element. The `this` keyword will be a reference to the element where the event is being attached and `eventHandle` is jQuery's event handler function. In most cases the `namespaces` argument should not be used, since it only represents the namespaces of the _first_ event being attached; subsequent events may not have this same namespaces.
+               *
+               * This hook can perform whatever processing it desires, including attaching its own event handlers to the element or to other elements and recording setup information on the element using the `jQuery.data()` method. If the setup hook wants jQuery to add a browser event (via `addEventListener` or `attachEvent`, depending on browser) it should return `false`. In all other cases, jQuery will not add the browser event, but will continue all its other bookkeeping for the event. This would be appropriate, for example, if the event was never fired by the browser but invoked by `.trigger()`. To attach the jQuery event handler in the setup hook, use the `eventHandle` argument.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#setup-function-data-object-namespaces-eventhandle-function }\`
+               */
+              setup(
+                  this: TTarget,
+                  data: TData,
+                  namespaces: string,
+                  eventHandle: EventHandler<TTarget, TData>,
+              ): void | false;
+          }
+        | {
+              /**
+               * The teardown hook is called when the final event of a particular type is removed from an element. The `this` keyword will be a reference to the element where the event is being cleaned up. This hook should return `false` if it wants jQuery to remove the event from the browser's event system (via `removeEventListener` or `detachEvent`). In most cases, the setup and teardown hooks should return the same value.
+               *
+               * If the setup hook attached event handlers or added data to an element through a mechanism such as `jQuery.data()`, the teardown hook should reverse the process and remove them. jQuery will generally remove the data and events when an element is totally removed from the document, but failing to remove data or events on teardown will cause a memory leak if the element stays in the document.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#teardown-function }\`
+               */
+              teardown(this: TTarget): void | false;
+          }
+        | {
+              /**
+               * Each time an event handler is added to an element through an API such as `.on()`, jQuery calls this hook. The `this` keyword will be the element to which the event handler is being added, and the `handleObj` argument is as described in the section above. The return value of this hook is ignored.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#add-function-handleobj }\`
+               */
+              add(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+          }
+        | {
+              /**
+               * When an event handler is removed from an element using an API such as `.off()`, this hook is called. The `this` keyword will be the element where the handler is being removed, and the `handleObj` argument is as described in the section above. The return value of this hook is ignored.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#remove-function-handleobj }\`
+               */
+              remove(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+          }
+        | {
+              /**
+               * Called when the `.trigger()` or `.triggerHandler()` methods are used to trigger an event for the special type from code, as opposed to events that originate from within the browser. The `this` keyword will be the element being triggered, and the event argument will be a `jQuery.Event` object constructed from the caller's input. At minimum, the event type, data, namespace, and target properties are set on the event. The data argument represents additional data passed by `.trigger()` if present.
+               *
+               * The trigger hook is called early in the process of triggering an event, just after the `jQuery.Event` object is constructed and before any handlers have been called. It can process the triggered event in any way, for example by calling `event.stopPropagation()` or `event.preventDefault()` before returning. If the hook returns `false`, jQuery does not perform any further event triggering actions and returns immediately. Otherwise, it performs the normal trigger processing, calling any event handlers for the element and bubbling the event (unless propagation is stopped in advance or `noBubble` was specified for the special event) to call event handlers attached to parent elements.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#trigger-function-event-jquery-event-data-object }\`
+               */
+              trigger(this: TTarget, event: Event, data: TData): void | false;
+          }
+        | {
+              /**
+               * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`. So, `.trigger( "submit" )` will execute the `submit()` method on the element if one exists. When a `_default` hook is specified, the hook is called just prior to checking for and executing the element's default method. If this hook returns the value `false` the element's default method will be called; otherwise it is not.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#_default-function-event-jquery-event-data-object }\`
+               */
+              _default(event: TriggeredEvent<TTarget, TData>, data: TData): void | false;
+          }
+        | {
+              /**
+               * jQuery calls a handle hook when the event has occurred and jQuery would normally call the user's event handler specified by `.on()` or another event binding method. If the hook exists, jQuery calls it _instead_ of that event handler, passing it the event and any data passed from `.trigger()` if it was not a native event. The `this` keyword is the DOM element being handled, and `event.handleObj` property has the detailed event information.
+               *
+               * Based in the information it has, the handle hook should decide whether to call the original handler function which is in `event.handleObj.handler`. It can modify information in the event object before calling the original handler, but _must restore_ that data before returning or subsequent unrelated event handlers may act unpredictably. In most cases, the handle hook should return the result of the original handler, but that is at the discretion of the hook. The handle hook is unique in that it is the only special event function hook that is called under its original special event name when the type is mapped using `bindType` and `delegateType`. For that reason, it is almost always an error to have anything other than a handle hook present if the special event defines a `bindType` and `delegateType`, since those other hooks will never be called.
+               * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
+               */
+              handle(
+                  this: TTarget,
+                  event: TriggeredEvent<TTarget, TData> & { handleObj: HandleObject<TTarget, TData> },
+                  ...data: TData[]
+              ): void;
+          }
+        | {
+              preDispatch(this: TTarget, event: Event): false | void;
+          }
+        | {
+              postDispatch(this: TTarget, event: Event): void;
+          }
+        | {
+              [key: string]: never;
+          };
 
     interface SpecialEventHooks {
         [event: string]: SpecialEventHook<EventTarget, any>;
@@ -6611,10 +7162,7 @@ $( "#checkMetaKey" ).click(function( event ) {
     }
 
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
-    type CoordinatesPartial =
-        Pick<Coordinates, 'left'> |
-        Pick<Coordinates, 'top'> |
-        { [key: string]: never; };
+    type CoordinatesPartial = Pick<Coordinates, 'left'> | Pick<Coordinates, 'top'> | { [key: string]: never };
 
     // #endregion
 
@@ -6622,13 +7170,16 @@ $( "#checkMetaKey" ).click(function( event ) {
     // #region Val hooks
 
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
-    type ValHook<TElement> = {
-        get(elem: TElement): any;
-    } | {
-        set(elem: TElement, value: any): any;
-    } | {
-        [key: string]: never;
-    };
+    type ValHook<TElement> =
+        | {
+              get(elem: TElement): any;
+          }
+        | {
+              set(elem: TElement, value: any): any;
+          }
+        | {
+              [key: string]: never;
+          };
 
     interface ValHooks {
         // Set to HTMLElement to minimize breaks but should probably be Element.
@@ -6656,7 +7207,7 @@ type _FocusEvent = FocusEvent;
 
 // Forward declaration of `Iterable<T>`.
 // tslint:disable-next-line:no-empty-interface
-interface Iterable<T> { }
+interface Iterable<T> {}
 
 interface SymbolConstructor {
     /**

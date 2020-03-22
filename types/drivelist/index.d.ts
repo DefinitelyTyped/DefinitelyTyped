@@ -3,7 +3,7 @@
 // Definitions by: Xiao Deng <https://github.com/WholeMilk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type BusType = "SATA" | "SCSI" | "ATA" | "IDE" | "PCI" | "UNKNOWN";
+export type BusType = 'SATA' | 'SCSI' | 'ATA' | 'IDE' | 'PCI' | 'UNKNOWN';
 
 export interface MountPoint {
     path: string;

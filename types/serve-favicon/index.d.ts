@@ -11,21 +11,21 @@
 
  =============================================== */
 
-
-
-
 import express = require('express');
 
 /**
  * Node.js middleware for serving a favicon.
  */
-declare function serveFavicon(path: string | Buffer, options?: {
-    /**
-    * The cache-control max-age directive in ms, defaulting to 1 day. This can also be a string accepted by the ms module.
-    */
-    maxAge?: number;
-}): express.RequestHandler;
+declare function serveFavicon(
+    path: string | Buffer,
+    options?: {
+        /**
+         * The cache-control max-age directive in ms, defaulting to 1 day. This can also be a string accepted by the ms module.
+         */
+        maxAge?: number;
+    },
+): express.RequestHandler;
 
-declare namespace serveFavicon { }
+declare namespace serveFavicon {}
 
 export = serveFavicon;

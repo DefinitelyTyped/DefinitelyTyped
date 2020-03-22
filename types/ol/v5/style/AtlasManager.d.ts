@@ -17,7 +17,7 @@ export default class AtlasManager {
         height: number,
         renderCallback: (p0: CanvasRenderingContext2D, p1: number, p2: number) => void,
         opt_renderHitCallback?: () => void,
-        opt_this?: any
+        opt_this?: any,
     ): AtlasManagerInfo;
     getInfo(id: string): AtlasManagerInfo;
 }

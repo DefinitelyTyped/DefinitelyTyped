@@ -117,7 +117,7 @@ interface Date {
     hasDaylightSavingTime(): boolean;
     /** Indicates whether this Date instance is within the Daylight Saving Time range for the current time zone. */
     isDaylightSavingTime(): boolean;
-	/** Move to the next or previous dayOfWeek. Whether to move into the future (+1) or past(-1) is controlled by the optional direction parameter. */
+    /** Move to the next or previous dayOfWeek. Whether to move into the future (+1) or past(-1) is controlled by the optional direction parameter. */
     moveToDayOfWeek(dayOfWeek: number, direction: number): Date;
     /** Moves the date to the first day of the month. */
     moveToFirstDayOfMonth(): Date;
@@ -139,8 +139,7 @@ interface Date {
     toString(format?: string): string;
 }
 
-
 //NOTE: IDateJSStatic and IDateJS are provided here solely for backwards compatability with previous versions of this particular definition file (datejs.d.ts.)
 //DO NOT use them in new code (and it is strongly suggested you remove their use in any existing code); simply use the Javascript Date class instead.
-interface IDateJS extends Date { }
-interface IDateJSStatic extends DateConstructor { }
+interface IDateJS extends Date {}
+interface IDateJSStatic extends DateConstructor {}

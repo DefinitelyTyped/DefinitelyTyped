@@ -8,15 +8,15 @@ import eUtils = require('easy-xapi-utils');
 
 eXapi.init({
     jSend: {
-        partial: true
-    }
+        partial: true,
+    },
 });
 
 var xApi = eXapi.create({
     root: __dirname,
     log: {
         name: 'Log',
-        level: 'info'
+        level: 'info',
     },
     port: 3000,
     name: 'test',
@@ -33,7 +33,7 @@ var xApi = eXapi.create({
         app.get('/role', eUtils.hasRole('guest'), function (req, res) {
             res.send('ok');
         });
-    }
+    },
 });
 
 xApi.listen();

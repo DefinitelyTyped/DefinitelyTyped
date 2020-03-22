@@ -20,9 +20,7 @@
  *  // later
  *  OFF_DEATH();
  */
-declare function ON_DEATH(
-    callback: (signal: "SIGINT" | "SIGTERM" | "SIGQUIT") => void
-): () => void;
+declare function ON_DEATH(callback: (signal: 'SIGINT' | 'SIGTERM' | 'SIGQUIT') => void): () => void;
 /**
  * Invokes a callback when a SIGINT, SIGTERM, or SIGQUIT is detected
  * on the current node process. Configurable by the provided options.
@@ -53,14 +51,5 @@ declare function ON_DEATH(options: {
     SIGQUIT?: boolean;
     SIGHUP?: boolean;
     uncaughtException?: boolean;
-}): (
-    callback: (
-        signal:
-            | "SIGINT"
-            | "SIGTERM"
-            | "SIGQUIT"
-            | "SIGHUP"
-            | "uncaughtException"
-    ) => void
-) => () => void;
+}): (callback: (signal: 'SIGINT' | 'SIGTERM' | 'SIGQUIT' | 'SIGHUP' | 'uncaughtException') => void) => () => void;
 export = ON_DEATH;

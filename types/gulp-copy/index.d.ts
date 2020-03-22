@@ -3,7 +3,7 @@
 // Definitions by: Arun Aravind <https://github.com/aravindarun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import through = require("through");
+import through = require('through');
 
 /**
  * Copy files to destination and expose those files as source streams for the gulp pipeline.

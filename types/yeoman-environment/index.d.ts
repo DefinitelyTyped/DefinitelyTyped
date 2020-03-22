@@ -4,18 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import { EventEmitter } from "events";
-import { Store as MemFsStore } from "mem-fs";
-import * as inquirer from "inquirer";
-import * as Generator from "yeoman-generator";
+import { EventEmitter } from 'events';
+import { Store as MemFsStore } from 'mem-fs';
+import * as inquirer from 'inquirer';
+import * as Generator from 'yeoman-generator';
 
-declare class Environment<
-    O extends Environment.Options = Environment.Options
-> extends EventEmitter {
+declare class Environment<O extends Environment.Options = Environment.Options> extends EventEmitter {
     static createEnv<O extends Environment.Options = Environment.Options>(
         args?: string | string[],
         opts?: O,
-        adapter?: Environment.Adapter
+        adapter?: Environment.Adapter,
     ): Environment<O>;
 
     static enforceUpdate<E extends Environment>(env: E): E;
@@ -36,11 +34,7 @@ declare class Environment<
 
     aliases: Environment.Alias[];
 
-    constructor(
-        args?: string | string[],
-        opts?: O,
-        adapter?: Environment.Adapter
-    );
+    constructor(args?: string | string[], opts?: O, adapter?: Environment.Adapter);
 
     alias(match: string | RegExp, value: string): void;
 
@@ -62,10 +56,7 @@ declare class Environment<
 
     help(name: string): string;
 
-    instantiate(
-        name: string,
-        options: Environment.InstantiateOptions
-    ): Generator;
+    instantiate(name: string, options: Environment.InstantiateOptions): Generator;
 
     lookup(cb?: (err: null | Error) => void): void;
 
@@ -81,11 +72,7 @@ declare class Environment<
 
     run(done: Environment.RunDone): void;
     run(args: string | string[], done: Environment.RunDone): void;
-    run(
-        args: string | string[],
-        options: object,
-        done: Environment.RunDone
-    ): void;
+    run(args: string | string[], options: object, done: Environment.RunDone): void;
 
     private _tryRegistering(generatorReference: string): void;
 }
@@ -93,10 +80,7 @@ declare class Environment<
 declare namespace Environment {
     interface Adapter {
         prompt<T>(questions: Adapter.Questions<T>): Promise<T>;
-        prompt<T1, T2>(
-            questions: Adapter.Questions<T1>,
-            cb: (res: T1) => T2
-        ): Promise<T2>;
+        prompt<T1, T2>(questions: Adapter.Questions<T1>, cb: (res: T1) => T2): Promise<T2>;
 
         diff(actual: string, expected: string): string;
     }

@@ -10,24 +10,24 @@ import {
     RouteOptionsResponse,
     RouteOptionsValidate,
     Server,
-    RouteOptionsSecureObject
-} from "hapi";
+    RouteOptionsSecureObject,
+} from 'hapi';
 
 const routeOptionsAccess: RouteOptionsAccess = {
     access: [
         {
-            scope: false
+            scope: false,
         },
         {
-            entity: 'user'
-        }
+            entity: 'user',
+        },
     ],
     scope: false,
     entity: 'user',
     mode: 'optional',
     payload: 'optional',
     strategies: ['', ''],
-    strategy: ''
+    strategy: '',
 };
 
 const corsOption: RouteOptionsCors = {
@@ -37,15 +37,15 @@ const corsOption: RouteOptionsCors = {
     additionalHeaders: ['test', 'test', 'test'],
     exposedHeaders: ['test', 'test', 'test'],
     additionalExposedHeaders: ['test', 'test', 'test'],
-    credentials: false
+    credentials: false,
 };
 
 const payloadOptions: RouteOptionsPayload = {
     allow: 'string',
     compression: {
         test1: {
-            test: 2
-        }
+            test: 2,
+        },
     },
     defaultContentType: 'application/json',
     failAction(request, h) {
@@ -53,13 +53,13 @@ const payloadOptions: RouteOptionsPayload = {
     },
     maxBytes: 1048576,
     multipart: {
-        output: 'annotated'
+        output: 'annotated',
     },
     output: 'stream',
     override: '',
     parse: 'gunzip',
     timeout: 5000,
-    uploads: 'dir/'
+    uploads: 'dir/',
 };
 
 const pre1: Lifecycle.Method = (request, h) => {
@@ -94,7 +94,7 @@ const routeOptionsResponse: RouteOptionsResponse = {
 const routeOptionSecure: RouteOptionsSecureObject = {
     referrer: 'origin',
     noSniff: true,
-    xframe: "deny",
+    xframe: 'deny',
     hsts: {
         includeSubdomains: true,
         maxAge: 1111,
@@ -126,19 +126,19 @@ declare module 'hapi' {
 const routeOptions: RouteOptions = {
     app: {
         one: 1,
-        two: "2"
+        two: '2',
     },
     auth: routeOptionsAccess,
     bind: null,
     cache: {
         privacy: 'default',
         statuses: [200],
-        otherwise: 'no-cache'
+        otherwise: 'no-cache',
     },
     compression: {
         test1: {
-            test: 2
-        }
+            test: 2,
+        },
     },
     cors: corsOption,
     description: 'description here',
@@ -152,7 +152,7 @@ const routeOptions: RouteOptions = {
     json: undefined,
     jsonp: 'callback',
     log: { collect: false },
-    notes:  ['test', 'test', 'test'],
+    notes: ['test', 'test', 'test'],
     payload: payloadOptions,
     plugins: {
         plugin1: {},
@@ -162,7 +162,7 @@ const routeOptions: RouteOptions = {
         [
             // m1 and m2 executed in parallel
             { method: pre1, assign: 'm1' },
-            { method: pre2, assign: 'm2' }
+            { method: pre2, assign: 'm2' },
         ],
         { method: pre3, assign: 'm3' },
     ],
@@ -177,14 +177,14 @@ const routeOptions: RouteOptions = {
     tags: ['test', 'test', 'test'],
     timeout: {
         server: 10000,
-        socket: false
+        socket: false,
     },
-    validate: routeOptionsValidate
+    validate: routeOptionsValidate,
 };
 
 const server = new Server({
     port: 8000,
-    routes: routeOptions
+    routes: routeOptions,
 });
 server.start();
 

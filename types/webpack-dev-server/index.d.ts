@@ -315,20 +315,20 @@ declare namespace WebpackDevServer {
          * client.
          */
         transportMode?:
-            'sockjs'
+            | 'sockjs'
             | 'ws'
             | {
-              client: object,
-              server: 'ws',
-            }
+                  client: object;
+                  server: 'ws';
+              }
             | {
-              client: 'ws',
-              server: object,
-            }
+                  client: 'ws';
+                  server: object;
+              }
             | {
-              client: object,
-              server: object,
-            };
+                  client: object;
+                  server: object;
+              };
         /** This option lets the browser open with your local IP. */
         useLocalIp?: boolean;
         /**

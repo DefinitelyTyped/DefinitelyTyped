@@ -25,7 +25,17 @@ declare function quantile(p: MatrixLike, options?: Options): Matrix;
  */
 declare function quantile(p: number | Data | MatrixLike, options?: Options): number | Data | Matrix;
 
-type Data = number[]|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array;
+type Data =
+    | number[]
+    | Int8Array
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Float32Array
+    | Float64Array;
 
 type DataType = 'int8' | 'uint8' | 'uint8_clamped' | 'int16' | 'uint16' | 'int32' | 'uint32' | 'float32' | 'float64';
 

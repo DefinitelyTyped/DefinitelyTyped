@@ -1,4 +1,4 @@
-import { Options } from "jquery.appear";
+import { Options } from 'jquery.appear';
 
 $(document).ready(() => {
     // basic usage
@@ -11,7 +11,7 @@ $(document).ready(() => {
         data: 'test',
         one: false,
         accX: 50,
-        accY: 100
+        accY: 100,
     };
     $('#foo').appear<string>((element: HTMLElement, data: string) => {
         $(element).text(data);

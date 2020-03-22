@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Service User API v1 */
-    function load(name: "serviceuser", version: "v1"): PromiseLike<void>;
-    function load(name: "serviceuser", version: "v1", callback: () => any): void;
+    function load(name: 'serviceuser', version: 'v1'): PromiseLike<void>;
+    function load(name: 'serviceuser', version: 'v1', callback: () => any): void;
 
     const projects: serviceuser.ProjectsResource;
 
@@ -1412,7 +1412,7 @@ declare namespace gapi.client {
              */
             disable(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1457,7 +1457,7 @@ declare namespace gapi.client {
              */
             enable(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1493,7 +1493,7 @@ declare namespace gapi.client {
             /** List enabled services for the specified consumer. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1547,7 +1547,7 @@ declare namespace gapi.client {
              */
             search(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

@@ -4,7 +4,7 @@ import template from 'string-placeholder';
 template('${0} test', ['here']);
 
 // $ExpectType string
-template('${foo} test ${bar}', {foo: 'Bob', bar: '65'});
+template('${foo} test ${bar}', { foo: 'Bob', bar: '65' });
 
 // $ExpectType string
 template('${0} test', ['here'], { after: '[:' });

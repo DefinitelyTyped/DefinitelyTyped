@@ -62,19 +62,19 @@
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files
 // just to ensure the names are known and node typings can be used without importing these libs.
 // if someone really needs these types the libs need to be added via --lib or in tsconfig.json
-interface MapConstructor { }
-interface WeakMapConstructor { }
-interface SetConstructor { }
-interface WeakSetConstructor { }
+interface MapConstructor {}
+interface WeakMapConstructor {}
+interface SetConstructor {}
+interface WeakSetConstructor {}
 interface Set<T> {}
 interface Map<K, V> {}
 interface ReadonlySet<T> {}
-interface IteratorResult<T> { }
-interface Iterable<T> { }
+interface IteratorResult<T> {}
+interface Iterable<T> {}
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
-interface IterableIterator<T> { }
+interface IterableIterator<T> {}
 interface AsyncIterableIterator<T> {}
 interface SymbolConstructor {
     readonly iterator: symbol;
@@ -88,7 +88,7 @@ interface SharedArrayBuffer {
     slice(begin?: number, end?: number): SharedArrayBuffer;
 }
 
-declare module "util" {
+declare module 'util' {
     namespace inspect {
         const custom: symbol;
     }

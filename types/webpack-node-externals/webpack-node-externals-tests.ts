@@ -3,13 +3,11 @@ import webpackNodeExternals = require('webpack-node-externals');
 
 const a: webpack.Configuration = {
     entry: 'test.js',
-    externals: [
-        webpackNodeExternals()
-    ]
+    externals: [webpackNodeExternals()],
 };
 const b: webpack.Configuration = {
     entry: 'test.js',
-    externals: webpackNodeExternals()
+    externals: webpackNodeExternals(),
 };
 const c: webpack.Configuration = {
     entry: 'test.js',
@@ -30,49 +28,49 @@ const d: webpack.Configuration = {
         webpackNodeExternals({
             importType: (moduleName) => {
                 return 'commonjs';
-            }
-        })
-    ]
+            },
+        }),
+    ],
 };
 const e: webpack.Configuration = {
     entry: 'test.js',
     externals: [
         webpackNodeExternals({
             modulesFromFile: {
-                exclude: 'devDependencies'
-            }
-        })
-    ]
+                exclude: 'devDependencies',
+            },
+        }),
+    ],
 };
 const f: webpack.Configuration = {
     entry: 'test.js',
     externals: [
         webpackNodeExternals({
             modulesFromFile: {
-                exclude: ['devDependencies']
-            }
-        })
-    ]
+                exclude: ['devDependencies'],
+            },
+        }),
+    ],
 };
 const g: webpack.Configuration = {
     entry: 'test.js',
     externals: [
         webpackNodeExternals({
             modulesFromFile: {
-                include: 'dependencies'
-            }
-        })
-    ]
+                include: 'dependencies',
+            },
+        }),
+    ],
 };
 const h: webpack.Configuration = {
     entry: 'test.js',
     externals: [
         webpackNodeExternals({
             modulesFromFile: {
-                include: ['dependencies']
-            }
-        })
-    ]
+                include: ['dependencies'],
+            },
+        }),
+    ],
 };
 const i: webpack.Configuration = {
     entry: 'test.js',

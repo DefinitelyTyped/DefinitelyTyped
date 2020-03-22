@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import gitSemverTags from "git-semver-tags";
+import gitSemverTags from 'git-semver-tags';
 
 declare const callback: gitSemverTags.Callback;
 declare const options: gitSemverTags.Options;

@@ -37,10 +37,24 @@ export interface LibratoSimulate {
 export function configure(config: LibratoConfig | LibratoSimulate): void;
 export function increment(name: string, value?: number, opts?: CustomSource): void;
 export function measure(name: string, value: number, opts?: CustomSource): void;
-export function timing(name: string, fn: (done: () => void) => void, cb: ((err?: Error | null) => void)): void;
-export function timing(name: string, fn: (done: () => void) => void, opts?: CustomSource, cb?: ((err?: Error | null) => void)): void;
-export function timing<T>(name: string, fn: (done: (err: Error | null | undefined, result: T) => T) => void, cb: ((err?: Error | null) => void)): T;
-export function timing<T>(name: string, fn: (done: (err: Error | null | undefined, result: T) => T) => void, opts?: CustomSource, cb?: ((err?: Error | null) => void)): T;
+export function timing(name: string, fn: (done: () => void) => void, cb: (err?: Error | null) => void): void;
+export function timing(
+    name: string,
+    fn: (done: () => void) => void,
+    opts?: CustomSource,
+    cb?: (err?: Error | null) => void,
+): void;
+export function timing<T>(
+    name: string,
+    fn: (done: (err: Error | null | undefined, result: T) => T) => void,
+    cb: (err?: Error | null) => void,
+): T;
+export function timing<T>(
+    name: string,
+    fn: (done: (err: Error | null | undefined, result: T) => T) => void,
+    opts?: CustomSource,
+    cb?: (err?: Error | null) => void,
+): T;
 export function start(): void;
 export function stop(cb?: (err?: Error) => void): void;
 export function flush(cb?: (err?: Error) => void): void;

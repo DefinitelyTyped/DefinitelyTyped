@@ -38,23 +38,41 @@ map.addMarker({
 
 // addLine
 map.addLine({
-    coords: [[13.399259, 52.482659], [13.387849, 52.477144], [13.40538, 52.510632]],
+    coords: [
+        [13.399259, 52.482659],
+        [13.387849, 52.477144],
+        [13.40538, 52.510632],
+    ],
 });
 map.addLine({
-    coords: [[13.399259, 52.482659], [13.387849, 52.477144], [13.40538, 52.510632]],
+    coords: [
+        [13.399259, 52.482659],
+        [13.387849, 52.477144],
+        [13.40538, 52.510632],
+    ],
     color: '#0000FFBB',
     width: 3,
 });
 
 // addPolygon
 map.addPolygon({
-    coords: [[13.399259, 52.482659], [13.387849, 52.477144], [13.40538, 52.510632], [13.399259, 52.482659]],
+    coords: [
+        [13.399259, 52.482659],
+        [13.387849, 52.477144],
+        [13.40538, 52.510632],
+        [13.399259, 52.482659],
+    ],
     color: '#0000FFBB',
     width: 3,
     fill: '#0000FFBB',
 });
 map.addPolygon({
-    coords: [[13.399259, 52.482659], [13.387849, 52.477144], [13.40538, 52.510632], [13.399259, 52.482659]],
+    coords: [
+        [13.399259, 52.482659],
+        [13.387849, 52.477144],
+        [13.40538, 52.510632],
+        [13.399259, 52.482659],
+    ],
 });
 
 // addText
@@ -77,21 +95,15 @@ map.render();
 map.render([13.437524, 52.4945528], 15);
 
 // Save image
-map.image
-    .save()
-    .then()
-    .catch();
-map.image
-    .save('my-staticmap-image.png', { compressionLevel: 9 })
-    .then()
-    .catch();
+map.image.save().then().catch();
+map.image.save('my-staticmap-image.png', { compressionLevel: 9 }).then().catch();
 
 // Buffer image
 map.image
     .buffer()
-    .then(buffer => buffer.toString())
+    .then((buffer) => buffer.toString())
     .catch();
 map.image
     .buffer('image/jpeg', { quality: 75 })
-    .then(buffer => buffer.toString())
+    .then((buffer) => buffer.toString())
     .catch();

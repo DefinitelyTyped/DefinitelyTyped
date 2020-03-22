@@ -19,7 +19,8 @@ export namespace BlipSdk.Extensions {
             beginDate?: string,
             endDate?: string,
             minScore?: string,
-            maxScore?: string): Promise<object>;
+            maxScore?: string,
+        ): Promise<object>;
         analyse(analysis: object): Promise<object>;
         setAnalysisByEmail(
             emailAndFilter: object,
@@ -29,7 +30,8 @@ export namespace BlipSdk.Extensions {
             beginDate?: string,
             endDate?: string,
             minScore?: string,
-            maxScore?: string): Promise<object>;
+            maxScore?: string,
+        ): Promise<object>;
         setAnalysisFeedback(id: string, analysisFeedback: object): Promise<object>;
         setAnalysesFeedback(analyses: object[]): Promise<object>;
 
@@ -91,7 +93,16 @@ export namespace BlipSdk.Extensions {
 
         analyseContent(analysis: object): Promise<object>;
         matchContent(combination: object): Promise<object>;
-        getContents(skip?: number, take?: number, ascending?: boolean, intents?: string[], entities?: string[], text?: string, beginDate?: string, endDate?: string): Promise<object[]>;
+        getContents(
+            skip?: number,
+            take?: number,
+            ascending?: boolean,
+            intents?: string[],
+            entities?: string[],
+            text?: string,
+            beginDate?: string,
+            endDate?: string,
+        ): Promise<object[]>;
         getContent(id: string): Promise<object>;
         setContent(content: object): Promise<object>;
         setContentResult(id: string, content: object): Promise<object>;

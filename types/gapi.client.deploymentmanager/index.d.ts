@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Deployment Manager API v2 */
-    function load(name: "deploymentmanager", version: "v2"): PromiseLike<void>;
-    function load(name: "deploymentmanager", version: "v2", callback: () => any): void;
+    function load(name: 'deploymentmanager', version: 'v2'): PromiseLike<void>;
+    function load(name: 'deploymentmanager', version: 'v2', callback: () => any): void;
 
     const deployments: deploymentmanager.DeploymentsResource;
 

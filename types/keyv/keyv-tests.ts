@@ -30,7 +30,7 @@ new Keyv();
 (async () => {
     const keyv = new Keyv<string>();
 
-    keyv.on('error', err => console.log('Connection Error', err));
+    keyv.on('error', (err) => console.log('Connection Error', err));
 
     await keyv.set('foo', 'expires in 1 second', 1000); // $ExpectType true
     await keyv.set('foo', 'never expires'); // $ExpectType true

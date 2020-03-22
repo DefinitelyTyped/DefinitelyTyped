@@ -22,14 +22,16 @@ const gpx = new L.GPX(
    </ns3:TrackPointExtension></extensions></trkpt><trkpt lat="45.6161034107208251953125" lon="5.14358597807586193084716796875">\
    <ele>282</ele><time>2017-09-12T18:03:44.000Z</time><extensions><ns3:TrackPointExtension><ns3:cad>58</ns3:cad></ns3:TrackPointExtension></extensions>\
    </trkpt></trkseg></trk></gpx>',
-    { async: true })
+    { async: true },
+)
     .on('loaded', (e: any) => {
         map.fitBounds(e.target.getBounds());
-    }).addTo(map);
+    })
+    .addTo(map);
 
 const durationString: string = gpx.get_duration_string(1000, true);
 const durationStringIso: string = gpx.get_duration_string_iso(1000, true);
-const miles: number  = gpx.to_miles(1.5);
+const miles: number = gpx.to_miles(1.5);
 const feet: number = gpx.to_ft(1.5);
 const km: number = gpx.m_to_km(1500);
 const mi: number = gpx.m_to_mi(1500);

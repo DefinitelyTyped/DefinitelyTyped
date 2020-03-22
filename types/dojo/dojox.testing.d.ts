@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     namespace testing {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/testing/DocTest.html
@@ -52,7 +51,7 @@ declare namespace dojox {
             /**
              *
              */
-            "errors": any[];
+            'errors': any[];
             /**
              * Extract the tests from the given module or string.
              *
@@ -78,9 +77,8 @@ declare namespace dojox {
             runTest(commands: any, expected: any): Object;
         }
     }
-
 }
-declare module "dojox/testing/DocTest" {
-    var exp: dojox.testing.DocTest
-    export=exp;
+declare module 'dojox/testing/DocTest' {
+    var exp: dojox.testing.DocTest;
+    export = exp;
 }

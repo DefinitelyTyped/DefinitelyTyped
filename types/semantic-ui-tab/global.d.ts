@@ -52,36 +52,38 @@ declare namespace SemanticUI {
     type TabSettings = TabSettings.Param;
 
     namespace TabSettings {
-        type Param = (Pick<_Impl, 'auto'> |
-            Pick<_Impl, 'deactivate'> |
-            Pick<_Impl, 'history'> |
-            Pick<_Impl, 'ignoreFirstLoad'> |
-            Pick<_Impl, 'evaluateScripts'> |
-            Pick<_Impl, 'alwaysRefresh'> |
-            Pick<_Impl, 'cacheType'> |
-            Pick<_Impl, 'cache'> |
-            Pick<_Impl, 'apiSettings'> |
-            Pick<_Impl, 'historyType'> |
-            Pick<_Impl, 'path'> |
-            Pick<_Impl, 'context'> |
-            Pick<_Impl, 'childrenOnly'> |
-            Pick<_Impl, 'maxDepth'> |
-            Pick<_Impl, 'loadOnce'> |
-            Pick<_Impl, 'onFirstLoad'> |
-            Pick<_Impl, 'onLoad'> |
-            Pick<_Impl, 'onRequest'> |
-            Pick<_Impl, 'onVisible'> |
-            Pick<_Impl, 'templates'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'metadata'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
+        type Param = (
+            | Pick<_Impl, 'auto'>
+            | Pick<_Impl, 'deactivate'>
+            | Pick<_Impl, 'history'>
+            | Pick<_Impl, 'ignoreFirstLoad'>
+            | Pick<_Impl, 'evaluateScripts'>
+            | Pick<_Impl, 'alwaysRefresh'>
+            | Pick<_Impl, 'cacheType'>
+            | Pick<_Impl, 'cache'>
+            | Pick<_Impl, 'apiSettings'>
+            | Pick<_Impl, 'historyType'>
+            | Pick<_Impl, 'path'>
+            | Pick<_Impl, 'context'>
+            | Pick<_Impl, 'childrenOnly'>
+            | Pick<_Impl, 'maxDepth'>
+            | Pick<_Impl, 'loadOnce'>
+            | Pick<_Impl, 'onFirstLoad'>
+            | Pick<_Impl, 'onLoad'>
+            | Pick<_Impl, 'onRequest'>
+            | Pick<_Impl, 'onVisible'>
+            | Pick<_Impl, 'templates'>
+            | Pick<_Impl, 'selector'>
+            | Pick<_Impl, 'metadata'>
+            | Pick<_Impl, 'className'>
+            | Pick<_Impl, 'error'>
+            | Pick<_Impl, 'namespace'>
+            | Pick<_Impl, 'name'>
+            | Pick<_Impl, 'silent'>
+            | Pick<_Impl, 'debug'>
+            | Pick<_Impl, 'performance'>
+            | Pick<_Impl, 'verbose'>
+        ) &
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
@@ -282,8 +284,7 @@ declare namespace SemanticUI {
         type TemplatesSettings = TemplatesSettings.Param;
 
         namespace TemplatesSettings {
-            type Param = (Pick<_Impl, 'determineTitle'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = Pick<_Impl, 'determineTitle'> & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -296,9 +297,7 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'tabs'> |
-                Pick<_Impl, 'parent'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = (Pick<_Impl, 'tabs'> | Pick<_Impl, 'parent'>) & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -315,9 +314,7 @@ declare namespace SemanticUI {
         type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
-            type Param = (Pick<_Impl, 'tab'> |
-                Pick<_Impl, 'loaded'> |
-                Pick<_Impl, 'promise'>) &
+            type Param = (Pick<_Impl, 'tab'> | Pick<_Impl, 'loaded'> | Pick<_Impl, 'promise'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -339,9 +336,7 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'loading'> |
-                Pick<_Impl, 'active'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = (Pick<_Impl, 'loading'> | Pick<_Impl, 'active'>) & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -358,13 +353,15 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'api'> |
-                Pick<_Impl, 'method'> |
-                Pick<_Impl, 'missingTab'> |
-                Pick<_Impl, 'noContent'> |
-                Pick<_Impl, 'path'> |
-                Pick<_Impl, 'recursion'> |
-                Pick<_Impl, 'state'>) &
+            type Param = (
+                | Pick<_Impl, 'api'>
+                | Pick<_Impl, 'method'>
+                | Pick<_Impl, 'missingTab'>
+                | Pick<_Impl, 'noContent'>
+                | Pick<_Impl, 'path'>
+                | Pick<_Impl, 'recursion'>
+                | Pick<_Impl, 'state'>
+            ) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {

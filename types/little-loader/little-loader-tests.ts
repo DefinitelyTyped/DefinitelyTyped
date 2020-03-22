@@ -1,3 +1,3 @@
-import load = require("little-loader");
+import load = require('little-loader');
 
-load("http://google.com/test.js", () => console.log("loaded!"), ""); // $ExpectType void
+load('http://google.com/test.js', () => console.log('loaded!'), ''); // $ExpectType void

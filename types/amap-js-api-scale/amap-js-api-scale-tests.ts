@@ -9,7 +9,7 @@ new AMap.Scale({});
 const scale = new AMap.Scale({
     position: 'LT',
     visible: true,
-    offset: pixel
+    offset: pixel,
 });
 
 // $ExpectType Pixel

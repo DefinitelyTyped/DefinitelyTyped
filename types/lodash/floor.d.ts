@@ -1,2 +1,2 @@
-import { floor } from "./index";
+import { floor } from './index';
 export = floor;

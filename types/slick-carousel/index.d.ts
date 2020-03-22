@@ -16,7 +16,7 @@ interface JQuerySlick extends JQuerySlickInitials {
     /**
      * Default: null
      */
-    activeBreakpoint: number | null;
+    activeBreakpoint: number | null;
 
     /**
      * Default: null
@@ -56,7 +56,7 @@ interface JQuerySlick extends JQuerySlickInitials {
     /**
      * Default: 'hidden'
      */
-    hidden: 'mozHidden' | 'webkitHidden' | 'hidden';
+    hidden: 'mozHidden' | 'webkitHidden' | 'hidden';
 
     /**
      * Default: true
@@ -106,7 +106,7 @@ interface JQuerySlick extends JQuerySlickInitials {
     /**
      * Default: 'visibilitychange'
      */
-    visibilityChange: 'visibilitychange' | 'mozvisibilitychange' | 'webkitvisibilitychange';
+    visibilityChange: 'visibilitychange' | 'mozvisibilitychange' | 'webkitvisibilitychange';
 
     /**
      * Default: 0
@@ -120,7 +120,6 @@ interface JQuerySlick extends JQuerySlickInitials {
 }
 
 interface JQuerySlickOptions {
-
     /**
      * Enables tabbing and arrow key navigation
      * Default: true
@@ -417,7 +416,6 @@ interface JQuerySlickOptions {
      * Default: 1000
      */
     zIndex?: number;
-
 }
 
 interface JQuerySlickInitials {
@@ -437,7 +435,7 @@ interface JQuerySlickInitials {
      * Internal `setInterval` identifier.
      * Default: null
      */
-    autoPlayTimer: number|null;
+    autoPlayTimer: number | null;
 
     /**
      * The current direction (`0` for left and down, `1` for right and up).
@@ -448,7 +446,7 @@ interface JQuerySlickInitials {
     /**
      * Default: null
      */
-    currentLeft: number|null;
+    currentLeft: number | null;
 
     /**
      * The index of the current slide.
@@ -472,13 +470,13 @@ interface JQuerySlickInitials {
      * The list's width in pixels.
      * Default: null
      */
-    listWidth: number|null;
+    listWidth: number | null;
 
     /**
      * The list's height in pixels.
      * Default: null
      */
-    listHeight: number|null;
+    listHeight: number | null;
 
     /**
      * (actually it's not used in Slick, so I don't know what it is...)
@@ -514,7 +512,7 @@ interface JQuerySlickInitials {
      * The slide's width in pixels.
      * Default: null
      */
-    slideWidth: Number | null;
+    slideWidth: Number | null;
 
     /**
      * jQuery instance that contains the "slide track".
@@ -526,7 +524,7 @@ interface JQuerySlickInitials {
      * jQuery instance that contains the "slides".
      * Default: null
      */
-    $slides: JQuery | null;
+    $slides: JQuery | null;
 
     /**
      * When the slider is sliding.
@@ -543,7 +541,7 @@ interface JQuerySlickInitials {
     /**
      * Default: null
      */
-    swipeLeft: number | null;
+    swipeLeft: number | null;
 
     /**
      * Default: false
@@ -583,7 +581,6 @@ interface JQuerySlickInitials {
 }
 
 interface JQuery {
-
     /**
      * Create slick component
      */
@@ -601,7 +598,7 @@ interface JQuery {
      * Returns the current slide index
      * @param methodName The name of the method
      */
-    slick(methodName: "slickCurrentSlide"): number;
+    slick(methodName: 'slickCurrentSlide'): number;
 
     /**
      * Navigates to a slide by index
@@ -609,31 +606,31 @@ interface JQuery {
      * @param slide
      * @param animate
      */
-    slick(methodName: "slickGoTo", slide: number, animate?: boolean): JQuery;
+    slick(methodName: 'slickGoTo', slide: number, animate?: boolean): JQuery;
 
     /**
      * Navigates to the next slide
      * @param methodName The name of the method
      */
-    slick(methodName: "slickNext"): JQuery;
+    slick(methodName: 'slickNext'): JQuery;
 
     /**
      * Navigates to the previous slide
      * @param methodName The name of the method
      */
-    slick(methodName: "slickPrev"): JQuery;
+    slick(methodName: 'slickPrev'): JQuery;
 
     /**
      * Pauses autoplay
      * @param methodName The name of the method
      */
-    slick(methodName: "slickPause"): JQuery;
+    slick(methodName: 'slickPause'): JQuery;
 
     /**
      * Starts autoplay
      * @param methodName The name of the method
      */
-    slick(methodName: "slickPlay"): JQuery;
+    slick(methodName: 'slickPlay'): JQuery;
 
     /**
      * Add a slide. If an index is provided, will add at that index, or before if addBefore is set. If no index is provided,
@@ -643,7 +640,7 @@ interface JQuery {
      * @param index/div>
      * @param addBefore
      */
-    slick(methodName: "slickAdd", html: string | Object, index?: number, addBefore?: number): JQuery;
+    slick(methodName: 'slickAdd', html: string | Object, index?: number, addBefore?: number): JQuery;
 
     /**
      * Remove slide by index. If removeBefore is set true, remove slide preceding index, or the first slide if no index is specified.
@@ -652,35 +649,35 @@ interface JQuery {
      * @param index
      * @param removeBefore
      */
-    slick(methodName: "slickRemove", index: number, removeBefore?: number): JQuery;
+    slick(methodName: 'slickRemove', index: number, removeBefore?: number): JQuery;
 
     /**
      * Filters slides using jQuery .filter()
      * @param methodName The name of the method
      * @param selector
      */
-    slick(methodName : "slickFilter", selector: string): JQuery;
+    slick(methodName: 'slickFilter', selector: string): JQuery;
 
     /**
      * Filters slides using jQuery .filter()
      * @param methodName The name of the method
      * @param func
      */
-    slick(methodName : "slickFilter", func: (index: number, element: Element) => any): JQuery;
+    slick(methodName: 'slickFilter', func: (index: number, element: Element) => any): JQuery;
 
     /**
      * Removes applied filtering
      * @param methodName The name of the method
      * @param index
      */
-    slick(methodName: "slickUnfilter", index: number): JQuery;
+    slick(methodName: 'slickUnfilter', index: number): JQuery;
 
     /**
      * Sets an individual value live. Set refresh to true if it's a UI update.
      * @param methodName The name of the method
      * @param option The option name
      */
-    slick(methodName: "slickGetOption", option: any): JQuerySlickOptions;
+    slick(methodName: 'slickGetOption', option: any): JQuerySlickOptions;
 
     /**
      * Sets an individual value live. Set refresh to true if it's a UI update.
@@ -689,18 +686,17 @@ interface JQuery {
      * @param value depends on option
      * @param refresh
      */
-    slick(methodName: "slickSetOption", option: string, value: JQuerySlickOptions, refresh?: boolean): JQuery;
+    slick(methodName: 'slickSetOption', option: string, value: JQuerySlickOptions, refresh?: boolean): JQuery;
 
     /**
      * Deconstructs slick
      * @param methodName The name of the method
      */
-    slick(methodName: "unslick"): JQuery;
+    slick(methodName: 'unslick'): JQuery;
 
     /**
      * Get Slick Object
      * @param methodName The name of the method
      */
-    slick(methodName: "getSlick"): JQuerySlick;
-
+    slick(methodName: 'getSlick'): JQuerySlick;
 }

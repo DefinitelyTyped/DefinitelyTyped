@@ -1,4 +1,4 @@
-import detectCharacterEncoding = require("detect-character-encoding");
+import detectCharacterEncoding = require('detect-character-encoding');
 
 const buf: Buffer = null as any;
 

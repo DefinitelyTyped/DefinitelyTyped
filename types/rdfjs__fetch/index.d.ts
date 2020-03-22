@@ -7,8 +7,10 @@ import { FormatsInit, RdfFetchResponse, FactoryInit, DatasetResponse } from '@rd
 import { DatasetCore, Quad, BaseQuad } from 'rdf-js';
 
 declare function rdfFetch(url: string, options: FormatsInit): Promise<RdfFetchResponse>;
-declare function rdfFetch <D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad>(
-    url: string,
-    options: FactoryInit<D, OutQuad, InQuad>): Promise<DatasetResponse<D, OutQuad, InQuad>>;
+declare function rdfFetch<
+    D extends DatasetCore<OutQuad, InQuad>,
+    OutQuad extends BaseQuad = Quad,
+    InQuad extends BaseQuad = OutQuad
+>(url: string, options: FactoryInit<D, OutQuad, InQuad>): Promise<DatasetResponse<D, OutQuad, InQuad>>;
 
 export = rdfFetch;

@@ -22,7 +22,7 @@ declare namespace adone.collection {
 
             type Wrappable = string | ByteArray | Buffer | Uint8Array | ArrayBuffer;
 
-            type Metrics = "b" | "c";
+            type Metrics = 'b' | 'c';
         }
     }
 

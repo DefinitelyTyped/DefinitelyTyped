@@ -1,4 +1,3 @@
-
 import gitConfig = require('git-config');
 
 var config: Object = gitConfig.sync();

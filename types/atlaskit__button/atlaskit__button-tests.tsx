@@ -1,7 +1,7 @@
-import Button, { ButtonGroup, themeNamespace } from "@atlaskit/button";
+import Button, { ButtonGroup, themeNamespace } from '@atlaskit/button';
 
-import * as React from "react";
-import { render } from "react-dom";
+import * as React from 'react';
+import { render } from 'react-dom';
 
 declare const container: Element;
 
@@ -23,7 +23,7 @@ render(
             isDisabled={true}
             isSelected={true}
             key="some-key"
-            onClick={event => event.currentTarget.formMethod}
+            onClick={(event) => event.currentTarget.formMethod}
             ref="some-ref"
             shouldFitContainer={true}
             spacing="compact"
@@ -34,5 +34,5 @@ render(
             {themeNamespace}
         </Button>
     </ButtonGroup>,
-    container
+    container,
 );

@@ -15,7 +15,7 @@ const array = [person];
 assertType<number>(array.get('length'));
 assertType<Person | undefined>(array.get('firstObject'));
 assertType<string[]>(array.mapBy('name'));
-assertType<string[]>(array.map(p => p.get('name')));
+assertType<string[]>(array.map((p) => p.get('name')));
 assertType<Person[]>(array.sortBy('name'));
 assertType<Person[]>(array.uniq());
 assertType<Person[]>(array.uniqBy('name'));

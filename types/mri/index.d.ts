@@ -9,8 +9,7 @@ export = mri;
 declare function mri(args: ReadonlyArray<string>, options?: mri.Options): mri.Argv;
 
 declare namespace mri {
-    const prototype: {
-    };
+    const prototype: {};
 
     /** A string or array of strings */
     type ArrayOrString = string | ReadonlyArray<string>;

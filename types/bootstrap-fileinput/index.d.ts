@@ -10,7 +10,7 @@ export = BootstrapFileInput;
 export as namespace BootstrapFileInput;
 
 declare global {
-   interface JQuery {
+    interface JQuery {
         fileinput: (options?: BootstrapFileInput.FileInputOptions) => JQuery;
     }
 }
@@ -119,11 +119,11 @@ declare module BootstrapFileInput {
         /**
         this will be a list of tags used in thumbnail templates that will be replaced dynamically within the thumbnail markup, when the thumbnail is rendered.
         */
-        previewThumbTags?: { [key: string]: string; }
+        previewThumbTags?: { [key: string]: string };
         /**
         this is an extension of previewThumbTags specifically for initial preview content - but will be configured as an array of objects corresponding to each initial preview thumbnail. The initial preview thumbnails set via initialPreview will read this configuration for replacing tags.
         */
-        initialPreviewThumbTags?: { [key: string]: string; }
+        initialPreviewThumbTags?: { [key: string]: string };
         /**
         the extra data that will be passed as data to the initial preview delete url/AJAX server call via POST.
         This will be overridden by the initialPreviewConfig['extra'] property.
@@ -169,7 +169,7 @@ declare module BootstrapFileInput {
         Note:
         You need to be careful in case you are setting both allowedFileTypes and allowedFileExtensions. In this case, the allowedFileTypes property is validated first and generally precedes the allowedFileExtensions setting (and the latter validation maybe skipped).
         */
-        allowedFileTypes?: ("image" | "html" | "text" | "video" | "audio" | "flash" | "object")[];
+        allowedFileTypes?: ('image' | 'html' | 'text' | 'video' | 'audio' | 'flash' | 'object')[];
         /**
         the list of allowed file extensions for upload.
         This by default is set to null which means the plugin supports all file extensions for upload.
@@ -185,7 +185,7 @@ declare module BootstrapFileInput {
         To disable this behavior, you can remove object from the list of allowedPreviewTypes OR fine tune it through allowedPreviewMimeTypes.
         To disable content preview for all file-types and show the previewIcon instead as a thumbnail, set this to null, empty, or false.
         */
-        allowedPreviewTypes?: ("image" | "html" | "text" | "video" | "audio" | "flash" | "object")[];
+        allowedPreviewTypes?: ('image' | 'html' | 'text' | 'video' | 'audio' | 'flash' | 'object')[];
         /**
         the list of allowed mime types for preview.
         This is set to null by default which means all possible mime types are allowed.
@@ -353,7 +353,7 @@ declare module BootstrapFileInput {
         In case, the image width is already less than maxImageWidth then the maxImageHeight property is used to resize and width is adjusted in same ratio.
         This will behave conversely, when resizePreference is set to height - the maxImageHeight will be first tested against image height and then the rest of steps will be similarly parsed with preference given to height instead of width as before.
         */
-        resizePreference?: "width" | "height";
+        resizePreference?: 'width' | 'height';
         /**
         the quality of the resized image. This must be a decimal number between 0.00 to 1.00.
         Defaults to 0.92.
@@ -617,7 +617,7 @@ declare module BootstrapFileInput {
             any: Both image and text files content will be shown in preview.
         Files other than image or text will be displayed as a thumbnail with the filename in the preview window.
         */
-        previewFileType?: "image" | "text" | "any";
+        previewFileType?: 'image' | 'text' | 'any';
         /**
         the icon for zooming the file content in a new modal dialog.
         This is currently applicable only for text file previews.
@@ -959,14 +959,14 @@ declare module BootstrapFileInput {
     }
 
     interface PreviewSettings {
-        image?: { width?: string; height?: string; };
-        html?: { width?: string; height?: string; };
-        text?: { width?: string; height?: string; };
-        video?: { width?: string; height?: string; };
-        audio?: { width?: string; height?: string; };
-        flash?: { width?: string; height?: string; };
-        object?: { width?: string; height?: string; };
-        other?: { width?: string; height?: string; };
+        image?: { width?: string; height?: string };
+        html?: { width?: string; height?: string };
+        text?: { width?: string; height?: string };
+        video?: { width?: string; height?: string };
+        audio?: { width?: string; height?: string };
+        flash?: { width?: string; height?: string };
+        object?: { width?: string; height?: string };
+        other?: { width?: string; height?: string };
     }
 
     interface FileTypeSettings {

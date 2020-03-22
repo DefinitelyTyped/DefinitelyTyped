@@ -9,5 +9,5 @@ cluster.on('exit', (worker) => {
 });
 
 process.on('SIGUSR2', () => {
-  cluster.reload();
+    cluster.reload();
 });

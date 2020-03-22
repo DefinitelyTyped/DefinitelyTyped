@@ -14,8 +14,8 @@
 
 /// <reference types="express-serve-static-core" />
 
-import * as express from "express-serve-static-core";
-import * as m from "mime";
+import * as express from 'express-serve-static-core';
+import * as m from 'mime';
 
 /**
  * Create a new middleware function to serve files from within a given root directory.
@@ -28,7 +28,7 @@ declare namespace serveStatic {
     var mime: typeof m;
     interface ServeStaticOptions {
         /**
-         * Enable or disable setting Cache-Control response header, defaults to true. 
+         * Enable or disable setting Cache-Control response header, defaults to true.
          * Disabling this will ignore the immutable and maxAge options.
          */
         cacheControl?: boolean;

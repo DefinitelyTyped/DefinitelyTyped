@@ -9,7 +9,7 @@ declare abstract class Entities {
     encodeNonASCII(toEncode: string): string;
     decode(toDecode: string): string;
 }
-export class XmlEntities extends Entities { }
-export class Html4Entities extends Entities { }
-export class Html5Entities extends Entities { }
-export class AllHtmlEntities extends Entities { }
+export class XmlEntities extends Entities {}
+export class Html4Entities extends Entities {}
+export class Html5Entities extends Entities {}
+export class AllHtmlEntities extends Entities {}

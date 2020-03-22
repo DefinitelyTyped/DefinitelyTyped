@@ -1,2 +1,2 @@
-import { once } from "lodash";
+import { once } from 'lodash';
 export default once;

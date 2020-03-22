@@ -26,11 +26,7 @@ type AllowedCallback = (err: Error, allowed: boolean) => any;
 type GetUserId = (req: http.IncomingMessage, res: http.ServerResponse) => Value;
 
 interface AclStatic {
-    new (
-        backend: AclStatic.Backend<any>,
-        logger?: AclStatic.Logger,
-        options?: AclStatic.Option
-    ): AclStatic.Acl;
+    new (backend: AclStatic.Backend<any>, logger?: AclStatic.Logger, options?: AclStatic.Option): AclStatic.Acl;
     readonly memoryBackend: AclStatic.MemoryBackendStatic;
     readonly mongodbBackend: AclStatic.MongodbBackendStatic;
     readonly redisBackend: AclStatic.RedisBackendStatic;
@@ -46,11 +42,7 @@ declare namespace AclStatic {
         removeUserRoles: (userId: Value, roles: strings, cb?: Callback) => Promise<void>;
         userRoles: (userId: Value, cb?: (err: Error, roles: string[]) => any) => Promise<string[]>;
         roleUsers: (role: Value, cb?: (err: Error, users: Values) => any) => Promise<any>;
-        hasRole: (
-            userId: Value,
-            role: string,
-            cb?: (err: Error, isInRole: boolean) => any
-        ) => Promise<boolean>;
+        hasRole: (userId: Value, role: string, cb?: (err: Error, isInRole: boolean) => any) => Promise<boolean>;
         addRoleParents: (role: string, parents: Values, cb?: Callback) => Promise<void>;
         removeRole: (role: string, cb?: Callback) => Promise<void>;
         removeResource: (resource: string, cb?: Callback) => Promise<void>;
@@ -58,30 +50,15 @@ declare namespace AclStatic {
             (roles: Values, resources: strings, permissions: strings, cb?: Callback): Promise<void>;
             (aclSets: AclSet | AclSet[]): Promise<void>;
         };
-        removeAllow: (
-            role: string,
-            resources: strings,
-            permissions: strings,
-            cb?: Callback
-        ) => Promise<void>;
-        removePermissions: (
-            role: string,
-            resources: strings,
-            permissions: strings,
-            cb?: Callback
-        ) => Promise<void>;
+        removeAllow: (role: string, resources: strings, permissions: strings, cb?: Callback) => Promise<void>;
+        removePermissions: (role: string, resources: strings, permissions: strings, cb?: Callback) => Promise<void>;
         allowedPermissions: (userId: Value, resources: strings, cb?: AnyCallback) => Promise<void>;
-        isAllowed: (
-            userId: Value,
-            resources: strings,
-            permissions: strings,
-            cb?: AllowedCallback
-        ) => Promise<boolean>;
+        isAllowed: (userId: Value, resources: strings, permissions: strings, cb?: AllowedCallback) => Promise<boolean>;
         areAnyRolesAllowed: (
             roles: strings,
             resource: strings,
             permissions: strings,
-            cb?: AllowedCallback
+            cb?: AllowedCallback,
         ) => Promise<any>;
         whatResources: {
             (roles: strings, cb?: AnyCallback): Promise<any>;
@@ -91,7 +68,7 @@ declare namespace AclStatic {
         middleware: (
             numPathComponents?: number,
             userId?: Value | GetUserId,
-            actions?: strings
+            actions?: strings,
         ) => express.RequestHandler;
     }
 
@@ -137,16 +114,12 @@ declare namespace AclStatic {
         remove: (transaction: T, bucket: string, key: Value, values: Values) => void;
 
         endAsync: (transaction: T, cb?: (err: Error | null) => void) => Promise<void>;
-        getAsync: (
-            bucket: string,
-            key: Value,
-            cb?: (err: Error | null, value: any) => void
-        ) => Promise<any>;
+        getAsync: (bucket: string, key: Value, cb?: (err: Error | null, value: any) => void) => Promise<any>;
         cleanAsync: (cb?: (error?: Error) => void) => Promise<void>;
         unionAsync: (
             bucket: string,
             keys: Value[],
-            cb?: (error: Error | undefined, results: any[]) => void
+            cb?: (error: Error | undefined, results: any[]) => void,
         ) => Promise<any[]>;
     }
 

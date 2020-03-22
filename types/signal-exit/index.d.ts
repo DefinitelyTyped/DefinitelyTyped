@@ -8,7 +8,7 @@ export = signalExit;
 
 declare function signalExit(
     callback: (code: number | null, signal: signalExit.Signal | null) => void,
-    options?: signalExit.Options
+    options?: signalExit.Options,
 ): () => void;
 
 declare namespace signalExit {

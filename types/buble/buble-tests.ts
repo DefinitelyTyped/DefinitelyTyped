@@ -33,7 +33,7 @@ const input = 'const answer = () => 42;';
 // Transform for Preact
 (() => {
     const output = buble.transform(input, {
-        jsx: 'h'
+        jsx: 'h',
     });
 })();
 
@@ -72,6 +72,6 @@ const input = 'const answer = () => 42;';
             stickyRegExp: true,
             templateString: false,
             unicodeRegExp: true,
-        }
+        },
     });
 })();

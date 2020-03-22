@@ -1,2 +1,2 @@
-import { now } from "../fp";
+import { now } from '../fp';
 export = now;

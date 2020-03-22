@@ -1,6 +1,7 @@
 # react-bootstrap
 
 ## Intended compatibilty
+
 This library is intended for releases of react-bootstrap prior to `v1.0.0`, e.g. `v0.32.4`.
 
 The reason is that react-bootstrap `v1.0.0` targets Bootstrap v4, and includes its own

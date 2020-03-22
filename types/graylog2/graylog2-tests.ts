@@ -85,11 +85,11 @@ for (const method of graylogLogMethods) {
     logger[method](new Error('NotFoundError'), undefined, undefined, Date.now());
 }
 
-logger.on('error', error => {
+logger.on('error', (error) => {
     throw new Error(`Error while trying to write to graylog2: ${error.message}`);
 });
 
-logger.close(error => {
+logger.close((error) => {
     if (error != null) throw error;
 });
 

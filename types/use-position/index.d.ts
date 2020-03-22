@@ -35,10 +35,13 @@ export interface PositionOptions {
  * @param watch  Indicates if the position should continuosly being updated or not after the first call.
  * @param settings  Settings to be forwarded to the navigator.geolocation browser object.
  */
-export function usePosition(watch: boolean, settings?: PositionOptions): {
-    latitude: number | undefined,
-    longitude: number | undefined,
-    timestamp: number | undefined,
-    accuracy: number | undefined,
-    errorMessage: string | undefined
+export function usePosition(
+    watch: boolean,
+    settings?: PositionOptions,
+): {
+    latitude: number | undefined;
+    longitude: number | undefined;
+    timestamp: number | undefined;
+    accuracy: number | undefined;
+    errorMessage: string | undefined;
 };

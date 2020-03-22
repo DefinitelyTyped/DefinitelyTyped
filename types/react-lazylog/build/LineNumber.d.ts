@@ -1,4 +1,4 @@
-import { Component, ReactNode, CSSProperties, MouseEventHandler } from "react";
+import { Component, ReactNode, CSSProperties, MouseEventHandler } from 'react';
 
 export interface LineNumberProps {
     number: number;

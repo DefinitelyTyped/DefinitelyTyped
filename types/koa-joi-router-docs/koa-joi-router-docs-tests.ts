@@ -8,54 +8,57 @@ const router = Router();
 const generator = new SwaggerAPI();
 
 router.route({
-  method: 'get',
-  path: '/say-hello/:name',
-  validate: {
-    params: {
-      name: Joi.string().required(),
+    method: 'get',
+    path: '/say-hello/:name',
+    validate: {
+        params: {
+            name: Joi.string().required(),
+        },
+        output: {
+            200: {
+                body: Joi.object({
+                    greetings: Joi.string(),
+                }),
+            },
+        },
     },
-    output: {
-      200: {
-        body: Joi.object({
-          greetings: Joi.string(),
-        })
-      }
+    handler: async (ctx) => {
+        ctx.body = {
+            greetings: `Hello, ${ctx.request.params.name}!`,
+        };
     },
-  },
-  handler: async (ctx) => {
-    ctx.body = {
-      greetings: `Hello, ${ctx.request.params.name}!`,
-    };
-  }
 });
 
 generator.addJoiRouter(router);
-const spec = generator.generateSpec({
-  info: {
-    title: 'Awesome API',
-    description: 'API for creating and editing examples.',
-    version: '0.0.1',
-  },
-  basePath: '/',
-  tags: [
+const spec = generator.generateSpec(
     {
-      name: 'greetings',
-      description: 'Group of API methods ',
+        info: {
+            title: 'Awesome API',
+            description: 'API for creating and editing examples.',
+            version: '0.0.1',
+        },
+        basePath: '/',
+        tags: [
+            {
+                name: 'greetings',
+                description: 'Group of API methods ',
+            },
+        ],
     },
-  ],
-}, {
-  defaultResponses: {},
-  warnFunc: () => {
-    console.log('Something happen...');
-  }
-});
+    {
+        defaultResponses: {},
+        warnFunc: () => {
+            console.log('Something happen...');
+        },
+    },
+);
 
 router.get('/api.json', async (ctx) => {
-  ctx.body = JSON.stringify(spec, null, '  ');
+    ctx.body = JSON.stringify(spec, null, '  ');
 });
 
 app.use(router.middleware());
 
 app.listen(3000, () => {
-  console.log('Server running on port 3000');
+    console.log('Server running on port 3000');
 });

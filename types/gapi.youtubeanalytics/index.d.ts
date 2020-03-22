@@ -7,9 +7,7 @@
 /// <reference types="gapi" />
 
 declare namespace gapi.client.youtubeAnalytics {
-
     export interface reports {
-
         /**
          * Retrieve your YouTube Analytics reports.
          */
@@ -54,8 +52,6 @@ declare namespace gapi.client.youtubeAnalytics {
              * Selector specifying which fields to include in a partial response.
              */
             fields?: string;
-        }): HttpRequest<any>
-
+        }): HttpRequest<any>;
     }
-
 }

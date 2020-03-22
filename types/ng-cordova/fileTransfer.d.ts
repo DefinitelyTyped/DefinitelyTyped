@@ -9,15 +9,25 @@
 
 declare namespace ngCordova {
     export interface IFileTransferService {
-        download(url: string, filePath: string, options?: IFileDownloadOptions, trustAllHosts?: boolean): IFileTransferPromise<FileEntry>;
-        upload(url: string, filePath: string, options?: IFileUploadOptions, trustAllHosts?: boolean): IFileTransferPromise<FileUploadResult>;
+        download(
+            url: string,
+            filePath: string,
+            options?: IFileDownloadOptions,
+            trustAllHosts?: boolean,
+        ): IFileTransferPromise<FileEntry>;
+        upload(
+            url: string,
+            filePath: string,
+            options?: IFileUploadOptions,
+            trustAllHosts?: boolean,
+        ): IFileTransferPromise<FileUploadResult>;
     }
 
     export interface IFileTransferPromise<T> extends ng.IPromise<T> {
         then<TResult = T, TResult2 = never>(
             successCallback: (promiseValue: T) => ng.IPromise<TResult> | TResult,
             errorCallback?: (error: FileTransferError) => ng.IPromise<TResult2> | TResult2,
-            notifyCallback?: (state: any) => any
+            notifyCallback?: (state: any) => any,
         ): ng.IPromise<TResult | TResult2>;
         catch<TResult>(onRejected: (error: FileTransferError) => ng.IPromise<TResult> | TResult): ng.IPromise<TResult>;
     }
@@ -29,6 +39,6 @@ declare namespace ngCordova {
 
     export interface IFileUploadOptions extends FileUploadOptions {
         encodeURI?: boolean;
-         timeout?: number;
+        timeout?: number;
     }
 }

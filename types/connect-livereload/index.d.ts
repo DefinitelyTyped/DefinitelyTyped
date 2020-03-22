@@ -3,8 +3,7 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-import { HandleFunction } from "connect";
+import { HandleFunction } from 'connect';
 
 declare function livereload(): HandleFunction;
 declare function livereload(options: livereload.Options): HandleFunction;

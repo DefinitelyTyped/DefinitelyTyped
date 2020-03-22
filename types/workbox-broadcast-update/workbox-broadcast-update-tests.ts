@@ -1,6 +1,6 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
 import {
     BroadcastCacheUpdate,
@@ -8,7 +8,7 @@ import {
     BroadcastUpdateOptions,
     Plugin,
     broadcastUpdate,
-} from "workbox-broadcast-update";
+} from 'workbox-broadcast-update';
 
 //==============================================================================
 // WorkboxBroadcastUpdate.BroadcastCacheUpdate

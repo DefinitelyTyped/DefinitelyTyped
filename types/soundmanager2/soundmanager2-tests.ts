@@ -1,12 +1,14 @@
 // Example extracted in http://www.schillmania.com/projects/soundmanager2/doc/getstarted/
-const mySoundObject = soundManager.createSound  ({
+const mySoundObject = soundManager.createSound({
     // optional id, for getSoundById() look-ups etc. If omitted, an id will be generated.
     id: 'mySound',
     url: '/audio/mysoundfile.mp3',
     // optional sound parameters here, see Sound Properties for full list
     volume: 50,
     autoPlay: true,
-    whileloading() { console.log(<string> this.id + ' is loading'); }
+    whileloading() {
+        console.log(<string>this.id + ' is loading');
+    },
 });
 
 soundManager.setup({
@@ -21,8 +23,8 @@ soundManager.setup({
     },
     defaultOptions: {
         // set global default volume for all sound objects
-        volume: 33
-    }
+        volume: 33,
+    },
 });
 
 // set mp3 format not required

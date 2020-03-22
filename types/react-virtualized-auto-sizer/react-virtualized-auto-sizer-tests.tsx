@@ -8,7 +8,7 @@ class TestApp extends React.Component {
     onResize = (size: Size) => {
         console.log(`width: ${size.width}`);
         console.log(`height:  ${size.height}`);
-    }
+    };
 
     render() {
         return (
@@ -29,7 +29,7 @@ class TestApp extends React.Component {
                     disableHeight={false}
                     disableWidth={false}
                     nonce="nonce"
-                    style={{ display: "none" }}
+                    style={{ display: 'none' }}
                     onResize={this.onResize}
                 >
                     {({ width, height }) => {
@@ -45,7 +45,4 @@ class TestApp extends React.Component {
     }
 }
 
- ReactDOM.render(
-    <TestApp/>,
-    document.getElementById("test-app"),
-);
+ReactDOM.render(<TestApp />, document.getElementById('test-app'));

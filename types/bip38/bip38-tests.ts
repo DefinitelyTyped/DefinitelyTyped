@@ -6,7 +6,7 @@ const myWifString = '5KN7MzqK5wt2TP1fQCYyHBtDrXdJuXbUzm4A9rKAteGu3Qi5CVR';
 const decoded = {
     version: 48,
     privateKey: Buffer.from('12345678901234567890123456789012'),
-    compressed: true
+    compressed: true,
 };
 
 // Test encrypt without progressCallback

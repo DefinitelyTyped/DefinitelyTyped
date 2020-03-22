@@ -13,8 +13,8 @@ expressWs(dummyApp, httpServer, {
     leaveRouterUntouched: false,
     // ws server options
     wsOptions: {
-        clientTracking: true
-    }
+        clientTracking: true,
+    },
 });
 
 const { app, getWss, applyTo } = expressWs(express());
@@ -28,13 +28,15 @@ applyTo(express.Router());
  * applyTo accepts router-like objects
  */
 applyTo({
-    get() { return this; }
+    get() {
+        return this;
+    },
 });
 
 /**
  * getWss function returns ws server
  */
-getWss().clients.forEach(ws => {
+getWss().clients.forEach((ws) => {
     if (ws.readyState !== ws.OPEN) {
         ws.terminate();
         return;
@@ -46,7 +48,7 @@ getWss().clients.forEach(ws => {
  * ws method is added to express app instance
  */
 app.ws('/', (ws, req) => {
-    ws.on('message', msg => {
+    ws.on('message', (msg) => {
         console.log(msg);
     });
 });
@@ -58,7 +60,9 @@ const router = express.Router();
 
 router.ws(
     '/:id',
-    (ws, req, next) => { next(); },
+    (ws, req, next) => {
+        next();
+    },
     (ws, req, next) => {
         ws.send(req.params.id);
 
@@ -66,7 +70,7 @@ router.ws(
             console.log('code:', code);
             console.log('reason:', reason);
         });
-    }
+    },
 );
 
 app.use(router);

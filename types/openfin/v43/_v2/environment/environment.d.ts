@@ -9,4 +9,4 @@ export interface Environment {
     isWindowExists(uuid: string, name: string): boolean;
     getWebWindow(identity: Identity): Window;
 }
-export declare const notImplementedEnvErrorMsg = "Not implemented in this environment";
+export declare const notImplementedEnvErrorMsg = 'Not implemented in this environment';

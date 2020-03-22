@@ -1,8 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-declare class RootCloseWrapper extends React.Component<
-    RootCloseWrapper.RootCloseWrapperProps
-> {}
+declare class RootCloseWrapper extends React.Component<RootCloseWrapper.RootCloseWrapperProps> {}
 export = RootCloseWrapper;
 
 declare namespace RootCloseWrapper {

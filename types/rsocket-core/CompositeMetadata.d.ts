@@ -35,7 +35,7 @@ export function encodeAndAddCustomMetadata(compositeMetaData: Buffer, customMime
 export function encodeAndAddWellKnownMetadata(
     compositeMetaData: Buffer,
     knownMimeType: WellKnownMimeType | number,
-    metadata: Buffer
+    metadata: Buffer,
 ): Buffer;
 
 /**

@@ -12,85 +12,84 @@ export as namespace resemble;
 declare function Resemble(image: string | ImageData): Resemble.ResembleAnalysis;
 
 declare namespace Resemble {
-  /**
-   * Set the resemblance image output style
-   */
-  function outputSettings(settings: OutputSettings): typeof Resemble;
-
-  interface OutputSettings {
-    errorColor: {
-      red: number;
-      green: number;
-      blue: number;
-    };
-    errorType: string;
-    transparency: number;
-    largeImageThreshold: number;
-  }
-
-  interface ResembleAnalysis {
     /**
-     * Run the analysis on this image and get the result
+     * Set the resemblance image output style
      */
-    onComplete(callback: (result: ResembleAnalysisResult) => void): void;
+    function outputSettings(settings: OutputSettings): typeof Resemble;
 
-    /**
-     * Compare this image to another image, to get resemblance data
-     */
-    compareTo(fileData: string | ImageData): ResembleComparison;
-  }
+    interface OutputSettings {
+        errorColor: {
+            red: number;
+            green: number;
+            blue: number;
+        };
+        errorType: string;
+        transparency: number;
+        largeImageThreshold: number;
+    }
 
-  interface ResembleAnalysisResult {
-    red: number;
-    green: number;
-    blue: number;
-    brightness: number;
-  }
+    interface ResembleAnalysis {
+        /**
+         * Run the analysis on this image and get the result
+         */
+        onComplete(callback: (result: ResembleAnalysisResult) => void): void;
 
-  interface ResembleComparison {
-    /**
-     * Run the analysis and get the comparison result
-     */
-    onComplete(callback: (result: ResembleComparisonResult) => void): void;
+        /**
+         * Compare this image to another image, to get resemblance data
+         */
+        compareTo(fileData: string | ImageData): ResembleComparison;
+    }
 
-    ignoreNothing(): ResembleComparison;
-    ignoreAntialiasing(): ResembleComparison;
-    ignoreColors(): ResembleComparison;
-    repaint(): ResembleComparison;
+    interface ResembleAnalysisResult {
+        red: number;
+        green: number;
+        blue: number;
+        brightness: number;
+    }
 
-  }
+    interface ResembleComparison {
+        /**
+         * Run the analysis and get the comparison result
+         */
+        onComplete(callback: (result: ResembleComparisonResult) => void): void;
 
-  interface ResembleComparisonResult {
-    /**
-     * Do the two images have the same dimensions?
-     */
-    isSameDimensions: boolean;
+        ignoreNothing(): ResembleComparison;
+        ignoreAntialiasing(): ResembleComparison;
+        ignoreColors(): ResembleComparison;
+        repaint(): ResembleComparison;
+    }
 
-    /**
-     * The difference in width and height between the dimensions of the two compared images
-     */
-    dimensionDifference: {
-      width: number;
-      height: number;
-    };
+    interface ResembleComparisonResult {
+        /**
+         * Do the two images have the same dimensions?
+         */
+        isSameDimensions: boolean;
 
-    /**
-     * Get a data URL for the comparison image
-     */
-    getImageDataUrl(): string;
+        /**
+         * The difference in width and height between the dimensions of the two compared images
+         */
+        dimensionDifference: {
+            width: number;
+            height: number;
+        };
 
-    /**
-     * The percentage of pixels which do not match between the images
-     */
-    misMatchPercentage: number;
+        /**
+         * Get a data URL for the comparison image
+         */
+        getImageDataUrl(): string;
 
-    diffBounds: {
-      top: number;
-      left: number;
-      bottom: number;
-      right: number;
-    };
+        /**
+         * The percentage of pixels which do not match between the images
+         */
+        misMatchPercentage: number;
 
-    analysisTime: number;
-  }
+        diffBounds: {
+            top: number;
+            left: number;
+            bottom: number;
+            right: number;
+        };
+
+        analysisTime: number;
+    }
 }

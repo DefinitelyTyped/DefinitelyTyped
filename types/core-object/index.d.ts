@@ -20,7 +20,7 @@ declare class CoreObject {
 
     static extend<BaseClass extends Constructor<any>, Ext extends CoreObject.ExtendOptions<InstanceType<BaseClass>>>(
         this: BaseClass,
-        options: Ext & CoreObject.ExtendThisType<InstanceType<BaseClass>, Ext>
+        options: Ext & CoreObject.ExtendThisType<InstanceType<BaseClass>, Ext>,
     ): BaseClass & Constructor<Mix<InstanceType<BaseClass>, Ext>>;
 }
 export = CoreObject;

@@ -1,5 +1,5 @@
-import MarkdownIt = require(".");
-import Token = require("./token");
+import MarkdownIt = require('.');
+import Token = require('./token');
 
 export = ParserBlock;
 

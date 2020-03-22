@@ -11,5 +11,5 @@ src.rangeToLocation([0, 2]);
 // $ExpectType: [ number, number ]
 src.locationToRange({
     start: { line: 1, column: 0 },
-    end: { line: 1, column: 2 }
+    end: { line: 1, column: 2 },
 });

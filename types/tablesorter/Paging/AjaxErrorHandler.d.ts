@@ -1,5 +1,5 @@
-import "jquery";
-import { TablesorterConfigurationStore } from "../System/TablesorterConfigurationStore";
+import 'jquery';
+import { TablesorterConfigurationStore } from '../System/TablesorterConfigurationStore';
 
 /**
  * Provides the functionality to handle errors caused by `ajax`.
@@ -23,5 +23,10 @@ export interface AjaxErrorHandler<TElement = HTMLElement> {
      * @return
      * The error-message to display in the table-head.
      */
-    (config: TablesorterConfigurationStore<TElement>, request: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string): string;
+    (
+        config: TablesorterConfigurationStore<TElement>,
+        request: JQuery.jqXHR,
+        ajaxSettings: JQuery.AjaxSettings,
+        thrownError: string,
+    ): string;
 }

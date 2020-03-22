@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 // Create Strings
 export declare function stringify(data: any, opts?: Object, indent?: any): string;
 export declare function createCSONString(data: any, opts?: Object, next?: any): string;

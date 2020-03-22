@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface Tag {
     id: string;
@@ -21,18 +21,18 @@ export interface ReactTagsProps {
     placeholder?: string;
     labelField?: string;
 
-    handleAddition: ((tag: { id: string, text: string }) => void);
-    handleDelete: ((i: number) => void);
-    handleDrag?: ((tag: { id: string; text: string; }, currPos: number, newPos: number) => void);
-    handleFilterSuggestions?: ((textInputValue: string, possibleSuggestionsArray: Tag[]) => Tag[]);
-    handleTagClick?: ((i: number) => void);
+    handleAddition: (tag: { id: string; text: string }) => void;
+    handleDelete: (i: number) => void;
+    handleDrag?: (tag: { id: string; text: string }, currPos: number, newPos: number) => void;
+    handleFilterSuggestions?: (textInputValue: string, possibleSuggestionsArray: Tag[]) => Tag[];
+    handleTagClick?: (i: number) => void;
 
     autofocus?: boolean;
     allowAdditionFromPaste?: boolean;
     allowDeleteFromEmptyInput?: boolean;
-    handleInputChange?: ((value: string) => void);
-    handleInputFocus?: ((value: string) => void);
-    handleInputBlur?: ((textInputValue: string) => void);
+    handleInputChange?: (value: string) => void;
+    handleInputFocus?: (value: string) => void;
+    handleInputBlur?: (textInputValue: string) => void;
     minQueryLength?: number;
     removeComponent?: React.Component<any, any>;
     autocomplete?: boolean | 1;
@@ -63,7 +63,7 @@ export interface ReactTagsProps {
     };
 }
 
-export class WithContext extends React.Component<ReactTagsProps> { }
-export class WithOutContext extends React.Component<ReactTagsProps> { }
+export class WithContext extends React.Component<ReactTagsProps> {}
+export class WithOutContext extends React.Component<ReactTagsProps> {}
 
 export default WithContext;

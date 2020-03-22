@@ -17,12 +17,12 @@ setImmediate(info, 'after setImmediate');
 error(new Error('an error'));
 
 const instance: PINO.Logger = PINO({
-  name: 'myapp',
-  safe: true,
-  serializers: {
-    req: pino.stdSerializers.req,
-    res: pino.stdSerializers.res
-  }
+    name: 'myapp',
+    safe: true,
+    serializers: {
+        req: pino.stdSerializers.req,
+        res: pino.stdSerializers.res,
+    },
 });
 
 const version: number = pino.LOG_VERSION;
@@ -30,10 +30,13 @@ const levels: {} = pino.levels;
 
 const pretty: stream.Transform = PINO.pretty();
 
-const logger2: PINO.Logger = PINO({
-  name: 'app',
-  safe: true
-}, pretty);
+const logger2: PINO.Logger = PINO(
+    {
+        name: 'app',
+        safe: true,
+    },
+    pretty,
+);
 
 const logger = instance;
 logger.child({ a: 'property' }).info('hello child!');

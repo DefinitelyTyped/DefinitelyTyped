@@ -16,24 +16,27 @@ declare namespace AMap {
             mouseover: MouseEvent<'mouseover'>;
             mouseout: MouseEvent<'mouseout'>;
         }
-        type MouseEvent<N extends string> = Event<N, {
-            /**
-             * 店铺所属楼宇信息
-             */
-            building_id: string;
-            /**
-             * 经纬度
-             */
-            lnglat: LngLat;
-            /**
-             * 楼层
-             */
-            floor: number;
-            /**
-             * 商店
-             */
-            shop: Shop;
-        }>;
+        type MouseEvent<N extends string> = Event<
+            N,
+            {
+                /**
+                 * 店铺所属楼宇信息
+                 */
+                building_id: string;
+                /**
+                 * 经纬度
+                 */
+                lnglat: LngLat;
+                /**
+                 * 楼层
+                 */
+                floor: number;
+                /**
+                 * 商店
+                 */
+                shop: Shop;
+            }
+        >;
         interface Options extends Layer.Options {
             /**
              * 图层叠加的顺序值
@@ -158,10 +161,7 @@ declare namespace AMap {
          * @param indoorId 建筑物ID
          * @param callback 回调
          */
-        showIndoorMap(
-            indoorId: string,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
-        ): void;
+        showIndoorMap(indoorId: string, callback?: (error: null | Error, result: IndoorMap.SearchResult) => void): void;
         /**
          * 显示指定室内地图信息
          * @param indoorId 建筑物ID
@@ -171,7 +171,7 @@ declare namespace AMap {
         showIndoorMap(
             indoorId: string,
             floor?: number,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void,
         ): void;
         /**
          * 显示指定室内地图信息
@@ -184,7 +184,7 @@ declare namespace AMap {
             indoorId: string,
             floor?: number,
             shopId?: string,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void,
         ): void;
         /**
          * 显示指定室内地图信息
@@ -199,7 +199,7 @@ declare namespace AMap {
             floor?: number,
             shopId?: string,
             noMove?: boolean,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void,
         ): void;
         /**
          * 显示指定的楼层

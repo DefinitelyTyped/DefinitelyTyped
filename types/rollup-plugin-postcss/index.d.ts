@@ -11,19 +11,23 @@ import { CssNanoOptions } from 'cssnano';
 export interface PostCssPluginOptions {
     extensions?: string[];
     plugins?: any[];
-    inject?: boolean | {
-        insertAt?: 'top' | string;
-    };
+    inject?:
+        | boolean
+        | {
+              insertAt?: 'top' | string;
+          };
     extract?: boolean | string;
     modules?: boolean | unknown;
     autoModules?: boolean;
     minimize?: boolean | CssNanoOptions;
     sourceMap?: boolean | 'inline';
     exec?: boolean;
-    config?: boolean | {
-        path: string;
-        ctx: any;
-    };
+    config?:
+        | boolean
+        | {
+              path: string;
+              ctx: any;
+          };
     name?: any[] | any[][];
     loaders?: any[];
     namedExports?(...args: any[]): void | boolean;

@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     interface LoDashStatic {
         /**
          * Attempts to invoke func, returning either the result or the caught error object. Any additional arguments
@@ -83,7 +83,7 @@ declare module "../index" {
     }
 
     type ConformsPredicateObject<T> = {
-        [P in keyof T]: T[P] extends (arg: infer A) => any ? A : any
+        [P in keyof T]: T[P] extends (arg: infer A) => any ? A : any;
     };
     interface LoDashStatic {
         /**
@@ -161,7 +161,9 @@ declare module "../index" {
         /**
          * @see _.defaultTo
          */
-        defaultTo<TDefault>(defaultValue: TDefault): ExpChain<TValue extends null | undefined ? TDefault : TValue | TDefault>;
+        defaultTo<TDefault>(
+            defaultValue: TDefault,
+        ): ExpChain<TValue extends null | undefined ? TDefault : TValue | TDefault>;
     }
 
     interface LoDashStatic {
@@ -172,27 +174,66 @@ declare module "../index" {
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
-        flow<A extends any[], R1, R2, R3, R4, R5, R6, R7>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (...args: A) => R7;
+        flow<A extends any[], R1, R2, R3, R4, R5, R6, R7>(
+            f1: (...args: A) => R1,
+            f2: (a: R1) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+            f6: (a: R5) => R6,
+            f7: (a: R6) => R7,
+        ): (...args: A) => R7;
         /**
          * @see _.flow
          */
-        flow<A extends any[], R1, R2, R3, R4, R5, R6, R7>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...func: Array<Many<(a: any) => any>>): (...args: A) => any;
+        flow<A extends any[], R1, R2, R3, R4, R5, R6, R7>(
+            f1: (...args: A) => R1,
+            f2: (a: R1) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+            f6: (a: R5) => R6,
+            f7: (a: R6) => R7,
+            ...func: Array<Many<(a: any) => any>>
+        ): (...args: A) => any;
         /**
          * @see _.flow
          */
-        flow<A extends any[], R1, R2, R3, R4, R5, R6>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (...args: A) => R6;
+        flow<A extends any[], R1, R2, R3, R4, R5, R6>(
+            f1: (...args: A) => R1,
+            f2: (a: R1) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+            f6: (a: R5) => R6,
+        ): (...args: A) => R6;
         /**
          * @see _.flow
          */
-        flow<A extends any[], R1, R2, R3, R4, R5>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (...args: A) => R5;
+        flow<A extends any[], R1, R2, R3, R4, R5>(
+            f1: (...args: A) => R1,
+            f2: (a: R1) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+        ): (...args: A) => R5;
         /**
          * @see _.flow
          */
-        flow<A extends any[], R1, R2, R3, R4>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): (...args: A) => R4;
+        flow<A extends any[], R1, R2, R3, R4>(
+            f1: (...args: A) => R1,
+            f2: (a: R1) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+        ): (...args: A) => R4;
         /**
          * @see _.flow
          */
-        flow<A extends any[], R1, R2, R3>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (...args: A) => R3;
+        flow<A extends any[], R1, R2, R3>(
+            f1: (...args: A) => R1,
+            f2: (a: R1) => R2,
+            f3: (a: R2) => R3,
+        ): (...args: A) => R3;
         /**
          * @see _.flow
          */
@@ -206,23 +247,53 @@ declare module "../index" {
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Function<(...args: Parameters<T>) => R7>;
+        flow<R2, R3, R4, R5, R6, R7>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+            f6: (a: R5) => R6,
+            f7: (a: R6) => R7,
+        ): Function<(...args: Parameters<T>) => R7>;
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...func: Array<Many<(a: any) => any>>): Function<(...args: Parameters<T>) => any>;
+        flow<R2, R3, R4, R5, R6, R7>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+            f6: (a: R5) => R6,
+            f7: (a: R6) => R7,
+            ...func: Array<Many<(a: any) => any>>
+        ): Function<(...args: Parameters<T>) => any>;
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4, R5, R6>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Function<(...args: Parameters<T>) => R6>;
+        flow<R2, R3, R4, R5, R6>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+            f6: (a: R5) => R6,
+        ): Function<(...args: Parameters<T>) => R6>;
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4, R5>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Function<(...args: Parameters<T>) => R5>;
+        flow<R2, R3, R4, R5>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+        ): Function<(...args: Parameters<T>) => R5>;
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Function<(...args: Parameters<T>) => R4>;
+        flow<R2, R3, R4>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+        ): Function<(...args: Parameters<T>) => R4>;
         /**
          * @see _.flow
          */
@@ -240,23 +311,53 @@ declare module "../index" {
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): FunctionChain<(...args: Parameters<T>) => R7>;
+        flow<R2, R3, R4, R5, R6, R7>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+            f6: (a: R5) => R6,
+            f7: (a: R6) => R7,
+        ): FunctionChain<(...args: Parameters<T>) => R7>;
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...func: Array<Many<(a: any) => any>>): FunctionChain<(...args: Parameters<T>) => any>;
+        flow<R2, R3, R4, R5, R6, R7>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+            f6: (a: R5) => R6,
+            f7: (a: R6) => R7,
+            ...func: Array<Many<(a: any) => any>>
+        ): FunctionChain<(...args: Parameters<T>) => any>;
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4, R5, R6>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): FunctionChain<(...args: Parameters<T>) => R6>;
+        flow<R2, R3, R4, R5, R6>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+            f6: (a: R5) => R6,
+        ): FunctionChain<(...args: Parameters<T>) => R6>;
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4, R5>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): FunctionChain<(...args: Parameters<T>) => R5>;
+        flow<R2, R3, R4, R5>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+            f5: (a: R4) => R5,
+        ): FunctionChain<(...args: Parameters<T>) => R5>;
         /**
          * @see _.flow
          */
-        flow<R2, R3, R4>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): FunctionChain<(...args: Parameters<T>) => R4>;
+        flow<R2, R3, R4>(
+            f2: (a: ReturnType<T>) => R2,
+            f3: (a: R2) => R3,
+            f4: (a: R3) => R4,
+        ): FunctionChain<(...args: Parameters<T>) => R4>;
         /**
          * @see _.flow
          */
@@ -279,23 +380,53 @@ declare module "../index" {
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
-        flowRight<A extends any[], R1, R2, R3, R4, R5, R6, R7>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R7;
+        flowRight<A extends any[], R1, R2, R3, R4, R5, R6, R7>(
+            f7: (a: R6) => R7,
+            f6: (a: R5) => R6,
+            f5: (a: R4) => R5,
+            f4: (a: R3) => R4,
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): (...args: A) => R7;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3, R4, R5, R6>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R6;
+        flowRight<A extends any[], R1, R2, R3, R4, R5, R6>(
+            f6: (a: R5) => R6,
+            f5: (a: R4) => R5,
+            f4: (a: R3) => R4,
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): (...args: A) => R6;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3, R4, R5>(f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R5;
+        flowRight<A extends any[], R1, R2, R3, R4, R5>(
+            f5: (a: R4) => R5,
+            f4: (a: R3) => R4,
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): (...args: A) => R5;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3, R4>(f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R4;
+        flowRight<A extends any[], R1, R2, R3, R4>(
+            f4: (a: R3) => R4,
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): (...args: A) => R4;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R3;
+        flowRight<A extends any[], R1, R2, R3>(
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): (...args: A) => R3;
         /**
          * @see _.flowRight
          */
@@ -309,27 +440,52 @@ declare module "../index" {
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3, R4, R5>(f6: (a: R5) => Parameters<T>["0"], f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3, R4, R5>(
+            f6: (a: R5) => Parameters<T>['0'],
+            f5: (a: R4) => R5,
+            f4: (a: R3) => R4,
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): Function<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3, R4>(f5: (a: R4) => Parameters<T>["0"], f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3, R4>(
+            f5: (a: R4) => Parameters<T>['0'],
+            f4: (a: R3) => R4,
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): Function<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3>(f4: (a: R3) => Parameters<T>["0"], f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3>(
+            f4: (a: R3) => Parameters<T>['0'],
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): Function<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2>(f3: (a: R2) => Parameters<T>["0"], f2: (a: R1) => R2, f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2>(
+            f3: (a: R2) => Parameters<T>['0'],
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): Function<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1>(f2: (a: R1) => Parameters<T>["0"], f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1>(
+            f2: (a: R1) => Parameters<T>['0'],
+            f1: (...args: A) => R1,
+        ): Function<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[]>(f1: (...args: A) => Parameters<T>["0"]): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[]>(f1: (...args: A) => Parameters<T>['0']): Function<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
@@ -339,27 +495,54 @@ declare module "../index" {
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3, R4, R5>(f6: (a: R5) => Parameters<T>["0"], f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3, R4, R5>(
+            f6: (a: R5) => Parameters<T>['0'],
+            f5: (a: R4) => R5,
+            f4: (a: R3) => R4,
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): FunctionChain<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3, R4>(f5: (a: R4) => Parameters<T>["0"], f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3, R4>(
+            f5: (a: R4) => Parameters<T>['0'],
+            f4: (a: R3) => R4,
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): FunctionChain<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2, R3>(f4: (a: R3) => Parameters<T>["0"], f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3>(
+            f4: (a: R3) => Parameters<T>['0'],
+            f3: (a: R2) => R3,
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): FunctionChain<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1, R2>(f3: (a: R2) => Parameters<T>["0"], f2: (a: R1) => R2, f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2>(
+            f3: (a: R2) => Parameters<T>['0'],
+            f2: (a: R1) => R2,
+            f1: (...args: A) => R1,
+        ): FunctionChain<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[], R1>(f2: (a: R1) => Parameters<T>["0"], f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1>(
+            f2: (a: R1) => Parameters<T>['0'],
+            f1: (...args: A) => R1,
+        ): FunctionChain<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
-        flowRight<A extends any[]>(f1: (...args: A) => Parameters<T>["0"]): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[]>(
+            f1: (...args: A) => Parameters<T>['0'],
+        ): FunctionChain<(...args: A) => ReturnType<T>>;
         /**
          * @see _.flowRight
          */
@@ -729,19 +912,25 @@ declare module "../index" {
         /**
          * @see _.over
          */
-        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): Function<(...args: any[]) => Array<ReturnType<T> | TResult>>;
+        over<TResult>(
+            ...iteratees: Array<Many<(...args: any[]) => TResult>>
+        ): Function<(...args: any[]) => Array<ReturnType<T> | TResult>>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.over
          */
-        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): FunctionChain<(...args: any[]) => TResult[]>;
+        over<TResult>(
+            ...iteratees: Array<Many<(...args: any[]) => TResult>>
+        ): FunctionChain<(...args: any[]) => TResult[]>;
     }
     interface FunctionChain<T> {
         /**
          * @see _.over
          */
-        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): FunctionChain<(...args: any[]) => Array<ReturnType<T> | TResult>>;
+        over<TResult>(
+            ...iteratees: Array<Many<(...args: any[]) => TResult>>
+        ): FunctionChain<(...args: any[]) => Array<ReturnType<T> | TResult>>;
     }
 
     interface LoDashStatic {
@@ -752,35 +941,42 @@ declare module "../index" {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        overEvery<T, Result1 extends T, Result2 extends T>(...predicates: [
-            (arg: T) => arg is Result1,
-            (arg: T) => arg is Result2
-        ]): (arg: T) => arg is Result1 & Result2;
+        overEvery<T, Result1 extends T, Result2 extends T>(
+            ...predicates: [(arg: T) => arg is Result1, (arg: T) => arg is Result2]
+        ): (arg: T) => arg is Result1 & Result2;
         overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
     interface Collection<T> {
         /**
          * @see _.overEvery
          */
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): Function<(...args: TArgs[]) => boolean>;
+        overEvery<TArgs>(
+            ...iteratees: Array<Many<(...args: TArgs[]) => boolean>>
+        ): Function<(...args: TArgs[]) => boolean>;
     }
     interface Function<T> {
         /**
          * @see _.overEvery
          */
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): Function<(...args: Parameters<T> | TArgs[]) => boolean>;
+        overEvery<TArgs>(
+            ...iteratees: Array<Many<(...args: TArgs[]) => boolean>>
+        ): Function<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.overEvery
          */
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): FunctionChain<(...args:  TArgs[]) => boolean>;
+        overEvery<TArgs>(
+            ...iteratees: Array<Many<(...args: TArgs[]) => boolean>>
+        ): FunctionChain<(...args: TArgs[]) => boolean>;
     }
     interface FunctionChain<T> {
         /**
          * @see _.overEvery
          */
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): FunctionChain<(...args: Parameters<T> | TArgs[]) => boolean>;
+        overEvery<TArgs>(
+            ...iteratees: Array<Many<(...args: TArgs[]) => boolean>>
+        ): FunctionChain<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
 
     interface LoDashStatic {
@@ -791,35 +987,42 @@ declare module "../index" {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        overSome<T, Result1 extends T, Result2 extends T>(...predicates: [
-            (arg: T) => arg is Result1,
-            (arg: T) => arg is Result2
-        ]): (arg: T) => arg is Result1 | Result2;
+        overSome<T, Result1 extends T, Result2 extends T>(
+            ...predicates: [(arg: T) => arg is Result1, (arg: T) => arg is Result2]
+        ): (arg: T) => arg is Result1 | Result2;
         overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
     interface Collection<T> {
         /**
          * @see _.overSome
          */
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): Function<(...args: TArgs[]) => boolean>;
+        overSome<TArgs>(
+            ...iteratees: Array<Many<(...args: TArgs[]) => boolean>>
+        ): Function<(...args: TArgs[]) => boolean>;
     }
     interface Function<T> {
         /**
          * @see _.overSome
          */
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): Function<(...args: Parameters<T> | TArgs[]) => boolean>;
+        overSome<TArgs>(
+            ...iteratees: Array<Many<(...args: TArgs[]) => boolean>>
+        ): Function<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.overSome
          */
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): FunctionChain<(...args: TArgs[]) => boolean>;
+        overSome<TArgs>(
+            ...iteratees: Array<Many<(...args: TArgs[]) => boolean>>
+        ): FunctionChain<(...args: TArgs[]) => boolean>;
     }
     interface FunctionChain<T> {
         /**
          * @see _.overSome
          */
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): FunctionChain<(...args: Parameters<T> | TArgs[]) => boolean>;
+        overSome<TArgs>(
+            ...iteratees: Array<Many<(...args: TArgs[]) => boolean>>
+        ): FunctionChain<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
 
     interface LoDashStatic {

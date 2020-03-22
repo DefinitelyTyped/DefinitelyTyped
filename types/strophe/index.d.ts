@@ -49,7 +49,7 @@ export namespace Strophe {
         STANZAS: string;
         XHTML_IM: string;
         XHTML: string;
-    }
+    };
 
     /** Constants: Connection Status Constants
      *  Connection status constants for use by the connection handler
@@ -76,7 +76,7 @@ export namespace Strophe {
         DISCONNECTING,
         ATTACHED,
         REDIRECT,
-        CONNTIMEOUT
+        CONNTIMEOUT,
     }
 
     /** Constants: Log Level Constants
@@ -93,7 +93,7 @@ export namespace Strophe {
         INFO,
         WARN,
         ERROR,
-        FATAL
+        FATAL,
     }
 
     /** Function: addNamespace
@@ -171,25 +171,25 @@ export namespace Strophe {
     function xmlElement(name: string, text?: string, attrs?: any): Element;
 
     /*  Function: xmlescape
-    *  Excapes invalid xml characters.
-    *
-    *  Parameters:
-    *     (String) text - text to escape.
-    *
-    *  Returns:
-    *      Escaped text.
-    */
+     *  Excapes invalid xml characters.
+     *
+     *  Parameters:
+     *     (String) text - text to escape.
+     *
+     *  Returns:
+     *      Escaped text.
+     */
     function xmlescape(text: string): string;
 
     /*  Function: xmlunescape
-    *  Unexcapes invalid xml characters.
-    *
-    *  Parameters:
-    *     (String) text - text to unescape.
-    *
-    *  Returns:
-    *      Unescaped text.
-    */
+     *  Unexcapes invalid xml characters.
+     *
+     *  Parameters:
+     *     (String) text - text to unescape.
+     *
+     *  Returns:
+     *      Unescaped text.
+     */
     function xmlunescape(text: string): string;
 
     /** Function: xmlTextNode
@@ -217,14 +217,14 @@ export namespace Strophe {
     function xmlHtmlNode(html: string): Document;
 
     /** Function: getText
-         *  Get the concatenation of all text children of an element.
-         *
-         *  Parameters:
-         *    (XMLElement) elem - A DOM element.
-         *
-         *  Returns:
-         *    A String with the concatenated text of all text element children.
-         */
+     *  Get the concatenation of all text children of an element.
+     *
+     *  Parameters:
+     *    (XMLElement) elem - A DOM element.
+     *
+     *  Returns:
+     *    A String with the concatenated text of all text element children.
+     */
     function getText(elem: Element): string;
 
     /** Function: copyElement
@@ -410,7 +410,6 @@ export namespace Strophe {
      *  The next operation on the Builder will be relative to the second child.
      */
     class Builder {
-
         /** Constructor: Strophe.Builder
          *  Create a Strophe.Builder object.
          *
@@ -429,14 +428,14 @@ export namespace Strophe {
         constructor(name: string, attrs?: any);
 
         /** Function: tree
-        *  Return the DOM tree.
-        *
-        *  This function returns the current DOM tree as an element object.  This
-        *  is suitable for passing to functions like Strophe.Connection.send().
-        *
-        *  Returns:
-        *    The DOM tree as a element object.
-        */
+         *  Return the DOM tree.
+         *
+         *  This function returns the current DOM tree as an element object.  This
+         *  is suitable for passing to functions like Strophe.Connection.send().
+         *
+         *  Returns:
+         *    The DOM tree as a element object.
+         */
         tree(): Element;
 
         /** Function: toString
@@ -567,7 +566,6 @@ export namespace Strophe {
      *  To send data to the connection, use send().
      */
     class Connection {
-
         jid: string;
         authzid: string;
         pass: string;
@@ -705,7 +703,14 @@ export namespace Strophe {
          *      should almost always be set to 1 (the default).
          *    (String) route - The optional route value.
          */
-        connect(jid?: string, pass?: string, callback?: (status: Status, condition: string) => any, wait?: number, hold?: number, route?: string): void;
+        connect(
+            jid?: string,
+            pass?: string,
+            callback?: (status: Status, condition: string) => any,
+            wait?: number,
+            hold?: number,
+            route?: string,
+        ): void;
 
         /**
          * Function: restore
@@ -732,7 +737,13 @@ export namespace Strophe {
          *      This is the allowed range of request ids that are valid.
          *      The default is 5.
          */
-        restore(jid?: string, callback?: (status: Status, condition: string) => any, wait?: number, hold?: number, route?: string): void;
+        restore(
+            jid?: string,
+            callback?: (status: Status, condition: string) => any,
+            wait?: number,
+            hold?: number,
+            route?: string,
+        ): void;
 
         /** Function: attach
          *  Attach to an already created and authenticated BOSH session.
@@ -758,7 +769,15 @@ export namespace Strophe {
          *    (Integer) wind - The optional HTTBIND window value.  This is the
          *      allowed range of request ids that are valid.  The default is 5.
          */
-        attach(jid: string, sid: string, rid: string, callback?: (status: Status, condition: string) => any, wait?: number, hold?: number, wind?: number): void;
+        attach(
+            jid: string,
+            sid: string,
+            rid: string,
+            callback?: (status: Status, condition: string) => any,
+            wait?: number,
+            hold?: number,
+            wind?: number,
+        ): void;
 
         /** Function: xmlInput
          *  User overrideable function that receives XML data coming into the
@@ -840,7 +859,7 @@ export namespace Strophe {
          *     [XMLElement] |
          *     Strophe.Builder) elem - The stanza to send.
          */
-        send(elem: Element | Element[]| Builder): void;
+        send(elem: Element | Element[] | Builder): void;
 
         /** Function: flush
          *  Immediately send any pending outgoing data.
@@ -865,8 +884,13 @@ export namespace Strophe {
          *
          *  Returns:
          *    The id used to send the IQ.
-        */
-        sendIQ(elem: Element | Builder, callback?: (stanza: Element) => any, errback?: (stanza: Element) => any, timeout?: number): string; //todo: Is callback correct?
+         */
+        sendIQ(
+            elem: Element | Builder,
+            callback?: (stanza: Element) => any,
+            errback?: (stanza: Element) => any,
+            timeout?: number,
+        ): string; //todo: Is callback correct?
 
         /** Function: addTimedHandler
          *  Add a timed handler to the connection.
@@ -903,7 +927,6 @@ export namespace Strophe {
          *    (Strophe.TimedHandler) handRef - The handler reference.
          */
         deleteTimedHandler(handRef: any): void;
-
 
         /** Function: addHandler
          *  Add a stanza handler for the connection.
@@ -943,7 +966,15 @@ export namespace Strophe {
          *  Returns:
          *    A reference to the handler that can be used to remove it.
          */
-        addHandler(handler: (stanza: Element) => boolean, ns: string, name: string, type?: string, id?: string, from?: string, options?: { matchBare: boolean }): any; //todo: is callback correct? Also, are the elements specified as optional truly optional?
+        addHandler(
+            handler: (stanza: Element) => boolean,
+            ns: string,
+            name: string,
+            type?: string,
+            id?: string,
+            from?: string,
+            options?: { matchBare: boolean },
+        ): any; //todo: is callback correct? Also, are the elements specified as optional truly optional?
 
         /** Function: deleteHandler
          *  Delete a stanza handler for a connection.
@@ -992,42 +1023,42 @@ export namespace Strophe {
      */
     interface SASLMechanism {
         /**
-     *  Function: test
-     *  Checks if mechanism able to run.
-     *  To disable a mechanism, make this return false;
-     *
-     *  To disable plain authentication run
-     *  > Strophe.SASLPlain.test = function() {
-     *  >   return false;
-     *  > }
-     *
-     *  See <SASL mechanisms> for a list of available mechanisms.
-     *
-     *  Parameters:
-     *    (Strophe.Connection) connection - Target Connection.
-     *
-     *  Returns:
-     *    (Boolean) If mechanism was able to run.
-     */
+         *  Function: test
+         *  Checks if mechanism able to run.
+         *  To disable a mechanism, make this return false;
+         *
+         *  To disable plain authentication run
+         *  > Strophe.SASLPlain.test = function() {
+         *  >   return false;
+         *  > }
+         *
+         *  See <SASL mechanisms> for a list of available mechanisms.
+         *
+         *  Parameters:
+         *    (Strophe.Connection) connection - Target Connection.
+         *
+         *  Returns:
+         *    (Boolean) If mechanism was able to run.
+         */
         test(connection: Connection): boolean;
 
         /** Variable: priority
-     *  Determines which <SASLMechanism> is chosen for authentication (Higher is better).
-     *  Users may override this to prioritize mechanisms differently.
-     *
-     *  In the default configuration the priorities are
-     *
-     *  SCRAM-SHA1 - 40
-     *  DIGEST-MD5 - 30
-     *  Plain - 20
-     *
-     *  Example: (This will cause Strophe to choose the mechanism that the server sent first)
-     *
-     *  > Strophe.SASLMD5.priority = Strophe.SASLSHA1.priority;
-     *
-     *  See <SASL mechanisms> for a list of available mechanisms.
-     *
-     */
+         *  Determines which <SASLMechanism> is chosen for authentication (Higher is better).
+         *  Users may override this to prioritize mechanisms differently.
+         *
+         *  In the default configuration the priorities are
+         *
+         *  SCRAM-SHA1 - 40
+         *  DIGEST-MD5 - 30
+         *  Plain - 20
+         *
+         *  Example: (This will cause Strophe to choose the mechanism that the server sent first)
+         *
+         *  > Strophe.SASLMD5.priority = Strophe.SASLSHA1.priority;
+         *
+         *  See <SASL mechanisms> for a list of available mechanisms.
+         *
+         */
         priority: number;
     }
 
@@ -1091,7 +1122,7 @@ export function $iq(attrs?: any): Strophe.Builder;
  */
 export function $pres(attrs?: any): Strophe.Builder;
 
-import { Strophe as _Strophe, $build as _$build, $msg as _$msg, $iq as _$iq, $pres as _$pres } from "strophe";
+import { Strophe as _Strophe, $build as _$build, $msg as _$msg, $iq as _$iq, $pres as _$pres } from 'strophe';
 declare global {
     const Strophe: typeof _Strophe;
     namespace Strophe {
@@ -1108,22 +1139,22 @@ declare global {
     const $pres: typeof _$pres;
 }
 
-declare module "Strophe" {
-  export = Strophe;
+declare module 'Strophe' {
+    export = Strophe;
 }
 
-declare module "$build" {
-  export = $build;
+declare module '$build' {
+    export = $build;
 }
 
-declare module "$msg" {
-  export = $msg;
+declare module '$msg' {
+    export = $msg;
 }
 
-declare module "$iq" {
-  export = $iq;
+declare module '$iq' {
+    export = $iq;
 }
 
-declare module "$pres" {
-  export = $pres;
+declare module '$pres' {
+    export = $pres;
 }

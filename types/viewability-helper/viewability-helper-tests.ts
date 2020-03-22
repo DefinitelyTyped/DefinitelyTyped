@@ -9,12 +9,12 @@ vh.observe();
 // Test with options
 
 const options: Options = {
-  callbackParams: [1, 'a', null],
-  rootMargin: '0px',
-  intersectionPercentage: 0,
-  scrollDimmer: 200,
-  unobserve: true,
-  threshold: [0]
+    callbackParams: [1, 'a', null],
+    rootMargin: '0px',
+    intersectionPercentage: 0,
+    scrollDimmer: 200,
+    unobserve: true,
+    threshold: [0],
 };
 
 const vh2: ViewabilityHelper = new ViewabilityHelper(d, () => {}, options);

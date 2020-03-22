@@ -1,4 +1,4 @@
-import { IconPreloader } from "./IconPreloader";
+import { IconPreloader } from './IconPreloader';
 
 /**
  * Provides the functionality to handle the `preloaded`-event.

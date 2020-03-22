@@ -1,9 +1,9 @@
-import * as ParseMockDB from "parse-mockdb";
+import * as ParseMockDB from 'parse-mockdb';
 
 ParseMockDB.mockDB(); // Mock the Parse RESTController
 
 // from parse-mockdb test suite
-ParseMockDB.registerHook("Foo", "beforeSave", (request) => {
+ParseMockDB.registerHook('Foo', 'beforeSave', (request) => {
     const object = request.object;
     if (object.get('error')) {
         return Parse.Promise.error('whoah');
@@ -13,7 +13,7 @@ ParseMockDB.registerHook("Foo", "beforeSave", (request) => {
 });
 
 // from parse-mockdb test suite
-ParseMockDB.registerHook("Foo", "beforeDelete", (request) => {
+ParseMockDB.registerHook('Foo', 'beforeDelete', (request) => {
     const object = request.object;
     if (object.get('error')) {
         return Parse.Promise.error('whoah');

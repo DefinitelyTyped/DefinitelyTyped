@@ -12,8 +12,8 @@ function* notAsync() {
     yield 'foo';
 }
 
-streamify();  // $ExpectError
-streamify(notGenerator());  // $ExpectError
-streamify(notAsync());  // $ExpectError
-streamify(generator());  // $ExpectType Readable
+streamify(); // $ExpectError
+streamify(notGenerator()); // $ExpectError
+streamify(notAsync()); // $ExpectError
+streamify(generator()); // $ExpectType Readable
 streamify(generator()).pipe(process.stdout);

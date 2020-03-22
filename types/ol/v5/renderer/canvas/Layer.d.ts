@@ -11,9 +11,18 @@ export default class CanvasLayerRenderer extends LayerRenderer {
     constructor(layer: Layer);
     protected renderedResolution: number;
     protected clip(context: CanvasRenderingContext2D, frameState: FrameState, extent: Extent): void;
-    protected dispatchRenderEvent(context: CanvasRenderingContext2D, frameState: FrameState, opt_transform?: Transform): void;
+    protected dispatchRenderEvent(
+        context: CanvasRenderingContext2D,
+        frameState: FrameState,
+        opt_transform?: Transform,
+    ): void;
     protected getTransform(frameState: FrameState, offsetX: number): Transform;
-    protected postCompose(context: CanvasRenderingContext2D, frameState: FrameState, layerState: State, opt_transform?: Transform): void;
+    protected postCompose(
+        context: CanvasRenderingContext2D,
+        frameState: FrameState,
+        layerState: State,
+        opt_transform?: Transform,
+    ): void;
     protected preCompose(context: CanvasRenderingContext2D, frameState: FrameState, opt_transform?: Transform): void;
     composeFrame(frameState: FrameState, layerState: State, context: CanvasRenderingContext2D): void;
     forEachLayerAtCoordinate<S, T, U>(
@@ -21,7 +30,7 @@ export default class CanvasLayerRenderer extends LayerRenderer {
         frameState: FrameState,
         hitTolerance: number,
         callback: (this: S, p0: Layer, p1: Uint8ClampedArray | Uint8Array) => T,
-        thisArg: S
+        thisArg: S,
     ): T | undefined;
     prepareFrame(frameState: FrameState, layerState: State): boolean;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];

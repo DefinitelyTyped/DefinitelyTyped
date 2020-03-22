@@ -13,15 +13,8 @@ declare namespace mongoose_delete {
     interface Callback<T, THIS = T> {
         (this: THIS, err: any, doc: T): void;
     }
-    type overridableMethods =
-        | 'count'
-        | 'countDocuments'
-        | 'find'
-        | 'findOne'
-        | 'findOneAndUpdate'
-        | 'update';
-    interface SoftDeleteModel<T extends mongoose.Document, QueryHelpers = {}>
-        extends mongoose.Model<T, QueryHelpers> {
+    type overridableMethods = 'count' | 'countDocuments' | 'find' | 'findOne' | 'findOneAndUpdate' | 'update';
+    interface SoftDeleteModel<T extends mongoose.Document, QueryHelpers = {}> extends mongoose.Model<T, QueryHelpers> {
         /** Count only deleted documents */
         countDeleted: typeof mongoose.Model.count;
         /** Count all documents including deleted */
@@ -63,14 +56,9 @@ declare namespace mongoose_delete {
         ): mongoose.Query<T> & QueryHelpers;
     }
 
-    interface SoftDeleteDocument
-        extends mongoose.Document,
-        SoftDeleteInterface {
+    interface SoftDeleteDocument extends mongoose.Document, SoftDeleteInterface {
         /** Soft delete this document */
-        delete(
-            deleteBy?: string | mongoose.Types.ObjectId | Callback<this>,
-            fn?: Callback<this>,
-        ): Promise<this>;
+        delete(deleteBy?: string | mongoose.Types.ObjectId | Callback<this>, fn?: Callback<this>): Promise<this>;
         restore(fn?: Callback<this>): Promise<this>;
     }
     interface SoftDeleteInterface {

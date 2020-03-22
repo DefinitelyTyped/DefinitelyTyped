@@ -20,20 +20,19 @@ export class MyApp extends React.Component<{}, State> {
 
     onDocumentLoadSuccess = ({ numPages }: PDFDocumentProxy) => {
         this.setState({ numPages });
-    }
+    };
 
     render() {
         const { pageNumber, numPages } = this.state;
 
         return (
             <div>
-                <Document
-                    file="somefile.pdf"
-                    onLoadSuccess={this.onDocumentLoadSuccess}
-                >
+                <Document file="somefile.pdf" onLoadSuccess={this.onDocumentLoadSuccess}>
                     <Page pageNumber={pageNumber} />
                 </Document>
-                <p>Page {pageNumber} of {numPages}</p>
+                <p>
+                    Page {pageNumber} of {numPages}
+                </p>
             </div>
         );
     }

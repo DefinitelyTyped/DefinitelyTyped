@@ -1,12 +1,12 @@
 /* from documentation at https://github.com/liabru/jquery-match-height */
 
 $(document).ready(() => {
-    $(".containers").matchHeight();
-    $(".containers").matchHeight({
+    $('.containers').matchHeight();
+    $('.containers').matchHeight({
         byRow: true,
-        property: "height",
-        remove: true}
-    );
+        property: 'height',
+        remove: true,
+    });
 });
 
 $.fn.matchHeight._update();
@@ -26,7 +26,7 @@ $.fn.matchHeight._afterUpdate = (event, groups) => {
 };
 
 let elements = $('.containers');
-let options = {byRow: true};
+let options = { byRow: true };
 
 $.fn.matchHeight._apply(elements, options);
 

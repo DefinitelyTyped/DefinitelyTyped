@@ -5,45 +5,44 @@ function test_parser() {
     var parser = new UAParser(ua);
     var result = parser.getResult();
 
-    parser.getUA()
-    parser.setUA("foo")
+    parser.getUA();
+    parser.setUA('foo');
 
-    result.ua
+    result.ua;
 
     // browser
-    result.browser.name
-    result.browser.version
-    parser.getBrowser().name
-    parser.getBrowser().version
+    result.browser.name;
+    result.browser.version;
+    parser.getBrowser().name;
+    parser.getBrowser().version;
 
     // device
-    result.device.model
-    result.device.type
-    result.device.vendor
+    result.device.model;
+    result.device.type;
+    result.device.vendor;
 
-    parser.getDevice().model
-    parser.getDevice().type
-    parser.getDevice().vendor
+    parser.getDevice().model;
+    parser.getDevice().type;
+    parser.getDevice().vendor;
 
     // Engine
-    result.engine.name
-    result.engine.version
-    parser.getEngine().name
-    parser.getEngine().version
+    result.engine.name;
+    result.engine.version;
+    parser.getEngine().name;
+    parser.getEngine().version;
 
     // OS
-    result.os.name
-    result.os.version
-    parser.getOS().name
-    parser.getOS().version
+    result.os.name;
+    result.os.version;
+    parser.getOS().name;
+    parser.getOS().version;
 
     // CPU
-    result.cpu.architecture
-    parser.getCPU().architecture
+    result.cpu.architecture;
+    parser.getCPU().architecture;
 
     // Extensions
     var uaString = 'ownbrowser/1.3';
     var ownBrowser = [[/(ownbrowser)\/([\w\.]+)/i], [UAParser.BROWSER.NAME, UAParser.BROWSER.VERSION]];
     var parser = new UAParser(uaString, { browser: ownBrowser });
-
 }

@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { TransitionCallbacks } from "react-overlays";
-import { TransitionProps } from "react-transition-group/Transition";
+import { TransitionCallbacks } from 'react-overlays';
+import { TransitionProps } from 'react-transition-group/Transition';
 
-import * as ModalManager from "./ModalManager";
-import { PortalProps } from "./Portal";
+import * as ModalManager from './ModalManager';
+import { PortalProps } from './Portal';
 
 declare class Modal extends React.Component<ModalProps> {
     public static Manager: ModalManager;

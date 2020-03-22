@@ -40,13 +40,16 @@ declare namespace polymer {
         listen(node: Element, eventName: string, methodName: string): void;
         mixin(target: Object, source: Object): void;
         notifyPath(path: string, value: any, fromAbove?: any): void;
-        notifySplices(path: string, splices: {
-            index: number;
-            removed: Array<any>;
-            addedCount: number;
-            object: Array<any>;
-            type: "splice";
-        }): void;
+        notifySplices(
+            path: string,
+            splices: {
+                index: number;
+                removed: Array<any>;
+                addedCount: number;
+                object: Array<any>;
+                type: 'splice';
+            },
+        ): void;
         pop(path: string): any;
         push(path: string, value: any): any;
         reflectPropertyToAttribute(name: string): void;
@@ -105,7 +108,7 @@ declare namespace polymer {
         computed?: string;
         observer?: string;
     }
-    interface Base extends polymer.Element { }
+    interface Base extends polymer.Element {}
     class Base extends polymer.PolymerBase {
         static create<T extends polymer.Base>(...args: any[]): T;
         static register(): void;

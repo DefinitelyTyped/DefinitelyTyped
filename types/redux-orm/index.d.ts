@@ -19,7 +19,7 @@ import Model, {
     RefPropOrSimple,
     SessionBoundModel,
     UpdateProps,
-    UpsertProps
+    UpsertProps,
 } from './Model';
 import QuerySet, { MutableQuerySet } from './QuerySet';
 import { OrmSession } from './Session';
@@ -64,7 +64,7 @@ export {
     attr,
     oneToOne,
     fk,
-    many
+    many,
 };
 
 export default Model;

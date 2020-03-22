@@ -1,19 +1,19 @@
-import ReconnectingWebSocket = require("reconnectingwebsocket");
+import ReconnectingWebSocket = require('reconnectingwebsocket');
 
 const options: ReconnectingWebSocket.Options = {
     automaticOpen: false,
-    binaryType: "blob",
+    binaryType: 'blob',
     debug: false,
     maxReconnectAttempts: 1,
     maxReconnectInterval: 1000,
     reconnectDecay: 1.5,
     reconnectInterval: 1000,
-    timeoutInterval: 1000
+    timeoutInterval: 1000,
 };
 
-const ws1: ReconnectingWebSocket = new ReconnectingWebSocket("url", ["protocol"], options);
-const ws2: ReconnectingWebSocket = new ReconnectingWebSocket("url", ["protocol"]);
-const ws3: ReconnectingWebSocket = new ReconnectingWebSocket("url");
+const ws1: ReconnectingWebSocket = new ReconnectingWebSocket('url', ['protocol'], options);
+const ws2: ReconnectingWebSocket = new ReconnectingWebSocket('url', ['protocol']);
+const ws3: ReconnectingWebSocket = new ReconnectingWebSocket('url');
 
 ReconnectingWebSocket.debugAll = true;
 ReconnectingWebSocket.CONNECTING = WebSocket.CONNECTING;

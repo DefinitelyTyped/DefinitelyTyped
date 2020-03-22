@@ -39,16 +39,19 @@ declare namespace SequelizeCursorPagination {
         primaryKeyField?: string; // [default: 'id']
     }
 
-    type WithPaginationModel<MethodName extends string, Model, ModelInst, ModelAttrs> = Model & {
-        [key in MethodName]: {
-            (options?: PaginateRawOptions<ModelAttrs>): { results: ModelAttrs[], cursors: Cursors }
-            (options?: PaginateInstOptions<ModelAttrs>): { results: ModelInst[], cursors: Cursors }
-        }
-    };
+    type WithPaginationModel<MethodName extends string, Model, ModelInst, ModelAttrs> = Model &
+        {
+            [key in MethodName]: {
+                (options?: PaginateRawOptions<ModelAttrs>): { results: ModelAttrs[]; cursors: Cursors };
+                (options?: PaginateInstOptions<ModelAttrs>): { results: ModelInst[]; cursors: Cursors };
+            };
+        };
 
-    function withPagination<MethodName extends string = 'paginate'>(options?: WithPaginationOptions<MethodName>): (
-        <Model extends Sequelize.Model<ModelInst, ModelAttrs>, ModelInst, ModelAttrs>(model: Model) => WithPaginationModel<MethodName, Model, ModelInst, ModelAttrs>
-    );
+    function withPagination<MethodName extends string = 'paginate'>(
+        options?: WithPaginationOptions<MethodName>,
+    ): <Model extends Sequelize.Model<ModelInst, ModelAttrs>, ModelInst, ModelAttrs>(
+        model: Model,
+    ) => WithPaginationModel<MethodName, Model, ModelInst, ModelAttrs>;
 }
 
 export = SequelizeCursorPagination.withPagination;

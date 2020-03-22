@@ -1,4 +1,4 @@
-import * as nodeRal from "node-ral";
+import * as nodeRal from 'node-ral';
 
 class FormConverter extends nodeRal.Converter {
     pack(config: nodeRal.Service, data: {}) {
@@ -43,7 +43,7 @@ class DefaultConfigNormalizer extends nodeRal.ConfigNormalizer {
 }
 
 const runner = nodeRal.RAL('test', {});
-runner.on('data', function() {
+runner.on('data', function () {
     // yeap
 });
 runner.doRequest();

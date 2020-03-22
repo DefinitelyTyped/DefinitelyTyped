@@ -79,12 +79,12 @@ acl.whatResources('foo', 'view', (err, res) => {
 });
 
 acl.isAllowed('jsmith', 'blogs', ['edit', 'view', 'delete'])
-    .then(result => {
+    .then((result) => {
         console.dir('jsmith is allowed blogs ' + result);
         acl.addUserRoles('jsmith', 'member');
     })
     .then(() => acl.isAllowed('jsmith', 'blogs', ['edit', 'view', 'delete']))
-    .then(result => console.dir('jsmith is allowed blogs ' + result))
+    .then((result) => console.dir('jsmith is allowed blogs ' + result))
     .then(() => {
         acl.allowedPermissions('james', ['blogs', 'forums'], report);
         acl.allowedPermissions('jsmith', ['blogs', 'forums'], report);

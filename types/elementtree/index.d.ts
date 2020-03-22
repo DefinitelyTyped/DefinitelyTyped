@@ -30,7 +30,7 @@ export interface Attributes {
 
 export type ElementTag = typeof Comment | typeof CData | typeof ProcessingInstruction | string;
 
-export type ElementText = { toString(): string; } | string;
+export type ElementText = { toString(): string } | string;
 
 export interface Element {
     tag: ElementTag;

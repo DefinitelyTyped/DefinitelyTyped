@@ -1,7 +1,7 @@
-import * as ESTree from "estree";
-import { Context, Scope, Type } from "../infer";
+import * as ESTree from 'estree';
+import { Context, Scope, Type } from '../infer';
 
-export { };
+export {};
 
 // #### Programming interface ####
 export type ConstructorOptions = CtorOptions & (SyncConstructorOptions | ASyncConstructorOptions);
@@ -42,7 +42,7 @@ export interface ASyncConstructorOptions {
 }
 
 interface TernConstructor {
-    new(options?: ConstructorOptions): Server;
+    new (options?: ConstructorOptions): Server;
 }
 
 export const Server: TernConstructor;
@@ -98,8 +98,10 @@ export interface Server {
         doc: D & { query?: Q },
         callback: (
             error: string | null,
-            response: (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {}) | undefined
-        ) => void
+            response:
+                | (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {})
+                | undefined,
+        ) => void,
     ): void;
     reset(): void;
     signal(event: keyof Events, file: File): void;
@@ -107,22 +109,22 @@ export interface Server {
 
 // #### JSON Protocol ####
 
-export type QueryResult<Q extends Query> = QueryRegistry[Q["type"]]["result"];
+export type QueryResult<Q extends Query> = QueryRegistry[Q['type']]['result'];
 
-export type Query = QueryRegistry[keyof QueryRegistry]["query"];
+export type Query = QueryRegistry[keyof QueryRegistry]['query'];
 
 export interface QueryRegistry {
     completions: {
-        query: CompletionsQuery,
-        result: CompletionsQueryResult
+        query: CompletionsQuery;
+        result: CompletionsQueryResult;
     };
     type: {
-        query: TypeQuery,
-        result: TypeQueryResult
+        query: TypeQuery;
+        result: TypeQueryResult;
     };
     definition: {
-        query: DefinitionQuery,
-        result: DefinitionQueryResult
+        query: DefinitionQuery;
+        result: DefinitionQueryResult;
     };
     documentation: {
         query: DocumentationQuery;
@@ -133,16 +135,16 @@ export interface QueryRegistry {
         result: RefsQueryResult;
     };
     rename: {
-        query: RenameQuery,
-        result: RenameQueryResult
+        query: RenameQuery;
+        result: RenameQueryResult;
     };
     properties: {
-        query: PropertiesQuery,
-        result: PropertiesQueryResult
+        query: PropertiesQuery;
+        result: PropertiesQueryResult;
     };
     files: {
-        query: FilesQuery,
-        result: FilesQueryResult
+        query: FilesQuery;
+        result: FilesQueryResult;
     };
 }
 
@@ -161,14 +163,14 @@ export interface File {
     text: string;
     scope: Scope;
     ast: ESTree.Program;
-    type?: "full" | "part" | "delete";
+    type?: 'full' | 'part' | 'delete';
     asLineChar?(nodePosition: number): Position;
 }
 
 export interface BaseQuery {
     type: string;
     lineCharPositions?: boolean;
-    docFormat?: "full";
+    docFormat?: 'full';
 }
 
 export interface BaseQueryWithFile extends BaseQuery {
@@ -184,7 +186,7 @@ export interface Position {
 /** Asks the server for a set of completions at the given point. */
 export interface CompletionsQuery extends BaseQueryWithFile {
     /** Asks the server for a set of completions at the given point. */
-    type: "completions";
+    type: 'completions';
     /** Specify the location to complete at. */
     end: number | Position;
     /** Whether to include the types of the completions in the result data. Default `false` */
@@ -232,20 +234,22 @@ export interface CompletionsQueryResult {
      * and, depending on the options, `type`, `depth`, `doc`, `url`, and `origin` properties.
      * When none of these options are enabled, the result array will hold plain strings.
      */
-    completions: string[] | Array<{
-        name: string,
-        type?: string,
-        depth?: number,
-        doc?: string,
-        url?: string,
-        origin?: string
-    }>;
+    completions:
+        | string[]
+        | Array<{
+              name: string;
+              type?: string;
+              depth?: number;
+              doc?: string;
+              url?: string;
+              origin?: string;
+          }>;
 }
 
 /** Query the type of something. */
 export interface TypeQuery extends BaseQueryWithFile {
     /** Query the type of something. */
-    type: "type";
+    type: 'type';
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
@@ -299,7 +303,7 @@ export interface DefinitionQuery extends BaseQueryWithFile {
      * type is not an object or function (other types don’t store their definition site),
      * it will fail to return useful information.
      */
-    type: "definition";
+    type: 'definition';
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
@@ -328,7 +332,7 @@ export interface DefinitionQueryResult {
 /** Get the documentation string and URL for a given expression, if any. */
 export interface DocumentationQuery extends BaseQueryWithFile {
     /** Get the documentation string and URL for a given expression, if any. */
-    type: "documentation";
+    type: 'documentation';
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
@@ -347,7 +351,7 @@ export interface DocumentationQueryResult {
 /** Used to find all references to a given variable or property. */
 export interface RefsQuery extends BaseQueryWithFile {
     /** Used to find all references to a given variable or property. */
-    type: "refs";
+    type: 'refs';
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
@@ -358,18 +362,18 @@ export interface RefsQueryResult {
     /** The name of the variable or property */
     name: string;
     refs: Array<{
-        file: string,
-        start: number | Position,
-        end: number | Position
+        file: string;
+        start: number | Position;
+        end: number | Position;
     }>;
     /** for variables: a type property holding either "global" or "local". */
-    type?: "global" | "local";
+    type?: 'global' | 'local';
 }
 
 /** Rename a variable in a scope-aware way. */
 export interface RenameQuery extends BaseQueryWithFile {
     /** Rename a variable in a scope-aware way. */
-    type: "rename";
+    type: 'rename';
     /** Specify the location of the variable. */
     end: number | Position;
     /** Specify the location of the variable. */
@@ -385,17 +389,17 @@ export interface RenameQuery extends BaseQueryWithFile {
 export interface RenameQueryResult {
     /** Array of changes that must be performed to apply the rename. The client is responsible for doing the actual modification. */
     changes: Array<{
-        file: string,
-        start: number | Position,
-        end: number | Position,
-        text: string
+        file: string;
+        start: number | Position;
+        end: number | Position;
+        text: string;
     }>;
 }
 
 /** Get a list of all known object property names (for any object). */
 export interface PropertiesQuery extends BaseQuery {
     /** Get a list of all known object property names (for any object). */
-    type: "properties";
+    type: 'properties';
     /** Causes the server to only return properties that start with the given string. */
     prefix?: string;
     /** Whether the result should be sorted. Default `true` */
@@ -410,7 +414,7 @@ export interface PropertiesQueryResult {
 /** Get the files that the server currently holds in its set of analyzed files. */
 export interface FilesQuery extends BaseQuery {
     /** Get the files that the server currently holds in its set of analyzed files. */
-    type: "files";
+    type: 'files';
     docFormat?: never;
     lineCharPositions?: never;
 }
@@ -465,8 +469,8 @@ export const version: string;
  */
 export function registerPlugin(name: string, init: (server: Server, options?: ConstructorOptions) => void): void;
 
-export interface Desc<T extends Query["type"]> {
-    run(Server: Server, query: QueryRegistry[T]["query"], file?: File): QueryRegistry[T]["result"];
+export interface Desc<T extends Query['type']> {
+    run(Server: Server, query: QueryRegistry[T]['query'], file?: File): QueryRegistry[T]['result'];
     takesFile?: boolean;
 }
 
@@ -497,4 +501,4 @@ export interface Desc<T extends Query["type"]> {
  * _Note that your query interface should extend_ `BaseQuery` _and that its_ `type` _property has to be spelled
  * exactly like the key in the_ `QueryRegistry` _interface._
  */
-export function defineQueryType<T extends Query["type"]>(name: T, desc: Desc<T>): void;
+export function defineQueryType<T extends Query['type']>(name: T, desc: Desc<T>): void;

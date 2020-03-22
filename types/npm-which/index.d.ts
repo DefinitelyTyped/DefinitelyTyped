@@ -3,7 +3,7 @@
 // Definitions by: Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import "node";
+import 'node';
 
 /**
  * Provides options for the `npmwhich`-module.

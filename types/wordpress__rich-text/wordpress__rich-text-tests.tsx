@@ -127,8 +127,8 @@ RT.removeFormat(VALUE, 'foo', 10);
 //
 RT.replace(VALUE, 'foo', 'bar');
 RT.replace(VALUE, /foo/, 'bar');
-RT.replace(VALUE, 'foo', match => `${match}bar`);
-RT.replace(VALUE, /foo/, match => `${match}bar`);
+RT.replace(VALUE, 'foo', (match) => `${match}bar`);
+RT.replace(VALUE, /foo/, (match) => `${match}bar`);
 RT.replace(VALUE, 'foo', (match, a, b) => `${match} ${a} ${b}`);
 
 //

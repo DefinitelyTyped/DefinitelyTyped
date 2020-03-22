@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace UID {
-
     export interface Generate {
-
         (byteLength: number, callback: (err: any, str: string) => any): void;
         (byteLength: number): Promise<string>;
 

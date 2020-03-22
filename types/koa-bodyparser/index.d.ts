@@ -17,9 +17,9 @@
 
  =============================================== */
 
-import * as Koa from "koa";
+import * as Koa from 'koa';
 
-declare module "koa" {
+declare module 'koa' {
     interface Request {
         body?: any;
         rawBody: string;

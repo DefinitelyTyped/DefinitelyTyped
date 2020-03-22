@@ -1,7 +1,7 @@
-import recast = require("recast");
-import JSXElement = require("./collections/JSXElement");
-import NodeCollection = require("./collections/Node");
-import VariableDeclarator = require("./collections/VariableDeclarator");
+import recast = require('recast');
+import JSXElement = require('./collections/JSXElement');
+import NodeCollection = require('./collections/Node');
+import VariableDeclarator = require('./collections/VariableDeclarator');
 
 type ASTPath<N> = recast.NodePath<N, N>;
 
@@ -24,11 +24,9 @@ export interface Collection<N>
      * Returns a new collection containing the nodes for which the callback returns true.
      */
     filter<S extends N>(
-        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => path is ASTPath<S>
+        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => path is ASTPath<S>,
     ): Collection<S>;
-    filter(
-        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean
-    ): Collection<N>;
+    filter(callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean): Collection<N>;
 
     /**
      * Executes callback for each node/path in the collection.
@@ -62,9 +60,9 @@ export interface Collection<N>
         callback: (
             path: ASTPath<N>,
             i: number,
-            paths: Array<ASTPath<N>>
+            paths: Array<ASTPath<N>>,
         ) => ASTPath<T> | Array<ASTPath<T>> | null | undefined,
-        type?: recast.Type<any>
+        type?: recast.Type<any>,
     ): Collection<T>;
 
     /** Returns the number of elements in this collection. */

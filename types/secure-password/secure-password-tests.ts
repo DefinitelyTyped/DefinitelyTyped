@@ -1,7 +1,7 @@
 import SecurePassword = require('secure-password');
 
 const sp = new SecurePassword();
-const spWithOpts = new SecurePassword({memlimit: 10, opslimit: 10});
+const spWithOpts = new SecurePassword({ memlimit: 10, opslimit: 10 });
 
 const clearTextBuf = Buffer.from('testing');
 

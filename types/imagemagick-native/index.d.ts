@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-
-
 import stream = require('stream');
 export declare module streams {
     export function convert(options: IStreamConvertOptions): stream.Transform;

@@ -122,11 +122,16 @@ export type Logger = Middleware & {
     error(text: string): void;
 };
 
-export type TopicEvent = "subscribe" | "unsubscribe";
-export type PollEvent = "poll:start" | "poll:stop";
-export type SuccessWithTasksEvent = "poll:success";
-export type SuccessWithTaskEvent = "complete:success" | "handleFailure:success" | "handleBpmnError:success" | "extendLock:success" | "unlock:success";
-export type ErrorWithTaskEvent = "handleFailure:error" | "handleBpmnError:error" | "extendLock:error" | "unlock:error";
-export type ErrorEvent = "poll:error" | "complete:error";
+export type TopicEvent = 'subscribe' | 'unsubscribe';
+export type PollEvent = 'poll:start' | 'poll:stop';
+export type SuccessWithTasksEvent = 'poll:success';
+export type SuccessWithTaskEvent =
+    | 'complete:success'
+    | 'handleFailure:success'
+    | 'handleBpmnError:success'
+    | 'extendLock:success'
+    | 'unlock:success';
+export type ErrorWithTaskEvent = 'handleFailure:error' | 'handleBpmnError:error' | 'extendLock:error' | 'unlock:error';
+export type ErrorEvent = 'poll:error' | 'complete:error';
 
 export const logger: Logger;

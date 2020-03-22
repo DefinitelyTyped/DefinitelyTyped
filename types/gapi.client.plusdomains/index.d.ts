@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google+ Domains API v1 */
-    function load(name: "plusdomains", version: "v1"): PromiseLike<void>;
-    function load(name: "plusdomains", version: "v1", callback: () => any): void;
+    function load(name: 'plusdomains', version: 'v1'): PromiseLike<void>;
+    function load(name: 'plusdomains', version: 'v1', callback: () => any): void;
 
     const activities: plusdomains.ActivitiesResource;
 

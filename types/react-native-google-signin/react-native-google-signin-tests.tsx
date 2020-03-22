@@ -11,7 +11,7 @@ export default class Signin extends React.Component<{}, State> {
 
     async componentDidMount() {
         GoogleSignin.configure({
-            scopes: ['https://www.googleapis.com/auth/drive.readonly']
+            scopes: ['https://www.googleapis.com/auth/drive.readonly'],
         });
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     }
@@ -57,5 +57,5 @@ export default class Signin extends React.Component<{}, State> {
 }
 
 const styles = StyleSheet.create({
-    button: { width: 312, height: 48 }
+    button: { width: 312, height: 48 },
 });

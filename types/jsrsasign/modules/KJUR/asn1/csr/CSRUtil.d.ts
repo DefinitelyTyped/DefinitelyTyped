@@ -72,9 +72,9 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          */
         function newCSRPEM(param?: {
             subject:
-                | StringParam & { certissuer?: string; certsubject?: string }
-                | x509.X500NameParam & { certissuer?: string; certsubject?: string }
-                | { ldapstr: string } & { certissuer?: string; certsubject?: string };
+                | (StringParam & { certissuer?: string; certsubject?: string })
+                | (x509.X500NameParam & { certissuer?: string; certsubject?: string })
+                | ({ ldapstr: string } & { certissuer?: string; certsubject?: string });
             ext?: Array<{
                 subjectAltName: ArrayParam<{ dns: string }>;
             }>;

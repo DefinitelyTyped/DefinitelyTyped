@@ -10,5 +10,5 @@ declare namespace DropdownMenu {
         pullRight?: boolean;
     }
 }
-declare class DropdownMenu extends React.Component<DropdownMenu.DropdownMenuProps> { }
+declare class DropdownMenu extends React.Component<DropdownMenu.DropdownMenuProps> {}
 export = DropdownMenu;

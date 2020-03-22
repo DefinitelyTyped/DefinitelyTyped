@@ -107,7 +107,7 @@ export interface DefaultMeta<MIdType> {
 }
 
 export type TableIndexes<MClass extends typeof AnyModel> = {
-    [K in FieldSpecKeys<InstanceType<MClass>, OneToOne | ForeignKey>]: string
+    [K in FieldSpecKeys<InstanceType<MClass>, OneToOne | ForeignKey>]: string;
 };
 
 /**
@@ -122,5 +122,5 @@ export type TableState<MClass extends typeof AnyModel> = {
     {
         readonly [K in MapName<MClass>]: {
             readonly [K: string]: Ref<InstanceType<MClass>>;
-        }
+        };
     };

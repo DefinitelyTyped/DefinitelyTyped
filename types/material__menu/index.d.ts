@@ -32,7 +32,7 @@ export class MDCMenu extends MDCComponent<MDCMenuAdapter, MDCMenuFoundation> {
 
     open: boolean;
 
-    show(options?: { focusIndex?: number | null; }): void;
+    show(options?: { focusIndex?: number | null }): void;
 
     hide(): void;
 

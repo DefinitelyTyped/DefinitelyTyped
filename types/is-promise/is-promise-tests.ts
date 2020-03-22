@@ -1,9 +1,9 @@
-import isPromise = require("is-promise");
+import isPromise = require('is-promise');
 
 isPromise({ then() {} });
 isPromise(null);
 isPromise({});
-isPromise({then: true});
+isPromise({ then: true });
 
 function f(x: number | PromiseLike<number>) {
     if (isPromise(x)) {

@@ -5,33 +5,33 @@ fibonacciBackoff; // $ExpectType Backoff
 backoff.fibonacci({
     randomisationFactor: 0,
     initialDelay: 10,
-    maxDelay: 300
+    maxDelay: 300,
 });
-backoff.fibonacci({randomisationFactor: 0});
-backoff.fibonacci({initialDelay: 10});
-backoff.fibonacci({maxDelay: 300});
+backoff.fibonacci({ randomisationFactor: 0 });
+backoff.fibonacci({ initialDelay: 10 });
+backoff.fibonacci({ maxDelay: 300 });
 
 backoff.exponential(); // $ExpectType Backoff
 backoff.exponential({
     factor: 1,
     randomisationFactor: 0,
     initialDelay: 10,
-    maxDelay: 300
+    maxDelay: 300,
 });
-backoff.exponential({factor: 1});
-backoff.exponential({randomisationFactor: 0});
-backoff.exponential({initialDelay: 10});
-backoff.exponential({maxDelay: 300});
+backoff.exponential({ factor: 1 });
+backoff.exponential({ randomisationFactor: 0 });
+backoff.exponential({ initialDelay: 10 });
+backoff.exponential({ maxDelay: 300 });
 
 const fibonacciStrategy = new backoff.FibonacciStrategy();
 new backoff.FibonacciStrategy({
     randomisationFactor: 0,
     initialDelay: 10,
-    maxDelay: 300
+    maxDelay: 300,
 });
-new backoff.FibonacciStrategy({randomisationFactor: 0});
-new backoff.FibonacciStrategy({initialDelay: 10});
-new backoff.FibonacciStrategy({maxDelay: 300});
+new backoff.FibonacciStrategy({ randomisationFactor: 0 });
+new backoff.FibonacciStrategy({ initialDelay: 10 });
+new backoff.FibonacciStrategy({ maxDelay: 300 });
 
 fibonacciStrategy.next(); // $ExpectType number
 fibonacciStrategy.reset();
@@ -41,12 +41,12 @@ new backoff.ExponentialStrategy({
     factor: 1,
     randomisationFactor: 0,
     initialDelay: 10,
-    maxDelay: 300
+    maxDelay: 300,
 });
-new backoff.ExponentialStrategy({factor: 1});
-new backoff.ExponentialStrategy({randomisationFactor: 0});
-new backoff.ExponentialStrategy({initialDelay: 10});
-new backoff.ExponentialStrategy({maxDelay: 300});
+new backoff.ExponentialStrategy({ factor: 1 });
+new backoff.ExponentialStrategy({ randomisationFactor: 0 });
+new backoff.ExponentialStrategy({ initialDelay: 10 });
+new backoff.ExponentialStrategy({ maxDelay: 300 });
 
 exponentialStrategy.next(); // $ExpectType number
 exponentialStrategy.reset();
@@ -56,7 +56,7 @@ class MyStrategy extends backoff.BackoffStrategy {
         super({
             randomisationFactor: 0,
             initialDelay: 10,
-            maxDelay: 300
+            maxDelay: 300,
         });
     }
 
@@ -64,8 +64,7 @@ class MyStrategy extends backoff.BackoffStrategy {
         return 1;
     }
 
-    protected reset_() {
-    }
+    protected reset_() {}
 }
 
 const myStrategy = new MyStrategy();
@@ -73,123 +72,153 @@ exponentialStrategy.next(); // $ExpectType number
 exponentialStrategy.reset();
 
 // $ExpectType TypedFunctionCall<undefined[], Error, undefined, undefined, undefined>
-backoff.call((cb: (err: Error) => void) => {}, (err) => {
-    err; // $ExpectType Error
-});
+backoff.call(
+    (cb: (err: Error) => void) => {},
+    (err) => {
+        err; // $ExpectType Error
+    },
+);
 // $ExpectType TypedFunctionCall<undefined[], Error, string, undefined, undefined>
-backoff.call((cb: (err: Error, r1: string) => void) => {}, (err, r1) => {
-    r1; // $ExpectType string
-    err; // $ExpectType Error
-});
+backoff.call(
+    (cb: (err: Error, r1: string) => void) => {},
+    (err, r1) => {
+        r1; // $ExpectType string
+        err; // $ExpectType Error
+    },
+);
 // TypedFunctionCall<undefined[], Error, string, number, undefined>
-backoff.call((cb: (err: Error, r1: string, r2: number) => void) => {}, (err, r1, r2) => {
-    r1; // $ExpectType string
-    r2; // $ExpectType number
-    err; // $ExpectType Error
-});
+backoff.call(
+    (cb: (err: Error, r1: string, r2: number) => void) => {},
+    (err, r1, r2) => {
+        r1; // $ExpectType string
+        r2; // $ExpectType number
+        err; // $ExpectType Error
+    },
+);
 // TypedFunctionCall<undefined[], Error, string, number, boolean>
-backoff.call((cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {}, (err, r1, r2, r3) => {
-    r1; // $ExpectType string
-    r2; // $ExpectType number
-    r3; // $ExpectType boolean
-    err; // $ExpectType Error
-});
+backoff.call(
+    (cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {},
+    (err, r1, r2, r3) => {
+        r1; // $ExpectType string
+        r2; // $ExpectType number
+        r3; // $ExpectType boolean
+        err; // $ExpectType Error
+    },
+);
 // TypedFunctionCall<[number], Error, string, undefined, undefined>
 backoff.call(
-    (t1: number, cb: (err: Error, r1: string) => void) => {
-    },
+    (t1: number, cb: (err: Error, r1: string) => void) => {},
     1,
     (err, r1) => {
         r1; // $ExpectType string
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number], Error, string, number, undefined>
 backoff.call(
-    (t1: number, cb: (err: Error, r1: string, r2: number) => void) => {
-    },
+    (t1: number, cb: (err: Error, r1: string, r2: number) => void) => {},
     1,
     (err, r1, r2) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number], Error, string, number, boolean>
 backoff.call(
-    (t1: number, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {
-    },
+    (t1: number, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {},
     1,
     (err, r1, r2, r3) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         r3; // $ExpectType boolean
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string], Error, string, undefined, undefined>
 backoff.call(
-    (t1: number, t2: string, cb: (err: Error, r1: string) => void) => {
-    },
-    1, 'foo',
+    (t1: number, t2: string, cb: (err: Error, r1: string) => void) => {},
+    1,
+    'foo',
     (err, r1) => {
         r1; // $ExpectType string
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string], Error, string, number, undefined>
 backoff.call(
-    (t1: number, t2: string, cb: (err: Error, r1: string, r2: number) => void) => {
-    },
-    1, 'foo',
+    (t1: number, t2: string, cb: (err: Error, r1: string, r2: number) => void) => {},
+    1,
+    'foo',
     (err, r1, r2) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string], Error, string, number, boolean>
 backoff.call(
-    (t1: number, t2: string, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {
-    },
-    1, 'foo',
+    (t1: number, t2: string, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {},
+    1,
+    'foo',
     (err, r1, r2, r3) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         r3; // $ExpectType boolean
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string, boolean], Error, string, undefined, undefined>
 backoff.call(
-    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string) => void) => {
-    },
-    1, 'foo', true,
+    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string) => void) => {},
+    1,
+    'foo',
+    true,
     (err, r1) => {
         r1; // $ExpectType string
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string, boolean], Error, string, number, undefined>
 backoff.call(
-    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string, r2: number) => void) => {
-    },
-    1, 'foo', true,
+    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string, r2: number) => void) => {},
+    1,
+    'foo',
+    true,
     (err, r1, r2) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string, boolean], Error, string, number, boolean>
 backoff.call(
-    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {
-    },
-    1, 'foo', true,
+    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {},
+    1,
+    'foo',
+    true,
     (err, r1, r2, r3) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         r3; // $ExpectType boolean
         err; // $ExpectType Error
-    });
+    },
+);
 // $ExpectType FunctionCallAny
 backoff.call(
-    (t1: number, t2: string, t3: boolean, t4: string, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {
-    },
-    1, 'foo', true, 'bar',
-    (err: Error, r1: string, r2: number, r3: boolean) => {});
+    (
+        t1: number,
+        t2: string,
+        t3: boolean,
+        t4: string,
+        cb: (err: Error, r1: string, r2: number, r3: boolean) => void,
+    ) => {},
+    1,
+    'foo',
+    true,
+    'bar',
+    (err: Error, r1: string, r2: number, r3: boolean) => {},
+);
 
 fibonacciBackoff.failAfter(10);
 fibonacciBackoff.backoff(new Error('foo'));
@@ -208,139 +237,161 @@ fibonacciBackoff.on('fail', (err) => {
 });
 
 // TypedFunctionCall<undefined[], Error, undefined, undefined, undefined>
-new backoff.FunctionCall((cb: (err: Error) => void) => {}, [], (err) => {
-    err; // $ExpectType Error
-});
+new backoff.FunctionCall(
+    (cb: (err: Error) => void) => {},
+    [],
+    (err) => {
+        err; // $ExpectType Error
+    },
+);
 // TypedFunctionCall<undefined[], Error, string, undefined, undefined>
-new backoff.FunctionCall((cb: (err: Error, r1: string) => void) => {}, [], (err, r1) => {
-    r1; // $ExpectType string
-    err; // $ExpectType Error
-});
+new backoff.FunctionCall(
+    (cb: (err: Error, r1: string) => void) => {},
+    [],
+    (err, r1) => {
+        r1; // $ExpectType string
+        err; // $ExpectType Error
+    },
+);
 // TypedFunctionCall<undefined[], Error, string, number, undefined>
-new backoff.FunctionCall((cb: (err: Error, r1: string, r2: number) => void) => {}, [], (err, r1, r2) => {
-    r1; // $ExpectType string
-    r2; // $ExpectType number
-    err; // $ExpectType Error
-});
+new backoff.FunctionCall(
+    (cb: (err: Error, r1: string, r2: number) => void) => {},
+    [],
+    (err, r1, r2) => {
+        r1; // $ExpectType string
+        r2; // $ExpectType number
+        err; // $ExpectType Error
+    },
+);
 // TypedFunctionCall<undefined[], Error, string, number, boolean>
-new backoff.FunctionCall((cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {}, [], (err, r1, r2, r3) => {
-    r1; // $ExpectType string
-    r2; // $ExpectType number
-    r3; // $ExpectType boolean
-    err; // $ExpectType Error
-});
+new backoff.FunctionCall(
+    (cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {},
+    [],
+    (err, r1, r2, r3) => {
+        r1; // $ExpectType string
+        r2; // $ExpectType number
+        r3; // $ExpectType boolean
+        err; // $ExpectType Error
+    },
+);
 // TypedFunctionCall<[number], Error, string, undefined, undefined>
 new backoff.FunctionCall(
-    (t1: number, cb: (err: Error, r1: string) => void) => {
-    },
+    (t1: number, cb: (err: Error, r1: string) => void) => {},
     [1],
     (err, r1) => {
         r1; // $ExpectType string
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number], Error, string, number, undefined>
 new backoff.FunctionCall(
-    (t1: number, cb: (err: Error, r1: string, r2: number) => void) => {
-    },
+    (t1: number, cb: (err: Error, r1: string, r2: number) => void) => {},
     [1],
     (err, r1, r2) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number], Error, string, number, boolean>
 new backoff.FunctionCall(
-    (t1: number, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {
-    },
+    (t1: number, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {},
     [1],
     (err, r1, r2, r3) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         r3; // $ExpectType boolean
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string], Error, string, undefined, undefined>
 new backoff.FunctionCall(
-    (t1: number, t2: string, cb: (err: Error, r1: string) => void) => {
-    },
+    (t1: number, t2: string, cb: (err: Error, r1: string) => void) => {},
     [1, 'foo'],
     (err, r1) => {
         r1; // $ExpectType string
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string], Error, string, number, undefined>
 new backoff.FunctionCall(
-    (t1: number, t2: string, cb: (err: Error, r1: string, r2: number) => void) => {
-    },
+    (t1: number, t2: string, cb: (err: Error, r1: string, r2: number) => void) => {},
     [1, 'foo'],
     (err, r1, r2) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string], Error, string, number, boolean>
 new backoff.FunctionCall(
-    (t1: number, t2: string, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {
-    },
+    (t1: number, t2: string, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {},
     [1, 'foo'],
     (err, r1, r2, r3) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         r3; // $ExpectType boolean
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string, boolean], Error, string, undefined, undefined>
 new backoff.FunctionCall(
-    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string) => void) => {
-    },
+    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string) => void) => {},
     [1, 'foo', true],
     (err, r1) => {
         r1; // $ExpectType string
         err; // $ExpectType Error
-    });
+    },
+);
 // TypedFunctionCall<[number, string, boolean], Error, string, number, undefined>
 new backoff.FunctionCall(
-    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string, r2: number) => void) => {
-    },
+    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string, r2: number) => void) => {},
     [1, 'foo', true],
     (err, r1, r2) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         err; // $ExpectType Error
-    });
-const functionCall = new backoff.FunctionCall(
-    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {
     },
+);
+const functionCall = new backoff.FunctionCall(
+    (t1: number, t2: string, t3: boolean, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {},
     [1, 'foo', true],
     (err, r1, r2, r3) => {
         r1; // $ExpectType string
         r2; // $ExpectType number
         r3; // $ExpectType boolean
         err; // $ExpectType Error
-    });
+    },
+);
 functionCall; // TypedFunctionCall<[number, string, boolean], Error, string, number, boolean>
 // $ExpectType FunctionCallAny
 new backoff.FunctionCall(
-    (t1: number, t2: string, t3: boolean, t4: string, cb: (err: Error, r1: string, r2: number, r3: boolean) => void) => {
-    },
+    (
+        t1: number,
+        t2: string,
+        t3: boolean,
+        t4: string,
+        cb: (err: Error, r1: string, r2: number, r3: boolean) => void,
+    ) => {},
     [1, 'foo', true, 'bar'],
-    (err: Error, r1: string, r2: number, r3: boolean) => {});
+    (err: Error, r1: string, r2: number, r3: boolean) => {},
+);
 
 functionCall.isPending(); // $ExpectType boolean
 functionCall.isRunning(); // $ExpectType boolean
 functionCall.isCompleted(); // $ExpectType boolean
 functionCall.isAborted(); // $ExpectType boolean
 functionCall.setStrategy(myStrategy); // $ExpectType TypedFunctionCall<[number, string, boolean], Error, string, number, boolean>
-functionCall.retryIf(err => err.status === 503); // $ExpectType TypedFunctionCall<[number, string, boolean], Error, string, number, boolean>
+functionCall.retryIf((err) => err.status === 503); // $ExpectType TypedFunctionCall<[number, string, boolean], Error, string, number, boolean>
 functionCall.failAfter(10); // $ExpectType TypedFunctionCall<[number, string, boolean], Error, string, number, boolean>
 functionCall.getLastResult(); // $ExpectType [Error, string, number, boolean]
 functionCall.getNumRetries(); // $ExpectType number
 functionCall.start();
 functionCall.abort();
-functionCall.on('call', args => {
+functionCall.on('call', (args) => {
     args; // $ExpectType [number, string, boolean]
 });
-functionCall.on('callback', args => {
+functionCall.on('callback', (args) => {
     args; // $ExpectType [Error, string, number, boolean]
 });
 functionCall.on('backoff', (number, delay, err) => {

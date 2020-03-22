@@ -36,28 +36,11 @@ promiseAllParamResults = query.execute();
 allParamResults = query.executeSync();
 
 // test chaining
-query = query
-.path(psName)
-.named(psName)
-.named(psNames)
-.decryption(bool)
-.recursive(bool);
+query = query.path(psName).named(psName).named(psNames).decryption(bool).recursive(bool);
 
-promiseAllParamResults = query
-.path(psName)
-.named(psName)
-.named(psNames)
-.decryption(bool)
-.recursive(bool)
-.execute();
+promiseAllParamResults = query.path(psName).named(psName).named(psNames).decryption(bool).recursive(bool).execute();
 
-allParamResults = query
-.path(psName)
-.named(psName)
-.named(psNames)
-.decryption(bool)
-.recursive(bool)
-.executeSync();
+allParamResults = query.path(psName).named(psName).named(psNames).decryption(bool).recursive(bool).executeSync();
 
 promiseParamResult = getParameter(psName);
 promiseParamResult = getParameter(psName, options);

@@ -22,7 +22,13 @@ declare namespace gsap {
         static ticker: any;
 
         /** Provides a simple way to call a () => void after a set amount of time (or frames). */
-        static delayedCall(delay: number, callback: (...args: any[]) => void, params?: any[], scope?: any, useFrames?: boolean): TweenLite;
+        static delayedCall(
+            delay: number,
+            callback: (...args: any[]) => void,
+            params?: any[],
+            scope?: any,
+            useFrames?: boolean,
+        ): TweenLite;
 
         /**
          * Static method for creating a TweenLite instance that tweens backwards - you define the BEGINNING values and the current values are used as the destination values which is great for doing
@@ -74,7 +80,13 @@ declare namespace gsap {
         constructor(target: {}, duration: number, vars: {});
 
         /** Provides a simple way to call a () => void after a set amount of time (or frames). */
-        static delayedCall(delay: number, callback: (...args: any[]) => void, params?: any[], scope?: {}, useFrames?: boolean): TweenMax;
+        static delayedCall(
+            delay: number,
+            callback: (...args: any[]) => void,
+            params?: any[],
+            scope?: {},
+            useFrames?: boolean,
+        ): TweenMax;
 
         /**
          * Static method for creating a TweenMax instance that tweens backwards - you define the BEGINNING values and the current values are used as the destination values which is great for
@@ -146,7 +158,7 @@ declare namespace gsap {
             stagger: number,
             onCompleteAll?: (...args: any[]) => void,
             onCompleteAllParams?: any[],
-            onCompleteAllScope?: any
+            onCompleteAllScope?: any,
         ): any[];
 
         /**
@@ -161,7 +173,7 @@ declare namespace gsap {
             stagger: number,
             onCompleteAll?: (...args: any[]) => void,
             onCompleteAllParams?: any[],
-            onCompleteAllScope?: any
+            onCompleteAllScope?: any,
         ): any[];
 
         /**
@@ -175,7 +187,7 @@ declare namespace gsap {
             stagger: number,
             onCompleteAll?: (...args: any[]) => void,
             onCompleteAllParams?: any[],
-            onCompleteAllScope?: any
+            onCompleteAllScope?: any,
         ): any[];
 
         /** Static method for creating a TweenMax instance that animates to the specified destination values (from the current values). */

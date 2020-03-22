@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 import events = require('events');
 import stream = require('stream');
 

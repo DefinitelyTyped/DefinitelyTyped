@@ -6,7 +6,7 @@
 /// <reference types="google.visualization" />
 
 declare namespace dygraphs {
-    type DataArray = (number|Date|null)[][];
+    type DataArray = (number | Date | null)[][];
 
     type Data = string | DataArray | google.visualization.DataTable;
 
@@ -21,9 +21,9 @@ declare namespace dygraphs {
          * A per-series color definition. Used in conjunction with, and overrides, the colors option.
          */
         color?: string;
-                
+
         /**
-         * A function which plot data for this series on the chart.         
+         * A function which plot data for this series on the chart.
          */
         plotter?: any;
 
@@ -117,7 +117,12 @@ declare namespace dygraphs {
          * Function to call to format the tick values that appear along an axis. This is usually set
          * on a <a href='per-axis.html'>per-axis</a> basis.
          */
-        axisLabelFormatter?: (v: number | Date, granularity: number, opts: (name: string) => any, dygraph: Dygraph) => any;
+        axisLabelFormatter?: (
+            v: number | Date,
+            granularity: number,
+            opts: (name: string) => any,
+            dygraph: Dygraph,
+        ) => any;
 
         /**
          * Width (in pixels) of the containing divs for x- and y-axis labels. For the y-axis, this
@@ -229,8 +234,8 @@ declare namespace dygraphs {
             pixels: number,
             opts: (name: string) => any,
             dygraph: Dygraph,
-            vals: number[]) => Array<{ v: number, label: string }>;
-
+            vals: number[],
+        ) => Array<{ v: number; label: string }>;
 
         /**
          * Function to provide a custom display format for the values displayed on mouseover. This
@@ -244,7 +249,8 @@ declare namespace dygraphs {
             seriesName: string,
             dygraph: Dygraph,
             row: number,
-            col: number) => any;
+            col: number,
+        ) => any;
 
         /**
          * Explicitly set the vertical range of the graph to [low, high]. This may be set on a
@@ -331,27 +337,47 @@ declare namespace dygraphs {
          * times on each zoom. If you set a zoomCallback, it will only be called after the animation
          * is complete.
          */
-        animatedZooms?: boolean
+        animatedZooms?: boolean;
 
         /**
          * If provided, this function is called whenever the user clicks on an annotation.
          */
-        annotationClickHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
+        annotationClickHandler?: (
+            annotation: dygraphs.Annotation,
+            point: Point,
+            dygraph: Dygraph,
+            event: MouseEvent,
+        ) => any;
 
         /**
          * If provided, this function is called whenever the user double-clicks on an annotation.
          */
-        annotationDblClickHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
+        annotationDblClickHandler?: (
+            annotation: dygraphs.Annotation,
+            point: Point,
+            dygraph: Dygraph,
+            event: MouseEvent,
+        ) => any;
 
         /**
          * If provided, this function is called whenever the user mouses out of an annotation.
          */
-        annotationMouseOutHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
+        annotationMouseOutHandler?: (
+            annotation: dygraphs.Annotation,
+            point: Point,
+            dygraph: Dygraph,
+            event: MouseEvent,
+        ) => any;
 
         /**
          * If provided, this function is called whenever the user mouses over an annotation.
          */
-        annotationMouseOverHandler?: (annotation: dygraphs.Annotation, point: Point, dygraph: Dygraph, event: MouseEvent) => any;
+        annotationMouseOverHandler?: (
+            annotation: dygraphs.Annotation,
+            point: Point,
+            dygraph: Dygraph,
+            event: MouseEvent,
+        ) => any;
 
         /**
          * Defines per-axis options. Valid keys are 'x', 'y' and 'y2'. Only some options may be set
@@ -401,7 +427,7 @@ declare namespace dygraphs {
          * When set, parse each CSV cell as "low;middle;high". Error bars will be drawn for each
          * point between low and high, with the series itself going through middle.
          */
-        customBars?: boolean
+        customBars?: boolean;
 
         /**
          * Custom DataHandler. This is an advanced customization. See http://bit.ly/151E7Aq.
@@ -469,7 +495,8 @@ declare namespace dygraphs {
             cx: number,
             cy: number,
             color: string,
-            pointSize: number) => any;
+            pointSize: number,
+        ) => any;
 
         /**
          * Draw a custom item when drawPoints is enabled. Default is a small dot matching the series
@@ -483,7 +510,8 @@ declare namespace dygraphs {
             cx: number,
             cy: number,
             color: string,
-            pointSize: number) => any;
+            pointSize: number,
+        ) => any;
 
         /**
          * Does the data contain standard deviations? Setting this to true alters the input format.
@@ -518,12 +546,7 @@ declare namespace dygraphs {
         /**
          * When set, this callback gets called every time a new point is highlighted.
          */
-        highlightCallback?: (
-            event: MouseEvent,
-            xval: number,
-            points: Point[],
-            row: number,
-            seriesName: string) => any;
+        highlightCallback?: (event: MouseEvent, xval: number, points: Point[], row: number, seriesName: string) => any;
 
         /**
          * Fade the background while highlighting series. 1=fully visible background (disable
@@ -674,7 +697,7 @@ declare namespace dygraphs {
          * options.
          */
         series?: {
-            [seriesName: string]: PerSeriesOptions
+            [seriesName: string]: PerSeriesOptions;
         };
 
         /**
@@ -936,7 +959,8 @@ declare class Dygraph {
     constructor(
         container: HTMLElement | string,
         data: dygraphs.Data | (() => dygraphs.Data),
-        options?: dygraphs.Options);
+        options?: dygraphs.Options,
+    );
 
     /**
      * Returns the zoomed status of the chart for one or both axes.
@@ -1340,9 +1364,9 @@ declare class Dygraph {
         errorPlotter: any;
         linePlotter: any;
         fillPlotter: any;
-    }
+    };
 }
 
-declare module "dygraphs" {
+declare module 'dygraphs' {
     export default Dygraph;
 }

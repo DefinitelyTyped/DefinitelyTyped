@@ -19,7 +19,7 @@ import { Autosave, Entity } from './';
 export function canUser(
     action: 'create' | 'read' | 'update' | 'delete',
     resource: string,
-    id: string | number
+    id: string | number,
 ): boolean | undefined;
 
 /**

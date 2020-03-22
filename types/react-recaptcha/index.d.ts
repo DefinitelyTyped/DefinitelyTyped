@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
+import { Component } from 'react';
 
 export = Recaptcha;
 
@@ -17,15 +17,15 @@ declare namespace Recaptcha {
         expiredCallbackName?: string;
         onloadCallback?(): any;
         onloadCallbackName?: string;
-        render?: "onload" | "explicit";
-        size?: "normal" | "compact" | "invisible";
+        render?: 'onload' | 'explicit';
+        size?: 'normal' | 'compact' | 'invisible';
         tabindex?: number | string;
-        theme?: "dark" | "light";
-        type?: "audio" | "image";
+        theme?: 'dark' | 'light';
+        type?: 'audio' | 'image';
         verifyCallback?(response: string): any;
         verifyCallbackName?: string;
         sitekey?: string;
-        badge?: "bottomright" | "bottomleft" | "inline";
+        badge?: 'bottomright' | 'bottomleft' | 'inline';
         hl?: string; // https://developers.google.com/recaptcha/docs/language
     }
 }

@@ -8,7 +8,7 @@
 /// <reference types="empower" />
 /// <reference types="power-assert-formatter" />
 
-import * as empower from "empower";
+import * as empower from 'empower';
 
 export = assert;
 export as namespace assert;
@@ -23,7 +23,13 @@ declare namespace assert {
         operator: string;
         generatedMessage: boolean;
 
-        constructor(options?: { message?: string; actual?: any; expected?: any; operator?: string; stackStartFunction?: Function });
+        constructor(options?: {
+            message?: string;
+            actual?: any;
+            expected?: any;
+            operator?: string;
+            stackStartFunction?: Function;
+        });
     }
 
     export function fail(actual?: any, expected?: any, message?: string, operator?: string): never;

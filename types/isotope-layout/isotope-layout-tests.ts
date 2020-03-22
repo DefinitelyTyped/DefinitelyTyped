@@ -5,18 +5,18 @@
 let $grid = $('.grid').isotope({
     cellsByColumn: {
         columnWidth: 10,
-        rowHeight: '.height-sizer'
+        rowHeight: '.height-sizer',
     },
     cellsByRow: {
         columnWidth: '.width-sizer',
-        rowHeight: 250
+        rowHeight: 250,
     },
     containerStyle: {
-        display: 'block'
+        display: 'block',
     },
     filter: 'filter',
     fitRows: {
-        gutter: 10
+        gutter: 10,
     },
     initLayout: true,
     itemSelector: '.grid-item',
@@ -28,22 +28,22 @@ let $grid = $('.grid').isotope({
         },
         description: (itemElm: JQuery): number => {
             return 1;
-        }
+        },
     },
     hiddenStyle: {
-        display: 'none'
+        display: 'none',
     },
     horiz: {
-        verticalAligment: 10
+        verticalAligment: 10,
     },
     masonry: {
         columnWidth: '.grid-sizer',
         fitWidth: true,
-        gutter: 50
+        gutter: 50,
     },
     masontryHorizontal: {
         gutter: '.gutter',
-        rowHeight: 20
+        rowHeight: 20,
     },
     originLeft: true,
     originTop: false,
@@ -51,7 +51,7 @@ let $grid = $('.grid').isotope({
         columnWidth: 10,
         gutter: 'div',
         horizontal: true,
-        rowHeight: 15
+        rowHeight: 15,
     },
     percentPosition: true,
     resize: false,
@@ -61,11 +61,11 @@ let $grid = $('.grid').isotope({
     stamp: '.grid',
     transitionDuration: '0.5s',
     vertical: {
-        horizontalAlignment: 10
+        horizontalAlignment: 10,
     },
     visibleStyle: {
-        display: 'inline-block'
-    }
+        display: 'inline-block',
+    },
 });
 
 // test the ones not used in upper test
@@ -74,17 +74,17 @@ $grid = $('.grid').isotope({
         return itemElem ? true : false;
     },
     sortAscending: {
-        key: true
+        key: true,
     },
     stagger: 'a',
-    transitionDuration: 0.4
+    transitionDuration: 0.4,
 });
 
 // test methods using jquery
 $grid.isotope();
 $grid.isotope('addItems', $('.items'));
 $grid.isotope('appended', $('.items')[0]);
-$grid.isotope('hideItemElements', [ new HTMLElement() ]);
+$grid.isotope('hideItemElements', [new HTMLElement()]);
 $grid.isotope('insert', new HTMLElement());
 $grid.isotope('prepended', new NodeList());
 $grid.isotope('remove', $('.items'));
@@ -116,6 +116,6 @@ iso.reloadItems();
 iso.remove(new HTMLElement());
 iso.revealItemElements([new HTMLElement()]);
 iso.shuffle();
-iso.stamp($("div"));
-iso.unstamp($("div"));
-iso.updateSortData($("div"));
+iso.stamp($('div'));
+iso.unstamp($('div'));
+iso.updateSortData($('div'));

@@ -1,6 +1,6 @@
 declare const global: any;
 
-import cases = require("jest-in-case");
+import cases = require('jest-in-case');
 
 function add(augend: number, addend: number) {
     return augend + addend;
@@ -88,30 +88,21 @@ test('object', () => {
 });
 
 test('no names', () => {
-    cases('foo', () => { }, [
-        {},
-        {},
-    ]);
+    cases('foo', () => {}, [{}, {}]);
 
     expect(global.test.mock.calls[0][0]).toBe('case: 1');
     expect(global.test.mock.calls[1][0]).toBe('case: 2');
 });
 
 test('only', () => {
-    cases('foo', () => { }, [
-        {},
-        { only: true },
-    ]);
+    cases('foo', () => {}, [{}, { only: true }]);
 
     expect(global.test.mock.calls[0][0]).toBe('case: 1');
     expect(global.test.only.mock.calls[0][0]).toBe('case: 2');
 });
 
 test('skip', () => {
-    cases('foo', () => { }, [
-        {},
-        { skip: true },
-    ]);
+    cases('foo', () => {}, [{}, { skip: true }]);
 
     expect(global.test.mock.calls[0][0]).toBe('case: 1');
     expect(global.test.skip.mock.calls[0][0]).toBe('case: 2');

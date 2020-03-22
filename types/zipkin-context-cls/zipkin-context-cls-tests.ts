@@ -1,8 +1,4 @@
-import {
-    Tracer,
-    BatchRecorder,
-    jsonEncoder,
-} from 'zipkin';
+import { Tracer, BatchRecorder, jsonEncoder } from 'zipkin';
 
 import CLSContext = require('zipkin-context-cls');
 

@@ -1,4 +1,4 @@
-import { MessageDescriptor } from "@lingui/core";
+import { MessageDescriptor } from '@lingui/core';
 
 export interface PluralForms {
     zero?: string | MessageDescriptor;

@@ -20,5 +20,5 @@ export interface MediaProps extends React.HTMLAttributes<HTMLElement> {
     alt?: string;
 }
 
-declare class Media<T = {[key: string]: any}> extends React.Component<MediaProps> {}
+declare class Media<T = { [key: string]: any }> extends React.Component<MediaProps> {}
 export default Media;

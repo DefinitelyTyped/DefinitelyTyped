@@ -1,23 +1,23 @@
-import pageIcon = require("page-icon");
+import pageIcon = require('page-icon');
 
-const siteUrl = "https://www.facebook.com/";
+const siteUrl = 'https://www.facebook.com/';
 pageIcon(siteUrl)
-    .then(function(icon) {
+    .then(function (icon) {
         // do things with icon object
         console.log(icon);
     })
-    .catch(error => {
+    .catch((error) => {
         console.error(error);
     });
 
-const twUrl = "https://twitter.com";
-pageIcon(twUrl, {ext: ".png"})
-    .then(icon => {
+const twUrl = 'https://twitter.com';
+pageIcon(twUrl, { ext: '.png' })
+    .then((icon) => {
         if (!icon) {
             return;
         }
         console.log(icon.source, icon.name, icon.data, icon.size, icon.ext, icon.mime);
     })
-    .catch(err => {
+    .catch((err) => {
         console.error(err);
     });

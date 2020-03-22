@@ -12,7 +12,7 @@ sprite.resize(128, 128);
 
 sprite = new ShelfPack(64, 64);
 
-[100, 101, 102].forEach(id => {
+[100, 101, 102].forEach((id) => {
     const bin = sprite.packOne(16, 16, id);
 });
 

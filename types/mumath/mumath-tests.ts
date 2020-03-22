@@ -1,16 +1,16 @@
-import mumath = require("mumath");
+import mumath = require('mumath');
 
-import mumathClamp = require("mumath/clamp");
-import mumathClosest = require("mumath/closest");
-import mumathIsMultiple = require("mumath/isMultiple");
-import mumathLen = require("mumath/len");
-import mumathLerp = require("mumath/lerp");
-import mumathMod = require("mumath/mod");
-import mumathOrder = require("mumath/order");
-import mumathPrecision = require("mumath/precision");
-import mumathRound = require("mumath/round");
-import mumathScale = require("mumath/scale");
-import mumathWithin = require("mumath/within");
+import mumathClamp = require('mumath/clamp');
+import mumathClosest = require('mumath/closest');
+import mumathIsMultiple = require('mumath/isMultiple');
+import mumathLen = require('mumath/len');
+import mumathLerp = require('mumath/lerp');
+import mumathMod = require('mumath/mod');
+import mumathOrder = require('mumath/order');
+import mumathPrecision = require('mumath/precision');
+import mumathRound = require('mumath/round');
+import mumathScale = require('mumath/scale');
+import mumathWithin = require('mumath/within');
 
 mumath.clamp(1, 2, 3);
 mumathClamp(1, 2, 3);

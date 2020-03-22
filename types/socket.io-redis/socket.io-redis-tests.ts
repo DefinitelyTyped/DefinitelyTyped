@@ -4,30 +4,28 @@ import redis = require('redis');
 
 function testUsingWithNodeHTTPServer() {
     var io = socketIO(3000);
-    var adapter = ioRedis("http://localhost");
+    var adapter = ioRedis('http://localhost');
     io.adapter(adapter);
 
-    var chat = io
-        .of('/chat')
-        .on('connection', function (socket) {
-            socket.emit('a message', {
-                that: 'only'
-                , '/chat': 'will get'
-            });
-            chat.emit('a message', {
-                everyone: 'in'
-                , '/chat': 'will get'
-            });
+    var chat = io.of('/chat').on('connection', function (socket) {
+        socket.emit('a message', {
+            that: 'only',
+            '/chat': 'will get',
         });
+        chat.emit('a message', {
+            everyone: 'in',
+            '/chat': 'will get',
+        });
+    });
 }
 
 function testErrorHandling() {
     var io = socketIO.listen(80);
-    var adapter = ioRedis("http://localhost");
+    var adapter = ioRedis('http://localhost');
     adapter.pubClient.on('error', function () {
         console.log('pubClient error');
     });
-    adapter.subClient.on('error', function() {
+    adapter.subClient.on('error', function () {
         console.log('subClient error');
     });
     io.adapter(adapter);

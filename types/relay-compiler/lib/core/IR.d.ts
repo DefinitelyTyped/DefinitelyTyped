@@ -1,10 +1,4 @@
-import {
-    LinkedFieldTypeID,
-    ScalarFieldTypeID,
-    CompositeTypeID,
-    InputTypeID,
-    TypeID,
-} from './Schema';
+import { LinkedFieldTypeID, ScalarFieldTypeID, CompositeTypeID, InputTypeID, TypeID } from './Schema';
 import { Source } from 'graphql';
 import { TypeReferenceNode } from 'typescript';
 
@@ -88,7 +82,7 @@ export interface Defer {
     loc: Location;
     metadata:
         | {
-            fragmentTypeCondition: string;
+              fragmentTypeCondition: string;
           }
         | null
         | undefined;

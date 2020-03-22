@@ -61,7 +61,7 @@ interface Kik {
         once(property: string, callback: () => void): void;
         trigger(property: string, data?: any): void;
         getOrientationLock(): string;
-        setOrientationLock(lock: "free" | "landscape" | "portrait"): void;
+        setOrientationLock(lock: 'free' | 'landscape' | 'portrait'): void;
         setOrientationLock(lock: string): void;
         statusBar(show: boolean): void;
         backlightTimeout(timeout: boolean): void;

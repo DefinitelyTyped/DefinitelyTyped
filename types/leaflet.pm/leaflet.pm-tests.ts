@@ -7,29 +7,29 @@ const toolbarOptions: L.PM.ToolbarOptions = {
     drawPolygon: true,
     drawPolyline: true,
     editPolygon: true,
-    deleteLayer: true
+    deleteLayer: true,
 };
 
 const drawOptions: L.PM.DrawOptions = {
     templineStyle: {
-        color: 'red'
+        color: 'red',
     },
     hintlineStyle: {
         color: 'red',
-        dashArray: '5, 5'
-    }
+        dashArray: '5, 5',
+    },
 };
 
 const editOptions: L.PM.EditOptions = {
     draggable: true,
     snappable: true,
-    snapDistance: 30
+    snapDistance: 30,
 };
 
 const pathOptions: L.PathOptions = {
     color: 'orange',
     fillColor: 'green',
-    fillOpacity: 0.5
+    fillOpacity: 0.5,
 };
 
 const map: L.Map = L.map('map-element');
@@ -43,25 +43,33 @@ map.pm.toggleGlobalEditMode(editOptions);
 
 const shapes: string[] = map.pm.Draw.getShapes();
 
-const polygon: L.Polygon = L.polygon([ [ 1.0, 1.0], [ 2.0, 1.0], [ 1.0, 2.0] ]);
+const polygon: L.Polygon = L.polygon([
+    [1.0, 1.0],
+    [2.0, 1.0],
+    [1.0, 2.0],
+]);
 polygon.pm.enable(editOptions);
 polygon.pm.disable();
 polygon.pm.toggleEdit(editOptions);
 enabled = polygon.pm.enabled();
 
-const polyline: L.Polyline = L.polyline([ [ 1.0, 1.0], [ 2.0, 1.0], [ 1.0, 2.0] ]);
+const polyline: L.Polyline = L.polyline([
+    [1.0, 1.0],
+    [2.0, 1.0],
+    [1.0, 2.0],
+]);
 polyline.pm.enable(editOptions);
 polyline.pm.disable();
 polyline.pm.toggleEdit(editOptions);
 enabled = polyline.pm.enabled();
 
-const marker: L.Marker = L.marker([ 3.0, 3.0 ]);
+const marker: L.Marker = L.marker([3.0, 3.0]);
 marker.pm.enable(editOptions);
 marker.pm.disable();
 marker.pm.toggleEdit(editOptions);
 enabled = marker.pm.enabled();
 
-const layerGroup: L.LayerGroup = L.layerGroup([ polygon, polyline, marker ]);
+const layerGroup: L.LayerGroup = L.layerGroup([polygon, polyline, marker]);
 layerGroup.pm.enable(editOptions);
 layerGroup.pm.disable();
 layerGroup.pm.toggleEdit(editOptions);

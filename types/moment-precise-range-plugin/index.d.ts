@@ -7,7 +7,7 @@ import moment = require('moment');
 
 export = moment;
 
-declare module "moment" {
+declare module 'moment' {
     interface PreciseRangeValueObject {
         years: number;
         months: number;

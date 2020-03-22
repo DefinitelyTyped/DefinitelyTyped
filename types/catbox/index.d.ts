@@ -53,7 +53,7 @@ export type EnginePrototypeOrObject = EnginePrototype<any> | ClientApi<any>;
  * A prototype CatBox engine function
  */
 export interface EnginePrototype<T> {
-    new(settings: ClientOptions): ClientApi<T>;
+    new (settings: ClientOptions): ClientApi<T>;
 }
 
 /**

@@ -5,11 +5,10 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
+import stream = require('stream');
 
 // wrapper to be able to use "export =" while also exporting the Options interface
 declare namespace logrotateStream {
-
     /**
      * Options object for the exported function.
      */
@@ -31,7 +30,6 @@ declare namespace logrotateStream {
          */
         compress?: boolean;
     }
-
 }
 
 /**
@@ -39,6 +37,5 @@ declare namespace logrotateStream {
  * @returns a writable stream to a rotating log file
  */
 declare function logrotateStream(opts: logrotateStream.Options): stream.Writable;
-
 
 export = logrotateStream;

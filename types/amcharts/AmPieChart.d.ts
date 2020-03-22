@@ -1,5 +1,5 @@
-import AmChart from "./AmChart";
-import Slice from "./Slice";
+import AmChart from './AmChart';
+import Slice from './Slice';
 
 /**
  * AmPieChart class creates pie/donut chart.
@@ -303,12 +303,10 @@ export default class AmPieChart extends AmChart {
      */
     addListener(
         type: string,
-        handler: (
-            e: {
-                type: string; // Always "rollOverSlice".
-                dataItem: Slice;
-                chart: AmChart;
-            },
-        ) => void,
+        handler: (e: {
+            type: string; // Always "rollOverSlice".
+            dataItem: Slice;
+            chart: AmChart;
+        }) => void,
     ): void;
 }

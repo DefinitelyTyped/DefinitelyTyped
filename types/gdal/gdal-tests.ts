@@ -21,7 +21,7 @@ let creationOptionsArray: string[];
 creationOptionsArray = ['VRT_CREATION_OPTION=...'];
 let creationOptionsObject: object;
 creationOptionsObject = {
-	VRT_CREATION_OPTION: '...'
+    VRT_CREATION_OPTION: '...',
 };
 gdal.open('C:\\datasets\\ogr.shp');
 gdal.open('C:\\datasets\\ogr.shp', 'r');

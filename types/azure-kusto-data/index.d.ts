@@ -5,17 +5,32 @@
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
-import { UserCodeInfo } from "adal-node";
+import { UserCodeInfo } from 'adal-node';
 
 export class Client {
     constructor(kcsb: string | KustoConnectionStringBuilder);
     connectionString: KustoConnectionStringBuilder;
     cluster: string;
-    endpoints: { mgmt: string, query: string };
+    endpoints: { mgmt: string; query: string };
     aadHelper: any;
-    execute(db: any, query: any, callback: (err: Error, results: Client.KustoResponseDataSetV2<any>) => void, properties?: any): any;
-    executeMgmt(db: any, query: any, callback: (err: Error, results: Client.KustoResponseDataSetV2<any>) => void, properties: any): any;
-    executeQuery(db: any, query: any, callback: (err: Error, results: Client.KustoResponseDataSetV2<any>) => void, properties: any): any;
+    execute(
+        db: any,
+        query: any,
+        callback: (err: Error, results: Client.KustoResponseDataSetV2<any>) => void,
+        properties?: any,
+    ): any;
+    executeMgmt(
+        db: any,
+        query: any,
+        callback: (err: Error, results: Client.KustoResponseDataSetV2<any>) => void,
+        properties: any,
+    ): any;
+    executeQuery(
+        db: any,
+        query: any,
+        callback: (err: Error, results: Client.KustoResponseDataSetV2<any>) => void,
+        properties: any,
+    ): any;
 }
 
 export class ClientRequestProperties {
@@ -41,11 +56,35 @@ export class KustoConnectionStringBuilder {
     applicationCertificate: string | undefined;
     applicationCertificateThumbprint: string | undefined;
     authorityId: string;
-    static withAadApplicationCertificateAuthentication(connectionString: string, aadAppId: string, certificate: string, thumbprint: string, authorityId: string): KustoConnectionStringBuilder;
-    static withAadApplicationKeyAuthentication(connectionString: string, aadAppId: string, appKey: string, authorityId: string): KustoConnectionStringBuilder;
-    static withAadDeviceAuthentication(connectionString: string, authorityId: string, authCallback?: (tokenReponse: UserCodeInfo) => void): KustoConnectionStringBuilder;
-    static withAadUserPasswordAuthentication(connectionString: string, userId: string, password: string, authorityId?: any): KustoConnectionStringBuilder;
-    static withAadManagedIdentities(connectionString: string, msiEndpoint?: string, clientId?: string): KustoConnectionStringBuilder;
+    static withAadApplicationCertificateAuthentication(
+        connectionString: string,
+        aadAppId: string,
+        certificate: string,
+        thumbprint: string,
+        authorityId: string,
+    ): KustoConnectionStringBuilder;
+    static withAadApplicationKeyAuthentication(
+        connectionString: string,
+        aadAppId: string,
+        appKey: string,
+        authorityId: string,
+    ): KustoConnectionStringBuilder;
+    static withAadDeviceAuthentication(
+        connectionString: string,
+        authorityId: string,
+        authCallback?: (tokenReponse: UserCodeInfo) => void,
+    ): KustoConnectionStringBuilder;
+    static withAadUserPasswordAuthentication(
+        connectionString: string,
+        userId: string,
+        password: string,
+        authorityId?: any,
+    ): KustoConnectionStringBuilder;
+    static withAadManagedIdentities(
+        connectionString: string,
+        msiEndpoint?: string,
+        clientId?: string,
+    ): KustoConnectionStringBuilder;
 }
 
 export namespace Client {

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Cloud Monitoring API v2beta2 */
-    function load(name: "cloudmonitoring", version: "v2beta2"): PromiseLike<void>;
-    function load(name: "cloudmonitoring", version: "v2beta2", callback: () => any): void;
+    function load(name: 'cloudmonitoring', version: 'v2beta2'): PromiseLike<void>;
+    function load(name: 'cloudmonitoring', version: 'v2beta2', callback: () => any): void;
 
     const metricDescriptors: cloudmonitoring.MetricDescriptorsResource;
 

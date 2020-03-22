@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import Pointable from 'react-pointable';
 
 class Test extends React.Component<object, object> {

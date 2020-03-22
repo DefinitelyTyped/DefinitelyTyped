@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Functions API v1 */
-    function load(name: "cloudfunctions", version: "v1"): PromiseLike<void>;
-    function load(name: "cloudfunctions", version: "v1", callback: () => any): void;
+    function load(name: 'cloudfunctions', version: 'v1'): PromiseLike<void>;
+    function load(name: 'cloudfunctions', version: 'v1', callback: () => any): void;
 
     const operations: cloudfunctions.OperationsResource;
 
@@ -126,7 +126,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -168,7 +168,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -207,7 +207,7 @@ declare namespace gapi.client {
             /** Lists information about the supported locations for this service. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

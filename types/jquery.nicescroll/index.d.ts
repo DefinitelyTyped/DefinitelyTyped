@@ -30,7 +30,7 @@ declare namespace JQueryNiceScroll {
     }
 
     interface NiceScrollOptions {
-        zindex?: "auto" | number;
+        zindex?: 'auto' | number;
         cursoropacitymin?: number;
         cursoropacitymax?: number;
         cursorcolor?: string;
@@ -47,31 +47,35 @@ declare namespace JQueryNiceScroll {
         dblclickzoom?: boolean;
         gesturezoom?: boolean;
         grabcursorenabled?: boolean;
-        autohidemode?: "leave" | "scroll" | "cursor" | "hidden" | boolean;
+        autohidemode?: 'leave' | 'scroll' | 'cursor' | 'hidden' | boolean;
         background?: string;
         iframeautoresize?: boolean;
         cursorminheight?: number;
         preservenativescrolling?: boolean;
-        railoffset?: boolean | {
-            top?: number;
-            left?: number;
-        };
-        railhoffset?: boolean  | {
-            top?: number;
-            left?: number;
-        };
+        railoffset?:
+            | boolean
+            | {
+                  top?: number;
+                  left?: number;
+              };
+        railhoffset?:
+            | boolean
+            | {
+                  top?: number;
+                  left?: number;
+              };
         bouncescroll?: boolean;
         spacebarenabled?: boolean;
         railpadding?: {
-          top: number;
-          right: number;
-          left: number;
-          bottom: number;
+            top: number;
+            right: number;
+            left: number;
+            bottom: number;
         };
         disableoutline?: boolean;
         horizrailenabled?: boolean;
-        railalign?: "right" | "left" | "top" | "bottom";
-        railvalign?: "right" | "left" | "top" | "bottom";
+        railalign?: 'right' | 'left' | 'top' | 'bottom';
+        railvalign?: 'right' | 'left' | 'top' | 'bottom';
         enabletranslate3d?: boolean;
         enablemousewheel?: boolean;
         enablekeyboard?: boolean;
@@ -83,12 +87,12 @@ declare namespace JQueryNiceScroll {
         hidecursordelay?: number;
         nativeparentscrolling?: boolean;
         enablescrollonselection?: boolean;
-        overflowx?: "auto" | "hidden" | "inherit" | "initial" | "overlay" | "scroll" | "unset" | "visible";
-        overflowy?: "auto" | "hidden" | "inherit" | "initial" | "overlay" | "scroll" | "unset" | "visible";
+        overflowx?: 'auto' | 'hidden' | 'inherit' | 'initial' | 'overlay' | 'scroll' | 'unset' | 'visible';
+        overflowy?: 'auto' | 'hidden' | 'inherit' | 'initial' | 'overlay' | 'scroll' | 'unset' | 'visible';
         cursordragspeed?: number;
-        rtlmode?: "auto" | boolean;
+        rtlmode?: 'auto' | boolean;
         cursordragontouch?: boolean;
-        oneaxismousemode?: "auto" | boolean;
+        oneaxismousemode?: 'auto' | boolean;
         scriptpath?: string;
         preventmultitouchscrolling?: boolean;
         disablemutationobserver?: boolean;

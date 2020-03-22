@@ -9,8 +9,8 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 import * as React from 'react';
 
 export interface TriggerParams {
-    "aria-describedby": string;
-    "data-reach-tooltip-trigger": string;
+    'aria-describedby': string;
+    'data-reach-tooltip-trigger': string;
     ref: React.Ref<any>;
     onMouseEnter: React.ReactEventHandler;
     onMouseMove: React.ReactEventHandler;

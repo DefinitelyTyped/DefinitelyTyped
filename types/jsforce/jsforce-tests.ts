@@ -31,15 +31,17 @@ async function testSObject(connection: sf.Connection) {
 
     // currently untyped, but some future change may make this stricter
     const restApiOptions = {
-        headers: { Bearer: 'I have no idea what this wants' }
+        headers: { Bearer: 'I have no idea what this wants' },
     };
 
-    { // Test SObject.record
+    {
+        // Test SObject.record
         // $ExpectType RecordReference<DummyRecord>
         dummySObject.record('50130000000014C');
     }
 
-    { // Test SObject.retrieve
+    {
+        // Test SObject.retrieve
         // with single id
         // $ExpectType Record<DummyRecord>
         await dummySObject.retrieve('50130000000014C');
@@ -66,15 +68,20 @@ async function testSObject(connection: sf.Connection) {
             res; // $ExpectType Record<DummyRecord>[]
         });
 
-        salesforceConnection.sobject<any>("ContentVersion").retrieve("world", {
-            test: "test"
-        }, (err, ret) => {
-            err; // $ExpectType Error | null
-            ret; // $ExpectType any
-        });
+        salesforceConnection.sobject<any>('ContentVersion').retrieve(
+            'world',
+            {
+                test: 'test',
+            },
+            (err, ret) => {
+                err; // $ExpectType Error | null
+                ret; // $ExpectType any
+            },
+        );
     }
 
-    { // Test SObject.update
+    {
+        // Test SObject.update
         // if we require that records have an id field this will fail
         // //$ExpectError
         await dummySObject.update({ thing: false });
@@ -121,7 +128,8 @@ async function testSObject(connection: sf.Connection) {
         });
     }
 
-    { // Test SObject.updated
+    {
+        // Test SObject.updated
         // $ExpectType UpdatedRecordsInfo
         await dummySObject.updated(new Date(), new Date());
 
@@ -140,12 +148,13 @@ async function testSObject(connection: sf.Connection) {
         });
     }
 
-    { // Test SObject.upsert
+    {
+        // Test SObject.upsert
         const updateData = {
             Id: 'Some ID',
             thing: true,
             other: 1,
-            person: 'hi'
+            person: 'hi',
         };
         // $ExpectType RecordResult
         await dummySObject.upsert(updateData, 'Id');
@@ -180,103 +189,139 @@ async function testSObject(connection: sf.Connection) {
         });
     }
 
-    { // Test SObject.find
+    {
+        // Test SObject.find
     }
 
-    { // Test SObject.findOne
-        salesforceConnection.sobject("ContentVersion").findOne<any>({ Id: '' }, (err, contentVersion) => {
+    {
+        // Test SObject.findOne
+        salesforceConnection.sobject('ContentVersion').findOne<any>({ Id: '' }, (err, contentVersion) => {
             err; // $ExpectType Error | null
             contentVersion; // $ExpectType any
         });
     }
 
-    { // Test SObject.select
+    {
+        // Test SObject.select
 
-        dummySObject.select(["thing", "other"]);
+        dummySObject.select(['thing', 'other']);
 
         // note the following should never compile:
         // $ExpectError
-        dummySObject.select(["lol"]);
+        dummySObject.select(['lol']);
     }
 
-    { // Test SObject.create
+    {
+        // Test SObject.create
         // $ExpectType RecordResult
         await dummySObject.create({
             thing: true,
             other: 1,
-            person: 'hi'
+            person: 'hi',
         });
 
         // $ExpectType RecordResult
-        await dummySObject.create({
-            thing: true,
-            other: 1,
-            person: 'hi'
-        }, restApiOptions);
+        await dummySObject.create(
+            {
+                thing: true,
+                other: 1,
+                person: 'hi',
+            },
+            restApiOptions,
+        );
 
         // $ExpectType RecordResult[]
-        await dummySObject.create([{
-            thing: true,
-            other: 1,
-            person: 'hi'
-        }]);
+        await dummySObject.create([
+            {
+                thing: true,
+                other: 1,
+                person: 'hi',
+            },
+        ]);
 
         // $ExpectType RecordResult[]
-        await dummySObject.create([{
-            thing: true,
-            other: 1,
-            person: 'hi'
-        }], restApiOptions);
+        await dummySObject.create(
+            [
+                {
+                    thing: true,
+                    other: 1,
+                    person: 'hi',
+                },
+            ],
+            restApiOptions,
+        );
 
-        dummySObject.create([{
-            thing: true,
-            other: 1,
-            person: 'hi'
-        }], (err, ret) => {
-            err; // $ExpectType Error | null
-            ret; // $ExpectType RecordResult[]
-        });
+        dummySObject.create(
+            [
+                {
+                    thing: true,
+                    other: 1,
+                    person: 'hi',
+                },
+            ],
+            (err, ret) => {
+                err; // $ExpectType Error | null
+                ret; // $ExpectType RecordResult[]
+            },
+        );
 
-        dummySObject.create([{
-            thing: true,
-            other: 1,
-            person: 'hi'
-        }], restApiOptions, (err, ret) => {
-            err; // $ExpectType Error | null
-            ret; // $ExpectType RecordResult[]
-        });
+        dummySObject.create(
+            [
+                {
+                    thing: true,
+                    other: 1,
+                    person: 'hi',
+                },
+            ],
+            restApiOptions,
+            (err, ret) => {
+                err; // $ExpectType Error | null
+                ret; // $ExpectType RecordResult[]
+            },
+        );
 
-        salesforceConnection.sobject("Account").create({
-            Name: "Test Acc 2",
-            BillingStreet: "Maplestory street",
-            BillingPostalCode: "ME4 666"
-        }, (err, ret) => {
-            err; // $ExpectType Error | null
-            ret; // $ExpectType RecordResult
-        });
+        salesforceConnection.sobject('Account').create(
+            {
+                Name: 'Test Acc 2',
+                BillingStreet: 'Maplestory street',
+                BillingPostalCode: 'ME4 666',
+            },
+            (err, ret) => {
+                err; // $ExpectType Error | null
+                ret; // $ExpectType RecordResult
+            },
+        );
 
         // callback and rest api options
-        salesforceConnection.sobject("ContentVersion").create({
-            OwnerId: '',
-            Title: 'hello',
-            PathOnClient: './hello-world.jpg',
-            VersionData: '{ Test: Data }'
-        }, restApiOptions, (err, ret) => {
-            err; // $ExpectType Error | null
-            ret; // $ExpectType RecordResult
-        });
+        salesforceConnection.sobject('ContentVersion').create(
+            {
+                OwnerId: '',
+                Title: 'hello',
+                PathOnClient: './hello-world.jpg',
+                VersionData: '{ Test: Data }',
+            },
+            restApiOptions,
+            (err, ret) => {
+                err; // $ExpectType Error | null
+                ret; // $ExpectType RecordResult
+            },
+        );
 
-        salesforceConnection.sobject("ContentDocumentLink").create({
-            ContentDocumentId: '',
-            LinkedEntityId: '',
-            ShareType: "I"
-        }, (err, ret) => {
-            err; // $ExpectType Error | null
-            ret; // $ExpectType RecordResult
-        });
+        salesforceConnection.sobject('ContentDocumentLink').create(
+            {
+                ContentDocumentId: '',
+                LinkedEntityId: '',
+                ShareType: 'I',
+            },
+            (err, ret) => {
+                err; // $ExpectType Error | null
+                ret; // $ExpectType RecordResult
+            },
+        );
     }
 
-    { // Test SObject.createBulk
+    {
+        // Test SObject.createBulk
         // $ExpectType Batch
         dummySObject.createBulk();
         // $ExpectType Batch
@@ -294,7 +339,8 @@ async function testSObject(connection: sf.Connection) {
         });
     }
 
-    { // Test SObject.deleteBulk and aliases
+    {
+        // Test SObject.deleteBulk and aliases
         // $ExpectType Batch
         dummySObject.deleteBulk();
         // $ExpectType Batch
@@ -328,7 +374,8 @@ async function testSObject(connection: sf.Connection) {
         });
     }
 
-    { // Test SObject.deleteHardBulk and aliases
+    {
+        // Test SObject.deleteHardBulk and aliases
         // $ExpectType Batch
         dummySObject.deleteHardBulk();
         // $ExpectType Batch
@@ -362,7 +409,8 @@ async function testSObject(connection: sf.Connection) {
         });
     }
 
-    { // Test SObject.destroy and aliases
+    {
+        // Test SObject.destroy and aliases
         // $ExpectType RecordResult
         await dummySObject.del('Id');
         // $ExpectType RecordResult
@@ -404,7 +452,8 @@ async function testSObject(connection: sf.Connection) {
         });
     }
 
-    { // Test salesforceConnection.recent
+    {
+        // Test salesforceConnection.recent
         // $ExpectType RecordResult[]
         await salesforceConnection.recent();
 
@@ -429,7 +478,7 @@ const requestInfo: sf.RequestInfo = {
     body: '',
     headers: {},
     method: '',
-    url: ''
+    url: '',
 };
 salesforceConnection.request(requestInfo);
 
@@ -437,21 +486,25 @@ const queryOptions: sf.ExecuteOptions = {
     autoFetch: true,
     maxFetch: 5000,
     headers: {},
-    scanAll: true
+    scanAll: true,
 };
 salesforceConnection.query('SELECT Id, Name FROM Account', queryOptions);
 
 sf.Date.YESTERDAY;
 
-salesforceConnection.sobject<any>('Coverage__c')
+salesforceConnection
+    .sobject<any>('Coverage__c')
     .select(['Id', 'Name'])
     .include('Coverage_State_Configurations__r')
-    .select(['Id']).where({ Is_Active__c: true })
+    .select(['Id'])
+    .where({ Is_Active__c: true })
     .end()
-    .where({ Is_Active__c: true }).execute();
+    .where({ Is_Active__c: true })
+    .execute();
 
 const records: any[] = [];
-salesforceConnection.query('SELECT Id FROM Account')
+salesforceConnection
+    .query('SELECT Id FROM Account')
     .on('record', (record) => {
         records.push(record);
     })
@@ -463,25 +516,27 @@ salesforceConnection.query('SELECT Id FROM Account')
     })
     .run({ autoFetch: true, maxFetch: 25 });
 
-salesforceConnection.sobject<any>('Coverage__c')
-    .select(['Id', 'Name']).del(() => { });
+salesforceConnection
+    .sobject<any>('Coverage__c')
+    .select(['Id', 'Name'])
+    .del(() => {});
 
-salesforceConnection.sobject<any>('Coverage__c')
-    .select(['Id', 'Name']).del("test", () => { });
+salesforceConnection
+    .sobject<any>('Coverage__c')
+    .select(['Id', 'Name'])
+    .del('test', () => {});
 
 async function testAnalytics(conn: sf.Connection): Promise<void> {
     const analytics: sf.Analytics = conn.analytics;
 
     const dashboards: sf.DashboardInfo[] = await analytics.dashboards();
     const dashboard = dashboards[0] as any;
-    Object.keys(dashboards[0])
-        .forEach((key: string) => console.log(`key: ${key} : ${dashboard[key]}`));
+    Object.keys(dashboards[0]).forEach((key: string) => console.log(`key: ${key} : ${dashboard[key]}`));
     console.log('dashboard keys from await');
 
     analytics.dashboards((err, dashboards: sf.DashboardInfo[]) => {
         const _dashboard: any = dashboards[0] as any;
-        Object.keys(_dashboard)
-            .forEach((key: string) => console.log(`key: ${key} : ${_dashboard[key]}`));
+        Object.keys(_dashboard).forEach((key: string) => console.log(`key: ${key} : ${_dashboard[key]}`));
         console.log('dashboard keys from callback');
     });
 
@@ -491,8 +546,7 @@ async function testAnalytics(conn: sf.Connection): Promise<void> {
 
     analytics.reports((err, reports: sf.ReportInfo[]) => {
         const _report: any = reports[0] as any;
-        Object.keys(reports[0])
-            .forEach((key: string) => console.log(`key: ${key} : ${_report[key]}`));
+        Object.keys(reports[0]).forEach((key: string) => console.log(`key: ${key} : ${_report[key]}`));
         console.log('report keys from callback');
     });
 }
@@ -511,8 +565,9 @@ async function testExecuteAnonymous(conn: sf.Connection): Promise<void> {
 async function testMetadata(conn: sf.Connection): Promise<void> {
     const md: sf.Metadata = conn.metadata;
     const m: sf.DescribeMetadataResult = await md.describe('34.0');
-    const pages: sf.MetadataObject[] =
-        m.metadataObjects.filter((value: sf.MetadataObject) => value.directoryName === 'pages');
+    const pages: sf.MetadataObject[] = m.metadataObjects.filter(
+        (value: sf.MetadataObject) => value.directoryName === 'pages',
+    );
     console.log(`ApexPage?: ${pages[0].xmlName === 'ApexPage'}`);
 
     const types: sf.ListMetadataQuery[] = [{ type: 'CustomObject', folder: undefined }];
@@ -544,71 +599,85 @@ async function testMetadata(conn: sf.Connection): Promise<void> {
 
     const now: number = Date.now();
     const now2: number = now + 1;
-    const metadata = [{
-        fullName: `TestObject${now}__c`,
-        label: `Test Object ${now}`,
-        pluralLabel: `Test Object ${now}`,
-        nameField: {
-            type: 'Text',
-            label: `Test Object Name ${now}`
+    const metadata = [
+        {
+            fullName: `TestObject${now}__c`,
+            label: `Test Object ${now}`,
+            pluralLabel: `Test Object ${now}`,
+            nameField: {
+                type: 'Text',
+                label: `Test Object Name ${now}`,
+            },
+            deploymentStatus: 'Deployed',
+            sharingModel: 'ReadWrite',
         },
-        deploymentStatus: 'Deployed',
-        sharingModel: 'ReadWrite'
-    }, {
-        fullName: `TestObject${now2}__c`,
-        label: `Test Object ${now2}`,
-        pluralLabel: `Test Object ${now2}`,
-        nameField: {
-            type: 'AutoNumber',
-            label: 'Test Object #'
+        {
+            fullName: `TestObject${now2}__c`,
+            label: `Test Object ${now2}`,
+            pluralLabel: `Test Object ${now2}`,
+            nameField: {
+                type: 'AutoNumber',
+                label: 'Test Object #',
+            },
+            deploymentStatus: 'InDevelopment',
+            sharingModel: 'Private',
         },
-        deploymentStatus: 'InDevelopment',
-        sharingModel: 'Private'
-    }];
+    ];
 
     const result: sf.SaveResult | sf.SaveResult[] = await md.create('CustomObject', metadata);
     console.log(`created ${(result as sf.SaveResult[])[0].fullName} - ${(result as sf.SaveResult[])[0].success}`);
     console.log(`created ${(result as sf.SaveResult[])[1].fullName} - ${(result as sf.SaveResult[])[1].success}`);
 
     const fullNames2: string[] = [`TestObject${now}__c`, `TestObject${now2}__c`];
-    const result2: sf.SaveResult | sf.SaveResult[] =
-        await (md.delete('CustomObject', fullNames2) as Promise<sf.SaveResult[]>);
+    const result2: sf.SaveResult | sf.SaveResult[] = await (md.delete('CustomObject', fullNames2) as Promise<
+        sf.SaveResult[]
+    >);
     console.log(`deleted ${result2[0].fullName} - ${result2[0].success}`);
     console.log(`deleted ${result2[1].fullName} - ${result2[1].success}`);
 }
 
 async function testChatter(conn: sf.Connection): Promise<void> {
     const chatter: sf.Chatter = conn.chatter;
-    chatter.resource('/feed-elements').create({
-        body: {
-            messageSegments: [{
-                type: 'Text',
-                text: 'This is new post'
-            }]
-        },
-        feedElementType: 'FeedItem',
-        subjectId: 'me'
-    }, (err: Error | null, result: any) => {
-        if (err) {
-            throw err;
-        }
-        const feedMessageUrl = `/feed-elements/${result.id}/capabilities/comments/items`;
-        chatter.resource(feedMessageUrl).create({
+    chatter.resource('/feed-elements').create(
+        {
             body: {
-                messageSegments: [{
-                    type: 'Text',
-                    text: 'This is new comment on the post'
-                }]
-            }
-        }, (err: Error | null, result: any) => {
+                messageSegments: [
+                    {
+                        type: 'Text',
+                        text: 'This is new post',
+                    },
+                ],
+            },
+            feedElementType: 'FeedItem',
+            subjectId: 'me',
+        },
+        (err: Error | null, result: any) => {
             if (err) {
                 throw err;
             }
-            console.log("Id: " + result.id);
-            console.log("URL: " + result.url);
-            console.log("Body: " + result.body.messageSegments[0].text);
-        });
-    });
+            const feedMessageUrl = `/feed-elements/${result.id}/capabilities/comments/items`;
+            chatter.resource(feedMessageUrl).create(
+                {
+                    body: {
+                        messageSegments: [
+                            {
+                                type: 'Text',
+                                text: 'This is new comment on the post',
+                            },
+                        ],
+                    },
+                },
+                (err: Error | null, result: any) => {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log('Id: ' + result.id);
+                    console.log('URL: ' + result.url);
+                    console.log('Body: ' + result.body.messageSegments[0].text);
+                },
+            );
+        },
+    );
 
     const resourceMe: sf.Resource<sf.RequestResult> = chatter.resource('/users/me');
     resourceMe.retrieve((err, res: any) => {
@@ -616,9 +685,9 @@ async function testChatter(conn: sf.Connection): Promise<void> {
             console.error(err);
             return;
         }
-        console.log("username: " + res.username);
-        console.log("email: " + res.email);
-        console.log("small photo url: " + res.photo.smallPhotoUrl);
+        console.log('username: ' + res.username);
+        console.log('email: ' + res.email);
+        console.log('small photo url: ' + res.photo.smallPhotoUrl);
     });
 
     chatter.resource('/users', { q: 'Suzuki' }).retrieve((err, result: any) => {
@@ -626,9 +695,9 @@ async function testChatter(conn: sf.Connection): Promise<void> {
             console.error(err);
             return;
         }
-        console.log("current page URL: " + result['currentPageUrl']);
-        console.log("next page URL: " + result['nextPageUrl']);
-        console.log("users count: " + result['users'].length);
+        console.log('current page URL: ' + result['currentPageUrl']);
+        console.log('next page URL: ' + result['nextPageUrl']);
+        console.log('users count: ' + result['users'].length);
         for (const user of result['users']) {
             console.log('User ID: ' + user.id);
             console.log('User URL: ' + user.url);
@@ -640,13 +709,15 @@ async function testChatter(conn: sf.Connection): Promise<void> {
 
     const feedCreateRequest: any = await feedResource.create({
         body: {
-            messageSegments: [{
-                type: 'Text',
-                text: 'This is new comment on the post'
-            }]
+            messageSegments: [
+                {
+                    type: 'Text',
+                    text: 'This is new comment on the post',
+                },
+            ],
         },
         feedElementType: 'FeedItem',
-        subjectId: 'me'
+        subjectId: 'me',
     });
 
     console.log(`feedCreateRequest.id: ${feedCreateRequest.id}`);
@@ -658,10 +729,11 @@ async function testChatter(conn: sf.Connection): Promise<void> {
 }
 
 (async () => {
-    const query2: sf.QueryResult<object> =
-        await (salesforceConnection.query("SELECT Id, Name FROM User") as Promise<sf.QueryResult<object>>);
-    console.log("Query Promise: total in database: " + query2.totalSize);
-    console.log("Query Promise: total fetched : " + query2.records[0]);
+    const query2: sf.QueryResult<object> = await (salesforceConnection.query('SELECT Id, Name FROM User') as Promise<
+        sf.QueryResult<object>
+    >);
+    console.log('Query Promise: total in database: ' + query2.totalSize);
+    console.log('Query Promise: total fetched : ' + query2.records[0]);
 
     await testAnalytics(salesforceConnection);
     await testChatter(salesforceConnection);
@@ -674,37 +746,38 @@ const oauth2 = new sf.OAuth2({
     // loginUrl : 'https://test.salesforce.com',
     clientId: '<your Salesforce OAuth2 client ID is here>',
     clientSecret: '<your Salesforce OAuth2 client secret is here>',
-    redirectUri: '<callback URI is here>'
+    redirectUri: '<callback URI is here>',
 });
 oauth2.getAuthorizationUrl({ scope: 'api id web' });
 
-const job = salesforceConnection.bulk.createJob("Account", "insert");
+const job = salesforceConnection.bulk.createJob('Account', 'insert');
 const batch = job.createBatch();
 batch.execute(undefined);
-batch.on("queue", (batchInfo) => { // fired when batch request is queued in server.
+batch.on('queue', (batchInfo) => {
+    // fired when batch request is queued in server.
     console.log('batchInfo:', batchInfo);
     const batchId = batchInfo.id;
     const jobId = batchInfo.jobId;
 });
-job.batch("batchId");
+job.batch('batchId');
 batch.poll(1000, 20000);
-batch.on("response", (rets: sf.BatchResultInfo[]) => {
+batch.on('response', (rets: sf.BatchResultInfo[]) => {
     for (let i = 0; i < rets.length; i++) {
         if (rets[i].success) {
-            console.log(`# ${(i + 1)} loaded successfully, id = ${rets[i].id}`);
+            console.log(`# ${i + 1} loaded successfully, id = ${rets[i].id}`);
         } else {
             const errors = rets[i].errors;
-            console.log(`# ${(i + 1)} error occurred, message = ${errors ? errors.join(', ') : ''}`);
+            console.log(`# ${i + 1} error occurred, message = ${errors ? errors.join(', ') : ''}`);
         }
     }
 });
 
-(async () => {
+async () => {
     const batchInfos: sf.BatchInfo[] = await job.list();
     console.log('batchInfos:', batchInfos);
-});
+};
 
-salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((message) => {
+salesforceConnection.streaming.topic('InvoiceStatementUpdates').subscribe((message) => {
     console.log('Event Type : ' + message.event.type);
     console.log('Event Created : ' + message.event.createdDate);
     console.log('Object Id : ' + message.sobject.Id);
@@ -730,7 +803,7 @@ async function testDescribe() {
         const object: sf.DescribeSObjectResult = await salesforceConnection.describe(sobject.name);
         const cachedObject: sf.DescribeSObjectResult = salesforceConnection.describe$(sobject.name);
         salesforceConnection.describe$.clear();
-        object.fields.forEach(field => {
+        object.fields.forEach((field) => {
             const type: sf.FieldType = field.type;
             // following should never compile
             // $ExpectError

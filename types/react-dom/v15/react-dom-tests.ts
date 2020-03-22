@@ -7,7 +7,7 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-class TestComponent extends React.Component { }
+class TestComponent extends React.Component {}
 
 describe('ReactDOM', () => {
     it('render', () => {
@@ -53,15 +53,12 @@ describe('ReactDOMNodeStream', () => {
 describe('React dom test utils', () => {
     it('Simulate', () => {
         const element = document.createElement('div');
-        const dom = ReactDOM.render(
-            React.createElement('input', { type: 'text' }),
-            element
-        ) as Element;
+        const dom = ReactDOM.render(React.createElement('input', { type: 'text' }), element) as Element;
         const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
 
         node.value = 'giraffe';
         ReactTestUtils.Simulate.change(node);
-        ReactTestUtils.Simulate.keyDown(node, { key: "Enter", charCode: 13, keyCode: 13, which: 13 });
+        ReactTestUtils.Simulate.keyDown(node, { key: 'Enter', charCode: 13, keyCode: 13, which: 13 });
     });
 
     it('renderIntoDocument', () => {

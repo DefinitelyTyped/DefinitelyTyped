@@ -19,7 +19,7 @@ const currencyRates = {
 const emptyFormatters: carbone.Formatters = {};
 const formatters: carbone.Formatters = {
     ...emptyFormatters,
-    json: data => JSON.stringify(data),
+    json: (data) => JSON.stringify(data),
 };
 
 const emptyTranslations: carbone.Translations = {};
@@ -112,8 +112,8 @@ carbone.reset();
 
 carbone.addFormatters(formatters);
 
-carbone.addTemplate('xml', '<xml>', err => {});
-carbone.removeTemplate('xml', err => {});
+carbone.addTemplate('xml', '<xml>', (err) => {});
+carbone.removeTemplate('xml', (err) => {});
 
 const conversionFormats: carbone.ConversionFormat[] = carbone.listConversionFormats('document');
 

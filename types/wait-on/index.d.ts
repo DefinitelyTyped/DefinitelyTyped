@@ -7,10 +7,7 @@
 export = waitOn;
 
 declare function waitOn(options: waitOn.WaitOnOptions): Promise<void>;
-declare function waitOn(
-    options: waitOn.WaitOnOptions,
-    cb: (err: any) => void,
-): void;
+declare function waitOn(options: waitOn.WaitOnOptions, cb: (err: any) => void): void;
 
 declare namespace waitOn {
     interface WaitOnOptions {

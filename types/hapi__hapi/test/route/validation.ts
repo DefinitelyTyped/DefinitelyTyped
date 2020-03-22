@@ -1,6 +1,6 @@
 // from https://hapijs.com/tutorials/validation?lang=en_US
-import { Request, ResponseToolkit, RouteOptions, Server, ServerOptions, ServerRoute } from "@hapi/hapi";
-import * as Joi from "@hapi/joi";
+import { Request, ResponseToolkit, RouteOptions, Server, ServerOptions, ServerRoute } from '@hapi/hapi';
+import * as Joi from '@hapi/joi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -12,13 +12,13 @@ const routeOptions: RouteOptions = {
             id: Joi.string().uuid().required(),
             name: Joi.object({
                 firstName: Joi.string().required(),
-                lastName: Joi.string().allow(null)
+                lastName: Joi.string().allow(null),
             }),
-            firstName: Joi.ref("name.firstName")
+            firstName: Joi.ref('name.firstName'),
         },
         params: {
             name: Joi.string().min(3).max(10),
-            nameRef: Joi.ref("name")
+            nameRef: Joi.ref('name'),
         },
         state: {
             woop: Joi.string().allow('doop'),
@@ -28,11 +28,11 @@ const routeOptions: RouteOptions = {
         schema: Joi.object({
             a: Joi.string(),
             b: Joi.object({
-                c: Joi.number()
+                c: Joi.number(),
             }),
-            d: Joi.ref("b.c")
-        })
-    }
+            d: Joi.ref('b.c'),
+        }),
+    },
 };
 
 const serverRoute: ServerRoute = {
@@ -41,7 +41,7 @@ const serverRoute: ServerRoute = {
     handler(request, h) {
         return 'ok: ' + request.path;
     },
-    options: routeOptions
+    options: routeOptions,
 };
 
 const server = new Server(options);

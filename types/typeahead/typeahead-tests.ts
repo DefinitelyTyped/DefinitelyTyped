@@ -34,12 +34,15 @@ function test_typeahead() {
         }
 
         function test_typeahead_options_all() {
-            $('.typeahead').typeahead({
-                hint: true,
-                minLength: 1,
-                highlight: true,
-                classNames: { input: 'tt-input' }
-            }, dataset);
+            $('.typeahead').typeahead(
+                {
+                    hint: true,
+                    minLength: 1,
+                    highlight: true,
+                    classNames: { input: 'tt-input' },
+                },
+                dataset,
+            );
         }
     }
 
@@ -94,7 +97,7 @@ function test_typeahead() {
                 empty: 'tt-empty',
                 open: 'tt-open',
                 cursor: 'tt-cursor',
-                highlight: 'tt-highlight'
+                highlight: 'tt-highlight',
             };
         }
     }
@@ -107,41 +110,49 @@ function test_typeahead() {
         }
 
         function test_typeahead_dataset_source_function() {
-            var dataset: Twitter.Typeahead.Dataset<string> = { source: (query: string, syncResults: (result: string[]) => void, asyncResults?: (result: string[]) => void) => { } };
+            var dataset: Twitter.Typeahead.Dataset<string> = {
+                source: (
+                    query: string,
+                    syncResults: (result: string[]) => void,
+                    asyncResults?: (result: string[]) => void,
+                ) => {},
+            };
         }
 
         function test_typeahead_dataset_async() {
             var dataset: Twitter.Typeahead.Dataset<string> = {
                 source: null,
-                async: true
+                async: true,
             };
         }
 
         function test_typeahead_dataset_name() {
             var dataset: Twitter.Typeahead.Dataset<string> = {
                 source: null,
-                name: 'name'
+                name: 'name',
             };
         }
 
         function test_typeahead_dataset_limit() {
             var dataset: Twitter.Typeahead.Dataset<string> = {
                 source: null,
-                limit: 5
+                limit: 5,
             };
         }
 
         function test_typeahead_dataset_display_string() {
             var dataset: Twitter.Typeahead.Dataset<string> = {
                 source: null,
-                display: "key"
+                display: 'key',
             };
         }
 
         function test_typeahead_dataset_display_function() {
             var dataset: Twitter.Typeahead.Dataset<string> = {
                 source: null,
-                display: (obj: string) => { return 'key'; }
+                display: (obj: string) => {
+                    return 'key';
+                },
             };
         }
     }
@@ -156,7 +167,11 @@ function test_typeahead() {
         }
 
         function dataset_template_notfound_function() {
-            var templates: Twitter.Typeahead.Templates<string> = { notFound: (query: string) => { return 'not found'; } };
+            var templates: Twitter.Typeahead.Templates<string> = {
+                notFound: (query: string) => {
+                    return 'not found';
+                },
+            };
         }
 
         function dataset_template_pending_string() {
@@ -164,27 +179,43 @@ function test_typeahead() {
         }
 
         function dataset_template_pending_function() {
-            var templates: Twitter.Typeahead.Templates<string> = { pending: (query: string) => { return 'pending'; } };
+            var templates: Twitter.Typeahead.Templates<string> = {
+                pending: (query: string) => {
+                    return 'pending';
+                },
+            };
         }
 
         function dataset_template_header_string() {
-            var templates: Twitter.Typeahead.Templates<string> =  { header: 'header' };
+            var templates: Twitter.Typeahead.Templates<string> = { header: 'header' };
         }
 
         function dataset_template_header_function() {
-            var templates: Twitter.Typeahead.Templates<string> = { header: (query: string) => { return 'header'; } };
+            var templates: Twitter.Typeahead.Templates<string> = {
+                header: (query: string) => {
+                    return 'header';
+                },
+            };
         }
 
         function dataset_template_footer_string() {
-            var templates: Twitter.Typeahead.Templates<string> =  { footer: 'footer' };
+            var templates: Twitter.Typeahead.Templates<string> = { footer: 'footer' };
         }
 
         function dataset_template_footer_function() {
-            var templates: Twitter.Typeahead.Templates<string> =  { footer: (query: string) => { return 'footer'; } };
+            var templates: Twitter.Typeahead.Templates<string> = {
+                footer: (query: string) => {
+                    return 'footer';
+                },
+            };
         }
 
         function dataset_template_suggestion() {
-            var templates: Twitter.Typeahead.Templates<string> = { suggestion: (suggestion: string) => { return 'suggestion'; } };
+            var templates: Twitter.Typeahead.Templates<string> = {
+                suggestion: (suggestion: string) => {
+                    return 'suggestion';
+                },
+            };
         }
     }
 }
@@ -213,8 +244,8 @@ function test_bloodhout() {
         // search
         var sync: (datums: string[]) => {};
         var async: (datums: string[]) => {};
-        var data2: string[] = engine.search("query", sync);
-        var data3: string[] = engine.search("query", sync, async);
+        var data2: string[] = engine.search('query', sync);
+        var data3: string[] = engine.search('query', sync, async);
 
         // all
         var data4: string[] = engine.all();
@@ -232,15 +263,19 @@ function test_bloodhout() {
     function test_bloodhout_options() {
         function test_bloodhout_options_datumTokenizer() {
             var options: Bloodhound.BloodhoundOptions<string> = {
-                datumTokenizer: (datum: string) => { return new Array<string>(); },
-                queryTokenizer: null
+                datumTokenizer: (datum: string) => {
+                    return new Array<string>();
+                },
+                queryTokenizer: null,
             };
         }
 
         function test_bloodhout_options_queryTokenizer() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
-                queryTokenizer: (query: string) => { return new Array<string>(); }
+                queryTokenizer: (query: string) => {
+                    return new Array<string>();
+                },
             };
         }
 
@@ -248,7 +283,7 @@ function test_bloodhout() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
                 queryTokenizer: null,
-                initialize: true
+                initialize: true,
             };
         }
 
@@ -256,7 +291,7 @@ function test_bloodhout() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
                 queryTokenizer: null,
-                sufficient: 5
+                sufficient: 5,
             };
         }
 
@@ -264,7 +299,9 @@ function test_bloodhout() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
                 queryTokenizer: null,
-                sorter: (a: string, b: string) => { return 0 }
+                sorter: (a: string, b: string) => {
+                    return 0;
+                },
             };
         }
 
@@ -272,7 +309,7 @@ function test_bloodhout() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
                 queryTokenizer: null,
-                local: new Array<string>()
+                local: new Array<string>(),
             };
         }
 
@@ -280,7 +317,9 @@ function test_bloodhout() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
                 queryTokenizer: null,
-                local: () => { return new Array<string>() }
+                local: () => {
+                    return new Array<string>();
+                },
             };
         }
 
@@ -288,7 +327,7 @@ function test_bloodhout() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
                 queryTokenizer: null,
-                prefetch: 'url'
+                prefetch: 'url',
             };
         }
 
@@ -296,7 +335,7 @@ function test_bloodhout() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
                 queryTokenizer: null,
-                prefetch: { url: 'url' }
+                prefetch: { url: 'url' },
             };
         }
 
@@ -304,7 +343,7 @@ function test_bloodhout() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
                 queryTokenizer: null,
-                remote: 'url'
+                remote: 'url',
             };
         }
 
@@ -312,20 +351,28 @@ function test_bloodhout() {
             var options: Bloodhound.BloodhoundOptions<string> = {
                 datumTokenizer: null,
                 queryTokenizer: null,
-                remote: { url: 'url' }
+                remote: { url: 'url' },
             };
         }
 
         function test_bloodhout_options_all() {
             var options: Bloodhound.BloodhoundOptions<string> = {
-                datumTokenizer: (datum: string) => { return new Array<string>(); },
-                queryTokenizer: (query: string) => { return new Array<string>(); },
+                datumTokenizer: (datum: string) => {
+                    return new Array<string>();
+                },
+                queryTokenizer: (query: string) => {
+                    return new Array<string>();
+                },
                 initialize: true,
                 sufficient: 5,
-                sorter: (a: string, b: string) => { return 0 },
-                local: () => { return new Array<string>() },
+                sorter: (a: string, b: string) => {
+                    return 0;
+                },
+                local: () => {
+                    return new Array<string>();
+                },
                 prefetch: { url: 'url' },
-                remote: { url: 'url' }
+                remote: { url: 'url' },
             };
         }
     }
@@ -333,35 +380,35 @@ function test_bloodhout() {
     function test_bloodhout_prefetch_options() {
         function test_bloodhout_prefetch_options_url() {
             var options: Bloodhound.PrefetchOptions<string> = {
-                url: 'url'
+                url: 'url',
             };
         }
 
         function test_bloodhout_prefetch_options_cache() {
             var options: Bloodhound.PrefetchOptions<string> = {
                 url: 'url',
-                cache: true
+                cache: true,
             };
         }
 
         function test_bloodhout_prefetch_options_ttl() {
             var options: Bloodhound.PrefetchOptions<string> = {
                 url: 'url',
-                ttl: 86400000 // 1 day
+                ttl: 86400000, // 1 day
             };
         }
 
         function test_bloodhout_prefetch_options_cacheKey() {
             var options: Bloodhound.PrefetchOptions<string> = {
                 url: 'url',
-                cacheKey: 'url'
+                cacheKey: 'url',
             };
         }
 
         function test_bloodhout_prefetch_options_thumbprint() {
             var options: Bloodhound.PrefetchOptions<string> = {
                 url: 'url',
-                thumbprint: 'thumbprint'
+                thumbprint: 'thumbprint',
             };
         }
 
@@ -370,14 +417,18 @@ function test_bloodhout() {
 
             var options: Bloodhound.PrefetchOptions<string> = {
                 url: 'url',
-                prepare: (settings: JQueryAjaxSettings) => { return ajaxSettings; }
+                prepare: (settings: JQueryAjaxSettings) => {
+                    return ajaxSettings;
+                },
             };
         }
 
         function test_bloodhout_prefetch_options_transform() {
             var options: Bloodhound.PrefetchOptions<string[]> = {
                 url: 'url',
-                transform: (response: string[]) => { return new Array<string>(); }
+                transform: (response: string[]) => {
+                    return new Array<string>();
+                },
             };
         }
 
@@ -390,8 +441,12 @@ function test_bloodhout() {
                 ttl: 86400000,
                 cacheKey: 'url',
                 thumbprint: 'thumbprint',
-                prepare: (settings: JQueryAjaxSettings) => { return ajaxSettings; },
-                transform: (response: string[]) => { return new Array<string>(); }
+                prepare: (settings: JQueryAjaxSettings) => {
+                    return ajaxSettings;
+                },
+                transform: (response: string[]) => {
+                    return new Array<string>();
+                },
             };
         }
     }
@@ -399,7 +454,7 @@ function test_bloodhout() {
     function test_bloodhout_remote_options() {
         function test_bloodhout_remote_options_url() {
             var options: Bloodhound.RemoteOptions<string> = {
-                url: 'url'
+                url: 'url',
             };
         }
 
@@ -408,35 +463,39 @@ function test_bloodhout() {
 
             var options: Bloodhound.RemoteOptions<string> = {
                 url: 'url',
-                prepare: (query: string, settings: JQueryAjaxSettings) => { return ajaxSettings; }
+                prepare: (query: string, settings: JQueryAjaxSettings) => {
+                    return ajaxSettings;
+                },
             };
         }
 
         function test_bloodhout_remote_options_wildcard() {
             var options: Bloodhound.RemoteOptions<string> = {
                 url: 'url',
-                wildcard: '%QUERY'
+                wildcard: '%QUERY',
             };
         }
 
         function test_bloodhout_remote_options_rateLimitby() {
             var options: Bloodhound.RemoteOptions<string> = {
                 url: 'url',
-                rateLimitby: 'debounce'
+                rateLimitby: 'debounce',
             };
         }
 
         function test_bloodhout_remote_options_rateLimitWait() {
             var options: Bloodhound.RemoteOptions<string> = {
                 url: 'url',
-                rateLimitWait: 300
+                rateLimitWait: 300,
             };
         }
 
         function test_bloodhout_remote_options_transform() {
             var options: Bloodhound.RemoteOptions<string[]> = {
                 url: 'url',
-                transform: (response: string[]) => { return new Array<string>(); }
+                transform: (response: string[]) => {
+                    return new Array<string>();
+                },
             };
         }
 
@@ -445,23 +504,35 @@ function test_bloodhout() {
 
             var options: Bloodhound.RemoteOptions<string[]> = {
                 url: 'url',
-                prepare: (query: string, settings: JQueryAjaxSettings) => { return ajaxSettings; },
+                prepare: (query: string, settings: JQueryAjaxSettings) => {
+                    return ajaxSettings;
+                },
                 wildcard: '%QUERY',
                 rateLimitby: 'debounce',
                 rateLimitWait: 300,
-                transform: (response: string[]) => { return new Array<string>(); }
+                transform: (response: string[]) => {
+                    return new Array<string>();
+                },
             };
         }
     }
 
     function test_bloodhout_tokenizers() {
         var tokenizers: Bloodhound.Tokenizers = {
-            whitespace: (str: string) => { return new Array<string>(); },
-            nonword: (str: string) => { return new Array<string>(); },
+            whitespace: (str: string) => {
+                return new Array<string>();
+            },
+            nonword: (str: string) => {
+                return new Array<string>();
+            },
             obj: {
-                whitespace: (str: string) => (obj: any) => { return new Array<string>(); },
-                nonword: (str: string) => (obj: any) => { return new Array<string>(); }
-            }
+                whitespace: (str: string) => (obj: any) => {
+                    return new Array<string>();
+                },
+                nonword: (str: string) => (obj: any) => {
+                    return new Array<string>();
+                },
+            },
         };
     }
 }

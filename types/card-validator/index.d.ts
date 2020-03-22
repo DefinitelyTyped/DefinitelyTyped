@@ -10,7 +10,7 @@ export interface Card {
     isAmex: boolean;
     gaps: number[];
     lengths: number[];
-    code: {name: string, size: number};
+    code: { name: string; size: number };
 }
 
 export interface valid {
@@ -36,8 +36,8 @@ export interface validExpirationYear extends valid {
 }
 
 export function number(value: string): validNumber;
-export function expirationDate(value: string | {month: string, year: string}): validExpirationDate;
+export function expirationDate(value: string | { month: string; year: string }): validExpirationDate;
 export function expirationMonth(value: string): validExpirationMonth;
 export function expirationYear(value: string): validExpirationYear;
 export function cvv(value: string, maxLength?: number): valid;
-export function postalCode(value: string, options?: {minLength?: number}): valid;
+export function postalCode(value: string, options?: { minLength?: number }): valid;

@@ -1,4 +1,4 @@
-import dts = require("dts-bundle");
+import dts = require('dts-bundle');
 
 var opts = {
     // Required
@@ -31,7 +31,7 @@ var opts = {
     // - default: false
     removeSource: false,
     // newline to use in output file
-    newline: "\n",
+    newline: '\n',
     // indentation to use in output file
     // - default 4 spaces
     indent: '   ',
@@ -43,7 +43,7 @@ var opts = {
     separator: '/',
     // enable verbose mode, prints detailed info about all references and includes/excludes
     // - default: false
-    verbose: false
+    verbose: false,
 };
 
 // run it

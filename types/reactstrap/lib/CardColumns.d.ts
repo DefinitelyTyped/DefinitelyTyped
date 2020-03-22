@@ -8,5 +8,5 @@ export interface CardColumnsProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class CardColumns<T = {[key: string]: any}> extends React.Component<CardColumnsProps> {}
+declare class CardColumns<T = { [key: string]: any }> extends React.Component<CardColumnsProps> {}
 export default CardColumns;

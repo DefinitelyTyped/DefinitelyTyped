@@ -1,62 +1,60 @@
-import LinkifyIt = require("linkify-it");
+import LinkifyIt = require('linkify-it');
 
 // constructor formats
 const linkifier = new LinkifyIt();
 const withOptions = new LinkifyIt({ fuzzyLink: false });
 const withSchema = new LinkifyIt(
     {
-        "myCustom:": {
-            validate: /23/
+        'myCustom:': {
+            validate: /23/,
         },
-        "other:": {
-            validate: (text, pos, self) => 42
+        'other:': {
+            validate: (text, pos, self) => 42,
         },
-        "git:": "http:"
+        'git:': 'http:',
     },
     {
         fuzzyIP: false,
-        fuzzyLink: false
-    }
+        fuzzyLink: false,
+    },
 );
 
 // fluent interface
 linkifier
-    .add("git:", "http:")
+    .add('git:', 'http:')
     .set({ fuzzyIP: true })
-    .tlds("onion", true)
-    .test("https://github.com/DefinitelyTyped/DefinitelyTyped/");
+    .tlds('onion', true)
+    .test('https://github.com/DefinitelyTyped/DefinitelyTyped/');
 
 // match
-const matches = linkifier.match(
-    "https://github.com/DefinitelyTyped/DefinitelyTyped/"
-);
+const matches = linkifier.match('https://github.com/DefinitelyTyped/DefinitelyTyped/');
 if (matches !== null) {
     matches.forEach(({ index, lastIndex, raw, schema, text, url }) => {});
 }
 
 // complex rule
-linkifier.add("@", {
+linkifier.add('@', {
     validate: (text, pos, self) => {
         return 42;
     },
-    normalize: match => {
-        match.url = "forty-two";
-    }
+    normalize: (match) => {
+        match.url = 'forty-two';
+    },
 });
 
 // complex rule
-linkifier.add("skype:", {
+linkifier.add('skype:', {
     validate: (text, pos, self) => {
         return 42;
     },
-    normalize: match => {
-        match.url = "forty-two";
-    }
+    normalize: (match) => {
+        match.url = 'forty-two';
+    },
 });
 
 // regexp rule
-linkifier.add("custom:", {
-    validate: /^\/\/\d+/
+linkifier.add('custom:', {
+    validate: /^\/\/\d+/,
 });
 
 // Use example from documentation
@@ -65,9 +63,7 @@ linkifier.add('@', {
         const tail = text.slice(pos);
 
         if (!self.re.twitter) {
-            self.re.twitter =  new RegExp(
-                `^([a-zA-Z0-9_]){1,15}(?!_)(?=$|${self.re.src_ZPCc})`
-            );
+            self.re.twitter = new RegExp(`^([a-zA-Z0-9_]){1,15}(?!_)(?=$|${self.re.src_ZPCc})`);
         }
 
         if (self.re.twitter.test(tail)) {
@@ -88,6 +84,6 @@ linkifier.add('@', {
         return 0;
     },
     normalize: (match) => {
-      match.url = `https://twitter.com/${match.url.replace(/^@/, '')}`;
-    }
+        match.url = `https://twitter.com/${match.url.replace(/^@/, '')}`;
+    },
 });

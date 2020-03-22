@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Books API v1 */
-    function load(name: "books", version: "v1"): PromiseLike<void>;
-    function load(name: "books", version: "v1", callback: () => any): void;
+    function load(name: 'books', version: 'v1'): PromiseLike<void>;
+    function load(name: 'books', version: 'v1', callback: () => any): void;
 
     const bookshelves: books.BookshelvesResource;
 
@@ -371,10 +371,12 @@ declare namespace gapi.client {
             };
             geo?: {
                 /** The boundary of the location as a set of loops containing pairs of latitude, longitude coordinates. */
-                boundary?: Array<Array<{
-                    latitude?: number;
-                    longitude?: number;
-                }>>;
+                boundary?: Array<
+                    Array<{
+                        latitude?: number;
+                        longitude?: number;
+                    }>
+                >;
                 /** The cache policy active for this data. EX: UNRESTRICTED, RESTRICTED, NEVER */
                 cachePolicy?: string;
                 /** The country code of the location. */

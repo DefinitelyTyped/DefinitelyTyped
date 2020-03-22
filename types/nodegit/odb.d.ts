@@ -7,7 +7,7 @@ export namespace Odb {
     const enum STREAM {
         RDONLY = 2,
         WRONLY = 4,
-        RW = 6
+        RW = 6,
     }
 }
 

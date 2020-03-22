@@ -4,7 +4,7 @@ const matchers = [
     'path/to/file.js',
     'path/anyjs/**/*.js',
     /foo\.js$/,
-    (str: string) => str.indexOf('bar') !== -1 && str.length > 10
+    (str: string) => str.indexOf('bar') !== -1 && str.length > 10,
 ];
 
 // $ExpectType boolean
@@ -40,4 +40,4 @@ matcher('path/anyjs/baz.js', true, 2);
 matcher('path/anyjs/baz.js', true, 2, 3);
 
 // tslint:disable-next-line no-unnecessary-callback-wrapper
-['foo.js', 'bar.js'].filter(str => matcher(str));
+['foo.js', 'bar.js'].filter((str) => matcher(str));

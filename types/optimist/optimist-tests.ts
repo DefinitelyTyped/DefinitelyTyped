@@ -1,4 +1,3 @@
-
 import optimist = require('optimist');
 
 var checkFn: (argv: any) => any;

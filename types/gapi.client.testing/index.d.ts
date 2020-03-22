@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Testing API v1 */
-    function load(name: "testing", version: "v1"): PromiseLike<void>;
-    function load(name: "testing", version: "v1", callback: () => any): void;
+    function load(name: 'testing', version: 'v1'): PromiseLike<void>;
+    function load(name: 'testing', version: 'v1', callback: () => any): void;
 
     const projects: testing.ProjectsResource;
 
@@ -819,7 +819,7 @@ declare namespace gapi.client {
              */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -862,7 +862,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -910,7 +910,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -956,7 +956,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

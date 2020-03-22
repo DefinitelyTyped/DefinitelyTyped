@@ -10,14 +10,14 @@ import { ComponentType } from 'react';
 import { MemoryRouterProps } from 'react-router';
 
 export const StoryRouter: ComponentType<{
-  story: StoryApi;
-  links: object;
-  routerProps: MemoryRouterProps;
+    story: StoryApi;
+    links: object;
+    routerProps: MemoryRouterProps;
 }>;
 
 declare function storyRouterDecorator(
     links?: object,
-    routerProps?: MemoryRouterProps
+    routerProps?: MemoryRouterProps,
 ): DecoratorFunction<StoryFnReactReturnType>;
 
 export default storyRouterDecorator;

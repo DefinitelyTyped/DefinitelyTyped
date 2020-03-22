@@ -96,5 +96,4 @@ export interface PlotParams {
     onUnhover?: (event: Readonly<Plotly.PlotMouseEvent>) => void;
 }
 
-export default class Plot extends React.PureComponent<PlotParams> {
-}
+export default class Plot extends React.PureComponent<PlotParams> {}

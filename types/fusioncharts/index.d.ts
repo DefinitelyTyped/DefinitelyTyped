@@ -147,7 +147,10 @@ declare namespace FusionCharts {
 
         addEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: {}) => void): void;
 
-        removeEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: {}) => void): void;
+        removeEventListener(
+            type: string | string[],
+            listener: (eventObject?: EventObject, eventArgs?: {}) => void,
+        ): void;
 
         configureLink(param: {} | any[], level?: number): void;
 
@@ -251,7 +254,7 @@ declare namespace FusionCharts {
     }
 
     interface FusionChartStatic {
-        new (chartObject: ChartObject|{}): FusionCharts;
+        new (chartObject: ChartObject | {}): FusionCharts;
 
         (chartId: string): FusionCharts;
 
@@ -259,7 +262,10 @@ declare namespace FusionCharts {
 
         addEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: {}) => void): void;
 
-        removeEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: {}) => void): void;
+        removeEventListener(
+            type: string | string[],
+            listener: (eventObject?: EventObject, eventArgs?: {}) => void,
+        ): void;
 
         ready(callback: (fusionChartStatic?: FusionChartStatic) => any, context?: any): FusionChartStatic;
 

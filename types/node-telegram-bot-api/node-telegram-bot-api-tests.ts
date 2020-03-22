@@ -1,8 +1,8 @@
 import TelegramBot = require('node-telegram-bot-api');
 
-const MyTelegramBot = new TelegramBot('token', { webHook: { host: 'myhost'}});
+const MyTelegramBot = new TelegramBot('token', { webHook: { host: 'myhost' } });
 
-MyTelegramBot.startPolling({restart: true});
+MyTelegramBot.startPolling({ restart: true });
 MyTelegramBot.stopPolling();
 MyTelegramBot.isPolling();
 MyTelegramBot.openWebHook();
@@ -12,19 +12,19 @@ MyTelegramBot.getMe();
 MyTelegramBot.getMe().then((value: TelegramBot.User) => {
     const username = value.username;
 });
-MyTelegramBot.setWebHook('http://typescriptlang.org', {max_connections: 100});
+MyTelegramBot.setWebHook('http://typescriptlang.org', { max_connections: 100 });
 MyTelegramBot.deleteWebHook();
 MyTelegramBot.getWebHookInfo();
 MyTelegramBot.getUpdates({ timeout: 10 });
 MyTelegramBot.processUpdate({ update_id: 1 });
-MyTelegramBot.sendMessage(1234, 'test-text', {disable_web_page_preview: true});
+MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true });
 const res: TelegramBot.InlineQueryResultArticle = {
     id: '1',
     type: 'article',
     title: 'Foo',
     input_message_content: {
-        message_text: 'Bar'
-    }
+        message_text: 'Bar',
+    },
 };
 MyTelegramBot.answerInlineQuery('queryId', [res, res, res], { is_personal: true });
 MyTelegramBot.forwardMessage(1234, 5678, 'memberID', { disable_notification: true });
@@ -51,9 +51,18 @@ MyTelegramBot.answerCallbackQuery('432832');
 MyTelegramBot.answerCallbackQuery({ callback_query_id: '432832' });
 MyTelegramBot.editMessageText('test-text', { disable_web_page_preview: true });
 MyTelegramBot.editMessageCaption('My Witty Caption', { message_id: 1245 });
-MyTelegramBot.editMessageReplyMarkup({ inline_keyboard: [[{
-    text: 'Foo'
-}]] }, { message_id: 1244 });
+MyTelegramBot.editMessageReplyMarkup(
+    {
+        inline_keyboard: [
+            [
+                {
+                    text: 'Foo',
+                },
+            ],
+        ],
+    },
+    { message_id: 1244 },
+);
 MyTelegramBot.getUserProfilePhotos('myUserID', { limit: 10 });
 MyTelegramBot.sendLocation(1234, 100, 200, { reply_to_message_id: 1234 });
 MyTelegramBot.editMessageLiveLocation(100, 200, { message_id: 1245 });
@@ -64,9 +73,9 @@ MyTelegramBot.getFile('My/File/ID');
 MyTelegramBot.getFileLink('My/File/ID');
 MyTelegramBot.getFileStream('My/File/ID');
 MyTelegramBot.downloadFile('My/File/ID', 'mydownloaddir/');
-MyTelegramBot.onText(/regex/, (msg, match) => { });
+MyTelegramBot.onText(/regex/, (msg, match) => {});
 MyTelegramBot.removeTextListener(/regex/);
-MyTelegramBot.onReplyToMessage(1234, 'mymessageID', (msg) => { });
+MyTelegramBot.onReplyToMessage(1234, 'mymessageID', (msg) => {});
 MyTelegramBot.removeReplyListener(5466);
 MyTelegramBot.getChat(1234);
 MyTelegramBot.getChatAdministrators(1234);
@@ -79,75 +88,93 @@ MyTelegramBot.sendGame(1234, 'MygameName', { reply_to_message_id: 1234 });
 MyTelegramBot.setGameScore('myUserID', 99, { message_id: 1234 });
 MyTelegramBot.getGameHighScores('myUserID', { message_id: 1234 });
 MyTelegramBot.deleteMessage(1234, 'mymessageID');
-MyTelegramBot.sendInvoice(1234, 'Invoice Title', 'Invoice Description', 'Invoice Payload', 'Providertoken', 'Startparameter', 'Currency', [{
-    label: '$',
-    amount: 1200
-}], { is_flexible: true });
-MyTelegramBot.answerShippingQuery('shippingQueryId', true, { shipping_options: [{
-    id: '1',
-    title: 'Foo',
-    prices: [{
-        label: '$',
-        amount: 100
-    }]
-}] });
+MyTelegramBot.sendInvoice(
+    1234,
+    'Invoice Title',
+    'Invoice Description',
+    'Invoice Payload',
+    'Providertoken',
+    'Startparameter',
+    'Currency',
+    [
+        {
+            label: '$',
+            amount: 1200,
+        },
+    ],
+    { is_flexible: true },
+);
+MyTelegramBot.answerShippingQuery('shippingQueryId', true, {
+    shipping_options: [
+        {
+            id: '1',
+            title: 'Foo',
+            prices: [
+                {
+                    label: '$',
+                    amount: 100,
+                },
+            ],
+        },
+    ],
+});
 MyTelegramBot.answerPreCheckoutQuery('preCheckoutQueryId', true, { error_message: 'Bar' });
-MyTelegramBot.addListener('message', (message: TelegramBot.Message, { type }) => { });
-MyTelegramBot.addListener('callback_query', (query: TelegramBot.CallbackQuery) => { });
-MyTelegramBot.addListener('inline_query', (query: TelegramBot.InlineQuery) => { });
-MyTelegramBot.addListener('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => { });
-MyTelegramBot.addListener('channel_post', (message: TelegramBot.Message) => { });
-MyTelegramBot.addListener('shipping_query', (query: TelegramBot.ShippingQuery) => { });
-MyTelegramBot.addListener('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => { });
-MyTelegramBot.addListener('polling_error', (error: Error) => { });
-MyTelegramBot.on('message', (message: TelegramBot.Message, { type }) => { });
-MyTelegramBot.on('callback_query', (query: TelegramBot.CallbackQuery) => { });
-MyTelegramBot.on('inline_query', (query: TelegramBot.InlineQuery) => { });
-MyTelegramBot.on('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => { });
-MyTelegramBot.on('channel_post', (message: TelegramBot.Message) => { });
-MyTelegramBot.on('shipping_query', (query: TelegramBot.ShippingQuery) => { });
-MyTelegramBot.on('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => { });
-MyTelegramBot.on('polling_error', (error: Error) => { });
-MyTelegramBot.once('message', (message: TelegramBot.Message, { type }) => { });
-MyTelegramBot.once('callback_query', (query: TelegramBot.CallbackQuery) => { });
-MyTelegramBot.once('inline_query', (query: TelegramBot.InlineQuery) => { });
-MyTelegramBot.once('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => { });
-MyTelegramBot.once('channel_post', (message: TelegramBot.Message) => { });
-MyTelegramBot.once('shipping_query', (query: TelegramBot.ShippingQuery) => { });
-MyTelegramBot.once('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => { });
-MyTelegramBot.once('polling_error', (error: Error) => { });
-MyTelegramBot.prependListener('message', (message: TelegramBot.Message, { type }) => { });
-MyTelegramBot.prependListener('callback_query', (query: TelegramBot.CallbackQuery) => { });
-MyTelegramBot.prependListener('inline_query', (query: TelegramBot.InlineQuery) => { });
-MyTelegramBot.prependListener('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => { });
-MyTelegramBot.prependListener('channel_post', (message: TelegramBot.Message) => { });
-MyTelegramBot.prependListener('shipping_query', (query: TelegramBot.ShippingQuery) => { });
-MyTelegramBot.prependListener('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => { });
-MyTelegramBot.prependListener('polling_error', (error: Error) => { });
-MyTelegramBot.prependOnceListener('message', (message: TelegramBot.Message, { type }) => { });
-MyTelegramBot.prependOnceListener('callback_query', (query: TelegramBot.CallbackQuery) => { });
-MyTelegramBot.prependOnceListener('inline_query', (query: TelegramBot.InlineQuery) => { });
-MyTelegramBot.prependOnceListener('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => { });
-MyTelegramBot.prependOnceListener('channel_post', (message: TelegramBot.Message) => { });
-MyTelegramBot.prependOnceListener('shipping_query', (query: TelegramBot.ShippingQuery) => { });
-MyTelegramBot.prependOnceListener('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => { });
-MyTelegramBot.prependOnceListener('polling_error', (error: Error) => { });
-MyTelegramBot.removeListener('message', (message: TelegramBot.Message, { type }) => { });
-MyTelegramBot.removeListener('callback_query', (query: TelegramBot.CallbackQuery) => { });
-MyTelegramBot.removeListener('inline_query', (query: TelegramBot.InlineQuery) => { });
-MyTelegramBot.removeListener('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => { });
-MyTelegramBot.removeListener('channel_post', (message: TelegramBot.Message) => { });
-MyTelegramBot.removeListener('shipping_query', (query: TelegramBot.ShippingQuery) => { });
-MyTelegramBot.removeListener('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => { });
-MyTelegramBot.removeListener('polling_error', (error: Error) => { });
-MyTelegramBot.off('message', (message: TelegramBot.Message, { type }) => { });
-MyTelegramBot.off('callback_query', (query: TelegramBot.CallbackQuery) => { });
-MyTelegramBot.off('inline_query', (query: TelegramBot.InlineQuery) => { });
-MyTelegramBot.off('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => { });
-MyTelegramBot.off('channel_post', (message: TelegramBot.Message) => { });
-MyTelegramBot.off('shipping_query', (query: TelegramBot.ShippingQuery) => { });
-MyTelegramBot.off('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => { });
-MyTelegramBot.off('polling_error', (error: Error) => { });
+MyTelegramBot.addListener('message', (message: TelegramBot.Message, { type }) => {});
+MyTelegramBot.addListener('callback_query', (query: TelegramBot.CallbackQuery) => {});
+MyTelegramBot.addListener('inline_query', (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.addListener('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => {});
+MyTelegramBot.addListener('channel_post', (message: TelegramBot.Message) => {});
+MyTelegramBot.addListener('shipping_query', (query: TelegramBot.ShippingQuery) => {});
+MyTelegramBot.addListener('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => {});
+MyTelegramBot.addListener('polling_error', (error: Error) => {});
+MyTelegramBot.on('message', (message: TelegramBot.Message, { type }) => {});
+MyTelegramBot.on('callback_query', (query: TelegramBot.CallbackQuery) => {});
+MyTelegramBot.on('inline_query', (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.on('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => {});
+MyTelegramBot.on('channel_post', (message: TelegramBot.Message) => {});
+MyTelegramBot.on('shipping_query', (query: TelegramBot.ShippingQuery) => {});
+MyTelegramBot.on('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => {});
+MyTelegramBot.on('polling_error', (error: Error) => {});
+MyTelegramBot.once('message', (message: TelegramBot.Message, { type }) => {});
+MyTelegramBot.once('callback_query', (query: TelegramBot.CallbackQuery) => {});
+MyTelegramBot.once('inline_query', (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.once('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => {});
+MyTelegramBot.once('channel_post', (message: TelegramBot.Message) => {});
+MyTelegramBot.once('shipping_query', (query: TelegramBot.ShippingQuery) => {});
+MyTelegramBot.once('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => {});
+MyTelegramBot.once('polling_error', (error: Error) => {});
+MyTelegramBot.prependListener('message', (message: TelegramBot.Message, { type }) => {});
+MyTelegramBot.prependListener('callback_query', (query: TelegramBot.CallbackQuery) => {});
+MyTelegramBot.prependListener('inline_query', (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.prependListener('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => {});
+MyTelegramBot.prependListener('channel_post', (message: TelegramBot.Message) => {});
+MyTelegramBot.prependListener('shipping_query', (query: TelegramBot.ShippingQuery) => {});
+MyTelegramBot.prependListener('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => {});
+MyTelegramBot.prependListener('polling_error', (error: Error) => {});
+MyTelegramBot.prependOnceListener('message', (message: TelegramBot.Message, { type }) => {});
+MyTelegramBot.prependOnceListener('callback_query', (query: TelegramBot.CallbackQuery) => {});
+MyTelegramBot.prependOnceListener('inline_query', (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.prependOnceListener('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => {});
+MyTelegramBot.prependOnceListener('channel_post', (message: TelegramBot.Message) => {});
+MyTelegramBot.prependOnceListener('shipping_query', (query: TelegramBot.ShippingQuery) => {});
+MyTelegramBot.prependOnceListener('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => {});
+MyTelegramBot.prependOnceListener('polling_error', (error: Error) => {});
+MyTelegramBot.removeListener('message', (message: TelegramBot.Message, { type }) => {});
+MyTelegramBot.removeListener('callback_query', (query: TelegramBot.CallbackQuery) => {});
+MyTelegramBot.removeListener('inline_query', (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.removeListener('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => {});
+MyTelegramBot.removeListener('channel_post', (message: TelegramBot.Message) => {});
+MyTelegramBot.removeListener('shipping_query', (query: TelegramBot.ShippingQuery) => {});
+MyTelegramBot.removeListener('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => {});
+MyTelegramBot.removeListener('polling_error', (error: Error) => {});
+MyTelegramBot.off('message', (message: TelegramBot.Message, { type }) => {});
+MyTelegramBot.off('callback_query', (query: TelegramBot.CallbackQuery) => {});
+MyTelegramBot.off('inline_query', (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.off('chosen_inline_result', (result: TelegramBot.ChosenInlineResult) => {});
+MyTelegramBot.off('channel_post', (message: TelegramBot.Message) => {});
+MyTelegramBot.off('shipping_query', (query: TelegramBot.ShippingQuery) => {});
+MyTelegramBot.off('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => {});
+MyTelegramBot.off('polling_error', (error: Error) => {});
 MyTelegramBot.removeAllListeners('message');
 MyTelegramBot.listeners('message');
 MyTelegramBot.rawListeners('message');

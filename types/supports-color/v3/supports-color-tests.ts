@@ -1,4 +1,4 @@
-import supportsColor = require("supports-color");
+import supportsColor = require('supports-color');
 
 if (supportsColor) {
     // Terminal supports color

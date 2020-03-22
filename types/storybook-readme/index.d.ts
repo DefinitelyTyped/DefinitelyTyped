@@ -36,24 +36,19 @@ export function configureReadme(config: ConfigureReadmeConfig): void;
 // !~~~~~ Belows are for backwardCompatibility with v4 ~~~~~!
 // WithReadme Types
 export function withReadme(readme: Readme): DecoratorPattern;
-export function withReadme(
-  readme: Readme,
-  story: RenderFunction
-): RenderFunction;
+export function withReadme(readme: Readme, story: RenderFunction): RenderFunction;
 
 // WithDocs Types
 export interface CustomComponents {
-  PreviewComponent?: (props: { children: JSX.Element }) => JSX.Element;
-  FooterComponent?: (props: { children: JSX.Element }) => JSX.Element;
+    PreviewComponent?: (props: { children: JSX.Element }) => JSX.Element;
+    FooterComponent?: (props: { children: JSX.Element }) => JSX.Element;
 }
 
-export function withDocs(
-  custom: CustomComponents
-): (readme: Readme) => HOCPattern;
+export function withDocs(custom: CustomComponents): (readme: Readme) => HOCPattern;
 export function withDocs(readme: Readme, story: RenderFunction): RenderFunction;
 export function withDocs(readme: Readme): DecoratorPattern;
 export namespace withDocs {
-  function addFooterDocs(footerDoc: string): void;
+    function addFooterDocs(footerDoc: string): void;
 }
 
 // Doc Types

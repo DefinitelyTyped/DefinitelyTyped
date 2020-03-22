@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-hresponsevalue
-import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from "@hapi/hapi";
+import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from '@hapi/hapi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -15,17 +15,15 @@ const serverRoutes: ServerRoute[] = [
             response.type('text/plain');
             response.header('X-Custom', 'some-value');
             return response;
-        }
+        },
     },
     // Chained notation
     {
         path: '/test2',
         method: 'GET',
         handler(request, h) {
-            return h.response('success')
-            .type('text/plain')
-            .header('X-Custom', 'some-value');
-        }
+            return h.response('success').type('text/plain').header('X-Custom', 'some-value');
+        },
     },
 ];
 

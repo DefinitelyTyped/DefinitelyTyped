@@ -5,15 +5,7 @@
 
 /// <reference types="node" />
 
-type Platform = 'aix'
-    | 'android'
-    | 'darwin'
-    | 'freebsd'
-    | 'linux'
-    | 'openbsd'
-    | 'sunos'
-    | 'win32'
-    | 'cygwin';
+type Platform = 'aix' | 'android' | 'darwin' | 'freebsd' | 'linux' | 'openbsd' | 'sunos' | 'win32' | 'cygwin';
 
 /**
  * returns platform.

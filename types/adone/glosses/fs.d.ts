@@ -6,9 +6,9 @@ declare namespace adone {
         namespace I {
             type URL = nodestd.url.URL;
             type Stats = nodestd.fs.Stats;
-            type Flag = "r" | "r+" | "rs+" | "w" | "wx" | "w+" | "wx+" | "a" | "ax" | "a+" | "ax+";
-            type Encoding = "ascii" | "utf8" | "utf16le" | "usc2" | "base64" | "latin1" | "binary" | "hex";
-            type SymlinkType = "dir" | "file" | "junction";
+            type Flag = 'r' | 'r+' | 'rs+' | 'w' | 'wx' | 'w+' | 'wx+' | 'a' | 'ax' | 'a+' | 'ax+';
+            type Encoding = 'ascii' | 'utf8' | 'utf16le' | 'usc2' | 'base64' | 'latin1' | 'binary' | 'hex';
+            type SymlinkType = 'dir' | 'file' | 'junction';
             type ReadStream = nodestd.fs.ReadStream;
             type WriteStream = nodestd.fs.WriteStream;
             type FD = number;
@@ -43,12 +43,20 @@ declare namespace adone {
         /**
          * Changes the file system timestamps of the object referenced by path
          */
-        function utimes(path: string | Buffer | I.URL, atime: number | string | Date, mtime: number | string | Date): Promise<void>;
+        function utimes(
+            path: string | Buffer | I.URL,
+            atime: number | string | Date,
+            mtime: number | string | Date,
+        ): Promise<void>;
 
         /**
          * Changes the file system timestamps of the object referenced by path
          */
-        function utimesSync(path: string | Buffer | I.URL, atime: number | string | Date, mtime: number | string | Date): void;
+        function utimesSync(
+            path: string | Buffer | I.URL,
+            atime: number | string | Date,
+            mtime: number | string | Date,
+        ): void;
 
         /**
          * Changes the file system timestamps of the object referenced by path
@@ -170,7 +178,10 @@ declare namespace adone {
         /**
          * Traverses the given path
          */
-        function readdirp(root: string | Buffer | I.URL, options?: I.ReaddirpOptions): stream.core.Stream<never, I.ReaddirpEntry>;
+        function readdirp(
+            root: string | Buffer | I.URL,
+            options?: I.ReaddirpOptions,
+        ): stream.core.Stream<never, I.ReaddirpEntry>;
 
         /**
          * Gets file status, identical to stat, except that if pathname is a symbolic link,
@@ -202,38 +213,54 @@ declare namespace adone {
         /**
          * Writes data to a file, replacing the file if it already exists
          */
-        function writeFile(file: string | Buffer | number, data: string | Buffer | Uint8Array, options?: {
-            encoding?: I.Encoding,
-            mode?: number,
-            flag?: I.Flag
-        }): Promise<void>;
+        function writeFile(
+            file: string | Buffer | number,
+            data: string | Buffer | Uint8Array,
+            options?: {
+                encoding?: I.Encoding;
+                mode?: number;
+                flag?: I.Flag;
+            },
+        ): Promise<void>;
 
         /**
          * Writes data to a file, replacing the file if it already exists
          */
-        function writeFileSync(file: string | Buffer | number, data: string | Buffer | Uint8Array, options?: {
-            encoding?: I.Encoding,
-            mode?: number,
-            flag?: I.Flag
-        }): void;
+        function writeFileSync(
+            file: string | Buffer | number,
+            data: string | Buffer | Uint8Array,
+            options?: {
+                encoding?: I.Encoding;
+                mode?: number;
+                flag?: I.Flag;
+            },
+        ): void;
 
         /**
          * Appends data to a file, creating the file if it does not yet exist
          */
-        function appendFile(file: string | Buffer | number, data: string | Buffer, options?: {
-            encoding?: I.Encoding,
-            mode?: number,
-            flag?: I.Flag
-        }): Promise<void>;
+        function appendFile(
+            file: string | Buffer | number,
+            data: string | Buffer,
+            options?: {
+                encoding?: I.Encoding;
+                mode?: number;
+                flag?: I.Flag;
+            },
+        ): Promise<void>;
 
         /**
          * Appends data to a file, creating the file if it does not yet exist
          */
-        function appendFileSync(file: string | Buffer | number, data: string | Buffer, options?: {
-            encoding?: I.Encoding,
-            mode?: number,
-            flag?: I.Flag
-        }): void;
+        function appendFileSync(
+            file: string | Buffer | number,
+            data: string | Buffer,
+            options?: {
+                encoding?: I.Encoding;
+                mode?: number;
+                flag?: I.Flag;
+            },
+        ): void;
 
         /**
          * Tests a user's permissions for the file or directory specified by path
@@ -248,37 +275,47 @@ declare namespace adone {
         /**
          * Makes a new name for a file
          */
-        function symlink(target: string | Buffer | I.URL, path: string | Buffer | I.URL, type?: I.SymlinkType): Promise<void>;
+        function symlink(
+            target: string | Buffer | I.URL,
+            path: string | Buffer | I.URL,
+            type?: I.SymlinkType,
+        ): Promise<void>;
 
         /**
          * Recursively deletes the given path, that can be a glob pattern
          */
-        function rm(path: string, options?: {
-            /**
-             * Whether to consider the given path as a glob pattern
-             */
-            glob?: boolean,
-            /**
-             * Maximum busy tries, errors when cannot remove a file due to EBUSY, ENOTEMPTY, EPERM
-             */
-            maxBusyTries?: number,
-            /**
-             * The delay to wait between busy tries
-             */
-            emfileWait?: number
-            /**
-             * cwd to use
-             */
-            cwd?: string
-        }): Promise<void>;
+        function rm(
+            path: string,
+            options?: {
+                /**
+                 * Whether to consider the given path as a glob pattern
+                 */
+                glob?: boolean;
+                /**
+                 * Maximum busy tries, errors when cannot remove a file due to EBUSY, ENOTEMPTY, EPERM
+                 */
+                maxBusyTries?: number;
+                /**
+                 * The delay to wait between busy tries
+                 */
+                emfileWait?: number;
+                /**
+                 * cwd to use
+                 */
+                cwd?: string;
+            },
+        ): Promise<void>;
 
         /**
          * Recursively deletes empty directiries inside the given directory
          */
-        function rmEmpty(path: string, options?: {
-            cwd?: string;
-            filter?: (filename: string) => boolean
-        }): Promise<void>;
+        function rmEmpty(
+            path: string,
+            options?: {
+                cwd?: string;
+                filter?: (filename: string) => boolean;
+            },
+        ): Promise<void>;
 
         namespace I {
             interface Access {
@@ -311,7 +348,7 @@ declare namespace adone {
             /**
              * Sets the file encoding
              */
-            encoding(name: I.Encoding | "buffer"): this;
+            encoding(name: I.Encoding | 'buffer'): this;
 
             /**
              * Returns the file stats
@@ -386,12 +423,18 @@ declare namespace adone {
             /**
              * Writes the given data to the file
              */
-            write(buffer: string | Buffer, options?: { encoding?: I.Encoding, mode?: number, flag?: I.Flag }): Promise<void>;
+            write(
+                buffer: string | Buffer,
+                options?: { encoding?: I.Encoding; mode?: number; flag?: I.Flag },
+            ): Promise<void>;
 
             /**
              * Appends the given data to the file
              */
-            append(buffer: string | Buffer, options?: { encoding?: I.Encoding, mode?: number, flag?: I.Flag }): Promise<void>;
+            append(
+                buffer: string | Buffer,
+                options?: { encoding?: I.Encoding; mode?: number; flag?: I.Flag },
+            ): Promise<void>;
 
             /**
              * Removes the file
@@ -401,7 +444,7 @@ declare namespace adone {
             /**
              * Returns the contents as a buffer
              */
-            contents(encoding: "buffer"): Promise<Buffer>;
+            contents(encoding: 'buffer'): Promise<Buffer>;
 
             /**
              * Returns the contents as a string
@@ -411,7 +454,7 @@ declare namespace adone {
             /**
              * Returns the contents as a buffer synchronously
              */
-            contentsSync(encoding: "buffer"): Buffer;
+            contentsSync(encoding: 'buffer'): Buffer;
 
             /**
              * Returns the contents as a string synchronously
@@ -421,7 +464,7 @@ declare namespace adone {
             /**
              * Returns a read stream for this file
              */
-            contentsStream(encoding?: "buffer" | I.Encoding): I.ReadStream;
+            contentsStream(encoding?: 'buffer' | I.Encoding): I.ReadStream;
 
             /**
              * Changes the file premissions
@@ -534,8 +577,21 @@ declare namespace adone {
             addFile(filename: string, options?: I.Directory.AddFileOptions): Promise<File>;
             addFile(a: string, filename: string, options?: I.Directory.AddFileOptions): Promise<File>;
             addFile(a: string, b: string, filename: string, options?: I.Directory.AddFileOptions): Promise<File>;
-            addFile(a: string, b: string, c: string, filename: string, options?: I.Directory.AddFileOptions): Promise<File>;
-            addFile(a: string, b: string, c: string, d: string, filename: string, options?: I.Directory.AddFileOptions): Promise<File>;
+            addFile(
+                a: string,
+                b: string,
+                c: string,
+                filename: string,
+                options?: I.Directory.AddFileOptions,
+            ): Promise<File>;
+            addFile(
+                a: string,
+                b: string,
+                c: string,
+                d: string,
+                filename: string,
+                options?: I.Directory.AddFileOptions,
+            ): Promise<File>;
             addFile(a: string, ...filename: Array<Array<string | I.Directory.AddFileOptions>>): Promise<File>;
 
             /**
@@ -561,17 +617,23 @@ declare namespace adone {
             /**
              * Deletes the directory
              */
-            unlink(options?: { retries?: number, delay?: number }): Promise<void>;
+            unlink(options?: { retries?: number; delay?: number }): Promise<void>;
 
             /**
              * Searches all nested files and directories
              */
-            find(options?: { files?: boolean, dirs?: boolean }): Promise<Array<File | Directory | SymbolicLinkFile | SymbolicLinkDirectory>>;
+            find(options?: {
+                files?: boolean;
+                dirs?: boolean;
+            }): Promise<Array<File | Directory | SymbolicLinkFile | SymbolicLinkDirectory>>;
 
             /**
              * Searches all nested files and directories synchronously
              */
-            findSync(options?: { files?: boolean, dirs?: boolean }): Array<File | Directory | SymbolicLinkFile | SymbolicLinkDirectory>;
+            findSync(options?: {
+                files?: boolean;
+                dirs?: boolean;
+            }): Array<File | Directory | SymbolicLinkFile | SymbolicLinkDirectory>;
 
             /**
              * Renames the directory
@@ -616,7 +678,7 @@ declare namespace adone {
             /**
              * Returns the contents of the original file as a buffer
              */
-            contents(encoding: "buffer"): Promise<Buffer>;
+            contents(encoding: 'buffer'): Promise<Buffer>;
 
             /**
              * Returns the contents of the original file as a string
@@ -626,7 +688,7 @@ declare namespace adone {
             /**
              * Returns the contents of the original file as a buffer synchronously
              */
-            contentsSync(encoding: "buffer"): Buffer;
+            contentsSync(encoding: 'buffer'): Buffer;
 
             /**
              * Returns the contents of the original file as a string synchronously
@@ -636,7 +698,7 @@ declare namespace adone {
             /**
              * Returns a read stream for the original file
              */
-            contentsStream(encoding?: "buffer" | I.Encoding): I.ReadStream;
+            contentsStream(encoding?: 'buffer' | I.Encoding): I.ReadStream;
         }
 
         /**
@@ -707,7 +769,7 @@ declare namespace adone {
             /**
              * Writes atime and mtime properties of the file
              */
-            end(options?: { atime?: number, mtime?: number }): Promise<void>;
+            end(options?: { atime?: number; mtime?: number }): Promise<void>;
 
             /**
              * Truncates the file to the given length
@@ -746,12 +808,12 @@ declare namespace adone {
                 /**
                  * Start offset, inslusive
                  */
-                start?: number,
+                start?: number;
 
                 /**
                  * End offset, exclusive
                  */
-                end?: number
+                end?: number;
             }): nodestd.stream.Readable;
 
             /**
@@ -930,33 +992,36 @@ declare namespace adone {
             }
 
             interface StreamConstructor {
-                new(patterns: string | string[], options: StreamOptions & { stat: true, patternIndex: true }): Stream<{
-                    path: string,
-                    stat: Stats,
-                    patternIndex: number
+                new (patterns: string | string[], options: StreamOptions & { stat: true; patternIndex: true }): Stream<{
+                    path: string;
+                    stat: Stats;
+                    patternIndex: number;
                 }>;
-                new(patterns: string | string[], options: StreamOptions & { stat: true }): Stream<{
-                    path: string,
-                    stat: Stats
+                new (patterns: string | string[], options: StreamOptions & { stat: true }): Stream<{
+                    path: string;
+                    stat: Stats;
                 }>;
-                new(patterns: string | string[], options: StreamOptions & { patternIndex: true }): Stream<{
-                    path: string,
-                    patternIndex: number
+                new (patterns: string | string[], options: StreamOptions & { patternIndex: true }): Stream<{
+                    path: string;
+                    patternIndex: number;
                 }>;
-                new(patterns: string | string[], options?: StreamOptions): Stream<string>;
+                new (patterns: string | string[], options?: StreamOptions): Stream<string>;
 
-                prototype: Stream<string | {
-                    path: string,
-                    stat?: Stats,
-                    patternIndex?: number
-                }>;
+                prototype: Stream<
+                    | string
+                    | {
+                          path: string;
+                          stat?: Stats;
+                          patternIndex?: number;
+                      }
+                >;
             }
 
             type Stream<T> = stream.core.Stream<never, T>;
 
             interface EmitterConstructor {
-                new(pattern: string, optons: Options, callback?: (error: any, matches: string[]) => void): Emitter;
-                new(pattern: string, callback?: (error: any, matches: string[]) => void): Emitter;
+                new (pattern: string, optons: Options, callback?: (error: any, matches: string[]) => void): Emitter;
+                new (pattern: string, callback?: (error: any, matches: string[]) => void): Emitter;
 
                 prototype: Emitter;
             }
@@ -979,48 +1044,48 @@ declare namespace adone {
                  */
                 resume(): void;
 
-                on(event: "match", callback: (match: string, stat?: Stats) => void): this;
-                on(event: "end", callback: (matches: string[]) => void): this;
+                on(event: 'match', callback: (match: string, stat?: Stats) => void): this;
+                on(event: 'end', callback: (matches: string[]) => void): this;
             }
 
             interface GlobFunction {
-                (patterns: string | string[], options: StreamOptions & { stat: true, patternIndex: true }): Stream<{
+                (patterns: string | string[], options: StreamOptions & { stat: true; patternIndex: true }): Stream<{
                     /**
                      * File path
                      */
-                    path: string,
+                    path: string;
 
                     /**
                      * File stats
                      */
-                    stat: Stats,
+                    stat: Stats;
 
                     /**
                      * Pattern index
                      */
-                    patternIndex: number
+                    patternIndex: number;
                 }>;
                 (patterns: string | string[], options: StreamOptions & { stat: true }): Stream<{
                     /**
                      * File path
                      */
-                    path: string,
+                    path: string;
 
                     /**
                      * File stats
                      */
-                    stat: Stats
+                    stat: Stats;
                 }>;
                 (patterns: string | string[], options: StreamOptions & { patternIndex: true }): Stream<{
                     /**
                      * File path
                      */
-                    path: string,
+                    path: string;
 
                     /**
                      * Pattern index
                      */
-                    patternIndex: number
+                    patternIndex: number;
                 }>;
                 (patterns: string | string[], options?: StreamOptions): Stream<string>;
 
@@ -1091,16 +1156,18 @@ declare namespace adone {
                 /**
                  * If truthy, defines settings to control how long a file must not change after add/change events and only then emit the event
                  */
-                awaitWriteFinish?: boolean | {
-                    /**
-                     * Amount of time in milliseconds for a file size to remain constant before emitting its event
-                     */
-                    stabilityThreshold?: number,
-                    /**
-                     * File size polling interval
-                     */
-                    pollInterval?: number
-                };
+                awaitWriteFinish?:
+                    | boolean
+                    | {
+                          /**
+                           * Amount of time in milliseconds for a file size to remain constant before emitting its event
+                           */
+                          stabilityThreshold?: number;
+                          /**
+                           * File size polling interval
+                           */
+                          pollInterval?: number;
+                      };
                 /**
                  * Defines files/paths to be ignored
                  */
@@ -1119,7 +1186,7 @@ declare namespace adone {
                 cwd?: string;
             }
 
-            type Event = "add" | "addDir" | "change" | "unlink" | "unlinkDir" | "ready" | "raw" | "error";
+            type Event = 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir' | 'ready' | 'raw' | 'error';
         }
 
         /**
@@ -1148,8 +1215,8 @@ declare namespace adone {
              */
             getWatched(): { [path: string]: string[] };
 
-            on(event: "all", callback: (event: I.Watcher.Event, path: string, stat?: I.Stats) => void): this;
-            on(event: "raw", callback: (event: string, path: string, details: object) => void): this;
+            on(event: 'all', callback: (event: I.Watcher.Event, path: string, stat?: I.Stats) => void): this;
+            on(event: 'raw', callback: (event: string, path: string, details: object) => void): this;
             on(event: I.Watcher.Event, callback: (path: string, stat?: I.Stats) => void): this;
         }
 
@@ -1321,7 +1388,7 @@ declare namespace adone {
             /**
              * An argument specifying where to begin reading from in the file
              */
-            position: number
+            position: number,
         ): Promise<number>;
 
         function readSync(
@@ -1341,7 +1408,7 @@ declare namespace adone {
             /**
              * An argument specifying where to begin reading from in the file
              */
-            position: number
+            position: number,
         ): number;
 
         /**
@@ -1361,7 +1428,7 @@ declare namespace adone {
             /**
              * The offset from the beginning of the file where this data should be written
              */
-            position?: number
+            position?: number,
         ): Promise<number>;
 
         /**
@@ -1377,7 +1444,7 @@ declare namespace adone {
             /**
              * The expected string encoding
              */
-            encoding?: I.Encoding
+            encoding?: I.Encoding,
         ): Promise<number>;
 
         /**
@@ -1397,7 +1464,7 @@ declare namespace adone {
             /**
              * The offset from the beginning of the file where this data should be written
              */
-            position?: number
+            position?: number,
         ): number;
 
         /**
@@ -1413,7 +1480,7 @@ declare namespace adone {
             /**
              * The expected string encoding
              */
-            encoding?: I.Encoding
+            encoding?: I.Encoding,
         ): number;
 
         /**
@@ -1454,7 +1521,7 @@ declare namespace adone {
         /**
          * Applies or removes an advisory lock on an open file
          */
-        function flock(fd: I.FD, flags: "sh" | "ex" | "shnb" | "exnb" | "un" | number): Promise<void>;
+        function flock(fd: I.FD, flags: 'sh' | 'ex' | 'shnb' | 'exnb' | 'un' | number): Promise<void>;
 
         namespace constants {
             const F_OK: number;
@@ -1507,17 +1574,17 @@ declare namespace adone {
         /**
          * Returns the canonicalized absolute pathname
          */
-        function realpath(path: string | Buffer | I.URL, encoding: "buffer"): Promise<Buffer>;
+        function realpath(path: string | Buffer | I.URL, encoding: 'buffer'): Promise<Buffer>;
         function realpath(path: string | Buffer | I.URL, encoding: I.Encoding): Promise<string>;
-        function realpath(path: string | Buffer | I.URL, options: { encoding: "buffer" }): Promise<Buffer>;
+        function realpath(path: string | Buffer | I.URL, options: { encoding: 'buffer' }): Promise<Buffer>;
         function realpath(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): Promise<string>;
 
         /**
          * Returns the canonicalized absolute pathname
          */
-        function realpathSync(path: string | Buffer | I.URL, encoding: "buffer"): Buffer;
+        function realpathSync(path: string | Buffer | I.URL, encoding: 'buffer'): Buffer;
         function realpathSync(path: string | Buffer | I.URL, encoding: I.Encoding): string;
-        function realpathSync(path: string | Buffer | I.URL, options: { encoding: "buffer" }): Buffer;
+        function realpathSync(path: string | Buffer | I.URL, options: { encoding: 'buffer' }): Buffer;
         function realpathSync(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): string;
 
         namespace I {
@@ -1531,11 +1598,26 @@ declare namespace adone {
         /**
          * Reads a file
          */
-        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true, encoding: null }): Promise<Buffer | null>;
-        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true, encoding: I.Encoding }): Promise<string | null>;
-        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true }): Promise<Buffer | null>;
-        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { encoding: null }): Promise<Buffer>;
-        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { encoding: I.Encoding }): Promise<string>;
+        function readFile(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { check: true; encoding: null },
+        ): Promise<Buffer | null>;
+        function readFile(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { check: true; encoding: I.Encoding },
+        ): Promise<string | null>;
+        function readFile(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { check: true },
+        ): Promise<Buffer | null>;
+        function readFile(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { encoding: null },
+        ): Promise<Buffer>;
+        function readFile(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { encoding: I.Encoding },
+        ): Promise<string>;
         function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions): Promise<Buffer>;
         function readFile(filepath: string | Buffer | I.URL, encoding: null): Promise<Buffer>;
         function readFile(filepath: string | Buffer | I.URL, encoding: I.Encoding): Promise<string>;
@@ -1544,11 +1626,26 @@ declare namespace adone {
         /**
          * Reads a file
          */
-        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true, encoding: null }): Buffer | null;
-        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true, encoding: I.Encoding }): string | null;
-        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true }): Buffer | null;
-        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { encoding: null }): Buffer;
-        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { encoding: I.Encoding }): string;
+        function readFileSync(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { check: true; encoding: null },
+        ): Buffer | null;
+        function readFileSync(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { check: true; encoding: I.Encoding },
+        ): string | null;
+        function readFileSync(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { check: true },
+        ): Buffer | null;
+        function readFileSync(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { encoding: null },
+        ): Buffer;
+        function readFileSync(
+            filepath: string | Buffer | I.URL,
+            options: I.ReadFileOptions & { encoding: I.Encoding },
+        ): string;
         function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions): Buffer;
         function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions): Buffer;
         function readFileSync(filepath: string | Buffer | I.URL, encoding: null): Buffer;
@@ -1558,29 +1655,53 @@ declare namespace adone {
         /**
          * Reads lines from a file
          */
-        function readLines(filepath: string | Buffer | I.URL, options: { check: true, flags?: I.Flag, encoding?: null | I.Encoding }): Promise<string[] | null>;
-        function readLines(filepath: string | Buffer | I.URL, options: { check?: false, flags?: I.Flag, encoding?: null | I.Encoding }): Promise<string[]>;
+        function readLines(
+            filepath: string | Buffer | I.URL,
+            options: { check: true; flags?: I.Flag; encoding?: null | I.Encoding },
+        ): Promise<string[] | null>;
+        function readLines(
+            filepath: string | Buffer | I.URL,
+            options: { check?: false; flags?: I.Flag; encoding?: null | I.Encoding },
+        ): Promise<string[]>;
         function readLines(filepath: string | Buffer | I.URL, encoding?: null | I.Encoding): Promise<string[]>;
 
         /**
          * Reads lines from a file
          */
-        function readLinesSync(filepath: string | Buffer | I.URL, options: { check: true, flags?: I.Flag, encoding?: null | I.Encoding }): string[] | null;
-        function readLinesSync(filepath: string | Buffer | I.URL, options: { check?: false, flags?: I.Flag, encoding?: null | I.Encoding }): string[];
+        function readLinesSync(
+            filepath: string | Buffer | I.URL,
+            options: { check: true; flags?: I.Flag; encoding?: null | I.Encoding },
+        ): string[] | null;
+        function readLinesSync(
+            filepath: string | Buffer | I.URL,
+            options: { check?: false; flags?: I.Flag; encoding?: null | I.Encoding },
+        ): string[];
         function readLinesSync(filepath: string | Buffer | I.URL, encoding?: null | I.Encoding): string[];
 
         /**
          * Reads words from a file
          */
-        function readWords(filepath: string | Buffer | I.URL, options: { check: true, flags?: I.Flag, encoding?: null | I.Encoding }): Promise<string[] | null>;
-        function readWords(filepath: string | Buffer | I.URL, options: { check?: false, flags?: I.Flag, encoding?: null | I.Encoding }): Promise<string[]>;
+        function readWords(
+            filepath: string | Buffer | I.URL,
+            options: { check: true; flags?: I.Flag; encoding?: null | I.Encoding },
+        ): Promise<string[] | null>;
+        function readWords(
+            filepath: string | Buffer | I.URL,
+            options: { check?: false; flags?: I.Flag; encoding?: null | I.Encoding },
+        ): Promise<string[]>;
         function readWords(filepath: string | Buffer | I.URL, encoding?: null | I.Encoding): Promise<string[]>;
 
         /**
          * Reads words from a file
          */
-        function readWordsSync(filepath: string | Buffer | I.URL, options: { check: true, flags?: I.Flag, encoding?: null | I.Encoding }): string[] | null;
-        function readWordsSync(filepath: string | Buffer | I.URL, options: { check?: false, flags?: I.Flag, encoding?: null | I.Encoding }): string[];
+        function readWordsSync(
+            filepath: string | Buffer | I.URL,
+            options: { check: true; flags?: I.Flag; encoding?: null | I.Encoding },
+        ): string[] | null;
+        function readWordsSync(
+            filepath: string | Buffer | I.URL,
+            options: { check?: false; flags?: I.Flag; encoding?: null | I.Encoding },
+        ): string[];
         function readWordsSync(filepath: string | Buffer | I.URL, encoding?: null | I.Encoding): string[];
 
         /**
@@ -1627,12 +1748,12 @@ declare namespace adone {
                     readStream: NodeJS.ReadableStream,
                     writeStream: NodeJS.WritableStream,
                     file: {
-                        name: string,
-                        mode: number,
-                        mtime: Date,
-                        atime: Date,
-                        stats: adone.fs.I.Stats
-                    }
+                        name: string;
+                        mode: number;
+                        mtime: Date;
+                        atime: Date;
+                        stats: adone.fs.I.Stats;
+                    },
                 ): void;
 
                 /**
@@ -1676,16 +1797,20 @@ declare namespace adone {
         /**
          * Renames a file
          */
-        function rename(oldPath: string, newPath: string, options?: {
-            /**
-             * Will retry if fails with EPERM or EACCESS errors
-             */
-            retries?: number,
-            /**
-             * Will retry after this delay
-             */
-            delay?: number
-        }): Promise<void>;
+        function rename(
+            oldPath: string,
+            newPath: string,
+            options?: {
+                /**
+                 * Will retry if fails with EPERM or EACCESS errors
+                 */
+                retries?: number;
+                /**
+                 * Will retry after this delay
+                 */
+                delay?: number;
+            },
+        ): Promise<void>;
 
         /**
          * Returns the last lines of a file
@@ -1693,28 +1818,32 @@ declare namespace adone {
          * @param path path to a file
          * @param n number of lines to return
          */
-        function tail(path: string, n: number, options?: {
-            /**
-             * Line separator
-             *
-             * By default "\r\n" for windows and "\n" for others
-             */
-            separator?: string,
+        function tail(
+            path: string,
+            n: number,
+            options?: {
+                /**
+                 * Line separator
+                 *
+                 * By default "\r\n" for windows and "\n" for others
+                 */
+                separator?: string;
 
-            /**
-             * The number of bytes to read at once
-             *
-             * By default 4096
-             */
-            chunkLength?: number
+                /**
+                 * The number of bytes to read at once
+                 *
+                 * By default 4096
+                 */
+                chunkLength?: number;
 
-            /**
-             * Position from which to start reading (from the end)
-             *
-             * By default stats.size of the file
-             */
-            pos?: number
-        }): Promise<Buffer[]>;
+                /**
+                 * Position from which to start reading (from the end)
+                 *
+                 * By default stats.size of the file
+                 */
+                pos?: number;
+            },
+        ): Promise<Buffer[]>;
 
         namespace I {
             interface StatVFS {
@@ -1911,7 +2040,7 @@ declare namespace adone {
              */
             unwatch(): void;
 
-            on(event: "line", callback: (line: string) => void): this;
+            on(event: 'line', callback: (line: string) => void): this;
         }
 
         /**
@@ -1931,6 +2060,10 @@ declare namespace adone {
             }
         }
 
-        function writeFileAtomic(filename: string, data: Buffer | string | Uint8Array, options?: I.WriteFileAtomicOptions): Promise<void>;
+        function writeFileAtomic(
+            filename: string,
+            data: Buffer | string | Uint8Array,
+            options?: I.WriteFileAtomicOptions,
+        ): Promise<void>;
     }
 }

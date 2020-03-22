@@ -64,7 +64,7 @@ class Example extends React.Component<{}, State> {
                 <div className="row">
                     {(['native', 'apple', 'google', 'twitter', 'emojione', 'messenger', 'facebook'] as Array<
                         EmojiProps['set'] | 'native'
-                    >).map(set => {
+                    >).map((set) => {
                         const props = { disabled: !this.state.native && set === this.state.set };
 
                         if (set === 'native' && this.state.native) {
@@ -133,7 +133,7 @@ const AutoCompleteExample: React.FC = () => {
     }
     return (
         <div>
-            {suggestions.map(emoji => {
+            {suggestions.map((emoji) => {
                 return 'native' in emoji && <span>{emoji.native}</span>;
             })}
             {match && <div>{match[0]}</div>}

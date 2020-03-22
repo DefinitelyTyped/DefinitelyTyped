@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 import ModalDropdown = RNModalDropdown.ModalDropdown;
 export = ModalDropdown;
@@ -36,7 +36,7 @@ declare namespace RNModalDropdown {
         onDropdownWillHide?: () => any;
         onSelect?: (index: number, option: any) => void;
         accessible?: boolean;
-        keyboardShouldPersistTaps?: "always" | "never" | "handled";
+        keyboardShouldPersistTaps?: 'always' | 'never' | 'handled';
     }
 
     class ModalDropdown extends React.Component<ModalDropdownProps> {

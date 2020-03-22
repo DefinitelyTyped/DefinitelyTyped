@@ -53,8 +53,8 @@ let domainDates: Date[] = [new Date(2016, 0, 15), new Date(2016, 5, 15)];
 let ticksNumbers: number[];
 let ticksDates: Date[];
 
-let tickFormatNumberFn: ((d: number | { valueOf(): number }) => string);
-let tickFormatDateFn: ((d: Date) => string);
+let tickFormatNumberFn: (d: number | { valueOf(): number }) => string;
+let tickFormatDateFn: (d: Date) => string;
 
 let rangeNumbers: number[] = [2, 200];
 let rangeStrings: string[] = ['2px', '200px'];
@@ -127,13 +127,13 @@ linearScaleString = linearScaleString.interpolate(interpolateCubehelix.gamma(3))
 
 linearScaleNumString = linearScaleNumString.interpolate((a, b) => {
     // take two numbers
-    return (t: number) => (a * (1 - t) + b * t) + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
+    return (t: number) => a * (1 - t) + b * t + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
 });
 
 // Changes scale output type (inferred generic)
 linearScaleNumString = linearScaleNumber.interpolate((a, b) => {
     // take two numbers
-    return (t: number) => (a * (1 - t) + b * t) + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
+    return (t: number) => a * (1 - t) + b * t + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
 });
 
 // nice(...) -----------------------------------------------------------------------
@@ -243,7 +243,7 @@ powerScaleString = powerScaleString.interpolate(interpolateCubehelix.gamma(3));
 
 powerScaleNumString = powerScaleNumString.interpolate((a, b) => {
     // take two numbers
-    return (t: number) => (a * (1 - t) + b * t) + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
+    return (t: number) => a * (1 - t) + b * t + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
 });
 
 // nice(...) -----------------------------------------------------------------------
@@ -345,7 +345,7 @@ logScaleString = logScaleString.interpolate(interpolateCubehelix.gamma(3));
 
 logScaleNumString = logScaleNumString.interpolate((a, b) => {
     // take two numbers
-    return (t: number) => (a * (1 - t) + b * t) + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
+    return (t: number) => a * (1 - t) + b * t + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
 });
 
 // nice(...) -----------------------------------------------------------------------
@@ -498,7 +498,7 @@ localTimeScaleString = localTimeScaleString.interpolate(interpolateCubehelix.gam
 
 localTimeScaleNumString = localTimeScaleNumString.interpolate((a, b) => {
     // take two numbers
-    return (t: number) => (a * (1 - t) + b * t) + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
+    return (t: number) => a * (1 - t) + b * t + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
 });
 
 // nice(...) -----------------------------------------------------------------------
@@ -585,7 +585,7 @@ const copiedSequentialScale: d3Scale.ScaleSequential<string> = sequentialScaleCo
 // Color Interpolators for Sequential Scale Factory
 // -------------------------------------------------------------------------------
 
-let colorInterpolator: ((t: number) => string);
+let colorInterpolator: (t: number) => string;
 
 colorInterpolator = d3Scale.interpolateViridis;
 
@@ -832,7 +832,11 @@ bandScaleCoercible = d3Scale.scaleBand<StringCoercible>();
 bandScaleString = bandScaleString.domain(['negative', 'neutral', 'positive']);
 domainStrings = bandScaleString.domain();
 
-bandScaleCoercible = bandScaleCoercible.domain([new StringCoercible('negative'), new StringCoercible('neutral'), new StringCoercible('positive')]);
+bandScaleCoercible = bandScaleCoercible.domain([
+    new StringCoercible('negative'),
+    new StringCoercible('neutral'),
+    new StringCoercible('positive'),
+]);
 
 // range(...) -----------------------------------------------------------------
 
@@ -908,7 +912,11 @@ pointScaleCoercible = d3Scale.scalePoint<StringCoercible>();
 pointScaleString = pointScaleString.domain(['negative', 'neutral', 'positive']);
 domainStrings = pointScaleString.domain();
 
-pointScaleCoercible = pointScaleCoercible.domain([new StringCoercible('negative'), new StringCoercible('neutral'), new StringCoercible('positive')]);
+pointScaleCoercible = pointScaleCoercible.domain([
+    new StringCoercible('negative'),
+    new StringCoercible('neutral'),
+    new StringCoercible('positive'),
+]);
 
 // range(...) -----------------------------------------------------------------
 

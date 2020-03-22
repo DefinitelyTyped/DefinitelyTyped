@@ -59,6 +59,6 @@ const d3 = new cbor.Decoder({
             foo.one = val[0];
             foo.two = val[1];
             return foo;
-        }
-    }
+        },
+    },
 });

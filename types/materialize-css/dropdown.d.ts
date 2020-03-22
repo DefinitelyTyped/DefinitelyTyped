@@ -140,6 +140,6 @@ declare namespace M {
 }
 
 interface JQuery {
-    dropdown(method: keyof Pick<M.Dropdown, "recalculateDimensions" | "open" | "close" | "destroy">): JQuery;
+    dropdown(method: keyof Pick<M.Dropdown, 'recalculateDimensions' | 'open' | 'close' | 'destroy'>): JQuery;
     dropdown(options?: Partial<M.DropdownOptions>): JQuery;
 }

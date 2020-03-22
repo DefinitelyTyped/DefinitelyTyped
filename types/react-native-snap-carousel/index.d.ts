@@ -19,7 +19,7 @@ import {
     ScrollViewProps,
     ViewStyle,
     ImageProps,
-    FlatListProps
+    FlatListProps,
 } from 'react-native';
 
 export interface AdditionalParallaxProps {
@@ -184,7 +184,10 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
      * they will now play the custom animation you provide as soon as they become active.
      * This means you cannot use props layout, scrollInterpolator or slideInterpolatedStyle in conjunction with activeAnimationOptions
      */
-    activeAnimationOptions?: Animated.DecayAnimationConfig | Animated.TimingAnimationConfig | Animated.SpringAnimationConfig;
+    activeAnimationOptions?:
+        | Animated.DecayAnimationConfig
+        | Animated.TimingAnimationConfig
+        | Animated.SpringAnimationConfig;
     /**
      * Custom animation type: either 'decay, 'spring' or 'timing'.
      * Note that it will only be applied to the scale animation since opacity's animation type will always be set
@@ -231,11 +234,18 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
     /**
      * Used to define custom interpolations
      */
-    scrollInterpolator?(index: number, carouselProps: CarouselProps<any>): { inputRange: number[], outputRange: number[] };
+    scrollInterpolator?(
+        index: number,
+        carouselProps: CarouselProps<any>,
+    ): { inputRange: number[]; outputRange: number[] };
     /**
      * Used to define custom interpolations
      */
-    slideInterpolatedStyle?(index: number, animatedValue: Animated.AnimatedValue, carouselProps: CarouselProps<any>): StyleProp<ViewStyle>;
+    slideInterpolatedStyle?(
+        index: number,
+        animatedValue: Animated.AnimatedValue,
+        carouselProps: CarouselProps<any>,
+    ): StyleProp<ViewStyle>;
     /**
      * Optional style for each item's container (the one whose scale and opacity are animated)
      */
@@ -334,7 +344,7 @@ export type ParallaxImageStatic = React.ComponentClass<ParallaxImageProps>;
 
 export type ParallaxImageProperties = ParallaxImageProps & React.Props<ParallaxImageStatic>;
 
-export class ParallaxImage extends React.Component<ParallaxImageProperties> { }
+export class ParallaxImage extends React.Component<ParallaxImageProperties> {}
 
 export interface PaginationProps {
     /**
@@ -437,9 +447,9 @@ export type PaginationStatic = React.ComponentClass<PaginationProps>;
 
 export type PaginationProperties = PaginationProps & React.Props<PaginationStatic>;
 
-export class Pagination extends React.Component<PaginationProperties> { }
+export class Pagination extends React.Component<PaginationProperties> {}
 
-export default class Carousel<T> extends React.Component<CarouselProperties<T>> { }
+export default class Carousel<T> extends React.Component<CarouselProperties<T>> {}
 
 /**
  * Get scroll interpolator's input range from an array of slide indexes

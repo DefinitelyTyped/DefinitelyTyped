@@ -13,12 +13,7 @@ interface RangeHighlight {
     end?: number;
 }
 
-type SliderEventType =  'slide' |
-                        'slideStart' |
-                        'slideStop' |
-                        'change' |
-                        'slideEnabled' |
-                        'slideDisabled';
+type SliderEventType = 'slide' | 'slideStart' | 'slideStop' | 'change' | 'slideEnabled' | 'slideDisabled';
 
 interface SliderOptions {
     /**

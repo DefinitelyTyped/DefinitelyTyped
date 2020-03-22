@@ -16,7 +16,7 @@ declare class reactNotifyToast {
         text: string,
         type?: 'success' | 'error' | 'warning' | 'custom',
         timeout?: number,
-        color?: reactNotifyToastColor
+        color?: reactNotifyToastColor,
     ): void;
 
     hide(): void;

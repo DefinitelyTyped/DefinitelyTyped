@@ -14,9 +14,20 @@ import { EventEmitter } from 'events';
 import { AgentOptions } from 'https';
 
 // Exports only from typings
-export type Region = 'us-east-1'|'us-west-1'|'us-west-2'|'eu-west-1'|'eu-central-1'|'ap-southeast-1'|'ap-northeast-1'|'ap-southeast-2'|'sa-east-1'|'cn-north-1'|string;
-export type NoResultCallback = (error: Error|null) => void;
-export type ResultCallback<T> = (error: Error|null, result: T) => void;
+export type Region =
+    | 'us-east-1'
+    | 'us-west-1'
+    | 'us-west-2'
+    | 'eu-west-1'
+    | 'eu-central-1'
+    | 'ap-southeast-1'
+    | 'ap-northeast-1'
+    | 'ap-southeast-2'
+    | 'sa-east-1'
+    | 'cn-north-1'
+    | string;
+export type NoResultCallback = (error: Error | null) => void;
+export type ResultCallback<T> = (error: Error | null, result: T) => void;
 
 export interface ClientOptions {
     endPoint: string;
@@ -105,32 +116,93 @@ export class Client {
 
     listObjects(bucketName: string, prefix?: string, recursive?: boolean): BucketStream<BucketItem>;
 
-    listObjectsV2(bucketName: string, prefix?: string, recursive?: boolean, startAfter?: string): BucketStream<BucketItem>;
+    listObjectsV2(
+        bucketName: string,
+        prefix?: string,
+        recursive?: boolean,
+        startAfter?: string,
+    ): BucketStream<BucketItem>;
 
-    listIncompleteUploads(bucketName: string, prefix?: string, recursive?: boolean): BucketStream<IncompleteUploadedBucketItem>;
+    listIncompleteUploads(
+        bucketName: string,
+        prefix?: string,
+        recursive?: boolean,
+    ): BucketStream<IncompleteUploadedBucketItem>;
 
     // Object operations
     getObject(bucketName: string, objectName: string, callback: ResultCallback<Stream>): void;
     getObject(bucketName: string, objectName: string): Promise<Stream>;
 
     getPartialObject(bucketName: string, objectName: string, offset: number, callback: ResultCallback<Stream>): void;
-    getPartialObject(bucketName: string, objectName: string, offset: number, length: number, callback: ResultCallback<Stream>): void;
+    getPartialObject(
+        bucketName: string,
+        objectName: string,
+        offset: number,
+        length: number,
+        callback: ResultCallback<Stream>,
+    ): void;
     getPartialObject(bucketName: string, objectName: string, offset: number, length?: number): Promise<Stream>;
 
     fGetObject(bucketName: string, objectName: string, filePath: string, callback: NoResultCallback): void;
     fGetObject(bucketName: string, objectName: string, filePath: string): Promise<void>;
 
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<string>;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, metaData?: ItemBucketMetadata): Promise<string>;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: Stream | Buffer | string,
+        callback: ResultCallback<string>,
+    ): void;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: Stream | Buffer | string,
+        size: number,
+        callback: ResultCallback<string>,
+    ): void;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: Stream | Buffer | string,
+        size: number,
+        metaData: ItemBucketMetadata,
+        callback: ResultCallback<string>,
+    ): void;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: Stream | Buffer | string,
+        size?: number,
+        metaData?: ItemBucketMetadata,
+    ): Promise<string>;
+    putObject(
+        bucketName: string,
+        objectName: string,
+        stream: Stream | Buffer | string,
+        metaData?: ItemBucketMetadata,
+    ): Promise<string>;
 
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
+    fPutObject(
+        bucketName: string,
+        objectName: string,
+        filePath: string,
+        metaData: ItemBucketMetadata,
+        callback: ResultCallback<string>,
+    ): void;
     fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<string>;
 
-    copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions, callback: ResultCallback<BucketItemCopy>): void;
-    copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions): Promise<BucketItemCopy>;
+    copyObject(
+        bucketName: string,
+        objectName: string,
+        sourceObject: string,
+        conditions: CopyConditions,
+        callback: ResultCallback<BucketItemCopy>,
+    ): void;
+    copyObject(
+        bucketName: string,
+        objectName: string,
+        sourceObject: string,
+        conditions: CopyConditions,
+    ): Promise<BucketItemCopy>;
 
     statObject(bucketName: string, objectName: string, callback: ResultCallback<BucketItemStat>): void;
     statObject(bucketName: string, objectName: string): Promise<BucketItemStat>;
@@ -146,16 +218,63 @@ export class Client {
 
     // Presigned operations
     presignedUrl(httpMethod: string, bucketName: string, objectName: string, callback: ResultCallback<string>): void;
-    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
-    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, reqParams: { [key: string]: any; }, callback: ResultCallback<string>): void;
-    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry: number, reqParams: { [key: string]: any; }, requestDate: Date, callback: ResultCallback<string>): void;
-    presignedUrl(httpMethod: string, bucketName: string, objectName: string, expiry?: number, reqParams?: { [key: string]: any; }, requestDate?: Date): Promise<string>;
+    presignedUrl(
+        httpMethod: string,
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        callback: ResultCallback<string>,
+    ): void;
+    presignedUrl(
+        httpMethod: string,
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        reqParams: { [key: string]: any },
+        callback: ResultCallback<string>,
+    ): void;
+    presignedUrl(
+        httpMethod: string,
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        reqParams: { [key: string]: any },
+        requestDate: Date,
+        callback: ResultCallback<string>,
+    ): void;
+    presignedUrl(
+        httpMethod: string,
+        bucketName: string,
+        objectName: string,
+        expiry?: number,
+        reqParams?: { [key: string]: any },
+        requestDate?: Date,
+    ): Promise<string>;
 
     presignedGetObject(bucketName: string, objectName: string, callback: ResultCallback<string>): void;
     presignedGetObject(bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
-    presignedGetObject(bucketName: string, objectName: string, expiry: number, respHeaders: { [key: string]: any; }, callback: ResultCallback<string>): void;
-    presignedGetObject(bucketName: string, objectName: string, expiry: number, respHeaders: { [key: string]: any; }, requestDate: Date, callback: ResultCallback<string>): void;
-    presignedGetObject(bucketName: string, objectName: string, expiry?: number, respHeaders?: { [key: string]: any; }, requestDate?: Date): Promise<string>;
+    presignedGetObject(
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        respHeaders: { [key: string]: any },
+        callback: ResultCallback<string>,
+    ): void;
+    presignedGetObject(
+        bucketName: string,
+        objectName: string,
+        expiry: number,
+        respHeaders: { [key: string]: any },
+        requestDate: Date,
+        callback: ResultCallback<string>,
+    ): void;
+    presignedGetObject(
+        bucketName: string,
+        objectName: string,
+        expiry?: number,
+        respHeaders?: { [key: string]: any },
+        requestDate?: Date,
+    ): Promise<string>;
 
     presignedPutObject(bucketName: string, objectName: string, callback: ResultCallback<string>): void;
     presignedPutObject(bucketName: string, objectName: string, expiry: number, callback: ResultCallback<string>): void;
@@ -168,7 +287,11 @@ export class Client {
     getBucketNotification(bucketName: string, callback: ResultCallback<NotificationConfig>): void;
     getBucketNotification(bucketName: string): Promise<NotificationConfig>;
 
-    setBucketNotification(bucketName: string, bucketNotificationConfig: NotificationConfig, callback: NoResultCallback): void;
+    setBucketNotification(
+        bucketName: string,
+        bucketNotificationConfig: NotificationConfig,
+        callback: NoResultCallback,
+    ): void;
     setBucketNotification(bucketName: string, bucketNotificationConfig: NotificationConfig): Promise<void>;
 
     removeAllBucketNotification(bucketName: string, callback: NoResultCallback): void;
@@ -219,7 +342,7 @@ export class NotificationPoller extends EventEmitter {
 }
 
 export class NotificationConfig {
-    add(target: TopicConfig|QueueConfig|CloudFunctionConfig): void;
+    add(target: TopicConfig | QueueConfig | CloudFunctionConfig): void;
 }
 
 export class TopicConfig extends TargetConfig {
@@ -234,7 +357,13 @@ export class CloudFunctionConfig extends TargetConfig {
     constructor(arn: string);
 }
 
-export function buildARN(partition: string, service: string, region: string, accountId: string, resource: string): string;
+export function buildARN(
+    partition: string,
+    service: string,
+    region: string,
+    accountId: string,
+    resource: string,
+): string;
 
 export const ObjectCreatedAll: string; // s3:ObjectCreated:*'
 export const ObjectCreatedPut: string; // s3:ObjectCreated:Put

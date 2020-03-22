@@ -1,5 +1,5 @@
-import { Component, ReactNode, CSSProperties } from "react";
-import { Range } from "immutable";
+import { Component, ReactNode, CSSProperties } from 'react';
+import { Range } from 'immutable';
 
 export interface LazyLogProps {
     url: string;

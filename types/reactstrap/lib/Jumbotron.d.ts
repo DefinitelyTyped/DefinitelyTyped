@@ -9,5 +9,5 @@ export interface JumbotronProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class Jumbotron<T = {[key: string]: any}> extends React.Component<JumbotronProps> {}
+declare class Jumbotron<T = { [key: string]: any }> extends React.Component<JumbotronProps> {}
 export default Jumbotron;

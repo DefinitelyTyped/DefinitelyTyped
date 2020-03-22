@@ -61,7 +61,7 @@ declare module '../../index' {
             detailX?: number,
             detailY?: number,
             bottomCap?: boolean,
-            topCap?: boolean
+            topCap?: boolean,
         ): p5;
 
         /**

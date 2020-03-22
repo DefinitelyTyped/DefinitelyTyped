@@ -1,2 +1,2 @@
-import { wrap } from "./index";
+import { wrap } from './index';
 export = wrap;

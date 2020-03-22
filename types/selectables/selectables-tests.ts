@@ -1,8 +1,8 @@
-import Selectables = require("selectables");
+import Selectables = require('selectables');
 
 const dr = new Selectables({
     zone: '#div',
-    elements: 'li'
+    elements: 'li',
 });
 
 // later

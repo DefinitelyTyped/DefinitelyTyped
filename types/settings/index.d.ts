@@ -20,11 +20,12 @@ declare namespace Settings {
         defaults?: any;
     }
 
-    type PathOrModule = string |
-        {
-            forceEnv?: string,
-            common: any, // error is thrown if 'common' object is not provided
-            [envName: string]: any
-        };
+    type PathOrModule =
+        | string
+        | {
+              forceEnv?: string;
+              common: any; // error is thrown if 'common' object is not provided
+              [envName: string]: any;
+          };
 }
 export = Settings;

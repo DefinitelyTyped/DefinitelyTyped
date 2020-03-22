@@ -5,42 +5,45 @@ if (!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {
 }
 
 // instance method check
-var el = document.getElementById("container");
+var el = document.getElementById('container');
 
-Hammer(el).on("doubletap", function () {
+Hammer(el).on('doubletap', function () {
     alert('you doubletapped me!');
 });
 
 var hammertime = Hammer(el, {
     drag: false,
-    transform: false
-}).off("tap", function (event:HammerEvent) {
+    transform: false,
+}).off('tap', function (event: HammerEvent) {
     alert('hello!');
 });
 
 hammertime.enable(false);
 
-hammertime.on("touch drag transform", function (ev: HammerEvent) {
+hammertime.on('touch drag transform', function (ev: HammerEvent) {
     if (!ev.gesture) {
         return;
     }
 
     if (ev.gesture.deltaX >= 20) {
-        hammertime.trigger("swipe", ev.gesture);
+        hammertime.trigger('swipe', ev.gesture);
     }
 });
 
 // jQuery check
-$("#element")
-   .hammer({
-       // Options
-   })
-   .on("tap", function (ev) {
-       console.log(ev);
-   });
+$('#element')
+    .hammer({
+        // Options
+    })
+    .on('tap', function (ev) {
+        console.log(ev);
+    });
 
-$("#container").hammer({
-    preventDefault: false,
-    dragBlockVertical: false
-}).on("hold tap doubletap transformstart transform transformend dragstart drag dragend release swipe", function (ev) {
-});
+$('#container')
+    .hammer({
+        preventDefault: false,
+        dragBlockVertical: false,
+    })
+    .on('hold tap doubletap transformstart transform transformend dragstart drag dragend release swipe', function (
+        ev,
+    ) {});

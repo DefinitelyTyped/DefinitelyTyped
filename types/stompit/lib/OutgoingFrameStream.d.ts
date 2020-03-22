@@ -1,4 +1,4 @@
-import { Duplex, Writable, WritableOptions } from "stream";
+import { Duplex, Writable, WritableOptions } from 'stream';
 
 declare class OutgoingFrameStream {
     constructor(destination: Duplex);

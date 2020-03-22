@@ -25,7 +25,7 @@ declare namespace CCapture {
          * Super-sampling of frames to create a motion-blurred frame (0 or 1 make no effect)
          */
         motionBlurFrames?: number;
-        format: "webm" | "gif" | "png" | "jpg" | "ffmpegserver";
+        format: 'webm' | 'gif' | 'png' | 'jpg' | 'ffmpegserver';
         /**
          * Quality for webm/jpg
          */

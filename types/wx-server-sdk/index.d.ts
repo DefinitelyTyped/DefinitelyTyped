@@ -4,17 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 /// <reference types="node" />
-import * as fs from "fs";
+import * as fs from 'fs';
 
 declare function init(options?: InitOptions): void;
 declare function updateConfig(options: InitOptions): void;
 interface InitOptions {
-    env: string
+    env:
+        | string
         | {
-                database: string;
-                storage: string;
-                functions: string;
-            };
+              database: string;
+              storage: string;
+              functions: string;
+          };
 }
 
 declare function getWXContext(): {
@@ -22,7 +23,7 @@ declare function getWXContext(): {
     APPID: string;
     UNIONID: string;
     ENV: string;
-    SOURCE: "wx_devtools" | "wx_client" | "wx_http" | "wx_unknown" | "其他";
+    SOURCE: 'wx_devtools' | 'wx_client' | 'wx_http' | 'wx_unknown' | '其他';
 };
 
 // 存储 API
@@ -35,17 +36,13 @@ interface UploadFileSuccess {
     statusCode: number;
 }
 
-declare function downloadFile(options: {
-    fileID: string;
-}): Promise<DownloadFileSuccess>;
+declare function downloadFile(options: { fileID: string }): Promise<DownloadFileSuccess>;
 interface DownloadFileSuccess {
     fileContent: Buffer;
     statusCode: number;
 }
 
-declare function getTempFileURL(options: {
-    fileList: string[];
-}): Promise<TetTempFileURLSuccess>;
+declare function getTempFileURL(options: { fileList: string[] }): Promise<TetTempFileURLSuccess>;
 interface TetTempFileURLSuccess {
     fileList: Array<{
         fileID: string;
@@ -55,9 +52,7 @@ interface TetTempFileURLSuccess {
     }>;
 }
 
-declare function deleteFile(options: {
-    fileList: string[];
-}): Promise<DeleteFileSuccess>;
+declare function deleteFile(options: { fileList: string[] }): Promise<DeleteFileSuccess>;
 interface DeleteFileSuccess {
     fileList: Array<{
         fileID: string;
@@ -67,10 +62,7 @@ interface DeleteFileSuccess {
 }
 
 // 云函数
-declare function callFunction(options: {
-    name: string;
-    data: object;
-}): Promise<CallFunctionSuccess>;
+declare function callFunction(options: { name: string; data: object }): Promise<CallFunctionSuccess>;
 interface CallFunctionSuccess {
     errMsg: string;
     result: string;
@@ -78,9 +70,7 @@ interface CallFunctionSuccess {
 }
 
 // 云函数
-declare function getVoIPSign(
-    options: GetVoIPSignOptions
-): Promise<GetVoIPSignSuccess>;
+declare function getVoIPSign(options: GetVoIPSignOptions): Promise<GetVoIPSignSuccess>;
 interface GetVoIPSignOptions {
     groupId: string;
     nonce: string;
@@ -107,14 +97,14 @@ type DBRegExp = RegExp;
 type ServerDate = Date;
 interface RegExpOptions {
     regexp: string; // 正则表达式，字符串形式
-    options: "i" | "m" | "s"; // flags，包括 i, m, s 但前端不做强限制
+    options: 'i' | 'm' | 's'; // flags，包括 i, m, s 但前端不做强限制
 }
 interface Query {
     get(): Promise<GetCollectionResult>;
     update(options: CommonOption): Promise<UpateCollectionResult>;
     remove(): Promise<RemoveCollectionResult>;
     count(): Promise<CountCollectionResult>;
-    orderBy(fieldName: string, order: "asc" | "desc"): Collection | Query;
+    orderBy(fieldName: string, order: 'asc' | 'desc'): Collection | Query;
     limit(max: number): Collection | Query;
     skip(offset: number): Collection | Query;
     field(definition: object): Collection | Query | Document;
@@ -154,7 +144,7 @@ interface Document {
     get(): Promise<{ data: any }>;
     update(options: CommonOption): Promise<{ stats: { updated: 0 | 1 } }>;
     set(
-        options: CommonOption
+        options: CommonOption,
     ): Promise<{
         _id: string | number;
         stats: { updated: 0 | 1; created: 0 | 1 };
@@ -203,13 +193,7 @@ interface GeoWithinOptions {
     geometry: Polygon | MultiPolygon;
 }
 interface GeoIntersectsOptions {
-    geometry:
-        | Point
-        | LineString
-        | MultiPoint
-        | MultiLineString
-        | Polygon
-        | MultiPolygon; // 地理位置
+    geometry: Point | LineString | MultiPoint | MultiLineString | Polygon | MultiPolygon; // 地理位置
 }
 
 interface Geo {
@@ -222,7 +206,7 @@ interface Point {
 }
 type PointCoordinates = [number, number];
 interface Point {
-    type: "Point";
+    type: 'Point';
     coordinates: PointCoordinates;
 }
 interface LineString {
@@ -230,35 +214,35 @@ interface LineString {
 }
 
 interface LineString {
-    type: "LineString";
+    type: 'LineString';
     coordinates: PointCoordinates[];
 }
 interface Polygon {
     (lineStrings: LineString[]): Polygon;
 }
 interface Polygon {
-    type: "Polygon";
+    type: 'Polygon';
     coordinates: PointCoordinates[][];
 }
 interface MultiPoint {
     (points: Point[]): MultiPoint;
 }
 interface MultiPoint {
-    type: "MultiPoint";
+    type: 'MultiPoint';
     coordinates: PointCoordinates[];
 }
 interface MultiLineString {
     (polygons: LineString[]): MultiLineString;
 }
 interface MultiLineString {
-    type: "MultiLineString";
+    type: 'MultiLineString';
     coordinates: PointCoordinates[][];
 }
 interface MultiPolygon {
     (polygons: Polygon[]): MultiPolygon;
 }
 interface MultiPolygon {
-    type: "MultiPolygon";
+    type: 'MultiPolygon';
     coordinates: PointCoordinates[][][];
 }
 
@@ -273,18 +257,8 @@ interface CreateCollectionSuccess {
 
 interface Aggregate {
     addFields(fieldObj: { [fieldName: string]: any }): Aggregate;
-    bucket(bucketObj: {
-        groupBy: any;
-        boundaries: any[];
-        default?: any;
-        output?: object;
-    }): Aggregate;
-    bucketAuto(bucketObj: {
-        groupBy: any;
-        buckets: number;
-        granularity?: any;
-        output?: object;
-    }): Aggregate;
+    bucket(bucketObj: { groupBy: any; boundaries: any[]; default?: any; output?: object }): Aggregate;
+    bucketAuto(bucketObj: { groupBy: any; buckets: number; granularity?: any; output?: object }): Aggregate;
     count(expr: string): any;
     geoNear(geoNearObj: {
         near: Point;
@@ -307,11 +281,7 @@ interface Aggregate {
     skip(skipNum: number): any;
     sort(replaceRootObj: { [fieldName: string]: 1 | -1 }): Aggregate;
     sortByCount(fieldName: string): Aggregate;
-    unwind(unwindObj: {
-        path: string;
-        includeArrayIndex?: string;
-        preserveNullAndEmptyArrays?: boolean;
-    }): Aggregate;
+    unwind(unwindObj: { path: string; includeArrayIndex?: string; preserveNullAndEmptyArrays?: boolean }): Aggregate;
     end(): void;
 }
 // type

@@ -56,9 +56,11 @@ declare namespace multer {
     interface MulterIncomingMessage extends IncomingMessage {
         body: any;
         file: File;
-        files: {
-            [fieldname: string]: File[];
-        } | File[];
+        files:
+            | {
+                  [fieldname: string]: File[];
+              }
+            | File[];
     }
 
     interface Field {
@@ -96,7 +98,11 @@ declare namespace multer {
             preservePath?: boolean;
         };
         /** A function to control which files to upload and which to skip. */
-        fileFilter?(req: IncomingMessage, file: File, callback: (error: Error | null, acceptFile: boolean) => void): void;
+        fileFilter?(
+            req: IncomingMessage,
+            file: File,
+            callback: (error: Error | null, acceptFile: boolean) => void,
+        ): void;
     }
 
     interface StorageEngine {
@@ -106,7 +112,13 @@ declare namespace multer {
 
     interface DiskStorageOptions {
         /** A function used to determine within which folder the uploaded files should be stored. Defaults to the system's default temporary directory. */
-        destination?: string | ((req: IncomingMessage, file: File, callback: (error: Error | null, destination: string) => void) => void);
+        destination?:
+            | string
+            | ((
+                  req: IncomingMessage,
+                  file: File,
+                  callback: (error: Error | null, destination: string) => void,
+              ) => void);
         /** A function used to determine what the file should be named inside the folder. Defaults to a random name with no file extension. */
         filename?(req: IncomingMessage, file: File, callback: (error: Error | null, filename: string) => void): void;
     }

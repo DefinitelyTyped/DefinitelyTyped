@@ -261,7 +261,11 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
  * The first generic refers to the type of element to be dragged.
  * The second generic refers to the type of the datum of the dragged element.
  */
-export function drag<GElement extends DraggedElementBaseType, Datum>(): DragBehavior<GElement, Datum, Datum | SubjectPosition>;
+export function drag<GElement extends DraggedElementBaseType, Datum>(): DragBehavior<
+    GElement,
+    Datum,
+    Datum | SubjectPosition
+>;
 /**
  * Creates a new drag behavior. The returned behavior, drag, is both an object and a function, and is
  * typically applied to selected elements via selection.call.
@@ -289,7 +293,7 @@ export interface D3DragEvent<GElement extends DraggedElementBaseType, Datum, Sub
     /**
      * The event type for the DragEvent
      */
-    type: 'start' | 'drag' | 'end' | string;  // Leave failsafe string type for cases like 'drag.foo'
+    type: 'start' | 'drag' | 'end' | string; // Leave failsafe string type for cases like 'drag.foo'
     /**
      * The drag subject, defined by drag.subject.
      */

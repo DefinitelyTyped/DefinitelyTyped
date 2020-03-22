@@ -3,8 +3,8 @@
 // =====================================================
 // See: https://select2.org/configuration/defaults
 
-$.fn.select2.defaults.set("theme", "classic");
-$.fn.select2.defaults.set("ajax--cache", false);
+$.fn.select2.defaults.set('theme', 'classic');
+$.fn.select2.defaults.set('ajax--cache', false);
 $.fn.select2.defaults.reset();
 
 // =====================================================
@@ -12,12 +12,12 @@ $.fn.select2.defaults.reset();
 // =====================================================
 // See: https://select2.org/appearance
 
-$(".js-example-responsive").select2({
-    width: "resolve"
+$('.js-example-responsive').select2({
+    width: 'resolve',
 });
 
-$(".js-example-theme-single").select2({
-    theme: "classic"
+$('.js-example-theme-single').select2({
+    theme: 'classic',
 });
 
 // =====================================================
@@ -29,31 +29,31 @@ let dataFormat: Select2.DataFormat[];
 let groupedDataFormat: Select2.GroupedDataFormat[];
 
 dataFormat = [
-    {id: 1, text: "Option 1"},
-    {id: 2, text: "Option 2"},
+    { id: 1, text: 'Option 1' },
+    { id: 2, text: 'Option 2' },
 ];
 
 dataFormat = [
-    {id: 1, text: "Option 1"},
-    {id: 2, text: "Option 2", selected: true},
-    {id: 3, text: "Option 3", disabled: true},
+    { id: 1, text: 'Option 1' },
+    { id: 2, text: 'Option 2', selected: true },
+    { id: 3, text: 'Option 3', disabled: true },
 ];
 
 groupedDataFormat = [
     {
-        text: "Group 1",
-        children : [
-            {id: 1, text: "Option 1.1"},
-            {id: 2, text: "Option 1.2"},
-        ]
+        text: 'Group 1',
+        children: [
+            { id: 1, text: 'Option 1.1' },
+            { id: 2, text: 'Option 1.2' },
+        ],
     },
     {
-        text: "Group 2",
-        children : [
-            {id: 3, text: "Option 2.1"},
-            {id: 4, text: "Option 2.2"},
-        ]
-    }
+        text: 'Group 2',
+        children: [
+            { id: 3, text: 'Option 2.1' },
+            { id: 4, text: 'Option 2.2' },
+        ],
+    },
 ];
 
 // =====================================================
@@ -63,16 +63,16 @@ groupedDataFormat = [
 
 // Request parameters
 
-$("#mySelect2").select2({
+$('#mySelect2').select2({
     ajax: {
-        url: "https://api.github.com/orgs/select2/repos",
+        url: 'https://api.github.com/orgs/select2/repos',
         data: (params) => {
             return {
                 search: params.term,
-                type: "public"
+                type: 'public',
             };
-        }
-    }
+        },
+    },
 });
 
 // Transforming response data
@@ -81,29 +81,29 @@ interface ServerResult {
     items: Select2.DataFormat[];
 }
 
-$("#mySelect2").select2({
+$('#mySelect2').select2({
     ajax: {
-        url: "/example/api",
+        url: '/example/api',
         processResults: (data: ServerResult) => {
             return {
-                results: data.items
+                results: data.items,
             };
-        }
-    }
+        },
+    },
 });
 
 // Pagination
 
-$("#mySelect2").select2({
+$('#mySelect2').select2({
     ajax: {
-        url: "https://api.github.com/search/repositories",
+        url: 'https://api.github.com/search/repositories',
         data: (params) => {
             return {
                 search: params.term,
-                page: params.page || 1
+                page: params.page || 1,
             };
-        }
-    }
+        },
+    },
 });
 
 interface ServerPaginatedResult {
@@ -111,52 +111,50 @@ interface ServerPaginatedResult {
     count_filtered: number;
 }
 
-$("#mySelect2").select2({
+$('#mySelect2').select2({
     ajax: {
-        url: "/example/api",
+        url: '/example/api',
         processResults: (data: ServerPaginatedResult, params) => {
             params.page = params.page || 1;
             return {
                 results: data.results,
                 pagination: {
-                    more: (params.page * 10) < data.count_filtered
-                }
+                    more: params.page * 10 < data.count_filtered,
+                },
             };
-        }
-    }
+        },
+    },
 });
 
 // Rate-limiting requests
 
-$("#mySelect2").select2({
+$('#mySelect2').select2({
     ajax: {
-        delay: 250
-    }
+        delay: 250,
+    },
 });
 
 // Dynamic URLs
 
-$("#mySelect2").select2({
+$('#mySelect2').select2({
     ajax: {
         url: (params) => {
-            return "/some/url/" + params.term;
-        }
-    }
+            return '/some/url/' + params.term;
+        },
+    },
 });
 
 // Alternative transport methods
 
 declare let AjaxSettings2RequestInit: (s: JQueryAjaxSettings) => RequestInit;
 
-$("#mySelect2").select2({
+$('#mySelect2').select2({
     ajax: {
         transport: (params: JQueryAjaxSettings, success?: (data: any) => undefined, failure?: () => undefined) => {
             const p = AjaxSettings2RequestInit(params);
-            fetch(params.url!, p)
-                .then(success)
-                .catch(failure);
-        }
-    }
+            fetch(params.url!, p).then(success).catch(failure);
+        },
+    },
 });
 
 // Additional examples
@@ -172,8 +170,8 @@ interface GithubRepositories {
     name: string;
     full_name: string;
     owner: {
-        avatar_url: string
-        gravatar_id: string
+        avatar_url: string;
+        gravatar_id: string;
     };
     description?: string;
     stargazers_count: number;
@@ -183,15 +181,15 @@ interface GithubRepositories {
     loading: undefined;
 }
 
-$(".js-example-data-ajax").select2<GithubRepositories, GithubApiResult>({
+$('.js-example-data-ajax').select2<GithubRepositories, GithubApiResult>({
     ajax: {
-        url: "https://api.github.com/search/repositories",
-        dataType: "json",
+        url: 'https://api.github.com/search/repositories',
+        dataType: 'json',
         delay: 250,
         data: (params: Select2.QueryOptions) => {
             return {
                 q: params.term,
-                page: params.page
+                page: params.page,
             };
         },
         processResults: (data: GithubApiResult, params: Select2.QueryOptions) => {
@@ -200,17 +198,17 @@ $(".js-example-data-ajax").select2<GithubRepositories, GithubApiResult>({
             return {
                 results: data.items,
                 pagination: {
-                    more: (params.page * data.items.length) < data.total_count
-                }
+                    more: params.page * data.items.length < data.total_count,
+                },
             };
         },
-        cache: true
+        cache: true,
     },
-    placeholder: "Search for a repository",
+    placeholder: 'Search for a repository',
     escapeMarkup: (markup: string) => markup,
     minimumInputLength: 1,
     templateResult: formatRepo,
-    templateSelection: formatRepoSelection
+    templateSelection: formatRepoSelection,
 });
 
 function formatRepo(obj: Select2.LoadingData | GithubRepositories) {
@@ -220,7 +218,8 @@ function formatRepo(obj: Select2.LoadingData | GithubRepositories) {
 
     const repo = obj as GithubRepositories;
 
-    let markup = '<div class="select2-result-repository clearfix">' +
+    let markup =
+        '<div class="select2-result-repository clearfix">' +
         `<div class="select2-result-repository__avatar"><img src="${repo.owner.avatar_url}"></div>` +
         '<div class="select2-result-repository__meta">' +
         `<div class="select2-result-repository__title"> ${repo.full_name} </div>`;
@@ -229,19 +228,19 @@ function formatRepo(obj: Select2.LoadingData | GithubRepositories) {
         markup += `<div class="select2-result-repository__description">${repo.description}</div>`;
     }
 
-    markup += '<div class="select2-result-repository__statistics">' +
+    markup +=
+        '<div class="select2-result-repository__statistics">' +
         `<div class="select2-result-repository__forks"><i class="fa fa-flash"></i> ${repo.forks_count} Forks</div>` +
         `<div class="select2-result-repository__stargazers"><i class="fa fa-star"></i> ${repo.stargazers_count} Stars</div>` +
         `<div class="select2-result-repository__watchers"><i class="fa fa-eye"></i> ${repo.watchers_count} Watchers</div>` +
-        "</div>" +
-        "</div></div>";
+        '</div>' +
+        '</div></div>';
 
     return markup;
 }
 
 function formatRepoSelection(repo: Select2.IdTextPair | Select2.LoadingData | GithubRepositories) {
-    return (repo as GithubRepositories).full_name ||
-        (repo as Select2.IdTextPair | Select2.LoadingData).text;
+    return (repo as GithubRepositories).full_name || (repo as Select2.IdTextPair | Select2.LoadingData).text;
 }
 
 // =====================================================
@@ -249,12 +248,12 @@ function formatRepoSelection(repo: Select2.IdTextPair | Select2.LoadingData | Gi
 // =====================================================
 // See: https://select2.org/data-sources/ajax
 
-$(".js-example-data-array").select2({
-    data: dataFormat
+$('.js-example-data-array').select2({
+    data: dataFormat,
 });
 
-$(".js-example-data-array").select2({
-    data: groupedDataFormat
+$('.js-example-data-array').select2({
+    data: groupedDataFormat,
 });
 
 // =====================================================
@@ -269,33 +268,33 @@ function formatState(state: Select2.LoadingData | Select2.OptionData) {
     if (!opt.id) {
         return (state as Select2.LoadingData).text;
     }
-    const baseUrl = "/user/pages/images/flags";
+    const baseUrl = '/user/pages/images/flags';
     const $state = $(
-        `<span><img src="${baseUrl}/${opt.element.value.toLowerCase()}.png" class="img-flag"> ${opt.text}</span>`
+        `<span><img src="${baseUrl}/${opt.element.value.toLowerCase()}.png" class="img-flag"> ${opt.text}</span>`,
     );
     return $state;
 }
 
-$(".js-example-templating").select2({
-    templateResult: formatState
+$('.js-example-templating').select2({
+    templateResult: formatState,
 });
 
 // Automatic selection
 
-$("#mySelect2").select2({
-    selectOnClose: true
+$('#mySelect2').select2({
+    selectOnClose: true,
 });
 
 // Forcing the dropdown to remain open after selection
 
-$("#mySelect2").select2({
-    closeOnSelect: false
+$('#mySelect2').select2({
+    closeOnSelect: false,
 });
 
 // Dropdown placement
 
-$("#mySelect2").select2({
-    dropdownParent: $("#myModal")
+$('#mySelect2').select2({
+    dropdownParent: $('#myModal'),
 });
 
 // =====================================================
@@ -305,15 +304,15 @@ $("#mySelect2").select2({
 
 // Limiting the number of selections
 
-$(".js-example-basic-multiple-limit").select2({
-    maximumSelectionLength: 2
+$('.js-example-basic-multiple-limit').select2({
+    maximumSelectionLength: 2,
 });
 
 // Clearable selections
 
-$("select").select2({
-    placeholder: "This is my placeholder",
-    allowClear: true
+$('select').select2({
+    placeholder: 'This is my placeholder',
+    allowClear: true,
 });
 
 // =====================================================
@@ -321,25 +320,25 @@ $("select").select2({
 // =====================================================
 // See: https://select2.org/tagging
 
-$(".js-example-tags").select2({
-    tags: true
+$('.js-example-tags').select2({
+    tags: true,
 });
 
 // Automatic tokenization into tags
 
-$(".js-example-tokenizer").select2({
+$('.js-example-tokenizer').select2({
     tags: true,
-    tokenSeparators: [",", " "]
+    tokenSeparators: [',', ' '],
 });
 
 // Customizing tag creation
 
-$("select").select2({
+$('select').select2({
     tags: true,
     createTag: (params) => {
         const term = params.term.trim();
 
-        if (term === "") {
+        if (term === '') {
             return null;
         }
 
@@ -348,30 +347,30 @@ $("select").select2({
             text: term,
             newTag: true, // not for select2 use
         };
-    }
+    },
 });
 
-$("select").select2({
+$('select').select2({
     tags: true,
     createTag: (params) => {
-        if (params.term.indexOf("@") === -1) {
+        if (params.term.indexOf('@') === -1) {
             return null;
         }
 
         return {
             id: params.term,
-            text: params.term
+            text: params.term,
         };
-    }
+    },
 });
 
 // Customizing tag placement in the dropdown
 
-$("select").select2({
+$('select').select2({
     tags: true,
     insertTag: (data, tag) => {
         data.push(tag);
-    }
+    },
 });
 
 // =====================================================
@@ -381,35 +380,35 @@ $("select").select2({
 
 // Single select placeholders
 
-$(".js-example-placeholder-single").select2({
-    placeholder: "Select a state",
-    allowClear: true
+$('.js-example-placeholder-single').select2({
+    placeholder: 'Select a state',
+    allowClear: true,
 });
 
 // Multi-select placeholders
 
-$(".js-example-placeholder-multiple").select2({
-    placeholder: "Select a state"
+$('.js-example-placeholder-multiple').select2({
+    placeholder: 'Select a state',
 });
 
 // Default selection placeholders
 
-$("select").select2({
+$('select').select2({
     placeholder: {
-        id: "-1",
-        text: "Select an option"
-    }
+        id: '-1',
+        text: 'Select an option',
+    },
 });
 
 // Customizing placeholder appearance
 
-$("select").select2({
+$('select').select2({
     templateSelection: (data: Select2.IdTextPair | Select2.LoadingData | Select2.OptionData) => {
-        if (data.id === "") {
-            return "Custom styled placeholder text";
+        if (data.id === '') {
+            return 'Custom styled placeholder text';
         }
         return data.text;
-    }
+    },
 });
 
 // =====================================================
@@ -419,34 +418,34 @@ $("select").select2({
 
 // Customizing how results are matched
 
-$(".js-example-matcher").select2({
+$('.js-example-matcher').select2({
     matcher: (params, data) => {
-        if (params.term.trim() === "") {
+        if (params.term.trim() === '') {
             return data;
         }
 
-        if (typeof data.text === "undefined") {
+        if (typeof data.text === 'undefined') {
             return null;
         }
 
         if (data.text.indexOf(params.term) > -1) {
-            const modifiedData = {...data};
-            modifiedData.text += " (matched)";
+            const modifiedData = { ...data };
+            modifiedData.text += ' (matched)';
             return modifiedData;
         }
 
         return null;
-    }
+    },
 });
 
 // Matching grouped options
 
 function matchStart(params: Select2.SearchOptions, data: Select2.OptGroupData | Select2.OptionData) {
-    if (params.term.trim() === "") {
+    if (params.term.trim() === '') {
         return data;
     }
 
-    if (typeof data.children === "undefined") {
+    if (typeof data.children === 'undefined') {
         return null;
     }
 
@@ -458,7 +457,7 @@ function matchStart(params: Select2.SearchOptions, data: Select2.OptGroupData | 
     });
 
     if (filteredChildren.length) {
-        const modifiedData = {...data};
+        const modifiedData = { ...data };
         modifiedData.children = filteredChildren;
 
         return modifiedData;
@@ -467,38 +466,38 @@ function matchStart(params: Select2.SearchOptions, data: Select2.OptGroupData | 
     return null;
 }
 
-$(".js-example-matcher-start").select2({
-    matcher: matchStart
+$('.js-example-matcher-start').select2({
+    matcher: matchStart,
 });
 
 // Minimum search term length
 
-$("select").select2({
-    minimumInputLength: 3
+$('select').select2({
+    minimumInputLength: 3,
 });
 
 // Maximum search term length
 
-$("select").select2({
-    maximumInputLength: 20
+$('select').select2({
+    maximumInputLength: 20,
 });
 
 // Limiting display of the search box to large result sets
 
-$("select").select2({
-    minimumResultsForSearch: 20
+$('select').select2({
+    minimumResultsForSearch: 20,
 });
 
 // Hiding the search box
 
-$("#js-example-basic-hide-search").select2({
-    minimumResultsForSearch: Infinity
+$('#js-example-basic-hide-search').select2({
+    minimumResultsForSearch: Infinity,
 });
 
-$("#js-example-basic-hide-search-multi").select2();
-$("#js-example-basic-hide-search-multi").on("select2:opening select2:closing", function(event) {
-    const $searchfield = $(this).parent().find(".select2-search__field");
-    $searchfield.prop("disabled", true);
+$('#js-example-basic-hide-search-multi').select2();
+$('#js-example-basic-hide-search-multi').on('select2:opening select2:closing', function (event) {
+    const $searchfield = $(this).parent().find('.select2-search__field');
+    $searchfield.prop('disabled', true);
 });
 
 // =====================================================
@@ -514,19 +513,19 @@ interface StudentAjaxResult {
     full_name: string;
 }
 
-const studentSelect = $("#mySelect2");
+const studentSelect = $('#mySelect2');
 $.ajax({
-    type: "GET",
-    url: "/api/students/s/123"
+    type: 'GET',
+    url: '/api/students/s/123',
 }).then((res: StudentAjaxResult) => {
     const option = new Option(res.full_name, res.id, true, true);
-    studentSelect.append(option).trigger("change");
+    studentSelect.append(option).trigger('change');
 
     studentSelect.trigger({
-        type: "select2:select",
+        type: 'select2:select',
         params: {
-            data: res
-        }
+            data: res,
+        },
     });
 });
 
@@ -537,7 +536,7 @@ $.ajax({
 
 // Using the data method
 
-$("#mySelect2").select2("data");
+$('#mySelect2').select2('data');
 
 // Using a jQuery selector
 
@@ -556,59 +555,59 @@ $("#mySelect2").select2("data");
 
 // Opening the dropdown
 
-$("#mySelect2").select2("open");
+$('#mySelect2').select2('open');
 
 // Closing the dropdown
 
-$("#mySelect2").select2("close");
+$('#mySelect2').select2('close');
 
 // Destroying the Select2 control
 
-$("#mySelect2").select2("destroy");
+$('#mySelect2').select2('destroy');
 
 // Event unbinding
 
-$("#example").select2();
+$('#example').select2();
 
-$("#example").on("select2:select", (e) => {
-    console.log("select event");
+$('#example').on('select2:select', (e) => {
+    console.log('select event');
 });
 
-$("#example").select2("destroy");
+$('#example').select2('destroy');
 
-$("#example").off("select2:select");
+$('#example').off('select2:select');
 
 // Examples
 
-const $example = $(".js-example-programmatic").select2();
-const $exampleMulti = $(".js-example-programmatic-multi").select2();
+const $example = $('.js-example-programmatic').select2();
+const $exampleMulti = $('.js-example-programmatic-multi').select2();
 
-$(".js-programmatic-set-val").on("click", () => {
-    $example.val("CA").trigger("change");
+$('.js-programmatic-set-val').on('click', () => {
+    $example.val('CA').trigger('change');
 });
 
-$(".js-programmatic-open").on("click", () => {
-    $example.select2("open");
+$('.js-programmatic-open').on('click', () => {
+    $example.select2('open');
 });
 
-$(".js-programmatic-close").on("click", () => {
-    $example.select2("close");
+$('.js-programmatic-close').on('click', () => {
+    $example.select2('close');
 });
 
-$(".js-programmatic-init").on("click", () => {
+$('.js-programmatic-init').on('click', () => {
     $example.select2();
 });
 
-$(".js-programmatic-destroy").on("click", () => {
-    $example.select2("destroy");
+$('.js-programmatic-destroy').on('click', () => {
+    $example.select2('destroy');
 });
 
-$(".js-programmatic-multi-set-val").on("click", () => {
-    $exampleMulti.val(["CA", "AL"]).trigger("change");
+$('.js-programmatic-multi-set-val').on('click', () => {
+    $exampleMulti.val(['CA', 'AL']).trigger('change');
 });
 
-$(".js-programmatic-multi-clear").on("click", () => {
-    $exampleMulti.val([]).trigger("change");
+$('.js-programmatic-multi-clear').on('click', () => {
+    $exampleMulti.val([]).trigger('change');
 });
 
 // =====================================================
@@ -618,13 +617,13 @@ $(".js-programmatic-multi-clear").on("click", () => {
 
 // Listening for events
 
-$("#mySelect2").on("select2:select", (e) => {
+$('#mySelect2').on('select2:select', (e) => {
     // Do something
 });
 
 // Event data
 
-$("#mySelect2").on("select2:select", (e) => {
+$('#mySelect2').on('select2:select', (e) => {
     const data = e.params.data;
     console.log(data);
 });
@@ -632,45 +631,55 @@ $("#mySelect2").on("select2:select", (e) => {
 // Triggering events
 
 const triggerData = {
-    id: "1",
-    text: "Tyto alba",
-    genus: "Tyto",
-    species: "alba"
+    id: '1',
+    text: 'Tyto alba',
+    genus: 'Tyto',
+    species: 'alba',
 };
 
-$("#mySelect2").trigger({
-    type: "select2:select",
+$('#mySelect2').trigger({
+    type: 'select2:select',
     params: {
-        data: triggerData
-    }
+        data: triggerData,
+    },
 });
 
 // Examples
 
-const $eventLog = $(".js-event-log");
-const $eventSelect = $(".js-example-events");
+const $eventLog = $('.js-event-log');
+const $eventSelect = $('.js-example-events');
 
 $eventSelect.select2();
 
-$eventSelect.on("select2:open", (e) => { log("select2:open", e); });
-$eventSelect.on("select2:close", (e) => { log("select2:close", e); });
-$eventSelect.on("select2:select", (e) => { log("select2:select", e); });
-$eventSelect.on("select2:unselect", (e) => { log("select2:unselect", e); });
-$eventSelect.on("change", (e) => { log("change"); });
+$eventSelect.on('select2:open', (e) => {
+    log('select2:open', e);
+});
+$eventSelect.on('select2:close', (e) => {
+    log('select2:close', e);
+});
+$eventSelect.on('select2:select', (e) => {
+    log('select2:select', e);
+});
+$eventSelect.on('select2:unselect', (e) => {
+    log('select2:unselect', e);
+});
+$eventSelect.on('change', (e) => {
+    log('change');
+});
 
 function log(name: string, evt?: Select2.Event<HTMLElement, {} | Select2.IngParams | Select2.DataParams>) {
-    let args = "{}";
+    let args = '{}';
     if (evt) {
         args = JSON.stringify(evt.params, (key, value) => {
-            if (value && value.nodeName) return "[DOM node]";
-            if (value instanceof $.Event) return "[$.Event]";
+            if (value && value.nodeName) return '[DOM node]';
+            if (value instanceof $.Event) return '[$.Event]';
             return value;
         });
     }
     const $e = $(`<li>${name} -> ${args}</li>`);
     $eventLog.append($e);
-    $e.animate({ opacity: 1 }, 10000, "linear", () => {
-        $e.animate({ opacity: 0 }, 2000, "linear", () => {
+    $e.animate({ opacity: 1 }, 10000, 'linear', () => {
+        $e.animate({ opacity: 0 }, 2000, 'linear', () => {
             $e.remove();
         });
     });
@@ -683,49 +692,48 @@ function log(name: string, evt?: Select2.Event<HTMLElement, {} | Select2.IngPara
 
 // Language files
 
-$(".js-example-language").select2({
-    language: "es"
+$('.js-example-language').select2({
+    language: 'es',
 });
 
 // Translation objects
 
 const fr: Select2.Translation = {
     errorLoading: () => {
-        return "Les résultats ne peuvent pas être chargés.";
+        return 'Les résultats ne peuvent pas être chargés.';
     },
     inputTooLong: (args) => {
         const overChars = args.input.length - args.maximum;
-        return `Supprimez ${overChars} caractère${overChars > 1 ? "s" : ""}`;
+        return `Supprimez ${overChars} caractère${overChars > 1 ? 's' : ''}`;
     },
     inputTooShort: (args) => {
         const remainingChars = args.minimum - args.input.length;
-        return `Saisissez au moins ${remainingChars} caractère${remainingChars > 1 ? "s" : ""}`;
+        return `Saisissez au moins ${remainingChars} caractère${remainingChars > 1 ? 's' : ''}`;
     },
     loadingMore: () => {
-        return "Chargement de résultats supplémentaires…";
+        return 'Chargement de résultats supplémentaires…';
     },
     maximumSelected: (args) => {
-        return `Vous pouvez seulement sélectionner ${args.maximum}` +
-            ` élément${args.maximum > 1 ? "s" : ""}`;
+        return `Vous pouvez seulement sélectionner ${args.maximum}` + ` élément${args.maximum > 1 ? 's' : ''}`;
     },
     noResults: () => {
-        return "Aucun résultat trouvé";
+        return 'Aucun résultat trouvé';
     },
     searching: () => {
-        return "Recherche en cours…";
-    }
+        return 'Recherche en cours…';
+    },
 };
 
-$(".js-example-language").select2({
+$('.js-example-language').select2({
     language: {
-        inputTooShort: () => "You must enter more characters..."
-    }
+        inputTooShort: () => 'You must enter more characters...',
+    },
 });
 
 // RTL support
 
-$(".js-example-rtl").select2({
-    dir: "rtl"
+$('.js-example-rtl').select2({
+    dir: 'rtl',
 });
 
 // =====================================================
@@ -734,10 +742,10 @@ $(".js-example-rtl").select2({
 // See: https://select2.org/advanced
 
 $.fn.select2.amd.require(
-    ["select2/utils", "select2/selection/single", "select2/selection/placeholder"],
+    ['select2/utils', 'select2/selection/single', 'select2/selection/placeholder'],
     (Utils: any, SingleSelection: any, Placeholder: any) => {
         const CustomSelectionAdapter = Utils.Decorate(SingleSelection, Placeholder);
-    }
+    },
 );
 
 // TODO (Adapters)
@@ -747,27 +755,30 @@ $.fn.select2.amd.require(
 // =====================================================
 // Code not from the official documentation
 
-$().data("select2").$container.on("keyup", "input", console.log);
+$().data('select2').$container.on('keyup', 'input', console.log);
 
-$(".js-multiple").select2({
+$('.js-multiple').select2({
     multiple: false,
 });
 
-$(".js-states").select2({
+$('.js-states').select2({
     sorter: (data) => {
-        return data.sort((a, b) => a.text > b.text ? 1 : 0);
-    }
+        return data.sort((a, b) => (a.text > b.text ? 1 : 0));
+    },
 });
 
-$("#mySelect2").select2({
-    theme: "bootstrap",
-}).on("select2:closing", function() {
-    $(this).val("Bye");
-}).on("select2:close", function() {
-    $(this).trigger("change");
-});
+$('#mySelect2')
+    .select2({
+        theme: 'bootstrap',
+    })
+    .on('select2:closing', function () {
+        $(this).val('Bye');
+    })
+    .on('select2:close', function () {
+        $(this).trigger('change');
+    });
 
-const selectedData: Select2.OptionData[] = $("#mySelect2").select2("data");
+const selectedData: Select2.OptionData[] = $('#mySelect2').select2('data');
 // TODO
 // const selectedRepo: GithubRepositories[] = $(".js-example-data-ajax").select2("data") as GithubRepositories[];
 
@@ -777,7 +788,7 @@ declare let select: HTMLSelectElement;
 const $select: JQuery<HTMLSelectElement> = $(select);
 
 select = $select.select2().get(0);
-select = $select.select2({tags: true}).get(0);
-select = $select.select2("open").get(0);
-select = $select.select2("close").get(0);
-select = $select.select2("destroy").get(0);
+select = $select.select2({ tags: true }).get(0);
+select = $select.select2('open').get(0);
+select = $select.select2('close').get(0);
+select = $select.select2('destroy').get(0);

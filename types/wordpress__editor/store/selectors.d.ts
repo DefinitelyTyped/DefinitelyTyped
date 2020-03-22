@@ -125,7 +125,7 @@ export function getCurrentPost(): Schema.Decontextualize<Schema.PostOrPage<'edit
  * @param attributeName - Post attribute name.
  */
 export function getCurrentPostAttribute<T extends keyof Schema.PostOrPage<'edit'>>(
-    attributeName: T
+    attributeName: T,
 ): Schema.Decontextualize<Schema.PostOrPage<'edit'>>[T] | undefined;
 
 /**
@@ -156,7 +156,7 @@ export function getCurrentPostType(): string;
  * @param attributeName - Post attribute name.
  */
 export function getEditedPostAttribute<T extends keyof Schema.PostOrPage<'edit'>>(
-    attributeName: T
+    attributeName: T,
 ): Schema.Decontextualize<Schema.PostOrPage<'edit'>>[T] | undefined;
 
 /**

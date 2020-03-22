@@ -1,5 +1,5 @@
-import * as React from "react";
-import { render } from "react-dom";
+import * as React from 'react';
+import { render } from 'react-dom';
 import FeedbackCollector from '@atlaskit/feedback-collector';
 
 declare const container: Element;
@@ -10,7 +10,7 @@ render(
         name="Fred Flintstone"
         requestTypeId="123"
         embeddableKey="sDdfsdfDS876sdfs"
-        additionalFields={[{ id: "234", value: "test" }]}
+        additionalFields={[{ id: '234', value: 'test' }]}
         canBeContactedFieldId="custom_field"
         canBeContactedDefaultValue="test"
         customerNameFieldId="test"
@@ -32,7 +32,7 @@ render(
         typeQuestionDefaultValue="wtf?"
         typeEmptyDefaultValue="Dunno"
         onClose={() => {}}
-        onSubmit={() => {}}>
-    </FeedbackCollector>,
-    container
+        onSubmit={() => {}}
+    ></FeedbackCollector>,
+    container,
 );

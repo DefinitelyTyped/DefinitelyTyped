@@ -64,37 +64,37 @@ declare module '@ember/test-helpers' {
 declare module '@ember/test-helpers/dom/click' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function (target: Target): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/double-click' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function (target: Target): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/tap' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function (target: Target): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/focus' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function (target: Target): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/blur' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function (target: Target): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/trigger-event' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target, eventType: string, options?: object): Promise<void>;
+    export default function (target: Target, eventType: string, options?: object): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/trigger-key-event' {
@@ -109,35 +109,40 @@ declare module '@ember/test-helpers/dom/trigger-key-event' {
         metaKey?: boolean;
     }
 
-    export default function(target: Target, eventType: KeyEvent, key: number | string, modifiers?: KeyModifiers): Promise<void>;
+    export default function (
+        target: Target,
+        eventType: KeyEvent,
+        key: number | string,
+        modifiers?: KeyModifiers,
+    ): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/fill-in' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target, text: string): Promise<void>;
+    export default function (target: Target, text: string): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/type-in' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target, text: string, options?: {delay: number}): Promise<void>;
+    export default function (target: Target, text: string, options?: { delay: number }): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/find' {
-    export default function(selector: string): Element | null;
+    export default function (selector: string): Element | null;
 }
 
 declare module '@ember/test-helpers/dom/find-all' {
-    export default function(selector: string): Element[];
+    export default function (selector: string): Element[];
 }
 
 declare module '@ember/test-helpers/dom/get-root-element' {
-    export default function(): Element;
+    export default function (): Element;
 }
 
 declare module '@ember/test-helpers/setup-application-context' {
-    export default function<Context extends object>(context: Context): Promise<Context>;
+    export default function <Context extends object>(context: Context): Promise<Context>;
     export function visit(url: string): Promise<void>;
     export function currentRouteName(): string;
     export function currentURL(): string;
@@ -146,7 +151,7 @@ declare module '@ember/test-helpers/setup-application-context' {
 declare module '@ember/test-helpers/setup-rendering-context' {
     import { TemplateFactory } from 'htmlbars-inline-precompile';
 
-    export default function<Context extends object>(context: Context): Promise<Context>;
+    export default function <Context extends object>(context: Context): Promise<Context>;
     export function render(template: TemplateFactory): Promise<void>;
     export function clearRender(): Promise<void>;
 }
@@ -158,7 +163,7 @@ declare module '@ember/test-helpers/dom/wait-for' {
         timeoutMessage?: string;
     }
 
-    export default function(selector: string, options?: Options): Promise<Element | Element[]>;
+    export default function (selector: string, options?: Options): Promise<Element | Element[]>;
 }
 
 declare module '@ember/test-helpers/wait-until' {
@@ -167,7 +172,7 @@ declare module '@ember/test-helpers/wait-until' {
         timeoutMessage?: string;
     }
 
-    export default function<T>(callback: () => T, options?: Options): Promise<T>;
+    export default function <T>(callback: () => T, options?: Options): Promise<T>;
 }
 
 declare module '@ember/test-helpers/settled' {
@@ -179,7 +184,7 @@ declare module '@ember/test-helpers/settled' {
         pendingRequestCount: number;
     }
 
-    export default function(): Promise<void>;
+    export default function (): Promise<void>;
     export function isSettled(): boolean;
     export function getSettledState(): SettledState;
 }
@@ -187,7 +192,7 @@ declare module '@ember/test-helpers/settled' {
 declare module '@ember/test-helpers/setup-context' {
     import Resolver from '@ember/application/resolver';
 
-    export default function<C extends object>(context: C, options?: { resolver?: Resolver }): Promise<C>;
+    export default function <C extends object>(context: C, options?: { resolver?: Resolver }): Promise<C>;
     export function getContext(): object;
     export function setContext(context: object): void;
     export function unsetContext(): void;
@@ -204,21 +209,21 @@ declare module '@ember/test-helpers/resolver' {
 }
 
 declare module '@ember/test-helpers/teardown-context' {
-    export default function(context: object): Promise<void>;
+    export default function (context: object): Promise<void>;
 }
 
 declare module '@ember/test-helpers/teardown-rendering-context' {
-    export default function(context: object): Promise<void>;
+    export default function (context: object): Promise<void>;
 }
 
 declare module '@ember/test-helpers/teardown-application-context' {
-    export default function(context: object): Promise<void>;
+    export default function (context: object): Promise<void>;
 }
 
 declare module '@ember/test-helpers/validate-error-handler' {
     import Error from '@ember/error';
 
-    export default function(callback?: (error: Error) => void): { isValid: boolean, message: string };
+    export default function (callback?: (error: Error) => void): { isValid: boolean; message: string };
 }
 
 declare module '@ember/test-helpers/application' {

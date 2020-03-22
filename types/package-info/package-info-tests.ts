@@ -1,6 +1,6 @@
 import info = require('package-info');
 
-info('package-info').then(data => {
+info('package-info').then((data) => {
     data.author; // $ExpectType string
     data.description; // $ExpectType string
     data.homepage; // $ExpectType string

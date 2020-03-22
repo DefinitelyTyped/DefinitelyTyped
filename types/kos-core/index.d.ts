@@ -44,9 +44,7 @@ export interface KosModel<T = any> {
         [key: string]: (dispatch?: KosDispatch, getState?: GetKosState<T>, action?: { payload: T }) => void;
     };
     setup?: (dispatch: KosDispatch, getState: GetKosState<T>, action: { payload: { param: any } }) => void;
-    getAsync?: (
-        key: string
-    ) => (dispatch: KosDispatch, getState?: GetKosState) => void;
+    getAsync?: (key: string) => (dispatch: KosDispatch, getState?: GetKosState) => void;
 }
 
 interface Kos {
@@ -55,9 +53,7 @@ interface Kos {
     removeModel: (namespace: string) => void;
     getModel: (namespace: string) => KosModel;
     use: (middleware: (api: { dispatch: any; getState: any }) => void) => void;
-    Wrapper: (
-        config: WrapperConfig
-    ) => (component: ReactComponent<any & KosProps>) => any;
+    Wrapper: (config: WrapperConfig) => (component: ReactComponent<any & KosProps>) => any;
     start: (Layout: ReactComponent, container?: string) => void;
 }
 

@@ -10,10 +10,7 @@ roll.roll('d6').result;
 roll.roll({
     quantity: 2,
     sides: 6,
-    transformations: [
-      'sum',
-      ['add', 2]
-    ]
+    transformations: ['sum', ['add', 2]],
 }).result;
 
 // $ExpectType InvalidInputError

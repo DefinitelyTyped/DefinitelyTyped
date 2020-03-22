@@ -3,7 +3,7 @@
 // Definitions by: Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as eventStream from "event-stream";
+import * as eventStream from 'event-stream';
 
 export = GulpChange;
 

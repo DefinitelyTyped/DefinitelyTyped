@@ -13,5 +13,5 @@ interface JQueryCustomSelectOption {
 }
 
 interface JQuery {
-    customSelect(val:JQueryCustomSelectOption): JQuery;
+    customSelect(val: JQueryCustomSelectOption): JQuery;
 }

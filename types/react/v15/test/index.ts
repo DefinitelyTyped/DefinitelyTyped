@@ -1,15 +1,15 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import * as ReactDOMServer from "react-dom/server";
-import createFragment = require("react-addons-create-fragment");
-import CSSTransitionGroup = require("react-addons-css-transition-group");
-import * as LinkedStateMixin from "react-addons-linked-state-mixin";
-import * as Perf from "react-addons-perf";
-import * as PureRenderMixin from "react-addons-pure-render-mixin";
-import shallowCompare = require("react-addons-shallow-compare");
-import * as TestUtils from "react-addons-test-utils";
-import TransitionGroup = require("react-addons-transition-group");
-import update = require("react-addons-update");
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as ReactDOMServer from 'react-dom/server';
+import createFragment = require('react-addons-create-fragment');
+import CSSTransitionGroup = require('react-addons-css-transition-group');
+import * as LinkedStateMixin from 'react-addons-linked-state-mixin';
+import * as Perf from 'react-addons-perf';
+import * as PureRenderMixin from 'react-addons-pure-render-mixin';
+import shallowCompare = require('react-addons-shallow-compare');
+import * as TestUtils from 'react-addons-test-utils';
+import TransitionGroup = require('react-addons-transition-group');
+import update = require('react-addons-update');
 
 // NOTE: forward declarations for tests
 declare function setInterval(...args: any[]): any;
@@ -44,77 +44,78 @@ interface MyComponent extends React.Component<Props, State> {
 
 const props: Props & React.ClassAttributes<{}> = {
     key: 42,
-    ref: "myComponent42",
-    hello: "world",
-    foo: 42
+    ref: 'myComponent42',
+    hello: 'world',
+    foo: 42,
 };
 
-const container: Element = document.createElement("div");
+const container: Element = document.createElement('div');
 
 //
 // Top-Level API
 // --------------------------------------------------------------------------
 
-const ClassicComponent: React.ClassicComponentClass<Props> =
-    React.createClass<Props, State>({
-        displayName: "ClassicComponent",
-        getDefaultProps() {
-            return {
-                hello: "hello",
-                world: "peace",
-                foo: 0,
-            };
-        },
-        getInitialState() {
-            return {
-                inputValue: this.context.someValue,
-                seconds: this.props.foo
-            };
-        },
-        reset() {
-            this.replaceState(this.getInitialState());
-        },
-        render() {
-            return React.DOM.div(null,
-                React.DOM.input({
-                    ref: input => this._input = input,
-                    value: this.state.inputValue
-                }));
-        }
-    });
+const ClassicComponent: React.ClassicComponentClass<Props> = React.createClass<Props, State>({
+    displayName: 'ClassicComponent',
+    getDefaultProps() {
+        return {
+            hello: 'hello',
+            world: 'peace',
+            foo: 0,
+        };
+    },
+    getInitialState() {
+        return {
+            inputValue: this.context.someValue,
+            seconds: this.props.foo,
+        };
+    },
+    reset() {
+        this.replaceState(this.getInitialState());
+    },
+    render() {
+        return React.DOM.div(
+            null,
+            React.DOM.input({
+                ref: (input) => (this._input = input),
+                value: this.state.inputValue,
+            }),
+        );
+    },
+});
 
 class ModernComponent extends React.Component<Props, State>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
-        foo: React.PropTypes.number
+        foo: React.PropTypes.number,
     };
 
     static contextTypes: React.ValidationMap<Context> = {
-        someValue: React.PropTypes.string
+        someValue: React.PropTypes.string,
     };
 
     static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: React.PropTypes.string
+        someOtherValue: React.PropTypes.string,
     };
 
     context: Context = {};
 
     getChildContext() {
         return {
-            someOtherValue: "foo"
+            someOtherValue: 'foo',
         };
     }
 
     state = {
         inputValue: this.context.someValue,
-        seconds: this.props.foo
+        seconds: this.props.foo,
     };
 
     reset() {
         this._myComponent.reset();
         this.setState({
             inputValue: this.context.someValue,
-            seconds: this.props.foo
+            seconds: this.props.foo,
         });
     }
 
@@ -122,14 +123,16 @@ class ModernComponent extends React.Component<Props, State>
     private _input: HTMLInputElement | null;
 
     render() {
-        return React.DOM.div(null,
+        return React.DOM.div(
+            null,
             React.DOM.input({
-                ref: input => this._input = input,
-                value: this.state.inputValue
+                ref: (input) => (this._input = input),
+                value: this.state.inputValue,
             }),
             React.DOM.input({
-                onChange: event => console.log(event.target)
-            }));
+                onChange: (event) => console.log(event.target),
+            }),
+        );
     }
 
     shouldComponentUpdate(nextProps: Props, nextState: State, nextContext: any): boolean {
@@ -137,8 +140,8 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
-class ModernComponentNoState extends React.Component<Props> { }
-class ModernComponentNoPropsAndState extends React.Component { }
+class ModernComponentNoState extends React.Component<Props> {}
+class ModernComponentNoPropsAndState extends React.Component {}
 
 interface SCProps {
     foo?: number;
@@ -150,61 +153,56 @@ function StatelessComponent(props: SCProps) {
 
 // tslint:disable-next-line:no-namespace
 namespace StatelessComponent {
-    export const displayName = "StatelessComponent";
+    export const displayName = 'StatelessComponent';
     export const defaultProps = { foo: 42 };
 }
 
 const StatelessComponent2: React.SFC<SCProps> =
     // props is contextually typed
-    props => React.DOM.div(null, props.foo);
-StatelessComponent2.displayName = "StatelessComponent2";
+    (props) => React.DOM.div(null, props.foo);
+StatelessComponent2.displayName = 'StatelessComponent2';
 StatelessComponent2.defaultProps = {
-    foo: 42
+    foo: 42,
 };
 
 const StatelessComponent3: React.SFC<SCProps> =
     // allows usage of props.children
     // allows null return
-    props => props.foo ? React.DOM.div(null, props.foo, props.children) : null;
+    (props) => (props.foo ? React.DOM.div(null, props.foo, props.children) : null);
 
 // React.createFactory
-const factory: React.CFactory<Props, ModernComponent> =
-    React.createFactory(ModernComponent);
-const factoryElement: React.CElement<Props, ModernComponent> =
-    factory(props);
+const factory: React.CFactory<Props, ModernComponent> = React.createFactory(ModernComponent);
+const factoryElement: React.CElement<Props, ModernComponent> = factory(props);
 
-const statelessFactory: React.SFCFactory<SCProps> =
-    React.createFactory(StatelessComponent);
-const statelessFactoryElement: React.SFCElement<SCProps> =
-    statelessFactory(props);
+const statelessFactory: React.SFCFactory<SCProps> = React.createFactory(StatelessComponent);
+const statelessFactoryElement: React.SFCElement<SCProps> = statelessFactory(props);
 
-const classicFactory: React.ClassicFactory<Props> =
-    React.createFactory(ClassicComponent);
-const classicFactoryElement: React.ClassicElement<Props> =
-    classicFactory(props);
+const classicFactory: React.ClassicFactory<Props> = React.createFactory(ClassicComponent);
+const classicFactoryElement: React.ClassicElement<Props> = classicFactory(props);
 
-const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
-    React.createFactory("div");
-const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
-    domFactory();
+const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> = React.createFactory('div');
+const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> = domFactory();
 
 // React.createElement
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
-const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
+const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(
+    ModernComponentNoState,
+    props,
+);
 const statelessElement: React.SFCElement<SCProps> = React.createElement(StatelessComponent, props);
 const classicElement: React.ClassicElement<Props> = React.createElement(ClassicComponent, props);
-const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
-const htmlElement = React.createElement("input", { type: "text" });
-const svgElement = React.createElement("svg", { accentHeight: 12 });
+const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement('div');
+const htmlElement = React.createElement('input', { type: 'text' });
+const svgElement = React.createElement('svg', { accentHeight: 12 });
 
 const customProps: React.HTMLProps<HTMLElement> = props;
-const customDomElement = "my-element";
+const customDomElement = 'my-element';
 const nonLiteralElement = React.createElement(customDomElement, customProps);
 
 // https://github.com/Microsoft/TypeScript/issues/15019
 
 function foo3(child: React.ComponentClass<{ name: string }> | React.StatelessComponent<{ name: string }> | string) {
-    React.createElement(child, { name: "bar" });
+    React.createElement(child, { name: 'bar' });
 }
 
 // React.cloneElement
@@ -216,44 +214,45 @@ React.cloneElement(element, {}, null);
 const clonedElement2: React.CElement<Props, ModernComponent> =
     // known problem: cloning with key or ref requires cast
     React.cloneElement(element, {
-        ref: c => {
+        ref: (c) => {
             if (c) c.reset();
-        }
+        },
     } as React.ClassAttributes<ModernComponent>);
-const clonedElement3: React.CElement<Props, ModernComponent> =
-    React.cloneElement(element, {
-        key: "8eac7",
-        foo: 55
-    } as { foo: number } & React.Attributes);
+const clonedElement3: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
+    key: '8eac7',
+    foo: 55,
+} as { foo: number } & React.Attributes);
 const clonedStatelessElement: React.SFCElement<SCProps> =
     // known problem: cloning with optional props don't work properly
     // workaround: cast to actual props type
     React.cloneElement(statelessElement, { foo: 44 } as SCProps);
-const clonedClassicElement: React.ClassicElement<Props> =
-    React.cloneElement(classicElement, props);
+const clonedClassicElement: React.ClassicElement<Props> = React.cloneElement(classicElement, props);
 // Clone base DOMElement
-const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
-    React.cloneElement(domElement, {
-        className: "clonedDOMElement"
-    });
+const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.cloneElement(
+    domElement,
+    {
+        className: 'clonedDOMElement',
+    },
+);
 // Clone ReactHTMLElement
-const clonedHtmlElement: React.ReactHTMLElement<HTMLInputElement> =
-    React.cloneElement(htmlElement, {
-        className: "clonedHTMLElement"
-    });
+const clonedHtmlElement: React.ReactHTMLElement<HTMLInputElement> = React.cloneElement(htmlElement, {
+    className: 'clonedHTMLElement',
+});
 // Clone ReactSVGElement
-const clonedSvgElement: React.ReactSVGElement =
-    React.cloneElement(svgElement, {
-        className: "clonedVGElement"
-    });
+const clonedSvgElement: React.ReactSVGElement = React.cloneElement(svgElement, {
+    className: 'clonedVGElement',
+});
 
 // React.render
 const component: ModernComponent = ReactDOM.render(element, container);
 const componentNullContainer: ModernComponent = ReactDOM.render(element, null);
 
-const componentElementOrNull: ModernComponent = ReactDOM.render(element, document.getElementById("anelement"));
+const componentElementOrNull: ModernComponent = ReactDOM.render(element, document.getElementById('anelement'));
 const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, document.getElementById("anelement"));
+const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(
+    elementNoState,
+    document.getElementById('anelement'),
+);
 const classicComponent: React.ClassicComponent<Props> = ReactDOM.render(classicElement, container);
 const domComponent: Element = ReactDOM.render(domElement, container);
 
@@ -279,7 +278,7 @@ const key = element.key;
 // --------------------------------------------------------------------------
 
 const displayName: string | undefined = ClassicComponent.displayName;
-const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {} as Props;
+const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : ({} as Props);
 const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
 
 //
@@ -288,12 +287,12 @@ const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propT
 
 // modern
 const componentState: State = component.state;
-component.setState({ inputValue: "!!!" });
+component.setState({ inputValue: '!!!' });
 component.forceUpdate();
 
 // classic
 const isMounted: boolean = classicComponent.isMounted();
-classicComponent.replaceState({ inputValue: "???", seconds: 60 });
+classicComponent.replaceState({ inputValue: '???', seconds: 60 });
 
 const myComponent = component as MyComponent;
 myComponent.reset();
@@ -303,44 +302,44 @@ myComponent.reset();
 // --------------------------------------------------------------------------
 
 // tslint:disable-next-line:no-empty-interface
-interface RCProps { }
+interface RCProps {}
 
 class RefComponent extends React.Component<RCProps> {
     static create = React.createFactory(RefComponent);
-    refMethod() {
-    }
+    refMethod() {}
 }
 
 let componentRef: RefComponent | null = new RefComponent();
-RefComponent.create({ ref: "componentRef" });
+RefComponent.create({ ref: 'componentRef' });
 // type of c should be inferred
-RefComponent.create({ ref: c => componentRef = c });
+RefComponent.create({ ref: (c) => (componentRef = c) });
 componentRef.refMethod();
 
 let domNodeRef: Element | null;
-React.DOM.div({ ref: "domRef" });
+React.DOM.div({ ref: 'domRef' });
 // type of node should be inferred
-React.DOM.div({ ref: node => domNodeRef = node });
+React.DOM.div({ ref: (node) => (domNodeRef = node) });
 
 let inputNodeRef: HTMLInputElement | null;
-React.DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
+React.DOM.input({ ref: (node) => (inputNodeRef = node as HTMLInputElement) });
 
 //
 // Attributes
 // --------------------------------------------------------------------------
 
-const children: any[] = ["Hello world", [null], React.DOM.span(null)];
-const divStyle: React.CSSProperties = { // CSSProperties
-    flex: "1 1 main-size",
-    backgroundImage: "url('hello.png')"
+const children: any[] = ['Hello world', [null], React.DOM.span(null)];
+const divStyle: React.CSSProperties = {
+    // CSSProperties
+    flex: '1 1 main-size',
+    backgroundImage: "url('hello.png')",
 };
 const htmlAttr: React.HTMLProps<HTMLElement> = {
     key: 36,
-    ref: "htmlComponent",
+    ref: 'htmlComponent',
     children,
-    className: "test-attr",
+    className: 'test-attr',
     style: divStyle,
-    slot: "HTMLComponent",
+    slot: 'HTMLComponent',
     onClick: (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
@@ -349,25 +348,26 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
         event.preventDefault();
         event.stopPropagation();
     },
-    onAnimationStart: event => {
+    onAnimationStart: (event) => {
         console.log(event.currentTarget.className);
     },
     dangerouslySetInnerHTML: {
-        __html: "<strong>STRONG</strong>"
+        __html: '<strong>STRONG</strong>',
     },
     'aria-atomic': false,
     'aria-checked': 'true',
     'aria-colcount': 7,
-    'aria-label': 'test'
+    'aria-label': 'test',
 };
 React.DOM.div(htmlAttr);
 React.DOM.span(htmlAttr);
 React.DOM.input(htmlAttr);
 
-React.DOM.svg({
-    viewBox: "0 0 48 48",
-    xmlns: "http://www.w3.org/2000/svg"
-},
+React.DOM.svg(
+    {
+        viewBox: '0 0 48 48',
+        xmlns: 'http://www.w3.org/2000/svg',
+    },
     React.DOM.rect({
         className: 'foobar',
         id: 'foo',
@@ -377,7 +377,7 @@ React.DOM.svg({
         width: 4,
         height: 28,
         strokeDasharray: '30%',
-        strokeDashoffset: '20%'
+        strokeDashoffset: '20%',
     }),
     React.DOM.rect({
         x: 10,
@@ -385,13 +385,13 @@ React.DOM.svg({
         width: 28,
         height: 4,
         strokeDasharray: 30,
-        strokeDashoffset: 20
+        strokeDashoffset: 20,
     }),
     React.DOM.path({
-        d: "M0,0V3H3V0ZM1,1V2H2V1Z",
-        fill: "#999999",
-        fillRule: "evenodd"
-    })
+        d: 'M0,0V3H3V0ZM1,1V2H2V1Z',
+        fill: '#999999',
+        fillRule: 'evenodd',
+    }),
 );
 
 //
@@ -409,23 +409,23 @@ const PropTypesSpecification: React.ComponentSpec<any, any> = {
         optionalNode: React.PropTypes.node,
         optionalElement: React.PropTypes.element,
         optionalMessage: React.PropTypes.instanceOf(Date),
-        optionalEnum: React.PropTypes.oneOf(["News", "Photos"]),
+        optionalEnum: React.PropTypes.oneOf(['News', 'Photos']),
         optionalUnion: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.number,
-            React.PropTypes.instanceOf(Date)
+            React.PropTypes.instanceOf(Date),
         ]),
         optionalArrayOf: React.PropTypes.arrayOf(React.PropTypes.number),
         optionalObjectOf: React.PropTypes.objectOf(React.PropTypes.number),
         optionalObjectWithShape: React.PropTypes.shape({
             color: React.PropTypes.string,
-            fontSize: React.PropTypes.number
+            fontSize: React.PropTypes.number,
         }),
         requiredFunc: React.PropTypes.func.isRequired,
         requiredAny: React.PropTypes.any.isRequired,
         customProp(props: any, propName: string, componentName: string): Error | null {
             if (!/matchme/.test(props[propName])) {
-                return new Error("Validation failed!");
+                return new Error('Validation failed!');
             }
             return null;
         },
@@ -439,11 +439,11 @@ const PropTypesSpecification: React.ComponentSpec<any, any> = {
                 return new Error(`prop ${key} must be between 0 and 100`);
             }
             return null;
-        }
+        },
     },
     render: (): React.ReactElement | null => {
         return null;
-    }
+    },
 };
 
 //
@@ -461,45 +461,43 @@ const ContextTypesSpecification: React.ComponentSpec<any, any> = {
         optionalNode: React.PropTypes.node,
         optionalElement: React.PropTypes.element,
         optionalMessage: React.PropTypes.instanceOf(Date),
-        optionalEnum: React.PropTypes.oneOf(["News", "Photos"]),
+        optionalEnum: React.PropTypes.oneOf(['News', 'Photos']),
         optionalUnion: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.number,
-            React.PropTypes.instanceOf(Date)
+            React.PropTypes.instanceOf(Date),
         ]),
         optionalArrayOf: React.PropTypes.arrayOf(React.PropTypes.number),
         optionalObjectOf: React.PropTypes.objectOf(React.PropTypes.number),
         optionalObjectWithShape: React.PropTypes.shape({
             color: React.PropTypes.string,
-            fontSize: React.PropTypes.number
+            fontSize: React.PropTypes.number,
         }),
         requiredFunc: React.PropTypes.func.isRequired,
         requiredAny: React.PropTypes.any.isRequired,
         customProp(props: any, propName: string, componentName: string): Error | null {
             if (!/matchme/.test(props[propName])) {
-                return new Error("Validation failed!");
+                return new Error('Validation failed!');
             }
             return null;
-        }
+        },
     },
     render: (): null => {
         return null;
-    }
+    },
 };
 
 //
 // React.Children
 // --------------------------------------------------------------------------
 
-const mappedChildrenArray: number[] =
-    React.Children.map<number>(children, (child) => 42);
+const mappedChildrenArray: number[] = React.Children.map<number>(children, (child) => 42);
 const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
-const mappedChildrenArrayWithKnownChildren: number[] =
-    React.Children.map(childrenArray, (child) => child.props.p);
-React.Children.forEach(children, (child) => { });
+const mappedChildrenArrayWithKnownChildren: number[] = React.Children.map(childrenArray, (child) => child.props.p);
+React.Children.forEach(children, (child) => {});
 const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement = React.Children.only(React.DOM.div()); // ok
-onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
+onlyChild = React.Children.only([null, [[['Hallo'], true]], false]); // error
 const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
 //
@@ -511,12 +509,12 @@ interface TimerState {
 }
 class Timer extends React.Component<{}, TimerState> {
     state = {
-        secondsElapsed: 0
+        secondsElapsed: 0,
     };
     private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
-            secondsElapsed: prevState.secondsElapsed + 1
+            secondsElapsed: prevState.secondsElapsed + 1,
         }));
     }
     componentDidMount() {
@@ -526,11 +524,7 @@ class Timer extends React.Component<{}, TimerState> {
         clearInterval(this._interval);
     }
     render() {
-        return React.DOM.div(
-            null,
-            "Seconds Elapsed: ",
-            this.state.secondsElapsed
-        );
+        return React.DOM.div(null, 'Seconds Elapsed: ', this.state.secondsElapsed);
     }
 }
 ReactDOM.render(React.createElement(Timer), container);
@@ -540,7 +534,7 @@ ReactDOM.render(React.createElement(Timer), container);
 // --------------------------------------------------------------------------
 createFragment({
     a: React.DOM.div(),
-    b: ["a", false, React.createElement("span")]
+    b: ['a', false, React.createElement('span')],
 });
 
 //
@@ -548,26 +542,26 @@ createFragment({
 // --------------------------------------------------------------------------
 React.createFactory(CSSTransitionGroup)({
     component: React.createClass({
-        render: (): null => null
+        render: (): null => null,
     }),
     childFactory: (c) => c,
-    transitionName: "transition",
+    transitionName: 'transition',
     transitionAppear: false,
     transitionEnter: true,
     transitionLeave: true,
-    id: "some-id",
-    className: "some-class"
+    id: 'some-id',
+    className: 'some-class',
 });
 
 React.createFactory(CSSTransitionGroup)({
     transitionName: {
-        enter: "enter",
-        enterActive: "enterActive",
-        leave: "leave",
-        leaveActive: "leaveActive",
-        appear: "appear",
-        appearActive: "appearActive"
-    }
+        enter: 'enter',
+        enterActive: 'enterActive',
+        leave: 'leave',
+        leaveActive: 'leaveActive',
+        appear: 'appear',
+        appearActive: 'appearActive',
+    },
 });
 
 //
@@ -578,21 +572,22 @@ React.createClass({
     getInitialState() {
         return {
             isChecked: false,
-            message: "hello!"
+            message: 'hello!',
         };
     },
     render() {
-        return React.DOM.div(null,
+        return React.DOM.div(
+            null,
             React.DOM.input({
-                type: "checkbox",
-                checkedLink: this.linkState("isChecked")
+                type: 'checkbox',
+                checkedLink: this.linkState('isChecked'),
             }),
             React.DOM.input({
-                type: "text",
-                valueLink: this.linkState("message")
-            })
+                type: 'text',
+                valueLink: this.linkState('message'),
+            }),
         );
-    }
+    },
 });
 
 //
@@ -628,7 +623,9 @@ Perf.printDOM();
 // --------------------------------------------------------------------------
 React.createClass({
     mixins: [PureRenderMixin],
-    render() { return React.DOM.div(null); }
+    render() {
+        return React.DOM.div(null);
+    },
 });
 
 //
@@ -640,17 +637,14 @@ const node: Element = TestUtils.renderIntoDocument(React.DOM.div());
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
+TestUtils.Simulate.keyDown(node, { key: 'Enter', cancelable: false });
 
 const renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
 renderer.render(React.createElement(Timer));
-const output: React.ReactElement<React.Props<Timer>> =
-    renderer.getRenderOutput();
+const output: React.ReactElement<React.Props<Timer>> = renderer.getRenderOutput();
 
-const foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
-    inst, ModernComponent);
-const foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
-    inst, ModernComponent);
+const foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(inst, ModernComponent);
+const foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(inst, ModernComponent);
 
 // ReactTestUtils custom type guards
 
@@ -664,7 +658,7 @@ if (TestUtils.isElementOfType(emptyElement2, StatelessComponent)) {
 }
 
 if (TestUtils.isDOMComponent(container)) {
-    container.getAttribute("className");
+    container.getAttribute('className');
 } else if (TestUtils.isCompositeComponent(new ModernComponent())) {
     new ModernComponent().props;
 }
@@ -672,7 +666,7 @@ if (TestUtils.isDOMComponent(container)) {
 //
 // TransitionGroup addon
 // --------------------------------------------------------------------------
-React.createFactory(TransitionGroup)({ component: "div" });
+React.createFactory(TransitionGroup)({ component: 'div' });
 
 //
 // update addon
@@ -689,8 +683,8 @@ React.createFactory(TransitionGroup)({ component: "div" });
     const obj = { a: 5, b: 3 };
     const newObj = update(obj, {
         b: {
-            $apply: (x) => x * 2
-        }
+            $apply: (x) => x * 2,
+        },
     });
     // => {a: 5, b: 6}
     const newObj2 = update(obj, { b: { $set: obj.b * 2 } });
@@ -710,16 +704,16 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
     render() {
         return React.DOM.textarea({
             value: this.state.value,
-            onChange: e => this.setState({ value: e.target.value })
+            onChange: (e) => this.setState({ value: e.target.value }),
         });
     }
 }
 
 React.DOM.input({
-    onChange: event => {
+    onChange: (event) => {
         // `event.target` is guaranteed to be HTMLInputElement
         event.target.value;
-    }
+    },
 });
 
 // A ChangeEvent is a valid FormEvent (maintain compatibility with existing
@@ -739,18 +733,21 @@ const formEvent: InputFormEvent = changeEvent;
     }
     class ComponentWithDefaultProps extends React.Component<ComponentProps> {
         static defaultProps = {
-            prop3: "default value",
+            prop3: 'default value',
         };
     }
     const VariableWithAClass: React.ComponentClass<ComponentProps> = ComponentWithDefaultProps;
 }
 
 // complex React.DOMElement type
-declare var x: React.DOMElement<{
-    className: string;
-    style: {
-        height: string;
-        overflowY: "auto";
-        transition: string;
-    };
-}, Element>;
+declare var x: React.DOMElement<
+    {
+        className: string;
+        style: {
+            height: string;
+            overflowY: 'auto';
+            transition: string;
+        };
+    },
+    Element
+>;

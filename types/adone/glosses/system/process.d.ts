@@ -6,7 +6,7 @@ declare namespace adone.system.process {
     function stdio(opts: object): any[];
 
     namespace I {
-        type StdIOOption = "pipe" | "ipc" | "ignore" | nodestd.stream.Stream | number | null | undefined;
+        type StdIOOption = 'pipe' | 'ipc' | 'ignore' | nodestd.stream.Stream | number | null | undefined;
 
         interface ExecCommonOptions {
             /**
@@ -42,7 +42,7 @@ declare namespace adone.system.process {
              *
              * @see https://nodejs.org/api/child_process.html#child_process_options_stdio
              */
-            stdio?: "pipe" | "ignore" | "inherit" | StdIOOption[];
+            stdio?: 'pipe' | 'ignore' | 'inherit' | StdIOOption[];
 
             /**
              * Prepare child to run independently of its parent process.
@@ -218,7 +218,9 @@ declare namespace adone.system.process {
         type ExecError = Error & ExecReturns;
 
         interface ExecChildPromise {
-            catch<TResult = never>(onrejected?: ((reason: ExecError) => TResult | PromiseLike<TResult>) | null): Promise<ExecReturns | TResult>;
+            catch<TResult = never>(
+                onrejected?: ((reason: ExecError) => TResult | PromiseLike<TResult>) | null,
+            ): Promise<ExecReturns | TResult>;
         }
 
         type ExecChildProcess = nodestd.child_process.ChildProcess & ExecChildPromise & Promise<ExecReturns>;

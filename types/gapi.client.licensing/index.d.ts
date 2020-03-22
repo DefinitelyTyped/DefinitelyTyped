@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Enterprise License Manager API v1 */
-    function load(name: "licensing", version: "v1"): PromiseLike<void>;
-    function load(name: "licensing", version: "v1", callback: () => any): void;
+    function load(name: 'licensing', version: 'v1'): PromiseLike<void>;
+    function load(name: 'licensing', version: 'v1', callback: () => any): void;
 
     const licenseAssignments: licensing.LicenseAssignmentsResource;
 

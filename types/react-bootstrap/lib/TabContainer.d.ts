@@ -7,5 +7,5 @@ declare namespace TabContainer {
         generateChildId?: (eventKey: any, type: any) => string;
     }
 }
-declare class TabContainer extends React.Component<TabContainer.TabContainerProps> { }
+declare class TabContainer extends React.Component<TabContainer.TabContainerProps> {}
 export = TabContainer;

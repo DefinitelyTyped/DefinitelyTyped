@@ -50,8 +50,8 @@ declare global {
         }
 
         interface SortParameter {
-          field: string;
-          direction?: 'asc' | 'desc';
+            field: string;
+            direction?: 'asc' | 'desc';
         }
 
         interface SelectOptions {
@@ -99,9 +99,9 @@ declare global {
         }
 
         interface Collaborator {
-          id: string;
-          email: string;
-          name: string;
+            id: string;
+            email: string;
+            name: string;
         }
     }
 }

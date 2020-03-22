@@ -3,7 +3,7 @@
 // Definitions by: Pouya Kary <https://github.com/pmkary>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "window-size" {
+declare module 'window-size' {
     /** Height of the terminal window.*/
     export const height: number;
 

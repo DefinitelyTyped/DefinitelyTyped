@@ -47,11 +47,11 @@ Humanize.ordinal(22);
 /**
  * times
  */
-for (let i = 0; i < 5; i ++) {
-  Humanize.times(i, {4: 'too many'});
-  if (i === 1) {
-    Humanize.times(1.1);
-  }
+for (let i = 0; i < 5; i++) {
+    Humanize.times(i, { 4: 'too many' });
+    if (i === 1) {
+        Humanize.times(1.1);
+    }
 }
 // never
 // once
@@ -67,13 +67,13 @@ const second = 1000;
 const week = 6.048e8;
 const decade = 3.156e11;
 
-Humanize.pace(1.5, second, "heartbeat");
+Humanize.pace(1.5, second, 'heartbeat');
 // Approximately 2 heartbeats per second
 
 Humanize.pace(4, week);
 // Approximately 4 times per week
 
-Humanize.pace(1, decade, "life crisis");
+Humanize.pace(1, decade, 'life crisis');
 // Less than 1 life crisis per week
 
 /**
@@ -91,13 +91,13 @@ Humanize.fileSize(Math.pow(1000, 4));
 /**
  * pluralize
  */
-Humanize.pluralize(1, "duck");
+Humanize.pluralize(1, 'duck');
 // "duck"
 
-Humanize.pluralize(3, "duck");
+Humanize.pluralize(3, 'duck');
 // "ducks"
 
-Humanize.pluralize(3, "duck", "duckies");
+Humanize.pluralize(3, 'duck', 'duckies');
 // "duckies"
 
 /////////////
@@ -125,25 +125,25 @@ Humanize.truncateWords('long text is good for you', 5);
 /**
  * capitalize
  */
-Humanize.capitalize("some boring string");
+Humanize.capitalize('some boring string');
 // "Some boring string"
 
-Humanize.capitalize("wHoOaA!");
+Humanize.capitalize('wHoOaA!');
 // "WHoOaA!"
 
-Humanize.capitalize("wHoOaA!", true);
+Humanize.capitalize('wHoOaA!', true);
 // "Whooaa!"
 
 /**
  * capitalizeAll
  */
-Humanize.capitalizeAll("some boring string");
+Humanize.capitalizeAll('some boring string');
 // "Some Boring String"
 
 /**
  * titleCase
  */
-Humanize.titleCase("some of a boring string");
+Humanize.titleCase('some of a boring string');
 // "Some of a Boring String"
 
 Humanize.titleCase("cool the          iTunes cake, O'Malley!");
@@ -168,23 +168,23 @@ Humanize.oxford(items, 3);
 Humanize.oxford(items, 4);
 // "apple, orange, banana, pear, and 1 other"
 
-Humanize.oxford(items, 3, "and some other fruits");
+Humanize.oxford(items, 3, 'and some other fruits');
 // "apple, orange, banana, and some other fruits"
 
 /**
  * frequency
  */
 const aznPics = [
-  'http://24.media.tumblr.com/77082543cb69af56ede38a0cdb2511d0/tumblr_mh96olWPLv1r8k4ywo1_1280.jpg',
-  'http://25.media.tumblr.com/3e2d318be34d5ef8f86a612cd1d795ff/tumblr_mhbhb96t3z1r8k4ywo1_1280.jpg',
-  'http://24.media.tumblr.com/8c5a052e33c27c784514e1b124b383a1/tumblr_mhexaqrk0w1r8k4ywo1_1280.jpg'
+    'http://24.media.tumblr.com/77082543cb69af56ede38a0cdb2511d0/tumblr_mh96olWPLv1r8k4ywo1_1280.jpg',
+    'http://25.media.tumblr.com/3e2d318be34d5ef8f86a612cd1d795ff/tumblr_mhbhb96t3z1r8k4ywo1_1280.jpg',
+    'http://24.media.tumblr.com/8c5a052e33c27c784514e1b124b383a1/tumblr_mhexaqrk0w1r8k4ywo1_1280.jpg',
 ];
 const bigfootPics: string[] = [];
 
-"Instagrammers " + Humanize.frequency(aznPics, "took pictures of food");
+'Instagrammers ' + Humanize.frequency(aznPics, 'took pictures of food');
 // "Instagrammers took pictures of food 3 times"
 
-"Bigfoot " + Humanize.frequency(bigfootPics, "took pictures of food");
+'Bigfoot ' + Humanize.frequency(bigfootPics, 'took pictures of food');
 // "Bigfoot never took pictures of food"
 
 /////////////////////

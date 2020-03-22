@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { Options as CoreOptions } from "conventional-changelog-core";
-import { Commit, Options as ParserOptions } from "conventional-commits-parser";
-import { Context as WriterContext } from "conventional-changelog-writer";
+import { Options as CoreOptions } from 'conventional-changelog-core';
+import { Commit, Options as ParserOptions } from 'conventional-commits-parser';
+import { Context as WriterContext } from 'conventional-changelog-writer';
 
 /**
  * @param options  `options` is an object with the following properties:
@@ -68,7 +68,7 @@ declare namespace conventionalRecommendedBump {
         }
 
         namespace Recommendation {
-            type ReleaseType = "major" | "minor" | "patch";
+            type ReleaseType = 'major' | 'minor' | 'patch';
         }
     }
 

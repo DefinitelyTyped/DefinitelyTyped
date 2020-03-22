@@ -16,7 +16,7 @@ const authenticationUrl = unsplash.auth.getAuthenticationUrl([
 unsplash.auth
     .userAuthentication('{OAUTH_CODE}')
     .then(toJson)
-    .then(json => {
+    .then((json) => {
         unsplash.auth.setBearerToken(json.access_token);
     });
 
@@ -58,7 +58,7 @@ unsplash.photos.unlikePhoto('mtNweauBsMQ');
 unsplash.photos
     .getPhoto('mtNweauBsMQ')
     .then(toJson)
-    .then(json => {
+    .then((json) => {
         unsplash.photos.downloadPhoto(json);
     });
 

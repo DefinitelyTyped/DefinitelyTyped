@@ -5,18 +5,18 @@
 
 declare namespace ValidatorOptions {
     interface IsStringOptions {
-        regex?: RegExp,
-        message?: String
+        regex?: RegExp;
+        message?: String;
     }
 
     interface IsNumberOptions {
-        min?: Number,
-        max?: Number
+        min?: Number;
+        max?: Number;
     }
 
     interface IsDateOptions {
-        format?: String,
-        message?: String
+        format?: String;
+        message?: String;
     }
 
     type Options = IsStringOptions | IsNumberOptions | IsDateOptions;
@@ -26,14 +26,14 @@ declare namespace Validator {
     type ValidateFn = (value: any, onError: (message: String, childName: String, childValie: any) => void) => void;
 
     interface Validatable {
-        validate: ValidateFn
+        validate: ValidateFn;
     }
 
     interface IsObjectValidator extends Validatable {
-        withRequired: (name: String, validator: Validatable) => IsObjectValidator,
-        withOptional: (name: String, validator: Validatable) => IsObjectValidator,
-        withCustom: (customValidator: ValidateFn) => IsObjectValidator,
-        validate: ValidateFn
+        withRequired: (name: String, validator: Validatable) => IsObjectValidator;
+        withOptional: (name: String, validator: Validatable) => IsObjectValidator;
+        withCustom: (customValidator: ValidateFn) => IsObjectValidator;
+        validate: ValidateFn;
     }
 
     function express(validator: Validatable): any;

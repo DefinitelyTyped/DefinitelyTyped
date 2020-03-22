@@ -15,14 +15,18 @@ parseTorrent('magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36');
 //   infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36' }
 
 // magnet uri with torrent name
-parseTorrent('magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves%20of%20Grass%20by%20Walt%20Whitman.epub');
+parseTorrent(
+    'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves%20of%20Grass%20by%20Walt%20Whitman.epub',
+);
 // { xt: 'urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 //   dn: 'Leaves of Grass by Walt Whitman.epub',
 //   infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 //   name: 'Leaves of Grass by Walt Whitman.epub' }
 
 // magnet uri with trackers
-parseTorrent('magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&tr=http%3A%2F%2Ftracker.example.com%2Fannounce');
+parseTorrent(
+    'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&tr=http%3A%2F%2Ftracker.example.com%2Fannounce',
+);
 // { xt: 'urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 //   tr: 'http://tracker.example.com/announce',
 //   infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36',

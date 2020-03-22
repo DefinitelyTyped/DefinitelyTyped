@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as CountUp from "react-countup";
+import * as React from 'react';
+import * as CountUp from 'react-countup';
 
 export class Test extends React.Component<any> {
     render() {

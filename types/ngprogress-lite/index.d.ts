@@ -8,7 +8,6 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     export namespace progressLite {
-
         export interface INgProgressLite {
             set(num: number): INgProgressLite;
             get(): number;

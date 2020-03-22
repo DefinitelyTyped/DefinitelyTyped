@@ -145,7 +145,12 @@ declare namespace adone {
         /**
          * Checks whether the given array has the given value
          */
-        export function inArray<T>(value: T, array: any[], offset?: number, comparator?: (a: T, b: T) => boolean): boolean;
+        export function inArray<T>(
+            value: T,
+            array: any[],
+            offset?: number,
+            comparator?: (a: T, b: T) => boolean,
+        ): boolean;
 
         /**
          * Checks whether the given objects has same type
@@ -579,59 +584,65 @@ declare namespace adone {
         /**
          * Checks whether the given object(string) is a url
          */
-        export function url(obj: any, options?: I.FQDNOptions & {
-            /**
-             * List of valid protocols.
-             * Used when requireValidProtocol is `true`.
-             * Default ["http", "https", "ftp"]
-             */
-            protocols?: string[],
+        export function url(
+            obj: any,
+            options?: I.FQDNOptions & {
+                /**
+                 * List of valid protocols.
+                 * Used when requireValidProtocol is `true`.
+                 * Default ["http", "https", "ftp"]
+                 */
+                protocols?: string[];
 
-            /**
-             * Whether to require protocol, default `true`
-             */
-            requireProtocol?: boolean,
+                /**
+                 * Whether to require protocol, default `true`
+                 */
+                requireProtocol?: boolean;
 
-            /**
-             * Whether to require host, default `true`
-             */
-            requireHost?: boolean,
+                /**
+                 * Whether to require host, default `true`
+                 */
+                requireHost?: boolean;
 
-            /**
-             * Whether to require valid protocol defined in `protocols` options, default `true`
-             */
-            requireValidProtocol?: boolean,
+                /**
+                 * Whether to require valid protocol defined in `protocols` options, default `true`
+                 */
+                requireValidProtocol?: boolean;
 
-            /**
-             * Whether to allow urls like "//example.com", default `false`
-             */
-            allowProtocolRelativeUrls?: boolean
-        }): obj is string;
+                /**
+                 * Whether to allow urls like "//example.com", default `false`
+                 */
+                allowProtocolRelativeUrls?: boolean;
+            },
+        ): obj is string;
 
         /**
          * Checks whether the given object(string) is a valid email address
          */
-        export function email(obj: any, options?: {
-            /**
-             * Whether to allow email addresses with display names ("Name <local@domain>"")
-             */
-            allowDisplayName?: boolean,
+        export function email(
+            obj: any,
+            options?: {
+                /**
+                 * Whether to allow email addresses with display names ("Name <local@domain>"")
+                 */
+                allowDisplayName?: boolean;
 
-            /**
-             * Whether to require display name
-             */
-            requireDisplayName?: boolean,
+                /**
+                 * Whether to require display name
+                 */
+                requireDisplayName?: boolean;
 
-            /**
-             * Whether to allow UTF8 characters in the local part
-             */
-            allowUtf8LocalPart?: boolean,
+                /**
+                 * Whether to allow UTF8 characters in the local part
+                 */
+                allowUtf8LocalPart?: boolean;
 
-            /**
-             * Whether to require top-level domain, default `true`
-             */
-            requireTld?: boolean
-        }): obj is string;
+                /**
+                 * Whether to require top-level domain, default `true`
+                 */
+                requireTld?: boolean;
+            },
+        ): obj is string;
 
         /**
          * Checks whether the given object is a valid UUIDv1 identifier
@@ -661,7 +672,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is a valid UUID identifier (v1, v2, v3, v4 or v5)
          */
-        export function uuid(obj: any, version?: "all"): obj is string;
+        export function uuid(obj: any, version?: 'all'): obj is string;
 
         export function emitter(obj: any): obj is event.Emitter;
 

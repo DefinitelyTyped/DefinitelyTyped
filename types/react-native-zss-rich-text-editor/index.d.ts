@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { Component, ReactNode } from "react";
-import { ImageStyle, StyleProp, TextStyle, ViewStyle, ImageProps, ImageSourcePropType } from "react-native";
+import { Component, ReactNode } from 'react';
+import { ImageStyle, StyleProp, TextStyle, ViewStyle, ImageProps, ImageSourcePropType } from 'react-native';
 
 export type FunctionWithZeroArgs = () => void;
 
@@ -96,7 +96,7 @@ export enum ACTIONS {
     init = 'ZSSS_INIT',
     setEditorHeight = 'SET_EDITOR_HEIGHT',
     setFooterHeight = 'SET_FOOTER_HEIGHT',
-    setPlatform = 'SET_PLATFORM'
+    setPlatform = 'SET_PLATFORM',
 }
 
 // RichTextEditor takes the following optional props
@@ -220,5 +220,5 @@ export class RichTextEditor extends Component<Partial<RichTextEditorProps>> {
 
 // This is a Component that provides a toolbar for easily controlling an editor.
 // It is designed to be used together with a RichTextEditor component.
-export class RichTextToolbar extends Component<Partial<RichTextToolbarProps>> { }
+export class RichTextToolbar extends Component<Partial<RichTextToolbarProps>> {}
 /* tslint:enable:max-classes-per-file */

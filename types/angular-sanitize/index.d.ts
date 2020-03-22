@@ -57,7 +57,9 @@ declare module 'angular' {
              * @see https://code.angularjs.org/1.7.0/docs/api/ngSanitize/provider/$sanitizeProvider#addValidElements
              * @param elements A list of valid HTML elements or an object with one or more of the following properties: htmlElements, htmlVoidElements, svgElements
              */
-            addValidElements(elements: string[] | { htmlElements?: string[]; htmlVoidElements?: string[]; svgElements?: string[] }): ISanitizeProvider;
+            addValidElements(
+                elements: string[] | { htmlElements?: string[]; htmlVoidElements?: string[]; svgElements?: string[] },
+            ): ISanitizeProvider;
 
             /**
              * Extends the built-in list of valid attributes, i.e. attributes that are considered safe and are not stripped off during sanitization.
@@ -83,7 +85,11 @@ declare module 'angular' {
              * @return Html-linkified and sanitized text.
              */
             interface ILinky {
-                (text: string, target?: string, attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })): string;
+                (
+                    text: string,
+                    target?: string,
+                    attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string }),
+                ): string;
             }
         }
 

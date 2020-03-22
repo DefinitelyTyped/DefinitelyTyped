@@ -1,4 +1,4 @@
-import * as cookie from "cookie-signature";
+import * as cookie from 'cookie-signature';
 
 let val = cookie.sign('hello', 'tobiiscool');
 

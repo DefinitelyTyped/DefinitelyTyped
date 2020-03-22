@@ -10,5 +10,5 @@ export interface ButtonToolbarProps extends React.HTMLAttributes<HTMLElement> {
     role?: string;
 }
 
-declare class ButtonToolbar<T = {[key: string]: any}> extends React.Component<ButtonToolbarProps> {}
+declare class ButtonToolbar<T = { [key: string]: any }> extends React.Component<ButtonToolbarProps> {}
 export default ButtonToolbar;

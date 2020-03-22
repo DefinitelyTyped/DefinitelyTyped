@@ -8,24 +8,13 @@
 
 export type MessageProperties = unknown[];
 
-export type MessageRoutingModes =
-    'RoundRobinPartition' |
-    'SinglePartition' |
-    'CustomPartition';
+export type MessageRoutingModes = 'RoundRobinPartition' | 'SinglePartition' | 'CustomPartition';
 
-export type HashingScheme =
-    'BoostHash' |
-    'JavaStringHash' |
-    'Murmur3_32Hash';
+export type HashingScheme = 'BoostHash' | 'JavaStringHash' | 'Murmur3_32Hash';
 
-export type CompressionType =
-    'LZ4' |
-    'Zlib';
+export type CompressionType = 'LZ4' | 'Zlib';
 
-export type SubscriptionType =
-    'Exclusive' |
-    'Shared' |
-    'Failover';
+export type SubscriptionType = 'Exclusive' | 'Shared' | 'Failover';
 
 export interface AuthenticationTls {
     certificatePath: string;

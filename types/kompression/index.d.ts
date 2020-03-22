@@ -3,7 +3,7 @@
 // Definitions by: Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import koa = require("koa");
+import koa = require('koa');
 
 export = kompression;
 

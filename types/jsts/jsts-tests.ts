@@ -1,5 +1,3 @@
-
-
 import * as jsts from 'jsts';
 
 var str: string;
@@ -191,7 +189,7 @@ str = im0.toString();
 im0.setAll(n);
 n = im0.get(n, n);
 im0 = im0.transpose();
-bool = im0.matches([str, str, str, str, str, str ,str, str, str]);
+bool = im0.matches([str, str, str, str, str, str, str, str, str]);
 im0.add(im1);
 bool = im0.isDisjoint();
 bool = im0.isCrosses(n, n);

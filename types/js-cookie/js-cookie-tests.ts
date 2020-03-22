@@ -1,4 +1,4 @@
-import Cookies = require("js-cookie");
+import Cookies = require('js-cookie');
 
 // $ExpectType string | undefined
 Cookies.set('name', 'value');
@@ -35,8 +35,7 @@ Cookies.getJSON();
 
 document.cookie = 'escaped=%u5317';
 document.cookie = 'default=%E5%8C%97';
-const cookies = Cookies.withConverter((value, name) =>
-    name === 'escaped' ? decodeURIComponent(value) : value);
+const cookies = Cookies.withConverter((value, name) => (name === 'escaped' ? decodeURIComponent(value) : value));
 
 cookies.get('escaped');
 
@@ -46,15 +45,15 @@ delete Cookies.defaults.path;
 const PHPCookies = Cookies.withConverter<object>({
     write(value) {
         value; // $ExpectType string | object
-        return encodeURIComponent(value as string)
-            .replace(/%(23|24|26|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+        return encodeURIComponent(value as string).replace(
+            /%(23|24|26|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,
+            decodeURIComponent,
+        );
     },
     read(value) {
         value; // $ExpectType string
-        return value
-            .replace(/\+/g, ' ')
-            .replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
-    }
+        return value.replace(/\+/g, ' ').replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
+    },
 });
 
 const BlankConverterCookies = Cookies.withConverter({
@@ -63,7 +62,7 @@ const BlankConverterCookies = Cookies.withConverter({
             return value.replace('hoge', 'fuga');
         }
         return value;
-    }
+    },
 });
 
 document.cookie = 'hoge=hogehoge';

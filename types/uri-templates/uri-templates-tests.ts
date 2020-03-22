@@ -8,7 +8,7 @@ const obj = { test: 'test1' };
 u = utmpl(str);
 
 str = u.fillFromObject(obj);
-str = u.fill(key => {
+str = u.fill((key) => {
     return str;
 });
 str = u.fill(obj);

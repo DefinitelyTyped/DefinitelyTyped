@@ -1,2 +1,2 @@
-import { linear } from "./index";
+import { linear } from './index';
 export = linear;

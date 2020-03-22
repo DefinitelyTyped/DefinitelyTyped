@@ -13,7 +13,7 @@ import { Plugin, Selection } from 'prosemirror-state';
  * Gap cursor selections are represented using this class. Its
  * `$anchor` and `$head` properties both point at the cursor position.
  */
-export class GapCursor extends Selection { }
+export class GapCursor extends Selection {}
 /**
  * Create a gap cursor plugin. When enabled, this will capture clicks
  * near and arrow-key-motion past places that don't have a normally

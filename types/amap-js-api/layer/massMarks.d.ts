@@ -30,16 +30,19 @@ declare namespace AMap {
             rotation?: number;
         }
 
-        type UIEvent<N extends string, I> = Event<N, {
-            /**
-             * 事件触发目标
-             */
-            target: I;
-            /**
-             * 目标点的数据
-             */
-            data: I extends MassMarks<infer D> ? D : Data;
-        }>;
+        type UIEvent<N extends string, I> = Event<
+            N,
+            {
+                /**
+                 * 事件触发目标
+                 */
+                target: I;
+                /**
+                 * 目标点的数据
+                 */
+                data: I extends MassMarks<infer D> ? D : Data;
+            }
+        >;
 
         interface Options extends Layer.Options {
             /**

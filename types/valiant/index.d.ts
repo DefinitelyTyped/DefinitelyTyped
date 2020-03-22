@@ -6,7 +6,9 @@
 
 export as namespace Valiant;
 
-export function createInterval<T = number>(compareValues?: IntervalConstructor<T>['compareValues']): IntervalConstructor<T>;
+export function createInterval<T = number>(
+    compareValues?: IntervalConstructor<T>['compareValues'],
+): IntervalConstructor<T>;
 
 export interface IntervalConstructor<T = number> {
     new (from: Endpoint<T>, to: Endpoint<T>): Interval<T>;

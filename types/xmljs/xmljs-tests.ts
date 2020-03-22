@@ -1,4 +1,4 @@
-import XmlParser = require("xmljs");
+import XmlParser = require('xmljs');
 
 const p = new XmlParser({ strict: true });
 const xml = `<?xml version="1.0"?>
@@ -19,11 +19,8 @@ p.parseString(xml, (err, xmlNode) => {
         // console.error(err);
         return;
     }
-    const nodes = xmlNode.path(
-        ["Envelope", "Body", "GetstockpriceResponse", "Price"],
-        true
-    );
-    const arr = nodes.map(n => n.text);
+    const nodes = xmlNode.path(['Envelope', 'Body', 'GetstockpriceResponse', 'Price'], true);
+    const arr = nodes.map((n) => n.text);
 
     // console.log(arr);
 });

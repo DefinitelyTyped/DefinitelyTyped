@@ -261,7 +261,11 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     /**
      * The callback to handle authentications ([see details](https://github.com/andris9/smtp-server#handling-authentication))
      */
-    onAuth?(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void): void;
+    onAuth?(
+        auth: SMTPServerAuthentication,
+        session: SMTPServerSession,
+        callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void,
+    ): void;
     /**
      * The callback to handle the client connection. ([see details](https://github.com/andris9/smtp-server#validating-client-connection))
      */
@@ -311,7 +315,11 @@ export class SMTPServer extends EventEmitter {
     updateSecureContext(options: tls.TlsOptions): void;
 
     /** Authentication handler. Override this */
-    onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void): void;
+    onAuth(
+        auth: SMTPServerAuthentication,
+        session: SMTPServerSession,
+        callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void,
+    ): void;
     /** Override this */
     onClose(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */

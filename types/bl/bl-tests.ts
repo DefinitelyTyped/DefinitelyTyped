@@ -1,4 +1,3 @@
-
 import BufferList = require('bl');
 
 var bl: BufferList;
@@ -14,7 +13,7 @@ bl = new BufferList([bl]);
 bl = new BufferList(Buffer.from('asdf'));
 bl = new BufferList([Buffer.from('asdf')]);
 bl = new BufferList('hi');
-bl = new BufferList((err:Error, buffer:Buffer) => {
+bl = new BufferList((err: Error, buffer: Buffer) => {
     if (err) {
         throw err;
     }
@@ -49,7 +48,7 @@ bl.indexOf('foo', 0, 'hex') === 1;
 bl.indexOf(Buffer.from('foo')) === 1;
 bl.indexOf(4) === 1;
 bl.indexOf(bl) === 1;
-bl.indexOf(new Uint8Array([1,3,4])) === 2;
+bl.indexOf(new Uint8Array([1, 3, 4])) === 2;
 
 num = bl.readDoubleBE(offset, noAssert);
 num = bl.readDoubleBE(offset);

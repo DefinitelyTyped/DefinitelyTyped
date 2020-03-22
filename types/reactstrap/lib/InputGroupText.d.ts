@@ -7,5 +7,5 @@ export interface InputGroupTextProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class InputGroupText<T = {[key: string]: any}> extends React.Component<InputGroupTextProps> {}
+declare class InputGroupText<T = { [key: string]: any }> extends React.Component<InputGroupTextProps> {}
 export default InputGroupText;

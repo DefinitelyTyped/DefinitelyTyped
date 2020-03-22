@@ -29,7 +29,7 @@ interface GoogleApiOAuth2TokenObject {
 
 interface GoogleApiOAuth2TokenSessionState {
     extraQueryParams: {
-        authuser: string,
+        authuser: string;
     };
 }
 
@@ -41,13 +41,12 @@ interface GoogleApiOAuth2TokenSessionState {
  * https://developers.google.com/identity/sign-in/web/session-state
  */
 declare namespace gapi {
-
     type LoadCallback = (...args: any[]) => void;
     type LoadConfig = {
-      callback: LoadCallback,
-      onerror?: Function,
-      timeout?: number,
-      ontimeout?: Function,
+        callback: LoadCallback;
+        onerror?: Function;
+        timeout?: number;
+        ontimeout?: Function;
     };
     type CallbackOrConfig = LoadConfig | LoadCallback;
 
@@ -56,7 +55,6 @@ declare namespace gapi {
      * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiloadlibraries-callbackorconfig
      */
     export function load(apiName: string, callback: CallbackOrConfig): void;
-
 }
 
 declare namespace gapi.auth {
@@ -65,28 +63,31 @@ declare namespace gapi.auth {
      * @param params A key/value map of parameters for the request. If the key is not one of the expected OAuth 2.0 parameters, it is added to the URI as a query parameter.
      * @param callback The function to call once the login process is complete. The function takes an OAuth 2.0 token object as its only parameter.
      */
-    export function authorize(params: {
-        /**
-         * The application's client ID.
-         */
-        client_id?: string;
-        /**
-         * If true, then login uses "immediate mode", which means that the token is refreshed behind the scenes, and no UI is shown to the user.
-         */
-        immediate?: boolean;
-        /**
-         * The OAuth 2.0 response type property. Default: token
-         */
-        response_type?: string;
-        /**
-         * The auth scope or scopes to authorize. Auth scopes for individual APIs can be found in their documentation.
-         */
-        scope?: any;
-        /**
-         * The user to sign in as. -1 to toggle a multi-account chooser, 0 to default to the user's current account, and 1 to automatically sign in if the user is signed into Google Plus.
-         */
-        authuser?: number;
-    }, callback: (token: GoogleApiOAuth2TokenObject) => any): void;
+    export function authorize(
+        params: {
+            /**
+             * The application's client ID.
+             */
+            client_id?: string;
+            /**
+             * If true, then login uses "immediate mode", which means that the token is refreshed behind the scenes, and no UI is shown to the user.
+             */
+            immediate?: boolean;
+            /**
+             * The OAuth 2.0 response type property. Default: token
+             */
+            response_type?: string;
+            /**
+             * The auth scope or scopes to authorize. Auth scopes for individual APIs can be found in their documentation.
+             */
+            scope?: any;
+            /**
+             * The user to sign in as. -1 to toggle a multi-account chooser, 0 to default to the user's current account, and 1 to automatically sign in if the user is signed into Google Plus.
+             */
+            authuser?: number;
+        },
+        callback: (token: GoogleApiOAuth2TokenObject) => any,
+    ): void;
     /**
      * Initializes the authorization feature. Call this when the client loads to prevent popup blockers from blocking the auth window on gapi.auth.authorize calls.
      * @param callback A callback to execute when the auth feature is ready to make authorization calls.
@@ -165,7 +166,7 @@ declare namespace gapi.client {
         /**
          * The scopes to request, as a space-delimited string.
          */
-        scope?: string,
+        scope?: string;
 
         hosted_domain?: string;
     }): Promise<void>;
@@ -248,7 +249,7 @@ declare namespace gapi.client {
      *
      * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiclientsettokentokenobject
      */
-    export function setToken(token: TokenObject|null): void;
+    export function setToken(token: TokenObject | null): void;
 
     interface HttpRequestFulfilled<T> {
         result: T;
@@ -270,12 +271,12 @@ declare namespace gapi.client {
      * HttpRequest supports promises.
      * See Google API Client JavaScript Using Promises https://developers.google.com/api-client-library/javascript/features/promises
      */
-     class HttpRequestPromise<T> {
+    class HttpRequestPromise<T> {
         // Taken and adapted from https://github.com/Microsoft/TypeScript/blob/v2.3.1/lib/lib.es5.d.ts#L1343
         then<TResult1 = T, TResult2 = never>(
             onfulfilled?: ((response: HttpRequestFulfilled<T>) => TResult1 | PromiseLike<TResult1>) | undefined | null,
             onrejected?: ((reason: HttpRequestRejected) => TResult2 | PromiseLike<TResult2>) | undefined | null,
-            opt_context?: any
+            opt_context?: any,
         ): Promise<TResult1 | TResult2>;
     }
 
@@ -287,21 +288,23 @@ declare namespace gapi.client {
          * Executes the request and runs the supplied callback on response.
          * @param callback The callback function which executes when the request succeeds or fails.
          */
-        execute(callback: (
-            /**
-             * contains the response parsed as JSON. If the response is not JSON, this field will be false.
-             */
-            jsonResp: T,
-            /**
-             * is the HTTP response. It is JSON, and can be parsed to an object
-             */
-            rawResp: {
-                body: string;
-                headers: any[];
-                status: number;
-                statusText: string;
-            }
-            ) => any): void;
+        execute(
+            callback: (
+                /**
+                 * contains the response parsed as JSON. If the response is not JSON, this field will be false.
+                 */
+                jsonResp: T,
+                /**
+                 * is the HTTP response. It is JSON, and can be parsed to an object
+                 */
+                rawResp: {
+                    body: string;
+                    headers: any[];
+                    status: number;
+                    statusText: string;
+                },
+            ) => any,
+        ): void;
     }
 
     /**
@@ -313,57 +316,62 @@ declare namespace gapi.client {
          * @param httpRequest The HTTP request to add to this batch.
          * @param opt_params extra parameters for this batch entry.
          */
-        add(httpRequest: HttpRequest<any>, opt_params?: {
-            /**
-             * Identifies the response for this request in the map of batch responses. If one is not provided, the system generates a random ID.
-             */
-            id: string;
-            callback: (
+        add(
+            httpRequest: HttpRequest<any>,
+            opt_params?: {
                 /**
-                 * is the response for this request only. Its format is defined by the API method being called.
+                 * Identifies the response for this request in the map of batch responses. If one is not provided, the system generates a random ID.
                  */
-                individualResponse: any,
-                /**
-                 * is the raw batch ID-response map as a string. It contains all responses to all requests in the batch.
-                 */
-                rawBatchResponse: any
-                ) => any
-        }): void;
+                id: string;
+                callback: (
+                    /**
+                     * is the response for this request only. Its format is defined by the API method being called.
+                     */
+                    individualResponse: any,
+                    /**
+                     * is the raw batch ID-response map as a string. It contains all responses to all requests in the batch.
+                     */
+                    rawBatchResponse: any,
+                ) => any;
+            },
+        ): void;
         /**
          * Executes all requests in the batch. The supplied callback is executed on success or failure.
          * @param callback The callback to execute when the batch returns.
          */
-        execute(callback: (
-            /**
-             * is an ID-response map of each requests response.
-             */
-            responseMap: any,
-            /**
-             * is the same response, but as an unparsed JSON-string.
-             */
-            rawBatchResponse: string
-            ) => any): void;
+        execute(
+            callback: (
+                /**
+                 * is an ID-response map of each requests response.
+                 */
+                responseMap: any,
+                /**
+                 * is the same response, but as an unparsed JSON-string.
+                 */
+                rawBatchResponse: string,
+            ) => any,
+        ): void;
     }
 
     /**
      * Similar to gapi.client.HttpRequest except this object encapsulates requests generated by registered methods.
      */
     export class RpcRequest {
-
         /**
          * Executes the request and runs the supplied callback with the response.
          * @param callback The callback function which executes when the request succeeds or fails.
          */
-        callback(callback: (
-            /**
-             * contains the response parsed as JSON. If the response is not JSON, this field will be false.
-             */
-            jsonResp: any,
-            /**
-             * is the same as jsonResp, except it is a raw string that has not been parsed. It is typically used when the response is not JSON.
-             */
-            rawResp: string
-            ) => void): void;
+        callback(
+            callback: (
+                /**
+                 * contains the response parsed as JSON. If the response is not JSON, this field will be false.
+                 */
+                jsonResp: any,
+                /**
+                 * is the same as jsonResp, except it is a raw string that has not been parsed. It is typically used when the response is not JSON.
+                 */
+                rawResp: string,
+            ) => void,
+        ): void;
     }
-
 }

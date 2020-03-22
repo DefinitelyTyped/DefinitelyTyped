@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Slides API v1 */
-    function load(name: "slides", version: "v1"): PromiseLike<void>;
-    function load(name: "slides", version: "v1", callback: () => any): void;
+    function load(name: 'slides', version: 'v1'): PromiseLike<void>;
+    function load(name: 'slides', version: 'v1', callback: () => any): void;
 
     const presentations: slides.PresentationsResource;
 
@@ -1941,7 +1941,7 @@ declare namespace gapi.client {
             /** Gets the latest version of the specified page in the presentation. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1977,7 +1977,7 @@ declare namespace gapi.client {
              */
             getThumbnail(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2007,14 +2007,14 @@ declare namespace gapi.client {
                  *
                  * If you don't specify the mime type, the default mime type will be PNG.
                  */
-                "thumbnailProperties.mimeType"?: string;
+                'thumbnailProperties.mimeType'?: string;
                 /**
                  * The optional thumbnail image size.
                  *
                  * If you don't specify the size, the server chooses a default size of the
                  * image.
                  */
-                "thumbnailProperties.thumbnailSize"?: string;
+                'thumbnailProperties.thumbnailSize'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -2047,7 +2047,7 @@ declare namespace gapi.client {
              */
             batchUpdate(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2082,7 +2082,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2111,7 +2111,7 @@ declare namespace gapi.client {
             /** Gets the latest version of the specified presentation. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

@@ -14,9 +14,9 @@ export interface PackDebugOptions extends PackOptions {
 
 export interface DebugObject {
     dictionary: {
-        strings: string[],
-        integers: number[],
-        floats: number[],
+        strings: string[];
+        integers: number[];
+        floats: number[];
     };
     ast: Array<{
         type: string;

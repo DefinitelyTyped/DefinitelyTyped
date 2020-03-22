@@ -1,2 +1,2 @@
-import { reduceRight } from "../fp";
+import { reduceRight } from '../fp';
 export = reduceRight;

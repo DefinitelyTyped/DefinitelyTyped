@@ -1,6 +1,6 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
 import {
     CacheNameDetails,
@@ -9,7 +9,7 @@ import {
     registerQuotaErrorCallback,
     setCacheNameDetails,
     skipWaiting,
-} from "workbox-core";
+} from 'workbox-core';
 
 //==============================================================================
 // WorkboxCore.cacheNames

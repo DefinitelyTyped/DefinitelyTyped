@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Play Developer API v2 */
-    function load(name: "androidpublisher", version: "v2"): PromiseLike<void>;
-    function load(name: "androidpublisher", version: "v2", callback: () => any): void;
+    function load(name: 'androidpublisher', version: 'v2'): PromiseLike<void>;
+    function load(name: 'androidpublisher', version: 'v2', callback: () => any): void;
 
     const edits: androidpublisher.EditsResource;
 

@@ -4,24 +4,29 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'angular-es' {
-
     interface ClassDecorator {
-        <TFunction extends Function>(target: TFunction): TFunction|void;
+        <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
     interface MethodDecorator {
-        <T>(target: Object, propertyKey: string|symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T>|void;
+        <T>(
+            target: Object,
+            propertyKey: string | symbol,
+            descriptor: TypedPropertyDescriptor<T>,
+        ): TypedPropertyDescriptor<T> | void;
     }
 
     /**
      * Decorated target
      */
     interface ngESDecorator extends ClassDecorator, MethodDecorator {
-        (target: Object|Function,
-         ngName?: string,
-         ngArguments?: Array<any>,
-         ngType?: string,
-         injectAsProperty?: Array<string>): void;
+        (
+            target: Object | Function,
+            ngName?: string,
+            ngArguments?: Array<any>,
+            ngType?: string,
+            injectAsProperty?: Array<string>,
+        ): void;
     }
 
     /**
@@ -29,13 +34,13 @@ declare module 'angular-es' {
      * @see https://docs.angularjs.org/guide/component
      */
     interface iComponent {
-        template: string,
-        selector: string,
-        controllerAs?: string,
-        require?: string,
-        templateUrl?: string,
-        transclude?: string,
-        bindings?: Object
+        template: string;
+        selector: string;
+        controllerAs?: string;
+        require?: string;
+        templateUrl?: string;
+        transclude?: string;
+        bindings?: Object;
     }
 
     /**
@@ -183,5 +188,5 @@ declare module 'angular-es' {
         Run,
         Service,
         Value,
-    }
+    };
 }

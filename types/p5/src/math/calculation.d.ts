@@ -142,7 +142,7 @@ declare module '../../index' {
             stop1: number,
             start2: number,
             stop2: number,
-            withinBounds?: boolean
+            withinBounds?: boolean,
         ): number;
 
         /**

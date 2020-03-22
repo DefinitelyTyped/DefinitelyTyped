@@ -5,16 +5,16 @@ declare const EVENT_NAMES: [
     'playbackRateChange',
     'error',
     'apiChange',
-    'volumeChange'
+    'volumeChange',
 ];
 
 export default EVENT_NAMES;
 
 export type EventType =
-    'ready' |
-    'stateChange' |
-    'playbackQualityChange' |
-    'playbackRateChange' |
-    'error' |
-    'apiChange' |
-    'volumeChange';
+    | 'ready'
+    | 'stateChange'
+    | 'playbackQualityChange'
+    | 'playbackRateChange'
+    | 'error'
+    | 'apiChange'
+    | 'volumeChange';

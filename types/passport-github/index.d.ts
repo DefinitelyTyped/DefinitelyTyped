@@ -13,14 +13,50 @@ import { OutgoingHttpHeaders } from 'http';
 import github = Strategy;
 
 declare class Strategy extends oauth2.Strategy {
-    constructor(options: github.StrategyOptions, verify: (accessToken: string, refreshToken: string, profile: github.Profile, done: oauth2.VerifyCallback) => void);
+    constructor(
+        options: github.StrategyOptions,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            profile: github.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
     // NOTE: A union of function types prevents contextual typing of arguments.
     // tslint:disable-next-line:unified-signatures
-    constructor(options: github.StrategyOptions, verify: (accessToken: string, refreshToken: string, params: any, profile: github.Profile, done: oauth2.VerifyCallback) => void);
-    constructor(options: github.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, refreshToken: string, profile: github.Profile, done: oauth2.VerifyCallback) => void);
+    constructor(
+        options: github.StrategyOptions,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            params: any,
+            profile: github.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: github.StrategyOptionsWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: github.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
     // NOTE: A union of function types prevents contextual typing of arguments.
     // tslint:disable-next-line:unified-signatures max-line-length
-    constructor(options: github.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, params: any, refreshToken: string, profile: github.Profile, done: oauth2.VerifyCallback) => void);
+    constructor(
+        options: github.StrategyOptionsWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            params: any,
+            refreshToken: string,
+            profile: github.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
 }
 
 declare namespace Strategy {
@@ -53,7 +89,7 @@ declare namespace Strategy {
     }
 
     interface Profile extends passport.Profile {
-        provider: "github";
+        provider: 'github';
         profileUrl: string;
         _raw: string;
         _json: object;

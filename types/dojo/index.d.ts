@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox.dtl {
-    interface __StringArgs { }
-    interface __ObjectArgs { }
+    interface __StringArgs {}
+    interface __ObjectArgs {}
 }
 
 declare namespace dojo {
@@ -17,7 +17,9 @@ declare namespace dojo {
      * @param url The URL to request.
      * @param options       OptionalOptions for the request.
      */
-    interface request { (url: String, options?: dojo.request.__Options): void }
+    interface request {
+        (url: String, options?: dojo.request.__Options): void;
+    }
     interface request {
         /**
          * Send an HTTP DELETE request using the default transport for the current platform.
@@ -56,7 +58,9 @@ declare namespace dojo {
          *
          * @param response
          */
-        interface handlers { (response: any): void }
+        interface handlers {
+            (response: any): void;
+        }
         interface handlers {
             /**
              *
@@ -66,8 +70,7 @@ declare namespace dojo {
             register(name: any, handler: any): void;
         }
 
-        namespace handlers {
-        }
+        namespace handlers {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.html
@@ -77,7 +80,9 @@ declare namespace dojo {
          * @param url URL to request
          * @param options       OptionalOptions for the request.
          */
-        interface iframe { (url: String, options?: dojo.request.iframe.__Options): void }
+        interface iframe {
+            (url: String, options?: dojo.request.iframe.__Options): void;
+        }
         interface iframe {
             /**
              *
@@ -128,7 +133,7 @@ declare namespace dojo {
                  * Default is "POST".
                  *
                  */
-                "method": string;
+                'method': string;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.__BaseOptions.html
@@ -143,34 +148,34 @@ declare namespace dojo {
                  * URL.
                  *
                  */
-                "data": string;
+                'data': string;
                 /**
                  * A form node to use to submit data to the server.
                  *
                  */
-                "form": HTMLElement;
+                'form': HTMLElement;
                 /**
                  * How to handle the response from the server.  Default is
                  * 'text'.  Other values are 'json', 'javascript', and 'xml'.
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * Whether to append a cache-busting parameter to the URL.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Query parameters to append to the URL.
                  *
                  */
-                "query": string;
+                'query': string;
                 /**
                  * Milliseconds to wait for the response.  If this time
                  * passes, the then the promise is rejected.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/iframe.__Options.html
@@ -185,41 +190,41 @@ declare namespace dojo {
                  * URL.
                  *
                  */
-                "data": string;
+                'data': string;
                 /**
                  * A form node to use to submit data to the server.
                  *
                  */
-                "form": HTMLElement;
+                'form': HTMLElement;
                 /**
                  * How to handle the response from the server.  Default is
                  * 'text'.  Other values are 'json', 'javascript', and 'xml'.
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * The HTTP method to use to make the request. Must be
                  * uppercase. Only "GET" and "POST" are accepted.
                  * Default is "POST".
                  *
                  */
-                "method": string;
+                'method': string;
                 /**
                  * Whether to append a cache-busting parameter to the URL.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Query parameters to append to the URL.
                  *
                  */
-                "query": string;
+                'query': string;
                 /**
                  * Milliseconds to wait for the response.  If this time
                  * passes, the then the promise is rejected.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
             }
         }
 
@@ -232,7 +237,9 @@ declare namespace dojo {
          * @param type       OptionalThe event to listen for. Events emitted: "start", "send","load", "error", "done", "stop".
          * @param listener       OptionalA callback to be run when an event happens.
          */
-        interface notify { (type?: String, listener?: Function): void }
+        interface notify {
+            (type?: String, listener?: Function): void;
+        }
         interface notify {
             /**
              *
@@ -243,8 +250,7 @@ declare namespace dojo {
             emit(type: any, event: any, cancel: any): void;
         }
 
-        namespace notify {
-        }
+        namespace notify {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/registry.html
@@ -253,7 +259,9 @@ declare namespace dojo {
          * @param url
          * @param options
          */
-        interface registry { (url: any, options: any): void }
+        interface registry {
+            (url: any, options: any): void;
+        }
         interface registry {
             /**
              *
@@ -272,8 +280,7 @@ declare namespace dojo {
             register(url: any, provider: any, first: any): void;
         }
 
-        namespace registry {
-        }
+        namespace registry {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/node.html
@@ -284,7 +291,9 @@ declare namespace dojo {
          * @param url URL to request
          * @param options       OptionalOptions for the request.
          */
-        interface node { (url: String, options?: dojo.request.node.__Options): void }
+        interface node {
+            (url: String, options?: dojo.request.node.__Options): void;
+        }
         interface node {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.
@@ -329,7 +338,7 @@ declare namespace dojo {
                  * uppercase. Default is "GET".
                  *
                  */
-                "method": string;
+                'method': string;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/node.__Options.html
@@ -343,50 +352,50 @@ declare namespace dojo {
                  * requests.
                  *
                  */
-                "data": string;
+                'data': string;
                 /**
                  * How to handle the response from the server.  Default is
                  * 'text'.  Other values are 'json', 'javascript', and 'xml'.
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * Headers to use for the request.
                  *
                  */
-                "headers": Object;
+                'headers': Object;
                 /**
                  * The HTTP method to use to make the request. Must be
                  * uppercase. Default is "GET".
                  *
                  */
-                "method": string;
+                'method': string;
                 /**
                  * Password to use during the request.
                  *
                  */
-                "password": string;
+                'password': string;
                 /**
                  * Whether to append a cache-busting parameter to the URL.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Query parameters to append to the URL.
                  *
                  */
-                "query": string;
+                'query': string;
                 /**
                  * Milliseconds to wait for the response.  If this time
                  * passes, the then the promise is rejected.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
                 /**
                  * Username to use during the request.
                  *
                  */
-                "user": string;
+                'user': string;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/node.__BaseOptions.html
@@ -400,44 +409,44 @@ declare namespace dojo {
                  * requests.
                  *
                  */
-                "data": string;
+                'data': string;
                 /**
                  * How to handle the response from the server.  Default is
                  * 'text'.  Other values are 'json', 'javascript', and 'xml'.
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * Headers to use for the request.
                  *
                  */
-                "headers": Object;
+                'headers': Object;
                 /**
                  * Password to use during the request.
                  *
                  */
-                "password": string;
+                'password': string;
                 /**
                  * Whether to append a cache-busting parameter to the URL.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Query parameters to append to the URL.
                  *
                  */
-                "query": string;
+                'query': string;
                 /**
                  * Milliseconds to wait for the response.  If this time
                  * passes, the then the promise is rejected.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
                 /**
                  * Username to use during the request.
                  *
                  */
-                "user": string;
+                'user': string;
             }
         }
 
@@ -448,7 +457,9 @@ declare namespace dojo {
          *
          * @param dfd The Deferred object to watch.
          */
-        interface watch { (dfd: dojo.Deferred): void }
+        interface watch {
+            (dfd: dojo.Deferred): void;
+        }
         interface watch {
             /**
              * Function used to check if basic IO call worked. Gets the dfd
@@ -475,8 +486,7 @@ declare namespace dojo {
             cancelAll(): void;
         }
 
-        namespace watch {
-        }
+        namespace watch {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/script.html
@@ -486,7 +496,9 @@ declare namespace dojo {
          * @param url URL to request
          * @param options       OptionalOptions for the request.
          */
-        interface script { (url: String, options?: dojo.request.script.__Options): void }
+        interface script {
+            (url: String, options?: dojo.request.script.__Options): void;
+        }
         interface script {
             /**
              * Send an HTTP GET request using a script element with the given URL and options.
@@ -510,7 +522,7 @@ declare namespace dojo {
                  * GET requests.
                  *
                  */
-                "method": string;
+                'method': string;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/script.__BaseOptions.html
@@ -526,26 +538,26 @@ declare namespace dojo {
                  * Do not use this if doing a JSONP type of call (use jsonp instead).
                  *
                  */
-                "checkString": string;
+                'checkString': string;
                 /**
                  * Data to transfer.  This is ignored for GET and DELETE
                  * requests.
                  *
                  */
-                "data": string;
+                'data': string;
                 /**
                  * The Document object of a child iframe. If this is passed in, the script
                  * will be attached to that document. This can be helpful in some comet long-polling
                  * scenarios with Firefox and Opera.
                  *
                  */
-                "frameDoc": Object;
+                'frameDoc': Object;
                 /**
                  * How to handle the response from the server.  Default is
                  * 'text'.  Other values are 'json', 'javascript', and 'xml'.
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * The URL parameter name that indicates the JSONP callback string.
                  * For instance, when using Yahoo JSONP calls it is normally,
@@ -553,23 +565,23 @@ declare namespace dojo {
                  * jsonp: "c".
                  *
                  */
-                "jsonp": string;
+                'jsonp': string;
                 /**
                  * Whether to append a cache-busting parameter to the URL.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Query parameters to append to the URL.
                  *
                  */
-                "query": string;
+                'query': string;
                 /**
                  * Milliseconds to wait for the response.  If this time
                  * passes, the then the promise is rejected.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/script.__Options.html
@@ -585,26 +597,26 @@ declare namespace dojo {
                  * Do not use this if doing a JSONP type of call (use jsonp instead).
                  *
                  */
-                "checkString": string;
+                'checkString': string;
                 /**dojo
                  * Data to transfer.  This is ignored for GET and DELETE
                  * requests.
                  *
                  */
-                "data": string;
+                'data': string;
                 /**
                  * The Document object of a child iframe. If this is passed in, the script
                  * will be attached to that document. This can be helpful in some comet long-polling
                  * scenarios with Firefox and Opera.
                  *
                  */
-                "frameDoc": Object;
+                'frameDoc': Object;
                 /**
                  * How to handle the response from the server.  Default is
                  * 'text'.  Other values are 'json', 'javascript', and 'xml'.
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * The URL parameter name that indicates the JSONP callback string.
                  * For instance, when using Yahoo JSONP calls it is normally,
@@ -612,29 +624,29 @@ declare namespace dojo {
                  * jsonp: "c".
                  *
                  */
-                "jsonp": string;
+                'jsonp': string;
                 /**
                  * This option is ignored. All requests using this transport are
                  * GET requests.
                  *
                  */
-                "method": string;
+                'method': string;
                 /**
                  * Whether to append a cache-busting parameter to the URL.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Query parameters to append to the URL.
                  *
                  */
-                "query": string;
+                'query': string;
                 /**
                  * Milliseconds to wait for the response.  If this time
                  * passes, the then the promise is rejected.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
             }
         }
 
@@ -646,7 +658,9 @@ declare namespace dojo {
          * @param url URL to request
          * @param options       OptionalOptions for the request.
          */
-        interface xhr { (url: String, options?: dojo.request.xhr.__Options): dojo.request.__Promise }
+        interface xhr {
+            (url: String, options?: dojo.request.xhr.__Options): dojo.request.__Promise;
+        }
         interface xhr {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.
@@ -691,56 +705,56 @@ declare namespace dojo {
                  * requests.
                  *
                  */
-                "data": string;
+                'data': string;
                 /**
                  * How to handle the response from the server.  Default is
                  * 'text'.  Other values are 'json', 'javascript', and 'xml'.
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * Headers to use for the request.
                  *
                  */
-                "headers": Object;
+                'headers': Object;
                 /**
                  * Password to use during the request.
                  *
                  */
-                "password": string;
+                'password': string;
                 /**
                  * Whether to append a cache-busting parameter to the URL.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Query parameters to append to the URL.
                  *
                  */
-                "query": string;
+                'query': string;
                 /**
                  * Whether to make a synchronous request or not. Default
                  * is false (asynchronous).
                  *
                  */
-                "sync": boolean;
+                'sync': boolean;
                 /**
                  * Milliseconds to wait for the response.  If this time
                  * passes, the then the promise is rejected.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
                 /**
                  * Username to use during the request.
                  *
                  */
-                "user": string;
+                'user': string;
                 /**
                  * For cross-site requests, whether to send credentials
                  * or not.
                  *
                  */
-                "withCredentials": boolean;
+                'withCredentials': boolean;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/xhr.__MethodOptions.html
@@ -754,7 +768,7 @@ declare namespace dojo {
                  * uppercase. Default is "GET".
                  *
                  */
-                "method": string;
+                'method': string;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/request/xhr.__Options.html
@@ -768,62 +782,62 @@ declare namespace dojo {
                  * requests.
                  *
                  */
-                "data": string;
+                'data': string;
                 /**
                  * How to handle the response from the server.  Default is
                  * 'text'.  Other values are 'json', 'javascript', and 'xml'.
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * Headers to use for the request.
                  *
                  */
-                "headers": Object;
+                'headers': Object;
                 /**
                  * The HTTP method to use to make the request. Must be
                  * uppercase. Default is "GET".
                  *
                  */
-                "method": string;
+                'method': string;
                 /**
                  * Password to use during the request.
                  *
                  */
-                "password": string;
+                'password': string;
                 /**
                  * Whether to append a cache-busting parameter to the URL.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Query parameters to append to the URL.
                  *
                  */
-                "query": string;
+                'query': string;
                 /**
                  * Whether to make a synchronous request or not. Default
                  * is false (asynchronous).
                  *
                  */
-                "sync": boolean;
+                'sync': boolean;
                 /**
                  * Milliseconds to wait for the response.  If this time
                  * passes, the then the promise is rejected.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
                 /**
                  * Username to use during the request.
                  *
                  */
-                "user": string;
+                'user': string;
                 /**
                  * For cross-site requests, whether to send credentials
                  * or not.
                  *
                  */
-                "withCredentials": boolean;
+                'withCredentials': boolean;
             }
         }
 
@@ -839,29 +853,29 @@ declare namespace dojo {
              * requests.
              *
              */
-            "data": string;
+            'data': string;
             /**
              * How to handle the response from the server.  Default is
              * 'text'.  Other values are 'json', 'javascript', and 'xml'.
              *
              */
-            "handleAs": string;
+            'handleAs': string;
             /**
              * Whether to append a cache-busting parameter to the URL.
              *
              */
-            "preventCache": boolean;
+            'preventCache': boolean;
             /**
              * Query parameters to append to the URL.
              *
              */
-            "query": string;
+            'query': string;
             /**
              * Milliseconds to wait for the response.  If this time
              * passes, the then the promise is rejected.
              *
              */
-            "timeout": number;
+            'timeout': number;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request.__MethodOptions.html
@@ -875,7 +889,7 @@ declare namespace dojo {
              * uppercase.
              *
              */
-            "method": string;
+            'method': string;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request.__Options.html
@@ -889,35 +903,35 @@ declare namespace dojo {
              * requests.
              *
              */
-            "data": string;
+            'data': string;
             /**
              * How to handle the response from the server.  Default is
              * 'text'.  Other values are 'json', 'javascript', and 'xml'.
              *
              */
-            "handleAs": string;
+            'handleAs': string;
             /**
              * The HTTP method to use to make the request.  Must be
              * uppercase.
              *
              */
-            "method": string;
+            'method': string;
             /**
              * Whether to append a cache-busting parameter to the URL.
              *
              */
-            "preventCache": boolean;
+            'preventCache': boolean;
             /**
              * Query parameters to append to the URL.
              *
              */
-            "query": string;
+            'query': string;
             /**
              * Milliseconds to wait for the response.  If this time
              * passes, the then the promise is rejected.
              *
              */
-            "timeout": number;
+            'timeout': number;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/request.__Promise.html
@@ -931,7 +945,7 @@ declare namespace dojo {
              * the response from the server.
              *
              */
-            "response": Object;
+            'response': Object;
             /**
              * Add a callback to be invoked when the promise is resolved
              * or rejected.
@@ -1086,7 +1100,9 @@ declare namespace dojo {
      *
      * @param returnWrappers       Optional
      */
-    interface AdapterRegistry { (returnWrappers?: boolean): void }
+    interface AdapterRegistry {
+        (returnWrappers?: boolean): void;
+    }
     interface AdapterRegistry {
         /**
          *
@@ -1123,8 +1139,7 @@ declare namespace dojo {
         unregister(name: String): any;
     }
 
-    namespace AdapterRegistry {
-    }
+    namespace AdapterRegistry {}
 
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
@@ -1147,7 +1162,9 @@ declare namespace dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.
      */
-    interface cache { (module: String, url: String, value?: String): void }
+    interface cache {
+        (module: String, url: String, value?: String): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
      *
@@ -1169,7 +1186,9 @@ declare namespace dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.
      */
-    interface cache { (module: Object, url: String, value?: String): void }
+    interface cache {
+        (module: Object, url: String, value?: String): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
      *
@@ -1191,7 +1210,9 @@ declare namespace dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.
      */
-    interface cache { (module: String, url: String, value?: Object): void }
+    interface cache {
+        (module: String, url: String, value?: Object): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cache.html
      *
@@ -1213,7 +1234,9 @@ declare namespace dojo {
      * @param url The rest of the path to append to the path derived from the module argument. Ifmodule is an object, then this second argument should be the "value" argument instead.
      * @param value       OptionalIf a String, the value to use in the cache for the module/url combination.If an Object, it can have two properties: value and sanitize. The value propertyshould be the value to use in the cache, and sanitize can be set to true or false,to indicate if XML declarations should be removed from the value and if the HTMLinside a body tag in the value should be extracted as the real value. The value argumentor the value property on the value argument are usually only used by the build systemas it inlines cache content.
      */
-    interface cache { (module: Object, url: String, value?: Object): void }
+    interface cache {
+        (module: Object, url: String, value?: Object): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/cookie.html
      *
@@ -1225,7 +1248,9 @@ declare namespace dojo {
      * @param value       OptionalValue for the cookie
      * @param props       OptionalProperties for the cookie
      */
-    interface cookie { (name: String, value?: String, props?: Object): void }
+    interface cookie {
+        (name: String, value?: String, props?: Object): void;
+    }
     interface cookie {
         /**
          * Use to determine if the current browser supports cookies or not.
@@ -1237,8 +1262,7 @@ declare namespace dojo {
         isSupported(): void;
     }
 
-    namespace cookie {
-    }
+    namespace cookie {}
 
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/domReady.html
@@ -1247,7 +1271,9 @@ declare namespace dojo {
      *
      * @param callback
      */
-    interface domReady { (callback: any): void }
+    interface domReady {
+        (callback: any): void;
+    }
     interface domReady {
         /**
          *
@@ -1258,8 +1284,7 @@ declare namespace dojo {
         load(id: any, req: any, load: any): void;
     }
 
-    namespace domReady {
-    }
+    namespace domReady {}
 
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/hash.html
@@ -1273,7 +1298,9 @@ declare namespace dojo {
      * @param hash       Optionalthe hash is set - #string.
      * @param replace       OptionalIf true, updates the hash value in the current historystate instead of creating a new history state.
      */
-    interface hash { (hash?: String, replace?: boolean): void }
+    interface hash {
+        (hash?: String, replace?: boolean): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/has.html
      *
@@ -1283,7 +1310,9 @@ declare namespace dojo {
      *
      * @param name The name (if a string) or identifier (if an integer) of the feature to test.
      */
-    interface has { (name: String): void }
+    interface has {
+        (name: String): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/has.html
      *
@@ -1293,7 +1322,9 @@ declare namespace dojo {
      *
      * @param name The name (if a string) or identifier (if an integer) of the feature to test.
      */
-    interface has { (name: number): void }
+    interface has {
+        (name: number): void;
+    }
     interface has {
         /**
          *
@@ -1340,8 +1371,7 @@ declare namespace dojo {
         normalize(id: any, toAbsMid: Function): void;
     }
 
-    namespace has {
-    }
+    namespace has {}
 
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/hccss.html
@@ -1351,21 +1381,27 @@ declare namespace dojo {
      * Returns has() method;
      *
      */
-    interface hccss { (): void }
+    interface hccss {
+        (): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-data.html
      *
      * Adds data() and removeData() methods to NodeList, and returns NodeList constructor.
      *
      */
-    interface NodeList_data { (): void }
+    interface NodeList_data {
+        (): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-html.html
      *
      * Adds a chainable html method to dojo/query() / NodeList instances for setting/replacing node content
      *
      */
-    interface NodeList_html { (): void }
+    interface NodeList_html {
+        (): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-fx.html
      *
@@ -1373,7 +1409,9 @@ declare namespace dojo {
      * with additional FX functions.  NodeList is the array-like object used to hold query results.
      *
      */
-    interface NodeList_fx { (): void }
+    interface NodeList_fx {
+        (): void;
+    }
     interface NodeList_fx {
         /**
          * fade all elements of the node list to a specified opacity
@@ -1408,8 +1446,7 @@ declare namespace dojo {
         wipeTo(args: any): any;
     }
 
-    namespace NodeList_fx {
-    }
+    namespace NodeList_fx {}
 
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-dom.html
@@ -1417,7 +1454,9 @@ declare namespace dojo {
      * Adds DOM related methods to NodeList, and returns NodeList constructor.
      *
      */
-    interface NodeList_dom { (): void }
+    interface NodeList_dom {
+        (): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-manipulate.html
      *
@@ -1425,14 +1464,18 @@ declare namespace dojo {
      * and DOM nodes and their properties.
      *
      */
-    interface NodeList_manipulate { (): void }
+    interface NodeList_manipulate {
+        (): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList-traverse.html
      *
      * Adds chainable methods to dojo/query() / NodeList instances for traversing the DOM
      *
      */
-    interface NodeList_traverse { (): void }
+    interface NodeList_traverse {
+        (): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1466,7 +1509,9 @@ declare namespace dojo {
      * @param listener This is the function that should be called when the event fires.
      * @param dontFix
      */
-    interface on { (target: HTMLElement, type: String, listener: Function, dontFix: any): void }
+    interface on {
+        (target: HTMLElement, type: String, listener: Function, dontFix: any): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1500,7 +1545,9 @@ declare namespace dojo {
      * @param listener This is the function that should be called when the event fires.
      * @param dontFix
      */
-    interface on { (target: Object, type: String, listener: Function, dontFix: any): void }
+    interface on {
+        (target: Object, type: String, listener: Function, dontFix: any): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1534,7 +1581,9 @@ declare namespace dojo {
      * @param listener This is the function that should be called when the event fires.
      * @param dontFix
      */
-    interface on { (target: HTMLElement, type: Function, listener: Function, dontFix: any): void }
+    interface on {
+        (target: HTMLElement, type: Function, listener: Function, dontFix: any): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/on.html
      *
@@ -1568,7 +1617,9 @@ declare namespace dojo {
      * @param listener This is the function that should be called when the event fires.
      * @param dontFix
      */
-    interface on { (target: Object, type: String, listener: Function, dontFix?: any): { remove: { (): void } } }
+    interface on {
+        (target: Object, type: String, listener: Function, dontFix?: any): { remove: { (): void } };
+    }
     interface on {
         /**
          *
@@ -1624,8 +1675,7 @@ declare namespace dojo {
         selector(selector: any, eventType: any, children: any): Function;
     }
 
-    namespace on {
-    }
+    namespace on {}
 
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/query.html
@@ -1668,7 +1718,9 @@ declare namespace dojo {
      * @param selector A CSS selector to search for.
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.
      */
-    interface query{(selector: String, context?: String): NodeList}
+    interface query {
+        (selector: String, context?: String): NodeList;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/query.html
      *
@@ -1710,7 +1762,9 @@ declare namespace dojo {
      * @param selector A CSS selector to search for.
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.
      */
-    interface query{(selector: String, context?: HTMLElement): NodeList}
+    interface query {
+        (selector: String, context?: HTMLElement): NodeList;
+    }
     interface query {
         /**
          * can be used as AMD plugin to conditionally load new query engine
@@ -1737,8 +1791,7 @@ declare namespace dojo {
         NodeList(array: any): any[];
     }
 
-    namespace query {
-    }
+    namespace query {}
 
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/ready.html
@@ -1753,7 +1806,9 @@ declare namespace dojo {
      * @param context The context in which to run execute callback, or a callback if not using context
      * @param callback       OptionalThe function to execute.
      */
-    interface ready{(priority?: number, context?: any, callback?: Function): void}
+    interface ready {
+        (priority?: number, context?: any, callback?: Function): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/sniff.html
      *
@@ -1761,7 +1816,9 @@ declare namespace dojo {
      * It returns the has() function.
      *
      */
-    interface sniff{(): void}
+    interface sniff {
+        (): void;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/when.html
      *
@@ -1780,7 +1837,14 @@ declare namespace dojo {
      * @param errback       OptionalCallback to be invoked when the promise is rejected.
      * @param progback       OptionalCallback to be invoked when the promise emits a progress update.
      */
-    interface when { <T, U>(value: T|dojo.promise.Promise<T>, callback: dojo.promise.Callback<T, U>, errback?: any, progback?: any): U|dojo.promise.Promise<U> }
+    interface when {
+        <T, U>(
+            value: T | dojo.promise.Promise<T>,
+            callback: dojo.promise.Callback<T, U>,
+            errback?: any,
+            progback?: any,
+        ): U | dojo.promise.Promise<U>;
+    }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/DeferredList.html
      *
@@ -1819,7 +1883,7 @@ declare namespace dojo {
         /**
          *
          */
-        "promise": dojo.promise.Promise<any>;
+        'promise': dojo.promise.Promise<any>;
         /**
          * Inform the deferred it may cancel its asynchronous operation.
          * Inform the deferred it may cancel its asynchronous operation.
@@ -1913,7 +1977,7 @@ declare namespace dojo {
          * @param type
          * @param listener
          */
-        on(type: String, listener: {(e:any):void}): {remove: {():void}};
+        on(type: String, listener: { (e: any): void }): { remove: { (): void } };
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList.html
@@ -1936,7 +2000,7 @@ declare namespace dojo {
         /**
          *
          */
-        "events": any[];
+        'events': any[];
         /**
          * adds the specified class to every node in the list
          *
@@ -1956,7 +2020,7 @@ declare namespace dojo {
          * @param cssClass
          * @param args
          */
-        addClassFx(cssClass: any, args: any): {type:Function;value:any};
+        addClassFx(cssClass: any, args: any): { type: Function; value: any };
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -2004,7 +2068,7 @@ declare namespace dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
          */
-        addContent(content:  dojo.NodeList, position?: String): Function;
+        addContent(content: dojo.NodeList, position?: String): Function;
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -2052,7 +2116,7 @@ declare namespace dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
          */
-        addContent(content:  dojo.NodeList, position?: number): Function;
+        addContent(content: dojo.NodeList, position?: number): Function;
         /**
          * places any/all elements in queryOrListOrNode at a
          * position relative to the first element in this list.
@@ -2356,21 +2420,21 @@ declare namespace dojo {
          * @param template The template string or location
          * @param context The context object or location
          */
-        dtl(template: dojox.dtl.__StringArgs , context: dojox.dtl.__ObjectArgs ): Function;
+        dtl(template: dojox.dtl.__StringArgs, context: dojox.dtl.__ObjectArgs): Function;
         /**
          * Renders the specified template in each of the NodeList entries.
          *
          * @param template The template string or location
          * @param context The context object or location
          */
-        dtl(template: String, context: dojox.dtl.__ObjectArgs ): Function;
+        dtl(template: String, context: dojox.dtl.__ObjectArgs): Function;
         /**
          * Renders the specified template in each of the NodeList entries.
          *
          * @param template The template string or location
          * @param context The context object or location
          */
-        dtl(template: dojox.dtl.__StringArgs , context: Object): Function;
+        dtl(template: dojox.dtl.__StringArgs, context: Object): Function;
         /**
          * Renders the specified template in each of the NodeList entries.
          *
@@ -2823,7 +2887,7 @@ declare namespace dojo {
          * @param cssClass
          * @param args
          */
-        removeClassFx(cssClass: any, args: any): {type:Function;value:any};
+        removeClassFx(cssClass: any, args: any): { type: Function; value: any };
         /**
          * Remove the data associated with these nodes.
          *
@@ -2983,7 +3047,7 @@ declare namespace dojo {
          * @param force
          * @param args
          */
-        toggleClassFx(cssClass: any, force: any, args: any): {type:Function;value:any};
+        toggleClassFx(cssClass: any, force: any, args: any): { type: Function; value: any };
         /**
          *
          */
@@ -3075,8 +3139,7 @@ declare namespace dojo {
          *
          *
          */
-        interface _nodeDataCache {
-        }
+        interface _nodeDataCache {}
     }
 
     /**
@@ -3095,7 +3158,7 @@ declare namespace dojo {
      */
     class Stateful {
         constructor();
-        inherited: {(args: IArguments): any};
+        inherited: { (args: IArguments): any };
         /**
          * Get a property on a Stateful instance.
          * Get a named property on a Stateful object. The property may
@@ -3125,7 +3188,10 @@ declare namespace dojo {
          * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
          * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
          */
-        watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+        watch(
+            property: string,
+            callback: { (property?: string, oldValue?: any, newValue?: any): void },
+        ): { unwatch(): void };
     }
     module _base {
         /**
@@ -3202,7 +3268,9 @@ declare namespace dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".
          */
-        interface declare { (className?: String, superclass?: any, props?: Object): any}
+        interface declare {
+            (className?: String, superclass?: any, props?: Object): any;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/declare.html
          *
@@ -3277,7 +3345,9 @@ declare namespace dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".
          */
-        interface declare{(className?: String, superclass?: any[], props?: Object): any}
+        interface declare {
+            (className?: String, superclass?: any[], props?: Object): any;
+        }
         interface declare {
             /**
              * Mix in properties skipping a constructor and decorating functions
@@ -3445,7 +3515,9 @@ declare namespace dojo {
          *
          * @param canceller       Optional
          */
-        interface Deferred{(canceller?: Function): void}
+        interface Deferred {
+            (canceller?: Function): void;
+        }
         interface Deferred {
             /**
              *
@@ -3574,15 +3646,16 @@ declare namespace dojo {
             when(valueOrPromise?: any, callback?: Function, errback?: Function, progback?: Function): any;
         }
 
-        namespace Deferred {
-        }
+        namespace Deferred {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.html
          *
          *
          */
-        interface url{(): void}
+        interface url {
+            (): void;
+        }
         interface url {
             /**
              *
@@ -3636,50 +3709,43 @@ declare namespace dojo {
              *
              *
              */
-            interface authority {
-            }
+            interface authority {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.password.html
              *
              *
              */
-            interface password {
-            }
+            interface password {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.port.html
              *
              *
              */
-            interface port {
-            }
+            interface port {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.fragment.html
              *
              *
              */
-            interface fragment {
-            }
+            interface fragment {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.query.html
              *
              *
              */
-            interface query {
-            }
+            interface query {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.user.html
              *
              *
              */
-            interface user {
-            }
+            interface user {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/url.scheme.html
              *
              *
              */
-            interface scheme {
-            }
+            interface scheme {}
         }
 
         /**
@@ -3695,7 +3761,9 @@ declare namespace dojo {
          * @param args
          * @param hasBody       OptionalIf the request has an HTTP body, then pass true for hasBody.
          */
-        interface xhr{(method: String, args: Object, hasBody?: boolean): void}
+        interface xhr {
+            (method: String, args: Object, hasBody?: boolean): void;
+        }
         interface xhr {
             /**
              * A map of available XHR transport handle types. Name matches the
@@ -3912,15 +3980,15 @@ declare namespace dojo {
              * djConfig.addOnLoad = [myObject, function(){}];
              *
              */
-            "addOnLoad": Function;
+            'addOnLoad': Function;
             /**
              *
              */
-            "afterOnLoad": boolean;
+            'afterOnLoad': boolean;
             /**
              *
              */
-            "baseUrl": Object;
+            'baseUrl': Object;
             /**
              * Defines a callback to be used when dependencies are defined before
              * the loader has been loaded. When provided, they cause the loader to
@@ -3928,34 +3996,34 @@ declare namespace dojo {
              * Should be used with deps.
              *
              */
-            "callback": Function;
+            'callback': Function;
             /**
              *
              */
-            "debugContainerId": string;
+            'debugContainerId': string;
             /**
              *
              */
-            "debugHeight": number;
+            'debugHeight': number;
             /**
              * Default duration, in milliseconds, for wipe and fade animations within dijits.
              * Assigned to dijit.defaultDuration.
              *
              */
-            "defaultDuration": number;
+            'defaultDuration': number;
             /**
              * Whether deferred instrumentation should be loaded or included
              * in builds.
              *
              */
-            "deferredInstrumentation": boolean;
+            'deferredInstrumentation': boolean;
             /**
              * Defines dependencies to be used before the loader has been loaded.
              * When provided, they cause the loader to execute require(deps, callback)
              * once it has finished loading. Should be used with callback.
              *
              */
-            "deps": Function;
+            'deps': Function;
             /**
              * Used by some modules to configure an empty iframe. Used by dojo/io/iframe and
              * dojo/back, and dijit/popup support in IE where an iframe is needed to make sure native
@@ -3965,21 +4033,21 @@ declare namespace dojo {
              * to the path on your domain your copy of blank.html.
              *
              */
-            "dojoBlankHtmlUrl": string;
+            'dojoBlankHtmlUrl': string;
             /**
              * No default value. Specifies additional locales whose
              * resources should also be loaded alongside the default locale when
              * calls to dojo.requireLocalization() are processed.
              *
              */
-            "extraLocale": any[];
+            'extraLocale': any[];
             /**
              * Set this to true to enable publishing of topics for the different phases of
              * IO operations. Publishing is done via dojo/topic.publish(). See dojo/main.__IoPublish for a list
              * of topics that are published.
              *
              */
-            "ioPublish": Object;
+            'ioPublish': Object;
             /**
              * Defaults to false. If set to true, ensures that Dojo provides
              * extended debugging feedback via Firebug. If Firebug is not available
@@ -3992,7 +4060,7 @@ declare namespace dojo {
              * methods will be defined as no-ops.
              *
              */
-            "isDebug": boolean;
+            'isDebug': boolean;
             /**
              * The locale to assume for loading localized resources in this page,
              * specified according to RFC 3066.
@@ -4003,7 +4071,7 @@ declare namespace dojo {
              * or navigator.language properties.
              *
              */
-            "locale": string;
+            'locale': string;
             /**
              * A map of module names to paths relative to dojo.baseUrl. The
              * key/value pairs correspond directly to the arguments which
@@ -4013,38 +4081,38 @@ declare namespace dojo {
              * modules may be configured via djConfig.modulePaths.
              *
              */
-            "modulePaths": Object;
+            'modulePaths': Object;
             /**
              * Run the parser after the page is loaded
              *
              */
-            "parseOnLoad": boolean;
+            'parseOnLoad': boolean;
             /**
              * An array of module names to be loaded immediately after dojo.js has been included
              * in a page.
              *
              */
-            "require": Object;
+            'require': Object;
             /**
              * Array containing the r, g, b components used as transparent color in dojo.Color;
              * if undefined, [255,255,255] (white) will be used.
              *
              */
-            "transparentColor": any[];
+            'transparentColor': any[];
             /**
              * Used by dojox.analytics.Urchin as the default UA-123456-7 account
              * number used when being created. Alternately, you can pass an acct:""
              * parameter to the constructor a la: new dojox.analytics.Urchin({ acct:"UA-123456-7" });
              *
              */
-            "urchin": string;
+            'urchin': string;
             /**
              * If set to a value that evaluates to true such as a string or array and
              * isDebug is true and Firebug is not available or running, then it bypasses
              * the creation of Firebug Lite allowing you to define your own console object.
              *
              */
-            "useCustomLogger": Object;
+            'useCustomLogger': Object;
             /**
              * Whether the deferred instrumentation should be used.
              *
@@ -4053,7 +4121,7 @@ declare namespace dojo {
              *   in an attempt to detect unhandled rejections.
              *
              */
-            "useDeferredInstrumentation": boolean;
+            'useDeferredInstrumentation': boolean;
         }
         namespace config {
             /**
@@ -4067,8 +4135,7 @@ declare namespace dojo {
              * modules may be configured via djConfig.modulePaths.
              *
              */
-            interface modulePaths {
-            }
+            interface modulePaths {}
         }
 
         /**
@@ -4085,24 +4152,24 @@ declare namespace dojo {
             /**
              *
              */
-            "a": number;
+            'a': number;
             /**
              *
              */
-            "b": number;
+            'b': number;
             /**
              *
              */
-            "g": number;
+            'g': number;
             /**
              * Dictionary list of all CSS named colors, by name. Values are 3-item arrays with corresponding RG and B values.
              *
              */
-            "named": Object;
+            'named': Object;
             /**
              *
              */
-            "r": number;
+            'r': number;
             /**
              * Blend colors end and start with weight from 0 to 1, 0.5 being a 50/50 blend,
              * can reuse a previously allocated Color object for the result
@@ -4844,8 +4911,7 @@ declare namespace dojo {
          * This module causes the browser-only base modules to be loaded.
          *
          */
-        interface browser {
-        }
+        interface browser {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/array.html
          *
@@ -5412,16 +5478,14 @@ declare namespace dojo {
          * This module is a stub for the core dojo DOM API.
          *
          */
-        interface html {
-        }
+        interface html {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/json.html
          *
          * This module defines the dojo JSON API.
          *
          */
-        interface json {
-        }
+        interface json {}
 
         namespace fx {
             /**
@@ -5436,7 +5500,7 @@ declare namespace dojo {
              *
              * @param args The 'magic argument', mixing all the properties into thisanimation instance.
              */
-            interface Animation { }
+            interface Animation {}
         }
 
         /**
@@ -5466,7 +5530,14 @@ declare namespace dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.
              */
-            anim  (node: HTMLElement, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any ;
+            anim(
+                node: HTMLElement,
+                properties: Object,
+                duration?: number,
+                easing?: Function,
+                onEnd?: Function,
+                delay?: number,
+            ): any;
             /**
              * A simpler interface to animateProperty(), also returns
              * an instance of Animation but begins the animation
@@ -5487,7 +5558,14 @@ declare namespace dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.
              */
-            anim  (node: String, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any ;
+            anim(
+                node: String,
+                properties: Object,
+                duration?: number,
+                easing?: Function,
+                onEnd?: Function,
+                delay?: number,
+            ): any;
             /**
              * Returns an animation that will transition the properties of
              * node defined in args depending how they are defined in
@@ -5499,7 +5577,7 @@ declare namespace dojo {
              *
              * @param args An object with the following properties:properties (Object, optional): A hash map of style properties to Objects describing the transition,such as the properties of _Line with an additional 'units' propertynode (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.
              */
-            animateProperty  (args?: Object): any ;
+            animateProperty(args?: Object): any;
 
             /**
              * Returns an animation that will fade node defined in 'args' from
@@ -5507,14 +5585,14 @@ declare namespace dojo {
              *
              * @param args An object with the following properties:node (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.
              */
-            fadeIn  (args: Object): any ;
+            fadeIn(args: Object): any;
             /**
              * Returns an animation that will fade node defined in 'args'
              * from its current opacity to fully transparent.
              *
              * @param args An object with the following properties:node (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.
              */
-             fadeOut  (args: Object): any ;
+            fadeOut(args: Object): any;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/query.html
@@ -5522,8 +5600,7 @@ declare namespace dojo {
          * Deprecated.   Use dojo/query instead.
          *
          */
-        interface query {
-        }
+        interface query {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/NodeList.html
          *
@@ -5533,8 +5610,7 @@ declare namespace dojo {
          * mouseout(), mouseover(), mouseup(), and submit() methods.
          *
          */
-        interface NodeList {
-        }
+        interface NodeList {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/sniff.html
          *
@@ -5542,8 +5618,7 @@ declare namespace dojo {
          * This module populates the dojo browser version sniffing properties like dojo.isIE.
          *
          */
-        interface sniff {
-        }
+        interface sniff {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/lang.html
          *
@@ -5684,21 +5759,9 @@ declare namespace dojo {
              * @param sources One of more objects from which to draw all properties to copy into dest. sources are processedleft-to-right and if more than one of these objects contain the same property name, the right-mostvalue "wins".
              */
             mixin<T>(dest: T): T;
-            mixin<T, U>(
-                dest: T,
-                source: U
-            ): T & U;
-            mixin<T, U, V>(
-                dest: T,
-                source1: U,
-                source2: V
-            ): T & U & V;
-            mixin<T, U, V, W>(
-                dest: T,
-                source1: U,
-                source2: V,
-                source3: W
-            ): T & U & V & W;
+            mixin<T, U>(dest: T, source: U): T & U;
+            mixin<T, U, V>(dest: T, source1: U, source2: V): T & U & V;
+            mixin<T, U, V, W>(dest: T, source1: U, source2: V, source3: W): T & U & V & W;
             mixin<T>(dest: Object, ...sources: Object[]): T;
             /**
              * similar to hitch() except that the scope object is left to be
@@ -6527,7 +6590,14 @@ declare namespace dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.
              */
-            anim(node: HTMLElement, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
+            anim(
+                node: HTMLElement,
+                properties: Object,
+                duration?: number,
+                easing?: Function,
+                onEnd?: Function,
+                delay?: number,
+            ): any;
             /**
              * A simpler interface to animateProperty(), also returns
              * an instance of Animation but begins the animation
@@ -6548,7 +6618,14 @@ declare namespace dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.
              */
-            anim(node: String, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
+            anim(
+                node: String,
+                properties: Object,
+                duration?: number,
+                easing?: Function,
+                onEnd?: Function,
+                delay?: number,
+            ): any;
             /**
              * Returns an animation that will transition the properties of
              * node defined in args depending how they are defined in
@@ -7311,7 +7388,11 @@ declare namespace dojo {
              * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).
              * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".
              */
-            declare(className: String, superclass: Function[], props: Object): dojo._base.declare.__DeclareCreatedObject;
+            declare(
+                className: String,
+                superclass: Function[],
+                props: Object,
+            ): dojo._base.declare.__DeclareCreatedObject;
             /**
              * Deprecated.   This module defines the legacy dojo/_base/Deferred API.
              * New code should use dojo/Deferred instead.
@@ -7377,7 +7458,13 @@ declare namespace dojo {
              * @param consumeErrors               Optional
              * @param canceller               OptionalA deferred canceller function, see dojo.Deferred
              */
-            DeferredList(list: any[], fireOnOneCallback?: boolean, fireOnOneErrback?: boolean, consumeErrors?: boolean, canceller?: Function): void;
+            DeferredList(
+                list: any[],
+                fireOnOneCallback?: boolean,
+                fireOnOneErrback?: boolean,
+                consumeErrors?: boolean,
+                canceller?: Function,
+            ): void;
             /**
              * Log a debug message to indicate that a behavior has been
              * deprecated.
@@ -9132,7 +9219,12 @@ declare namespace dojo {
              * @param errback               OptionalCallback to be invoked when the promise is rejected.
              * @param progback               OptionalCallback to be invoked when the promise emits a progress update.
              */
-            when(valueOrPromise: any, callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise<any>;
+            when(
+                valueOrPromise: any,
+                callback?: Function,
+                errback?: Function,
+                progback?: Function,
+            ): dojo.promise.Promise<any>;
             /**
              * signal fired by impending window destruction. You may use
              * dojo.addOnWIndowUnload() or dojo.connect() to this method to perform
@@ -9213,7 +9305,7 @@ declare namespace dojo {
                  * the original object argument to the IO call.
                  *
                  */
-                "args": Object;
+                'args': Object;
                 /**
                  * For dojo/io/script calls only, indicates
                  * whether the script tag that represents the
@@ -9222,19 +9314,19 @@ declare namespace dojo {
                  * cleanup can happen on JSONP-type requests.
                  *
                  */
-                "canDelete": boolean;
+                'canDelete': boolean;
                 /**
                  * The final indicator on how the response will be
                  * handled.
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * For dojo/io/script calls only, the internal
                  * script ID used for the request.
                  *
                  */
-                "id": string;
+                'id': string;
                 /**
                  * For dojo/io/script calls only: holds the JSON
                  * response for JSONP-type requests. Used
@@ -9244,28 +9336,28 @@ declare namespace dojo {
                  * callbacks directly.
                  *
                  */
-                "json": Object;
+                'json': Object;
                 /**
                  * For non-GET requests, the
                  * name1=value1&name2=value2 parameters sent up in
                  * the request.
                  *
                  */
-                "query": string;
+                'query': string;
                 /**
                  * The final URL used for the call. Many times it
                  * will be different than the original args.url
                  * value.
                  *
                  */
-                "url": string;
+                'url': string;
                 /**
                  * For XMLHttpRequest calls only, the
                  * XMLHttpRequest object that was used for the
                  * request.
                  *
                  */
-                "xhr": Object;
+                'xhr': Object;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.__IoPublish.html
@@ -9285,40 +9377,40 @@ declare namespace dojo {
                  * the dojo.Deferred for the request with the topic.
                  *
                  */
-                "done": string;
+                'done': string;
                 /**
                  * "/dojo/io/error" is sent whenever an IO request has errored.
                  * It passes the error and the dojo.Deferred
                  * for the request with the topic.
                  *
                  */
-                "error": string;
+                'error': string;
                 /**
                  * "/dojo/io/load" is sent whenever an IO request has loaded
                  * successfully. It passes the response and the dojo.Deferred
                  * for the request with the topic.
                  *
                  */
-                "load": string;
+                'load': string;
                 /**
                  * "/dojo/io/send" is sent whenever a new IO request is started.
                  * It passes the dojo.Deferred for the request with the topic.
                  *
                  */
-                "send": string;
+                'send': string;
                 /**
                  * "/dojo/io/start" is sent when there are no outstanding IO
                  * requests, and a new IO request is started. No arguments
                  * are passed with this topic.
                  *
                  */
-                "start": string;
+                'start': string;
                 /**
                  * "/dojo/io/stop" is sent when all outstanding IO requests have
                  * finished. No arguments are passed with this topic.
                  *
                  */
-                "stop": string;
+                'stop': string;
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.__IoArgs.html
@@ -9333,19 +9425,19 @@ declare namespace dojo {
                  * passed in the request.
                  *
                  */
-                "content": Object;
+                'content': Object;
                 /**
                  * DOM node for a form. Used to extract the form values
                  * and send to the server.
                  *
                  */
-                "form": HTMLElement;
+                'form': HTMLElement;
                 /**
                  * Acceptable values depend on the type of IO
                  * transport (see specific IO calls for more information).
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * Set this explicitly to false to prevent publishing of topics related to
                  * IO operations. Otherwise, if djConfig.ioPublish is set to true, topics
@@ -9353,7 +9445,7 @@ declare namespace dojo {
                  * See dojo/main.__IoPublish for a list of topics that are published.
                  *
                  */
-                "ioPublish": boolean;
+                'ioPublish': boolean;
                 /**
                  * Default is false. If true, then a
                  * "dojo.preventCache" parameter is sent in the request
@@ -9361,7 +9453,7 @@ declare namespace dojo {
                  * (timestamp). Useful only with GET-type requests.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Sets the raw body for an HTTP request. If this is used, then the content
                  * property is ignored. This is mostly useful for HTTP methods that have
@@ -9369,18 +9461,18 @@ declare namespace dojo {
                  * of postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.
                  *
                  */
-                "rawBody": string;
+                'rawBody': string;
                 /**
                  * Milliseconds to wait for the response. If this time
                  * passes, the then error callbacks are called.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
                 /**
                  * URL to server endpoint.
                  *
                  */
-                "url": string;
+                'url': string;
                 /**
                  * This function will
                  * be called when the request fails due to a network or server error, the url
@@ -9426,38 +9518,38 @@ declare namespace dojo {
                  * passed in the request.
                  *
                  */
-                "content": Object;
+                'content': Object;
                 /**
                  * "application/x-www-form-urlencoded" is default. Set to false to
                  * prevent a Content-Type header from being sent, or to a string
                  * to send a different Content-Type.
                  *
                  */
-                "contentType": string;
+                'contentType': string;
                 /**
                  * false is default. Indicates whether a request should be
                  * allowed to fail (and therefore no console error message in
                  * the event of a failure)
                  *
                  */
-                "failOk": boolean;
+                'failOk': boolean;
                 /**
                  * DOM node for a form. Used to extract the form values
                  * and send to the server.
                  *
                  */
-                "form": HTMLElement;
+                'form': HTMLElement;
                 /**
                  * Acceptable values are: text (default), json, json-comment-optional,
                  * json-comment-filtered, javascript, xml. See dojo/_base/xhr.contentHandlers
                  *
                  */
-                "handleAs": string;
+                'handleAs': string;
                 /**
                  * Additional HTTP headers to send in the request.
                  *
                  */
-                "headers": Object;
+                'headers': Object;
                 /**
                  * Set this explicitly to false to prevent publishing of topics related to
                  * IO operations. Otherwise, if djConfig.ioPublish is set to true, topics
@@ -9465,7 +9557,7 @@ declare namespace dojo {
                  * See dojo/main.__IoPublish for a list of topics that are published.
                  *
                  */
-                "ioPublish": boolean;
+                'ioPublish': boolean;
                 /**
                  * Default is false. If true, then a
                  * "dojo.preventCache" parameter is sent in the request
@@ -9473,7 +9565,7 @@ declare namespace dojo {
                  * (timestamp). Useful only with GET-type requests.
                  *
                  */
-                "preventCache": boolean;
+                'preventCache': boolean;
                 /**
                  * Sets the raw body for an HTTP request. If this is used, then the content
                  * property is ignored. This is mostly useful for HTTP methods that have
@@ -9481,24 +9573,24 @@ declare namespace dojo {
                  * of postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.
                  *
                  */
-                "rawBody": string;
+                'rawBody': string;
                 /**
                  * false is default. Indicates whether the request should
                  * be a synchronous (blocking) request.
                  *
                  */
-                "sync": boolean;
+                'sync': boolean;
                 /**
                  * Milliseconds to wait for the response. If this time
                  * passes, the then error callbacks are called.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
                 /**
                  * URL to server endpoint.
                  *
                  */
-                "url": string;
+                'url': string;
                 /**
                  * This function will
                  * be called when the request fails due to a network or server error, the url
@@ -9574,7 +9666,10 @@ declare namespace dojo {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(
+                    property: string,
+                    callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                ): { unwatch(): void };
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel._contentHandlers.html
@@ -9652,15 +9747,13 @@ declare namespace dojo {
              *
              *
              */
-            interface _hasResource {
-            }
+            interface _hasResource {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel._nodeDataCache.html
              *
              *
              */
-            interface _nodeDataCache {
-            }
+            interface _nodeDataCache {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.back.html
              *
@@ -11201,8 +11294,7 @@ declare namespace dojo {
              * D.O.H. Test files for Dojo unit testing.
              *
              */
-            interface tests {
-            }
+            interface tests {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel.keys.html
              *
@@ -11700,13 +11792,10 @@ declare namespace dojo {
                 scrollIntoView(node: HTMLElement, pos?: Object): void;
             }
         }
-
     }
 
     module _firebug {
-        namespace firebug {
-        }
-
+        namespace firebug {}
     }
 
     namespace cldr {
@@ -11778,16 +11867,16 @@ declare namespace dojo {
              * all item handles will become invalid and a new fetch must be issued.
              *
              */
-            "clearOnClose": boolean;
+            'clearOnClose': boolean;
             /**
              *
              */
-            "data": Object;
+            'data': Object;
             /**
              * Parameter for specifying that it is OK for the xhrGet call to fail silently.
              *
              */
-            "failOk": boolean;
+            'failOk': boolean;
             /**
              * Parameter to indicate to process data from the url as hierarchical
              * (data items can contain other data items in js form).  Default is true
@@ -11796,28 +11885,28 @@ declare namespace dojo {
              * specific reference format, are left straight JS data objects.
              *
              */
-            "hierarchical": boolean;
+            'hierarchical': boolean;
             /**
              *
              */
-            "typeMap": Object;
+            'typeMap': Object;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Parameter to allow specifying if preventCache should be passed to the xhrGet call or not when loading data from a url.
              * Note this does not mean the store calls the server on each fetch, only that the data load has preventCache set as an option.
              * Added for tracker: #6072
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request?: dojo.data.api.Request ): void;
+            close(request?: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -11993,11 +12082,11 @@ declare namespace dojo {
             /**
              *
              */
-            "labelProperty": string;
+            'labelProperty': string;
             /**
              *
              */
-            "objectStore": Object;
+            'objectStore': Object;
             /**
              * adds an object to the list of dirty objects.  This object
              * contains a reference to the object itself as well as a
@@ -12227,16 +12316,16 @@ declare namespace dojo {
              * all item handles will become invalid and a new fetch must be issued.
              *
              */
-            "clearOnClose": boolean;
+            'clearOnClose': boolean;
             /**
              *
              */
-            "data": Object;
+            'data': Object;
             /**
              * Parameter for specifying that it is OK for the xhrGet call to fail silently.
              *
              */
-            "failOk": boolean;
+            'failOk': boolean;
             /**
              * Parameter to indicate to process data from the url as hierarchical
              * (data items can contain other data items in js form).  Default is true
@@ -12245,26 +12334,26 @@ declare namespace dojo {
              * specific reference format, are left straight JS data objects.
              *
              */
-            "hierarchical": boolean;
+            'hierarchical': boolean;
             /**
              *
              */
-            "referenceIntegrity": boolean;
+            'referenceIntegrity': boolean;
             /**
              *
              */
-            "typeMap": Object;
+            'typeMap': Object;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Parameter to allow specifying if preventCache should be passed to the xhrGet call or not when loading data from a url.
              * Note this does not mean the store calls the server on each fetch, only that the data load has preventCache set as an option.
              * Added for tracker: #6072
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * Over-ride of base close function of ItemFileReadStore to add in check for store state.
              * Over-ride of base close function of ItemFileReadStore to add in check for store state.
@@ -12566,7 +12655,7 @@ declare namespace dojo {
                  *
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.
                  */
-                close(request?: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -12807,7 +12896,7 @@ declare namespace dojo {
                  *
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.
                  */
-                close(request?: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -13051,7 +13140,7 @@ declare namespace dojo {
                  *
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.
                  */
-                close(request?: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -13231,7 +13320,7 @@ declare namespace dojo {
                  *
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.
                  */
-                close(request?: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -13561,7 +13650,6 @@ declare namespace dojo {
                 createSortFunction(sortSpec: Object, store: dojo.data.api.Read): String[];
             }
         }
-
     }
 
     namespace dnd {
@@ -13578,7 +13666,7 @@ declare namespace dojo {
              * a DnD manager object
              *
              */
-            "manager": Object;
+            'manager': Object;
             /**
              * constructor function;
              * it is separate so it can be (dynamically) overwritten in case of need
@@ -13607,11 +13695,11 @@ declare namespace dojo {
             /**
              *
              */
-            "OFFSET_X": number;
+            'OFFSET_X': number;
             /**
              *
              */
-            "OFFSET_Y": number;
+            'OFFSET_Y': number;
             /**
              * called to notify if the current target can accept items
              *
@@ -13713,24 +13801,24 @@ declare namespace dojo {
              * be draggable dnd item nodes
              *
              */
-            "allowNested": boolean;
+            'allowNested': boolean;
             /**
              * The DOM node the mouse is currently hovered over
              *
              */
-            "current": HTMLElement;
+            'current': HTMLElement;
             /**
              * Map from an item's id (which is also the DOMNode's id) to
              * the dojo/dnd/Container.Item itself.
              *
              */
-            "map": Object;
+            'map': Object;
 
             node: HTMLElement;
             /**
              *
              */
-            "skipForm": boolean;
+            'skipForm': boolean;
             /**
              * removes all data items from the map
              *
@@ -13863,20 +13951,18 @@ declare namespace dojo {
                  * (must be underneath the 'node' parameter in the DOM)
                  *
                  */
-                "dropParent": HTMLElement;
+                'dropParent': HTMLElement;
                 /**
                  * don't start the drag operation, if clicked on form elements
                  *
                  */
-                "skipForm": boolean;
+                'skipForm': boolean;
                 /**
                  * a creator function, which takes a data item, and returns an object like that:
                  * {node: newNode, data: usedData, type: arrayOfStrings}
                  *
                  */
                 creator(): void;
-
-
             }
         }
 
@@ -13893,49 +13979,49 @@ declare namespace dojo {
             /**
              *
              */
-            "accept": any[];
+            'accept': any[];
             /**
              * Indicates whether to allow dnd item nodes to be nested within other elements.
              * By default this is false, indicating that only direct children of the container can
              * be draggable dnd item nodes
              *
              */
-            "allowNested": boolean;
+            'allowNested': boolean;
             /**
              *
              */
-            "autoSync": boolean;
+            'autoSync': boolean;
             /**
              *
              */
-            "copyOnly": boolean;
+            'copyOnly': boolean;
             /**
              * The DOM node the mouse is currently hovered over
              *
              */
-            "current": HTMLElement;
+            'current': HTMLElement;
             /**
              *
              */
-            "delay": number;
+            'delay': number;
             /**
              *
              */
-            "generateText": boolean;
+            'generateText': boolean;
             /**
              *
              */
-            "horizontal": boolean;
+            'horizontal': boolean;
             /**
              *
              */
-            "isSource": boolean;
+            'isSource': boolean;
             /**
              * Map from an item's id (which is also the DOMNode's id) to
              * the dojo/dnd/Container.Item itself.
              *
              */
-            "map": Object;
+            'map': Object;
             /**
              * The set of id's that are currently selected, such that this.selection[id] == 1
              * if the node w/that id is selected.  Can iterate over selected node's id's like:
@@ -13943,27 +14029,27 @@ declare namespace dojo {
              * for(var id in this.selection)
              *
              */
-            "selection": Object;
+            'selection': Object;
             /**
              *
              */
-            "selfAccept": boolean;
+            'selfAccept': boolean;
             /**
              *
              */
-            "selfCopy": boolean;
+            'selfCopy': boolean;
             /**
              *
              */
-            "singular": boolean;
+            'singular': boolean;
             /**
              *
              */
-            "skipForm": boolean;
+            'skipForm': boolean;
             /**
              *
              */
-            "withHandles": boolean;
+            'withHandles': boolean;
             /**
              * checks if the target can accept nodes from this source
              *
@@ -14265,15 +14351,15 @@ declare namespace dojo {
             /**
              *
              */
-            "delay": number;
+            'delay': number;
             /**
              *
              */
-            "handle": string;
+            'handle': string;
             /**
              *
              */
-            "skip": boolean;
+            'skip': boolean;
             /**
              * stops watching for possible move, deletes all references, so the object can be garbage-collected
              *
@@ -14385,23 +14471,23 @@ declare namespace dojo {
                  * delay move by this number of pixels
                  *
                  */
-                "delay": number;
+                'delay': number;
                 /**
                  * A node (or node's id), which is used as a mouse handle.
                  * If omitted, the node itself is used as a handle.
                  *
                  */
-                "handle": HTMLElement;
+                'handle': HTMLElement;
                 /**
                  * a constructor of custom Mover
                  *
                  */
-                "mover": Object;
+                'mover': Object;
                 /**
                  * skip move of form elements
                  *
                  */
-                "skip": boolean;
+                'skip': boolean;
             }
         }
 
@@ -14421,18 +14507,18 @@ declare namespace dojo {
              * be draggable dnd item nodes
              *
              */
-            "allowNested": boolean;
+            'allowNested': boolean;
             /**
              * The DOM node the mouse is currently hovered over
              *
              */
-            "current": HTMLElement;
+            'current': HTMLElement;
             /**
              * Map from an item's id (which is also the DOMNode's id) to
              * the dojo/dnd/Container.Item itself.
              *
              */
-            "map": Object;
+            'map': Object;
             /**
              * The set of id's that are currently selected, such that this.selection[id] == 1
              * if the node w/that id is selected.  Can iterate over selected node's id's like:
@@ -14440,15 +14526,15 @@ declare namespace dojo {
              * for(var id in this.selection)
              *
              */
-            "selection": Object;
+            'selection': Object;
             /**
              *
              */
-            "singular": boolean;
+            'singular': boolean;
             /**
              *
              */
-            "skipForm": boolean;
+            'skipForm': boolean;
             /**
              * removes all data items from the map
              *
@@ -14625,19 +14711,19 @@ declare namespace dojo {
             /**
              *
              */
-            "delay": number;
+            'delay': number;
             /**
              *
              */
-            "handle": string;
+            'handle': string;
             /**
              *
              */
-            "skip": boolean;
+            'skip': boolean;
             /**
              *
              */
-            "timeout": number;
+            'timeout': number;
             /**
              * stops watching for possible move, deletes all references, so the object can be garbage-collected
              *
@@ -14746,49 +14832,49 @@ declare namespace dojo {
             /**
              *
              */
-            "accept": any[];
+            'accept': any[];
             /**
              * Indicates whether to allow dnd item nodes to be nested within other elements.
              * By default this is false, indicating that only direct children of the container can
              * be draggable dnd item nodes
              *
              */
-            "allowNested": boolean;
+            'allowNested': boolean;
             /**
              *
              */
-            "autoSync": boolean;
+            'autoSync': boolean;
             /**
              *
              */
-            "copyOnly": boolean;
+            'copyOnly': boolean;
             /**
              * The DOM node the mouse is currently hovered over
              *
              */
-            "current": HTMLElement;
+            'current': HTMLElement;
             /**
              *
              */
-            "delay": number;
+            'delay': number;
             /**
              *
              */
-            "generateText": boolean;
+            'generateText': boolean;
             /**
              *
              */
-            "horizontal": boolean;
+            'horizontal': boolean;
             /**
              *
              */
-            "isSource": boolean;
+            'isSource': boolean;
             /**
              * Map from an item's id (which is also the DOMNode's id) to
              * the dojo/dnd/Container.Item itself.
              *
              */
-            "map": Object;
+            'map': Object;
             /**
              * The set of id's that are currently selected, such that this.selection[id] == 1
              * if the node w/that id is selected.  Can iterate over selected node's id's like:
@@ -14796,27 +14882,27 @@ declare namespace dojo {
              * for(var id in this.selection)
              *
              */
-            "selection": Object;
+            'selection': Object;
             /**
              *
              */
-            "selfAccept": boolean;
+            'selfAccept': boolean;
             /**
              *
              */
-            "selfCopy": boolean;
+            'selfCopy': boolean;
             /**
              *
              */
-            "singular": boolean;
+            'singular': boolean;
             /**
              *
              */
-            "skipForm": boolean;
+            'skipForm': boolean;
             /**
              *
              */
-            "withHandles": boolean;
+            'withHandles': boolean;
             /**
              * checks if the target can accept nodes from this source
              *
@@ -15070,49 +15156,49 @@ declare namespace dojo {
             /**
              *
              */
-            "accept": any[];
+            'accept': any[];
             /**
              * Indicates whether to allow dnd item nodes to be nested within other elements.
              * By default this is false, indicating that only direct children of the container can
              * be draggable dnd item nodes
              *
              */
-            "allowNested": boolean;
+            'allowNested': boolean;
             /**
              *
              */
-            "autoSync": boolean;
+            'autoSync': boolean;
             /**
              *
              */
-            "copyOnly": boolean;
+            'copyOnly': boolean;
             /**
              * The DOM node the mouse is currently hovered over
              *
              */
-            "current": HTMLElement;
+            'current': HTMLElement;
             /**
              *
              */
-            "delay": number;
+            'delay': number;
             /**
              *
              */
-            "generateText": boolean;
+            'generateText': boolean;
             /**
              *
              */
-            "horizontal": boolean;
+            'horizontal': boolean;
             /**
              *
              */
-            "isSource": boolean;
+            'isSource': boolean;
             /**
              * Map from an item's id (which is also the DOMNode's id) to
              * the dojo/dnd/Container.Item itself.
              *
              */
-            "map": Object;
+            'map': Object;
             /**
              * The set of id's that are currently selected, such that this.selection[id] == 1
              * if the node w/that id is selected.  Can iterate over selected node's id's like:
@@ -15120,27 +15206,27 @@ declare namespace dojo {
              * for(var id in this.selection)
              *
              */
-            "selection": Object;
+            'selection': Object;
             /**
              *
              */
-            "selfAccept": boolean;
+            'selfAccept': boolean;
             /**
              *
              */
-            "selfCopy": boolean;
+            'selfCopy': boolean;
             /**
              *
              */
-            "singular": boolean;
+            'singular': boolean;
             /**
              *
              */
-            "skipForm": boolean;
+            'skipForm': boolean;
             /**
              *
              */
-            "withHandles": boolean;
+            'withHandles': boolean;
             /**
              * checks if the target can accept nodes from this source
              *
@@ -15504,8 +15590,7 @@ declare namespace dojo {
              *
              *
              */
-            interface _empty {
-            }
+            interface _empty {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/dnd/common._defaultCreatorNodes.html
              *
@@ -15565,23 +15650,23 @@ declare namespace dojo {
                  * object attributes (for markup)
                  *
                  */
-                "area": string;
+                'area': string;
                 /**
                  *
                  */
-                "delay": number;
+                'delay': number;
                 /**
                  *
                  */
-                "handle": string;
+                'handle': string;
                 /**
                  *
                  */
-                "skip": boolean;
+                'skip': boolean;
                 /**
                  *
                  */
-                "within": boolean;
+                'within': boolean;
                 /**
                  *
                  */
@@ -15696,23 +15781,23 @@ declare namespace dojo {
                  * object attributes (for markup)
                  *
                  */
-                "box": Object;
+                'box': Object;
                 /**
                  *
                  */
-                "delay": number;
+                'delay': number;
                 /**
                  *
                  */
-                "handle": string;
+                'handle': string;
                 /**
                  *
                  */
-                "skip": boolean;
+                'skip': boolean;
                 /**
                  *
                  */
-                "within": boolean;
+                'within': boolean;
                 /**
                  *
                  */
@@ -15826,19 +15911,19 @@ declare namespace dojo {
                 /**
                  *
                  */
-                "delay": number;
+                'delay': number;
                 /**
                  *
                  */
-                "handle": string;
+                'handle': string;
                 /**
                  *
                  */
-                "skip": boolean;
+                'skip': boolean;
                 /**
                  *
                  */
-                "within": boolean;
+                'within': boolean;
                 /**
                  *
                  */
@@ -15941,7 +16026,6 @@ declare namespace dojo {
                 onSelectStart(e: Event): void;
             }
         }
-
     }
 
     namespace errors {
@@ -15954,28 +16038,36 @@ declare namespace dojo {
          * @param base
          * @param props
          */
-        interface create{(name: any, ctor: any, base: any, props: any): void}
+        interface create {
+            (name: any, ctor: any, base: any, props: any): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/errors/CancelError.html
          *
          * Default error if a promise is canceled without a reason.
          *
          */
-        interface CancelError{(): void}
+        interface CancelError {
+            (): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/errors/RequestError.html
          *
          * TODOC
          *
          */
-        interface RequestError{(): void}
+        interface RequestError {
+            (): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/errors/RequestTimeoutError.html
          *
          * TODOC
          *
          */
-        interface RequestTimeoutError{(): void}
+        interface RequestTimeoutError {
+            (): void;
+        }
     }
 
     namespace io {
@@ -16063,7 +16155,9 @@ declare namespace dojo {
          *
          * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.
          */
-        interface all{<T>(value: Promise<T>[]): Promise<T[]>}
+        interface all {
+            <T>(value: Promise<T>[]): Promise<T[]>;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/all.html
          *
@@ -16076,7 +16170,9 @@ declare namespace dojo {
          *
          * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.
          */
-        interface all{(value: Object): Promise<any>}
+        interface all {
+            (value: Object): Promise<any>;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
          *
@@ -16089,7 +16185,9 @@ declare namespace dojo {
          *
          * @param objectOrArray       OptionalThe promises are taken from the array or object values. If no valueis passed, the returned promise is resolved with an undefined value.
          */
-        interface first{(objectOrArray?: Object): void}
+        interface first {
+            (objectOrArray?: Object): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
          *
@@ -16102,7 +16200,9 @@ declare namespace dojo {
          *
          * @param objectOrArray       OptionalThe promises are taken from the array or object values. If no valueis passed, the returned promise is resolved with an undefined value.
          */
-        interface first{(objectOrArray?: any[]): void}
+        interface first {
+            (objectOrArray?: any[]): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/instrumentation.html
          *
@@ -16119,14 +16219,19 @@ declare namespace dojo {
          *
          * @param Deferred
          */
-        interface instrumentation{(Deferred: any): void}
+        interface instrumentation {
+            (Deferred: any): void;
+        }
 
         interface Thenable<T> {
-            then<U>(onFulfilled?: (value?: T) => Thenable<U> | U, onRejected?: (error?: Error) => Thenable<U> | U): Thenable<U>;
+            then<U>(
+                onFulfilled?: (value?: T) => Thenable<U> | U,
+                onRejected?: (error?: Error) => Thenable<U> | U,
+            ): Thenable<U>;
         }
 
         interface Callback<T, U> {
-            (arg: T): U|Thenable<U>;
+            (arg: T): U | Thenable<U>;
         }
 
         /**
@@ -16254,11 +16359,11 @@ declare namespace dojo {
             /**
              *
              */
-            "serviceUrl": string;
+            'serviceUrl': string;
             /**
              *
              */
-            "strictArgChecks": boolean;
+            'strictArgChecks': boolean;
             /**
              * JSONP bind method. Takes remote method, parameters,
              * deferred, and a url, calls createRequest to make a JSON-RPC
@@ -16324,23 +16429,23 @@ declare namespace dojo {
             /**
              *
              */
-            "bustCache": boolean;
+            'bustCache': boolean;
             /**
              *
              */
-            "contentType": string;
+            'contentType': string;
             /**
              *
              */
-            "lastSubmissionId": number;
+            'lastSubmissionId': number;
             /**
              *
              */
-            "serviceUrl": string;
+            'serviceUrl': string;
             /**
              *
              */
-            "strictArgChecks": boolean;
+            'strictArgChecks': boolean;
             /**
              * JSON-RPC bind method. Takes remote method, parameters,
              * deferred, and a url, calls createRequest to make a JSON-RPC
@@ -16414,11 +16519,11 @@ declare namespace dojo {
             /**
              *
              */
-            "serviceUrl": string;
+            'serviceUrl': string;
             /**
              *
              */
-            "strictArgChecks": boolean;
+            'strictArgChecks': boolean;
             /**
              * create callback that calls the Deferred errback method
              *
@@ -16467,7 +16572,9 @@ declare namespace dojo {
          * @param selector
          * @param root
          */
-        interface lite{(selector: any, root: any): void}
+        interface lite {
+            (selector: any, root: any): void;
+        }
         interface lite {
             /**
              *
@@ -16475,8 +16582,7 @@ declare namespace dojo {
             match: Object;
         }
 
-        namespace lite {
-        }
+        namespace lite {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/selector/acme.html
@@ -16559,7 +16665,9 @@ declare namespace dojo {
          * @param query The CSS3 expression to match against. For details on the syntax ofCSS3 selectors, see http://www.w3.org/TR/css3-selectors/#selectors
          * @param root       OptionalA DOMNode (or node id) to scope the search from. Optional.
          */
-        interface acme{(query: String, root?: String): void}
+        interface acme {
+            (query: String, root?: String): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/selector/acme.html
          *
@@ -16641,7 +16749,9 @@ declare namespace dojo {
          * @param query The CSS3 expression to match against. For details on the syntax ofCSS3 selectors, see http://www.w3.org/TR/css3-selectors/#selectors
          * @param root       OptionalA DOMNode (or node id) to scope the search from. Optional.
          */
-        interface acme{(query: String, root?: HTMLElement): void}
+        interface acme {
+            (query: String, root?: HTMLElement): void;
+        }
         interface acme {
             /**
              * function for filtering a NodeList based on a selector, optimized for simple selectors
@@ -16661,8 +16771,7 @@ declare namespace dojo {
             filter(nodeList: HTMLElement[], filter: String, root?: HTMLElement): void;
         }
 
-        namespace acme {
-        }
+        namespace acme {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/selector/_loader.html
@@ -16693,7 +16802,9 @@ declare namespace dojo {
          *
          * @param store
          */
-        interface Observable{(store: dojo.store.api.Store): void}
+        interface Observable {
+            (store: dojo.store.api.Store): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/Cache.html
          *
@@ -16713,7 +16824,7 @@ declare namespace dojo {
              * identity property. The values of this property should be unique.
              *
              */
-            "idProperty": string;
+            'idProperty': string;
             /**
              * If the store can be queried locally (on the client side in JS), this defines
              * the query engine to use for querying the data store.
@@ -16823,16 +16934,16 @@ declare namespace dojo {
              * The object property to use to store the identity of the store items.
              *
              */
-            "idProperty": string;
+            'idProperty': string;
             /**
              * The object store to convert to a data store
              *
              */
-            "store": Object;
+            'store': Object;
             /**
              *
              */
-            "target": string;
+            'target': string;
             /**
              * Creates an object, throws an error if the object already exists
              *
@@ -16916,18 +17027,18 @@ declare namespace dojo {
              * The array of all the objects in the memory store
              *
              */
-            "data": any[];
+            'data': any[];
             /**
              * Indicates the property to use as the identity property. The values of this
              * property should be unique.
              *
              */
-            "idProperty": string;
+            'idProperty': string;
             /**
              * An index of data indices into the data array by id
              *
              */
-            "index": Object;
+            'index': Object;
             /**
              * Creates an object, throws an error if the object already exists
              *
@@ -17017,29 +17128,29 @@ declare namespace dojo {
              * Defines the Accept header to use on HTTP requests
              *
              */
-            "accepts": string;
+            'accepts': string;
             /**
              * The prefix to apply to sort attribute names that are ascending
              *
              */
-            "ascendingPrefix": string;
+            'ascendingPrefix': string;
             /**
              * The prefix to apply to sort attribute names that are ascending
              *
              */
-            "descendingPrefix": string;
+            'descendingPrefix': string;
             /**
              * Additional headers to pass in all requests to the server. These can be overridden
              * by passing additional headers to calls to the store.
              *
              */
-            "headers": Object;
+            'headers': Object;
             /**
              * Indicates the property to use as the identity property. The values of this
              * property should be unique.
              *
              */
-            "idProperty": string;
+            'idProperty': string;
             /**
              * If the store can be queried locally (on the client side in JS), this defines
              * the query engine to use for querying the data store.
@@ -17064,7 +17175,7 @@ declare namespace dojo {
              * sent to the server
              *
              */
-            "target": string;
+            'target': string;
             /**
              * Adds an object. This will trigger a PUT request to the server
              * if the object has an id, otherwise it will trigger a POST request.
@@ -17155,7 +17266,7 @@ declare namespace dojo {
                  * identity property. The values of this property should be unique.
                  *
                  */
-                "idProperty": string;
+                'idProperty': string;
                 /**
                  * If the store can be queried locally (on the client side in JS), this defines
                  * the query engine to use for querying the data store.
@@ -17193,7 +17304,10 @@ declare namespace dojo {
                  * @param parent The object to find the children of.
                  * @param options               OptionalAdditional options to apply to the retrieval of the children.
                  */
-                getChildren(parent: Object, options?: dojo.store.api.Store.QueryOptions): dojo.store.api.Store.QueryResults;
+                getChildren(
+                    parent: Object,
+                    options?: dojo.store.api.Store.QueryOptions,
+                ): dojo.store.api.Store.QueryResults;
                 /**
                  * Returns an object's identity
                  *
@@ -17290,12 +17404,12 @@ declare namespace dojo {
                      * object should be last.
                      *
                      */
-                    "before": Object;
+                    'before': Object;
                     /**
                      * Indicates the identity of the object if a new object is created
                      *
                      */
-                    "id": string;
+                    'id': string;
                     /**
                      * If this is provided as a boolean it indicates that the object should or should not
                      * overwrite an existing object. A value of true indicates that a new object
@@ -17305,13 +17419,13 @@ declare namespace dojo {
                      * this property is not provided, either an update or creation is acceptable.
                      *
                      */
-                    "overwrite": boolean;
+                    'overwrite': boolean;
                     /**
                      * If the store is hierarchical (with single parenting) this property indicates the
                      * new parent of the created or updated object.
                      *
                      */
-                    "parent": Object;
+                    'parent': Object;
                 }
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/api/Store.QueryOptions.html
@@ -17325,7 +17439,7 @@ declare namespace dojo {
                      * The number of how many results should be returned.
                      *
                      */
-                    "count": number;
+                    'count': number;
                     /**
                      * A list of attributes to sort on, as well as direction
                      * For example:
@@ -17336,12 +17450,12 @@ declare namespace dojo {
                      * applied if there is a natural order.
                      *
                      */
-                    "sort": Object;
+                    'sort': Object;
                     /**
                      * The first result to begin iteration on
                      *
                      */
-                    "start": number;
+                    'start': number;
                 }
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/api/Store.QueryResults.html
@@ -17359,7 +17473,7 @@ declare namespace dojo {
                      * a promise if the query is asynchronous.
                      *
                      */
-                    "total": number;
+                    'total': number;
                     /**
                      * Filters the query results, based on
                      * https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/filter.
@@ -17419,12 +17533,12 @@ declare namespace dojo {
                      * The name of the attribute to sort on.
                      *
                      */
-                    "attribute": string;
+                    'attribute': string;
                     /**
                      * The direction of the sort.  Default is false.
                      *
                      */
-                    "descending": boolean;
+                    'descending': boolean;
                 }
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/api/Store.Transaction.html
@@ -17453,7 +17567,6 @@ declare namespace dojo {
                     commit(): void;
                 }
             }
-
         }
 
         namespace util {
@@ -17472,7 +17585,9 @@ declare namespace dojo {
              *
              * @param results The result set as an array, or a promise for an array.
              */
-            interface QueryResults{(results: any[]): void}
+            interface QueryResults {
+                (results: any[]): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/util/QueryResults.html
              *
@@ -17488,7 +17603,9 @@ declare namespace dojo {
              *
              * @param results The result set as an array, or a promise for an array.
              */
-            interface QueryResults{(results: dojo.promise.Promise<any>): void}
+            interface QueryResults {
+                (results: dojo.promise.Promise<any>): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/util/SimpleQueryEngine.html
              *
@@ -17509,9 +17626,10 @@ declare namespace dojo {
              * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).
              * @param options       OptionalAn object that contains optional information such as sort, start, and count.
              */
-            interface SimpleQueryEngine{(query: Object, options?: dojo.store.api.Store.QueryOptions): void}
+            interface SimpleQueryEngine {
+                (query: Object, options?: dojo.store.api.Store.QueryOptions): void;
+            }
         }
-
     }
 
     /**
@@ -17713,50 +17831,49 @@ declare namespace dojo {
                  * override strings for am in times
                  *
                  */
-                "am": string;
+                'am': string;
                 /**
                  * override pattern with this string
                  *
                  */
-                "datePattern": string;
+                'datePattern': string;
                 /**
                  * choice of long, short, medium or full (plus any custom additions).  Defaults to 'short'
                  *
                  */
-                "formatLength": string;
+                'formatLength': string;
                 /**
                  * (format only) use 4 digit years whenever 2 digit years are called for
                  *
                  */
-                "fullYear": boolean;
+                'fullYear': boolean;
                 /**
                  * override the locale used to determine formatting rules
                  *
                  */
-                "locale": string;
+                'locale': string;
                 /**
                  * override strings for pm in times
                  *
                  */
-                "pm": string;
+                'pm': string;
                 /**
                  * choice of 'time','date' (default: date and time)
                  *
                  */
-                "selector": string;
+                'selector': string;
                 /**
                  * (parse only) strict parsing, off by default
                  *
                  */
-                "strict": boolean;
+                'strict': boolean;
                 /**
                  * override pattern with this string
                  *
                  */
-                "timePattern": string;
+                'timePattern': string;
             }
         }
-
     }
 
     /**
@@ -17843,17 +17960,17 @@ declare namespace dojo {
              * Time in milliseconds to run the hide Animation
              *
              */
-            "hideDuration": number;
+            'hideDuration': number;
             /**
              * the node to target for the showing and hiding animations
              *
              */
-            "node": HTMLElement;
+            'node': HTMLElement;
             /**
              * Time in milliseconds to run the show Animation
              *
              */
-            "showDuration": number;
+            'showDuration': number;
             /**
              * Toggle the node to hidden
              *
@@ -18103,8 +18220,7 @@ declare namespace dojo {
      * module for specifics.
      *
      */
-    interface router extends dojo.router.RouterBase {
-    }
+    interface router extends dojo.router.RouterBase {}
     namespace router {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/router/RouterBase.html
@@ -18120,19 +18236,19 @@ declare namespace dojo {
             /**
              *
              */
-            "globMatch": RegExp;
+            'globMatch': RegExp;
             /**
              *
              */
-            "globReplacement": string;
+            'globReplacement': string;
             /**
              *
              */
-            "idMatch": RegExp;
+            'idMatch': RegExp;
             /**
              *
              */
-            "idReplacement": string;
+            'idReplacement': string;
             /**
              *
              */
@@ -18462,46 +18578,46 @@ declare namespace dojo {
              * For use with dojo.currency only.
              *
              */
-            "currency": string;
+            'currency': string;
             /**
              * If false, show no decimal places, overriding places and pattern settings.
              *
              */
-            "fractional": boolean;
+            'fractional': boolean;
             /**
              * override the locale used to determine formatting rules
              *
              */
-            "locale": string;
+            'locale': string;
             /**
              * override formatting pattern
              * with this string.  Default value is based on locale.  Overriding this property will defeat
              * localization.  Literal characters in patterns are not supported.
              *
              */
-            "pattern": string;
+            'pattern': string;
             /**
              * number of decimal places to show.  Default is defined based on which currency is used.
              *
              */
-            "places": number;
+            'places': number;
             /**
              * 5 rounds to nearest .5; 0 rounds to nearest whole (default). -1
              * means do not round.
              *
              */
-            "round": number;
+            'round': number;
             /**
              * localized currency symbol. The default will be looked up in table of supported currencies in dojo.cldr
              * A ISO4217 currency code will be used if not found.
              *
              */
-            "symbol": string;
+            'symbol': string;
             /**
              * Should not be set.  Value is assumed to be "currency".
              *
              */
-            "type": string;
+            'type': string;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/currency.__ParseOptions.html
@@ -18515,48 +18631,48 @@ declare namespace dojo {
              * For use with dojo.currency only.
              *
              */
-            "currency": string;
+            'currency': string;
             /**
              * Whether to include the fractional portion, where the number of decimal places are implied by the currency
              * or explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.
              * By default for currencies, it the fractional portion is optional.
              *
              */
-            "fractional": boolean;
+            'fractional': boolean;
             /**
              * override the locale used to determine formatting rules
              *
              */
-            "locale": string;
+            'locale': string;
             /**
              * override formatting pattern
              * with this string.  Default value is based on locale.  Overriding this property will defeat
              * localization.  Literal characters in patterns are not supported.
              *
              */
-            "pattern": string;
+            'pattern': string;
             /**
              * fixed number of decimal places to accept.  The default is determined based on which currency is used.
              *
              */
-            "places": number;
+            'places': number;
             /**
              * strict parsing, false by default.  Strict parsing requires input as produced by the format() method.
              * Non-strict is more permissive, e.g. flexible on white space, omitting thousands separators
              *
              */
-            "strict": boolean;
+            'strict': boolean;
             /**
              * localized currency symbol. The default will be looked up in table of supported currencies in dojo.cldr
              * A ISO4217 currency code will be used if not found.
              *
              */
-            "symbol": string;
+            'symbol': string;
             /**
              * Should not be set.  Value is assumed to be currency.
              *
              */
-            "type": string;
+            'type': string;
         }
     }
 
@@ -19688,8 +19804,7 @@ declare namespace dojo {
          * True if client is using Google Gears
          *
          */
-        interface available {
-        }
+        interface available {}
     }
 
     /**
@@ -19766,33 +19881,33 @@ declare namespace dojo {
              * and the real content stripped of ,  wrapper before injection
              *
              */
-            "cleanContent": boolean;
+            'cleanContent': boolean;
             /**
              * The content to be placed in the node. Can be an HTML string, a node reference, or a enumerable list of nodes
              *
              */
-            "content": string;
+            'content': string;
             /**
              * Should the content be treated as a full html document,
              * and the real content stripped of <html> <body> wrapper before injection
              *
              */
-            "extractContent": boolean;
+            'extractContent': boolean;
             /**
              * Usually only used internally, and auto-generated with each instance
              *
              */
-            "id": Object;
+            'id': Object;
             /**
              * An node which will be the parent element that we set content into
              *
              */
-            "node": HTMLElement;
+            'node': HTMLElement;
             /**
              * Should the node by passed to the parser after the new content is set
              *
              */
-            "parseContent": boolean;
+            'parseContent': boolean;
             /**
              * Flag passed to parser.  Root for attribute names to search for.   If scopeName is dojo,
              * will search for data-dojo-type (or dojoType).  For backwards compatibility
@@ -19800,12 +19915,12 @@ declare namespace dojo {
              * multi-version support is used, when it will be something like dojo16, dojo20, etc.)
              *
              */
-            "parserScope": string;
+            'parserScope': string;
             /**
              * Start the child widgets after parsing them.   Only obeyed if parseContent is true.
              *
              */
-            "startup": boolean;
+            'startup': boolean;
             /**
              * cleanly empty out existing content
              *
@@ -20066,8 +20181,7 @@ declare namespace dojo {
          *
          *
          */
-        interface cache {
-        }
+        interface cache {}
     }
 
     /**
@@ -20524,23 +20638,23 @@ declare namespace dojo {
              * the decimal separator
              *
              */
-            "decimal": string;
+            'decimal': string;
             /**
              * the group separator
              *
              */
-            "group": string;
+            'group': string;
             /**
              * number of decimal places.  the range "n,m" will format to m places.
              *
              */
-            "places": number;
+            'places': number;
             /**
              * 5 rounds to nearest .5; 0 rounds to nearest whole (default). -1
              * means don't round.
              *
              */
-            "round": number;
+            'round': number;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__IntegerRegexpFlags.html
@@ -20553,26 +20667,26 @@ declare namespace dojo {
              * group size between separators
              *
              */
-            "groupSize": number;
+            'groupSize': number;
             /**
              * second grouping, where separators 2..n have a different interval than the first separator (for India)
              *
              */
-            "groupSize2": number;
+            'groupSize2': number;
             /**
              * The character used as the thousands separator. Default is no
              * separator. For more than one symbol use an array, e.g. [",", ""],
              * makes ',' optional.
              *
              */
-            "separator": string;
+            'separator': string;
             /**
              * The leading plus-or-minus sign. Can be true, false, or [true,false].
              * Default is [true, false], (i.e. will match if it is signed
              * or unsigned).
              *
              */
-            "signed": boolean;
+            'signed': boolean;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__FormatOptions.html
@@ -20585,37 +20699,37 @@ declare namespace dojo {
              * If false, show no decimal places, overriding places and pattern settings.
              *
              */
-            "fractional": boolean;
+            'fractional': boolean;
             /**
              * override the locale used to determine formatting rules
              *
              */
-            "locale": string;
+            'locale': string;
             /**
              * override formatting pattern
              * with this string.  Default value is based on locale.  Overriding this property will defeat
              * localization.  Literal characters in patterns are not supported.
              *
              */
-            "pattern": string;
+            'pattern': string;
             /**
              * fixed number of decimal places to show.  This overrides any
              * information in the provided pattern.
              *
              */
-            "places": number;
+            'places': number;
             /**
              * 5 rounds to nearest .5; 0 rounds to nearest whole (default). -1
              * means do not round.
              *
              */
-            "round": number;
+            'round': number;
             /**
              * choose a format type based on the locale from the following:
              * decimal, scientific (not yet supported), percent, currency. decimal by default.
              *
              */
-            "type": string;
+            'type': string;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__RealNumberRegexpFlags.html
@@ -20629,7 +20743,7 @@ declare namespace dojo {
              * is ".".
              *
              */
-            "decimal": string;
+            'decimal': string;
             /**
              * The leading plus-or-minus sign on the exponent.  Can be true,
              * false, or [true, false].  Default is [true, false], (i.e. will
@@ -20637,27 +20751,27 @@ declare namespace dojo {
              * applied.
              *
              */
-            "eSigned": boolean;
+            'eSigned': boolean;
             /**
              * Express in exponential notation.  Can be true, false, or [true,
              * false]. Default is [true, false], (i.e. will match if the
              * exponential part is present are not).
              *
              */
-            "exponent": boolean;
+            'exponent': boolean;
             /**
              * Whether decimal places are used.  Can be true, false, or [true,
              * false].  Default is [true, false] which means optional.
              *
              */
-            "fractional": boolean;
+            'fractional': boolean;
             /**
              * The integer number of decimal places or a range given as "n,m".  If
              * not given, the decimal part is optional and the number of places is
              * unlimited.
              *
              */
-            "places": number;
+            'places': number;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__ParseOptions.html
@@ -20671,31 +20785,31 @@ declare namespace dojo {
              * or explicit 'places' parameter.  The value [true,false] makes the fractional portion optional.
              *
              */
-            "fractional": boolean;
+            'fractional': boolean;
             /**
              * override the locale used to determine formatting rules
              *
              */
-            "locale": string;
+            'locale': string;
             /**
              * override formatting pattern
              * with this string.  Default value is based on locale.  Overriding this property will defeat
              * localization.  Literal characters in patterns are not supported.
              *
              */
-            "pattern": string;
+            'pattern': string;
             /**
              * strict parsing, false by default.  Strict parsing requires input as produced by the format() method.
              * Non-strict is more permissive, e.g. flexible on white space, omitting thousands separators
              *
              */
-            "strict": boolean;
+            'strict': boolean;
             /**
              * choose a format type based on the locale from the following:
              * decimal, scientific (not yet supported), percent, currency. decimal by default.
              *
              */
-            "type": string;
+            'type': string;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/number.__RegexpOptions.html
@@ -20708,32 +20822,32 @@ declare namespace dojo {
              * override the locale used to determine formatting rules
              *
              */
-            "locale": string;
+            'locale': string;
             /**
              * override formatting pattern
              * with this string.  Default value is based on locale.  Overriding this property will defeat
              * localization.
              *
              */
-            "pattern": string;
+            'pattern': string;
             /**
              * number of decimal places to accept: Infinity, a positive number, or
              * a range "n,m".  Defined by pattern or Infinity if pattern not provided.
              *
              */
-            "places": number;
+            'places': number;
             /**
              * strict parsing, false by default.  Strict parsing requires input as produced by the format() method.
              * Non-strict is more permissive, e.g. flexible on white space, omitting thousands separators
              *
              */
-            "strict": boolean;
+            'strict': boolean;
             /**
              * choose a format type based on the locale from the following:
              * decimal, scientific (not yet supported), percent, currency. decimal by default.
              *
              */
-            "type": string;
+            'type': string;
         }
     }
 
@@ -20755,7 +20869,14 @@ declare namespace dojo {
          * @param scripts               OptionalArray of <script type="dojo//"> DOMNodes.  If not specified, will search for <script> tags inside node.
          * @param inherited               OptionalSettings from dir=rtl or lang=... on a node above this node.   Overrides options.inherited.
          */
-        construct(ctor: Function, node: HTMLElement, mixin?: Object, options?: Object, scripts?: HTMLElement[], inherited?: Object): any;
+        construct(
+            ctor: Function,
+            node: HTMLElement,
+            mixin?: Object,
+            options?: Object,
+            scripts?: HTMLElement[],
+            inherited?: Object,
+        ): any;
         /**
          * Takes array of nodes, and turns them into class instances and
          * potentially calls a startup method to allow them to connect with
@@ -21835,7 +21956,14 @@ declare namespace dojo {
          * @param onEnd               OptionalA function to be called when the animation finishesrunning.
          * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.
          */
-        anim(node: HTMLElement, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
+        anim(
+            node: HTMLElement,
+            properties: Object,
+            duration?: number,
+            easing?: Function,
+            onEnd?: Function,
+            delay?: number,
+        ): any;
         /**
          * A simpler interface to animateProperty(), also returns
          * an instance of Animation but begins the animation
@@ -21856,7 +21984,14 @@ declare namespace dojo {
          * @param onEnd               OptionalA function to be called when the animation finishesrunning.
          * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.
          */
-        anim(node: String, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
+        anim(
+            node: String,
+            properties: Object,
+            duration?: number,
+            easing?: Function,
+            onEnd?: Function,
+            delay?: number,
+        ): any;
         /**
          * Returns an animation that will transition the properties of
          * node defined in args depending how they are defined in
@@ -22685,7 +22820,13 @@ declare namespace dojo {
          * @param consumeErrors               Optional
          * @param canceller               OptionalA deferred canceller function, see dojo.Deferred
          */
-        DeferredList(list: any[], fireOnOneCallback?: boolean, fireOnOneErrback?: boolean, consumeErrors?: boolean, canceller?: Function): void;
+        DeferredList(
+            list: any[],
+            fireOnOneCallback?: boolean,
+            fireOnOneErrback?: boolean,
+            consumeErrors?: boolean,
+            canceller?: Function,
+        ): void;
         /**
          * Log a debug message to indicate that a behavior has been
          * deprecated.
@@ -24440,7 +24581,12 @@ declare namespace dojo {
          * @param errback               OptionalCallback to be invoked when the promise is rejected.
          * @param progback               OptionalCallback to be invoked when the promise emits a progress update.
          */
-        when(valueOrPromise: any, callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise<any>;
+        when(
+            valueOrPromise: any,
+            callback?: Function,
+            errback?: Function,
+            progback?: Function,
+        ): dojo.promise.Promise<any>;
         /**
          * signal fired by impending window destruction. You may use
          * dojo.addOnWIndowUnload() or dojo.connect() to this method to perform
@@ -24523,19 +24669,19 @@ declare namespace dojo {
              * passed in the request.
              *
              */
-            "content": Object;
+            'content': Object;
             /**
              * DOM node for a form. Used to extract the form values
              * and send to the server.
              *
              */
-            "form": HTMLElement;
+            'form': HTMLElement;
             /**
              * Acceptable values depend on the type of IO
              * transport (see specific IO calls for more information).
              *
              */
-            "handleAs": string;
+            'handleAs': string;
             /**
              * Set this explicitly to false to prevent publishing of topics related to
              * IO operations. Otherwise, if djConfig.ioPublish is set to true, topics
@@ -24543,7 +24689,7 @@ declare namespace dojo {
              * See dojo/main.__IoPublish for a list of topics that are published.
              *
              */
-            "ioPublish": boolean;
+            'ioPublish': boolean;
             /**
              * Default is false. If true, then a
              * "dojo.preventCache" parameter is sent in the request
@@ -24551,7 +24697,7 @@ declare namespace dojo {
              * (timestamp). Useful only with GET-type requests.
              *
              */
-            "preventCache": boolean;
+            'preventCache': boolean;
             /**
              * Sets the raw body for an HTTP request. If this is used, then the content
              * property is ignored. This is mostly useful for HTTP methods that have
@@ -24559,18 +24705,18 @@ declare namespace dojo {
              * of postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.
              *
              */
-            "rawBody": string;
+            'rawBody': string;
             /**
              * Milliseconds to wait for the response. If this time
              * passes, the then error callbacks are called.
              *
              */
-            "timeout": number;
+            'timeout': number;
             /**
              * URL to server endpoint.
              *
              */
-            "url": string;
+            'url': string;
             /**
              * This function will
              * be called when the request fails due to a network or server error, the url
@@ -24612,7 +24758,7 @@ declare namespace dojo {
              * the original object argument to the IO call.
              *
              */
-            "args": Object;
+            'args': Object;
             /**
              * For dojo/io/script calls only, indicates
              * whether the script tag that represents the
@@ -24621,19 +24767,19 @@ declare namespace dojo {
              * cleanup can happen on JSONP-type requests.
              *
              */
-            "canDelete": boolean;
+            'canDelete': boolean;
             /**
              * The final indicator on how the response will be
              * handled.
              *
              */
-            "handleAs": string;
+            'handleAs': string;
             /**
              * For dojo/io/script calls only, the internal
              * script ID used for the request.
              *
              */
-            "id": string;
+            'id': string;
             /**
              * For dojo/io/script calls only: holds the JSON
              * response for JSONP-type requests. Used
@@ -24643,28 +24789,28 @@ declare namespace dojo {
              * callbacks directly.
              *
              */
-            "json": Object;
+            'json': Object;
             /**
              * For non-GET requests, the
              * name1=value1&name2=value2 parameters sent up in
              * the request.
              *
              */
-            "query": string;
+            'query': string;
             /**
              * The final URL used for the call. Many times it
              * will be different than the original args.url
              * value.
              *
              */
-            "url": string;
+            'url': string;
             /**
              * For XMLHttpRequest calls only, the
              * XMLHttpRequest object that was used for the
              * request.
              *
              */
-            "xhr": Object;
+            'xhr': Object;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.__IoPublish.html
@@ -24684,40 +24830,40 @@ declare namespace dojo {
              * the dojo.Deferred for the request with the topic.
              *
              */
-            "done": string;
+            'done': string;
             /**
              * "/dojo/io/error" is sent whenever an IO request has errored.
              * It passes the error and the dojo.Deferred
              * for the request with the topic.
              *
              */
-            "error": string;
+            'error': string;
             /**
              * "/dojo/io/load" is sent whenever an IO request has loaded
              * successfully. It passes the response and the dojo.Deferred
              * for the request with the topic.
              *
              */
-            "load": string;
+            'load': string;
             /**
              * "/dojo/io/send" is sent whenever a new IO request is started.
              * It passes the dojo.Deferred for the request with the topic.
              *
              */
-            "send": string;
+            'send': string;
             /**
              * "/dojo/io/start" is sent when there are no outstanding IO
              * requests, and a new IO request is started. No arguments
              * are passed with this topic.
              *
              */
-            "start": string;
+            'start': string;
             /**
              * "/dojo/io/stop" is sent when all outstanding IO requests have
              * finished. No arguments are passed with this topic.
              *
              */
-            "stop": string;
+            'stop': string;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.__XhrArgs.html
@@ -24734,38 +24880,38 @@ declare namespace dojo {
              * passed in the request.
              *
              */
-            "content": Object;
+            'content': Object;
             /**
              * "application/x-www-form-urlencoded" is default. Set to false to
              * prevent a Content-Type header from being sent, or to a string
              * to send a different Content-Type.
              *
              */
-            "contentType": string;
+            'contentType': string;
             /**
              * false is default. Indicates whether a request should be
              * allowed to fail (and therefore no console error message in
              * the event of a failure)
              *
              */
-            "failOk": boolean;
+            'failOk': boolean;
             /**
              * DOM node for a form. Used to extract the form values
              * and send to the server.
              *
              */
-            "form": HTMLElement;
+            'form': HTMLElement;
             /**
              * Acceptable values are: text (default), json, json-comment-optional,
              * json-comment-filtered, javascript, xml. See dojo/_base/xhr.contentHandlers
              *
              */
-            "handleAs": string;
+            'handleAs': string;
             /**
              * Additional HTTP headers to send in the request.
              *
              */
-            "headers": Object;
+            'headers': Object;
             /**
              * Set this explicitly to false to prevent publishing of topics related to
              * IO operations. Otherwise, if djConfig.ioPublish is set to true, topics
@@ -24773,7 +24919,7 @@ declare namespace dojo {
              * See dojo/main.__IoPublish for a list of topics that are published.
              *
              */
-            "ioPublish": boolean;
+            'ioPublish': boolean;
             /**
              * Default is false. If true, then a
              * "dojo.preventCache" parameter is sent in the request
@@ -24781,7 +24927,7 @@ declare namespace dojo {
              * (timestamp). Useful only with GET-type requests.
              *
              */
-            "preventCache": boolean;
+            'preventCache': boolean;
             /**
              * Sets the raw body for an HTTP request. If this is used, then the content
              * property is ignored. This is mostly useful for HTTP methods that have
@@ -24789,24 +24935,24 @@ declare namespace dojo {
              * of postData and putData for dojo/_base/xhr.rawXhrPost and dojo/_base/xhr.rawXhrPut respectively.
              *
              */
-            "rawBody": string;
+            'rawBody': string;
             /**
              * false is default. Indicates whether the request should
              * be a synchronous (blocking) request.
              *
              */
-            "sync": boolean;
+            'sync': boolean;
             /**
              * Milliseconds to wait for the response. If this time
              * passes, the then error callbacks are called.
              *
              */
-            "timeout": number;
+            'timeout': number;
             /**
              * URL to server endpoint.
              *
              */
-            "url": string;
+            'url': string;
             /**
              * This function will
              * be called when the request fails due to a network or server error, the url
@@ -24882,15 +25028,17 @@ declare namespace dojo {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main._hasResource.html
          *
          *
          */
-        interface _hasResource {
-        }
+        interface _hasResource {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main._contentHandlers.html
          *
@@ -24984,8 +25132,7 @@ declare namespace dojo {
          *
          *
          */
-        interface _nodeDataCache {
-        }
+        interface _nodeDataCache {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.colors.html
          *
@@ -26774,8 +26921,7 @@ declare namespace dojo {
          * D.O.H. Test files for Dojo unit testing.
          *
          */
-        interface tests {
-        }
+        interface tests {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main.version.html
          *
@@ -27134,8 +27280,7 @@ declare namespace dojo {
      * Returns the has() method.
      *
      */
-    interface uacss {
-    }
+    interface uacss {}
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/window.html
      *
@@ -27236,1139 +27381,1139 @@ declare namespace dojo {
     }
 }
 
-declare module "dojo/request" {
-    var exp: dojo.request
-    export=exp;
-}
-declare module "dojo/request.__BaseOptions" {
-    var exp: dojo.request.__BaseOptions
-    export=exp;
-}
-declare module "dojo/request.__MethodOptions" {
-    var exp: dojo.request.__MethodOptions
-    export=exp;
-}
-declare module "dojo/request.__Options" {
-    var exp: dojo.request.__Options
-    export=exp;
-}
-declare module "dojo/request.__Promise" {
-    var exp: dojo.request.__Promise
-    export=exp;
-}
-declare module "dojo/request/handlers" {
-    var exp: dojo.request.handlers
-    export=exp;
-}
-declare module "dojo/request/iframe" {
-    var exp: dojo.request.iframe
-    export=exp;
-}
-declare module "dojo/request/iframe.__MethodOptions" {
-    var exp: dojo.request.iframe.__MethodOptions
-    export=exp;
-}
-declare module "dojo/request/iframe.__BaseOptions" {
-    var exp: dojo.request.iframe.__BaseOptions
-    export=exp;
-}
-declare module "dojo/request/iframe.__Options" {
-    var exp: dojo.request.iframe.__Options
-    export=exp;
-}
-declare module "dojo/request/notify" {
-    var exp: dojo.request.notify
-    export=exp;
-}
-declare module "dojo/request/registry" {
-    var exp: dojo.request.registry
-    export=exp;
-}
-declare module "dojo/request/node" {
-    var exp: dojo.request.node
-    export=exp;
-}
-declare module "dojo/request/node.__MethodOptions" {
-    var exp: dojo.request.node.__MethodOptions
-    export=exp;
-}
-declare module "dojo/request/node.__Options" {
-    var exp: dojo.request.node.__Options
-    export=exp;
-}
-declare module "dojo/request/node.__BaseOptions" {
-    var exp: dojo.request.node.__BaseOptions
-    export=exp;
-}
-declare module "dojo/request/watch" {
-    var exp: dojo.request.watch
-    export=exp;
-}
-declare module "dojo/request/script" {
-    var exp: dojo.request.script
-    export=exp;
-}
-declare module "dojo/request/script.__MethodOptions" {
-    var exp: dojo.request.script.__MethodOptions
-    export=exp;
-}
-declare module "dojo/request/script.__BaseOptions" {
-    var exp: dojo.request.script.__BaseOptions
-    export=exp;
-}
-declare module "dojo/request/script.__Options" {
-    var exp: dojo.request.script.__Options
-    export=exp;
-}
-declare module "dojo/request/xhr" {
-    var exp: dojo.request.xhr
-    export=exp;
-}
-declare module "dojo/request/xhr.__BaseOptions" {
-    var exp: dojo.request.xhr.__BaseOptions
-    export=exp;
-}
-declare module "dojo/request/xhr.__MethodOptions" {
-    var exp: dojo.request.xhr.__MethodOptions
-    export=exp;
-}
-declare module "dojo/request/xhr.__Options" {
-    var exp: dojo.request.xhr.__Options
-    export=exp;
-}
-declare module "dojo/request/default" {
-    var exp: dojo.request.default_
-    export=exp;
-}
-declare module "dojo/request/util" {
-    var exp: dojo.request.util
-    export=exp;
-}
-declare module "dojo/AdapterRegistry" {
-    var exp: dojo.AdapterRegistry
-    export=exp;
-}
-declare module "dojo/cache" {
-    var exp: dojo.cache
-    export=exp;
-}
-declare module "dojo/cookie" {
-    var exp: dojo.cookie
-    export=exp;
-}
-declare module "dojo/domReady" {
-    var exp: dojo.domReady
-    export=exp;
-}
-declare module "dojo/hash" {
-    var exp: dojo.hash
-    export=exp;
-}
-declare module "dojo/has" {
-    var exp: dojo.has
-    export=exp;
-}
-declare module "dojo/hccss" {
-    var exp: dojo.hccss
-    export=exp;
-}
-declare module "dojo/NodeList-data" {
-    var exp: dojo.NodeList_data
-    export=exp;
-}
-declare module "dojo/NodeList-html" {
-    var exp: dojo.NodeList_html
-    export=exp;
-}
-declare module "dojo/NodeList-fx" {
-    var exp: dojo.NodeList_fx
-    export=exp;
-}
-declare module "dojo/NodeList-dom" {
-    var exp: dojo.NodeList_dom
-    export=exp;
-}
-declare module "dojo/NodeList-manipulate" {
-    var exp: dojo.NodeList_manipulate
-    export=exp;
-}
-declare module "dojo/NodeList-traverse" {
-    var exp: dojo.NodeList_traverse
-    export=exp;
-}
-declare module "dojo/on" {
-    var exp: dojo.on
-    export=exp;
-}
-declare module "dojo/query" {
-    var exp: dojo.query
-    export=exp;
-}
-declare module "dojo/ready" {
-    var exp: dojo.ready
-    export=exp;
-}
-declare module "dojo/sniff" {
-    var exp: dojo.sniff
-    export=exp;
-}
-declare module "dojo/when" {
-    var exp: dojo.when
-    export=exp;
-}
-declare module "dojo/date" {
-    var exp: dojo.date
-    export=exp;
-}
-declare module "dojo/date/stamp" {
-    var exp: dojo.date.stamp
-    export=exp;
-}
-declare module "dojo/date/locale" {
-    var exp: dojo.date.locale
-    export=exp;
-}
-declare module "dojo/date/locale.__FormatOptions" {
-    var exp: dojo.date.locale.__FormatOptions
-    export=exp;
-}
-declare module "dojo/fx" {
-    var exp: dojo.fx
-    export=exp;
-}
-declare module "dojo/fx/Toggler" {
-    var exp: dojo.fx.Toggler
-    export=exp;
-}
-declare module "dojo/fx/easing" {
-    var exp: dojo.fx.easing
-    export=exp;
-}
-declare module "dojo/router" {
-    var exp: dojo.router
-    export=exp;
-}
-declare module "dojo/router/RouterBase" {
-    var exp: typeof dojo.router.RouterBase
-    export=exp;
-}
-declare module "dojo/aspect" {
-    var exp: dojo.aspect
-    export=exp;
-}
-declare module "dojo/back" {
-    var exp: dojo.back
-    export=exp;
-}
-declare module "dojo/colors" {
-    var exp: dojo.colors
-    export=exp;
-}
-declare module "dojo/currency" {
-    var exp: dojo.currency
-    export=exp;
-}
-declare module "dojo/currency.__FormatOptions" {
-    var exp: dojo.currency.__FormatOptions
-    export=exp;
-}
-declare module "dojo/currency.__ParseOptions" {
-    var exp: dojo.currency.__ParseOptions
-    export=exp;
-}
-declare module "dojo/dom" {
-    var exp: dojo.dom
-    export=exp;
-}
-declare module "dojo/dom-attr" {
-    var exp: dojo.dom_attr
-    export=exp;
-}
-declare module "dojo/dom-class" {
-    var exp: dojo.dom_class
-    export=exp;
-}
-declare module "dojo/dom-form" {
-    var exp: dojo.dom_form
-    export=exp;
-}
-declare module "dojo/dom-construct" {
-    var exp: dojo.dom_construct
-    export=exp;
-}
-declare module "dojo/dom-prop" {
-    var exp: dojo.dom_prop
-    export=exp;
-}
-declare module "dojo/dom-prop.names" {
-    var exp: dojo.dom_prop.names
-    export=exp;
-}
-declare module "dojo/dom-style" {
-    var exp: dojo.dom_style
-    export=exp;
-}
-declare module "dojo/dom-geometry" {
-    var exp: dojo.dom_geometry
-    export=exp;
-}
-declare module "dojo/gears" {
-    var exp: dojo.gears
-    export=exp;
-}
-declare module "dojo/gears.available" {
-    var exp: dojo.gears.available
-    export=exp;
-}
-declare module "dojo/html" {
-    var exp: dojo.html
-    export=exp;
-}
-declare module "dojo/html._ContentSetter" {
-    var exp: dojo.html._ContentSetter
-    export=exp;
-}
-declare module "dojo/io-query" {
-    var exp: dojo.io_query
-    export=exp;
-}
-declare module "dojo/i18n" {
-    var exp: dojo.i18n
-    export=exp;
-}
-declare module "dojo/i18n.cache" {
-    var exp: dojo.i18n.cache
-    export=exp;
-}
-declare module "dojo/json" {
-    var exp: dojo.json
-    export=exp;
-}
-declare module "dojo/loadInit" {
-    var exp: dojo.loadInit
-    export=exp;
-}
-declare module "dojo/keys" {
-    var exp: dojo.keys
-    export=exp;
-}
-declare module "dojo/mouse" {
-    var exp: dojo.mouse
-    export=exp;
-}
-declare module "dojo/node" {
-    var exp: dojo.node
-    export=exp;
-}
-declare module "dojo/number" {
-    var exp: dojo.number_
-    export=exp;
-}
-declare module "dojo/number.__FormatAbsoluteOptions" {
-    var exp: dojo.number_.__FormatAbsoluteOptions
-    export=exp;
-}
-declare module "dojo/number.__IntegerRegexpFlags" {
-    var exp: dojo.number_.__IntegerRegexpFlags
-    export=exp;
-}
-declare module "dojo/number.__FormatOptions" {
-    var exp: dojo.number_.__FormatOptions
-    export=exp;
-}
-declare module "dojo/number.__RealNumberRegexpFlags" {
-    var exp: dojo.number_.__RealNumberRegexpFlags
-    export=exp;
-}
-declare module "dojo/number.__ParseOptions" {
-    var exp: dojo.number_.__ParseOptions
-    export=exp;
-}
-declare module "dojo/number.__RegexpOptions" {
-    var exp: dojo.number_.__RegexpOptions
-    export=exp;
-}
-declare module "dojo/parser" {
-    var exp: dojo.parser
-    export=exp;
-}
-declare module "dojo/regexp" {
-    var exp: dojo.regexp
-    export=exp;
-}
-declare module "dojo/require" {
-    var exp: dojo.require
-    export=exp;
-}
-declare module "dojo/robotx" {
-    var exp: dojo.robotx
-    export=exp;
-}
-declare module "dojo/robotx._runsemaphore" {
-    var exp: dojo.robotx._runsemaphore
-    export=exp;
-}
-declare module "dojo/robot" {
-    var exp: dojo.robot
-    export=exp;
-}
-declare module "dojo/robot._runsemaphore" {
-    var exp: dojo.robot._runsemaphore
-    export=exp;
-}
-declare module "dojo/main" {
-    var exp: dojo.main
-    export=exp;
-}
-declare module "dojo/main.__IoArgs" {
-    var exp: dojo.main.__IoArgs
-    export=exp;
-}
-declare module "dojo/main.__IoCallbackArgs" {
-    var exp: dojo.main.__IoCallbackArgs
-    export=exp;
-}
-declare module "dojo/main.__IoPublish" {
-    var exp: dojo.main.__IoPublish
-    export=exp;
-}
-declare module "dojo/main.__XhrArgs" {
-    var exp: dojo.main.__XhrArgs
-    export=exp;
-}
-declare module "dojo/main.Stateful" {
-    var exp: dojo.main.Stateful
-    export=exp;
-}
-declare module "dojo/main._hasResource" {
-    var exp: dojo.main._hasResource
-    export=exp;
-}
-declare module "dojo/main._contentHandlers" {
-    var exp: dojo.main._contentHandlers
-    export=exp;
-}
-declare module "dojo/main.cldr" {
-    var exp: dojo.main.cldr
-    export=exp;
-}
-declare module "dojo/main._nodeDataCache" {
-    var exp: dojo.main._nodeDataCache
-    export=exp;
-}
-declare module "dojo/main.colors" {
-    var exp: dojo.main.colors
-    export=exp;
-}
-declare module "dojo/main.back" {
-    var exp: dojo.main.back
-    export=exp;
-}
-declare module "dojo/main.data" {
-    var exp: dojo.main.data
-    export=exp;
-}
-declare module "dojo/main.config" {
-    var exp: dojo.main.config
-    export=exp;
-}
-declare module "dojo/main.contentHandlers" {
-    var exp: dojo.main.contentHandlers
-    export=exp;
-}
-declare module "dojo/main.date" {
-    var exp: dojo.main.date
-    export=exp;
-}
-declare module "dojo/main.currency" {
-    var exp: dojo.main.currency
-    export=exp;
-}
-declare module "dojo/main.dnd" {
-    var exp: dojo.main.dnd
-    export=exp;
-}
-declare module "dojo/main.doc" {
-    var exp: dojo.main.doc
-    export=exp;
-}
-declare module "dojo/main.gears" {
-    var exp: dojo.main.gears
-    export=exp;
-}
-declare module "dojo/main.global" {
-    var exp: dojo.main.global
-    export=exp;
-}
-declare module "dojo/main.dijit" {
-    var exp: dojo.main.dijit
-    export=exp;
-}
-declare module "dojo/main.io" {
-    var exp: dojo.main.io
-    export=exp;
-}
-declare module "dojo/main.fx" {
-    var exp: dojo.main.fx
-    export=exp;
-}
-declare module "dojo/main.html" {
-    var exp: dojo.main.html
-    export=exp;
-}
-declare module "dojo/main.dojox" {
-    var exp: dojo.main.dojox
-    export=exp;
-}
-declare module "dojo/main.i18n" {
-    var exp: dojo.main.i18n
-    export=exp;
-}
-declare module "dojo/main.scopeMap" {
-    var exp: dojo.main.scopeMap
-    export=exp;
-}
-declare module "dojo/main.regexp" {
-    var exp: dojo.main.regexp
-    export=exp;
-}
-declare module "dojo/main.mouseButtons" {
-    var exp: dojo.main.mouseButtons
-    export=exp;
-}
-declare module "dojo/main.rpc" {
-    var exp: dojo.main.rpc
-    export=exp;
-}
-declare module "dojo/main.number" {
-    var exp: dojo.main.number_
-    export=exp;
-}
-declare module "dojo/main.keys" {
-    var exp: dojo.main.keys
-    export=exp;
-}
-declare module "dojo/main.tests" {
-    var exp: dojo.main.tests
-    export=exp;
-}
-declare module "dojo/main.version" {
-    var exp: dojo.main.version
-    export=exp;
-}
-declare module "dojo/main.string" {
-    var exp: dojo.main.string_
-    export=exp;
-}
-declare module "dojo/main.touch" {
-    var exp: dojo.main.touch
-    export=exp;
-}
-declare module "dojo/main.store" {
-    var exp: dojo.main.store
-    export=exp;
-}
-declare module "dojo/main.window" {
-    var exp: dojo.main.window
-    export=exp;
-}
-declare module "dojo/string" {
-    var exp: dojo.string_
-    export=exp;
-}
-declare module "dojo/text" {
-    var exp: dojo.text
-    export=exp;
-}
-declare module "dojo/topic" {
-    var exp: dojo.topic
-    export=exp;
-}
-declare module "dojo/uacss" {
-    var exp: dojo.uacss
-    export=exp;
-}
-declare module "dojo/window" {
-    var exp: dojo.window
-    export=exp;
-}
-declare module "dojo/touch" {
-    var exp: dojo.touch
-    export=exp;
-}
-declare module "dojo/DeferredList" {
-    var exp: typeof dojo.DeferredList
-    export=exp;
-}
-declare module "dojo/Deferred" {
-    var exp: typeof dojo.Deferred
-    export=exp;
-}
-declare module "dojo/Evented" {
-    var exp: typeof dojo.Evented
-    export=exp;
-}
-declare module "dojo/NodeList" {
-    var exp: typeof dojo.NodeList
-    export=exp;
-}
-declare module "dojo/NodeList._nodeDataCache" {
-    var exp: dojo.NodeList._nodeDataCache
-    export=exp;
-}
-declare module "dojo/Stateful" {
-    var exp: typeof dojo.Stateful
-    export=exp;
-}
-declare module "dojo/_base/declare" {
-    var exp: dojo._base.declare
-    export=exp;
-}
-declare module "dojo/_base/declare.__DeclareCreatedObject" {
-    var exp: dojo._base.declare.__DeclareCreatedObject
-    export=exp;
-}
-declare module "dojo/_base/Deferred" {
-    var exp: dojo._base.Deferred
-    export=exp;
-}
-declare module "dojo/_base/url" {
-    var exp: dojo._base.url
-    export=exp;
-}
-declare module "dojo/_base/url.authority" {
-    var exp: dojo._base.url.authority
-    export=exp;
-}
-declare module "dojo/_base/url.password" {
-    var exp: dojo._base.url.password
-    export=exp;
-}
-declare module "dojo/_base/url.port" {
-    var exp: dojo._base.url.port
-    export=exp;
-}
-declare module "dojo/_base/url.fragment" {
-    var exp: dojo._base.url.fragment
-    export=exp;
-}
-declare module "dojo/_base/url.query" {
-    var exp: dojo._base.url.query
-    export=exp;
-}
-declare module "dojo/_base/url.user" {
-    var exp: dojo._base.url.user
-    export=exp;
-}
-declare module "dojo/_base/url.scheme" {
-    var exp: dojo._base.url.scheme
-    export=exp;
-}
-declare module "dojo/_base/xhr" {
-    var exp: dojo._base.xhr
-    export=exp;
-}
-declare module "dojo/_base/xhr.contentHandlers" {
-    var exp: dojo._base.xhr.contentHandlers
-    export=exp;
-}
-declare module "dojo/_base/browser" {
-    var exp: dojo._base.browser
-    export=exp;
-}
-declare module "dojo/_base/array" {
-    var exp: dojo._base.array
-    export=exp;
-}
-declare module "dojo/_base/connect" {
-    var exp: dojo._base.connect
-    export=exp;
-}
-declare module "dojo/_base/event" {
-    var exp: dojo._base.event
-    export=exp;
-}
-declare module "dojo/_base/html" {
-    var exp: dojo._base.html
-    export=exp;
-}
-declare module "dojo/_base/json" {
-    var exp: dojo._base.json
-    export=exp;
-}
-declare module "dojo/_base/fx" {
-    var exp: dojo._base.fx
-    export=exp;
-}
-declare module "dojo/_base/query" {
-    var exp: dojo._base.query
-    export=exp;
-}
-declare module "dojo/_base/NodeList" {
-    var exp: dojo._base.NodeList
-    export=exp;
-}
-declare module "dojo/_base/sniff" {
-    var exp: dojo._base.sniff
-    export=exp;
-}
-declare module "dojo/_base/lang" {
-    var exp: dojo._base.lang
-    export=exp;
-}
-declare module "dojo/_base/unload" {
-    var exp: dojo._base.unload
-    export=exp;
-}
-declare module "dojo/_base/window" {
-    var exp: dojo._base.window
-    export=exp;
-}
-declare module "dojo/_base/window.doc" {
-    var exp: dojo._base.window.doc
-    export=exp;
-}
-declare module "dojo/_base/window.global" {
-    var exp: dojo._base.window.global
-    export=exp;
-}
-declare module "dojo/_base/kernel" {
-    var exp: dojo._base.kernel
-    export=exp;
-}
-declare module "dojo/_base/kernel.__IoCallbackArgs" {
-    var exp: dojo._base.kernel.__IoCallbackArgs
-    export=exp;
-}
-declare module "dojo/_base/kernel.__IoPublish" {
-    var exp: dojo._base.kernel.__IoPublish
-    export=exp;
-}
-declare module "dojo/_base/kernel.__IoArgs" {
-    var exp: dojo._base.kernel.__IoArgs
-    export=exp;
-}
-declare module "dojo/_base/kernel.__XhrArgs" {
-    var exp: dojo._base.kernel.__XhrArgs
-    export=exp;
-}
-declare module "dojo/_base/kernel.Stateful" {
-    var exp: dojo._base.kernel.Stateful
-    export=exp;
-}
-declare module "dojo/_base/kernel._contentHandlers" {
-    var exp: dojo._base.kernel._contentHandlers
-    export=exp;
-}
-declare module "dojo/_base/kernel._hasResource" {
-    var exp: dojo._base.kernel._hasResource
-    export=exp;
-}
-declare module "dojo/_base/kernel._nodeDataCache" {
-    var exp: dojo._base.kernel._nodeDataCache
-    export=exp;
-}
-declare module "dojo/_base/kernel.back" {
-    var exp: dojo._base.kernel.back
-    export=exp;
-}
-declare module "dojo/_base/kernel.cldr" {
-    var exp: dojo._base.kernel.cldr
-    export=exp;
-}
-declare module "dojo/_base/kernel.colors" {
-    var exp: dojo._base.kernel.colors
-    export=exp;
-}
-declare module "dojo/_base/kernel.config" {
-    var exp: dojo._base.kernel.config
-    export=exp;
-}
-declare module "dojo/_base/kernel.contentHandlers" {
-    var exp: dojo._base.kernel.contentHandlers
-    export=exp;
-}
-declare module "dojo/_base/kernel.dnd" {
-    var exp: dojo._base.kernel.dnd
-    export=exp;
-}
-declare module "dojo/_base/kernel.date" {
-    var exp: dojo._base.kernel.date
-    export=exp;
-}
-declare module "dojo/_base/kernel.doc" {
-    var exp: dojo._base.kernel.doc
-    export=exp;
-}
-declare module "dojo/_base/kernel.data" {
-    var exp: dojo._base.kernel.data
-    export=exp;
-}
-declare module "dojo/_base/kernel.currency" {
-    var exp: dojo._base.kernel.currency
-    export=exp;
-}
-declare module "dojo/_base/kernel.dijit" {
-    var exp: dojo._base.kernel.dijit
-    export=exp;
-}
-declare module "dojo/_base/kernel.global" {
-    var exp: dojo._base.kernel.global
-    export=exp;
-}
-declare module "dojo/_base/kernel.gears" {
-    var exp: dojo._base.kernel.gears
-    export=exp;
-}
-declare module "dojo/_base/kernel.fx" {
-    var exp: dojo._base.kernel.fx
-    export=exp;
-}
-declare module "dojo/_base/kernel.html" {
-    var exp: dojo._base.kernel.html
-    export=exp;
-}
-declare module "dojo/_base/kernel.io" {
-    var exp: dojo._base.kernel.io
-    export=exp;
-}
-declare module "dojo/_base/kernel.dojox" {
-    var exp: dojo._base.kernel.dojox
-    export=exp;
-}
-declare module "dojo/_base/kernel.i18n" {
-    var exp: dojo._base.kernel.i18n
-    export=exp;
-}
-declare module "dojo/_base/kernel.mouseButtons" {
-    var exp: dojo._base.kernel.mouseButtons
-    export=exp;
-}
-declare module "dojo/_base/kernel.rpc" {
-    var exp: dojo._base.kernel.rpc
-    export=exp;
-}
-declare module "dojo/_base/kernel.regexp" {
-    var exp: dojo._base.kernel.regexp
-    export=exp;
-}
-declare module "dojo/_base/kernel.number" {
-    var exp: dojo._base.kernel.number_
-    export=exp;
-}
-declare module "dojo/_base/kernel.scopeMap" {
-    var exp: dojo._base.kernel.scopeMap
-    export=exp;
-}
-declare module "dojo/_base/kernel.tests" {
-    var exp: dojo._base.kernel.tests
-    export=exp;
-}
-declare module "dojo/_base/kernel.keys" {
-    var exp: dojo._base.kernel.keys
-    export=exp;
-}
-declare module "dojo/_base/kernel.store" {
-    var exp: dojo._base.kernel.store
-    export=exp;
-}
-declare module "dojo/_base/kernel.string" {
-    var exp: dojo._base.kernel.string_
-    export=exp;
-}
-declare module "dojo/_base/kernel.version" {
-    var exp: dojo._base.kernel.version
-    export=exp;
-}
-declare module "dojo/_base/kernel.touch" {
-    var exp: dojo._base.kernel.touch
-    export=exp;
-}
-declare module "dojo/_base/kernel.window" {
-    var exp: dojo._base.kernel.window
-    export=exp;
-}
-declare module "dojo/_base/config" {
-    var exp: dojo._base.config
-    export=exp;
-}
-declare module "dojo/_base/config.modulePaths" {
-    var exp: dojo._base.config.modulePaths
-    export=exp;
-}
-declare module "dojo/_base/Color" {
-    var exp: typeof dojo._base.Color
-    export=exp;
-}
-declare module "dojo/_base/Color.named" {
-    var exp: dojo._base.Color.named
-    export=exp;
-}
-declare module "dojo/cldr/monetary" {
-    var exp: dojo.cldr.monetary
-    export=exp;
-}
-declare module "dojo/cldr/supplemental" {
-    var exp: dojo.cldr.supplemental
-    export=exp;
-}
-declare module "dojo/data/ItemFileReadStore" {
-    var exp: typeof dojo.data.ItemFileReadStore
-    export=exp;
-}
-declare module "dojo/data/ObjectStore" {
-    var exp: typeof dojo.data.ObjectStore
-    export=exp;
-}
-declare module "dojo/data/ItemFileWriteStore" {
-    var exp: typeof dojo.data.ItemFileWriteStore
-    export=exp;
-}
-declare module "dojo/data/api/Item" {
-    var exp: typeof dojo.data.api.Item
-    export=exp;
-}
-declare module "dojo/data/api/Identity" {
-    var exp: typeof dojo.data.api.Identity
-    export=exp;
-}
-declare module "dojo/data/api/Request" {
-    var exp: typeof  dojo.data.api.Request
-    export=exp;
-}
-declare module "dojo/data/api/Notification" {
-    var exp: typeof dojo.data.api.Notification
-    export=exp;
-}
-declare module "dojo/data/api/Read" {
-    var exp: typeof dojo.data.api.Read
-    export=exp;
-}
-declare module "dojo/data/api/Write" {
-    var exp: typeof dojo.data.api.Write
-    export=exp;
-}
-declare module "dojo/data/util/filter" {
-    var exp: dojo.data.util.filter
-    export=exp;
-}
-declare module "dojo/data/util/simpleFetch" {
-    var exp: dojo.data.util.simpleFetch
-    export=exp;
-}
-declare module "dojo/data/util/sorter" {
-    var exp: dojo.data.util.sorter
-    export=exp;
-}
-declare module "dojo/dnd/autoscroll" {
-    var exp: dojo.dnd.autoscroll
-    export=exp;
-}
-declare module "dojo/dnd/autoscroll._validOverflow" {
-    var exp: dojo.dnd.autoscroll._validOverflow
-    export=exp;
-}
-declare module "dojo/dnd/autoscroll._validNodes" {
-    var exp: dojo.dnd.autoscroll._validNodes
-    export=exp;
-}
-declare module "dojo/dnd/common" {
-    var exp: dojo.dnd.common
-    export=exp;
-}
-declare module "dojo/dnd/common._empty" {
-    var exp: dojo.dnd.common._empty
-    export=exp;
-}
-declare module "dojo/dnd/common._defaultCreatorNodes" {
-    var exp: dojo.dnd.common._defaultCreatorNodes
-    export=exp;
-}
-declare module "dojo/dnd/move" {
-    var exp: dojo.dnd.move
-    export=exp;
-}
-declare module "dojo/dnd/move.parentConstrainedMoveable" {
-    var exp: dojo.dnd.move.parentConstrainedMoveable
-    export=exp;
-}
-declare module "dojo/dnd/move.boxConstrainedMoveable" {
-    var exp: dojo.dnd.move.boxConstrainedMoveable
-    export=exp;
-}
-declare module "dojo/dnd/move.constrainedMoveable" {
-    var exp: dojo.dnd.move.constrainedMoveable
-    export=exp;
-}
-declare module "dojo/dnd/Avatar" {
-    var exp: typeof dojo.dnd.Avatar
-    export=exp;
-}
-declare module "dojo/dnd/Manager" {
-    var exp: typeof dojo.dnd.Manager
-    export=exp;
-}
-declare module "dojo/dnd/Container" {
-    var exp: typeof dojo.dnd.Container
-    export=exp;
-}
-declare module "dojo/dnd/Container.__ContainerArgs" {
-    var exp: dojo.dnd.Container.__ContainerArgs
-    export=exp;
-}
-declare module "dojo/dnd/AutoSource" {
-    var exp: typeof dojo.dnd.AutoSource
-    export=exp;
-}
-declare module "dojo/dnd/Mover" {
-    var exp: typeof dojo.dnd.Mover
-    export=exp;
-}
-declare module "dojo/dnd/Moveable" {
-    var exp: typeof dojo.dnd.Moveable
-    export=exp;
-}
-declare module "dojo/dnd/Moveable.__MoveableArgs" {
-    var exp: typeof dojo.dnd.Moveable.__MoveableArgs
-    export=exp;
-}
-declare module "dojo/dnd/Selector" {
-    var exp: typeof dojo.dnd.Selector
-    export=exp;
-}
-declare module "dojo/dnd/TimedMoveable" {
-    var exp: typeof dojo.dnd.TimedMoveable
-    export=exp;
-}
-declare module "dojo/dnd/Target" {
-    var exp: typeof dojo.dnd.Target
-    export=exp;
-}
-declare module "dojo/dnd/Source" {
-    var exp: typeof dojo.dnd.Source
-    export=exp;
-}
-declare module "dojo/errors/create" {
-    var exp: dojo.errors.create
-    export=exp;
-}
-declare module "dojo/errors/CancelError" {
-    var exp: dojo.errors.CancelError
-    export=exp;
-}
-declare module "dojo/errors/RequestError" {
-    var exp: dojo.errors.RequestError
-    export=exp;
-}
-declare module "dojo/errors/RequestTimeoutError" {
-    var exp: dojo.errors.RequestTimeoutError
-    export=exp;
-}
-declare module "dojo/io/iframe" {
-    var exp: dojo.io.iframe
-    export=exp;
-}
-declare module "dojo/io/script" {
-    var exp: dojo.io.script
-    export=exp;
-}
-declare module "dojo/promise/all" {
-    var exp: dojo.promise.all
-    export=exp;
-}
-declare module "dojo/promise/first" {
-    var exp: dojo.promise.first
-    export=exp;
-}
-declare module "dojo/promise/instrumentation" {
-    var exp: dojo.promise.instrumentation
-    export=exp;
-}
-declare module "dojo/promise/tracer" {
-    var exp: dojo.promise.tracer
-    export=exp;
-}
-declare module "dojo/promise/Promise" {
-    interface Promise<T> extends dojo.promise.Promise<T> { }
+declare module 'dojo/request' {
+    var exp: dojo.request;
+    export = exp;
+}
+declare module 'dojo/request.__BaseOptions' {
+    var exp: dojo.request.__BaseOptions;
+    export = exp;
+}
+declare module 'dojo/request.__MethodOptions' {
+    var exp: dojo.request.__MethodOptions;
+    export = exp;
+}
+declare module 'dojo/request.__Options' {
+    var exp: dojo.request.__Options;
+    export = exp;
+}
+declare module 'dojo/request.__Promise' {
+    var exp: dojo.request.__Promise;
+    export = exp;
+}
+declare module 'dojo/request/handlers' {
+    var exp: dojo.request.handlers;
+    export = exp;
+}
+declare module 'dojo/request/iframe' {
+    var exp: dojo.request.iframe;
+    export = exp;
+}
+declare module 'dojo/request/iframe.__MethodOptions' {
+    var exp: dojo.request.iframe.__MethodOptions;
+    export = exp;
+}
+declare module 'dojo/request/iframe.__BaseOptions' {
+    var exp: dojo.request.iframe.__BaseOptions;
+    export = exp;
+}
+declare module 'dojo/request/iframe.__Options' {
+    var exp: dojo.request.iframe.__Options;
+    export = exp;
+}
+declare module 'dojo/request/notify' {
+    var exp: dojo.request.notify;
+    export = exp;
+}
+declare module 'dojo/request/registry' {
+    var exp: dojo.request.registry;
+    export = exp;
+}
+declare module 'dojo/request/node' {
+    var exp: dojo.request.node;
+    export = exp;
+}
+declare module 'dojo/request/node.__MethodOptions' {
+    var exp: dojo.request.node.__MethodOptions;
+    export = exp;
+}
+declare module 'dojo/request/node.__Options' {
+    var exp: dojo.request.node.__Options;
+    export = exp;
+}
+declare module 'dojo/request/node.__BaseOptions' {
+    var exp: dojo.request.node.__BaseOptions;
+    export = exp;
+}
+declare module 'dojo/request/watch' {
+    var exp: dojo.request.watch;
+    export = exp;
+}
+declare module 'dojo/request/script' {
+    var exp: dojo.request.script;
+    export = exp;
+}
+declare module 'dojo/request/script.__MethodOptions' {
+    var exp: dojo.request.script.__MethodOptions;
+    export = exp;
+}
+declare module 'dojo/request/script.__BaseOptions' {
+    var exp: dojo.request.script.__BaseOptions;
+    export = exp;
+}
+declare module 'dojo/request/script.__Options' {
+    var exp: dojo.request.script.__Options;
+    export = exp;
+}
+declare module 'dojo/request/xhr' {
+    var exp: dojo.request.xhr;
+    export = exp;
+}
+declare module 'dojo/request/xhr.__BaseOptions' {
+    var exp: dojo.request.xhr.__BaseOptions;
+    export = exp;
+}
+declare module 'dojo/request/xhr.__MethodOptions' {
+    var exp: dojo.request.xhr.__MethodOptions;
+    export = exp;
+}
+declare module 'dojo/request/xhr.__Options' {
+    var exp: dojo.request.xhr.__Options;
+    export = exp;
+}
+declare module 'dojo/request/default' {
+    var exp: dojo.request.default_;
+    export = exp;
+}
+declare module 'dojo/request/util' {
+    var exp: dojo.request.util;
+    export = exp;
+}
+declare module 'dojo/AdapterRegistry' {
+    var exp: dojo.AdapterRegistry;
+    export = exp;
+}
+declare module 'dojo/cache' {
+    var exp: dojo.cache;
+    export = exp;
+}
+declare module 'dojo/cookie' {
+    var exp: dojo.cookie;
+    export = exp;
+}
+declare module 'dojo/domReady' {
+    var exp: dojo.domReady;
+    export = exp;
+}
+declare module 'dojo/hash' {
+    var exp: dojo.hash;
+    export = exp;
+}
+declare module 'dojo/has' {
+    var exp: dojo.has;
+    export = exp;
+}
+declare module 'dojo/hccss' {
+    var exp: dojo.hccss;
+    export = exp;
+}
+declare module 'dojo/NodeList-data' {
+    var exp: dojo.NodeList_data;
+    export = exp;
+}
+declare module 'dojo/NodeList-html' {
+    var exp: dojo.NodeList_html;
+    export = exp;
+}
+declare module 'dojo/NodeList-fx' {
+    var exp: dojo.NodeList_fx;
+    export = exp;
+}
+declare module 'dojo/NodeList-dom' {
+    var exp: dojo.NodeList_dom;
+    export = exp;
+}
+declare module 'dojo/NodeList-manipulate' {
+    var exp: dojo.NodeList_manipulate;
+    export = exp;
+}
+declare module 'dojo/NodeList-traverse' {
+    var exp: dojo.NodeList_traverse;
+    export = exp;
+}
+declare module 'dojo/on' {
+    var exp: dojo.on;
+    export = exp;
+}
+declare module 'dojo/query' {
+    var exp: dojo.query;
+    export = exp;
+}
+declare module 'dojo/ready' {
+    var exp: dojo.ready;
+    export = exp;
+}
+declare module 'dojo/sniff' {
+    var exp: dojo.sniff;
+    export = exp;
+}
+declare module 'dojo/when' {
+    var exp: dojo.when;
+    export = exp;
+}
+declare module 'dojo/date' {
+    var exp: dojo.date;
+    export = exp;
+}
+declare module 'dojo/date/stamp' {
+    var exp: dojo.date.stamp;
+    export = exp;
+}
+declare module 'dojo/date/locale' {
+    var exp: dojo.date.locale;
+    export = exp;
+}
+declare module 'dojo/date/locale.__FormatOptions' {
+    var exp: dojo.date.locale.__FormatOptions;
+    export = exp;
+}
+declare module 'dojo/fx' {
+    var exp: dojo.fx;
+    export = exp;
+}
+declare module 'dojo/fx/Toggler' {
+    var exp: dojo.fx.Toggler;
+    export = exp;
+}
+declare module 'dojo/fx/easing' {
+    var exp: dojo.fx.easing;
+    export = exp;
+}
+declare module 'dojo/router' {
+    var exp: dojo.router;
+    export = exp;
+}
+declare module 'dojo/router/RouterBase' {
+    var exp: typeof dojo.router.RouterBase;
+    export = exp;
+}
+declare module 'dojo/aspect' {
+    var exp: dojo.aspect;
+    export = exp;
+}
+declare module 'dojo/back' {
+    var exp: dojo.back;
+    export = exp;
+}
+declare module 'dojo/colors' {
+    var exp: dojo.colors;
+    export = exp;
+}
+declare module 'dojo/currency' {
+    var exp: dojo.currency;
+    export = exp;
+}
+declare module 'dojo/currency.__FormatOptions' {
+    var exp: dojo.currency.__FormatOptions;
+    export = exp;
+}
+declare module 'dojo/currency.__ParseOptions' {
+    var exp: dojo.currency.__ParseOptions;
+    export = exp;
+}
+declare module 'dojo/dom' {
+    var exp: dojo.dom;
+    export = exp;
+}
+declare module 'dojo/dom-attr' {
+    var exp: dojo.dom_attr;
+    export = exp;
+}
+declare module 'dojo/dom-class' {
+    var exp: dojo.dom_class;
+    export = exp;
+}
+declare module 'dojo/dom-form' {
+    var exp: dojo.dom_form;
+    export = exp;
+}
+declare module 'dojo/dom-construct' {
+    var exp: dojo.dom_construct;
+    export = exp;
+}
+declare module 'dojo/dom-prop' {
+    var exp: dojo.dom_prop;
+    export = exp;
+}
+declare module 'dojo/dom-prop.names' {
+    var exp: dojo.dom_prop.names;
+    export = exp;
+}
+declare module 'dojo/dom-style' {
+    var exp: dojo.dom_style;
+    export = exp;
+}
+declare module 'dojo/dom-geometry' {
+    var exp: dojo.dom_geometry;
+    export = exp;
+}
+declare module 'dojo/gears' {
+    var exp: dojo.gears;
+    export = exp;
+}
+declare module 'dojo/gears.available' {
+    var exp: dojo.gears.available;
+    export = exp;
+}
+declare module 'dojo/html' {
+    var exp: dojo.html;
+    export = exp;
+}
+declare module 'dojo/html._ContentSetter' {
+    var exp: dojo.html._ContentSetter;
+    export = exp;
+}
+declare module 'dojo/io-query' {
+    var exp: dojo.io_query;
+    export = exp;
+}
+declare module 'dojo/i18n' {
+    var exp: dojo.i18n;
+    export = exp;
+}
+declare module 'dojo/i18n.cache' {
+    var exp: dojo.i18n.cache;
+    export = exp;
+}
+declare module 'dojo/json' {
+    var exp: dojo.json;
+    export = exp;
+}
+declare module 'dojo/loadInit' {
+    var exp: dojo.loadInit;
+    export = exp;
+}
+declare module 'dojo/keys' {
+    var exp: dojo.keys;
+    export = exp;
+}
+declare module 'dojo/mouse' {
+    var exp: dojo.mouse;
+    export = exp;
+}
+declare module 'dojo/node' {
+    var exp: dojo.node;
+    export = exp;
+}
+declare module 'dojo/number' {
+    var exp: dojo.number_;
+    export = exp;
+}
+declare module 'dojo/number.__FormatAbsoluteOptions' {
+    var exp: dojo.number_.__FormatAbsoluteOptions;
+    export = exp;
+}
+declare module 'dojo/number.__IntegerRegexpFlags' {
+    var exp: dojo.number_.__IntegerRegexpFlags;
+    export = exp;
+}
+declare module 'dojo/number.__FormatOptions' {
+    var exp: dojo.number_.__FormatOptions;
+    export = exp;
+}
+declare module 'dojo/number.__RealNumberRegexpFlags' {
+    var exp: dojo.number_.__RealNumberRegexpFlags;
+    export = exp;
+}
+declare module 'dojo/number.__ParseOptions' {
+    var exp: dojo.number_.__ParseOptions;
+    export = exp;
+}
+declare module 'dojo/number.__RegexpOptions' {
+    var exp: dojo.number_.__RegexpOptions;
+    export = exp;
+}
+declare module 'dojo/parser' {
+    var exp: dojo.parser;
+    export = exp;
+}
+declare module 'dojo/regexp' {
+    var exp: dojo.regexp;
+    export = exp;
+}
+declare module 'dojo/require' {
+    var exp: dojo.require;
+    export = exp;
+}
+declare module 'dojo/robotx' {
+    var exp: dojo.robotx;
+    export = exp;
+}
+declare module 'dojo/robotx._runsemaphore' {
+    var exp: dojo.robotx._runsemaphore;
+    export = exp;
+}
+declare module 'dojo/robot' {
+    var exp: dojo.robot;
+    export = exp;
+}
+declare module 'dojo/robot._runsemaphore' {
+    var exp: dojo.robot._runsemaphore;
+    export = exp;
+}
+declare module 'dojo/main' {
+    var exp: dojo.main;
+    export = exp;
+}
+declare module 'dojo/main.__IoArgs' {
+    var exp: dojo.main.__IoArgs;
+    export = exp;
+}
+declare module 'dojo/main.__IoCallbackArgs' {
+    var exp: dojo.main.__IoCallbackArgs;
+    export = exp;
+}
+declare module 'dojo/main.__IoPublish' {
+    var exp: dojo.main.__IoPublish;
+    export = exp;
+}
+declare module 'dojo/main.__XhrArgs' {
+    var exp: dojo.main.__XhrArgs;
+    export = exp;
+}
+declare module 'dojo/main.Stateful' {
+    var exp: dojo.main.Stateful;
+    export = exp;
+}
+declare module 'dojo/main._hasResource' {
+    var exp: dojo.main._hasResource;
+    export = exp;
+}
+declare module 'dojo/main._contentHandlers' {
+    var exp: dojo.main._contentHandlers;
+    export = exp;
+}
+declare module 'dojo/main.cldr' {
+    var exp: dojo.main.cldr;
+    export = exp;
+}
+declare module 'dojo/main._nodeDataCache' {
+    var exp: dojo.main._nodeDataCache;
+    export = exp;
+}
+declare module 'dojo/main.colors' {
+    var exp: dojo.main.colors;
+    export = exp;
+}
+declare module 'dojo/main.back' {
+    var exp: dojo.main.back;
+    export = exp;
+}
+declare module 'dojo/main.data' {
+    var exp: dojo.main.data;
+    export = exp;
+}
+declare module 'dojo/main.config' {
+    var exp: dojo.main.config;
+    export = exp;
+}
+declare module 'dojo/main.contentHandlers' {
+    var exp: dojo.main.contentHandlers;
+    export = exp;
+}
+declare module 'dojo/main.date' {
+    var exp: dojo.main.date;
+    export = exp;
+}
+declare module 'dojo/main.currency' {
+    var exp: dojo.main.currency;
+    export = exp;
+}
+declare module 'dojo/main.dnd' {
+    var exp: dojo.main.dnd;
+    export = exp;
+}
+declare module 'dojo/main.doc' {
+    var exp: dojo.main.doc;
+    export = exp;
+}
+declare module 'dojo/main.gears' {
+    var exp: dojo.main.gears;
+    export = exp;
+}
+declare module 'dojo/main.global' {
+    var exp: dojo.main.global;
+    export = exp;
+}
+declare module 'dojo/main.dijit' {
+    var exp: dojo.main.dijit;
+    export = exp;
+}
+declare module 'dojo/main.io' {
+    var exp: dojo.main.io;
+    export = exp;
+}
+declare module 'dojo/main.fx' {
+    var exp: dojo.main.fx;
+    export = exp;
+}
+declare module 'dojo/main.html' {
+    var exp: dojo.main.html;
+    export = exp;
+}
+declare module 'dojo/main.dojox' {
+    var exp: dojo.main.dojox;
+    export = exp;
+}
+declare module 'dojo/main.i18n' {
+    var exp: dojo.main.i18n;
+    export = exp;
+}
+declare module 'dojo/main.scopeMap' {
+    var exp: dojo.main.scopeMap;
+    export = exp;
+}
+declare module 'dojo/main.regexp' {
+    var exp: dojo.main.regexp;
+    export = exp;
+}
+declare module 'dojo/main.mouseButtons' {
+    var exp: dojo.main.mouseButtons;
+    export = exp;
+}
+declare module 'dojo/main.rpc' {
+    var exp: dojo.main.rpc;
+    export = exp;
+}
+declare module 'dojo/main.number' {
+    var exp: dojo.main.number_;
+    export = exp;
+}
+declare module 'dojo/main.keys' {
+    var exp: dojo.main.keys;
+    export = exp;
+}
+declare module 'dojo/main.tests' {
+    var exp: dojo.main.tests;
+    export = exp;
+}
+declare module 'dojo/main.version' {
+    var exp: dojo.main.version;
+    export = exp;
+}
+declare module 'dojo/main.string' {
+    var exp: dojo.main.string_;
+    export = exp;
+}
+declare module 'dojo/main.touch' {
+    var exp: dojo.main.touch;
+    export = exp;
+}
+declare module 'dojo/main.store' {
+    var exp: dojo.main.store;
+    export = exp;
+}
+declare module 'dojo/main.window' {
+    var exp: dojo.main.window;
+    export = exp;
+}
+declare module 'dojo/string' {
+    var exp: dojo.string_;
+    export = exp;
+}
+declare module 'dojo/text' {
+    var exp: dojo.text;
+    export = exp;
+}
+declare module 'dojo/topic' {
+    var exp: dojo.topic;
+    export = exp;
+}
+declare module 'dojo/uacss' {
+    var exp: dojo.uacss;
+    export = exp;
+}
+declare module 'dojo/window' {
+    var exp: dojo.window;
+    export = exp;
+}
+declare module 'dojo/touch' {
+    var exp: dojo.touch;
+    export = exp;
+}
+declare module 'dojo/DeferredList' {
+    var exp: typeof dojo.DeferredList;
+    export = exp;
+}
+declare module 'dojo/Deferred' {
+    var exp: typeof dojo.Deferred;
+    export = exp;
+}
+declare module 'dojo/Evented' {
+    var exp: typeof dojo.Evented;
+    export = exp;
+}
+declare module 'dojo/NodeList' {
+    var exp: typeof dojo.NodeList;
+    export = exp;
+}
+declare module 'dojo/NodeList._nodeDataCache' {
+    var exp: dojo.NodeList._nodeDataCache;
+    export = exp;
+}
+declare module 'dojo/Stateful' {
+    var exp: typeof dojo.Stateful;
+    export = exp;
+}
+declare module 'dojo/_base/declare' {
+    var exp: dojo._base.declare;
+    export = exp;
+}
+declare module 'dojo/_base/declare.__DeclareCreatedObject' {
+    var exp: dojo._base.declare.__DeclareCreatedObject;
+    export = exp;
+}
+declare module 'dojo/_base/Deferred' {
+    var exp: dojo._base.Deferred;
+    export = exp;
+}
+declare module 'dojo/_base/url' {
+    var exp: dojo._base.url;
+    export = exp;
+}
+declare module 'dojo/_base/url.authority' {
+    var exp: dojo._base.url.authority;
+    export = exp;
+}
+declare module 'dojo/_base/url.password' {
+    var exp: dojo._base.url.password;
+    export = exp;
+}
+declare module 'dojo/_base/url.port' {
+    var exp: dojo._base.url.port;
+    export = exp;
+}
+declare module 'dojo/_base/url.fragment' {
+    var exp: dojo._base.url.fragment;
+    export = exp;
+}
+declare module 'dojo/_base/url.query' {
+    var exp: dojo._base.url.query;
+    export = exp;
+}
+declare module 'dojo/_base/url.user' {
+    var exp: dojo._base.url.user;
+    export = exp;
+}
+declare module 'dojo/_base/url.scheme' {
+    var exp: dojo._base.url.scheme;
+    export = exp;
+}
+declare module 'dojo/_base/xhr' {
+    var exp: dojo._base.xhr;
+    export = exp;
+}
+declare module 'dojo/_base/xhr.contentHandlers' {
+    var exp: dojo._base.xhr.contentHandlers;
+    export = exp;
+}
+declare module 'dojo/_base/browser' {
+    var exp: dojo._base.browser;
+    export = exp;
+}
+declare module 'dojo/_base/array' {
+    var exp: dojo._base.array;
+    export = exp;
+}
+declare module 'dojo/_base/connect' {
+    var exp: dojo._base.connect;
+    export = exp;
+}
+declare module 'dojo/_base/event' {
+    var exp: dojo._base.event;
+    export = exp;
+}
+declare module 'dojo/_base/html' {
+    var exp: dojo._base.html;
+    export = exp;
+}
+declare module 'dojo/_base/json' {
+    var exp: dojo._base.json;
+    export = exp;
+}
+declare module 'dojo/_base/fx' {
+    var exp: dojo._base.fx;
+    export = exp;
+}
+declare module 'dojo/_base/query' {
+    var exp: dojo._base.query;
+    export = exp;
+}
+declare module 'dojo/_base/NodeList' {
+    var exp: dojo._base.NodeList;
+    export = exp;
+}
+declare module 'dojo/_base/sniff' {
+    var exp: dojo._base.sniff;
+    export = exp;
+}
+declare module 'dojo/_base/lang' {
+    var exp: dojo._base.lang;
+    export = exp;
+}
+declare module 'dojo/_base/unload' {
+    var exp: dojo._base.unload;
+    export = exp;
+}
+declare module 'dojo/_base/window' {
+    var exp: dojo._base.window;
+    export = exp;
+}
+declare module 'dojo/_base/window.doc' {
+    var exp: dojo._base.window.doc;
+    export = exp;
+}
+declare module 'dojo/_base/window.global' {
+    var exp: dojo._base.window.global;
+    export = exp;
+}
+declare module 'dojo/_base/kernel' {
+    var exp: dojo._base.kernel;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.__IoCallbackArgs' {
+    var exp: dojo._base.kernel.__IoCallbackArgs;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.__IoPublish' {
+    var exp: dojo._base.kernel.__IoPublish;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.__IoArgs' {
+    var exp: dojo._base.kernel.__IoArgs;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.__XhrArgs' {
+    var exp: dojo._base.kernel.__XhrArgs;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.Stateful' {
+    var exp: dojo._base.kernel.Stateful;
+    export = exp;
+}
+declare module 'dojo/_base/kernel._contentHandlers' {
+    var exp: dojo._base.kernel._contentHandlers;
+    export = exp;
+}
+declare module 'dojo/_base/kernel._hasResource' {
+    var exp: dojo._base.kernel._hasResource;
+    export = exp;
+}
+declare module 'dojo/_base/kernel._nodeDataCache' {
+    var exp: dojo._base.kernel._nodeDataCache;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.back' {
+    var exp: dojo._base.kernel.back;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.cldr' {
+    var exp: dojo._base.kernel.cldr;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.colors' {
+    var exp: dojo._base.kernel.colors;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.config' {
+    var exp: dojo._base.kernel.config;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.contentHandlers' {
+    var exp: dojo._base.kernel.contentHandlers;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.dnd' {
+    var exp: dojo._base.kernel.dnd;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.date' {
+    var exp: dojo._base.kernel.date;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.doc' {
+    var exp: dojo._base.kernel.doc;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.data' {
+    var exp: dojo._base.kernel.data;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.currency' {
+    var exp: dojo._base.kernel.currency;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.dijit' {
+    var exp: dojo._base.kernel.dijit;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.global' {
+    var exp: dojo._base.kernel.global;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.gears' {
+    var exp: dojo._base.kernel.gears;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.fx' {
+    var exp: dojo._base.kernel.fx;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.html' {
+    var exp: dojo._base.kernel.html;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.io' {
+    var exp: dojo._base.kernel.io;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.dojox' {
+    var exp: dojo._base.kernel.dojox;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.i18n' {
+    var exp: dojo._base.kernel.i18n;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.mouseButtons' {
+    var exp: dojo._base.kernel.mouseButtons;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.rpc' {
+    var exp: dojo._base.kernel.rpc;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.regexp' {
+    var exp: dojo._base.kernel.regexp;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.number' {
+    var exp: dojo._base.kernel.number_;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.scopeMap' {
+    var exp: dojo._base.kernel.scopeMap;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.tests' {
+    var exp: dojo._base.kernel.tests;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.keys' {
+    var exp: dojo._base.kernel.keys;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.store' {
+    var exp: dojo._base.kernel.store;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.string' {
+    var exp: dojo._base.kernel.string_;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.version' {
+    var exp: dojo._base.kernel.version;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.touch' {
+    var exp: dojo._base.kernel.touch;
+    export = exp;
+}
+declare module 'dojo/_base/kernel.window' {
+    var exp: dojo._base.kernel.window;
+    export = exp;
+}
+declare module 'dojo/_base/config' {
+    var exp: dojo._base.config;
+    export = exp;
+}
+declare module 'dojo/_base/config.modulePaths' {
+    var exp: dojo._base.config.modulePaths;
+    export = exp;
+}
+declare module 'dojo/_base/Color' {
+    var exp: typeof dojo._base.Color;
+    export = exp;
+}
+declare module 'dojo/_base/Color.named' {
+    var exp: dojo._base.Color.named;
+    export = exp;
+}
+declare module 'dojo/cldr/monetary' {
+    var exp: dojo.cldr.monetary;
+    export = exp;
+}
+declare module 'dojo/cldr/supplemental' {
+    var exp: dojo.cldr.supplemental;
+    export = exp;
+}
+declare module 'dojo/data/ItemFileReadStore' {
+    var exp: typeof dojo.data.ItemFileReadStore;
+    export = exp;
+}
+declare module 'dojo/data/ObjectStore' {
+    var exp: typeof dojo.data.ObjectStore;
+    export = exp;
+}
+declare module 'dojo/data/ItemFileWriteStore' {
+    var exp: typeof dojo.data.ItemFileWriteStore;
+    export = exp;
+}
+declare module 'dojo/data/api/Item' {
+    var exp: typeof dojo.data.api.Item;
+    export = exp;
+}
+declare module 'dojo/data/api/Identity' {
+    var exp: typeof dojo.data.api.Identity;
+    export = exp;
+}
+declare module 'dojo/data/api/Request' {
+    var exp: typeof dojo.data.api.Request;
+    export = exp;
+}
+declare module 'dojo/data/api/Notification' {
+    var exp: typeof dojo.data.api.Notification;
+    export = exp;
+}
+declare module 'dojo/data/api/Read' {
+    var exp: typeof dojo.data.api.Read;
+    export = exp;
+}
+declare module 'dojo/data/api/Write' {
+    var exp: typeof dojo.data.api.Write;
+    export = exp;
+}
+declare module 'dojo/data/util/filter' {
+    var exp: dojo.data.util.filter;
+    export = exp;
+}
+declare module 'dojo/data/util/simpleFetch' {
+    var exp: dojo.data.util.simpleFetch;
+    export = exp;
+}
+declare module 'dojo/data/util/sorter' {
+    var exp: dojo.data.util.sorter;
+    export = exp;
+}
+declare module 'dojo/dnd/autoscroll' {
+    var exp: dojo.dnd.autoscroll;
+    export = exp;
+}
+declare module 'dojo/dnd/autoscroll._validOverflow' {
+    var exp: dojo.dnd.autoscroll._validOverflow;
+    export = exp;
+}
+declare module 'dojo/dnd/autoscroll._validNodes' {
+    var exp: dojo.dnd.autoscroll._validNodes;
+    export = exp;
+}
+declare module 'dojo/dnd/common' {
+    var exp: dojo.dnd.common;
+    export = exp;
+}
+declare module 'dojo/dnd/common._empty' {
+    var exp: dojo.dnd.common._empty;
+    export = exp;
+}
+declare module 'dojo/dnd/common._defaultCreatorNodes' {
+    var exp: dojo.dnd.common._defaultCreatorNodes;
+    export = exp;
+}
+declare module 'dojo/dnd/move' {
+    var exp: dojo.dnd.move;
+    export = exp;
+}
+declare module 'dojo/dnd/move.parentConstrainedMoveable' {
+    var exp: dojo.dnd.move.parentConstrainedMoveable;
+    export = exp;
+}
+declare module 'dojo/dnd/move.boxConstrainedMoveable' {
+    var exp: dojo.dnd.move.boxConstrainedMoveable;
+    export = exp;
+}
+declare module 'dojo/dnd/move.constrainedMoveable' {
+    var exp: dojo.dnd.move.constrainedMoveable;
+    export = exp;
+}
+declare module 'dojo/dnd/Avatar' {
+    var exp: typeof dojo.dnd.Avatar;
+    export = exp;
+}
+declare module 'dojo/dnd/Manager' {
+    var exp: typeof dojo.dnd.Manager;
+    export = exp;
+}
+declare module 'dojo/dnd/Container' {
+    var exp: typeof dojo.dnd.Container;
+    export = exp;
+}
+declare module 'dojo/dnd/Container.__ContainerArgs' {
+    var exp: dojo.dnd.Container.__ContainerArgs;
+    export = exp;
+}
+declare module 'dojo/dnd/AutoSource' {
+    var exp: typeof dojo.dnd.AutoSource;
+    export = exp;
+}
+declare module 'dojo/dnd/Mover' {
+    var exp: typeof dojo.dnd.Mover;
+    export = exp;
+}
+declare module 'dojo/dnd/Moveable' {
+    var exp: typeof dojo.dnd.Moveable;
+    export = exp;
+}
+declare module 'dojo/dnd/Moveable.__MoveableArgs' {
+    var exp: typeof dojo.dnd.Moveable.__MoveableArgs;
+    export = exp;
+}
+declare module 'dojo/dnd/Selector' {
+    var exp: typeof dojo.dnd.Selector;
+    export = exp;
+}
+declare module 'dojo/dnd/TimedMoveable' {
+    var exp: typeof dojo.dnd.TimedMoveable;
+    export = exp;
+}
+declare module 'dojo/dnd/Target' {
+    var exp: typeof dojo.dnd.Target;
+    export = exp;
+}
+declare module 'dojo/dnd/Source' {
+    var exp: typeof dojo.dnd.Source;
+    export = exp;
+}
+declare module 'dojo/errors/create' {
+    var exp: dojo.errors.create;
+    export = exp;
+}
+declare module 'dojo/errors/CancelError' {
+    var exp: dojo.errors.CancelError;
+    export = exp;
+}
+declare module 'dojo/errors/RequestError' {
+    var exp: dojo.errors.RequestError;
+    export = exp;
+}
+declare module 'dojo/errors/RequestTimeoutError' {
+    var exp: dojo.errors.RequestTimeoutError;
+    export = exp;
+}
+declare module 'dojo/io/iframe' {
+    var exp: dojo.io.iframe;
+    export = exp;
+}
+declare module 'dojo/io/script' {
+    var exp: dojo.io.script;
+    export = exp;
+}
+declare module 'dojo/promise/all' {
+    var exp: dojo.promise.all;
+    export = exp;
+}
+declare module 'dojo/promise/first' {
+    var exp: dojo.promise.first;
+    export = exp;
+}
+declare module 'dojo/promise/instrumentation' {
+    var exp: dojo.promise.instrumentation;
+    export = exp;
+}
+declare module 'dojo/promise/tracer' {
+    var exp: dojo.promise.tracer;
+    export = exp;
+}
+declare module 'dojo/promise/Promise' {
+    interface Promise<T> extends dojo.promise.Promise<T> {}
     export = Promise;
 }
-declare module "dojo/promise/Thenable" {
-    interface Thenable<T> extends dojo.promise.Thenable<T> { }
+declare module 'dojo/promise/Thenable' {
+    interface Thenable<T> extends dojo.promise.Thenable<T> {}
     export = Thenable;
 }
-declare module "dojo/rpc/JsonpService" {
-    var exp: typeof dojo.rpc.JsonpService
-    export=exp;
+declare module 'dojo/rpc/JsonpService' {
+    var exp: typeof dojo.rpc.JsonpService;
+    export = exp;
 }
-declare module "dojo/rpc/JsonService" {
-    var exp: typeof dojo.rpc.JsonService
-    export=exp;
+declare module 'dojo/rpc/JsonService' {
+    var exp: typeof dojo.rpc.JsonService;
+    export = exp;
 }
-declare module "dojo/rpc/RpcService" {
-    var exp: typeof  dojo.rpc.RpcService
-    export=exp;
+declare module 'dojo/rpc/RpcService' {
+    var exp: typeof dojo.rpc.RpcService;
+    export = exp;
 }
-declare module "dojo/selector/lite" {
-    var exp: dojo.selector.lite
-    export=exp;
+declare module 'dojo/selector/lite' {
+    var exp: dojo.selector.lite;
+    export = exp;
 }
-declare module "dojo/selector/acme" {
-    var exp: dojo.selector.acme
-    export=exp;
+declare module 'dojo/selector/acme' {
+    var exp: dojo.selector.acme;
+    export = exp;
 }
-declare module "dojo/selector/_loader" {
-    var exp: dojo.selector._loader
-    export=exp;
+declare module 'dojo/selector/_loader' {
+    var exp: dojo.selector._loader;
+    export = exp;
 }
-declare module "dojo/store/Observable" {
-    var exp: dojo.store.Observable
-    export=exp;
+declare module 'dojo/store/Observable' {
+    var exp: dojo.store.Observable;
+    export = exp;
 }
-declare module "dojo/store/Cache" {
-    var exp: typeof  dojo.store.Cache
-    export=exp;
+declare module 'dojo/store/Cache' {
+    var exp: typeof dojo.store.Cache;
+    export = exp;
 }
-declare module "dojo/store/DataStore" {
-    var exp: typeof dojo.store.DataStore
-    export=exp;
+declare module 'dojo/store/DataStore' {
+    var exp: typeof dojo.store.DataStore;
+    export = exp;
 }
-declare module "dojo/store/Memory" {
-    var exp: typeof dojo.store.Memory
-    export=exp;
+declare module 'dojo/store/Memory' {
+    var exp: typeof dojo.store.Memory;
+    export = exp;
 }
-declare module "dojo/store/JsonRest" {
-    var exp: typeof dojo.store.JsonRest
-    export=exp;
+declare module 'dojo/store/JsonRest' {
+    var exp: typeof dojo.store.JsonRest;
+    export = exp;
 }
-declare module "dojo/store/api/Store" {
-    var exp: typeof dojo.store.api.Store
-    export=exp;
+declare module 'dojo/store/api/Store' {
+    var exp: typeof dojo.store.api.Store;
+    export = exp;
 }
-declare module "dojo/store/api/Store.PutDirectives" {
-    var exp: typeof dojo.store.api.Store.PutDirectives
-    export=exp;
+declare module 'dojo/store/api/Store.PutDirectives' {
+    var exp: typeof dojo.store.api.Store.PutDirectives;
+    export = exp;
 }
-declare module "dojo/store/api/Store.QueryOptions" {
-    var exp: typeof dojo.store.api.Store.QueryOptions
-    export=exp;
+declare module 'dojo/store/api/Store.QueryOptions' {
+    var exp: typeof dojo.store.api.Store.QueryOptions;
+    export = exp;
 }
-declare module "dojo/store/api/Store.QueryResults" {
-    var exp: typeof dojo.store.api.Store.QueryResults
-    export=exp;
+declare module 'dojo/store/api/Store.QueryResults' {
+    var exp: typeof dojo.store.api.Store.QueryResults;
+    export = exp;
 }
-declare module "dojo/store/api/Store.SortInformation" {
-    var exp: typeof dojo.store.api.Store.SortInformation
-    export=exp;
+declare module 'dojo/store/api/Store.SortInformation' {
+    var exp: typeof dojo.store.api.Store.SortInformation;
+    export = exp;
 }
-declare module "dojo/store/api/Store.Transaction" {
-    var exp: typeof  dojo.store.api.Store.Transaction
-    export=exp;
+declare module 'dojo/store/api/Store.Transaction' {
+    var exp: typeof dojo.store.api.Store.Transaction;
+    export = exp;
 }
-declare module "dojo/store/util/QueryResults" {
-    var exp: dojo.store.util.QueryResults
-    export=exp;
+declare module 'dojo/store/util/QueryResults' {
+    var exp: dojo.store.util.QueryResults;
+    export = exp;
 }
-declare module "dojo/store/util/SimpleQueryEngine" {
-    var exp: dojo.store.util.SimpleQueryEngine
-    export=exp;
+declare module 'dojo/store/util/SimpleQueryEngine' {
+    var exp: dojo.store.util.SimpleQueryEngine;
+    export = exp;
 }

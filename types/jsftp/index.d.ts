@@ -13,12 +13,12 @@ export interface JsftpOpts {
     port?: number;
     user?: string;
     pass?: string;
-    createSocket?: ({ port, host }: { port: number, host: string }, firstAction: () => {}) => Socket;
+    createSocket?: ({ port, host }: { port: number; host: string }, firstAction: () => {}) => Socket;
     useList?: boolean;
 }
 
 export type ErrorCallback = (err: Error) => void;
-export type RawCallback = (err: Error, data: { code: number, text: string }) => void;
+export type RawCallback = (err: Error, data: { code: number; text: string }) => void;
 export type ListCallback = (err: Error, dirContents: string) => void;
 export type GetCallback = (err: Error, socket: Socket) => void;
 export type LsCallback = (err: Error, res: [{ name: string }]) => void;

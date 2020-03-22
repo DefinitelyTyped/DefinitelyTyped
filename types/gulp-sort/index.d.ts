@@ -7,7 +7,6 @@
 
 /** Sort files in stream by path or any custom sort comparator */
 
-
 import gulpUtil = require('gulp-util');
 
 interface IOptions {
@@ -39,6 +38,6 @@ declare function gulpSort(): NodeJS.ReadWriteStream;
 declare function gulpSort(comparator: IComparatorFunction): NodeJS.ReadWriteStream;
 declare function gulpSort(options: IOptions): NodeJS.ReadWriteStream;
 
-declare namespace gulpSort { }
+declare namespace gulpSort {}
 
 export = gulpSort;

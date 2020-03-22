@@ -1,2 +1,2 @@
-import { quadInOut } from "./index";
+import { quadInOut } from './index';
 export = quadInOut;

@@ -19,13 +19,13 @@ type Omit<GType, GKeys extends keyof GType> = Pick<GType, Exclude<keyof GType, G
  */
 
 declare function omit<GObject extends object, GKey extends keyof GObject>(
-  object: GObject,
-  key: GKey | GKey[],
+    object: GObject,
+    key: GKey | GKey[],
 ): Omit<GObject, GKey>;
 
 declare function omit<GObject extends object, GKey extends keyof GObject>(
-  object: GObject,
-  fn: (value: GObject[GKey], key: GKey, obj: GObject) => boolean,
+    object: GObject,
+    fn: (value: GObject[GKey], key: GKey, obj: GObject) => boolean,
 ): { [key: string]: any };
 
 export = omit;

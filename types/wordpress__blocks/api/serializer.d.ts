@@ -28,7 +28,7 @@ export function getBlockMenuDefaultClassName(blockName: string): string;
 export function getSaveContent<T>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
-    innerBlocks?: BlockInstance[]
+    innerBlocks?: BlockInstance[],
 ): string;
 
 /**
@@ -42,7 +42,7 @@ export function getSaveContent<T>(
 export function getSaveElement<T>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
-    innerBlocks?: BlockInstance[]
+    innerBlocks?: BlockInstance[],
 ): ReactChild;
 
 /**

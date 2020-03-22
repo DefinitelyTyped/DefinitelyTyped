@@ -1,29 +1,29 @@
-import * as babel from "@babel/core";
+import * as babel from '@babel/core';
 
 const options: babel.TransformOptions = {
     ast: true,
-    sourceMaps: true
+    sourceMaps: true,
 };
 
-babel.transform("code();", options, (err, result) => {
+babel.transform('code();', options, (err, result) => {
     const { code, map, ast } = result!;
     const { body } = ast!.program;
 });
 
-const transformSyncResult = babel.transformSync("code();", options);
+const transformSyncResult = babel.transformSync('code();', options);
 if (transformSyncResult) {
     const { code, map, ast } = transformSyncResult;
     const { body } = ast!.program;
 }
 
-babel.transformFile("filename.js", options, (err, result) => {
+babel.transformFile('filename.js', options, (err, result) => {
     const { code, map, ast } = result!;
     const { body } = ast!.program;
 });
 
-babel.transformFileSync("filename.js", options)!.code;
+babel.transformFileSync('filename.js', options)!.code;
 
-const sourceCode = "if (true) return;";
+const sourceCode = 'if (true) return;';
 const parsedAst = babel.parse(sourceCode, options);
 
 babel.transformFromAst(parsedAst!, sourceCode, options, (err, result) => {
@@ -35,7 +35,7 @@ const transformFromAstSyncResult = babel.transformFromAstSync(parsedAst!, source
 const { code, map, ast } = transformFromAstSyncResult!;
 const { body } = ast!.program;
 
-babel.transformFromAstAsync(parsedAst!, sourceCode, options).then(transformFromAstAsyncResult => {
+babel.transformFromAstAsync(parsedAst!, sourceCode, options).then((transformFromAstAsyncResult) => {
     const { code, map, ast } = transformFromAstAsyncResult!;
     const { body } = ast!.program;
 });
@@ -64,7 +64,7 @@ checkOptions({ exclude: 256 });
 checkOptions({ include: [/node_modules/, new RegExp('bower_components')] });
 // $ExpectError
 checkOptions({ include: [null] });
-checkOptions({ test: (fileName) => fileName ? fileName.endsWith('mjs') : false });
+checkOptions({ test: (fileName) => (fileName ? fileName.endsWith('mjs') : false) });
 // $ExpectError
 checkOptions({ test: (fileName) => fileName && fileName.endsWith('mjs') });
 checkOptions({
@@ -72,24 +72,24 @@ checkOptions({
         {
             test: /^.*\.m?js$/,
             compact: true,
-        }
-    ]
+        },
+    ],
 });
 checkOptions({
     overrides: {
         // $ExpectError
         test: /^.*\.m?js$/,
         compact: true,
-    }
+    },
 });
 
 // $ExpectError
 checkConfigFunction(() => {});
 // you technically can do that though you probably shouldn't
 checkConfigFunction(() => ({}));
-checkConfigFunction(api => {
+checkConfigFunction((api) => {
     api.assertVersion(7);
-    api.assertVersion("^7.2");
+    api.assertVersion('^7.2');
 
     api.cache.forever();
     api.cache.never();
@@ -108,7 +108,7 @@ checkConfigFunction(api => {
     api.env('development');
     api.env(['production', 'test']);
     // $ExpectType 42
-    api.env(name => 42);
+    api.env((name) => 42);
 
     // $ExpectType string
     api.version;
@@ -119,6 +119,6 @@ checkConfigFunction(api => {
             comment;
 
             return true;
-        }
+        },
     };
 });

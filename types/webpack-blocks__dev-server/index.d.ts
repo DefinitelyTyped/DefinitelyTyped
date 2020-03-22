@@ -53,7 +53,7 @@ declare namespace devServer {
         bonjour?: boolean;
         clientLogLevel?: 'silent' | 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'none' | 'warning';
         compress?: boolean;
-        contentBase?: boolean | string | string [] | number;
+        contentBase?: boolean | string | string[] | number;
         disableHostCheck?: boolean;
         filename?: string;
         headers?: object;
@@ -73,7 +73,7 @@ declare namespace devServer {
         noInfo?: boolean;
         open?: boolean | string;
         openPage?: string;
-        overlay?: boolean | { errors?: boolean, warnings?: boolean };
+        overlay?: boolean | { errors?: boolean; warnings?: boolean };
         pfx?: string;
         pfxPassphrase?: string;
         port?: number;

@@ -1,2 +1,2 @@
-import { orderBy } from "./index";
+import { orderBy } from './index';
 export = orderBy;

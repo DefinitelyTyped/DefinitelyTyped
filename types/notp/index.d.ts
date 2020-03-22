@@ -106,9 +106,7 @@ export namespace hotp {
      * every user as it is the seed used to calculate the HMAC.
      * @param opt HOTP verify options.
      */
-     function verify(token: string,
-                     key: string | Buffer | Uint8Array,
-                     opt?: HOTPVerifyOpt): VerifyResult | null;
+    function verify(token: string, key: string | Buffer | Uint8Array, opt?: HOTPVerifyOpt): VerifyResult | null;
 }
 
 /**
@@ -132,7 +130,5 @@ export namespace totp {
      * @param opt TOTP verify options.
      *
      */
-    function verify(token: string,
-                    key: string | Buffer | Uint8Array,
-                    opt?: TOTPVerifyOpt): VerifyResult | null;
+    function verify(token: string, key: string | Buffer | Uint8Array, opt?: TOTPVerifyOpt): VerifyResult | null;
 }

@@ -14,12 +14,12 @@ import { Block, BlockInstance } from '../';
 export function getBlockAttributes<T extends Block<any>>(
     blockTypeOrName: T,
     innerHTML: string,
-    attributes?: Record<string, any>
+    attributes?: Record<string, any>,
 ): T extends Block<infer U> ? U : never;
 export function getBlockAttributes(
     blockTypeOrName: string,
     innerHTML: string,
-    attributes?: Record<string, any>
+    attributes?: Record<string, any>,
 ): Record<string, any>;
 
 export namespace Schema {
@@ -88,21 +88,21 @@ export type SourceReturnValue<T> =
  */
 export function parseWithAttributeSchema(
     innerHTML: string,
-    schema: Schema.Attribute & { type: 'boolean' }
+    schema: Schema.Attribute & { type: 'boolean' },
 ): boolean | undefined;
 export function parseWithAttributeSchema(
     innerHTML: string,
-    schema: Schema.Attribute | Schema.HTML | Schema.Text
+    schema: Schema.Attribute | Schema.HTML | Schema.Text,
 ): string | undefined;
 export function parseWithAttributeSchema(innerHTML: string, schema: Schema.Children): ReactChild[];
 export function parseWithAttributeSchema(innerHTML: string, schema: Schema.Node): JSX.Element | null;
 export function parseWithAttributeSchema(
     innerHTML: string,
-    schema: Schema.Tag
+    schema: Schema.Tag,
 ): keyof (HTMLElementTagNameMap & SVGElementTagNameMap) | undefined;
 export function parseWithAttributeSchema<T extends Record<string, Source<any>>>(
     innerHTML: string,
-    schema: Schema.Query<T>
+    schema: Schema.Query<T>,
 ): {
     [k in keyof T]: SourceReturnValue<T[k]>;
 };

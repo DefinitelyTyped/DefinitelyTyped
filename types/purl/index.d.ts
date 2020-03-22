@@ -5,13 +5,11 @@
 // TypeScript Version: 2.3
 
 declare namespace purl {
-
     interface ParameterMap {
         [parameterName: string]: string;
     }
 
     export interface Url {
-
         /**
          * The .attr() method is used to return information on various parts of the URL.
          */
@@ -41,7 +39,6 @@ declare namespace purl {
          */
         fsegment(position: number): string;
     }
-
 }
 
 /**

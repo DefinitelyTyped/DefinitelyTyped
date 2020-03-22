@@ -15,12 +15,10 @@ ws.clearLine(1);
 ws.clearScreenDown();
 ws.cursorTo(42, 42);
 ws.cursorTo(42);
-ws.cursorTo(42, () => { });
-ws.addListener('resize', () => {
-});
+ws.cursorTo(42, () => {});
+ws.addListener('resize', () => {});
 ws.getColorDepth();
-ws.getColorDepth({
-});
+ws.getColorDepth({});
 ws.clearScreenDown();
 ws.getWindowSize();
 const hasCOlors: boolean = ws.hasColors();

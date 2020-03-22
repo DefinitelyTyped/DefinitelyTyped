@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace clipboard {
-
     interface IClipboardJsStatic {
         copy(val: string | Element): Promise<void>;
         paste(): Promise<string>;

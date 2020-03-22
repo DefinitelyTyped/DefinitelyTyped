@@ -13,9 +13,9 @@ export interface FormProps extends ViewProps {
             callbackProp: string;
             controlled: boolean;
             valueProp: string;
-        }
+        };
     };
     ref: string;
 }
 
-export default class Form extends Component<FormProps> { }
+export default class Form extends Component<FormProps> {}

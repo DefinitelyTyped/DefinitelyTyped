@@ -89,7 +89,7 @@ h.init().then(async () => {
     h.source.unwatch();
 
     await h.load();
-    h.call('config', {_: ['arg1']}, (err, value) => {});
+    h.call('config', { _: ['arg1'] }, (err, value) => {});
 
     await h.exit();
 });
@@ -97,12 +97,12 @@ h.init().then(async () => {
 h.on('ready', () => {
     h.on('deployBefore', () => {});
     h.on('deployAfter', () => {});
-    h.on('exit', err => {
+    h.on('exit', (err) => {
         console.log(err);
     });
     h.on('generateBefore', () => {});
     h.on('generateAfter', () => {});
-    h.on('new', param => {
+    h.on('new', (param) => {
         const path: string = param.path;
         const content: string = param.content;
     });
@@ -122,9 +122,9 @@ h.on('ready', () => {
 
         local = model.toArray();
         const count: number = model.count();
-        model.filter(v => true);
-        model.forEach(v => {});
-        model.map(v => v.name);
+        model.filter((v) => true);
+        model.forEach((v) => {});
+        model.map((v) => v.name);
     }
 
     {
@@ -133,9 +133,9 @@ h.on('ready', () => {
 
         local = model.toArray();
         const count: number = model.count();
-        model.filter(v => true);
-        model.forEach(v => {});
-        model.map(v => v.name);
+        model.filter((v) => true);
+        model.forEach((v) => {});
+        model.map((v) => v.name);
     }
 
     {
@@ -144,9 +144,9 @@ h.on('ready', () => {
 
         local = model.toArray();
         const count: number = model.count();
-        model.filter(v => true);
-        model.forEach(v => {});
-        model.map(v => v.name);
+        model.filter((v) => true);
+        model.forEach((v) => {});
+        model.map((v) => v.name);
     }
 
     {
@@ -155,13 +155,13 @@ h.on('ready', () => {
 
         local = model.toArray();
         const count: number = model.count();
-        model.filter(v => true);
-        model.forEach(v => {});
-        model.map(v => v.name);
+        model.filter((v) => true);
+        model.forEach((v) => {});
+        model.map((v) => v.name);
     }
 
     {
-        h.locals.set('some-data', () =>  'some vlue');
+        h.locals.set('some-data', () => 'some vlue');
         h.locals.remove('some-data');
         h.locals.toObject();
         h.locals.invalidate();
@@ -196,7 +196,7 @@ h.on('ready', () => {
 
     {
         h.source.process(() => {});
-        h.source.addProcessor('path', file => {
+        h.source.addProcessor('path', (file) => {
             console.log(file.source);
             console.log(file.path);
             console.log(file.type);
@@ -207,12 +207,12 @@ h.on('ready', () => {
                 console.log(content);
             });
 
-            file.read({encoding: 'utf8', flag: 'r'}, (err, content) => {
+            file.read({ encoding: 'utf8', flag: 'r' }, (err, content) => {
                 console.log(err, content.toString());
                 console.log(content);
             });
 
-            file.readSync({encoding: 'utf8', flag: 'r'});
+            file.readSync({ encoding: 'utf8', flag: 'r' });
 
             file.stat((err, stat) => {
                 console.log(err);
@@ -221,7 +221,7 @@ h.on('ready', () => {
                 console.log(stat.atime);
             });
 
-            file.stat().then(stat => {
+            file.stat().then((stat) => {
                 console.log(stat.mtime);
                 console.log(stat.ctime);
                 console.log(stat.atime);
@@ -236,7 +236,7 @@ h.on('ready', () => {
             file.render((err, result) => {
                 render = result;
             });
-            file.render().then(result => {
+            file.render().then((result) => {
                 render = result;
             });
             render = file.renderSync();
@@ -255,16 +255,16 @@ h.on('ready', () => {
         };
 
         let _string = '';
-        h.render.render({text: 'example', engine: 'swig'}).then(result => {
+        h.render.render({ text: 'example', engine: 'swig' }).then((result) => {
             _string = result;
         });
-        h.render.render({path: __filename}).then(result => {
+        h.render.render({ path: __filename }).then((result) => {
             _string = result;
         });
-        h.render.render({text: ''}, {foo: 'foo'}).then(result => {
+        h.render.render({ text: '' }, { foo: 'foo' }).then((result) => {
             _string = result;
         });
-        _string = h.render.renderSync({text: 'example'});
+        _string = h.render.renderSync({ text: 'example' });
 
         _string = h.render.getOutput('ejs');
     }
@@ -290,7 +290,7 @@ h.on('ready', () => {
     }
 
     {
-        h.scaffold.get('post').then(result => '');
+        h.scaffold.get('post').then((result) => '');
         h.scaffold.set('post', '').then(() => {});
         h.scaffold.remove('post').then(() => {});
     }
@@ -304,7 +304,7 @@ h.on('ready', () => {
             console.log(v.path);
             console.log(v.source);
 
-            v.render().then(result => {});
+            v.render().then((result) => {});
             v.renderSync();
         }
 
@@ -316,51 +316,49 @@ h.on('ready', () => {
         const options: Hexo.extend.Console.Options = {};
         options.usage = '[layout] <title>';
         options.arguments = [
-            {name: 'layout', desc: 'Post layout'},
-            {name: 'title', desc: 'Post title'},
+            { name: 'layout', desc: 'Post layout' },
+            { name: 'title', desc: 'Post title' },
         ];
-        options.options = [
-            {name: '-r, --replace', desc: 'Replace existing files'},
-        ];
+        options.options = [{ name: '-r, --replace', desc: 'Replace existing files' }];
         options.desc = 'desc';
 
-        h.extend.console.register('name', 'description', options, args => {
+        h.extend.console.register('name', 'description', options, (args) => {
             const a: ParsedArgs = args;
         });
-        h.extend.console.register('name', options, args => {});
-        h.extend.console.register('name', 'description', args => {});
-        h.extend.console.register('name', args => {});
+        h.extend.console.register('name', options, (args) => {});
+        h.extend.console.register('name', 'description', (args) => {});
+        h.extend.console.register('name', (args) => {});
     }
 
     {
-        h.extend.deployer.register('name', args => {
+        h.extend.deployer.register('name', (args) => {
             console.log(args.type);
             console.log(args.someExtraArg);
         });
     }
 
     {
-        h.extend.filter.register('before_post_render', data => data);
-        h.extend.filter.register('before_post_render', data => undefined);
-        h.extend.filter.register('before_post_render', data => undefined, 1);
+        h.extend.filter.register('before_post_render', (data) => data);
+        h.extend.filter.register('before_post_render', (data) => undefined);
+        h.extend.filter.register('before_post_render', (data) => undefined, 1);
 
-        h.extend.filter.register('after_post_render', data => data);
-        h.extend.filter.register('after_post_render', data => undefined);
-        h.extend.filter.register('after_post_render', data => undefined, 1);
+        h.extend.filter.register('after_post_render', (data) => data);
+        h.extend.filter.register('after_post_render', (data) => undefined);
+        h.extend.filter.register('after_post_render', (data) => undefined, 1);
 
         h.extend.filter.register('before_exit', () => {});
         h.extend.filter.register('before_exit', () => {}, 1);
 
-        h.extend.filter.register('before_generate', data => data);
-        h.extend.filter.register('before_generate', data => undefined);
-        h.extend.filter.register('before_generate', data => undefined, 1);
+        h.extend.filter.register('before_generate', (data) => data);
+        h.extend.filter.register('before_generate', (data) => undefined);
+        h.extend.filter.register('before_generate', (data) => undefined, 1);
 
         h.extend.filter.register('after_generate', () => {});
         h.extend.filter.register('after_generate', () => {}, 1);
 
-        h.extend.filter.register('template_locals', locals => locals);
-        h.extend.filter.register('template_locals', locals => undefined);
-        h.extend.filter.register('template_locals', locals => undefined, 1);
+        h.extend.filter.register('template_locals', (locals) => locals);
+        h.extend.filter.register('template_locals', (locals) => undefined);
+        h.extend.filter.register('template_locals', (locals) => undefined, 1);
 
         h.extend.filter.register('after_init', () => {});
         h.extend.filter.register('after_init', () => {}, 1);
@@ -368,8 +366,8 @@ h.on('ready', () => {
         h.extend.filter.register('new_post_path', (data, replace) => undefined);
         h.extend.filter.register('new_post_path', (data, replace) => undefined, 1);
 
-        h.extend.filter.register('post_permalink', permalink => permalink);
-        h.extend.filter.register('post_permalink', permalink => permalink, 1);
+        h.extend.filter.register('post_permalink', (permalink) => permalink);
+        h.extend.filter.register('post_permalink', (permalink) => permalink, 1);
 
         h.extend.filter.register('after_render:html', (result, data) => result);
         h.extend.filter.register('after_render:html', (result, data) => result, 1);
@@ -377,7 +375,7 @@ h.on('ready', () => {
         h.extend.filter.register('after_clean', () => {});
         h.extend.filter.register('after_clean', () => {}, 1);
 
-        h.extend.filter.register('server_middleware', app => {
+        h.extend.filter.register('server_middleware', (app) => {
             app.use((req: http.IncomingMessage, res: http.ServerResponse) => {
                 res.setHeader('X-Powered-By', 'Hexo');
             });
@@ -402,9 +400,9 @@ h.on('ready', () => {
             layout: 'layout-name',
             path: '/',
         };
-        h.extend.generator.register('name', local => ret);
-        h.extend.generator.register('name', local => [ret]);
-        h.extend.generator.register('name', local => {
+        h.extend.generator.register('name', (local) => ret);
+        h.extend.generator.register('name', (local) => [ret]);
+        h.extend.generator.register('name', (local) => {
             console.log(local.data);
             const categories: Hexo.Locals.Category[] = local.categories.toArray();
             const pages: Hexo.Locals.Page[] = local.pages.toArray();
@@ -422,25 +420,33 @@ h.on('ready', () => {
     }
 
     {
-        h.extend.migrator.register('name', args => {
+        h.extend.migrator.register('name', (args) => {
             const a: ParsedArgs = args;
         });
     }
 
     {
         let f: Hexo.Box.File;
-        h.extend.processor.register('pattern', file => f = file);
-        h.extend.processor.register(/pattern/, file => f = file);
-        h.extend.processor.register((str) => true , file => f = file);
-        h.extend.processor.register(file => f = file);
+        h.extend.processor.register('pattern', (file) => (f = file));
+        h.extend.processor.register(/pattern/, (file) => (f = file));
+        h.extend.processor.register(
+            (str) => true,
+            (file) => (f = file),
+        );
+        h.extend.processor.register((file) => (f = file));
     }
 
     {
-        h.extend.renderer.register('ts', 'js', (data, options) => {
-            console.log(data.path);
-            console.log(data.text);
-            return 'result';
-        }, true);
+        h.extend.renderer.register(
+            'ts',
+            'js',
+            (data, options) => {
+                console.log(data.path);
+                console.log(data.text);
+                return 'result';
+            },
+            true,
+        );
 
         h.extend.renderer.register('ts', 'js', (data, options) => Promise.resolve('result'), false);
         h.extend.renderer.register('ts', 'js', (data, options) => Promise.resolve('result'));

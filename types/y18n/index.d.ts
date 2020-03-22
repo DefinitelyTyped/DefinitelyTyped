@@ -28,7 +28,7 @@ declare class Y18N {
     /**
      * Create an instance of y18n with the config provided
      */
-    constructor(config?: Config)
+    constructor(config?: Config);
 
     /**
      * Print a localized string, %s will be replaced with args.
@@ -39,7 +39,14 @@ declare class Y18N {
      * Print a localized string with appropriate pluralization.
      * If %d is provided in the string, the count will replace this placeholder.
      */
-    __n(singularString: string, pluralString: string, count: number, arg1?: string, arg2?: string, arg3?: string): string;
+    __n(
+        singularString: string,
+        pluralString: string,
+        count: number,
+        arg1?: string,
+        arg2?: string,
+        arg3?: string,
+    ): string;
 
     /**
      * Set the current locale being used.

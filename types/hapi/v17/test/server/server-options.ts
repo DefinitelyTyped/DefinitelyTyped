@@ -1,6 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-server-options
-import { Plugin, RouteOptions, Server, ServerOptions, ServerRegisterOptions } from "hapi";
-import { MimosOptions, MimosOptionsValue } from "mimos";
+import { Plugin, RouteOptions, Server, ServerOptions, ServerRegisterOptions } from 'hapi';
+import { MimosOptions, MimosOptionsValue } from 'mimos';
 
 const mimeOptions: MimosOptions = {
     override: {
@@ -8,14 +8,14 @@ const mimeOptions: MimosOptions = {
             source: 'iana',
             compressible: true,
             extensions: ['node', 'modsule', 'npm'],
-            type: 'node/module'
+            type: 'node/module',
         },
         'application/javascript': {
             source: 'iana',
             charset: 'UTF-8',
             compressible: true,
             extensions: ['js', 'javascript'],
-            type: 'text/javascript'
+            type: 'text/javascript',
         },
         'text/html': {
             predicate: (mime: MimosOptionsValue) => {
@@ -25,9 +25,9 @@ const mimeOptions: MimosOptions = {
                     // mime.foo = 'bar';
                 }
                 return mime;
-            }
-        }
-    }
+            },
+        },
+    },
 };
 
 const plugin: Plugin<any> = {
@@ -35,22 +35,22 @@ const plugin: Plugin<any> = {
     register: async (server: Server, options: ServerRegisterOptions) => {
         server.expose('key', 'value');
         server.plugins.example.other = 'other';
-        console.log(server.plugins.example.key);      // 'value'
-        console.log(server.plugins.example.other);    // 'other'
-    }
+        console.log(server.plugins.example.key); // 'value'
+        console.log(server.plugins.example.other); // 'other'
+    },
 };
 
 const routeOptions: RouteOptions = {
     compression: {
         test: {
-            some: 'option'
-        }
+            some: 'option',
+        },
     },
     files: {
-        relativeTo: __dirname
+        relativeTo: __dirname,
     },
     cors: {
-        origin: ['http://test.example.com', 'http://www.example.com', 'http://*.a.com']
+        origin: ['http://test.example.com', 'http://www.example.com', 'http://*.a.com'],
     },
 };
 
@@ -76,13 +76,13 @@ const options: ServerOptions = {
         shared: true,
         partition: 'hapi-cache',
         any_thing_1: 'any_thing_1',
-        any_thing_2: 'any_thing_2'
+        any_thing_2: 'any_thing_2',
     },
     compression: {
-        minBytes: 1024
+        minBytes: 1024,
     },
     debug: {
-        request: ['implementation']
+        request: ['implementation'],
     },
     host: 'localhost',
     listener: undefined,
@@ -92,7 +92,7 @@ const options: ServerOptions = {
     port: 8000,
     router: {
         isCaseSensitive: true,
-        stripTrailingSlash: false
+        stripTrailingSlash: false,
     },
     routes: routeOptions,
     state: {
@@ -101,9 +101,9 @@ const options: ServerOptions = {
         isSecure: true,
         isHttpOnly: true,
         isSameSite: 'Strict',
-        encoding: 'none'
+        encoding: 'none',
     },
-    tls: true
+    tls: true,
 };
 
 const server = new Server(options);

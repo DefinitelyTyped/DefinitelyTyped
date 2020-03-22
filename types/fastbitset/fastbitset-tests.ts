@@ -23,5 +23,5 @@ otherBitSet.intersection(bitSet);
 
 otherBitSet = bitSet.clone();
 otherBitSet.equals(bitSet);
-otherBitSet.forEach(value => value);
+otherBitSet.forEach((value) => value);
 otherBitSet.trim();

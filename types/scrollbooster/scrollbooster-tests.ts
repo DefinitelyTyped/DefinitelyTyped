@@ -15,7 +15,7 @@ const sb = new ScrollBooster({
     inputsFocus: true,
     pointerMode: 'all',
     scrollMode: 'transform',
-    onUpdate: state => {
+    onUpdate: (state) => {
         // state contains useful metrics: position, dragOffset, isDragging, isMoving, borderCollision
         // you can control scroll rendering manually without 'scrollMethod' option:
         if (content) {

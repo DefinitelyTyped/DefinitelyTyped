@@ -13,29 +13,29 @@
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
-import { Interface as ReadlineInterface } from "readline";
-import { Observable } from "rxjs";
-import { ThroughStream } from "through";
-import Choice = require("./lib/objects/choice");
-import Choices = require("./lib/objects/choices");
-import Separator = require("./lib/objects/separator");
-import Prompt = require("./lib/prompts/base");
-import "./lib/prompts/checkbox";
-import "./lib/prompts/confirm";
-import "./lib/prompts/editor";
-import "./lib/prompts/expand";
-import "./lib/prompts/input";
-import "./lib/prompts/list";
-import "./lib/prompts/number";
-import "./lib/prompts/password";
-import "./lib/prompts/rawlist";
-import BottomBar = require("./lib/ui/bottom-bar");
-import PromptUI = require("./lib/ui/prompt");
-import "./lib/utils/events";
-import Paginator = require("./lib/utils/paginator");
-import "./lib/utils/readline";
-import ScreenManager = require("./lib/utils/screen-manager");
-import "./lib/utils/utils";
+import { Interface as ReadlineInterface } from 'readline';
+import { Observable } from 'rxjs';
+import { ThroughStream } from 'through';
+import Choice = require('./lib/objects/choice');
+import Choices = require('./lib/objects/choices');
+import Separator = require('./lib/objects/separator');
+import Prompt = require('./lib/prompts/base');
+import './lib/prompts/checkbox';
+import './lib/prompts/confirm';
+import './lib/prompts/editor';
+import './lib/prompts/expand';
+import './lib/prompts/input';
+import './lib/prompts/list';
+import './lib/prompts/number';
+import './lib/prompts/password';
+import './lib/prompts/rawlist';
+import BottomBar = require('./lib/ui/bottom-bar');
+import PromptUI = require('./lib/ui/prompt');
+import './lib/utils/events';
+import Paginator = require('./lib/utils/paginator');
+import './lib/utils/readline';
+import ScreenManager = require('./lib/utils/screen-manager');
+import './lib/utils/utils';
 
 /**
  * Represents a union which preserves autocompletion.
@@ -108,7 +108,7 @@ declare namespace inquirer {
      * @template U
      * The union to convert to an intersection.
      */
-    type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+    type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
 
     /**
      * Provides an input and an output-stream.
@@ -210,7 +210,7 @@ declare namespace inquirer {
     /**
      * A set of answers.
      */
-    interface Answers extends Record<string, any> { }
+    interface Answers extends Record<string, any> {}
 
     /**
      * Provides the functionality to validate answers.
@@ -218,7 +218,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    type Validator<T extends Answers = Answers> = Question<T>["validate"];
+    type Validator<T extends Answers = Answers> = Question<T>['validate'];
 
     /**
      * Provides the functionality to transform an answer.
@@ -226,7 +226,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    type Transformer<T extends Answers = Answers> = InputQuestionOptions<T>["transformer"];
+    type Transformer<T extends Answers = Answers> = InputQuestionOptions<T>['transformer'];
 
     /**
      * Represents a dynamic property for a question.
@@ -236,7 +236,10 @@ declare namespace inquirer {
     /**
      * Represents a dynamic property for a question which can be fetched asynchronously.
      */
-    type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<T | Promise<T>, TAnswers>;
+    type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<
+        T | Promise<T>,
+        TAnswers
+    >;
 
     /**
      * Provides options for a question.
@@ -323,7 +326,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type?: "choice";
+        type?: 'choice';
 
         /**
          * The name of the choice to show to the user.
@@ -392,7 +395,7 @@ declare namespace inquirer {
         /**
          * Gets the type of the choice.
          */
-        type: "separator";
+        type: 'separator';
 
         /**
          * Gets or sets the text of the separator.
@@ -462,9 +465,7 @@ declare namespace inquirer {
      * @template TChoiceMap
      * The choice-types to provide.
      */
-    type DistinctChoice<TChoiceMap> =
-        string |
-        TChoiceMap[keyof TChoiceMap];
+    type DistinctChoice<TChoiceMap> = string | TChoiceMap[keyof TChoiceMap];
 
     /**
      * Represents a set of choices.
@@ -506,7 +507,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type?: "input";
+        type?: 'input';
     }
 
     /**
@@ -515,7 +516,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> { }
+    interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {}
 
     /**
      * Provides options for a question for the `NumberPrompt`.
@@ -527,7 +528,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "number";
+        type: 'number';
     }
 
     /**
@@ -553,7 +554,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "password";
+        type: 'password';
     }
 
     /**
@@ -562,7 +563,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> { }
+    interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {}
 
     /**
      * Provides options for a question for the `ListPrompt`.
@@ -574,7 +575,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "list";
+        type: 'list';
     }
 
     /**
@@ -583,7 +584,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> { }
+    interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> {}
 
     /**
      * Provides options for a question for the `RawListPrompt`.
@@ -595,7 +596,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "rawlist";
+        type: 'rawlist';
     }
 
     /**
@@ -604,7 +605,8 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ExpandQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> { }
+    interface ExpandQuestionOptions<T extends Answers = Answers>
+        extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> {}
 
     /**
      * Provides options for a question for the `ExpandPrompt`.
@@ -616,7 +618,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "expand";
+        type: 'expand';
     }
 
     /**
@@ -625,7 +627,8 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface CheckboxQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, CheckboxChoiceMap<T>> { }
+    interface CheckboxQuestionOptions<T extends Answers = Answers>
+        extends ListQuestionOptionsBase<T, CheckboxChoiceMap<T>> {}
 
     /**
      * Provides options for a question for the `CheckboxPrompt`.
@@ -637,7 +640,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "checkbox";
+        type: 'checkbox';
     }
 
     /**
@@ -646,7 +649,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> { }
+    interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> {}
 
     /**
      * Provides options for a question for the `ConfirmPrompt`.
@@ -658,7 +661,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "confirm";
+        type: 'confirm';
     }
 
     /**
@@ -667,7 +670,7 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> { }
+    interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> {}
 
     /**
      * Provides options for a question for the `EditorPrompt`.
@@ -679,7 +682,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type: "editor";
+        type: 'editor';
     }
 
     /**
@@ -774,7 +777,7 @@ declare namespace inquirer {
         /**
          * Represents the state of a prompt.
          */
-        type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
+        type PromptState = LiteralUnion<'pending' | 'idle' | 'loading' | 'answered' | 'done'>;
 
         /**
          * Represents a prompt.
@@ -810,7 +813,7 @@ declare namespace inquirer {
              * @param answers
              * The answers provided by the user.
              */
-            new(question: any, readLine: ReadlineInterface, answers: Answers): PromptBase;
+            new (question: any, readLine: ReadlineInterface, answers: Answers): PromptBase;
         }
 
         /**

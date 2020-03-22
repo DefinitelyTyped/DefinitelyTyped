@@ -26,7 +26,7 @@ export interface DateSettings {
         relative: {
             future: string;
             past: string;
-        }
+        };
         weekdays: string[];
         weekdaysShort: string[];
     };

@@ -1,20 +1,20 @@
 import * as Subtitle from 'subtitle';
 
-Subtitle.parse("");
+Subtitle.parse('');
 
 const subtitles = [
-        {
-            start: '00:00:20,000',
-            end: '00:00:24,400',
-            text: 'Bla Bla Bla Bla'
-        },
-        {
-            start: 24600,
-            end: 27800,
-            text: 'Bla Bla Bla Bla',
-            settings: 'align:middle line:90%'
-        }
-    ];
+    {
+        start: '00:00:20,000',
+        end: '00:00:24,400',
+        text: 'Bla Bla Bla Bla',
+    },
+    {
+        start: 24600,
+        end: 27800,
+        text: 'Bla Bla Bla Bla',
+        settings: 'align:middle line:90%',
+    },
+];
 
 const srt = Subtitle.stringify(subtitles);
 const vtt = Subtitle.stringifyVtt(subtitles);

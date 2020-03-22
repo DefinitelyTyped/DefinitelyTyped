@@ -8,5 +8,5 @@ export interface PopoverHeaderProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class PopoverHeader<T = {[key: string]: any}> extends React.Component<PopoverHeaderProps> {}
+declare class PopoverHeader<T = { [key: string]: any }> extends React.Component<PopoverHeaderProps> {}
 export default PopoverHeader;

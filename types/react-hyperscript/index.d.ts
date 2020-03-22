@@ -12,13 +12,13 @@ type Element = ReactElement | string | number | null;
 
 declare function h(
     componentOrTag: ComponentClass | StatelessComponent | string,
-    children?: ReadonlyArray<Element> | Element
+    children?: ReadonlyArray<Element> | Element,
 ): ReactElement;
 
-declare function h<P extends {[attr: string]: any}>(
+declare function h<P extends { [attr: string]: any }>(
     componentOrTag: ComponentClass<P> | StatelessComponent<P> | string,
     properties: P,
-    children?: ReadonlyArray<Element> | Element
+    children?: ReadonlyArray<Element> | Element,
 ): ReactElement<P>;
 
 export = h;

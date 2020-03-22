@@ -1,2 +1,2 @@
-import { partition } from "lodash";
+import { partition } from 'lodash';
 export default partition;

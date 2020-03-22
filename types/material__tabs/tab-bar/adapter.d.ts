@@ -33,7 +33,7 @@ export default interface MDCTabBarAdapter {
 
     getOffsetWidthForIndicator(): number;
 
-    notifyChange(evtData: {activeTabIndex: number}): void;
+    notifyChange(evtData: { activeTabIndex: number }): void;
 
     getNumberOfTabs(): number;
 

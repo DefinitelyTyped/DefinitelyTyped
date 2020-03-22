@@ -4,10 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 declare namespace NotificationSystem {
-
     export interface System extends React.Component<Attributes, State> {
         addNotification(notification: Notification): Notification;
         removeNotification(uidOrNotification: number | string | Notification): void;
@@ -20,8 +19,8 @@ declare namespace NotificationSystem {
     export interface Notification {
         title?: string | JSX.Element;
         message?: string | JSX.Element;
-        level?: "error" | "warning" | "info" | "success";
-        position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc";
+        level?: 'error' | 'warning' | 'info' | 'success';
+        position?: 'tr' | 'tl' | 'tc' | 'br' | 'bl' | 'bc';
         autoDismiss?: number;
         dismissible?: boolean;
         action?: ActionObject;
@@ -76,10 +75,9 @@ declare namespace NotificationSystem {
     }
 
     export interface State {
-        notifications: Notification[]
+        notifications: Notification[];
     }
 }
-
 
 declare var NotificationSystem: React.ClassicComponentClass<NotificationSystem.Attributes>;
 export = NotificationSystem;

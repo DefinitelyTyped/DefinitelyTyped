@@ -7,16 +7,16 @@ export interface DescriptionFileData {
 }
 
 export interface LoadDescriptionFileResult {
-    content: DescriptionFileData
-    directory: string
-    path: string
+    content: DescriptionFileData;
+    directory: string;
+    path: string;
 }
 
 declare function loadDescriptionFile(
     resolver: Resolver,
     directory: string,
     filenames: string[],
-    callback: (err?: Error | null, result?: LoadDescriptionFileResult) => any
+    callback: (err?: Error | null, result?: LoadDescriptionFileResult) => any,
 ): void;
 
 declare function getField(content: Dictionary<any> | null, field: string): any;

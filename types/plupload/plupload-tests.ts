@@ -3,7 +3,7 @@ import 'plupload';
 {
     const uploader = new plupload.Uploader({
         browse_button: 'browse', // this can be an id of a DOM element or the DOM element itself
-        url: 'upload.php'
+        url: 'upload.php',
     });
 
     uploader.init();
@@ -18,11 +18,13 @@ import 'plupload';
     });
 
     uploader.bind('Error', function (up: any, err: any) {
-        document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+        document.getElementById('console').innerHTML += '\nError #' + err.code + ': ' + err.message;
     });
 
     if (!uploader.features.chunks || !uploader.features.multipart) {
-        window.alert('Your browser does not support a feature required for uploads.  Try installing Flash or Silverlight.');
+        window.alert(
+            'Your browser does not support a feature required for uploads.  Try installing Flash or Silverlight.',
+        );
     }
 }
 
@@ -35,15 +37,13 @@ import 'plupload';
         url: 'https://fakesite.com/upload',
         flash_swf_url: './plupload.flash.swf',
         silverlight_xap_url: '/Scripts/plupload/js/plupload.silverlight.xap',
-        filters:
-            {
-                max_file_size: '50mb',
-                mime_types: [{ title: 'title', extensions: '*' }]
-            },
+        filters: {
+            max_file_size: '50mb',
+            mime_types: [{ title: 'title', extensions: '*' }],
+        },
         init: {
-            Error: function (up, args) {
-            }
-        }
+            Error: function (up, args) {},
+        },
     };
 
     const uploader = new plupload.Uploader(settings);

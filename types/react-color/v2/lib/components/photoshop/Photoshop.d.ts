@@ -1,5 +1,5 @@
-import { Component, MouseEvent, CSSProperties } from "react";
-import { CustomPickerProps } from "../../..";
+import { Component, MouseEvent, CSSProperties } from 'react';
+import { CustomPickerProps } from '../../..';
 
 export interface PhotoshopPickerDefaultStyles {
     picker?: CSSProperties;

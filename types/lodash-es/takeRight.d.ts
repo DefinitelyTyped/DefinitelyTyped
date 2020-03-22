@@ -1,2 +1,2 @@
-import { takeRight } from "lodash";
+import { takeRight } from 'lodash';
 export default takeRight;

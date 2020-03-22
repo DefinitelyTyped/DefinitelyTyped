@@ -8,8 +8,8 @@ app.use(staticCache('.'));
 app.use(
     staticCache('.', {
         maxAge: 0,
-        filter: ['']
-    })
+        filter: [''],
+    }),
 );
 
 const files: staticCache.Files = {};
@@ -19,10 +19,10 @@ app.use(
         '.',
         {
             maxAge: 0,
-            filter: path => !!path
+            filter: (path) => !!path,
         },
-        files
-    )
+        files,
+    ),
 );
 
 files['/service-worker.js'].maxAge = 0;
@@ -31,16 +31,16 @@ app.use(
     staticCache({
         dir: '.',
         maxAge: 0,
-        files
-    })
+        files,
+    }),
 );
 
 app.use(
     staticCache(
         {
             dir: '.',
-            maxAge: 0
+            maxAge: 0,
         },
-        files
-    )
+        files,
+    ),
 );

@@ -67,7 +67,7 @@ declare namespace RunningCoder.Typeahead {
          * Takes the default order in which the data was given.
          * If `"asc"` or `"desc"` is set, they results will re-order based on display key.
          */
-        order?: "asc" | "desc";
+        order?: 'asc' | 'desc';
 
         /**
          * `false` The position of the matched query can be anywhere inside the result string
@@ -104,7 +104,7 @@ declare namespace RunningCoder.Typeahead {
          *
          * @default true
          */
-        highlight?: "any" | boolean;
+        highlight?: 'any' | boolean;
 
         /** `multiselect` configuration */
         multiselect?: MultiSelectSettings;
@@ -126,7 +126,17 @@ declare namespace RunningCoder.Typeahead {
          * Set `"asc"` or `"desc"` to have the group name sorted ascending or descending
          * Set an `Array` to specify the group order to appear in the search result
          */
-        groupOrder?: "asc" | "desc" | string[] | ((node?: JQuery, query?: string, result?: any, resultCount?: number, resultCountPerGroup?: number) => any[]);
+        groupOrder?:
+            | 'asc'
+            | 'desc'
+            | string[]
+            | ((
+                  node?: JQuery,
+                  query?: string,
+                  result?: any,
+                  resultCount?: number,
+                  resultCountPerGroup?: number,
+              ) => any[]);
 
         /** Set a maximum results per group if `group: true` configuration is enabled */
         maxItemPerGroup?: number;
@@ -138,7 +148,7 @@ declare namespace RunningCoder.Typeahead {
          * If an array of objects is set, the dropdownFilter will be built based on it. It is then possible to create filters based on item matching key:value. -
          * [Demo](http://www.runningcoder.org/jquerytypeahead/demo/#form-hockey_v1)
          */
-        dropdownFilter?: boolean | "string" | DropdownFilterItem[];
+        dropdownFilter?: boolean | 'string' | DropdownFilterItem[];
 
         /**
          * If filters objects are defined, the Typeahead source data will be filtered based on the `"selected"` / `"checked"` checkboxes,
@@ -168,7 +178,7 @@ declare namespace RunningCoder.Typeahead {
          * * If set to `true` or `localStorage`, the source data will be stored in `localStorage`.
          * * If set to `sessionStorage`, the source data will be stored in `sessionStorage`.
          */
-        cache?: boolean | "localStorage" | "sessionStorage";
+        cache?: boolean | 'localStorage' | 'sessionStorage';
 
         /** This is a `cache` configuration, it sets the storage time to live in milliseconds. */
         ttl?: number;
@@ -193,7 +203,7 @@ declare namespace RunningCoder.Typeahead {
          * If the option is set to `false`, the HTML result list will not be built.
          * Use this option for filtering "already on page" HTML list elements with show / hide.
          */
-        resultContainer?: "string" | false | JQuery;
+        resultContainer?: 'string' | false | JQuery;
 
         /**
          * If enabled, the source data will be generated (doing Ajax request and preparing to data to be searched)
@@ -295,7 +305,7 @@ declare namespace RunningCoder.Typeahead {
         loadingAnimation?: true;
 
         /** If set to function, every element will be filtered using this custom rule AFTER the regular Typeahead filters have been applied. */
-        matcher?: ((item?: any, displayKey?: string) => boolean);
+        matcher?: (item?: any, displayKey?: string) => boolean;
 
         selector?: Selector;
     }
@@ -314,10 +324,10 @@ declare namespace RunningCoder.Typeahead {
         filter?: boolean | ((item?: any, displayKey?: string) => boolean);
 
         /** Overrides the default configuration for the specified group. */
-        matcher?: ((item?: any, displayKey?: string) => boolean);
+        matcher?: (item?: any, displayKey?: string) => boolean;
 
         /** Overrides the default configuration for the specified group. */
-        cache?: boolean | "localStorage" | "sessionStorage";
+        cache?: boolean | 'localStorage' | 'sessionStorage';
 
         /** Overrides the default configuration for the specified group. */
         compression?: boolean;
@@ -442,7 +452,14 @@ declare namespace RunningCoder.Typeahead {
         onNavigateBefore?: (node?: JQuery, query?: string, event?: JQueryEventObject) => void;
 
         /** Called at the end of Navigate (once the `.active` class and other operations are completed). */
-        onNavigateAfter?: (node?: JQuery, lis?: JQuery, a?: JQuery, item?: any, query?: string, event?: JQueryEventObject) => void;
+        onNavigateAfter?: (
+            node?: JQuery,
+            lis?: JQuery,
+            a?: JQuery,
+            item?: any,
+            query?: string,
+            event?: JQueryEventObject,
+        ) => void;
 
         /** Will be executed when a item is hovered inside the result list. */
         onMouseEnter?: (node?: JQuery, a?: JQuery, item?: any, event?: JQueryEventObject) => void;

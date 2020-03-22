@@ -31,7 +31,7 @@ export namespace css {
          * 2 => postcss-loader, sass-loader
          */
         importLoaders?: 0 | 1 | 2;
-        localsConvention?: 'asIs'  | 'camelCase' | 'camelCaseOnly' | 'dashes' | 'dashesOnly';
+        localsConvention?: 'asIs' | 'camelCase' | 'camelCaseOnly' | 'dashes' | 'dashesOnly';
         onlyLocals?: boolean;
     }
 

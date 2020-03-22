@@ -8,5 +8,5 @@ declare namespace Well {
         bsClass?: string;
     }
 }
-declare class Well extends React.Component<Well.WellProps> { }
+declare class Well extends React.Component<Well.WellProps> {}
 export = Well;

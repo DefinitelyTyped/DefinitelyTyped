@@ -1,5 +1,5 @@
-import { Axis } from "./AxisManager";
-import { AnimationParam } from "./AnimationManager";
+import { Axis } from './AxisManager';
+import { AnimationParam } from './AnimationManager';
 export declare class EventManager {
     private axes;
     private axm;

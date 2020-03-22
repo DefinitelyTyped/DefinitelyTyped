@@ -820,7 +820,7 @@ declare global {
         start: number,
         stop: number,
         mode?: p5.ARC_MODE,
-        detail?: number
+        detail?: number,
     ): p5;
 
     /**
@@ -985,7 +985,7 @@ declare global {
         z3: number,
         x4: number,
         y4: number,
-        z4: number
+        z4: number,
     ): p5;
 
     /**
@@ -1287,7 +1287,7 @@ declare global {
         z3: number,
         x4: number,
         y4: number,
-        z4: number
+        z4: number,
     ): p5;
 
     /**
@@ -1409,7 +1409,7 @@ declare global {
         z3: number,
         x4: number,
         y4: number,
-        z4: number
+        z4: number,
     ): p5;
 
     /**
@@ -1590,7 +1590,7 @@ declare global {
         z3: number,
         x4: number,
         y4: number,
-        z4: number
+        z4: number,
     ): p5;
 
     /**
@@ -3303,7 +3303,7 @@ declare global {
         extension: string,
         duration: number,
         framerate: number,
-        callback?: (p1: any[]) => any
+        callback?: (p1: any[]) => any,
     ): void;
 
     /**
@@ -3331,7 +3331,7 @@ declare global {
     function loadImage(
         path: string,
         successCallback?: (p1: p5.Image) => any,
-        failureCallback?: (p1: Event) => any
+        failureCallback?: (p1: Event) => any,
     ): p5.Image;
 
     /**
@@ -3411,7 +3411,7 @@ declare global {
         sx: number,
         sy: number,
         sWidth?: number,
-        sHeight?: number
+        sHeight?: number,
     ): void;
 
     /**
@@ -3577,7 +3577,7 @@ declare global {
         dy: number,
         dw: number,
         dh: number,
-        blendMode: p5.BLEND_MODE
+        blendMode: p5.BLEND_MODE,
     ): void;
 
     /**
@@ -3610,7 +3610,7 @@ declare global {
         dy: number,
         dw: number,
         dh: number,
-        blendMode: p5.UNKNOWN_P5_CONSTANT
+        blendMode: p5.UNKNOWN_P5_CONSTANT,
     ): void;
 
     /**
@@ -3644,7 +3644,7 @@ declare global {
         dx: number,
         dy: number,
         dw: number,
-        dh: number
+        dh: number,
     ): void;
 
     /**
@@ -3994,7 +3994,7 @@ declare global {
         jsonpOptions?: object,
         datatype?: string,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): object | any[];
 
     /**
@@ -4024,7 +4024,7 @@ declare global {
         path: string,
         datatype: string,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): object | any[];
 
     /**
@@ -4052,7 +4052,7 @@ declare global {
     function loadJSON(
         path: string,
         callback: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): object | any[];
 
     /**
@@ -4086,7 +4086,7 @@ declare global {
     function loadStrings(
         filename: string,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): string[];
 
     /**
@@ -4142,7 +4142,7 @@ declare global {
         filename: string,
         options: string,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): object;
 
     /**
@@ -4195,7 +4195,7 @@ declare global {
     function loadTable(
         filename: string,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): object;
 
     /**
@@ -4233,7 +4233,7 @@ declare global {
     function loadXML(
         filename: string,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): object;
 
     /**
@@ -4250,7 +4250,7 @@ declare global {
     function loadBytes(
         file: string,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): object;
 
     /**
@@ -4281,7 +4281,7 @@ declare global {
         datatype?: string,
         data?: object | boolean,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): Promise<any>;
 
     /**
@@ -4306,7 +4306,7 @@ declare global {
         path: string,
         data: object | boolean,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): Promise<any>;
 
     /**
@@ -4329,7 +4329,7 @@ declare global {
     function httpGet(
         path: string,
         callback: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): Promise<any>;
 
     /**
@@ -4356,7 +4356,7 @@ declare global {
         datatype?: string,
         data?: object | boolean,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): Promise<any>;
 
     /**
@@ -4377,7 +4377,7 @@ declare global {
         path: string,
         data: object | boolean,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): Promise<any>;
 
     /**
@@ -4396,7 +4396,7 @@ declare global {
     function httpPost(
         path: string,
         callback: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): Promise<any>;
 
     /**
@@ -4431,7 +4431,7 @@ declare global {
         datatype?: string,
         data?: object,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): Promise<any>;
 
     /**
@@ -4458,7 +4458,7 @@ declare global {
         path: string,
         options: object,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): Promise<any>;
     function createWriter(name: string, extension?: string): p5.PrintWriter;
 
@@ -4695,7 +4695,7 @@ declare global {
         stop1: number,
         start2: number,
         stop2: number,
-        withinBounds?: boolean
+        withinBounds?: boolean,
     ): number;
 
     /**
@@ -6037,7 +6037,7 @@ declare global {
         detailX?: number,
         detailY?: number,
         bottomCap?: boolean,
-        topCap?: boolean
+        topCap?: boolean,
     ): p5;
 
     /**
@@ -6191,7 +6191,7 @@ declare global {
         gridDivisions?: number,
         xOff?: number,
         yOff?: number,
-        zOff?: number
+        zOff?: number,
     ): void;
 
     /**
@@ -6226,7 +6226,7 @@ declare global {
         axesSize?: number,
         xOff?: number,
         yOff?: number,
-        zOff?: number
+        zOff?: number,
     ): void;
 
     /**
@@ -6264,7 +6264,7 @@ declare global {
         axesSize?: number,
         axesXOff?: number,
         axesYOff?: number,
-        axesZOff?: number
+        axesZOff?: number,
     ): void;
 
     /**
@@ -6473,7 +6473,7 @@ declare global {
         path: string,
         normalize: boolean,
         successCallback?: (p1: p5.Geometry) => any,
-        failureCallback?: (p1: Event) => any
+        failureCallback?: (p1: Event) => any,
     ): p5.Geometry;
 
     /**
@@ -6502,7 +6502,7 @@ declare global {
     function loadModel(
         path: string,
         successCallback?: (p1: p5.Geometry) => any,
-        failureCallback?: (p1: Event) => any
+        failureCallback?: (p1: Event) => any,
     ): p5.Geometry;
 
     /**
@@ -6537,7 +6537,7 @@ declare global {
         vertFilename: string,
         fragFilename: string,
         callback?: (...args: any[]) => any,
-        errorCallback?: (...args: any[]) => any
+        errorCallback?: (...args: any[]) => any,
     ): p5.Shader;
     function createShader(vertSrc: string, fragSrc: string): p5.Shader;
 
@@ -6708,7 +6708,7 @@ declare global {
         centerZ?: number,
         upX?: number,
         upY?: number,
-        upZ?: number
+        upZ?: number,
     ): p5;
 
     /**

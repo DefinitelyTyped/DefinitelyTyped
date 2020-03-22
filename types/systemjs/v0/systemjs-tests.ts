@@ -1,7 +1,7 @@
 import SystemJS = require('systemjs');
 
 SystemJS.config({
-    baseURL: '/app'
+    baseURL: '/app',
 });
 
 SystemJS.import('main.js');
@@ -10,41 +10,40 @@ SystemJS.config({
     // 'plugin-traceur' or 'plugin-typescript' or 'babel' or 'traceur' or 'typescript' or false.
     transpiler: 'plugin-babel',
     // or traceurOptions or typescriptOptions
-    babelOptions: {
-    }
+    babelOptions: {},
 });
 
 SystemJS.config({
     map: {
-        traceur: 'path/to/traceur.js'
-    }
+        traceur: 'path/to/traceur.js',
+    },
 });
 
 SystemJS.config({
     meta: {
         '*': {
-            authorization: true
-        }
-    }
+            authorization: true,
+        },
+    },
 });
 
 SystemJS.config({
     meta: {
         '*': {
-            authorization: 'Basic YWxhZGRpbjpvcGVuc2VzYW1l'
-        }
-    }
+            authorization: 'Basic YWxhZGRpbjpvcGVuc2VzYW1l',
+        },
+    },
 });
 
 SystemJS.config({
     map: {
         'local/package': {
-            x: 'vendor/x.js'
+            x: 'vendor/x.js',
         },
         'another/package': {
-            x: 'vendor/y.js'
-        }
-    }
+            x: 'vendor/y.js',
+        },
+    },
 });
 
 SystemJS.transpiler = 'traceur';
@@ -52,7 +51,7 @@ SystemJS.transpiler = 'traceur';
 const mockModule = {
     default: () => {
         return 42;
-    }
+    },
 };
 
 SystemJS.set('./app.js', SystemJS.newModule(mockModule));

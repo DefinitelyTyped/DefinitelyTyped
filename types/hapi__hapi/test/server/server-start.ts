@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstart
-import { Server } from "@hapi/hapi";
+import { Server } from '@hapi/hapi';
 
 const server = new Server({
     port: 8000,

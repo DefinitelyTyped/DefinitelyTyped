@@ -6,7 +6,11 @@
 export = fileExists;
 
 declare function fileExists(filepath: string, callback?: (err: Error | null, exists: boolean) => void): void;
-declare function fileExists(filepath: string, options?: fileExists.Options, callback?: (err: Error | null, exists: boolean) => void): void;
+declare function fileExists(
+    filepath: string,
+    options?: fileExists.Options,
+    callback?: (err: Error | null, exists: boolean) => void,
+): void;
 
 declare namespace fileExists {
     function sync(filepath: string, options?: Options): boolean;

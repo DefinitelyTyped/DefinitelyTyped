@@ -4,7 +4,7 @@
 //                 Adina Todoran <https://github.com/adina-todoran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component } from "react";
+import { Component } from 'react';
 
 export class Graph extends Component<any, any> {
     constructor(props: any, ...args: any[]);

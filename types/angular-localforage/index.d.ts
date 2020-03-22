@@ -11,7 +11,6 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     export namespace localForage {
-
         interface LocalForageConfig {
             driver?: string;
             name?: string | number;
@@ -52,12 +51,15 @@ declare module 'angular' {
 
             bind($scope: angular.IScope, key: string): angular.IPromise<any>;
 
-            bind($scope: angular.IScope, config: {
-                key: string;
-                defaultValue?: any;
-                scopeKey?: string;
-                name?: string;
-            }): angular.IPromise<any>;
+            bind(
+                $scope: angular.IScope,
+                config: {
+                    key: string;
+                    defaultValue?: any;
+                    scopeKey?: string;
+                    name?: string;
+                },
+            ): angular.IPromise<any>;
 
             unbind($scope: angular.IScope, key: string, scopeKey?: string): void;
 

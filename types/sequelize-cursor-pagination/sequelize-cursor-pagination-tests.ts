@@ -9,7 +9,7 @@ interface DataInstance extends Sequelize.Instance<Data>, Data {}
 
 type DataModel = Sequelize.Model<DataInstance, Data>;
 
-const model: DataModel = {} as any ;
+const model: DataModel = {} as any;
 
 /************************************/
 /*  use default pagination options  */
@@ -17,19 +17,19 @@ const model: DataModel = {} as any ;
 
 const WithPaginationModel = withPagination({
     methodName: 'paginate',
-    primaryKeyField: 'id'
+    primaryKeyField: 'id',
 })<DataModel, DataInstance, Data>(model);
 
 // @CAVEAT: function withPagination has no return value, in order to get the augmented type,
 // we need to temporarily store the return value (actually is undefined) to later cast
 // the original model to the augmented type to acquire additional paginate function.
-const withPaginationModel = (model as typeof WithPaginationModel);
+const withPaginationModel = model as typeof WithPaginationModel;
 
 withPaginationModel.paginate();
 withPaginationModel.paginate({
     where: {
         id: 1,
-        name: 'hello'
+        name: 'hello',
     },
     attributes: ['id', 'name'],
     include: [],
@@ -39,13 +39,13 @@ withPaginationModel.paginate({
     desc: true,
     paginationField: 'id',
     raw: false,
-    subQuery: false
+    subQuery: false,
 });
 
 // when 'raw' option is false or undefined
 
 const insts = withPaginationModel.paginate({
-    raw: false
+    raw: false,
 });
 
 insts.cursors; // cursors => { after, before, hasNext, hasPrevious }
@@ -63,7 +63,7 @@ insts.results.forEach((inst) => {
 // when 'raw' option is true
 
 const raws = withPaginationModel.paginate({
-    raw: true
+    raw: true,
 });
 
 raws.cursors; // cursors => { after, before, hasNext, hasPrevious }
@@ -85,13 +85,13 @@ const WithPaginationCustomModel = withPagination({
     methodName: 'customPaginate',
 })<DataModel, DataInstance, Data>(model);
 
-const withPaginationCustomModel = (model as typeof WithPaginationCustomModel);
+const withPaginationCustomModel = model as typeof WithPaginationCustomModel;
 
 withPaginationCustomModel.customPaginate();
 withPaginationCustomModel.customPaginate({
     where: {
         id: 1,
-        name: 'hello'
+        name: 'hello',
     },
     attributes: ['id', 'name'],
     include: [],
@@ -101,5 +101,5 @@ withPaginationCustomModel.customPaginate({
     desc: true,
     paginationField: 'id',
     raw: false,
-    subQuery: false
+    subQuery: false,
 });

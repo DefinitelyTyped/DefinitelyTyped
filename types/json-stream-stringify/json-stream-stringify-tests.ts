@@ -3,7 +3,7 @@ import { Readable } from 'stream';
 
 function ReadableStream(...args: any[]) {
     const stream = new Readable({
-        objectMode: args.some(v => typeof v !== 'string'),
+        objectMode: args.some((v) => typeof v !== 'string'),
     });
     stream._read = () => {
         if (!args.length) return stream.push(null);
@@ -57,14 +57,14 @@ jsonStream = new JsonStreamStringify({
 });
 jsonStream = new JsonStreamStringify({
     a: 1,
-    b: Promise.resolve(undefined)
+    b: Promise.resolve(undefined),
 });
 jsonStream = new JsonStreamStringify({
-    a() { },
-    b: 'b'
+    a() {},
+    b: 'b',
 });
-jsonStream = new JsonStreamStringify([function a() { }]);
-jsonStream = new JsonStreamStringify([function a() { }, undefined]);
+jsonStream = new JsonStreamStringify([function a() {}]);
+jsonStream = new JsonStreamStringify([function a() {}, undefined]);
 jsonStream = new JsonStreamStringify({ a: new Date() });
 jsonStream = new JsonStreamStringify({
     a: 1,
@@ -77,25 +77,18 @@ jsonStream = new JsonStreamStringify({
     b: 2,
 });
 jsonStream = new JsonStreamStringify([]);
-jsonStream = new JsonStreamStringify([
-    [
-        [],
-    ],
-    [
-        [],
-    ],
-]);
+jsonStream = new JsonStreamStringify([[[]], [[]]]);
 jsonStream = new JsonStreamStringify([1, undefined, 2]);
 // tslint:disable-next-line no-sparse-arrays
 jsonStream = new JsonStreamStringify([1, , 2]);
 jsonStream = new JsonStreamStringify([1, 'a']);
 jsonStream = new JsonStreamStringify(Promise.resolve(1));
 jsonStream = new JsonStreamStringify(Promise.resolve(Promise.resolve(1)));
-jsonStream = new JsonStreamStringify(({
+jsonStream = new JsonStreamStringify({
     then(fn: (promise: any) => any) {
         return fn(Promise.resolve(1));
     },
-}));
+});
 jsonStream = new JsonStreamStringify({
     a: Promise.resolve(1),
 });
@@ -140,9 +133,12 @@ jsonStream = new JsonStreamStringify({}, undefined, undefined, true);
 {
     const cyclicData1: Record<string, any> = {};
     cyclicData1.a = cyclicData1;
-    cyclicData1.b = [cyclicData1, {
-        a: cyclicData1,
-    }];
+    cyclicData1.b = [
+        cyclicData1,
+        {
+            a: cyclicData1,
+        },
+    ];
     cyclicData1.b[3] = ReadableStream(cyclicData1.b[1]);
     // tslint:disable-next-line no-object-literal-type-assertion
     jsonStream = new JsonStreamStringify(cyclicData1, undefined, undefined, true);

@@ -139,7 +139,9 @@ declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
-    type SpyObjMethodNames<T = undefined> = T extends undefined ? (ReadonlyArray<string> | {[methodName: string]: any}) : (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any>});
+    type SpyObjMethodNames<T = undefined> = T extends undefined
+        ? ReadonlyArray<string> | { [methodName: string]: any }
+        : ReadonlyArray<keyof T> | { [P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any> };
 
     var clock: () => Clock;
 
@@ -174,7 +176,7 @@ declare namespace jasmine {
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any {
-        (...params: any[]):any; // jasmine.Any can also be a function
+        (...params: any[]): any; // jasmine.Any can also be a function
         new (expectedClass: any): any;
 
         jasmineMatches(other: any): boolean;
@@ -202,7 +204,6 @@ declare namespace jasmine {
     }
 
     interface Block {
-
         new (env: Env, func: SpecFunction, spec: Spec): any;
 
         execute(onComplete: () => void): void;
@@ -297,7 +298,6 @@ declare namespace jasmine {
     }
 
     interface FakeTimer {
-
         new (): any;
 
         reset(): void;
@@ -349,7 +349,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: { random: boolean, seed: string }): any;
+        new (options: { random: boolean; seed: string }): any;
         random: boolean;
         seed: string;
         sort<T>(items: T[]): T[];
@@ -376,7 +376,6 @@ declare namespace jasmine {
     }
 
     interface PrettyPrinter {
-
         new (): any;
 
         format(value: any): void;
@@ -388,11 +387,9 @@ declare namespace jasmine {
         append(value: any): void;
     }
 
-    interface StringPrettyPrinter extends PrettyPrinter {
-    }
+    interface StringPrettyPrinter extends PrettyPrinter {}
 
     interface Queue {
-
         new (env: any): any;
 
         env: Env;
@@ -413,7 +410,6 @@ declare namespace jasmine {
     }
 
     interface Matchers<T> {
-
         new (env: Env, actual: T, spec: Env, isNot?: boolean): any;
 
         env: Env;
@@ -503,9 +499,7 @@ declare namespace jasmine {
         expected: string;
     }
 
-    interface PassedExpectation extends CustomReportExpectation {
-
-    }
+    interface PassedExpectation extends CustomReportExpectation {}
 
     interface CustomReporterResult {
         description: string;
@@ -532,7 +526,6 @@ declare namespace jasmine {
     }
 
     interface Runner {
-
         new (env: Env): any;
 
         execute(): void;
@@ -559,7 +552,6 @@ declare namespace jasmine {
     }
 
     interface Spec extends SuiteOrSpec {
-
         new (env: Env, suite: Suite, description: string): any;
 
         suite: Suite;
@@ -601,7 +593,6 @@ declare namespace jasmine {
     }
 
     interface Suite extends SuiteOrSpec {
-
         new (env: Env, description: string, specDefinitions: () => void, parentSuite: Suite): any;
 
         parentSuite: Suite;
@@ -631,9 +622,10 @@ declare namespace jasmine {
         calls: Calls;
     }
 
-    type SpyObj<T> = T & {
-        [k in keyof T]: T[k] extends Function ? T[k] & Spy : T[k];
-    }
+    type SpyObj<T> = T &
+        {
+            [k in keyof T]: T[k] extends Function ? T[k] & Spy : T[k];
+        };
 
     interface SpyAnd {
         identity: string;
@@ -689,7 +681,6 @@ declare namespace jasmine {
     }
 
     interface JsApiReporter extends Reporter {
-
         started: boolean;
         finished: boolean;
         result: any;
@@ -719,7 +710,7 @@ declare namespace jasmine {
     export var MAX_PRETTY_PRINT_DEPTH: number;
 }
 
-declare module "jasmine" {
+declare module 'jasmine' {
     class jasmine {
         constructor(options: any);
         jasmine: jasmine.Jasmine;

@@ -6,7 +6,10 @@
 
 import * as express from 'express';
 
-declare function expressSitemapXml(getUrls: (() => (expressSitemapXml.SitemapLeaf[] | Promise<expressSitemapXml.SitemapLeaf[]>)), base: string): express.RequestHandler;
+declare function expressSitemapXml(
+    getUrls: () => expressSitemapXml.SitemapLeaf[] | Promise<expressSitemapXml.SitemapLeaf[]>,
+    base: string,
+): express.RequestHandler;
 
 declare namespace expressSitemapXml {
     interface LeafObject {
@@ -21,7 +24,7 @@ declare namespace expressSitemapXml {
         [leaf: string]: string;
     }
 
-   function buildSitemaps(urls: SitemapLeaf[], base: string): Promise<Sitemap>;
+    function buildSitemaps(urls: SitemapLeaf[], base: string): Promise<Sitemap>;
 }
 
 export = expressSitemapXml;

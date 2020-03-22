@@ -1,10 +1,12 @@
 # TypeScript typings for Cloud Tool Results API v1beta3
+
 Reads and publishes results from Firebase Test Lab.
 For detailed description please check [documentation](https://firebase.google.com/docs/test-lab/).
 
 ## Installing
 
 Install typings for Cloud Tool Results API:
+
 ```
 npm install @types/gapi.client.toolresults@v1beta3 --save-dev
 ```
@@ -12,46 +14,47 @@ npm install @types/gapi.client.toolresults@v1beta3 --save-dev
 ## Usage
 
 You need to initialize Google API client in your code:
+
 ```typescript
-gapi.load("client", () => { 
+gapi.load('client', () => {
     // now we can use gapi.client
-    // ... 
+    // ...
 });
 ```
 
 Then load api client wrapper:
+
 ```typescript
 gapi.client.load('toolresults', 'v1beta3', () => {
     // now we can use gapi.client.toolresults
-    // ... 
+    // ...
 });
 ```
 
 Don't forget to authenticate your client before sending any request to resources:
-```typescript
 
+```typescript
 // declare client_id registered in Google Developers Console
 var client_id = '',
-    scope = [     
+    scope = [
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
     ],
     immediate = true;
 // ...
 
-gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
+gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, (authResult) => {
     if (authResult && !authResult.error) {
         /* handle succesfull authorization */
     } else {
         /* handle authorization error */
     }
-});            
+});
 ```
 
 After that you can use Cloud Tool Results API resources:
 
-```typescript 
-    
+```typescript
 /* 
 Gets the Tool Results settings for a project.
 
@@ -59,8 +62,8 @@ May return any of the following canonical error codes:
 
 - PERMISSION_DENIED - if the user is not authorized to read from project  
 */
-await gapi.client.projects.getSettings({ projectId: "projectId",  }); 
-    
+await gapi.client.projects.getSettings({ projectId: 'projectId' });
+
 /* 
 Creates resources for settings which have not yet been set.
 
@@ -74,5 +77,5 @@ May return any canonical error codes, including the following:
 
 - PERMISSION_DENIED - if the user is not authorized to write to project - Any error code raised by Google Cloud Storage  
 */
-await gapi.client.projects.initializeSettings({ projectId: "projectId",  });
+await gapi.client.projects.initializeSettings({ projectId: 'projectId' });
 ```

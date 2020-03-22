@@ -349,11 +349,25 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         /**
          * Constructs a new isntance of the ExceptionTelemetry object
          */
-        constructor(exception: Error, handledAt?: string, properties?: any, measurements?: any, severityLevel?: AI.SeverityLevel);
+        constructor(
+            exception: Error,
+            handledAt?: string,
+            properties?: any,
+            measurements?: any,
+            severityLevel?: AI.SeverityLevel,
+        );
         /**
          * Creates a simple exception with 1 stack frame. Useful for manual constracting of exception.
          */
-        static CreateSimpleException(message: string, typeName: string, assembly: string, fileName: string, details: string, line: number, handledAt?: string): Telemetry.Exception;
+        static CreateSimpleException(
+            message: string,
+            typeName: string,
+            assembly: string,
+            fileName: string,
+            details: string,
+            line: number,
+            handledAt?: string,
+        ): Telemetry.Exception;
     }
 
     class Metric implements Microsoft.ApplicationInsights.ISerializable {
@@ -461,7 +475,15 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         /**
          * Constructs a new instance of the RemoteDependencyData object
          */
-        constructor(id: string, absoluteUrl: string, commandName: string, value: number, success: boolean, resultCode: number, method?: string);
+        constructor(
+            id: string,
+            absoluteUrl: string,
+            commandName: string,
+            value: number,
+            success: boolean,
+            resultCode: number,
+            method?: string,
+        );
         private formatDependencyName(method, absoluteUrl);
     }
 
@@ -490,7 +512,8 @@ declare module Microsoft.ApplicationInsights.Telemetry.Common {
         aiDataContract: {};
     }
 
-    class Data<TDomain> extends Microsoft.Telemetry.Data<TDomain> implements Microsoft.ApplicationInsights.ISerializable {
+    class Data<TDomain> extends Microsoft.Telemetry.Data<TDomain>
+        implements Microsoft.ApplicationInsights.ISerializable {
         /**
          * The data contract for serializing this object.
          */
@@ -658,7 +681,9 @@ declare module Microsoft.ApplicationInsights {
          * Adds telemetry initializer to the collection. Telemetry initializers will be called one by one
          * before telemetry item is pushed for sending and in the order they were added.
          */
-        addTelemetryInitializer(telemetryInitializer: (envelope: Microsoft.ApplicationInsights.IEnvelope) => boolean | void): any;
+        addTelemetryInitializer(
+            telemetryInitializer: (envelope: Microsoft.ApplicationInsights.IEnvelope) => boolean | void,
+        ): any;
         /**
          * Tracks telemetry object.
          */
@@ -688,7 +713,8 @@ declare module Microsoft.ApplicationInsights {
             name?: string,
             url?: string,
             properties?: { [name: string]: string },
-            measurements?: { [name: string]: number }): any;
+            measurements?: { [name: string]: number },
+        ): any;
         /**
          * Logs that a page or other item was viewed.
          * @param   name  The string you used as the name in `startTrackPage`. Defaults to the document title.
@@ -701,7 +727,9 @@ declare module Microsoft.ApplicationInsights {
             name?: string,
             url?: string,
             properties?: { [name: string]: string },
-            measurements?: { [name: string]: number }, duration?: number): any;
+            measurements?: { [name: string]: number },
+            duration?: number,
+        ): any;
         /**
          * Start timing an extended event. Call `stopTrackEvent` to log the event when it ends.
          * @param   name    A string that identifies this event uniquely within the document.
@@ -716,7 +744,8 @@ declare module Microsoft.ApplicationInsights {
         stopTrackEvent(
             name: string,
             properties?: { [name: string]: string },
-            measurements?: { [name: string]: number }): any;
+            measurements?: { [name: string]: number },
+        ): any;
         /**
          * Log a user action or other occurrence.
          * @param   name    A string to identify this event in the portal.
@@ -726,7 +755,8 @@ declare module Microsoft.ApplicationInsights {
         trackEvent(
             name: string,
             properties?: { [name: string]: string },
-            measurements?: { [name: string]: number }): any;
+            measurements?: { [name: string]: number },
+        ): any;
         /**
          * Log a dependency call
          * @param   id    unique id, this is used by the backend o correlate server requests. Use Util.newId() to generate a unique Id.
@@ -739,8 +769,17 @@ declare module Microsoft.ApplicationInsights {
          * @param   properties    map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
          * @param   measurements  map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
          */
-        trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number,
-            properties?: { [name: string]: string }, measurements?: { [name: string]: number }): any;
+        trackDependency(
+            id: string,
+            method: string,
+            absoluteUrl: string,
+            pathName: string,
+            totalTime: number,
+            success: boolean,
+            resultCode: number,
+            properties?: { [name: string]: string },
+            measurements?: { [name: string]: number },
+        ): any;
         /**
          * Log an exception you have caught.
          * @param   exception   An Error from a catch clause, or the string error message.
@@ -753,7 +792,8 @@ declare module Microsoft.ApplicationInsights {
             handledAt?: string,
             properties?: { [name: string]: string },
             measurements?: { [name: string]: number },
-            severityLevel?: AI.SeverityLevel): any;
+            severityLevel?: AI.SeverityLevel,
+        ): any;
         /**
          * Log a numeric value that is not associated with a specific event. Typically used to send regular reports of performance indicators.
          * To send a single measurement, use just the first two parameters. If you take measurements very frequently, you can reduce the
@@ -770,7 +810,8 @@ declare module Microsoft.ApplicationInsights {
             sampleCount?: number,
             min?: number,
             max?: number,
-            properties?: { [name: string]: string }): any;
+            properties?: { [name: string]: string },
+        ): any;
         /**
          * Log a diagnostic message.
          * @param    message A message string

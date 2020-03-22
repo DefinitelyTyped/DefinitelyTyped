@@ -7,26 +7,26 @@
 /// <reference types="express" />
 
 declare namespace Express {
-  export interface Request {
-    csrfToken(): string;
-  }
+    export interface Request {
+        csrfToken(): string;
+    }
 }
 
-declare module "csurf" {
-  import express = require('express-serve-static-core');
+declare module 'csurf' {
+    import express = require('express-serve-static-core');
 
-  function csurf(options?: {
-    value?: (req: express.Request) => string;
-    cookie?: csurf.CookieOptions | boolean;
-    ignoreMethods?: string[];
-    sessionKey?: string;
-  }): express.RequestHandler;
+    function csurf(options?: {
+        value?: (req: express.Request) => string;
+        cookie?: csurf.CookieOptions | boolean;
+        ignoreMethods?: string[];
+        sessionKey?: string;
+    }): express.RequestHandler;
 
-  namespace csurf {
-    export interface CookieOptions extends express.CookieOptions {
-      key?: string;
+    namespace csurf {
+        export interface CookieOptions extends express.CookieOptions {
+            key?: string;
+        }
     }
-  }
 
-  export = csurf;
+    export = csurf;
 }

@@ -1,9 +1,11 @@
-import * as npmlog from "npmlog";
+import * as npmlog from 'npmlog';
 
-const prefix = "str";
-const message = "otherStr";
+const prefix = 'str';
+const message = 'otherStr';
 
-["silly", "verbose", "info", "timing", "http", "notice", "warn", "error", "silent"].forEach(lvl => npmlog.log(lvl, prefix, message));
+['silly', 'verbose', 'info', 'timing', 'http', 'notice', 'warn', 'error', 'silent'].forEach((lvl) =>
+    npmlog.log(lvl, prefix, message),
+);
 
 npmlog.silly(prefix, message);
 npmlog.verbose(prefix, message);
@@ -28,35 +30,40 @@ npmlog.disableUnicode();
 npmlog.pause();
 npmlog.resume();
 
-npmlog.addLevel("new-level", 42);
-npmlog.addLevel("styled-level", 42, {
+npmlog.addLevel('new-level', 42);
+npmlog.addLevel('styled-level', 42, {
     fg: 'red',
     bg: 'blue',
     bold: false,
     inverse: true,
     underline: true,
-    bell: false
+    bell: false,
 });
 
-npmlog.addLevel("styled-level", 42, {
-    fg: 'red',
-    bold: false,
-    underline: true,
-}, 'display name');
+npmlog.addLevel(
+    'styled-level',
+    42,
+    {
+        fg: 'red',
+        bold: false,
+        underline: true,
+    },
+    'display name',
+);
 
-npmlog.addLevel("broadcast", 10);
+npmlog.addLevel('broadcast', 10);
 
 npmlog.broadcast(prefix, message);
 npmlog.broadcast(message);
 
-npmlog.on("broadcast", () => {});
+npmlog.on('broadcast', () => {});
 
 const msg: npmlog.MessageObject = {
     id: 1,
-    level: "broadcast",
+    level: 'broadcast',
     prefix,
     message,
     messageRaw: message,
 };
 
-npmlog.emit("broadcast", msg);
+npmlog.emit('broadcast', msg);

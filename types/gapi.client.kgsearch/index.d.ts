@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Knowledge Graph Search API v1 */
-    function load(name: "kgsearch", version: "v1"): PromiseLike<void>;
-    function load(name: "kgsearch", version: "v1", callback: () => any): void;
+    function load(name: 'kgsearch', version: 'v1'): PromiseLike<void>;
+    function load(name: 'kgsearch', version: 'v1', callback: () => any): void;
 
     const entities: kgsearch.EntitiesResource;
 
@@ -24,9 +24,9 @@ declare namespace gapi.client {
              * The local context applicable for the response. See more details at
              * http://www.w3.org/TR/json-ld/#context-definitions.
              */
-            "@context"?: any;
+            '@context'?: any;
             /** The schema type of top-level JSON-LD object, e.g. ItemList. */
-            "@type"?: any;
+            '@type'?: any;
             /** The item list of search results. */
             itemListElement?: any[];
         }
@@ -38,7 +38,7 @@ declare namespace gapi.client {
              */
             search(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

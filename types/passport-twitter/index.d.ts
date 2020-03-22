@@ -6,8 +6,6 @@
 
 /// <reference types="passport"/>
 
-
-
 import passport = require('passport');
 import express = require('express');
 
@@ -40,15 +38,30 @@ interface IStrategyOption extends IStrategyOptionBase {
     passReqToCallback?: false;
 }
 
-interface IStrategyOptionWithRequest  extends IStrategyOptionBase {
+interface IStrategyOptionWithRequest extends IStrategyOptionBase {
     passReqToCallback: true;
 }
 
 declare class Strategy extends passport.Strategy {
-    constructor(options: IStrategyOption,
-        verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-    constructor(options: IStrategyOptionWithRequest,
-        verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    constructor(
+        options: IStrategyOption,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            profile: Profile,
+            done: (error: any, user?: any) => void,
+        ) => void,
+    );
+    constructor(
+        options: IStrategyOptionWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: Profile,
+            done: (error: any, user?: any) => void,
+        ) => void,
+    );
 
     name: string;
     authenticate(req: express.Request, options?: Object): void;

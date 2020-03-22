@@ -35,7 +35,7 @@ declare namespace PouchDB {
              * where "bar" will be available in the filter function as params.query.foo.
              * To access the params, define your filter function like function (doc, params).
              */
-            query_params?: {[paramName: string]: any};
+            query_params?: { [paramName: string]: any };
 
             /**
              * Specify a view function (e.g. 'design_doc_name/view_name' or 'view_name' as shorthand for 'view_name/view_name') to act as a filter.
@@ -103,8 +103,7 @@ declare namespace PouchDB {
 
         interface Replication<Content extends {}>
             extends ReplicationEventEmitter<Content, ReplicationResult<Content>, ReplicationResultComplete<Content>>,
-                    Promise<ReplicationResultComplete<Content>> {
-        }
+                Promise<ReplicationResultComplete<Content>> {}
 
         interface ReplicationResult<Content extends {}> {
             doc_write_failures: number;
@@ -129,8 +128,7 @@ declare namespace PouchDB {
 
         interface Sync<Content extends {}>
             extends ReplicationEventEmitter<Content, SyncResult<Content>, SyncResultComplete<Content>>,
-                    Promise<SyncResultComplete<Content>> {
-        }
+                Promise<SyncResultComplete<Content>> {}
 
         interface SyncResult<Content extends {}> {
             direction: 'push' | 'pull';
@@ -154,7 +152,7 @@ declare namespace PouchDB {
             source: string | Database<Content>,
             target: string | Database<Content>,
             options?: Replication.ReplicateOptions,
-            callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>
+            callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>,
         ): Replication.Replication<Content>;
 
         /**
@@ -170,7 +168,7 @@ declare namespace PouchDB {
             source: string | Database<Content>,
             target: string | Database<Content>,
             options?: Replication.SyncOptions,
-            callback?: Core.Callback<Replication.SyncResultComplete<Content>>
+            callback?: Core.Callback<Replication.SyncResultComplete<Content>>,
         ): Replication.Sync<Content>;
     }
 
@@ -185,7 +183,7 @@ declare namespace PouchDB {
             to<Content>(
                 target: string | Database<Content>,
                 options?: Replication.ReplicateOptions,
-                callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>
+                callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>,
             ): Replication.Replication<Content>;
 
             /**
@@ -197,7 +195,7 @@ declare namespace PouchDB {
             from<Content>(
                 source: string | Database<Content>,
                 options?: Replication.ReplicateOptions,
-                callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>
+                callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>,
             ): Replication.Replication<Content>;
         };
 
@@ -213,7 +211,7 @@ declare namespace PouchDB {
         sync<Content>(
             remote: string | Database<Content>,
             options?: Replication.SyncOptions,
-            callback?: Core.Callback<Replication.SyncResultComplete<Content>>
+            callback?: Core.Callback<Replication.SyncResultComplete<Content>>,
         ): Replication.Sync<Content>;
     }
 }

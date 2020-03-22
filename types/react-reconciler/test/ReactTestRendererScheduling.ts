@@ -8,10 +8,7 @@ export let nowImplementation = () => 0;
 export let scheduledCallback: ((deadline: Deadline) => any) | null = null;
 export let yieldedValues: any[] = [];
 
-export function scheduleDeferredCallback(
-    callback: (deadline: Deadline) => any,
-    options?: { timeout: number },
-): number {
+export function scheduleDeferredCallback(callback: (deadline: Deadline) => any, options?: { timeout: number }): number {
     scheduledCallback = callback;
     const fakeCallbackId = 0;
     return fakeCallbackId;

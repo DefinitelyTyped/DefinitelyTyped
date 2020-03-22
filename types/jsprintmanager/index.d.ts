@@ -92,7 +92,7 @@ export namespace JSPM {
             stopBits: Serial.StopBits,
 
             dataBits: number,
-            flowControl: Serial.Handshake
+            flowControl: Serial.Handshake,
         );
 
         serialize(): string;
@@ -256,7 +256,7 @@ export namespace zip {
             index: number,
             length: number,
             callback: (result: Uint8Array) => void,
-            onerror?: (error: any) => void
+            onerror?: (error: any) => void,
         ): void;
     }
 }

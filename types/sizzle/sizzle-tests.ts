@@ -9,13 +9,12 @@ function pseudos() {
 }
 
 function createPseudos_0() {
-    Sizzle.selectors.pseudos['not'] =
-        Sizzle.selectors.createPseudo((subSelector) => {
-            const matcher = Sizzle.compile(subSelector);
-            return (elem) => {
-                return !matcher(elem);
-            };
-        });
+    Sizzle.selectors.pseudos['not'] = Sizzle.selectors.createPseudo((subSelector) => {
+        const matcher = Sizzle.compile(subSelector);
+        return (elem) => {
+            return !matcher(elem);
+        };
+    });
 }
 
 function createPseudos_1() {
@@ -24,11 +23,10 @@ function createPseudos_1() {
     (($) => {
         function icontains(elem: HTMLElement, text: string) {
             return (
-                    elem.textContent ||
-                    elem.innerText ||
-                    $(elem).text() ||
-                    ''
-                ).toLowerCase().indexOf((text || '').toLowerCase()) > -1;
+                (elem.textContent || elem.innerText || $(elem).text() || '')
+                    .toLowerCase()
+                    .indexOf((text || '').toLowerCase()) > -1
+            );
         }
 
         // $.expr.pseudos.icontains = $.expr.createPseudo(function(text) {

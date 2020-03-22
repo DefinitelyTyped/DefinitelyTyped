@@ -4,29 +4,29 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PEG {
-	function parse(input:string):any;
+    function parse(input: string): any;
 
-	interface Location {
-		line: number;
-		column: number;
-		offset: number;
-	}
+    interface Location {
+        line: number;
+        column: number;
+        offset: number;
+    }
 
-	interface LocationRange {
-		start: Location,
-		end: Location
-	}
+    interface LocationRange {
+        start: Location;
+        end: Location;
+    }
 
-	class SyntaxError {
-		line: number;
-		column: number;
-		offset: number;
-		location: LocationRange;
-		expected:any[];
-		found:any;
-		name:string;
-		message:string;
-	}
+    class SyntaxError {
+        line: number;
+        column: number;
+        offset: number;
+        location: LocationRange;
+        expected: any[];
+        found: any;
+        name: string;
+        message: string;
+    }
 }
 
 export type Location = PEG.Location;
@@ -57,7 +57,7 @@ export interface ParserOptions {
 }
 
 export interface Parser {
-    parse(input: string, options?:ParserOptions): any;
+    parse(input: string, options?: ParserOptions): any;
 
     SyntaxError: any;
 }
@@ -68,52 +68,52 @@ export interface BuildOptionsBase {
     /** if `true`, makes the parser cache results, avoiding exponential parsing time in pathological cases but making the parser slower (default: `false`) */
     cache?: boolean;
     /** selects between optimizing the generated parser for parsing speed (`"speed"`) or code size (`"size"`) (default: `"speed"`) */
-    optimize?: "speed" | "size";
+    optimize?: 'speed' | 'size';
     /** plugins to use */
     plugins?: any[];
     /** makes the parser trace its progress (default: `false`) */
-    trace?: boolean
+    trace?: boolean;
 }
 
 export interface ParserBuildOptions extends BuildOptionsBase {
     /** if set to `"parser"`, the method will return generated parser object; if set to `"source"`, it will return parser source code as a string (default: `"parser"`) */
-    output?: "parser"
+    output?: 'parser';
 }
 
 export interface OutputFormatAmdCommonjs extends BuildOptionsBase {
     /** if set to `"parser"`, the method will return generated parser object; if set to `"source"`, it will return parser source code as a string (default: `"parser"`) */
-    output: "source";
+    output: 'source';
     /** format of the genreated parser (`"amd"`, `"bare"`, `"commonjs"`, `"globals"`, or `"umd"`); valid only when `output` is set to `"source"` (default: `"bare"`) */
-    format: "amd" | "commonjs";
+    format: 'amd' | 'commonjs';
     /** parser dependencies, the value is an object which maps variables used to access the dependencies in the parser to module IDs used to load them; valid only when `format` is set to `"amd"`, `"commonjs"`, or `"umd"` (default: `{}`) */
-    dependencies?: any
+    dependencies?: any;
 }
 
 export interface OutputFormatUmd extends BuildOptionsBase {
     /** if set to `"parser"`, the method will return generated parser object; if set to `"source"`, it will return parser source code as a string (default: `"parser"`) */
-    output: "source";
+    output: 'source';
     /** format of the genreated parser (`"amd"`, `"bare"`, `"commonjs"`, `"globals"`, or `"umd"`); valid only when `output` is set to `"source"` (default: `"bare"`) */
-    format: "umd";
+    format: 'umd';
     /** parser dependencies, the value is an object which maps variables used to access the dependencies in the parser to module IDs used to load them; valid only when `format` is set to `"amd"`, `"commonjs"`, or `"umd"` (default: `{}`) */
-    dependencies?: any
+    dependencies?: any;
     /** name of a global variable into which the parser object is assigned to when no module loader is detected; valid only when `format` is set to `"globals"` or `"umd"` (default: `null`) */
-    exportVar?: any
+    exportVar?: any;
 }
 
 export interface OutputFormatGlobals extends BuildOptionsBase {
     /** if set to `"parser"`, the method will return generated parser object; if set to `"source"`, it will return parser source code as a string (default: `"parser"`) */
-    output: "source";
+    output: 'source';
     /** format of the genreated parser (`"amd"`, `"bare"`, `"commonjs"`, `"globals"`, or `"umd"`); valid only when `output` is set to `"source"` (default: `"bare"`) */
-    format: "globals";
+    format: 'globals';
     /** name of a global variable into which the parser object is assigned to when no module loader is detected; valid only when `format` is set to `"globals"` or `"umd"` (default: `null`) */
-    exportVar?: any
+    exportVar?: any;
 }
 
 export interface OutputFormatBare extends BuildOptionsBase {
     /** if set to `"parser"`, the method will return generated parser object; if set to `"source"`, it will return parser source code as a string (default: `"parser"`) */
-    output: "source";
+    output: 'source';
     /** format of the genreated parser (`"amd"`, `"bare"`, `"commonjs"`, `"globals"`, or `"umd"`); valid only when `output` is set to `"source"` (default: `"bare"`) */
-    format?: "bare"
+    format?: 'bare';
 }
 
 /** Returns a generated parser object. It will throw an exception if the grammar is invalid. The exception will contain `message` property with more details about the error. */
@@ -132,4 +132,3 @@ export namespace parser {
     var SyntaxError: any;
 }
 export as namespace PEG;
-

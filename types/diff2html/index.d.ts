@@ -5,7 +5,6 @@
 // TypeScript Version: 2.2
 
 declare namespace Diff2Html {
-
     export interface Options {
         inputFormat?: 'diff' | 'json';
         outputFormat?: 'line-by-line' | 'side-by-side';
@@ -65,7 +64,7 @@ declare namespace Diff2Html {
     }
 }
 
-declare module "diff2html" {
-    var d2h: { "Diff2Html": Diff2Html.Diff2Html };
+declare module 'diff2html' {
+    var d2h: { Diff2Html: Diff2Html.Diff2Html };
     export = d2h;
 }

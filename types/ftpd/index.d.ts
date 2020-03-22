@@ -5,19 +5,17 @@
 
 /// <reference types="node" />
 
-
-
-import events = require("events");
-import fs = require("fs");
-import net = require("net");
-import tls = require("tls");
+import events = require('events');
+import fs = require('fs');
+import net = require('net');
+import tls = require('tls');
 
 export const enum LogLevel {
     ERROR = 0,
     WARN = 1,
     INFO = 2,
     DEBUG = 3,
-    TRACE = 4
+    TRACE = 4,
 }
 
 /**
@@ -97,7 +95,6 @@ export interface FtpServerOptions {
      * Integer from 0-4 representing the Log Level to show.
      */
     logLevel?: LogLevel;
-
 }
 
 /**
@@ -124,19 +121,30 @@ export declare class FtpConnection extends events.EventEmitter {
     pbszReceived: boolean;
 }
 
-
 /**
  * Optional mock fs implementation to set in the command:pass event of FtpConnection
  */
 export interface FtpFileSystem {
     unlink: (path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     readdir: (path: string, callback?: (err?: NodeJS.ErrnoException, files?: string[]) => void) => void;
-    mkdir: ((path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void)
-    | ((path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void) => void)
-    | ((path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void) => void);
-    open: ((path: string, flags: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
-    | ((path: string, flags: string, mode: number, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
-    | ((path: string, flags: string, mode: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void);
+    mkdir:
+        | ((path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void)
+        | ((path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void) => void)
+        | ((path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void) => void);
+    open:
+        | ((path: string, flags: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
+        | ((
+              path: string,
+              flags: string,
+              mode: number,
+              callback?: (err?: NodeJS.ErrnoException, fd?: number) => any,
+          ) => void)
+        | ((
+              path: string,
+              flags: string,
+              mode: string,
+              callback?: (err?: NodeJS.ErrnoException, fd?: number) => any,
+          ) => void);
     close: (fd: number, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     rmdir: (path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     rename: (oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
@@ -147,37 +155,60 @@ export interface FtpFileSystem {
     /**
      * if useReadFile option is not set or is false
      */
-    createReadStream?: (path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        fd?: string;
-        mode?: string;
-        bufferSize?: number;
-    }) => fs.ReadStream;
+    createReadStream?: (
+        path: string,
+        options?: {
+            flags?: string;
+            encoding?: string;
+            fd?: string;
+            mode?: string;
+            bufferSize?: number;
+        },
+    ) => fs.ReadStream;
     /**
      * if useWriteFile option is not set or is false
      */
-    createWriteStream?: (path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        string?: string;
-    }) => fs.WriteStream;
+    createWriteStream?: (
+        path: string,
+        options?: {
+            flags?: string;
+            encoding?: string;
+            string?: string;
+        },
+    ) => fs.WriteStream;
     /**
      * if useReadFile option is set to 'true'
      */
     readFile?:
-    ((filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void) => void)
-    | ((filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void) => void)
-    | ((filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void)
-    | ((filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void);
+        | ((filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void) => void)
+        | ((
+              filename: string,
+              options: { encoding: string; flag?: string },
+              callback: (err: NodeJS.ErrnoException, data: string) => void,
+          ) => void)
+        | ((
+              filename: string,
+              options: { flag?: string },
+              callback: (err: NodeJS.ErrnoException, data: Buffer) => void,
+          ) => void)
+        | ((filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void);
     /**
      * if useWriteFile option is set to 'true'
      */
     writeFile?:
-    ((filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void) => void)
-    | ((filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void) => void)
-    | ((filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void) => void);
-
+        | ((filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void) => void)
+        | ((
+              filename: string,
+              data: any,
+              options: { encoding?: string; mode?: number; flag?: string },
+              callback?: (err: NodeJS.ErrnoException) => void,
+          ) => void)
+        | ((
+              filename: string,
+              data: any,
+              options: { encoding?: string; mode?: string; flag?: string },
+              callback?: (err: NodeJS.ErrnoException) => void,
+          ) => void);
 }
 
 /**
@@ -189,7 +220,6 @@ export interface FtpFileSystem {
  * @event client:connected  (connection: FtpConnection)
  */
 export declare class FtpServer extends events.EventEmitter {
-
     /**
      * @param host host is a string representation of the IP address clients use to connect to the FTP server.
      *             It's imperative that this actually reflects the remote IP the clients use to access the server,

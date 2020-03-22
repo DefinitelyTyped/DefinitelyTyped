@@ -82,7 +82,7 @@ declare namespace AMap {
             handler: (this: C, event: any) => void,
             context?: C,
             once?: boolean,
-            unshift?: boolean
+            unshift?: boolean,
         ): any; // should be void
         /**
          * 移除事件绑定
@@ -90,10 +90,6 @@ declare namespace AMap {
          * @param handler 事件功能函数
          * @param context 事件上下文
          */
-        off<C = this>(
-            eventName: string,
-            handler: ((this: C, event: any) => void) | 'mv',
-            context?: C
-        ): any; // should be void
+        off<C = this>(eventName: string, handler: ((this: C, event: any) => void) | 'mv', context?: C): any; // should be void
     }
 }

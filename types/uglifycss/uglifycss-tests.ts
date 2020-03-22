@@ -6,12 +6,12 @@ var test2 = UglifyCSS.processString('some css string', {
     maxLineLen: 0,
     expandVars: true,
     uglyComments: true,
-    cuteComments: true
+    cuteComments: true,
 });
 
 var test3 = UglifyCSS.processFiles(['/path/to/file']);
 
 var test4 = UglifyCSS.processFiles(['/path/to/file'], {
     maxLineLen: 0,
-    cuteComments: true
+    cuteComments: true,
 });

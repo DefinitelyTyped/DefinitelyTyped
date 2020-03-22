@@ -8,7 +8,7 @@ export interface AsyncFindStream {
      * Handling errors in asynchronous interfaces.
      * @param callback The callback that is called upon an error
      */
-    error(callback: (() => void)  | ((err: Error) => void)): void;
+    error(callback: (() => void) | ((err: Error) => void)): void;
 }
 
 export interface FindEachStream {

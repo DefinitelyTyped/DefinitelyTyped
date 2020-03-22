@@ -12,12 +12,12 @@ $(document).ready(() => {
         skip_invisible: true,
         appear: (elementsLeft: number, settings: JQueryLazyLoad.Options) => {
             console.log(elementsLeft);
-        }
+        },
     };
     $('.lazyload').lazyload(options);
 
     // event on load
     $('.lazyload').on('load', () => {
-        $("img.lazy").trigger("click");
+        $('img.lazy').trigger('click');
     });
 });

@@ -5,5 +5,5 @@ const map = L.map('map', {
     zoom: 13,
 });
 
-const panControl = L.control.pan({position: 'topright'});
+const panControl = L.control.pan({ position: 'topright' });
 map.addControl(panControl);

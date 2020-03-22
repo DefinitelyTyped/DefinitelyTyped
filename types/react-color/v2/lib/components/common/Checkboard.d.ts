@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { RenderersProps } from "../../..";
+import { Component } from 'react';
+import { RenderersProps } from '../../..';
 export interface CheckboardProps extends RenderersProps {
     white?: string;
     grey?: string;

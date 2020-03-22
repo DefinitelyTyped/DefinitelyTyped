@@ -9,7 +9,7 @@ function AppWithNoopHook() {
 }
 
 function AppWithDialogBoxHook() {
-    useBeforeunload(event => event.preventDefault());
+    useBeforeunload((event) => event.preventDefault());
 
     return <h1>AppWithDialogBoxHook</h1>;
 }
@@ -21,7 +21,7 @@ function AppWithCustomMessageHook() {
 }
 
 function AppWithDialogBoxComponent() {
-    return <Beforeunload onBeforeunload={event => event.preventDefault()} />;
+    return <Beforeunload onBeforeunload={(event) => event.preventDefault()} />;
 }
 
 function AppWithCustomMessageComponent() {
@@ -30,7 +30,7 @@ function AppWithCustomMessageComponent() {
 
 function AppWithDialogBoxWithChildrenComponent() {
     return (
-        <Beforeunload onBeforeunload={event => event.preventDefault()}>
+        <Beforeunload onBeforeunload={(event) => event.preventDefault()}>
             <h1>AppWithCustomMessageHook</h1>
         </Beforeunload>
     );

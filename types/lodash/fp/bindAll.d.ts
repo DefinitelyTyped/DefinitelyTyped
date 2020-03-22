@@ -1,2 +1,2 @@
-import { bindAll } from "../fp";
+import { bindAll } from '../fp';
 export = bindAll;

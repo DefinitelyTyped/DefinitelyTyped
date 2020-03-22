@@ -1,2 +1,2 @@
-import { invokeMap } from "./index";
+import { invokeMap } from './index';
 export = invokeMap;

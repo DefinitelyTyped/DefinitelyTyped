@@ -4,8 +4,7 @@
 };
 
 () => {
-    const v1: CSSVariableReferenceValue = new CSSVariableReferenceValue(
-        'v1', new CSSUnparsedValue([]));
+    const v1: CSSVariableReferenceValue = new CSSVariableReferenceValue('v1', new CSSUnparsedValue([]));
     const vVariable: string = v1.variable;
     v1.variable = 'v3';
     const vFalback: CSSUnparsedValue | undefined = v1.fallback;

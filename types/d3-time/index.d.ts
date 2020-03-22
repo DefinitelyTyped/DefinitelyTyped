@@ -174,10 +174,7 @@ export interface CountableTimeInterval extends TimeInterval {
  * @param offset An offset function which takes a date and an integer step as arguments and advances
  * the specified date by the specified number of boundaries; the step may be positive, negative or zero.
  */
-export function timeInterval(
-    floor: (date: Date) => void,
-    offset: (date: Date, step: number) => void,
-): TimeInterval;
+export function timeInterval(floor: (date: Date) => void, offset: (date: Date, step: number) => void): TimeInterval;
 /**
  * Constructs a new custom interval given the specified floor, offset and count functions.
  *
@@ -202,7 +199,7 @@ export function timeInterval(
     floor: (date: Date) => void,
     offset: (date: Date, step: number) => void,
     count: (start: Date, end: Date) => number,
-    field?: (date: Date) => number
+    field?: (date: Date) => number,
 ): CountableTimeInterval;
 
 // ---------------------------------------------------------------

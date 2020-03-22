@@ -11,7 +11,9 @@
  * @returns {{ command: string, argv: string[] }}
  * @throws `INVALID_COMMAND` - user supplied a command not specified in `commands`.
  */
-declare function commandLineCommands(commands: (string | null)[], argv?: string[]): { command: string | null, argv: string[] };
+declare function commandLineCommands(
+    commands: (string | null)[],
+    argv?: string[],
+): { command: string | null; argv: string[] };
 
 export = commandLineCommands;
-

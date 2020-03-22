@@ -1,19 +1,15 @@
-import * as LicenseFile from "nodejs-license-file";
+import * as LicenseFile from 'nodejs-license-file';
 
-const template: string = [
-    "====BEGIN LICENSE====",
-    "{{&name}}",
-    "{{&id}}",
-    "{{&serial}}",
-    "=====END LICENSE=====",
-].join("\n");
+const template: string = ['====BEGIN LICENSE====', '{{&name}}', '{{&id}}', '{{&serial}}', '=====END LICENSE====='].join(
+    '\n',
+);
 
 const generateOpts: LicenseFile.GenerateOptions = {
-    privateKeyPath: "private_key.pem",
+    privateKeyPath: 'private_key.pem',
     template,
     data: {
-        name: "John Doe",
-        id: "123456789",
+        name: 'John Doe',
+        id: '123456789',
     },
 };
 
@@ -21,8 +17,8 @@ const generateOpts: LicenseFile.GenerateOptions = {
 const licenseString: string = LicenseFile.generate(generateOpts);
 
 const parseOpts: LicenseFile.ParseOptions = {
-    publicKeyPath: "public_key.pem",
-    licenseFilePath: "license",
+    publicKeyPath: 'public_key.pem',
+    licenseFilePath: 'license',
     template,
 };
 /** Parsed license obj */

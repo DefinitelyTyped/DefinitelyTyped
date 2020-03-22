@@ -1,21 +1,14 @@
-import Koa = require("koa");
-import bouncer = require("koa-bouncer");
+import Koa = require('koa');
+import bouncer = require('koa-bouncer');
 
 const app = new Koa();
 
 app.use(bouncer.middleware());
 
-app.use(async ctx => {
-    ctx.validateBody('uname')
-        .required('Username required')
-        .isString()
-        .trim();
+app.use(async (ctx) => {
+    ctx.validateBody('uname').required('Username required').isString().trim();
 
-    ctx.validateBody('email')
-        .optional()
-        .isString()
-        .trim()
-        .isEmail('Invalid email format');
+    ctx.validateBody('email').optional().isString().trim().isEmail('Invalid email format');
 
     ctx.validateBody('password1')
         .required('Password required')

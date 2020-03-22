@@ -12,7 +12,7 @@ const inCollection = <T = any>(collection: { Item(index: any): T }, index: strin
     let item: T | undefined;
     try {
         item = collection.Item(index);
-    } catch (error) { }
+    } catch (error) {}
     return item;
 };
 
@@ -49,7 +49,9 @@ const replaceWorksheet = () => {
     const mySheetName = 'Sheet4';
     app.DisplayAlerts = false;
     let mySheet = inCollection<Excel.Worksheet>(app.Worksheets, mySheetName);
-    if (mySheet) { mySheet.Delete(); }
+    if (mySheet) {
+        mySheet.Delete();
+    }
     app.DisplayAlerts = true;
     mySheet = app.Worksheets.Add() as Excel.Worksheet;
     mySheet.Name = mySheetName;
@@ -68,7 +70,9 @@ const sortSheetsTabName = () => {
         const sheetI = sheets(i);
         for (let j = i; j < sheetCount; j += 1) {
             const sheetJ = sheets(j);
-            if (sheetJ.Name < sheetI.Name) { sheetJ.Move(sheetI); }
+            if (sheetJ.Name < sheetI.Name) {
+                sheetJ.Move(sheetI);
+            }
         }
     }
     app.ScreenUpdating = true;
@@ -81,7 +85,7 @@ const fillCellsFromAbove = () => {
     try {
         columnA.SpecialCells(Excel.XlCellType.xlCellTypeBlanks).Formula = '=R[-1]C';
         columnA.Value = columnA.Value;
-    } catch (error) { }
+    } catch (error) {}
     app.ScreenUpdating = true;
 };
 
@@ -89,13 +93,17 @@ const fillCellsFromAbove = () => {
 const setColumnVisibility = (visible: boolean) => {
     const book = app.Workbooks(1);
     const sheet = inCollection<Excel.Worksheet | Excel.Chart | Excel.DialogSheet>(book.Worksheets, 'Sheet1');
-    if (!sheet) { return; }
+    if (!sheet) {
+        return;
+    }
 
     // search the four columns for any constants
     const checkWithin = (sheet as Excel.Worksheet).Range('A1:D1').SpecialCells(Excel.XlCellType.xlCellTypeConstants);
 
     let find = checkWithin.Find('X');
-    if (!find) { return; }
+    if (!find) {
+        return;
+    }
     const address = find.Address();
 
     // hide the column, and then find the next X
@@ -110,7 +118,7 @@ const setColumnVisibility = (visible: boolean) => {
     const wks = app.ActiveSheet as Excel.Worksheet;
 
     // highlight active cell
-    ActiveXObject.on(wks, 'SelectionChange', ['Target'], function(this: Excel.Worksheet, prm) {
+    ActiveXObject.on(wks, 'SelectionChange', ['Target'], function (this: Excel.Worksheet, prm) {
         app.ScreenUpdating = false;
         // clear the color of all the cells
         this.Cells.Interior.ColorIndex = 0;
@@ -120,8 +128,10 @@ const setColumnVisibility = (visible: boolean) => {
     });
 
     // highlight entire row and column that contain active cell
-    ActiveXObject.on(wks, 'SelectionChange', ['Target'], function(this: Excel.Worksheet, prm) {
-        if (prm.Target.Cells.Count > 1) { return; }
+    ActiveXObject.on(wks, 'SelectionChange', ['Target'], function (this: Excel.Worksheet, prm) {
+        if (prm.Target.Cells.Count > 1) {
+            return;
+        }
         app.ScreenUpdating = false;
         // clear the color of all the cells in the row and column of the active cell
         this.Cells.Interior.ColorIndex = 0;
@@ -219,21 +229,21 @@ const setColumnVisibility = (visible: boolean) => {
     wks.Select();
 
     // select a cell
-    wks.Range("A1").Select();
+    wks.Range('A1').Select();
     app.ActiveCell.Font.Bold = true;
 
     // activate a cell; only a single cell can be active at any given time
-    wks.Range("B1").Activate();
+    wks.Range('B1').Activate();
 
     // working with 3-D ranges -- https://msdn.microsoft.com/en-us/vba/excel-vba/articles/working-with-3-d-ranges
-    app.Sheets(toSafeArray("Sheet2", "Sheet3", "Sheet4")).Select();
-    app.Range("A1:H1").Select();
+    app.Sheets(toSafeArray('Sheet2', 'Sheet3', 'Sheet4')).Select();
+    app.Range('A1:H1').Select();
     (app.Selection as Excel.Range).Borders(Excel.XlBordersIndex.xlEdgeBottom).LineStyle = Excel.XlLineStyle.xlDouble;
 
     // alternatively, use FillAcrossSheets to fill formatting and data across sheets
     const book = app.ActiveWorkbook;
-    const wks2 = book.Worksheets("Sheet2");
-    const rng = wks2.Range("A1:H1");
+    const wks2 = book.Worksheets('Sheet2');
+    const rng = wks2.Range('A1:H1');
     rng.Borders(Excel.XlBordersIndex.xlEdgeBottom).LineStyle = Excel.XlLineStyle.xlDouble;
     book.Sheets.FillAcrossSheets(rng);
 }
@@ -242,15 +252,17 @@ const setColumnVisibility = (visible: boolean) => {
 {
     const book = app.Workbooks(1);
 
-    ActiveXObject.on(book, 'SheetChange', ['Sh', 'Target'], function(this, prm) {
-        const EvalRange = (this.ActiveSheet as Excel.Worksheet).Range("A1:B20");
+    ActiveXObject.on(book, 'SheetChange', ['Sh', 'Target'], function (this, prm) {
+        const EvalRange = (this.ActiveSheet as Excel.Worksheet).Range('A1:B20');
 
         // If the cell where the value was entered is not in the defined range, if the value pasted is larger than a single cell, or if no value was entered in the cell, then exit the macro
         if (
-            (app.Intersect(prm.Target, EvalRange) == null) ||
-            (prm.Target.Cells.Count > 1)
+            app.Intersect(prm.Target, EvalRange) == null ||
+            prm.Target.Cells.Count > 1
             // VBA has a function called IsEmpty; not sure what the equivalent is in Javascript
-        ) { return; }
+        ) {
+            return;
+        }
 
         // If the value entered already exists in the defined range on the current worksheet, undo and exit
         if (app.WorksheetFunction.CountIf(EvalRange, prm.Target.Value()) > 1) {
@@ -265,10 +277,14 @@ const setColumnVisibility = (visible: boolean) => {
         enumerator.moveFirst();
         while (!enumerator.atEnd()) {
             const wks = enumerator.item();
-            if (wks.Name === prm.Target.Name) { continue; }
+            if (wks.Name === prm.Target.Name) {
+                continue;
+            }
 
             // If the value entered already exists in the defined range on the current worksheet, undo the entry.
-            if (app.WorksheetFunction.CountIf(wks.Range('A1:B20'), prm.Target.Value()) === 0) { continue; }
+            if (app.WorksheetFunction.CountIf(wks.Range('A1:B20'), prm.Target.Value()) === 0) {
+                continue;
+            }
 
             app.EnableEvents = false;
             app.Undo();
@@ -282,10 +298,10 @@ const setColumnVisibility = (visible: boolean) => {
     {
         // using the AdvancedFilter property
         const book = app.ThisWorkbook;
-        const sheet = book.Worksheets("Sheet1");
-        const dataRange = sheet.Range('A1', sheet.Range("A100").End(Excel.XlDirection.xlUp));
+        const sheet = book.Worksheets('Sheet1');
+        const dataRange = sheet.Range('A1', sheet.Range('A100').End(Excel.XlDirection.xlUp));
         dataRange.AdvancedFilter(Excel.XlFilterAction.xlFilterCopy, undefined, sheet.Range('L1'), true);
-        const data = sheet.Range("L2", sheet.Range('L100').End(Excel.XlDirection.xlUp)).Value() as SafeArray;
+        const data = sheet.Range('L2', sheet.Range('L100').End(Excel.XlDirection.xlUp)).Value() as SafeArray;
         sheet.Range('L1', sheet.Range('L100').End(Excel.XlDirection.xlUp)).ClearContents();
 
         const combobox = sheet.OLEObjects('ComboBox1').Object as MSForms.ComboBox;

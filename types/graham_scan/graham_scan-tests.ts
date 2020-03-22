@@ -1,4 +1,4 @@
-import ConvexHullGrahamScan = require("graham_scan");
+import ConvexHullGrahamScan = require('graham_scan');
 
 // Based on the README.MD
 

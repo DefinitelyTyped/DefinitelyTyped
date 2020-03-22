@@ -1,32 +1,22 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type PopperPlacement =
-    | "bottom-start"
-    | "bottom"
-    | "bottom-end"
-    | "left-start"
-    | "left"
-    | "left-end"
-    | "right-start"
-    | "right"
-    | "right-end"
-    | "top-start"
-    | "top"
-    | "top-end";
+    | 'bottom-start'
+    | 'bottom'
+    | 'bottom-end'
+    | 'left-start'
+    | 'left'
+    | 'left-end'
+    | 'right-start'
+    | 'right'
+    | 'right-end'
+    | 'top-start'
+    | 'top'
+    | 'top-end';
 
-export type PopoverTypes =
-    | true
-    | "dialog"
-    | "grid"
-    | "listbox"
-    | "menu"
-    | "tree";
+export type PopoverTypes = true | 'dialog' | 'grid' | 'listbox' | 'menu' | 'tree';
 
-export type PopperSizingTypes =
-    | 'none'
-    | "matchTarget"
-    | "minTarget"
-    | "maxTarget";
+export type PopperSizingTypes = 'none' | 'matchTarget' | 'minTarget' | 'maxTarget';
 
 export type PopoverProps = {
     body: React.ReactNode;

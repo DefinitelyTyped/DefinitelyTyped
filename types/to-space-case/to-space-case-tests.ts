@@ -1,3 +1,3 @@
-import toSpaceCase = require("to-space-case");
+import toSpaceCase = require('to-space-case');
 
-toSpaceCase("some text"); // $ExpectType string
+toSpaceCase('some text'); // $ExpectType string

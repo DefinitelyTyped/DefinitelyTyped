@@ -19,7 +19,7 @@ export enum State {
     LOADING = 'loading',
     BUFFERING = 'buffering',
     PAUSED = 'paused',
-    PLAYING = 'playing'
+    PLAYING = 'playing',
 }
 
 export enum PlayerDataEventType {

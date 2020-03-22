@@ -3,11 +3,11 @@ import VueSelect from 'vue-select';
 
 const options = [
     {
-        name: 'SomeName'
+        name: 'SomeName',
     },
     {
-        name: 'SomeName2'
-    }
+        name: 'SomeName2',
+    },
 ];
 
 new Vue({
@@ -17,7 +17,7 @@ new Vue({
         value: null,
     },
     components: {
-        'vue-select': VueSelect
+        'vue-select': VueSelect,
     },
     methods: {
         getOptionLabel(option: any) {
@@ -26,15 +26,12 @@ new Vue({
             }
             return '';
         },
-        optionConsumer(option: any) {
-        },
+        optionConsumer(option: any) {},
         optionToOption(option: any) {
             return option;
         },
-        onValChange(val: any) {
-        },
-        onVoidTab() {
-        },
+        onValChange(val: any) {},
+        onVoidTab() {},
         onSearch(search: string, loading: (b: boolean) => void) {
             loading(true);
         },
@@ -43,7 +40,7 @@ new Vue({
         },
         optionsFilter(options: any[], search: string) {
             return true;
-        }
+        },
     },
     template: `
     <vue-select :filterable="false"
@@ -79,5 +76,5 @@ new Vue({
                 @search="onSearch"
                 @input="optionConsumer">
     </vue-select>
-`
+`,
 });

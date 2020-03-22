@@ -26,11 +26,10 @@ declare namespace humanparser {
     }
 
     interface HumanparserStatic {
-        parseName (name: string): NameOutput;
-        getFullestName (name: string): FullerNameOutput;
-        parseAddress (address: string): AddressOutput;
+        parseName(name: string): NameOutput;
+        getFullestName(name: string): FullerNameOutput;
+        parseAddress(address: string): AddressOutput;
     }
-
 }
 
 declare const humanparser: humanparser.HumanparserStatic;

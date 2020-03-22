@@ -1,7 +1,7 @@
 import chownr = require('chownr');
 import { URL } from 'url';
 
-chownr('', 1, 1, err => {
+chownr('', 1, 1, (err) => {
     err; // $ExpectType ErrnoException
 });
 chownr(new Buffer(''), 1, 1, () => {});

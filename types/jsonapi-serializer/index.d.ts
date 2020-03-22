@@ -47,14 +47,14 @@ export interface Transform {
 export interface DeserializerOptions {
     id?: string;
     keyForAttribute?:
-        | "dash-case"
-        | "lisp-case"
-        | "spinal-case"
-        | "kebab-case"
-        | "underscore_case"
-        | "snake_case"
-        | "camelCase"
-        | "CamelCase"
+        | 'dash-case'
+        | 'lisp-case'
+        | 'spinal-case'
+        | 'kebab-case'
+        | 'underscore_case'
+        | 'snake_case'
+        | 'camelCase'
+        | 'CamelCase'
         | KeyForAttribute;
     pluralizeType?: boolean;
     typeAsAttribute?: boolean;

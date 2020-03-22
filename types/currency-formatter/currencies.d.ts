@@ -1,2 +1,2 @@
-import { currencies } from "./index";
+import { currencies } from './index';
 export = currencies;

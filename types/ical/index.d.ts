@@ -61,4 +61,8 @@ export interface FullCalendar {
 
 export function parseICS(icsData: string): FullCalendar;
 export function parseFile(filename: string): FullCalendar;
-export function fromURL(url: string, options: request.CoreOptions, callback: (error: any, data: FullCalendar) => void): void;
+export function fromURL(
+    url: string,
+    options: request.CoreOptions,
+    callback: (error: any, data: FullCalendar) => void,
+): void;

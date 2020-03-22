@@ -3,9 +3,21 @@
 declare namespace adone {
     namespace I {
         namespace datetime {
-            type RelativeTimeKey = "s" | "m" | "mm" | "h" | "hh" | "d" | "dd" | "M" | "MM" | "y" | "yy";
-            type CalendarKey = "sameDay" | "nextDay" | "lastDay" | "nextWeek" | "lastWeek" | "sameElse";
-            type LongDateFormatKey = "LTS" | "LT" | "L" | "LL" | "LLL" | "LLLL" | "lts" | "lt" | "l" | "ll" | "lll" | "llll";
+            type RelativeTimeKey = 's' | 'm' | 'mm' | 'h' | 'hh' | 'd' | 'dd' | 'M' | 'MM' | 'y' | 'yy';
+            type CalendarKey = 'sameDay' | 'nextDay' | 'lastDay' | 'nextWeek' | 'lastWeek' | 'sameElse';
+            type LongDateFormatKey =
+                | 'LTS'
+                | 'LT'
+                | 'L'
+                | 'LL'
+                | 'LLL'
+                | 'LLLL'
+                | 'lts'
+                | 'lt'
+                | 'l'
+                | 'll'
+                | 'lll'
+                | 'llll';
 
             interface Locale {
                 calendar(key?: CalendarKey, m?: Datetime, now?: Datetime): string;
@@ -71,10 +83,9 @@ declare namespace adone {
                 [x: string]: CalendarSpecVal | undefined;
             }
 
-            type RelativeTimeSpecVal = (
-                string |
-                ((n: number, withoutSuffix: boolean, key: RelativeTimeKey, isFuture: boolean) => string)
-            );
+            type RelativeTimeSpecVal =
+                | string
+                | ((n: number, withoutSuffix: boolean, key: RelativeTimeKey, isFuture: boolean) => string);
             type RelativeTimeFuturePastVal = string | ((relTime: string) => string);
 
             interface RelativeTimeSpec {
@@ -319,20 +330,35 @@ declare namespace adone {
             type DatetimeFormatSpecification = string | string[];
 
             namespace unitOfTime {
-                type Base = (
-                    "year" | "years" | "y" |
-                    "month" | "months" | "M" |
-                    "week" | "weeks" | "w" |
-                    "day" | "days" | "d" |
-                    "hour" | "hours" | "h" |
-                    "minute" | "minutes" | "m" |
-                    "second" | "seconds" | "s" |
-                    "millisecond" | "milliseconds" | "ms"
-                );
+                type Base =
+                    | 'year'
+                    | 'years'
+                    | 'y'
+                    | 'month'
+                    | 'months'
+                    | 'M'
+                    | 'week'
+                    | 'weeks'
+                    | 'w'
+                    | 'day'
+                    | 'days'
+                    | 'd'
+                    | 'hour'
+                    | 'hours'
+                    | 'h'
+                    | 'minute'
+                    | 'minutes'
+                    | 'm'
+                    | 'second'
+                    | 'seconds'
+                    | 's'
+                    | 'millisecond'
+                    | 'milliseconds'
+                    | 'ms';
 
-                type _quarter = "quarter" | "quarters" | "Q";
-                type _isoWeek = "isoWeek" | "isoWeeks" | "W";
-                type _date = "date" | "dates" | "D";
+                type _quarter = 'quarter' | 'quarters' | 'Q';
+                type _isoWeek = 'isoWeek' | 'isoWeeks' | 'W';
+                type _date = 'date' | 'dates' | 'D';
                 type DurationConstructor = Base | _quarter;
 
                 type DurationAs = Base;
@@ -343,12 +369,26 @@ declare namespace adone {
 
                 type DatetimeConstructor = Base | _date;
 
-                type All = Base | _quarter | _isoWeek | _date |
-                    "weekYear" | "weekYears" | "gg" |
-                    "isoWeekYear" | "isoWeekYears" | "GG" |
-                    "dayOfYear" | "dayOfYears" | "DDD" |
-                    "weekday" | "weekdays" | "e" |
-                    "isoWeekday" | "isoWeekdays" | "E";
+                type All =
+                    | Base
+                    | _quarter
+                    | _isoWeek
+                    | _date
+                    | 'weekYear'
+                    | 'weekYears'
+                    | 'gg'
+                    | 'isoWeekYear'
+                    | 'isoWeekYears'
+                    | 'GG'
+                    | 'dayOfYear'
+                    | 'dayOfYears'
+                    | 'DDD'
+                    | 'weekday'
+                    | 'weekdays'
+                    | 'e'
+                    | 'isoWeekday'
+                    | 'isoWeekdays'
+                    | 'E';
             }
 
             interface DatetimeInputObject {
@@ -612,7 +652,15 @@ declare namespace adone {
                 to: DatetimeInput;
             }
 
-            type DatetimeInput = string | number | Array<number | string> | DatetimeInputObject | Datetime | Date | null | undefined;
+            type DatetimeInput =
+                | string
+                | number
+                | Array<number | string>
+                | DatetimeInputObject
+                | Datetime
+                | Date
+                | null
+                | undefined;
             type DurationInputArg1 = Duration | number | string | FromTo | DurationInputObject | null | undefined;
             type DurationInputArg2 = unitOfTime.DurationConstructor;
             type LocaleSpecifier = string | Datetime | Duration | string[] | boolean;
@@ -1170,7 +1218,12 @@ declare namespace adone {
                  * Check if a datetime is between two other datetimes, optionally looking at unit scale (minutes, hours, days, etc).
                  * The match is exclusive.
                  */
-                isBetween(a: DatetimeInput, b: DatetimeInput, granularity?: unitOfTime.StartOf, inclusivity?: "()" | "[)" | "(]" | "[]"): boolean;
+                isBetween(
+                    a: DatetimeInput,
+                    b: DatetimeInput,
+                    granularity?: unitOfTime.StartOf,
+                    inclusivity?: '()' | '[)' | '(]' | '[]',
+                ): boolean;
 
                 /**
                  * Returns the using locale
@@ -1215,13 +1268,23 @@ declare namespace adone {
 
             interface DatetimeFunction {
                 (inp?: DatetimeInput, format?: DatetimeFormatSpecification, strict?: boolean): Datetime;
-                (inp?: DatetimeInput, format?: DatetimeFormatSpecification, language?: string, strict?: boolean): Datetime;
+                (
+                    inp?: DatetimeInput,
+                    format?: DatetimeFormatSpecification,
+                    language?: string,
+                    strict?: boolean,
+                ): Datetime;
 
                 /**
                  * Creates a datetime in UTC
                  */
                 utc(inp?: DatetimeInput, format?: DatetimeFormatSpecification, strict?: boolean): Datetime;
-                utc(inp?: DatetimeInput, format?: DatetimeFormatSpecification, language?: string, strict?: boolean): Datetime;
+                utc(
+                    inp?: DatetimeInput,
+                    format?: DatetimeFormatSpecification,
+                    language?: string,
+                    strict?: boolean,
+                ): Datetime;
 
                 /**
                  * Creates a datetime from the given UNIX timestamp
@@ -1269,7 +1332,12 @@ declare namespace adone {
                 duration(inp?: DurationInputArg1, unit?: DurationInputArg2): Duration;
 
                 parseZone(inp?: DatetimeInput, format?: DatetimeFormatSpecification, strict?: boolean): Datetime;
-                parseZone(inp?: DatetimeInput, format?: DatetimeFormatSpecification, language?: string, strict?: boolean): Datetime;
+                parseZone(
+                    inp?: DatetimeInput,
+                    format?: DatetimeFormatSpecification,
+                    language?: string,
+                    strict?: boolean,
+                ): Datetime;
 
                 /**
                  * Returns the months of the current locale

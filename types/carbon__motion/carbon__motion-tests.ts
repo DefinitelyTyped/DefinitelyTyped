@@ -1,4 +1,4 @@
-import { easings, motion } from "@carbon/motion";
+import { easings, motion } from '@carbon/motion';
 
 const easingNames = Object.keys(easings);
 

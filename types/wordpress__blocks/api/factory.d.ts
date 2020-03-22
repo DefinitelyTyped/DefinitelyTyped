@@ -11,7 +11,7 @@ import { Block, BlockInstance, Transform } from '../';
 export function cloneBlock<T extends Record<string, any>>(
     block: BlockInstance<T>,
     mergeAttributes?: Partial<T>,
-    newInnerBlocks?: BlockInstance[]
+    newInnerBlocks?: BlockInstance[],
 ): BlockInstance<T>;
 
 /**
@@ -24,7 +24,7 @@ export function cloneBlock<T extends Record<string, any>>(
 export function createBlock<T extends Record<string, any>>(
     name: string,
     attributes?: Partial<T>,
-    innerBlocks?: BlockInstance[]
+    innerBlocks?: BlockInstance[],
 ): BlockInstance<T>;
 
 /**
@@ -41,7 +41,7 @@ export function createBlock<T extends Record<string, any>>(
  */
 export function findTransform<T extends Transform, U extends Record<string, any> = Record<string, any>>(
     transforms: T[],
-    predicate: (transform: T) => boolean
+    predicate: (transform: T) => boolean,
 ): Transform<U> | null; // tslint:disable-line:no-unnecessary-generics
 
 /**
@@ -55,7 +55,7 @@ export function findTransform<T extends Transform, U extends Record<string, any>
  */
 export function getBlockTransforms<T extends Record<string, any> = Record<string, any>>(
     direction: 'to' | 'from',
-    blockTypeOrName?: string | Block
+    blockTypeOrName?: string | Block,
 ): Array<Transform<T> & { blockName: string }>; // tslint:disable-line:no-unnecessary-generics
 
 /**

@@ -1,4 +1,4 @@
-import { Theme } from "./Theme";
+import { Theme } from './Theme';
 
 /**
  * Represents a collection of themes.

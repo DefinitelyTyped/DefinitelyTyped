@@ -60,9 +60,9 @@ declare namespace Vorpal {
         allowUnknownOptions(): this;
     }
 
-    class Catch extends Command { }
+    class Catch extends Command {}
 
-    class Extension { }
+    class Extension {}
 
     class UI {
         delimiter(text?: string): string;

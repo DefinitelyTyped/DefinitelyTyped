@@ -44,8 +44,8 @@ const optionsArray: FaviconsWebpackPlugin.Options[] = [
     // "Handling Multiple HTML Files" example from documentation
     {
         logo: 'logo.svg',
-        inject: htmlPlugin => htmlPlugin.options.filename === 'a.html',
+        inject: (htmlPlugin) => htmlPlugin.options.filename === 'a.html',
     },
 ];
 
-const plugins: FaviconsWebpackPlugin[] = optionsArray.map(options => new FaviconsWebpackPlugin(options));
+const plugins: FaviconsWebpackPlugin[] = optionsArray.map((options) => new FaviconsWebpackPlugin(options));

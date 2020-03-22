@@ -1,4 +1,4 @@
-import { SelectProps, PluralProps } from "./select";
+import { SelectProps, PluralProps } from './select';
 
 // In flowtype, MessageOptions is declared as exact type
 export interface MessageOptions {
@@ -14,11 +14,11 @@ export interface MessageDescriptor {
 }
 
 export interface LanguageData {
-    plurals?: (n: number, pluralType?: "cardinal" | "ordinal") => string;
+    plurals?: (n: number, pluralType?: 'cardinal' | 'ordinal') => string;
 }
 
 export interface Messages {
-    [key: string]: string | ((context: (name: string, type?: string, format?: any) => string) => (string | string[]));
+    [key: string]: string | ((context: (name: string, type?: string, format?: any) => string) => string | string[]);
 }
 
 export interface Catalog {
@@ -71,7 +71,7 @@ export class I18n {
     _(id: string, values?: object, messageOptions?: MessageOptions): string;
     _(id: MessageDescriptor): string;
 
-    pluralForm(n: number, pluralType?: "cardinal" | "ordinal"): string;
+    pluralForm(n: number, pluralType?: 'cardinal' | 'ordinal'): string;
 }
 
 export function setupI18n(params?: setupI18nProps): I18n;

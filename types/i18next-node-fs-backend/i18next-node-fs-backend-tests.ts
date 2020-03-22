@@ -1,17 +1,17 @@
-import i18next from "i18next";
-import * as Backend from "i18next-node-fs-backend";
+import i18next from 'i18next';
+import * as Backend from 'i18next-node-fs-backend';
 
 var options = {
     backend: {
         // path where resources get loaded from
-        loadPath: "/locales/{{lng}}/{{ns}}.json",
+        loadPath: '/locales/{{lng}}/{{ns}}.json',
 
         // path to post missing resources
-        addPath: "/locales/{{lng}}/{{ns}}.missing.json",
+        addPath: '/locales/{{lng}}/{{ns}}.missing.json',
 
         // jsonIndent to use when storing json files
-        jsonIndent: 2
-    }
+        jsonIndent: 2,
+    },
 };
 
 i18next.use(Backend).init(options);
@@ -20,10 +20,10 @@ i18next.use(Backend).init({ backend: options.backend });
 var parseOptions = {
     backend: {
         // path where resources get loaded from
-        loadPath: "/locales/{{lng}}/{{ns}}.json",
+        loadPath: '/locales/{{lng}}/{{ns}}.json',
 
         // path to post missing resources
-        addPath: "/locales/{{lng}}/{{ns}}.missing.json",
+        addPath: '/locales/{{lng}}/{{ns}}.missing.json',
 
         // jsonIndent to use when storing json files
         jsonIndent: 2,
@@ -31,7 +31,7 @@ var parseOptions = {
         parse: (data: any) => {
             return data;
         },
-    }
+    },
 };
 
 i18next.use(Backend).init({ backend: parseOptions });

@@ -1,9 +1,9 @@
-import { ReactElement, ReactNode } from "react";
-import * as PropTypes from "prop-types";
+import { ReactElement, ReactNode } from 'react';
+import * as PropTypes from 'prop-types';
 
 declare const uniqueType: unique symbol;
 
-class TestClass { }
+class TestClass {}
 
 interface Props {
     any?: any;
@@ -19,10 +19,13 @@ interface Props {
     symbol: symbol;
     instanceOf: TestClass;
     oneOf: 'a' | 'b' | 'c';
-    oneOfType: string | boolean | {
-        foo?: string | null;
-        bar: number;
-    };
+    oneOfType:
+        | string
+        | boolean
+        | {
+              foo?: string | null;
+              bar: number;
+          };
     numberOrFalse: false | number;
     nodeOrRenderFn?: ReactNode | (() => ReactNode);
     arrayOf: boolean[];
@@ -42,13 +45,17 @@ interface Props {
 const innerProps = {
     foo: PropTypes.string.isRequired,
     bar: PropTypes.bool,
-    baz: PropTypes.any
+    baz: PropTypes.any,
 };
 
-const arrayOfTypes = [PropTypes.string, PropTypes.bool, PropTypes.shape({
-    foo: PropTypes.string,
-    bar: PropTypes.number.isRequired
-})];
+const arrayOfTypes = [
+    PropTypes.string,
+    PropTypes.bool,
+    PropTypes.shape({
+        foo: PropTypes.string,
+        bar: PropTypes.number.isRequired,
+    }),
+];
 type PropTypesMap = PropTypes.ValidationMap<Props>;
 
 // TS checking
@@ -72,7 +79,10 @@ const propTypes: PropTypesMap = {
     // Which widens the array literal of validators to just Array<Requireable<() => any>>
     // It's too risky to change ReactNode to exclude {} even though it's invalid, as it's required for children-as-function props to work
     // So we assert the explicit tuple type
-    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func] as [PropTypes.Requireable<ReactNode>, PropTypes.Requireable<() => any>]),
+    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func] as [
+        PropTypes.Requireable<ReactNode>,
+        PropTypes.Requireable<() => any>,
+    ]),
     arrayOf: PropTypes.arrayOf(PropTypes.bool.isRequired).isRequired,
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
@@ -80,7 +90,7 @@ const propTypes: PropTypesMap = {
     nullableNumber: (() => null) as PropTypes.Validator<number | null>,
     undefinableNumber: (() => null) as PropTypes.Validator<number | undefined>,
     customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
-    component: PropTypes.elementType.isRequired
+    component: PropTypes.elementType.isRequired,
 };
 
 // JS checking
@@ -101,7 +111,10 @@ const propTypesWithoutAnnotation = {
     oneOf: PropTypes.oneOf<'a' | 'b' | 'c'>(['a', 'b', 'c']).isRequired,
     oneOfType: PropTypes.oneOfType(arrayOfTypes).isRequired,
     numberOrFalse: PropTypes.oneOfType([PropTypes.oneOf<false>([false]), PropTypes.number]).isRequired,
-    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func] as [PropTypes.Requireable<ReactNode>, PropTypes.Requireable<() => any>]),
+    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func] as [
+        PropTypes.Requireable<ReactNode>,
+        PropTypes.Requireable<() => any>,
+    ]),
     arrayOf: PropTypes.arrayOf(PropTypes.bool.isRequired).isRequired,
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
@@ -109,7 +122,7 @@ const propTypesWithoutAnnotation = {
     nullableNumber: (() => null) as PropTypes.Validator<number | null>,
     undefinableNumber: (() => null) as PropTypes.Validator<number | undefined>,
     customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
-    component: PropTypes.elementType.isRequired
+    component: PropTypes.elementType.isRequired,
 };
 
 const partialPropTypes = {
@@ -120,14 +133,14 @@ const partialPropTypes = {
 };
 
 const outerPropTypes = {
-    props: PropTypes.shape(propTypes).isRequired
+    props: PropTypes.shape(propTypes).isRequired,
 };
 
 const outerPropTypesWithoutAnnotation = {
-    props: PropTypes.shape(propTypesWithoutAnnotation).isRequired
+    props: PropTypes.shape(propTypesWithoutAnnotation).isRequired,
 };
 
-type ExtractedArrayProps = PropTypes.InferType<(typeof arrayOfTypes)[number]>;
+type ExtractedArrayProps = PropTypes.InferType<typeof arrayOfTypes[number]>;
 
 type ExtractedInnerProps = PropTypes.InferProps<typeof innerProps>;
 
@@ -136,7 +149,9 @@ type ExtractedPropsFromOuterProps = PropTypes.InferProps<typeof outerPropTypes>[
 type ExtractedPartialProps = PropTypes.InferProps<typeof partialPropTypes>;
 
 type ExtractedPropsWithoutAnnotation = PropTypes.InferProps<typeof propTypesWithoutAnnotation>;
-type ExtractedPropsFromOuterPropsWithoutAnnotation = PropTypes.InferProps<typeof outerPropTypesWithoutAnnotation>['props'];
+type ExtractedPropsFromOuterPropsWithoutAnnotation = PropTypes.InferProps<
+    typeof outerPropTypesWithoutAnnotation
+>['props'];
 
 // $ExpectType true
 type ExtractPropsMatch = ExtractedProps extends ExtractedPropsWithoutAnnotation ? true : false;
@@ -147,9 +162,13 @@ type ExtractPropsMatch3 = ExtractedProps extends Props ? true : false;
 // $ExpectType true
 type ExtractPropsMatch4 = Props extends ExtractedPropsWithoutAnnotation ? true : false;
 // $ExpectType true
-type ExtractFromOuterPropsMatch = ExtractedPropsFromOuterProps extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
+type ExtractFromOuterPropsMatch = ExtractedPropsFromOuterProps extends ExtractedPropsFromOuterPropsWithoutAnnotation
+    ? true
+    : false;
 // $ExpectType true
-type ExtractFromOuterPropsMatch2 = ExtractedPropsFromOuterPropsWithoutAnnotation extends ExtractedPropsFromOuterProps ? true : false;
+type ExtractFromOuterPropsMatch2 = ExtractedPropsFromOuterPropsWithoutAnnotation extends ExtractedPropsFromOuterProps
+    ? true
+    : false;
 // $ExpectType true
 type ExtractFromOuterPropsMatch3 = ExtractedPropsFromOuterProps extends Props ? true : false;
 // $ExpectType true
@@ -162,29 +181,27 @@ PropTypes.checkPropTypes({ xs: PropTypes.array }, { xs: [] }, 'location', 'compo
 PropTypes.resetWarningCache();
 
 // This would be the type that JSX sees
-type Defaultize<T, D> =
-    & Pick<T, Exclude<keyof T, keyof D>>
-    & Partial<Pick<T, Extract<keyof T, keyof D>>>
-    & Partial<Pick<D, Exclude<keyof D, keyof T>>>;
+type Defaultize<T, D> = Pick<T, Exclude<keyof T, keyof D>> &
+    Partial<Pick<T, Extract<keyof T, keyof D>>> &
+    Partial<Pick<D, Exclude<keyof D, keyof T>>>;
 
 // This would be the type inside the component
-type Undefaultize<T, D> =
-    & Pick<T, Exclude<keyof T, keyof D>>
-    & { [K in Extract<keyof T, keyof D>]-?: Exclude<T[K], undefined>; }
-    & Required<Pick<D, Exclude<keyof D, keyof T>>>;
+type Undefaultize<T, D> = Pick<T, Exclude<keyof T, keyof D>> &
+    { [K in Extract<keyof T, keyof D>]-?: Exclude<T[K], undefined> } &
+    Required<Pick<D, Exclude<keyof D, keyof T>>>;
 
 const componentPropTypes = {
     fi: PropTypes.func.isRequired,
     foo: PropTypes.string,
     bar: PropTypes.number.isRequired,
     baz: PropTypes.bool,
-    bat: PropTypes.node
+    bat: PropTypes.node,
 };
 
 const componentDefaultProps = {
     fi: () => null,
     baz: false,
-    bat: ['This', 'is', 'a', 'string']
+    bat: ['This', 'is', 'a', 'string'],
 };
 
 type DefaultizedProps = Defaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>;
@@ -197,7 +214,9 @@ type DefaultizedPropsTest = {
     bar: number;
     baz?: boolean | null;
     bat?: ReactNode;
-} extends DefaultizedProps ? true : false;
+} extends DefaultizedProps
+    ? true
+    : false;
 // $ExpectType true
 type UndefaultizedPropsTest = {
     fi: (...args: any[]) => any;
@@ -205,4 +224,6 @@ type UndefaultizedPropsTest = {
     bar: number;
     baz: boolean;
     bat: Exclude<ReactNode, undefined>;
-} extends UndefaultizedProps ? true : false;
+} extends UndefaultizedProps
+    ? true
+    : false;

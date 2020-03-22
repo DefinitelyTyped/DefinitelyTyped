@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import { Component } from "vue/types/options";
+import { Component } from 'vue/types/options';
 
 declare namespace Datepicker {
     interface Shortcuts {
@@ -47,46 +47,51 @@ declare namespace Datepicker {
     }
 }
 
-declare const Datepicker: Component<any, any, any, {
-    type?: 'date'|'datetime'|'year'|'month'|'time'|'week';
-    range?: boolean;
-    format?: string;
-    valueType?: Datepicker.ValueType;
-    lang?: string | Datepicker.Lang;
-    clearable?: boolean;
-    confirm?: boolean;
-    editable?: boolean;
-    disabled?: boolean;
-    placeholder?: string;
-    appendToBody?: boolean;
-    defaultValue?: Date;
-    popupStyle?: (() => {});
-    shortcuts?: Datepicker.Shortcuts[];
-    timePickerOptions?: Datepicker.TimePickerOptions;
-    minuteStep?: number;
-    inputClass?: string;
-    inputAttr?: (() => {});
-    confirmText?: string;
-    rangeSeparator?: string;
-    disabledDate?: ((date: Date) => boolean);
-    disabledTime?: ((date: Date) => boolean);
-    inline?: boolean;
-    open?: boolean
-    popupClass?: string;
-    titleFormat?: string;
-    partialUpdate?: boolean;
-    showWeekNumber?: boolean
-    hourStep?: number;
-    secondStep?: number;
-    hourOptions?: number[];
-    minuteOptions?: number[];
-    secondOptions?: number[];
-    showHour?: boolean;
-    showMinute?: boolean;
-    showSecond?: boolean;
-    use12h?: boolean;
-    showTimeHeader?: boolean;
-    timeTitleFormat?: string;
-}>;
+declare const Datepicker: Component<
+    any,
+    any,
+    any,
+    {
+        type?: 'date' | 'datetime' | 'year' | 'month' | 'time' | 'week';
+        range?: boolean;
+        format?: string;
+        valueType?: Datepicker.ValueType;
+        lang?: string | Datepicker.Lang;
+        clearable?: boolean;
+        confirm?: boolean;
+        editable?: boolean;
+        disabled?: boolean;
+        placeholder?: string;
+        appendToBody?: boolean;
+        defaultValue?: Date;
+        popupStyle?: () => {};
+        shortcuts?: Datepicker.Shortcuts[];
+        timePickerOptions?: Datepicker.TimePickerOptions;
+        minuteStep?: number;
+        inputClass?: string;
+        inputAttr?: () => {};
+        confirmText?: string;
+        rangeSeparator?: string;
+        disabledDate?: (date: Date) => boolean;
+        disabledTime?: (date: Date) => boolean;
+        inline?: boolean;
+        open?: boolean;
+        popupClass?: string;
+        titleFormat?: string;
+        partialUpdate?: boolean;
+        showWeekNumber?: boolean;
+        hourStep?: number;
+        secondStep?: number;
+        hourOptions?: number[];
+        minuteOptions?: number[];
+        secondOptions?: number[];
+        showHour?: boolean;
+        showMinute?: boolean;
+        showSecond?: boolean;
+        use12h?: boolean;
+        showTimeHeader?: boolean;
+        timeTitleFormat?: string;
+    }
+>;
 
 export default Datepicker;

@@ -1,3 +1,3 @@
-import { RouteHandler } from "./types/RouteHandler";
+import { RouteHandler } from './types/RouteHandler';
 
 export function setCatchHandler(handler: RouteHandler): void;

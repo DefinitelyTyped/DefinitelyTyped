@@ -3,18 +3,18 @@ export namespace Enums {
         FALSE = 0,
         TRUE = 1,
         INT32 = 2,
-        string = 3
+        string = 3,
     }
 
     const enum DIRECTION {
         FETCH = 0,
-        PUSH = 1
+        PUSH = 1,
     }
 
     const enum FEATURE {
         THREADS = 1,
         HTTPS = 2,
-        SSH = 4
+        SSH = 4,
     }
 
     const enum IDXENTRY_EXTENDED_FLAG {
@@ -31,11 +31,11 @@ export namespace Enums {
         IDXENTRY_WT_REMOVE = 64,
         IDXENTRY_CONFLICTED = 128,
         IDXENTRY_UNPACKED = 256,
-        IDXENTRY_NEW_SKIP_WORKTREE = 512
+        IDXENTRY_NEW_SKIP_WORKTREE = 512,
     }
 
     const enum INDXENTRY_FLAG {
         IDXENTRY_EXTENDED = 16384,
-        IDXENTRY_VALID = 32768
+        IDXENTRY_VALID = 32768,
     }
 }

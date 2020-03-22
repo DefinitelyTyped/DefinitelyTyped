@@ -15,18 +15,22 @@ export interface LoadCallbackType {
     onError?: (error: jsmediatagsError) => void;
 }
 
-export type CharsetType =
-    "utf-16" |
-    "utf-16le" |
-    "utf-16be" |
-    "utf-8" |
-    "iso-8859-1";
+export type CharsetType = 'utf-16' | 'utf-16le' | 'utf-16be' | 'utf-8' | 'iso-8859-1';
 
 export interface ByteRange {
     offset: number; // negative offset is relative to the end of the file.
     length: number;
 }
-export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
+export type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
+    | Float64Array;
 
 export type DataType = number[] | TypedArray | string;
 
@@ -44,7 +48,7 @@ export type FrameReaderSignature = (
     length: number,
     data: MediaFileReader,
     flags?: any,
-    id3header?: TagHeader
+    id3header?: TagHeader,
 ) => any;
 
 export interface TagFrames {
@@ -126,12 +130,12 @@ export interface FrameType {
 }
 
 export type ShortcutNameType =
-    "title" |
-    "artist" |
-    "album" |
-    "year" |
-    "comment" |
-    "track" |
-    "genre" |
-    "picture" |
-    "lyrics";
+    | 'title'
+    | 'artist'
+    | 'album'
+    | 'year'
+    | 'comment'
+    | 'track'
+    | 'genre'
+    | 'picture'
+    | 'lyrics';

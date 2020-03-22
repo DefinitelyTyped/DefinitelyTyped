@@ -1,8 +1,8 @@
-import * as React from "react";
-import HamburgerMenu, { HamburgerMenuProps } from "react-hamburger-menu";
+import * as React from 'react';
+import HamburgerMenu, { HamburgerMenuProps } from 'react-hamburger-menu';
 
 export class ReactHamburgerMenuTest extends React.PureComponent<{}, State> {
-    state: State = {isOpen: false};
+    state: State = { isOpen: false };
 
     render(): JSX.Element {
         const props: HamburgerMenuProps = {
@@ -13,13 +13,13 @@ export class ReactHamburgerMenuTest extends React.PureComponent<{}, State> {
             strokeWidth: 1,
             rotate: 90,
             borderRadius: 5,
-            color: "red",
-            animationDuration: 0.5
+            color: 'red',
+            animationDuration: 0.5,
         };
-        return <HamburgerMenu {...props}/>;
+        return <HamburgerMenu {...props} />;
     }
 
-    private readonly menuClicked = (): void => this.setState({isOpen: !this.state.isOpen});
+    private readonly menuClicked = (): void => this.setState({ isOpen: !this.state.isOpen });
 }
 
 interface State {

@@ -34,10 +34,10 @@ export interface ImageTabs {
     iTXt?: ImageTabText;
     PLTE?: number[];
     hIST?: number[];
-    tRNS?: (number | number[]); // Depends on ctype
+    tRNS?: number | number[]; // Depends on ctype
     gAMA?: number;
     sRGB?: number;
-    bKGD?: (number | number[]); // Depends on ctype
+    bKGD?: number | number[]; // Depends on ctype
 }
 
 export interface Image {
@@ -57,13 +57,7 @@ export interface QuantizeResult {
     plte: any[];
 }
 
-export function encode(
-    imgs: ArrayBuffer[],
-    w: number,
-    h: number,
-    cnum: number,
-    dels?: number[]
-): ArrayBuffer;
+export function encode(imgs: ArrayBuffer[], w: number, h: number, cnum: number, dels?: number[]): ArrayBuffer;
 
 export function encodeLL(
     imgs: ArrayBuffer[],
@@ -72,7 +66,7 @@ export function encodeLL(
     cc: number,
     ac: number,
     depth: number,
-    dels?: number[]
+    dels?: number[],
 ): ArrayBuffer;
 
 export function decode(buffer: ArrayBuffer): Image;

@@ -6,5 +6,5 @@ import {
     wrapInList,
     splitListItem,
     liftListItem,
-    sinkListItem
+    sinkListItem,
 } from 'prosemirror-schema-list';

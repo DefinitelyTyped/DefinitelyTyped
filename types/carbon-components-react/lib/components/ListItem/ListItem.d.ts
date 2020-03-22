@@ -1,9 +1,9 @@
-import * as React from "react";
-import { ReactLIAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactLIAttr } from '../../../typings/shared';
 
-interface InheritedProps extends ReactLIAttr { }
+interface InheritedProps extends ReactLIAttr {}
 
-export interface ListItemProps extends InheritedProps { }
+export interface ListItemProps extends InheritedProps {}
 
 declare const ListItem: React.FC<ListItemProps>;
 

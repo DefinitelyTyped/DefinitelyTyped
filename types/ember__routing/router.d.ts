@@ -1,8 +1,8 @@
-import EmberObject from "@ember/object";
-import Evented from "@ember/object/evented";
-import RouterDSL from "@ember/routing/-private/router-dsl";
-import Transition from "@ember/routing/-private/transition";
-import RouterService from "@ember/routing/router-service";
+import EmberObject from '@ember/object';
+import Evented from '@ember/object/evented';
+import RouterDSL from '@ember/routing/-private/router-dsl';
+import Transition from '@ember/routing/-private/transition';
+import RouterService from '@ember/routing/router-service';
 
 /**
  * The `Ember.Router` class manages the application state and URLs. Refer to
@@ -46,6 +46,6 @@ export default class Router extends EmberObject.extend(Evented) {
 
 declare module '@ember/service' {
     interface Registry {
-        'router': RouterService;
+        router: RouterService;
     }
 }

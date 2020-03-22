@@ -8,8 +8,8 @@ let returnedValue: string;
 
 returnedValue = memoryCache.put(key, value);
 returnedValue = memoryCache.put(key, value, num);
-returnedValue = memoryCache.put(key, value, num, (key) => { });
-returnedValue = memoryCache.put(key, value, num, (key, value) => { });
+returnedValue = memoryCache.put(key, value, num, (key) => {});
+returnedValue = memoryCache.put(key, value, num, (key, value) => {});
 
 value = memoryCache.get(key);
 memoryCache.del(key);

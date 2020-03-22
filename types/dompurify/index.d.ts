@@ -12,20 +12,25 @@ declare const DOMPurify: createDOMPurifyI;
 
 interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
     (window?: Window): DOMPurify.DOMPurifyI;
-
 }
 
 declare namespace DOMPurify {
     interface DOMPurifyI {
         sanitize(source: string | Node): string;
-        sanitize(source: string | Node, config: Config & { RETURN_TRUSTED_TYPE: true, }): TrustedHTML;
-        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT?: false, RETURN_DOM?: false, }): string;
-        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT: true, }): DocumentFragment;
-        sanitize(source: string | Node, config: Config & { RETURN_DOM: true, }): HTMLElement;
+        sanitize(source: string | Node, config: Config & { RETURN_TRUSTED_TYPE: true }): TrustedHTML;
+        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT?: false; RETURN_DOM?: false }): string;
+        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT: true }): DocumentFragment;
+        sanitize(source: string | Node, config: Config & { RETURN_DOM: true }): HTMLElement;
         sanitize(source: string | Node, config: Config): string | HTMLElement | DocumentFragment;
 
-        addHook(hook: 'uponSanitizeElement', cb: (currentNode: Element, data: SanitizeElementHookEvent, config: Config) => void): void;
-        addHook(hook: 'uponSanitizeAttribute', cb: (currentNode: Element, data: SanitizeAttributeHookEvent, config: Config) => void): void;
+        addHook(
+            hook: 'uponSanitizeElement',
+            cb: (currentNode: Element, data: SanitizeElementHookEvent, config: Config) => void,
+        ): void;
+        addHook(
+            hook: 'uponSanitizeAttribute',
+            cb: (currentNode: Element, data: SanitizeAttributeHookEvent, config: Config) => void,
+        ): void;
         addHook(hook: HookName, cb: (currentNode: Element, data: HookEvent, config: Config) => void): void;
 
         setConfig(cfg: Config): void;
@@ -61,12 +66,12 @@ declare namespace DOMPurify {
         ALLOWED_URI_REGEXP?: RegExp;
         SAFE_FOR_TEMPLATES?: boolean;
         ALLOW_UNKNOWN_PROTOCOLS?: boolean;
-        USE_PROFILES?: false | { mathMl?: boolean, svg?: boolean, svgFilters?: boolean, html?: boolean };
+        USE_PROFILES?: false | { mathMl?: boolean; svg?: boolean; svgFilters?: boolean; html?: boolean };
         IN_PLACE?: boolean;
     }
 
-    type HookName
-        = 'beforeSanitizeElements'
+    type HookName =
+        | 'beforeSanitizeElements'
         | 'uponSanitizeElement'
         | 'afterSanitizeElements'
         | 'beforeSanitizeAttributes'
@@ -76,10 +81,7 @@ declare namespace DOMPurify {
         | 'uponSanitizeShadowNode'
         | 'afterSanitizeShadowDOM';
 
-    type HookEvent
-        = SanitizeElementHookEvent
-        | SanitizeAttributeHookEvent
-        | null;
+    type HookEvent = SanitizeElementHookEvent | SanitizeAttributeHookEvent | null;
 
     interface SanitizeElementHookEvent {
         tagName: string;

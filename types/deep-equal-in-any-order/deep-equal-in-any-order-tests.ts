@@ -9,5 +9,5 @@ expect({ foo: [1, 2], bar: [4, 89, 22] }).to.deep.equalInAnyOrder({ foo: [2, 1],
 expect({ foo: ['foo-1', 'foo-2', [1, 2], null] }).to.deep.equalInAnyOrder({ foo: [null, [1, 2], 'foo-1', 'foo-2'] });
 expect({ foo: [1, 2], bar: { baz: ['a', 'b', { lorem: [5, 6] }] } }).to.deep.equalInAnyOrder({
     foo: [2, 1],
-    bar: { baz: ['b', 'a', { lorem: [6, 5] }] }
+    bar: { baz: ['b', 'a', { lorem: [6, 5] }] },
 });

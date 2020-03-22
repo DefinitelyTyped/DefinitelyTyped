@@ -17,7 +17,7 @@ c.rotate(90);
 
 c.setZoom(0.5);
 
-c.result({ type: 'blob' }).then(blob => {
+c.result({ type: 'blob' }).then((blob) => {
     let x: Blob;
     x = blob;
 });

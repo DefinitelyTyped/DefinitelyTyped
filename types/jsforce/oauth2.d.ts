@@ -30,12 +30,13 @@ export class OAuth2 {
     clientSecret: string;
     redirectUri: string;
 
-    getAuthorizationUrl(params: {
-        scope?: string,
-        state?: string
-    }): string;
+    getAuthorizationUrl(params: { scope?: string; state?: string }): string;
     refreshToken(code: string, callback?: (err: Error, tokenResponse: TokenResponse) => void): Promise<TokenResponse>;
     requestToken(code: string, callback?: (err: Error, tokenResponse: TokenResponse) => void): Promise<TokenResponse>;
-    authenticate(username: string, password: string, callback?: (err: Error, tokenResponse: TokenResponse) => void): Promise<TokenResponse>;
-    revokeToken(accessToken: string, callback?: (err: Error, ) => void): Promise<undefined>;
+    authenticate(
+        username: string,
+        password: string,
+        callback?: (err: Error, tokenResponse: TokenResponse) => void,
+    ): Promise<TokenResponse>;
+    revokeToken(accessToken: string, callback?: (err: Error) => void): Promise<undefined>;
 }

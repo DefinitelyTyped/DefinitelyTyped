@@ -100,7 +100,7 @@ function test_gif_rendering() {
     var HEIGHT = 28;
 
     var img = <HTMLCanvasElement>document.getElementById('animation');
-    var ctx = <CanvasRenderingContext2D>document.createElement('canvas').getContext("2d");
+    var ctx = <CanvasRenderingContext2D>document.createElement('canvas').getContext('2d');
     var canvas = <HTMLCanvasElement>document.getElementById('canvas-uncle');
 
     var stack: any[] = [];
@@ -115,7 +115,7 @@ function test_gif_rendering() {
         for (var y = HEIGHT - 1; y >= 0; y--) {
             for (var x = 0; x < WIDTH - 1; x++) {
                 var pixelColor = obelisk.CanvasTool.getPixel(imgData, x, y);
-                if (pixelColor !== 0xFFFFFF) {
+                if (pixelColor !== 0xffffff) {
                     var cube: obelisk.Cube;
                     var flag = false;
                     for (var i in stack) {
@@ -132,7 +132,7 @@ function test_gif_rendering() {
                         cube = new obelisk.Cube(dimension, color, false);
                         stack.push([cube, pixelColor]);
                     }
-                    var p3d = new obelisk.Point3D(x * (size - 2), 0, (HEIGHT - 1 - y) * (size));
+                    var p3d = new obelisk.Point3D(x * (size - 2), 0, (HEIGHT - 1 - y) * size);
                     pixelView.renderObject(cube, p3d);
                 }
             }

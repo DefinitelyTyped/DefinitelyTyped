@@ -31,13 +31,17 @@
 /// <reference types="ember__template" />
 
 import {
-    Objectify, Fix, UnwrapComputedPropertySetters,
+    Objectify,
+    Fix,
+    UnwrapComputedPropertySetters,
     UnwrapComputedPropertySetter,
     UnwrapComputedPropertyGetters,
     UnwrapComputedPropertyGetter,
-    EmberClassArguments, EmberClassConstructor, EmberInstanceArguments,
+    EmberClassArguments,
+    EmberClassConstructor,
+    EmberInstanceArguments,
     ComputedPropertyCallback,
-    ObserverMethod
+    ObserverMethod,
 } from '@ember/object/-private/types';
 
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
@@ -352,11 +356,8 @@ export namespace Ember {
          * callback in the last chained then.
          */
         function promise<T>(
-            resolver: (
-                resolve: (value?: T | PromiseLike<T>) => void,
-                reject: (reason?: any) => void
-            ) => void,
-            label?: string
+            resolver: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void,
+            label?: string,
         ): Promise<T>;
         /**
          * Replacement for `Ember.RSVP.resolve`
@@ -384,10 +385,7 @@ export namespace Ember {
         class QUnitAdapter extends EmberTestAdapter {}
         class Promise<T> extends Rsvp.Promise<T> {
             constructor(
-                executor: (
-                    resolve: (value?: T | PromiseLike<T>) => void,
-                    reject: (reason?: any) => void
-                ) => void
+                executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void,
             );
         }
     }
@@ -400,9 +398,7 @@ export namespace Ember {
          * Can only be used when defining another controller.
          */
         function controller(): ComputedProperty<Controller>;
-        function controller<K extends keyof ControllerRegistry>(
-            name: K
-        ): ComputedProperty<ControllerRegistry[K]>;
+        function controller<K extends keyof ControllerRegistry>(name: K): ComputedProperty<ControllerRegistry[K]>;
         const service: typeof EmberServiceNs.inject;
     }
     namespace ENV {

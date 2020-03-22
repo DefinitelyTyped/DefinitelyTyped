@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage, ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from 'http';
 
 export interface PermitOptions {
     scheme?: string;

@@ -4,63 +4,61 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-
-
-import * as sass from "node-sass";
-import * as express from "express";
+import * as sass from 'node-sass';
+import * as express from 'express';
 
 interface Options extends sass.Options {
     /**
-     * 
+     *
      */
     src: string;
     /**
-     * 
+     *
      */
     dest?: string;
     /**
-     * 
+     *
      */
     root?: string;
     /**
-     * 
+     *
      */
     prefix?: string;
     /**
-     * 
+     *
      */
     force?: boolean;
     /**
-     * 
+     *
      */
     debug?: boolean;
     /**
-     * 
+     *
      */
     indentedSyntax?: boolean;
     /**
-     * 
+     *
      */
     response?: boolean;
     /**
-     * 
+     *
      */
     error?: () => void;
 }
 
 /**
- * 
+ *
  *
  */
 
 declare function nodeSassMiddleware(options: Options): express.RequestHandler;
 
 /**
- * 
+ *
  */
-declare namespace nodeSassMiddleware { }
+declare namespace nodeSassMiddleware {}
 
 /**
- * 
+ *
  */
 export = nodeSassMiddleware;

@@ -17,7 +17,7 @@ export interface CreateAccountOptions {
     /**
      * one of 'caldav' or 'carddav'. Defaults to 'caldav'.
      */
-    accountType?: "caldav" | "carddav";
+    accountType?: 'caldav' | 'carddav';
 
     /**
      * list of caldav filters to send with request.
@@ -92,7 +92,10 @@ export interface CreateCalendarObjectOptions {
  * @param options
  * @returns a Promise which will be fulfilled when the calendar has been updated.
  */
-export function updateCalendarObject(calendarObject: CalendarObject, options: UpdateCalendarObjectOptions): Promise<CalendarObject>;
+export function updateCalendarObject(
+    calendarObject: CalendarObject,
+    options: UpdateCalendarObjectOptions,
+): Promise<CalendarObject>;
 
 export interface UpdateCalendarObjectOptions {
     /**
@@ -112,7 +115,10 @@ export interface UpdateCalendarObjectOptions {
  * @param options
  * @returns a Promise which will be fulfilled when the calendar has been deleted.
  */
-export function deleteCalendarObject(calendarObject: CalendarObject, options: DeleteCalendarObjectOptions): Promise<CalendarObject>;
+export function deleteCalendarObject(
+    calendarObject: CalendarObject,
+    options: DeleteCalendarObjectOptions,
+): Promise<CalendarObject>;
 
 export interface DeleteCalendarObjectOptions {
     /**
@@ -149,7 +155,7 @@ export interface SyncCalendarOptions {
      * either 'basic' or 'webdav'. If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: 'basic' | 'webdav';
 
     /**
      * VTIMEZONE calendar object.
@@ -185,7 +191,7 @@ export interface SyncCaldavAccountOptions {
      * either 'basic' or 'webdav'. If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: 'basic' | 'webdav';
 
     /**
      * VTIMEZONE calendar object.
@@ -281,7 +287,7 @@ export interface SyncAddressBookOptions {
      * either 'basic' or 'webdav'.If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: 'basic' | 'webdav';
 
     /**
      * request sender.
@@ -312,7 +318,7 @@ export interface SyncCarddavAccountOptions {
      * either 'basic' or 'webdav'. If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: 'basic' | 'webdav';
 
     /**
      * VTIMEZONE calendar object.
@@ -571,7 +577,10 @@ export class Client {
      * @param options
      * @returns a Promise which will be fulfilled when the calendar has been updated.
      */
-    updateCalendarObject(calendarObject: CalendarObject, options?: UpdateCalendarObjectOptions): Promise<CalendarObject>;
+    updateCalendarObject(
+        calendarObject: CalendarObject,
+        options?: UpdateCalendarObjectOptions,
+    ): Promise<CalendarObject>;
 
     /**
      * Delete the parameter calendar object on the server.
@@ -579,7 +588,10 @@ export class Client {
      * @param options
      * @returns a Promise which will be fulfilled when the calendar has been deleted.
      */
-    deleteCalendarObject(calendarObject: CalendarObject, options?: DeleteCalendarObjectOptions): Promise<CalendarObject>;
+    deleteCalendarObject(
+        calendarObject: CalendarObject,
+        options?: DeleteCalendarObjectOptions,
+    ): Promise<CalendarObject>;
 
     /**
      * Fetch changes from the remote server to the parameter calendar.

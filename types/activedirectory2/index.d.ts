@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 
-import { Filter } from "ldapjs";
+import { Filter } from 'ldapjs';
 
 interface ADProperties {
     url: string;
@@ -14,24 +14,34 @@ interface ADProperties {
     pageSize?: 1000;
     entryParser?: (entry: object, raw: string, cb: (entry: object) => void) => void;
     referrals?: {
-        enabled: false,
+        enabled: false;
         exclude: [
             'ldaps?://ForestDnsZones\\..*/.*',
             'ldaps?://DomainDnsZones\\..*/.*',
-            'ldaps?://.*/CN=Configuration,.*'
-        ]
+            'ldaps?://.*/CN=Configuration,.*',
+        ];
     };
     attributes?: {
         user: [
-            'dn', 'distinguishedName',
-            'userPrincipalName', 'sAMAccountName', 'mail',
-            'lockoutTime', 'whenCreated', 'pwdLastSet', 'userAccountControl',
-            'employeeID', 'sn', 'givenName', 'initials', 'cn', 'displayName',
-            'comment', 'description'
-        ],
-        group: [
-            'dn', 'cn', 'description', 'distinguishedName', 'objectCategory'
-        ]
+            'dn',
+            'distinguishedName',
+            'userPrincipalName',
+            'sAMAccountName',
+            'mail',
+            'lockoutTime',
+            'whenCreated',
+            'pwdLastSet',
+            'userAccountControl',
+            'employeeID',
+            'sn',
+            'givenName',
+            'initials',
+            'cn',
+            'displayName',
+            'comment',
+            'description',
+        ];
+        group: ['dn', 'cn', 'description', 'distinguishedName', 'objectCategory'];
     };
 }
 
@@ -52,7 +62,7 @@ interface LDAPjsReqProps {
     strictDN?: boolean;
 }
 
-type MembershipType = 'all'|'user'|'group';
+type MembershipType = 'all' | 'user' | 'group';
 
 interface ReqProps extends LDAPjsReqProps {
     baseDN?: string;
@@ -71,11 +81,7 @@ interface AttributeSpec {
     group: GroupAttributes[];
 }
 
-type GroupAttributes =
-    | 'distinguishedName'
-    | 'objectCategory'
-    | 'cn'
-    | 'description';
+type GroupAttributes = 'distinguishedName' | 'objectCategory' | 'cn' | 'description';
 
 type UserAttributes =
     | 'distinguishedName'
@@ -103,114 +109,49 @@ interface FindResult {
 
 declare class ActiveDirectory {
     constructor(props: ADProperties);
-    authenticate(
-        username: string,
-        password: string,
-        callback: (err: string, authenticated: boolean) => void
-    ): void;
-    isUserMemberOf(
-        username: string,
-        groupName: string,
-        callback: (err: object, res: boolean) => void
-    ): void;
+    authenticate(username: string, password: string, callback: (err: string, authenticated: boolean) => void): void;
+    isUserMemberOf(username: string, groupName: string, callback: (err: object, res: boolean) => void): void;
     isUserMemberOf(
         opts: ReqProps,
         username: string,
         groupName: string,
-        callback: (err: object, res: boolean) => void
+        callback: (err: object, res: boolean) => void,
     ): void;
     find(callback: (err: object, results: FindResult) => void): void;
-    find(
-        opts: string | ReqProps,
-        callback: (err: object, results: FindResult) => void
-    ): void;
+    find(opts: string | ReqProps, callback: (err: object, results: FindResult) => void): void;
     findDeletedObjects(callback: (err: object, results: object[]) => void): void;
-    findDeletedObjects(
-        opts: string | ReqProps,
-        callback: (err: object, results: object[]) => void
-    ): void;
-    findUser(
-        username: string,
-        callback: (err: object, user: object) => void
-    ): void;
-    findUser(
-        opts: string | ReqProps,
-        username: string,
-        callback: (err: object, user: object) => void
-    ): void;
+    findDeletedObjects(opts: string | ReqProps, callback: (err: object, results: object[]) => void): void;
+    findUser(username: string, callback: (err: object, user: object) => void): void;
+    findUser(opts: string | ReqProps, username: string, callback: (err: object, user: object) => void): void;
     findUsers(callback: (err: object, users: object[]) => void): void;
-    findUsers(
-        opts: string | ReqProps,
-        callback: (err: object, users: object[]) => void
-    ): void;
-    findGroup(
-        groupName: string,
-        callback: (err: object, group: object) => void
-    ): void;
-    findGroup(
-        opts: string | ReqProps,
-        groupName: string,
-        callback: (err: object, group: object) => void
-    ): void;
-    findGroups(
-        groupName: string,
-        callback: (err: object, groups: object[]) => void
-    ): void;
-    findGroups(
-        opts: string | ReqProps,
-        groupName: string,
-        callback: (err: object, groups: object[]) => void
-    ): void;
-    groupExists(
-        groupName: string,
-        callback: (err: object, res: boolean) => void
-    ): void;
-    groupExists(
-        opts: string | ReqProps,
-        groupName: string,
-        callback: (err: object, res: boolean) => void
-    ): void;
-    userExists(
-        username: string,
-        callback: (err: object, res: boolean) => void
-    ): void;
-    userExists(
-        opts: string | ReqProps,
-        username: string,
-        callback: (err: object, res: boolean) => void
-    ): void;
-    getGroupMembershipForGroup(
-        groupName: string,
-        callback: (err: object, groups: object[]) => void
-    ): void;
+    findUsers(opts: string | ReqProps, callback: (err: object, users: object[]) => void): void;
+    findGroup(groupName: string, callback: (err: object, group: object) => void): void;
+    findGroup(opts: string | ReqProps, groupName: string, callback: (err: object, group: object) => void): void;
+    findGroups(groupName: string, callback: (err: object, groups: object[]) => void): void;
+    findGroups(opts: string | ReqProps, groupName: string, callback: (err: object, groups: object[]) => void): void;
+    groupExists(groupName: string, callback: (err: object, res: boolean) => void): void;
+    groupExists(opts: string | ReqProps, groupName: string, callback: (err: object, res: boolean) => void): void;
+    userExists(username: string, callback: (err: object, res: boolean) => void): void;
+    userExists(opts: string | ReqProps, username: string, callback: (err: object, res: boolean) => void): void;
+    getGroupMembershipForGroup(groupName: string, callback: (err: object, groups: object[]) => void): void;
     getGroupMembershipForGroup(
         opts: string | ReqProps,
         groupName: string,
-        callback: (err: object, groups: object[]) => void
+        callback: (err: object, groups: object[]) => void,
     ): void;
-    getGroupMembershipForUser(
-        username: string,
-        callback: (err: object, groups: object[]) => void
-    ): void;
+    getGroupMembershipForUser(username: string, callback: (err: object, groups: object[]) => void): void;
     getGroupMembershipForUser(
         opts: string | ReqProps,
         username: string,
-        callback: (err: object, groups: object[]) => void
+        callback: (err: object, groups: object[]) => void,
     ): void;
-    getUsersForGroup(
-        groupName: string,
-        callback: (err: object, users: object[]) => void
-    ): void;
+    getUsersForGroup(groupName: string, callback: (err: object, users: object[]) => void): void;
     getUsersForGroup(
         opts: string | ReqProps,
         groupName: string,
-        callback: (err: object, users: object[]) => void
+        callback: (err: object, users: object[]) => void,
     ): void;
-    getRootDSE(
-        url: string,
-        attributes: string[],
-        callback: (err: object, result: object) => void
-    ): void;
+    getRootDSE(url: string, attributes: string[], callback: (err: object, result: object) => void): void;
 }
 
 export = ActiveDirectory;

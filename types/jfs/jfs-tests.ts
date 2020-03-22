@@ -5,7 +5,7 @@ interface TestStore {
     bar: number;
 }
 
-const db = new Store<TestStore>('data', {type: 'memory'});
+const db = new Store<TestStore>('data', { type: 'memory' });
 
 // save with custom ID
 db.save('bar', 123, (err, id) => {
@@ -36,7 +36,7 @@ db.all((err, objs) => {
 const objs = db.allSync();
 
 // delete by ID
-db.delete('foo', err => {
+db.delete('foo', (err) => {
     // the file data/myId.json was removed
 });
 

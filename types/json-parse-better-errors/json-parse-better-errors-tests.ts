@@ -1,11 +1,15 @@
-import parseJson = require("json-parse-better-errors");
+import parseJson = require('json-parse-better-errors');
 
 parseJson(`"hello"`);
 parseJson(`trash`);
-parseJson(`{ "a": {} }`, k => k.toLowerCase(), 20);
-parseJson(`{
+parseJson(`{ "a": {} }`, (k) => k.toLowerCase(), 20);
+parseJson(
+    `{
     "compilerOptions": {
 
     }
 }
-`, undefined, 40);
+`,
+    undefined,
+    40,
+);

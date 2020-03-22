@@ -38,11 +38,7 @@ export function getPerformance(): any;
  * accepting request and response params, and must return truthy to enable cache for the request.
  * Third param is the options that will override global ones and affect this middleware only.
  */
-export function middleware(
-  duration?: string | number,
-  toggleMiddleware?: any,
-  localOptions?: Options
-): any;
+export function middleware(duration?: string | number, toggleMiddleware?: any, localOptions?: Options): any;
 
 /**
  * used to create a new ApiCache instance (by default, simply requiring this library shares a common instance)
@@ -58,34 +54,34 @@ export function options(options: Options): any;
 export function resetIndex(): void;
 
 export interface Options {
-  /** if true, enables console output */
-  debug?: boolean;
-  /** should be either a number (in ms) or a string, defaults to 1 hour */
-  defaultDuration?: string;
-  /** if false, turns off caching globally (useful on dev) */
-  enabled?: boolean;
-  /**
-   * if provided, uses the [node-redis](https://github.com/NodeRedis/node_redis) client instead of [memory-cache](https://github.com/ptarjan/node-cache)
-   */
-  redisClient?: RedisClient;
-  /** appendKey takes the req/res objects and returns a custom value to extend the cache key */
-  appendKey?: any;
-  /** list of headers that should never be cached */
-  headerBlacklist?: string[];
-  statusCodes?: {
-    /** list status codes to specifically exclude (e.g. [404, 403] cache all responses unless they had a 404 or 403 status) */
-    exclude?: number[];
-    /** list status codes to require (e.g. [200] caches ONLY responses with a success/200 code) */
-    include?: number[];
-  };
-  /**
-   * 'cache-control':  'no-cache' // example of header overwrite
-   */
-  headers?: {
-    [key: string]: string;
-  };
-  /**
-   * enable/disable performance tracking... WARNING: super cool feature, but may cause memory overhead issues
-   */
-  trackPerformance?: boolean;
+    /** if true, enables console output */
+    debug?: boolean;
+    /** should be either a number (in ms) or a string, defaults to 1 hour */
+    defaultDuration?: string;
+    /** if false, turns off caching globally (useful on dev) */
+    enabled?: boolean;
+    /**
+     * if provided, uses the [node-redis](https://github.com/NodeRedis/node_redis) client instead of [memory-cache](https://github.com/ptarjan/node-cache)
+     */
+    redisClient?: RedisClient;
+    /** appendKey takes the req/res objects and returns a custom value to extend the cache key */
+    appendKey?: any;
+    /** list of headers that should never be cached */
+    headerBlacklist?: string[];
+    statusCodes?: {
+        /** list status codes to specifically exclude (e.g. [404, 403] cache all responses unless they had a 404 or 403 status) */
+        exclude?: number[];
+        /** list status codes to require (e.g. [200] caches ONLY responses with a success/200 code) */
+        include?: number[];
+    };
+    /**
+     * 'cache-control':  'no-cache' // example of header overwrite
+     */
+    headers?: {
+        [key: string]: string;
+    };
+    /**
+     * enable/disable performance tracking... WARNING: super cool feature, but may cause memory overhead issues
+     */
+    trackPerformance?: boolean;
 }

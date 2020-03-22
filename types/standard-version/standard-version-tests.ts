@@ -1,7 +1,7 @@
 /* tslint:disable:no-mergeable-namespace no-namespace */
-"use strict";
+'use strict';
 
-import standardVersion from "standard-version";
+import standardVersion from 'standard-version';
 
 namespace Module {
     declare const options: standardVersion.Options;

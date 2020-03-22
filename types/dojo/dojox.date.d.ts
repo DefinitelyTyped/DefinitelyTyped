@@ -3,12 +3,9 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     namespace date {
-        namespace timezone {
-        }
+        namespace timezone {}
 
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/date/buddhist.html
@@ -197,7 +194,13 @@ declare namespace dojox {
                  * @param locale               Optional
                  * @param date               Optional
                  */
-                getNames(item: String, type: String, context: String, locale: String, date: dojox.date.buddhist.Date): void;
+                getNames(
+                    item: String,
+                    type: String,
+                    context: String,
+                    locale: String,
+                    date: dojox.date.buddhist.Date,
+                ): void;
                 /**
                  * This function parses string date value according to options
                  *
@@ -474,7 +477,13 @@ declare namespace dojox {
                  * @param locale               Optionaloverride locale used to find the names
                  * @param date               Optionalrequired for item=months to determine leap month name
                  */
-                getNames(item: String, type: String, context: String, locale: String, date: dojox.date.hebrew.Date): void;
+                getNames(
+                    item: String,
+                    type: String,
+                    context: String,
+                    locale: String,
+                    date: dojox.date.hebrew.Date,
+                ): void;
                 /**
                  * This function parse string date value according to options
                  *
@@ -743,7 +752,13 @@ declare namespace dojox {
                  * @param locale               Optional
                  * @param date               Optional
                  */
-                getNames(item: String, type: String, context: String, locale: String, date: dojox.date.islamic.Date): any;
+                getNames(
+                    item: String,
+                    type: String,
+                    context: String,
+                    locale: String,
+                    date: dojox.date.islamic.Date,
+                ): any;
                 /**
                  * This function parse string date value according to options
                  *
@@ -814,7 +829,7 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "daysInMonth": any[];
+                'daysInMonth': any[];
                 /**
                  *
                  * @param year
@@ -1018,7 +1033,13 @@ declare namespace dojox {
                  * @param locale               Optional
                  * @param date               Optional
                  */
-                getNames(item: String, type: String, context: String, locale: String, date: dojox.date.persian.Date): any;
+                getNames(
+                    item: String,
+                    type: String,
+                    context: String,
+                    locale: String,
+                    date: dojox.date.persian.Date,
+                ): any;
                 /**
                  * This function parse string date value according to options
                  *
@@ -1241,7 +1262,13 @@ declare namespace dojox {
                  * @param locale               Optional
                  * @param date               Optional
                  */
-                getNames(item: String, type: String, context: String, locale: String, date: dojox.date.umalqura.Date): any;
+                getNames(
+                    item: String,
+                    type: String,
+                    context: String,
+                    locale: String,
+                    date: dojox.date.umalqura.Date,
+                ): any;
                 /**
                  * This function parse string date value according to options
                  *
@@ -1360,82 +1387,81 @@ declare namespace dojox {
             strftime(dateObject: Date, format: String, locale: String): void;
         }
     }
-
 }
 
-declare module "dojox/date/buddhist" {
-    var exp: dojox.date.buddhist
-    export=exp;
+declare module 'dojox/date/buddhist' {
+    var exp: dojox.date.buddhist;
+    export = exp;
 }
-declare module "dojox/date/buddhist/Date" {
-    var exp: dojox.date.buddhist.Date
-    export=exp;
+declare module 'dojox/date/buddhist/Date' {
+    var exp: dojox.date.buddhist.Date;
+    export = exp;
 }
-declare module "dojox/date/buddhist/locale" {
-    var exp: dojox.date.buddhist.locale
-    export=exp;
+declare module 'dojox/date/buddhist/locale' {
+    var exp: dojox.date.buddhist.locale;
+    export = exp;
 }
-declare module "dojox/date/hebrew" {
-    var exp: dojox.date.hebrew
-    export=exp;
+declare module 'dojox/date/hebrew' {
+    var exp: dojox.date.hebrew;
+    export = exp;
 }
-declare module "dojox/date/hebrew/Date" {
-    var exp: dojox.date.hebrew.Date
-    export=exp;
+declare module 'dojox/date/hebrew/Date' {
+    var exp: dojox.date.hebrew.Date;
+    export = exp;
 }
-declare module "dojox/date/hebrew/locale" {
-    var exp: dojox.date.hebrew.locale
-    export=exp;
+declare module 'dojox/date/hebrew/locale' {
+    var exp: dojox.date.hebrew.locale;
+    export = exp;
 }
-declare module "dojox/date/hebrew/numerals" {
-    var exp: dojox.date.hebrew.numerals
-    export=exp;
+declare module 'dojox/date/hebrew/numerals' {
+    var exp: dojox.date.hebrew.numerals;
+    export = exp;
 }
-declare module "dojox/date/islamic" {
-    var exp: dojox.date.islamic
-    export=exp;
+declare module 'dojox/date/islamic' {
+    var exp: dojox.date.islamic;
+    export = exp;
 }
-declare module "dojox/date/islamic/Date" {
-    var exp: dojox.date.islamic.Date
-    export=exp;
+declare module 'dojox/date/islamic/Date' {
+    var exp: dojox.date.islamic.Date;
+    export = exp;
 }
-declare module "dojox/date/islamic/locale" {
-    var exp: dojox.date.islamic.locale
-    export=exp;
+declare module 'dojox/date/islamic/locale' {
+    var exp: dojox.date.islamic.locale;
+    export = exp;
 }
-declare module "dojox/date/persian" {
-    var exp: dojox.date.persian
-    export=exp;
+declare module 'dojox/date/persian' {
+    var exp: dojox.date.persian;
+    export = exp;
 }
-declare module "dojox/date/persian/Date" {
-    var exp: dojox.date.persian.Date
-    export=exp;
+declare module 'dojox/date/persian/Date' {
+    var exp: dojox.date.persian.Date;
+    export = exp;
 }
-declare module "dojox/date/persian/locale" {
-    var exp: dojox.date.persian.locale
-    export=exp;
+declare module 'dojox/date/persian/locale' {
+    var exp: dojox.date.persian.locale;
+    export = exp;
 }
-declare module "dojox/date/umalqura" {
-    var exp: dojox.date.umalqura
-    export=exp;
+declare module 'dojox/date/umalqura' {
+    var exp: dojox.date.umalqura;
+    export = exp;
 }
-declare module "dojox/date/umalqura/Date" {
-    var exp: dojox.date.umalqura.Date
-    export=exp;
+declare module 'dojox/date/umalqura/Date' {
+    var exp: dojox.date.umalqura.Date;
+    export = exp;
 }
-declare module "dojox/date/umalqura/locale" {
-    var exp: dojox.date.umalqura.locale
-    export=exp;
+declare module 'dojox/date/umalqura/locale' {
+    var exp: dojox.date.umalqura.locale;
+    export = exp;
 }
-declare module "dojox/date/php" {
-    var exp: dojox.date.php
-    export=exp;
+declare module 'dojox/date/php' {
+    var exp: dojox.date.php;
+    export = exp;
 }
-declare module "dojox/date/posix" {
-    var exp: dojox.date.posix
-    export=exp;
+declare module 'dojox/date/posix' {
+    var exp: dojox.date.posix;
+    export = exp;
 }
-declare module "dojox/date/relative" {
-    var exp: dojox.date.relative
-    export=exp;
+declare module 'dojox/date/relative' {
+    var exp: dojox.date.relative;
+    export = exp;
 }

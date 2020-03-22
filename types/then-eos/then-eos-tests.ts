@@ -1,4 +1,4 @@
-import eos = require("then-eos");
+import eos = require('then-eos');
 
 declare const readable: NodeJS.ReadableStream;
 declare const writable: NodeJS.WritableStream;

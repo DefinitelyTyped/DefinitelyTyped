@@ -1,4 +1,4 @@
-import { Streaming, StreamingMessage } from "./streaming";
+import { Streaming, StreamingMessage } from './streaming';
 
 export class Topic {
     constructor(streaming: Streaming, name: string);

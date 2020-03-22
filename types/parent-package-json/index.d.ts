@@ -12,6 +12,6 @@ declare namespace ParentPackageJson {
     interface ParentPackage {
         read(): string;
         path: string;
-        parse(): {[key: string]: any};
+        parse(): { [key: string]: any };
     }
 }

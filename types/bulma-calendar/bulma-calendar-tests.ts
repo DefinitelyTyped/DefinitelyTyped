@@ -78,15 +78,15 @@ calendar.startTime = calendar.startTime;
 calendar.endTime = calendar.endTime;
 calendar.timeFormat = calendar.timeFormat;
 
-calendar.on('show', event => {
+calendar.on('show', (event) => {
     event.type === 'show';
 });
-calendar.on('hide', event => {
+calendar.on('hide', (event) => {
     event.type === 'hide';
 });
-calendar.on('select', event => {
+calendar.on('select', (event) => {
     event.type === 'select';
 });
-calendar.on('select:start', event => {
+calendar.on('select:start', (event) => {
     event.type === 'select:start';
 });

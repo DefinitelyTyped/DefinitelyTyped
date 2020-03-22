@@ -9,7 +9,7 @@ import {
     I18n,
     date,
     number,
-    i18nMark
+    i18nMark,
 } from '@lingui/core';
 
 const age = 12;
@@ -21,7 +21,7 @@ const descriptorBasicResult = i18n._({ id: 'basicDescriptor' });
 const descriptorResult = i18n._({
     id: 'ageDescriptor',
     defaults: '{age} years old',
-    values: { age }
+    values: { age },
 });
 
 const count = 42;
@@ -30,13 +30,13 @@ const pluralResult: string = i18n.plural({
     value: count,
     0: 'no books',
     one: '# book',
-    other: '# books'
+    other: '# books',
 });
 const pluralIdResult: string = i18n.plural('pluralId', {
     value: count,
     0: 'no books',
     one: '# book',
-    other: '# books'
+    other: '# books',
 });
 
 const selectOrdinalResult: string = i18n.selectOrdinal({
@@ -45,7 +45,7 @@ const selectOrdinalResult: string = i18n.selectOrdinal({
     one: '#st book',
     two: '#nd book',
     few: '#rd book',
-    other: '#th book'
+    other: '#th book',
 });
 const selectOrdinalIdResult: string = i18n.selectOrdinal('selectOrdinalId', {
     value: count,
@@ -53,7 +53,7 @@ const selectOrdinalIdResult: string = i18n.selectOrdinal('selectOrdinalId', {
     one: '#st book',
     two: '#nd book',
     few: '#rd book',
-    other: '#th book'
+    other: '#th book',
 });
 
 const gender = 'female';
@@ -68,29 +68,29 @@ const selectResult = i18n.select({
         0: i18n.t`${host} does not give a party.`,
         1: i18n.t`${host} invites ${guest} to her party.`,
         2: i18n.t`${host} invites ${guest} and one other person to her party.`,
-        other: i18n.t`${host} invites ${guest} and # other people to her party.`
+        other: i18n.t`${host} invites ${guest} and # other people to her party.`,
     }),
     male: 'male',
-    other: 'other'
+    other: 'other',
 });
 
 const selectIdResult = i18n.select('selectId', {
     value: gender,
     female: 'female',
     male: 'male',
-    other: 'other'
+    other: 'other',
 });
 
 const catalog: Catalog = {
     messages: {
         age(a) {
             return [a('age'), 'años de edad'];
-        }
-    }
+        },
+    },
 };
 
 function missingFn(language: string, id: string) {
-   return id;
+    return id;
 }
 
 const catalogs: Catalogs = { es: catalog };
@@ -98,7 +98,12 @@ const setupResult: I18n = setupI18n({ catalogs, language: 'es' });
 const setupResultLocales: I18n = setupI18n({ locales: ['en-UK', 'ar-AS'] });
 const setupResultMissingText: I18n = setupI18n({ missing: 'missing' });
 const setupResultMissingFn: I18n = setupI18n({ missing: missingFn });
-const setupResultCombined: I18n = setupI18n({ catalogs, language: 'de', locales: ['en-UK', 'ar-AS'], missing: missingFn });
+const setupResultCombined: I18n = setupI18n({
+    catalogs,
+    language: 'de',
+    locales: ['en-UK', 'ar-AS'],
+    missing: missingFn,
+});
 
 const formattedDate: string = date('en', { timeZone: 'UTC' })(new Date());
 const formattedNumber: string = number('en', { style: 'currency', currency: 'EUR' })(1234.56);

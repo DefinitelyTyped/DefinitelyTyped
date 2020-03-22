@@ -1,22 +1,38 @@
-import later = require("later");
+import later = require('later');
 
 function LaterTest_DefineSchedule() {
     // define a new schedule
     const textSched = later.parse.text('at 10:15am every weekday');
     const cronSched = later.parse.cron('0 0/5 14,18 * * ?');
     const recurSched = later.parse.recur().last().dayOfMonth();
-    const manualSched = <later.ScheduleData> { schedules: [ <later.Recurrence> { M: [ 3 ], D: [ 21 ] } ] };
+    const manualSched = <later.ScheduleData>{ schedules: [<later.Recurrence>{ M: [3], D: [21] }] };
 
     // this schedule will fire on the closest weekday to the 15th
     // every month at 2:00 am except in March
-    const complexSched = later.parse.recur()
-        .on(15).dayOfMonth().onWeekday().on(2).hour()
+    const complexSched = later.parse
+        .recur()
+        .on(15)
+        .dayOfMonth()
+        .onWeekday()
+        .on(2)
+        .hour()
         .and()
-        .on(14).dayOfMonth().on(6).dayOfWeek().on(2).hour()
+        .on(14)
+        .dayOfMonth()
+        .on(6)
+        .dayOfWeek()
+        .on(2)
+        .hour()
         .and()
-        .on(16).dayOfMonth().on(2).dayOfWeek().on(2).hour()
+        .on(16)
+        .dayOfMonth()
+        .on(2)
+        .dayOfWeek()
+        .on(2)
+        .hour()
         .except()
-        .on(3).month();
+        .on(3)
+        .month();
 }
 
 function LaterTest_ConfigureTimezone() {
@@ -409,7 +425,7 @@ function LaterTest_TimePeriods() {
     }
 
     function custom() {
-        const customLater = <PartOfDayLater> later;
+        const customLater = <PartOfDayLater>later;
 
         customLater.partOfDay = {
             name: 'part of day',
@@ -417,11 +433,7 @@ function LaterTest_TimePeriods() {
             range: later.hour.range * 6,
 
             val(d: Date): number {
-                return later.hour.val(d) < 12
-                    ? 0
-                    : later.hour.val(d) < 18
-                        ? 1
-                        : 2;
+                return later.hour.val(d) < 12 ? 0 : later.hour.val(d) < 18 ? 1 : 2;
             },
 
             isValid(d: Date, val: any) {
@@ -433,66 +445,42 @@ function LaterTest_TimePeriods() {
             },
 
             start(date: Date) {
-                const hour = customLater.partOfDay.val(date) === 0
-                    ? 0
-                    : customLater.partOfDay.val(date) === 1
-                        ? 12
-                        : 18;
+                const hour =
+                    customLater.partOfDay.val(date) === 0 ? 0 : customLater.partOfDay.val(date) === 1 ? 12 : 18;
 
-                return later.date.next(
-                    later.year.val(date),
-                    later.month.val(date),
-                    later.day.val(date),
-                    hour
-                );
+                return later.date.next(later.year.val(date), later.month.val(date), later.day.val(date), hour);
             },
 
             end(date: Date) {
-                const hour = customLater.partOfDay.val(date) === 0
-                    ? 11
-                    : customLater.partOfDay.val(date) === 1
-                        ? 5
-                        : 23;
+                const hour =
+                    customLater.partOfDay.val(date) === 0 ? 11 : customLater.partOfDay.val(date) === 1 ? 5 : 23;
 
-                return later.date.prev(
-                    later.year.val(date),
-                    later.month.val(date),
-                    later.day.val(date),
-                    hour
-                );
+                return later.date.prev(later.year.val(date), later.month.val(date), later.day.val(date), hour);
             },
 
             next(date: Date, val: any) {
-                const hour = val === 0
-                    ? 0
-                    : val === 1
-                        ? 12
-                        : 18;
+                const hour = val === 0 ? 0 : val === 1 ? 12 : 18;
 
                 return later.date.next(
                     later.year.val(date),
                     later.month.val(date),
                     // increment the day if we already passed the desired time period
                     later.day.val(date) + (hour < later.hour.val(date) ? 1 : 0),
-                    hour
+                    hour,
                 );
             },
 
             prev(date: Date, val: any) {
-                const hour = val === 0
-                    ? 11
-                    : val === 1
-                        ? 5
-                        : 23;
+                const hour = val === 0 ? 11 : val === 1 ? 5 : 23;
 
                 return later.date.prev(
                     later.year.val(date),
                     later.month.val(date),
                     // decrement the day if we already passed the desired time period
                     later.day.val(date) + (hour > later.hour.val(date) ? -1 : 0),
-                    hour
+                    hour,
                 );
-            }
+            },
         };
     }
 }
@@ -570,20 +558,33 @@ function LaterTest_GenerateRecurences() {
     function and_method() {
         // fires every 2 hours on the first day of every month
         // and 8:00am and 8:00pm on the last day of every month
-        const sched = later.parse.recur()
-            .every(2).hour().first().dayOfMonth()
+        const sched = later.parse
+            .recur()
+            .every(2)
+            .hour()
+            .first()
+            .dayOfMonth()
             .and()
-            .on(8, 20).hour().last().dayOfMonth();
+            .on(8, 20)
+            .hour()
+            .last()
+            .dayOfMonth();
     }
 
     function except_method() {
         // fires every minute of every hour except on multiples of 2 and 3
-        const sched = later.parse.recur()
-            .every().minute()
+        const sched = later.parse
+            .recur()
+            .every()
+            .minute()
             .except()
-            .every(2).minute().between(2, 59)
+            .every(2)
+            .minute()
+            .between(2, 59)
             .and()
-            .every(3).minute().between(3, 59);
+            .every(3)
+            .minute()
+            .between(3, 59);
     }
 }
 
@@ -594,12 +595,12 @@ function LaterTest_CalculateOccurences() {
     // calculate the next 10 occurrences of a recur schedule
     const recurSched = later.parse.recur().last().dayOfMonth();
 
-    next = <Date[]> later.schedule(recurSched).next(10);
+    next = <Date[]>later.schedule(recurSched).next(10);
 
     // calculate the previous occurrence starting from March 21, 2013
     const cronSched = later.parse.cron('0 0/5 14,18 * * ?');
 
-    next = <Date[]> later.schedule(cronSched).prev(1, new Date(2013, 2, 21));
+    next = <Date[]>later.schedule(cronSched).prev(1, new Date(2013, 2, 21));
 }
 
 function LaterTest_ExecuteCodeUsingSchedule() {

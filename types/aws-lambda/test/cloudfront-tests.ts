@@ -8,7 +8,7 @@ import {
     CloudFrontResponseResult,
     CloudFrontS3Origin,
     CloudFrontCustomOrigin,
-} from "aws-lambda";
+} from 'aws-lambda';
 
 // TODO: Update test to read all event properties, and write all result
 //       properties, like the user will.
@@ -75,7 +75,7 @@ const requestHandler: CloudFrontRequestHandler = async (event, context, cb) => {
     result = null;
     result = { clientIp: str, method: str, uri: str, querystring: str, headers: cloudFrontHeaders };
     result = { status: str };
-    result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: "text", body: str };
+    result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: 'text', body: str };
     // $ExpectError
     result = {};
 
@@ -92,10 +92,10 @@ const responseHandler: CloudFrontResponseHandler = async (event, context, callba
     result = { status: str };
     // $ExpectError
     result = { clientIp: str, method: str, uri: str, querystring: str, headers: cloudFrontHeaders };
-    result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: "text", body: str };
-    result = { status: str, bodyEncoding: "base64", body: str };
+    result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: 'text', body: str };
+    result = { status: str, bodyEncoding: 'base64', body: str };
     // $ExpectError
-    result = { status: str, bodyEncoding: "invalid-encoding", body: str };
+    result = { status: str, bodyEncoding: 'invalid-encoding', body: str };
 
     callback(new Error());
     callback(null, result);

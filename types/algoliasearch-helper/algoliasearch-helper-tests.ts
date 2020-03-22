@@ -7,18 +7,16 @@ import { SearchResults, SearchParameters } from 'algoliasearch-helper';
 
 const client = algoliasearch('latency', '6be0576ff61c053d5f9a3225e2a90f76');
 const helper = algoliasearchHelper(client, 'bestbuy', {
-  facets: ['shipping'],
-  disjunctiveFacets: ['category']
+    facets: ['shipping'],
+    disjunctiveFacets: ['category'],
 });
 helper.on('result', (result) => {
-  console.log(result);
+    console.log(result);
 });
-helper.toggleRefine('Movies & TV Shows')
-      .toggleRefine('Free shipping')
-      .search();
+helper.toggleRefine('Movies & TV Shows').toggleRefine('Free shipping').search();
 
 const updateTheResult = (results: SearchResults, state: SearchParameters) => {
-  console.log(results, state);
+    console.log(results, state);
 };
 helper.on('result', updateTheResult);
 helper.once('result', updateTheResult);
@@ -26,23 +24,21 @@ helper.removeListener('result', updateTheResult);
 helper.removeAllListeners('result');
 
 () => {
-  // Changing the number of records returned per page to 1
-  // This example uses the callback API
-  const state = helper.searchOnce({hitsPerPage: 1},
-    (error, content: SearchResults, state: SearchParameters) => {});
+    // Changing the number of records returned per page to 1
+    // This example uses the callback API
+    const state = helper.searchOnce({ hitsPerPage: 1 }, (error, content: SearchResults, state: SearchParameters) => {});
 
-  // Changing the number of records returned per page to 1
-  // This example uses the promise API
-  const state1 = helper.searchOnce({hitsPerPage: 1})
-                  .then(promiseHandler);
+    // Changing the number of records returned per page to 1
+    // This example uses the promise API
+    const state1 = helper.searchOnce({ hitsPerPage: 1 }).then(promiseHandler);
 
-  function promiseHandler(res: {content: SearchResults, state: SearchParameters}) {
-    // res contains
-    // {
-    //   content : SearchResults
-    //   state   : SearchParameters (the one used for this specific search)
-    // }
-  }
+    function promiseHandler(res: { content: SearchResults; state: SearchParameters }) {
+        // res contains
+        // {
+        //   content : SearchResults
+        //   state   : SearchParameters (the one used for this specific search)
+        // }
+    }
 };
 
 helper.setIndex('highestPrice_products').getIndex();
@@ -54,10 +50,10 @@ helper.addFacetRefinement('film-genre', 'comedy');
 helper.addFacetRefinement('film-genre', 'science-fiction');
 
 () => {
-  const indexName = 'test';
-  const helper2 = algoliasearchHelper(client, indexName, {
-    facets: ['nameOfTheAttribute']
-  });
+    const indexName = 'test';
+    const helper2 = algoliasearchHelper(client, indexName, {
+        facets: ['nameOfTheAttribute'],
+    });
 };
 
 // Removing all the refinements
@@ -67,9 +63,11 @@ helper.clearRefinements().search();
 helper.clearRefinements('category').search();
 
 // Removing only the exclude filters on the category facet.
-helper.clearRefinements((value, attribute, type) => {
-  return type === 'exclude' && attribute === 'category';
-}).search();
+helper
+    .clearRefinements((value, attribute, type) => {
+        return type === 'exclude' && attribute === 'category';
+    })
+    .search();
 
 // https://community.algolia.com/algoliasearch-helper-js/reference.html#AlgoliaSearchHelper#hasRefinements
 
@@ -105,8 +103,8 @@ helper.addDisjunctiveFacetRefinement('tech', 'led');
 helper.addDisjunctiveFacetRefinement('tech', 'plasma');
 
 () => {
-  const helper2 = algoliasearchHelper(client, 'test', {
-      disjunctiveFacets: ['nameOfTheAttribute']
+    const helper2 = algoliasearchHelper(client, 'test', {
+        disjunctiveFacets: ['nameOfTheAttribute'],
     });
 };
 
@@ -130,25 +128,27 @@ helper.toggleFacetRefinement('categories', 'kitchen > knife');
 helper.hasRefinements('categories'); // true
 
 const params = helper.getState().getQueryParams();
-client.search([{
-  indexName: 'test',
-  query: '',
-  params
-}]);
+client.search([
+    {
+        indexName: 'test',
+        query: '',
+        params,
+    },
+]);
 
 // https://community.algolia.com/algoliasearch-helper-js/reference.html#SearchResults#getFacetValues
 helper.on('result', (content) => {
-  // get values ordered only by name ascending using the string predicate
-  content.getFacetValues('city', {sortBy: ['name:asc']});
-  // get values  ordered only by count ascending using a function
-  content.getFacetValues('city', {
-    // this is equivalent to ['count:asc']
-    sortBy(a: { count: number }, b: { count: number }) {
-      if (a.count === b.count) return 0;
-      if (a.count > b.count)   return 1;
-      if (b.count > a.count)   return -1;
-    }
-  });
+    // get values ordered only by name ascending using the string predicate
+    content.getFacetValues('city', { sortBy: ['name:asc'] });
+    // get values  ordered only by count ascending using a function
+    content.getFacetValues('city', {
+        // this is equivalent to ['count:asc']
+        sortBy(a: { count: number }, b: { count: number }) {
+            if (a.count === b.count) return 0;
+            if (a.count > b.count) return 1;
+            if (b.count > a.count) return -1;
+        },
+    });
 });
 
 // https://community.algolia.com/algoliasearch-helper-js/reference.html#SearchParameters#addTagRefinement

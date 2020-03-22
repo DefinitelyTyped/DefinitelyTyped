@@ -14,10 +14,9 @@
 // with a locale that better matches your needs.
 
 declare namespace keyboardjs {
-
     /**
-	 * Information and functions in the current callback.
-	 */
+     * Information and functions in the current callback.
+     */
     interface KeyEvent extends KeyboardEvent {
         preventRepeat(): void;
         pressedKeys: string[];
@@ -29,8 +28,8 @@ declare namespace keyboardjs {
      */
     interface Callback {
         /**
-		 * Keyevent
-		 */
+         * Keyevent
+         */
         (e?: KeyEvent): void;
     }
 
@@ -43,7 +42,12 @@ declare namespace keyboardjs {
      * @param released Callback that gets executed when the keyComboState is 'released'
      * @param preventRepeatByDefault Whether or not to prevent repeat by default. Defaults to false.
      */
-    export function bind(keyCombo: string | string[], pressed: Callback, released?: Callback, preventRepeatByDefault?: boolean): void;
+    export function bind(
+        keyCombo: string | string[],
+        pressed: Callback,
+        released?: Callback,
+        preventRepeatByDefault?: boolean,
+    ): void;
 
     /**
      * Unbinds a keyCombo completely or only specific pressed & released callback combos.
@@ -130,6 +134,6 @@ declare namespace keyboardjs {
      */
     export function stop(): void;
 }
-    
+
 export = keyboardjs;
 export as namespace keyboardJS;

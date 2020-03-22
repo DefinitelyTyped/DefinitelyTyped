@@ -7,9 +7,13 @@ const getWindowsFolder = () => shell.NameSpace(Shell32.ShellSpecialFolderConstan
 // https://msdn.microsoft.com/en-us/library/windows/desktop/gg537735(v=vs.85).aspx
 (() => {
     const folder = getWindowsFolder();
-    if (!folder) { return; }
+    if (!folder) {
+        return;
+    }
     const folderItem = folder.ParseName('system.ini');
-    if (!folderItem) { return; }
+    if (!folderItem) {
+        return;
+    }
     shell.AddToRecent(folderItem.Path);
 })();
 
@@ -52,7 +56,7 @@ shell.ServiceStart('Messenger', true);
 shell.ServiceStop('Messenger', true);
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/gg537745(v=vs.85).aspx
-shell.ShellExecute("notepad.exe", "", "", "open", Shell32.ShellExecuteShow.Normal);
+shell.ShellExecute('notepad.exe', '', '', 'open', Shell32.ShellExecuteShow.Normal);
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/gg537746(v=vs.85).aspx?cs-save-lang=1&cs-lang=jscript#code-snippet-1
 shell.ShowBrowserBar(Shell32.ExplorerBarCLSID.Favorites, true);
@@ -81,7 +85,7 @@ shell.NameSpace('c:\\')!.NewFolder('TestFolder');
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/bb787858(v=vs.85).aspx
 (() => {
-    const folder = shell.NameSpace("\\\\server\\share\\folder");
+    const folder = shell.NameSpace('\\\\server\\share\\folder');
     const offlineStatus = folder ? folder.OfflineStatus : undefined;
 })();
 
@@ -227,7 +231,9 @@ shell.NameSpace('c:\\')!.NewFolder('TestFolder');
 // https://msdn.microsoft.com/en-us/library/windows/desktop/bb774162(v=vs.85).aspx
 (() => {
     const echoFirstVerbName = (folder: Shell32.Folder3 | null) => {
-        if (!folder) { return; }
+        if (!folder) {
+            return;
+        }
         const verbs = folder.Items().Verbs;
         WScript.Echo(verbs.Item(0).Name);
     };
@@ -253,7 +259,7 @@ const getIELink = () => {
     const folderItem = folder ? folder.ParseName('Internet Explorer.lnk') : undefined;
     return {
         link: folderItem ? folderItem.GetLink : undefined,
-        folderItem
+        folderItem,
     };
 };
 
@@ -318,10 +324,16 @@ const parseHotkey = (hotkey: number) => {
         ctrl: false,
         alt: false,
         extended: false,
-        hotkey
+        hotkey,
     };
 };
-const buildHotkey = (hotkey: number, shift: boolean = false, ctrl: boolean = false, alt: boolean = false, extended: boolean = false) => {
+const buildHotkey = (
+    hotkey: number,
+    shift: boolean = false,
+    ctrl: boolean = false,
+    alt: boolean = false,
+    extended: boolean = false,
+) => {
     // missing implementation
     return 0;
 };
@@ -384,9 +396,9 @@ const buildHotkey = (hotkey: number, shift: boolean = false, ctrl: boolean = fal
 
     const wordDoc = shell.NameSpace('C:\\')!.ParseName('test.doc');
     if (wordDoc) {
-        const FMTID_SummaryInfo = "{F29F85E0-4FF9-1068-AB91-08002B27B3D9}";
-        const PID_TITLE = "2";
-        const PID_AUTHOR = "4";
+        const FMTID_SummaryInfo = '{F29F85E0-4FF9-1068-AB91-08002B27B3D9}';
+        const PID_TITLE = '2';
+        const PID_AUTHOR = '4';
         const SCID_TITLE = `${FMTID_SummaryInfo} ${PID_TITLE}`;
         const SCID_AUTHOR = `${FMTID_SummaryInfo} ${PID_AUTHOR}`;
         const docTitle = wordDoc.ExtendedProperty(SCID_TITLE);
@@ -399,11 +411,12 @@ const buildHotkey = (hotkey: number, shift: boolean = false, ctrl: boolean = fal
     const folder = getWindowsFolder();
     const folderItem = folder ? folder.ParseName('notepad.exe') : undefined;
     if (folderItem) {
-        folderItem.InvokeVerbEx("open", "c:\\autoexec.bat");
+        folderItem.InvokeVerbEx('open', 'c:\\autoexec.bat');
     }
 })();
 
-const collectionToArray = <T>(col: any): T[] => { // tslint:disable-line no-unnecessary-generics
+const collectionToArray = <T>(col: any): T[] => {
+    // tslint:disable-line no-unnecessary-generics
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -418,7 +431,7 @@ interface String {
     endsWith(searchString: string, length?: number): boolean;
 }
 if (!String.prototype.endsWith) {
-    String.prototype.endsWith = function(search, this_len) {
+    String.prototype.endsWith = function (search, this_len) {
         if (this_len === undefined || this_len > this.length) {
             this_len = this.length;
         }
@@ -428,19 +441,18 @@ if (!String.prototype.endsWith) {
 
 // shell.Windows() includes items other than Explorer windows, such as Internet Explorer tabs
 const getExplorerWindows = () =>
-    collectionToArray<SHDocVw.InternetExplorer>(shell.Windows())
-        .filter(x => x.FullName.toLowerCase().endsWith('explorer.exe'));
+    collectionToArray<SHDocVw.InternetExplorer>(shell.Windows()).filter((x) =>
+        x.FullName.toLowerCase().endsWith('explorer.exe'),
+    );
 
-const getFolderViews = () =>
-    getExplorerWindows()
-        .map(x => x.Document as Shell32.ShellFolderView);
+const getFolderViews = () => getExplorerWindows().map((x) => x.Document as Shell32.ShellFolderView);
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/bb774045(v=vs.85).aspx
 (() => {
-    getFolderViews().forEach(x =>
-        ActiveXObject.on(x, 'SelectionChanged', function(this: Shell32.ShellFolderView) {
+    getFolderViews().forEach((x) =>
+        ActiveXObject.on(x, 'SelectionChanged', function (this: Shell32.ShellFolderView) {
             WScript.Echo(`Selection change in ${this.Folder.Title} -- count: ${this.SelectedItems().Count}`);
-        })
+        }),
     );
 })();
 
@@ -452,9 +464,7 @@ WScript.Echo(shell.Windows().Count);
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/bb774043(v=vs.85).aspx
 (() => {
-    getFolderViews().forEach(x =>
-        WScript.Echo(`${x.Folder.Title} -- ${x.SelectedItems().Count} selected items`)
-    );
+    getFolderViews().forEach((x) => WScript.Echo(`${x.Folder.Title} -- ${x.SelectedItems().Count} selected items`));
 })();
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/bb774047(v=vs.85).aspx

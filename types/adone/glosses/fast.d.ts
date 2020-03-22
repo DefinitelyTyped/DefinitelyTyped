@@ -47,9 +47,9 @@ declare namespace adone {
             }
 
             interface FileConstructor {
-                new(options: FileConstructorOptions & { contents: Buffer }): BufferFile;
-                new(options: FileConstructorOptions & { contents: nodestd.stream.Readable }): StreamFile;
-                new(options?: FileConstructorOptions): NullFile;
+                new (options: FileConstructorOptions & { contents: Buffer }): BufferFile;
+                new (options: FileConstructorOptions & { contents: nodestd.stream.Readable }): StreamFile;
+                new (options?: FileConstructorOptions): NullFile;
 
                 prototype: File;
             }
@@ -185,9 +185,17 @@ declare namespace adone {
             }
 
             interface LocalStreamConstructor {
-                new(source: CoreStreamSource | File[], options: LocalStreamConstructorOptions & { read: false }): LocalStream<NullFile>;
-                new(source: CoreStreamSource | File[], options: LocalStreamConstructorOptions & { stream: true }): LocalStream<StreamFile>;
-                new(source: CoreStreamSource | File[], options?: LocalStreamConstructorOptions): LocalStream<BufferFile>;
+                new (
+                    source: CoreStreamSource | File[],
+                    options: LocalStreamConstructorOptions & { read: false },
+                ): LocalStream<NullFile>;
+                new (
+                    source: CoreStreamSource | File[],
+                    options: LocalStreamConstructorOptions & { stream: true },
+                ): LocalStream<StreamFile>;
+                new (source: CoreStreamSource | File[], options?: LocalStreamConstructorOptions): LocalStream<
+                    BufferFile
+                >;
 
                 prototype: LocalStream<File>;
             }
@@ -299,7 +307,10 @@ declare namespace adone {
          * @param globs Source file/files
          */
         function watch(globs: string | string[], options: I.WatchOptions & { read: false }): I.LocalStream<I.NullFile>;
-        function watch(globs: string | string[], options: I.WatchOptions & { stream: true }): I.LocalStream<I.StreamFile>;
+        function watch(
+            globs: string | string[],
+            options: I.WatchOptions & { stream: true },
+        ): I.LocalStream<I.StreamFile>;
         function watch(globs: string | string[], options?: I.WatchOptions): I.LocalStream<I.BufferFile>;
 
         namespace I {
@@ -343,28 +354,38 @@ declare namespace adone {
         function map(mappings: I.MapSource, options: I.MapOptions & { stream: true }): I.LocalMapStream<I.StreamFile>;
         function map(mappings: I.MapSource, options?: I.MapOptions): I.LocalMapStream<I.BufferFile>;
 
-        function watchMap(mappings: I.MapSource, options: I.WatchMapOptions & { read: false }): I.LocalMapStream<I.NullFile>;
-        function watchMap(mappings: I.MapSource, options: I.WatchMapOptions & { stream: true }): I.LocalMapStream<I.StreamFile>;
+        function watchMap(
+            mappings: I.MapSource,
+            options: I.WatchMapOptions & { read: false },
+        ): I.LocalMapStream<I.NullFile>;
+        function watchMap(
+            mappings: I.MapSource,
+            options: I.WatchMapOptions & { stream: true },
+        ): I.LocalMapStream<I.StreamFile>;
         function watchMap(mappings: I.MapSource, options?: I.WatchMapOptions): I.LocalMapStream<I.BufferFile>;
 
         // plugins
 
         namespace I {
             namespace plugin.compressor {
-                type Compressor = "gz" | "deflate" | "brotli" | "lzma" | "xz" | "snappy"; // TODO keyof adone.compressor ?
+                type Compressor = 'gz' | 'deflate' | 'brotli' | 'lzma' | 'xz' | 'snappy'; // TODO keyof adone.compressor ?
             }
 
             interface Stream<S, T> {
                 /**
                  * Compresses all files using the given compressor
                  */
-                compress(this: {}, type: plugin.compressor.Compressor, options?: {
-                    /**
-                     * Whether to rename files, adds corresponding extname
-                     */
-                    rename?: boolean,
-                    [key: string]: any
-                }): this;
+                compress(
+                    this: {},
+                    type: plugin.compressor.Compressor,
+                    options?: {
+                        /**
+                         * Whether to rename files, adds corresponding extname
+                         */
+                        rename?: boolean;
+                        [key: string]: any;
+                    },
+                ): this;
 
                 /**
                  * Decompresses all files using the given compressor
@@ -373,7 +394,7 @@ declare namespace adone {
             }
 
             namespace plugin.archive {
-                type Archiver = "tar" | "zip"; // TODO keyof adone.archive ?
+                type Archiver = 'tar' | 'zip'; // TODO keyof adone.archive ?
             }
 
             interface Stream<S, T> {
@@ -401,24 +422,18 @@ declare namespace adone {
                  * sets new filename
                  */
                 rename(filename: string): this;
-                rename(handle: {
-                    dirname?: string,
-                    prefix?: string,
-                    basename?: string,
-                    extname?: string
-                }): this;
-                rename(handler: (handle: {
-                    dirname: string,
-                    basename: string,
-                    extname: string
-                }) => void): this;
+                rename(handle: { dirname?: string; prefix?: string; basename?: string; extname?: string }): this;
+                rename(handler: (handle: { dirname: string; basename: string; extname: string }) => void): this;
 
                 /**
                  * concats all files into one
                  */
-                concat(file: string | { path: string }, options?: {
-                    newLine?: string
-                }): this;
+                concat(
+                    file: string | { path: string },
+                    options?: {
+                        newLine?: string;
+                    },
+                ): this;
 
                 // flatten(options?: {
                 //     newPath?: string,
@@ -489,14 +504,14 @@ declare namespace adone {
                     /**
                      * Whether to load existing sourcemaps
                      */
-                    loadMaps?: boolean,
+                    loadMaps?: boolean;
 
                     /**
                      * Whether to generate initial sourcemaps instead of using empty sourcemap
                      */
-                    identityMap?: boolean,
+                    identityMap?: boolean;
 
-                    largeFile?: boolean
+                    largeFile?: boolean;
                 }): this;
 
                 /**
@@ -536,7 +551,7 @@ declare namespace adone {
                 wrap(
                     template: { src: string } | string | ((data: plugin.wrap.TemplateFunctionData<T>) => string),
                     data?: object | ((file: T) => object),
-                    options?: plugin.wrap.Options | ((file: T) => plugin.wrap.Options)
+                    options?: plugin.wrap.Options | ((file: T) => plugin.wrap.Options),
                 ): this;
 
                 /**
@@ -544,20 +559,23 @@ declare namespace adone {
                  */
                 replace(search: string, replacement: string | ((search: string) => string)): this;
                 replace(search: RegExp, replacement: string): this;
-                replace(search: Array<string | RegExp>, replacement: Array<string | ((search: string) => string)>): this;
+                replace(
+                    search: Array<string | RegExp>,
+                    replacement: Array<string | ((search: string) => string)>,
+                ): this;
 
                 /**
                  * Static asset revisioning by appending content hash to filenames
                  */
                 revisionHash(options?: {
                     manifest: {
-                        path?: string,
-                        merge?: boolean
+                        path?: string;
+                        merge?: boolean;
                         transformer?: {
                             parse(str: string): any;
                             stringify(obj: any): string;
-                        }
-                    }
+                        };
+                    };
                 }): this;
 
                 /**
@@ -570,33 +588,33 @@ declare namespace adone {
                      * we replace them with forward slash.
                      * Default: true
                      */
-                    canonicalUris?: boolean,
+                    canonicalUris?: boolean;
 
                     /**
                      * Add the prefix string to each replacement
                      */
-                    prefix?: string,
+                    prefix?: string;
 
                     /**
                      * Only substitute in new filenames in files of these types
                      * Default: ['.js', '.css', '.html', '.hbs']
                      */
-                    replaceExtensions?: string[],
+                    replaceExtensions?: string[];
 
                     /**
                      * Read JSON manifests written out by revisionHash
                      */
-                    manifest?: File[] | stream.core.Stream<any, File>,
+                    manifest?: File[] | stream.core.Stream<any, File>;
 
                     /**
                      * Modify the name of the unreved files before using them
                      */
-                    modifyUnreved?(path: string): string,
+                    modifyUnreved?(path: string): string;
 
                     /**
                      * Modify the name of the reved files before using them
                      */
-                    modifyReved?(path: string): string
+                    modifyReved?(path: string): string;
                 }): this;
             }
 
@@ -670,12 +688,14 @@ declare namespace adone {
                      * Whether to debounce notifications. Accepts a number as timeout or debounce options
                      * Default: undefined
                      */
-                    debounce?: number | util.I.DebounceOptions & {
-                        /**
-                         * debounce timeout
-                         */
-                        timeout: number
-                    };
+                    debounce?:
+                        | number
+                        | (util.I.DebounceOptions & {
+                              /**
+                               * debounce timeout
+                               */
+                              timeout: number;
+                          });
 
                     /**
                      * Object passed to the lodash template, for additional properties passed to the template
@@ -738,7 +758,9 @@ declare namespace adone {
                 /**
                  * Creates a callback that can be used as a reporter for errors
                  */
-                function onError<T = any>(options?: I.plugin.notify.OptionsArg<T, I.plugin.notify.OnErrorOptions<T>>): (error: T) => void;
+                function onError<T = any>(
+                    options?: I.plugin.notify.OptionsArg<T, I.plugin.notify.OnErrorOptions<T>>,
+                ): (error: T) => void;
             }
         }
     }

@@ -12,13 +12,7 @@ declare module '@keystonejs/auth-passport' {
 
     class PassportAuthStrategy {
         // TODO: Better types here: https://www.keystonejs.com/keystonejs/auth-passport/
-        constructor(
-            authType: string,
-            keystone: Keystone,
-            listKey: string,
-            config: any,
-            strategy: any
-        );
+        constructor(authType: string, keystone: Keystone, listKey: string, config: any, strategy: any);
 
         static authType: string;
 

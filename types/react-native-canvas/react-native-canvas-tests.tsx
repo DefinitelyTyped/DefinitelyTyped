@@ -20,7 +20,7 @@ class CanvasTest extends React.Component {
         context.fillStyle = 'purple';
         context.fillRect(0, 0, 100, 100);
 
-        context.getImageData(0, 0, 100, 100).then(imageData => {
+        context.getImageData(0, 0, 100, 100).then((imageData) => {
             const data = Object.values(imageData.data);
             const length = Object.keys(data).length;
             for (let i = 0; i < length; i += 4) {

@@ -19,8 +19,15 @@ export class Message extends events.EventEmitter {
     hasResponded: boolean;
     timestamp: number;
 
-    constructor(id: string, timestamp: number, attempts: number, body: any,
-                requeueDelay: number, msgTimeout: number, maxMsgTimeout: number);
+    constructor(
+        id: string,
+        timestamp: number,
+        attempts: number,
+        body: any,
+        requeueDelay: number,
+        msgTimeout: number,
+        maxMsgTimeout: number,
+    );
 
     json(): any;
 
@@ -34,8 +41,8 @@ export class Message extends events.EventEmitter {
 
     respond(responseType: number, wireData: Buffer): any;
 
-    on(event: "backoff", listener: () => void): this;
-    on(event: "respond", listener: (responseType: number, wireData: Buffer) => void): this;
+    on(event: 'backoff', listener: () => void): this;
+    on(event: 'respond', listener: (responseType: number, wireData: Buffer) => void): this;
 }
 
 export class Writer extends events.EventEmitter {
@@ -54,8 +61,8 @@ export class Writer extends events.EventEmitter {
 
     close(): any;
 
-    on(event: "ready" | "closed", listener: () => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
+    on(event: 'ready' | 'closed', listener: () => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
 }
 
 export class Reader extends events.EventEmitter {
@@ -83,9 +90,9 @@ export class Reader extends events.EventEmitter {
 
     handleMessage(message: any): any;
 
-    on(event: "nsqd_connected" | "nsqd_closed", listener: (host: string, port: number) => void): this;
-    on(event: "message" | "discard", listener: (message: Message) => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
+    on(event: 'nsqd_connected' | 'nsqd_closed', listener: (host: string, port: number) => void): this;
+    on(event: 'message' | 'discard', listener: (message: Message) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
 }
 
 export interface ConnectionConfigOptions {

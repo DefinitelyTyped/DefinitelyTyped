@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
-import * as fs from "fs";
+import * as stream from 'stream';
+import * as fs from 'fs';
 
 /**
  * Create a new SendStream for the given path to send to a res.
@@ -15,7 +15,7 @@ import * as fs from "fs";
  */
 declare function send(req: stream.Readable, path: string, options?: send.SendOptions): send.SendStream;
 
-import * as m from "mime";
+import * as m from 'mime';
 
 declare namespace send {
     var mime: typeof m;
@@ -42,7 +42,7 @@ declare namespace send {
          * 'ignore' Pretend like the dotfile does not exist and 404.
          * The default value is similar to 'ignore', with the exception that this default will not ignore the files within a directory that begins with a dot, for backward-compatibility.
          */
-        dotfiles?: "allow" | "deny" | "ignore";
+        dotfiles?: 'allow' | 'deny' | 'ignore';
 
         /**
          * Byte offset at which the stream ends, defaults to the length of the file minus 1.

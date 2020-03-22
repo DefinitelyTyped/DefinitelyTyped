@@ -43,12 +43,7 @@ declare namespace objectPath {
          * Set a path to a value
          * @return Any existing value on the path if any
          */
-        set<TResult = any>(
-            object: object,
-            path: Path,
-            value: TResult,
-            doNotReplace?: boolean
-        ): TResult | undefined;
+        set<TResult = any>(object: object, path: Path, value: TResult, doNotReplace?: boolean): TResult | undefined;
 
         /**
          * Create (if path isn't an array) and push the value to it. Can push unlimited number of values
@@ -59,11 +54,7 @@ declare namespace objectPath {
          * Get the first non undefined property
          */
         coalesce<TResult>(object: object, paths: Path | Path[], defaultValue: TResult): TResult;
-        coalesce<TResult = any>(
-            object: object,
-            paths: Path | Path[],
-            defaultValue?: TResult
-        ): TResult | undefined;
+        coalesce<TResult = any>(object: object, paths: Path | Path[], defaultValue?: TResult): TResult | undefined;
 
         /**
          * Empty a path. Arrays are set to length 0, objects have all elements deleted, strings
@@ -75,11 +66,7 @@ declare namespace objectPath {
          * Set a value if it doesn't exist, do nothing if it does
          */
         ensureExists<TResult>(object: object, path: Path, defaultValue: TResult): TResult;
-        ensureExists<TResult = any>(
-            object: object,
-            path: Path,
-            defaultValue?: TResult
-        ): TResult | undefined;
+        ensureExists<TResult = any>(object: object, path: Path, defaultValue?: TResult): TResult | undefined;
 
         /**
          * Insert an item in an array path

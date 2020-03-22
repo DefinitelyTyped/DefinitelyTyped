@@ -12,5 +12,5 @@ export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
     'aria-label'?: string;
 }
 
-declare class Pagination<T = {[key: string]: any}> extends React.Component<PaginationProps> {}
+declare class Pagination<T = { [key: string]: any }> extends React.Component<PaginationProps> {}
 export default Pagination;

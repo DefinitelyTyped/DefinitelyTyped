@@ -36,10 +36,7 @@ export interface Specifier<T = any> {
     validator: PropTypes.Validator<T>;
 }
 
-export function and<A>(
-    propTypes: [PropTypes.Validator<A>],
-    name?: string,
-): PropTypes.Requireable<A>;
+export function and<A>(propTypes: [PropTypes.Validator<A>], name?: string): PropTypes.Requireable<A>;
 
 export function and<A, B>(
     propTypes: [PropTypes.Validator<A>, PropTypes.Validator<B>],
@@ -51,10 +48,7 @@ export function and<A, B, C>(
     name?: string,
 ): PropTypes.Requireable<A & B & C>;
 
-export function and<T>(
-    propTypes: Array<PropTypes.Validator<any>>,
-    name?: string,
-): PropTypes.Requireable<T>;
+export function and<T>(propTypes: Array<PropTypes.Validator<any>>, name?: string): PropTypes.Requireable<T>;
 
 export function between(options: {
     lt?: number;
@@ -73,13 +67,9 @@ export function childrenOf<T = PropTypes.ReactNodeLike, P = any>(
     propType: PropTypes.Validator<P>,
 ): PropTypes.Requireable<T>;
 
-export function childrenOfType<T = PropTypes.ReactNodeLike>(
-    ...types: ReactTypeLike[]
-): PropTypes.Requireable<T>;
+export function childrenOfType<T = PropTypes.ReactNodeLike>(...types: ReactTypeLike[]): PropTypes.Requireable<T>;
 
-export function childrenSequenceOf<T = PropTypes.ReactNodeLike>(
-    ...specifiers: Specifier[]
-): PropTypes.Requireable<T>;
+export function childrenSequenceOf<T = PropTypes.ReactNodeLike>(...specifiers: Specifier[]): PropTypes.Requireable<T>;
 
 export function componentWithName<T = PropTypes.ReactNodeLike>(
     name: string | RegExp,
@@ -92,22 +82,15 @@ export function disallowedIf<T>(
     otherPropType: PropTypes.Validator<any>,
 ): PropTypes.Requireable<T>;
 
-export function elementType<T = PropTypes.ReactElementLike>(
-    type: ReactTypeLike,
-): PropTypes.Requireable<T>;
+export function elementType<T = PropTypes.ReactElementLike>(type: ReactTypeLike): PropTypes.Requireable<T>;
 
 export function explicitNull(): PropTypes.Requireable<null | undefined>;
 
-export function forbidExtraProps<T extends object>(
-    propTypes: PropTypes.ValidationMap<T>,
-): PropTypes.ValidationMap<T>;
+export function forbidExtraProps<T extends object>(propTypes: PropTypes.ValidationMap<T>): PropTypes.ValidationMap<T>;
 
 export function integer(): PropTypes.Requireable<number>;
 
-export function keysOf<T, P>(
-    propType: PropTypes.Validator<P>,
-    name?: string,
-): PropTypes.Requireable<T>;
+export function keysOf<T, P>(propType: PropTypes.Validator<P>, name?: string): PropTypes.Requireable<T>;
 
 export function mutuallyExclusiveProps<T>(
     propType: PropTypes.Requireable<T>,
@@ -147,10 +130,7 @@ export function or<A, B, C>(
     name?: string,
 ): PropTypes.Requireable<A | B | C>;
 
-export function or<T>(
-    propTypes: Array<PropTypes.Validator<T>>,
-    name?: string,
-): PropTypes.Requireable<T>;
+export function or<T>(propTypes: Array<PropTypes.Validator<T>>, name?: string): PropTypes.Requireable<T>;
 
 export function or<T = any>(
     // tslint:disable-next-line:unified-signatures
@@ -182,9 +162,7 @@ export function restrictedProp<T>(
 
 export function sequenceOf<T>(...specifiers: Specifier[]): PropTypes.Requireable<T>;
 
-export function shape<T extends object>(
-    propTypes: PropTypes.ValidationMap<T>,
-): PropTypes.Requireable<T>;
+export function shape<T extends object>(propTypes: PropTypes.ValidationMap<T>): PropTypes.Requireable<T>;
 
 export function stringStartsWith(string: string): PropTypes.Requireable<string>;
 
@@ -196,9 +174,7 @@ export function uniqueArrayOf<T, P>(
     name?: string,
 ): PropTypes.Requireable<T[]>;
 
-export function valuesOf<T>(
-    propType: PropTypes.Validator<T>,
-): PropTypes.Requireable<{ [key: string]: T }>;
+export function valuesOf<T>(propType: PropTypes.Validator<T>): PropTypes.Requireable<{ [key: string]: T }>;
 
 export function withShape<T extends object, P, S>(
     propType: PropTypes.Validator<P>,

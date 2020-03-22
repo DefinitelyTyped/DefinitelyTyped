@@ -8,5 +8,5 @@ export interface ListGroupItemTextProps extends React.HTMLAttributes<HTMLElement
     cssModule?: CSSModule;
 }
 
-declare class ListGroupItemText<T = {[key: string]: any}> extends React.Component<ListGroupItemTextProps> {}
+declare class ListGroupItemText<T = { [key: string]: any }> extends React.Component<ListGroupItemTextProps> {}
 export default ListGroupItemText;

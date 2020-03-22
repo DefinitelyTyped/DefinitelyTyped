@@ -22,7 +22,7 @@ export function sign(options: SignOptions): string;
  * @param secretOrKey string or buffer containing either the secret
  * for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA
  */
-export function verify(signature: string, algorithm: Algorithm, secretOrKey: string|Buffer): boolean;
+export function verify(signature: string, algorithm: Algorithm, secretOrKey: string | Buffer): boolean;
 
 /**
  * (Synchronous) Returns the decoded header, decoded payload,
@@ -131,22 +131,32 @@ export interface SignOptions {
      */
     privateKey?: any;
 
-    encoding?: string|Buffer|stream.Readable;
+    encoding?: string | Buffer | stream.Readable;
 }
 
 export interface VerifyOptions {
-    signature?: string|Buffer|stream.Readable;
-    algorithm?: Algorithm|Buffer|stream.Readable;
-    key?: string|stream.Readable|Buffer;
-    secret?: string|stream.Readable|Buffer;
-    publicKey?: string|stream.Readable|Buffer;
-    encoding?: string|Buffer|stream.Readable;
+    signature?: string | Buffer | stream.Readable;
+    algorithm?: Algorithm | Buffer | stream.Readable;
+    key?: string | stream.Readable | Buffer;
+    secret?: string | stream.Readable | Buffer;
+    publicKey?: string | stream.Readable | Buffer;
+    encoding?: string | Buffer | stream.Readable;
 }
 
-export type Algorithm = 'HS256' | 'HS384' | 'HS512' | 'RS256' |
-                        'RS384' | 'RS512' | 'ES256' | 'ES384' |
-                        'ES512' | 'PS256' | 'PS384' | 'PS512' |
-                        'none';
+export type Algorithm =
+    | 'HS256'
+    | 'HS384'
+    | 'HS512'
+    | 'RS256'
+    | 'RS384'
+    | 'RS512'
+    | 'ES256'
+    | 'ES384'
+    | 'ES512'
+    | 'PS256'
+    | 'PS384'
+    | 'PS512'
+    | 'none';
 
 export interface Header extends CertificateProperties {
     alg: Algorithm;

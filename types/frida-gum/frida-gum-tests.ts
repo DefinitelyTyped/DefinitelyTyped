@@ -1,15 +1,19 @@
 Frida.version; // $ExpectType string
 
-const otherPuts = new NativeCallback(() => {
-    return 0;
-}, "int", ["pointer"]);
+const otherPuts = new NativeCallback(
+    () => {
+        return 0;
+    },
+    'int',
+    ['pointer'],
+);
 
-const puts = new NativeFunction(Module.getExportByName(null, "puts"), "int", ["pointer"]);
+const puts = new NativeFunction(Module.getExportByName(null, 'puts'), 'int', ['pointer']);
 
 // $ExpectType NativeFunction
 puts;
 
-const message = Memory.allocUtf8String("Hello!");
+const message = Memory.allocUtf8String('Hello!');
 
 // $ExpectType NativePointer
 message;
@@ -23,12 +27,12 @@ puts.apply(otherPuts, [message]);
 // $ExpectType NativeReturnValue
 puts(message);
 
-const open = new SystemFunction(Module.getExportByName(null, "open"), "int", ["pointer", "int"]);
+const open = new SystemFunction(Module.getExportByName(null, 'open'), 'int', ['pointer', 'int']);
 
 // $ExpectType SystemFunction
 open;
 
-const path = Memory.allocUtf8String("/etc/hosts");
+const path = Memory.allocUtf8String('/etc/hosts');
 const result = open(path, 0) as UnixSystemFunctionResult;
 
 // $ExpectType NativeReturnValue
@@ -45,49 +49,48 @@ Interceptor.attach(puts, {
     onLeave(retval) {
         // $ExpectType InvocationReturnValue
         retval;
-    }
+    },
 });
 
-const obj = new ObjC.Object(ptr("0x42"));
+const obj = new ObjC.Object(ptr('0x42'));
 
 // $ExpectType Object
 obj;
 
-Java.enumerateClassLoadersSync()
-    .forEach(classLoader => {
-        // $ExpectType ClassFactory
-        const factory = Java.ClassFactory.get(classLoader);
-        interface Props {
-            myMethod: Java.MethodDispatcher;
-            myField: Java.Field<number>;
-        }
-        // $ExpectType Wrapper<Props>
-        const MyJavaClass = factory.use<Props>("my.java.class");
-        // $ExpectError
-        factory.use<{ illegal: string }>("");
-        // $ExpectType string
-        MyJavaClass.$className;
+Java.enumerateClassLoadersSync().forEach((classLoader) => {
+    // $ExpectType ClassFactory
+    const factory = Java.ClassFactory.get(classLoader);
+    interface Props {
+        myMethod: Java.MethodDispatcher;
+        myField: Java.Field<number>;
+    }
+    // $ExpectType Wrapper<Props>
+    const MyJavaClass = factory.use<Props>('my.java.class');
+    // $ExpectError
+    factory.use<{ illegal: string }>('');
+    // $ExpectType string
+    MyJavaClass.$className;
+    // $ExpectType MethodDispatcher<Props>
+    MyJavaClass.myMethod;
+    // $ExpectType Wrapper<Props>
+    MyJavaClass.myMethod.holder;
+    // $ExpectType Wrapper<Props>
+    MyJavaClass.myMethod.holder.myField.holder.myMethod.holder;
+    MyJavaClass.myMethod.implementation = function (...args) {
         // $ExpectType MethodDispatcher<Props>
-        MyJavaClass.myMethod;
-        // $ExpectType Wrapper<Props>
-        MyJavaClass.myMethod.holder;
-        // $ExpectType Wrapper<Props>
-        MyJavaClass.myMethod.holder.myField.holder.myMethod.holder;
-        MyJavaClass.myMethod.implementation = function(...args) {
-            // $ExpectType MethodDispatcher<Props>
-            this.myMethod;
-            // $ExpectType Field<number, Props>
-            this.myField;
-            // $ExpectType number
-            this.myField.value;
-        };
-        // $ExpectType Wrapper<Props>
-        Java.retain(MyJavaClass);
-        interface AnotherProps {
-            anotherMethod: Java.MethodDispatcher;
-            anotherField: Java.Field<string>;
-        }
-        const MyAnotherJavaClass = factory.use<AnotherProps>("my.another.java.class");
-        // $ExpectType Wrapper<AnotherProps>
-        Java.cast(MyJavaClass, MyAnotherJavaClass);
-    });
+        this.myMethod;
+        // $ExpectType Field<number, Props>
+        this.myField;
+        // $ExpectType number
+        this.myField.value;
+    };
+    // $ExpectType Wrapper<Props>
+    Java.retain(MyJavaClass);
+    interface AnotherProps {
+        anotherMethod: Java.MethodDispatcher;
+        anotherField: Java.Field<string>;
+    }
+    const MyAnotherJavaClass = factory.use<AnotherProps>('my.another.java.class');
+    // $ExpectType Wrapper<AnotherProps>
+    Java.cast(MyJavaClass, MyAnotherJavaClass);
+});

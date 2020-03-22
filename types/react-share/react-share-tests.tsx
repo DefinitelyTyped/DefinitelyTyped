@@ -29,10 +29,13 @@ import {
 
 export function MyComponent(): React.ReactNode {
     const [isSharing, setIsSharing] = React.useState(false);
-    return <FacebookShareButton
-        url="https://www.facebook.com"
-        beforeOnClick={() => {
-            setIsSharing(true);
-        }}
-        style={{margin: 42}} />;
+    return (
+        <FacebookShareButton
+            url="https://www.facebook.com"
+            beforeOnClick={() => {
+                setIsSharing(true);
+            }}
+            style={{ margin: 42 }}
+        />
+    );
 }

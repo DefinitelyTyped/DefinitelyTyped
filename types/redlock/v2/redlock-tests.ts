@@ -4,14 +4,14 @@ import { RedisClient } from 'redis';
 import { using } from 'bluebird';
 
 let redlock: Redlock;
-const client: RedisClient = <RedisClient> {};
-const lock: Lock = <Lock> {};
+const client: RedisClient = <RedisClient>{};
+const lock: Lock = <Lock>{};
 
 redlock = new Redlock([client]);
 redlock = new Redlock([client], {
     driftFactor: 0.1,
     retryCount: 2,
-    retryDelay: 3
+    retryDelay: 3,
 });
 
 redlock.acquire('resource', 30).then((lock: Lock) => {});

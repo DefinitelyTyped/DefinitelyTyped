@@ -14,6 +14,6 @@ declare namespace self {
         query?: H.Query;
         state?: H.LocationState;
     }
-    interface Redirect extends React.ComponentClass<RedirectProps> { }
-    interface RedirectElement extends React.ReactElement<RedirectProps> { }
+    interface Redirect extends React.ComponentClass<RedirectProps> {}
+    interface RedirectElement extends React.ReactElement<RedirectProps> {}
 }

@@ -22,13 +22,8 @@ import { GraphQLResolveInfo } from 'graphql';
  * @template TContext The type of the current resolver context.
  * @param batchResolveFn A batch function to resolve all fields for the given sources in a single batch.
  */
-export function createBatchResolver<
-    TSource,
-    TReturn,
-    TArgs = any,
-    TContext = any
->(
-    batchResolveFn: BatchResolveFunction<TSource, TArgs, TContext, TReturn>
+export function createBatchResolver<TSource, TReturn, TArgs = any, TContext = any>(
+    batchResolveFn: BatchResolveFunction<TSource, TArgs, TContext, TReturn>,
 ): ResolverFunction<TSource, TArgs, TContext, TReturn>;
 
 /**
@@ -38,7 +33,7 @@ export function createBatchResolver<
 export type ResolverFunction<TSource, TArgs, TContext, TReturn> = (
     source: TSource,
     args: TArgs,
-    context: TContext
+    context: TContext,
 ) => Promise<TReturn>;
 
 /**
@@ -48,5 +43,5 @@ export type BatchResolveFunction<TSource, TArgs, TContext, TReturn> = (
     sources: ReadonlyArray<TSource>,
     args: TArgs,
     context: TContext,
-    info: GraphQLResolveInfo
+    info: GraphQLResolveInfo,
 ) => TReturn[] | Promise<TReturn[]>;

@@ -28,8 +28,8 @@ declare namespace Pickadate {
 
         // Day/Time states
         disabled?: string; // default 'picker__day--disabled' or 'picker__list-item--disabled'
-        selected?: string // default 'picker__day--selected' or 'picker__list-item--selected'
-        highlighted?: string // default 'picker__day--highlighted' or 'picker__list-item--highlighted'
+        selected?: string; // default 'picker__day--selected' or 'picker__list-item--selected'
+        highlighted?: string; // default 'picker__day--highlighted' or 'picker__list-item--highlighted'
         now?: string; // default 'picker__day--today' or 'picker__list-item--now'
 
         // Clear button
@@ -139,7 +139,7 @@ declare namespace Pickadate {
          * Specify where to insert the picker's root element by passing any
          * valid CSS selector to this option. Defaults to undefined.
          */
-        container?: string|JQuery;
+        container?: string | JQuery;
 
         /**
          * The hidden input container.
@@ -503,8 +503,8 @@ declare namespace Pickadate {
         trigger(event: string, data?: any): TPickerObject;
     }
 
-    export interface DatePicker extends Picker<DatePicker, DateItem, SetObject> { }
-    export interface TimePicker extends Picker<TimePicker, TimeItem, TimeSetObject> { }
+    export interface DatePicker extends Picker<DatePicker, DateItem, SetObject> {}
+    export interface TimePicker extends Picker<TimePicker, TimeItem, TimeSetObject> {}
 
     interface Pickadate {
         defaults: DateOptions;
@@ -512,10 +512,10 @@ declare namespace Pickadate {
         /**
          * Access the API object on an initialized date picker element.
          */
-        (keyword: "picker"): Pickadate.DatePicker;
-        (objectName: "$node"): JQuery;
-        (objectName: "$root"): JQuery;
-        (objectName: "_hidden"): HTMLInputElement;
+        (keyword: 'picker'): Pickadate.DatePicker;
+        (objectName: '$node'): JQuery;
+        (objectName: '$root'): JQuery;
+        (objectName: '_hidden'): HTMLInputElement;
 
         /**
          * Invoke API methods after date picker initialization.
@@ -534,10 +534,10 @@ declare namespace Pickadate {
         /**
          * Access the API object on an initialized time picker element.
          */
-        (keyword: "picker"): Pickadate.TimePicker;
-        (objectName: "$node"): JQuery;
-        (objectName: "$root"): JQuery;
-        (objectName: "_hidden"): HTMLInputElement;
+        (keyword: 'picker'): Pickadate.TimePicker;
+        (objectName: '$node'): JQuery;
+        (objectName: '$root'): JQuery;
+        (objectName: '_hidden'): HTMLInputElement;
 
         /**
          * Invoke API methods after time picker initialization.

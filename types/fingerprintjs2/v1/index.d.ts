@@ -7,7 +7,7 @@ declare class Fingerprint2 {
     static VERSION: string;
     constructor(options?: Fingerprint2Options);
 
-    get(callback: (result: string, components: [{ key: string, value: string }]) => void): number;
+    get(callback: (result: string, components: [{ key: string; value: string }]) => void): number;
 }
 
 interface Fingerprint2Options {

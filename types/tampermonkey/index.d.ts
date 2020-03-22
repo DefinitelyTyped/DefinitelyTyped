@@ -9,12 +9,7 @@
 // TypeScript Version: 3.3
 
 declare namespace Tampermonkey {
-    type ValueChangeListener = (
-        name: string,
-        oldValue: any,
-        newValue: any,
-        remote: boolean
-    ) => void;
+    type ValueChangeListener = (name: string, oldValue: any, newValue: any, remote: boolean) => void;
 
     // Response
 
@@ -23,7 +18,7 @@ declare namespace Tampermonkey {
         Opened = 1,
         HeadersReceived = 2,
         Loading = 3,
-        Done = 4
+        Done = 4,
     }
 
     interface ResponseBase {
@@ -54,9 +49,7 @@ declare namespace Tampermonkey {
         readonly context: TContext;
     }
 
-    interface ProgressResponse<TContext>
-        extends Response<TContext>,
-            ProgressResponseBase {}
+    interface ProgressResponse<TContext> extends Response<TContext>, ProgressResponseBase {}
 
     // Request
 
@@ -64,10 +57,7 @@ declare namespace Tampermonkey {
         readonly [header: string]: string;
     }
 
-    type RequestEventListener<TResponse> = (
-        this: TResponse,
-        response: TResponse
-    ) => void;
+    type RequestEventListener<TResponse> = (this: TResponse, response: TResponse) => void;
 
     interface Request<TContext = object> {
         method?: 'GET' | 'HEAD' | 'POST';
@@ -138,12 +128,7 @@ declare namespace Tampermonkey {
          * - `not_succeeded` - the download wasn't started or failed, the
          * details attribute may provide more information
          */
-        error:
-            | 'not_enabled'
-            | 'not_whitelisted'
-            | 'not_permitted'
-            | 'not_supported'
-            | 'not_succeeded';
+        error: 'not_enabled' | 'not_whitelisted' | 'not_permitted' | 'not_supported' | 'not_succeeded';
         /** Detail about that error */
         details?: string;
     }
@@ -259,19 +244,13 @@ declare function GM_setValue(name: string, value: any): void;
  * different browser tabs to communicate with each other.
  * @param name Name of the observed variable
  */
-declare function GM_addValueChangeListener(
-    name: string,
-    listener: Tampermonkey.ValueChangeListener
-): number;
+declare function GM_addValueChangeListener(name: string, listener: Tampermonkey.ValueChangeListener): number;
 
 /** Removes a change listener by its ID */
 declare function GM_removeValueChangeListener(listenerId: number): void;
 
 /** Gets the value of 'name' from storage */
-declare function GM_getValue<TValue>(
-    name: string,
-    defaultValue?: TValue
-): TValue;
+declare function GM_getValue<TValue>(name: string, defaultValue?: TValue): TValue;
 
 /** Deletes 'name' from storage */
 declare function GM_deleteValue(name: string): void;
@@ -296,11 +275,7 @@ declare function GM_getResourceURL(name: string): string;
  * Register a menu to be displayed at the Tampermonkey menu at pages where this
  * script runs and returns a menu command ID.
  */
-declare function GM_registerMenuCommand(
-    name: string,
-    onClick: () => void,
-    accessKey?: string
-): number;
+declare function GM_registerMenuCommand(name: string, onClick: () => void, accessKey?: string): number;
 
 /**
  *  Unregister a menu command that was previously registered by
@@ -312,17 +287,12 @@ declare function GM_unregisterMenuCommand(menuCommandId: number): void;
 
 /** Makes an xmlHttpRequest */
 declare function GM_xmlhttpRequest<TContext = any>(
-    details: Tampermonkey.Request<TContext> // tslint:disable-line:no-unnecessary-generics
+    details: Tampermonkey.Request<TContext>, // tslint:disable-line:no-unnecessary-generics
 ): Tampermonkey.AbortHandle<void>;
 
 /** Downloads a given URL to the local disk */
-declare function GM_download(
-    details: Tampermonkey.DownloadRequest
-): Tampermonkey.AbortHandle<boolean>;
-declare function GM_download(
-    url: string,
-    name: string
-): Tampermonkey.AbortHandle<boolean>;
+declare function GM_download(details: Tampermonkey.DownloadRequest): Tampermonkey.AbortHandle<boolean>;
+declare function GM_download(url: string, name: string): Tampermonkey.AbortHandle<boolean>;
 
 // Tabs
 
@@ -333,9 +303,7 @@ declare function GM_saveTab(obj: object): void;
 declare function GM_getTab(callback: (obj: any) => void): void;
 
 /** Gets all tab objects as a hash to communicate with other script instances */
-declare function GM_getTabs(
-    callback: (tabsMap: { [tabId: number]: any }) => void
-): void;
+declare function GM_getTabs(callback: (tabsMap: { [tabId: number]: any }) => void): void;
 
 // Utils
 
@@ -358,10 +326,7 @@ declare function GM_log(...message: any[]): void;
  * @returns Object with the function `close`, the listener `onclosed` and a flag
  * called `closed`.
  */
-declare function GM_openInTab(
-    url: string,
-    options?: Tampermonkey.OpenTabOptions | boolean
-): Tampermonkey.OpenTabObject;
+declare function GM_openInTab(url: string, options?: Tampermonkey.OpenTabOptions | boolean): Tampermonkey.OpenTabObject;
 
 /**
  * Shows a HTML5 Desktop notification and/or highlight the current tab.
@@ -369,7 +334,7 @@ declare function GM_openInTab(
  */
 declare function GM_notification(
     details: Tampermonkey.NotificationDetails,
-    ondone?: Tampermonkey.NotificationOnDone
+    ondone?: Tampermonkey.NotificationOnDone,
 ): void;
 
 /**
@@ -382,7 +347,7 @@ declare function GM_notification(
     text: string,
     title?: string,
     image?: string,
-    onclick?: Tampermonkey.NotificationOnClick
+    onclick?: Tampermonkey.NotificationOnClick,
 ): void;
 
 /**
@@ -391,7 +356,4 @@ declare function GM_notification(
  * `{ type: 'text', mimetype: 'text/plain'}` or just a string expressing the
  * type ("text" or "html").
  */
-declare function GM_setClipboard(
-    data: string,
-    info?: string | { type?: string; mimetype?: string }
-): void;
+declare function GM_setClipboard(data: string, info?: string | { type?: string; mimetype?: string }): void;

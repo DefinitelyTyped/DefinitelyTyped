@@ -52,7 +52,7 @@ function serializeDetails(details: useragent.Details): string {
     };
 
     const keys = Object.keys(accessed);
-    return keys.map(key => `${key}:${accessed[key]}`).join(',');
+    return keys.map((key) => `${key}:${accessed[key]}`).join(',');
 }
 
 function testMethods(userAgent: useragent.UserAgent): void {

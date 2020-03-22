@@ -1,2 +1,2 @@
-export * from "./ComposedModal";
-export { default } from "./ComposedModal";
+export * from './ComposedModal';
+export { default } from './ComposedModal';

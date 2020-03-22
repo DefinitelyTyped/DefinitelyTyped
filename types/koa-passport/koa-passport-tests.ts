@@ -6,13 +6,15 @@ const app = new Koa();
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(async (ctx): Promise<void> => {
-    ctx.isAuthenticated();
-    ctx.isUnauthenticated();
-    ctx.login({});
-    ctx.logout();
-    ctx.state.user;
-});
+app.use(
+    async (ctx): Promise<void> => {
+        ctx.isAuthenticated();
+        ctx.isUnauthenticated();
+        ctx.login({});
+        ctx.logout();
+        ctx.state.user;
+    },
+);
 
 app.use(async (ctx, next) => {
     return passport.authenticate('local', (user: any, info: any, status: any) => {
@@ -29,8 +31,8 @@ app.use(async (ctx, next) => {
 app.use(
     passport.authenticate('local', {
         successRedirect: '/app',
-        failureRedirect: '/'
-    })
+        failureRedirect: '/',
+    }),
 );
 
-class KoaPasspordChild extends passport.KoaPassport { }
+class KoaPasspordChild extends passport.KoaPassport {}

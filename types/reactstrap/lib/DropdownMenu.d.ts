@@ -14,5 +14,5 @@ export interface DropdownMenuProps extends React.HTMLAttributes<HTMLElement> {
     positionFixed?: boolean;
 }
 
-declare class DropdownMenu<T = {[key: string]: any}> extends React.Component<DropdownMenuProps> {}
+declare class DropdownMenu<T = { [key: string]: any }> extends React.Component<DropdownMenuProps> {}
 export default DropdownMenu;

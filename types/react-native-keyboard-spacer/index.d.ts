@@ -13,4 +13,4 @@ export interface KeyboardSpacerProps {
     style?: ReactNative.StyleProp<ReactNative.ViewStyle>;
 }
 
-export default class KeyboardSpacer extends React.Component<KeyboardSpacerProps, any> { }
+export default class KeyboardSpacer extends React.Component<KeyboardSpacerProps, any> {}

@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import * as Sequelize from "sequelize";
+import * as Sequelize from 'sequelize';
 
 declare namespace SequelizeFixtures {
     interface Options {
-        encoding?: string,
-        log?: (message: string) => void,
-        transaction?: Sequelize.Transaction,
-        transformFixtureDataFn?: (data: any) => any,
-        modifyFixtureDataFn?: (data: any) => any
+        encoding?: string;
+        log?: (message: string) => void;
+        transaction?: Sequelize.Transaction;
+        transformFixtureDataFn?: (data: any) => any;
+        modifyFixtureDataFn?: (data: any) => any;
     }
 
     interface SequelizeFixturesStatic {

@@ -18,7 +18,7 @@ export interface GridColumn {
      * Column sort state
      * @default "asc"
      */
-    order: "asc" | "desc";
+    order: 'asc' | 'desc';
 
     /**
      * Column name
@@ -39,7 +39,7 @@ export interface GridColumn {
      * The current column state
      * @default "show"
      */
-    type: "show" | "hide" | "resize";
+    type: 'show' | 'hide' | 'resize';
 
     /**
      * Column width
@@ -88,7 +88,7 @@ export interface GridRow {
      * State value that indicates whether a child row is shown or hidden.
      * @default "fold"
      */
-    type: "open" | "fold";
+    type: 'open' | 'fold';
 
     /**
      * State value that indicates whether a child row is shown or hidden.
@@ -136,105 +136,108 @@ export interface GridBase {
 }
 
 export interface GridTable extends UIEvent {
-    (selector: any, options?: {
-        tpl?: any,
-        event?: any,
-        /**
-         * @cfg {Array} [fields=null]
-         * Sets the name of columns in the order of being displayed on the table screen.
-         */
-        fields?: any[],
-        /**
-         * @cfg {Array} [csv=null]
-         * Sets the column key shown when converted to a CSV string.
-         */
-        csv?: any[],
-        /**
-         * @cfg {Array} [csvNames=null]
-         * Sets the name of a column shown when converting to a CSV string, which must be defined in the same order as the CSV option.
-         */
-        csvNames?: any[],
-        /**
-         * @cfg {Array} [csvNumber=null]
-         * Sets the column key to be changed to a number form when converted to a CSV string.
-         */
-        csvNumber?: any[],
-        /**
-         * @cfg {Array} data
-         * Sets the initial row list of a table.
-         */
-        data?: any[],
-        /**
-         * @cfg {Boolean/Array} [colshow=false]
-         * Sets a column index shown when the Show/Hide Column menu is enabled.
-         */
-        colshow?: boolean | any[],
-        /**
-         * @cfg {Boolean} [scroll=false]
-         * Determines whether to use a table scroll.
-         */
-        scroll?: boolean,
-        /**
-         * @cfg {Integer} [scrollHeight=200]
-         * Sets the reference height of a body area when using a table scroll.
-         */
-        scrollHeight?: number,
-        /**
-         * @cfg {Integer} [width=0]
-         * Sets the area of a table.
-         */
-        width?: number,
-        /**
-         * @cfg {Boolean} [expand=false]
-         * Determines whether to use an extended row area.
-         */
-        expand?: boolean,
-        /**
-         * @cfg {Boolean} [expandEvent=true]
-         * Sets the Show/Hide state of an extended row area when clicking on a row.
-         */
-        expandEvent?: boolean,
-        /**
-         * @cfg {Boolean|Array} [editRow=false]
-         * Determines whether to use a modified row area.
-         */
-        editRow?: boolean | any[],
-        /**
-         * @cfg {Boolean} [editEvent=true]
-         * Sets the Show/Hide state of an extended row area when doubleclicking on a row/cell.
-         */
-        editEvent?: boolean,
-        /**
-         * @cfg {Boolean} [resize=false]
-         * Determines whether to use the column resizing function.
-         */
-        resize?: boolean,
-        /**
-         * @cfg {Boolean/Array} [sort=false]
-         * Determines whether to use the table sort function.
-         */
-        sort?: boolean | any[],
-        /**
-         * @cfg {Integer} [sortIndex=null]
-         * Determines whether to use the table sort function.
-         */
-        sortIndex?: number,
-        /**
-         * @cfg {String} [sortOrder="asc"]
-         * Determines whether to use the table sort function.
-         */
-        sortOrder?: "asc" | "desc",
-        /**
-         * @cfg {Boolean} [sortEvent=true]
-         * Determines whether to use the sort function when you click on a column.
-         */
-        sortEvent?: boolean,
-        /**
-         * @cfg {Boolean} [moveRow=false]
-         * Determines whether to use the move function when you fire row draggable event.
-         */
-        moveRow?: boolean,
-    }): this;
+    (
+        selector: any,
+        options?: {
+            tpl?: any;
+            event?: any;
+            /**
+             * @cfg {Array} [fields=null]
+             * Sets the name of columns in the order of being displayed on the table screen.
+             */
+            fields?: any[];
+            /**
+             * @cfg {Array} [csv=null]
+             * Sets the column key shown when converted to a CSV string.
+             */
+            csv?: any[];
+            /**
+             * @cfg {Array} [csvNames=null]
+             * Sets the name of a column shown when converting to a CSV string, which must be defined in the same order as the CSV option.
+             */
+            csvNames?: any[];
+            /**
+             * @cfg {Array} [csvNumber=null]
+             * Sets the column key to be changed to a number form when converted to a CSV string.
+             */
+            csvNumber?: any[];
+            /**
+             * @cfg {Array} data
+             * Sets the initial row list of a table.
+             */
+            data?: any[];
+            /**
+             * @cfg {Boolean/Array} [colshow=false]
+             * Sets a column index shown when the Show/Hide Column menu is enabled.
+             */
+            colshow?: boolean | any[];
+            /**
+             * @cfg {Boolean} [scroll=false]
+             * Determines whether to use a table scroll.
+             */
+            scroll?: boolean;
+            /**
+             * @cfg {Integer} [scrollHeight=200]
+             * Sets the reference height of a body area when using a table scroll.
+             */
+            scrollHeight?: number;
+            /**
+             * @cfg {Integer} [width=0]
+             * Sets the area of a table.
+             */
+            width?: number;
+            /**
+             * @cfg {Boolean} [expand=false]
+             * Determines whether to use an extended row area.
+             */
+            expand?: boolean;
+            /**
+             * @cfg {Boolean} [expandEvent=true]
+             * Sets the Show/Hide state of an extended row area when clicking on a row.
+             */
+            expandEvent?: boolean;
+            /**
+             * @cfg {Boolean|Array} [editRow=false]
+             * Determines whether to use a modified row area.
+             */
+            editRow?: boolean | any[];
+            /**
+             * @cfg {Boolean} [editEvent=true]
+             * Sets the Show/Hide state of an extended row area when doubleclicking on a row/cell.
+             */
+            editEvent?: boolean;
+            /**
+             * @cfg {Boolean} [resize=false]
+             * Determines whether to use the column resizing function.
+             */
+            resize?: boolean;
+            /**
+             * @cfg {Boolean/Array} [sort=false]
+             * Determines whether to use the table sort function.
+             */
+            sort?: boolean | any[];
+            /**
+             * @cfg {Integer} [sortIndex=null]
+             * Determines whether to use the table sort function.
+             */
+            sortIndex?: number;
+            /**
+             * @cfg {String} [sortOrder="asc"]
+             * Determines whether to use the table sort function.
+             */
+            sortOrder?: 'asc' | 'desc';
+            /**
+             * @cfg {Boolean} [sortEvent=true]
+             * Determines whether to use the sort function when you click on a column.
+             */
+            sortEvent?: boolean;
+            /**
+             * @cfg {Boolean} [moveRow=false]
+             * Determines whether to use the move function when you fire row draggable event.
+             */
+            moveRow?: boolean;
+        },
+    ): this;
     root?: any;
     /**
      * Updates the list of rows or modifies the row at a specified index.
@@ -501,7 +504,7 @@ export interface GridXTable extends UIEvent {
      *
      * @param order  "asc" or "desc"
      */
-    sort(index: number, order: "asc" | "desc", e?: any, isNotLoading?: any): void;
+    sort(index: number, order: 'asc' | 'desc', e?: any, isNotLoading?: any): void;
     /**
      * Filters columns at a specified to locate rows that contain keywords in the cell value.
      */
@@ -651,7 +654,7 @@ export interface GridXTable extends UIEvent {
     /**
      * Ir is possible to use a function for all row data applicable to the column (or column name) of a specified column (or column name). Currently only SUM and AVG are supported.
      */
-    rowFunc(type: "sum" | "avg", index: number, callback: (data: any) => void): any;
+    rowFunc(type: 'sum' | 'avg', index: number, callback: (data: any) => void): any;
     /**
      * Gets the current page of a table.
      *

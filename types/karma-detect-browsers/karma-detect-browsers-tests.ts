@@ -36,7 +36,7 @@ module.exports = (config: karma.Config) => {
 
             // post processing of browsers list
             // here you can edit the list of browsers used by karma
-            postDetection: availableBrowsers => {
+            postDetection: (availableBrowsers) => {
                 // Add IE Emulation
                 const result = availableBrowsers;
 

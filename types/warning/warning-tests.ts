@@ -1,4 +1,4 @@
-import warning = require("warning");
+import warning = require('warning');
 
 // this will pass without warning.
 warning(true, 'Warning, read all about it');
@@ -10,4 +10,3 @@ warning('', 'Some other warning');
 
 // handle extra variables.
 warning(true, 'Warning, read all about it', 37, {}, 'hello');
-

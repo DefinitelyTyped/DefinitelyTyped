@@ -8,7 +8,6 @@
 /// <reference types="rx" />
 
 declare namespace Rx {
-
     interface IObservable<T> {
         safeApply($scope: ng.IScope, callback: (data: T) => void): Rx.Observable<T>;
     }
@@ -23,9 +22,7 @@ declare namespace Rx {
 }
 
 declare namespace rx.angular {
-
     export interface IRxScope extends ng.IScope {
         $toObservable(property: string): Rx.Observable<any>;
     }
 }
-

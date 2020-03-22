@@ -1,16 +1,12 @@
-import Reflux = require("reflux");
+import Reflux = require('reflux');
 
-const syncActions = Reflux.createActions([
-    "statusUpdate",
-    "statusEdited",
-    "statusAdded"
-]);
+const syncActions = Reflux.createActions(['statusUpdate', 'statusEdited', 'statusAdded']);
 
 const asyncActions = Reflux.createActions({
-    fireBall: {asyncResult: true}
+    fireBall: { asyncResult: true },
 });
 
-asyncActions.fireBall.listen(function() {
+asyncActions.fireBall.listen(function () {
     // Trigger async action
     setTimeout(() => this.completed(true), 1000);
 });
@@ -28,16 +24,16 @@ const statusStore = Reflux.createStore({
 
         // Pass on to listeners
         this.trigger(status);
-    }
+    },
 });
 
 Reflux.createAction({
-    children: ["progressed", "completed", "failed"]
+    children: ['progressed', 'completed', 'failed'],
 });
 
 const action = Reflux.createAction();
 
-const actions = Reflux.createActions(["fireBall", "magicMissile"]);
+const actions = Reflux.createActions(['fireBall', 'magicMissile']);
 
 const Store = Reflux.createStore({
     init() {
@@ -48,9 +44,9 @@ const Store = Reflux.createStore({
     },
     onMagicMissile() {
         // bzzzzapp!
-    }
+    },
 });
 
 const ReactComponent = {
-    mixins: [Reflux.ListenerMixin]
+    mixins: [Reflux.ListenerMixin],
 };

@@ -1,11 +1,21 @@
 import express, { Request, Response } from 'express';
-import { err, req, res, SerializedError, SerializedRequest, wrapErrorSerializer, wrapRequestSerializer, wrapResponseSerializer, SerializedResponse } from 'pino-std-serializers';
+import {
+    err,
+    req,
+    res,
+    SerializedError,
+    SerializedRequest,
+    wrapErrorSerializer,
+    wrapRequestSerializer,
+    wrapResponseSerializer,
+    SerializedResponse,
+} from 'pino-std-serializers';
 
 const customErrorSerializer = (error: SerializedError) => {
     return {
         myOwnError: {
             data: `${error.type}-${error.message}\n\n${error.stack}`,
-        }
+        },
     };
 };
 
@@ -16,7 +26,7 @@ const customRequestSerializer = (req: SerializedRequest) => {
             data: `${method}-${id}-${remoteAddress}-${remotePort}-${url}`,
             headers,
             raw,
-        }
+        },
     };
 };
 
@@ -27,7 +37,7 @@ const customResponseSerializer = (res: SerializedResponse) => {
             data: statusCode,
             headers,
             raw,
-        }
+        },
     };
 };
 

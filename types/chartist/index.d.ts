@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chartist {
-
     interface ChartistStatic {
-
         /**
          * Precision level used internally in Chartist for rounding. If you require more decimal places you can increase this number.
          */
@@ -79,27 +77,29 @@ declare namespace Chartist {
     // a line chart axisX
     // in the actual chartist library these are classes that project their options onto
     // the parent class
-    interface IFixedScaleAxisStatic {
-    }
+    interface IFixedScaleAxisStatic {}
 
-    interface IAutoScaleAxisStatic {
-    }
+    interface IAutoScaleAxisStatic {}
 
-    interface IStepAxisStatic {
-    }
+    interface IStepAxisStatic {}
 
     // data formats are not well documented on all the ways they can be passed to the constructors
     // this definition gives some intellisense, but does not protect the user from misuse
     // TODO: come in and tidy this up and make it fit better
     interface IChartistData {
         labels?: Array<string> | Array<number> | Array<Date>;
-        series: Array<IChartistSeriesData> | Array<Array<IChartistSeriesData>> | Array<Array<IChartistData>> | Array<number> | Array<Array<number>>;
+        series:
+            | Array<IChartistSeriesData>
+            | Array<Array<IChartistSeriesData>>
+            | Array<Array<IChartistData>>
+            | Array<number>
+            | Array<Array<number>>;
     }
 
     interface IChartistSeriesData {
         name?: string;
         value?: number;
-        data?: Array<number> | Array<{ x: number | Date, y: number }>;
+        data?: Array<number> | Array<{ x: number | Date; y: number }>;
         className?: string;
         meta?: any;
     }
@@ -144,19 +144,39 @@ declare namespace Chartist {
     }
 
     interface IChartistPieChart extends IChartistBase<IPieChartOptions> {
-        new (target: any, data: IChartistData, options?: IPieChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IPieChartOptions>>): IChartistPieChart;
+        new (
+            target: any,
+            data: IChartistData,
+            options?: IPieChartOptions,
+            responsiveOptions?: Array<IResponsiveOptionTuple<IPieChartOptions>>,
+        ): IChartistPieChart;
     }
 
     interface IChartistLineChart extends IChartistBase<ILineChartOptions> {
-        new (target: any, data: IChartistData, options?: ILineChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<ILineChartOptions>>): IChartistLineChart;
+        new (
+            target: any,
+            data: IChartistData,
+            options?: ILineChartOptions,
+            responsiveOptions?: Array<IResponsiveOptionTuple<ILineChartOptions>>,
+        ): IChartistLineChart;
     }
 
     interface IChartistBarChart extends IChartistBase<IBarChartOptions> {
-        new (target: any, data: IChartistData, options?: IBarChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IBarChartOptions>>): IChartistBarChart;
+        new (
+            target: any,
+            data: IChartistData,
+            options?: IBarChartOptions,
+            responsiveOptions?: Array<IResponsiveOptionTuple<IBarChartOptions>>,
+        ): IChartistBarChart;
     }
 
     interface IChartistCandleChart extends IChartistBase<ICandleChartOptions> {
-        new (target: any, data: IChartistData, options?: ICandleChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<ICandleChartOptions>>): IChartistCandleChart;
+        new (
+            target: any,
+            data: IChartistData,
+            options?: ICandleChartOptions,
+            responsiveOptions?: Array<IResponsiveOptionTuple<ICandleChartOptions>>,
+        ): IChartistCandleChart;
     }
 
     interface IChartOptions {
@@ -341,8 +361,8 @@ declare namespace Chartist {
                 showPoint?: boolean;
                 showArea?: boolean;
                 areaBase?: number;
-            }
-        }
+            };
+        };
     }
 
     interface ILineChartAxis {
@@ -401,7 +421,6 @@ declare namespace Chartist {
     }
 
     interface ICandleChartOptions extends IChartOptions {
-
         /**
          * Options for X-Axis
          */
@@ -508,19 +527,24 @@ declare namespace Chartist {
         labelGroup?: string;
         series?: string;
         candlePositive?: string;
-        candleNegative?: string,
-        grid?: string,
-        gridGroup?: string,
-        gridBackground?: string,
-        vertical?: string,
-        horizontal?: string,
-        start?: string,
-        end?: string,
+        candleNegative?: string;
+        grid?: string;
+        gridGroup?: string;
+        gridBackground?: string;
+        vertical?: string;
+        horizontal?: string;
+        start?: string;
+        end?: string;
     }
 
-
     interface ChartistSvgStatic {
-        new (name?: HTMLElement | string, attributes?: Object, className?: string, parent?: Object, insertFirst?: boolean): IChartistSvg;
+        new (
+            name?: HTMLElement | string,
+            attributes?: Object,
+            className?: string,
+            parent?: Object,
+            insertFirst?: boolean,
+        ): IChartistSvg;
 
         Easing: ChartistEasingStatic;
 
@@ -688,7 +712,6 @@ declare namespace Chartist {
     }
 
     interface ChartistInterpolationStatic {
-
         /**
          * This interpolation function does not smooth the path and the result is only containing lines and no curves.
          */

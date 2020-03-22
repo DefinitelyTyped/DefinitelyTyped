@@ -18,12 +18,7 @@ export = dateFormat;
  *
  * https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L18
  */
-declare function dateFormat(
-    date?: Date | string | number,
-    mask?: string,
-    utc?: boolean,
-    gmt?: boolean
-): string;
+declare function dateFormat(date?: Date | string | number, mask?: string, utc?: boolean, gmt?: boolean): string;
 declare function dateFormat(mask?: string, utc?: boolean, gmt?: boolean): string;
 
 declare namespace dateFormat {

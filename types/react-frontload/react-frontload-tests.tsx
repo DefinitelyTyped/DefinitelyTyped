@@ -13,15 +13,12 @@ class Main extends React.Component<MainProps> {
 }
 
 const frontload = async (props: MainProps) => {
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
 };
 
-const FrontloadedMain = frontloadConnect(
-    frontload,
-    { noServerRender: false, onMount: false, onUpdate: false },
-)(Main);
+const FrontloadedMain = frontloadConnect(frontload, { noServerRender: false, onMount: false, onUpdate: false })(Main);
 
 interface AppProps {
     renderCase: string;
@@ -36,7 +33,7 @@ const App = ({ renderCase }: AppProps) => {
 };
 
 (async () => {
-    const htmlString: string = await frontloadServerRender(dryRun =>
+    const htmlString: string = await frontloadServerRender((dryRun) =>
         ReactDOMServer.renderToString(<App renderCase={dryRun ? 'Dry run true case' : 'Dry run false case'} />),
     );
 })();

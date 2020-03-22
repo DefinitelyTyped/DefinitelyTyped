@@ -74,7 +74,10 @@ declare namespace MakerJs {
      * @param routeKeyOrRoute String of a flattened route, or a string array of route segments.
      * @returns Model or Path object within the modelContext tree.
      */
-    function travel(modelContext: IModel, routeKeyOrRoute: string | string[]): {
+    function travel(
+        modelContext: IModel,
+        routeKeyOrRoute: string | string[],
+    ): {
         path: IPath | IModel;
         offset: IPoint;
     };
@@ -173,7 +176,7 @@ declare namespace MakerJs {
         /**
          * The type of the path, e.g. "line", "circle", or "arc". These strings are enumerated in pathType.
          */
-        "type": string;
+        type: string;
         /**
          * The main point of reference for this path.
          */
@@ -493,7 +496,7 @@ declare namespace MakerJs {
         /**
          * A model may want to specify its type, but this value is not employed yet.
          */
-        "type"?: string;
+        type?: string;
         /**
          * Optional array of path objects in this model.
          */
@@ -639,8 +642,7 @@ declare namespace MakerJs {
     /**
      * A model reference in a walk.
      */
-    interface IWalkModel extends IRefModelInModel, IRouteOffset {
-    }
+    interface IWalkModel extends IRefModelInModel, IRouteOffset {}
     /**
      * Callback signature for model.walk().
      */
@@ -1317,7 +1319,13 @@ declare namespace MakerJs.model {
      * @param farPoint Optional point of reference which is outside the bounds of the modelContext.
      * @returns Boolean true if the path is inside of the modelContext.
      */
-    function isPathInsideModel(pathContext: IPath, modelContext: IModel, pathOffset?: IPoint, farPoint?: IPoint, measureAtlas?: measure.Atlas): boolean;
+    function isPathInsideModel(
+        pathContext: IPath,
+        modelContext: IModel,
+        pathOffset?: IPoint,
+        farPoint?: IPoint,
+        measureAtlas?: measure.Atlas,
+    ): boolean;
     /**
      * Break a model's paths everywhere they intersect with another path.
      *
@@ -1337,7 +1345,15 @@ declare namespace MakerJs.model {
      * @param keepDuplicates Flag to include paths which are duplicate in both models.
      * @param farPoint Optional point of reference which is outside the bounds of both models.
      */
-    function combine(modelA: IModel, modelB: IModel, includeAInsideB?: boolean, includeAOutsideB?: boolean, includeBInsideA?: boolean, includeBOutsideA?: boolean, options?: ICombineOptions): void;
+    function combine(
+        modelA: IModel,
+        modelB: IModel,
+        includeAInsideB?: boolean,
+        includeAOutsideB?: boolean,
+        includeBInsideA?: boolean,
+        includeBOutsideA?: boolean,
+        options?: ICombineOptions,
+    ): void;
     /**
      * Combine 2 models, resulting in a intersection.
      *
@@ -1428,7 +1444,12 @@ declare namespace MakerJs.model {
      * @param joints Number of points at a joint between paths. Use 0 for round joints, 1 for pointed joints, 2 for beveled joints.
      * @returns Model which surrounds the paths of the original model.
      */
-    function expandPaths(modelToExpand: IModel, distance: number, joints?: number, combineOptions?: ICombineOptions): IModel;
+    function expandPaths(
+        modelToExpand: IModel,
+        distance: number,
+        joints?: number,
+        combineOptions?: ICombineOptions,
+    ): IModel;
     /**
      * Outline a model by a specified distance. Useful for accommodating for kerf.
      *
@@ -1466,7 +1487,13 @@ declare namespace MakerJs.measure {
      * @param pathB Second path.
      * @returns true if paths are the same, false if they are not
      */
-    function isPathEqual(pathA: IPath, pathB: IPath, withinPointDistance?: number, pathAOffset?: IPoint, pathBOffset?: IPoint): boolean;
+    function isPathEqual(
+        pathA: IPath,
+        pathB: IPath,
+        withinPointDistance?: number,
+        pathAOffset?: IPoint,
+        pathBOffset?: IPoint,
+    ): boolean;
     /**
      * Find out if two points are equal.
      *
@@ -1681,7 +1708,13 @@ declare namespace MakerJs.exporter {
          * @param fixPoint Optional function to modify a point prior to export. Function parameter is a point; function must return a point.
          * @param fixPath Optional function to modify a path prior to output. Function parameters are path and offset point; function must return a path.
          */
-        constructor(map: IPathOriginFunctionMap, fixPoint?: (pointToFix: IPoint) => IPoint, fixPath?: (pathToFix: IPath, origin: IPoint) => IPath, beginModel?: (id: string, modelContext: IModel) => void, endModel?: (modelContext: IModel) => void);
+        constructor(
+            map: IPathOriginFunctionMap,
+            fixPoint?: (pointToFix: IPoint) => IPoint,
+            fixPath?: (pathToFix: IPath, origin: IPoint) => IPath,
+            beginModel?: (id: string, modelContext: IModel) => void,
+            endModel?: (modelContext: IModel) => void,
+        );
         /**
          * Export a path.
          *
@@ -1726,8 +1759,7 @@ declare namespace MakerJs.exporter {
     /**
      * DXF rendering options.
      */
-    interface IDXFRenderOptions extends IExportOptions {
-    }
+    interface IDXFRenderOptions extends IExportOptions {}
 }
 declare namespace MakerJs.solvers {
     /**
@@ -1747,7 +1779,11 @@ declare namespace MakerJs.solvers {
      * @param otherAngleInDegrees An other angle of the triangle.
      * @returns Length of the side of the triangle which is opposite of the first angle parameter.
      */
-    function solveTriangleASA(oppositeAngleInDegrees: number, lengthOfSideBetweenAngles: number, otherAngleInDegrees: number): number;
+    function solveTriangleASA(
+        oppositeAngleInDegrees: number,
+        lengthOfSideBetweenAngles: number,
+        otherAngleInDegrees: number,
+    ): number;
 }
 declare namespace MakerJs.path {
     /**
@@ -2237,7 +2273,12 @@ declare namespace MakerJs.models {
         paths: IPathMap;
         constructor(numberOfSides: number, radius: number, firstCornerAngleInDegrees?: number, circumscribed?: boolean);
         static circumscribedRadius(radius: number, angleInRadians: number): number;
-        static getPoints(numberOfSides: number, radius: number, firstCornerAngleInDegrees?: number, circumscribed?: boolean): IPoint[];
+        static getPoints(
+            numberOfSides: number,
+            radius: number,
+            firstCornerAngleInDegrees?: number,
+            circumscribed?: boolean,
+        ): IPoint[];
     }
 }
 declare namespace MakerJs.models {
@@ -2342,7 +2383,14 @@ declare namespace MakerJs.models {
     class OvalArc implements IModel {
         paths: IPathMap;
         models: IModelMap;
-        constructor(startAngle: number, endAngle: number, sweepRadius: number, slotRadius: number, selfIntersect?: boolean, isolateCaps?: boolean);
+        constructor(
+            startAngle: number,
+            endAngle: number,
+            sweepRadius: number,
+            slotRadius: number,
+            selfIntersect?: boolean,
+            isolateCaps?: boolean,
+        );
     }
 }
 declare namespace MakerJs.models {
@@ -2437,6 +2485,13 @@ declare namespace MakerJs.models {
 declare namespace MakerJs.models {
     class Text implements IModel {
         models: IModelMap;
-        constructor(font: opentype.Font, text: string, fontSize: number, combine?: boolean, centerCharacterOrigin?: boolean, bezierAccuracy?: number);
+        constructor(
+            font: opentype.Font,
+            text: string,
+            fontSize: number,
+            combine?: boolean,
+            centerCharacterOrigin?: boolean,
+            bezierAccuracy?: number,
+        );
     }
 }

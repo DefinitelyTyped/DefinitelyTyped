@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Animations {
-  startEnter: string;
-  startExit: string;
-  endEnter: string;
-  endExit: string;
+    startEnter: string;
+    startExit: string;
+    endEnter: string;
+    endExit: string;
 }
 
 export interface CustomTabsOptions {
-  toolbarColor?: string;
-  enableUrlBarHiding?: boolean;
-  showPageTitle?: boolean;
-  enableDefaultShare?: boolean;
-  animations?: Animations;
-  headers?: any;
+    toolbarColor?: string;
+    enableUrlBarHiding?: boolean;
+    showPageTitle?: boolean;
+    enableDefaultShare?: boolean;
+    animations?: Animations;
+    headers?: any;
 }
 
 export namespace CustomTabs {

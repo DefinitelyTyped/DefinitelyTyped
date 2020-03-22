@@ -110,10 +110,10 @@
 /* /// <reference lib="es2015.promise" /> */
 /* /// <reference lib="es2018.promise" /> */
 
-import Bluebird = require("bluebird");
+import Bluebird = require('bluebird');
 
 declare global {
-    type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => (R | PromiseLike<R>);
+    type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => R | PromiseLike<R>;
     /*
      * Patch all instance method
      */
@@ -122,51 +122,66 @@ declare global {
         all(): Bluebird<never>;
         any<Q>(this: Promise<T & Iterable<Q>>): Bluebird<Q>;
         any(): Bluebird<never>;
-        asCallback: Bluebird<T>["asCallback"];
-        bind: Bluebird<T>["bind"];
-        call: Bluebird<T>["call"];
-        cancel: Bluebird<T>["cancel"];
+        asCallback: Bluebird<T>['asCallback'];
+        bind: Bluebird<T>['bind'];
+        call: Bluebird<T>['call'];
+        cancel: Bluebird<T>['cancel'];
         // catch: Bluebird<T>["catch"]; // Provided by lib.es5.d.ts
-        caught: Bluebird<T>["caught"];
-        delay: Bluebird<T>["delay"];
-        disposer: Bluebird<T>["disposer"];
-        done: Bluebird<T>["done"];
+        caught: Bluebird<T>['caught'];
+        delay: Bluebird<T>['delay'];
+        disposer: Bluebird<T>['disposer'];
+        done: Bluebird<T>['done'];
         each<Q>(this: Promise<T & Iterable<Q>>, iterator: IterateFunction<Q, any>): Bluebird<T>;
-        error: Bluebird<T>["error"];
-        filter<Q>(this: Promise<T & Iterable<Q>>, filterer: IterateFunction<Q, boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<T>;
+        error: Bluebird<T>['error'];
+        filter<Q>(
+            this: Promise<T & Iterable<Q>>,
+            filterer: IterateFunction<Q, boolean>,
+            options?: Bluebird.ConcurrencyOption,
+        ): Bluebird<T>;
         // finally: Bluebird<T>["finally"]; // Provided by lib.es2018.promise.d.ts
-        get: Bluebird<T>["get"];
-        isCancelled: Bluebird<T>["isCancelled"];
-        isFulfilled: Bluebird<T>["isFulfilled"];
-        isPending: Bluebird<T>["isPending"];
-        isRejected: Bluebird<T>["isRejected"];
-        isResolved: Bluebird<T>["isResolved"];
-        lastly: Bluebird<T>["lastly"];
-        map<U, Q>(this: Promise<T & Iterable<Q>>, mapper: IterateFunction<Q, U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+        get: Bluebird<T>['get'];
+        isCancelled: Bluebird<T>['isCancelled'];
+        isFulfilled: Bluebird<T>['isFulfilled'];
+        isPending: Bluebird<T>['isPending'];
+        isRejected: Bluebird<T>['isRejected'];
+        isResolved: Bluebird<T>['isResolved'];
+        lastly: Bluebird<T>['lastly'];
+        map<U, Q>(
+            this: Promise<T & Iterable<Q>>,
+            mapper: IterateFunction<Q, U>,
+            options?: Bluebird.ConcurrencyOption,
+        ): Bluebird<U[]>;
         mapSeries<U, Q>(this: Promise<T & Iterable<Q>>, iterator: IterateFunction<Q, U>): Bluebird<U[]>;
-        nodeify: Bluebird<T>["nodeify"];
-        props: Bluebird<T>["props"];
+        nodeify: Bluebird<T>['nodeify'];
+        props: Bluebird<T>['props'];
         race<Q>(this: Promise<T & Iterable<Q>>): Bluebird<Q>;
         race(): Bluebird<never>;
-        reason: Bluebird<T>["reason"];
-        reduce<U, Q>(this: Promise<T & Iterable<Q>>, reducer: (memo: U, item: Q, index: number, arrayLength: number) => (U | PromiseLike<U>), initialValue?: U): Bluebird<U>;
-        reflect: Bluebird<T>["reflect"];
-        return: Bluebird<T>["return"];
+        reason: Bluebird<T>['reason'];
+        reduce<U, Q>(
+            this: Promise<T & Iterable<Q>>,
+            reducer: (memo: U, item: Q, index: number, arrayLength: number) => U | PromiseLike<U>,
+            initialValue?: U,
+        ): Bluebird<U>;
+        reflect: Bluebird<T>['reflect'];
+        return: Bluebird<T>['return'];
         some(this: Promise<Iterable<{}>>, count: number): Bluebird<T>;
-        spread<U, Q>(this: Bluebird<T & Iterable<Q>>, fulfilledHandler: (...values: Q[]) => (U | PromiseLike<U>)): Bluebird<U>;
-        suppressUnhandledRejections: Bluebird<T>["suppressUnhandledRejections"];
-        tap: Bluebird<T>["tap"];
-        tapCatch: Bluebird<T>["tapCatch"];
+        spread<U, Q>(
+            this: Bluebird<T & Iterable<Q>>,
+            fulfilledHandler: (...values: Q[]) => U | PromiseLike<U>,
+        ): Bluebird<U>;
+        suppressUnhandledRejections: Bluebird<T>['suppressUnhandledRejections'];
+        tap: Bluebird<T>['tap'];
+        tapCatch: Bluebird<T>['tapCatch'];
         // then: Bluebird<T>["then"]; // Provided by lib.es5.d.ts
-        thenReturn: Bluebird<T>["thenReturn"];
-        thenThrow: Bluebird<T>["thenThrow"];
-        catchReturn: Bluebird<T>["catchReturn"];
-        catchThrow: Bluebird<T>["catchThrow"];
-        throw: Bluebird<T>["throw"];
-        timeout: Bluebird<T>["timeout"];
-        toJSON: Bluebird<T>["toJSON"];
-        toString: Bluebird<T>["toString"];
-        value: Bluebird<T>["value"];
+        thenReturn: Bluebird<T>['thenReturn'];
+        thenThrow: Bluebird<T>['thenThrow'];
+        catchReturn: Bluebird<T>['catchReturn'];
+        catchThrow: Bluebird<T>['catchThrow'];
+        throw: Bluebird<T>['throw'];
+        timeout: Bluebird<T>['timeout'];
+        toJSON: Bluebird<T>['toJSON'];
+        toString: Bluebird<T>['toString'];
+        value: Bluebird<T>['value'];
 
         /*
          * Copy&paste ::then and ::catch from lib.es5.promise.d.ts, because Bluebird's typings are not
@@ -178,19 +193,30 @@ declare global {
          */
         then<TResult1 = T, TResult2 = never>(
             onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-            onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+            onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
         ): Promise<TResult1 | TResult2>;
-        catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+        catch<TResult = never>(
+            onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
+        ): Promise<T | TResult>;
 
         /*
          * TypeScript disallows adding overrides via `catch: typeof Bluebird.prototype.catch`. Copy&paste them then.
          *
          * @todo Duplication of code is never ideal. See whether there's a better way of achieving this.
          */
-        catch(predicate: (error: any) => boolean, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
+        catch(
+            predicate: (error: any) => boolean,
+            onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>,
+        ): Bluebird<T>;
         catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
-        catch<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
-        catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | PromiseLike<U>): Bluebird<U | T>;
+        catch<E extends Error>(
+            ErrorClass: new (...args: any[]) => E,
+            onReject: (error: E) => T | PromiseLike<T> | void | PromiseLike<void>,
+        ): Bluebird<T>;
+        catch<E extends Error, U>(
+            ErrorClass: new (...args: any[]) => E,
+            onReject: (error: E) => U | PromiseLike<U>,
+        ): Bluebird<U | T>;
         catch(predicate: Object, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
         catch<U>(predicate: Object, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
 
@@ -208,7 +234,13 @@ declare global {
      * Patch all static methods and the constructor
      */
     interface PromiseConstructor {
-        new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void): Promise<T>;
+        new <T>(
+            callback: (
+                resolve: (thenableOrResult?: T | PromiseLike<T>) => void,
+                reject: (error?: any) => void,
+                onCancel?: (callback: () => void) => void,
+            ) => void,
+        ): Promise<T>;
 
         // all: typeof Bluebird.all; // Provided by lib.es2015.d.ts
         any: typeof Bluebird.any;
@@ -248,24 +280,158 @@ declare global {
          *
          * @todo See the comment near the top of the file about code marked with #std-lib-copy&paste-to-remove
          */
-        all<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike <T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>, T8 | PromiseLike<T8>, T9 | PromiseLike<T9>, T10 | PromiseLike<T10>]): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]>;
-        all<T1, T2, T3, T4, T5, T6, T7, T8, T9>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike <T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>, T8 | PromiseLike<T8>, T9 | PromiseLike<T9>]): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9]>;
-        all<T1, T2, T3, T4, T5, T6, T7, T8>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike <T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>, T8 | PromiseLike<T8>]): Promise<[T1, T2, T3, T4, T5, T6, T7, T8]>;
-        all<T1, T2, T3, T4, T5, T6, T7>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike <T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>]): Promise<[T1, T2, T3, T4, T5, T6, T7]>;
-        all<T1, T2, T3, T4, T5, T6>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike <T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>]): Promise<[T1, T2, T3, T4, T5, T6]>;
-        all<T1, T2, T3, T4, T5>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike <T4>, T5 | PromiseLike<T5>]): Promise<[T1, T2, T3, T4, T5]>;
-        all<T1, T2, T3, T4>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike <T4>]): Promise<[T1, T2, T3, T4]>;
-        all<T1, T2, T3>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>]): Promise<[T1, T2, T3]>;
+        all<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+                T7 | PromiseLike<T7>,
+                T8 | PromiseLike<T8>,
+                T9 | PromiseLike<T9>,
+                T10 | PromiseLike<T10>,
+            ],
+        ): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]>;
+        all<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+                T7 | PromiseLike<T7>,
+                T8 | PromiseLike<T8>,
+                T9 | PromiseLike<T9>,
+            ],
+        ): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9]>;
+        all<T1, T2, T3, T4, T5, T6, T7, T8>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+                T7 | PromiseLike<T7>,
+                T8 | PromiseLike<T8>,
+            ],
+        ): Promise<[T1, T2, T3, T4, T5, T6, T7, T8]>;
+        all<T1, T2, T3, T4, T5, T6, T7>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+                T7 | PromiseLike<T7>,
+            ],
+        ): Promise<[T1, T2, T3, T4, T5, T6, T7]>;
+        all<T1, T2, T3, T4, T5, T6>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+            ],
+        ): Promise<[T1, T2, T3, T4, T5, T6]>;
+        all<T1, T2, T3, T4, T5>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+            ],
+        ): Promise<[T1, T2, T3, T4, T5]>;
+        all<T1, T2, T3, T4>(
+            values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike<T4>],
+        ): Promise<[T1, T2, T3, T4]>;
+        all<T1, T2, T3>(
+            values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>],
+        ): Promise<[T1, T2, T3]>;
         all<T1, T2>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>]): Promise<[T1, T2]>;
         all<T>(values: (T | PromiseLike<T>)[]): Promise<T[]>;
-        race<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike<T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>, T8 | PromiseLike<T8>, T9 | PromiseLike<T9>, T10 | PromiseLike<T10>]): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10>;
-        race<T1, T2, T3, T4, T5, T6, T7, T8, T9>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike<T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>, T8 | PromiseLike<T8>, T9 | PromiseLike<T9>]): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>;
-        race<T1, T2, T3, T4, T5, T6, T7, T8>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike<T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>, T8 | PromiseLike<T8>]): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>;
-        race<T1, T2, T3, T4, T5, T6, T7>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike<T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>]): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7>;
-        race<T1, T2, T3, T4, T5, T6>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike<T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>]): Promise<T1 | T2 | T3 | T4 | T5 | T6>;
-        race<T1, T2, T3, T4, T5>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike<T4>, T5 | PromiseLike<T5>]): Promise<T1 | T2 | T3 | T4 | T5>;
-        race<T1, T2, T3, T4>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike<T4>]): Promise<T1 | T2 | T3 | T4>;
-        race<T1, T2, T3>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>]): Promise<T1 | T2 | T3>;
+        race<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+                T7 | PromiseLike<T7>,
+                T8 | PromiseLike<T8>,
+                T9 | PromiseLike<T9>,
+                T10 | PromiseLike<T10>,
+            ],
+        ): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10>;
+        race<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+                T7 | PromiseLike<T7>,
+                T8 | PromiseLike<T8>,
+                T9 | PromiseLike<T9>,
+            ],
+        ): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>;
+        race<T1, T2, T3, T4, T5, T6, T7, T8>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+                T7 | PromiseLike<T7>,
+                T8 | PromiseLike<T8>,
+            ],
+        ): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>;
+        race<T1, T2, T3, T4, T5, T6, T7>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+                T7 | PromiseLike<T7>,
+            ],
+        ): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7>;
+        race<T1, T2, T3, T4, T5, T6>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+                T6 | PromiseLike<T6>,
+            ],
+        ): Promise<T1 | T2 | T3 | T4 | T5 | T6>;
+        race<T1, T2, T3, T4, T5>(
+            values: [
+                T1 | PromiseLike<T1>,
+                T2 | PromiseLike<T2>,
+                T3 | PromiseLike<T3>,
+                T4 | PromiseLike<T4>,
+                T5 | PromiseLike<T5>,
+            ],
+        ): Promise<T1 | T2 | T3 | T4 | T5>;
+        race<T1, T2, T3, T4>(
+            values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike<T4>],
+        ): Promise<T1 | T2 | T3 | T4>;
+        race<T1, T2, T3>(
+            values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>],
+        ): Promise<T1 | T2 | T3>;
         race<T1, T2>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>]): Promise<T1 | T2>;
         race<T>(values: (T | PromiseLike<T>)[]): Promise<T>;
         reject(reason: any): Promise<never>;

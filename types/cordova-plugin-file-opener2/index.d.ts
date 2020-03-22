@@ -20,7 +20,11 @@ interface CordovaPluginsFileOpener2 {
     /**
      * Open a system modal to open document with one of the already installed app and optional callback object
      */
-    showOpenWithDialog(fileName: string, contentType: string, callbackContext?: CordovaPluginsFileOpener2CallbackContext): void;
+    showOpenWithDialog(
+        fileName: string,
+        contentType: string,
+        callbackContext?: CordovaPluginsFileOpener2CallbackContext,
+    ): void;
 
     /**
      * Uninstall a package with its id. Android platform only.
@@ -30,10 +34,13 @@ interface CordovaPluginsFileOpener2 {
     /**
      * Check if an app is already installed. Android platform only.
      */
-    appIsInstalled(packageId: string, callbackContext?: {
-        success?(result: CordovaPluginsFileOpener2Result): void;
-        error?(error: CordovaPluginsFileOpener2Result): void;
-    }): void;
+    appIsInstalled(
+        packageId: string,
+        callbackContext?: {
+            success?(result: CordovaPluginsFileOpener2Result): void;
+            error?(error: CordovaPluginsFileOpener2Result): void;
+        },
+    ): void;
 }
 
 interface CordovaPlugins {

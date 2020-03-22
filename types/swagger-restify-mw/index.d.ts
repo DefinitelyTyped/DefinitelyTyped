@@ -29,10 +29,10 @@ SwaggerRestify.create(config, function(err, swaggerRestify) {
 
  =============================================== */
 
-import { Config, RestifyMiddleware } from "swagger-node-runner";
+import { Config, RestifyMiddleware } from 'swagger-node-runner';
 
 /** export interfaces */
-export { Config, RestifyMiddleware } from "swagger-node-runner";
+export { Config, RestifyMiddleware } from 'swagger-node-runner';
 
 /**
  * Create a new instance of a Restify specific `SwaggerNodeRunner` middleware

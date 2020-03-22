@@ -1,4 +1,4 @@
-const input = "Someting to compress";
+const input = 'Someting to compress';
 let encoded: string;
 let decoded: string;
 let encodedU8: Uint8Array;

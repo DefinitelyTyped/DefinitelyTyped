@@ -10,7 +10,7 @@ const detach = onExit(
         code; // $ExpectType number | null
         signal; // $ExpectType string | null
     },
-    { alwaysLast: true }
+    { alwaysLast: true },
 );
 
 detach();

@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 /// <reference types="node" />
-import { PassThrough, Readable, ReadableOptions, Writable, WritableOptions } from "stream";
+import { PassThrough, Readable, ReadableOptions, Writable, WritableOptions } from 'stream';
 
 export type Chunk = string | Buffer | Uint8Array;
 
 export type NonNull = {} | undefined;
 
 /** Allowed version names for streamtest */
-export type VersionName = "v1" | "v2";
+export type VersionName = 'v1' | 'v2';
 
 /**
  * List of supported versions (currently v1 and v2). v1 should be used for

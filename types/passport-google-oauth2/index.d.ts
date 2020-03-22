@@ -8,41 +8,41 @@
 import { Request } from 'express';
 
 export interface StrategyOptions {
-  clientID: string;
-  clientSecret: string;
-  callbackURL: string;
-  passReqToCallback?: true;
-  scope?: string[];
-  proxy?: boolean;
+    clientID: string;
+    clientSecret: string;
+    callbackURL: string;
+    passReqToCallback?: true;
+    scope?: string[];
+    proxy?: boolean;
 }
 
 export interface StrategyOptionsWithRequest {
-  clientID: string;
-  clientSecret: string;
-  callbackURL: string;
-  passReqToCallback: true;
-  scope?: string[];
+    clientID: string;
+    clientSecret: string;
+    callbackURL: string;
+    passReqToCallback: true;
+    scope?: string[];
 }
 
 export interface VerifyOptions {
-  message: string;
+    message: string;
 }
 
 export type VerifyCallback = (error: any, user?: any, options?: VerifyOptions) => void;
 
 export type VerifyFunctionWithRequestAndParams = (
-  req: Request,
-  accessToken: string,
-  refreshToken: string,
-  params: {
-    access_token: string;
-    expires_in: number;
-    scope: string;
-    token_type: 'Bearer';
-    id_token: string;
-  },
-  profile: any,
-  done: VerifyCallback,
+    req: Request,
+    accessToken: string,
+    refreshToken: string,
+    params: {
+        access_token: string;
+        expires_in: number;
+        scope: string;
+        token_type: 'Bearer';
+        id_token: string;
+    },
+    profile: any,
+    done: VerifyCallback,
 ) => void;
 
 export type VerifyFunctionWithRequest = (
@@ -50,16 +50,19 @@ export type VerifyFunctionWithRequest = (
     accessToken: string,
     refreshToken: string,
     profile: any,
-    done: VerifyCallback
+    done: VerifyCallback,
 ) => void;
 
 export type VerifyFunction = (accessToken: string, refreshToken: string, profile: any, done: VerifyCallback) => void;
 
 export class Strategy implements Strategy {
-  name: string;
-  authenticate: (req: Request, options?: object) => void;
+    name: string;
+    authenticate: (req: Request, options?: object) => void;
 
-  constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest | VerifyFunctionWithRequestAndParams);
-  constructor(options: StrategyOptions, verify: VerifyFunction);
-  constructor(verify: VerifyFunction);
+    constructor(
+        options: StrategyOptionsWithRequest,
+        verify: VerifyFunctionWithRequest | VerifyFunctionWithRequestAndParams,
+    );
+    constructor(options: StrategyOptions, verify: VerifyFunction);
+    constructor(verify: VerifyFunction);
 }

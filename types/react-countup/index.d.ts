@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace ReactCountUp;
 
@@ -131,44 +131,27 @@ declare namespace ReactCountUp {
         /**
          * Callback function on transition end.
          */
-        onEnd?(providedFn: {
-            pauseResume(): void;
-            reset(): void;
-            start(): void;
-            update(): void;
-        }): void;
+        onEnd?(providedFn: { pauseResume(): void; reset(): void; start(): void; update(): void }): void;
 
         /**
          * Callback function on transition start.
          */
-        onStart?(providedFn: {
-            pauseResume(): void;
-            reset(): void;
-            update(): void;
-        }): void;
+        onStart?(providedFn: { pauseResume(): void; reset(): void; update(): void }): void;
 
         /**
          * Callback function on pause or resume.
          */
-        onPauseResume?(): (
-            providedFn: { reset(): void; start(): void; update(): void }
-        ) => void;
+        onPauseResume?(): (providedFn: { reset(): void; start(): void; update(): void }) => void;
 
         /**
          * Callback function on reset.
          */
-        onReset?(): (
-            providedFn: { pauseResume(): void; start(): void; update(): void }
-        ) => void;
+        onReset?(): (providedFn: { pauseResume(): void; start(): void; update(): void }) => void;
 
         /**
          * Callback function on update.
          */
-        onUpdate?(providedFn: {
-            pauseResume(): void;
-            reset(): void;
-            start(): void;
-        }): void;
+        onUpdate?(providedFn: { pauseResume(): void; reset(): void; start(): void }): void;
 
         style?: React.CSSProperties;
 

@@ -1,4 +1,4 @@
-import * as paypal from "paypal-rest-sdk";
+import * as paypal from 'paypal-rest-sdk';
 
 // Minimum Config
 const minConfig: paypal.ConfigureOptions = {
@@ -22,7 +22,7 @@ const maxConfig: paypal.ConfigureOptions = {
     logout_url: 'asdf',
     headers: {
         asdf: 'asdf',
-    }
+    },
 };
 
 // Execute Configure
@@ -30,18 +30,18 @@ paypal.configure(maxConfig);
 
 // Min Payment
 const minPayment: paypal.Payment = {
-    intent: "sale",
+    intent: 'sale',
     payer: {
-        payment_method: "paypal",
+        payment_method: 'paypal',
     },
     transactions: [
         {
             amount: {
-                total: "30.01",
-                currency: "USD",
+                total: '30.01',
+                currency: 'USD',
                 details: {
-                    subtotal: "30.00",
-                    handling_fee: "0.01",
+                    subtotal: '30.00',
+                    handling_fee: '0.01',
                 },
             },
         },
@@ -50,18 +50,18 @@ const minPayment: paypal.Payment = {
 
 // Max Payment
 const maxPayment: paypal.Payment = {
-    intent: "sale",
+    intent: 'sale',
     payer: {
-        payment_method: "paypal",
+        payment_method: 'paypal',
     },
     transactions: [
         {
             amount: {
-                total: "30.01",
-                currency: "USD",
+                total: '30.01',
+                currency: 'USD',
                 details: {
-                    subtotal: "30.00",
-                    handling_fee: "0.01",
+                    subtotal: '30.00',
+                    handling_fee: '0.01',
                     shipping: 'test',
                     tax: 'test',
                     shipping_discout: 'a',
@@ -77,8 +77,8 @@ const maxPayment: paypal.Payment = {
                     display_phone: {
                         country_code: 'a',
                         national_number: 'a',
-                    }
-                }
+                    },
+                },
             },
             description: 'asdf',
             note_to_payee: 'asdf',
@@ -87,19 +87,21 @@ const maxPayment: paypal.Payment = {
             purchase_order: 'asdf',
             soft_descriptor: 'asdf',
             payment_options: {
-                allowed_payment_method: 'asdf'
+                allowed_payment_method: 'asdf',
             },
             item_list: {
-                items: [{
-                    sku: 'asdf',
-                    name: 'asdf',
-                    description: 'asdf',
-                    quantity: 2,
-                    price: 'adsf',
-                    currency: 'adsf',
-                    tax: 'asdf',
-                    url: 'asdf'
-                }],
+                items: [
+                    {
+                        sku: 'asdf',
+                        name: 'asdf',
+                        description: 'asdf',
+                        quantity: 2,
+                        price: 'adsf',
+                        currency: 'adsf',
+                        tax: 'asdf',
+                        url: 'asdf',
+                    },
+                ],
                 shipping_address: {
                     line1: 'asdf',
                     line2: 'asdf',
@@ -140,7 +142,7 @@ paypal.payment.create(maxPayment, (err, response) => {
 });
 
 const request: paypal.payment.ExecuteRequest = {
-    payer_id: 'test'
+    payer_id: 'test',
 };
 
 // Execute Payment
@@ -168,7 +170,7 @@ paypal.payment.get('test', (err, response) => {
 });
 
 const paymentList: paypal.QueryParameters = {
-    page: 2
+    page: 2,
 };
 
 // List Payments
@@ -202,7 +204,7 @@ paypal.payment.update('asdf', [updatePayment], (err, response) => {
 
 // List Webhooks
 const whList: paypal.QueryParameters = {
-    transaction_id: 'asdf'
+    transaction_id: 'asdf',
 };
 paypal.notification.webhook.list(whList, (err, response) => {
     let test;
@@ -215,7 +217,7 @@ paypal.notification.webhook.list(whList, (err, response) => {
 });
 
 // Create Webhooks
-const webhook =  { name: 'test', url: 'asdf', event_types: [ { name: 'test' } ] };
+const webhook = { name: 'test', url: 'asdf', event_types: [{ name: 'test' }] };
 paypal.notification.webhook.create(webhook, (err, response) => {
     let test;
     if (err) {
@@ -290,8 +292,8 @@ const webhookEvent: paypal.notification.webhookEvent.WebhookEvent = {
     event_type: 'asdf',
     summary: 'asdf',
     resource: {
-        id: 'asdf'
-    }
+        id: 'asdf',
+    },
 };
 
 // WebhookEvent Get and Verify
@@ -389,7 +391,7 @@ paypal.authorization.capture('id', captureRequest, (err, response) => {
 });
 
 // ReAuthorization
-paypal.authorization.reauthorize('id', { total: "10", currency: "USD" }, (err, response) => {
+paypal.authorization.reauthorize('id', { total: '10', currency: 'USD' }, (err, response) => {
     let test;
     if (err) {
         test = err.response.debug_id;
@@ -412,9 +414,9 @@ paypal.capture.get('id', (err, response) => {
 
 const refundRequest: paypal.RefundRequest = {
     amount: {
-        total: "30.00",
-        currency: "USD"
-    }
+        total: '30.00',
+        currency: 'USD',
+    },
 };
 
 // Capture Get
@@ -434,126 +436,130 @@ const minInvoice: paypal.invoice.Invoice = {};
 // Max Invoice
 const maxInvoice: paypal.invoice.Invoice = {
     allow_tip: true,
-    billing_info: [{
-        email: 'asfd',
-        language: 'string',
-        notification_channel: 'string',
-        additional_info: 'string',
-    }],
+    billing_info: [
+        {
+            email: 'asfd',
+            language: 'string',
+            notification_channel: 'string',
+            additional_info: 'string',
+        },
+    ],
     discount: {
         percent: 2,
         amount: {
-            currency: "USD",
-            value: "34"
+            currency: 'USD',
+            value: '34',
         },
     },
     shipping_cost: {
         amount: {
-            currency: "USD",
-            value: "20",
+            currency: 'USD',
+            value: '20',
         },
         tax: {
             id: 'tst',
-            name: "asdf",
+            name: 'asdf',
             percent: 20,
             amount: {
-                currency: "USD",
-                value: "20",
-            }
-        }
+                currency: 'USD',
+                value: '20',
+            },
+        },
     },
-    invoice_date: "asdf",
-    items: [{
-        name: "asdf",
-        description: "asdf",
-        quantity: 2,
-        unit_price: {
-            currency: "USD",
-            value: "20",
+    invoice_date: 'asdf',
+    items: [
+        {
+            name: 'asdf',
+            description: 'asdf',
+            quantity: 2,
+            unit_price: {
+                currency: 'USD',
+                value: '20',
+            },
+            tax: {
+                percent: 20,
+            },
+            date: 'asdf',
+            discount: {
+                percent: 20,
+            },
+            unit_of_measure: 'asdf',
         },
-        tax: {
-            percent: 20,
-        },
-        date: "asdf",
-        discount: {
-            percent: 20,
-        },
-        unit_of_measure: 'asdf'
-    }],
+    ],
     merchant_info: {
-        email: "asdf",
-        first_name: "asdf",
-        last_name: "asdf",
+        email: 'asdf',
+        first_name: 'asdf',
+        last_name: 'asdf',
         address: {
-            line1: "asdf",
-            city: "asdf",
-            state: "asdf",
-            postal_code: "adsf",
-            country_code: "asdf"
+            line1: 'asdf',
+            city: 'asdf',
+            state: 'asdf',
+            postal_code: 'adsf',
+            country_code: 'asdf',
         },
-        business_name: "asdf",
+        business_name: 'asdf',
         phone: {
-            country_code: "1",
-            national_number: "asdf",
+            country_code: '1',
+            national_number: 'asdf',
         },
-        website: "asdf",
-        tax_id: "adsf",
-        additional_info: "asdf",
-        additional_info_label: "asdf",
+        website: 'asdf',
+        tax_id: 'adsf',
+        additional_info: 'asdf',
+        additional_info_label: 'asdf',
     },
     note: 'string',
     number: 'string',
     payment_term: {
-        term_type: "asdf",
-        due_date: "asdf",
+        term_type: 'asdf',
+        due_date: 'asdf',
     },
     reference: 'string',
     shipping_info: {
         address: {
-            line1: "asdf",
-            city: "asdf",
-            state: "asdf",
-            postal_code: "adsf",
-            country_code: "asdf"
+            line1: 'asdf',
+            city: 'asdf',
+            state: 'asdf',
+            postal_code: 'adsf',
+            country_code: 'asdf',
         },
         business_name: 'asdf',
-        first_name: "string",
-        last_name: "string",
+        first_name: 'string',
+        last_name: 'string',
     },
     phone: {
-        country_code: "1",
-        national_number: "asdf",
+        country_code: '1',
+        national_number: 'asdf',
     },
     tax_calculated_after_discount: true,
     tax_inclusive: true,
-    template_id: "string",
+    template_id: 'string',
     cc_info: [
         {
-            first_name: "asdf",
-            email: "adsf",
-        }
+            first_name: 'asdf',
+            email: 'adsf',
+        },
     ],
     custom: {
-        label: "adsf",
+        label: 'adsf',
         amount: {
-            currency: "asdf",
-            value: "adsf"
+            currency: 'asdf',
+            value: 'adsf',
         },
     },
     allow_partial_payment: true,
     minimum_amount_due: {
-        currency: "asdf",
-        value: "adsf"
+        currency: 'asdf',
+        value: 'adsf',
     },
-    terms: "asdf",
-    merchant_memo: "asdf",
-    logo_url: "adsf",
+    terms: 'asdf',
+    merchant_memo: 'asdf',
+    logo_url: 'adsf',
     attachments: [
         {
-            name: "adsf",
-            url: "adsf"
-        }
-    ]
+            name: 'adsf',
+            url: 'adsf',
+        },
+    ],
 };
 
 // Invoice Cancel
@@ -656,13 +662,13 @@ paypal.invoice.qrCode('asdf', 1, 3, (err, response) => {
 });
 
 const recordPayment: paypal.invoice.PayRequest = {
-    date: "asdf",
-    method: "asdf",
-    note: "asdf",
+    date: 'asdf',
+    method: 'asdf',
+    note: 'asdf',
     amount: {
-        currency: "USD",
-        value: "10.10",
-    }
+        currency: 'USD',
+        value: '10.10',
+    },
 };
 
 // Invoice Record Payment
@@ -697,7 +703,7 @@ paypal.invoice.remind('asdf', (err, response) => {
 
 const invoiceSearch: paypal.invoice.SearchRequest = {
     archived: true,
-    start_creation_date: "asdf",
+    start_creation_date: 'asdf',
 };
 
 // Invoice Search

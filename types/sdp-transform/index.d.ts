@@ -9,12 +9,16 @@
 export function write(description: SessionDescription): string;
 export function parse(description: string): SessionDescription;
 export function parsePayloads(payloads: string): number[];
-export function parseRemoteCandidates(candidates: string): Array<{
+export function parseRemoteCandidates(
+    candidates: string,
+): Array<{
     component: number;
     ip: string;
     port: number;
 }>;
-export function parseSimulcastStreamList(streams: string): Array<{
+export function parseSimulcastStreamList(
+    streams: string,
+): Array<{
     scid: number | string;
     paused: boolean;
 }>;
@@ -59,12 +63,14 @@ export interface SessionDescription extends SharedDescriptionFields, SessionAttr
     // r=
     repeats?: string;
     // m=
-    media: Array<{
-        type: string;
-        port: number;
-        protocol: string;
-        payloads?: string;
-    } & MediaDescription>;
+    media: Array<
+        {
+            type: string;
+            port: number;
+            protocol: string;
+            payloads?: string;
+        } & MediaDescription
+    >;
 }
 
 /**

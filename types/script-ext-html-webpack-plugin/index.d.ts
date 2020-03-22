@@ -14,24 +14,19 @@ declare class ScriptExtHtmlWebpackPlugin extends Plugin {
     apply(compiler: Compiler): void;
 }
 
-type ScriptMatchingPatternBase =
-    | string
-    | RegExp
-    | ReadonlyArray<string | RegExp>;
+type ScriptMatchingPatternBase = string | RegExp | ReadonlyArray<string | RegExp>;
 
 interface ScriptMatchingPatternHash {
     test: ScriptMatchingPatternBase;
 }
 
-type ScriptMatchingPattern =
-    | ScriptMatchingPatternBase
-    | ScriptMatchingPatternHash;
+type ScriptMatchingPattern = ScriptMatchingPatternBase | ScriptMatchingPatternHash;
 
 type ScriptMatchingPatternPre =
     | ScriptMatchingPatternBase
-    | ScriptMatchingPatternHash & {
-          chunks?: "initial" | "async" | "all";
-      };
+    | (ScriptMatchingPatternHash & {
+          chunks?: 'initial' | 'async' | 'all';
+      });
 
 interface Custom {
     test: ScriptMatchingPattern;
@@ -60,7 +55,7 @@ declare namespace ScriptExtHtmlWebpackPlugin {
         /**
          * the default attribute to set - 'sync' actually results in no attribute (default: 'sync')
          */
-        defaultAttribute?: "sync" | "async" | "defer";
+        defaultAttribute?: 'sync' | 'async' | 'defer';
         /**
          * script names that should have a type="module" attribute (default: `[]`)
          */

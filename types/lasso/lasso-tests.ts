@@ -21,15 +21,15 @@ configure({
         const res = out.stream;
 
         return res.csp && res.csp.nonce;
-    }
+    },
 });
 
 // $ExpectType void
 configure({
     require: {
-        extensions: [ '.js' ],
-        transforms: [ 'deamdify' ]
-    }
+        extensions: ['.js'],
+        transforms: ['deamdify'],
+    },
 });
 
 // $ExpectType Lasso
@@ -40,32 +40,33 @@ const lasso = getDefaultLasso();
 lasso;
 
 // $ExpectType Promise<any>
+lassoPage(
+    {
+        name: 'my-page',
+        dependencies: ['./style.less', 'require-run: ./main'],
+    },
+    (err, lassoPageResult) => {
+        if (err) {
+            console.log('Failed to lasso page: ', err);
+            return;
+        }
+
+        // $ExpectType string
+        lassoPageResult.getHeadHtml();
+
+        // $ExpectType string
+        lassoPageResult.getBodyHtml();
+    },
+);
+
 lassoPage({
-    name: 'my-page',
     dependencies: [
-        './style.less',
-        'require-run: ./main'
-    ]
-},
-(err, lassoPageResult) => {
-    if (err) {
-        console.log('Failed to lasso page: ', err);
-        return;
-    }
-
-    // $ExpectType string
-    lassoPageResult.getHeadHtml();
-
-    // $ExpectType string
-    lassoPageResult.getBodyHtml();
-});
-
-lassoPage({
-    dependencies: [{
-        path: './hello-mobile.js',
-        'if-flag': 'mobile'
-    }],
-    flags: ['mobile', 'foo', 'bar']
+        {
+            path: './hello-mobile.js',
+            'if-flag': 'mobile',
+        },
+    ],
+    flags: ['mobile', 'foo', 'bar'],
 });
 
 // $ExpectType Lasso
@@ -73,7 +74,7 @@ lasso.on('afterLassoPage', (event) => {
     const lassoPageResult: LassoPageResult = event.result;
     const fingerprints = lassoPageResult.getInlineCodeFingerprints();
     // $ExpectType string
-    fingerprints.map(fingerprint => `script-src 'self' 'sha256-${fingerprint}'`).join('; ');
+    fingerprints.map((fingerprint) => `script-src 'self' 'sha256-${fingerprint}'`).join('; ');
 });
 
 const dependencies = lasso.dependencies;
@@ -86,7 +87,7 @@ dependencies.registerJavaScriptType('my-js-type', require('./dependency-my-js-ty
 // $ExpectType void
 dependencies.registerJavaScriptType('my-custom-type', {
     properties: {
-        path: 'string'
+        path: 'string',
     },
 
     init(context: any, callback: any) {
@@ -101,7 +102,7 @@ dependencies.registerJavaScriptType('my-custom-type', {
     read(context: any, callback: any) {
         const path = this.path;
 
-        fs.readFile(path, {encoding: 'utf8'}, (err, src) => {
+        fs.readFile(path, { encoding: 'utf8' }, (err, src) => {
             if (err) {
                 return callback(err);
             }
@@ -112,7 +113,7 @@ dependencies.registerJavaScriptType('my-custom-type', {
 
     getSourceFile() {
         return this.path;
-    }
+    },
 });
 
 // $ExpectType void
@@ -121,7 +122,7 @@ dependencies.registerStyleSheetType('my-custom-type', {});
 // $ExpectType void
 dependencies.registerPackageType('dir', {
     properties: {
-        path: 'string'
+        path: 'string',
     },
 
     init(context: any, callback: any) {
@@ -154,7 +155,7 @@ dependencies.registerPackageType('dir', {
                 return callback(err);
             }
 
-            const dependencies = filenames.map(filename => path.join(dir, filename));
+            const dependencies = filenames.map((filename) => path.join(dir, filename));
 
             callback(null, dependencies);
         });
@@ -162,7 +163,7 @@ dependencies.registerPackageType('dir', {
 
     getDir() {
         return this.path;
-    }
+    },
 });
 
 // $ExpectType void
@@ -191,7 +192,7 @@ lasso.addTransform({
     stream: false,
     transform(code: string, lassoContext: LassoContext) {
         return code.toUpperCase();
-    }
+    },
 });
 
 // $ExpectType void
@@ -205,7 +206,7 @@ serveStatic();
 // $ExpectType RequestHandler<ParamsDictionary>
 serveStatic({
     lasso,
-    sendOptions: {}
+    sendOptions: {},
 });
 
 // node-require-no-op tests

@@ -7,10 +7,10 @@
 // HELP NEEDED: If possible, find a better way to define Server.models, Request.models and ResponseToolkit.models
 // They are dynamic types extended from SchwiftyModel.
 
-import * as Objection from "objection";
-import * as Joi from "joi";
-import { Server, Request, ResponseToolkit, Plugin } from "hapi";
-import * as Knex from "knex";
+import * as Objection from 'objection';
+import * as Joi from 'joi';
+import { Server, Request, ResponseToolkit, Plugin } from 'hapi';
+import * as Knex from 'knex';
 
 export type ModelClass = typeof Model | typeof Objection.Model;
 
@@ -24,14 +24,10 @@ export interface RegistrationOptions {
     models?: ModelClass[] | string;
     migrationsDir?: string;
     teardownOnStop?: boolean;
-    migrateOnStart?: boolean | "latest" | "rollback";
+    migrateOnStart?: boolean | 'latest' | 'rollback';
 }
 
-export function assertCompatible(
-    ModelA: typeof Model,
-    ModelB: typeof Model,
-    message?: string
-): void | Error;
+export function assertCompatible(ModelA: typeof Model, ModelB: typeof Model, message?: string): void | Error;
 
 export const plugin: Plugin<RegistrationOptions>;
 
@@ -42,7 +38,7 @@ export const plugin: Plugin<RegistrationOptions>;
 /**
  * Merge decorations into hapi objects.
  */
-declare module "hapi" {
+declare module 'hapi' {
     interface Server {
         schwifty: (
             config:
@@ -52,7 +48,7 @@ declare module "hapi" {
                       knex: Knex | Knex.Config;
                       models: ModelClass[];
                       migrationsDir: string;
-                  }
+                  },
         ) => void;
         knex: () => Knex;
         models: (all?: boolean) => { [key: string]: typeof Model };

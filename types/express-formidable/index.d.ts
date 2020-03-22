@@ -4,28 +4,28 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as express from "express";
-import { Fields, Files } from "formidable";
+import * as express from 'express';
+import { Fields, Files } from 'formidable';
 
 // Extend the express request object with attached formidable files and fields
 declare global {
-  namespace Express {
-    interface Request {
-      fields?: Fields;
-      files?: Files;
+    namespace Express {
+        interface Request {
+            fields?: Fields;
+            files?: Files;
+        }
     }
-  }
 }
 
 interface ExpressFormidableOptions {
     encoding?: string;
     uploadDir?: string;
     keepExtensions?: boolean;
-    type?: "multipart" | "urlencoded";
+    type?: 'multipart' | 'urlencoded';
     maxFileSize?: number;
     maxFieldsSize?: number;
     maxFields?: number;
-    hash?: boolean | "sha1" | "md5";
+    hash?: boolean | 'sha1' | 'md5';
     multiples?: boolean;
 }
 

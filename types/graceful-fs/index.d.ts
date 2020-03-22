@@ -50,10 +50,12 @@ declare module 'fs' {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    function lutimes(path: PathLike,
-                     atime: string | number | Date,
-                     mtime: string | number | Date,
-                     callback?: (err: NodeJS.ErrnoException | null) => void): void;
+    function lutimes(
+        path: PathLike,
+        atime: string | number | Date,
+        mtime: string | number | Date,
+        callback?: (err: NodeJS.ErrnoException | null) => void,
+    ): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace lutimes {
@@ -65,7 +67,11 @@ declare module 'fs' {
          * @param atime The last access time. If a string is provided, it will be coerced to number.
          * @param mtime The last modified time. If a string is provided, it will be coerced to number.
          */
-        function __promisify__(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        function __promisify__(
+            path: PathLike,
+            atime: string | number | Date,
+            mtime: string | number | Date,
+        ): Promise<void>;
     }
 
     /**

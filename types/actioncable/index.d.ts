@@ -6,47 +6,47 @@
 // TypeScript Version: 2.3
 
 declare module ActionCable {
-  interface Channel {
-    unsubscribe(): void;
-    perform(action: string, data: {}): void;
-    send(data: any): boolean;
-  }
+    interface Channel {
+        unsubscribe(): void;
+        perform(action: string, data: {}): void;
+        send(data: any): boolean;
+    }
 
-  interface Subscriptions {
-    create(channel: string|ChannelNameWithParams, obj?: CreateMixin): Channel;
-  }
+    interface Subscriptions {
+        create(channel: string | ChannelNameWithParams, obj?: CreateMixin): Channel;
+    }
 
-  interface Cable {
-    subscriptions: Subscriptions;
-    send(data: any): void;
-    connect(): void;
-    disconnect(): void;
-    ensureActiveConnection(): void;
-  }
+    interface Cable {
+        subscriptions: Subscriptions;
+        send(data: any): void;
+        connect(): void;
+        disconnect(): void;
+        ensureActiveConnection(): void;
+    }
 
-  interface CreateMixin {
-    connected?(): void;
-    disconnected?(): void;
-    received?(obj: any): void;
-    [key: string]: any;
-  }
+    interface CreateMixin {
+        connected?(): void;
+        disconnected?(): void;
+        received?(obj: any): void;
+        [key: string]: any;
+    }
 
-  interface ChannelNameWithParams {
-    channel: string;
-    [key: string]: any;
-  }
+    interface ChannelNameWithParams {
+        channel: string;
+        [key: string]: any;
+    }
 
-  function createConsumer(): Cable;
-  function createConsumer(url: string): Cable;
+    function createConsumer(): Cable;
+    function createConsumer(url: string): Cable;
 }
 
 declare interface AppInterface {
-  cable?: ActionCable.Cable;
-  network?: ActionCable.Channel;
+    cable?: ActionCable.Cable;
+    network?: ActionCable.Channel;
 }
 
 declare var App: AppInterface;
 
 declare module 'actioncable' {
-  export = ActionCable;
+    export = ActionCable;
 }

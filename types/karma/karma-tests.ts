@@ -11,7 +11,7 @@ karma.runner.run({ port: 9876 }, (exitCode: number) => {
     process.exit(exitCode);
 });
 
-karma.stopper.stop({ port: 9876 }, exitCode => {
+karma.stopper.stop({ port: 9876 }, (exitCode) => {
     if (exitCode === 0) {
         console.log('Server stop as initiated');
     }
@@ -110,7 +110,7 @@ module.exports = (config: karma.Config) => {
         failOnSkippedTests: true,
         failOnFailingTestSuite: false,
         forceJSONP: true,
-        formatError: msg => `error: ${msg}`,
+        formatError: (msg) => `error: ${msg}`,
         listenAddress: '0.0.0.0',
         pingTimeout: 2000,
         processKillTimeout: 3000,

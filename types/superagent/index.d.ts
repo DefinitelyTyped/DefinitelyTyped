@@ -131,7 +131,11 @@ declare namespace request {
     interface Request extends Promise<Response> {
         abort(): void;
         accept(type: string): this;
-        attach(field: string, file: MultipartValueSingle, options?: string | { filename?: string; contentType?: string }): this;
+        attach(
+            field: string,
+            file: MultipartValueSingle,
+            options?: string | { filename?: string; contentType?: string },
+        ): this;
         auth(user: string, pass: string, options?: { type: 'basic' | 'auto' }): this;
         auth(token: string, options: { type: 'bearer' }): this;
         buffer(val?: boolean): this;
@@ -151,7 +155,7 @@ declare namespace request {
         on(name: string, handler: (event: any) => void): this;
         parse(parser: Parser): this;
         part(): this;
-        pfx(cert: string | string[] | Buffer | Buffer[] | { pfx: string | Buffer, passphrase: string }): this;
+        pfx(cert: string | string[] | Buffer | Buffer[] | { pfx: string | Buffer; passphrase: string }): this;
         pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;
         query(val: object | string): this;
         redirects(n: number): this;
@@ -162,7 +166,7 @@ declare namespace request {
         set(field: object): this;
         set(field: string, val: string): this;
         set(field: 'Cookie', val: string[]): this;
-        timeout(ms: number | { deadline?: number, response?: number }): this;
+        timeout(ms: number | { deadline?: number; response?: number }): this;
         trustLocalhost(enabled?: boolean): this;
         type(val: string): this;
         unset(field: string): this;

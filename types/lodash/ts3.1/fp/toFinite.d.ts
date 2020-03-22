@@ -1,2 +1,2 @@
-import { toFinite } from "../fp";
+import { toFinite } from '../fp';
 export = toFinite;

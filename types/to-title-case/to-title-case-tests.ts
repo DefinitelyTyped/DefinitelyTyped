@@ -1,3 +1,3 @@
-import toTitleCase = require("to-title-case");
+import toTitleCase = require('to-title-case');
 
-toTitleCase("a"); // $ExpectType string
+toTitleCase('a'); // $ExpectType string

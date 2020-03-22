@@ -4,12 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import {
-    EventType,
-    MsgType,
-    MatrixClient,
-    MembershipType,
-} from 'matrix-js-sdk';
+import { EventType, MsgType, MatrixClient, MembershipType } from 'matrix-js-sdk';
 
 export type Controller = any;
 
@@ -26,7 +21,7 @@ export interface BridgeOptions {
     domain: string;
     homeserverUrl: string;
     registration: AppServiceRegistration;
-    suppressEcho?: boolean;     // True to stop receiving onEvent callbacks for events which were sent by a bridge user. Default: true.
+    suppressEcho?: boolean; // True to stop receiving onEvent callbacks for events which were sent by a bridge user. Default: true.
 }
 
 export interface BridgeConfig {
@@ -45,8 +40,8 @@ export interface CliOptions {
 
 export interface RoomMemberDict {
     [id: string]: {
-    display_name: string,
-    avatar_url: string,
+        display_name: string;
+        avatar_url: string;
     };
 }
 export interface RemoteRoomDict {
@@ -57,19 +52,19 @@ export interface EntryDict {
 }
 
 export interface RoomInfo {
-    id: string;         // The matrix room ID
-    state: object[];       // The raw state events for this room
-    realJoinedUsers: string[];  //  A list of user IDs of real matrix users that have joined this room.
-    remoteJoinedUsers: string[];  //  A list of
+    id: string; // The matrix room ID
+    state: object[]; // The raw state events for this room
+    realJoinedUsers: string[]; //  A list of user IDs of real matrix users that have joined this room.
+    remoteJoinedUsers: string[]; //  A list of
 }
 
 export interface Entry {
-    id: string;             //  The unique ID for this entry.
-    matrix_id: string;             // "room_id",
-    remote_id: string;             // "remote_room_id",
-    matrix: null | MatrixRoom;  // <nullable> The matrix room, if applicable.
-    remote: null | RemoteRoom;  // <nullable> The remote room, if applicable.
-    data: null | object;      //  <nullable> Information about this mapping, which may be an empty.
+    id: string; //  The unique ID for this entry.
+    matrix_id: string; // "room_id",
+    remote_id: string; // "remote_room_id",
+    matrix: null | MatrixRoom; // <nullable> The matrix room, if applicable.
+    remote: null | RemoteRoom; // <nullable> The remote room, if applicable.
+    data: null | object; //  <nullable> Information about this mapping, which may be an empty.
 }
 
 /* ************* */
@@ -77,26 +72,22 @@ export interface Entry {
 export type AppService = any;
 
 export class AppServiceBot {
-    constructor(
-    client: MatrixClient,
-    registration: AppServiceRegistration,
-    memberCache: MembershipCache,
-    )
+    constructor(client: MatrixClient, registration: AppServiceRegistration, memberCache: MembershipCache);
     getJoinedMembers(roomId: string): Promise<RoomMemberDict>;
     getJoinedRooms(): Promise<string[]>;
     isRemoteUser(userId: string): boolean;
 }
 
 export interface ProvisionedUser {
-    name?: string;      // The display name to set for the provisioned user.
-    url?: string;      // The avatar URL to set for the provisioned user.
-    remote?: RemoteUser;  //
+    name?: string; // The display name to set for the provisioned user.
+    url?: string; // The avatar URL to set for the provisioned user.
+    remote?: RemoteUser; //
 }
 
 export interface ThirdPartyLocationResult {
-    alias: string;  // The Matrix room alias to the portal room representing this 3PL
-    protocol: string;  // The name of the 3PE protocol
-    fields: object;  // The normalised values of the location query field data.
+    alias: string; // The Matrix room alias to the portal room representing this 3PL
+    protocol: string; // The name of the 3PE protocol
+    fields: object; // The normalised values of the location query field data.
 }
 
 export type BridgeGetProtocol = any;
@@ -107,22 +98,22 @@ export type BridgeParseUser = any;
 export type BridgeThirdPartyProtocolResult = any;
 
 export interface BridgeThirdPartyLookup {
-    protocols: string[];        // list of recognised protocol names. If present, lookups for unrecognised protocols will be automatically rejected.
-    getProtocol: BridgeGetProtocol;    // Function. Called for requests for 3PE query metadata.
-    getLocation: BridgeGetLocation;    // Function. Called for requests for 3PLs.
-    parseLocation: BridgeParseLocation;  // Function. Called for reverse parse requests on 3PL aliases.
-    getUser: BridgeGetUser;        // Function. Called for requests for 3PUs.
-    parseUser: BridgeParseUser;      // Function. Called for reverse parse requests on 3PU user IDs.
+    protocols: string[]; // list of recognised protocol names. If present, lookups for unrecognised protocols will be automatically rejected.
+    getProtocol: BridgeGetProtocol; // Function. Called for requests for 3PE query metadata.
+    getLocation: BridgeGetLocation; // Function. Called for requests for 3PLs.
+    parseLocation: BridgeParseLocation; // Function. Called for reverse parse requests on 3PL aliases.
+    getUser: BridgeGetUser; // Function. Called for requests for 3PUs.
+    parseUser: BridgeParseUser; // Function. Called for reverse parse requests on 3PU user IDs.
 }
 
 export interface ThirdPartyUserResult {
-    userid: string;  // The Matrix user ID for the virtual representing this 3PU
-    protocol: string;  // The name of the 3PE protocol
-    fields: object;  // The normalised values of the user query field data.
+    userid: string; // The Matrix user ID for the virtual representing this 3PU
+    protocol: string; // The name of the 3PE protocol
+    fields: object; // The normalised values of the user query field data.
 }
 
 export class RequestFactory {
-    constructor()
+    constructor();
 
     addDefaultRejectCallback(fn: (request: Request, reject: any) => any): void;
     addDefaultResolveCallback(fn: (request: Request, reject: any) => any): void;
@@ -131,7 +122,7 @@ export class RequestFactory {
 }
 
 export class ClientFactory {
-    constructor(options: any)
+    constructor(options: any);
 
     configure(baseUrl: string, appServiceToken: string, appServiceUserId: string): void;
     getClientAs(userId?: string, request?: Request): MatrixClient;
@@ -140,9 +131,9 @@ export class ClientFactory {
 
 export interface ProvisionedRoom {
     creationOpts: {
-    room_alias_name: string
-    name?: string,
-    topic?: string
+        room_alias_name: string;
+        name?: string;
+        topic?: string;
     };
     remote?: RemoteRoom;
 }
@@ -176,7 +167,7 @@ export class Bridge {
 }
 
 export class Cli {
-    constructor(options: CliOptions)
+    constructor(options: CliOptions);
     run(): void;
     getConfig(): null | object;
     getRegistrationFilePath(): string;
@@ -187,23 +178,23 @@ export class Cli {
 export interface CreateRoomOptions {
     preset?: 'trusted_private_chat';
     is_direct?: boolean;
-    room_alias_name?: string;                  // The alias localpart to assign to this room.
-    visibility: 'public' | 'private';    // Either 'public' or 'private'.
-    invite: string[];                // A list of user IDs to invite to this room.
-    name?: string;                  // The name to give this room.
-    topic?: string;                  // The topic to give this room.
+    room_alias_name?: string; // The alias localpart to assign to this room.
+    visibility: 'public' | 'private'; // Either 'public' or 'private'.
+    invite: string[]; // A list of user IDs to invite to this room.
+    name?: string; // The name to give this room.
+    topic?: string; // The topic to give this room.
 }
 
 export class Intent {
-    constructor(client: MatrixClient, botClient: MatrixClient, opts: object)
+    constructor(client: MatrixClient, botClient: MatrixClient, opts: object);
     ban(roomId: string, target: string, reason: string): Promise<void>;
     createAlias(alias: string, roomId: string): Promise<void>;
     createRoom(opts: {
-    createAsClient: boolean,
-    options: CreateRoomOptions,
+        createAsClient: boolean;
+        options: CreateRoomOptions;
     }): Promise<{
-    room_id: string,
-    room_alias?: string,
+        room_id: string;
+        room_alias?: string;
     }>;
     getClient(): MatrixClient;
     getEvent(roomId: string, eventId: string, useCache?: boolean): Promise<any>;
@@ -234,7 +225,7 @@ export class Intent {
 export class MatrixRoom {
     protected roomId: string;
 
-    constructor(roomId: string)
+    constructor(roomId: string);
     deserialize(data: object): void;
     get(key: string): object;
     getId(): string;
@@ -248,7 +239,7 @@ export class MatrixUser {
 
     private userId: string;
 
-    constructor(userId: string, dataopt?: object, escape?: boolean)
+    constructor(userId: string, dataopt?: object, escape?: boolean);
     escapeUserId(): void;
     get(key: string): object;
     getDisplayName(): null | string;
@@ -259,7 +250,7 @@ export class MatrixUser {
 }
 
 export class RemoteRoom {
-    constructor(identifier: string, dataopt?: object)
+    constructor(identifier: string, dataopt?: object);
     get(key: string): object;
     getId(): string;
     serialize(): object;
@@ -267,7 +258,7 @@ export class RemoteRoom {
 }
 
 export class RemoteUser {
-    constructor(id: string, data?: object)
+    constructor(id: string, data?: object);
     get(key: string): object;
     getId(): string;
     serialize(): object;
@@ -279,7 +270,7 @@ export interface RoomBridgeStoreOptions {
 }
 
 export class RoomBridgeStore {
-    constructor(db: Datastore, ops?: RoomBridgeStoreOptions)
+    constructor(db: Datastore, ops?: RoomBridgeStoreOptions);
 
     batchGetLinkedRemoteRooms(matrixIds: string[]): Promise<RemoteRoomDict>;
     getEntriesByLinkData(data: object): Promise<Entry[]>;
@@ -299,18 +290,13 @@ export class RoomBridgeStore {
     removeEntriesByRemoteRoomId(remoteId: string): Promise<void>;
     setMatrixRoom(matrixRoom: MatrixRoom): Promise<void>;
     upsertEntry(entry: Entry): Promise<void>;
-    linkRooms(
-    matrixRoom: MatrixRoom,
-    remoteRoom: RemoteRoom,
-    data?: object,
-    linkId?: string,
-    ): Promise<void>;
+    linkRooms(matrixRoom: MatrixRoom, remoteRoom: RemoteRoom, data?: object, linkId?: string): Promise<void>;
 }
 
 export type Datastore = any;
 
 export class UserBridgeStore {
-    constructor(db: Datastore, opts?: object)
+    constructor(db: Datastore, opts?: object);
 
     getByMatrixData(dataQuery: object): Promise<MatrixUser[]>;
     getByMatrixLocalpart(localpart: string): Promise<null | MatrixUser>;
@@ -329,7 +315,7 @@ export class UserBridgeStore {
 }
 
 export class MembershipCache {
-    constructor()
+    constructor();
     getMemberEntry(roomId: string, userId: string): MembershipType;
     setMemberEntry(roomId: string, userId: string, membership: MembershipType): void;
 }
@@ -339,10 +325,7 @@ export class Request {
     data: Event;
     startTs: number;
 
-    constructor(opts: {
-    id?: string,
-    data?: object,
-    })
+    constructor(opts: { id?: string; data?: object });
 
     getData(): Event;
     getDuration(): number;
@@ -400,24 +383,24 @@ export interface Event {
     content?: EventContent;
 
     unsigned: {
-    age: number
+        age: number;
     };
 }
 
 export interface BridgeContext {
     senders: {
-    matrix: MatrixUser
-    remote: null | RemoteUser
-    remotes: RemoteUser[]
+        matrix: MatrixUser;
+        remote: null | RemoteUser;
+        remotes: RemoteUser[];
     };
     targets: {
-    matrix: null | MatrixUser
-    remote: null | RemoteUser
-    remotes: RemoteUser[]
+        matrix: null | MatrixUser;
+        remote: null | RemoteUser;
+        remotes: RemoteUser[];
     };
     rooms: {
-    matrix: MatrixRoom
-    remote: null | RemoteRoom
-    remotes: RemoteRoom[]
+        matrix: MatrixRoom;
+        remote: null | RemoteRoom;
+        remotes: RemoteRoom[];
     };
 }

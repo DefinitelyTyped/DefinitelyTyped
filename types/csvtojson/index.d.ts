@@ -17,10 +17,10 @@ declare namespace csvtojson {
      * Converter options
      */
     interface ConverterOptions {
-       /**
-        * Whether to construct final json object in memory which will be populated in "end_parsed"
-        * event. Set to false if deal with huge csv data. default: true.
-        */
+        /**
+         * Whether to construct final json object in memory which will be populated in "end_parsed"
+         * event. Set to false if deal with huge csv data. default: true.
+         */
         constructResult?: boolean;
 
         /**
@@ -242,8 +242,19 @@ declare namespace csvtojson {
          * @return returns this object for chaining
          */
         // tslint:disable-next-line ban-types
-        on(event: string, listener: Function | JsonEventHandler | CsvEventHandler | DataEventHandler | ErrorEventHandler
-            | RecordParsedEventHandler | EndEventHandler | EndParsedEventHandler | DoneEventHandler): this;
+        on(
+            event: string,
+            listener:
+                | Function
+                | JsonEventHandler
+                | CsvEventHandler
+                | DataEventHandler
+                | ErrorEventHandler
+                | RecordParsedEventHandler
+                | EndEventHandler
+                | EndParsedEventHandler
+                | DoneEventHandler,
+        ): this;
 
         /**
          * Transform objects after CSV parsing but before result being emitted or pushed downstream.
@@ -274,6 +285,9 @@ declare namespace csvtojson {
  * @param    streamOptions stream options
  * @return Converter object
  */
-declare function csvtojson(options?: csvtojson.ConverterOptions, streamOptions?: csvtojson.StreamOptions): csvtojson.Converter;
+declare function csvtojson(
+    options?: csvtojson.ConverterOptions,
+    streamOptions?: csvtojson.StreamOptions,
+): csvtojson.Converter;
 
 export = csvtojson;

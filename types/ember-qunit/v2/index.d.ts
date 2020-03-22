@@ -9,7 +9,7 @@
 
 declare module 'ember-qunit' {
     import Ember from 'ember';
-    import { ModuleCallbacks } from "ember-test-helpers";
+    import { ModuleCallbacks } from 'ember-test-helpers';
 
     interface QUnitModuleCallbacks extends ModuleCallbacks, Hooks {
         beforeSetup?(assert: Assert): void;
@@ -50,7 +50,7 @@ declare module 'ember-qunit' {
 }
 
 declare module 'qunit' {
-    import { TestContext } from "ember-test-helpers";
+    import { TestContext } from 'ember-test-helpers';
 
     export const module: typeof QUnit.module;
 

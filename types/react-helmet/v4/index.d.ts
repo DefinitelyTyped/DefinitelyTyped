@@ -6,7 +6,7 @@
 
 /// <reference types="react" />
 
-import * as React from "react";
+import * as React from 'react';
 
 declare class ReactHelmet extends React.Component<ReactHelmet.HelmetProps> {}
 

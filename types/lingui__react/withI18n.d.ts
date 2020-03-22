@@ -14,5 +14,6 @@ export interface withI18nProps {
     i18nHash: string | null | undefined;
 }
 
-export default function withI18n(options?: withI18nOptions):
-    <P>(WrappedComponent: ComponentConstructor<P>) => ComponentClass<Pick<P, Exclude<keyof P, keyof withI18nProps>>>;
+export default function withI18n(
+    options?: withI18nOptions,
+): <P>(WrappedComponent: ComponentConstructor<P>) => ComponentClass<Pick<P, Exclude<keyof P, keyof withI18nProps>>>;

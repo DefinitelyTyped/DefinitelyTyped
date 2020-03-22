@@ -13,16 +13,12 @@ class AppWithoutAlert extends React.Component<{ alert: AlertManager }> {
         return (
             <button
                 onClick={() => {
-                    this.props.alert.show(
-                        'Oh look, an alert!',
-                        {
-                            type: 'info',
-                            timeout: 1000,
-                            onOpen(): void {
-                            },
-                            onClose(): void {
-                            }
-                        });
+                    this.props.alert.show('Oh look, an alert!', {
+                        type: 'info',
+                        timeout: 1000,
+                        onOpen(): void {},
+                        onClose(): void {},
+                    });
                 }}
             >
                 Show Alert
@@ -40,15 +36,11 @@ const AlertHook = (): JSX.Element => {
     return (
         <button
             onClick={() => {
-                alert.info(
-                    <div style={{ color: 'blue' }}>Some Message</div>,
-                    {
-                        timeout: 1000,
-                        onOpen(): void {
-                        },
-                        onClose(): void {
-                        }
-                    });
+                alert.info(<div style={{ color: 'blue' }}>Some Message</div>, {
+                    timeout: 1000,
+                    onOpen(): void {},
+                    onClose(): void {},
+                });
             }}
         >
             Show Alert

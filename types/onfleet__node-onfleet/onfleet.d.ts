@@ -10,30 +10,30 @@ import Webhooks = require('./Resources/Webhooks');
 import Workers = require('./Resources/Workers');
 
 declare class Onfleet {
-  apiKey: string;
-  api: {
-    baseUrl: string;
-    timeout: number;
-    headers: {
-      'Content-Type': string;
-      'User-Agent': string;
-      Authorization: string;
-    }
-  };
+    apiKey: string;
+    api: {
+        baseUrl: string;
+        timeout: number;
+        headers: {
+            'Content-Type': string;
+            'User-Agent': string;
+            Authorization: string;
+        };
+    };
 
-  constructor(api_key: string);
-  verifyKey(): boolean;
+    constructor(api_key: string);
+    verifyKey(): boolean;
 
-  admins: Administrators;
-  containers: Containers;
-  destinations: Destinations;
-  hubs: Hubs;
-  organization: Organization;
-  recipients: Recipients;
-  tasks: Tasks;
-  teams: Teams;
-  webhooks: Webhooks;
-  workers: Workers;
+    admins: Administrators;
+    containers: Containers;
+    destinations: Destinations;
+    hubs: Hubs;
+    organization: Organization;
+    recipients: Recipients;
+    tasks: Tasks;
+    teams: Teams;
+    webhooks: Webhooks;
+    workers: Workers;
 }
 
 export = Onfleet;

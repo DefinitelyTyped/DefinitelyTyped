@@ -8,13 +8,13 @@
 
 export interface DeleteChange {
     index: number;
-    type: "delete";
+    type: 'delete';
     howMany: number;
 }
 
 export interface InsertChange {
     index: number;
-    type: "insert";
+    type: 'insert';
     values: string[];
 }
 
@@ -24,19 +24,24 @@ export interface BindChain {
 }
 
 export interface CollectionBindTo<T, K> {
-    as: (Class: {new(item: T): K}) => void;
+    as: (Class: { new (item: T): K }) => void;
     using: (callbackOrProperty: keyof T | ((item: T) => K)) => void;
 }
 
 // utils/dom
 
-export function createElement(doc: Document, name: string, attributes?: object | null, children?: Node | string | Array<Node | string>): Element;
+export function createElement(
+    doc: Document,
+    name: string,
+    attributes?: object | null,
+    children?: Node | string | Array<Node | string>,
+): Element;
 
 // TODO? utils/dom/emittermixin
 
 export function getAncestors(node: Node): Array<Node | DocumentFragment>;
 
-export function getBorderWidths(element: HTMLElement): {top: number, right: number, bottom: number, left: number};
+export function getBorderWidths(element: HTMLElement): { top: number; right: number; bottom: number; left: number };
 
 export function getCommonAncestor(nodeA: Node, nodeB: Node): Node | DocumentFragment | Document | null;
 
@@ -99,7 +104,7 @@ export function remove(node: Node): void;
 
 export function scrollAncestorsToShowTarget(target: HTMLElement | Range): void;
 
-export function scrollViewportToShowTarget(options: {target: HTMLElement | Range, viewportOffset?: number}): void;
+export function scrollViewportToShowTarget(options: { target: HTMLElement | Range; viewportOffset?: number }): void;
 
 export function setDataInElement(el: HTMLElement, data: string): void;
 
@@ -130,7 +135,7 @@ export class Collection<T> implements Iterable<T>, Emitter {
     last: T | null;
     length: number;
 
-    constructor(options?: {idProperty?: keyof T});
+    constructor(options?: { idProperty?: keyof T });
     add(item: T, index?: number): this;
     bindTo<S>(externalCollection: Collection<S>): CollectionBindTo<S, T>;
     clear(): void;
@@ -147,17 +152,22 @@ export class Collection<T> implements Iterable<T>, Emitter {
     // Emitter
     delegate(...events: string[]): EmitterMixinDelegateChain;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
-    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number }): void;
+    listenTo(
+        emitter: Emitter,
+        event: string,
+        callback: Function,
+        options?: { priority?: PriorityString | number },
+    ): void;
     off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
-    once(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
+    on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
     stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
 }
 
 // utils/comparearrays
 
-export type ArrayRelation = "extension" | "same" | "prefix";
+export type ArrayRelation = 'extension' | 'same' | 'prefix';
 
 export function compareArrays<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): number | ArrayRelation;
 
@@ -177,10 +187,14 @@ export function count(iterator: Iterable<any>): number;
 
 // utils/diff
 
-export type Change = "equal" | "insert" | "delete";
+export type Change = 'equal' | 'insert' | 'delete';
 
 export function diff(a: string, b: string, cmp?: (a: string, b: string) => boolean): Change[];
-export function diff(a: ReadonlyArray<string>, b: ReadonlyArray<string>, cmp?: (a: string, b: string) => boolean): Change[];
+export function diff(
+    a: ReadonlyArray<string>,
+    b: ReadonlyArray<string>,
+    cmp?: (a: string, b: string) => boolean,
+): Change[];
 
 // utils/difftochanges
 
@@ -200,10 +214,15 @@ export const EmitterMixin: Emitter;
 export interface Emitter {
     delegate(...events: string[]): EmitterMixinDelegateChain;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
-    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number }): void;
+    listenTo(
+        emitter: Emitter,
+        event: string,
+        callback: Function,
+        options?: { priority?: PriorityString | number },
+    ): void;
     off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
-    once(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
+    on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
     stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
 }
@@ -265,10 +284,15 @@ export class FocusTracker implements Observable {
     // Observable (Emitter)
     delegate(...events: string[]): EmitterMixinDelegateChain;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
-    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number }): void;
+    listenTo(
+        emitter: Emitter,
+        event: string,
+        callback: Function,
+        options?: { priority?: PriorityString | number },
+    ): void;
     off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
-    once(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
+    on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
     stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
 }
@@ -280,8 +304,8 @@ export function isIterable(value: any): value is Iterable<any>;
 // utils/keyboard
 
 export const keyCodes: {
-    a: 65,
-    b: 66,
+    a: 65;
+    b: 66;
     c: 67;
     d: 68;
     e: 69;
@@ -331,20 +355,20 @@ export const keyCodes: {
     f11: 122;
     f12: 123;
 
-    arrowleft: 37,
-    arrowup: 38,
-    arrowright: 39,
-    arrowdown: 40,
-    backspace: 8,
-    "delete": 46,
-    enter: 13,
-    space: 32,
-    esc: 27,
-    tab: 9,
-    ctrl: 0x110000,
-    cmd: 0x110000,
-    shift: 0x220000,
-    alt: 0x440000
+    arrowleft: 37;
+    arrowup: 38;
+    arrowright: 39;
+    arrowdown: 40;
+    backspace: 8;
+    delete: 46;
+    enter: 13;
+    space: 32;
+    esc: 27;
+    tab: 9;
+    ctrl: 0x110000;
+    cmd: 0x110000;
+    shift: 0x220000;
+    alt: 0x440000;
 };
 
 export interface KeystrokeInfo {
@@ -370,7 +394,7 @@ export class KeystrokeHandler {
     set(
         keystroke: string | Array<string | number>,
         callback: (keyEvtData: KeystrokeInfo, cancel: () => void) => void,
-        options?: {priority?: PriorityString | number}
+        options?: { priority?: PriorityString | number },
     ): void;
 }
 
@@ -396,7 +420,7 @@ export function mapsEqual<K, V>(mapsA: Map<K, V>, mapsB: Map<K, V>): boolean;
 
 // utils/mix
 
-export function mix<T>(baseClass: {new(...p: any[]): T}, ...mixins: Array<Partial<T>>): void;
+export function mix<T>(baseClass: { new (...p: any[]): T }, ...mixins: Array<Partial<T>>): void;
 
 // utils/nth
 
@@ -420,10 +444,15 @@ export interface Observable extends Emitter {
     // Emitter
     delegate(...events: string[]): EmitterMixinDelegateChain;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
-    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number }): void;
+    listenTo(
+        emitter: Emitter,
+        event: string,
+        callback: Function,
+        options?: { priority?: PriorityString | number },
+    ): void;
     off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
-    once(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
+    on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
     stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
 }
@@ -434,11 +463,11 @@ export namespace priorities {
     function get(priority: PriorityString | number): number;
 }
 
-export type PriorityString = "highest" | "high" | "normal" | "low" | "lowest";
+export type PriorityString = 'highest' | 'high' | 'normal' | 'low' | 'lowest';
 
 // utils/spy
 
-export function spy(): {(): void; called: boolean};
+export function spy(): { (): void; called: boolean };
 
 // utils/tomap
 
@@ -448,7 +477,7 @@ export function toMap<T extends object>(data: T): Map<keyof T, T[keyof T]>;
 
 // utils/translation-service
 
-export function add(language: string, translations: {[key: string]: string}): void;
+export function add(language: string, translations: { [key: string]: string }): void;
 
 export function translate(language: string, translationKey: string): string;
 

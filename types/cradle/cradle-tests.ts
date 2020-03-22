@@ -1,29 +1,31 @@
-
-import cradle = require("cradle");
+import cradle = require('cradle');
 
 cradle.setup({
     host: 'living-room.couch',
     cache: true,
     raw: false,
-    forceSave: true
+    forceSave: true,
 });
 
 const connection = new cradle.Connection();
-const connection2 = new(cradle.Connection);
-const connection3 = new(cradle.Connection)('173.45.66.92');
+const connection2 = new cradle.Connection();
+const connection3 = new cradle.Connection('173.45.66.92');
 
-connection.databases(function(error, response) {});
-connection.config(function(error, response) {});
-connection.databases(function(error, response) {});
-connection.info(function(error, response) {});
-connection.stats(function(error, response) {});
-connection.activeTasks(function(error, response) {});
-connection.uuids(function(error, response) {});
-connection.uuids(10, function(error, response) {});
-connection.replicate({
-    source: "database",
-    target: "targetDatabase"
-}, function(error, response) {});
+connection.databases(function (error, response) {});
+connection.config(function (error, response) {});
+connection.databases(function (error, response) {});
+connection.info(function (error, response) {});
+connection.stats(function (error, response) {});
+connection.activeTasks(function (error, response) {});
+connection.uuids(function (error, response) {});
+connection.uuids(10, function (error, response) {});
+connection.replicate(
+    {
+        source: 'database',
+        target: 'targetDatabase',
+    },
+    function (error, response) {},
+);
 
 const db = connection.database('starwars');
 
@@ -34,9 +36,9 @@ db.exists(function (error, exists) {
         console.log('the force is with you.');
     } else {
         console.log('database does not exists.');
-        db.create(function(error){
-           /* do something if there's an erroror */
-           /* populate design documents */
+        db.create(function (error) {
+            /* do something if there's an erroror */
+            /* populate design documents */
         });
     }
 });
@@ -51,66 +53,79 @@ db.get('luke', function (error, doc) {
     doc.prop;
 });
 
- db.get(['luke', 'vader'], function (error, doc) {
-     //
- });
-
-db.save('skywalker', {
-    force: 'light',
-    name: 'Luke Skywalker'
-}, function (error, res) {
-    if (error) {
-        // Handle erroror
-    } else {
-        // Handle success
-    }
+db.get(['luke', 'vader'], function (error, doc) {
+    //
 });
 
-db.save({
-    force: 'dark', name: 'Darth'
- }, function (err, res) {
-    // Handle response
- });
+db.save(
+    'skywalker',
+    {
+        force: 'light',
+        name: 'Luke Skywalker',
+    },
+    function (error, res) {
+        if (error) {
+            // Handle erroror
+        } else {
+            // Handle success
+        }
+    },
+);
 
-db.save('luke', '1-94B6F82', {
-    force: 'dark', name: 'Luke'
-}, function (err, res) {
+db.save(
+    {
+        force: 'dark',
+        name: 'Darth',
+    },
+    function (err, res) {
+        // Handle response
+    },
+);
+
+db.save(
+    'luke',
+    '1-94B6F82',
+    {
+        force: 'dark',
+        name: 'Luke',
+    },
+    function (err, res) {
+        // Handle response
+    },
+);
+
+db.save([{ name: 'Yoda' }, { name: 'Han Solo' }, { name: 'Leia' }], function (err, res) {
     // Handle response
 });
 
-db.save([
-    { name: 'Yoda' },
-    { name: 'Han Solo' },
-    { name: 'Leia' }
-], function (err, res) {
-    // Handle response
-});
-
-db.merge('luke', {jedi: true}, function (err, res) {
+db.merge('luke', { jedi: true }, function (err, res) {
     // Luke is now a jedi,
     // but remains on the dark side of the force.
 });
 
 db.view('characters/all', function (err, res) {
     res.forEach(function (row: any) {
-        console.log("%s is on the %s side of the force.", row.name, row.force);
+        console.log('%s is on the %s side of the force.', row.name, row.force);
     });
 });
 
-db.view('characters/all', {group: true, reduce: true} , function (err, res) {
+db.view('characters/all', { group: true, reduce: true }, function (err, res) {
     res.forEach(function (row: any) {
-        console.log("%s is on the %s side of the force.", row.name, row.force);
+        console.log('%s is on the %s side of the force.', row.name, row.force);
     });
- });
+});
 
- db.temporaryView({
-    map: function (doc: any) {
-        //
-    }
- }, function (err, res) {
-    if (err) console.log(err);
-    console.log(res);
- });
+db.temporaryView(
+    {
+        map: function (doc: any) {
+            //
+        },
+    },
+    function (err, res) {
+        if (err) console.log(err);
+        console.log(res);
+    },
+);
 
 db.remove('luke', '1-94B6F82', function (err, res) {
     // Handle response
@@ -121,7 +136,9 @@ db.update('my_designdoc/update_handler_name', 'luke', undefined, { my_param: fal
 });
 
 db.changes(function (err, list) {
-    list.forEach(function (change) { console.log(change) });
+    list.forEach(function (change) {
+        console.log(change);
+    });
 });
 
 db.changes({ since: 42 }, function (err, list) {
@@ -135,24 +152,23 @@ feed.on('change', function (change: any) {
 });
 
 const idAndRevData = {
-  id: 'luke',
-  rev: 'my-rev'
+    id: 'luke',
+    rev: 'my-rev',
 };
 
 const attachmentData = {
-  name: 'fooAttachment.txt',
-  'Content-Type': 'text/plain',
-  body: 'Foo document text'
+    name: 'fooAttachment.txt',
+    'Content-Type': 'text/plain',
+    body: 'Foo document text',
 };
 
 db.saveAttachment(idAndRevData, attachmentData, function (err, reply) {
-  if (err) {
-    console.dir(err)
-    return
-  }
-  console.dir(reply)
+    if (err) {
+        console.dir(err);
+        return;
+    }
+    console.dir(reply);
 });
-
 
 db.getAttachment('luke', 'foo.txt', function (err, reply) {
     if (err) {
@@ -170,15 +186,18 @@ db.removeAttachment('luke', 'foo.txt', function (err, reply) {
     console.dir(reply);
 });
 
-db.info(function(error, response) {});
-db.all(function(error, response) {});
-db.all({
-    body: {
-        keys: ['key1', 'key2']
-    }
-}, function(error, response) {});
-db.compact(function(error, response) {});
-db.compact('design', function(error, response) {});
-db.viewCleanup(function(error, response) {});
-db.replicate('database', function(error, response) {});
-db.replicate('database', {}, function(error, response) {});
+db.info(function (error, response) {});
+db.all(function (error, response) {});
+db.all(
+    {
+        body: {
+            keys: ['key1', 'key2'],
+        },
+    },
+    function (error, response) {},
+);
+db.compact(function (error, response) {});
+db.compact('design', function (error, response) {});
+db.viewCleanup(function (error, response) {});
+db.replicate('database', function (error, response) {});
+db.replicate('database', {}, function (error, response) {});

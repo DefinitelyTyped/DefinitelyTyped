@@ -1,7 +1,7 @@
 import * as XXH from 'xxhashjs';
 
 // Test data
-const seed = 0xABCD;
+const seed = 0xabcd;
 const stringData = 'abcd';
 const arrayBufferData = new ArrayBuffer(4);
 const bufferData = Buffer.from([1, 2, 3, 4]);

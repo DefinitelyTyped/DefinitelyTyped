@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     // chunk
 
     interface LoDashStatic {
@@ -11,30 +11,21 @@ declare module "../index" {
          * @param size The length of each chunk.
          * @return Returns the new array containing chunks.
          */
-        chunk<T>(
-            array: List<T> | null | undefined,
-            size?: number
-        ): T[][];
+        chunk<T>(array: List<T> | null | undefined, size?: number): T[][];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.chunk
          */
-        chunk<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            size?: number,
-        ): LoDashImplicitWrapper<T[][]>;
+        chunk<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, size?: number): LoDashImplicitWrapper<T[][]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.chunk
          */
-        chunk<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            size?: number,
-        ): LoDashExplicitWrapper<T[][]>;
+        chunk<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, size?: number): LoDashExplicitWrapper<T[][]>;
     }
 
     // compact
@@ -47,21 +38,25 @@ declare module "../index" {
          * @param array The array to compact.
          * @return Returns the new array of filtered values.
          */
-        compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
+        compact<T>(array: List<T | null | undefined | false | '' | 0> | null | undefined): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.compact
          */
-        compact<T>(this: LoDashImplicitWrapper<List<T | null | undefined | false | "" | 0> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        compact<T>(
+            this: LoDashImplicitWrapper<List<T | null | undefined | false | '' | 0> | null | undefined>,
+        ): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.compact
          */
-        compact<T>(this: LoDashExplicitWrapper<List<T | null | undefined | false | "" | 0> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        compact<T>(
+            this: LoDashExplicitWrapper<List<T | null | undefined | false | '' | 0> | null | undefined>,
+        ): LoDashExplicitWrapper<T[]>;
     }
 
     // concat
@@ -86,7 +81,7 @@ declare module "../index" {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
+        concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -114,10 +109,7 @@ declare module "../index" {
          * @param values The arrays of values to exclude.
          * @return Returns the new array of filtered values.
          */
-        difference<T>(
-            array: List<T> | null | undefined,
-            ...values: Array<List<T>>
-        ): T[];
+        difference<T>(array: List<T> | null | undefined, ...values: Array<List<T>>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -156,7 +148,7 @@ declare module "../index" {
         differenceBy<T1, T2>(
             array: List<T1> | null | undefined,
             values: List<T2>,
-            iteratee: ValueIteratee<T1 | T2>
+            iteratee: ValueIteratee<T1 | T2>,
         ): T1[];
 
         /**
@@ -166,7 +158,7 @@ declare module "../index" {
             array: List<T1> | null | undefined,
             values1: List<T2>,
             values2: List<T3>,
-            iteratee: ValueIteratee<T1 | T2 | T3>
+            iteratee: ValueIteratee<T1 | T2 | T3>,
         ): T1[];
 
         /**
@@ -177,7 +169,7 @@ declare module "../index" {
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
-            iteratee: ValueIteratee<T1 | T2 | T3 | T4>
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4>,
         ): T1[];
 
         /**
@@ -189,7 +181,7 @@ declare module "../index" {
             values2: List<T3>,
             values3: List<T4>,
             values4: List<T5>,
-            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>,
         ): T1[];
 
         /**
@@ -202,7 +194,7 @@ declare module "../index" {
             values3: List<T4>,
             values4: List<T5>,
             values5: List<T6>,
-            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>,
         ): T1[];
 
         /**
@@ -221,10 +213,7 @@ declare module "../index" {
         /**
          * @see _.differenceBy
          */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            ...values: Array<List<T>>
-        ): T[];
+        differenceBy<T>(array: List<T> | null | undefined, ...values: Array<List<T>>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -234,7 +223,7 @@ declare module "../index" {
         differenceBy<T1, T2>(
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values: List<T2>,
-            iteratee: ValueIteratee<T1 | T2>
+            iteratee: ValueIteratee<T1 | T2>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -244,7 +233,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            iteratee: ValueIteratee<T1 | T2 | T3>
+            iteratee: ValueIteratee<T1 | T2 | T3>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -255,7 +244,7 @@ declare module "../index" {
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
-            iteratee: ValueIteratee<T1 | T2 | T3 | T4>
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -267,7 +256,7 @@ declare module "../index" {
             values2: List<T3>,
             values3: List<T4>,
             values4: List<T5>,
-            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -280,7 +269,7 @@ declare module "../index" {
             values3: List<T4>,
             values4: List<T5>,
             values5: List<T6>,
-            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -312,7 +301,7 @@ declare module "../index" {
         differenceBy<T1, T2>(
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values: List<T2>,
-            iteratee: ValueIteratee<T1 | T2>
+            iteratee: ValueIteratee<T1 | T2>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -322,7 +311,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            iteratee: ValueIteratee<T1 | T2 | T3>
+            iteratee: ValueIteratee<T1 | T2 | T3>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -333,7 +322,7 @@ declare module "../index" {
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
-            iteratee: ValueIteratee<T1 | T2 | T3 | T4>
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -345,7 +334,7 @@ declare module "../index" {
             values2: List<T3>,
             values3: List<T4>,
             values4: List<T5>,
-            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -358,7 +347,7 @@ declare module "../index" {
             values3: List<T4>,
             values4: List<T5>,
             values5: List<T6>,
-            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -405,7 +394,7 @@ declare module "../index" {
         differenceWith<T1, T2>(
             array: List<T1> | null | undefined,
             values: List<T2>,
-            comparator: Comparator2<T1, T2>
+            comparator: Comparator2<T1, T2>,
         ): T1[];
 
         /**
@@ -415,7 +404,7 @@ declare module "../index" {
             array: List<T1> | null | undefined,
             values1: List<T2>,
             values2: List<T3>,
-            comparator: Comparator2<T1, T2 | T3>
+            comparator: Comparator2<T1, T2 | T3>,
         ): T1[];
 
         /**
@@ -431,10 +420,7 @@ declare module "../index" {
         /**
          * @see _.differenceWith
          */
-        differenceWith<T>(
-            array: List<T> | null | undefined,
-            ...values: Array<List<T>>
-        ): T[];
+        differenceWith<T>(array: List<T> | null | undefined, ...values: Array<List<T>>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -444,7 +430,7 @@ declare module "../index" {
         differenceWith<T1, T2>(
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values: List<T2>,
-            comparator: Comparator2<T1, T2>
+            comparator: Comparator2<T1, T2>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -454,7 +440,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            comparator: Comparator2<T1, T2 | T3>
+            comparator: Comparator2<T1, T2 | T3>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -483,7 +469,7 @@ declare module "../index" {
         differenceWith<T1, T2>(
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values: List<T2>,
-            comparator: Comparator2<T1, T2>
+            comparator: Comparator2<T1, T2>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -493,7 +479,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            comparator: Comparator2<T1, T2 | T3>
+            comparator: Comparator2<T1, T2 | T3>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -552,10 +538,7 @@ declare module "../index" {
          * @param n The number of elements to drop.
          * @return Returns the slice of array.
          */
-        dropRight<T>(
-            array: List<T> | null | undefined,
-            n?: number
-        ): T[];
+        dropRight<T>(array: List<T> | null | undefined, n?: number): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -583,10 +566,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the slice of array.
          */
-        dropRightWhile<T>(
-            array: List<T> | null | undefined,
-            predicate?: ListIteratee<T>
-        ): T[];
+        dropRightWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -595,7 +575,7 @@ declare module "../index" {
          */
         dropRightWhile<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -605,7 +585,7 @@ declare module "../index" {
          */
         dropRightWhile<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -620,10 +600,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the slice of array.
          */
-        dropWhile<T>(
-            array: List<T> | null | undefined,
-            predicate?: ListIteratee<T>
-        ): T[];
+        dropWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -632,7 +609,7 @@ declare module "../index" {
          */
         dropWhile<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -642,7 +619,7 @@ declare module "../index" {
          */
         dropWhile<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -660,56 +637,34 @@ declare module "../index" {
          * @param end The end position.
          * @return Returns array.
          */
-        fill<T>(
-            array: any[] | null | undefined,
-            value: T
-        ): T[];
+        fill<T>(array: any[] | null | undefined, value: T): T[];
 
         /**
          * @see _.fill
          */
-        fill<T>(
-            array: List<any> | null | undefined,
-            value: T
-        ): List<T>;
+        fill<T>(array: List<any> | null | undefined, value: T): List<T>;
 
         /**
          * @see _.fill
          */
-        fill<T, U>(
-            array: U[] | null | undefined,
-            value: T,
-            start?: number,
-            end?: number
-        ): Array<T | U>;
+        fill<T, U>(array: U[] | null | undefined, value: T, start?: number, end?: number): Array<T | U>;
 
         /**
          * @see _.fill
          */
-        fill<T, U>(
-            array: List<U> | null | undefined,
-            value: T,
-            start?: number,
-            end?: number
-        ): List<T | U>;
+        fill<T, U>(array: List<U> | null | undefined, value: T, start?: number, end?: number): List<T | U>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.fill
          */
-        fill<T>(
-            this: LoDashImplicitWrapper<any[] | null | undefined>,
-            value: T
-        ): LoDashImplicitWrapper<T[]>;
+        fill<T>(this: LoDashImplicitWrapper<any[] | null | undefined>, value: T): LoDashImplicitWrapper<T[]>;
 
         /**
          * @see _.fill
          */
-        fill<T>(
-            this: LoDashImplicitWrapper<List<any> | null | undefined>,
-            value: T
-        ): LoDashImplicitWrapper<List<T>>;
+        fill<T>(this: LoDashImplicitWrapper<List<any> | null | undefined>, value: T): LoDashImplicitWrapper<List<T>>;
 
         /**
          * @see _.fill
@@ -718,7 +673,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<U[] | null | undefined>,
             value: T,
             start?: number,
-            end?: number
+            end?: number,
         ): LoDashImplicitWrapper<Array<T | U>>;
 
         /**
@@ -728,7 +683,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<List<U> | null | undefined>,
             value: T,
             start?: number,
-            end?: number
+            end?: number,
         ): LoDashImplicitWrapper<List<T | U>>;
     }
 
@@ -736,18 +691,12 @@ declare module "../index" {
         /**
          * @see _.fill
          */
-        fill<T>(
-            this: LoDashExplicitWrapper<any[] | null | undefined>,
-            value: T
-        ): LoDashExplicitWrapper<T[]>;
+        fill<T>(this: LoDashExplicitWrapper<any[] | null | undefined>, value: T): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.fill
          */
-        fill<T>(
-            this: LoDashExplicitWrapper<List<any> | null | undefined>,
-            value: T
-        ): LoDashExplicitWrapper<List<T>>;
+        fill<T>(this: LoDashExplicitWrapper<List<any> | null | undefined>, value: T): LoDashExplicitWrapper<List<T>>;
 
         /**
          * @see _.fill
@@ -756,7 +705,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<U[] | null | undefined>,
             value: T,
             start?: number,
-            end?: number
+            end?: number,
         ): LoDashExplicitWrapper<Array<T | U>>;
 
         /**
@@ -766,7 +715,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<List<U> | null | undefined>,
             value: T,
             start?: number,
-            end?: number
+            end?: number,
         ): LoDashExplicitWrapper<List<T | U>>;
     }
 
@@ -785,7 +734,7 @@ declare module "../index" {
         findIndex<T>(
             array: List<T> | null | undefined,
             predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
+            fromIndex?: number,
         ): number;
     }
 
@@ -796,7 +745,7 @@ declare module "../index" {
         findIndex<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
+            fromIndex?: number,
         ): number;
     }
 
@@ -807,7 +756,7 @@ declare module "../index" {
         findIndex<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
+            fromIndex?: number,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -825,7 +774,7 @@ declare module "../index" {
         findLastIndex<T>(
             array: List<T> | null | undefined,
             predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
+            fromIndex?: number,
         ): number;
     }
 
@@ -836,7 +785,7 @@ declare module "../index" {
         findLastIndex<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
+            fromIndex?: number,
         ): number;
     }
 
@@ -847,7 +796,7 @@ declare module "../index" {
         findLastIndex<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             predicate?: ListIterateeCustom<T, boolean>,
-            fromIndex?: number
+            fromIndex?: number,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -871,8 +820,8 @@ declare module "../index" {
         first<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
     }
 
-    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
-    interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
+    interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
+    interface ListOfRecursiveArraysOrValues<T> extends List<T | RecursiveArray<T>> {}
 
     // flatten
 
@@ -916,14 +865,18 @@ declare module "../index" {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        flattenDeep<T>(
+            this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>,
+        ): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        flattenDeep<T>(
+            this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>,
+        ): LoDashExplicitWrapper<T[]>;
     }
 
     // flattenDepth
@@ -943,14 +896,20 @@ declare module "../index" {
         /**
          * @see _.flattenDeep
          */
-        flattenDepth<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashImplicitWrapper<T[]>;
+        flattenDepth<T>(
+            this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>,
+            depth?: number,
+        ): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.flattenDeep
          */
-        flattenDepth<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitWrapper<T[]>;
+        flattenDepth<T>(
+            this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>,
+            depth?: number,
+        ): LoDashExplicitWrapper<T[]>;
     }
 
     // fromPairs
@@ -968,16 +927,12 @@ declare module "../index" {
          * _.fromPairs([['fred', 30], ['barney', 40]]);
          * // => { 'fred': 30, 'barney': 40 }
          */
-        fromPairs<T>(
-            pairs: List<[PropertyName, T]> | null | undefined
-        ): Dictionary<T>;
+        fromPairs<T>(pairs: List<[PropertyName, T]> | null | undefined): Dictionary<T>;
 
         /**
          @see _.fromPairs
          */
-        fromPairs(
-            pairs: List<any[]> | null | undefined
-        ): Dictionary<any>;
+        fromPairs(pairs: List<any[]> | null | undefined): Dictionary<any>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -985,15 +940,13 @@ declare module "../index" {
          * @see _.fromPairs
          */
         fromPairs<T>(
-          this: LoDashImplicitWrapper<List<[PropertyName, T]> | null | undefined>
+            this: LoDashImplicitWrapper<List<[PropertyName, T]> | null | undefined>,
         ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
          @see _.fromPairs
          */
-        fromPairs(
-            this: LoDashImplicitWrapper<List<any[]> | null | undefined>
-        ): LoDashImplicitWrapper<Dictionary<any>>;
+        fromPairs(this: LoDashImplicitWrapper<List<any[]> | null | undefined>): LoDashImplicitWrapper<Dictionary<any>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -1001,15 +954,13 @@ declare module "../index" {
          * @see _.fromPairs
          */
         fromPairs<T>(
-          this: LoDashExplicitWrapper<List<[PropertyName, T]> | null | undefined>
+            this: LoDashExplicitWrapper<List<[PropertyName, T]> | null | undefined>,
         ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
          @see _.fromPairs
          */
-        fromPairs(
-            this: LoDashExplicitWrapper<List<any[]> | null | undefined>
-        ): LoDashExplicitWrapper<Dictionary<any>>;
+        fromPairs(this: LoDashExplicitWrapper<List<any[]> | null | undefined>): LoDashExplicitWrapper<Dictionary<any>>;
     }
 
     // head
@@ -1063,22 +1014,14 @@ declare module "../index" {
          * _.indexOf([1, 2, 1, 2], 2, 2);
          * // => 3
          */
-        indexOf<T>(
-            array: List<T> | null | undefined,
-            value: T,
-            fromIndex?: number
-        ): number;
+        indexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: number): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.indexOf
          */
-        indexOf<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            value: T,
-            fromIndex?: number
-        ): number;
+        indexOf<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, value: T, fromIndex?: number): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -1088,7 +1031,7 @@ declare module "../index" {
         indexOf<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T,
-            fromIndex?: number
+            fromIndex?: number,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -1135,20 +1078,14 @@ declare module "../index" {
         /**
          * @see _.intersection
          */
-        intersection<T>(
-            this: LoDashImplicitWrapper<List<T>>,
-            ...arrays: Array<List<T>>
-        ): LoDashImplicitWrapper<T[]>;
+        intersection<T>(this: LoDashImplicitWrapper<List<T>>, ...arrays: Array<List<T>>): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.intersection
          */
-        intersection<T>(
-            this: LoDashExplicitWrapper<List<T>>,
-            ...arrays: Array<List<T>>
-        ): LoDashExplicitWrapper<T[]>;
+        intersection<T>(this: LoDashExplicitWrapper<List<T>>, ...arrays: Array<List<T>>): LoDashExplicitWrapper<T[]>;
     }
 
     // intersectionBy
@@ -1172,11 +1109,7 @@ declare module "../index" {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        intersectionBy<T1, T2>(
-            array: List<T1> | null,
-            values: List<T2>,
-            iteratee: ValueIteratee<T1 | T2>
-        ): T1[];
+        intersectionBy<T1, T2>(array: List<T1> | null, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1[];
 
         /**
          * @see _.intersectionBy
@@ -1185,7 +1118,7 @@ declare module "../index" {
             array: List<T1> | null,
             values1: List<T2>,
             values2: List<T3>,
-            iteratee: ValueIteratee<T1 | T2 | T3>
+            iteratee: ValueIteratee<T1 | T2 | T3>,
         ): T1[];
 
         /**
@@ -1201,10 +1134,7 @@ declare module "../index" {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T>(
-            array?: List<T> | null,
-            ...values: Array<List<T>>
-        ): T[];
+        intersectionBy<T>(array?: List<T> | null, ...values: Array<List<T>>): T[];
 
         /**
          * @see _.intersectionBy
@@ -1219,7 +1149,7 @@ declare module "../index" {
         intersectionBy<T1, T2>(
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values: List<T2>,
-            iteratee: ValueIteratee<T1 | T2>
+            iteratee: ValueIteratee<T1 | T2>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -1229,7 +1159,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            iteratee: ValueIteratee<T1 | T2 | T3>
+            iteratee: ValueIteratee<T1 | T2 | T3>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -1258,7 +1188,7 @@ declare module "../index" {
         intersectionBy<T1, T2>(
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values: List<T2>,
-            iteratee: ValueIteratee<T1 | T2>
+            iteratee: ValueIteratee<T1 | T2>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -1268,7 +1198,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            iteratee: ValueIteratee<T1 | T2 | T3>
+            iteratee: ValueIteratee<T1 | T2 | T3>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -1313,7 +1243,7 @@ declare module "../index" {
         intersectionWith<T1, T2>(
             array: List<T1> | null | undefined,
             values: List<T2>,
-            comparator: Comparator2<T1, T2>
+            comparator: Comparator2<T1, T2>,
         ): T1[];
 
         /**
@@ -1323,7 +1253,7 @@ declare module "../index" {
             array: List<T1> | null | undefined,
             values1: List<T2>,
             values2: List<T3>,
-            comparator: Comparator2<T1, T2 | T3>
+            comparator: Comparator2<T1, T2 | T3>,
         ): T1[];
 
         /**
@@ -1339,10 +1269,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(
-            array?: List<T> | null,
-            ...values: Array<List<T>>
-        ): T[];
+        intersectionWith<T>(array?: List<T> | null, ...values: Array<List<T>>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1352,7 +1279,7 @@ declare module "../index" {
         intersectionWith<T1, T2>(
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values: List<T2>,
-            comparator: Comparator2<T1, T2>
+            comparator: Comparator2<T1, T2>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -1362,7 +1289,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            comparator: Comparator2<T1, T2 | T3>
+            comparator: Comparator2<T1, T2 | T3>,
         ): LoDashImplicitWrapper<T1[]>;
 
         /**
@@ -1391,7 +1318,7 @@ declare module "../index" {
         intersectionWith<T1, T2>(
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values: List<T2>,
-            comparator: Comparator2<T1, T2>
+            comparator: Comparator2<T1, T2>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -1401,7 +1328,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
-            comparator: Comparator2<T1, T2 | T3>
+            comparator: Comparator2<T1, T2 | T3>,
         ): LoDashExplicitWrapper<T1[]>;
 
         /**
@@ -1433,10 +1360,7 @@ declare module "../index" {
          * @param separator The element separator.
          * @returns Returns the joined string.
          */
-        join(
-            array: List<any> | null | undefined,
-            separator?: string
-        ): string;
+        join(array: List<any> | null | undefined, separator?: string): string;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1490,11 +1414,7 @@ declare module "../index" {
          * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
          * @return Returns the index of the matched value, else -1.
          */
-        lastIndexOf<T>(
-            array: List<T> | null | undefined,
-            value: T,
-            fromIndex?: true|number
-        ): number;
+        lastIndexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: true | number): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1504,7 +1424,7 @@ declare module "../index" {
         lastIndexOf<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             value: T,
-            fromIndex?: true|number
+            fromIndex?: true | number,
         ): number;
     }
 
@@ -1515,7 +1435,7 @@ declare module "../index" {
         lastIndexOf<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T,
-            fromIndex?: true|number
+            fromIndex?: true | number,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -1529,20 +1449,14 @@ declare module "../index" {
          * @param value The index of the element to return.
          * @return Returns the nth element of `array`.
          */
-        nth<T>(
-            array: List<T> | null | undefined,
-            n?: number
-        ): T | undefined;
+        nth<T>(array: List<T> | null | undefined, n?: number): T | undefined;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.nth
          */
-        nth<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            n?: number
-        ): T | undefined;
+        nth<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, n?: number): T | undefined;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -1551,7 +1465,7 @@ declare module "../index" {
          */
         nth<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            n?: number
+            n?: number,
         ): LoDashExplicitWrapper<T | undefined>;
     }
 
@@ -1567,38 +1481,26 @@ declare module "../index" {
          * @param values The values to remove.
          * @return Returns array.
          */
-        pull<T>(
-            array: T[],
-            ...values: T[]
-        ): T[];
+        pull<T>(array: T[], ...values: T[]): T[];
 
         /**
          * @see _.pull
          */
-        pull<T>(
-            array: List<T>,
-            ...values: T[]
-        ): List<T>;
+        pull<T>(array: List<T>, ...values: T[]): List<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.pull
          */
-        pull<T>(
-            this: LoDashImplicitWrapper<List<T>>,
-            ...values: T[]
-        ): this;
+        pull<T>(this: LoDashImplicitWrapper<List<T>>, ...values: T[]): this;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.pull
          */
-        pull<T>(
-            this: LoDashExplicitWrapper<List<T>>,
-            ...values: T[]
-        ): this;
+        pull<T>(this: LoDashExplicitWrapper<List<T>>, ...values: T[]): this;
     }
 
     // pullAll
@@ -1621,38 +1523,26 @@ declare module "../index" {
          * console.log(array);
          * // => [1, 1]
          */
-        pullAll<T>(
-            array: T[],
-            values?: List<T>,
-        ): T[];
+        pullAll<T>(array: T[], values?: List<T>): T[];
 
         /**
          * @see _.pullAll
          */
-        pullAll<T>(
-            array: List<T>,
-            values?: List<T>,
-        ): List<T>;
+        pullAll<T>(array: List<T>, values?: List<T>): List<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.pullAll
          */
-        pullAll<T>(
-            this: LoDashImplicitWrapper<List<T>>,
-            values?: List<T>
-        ): this;
+        pullAll<T>(this: LoDashImplicitWrapper<List<T>>, values?: List<T>): this;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.pullAll
          */
-        pullAll<T>(
-            this: LoDashExplicitWrapper<List<T>>,
-            values?: List<T>
-        ): this;
+        pullAll<T>(this: LoDashExplicitWrapper<List<T>>, values?: List<T>): this;
     }
 
     // pullAllBy
@@ -1678,58 +1568,34 @@ declare module "../index" {
          * console.log(array);
          * // => [{ 'x': 2 }]
          */
-        pullAllBy<T>(
-            array: T[],
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
+        pullAllBy<T>(array: T[], values?: List<T>, iteratee?: ValueIteratee<T>): T[];
 
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T>(
-            array: List<T>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): List<T>;
+        pullAllBy<T>(array: List<T>, values?: List<T>, iteratee?: ValueIteratee<T>): List<T>;
 
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T1, T2>(
-            array: T1[],
-            values: List<T2>,
-            iteratee: ValueIteratee<T1 | T2>
-        ): T1[];
+        pullAllBy<T1, T2>(array: T1[], values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1[];
 
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T1, T2>(
-            array: List<T1>,
-            values: List<T2>,
-            iteratee: ValueIteratee<T1 | T2>
-        ): List<T1>;
+        pullAllBy<T1, T2>(array: List<T1>, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): List<T1>;
     }
 
     interface LoDashWrapper<TValue> {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T>(
-            this: LoDashWrapper<List<T>>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): this;
+        pullAllBy<T>(this: LoDashWrapper<List<T>>, values?: List<T>, iteratee?: ValueIteratee<T>): this;
 
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T1, T2>(
-            this: LoDashWrapper<List<T1>>,
-            values: List<T2>,
-            iteratee: ValueIteratee<T1 | T2>
-        ): this;
+        pullAllBy<T1, T2>(this: LoDashWrapper<List<T1>>, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): this;
     }
 
     // pullAllWith
@@ -1755,58 +1621,34 @@ declare module "../index" {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        pullAllWith<T>(
-            array: T[],
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): T[];
+        pullAllWith<T>(array: T[], values?: List<T>, comparator?: Comparator<T>): T[];
 
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T>(
-            array: List<T>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): List<T>;
+        pullAllWith<T>(array: List<T>, values?: List<T>, comparator?: Comparator<T>): List<T>;
 
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T1, T2>(
-            array: T1[],
-            values: List<T2>,
-            comparator: Comparator2<T1, T2>
-        ): T1[];
+        pullAllWith<T1, T2>(array: T1[], values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
 
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T1, T2>(
-            array: List<T1>,
-            values: List<T2>,
-            comparator: Comparator2<T1, T2>
-        ): List<T1>;
+        pullAllWith<T1, T2>(array: List<T1>, values: List<T2>, comparator: Comparator2<T1, T2>): List<T1>;
     }
 
     interface LoDashWrapper<TValue> {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T>(
-            this: LoDashWrapper<List<T>>,
-            values?: List<T>,
-            comparator?: Comparator<T>
-        ): this;
+        pullAllWith<T>(this: LoDashWrapper<List<T>>, values?: List<T>, comparator?: Comparator<T>): this;
 
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T1, T2>(
-            this: LoDashWrapper<List<T1>>,
-            values: List<T2>,
-            comparator: Comparator2<T1, T2>
-        ): this;
+        pullAllWith<T1, T2>(this: LoDashWrapper<List<T1>>, values: List<T2>, comparator: Comparator2<T1, T2>): this;
     }
 
     // pullAt
@@ -1822,18 +1664,12 @@ declare module "../index" {
          * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
          * @return Returns the new array of removed elements.
          */
-        pullAt<T>(
-            array: T[],
-            ...indexes: Array<Many<number>>
-        ): T[];
+        pullAt<T>(array: T[], ...indexes: Array<Many<number>>): T[];
 
         /**
          * @see _.pullAt
          */
-        pullAt<T>(
-            array: List<T>,
-            ...indexes: Array<Many<number>>
-        ): List<T>;
+        pullAt<T>(array: List<T>, ...indexes: Array<Many<number>>): List<T>;
     }
 
     interface LoDashWrapper<TValue> {
@@ -1856,30 +1692,21 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new array of removed elements.
          */
-        remove<T>(
-            array: List<T>,
-            predicate?: ListIteratee<T>
-        ): T[];
+        remove<T>(array: List<T>, predicate?: ListIteratee<T>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.remove
          */
-        remove<T>(
-            this: LoDashImplicitWrapper<List<T>>,
-            predicate?: ListIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        remove<T>(this: LoDashImplicitWrapper<List<T>>, predicate?: ListIteratee<T>): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.remove
          */
-        remove<T>(
-            this: LoDashExplicitWrapper<List<T>>,
-            predicate?: ListIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        remove<T>(this: LoDashExplicitWrapper<List<T>>, predicate?: ListIteratee<T>): LoDashExplicitWrapper<T[]>;
     }
 
     // reverse
@@ -1904,9 +1731,7 @@ declare module "../index" {
          * console.log(array);
          * // => [3, 2, 1]
          */
-        reverse<TList extends List<any>>(
-            array: TList,
-        ): TList;
+        reverse<TList extends List<any>>(array: TList): TList;
     }
 
     // slice
@@ -1920,11 +1745,7 @@ declare module "../index" {
          * @param end The end position.
          * @return Returns the slice of array.
          */
-        slice<T>(
-            array: List<T> | null | undefined,
-            start?: number,
-            end?: number
-        ): T[];
+        slice<T>(array: List<T> | null | undefined, start?: number, end?: number): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1934,7 +1755,7 @@ declare module "../index" {
         slice<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             start?: number,
-            end?: number
+            end?: number,
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -1945,7 +1766,7 @@ declare module "../index" {
         slice<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             start?: number,
-            end?: number
+            end?: number,
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -1968,20 +1789,14 @@ declare module "../index" {
          * _.sortedIndex([4, 5], 4);
          * // => 0
          */
-        sortedIndex<T>(
-            array: List<T> | null | undefined,
-            value: T
-        ): number;
+        sortedIndex<T>(array: List<T> | null | undefined, value: T): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.sortedIndex
          */
-        sortedIndex<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            value: T
-        ): number;
+        sortedIndex<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, value: T): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -1990,7 +1805,7 @@ declare module "../index" {
          */
         sortedIndex<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            value: T
+            value: T,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2013,20 +1828,14 @@ declare module "../index" {
          * _.sortedIndex([4, 5], 4);
          * // => 0
          */
-        sortedIndex<T>(
-            array: List<T> | null | undefined,
-            value: T
-        ): number;
+        sortedIndex<T>(array: List<T> | null | undefined, value: T): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.sortedIndex
          */
-        sortedIndex<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            value: T
-        ): number;
+        sortedIndex<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, value: T): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -2035,7 +1844,7 @@ declare module "../index" {
          */
         sortedIndex<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            value: T
+            value: T,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2062,11 +1871,7 @@ declare module "../index" {
          * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
          * // => 0
          */
-        sortedIndexBy<T>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee?: ValueIteratee<T>
-        ): number;
+        sortedIndexBy<T>(array: List<T> | null | undefined, value: T, iteratee?: ValueIteratee<T>): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2076,7 +1881,7 @@ declare module "../index" {
         sortedIndexBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             value: T,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): number;
     }
 
@@ -2087,7 +1892,7 @@ declare module "../index" {
         sortedIndexBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2107,20 +1912,14 @@ declare module "../index" {
          * _.sortedIndexOf([1, 1, 2, 2], 2);
          * // => 2
          */
-        sortedIndexOf<T>(
-            array: List<T> | null | undefined,
-            value: T
-        ): number;
+        sortedIndexOf<T>(array: List<T> | null | undefined, value: T): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.sortedIndexOf
          */
-        sortedIndexOf<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            value: T
-        ): number;
+        sortedIndexOf<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, value: T): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -2129,7 +1928,7 @@ declare module "../index" {
          */
         sortedIndexOf<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            value: T
+            value: T,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2150,20 +1949,14 @@ declare module "../index" {
          * _.sortedLastIndex([4, 5], 4);
          * // => 1
          */
-        sortedLastIndex<T>(
-            array: List<T> | null | undefined,
-            value: T
-        ): number;
+        sortedLastIndex<T>(array: List<T> | null | undefined, value: T): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.sortedLastIndex
          */
-        sortedLastIndex<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            value: T
-        ): number;
+        sortedLastIndex<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, value: T): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -2172,7 +1965,7 @@ declare module "../index" {
          */
         sortedLastIndex<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            value: T
+            value: T,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2195,11 +1988,7 @@ declare module "../index" {
          * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
          * // => 1
          */
-        sortedLastIndexBy<T>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee: ValueIteratee<T>
-        ): number;
+        sortedLastIndexBy<T>(array: List<T> | null | undefined, value: T, iteratee: ValueIteratee<T>): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2209,7 +1998,7 @@ declare module "../index" {
         sortedLastIndexBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             value: T,
-            iteratee: ValueIteratee<T>
+            iteratee: ValueIteratee<T>,
         ): number;
     }
 
@@ -2220,7 +2009,7 @@ declare module "../index" {
         sortedLastIndexBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T,
-            iteratee: ValueIteratee<T>
+            iteratee: ValueIteratee<T>,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2240,20 +2029,14 @@ declare module "../index" {
          * _.sortedLastIndexOf([1, 1, 2, 2], 2);
          * // => 3
          */
-        sortedLastIndexOf<T>(
-            array: List<T> | null | undefined,
-            value: T
-        ): number;
+        sortedLastIndexOf<T>(array: List<T> | null | undefined, value: T): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.sortedLastIndexOf
          */
-        sortedLastIndexOf<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            value: T
-        ): number;
+        sortedLastIndexOf<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, value: T): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -2262,7 +2045,7 @@ declare module "../index" {
          */
         sortedLastIndexOf<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            value: T
+            value: T,
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -2281,9 +2064,7 @@ declare module "../index" {
          * _.sortedUniq([1, 1, 2]);
          * // => [1, 2]
          */
-        sortedUniq<T>(
-            array: List<T> | null | undefined
-        ): T[];
+        sortedUniq<T>(array: List<T> | null | undefined): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2316,10 +2097,7 @@ declare module "../index" {
          * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
          * // => [1.1, 2.2]
          */
-        sortedUniqBy<T>(
-            array: List<T> | null | undefined,
-            iteratee: ValueIteratee<T>
-        ): T[];
+        sortedUniqBy<T>(array: List<T> | null | undefined, iteratee: ValueIteratee<T>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2328,7 +2106,7 @@ declare module "../index" {
          */
         sortedUniqBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee: ValueIteratee<T>
+            iteratee: ValueIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -2338,7 +2116,7 @@ declare module "../index" {
          */
         sortedUniqBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee: ValueIteratee<T>
+            iteratee: ValueIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -2378,30 +2156,21 @@ declare module "../index" {
          * @param n The number of elements to take.
          * @return Returns the slice of array.
          */
-        take<T>(
-            array: List<T> | null | undefined,
-            n?: number
-        ): T[];
+        take<T>(array: List<T> | null | undefined, n?: number): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.take
          */
-        take<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            n?: number
-        ): LoDashImplicitWrapper<T[]>;
+        take<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, n?: number): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.take
          */
-        take<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            n?: number
-        ): LoDashExplicitWrapper<T[]>;
+        take<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, n?: number): LoDashExplicitWrapper<T[]>;
     }
 
     // takeRight
@@ -2414,30 +2183,21 @@ declare module "../index" {
          * @param n The number of elements to take.
          * @return Returns the slice of array.
          */
-        takeRight<T>(
-            array: List<T> | null | undefined,
-            n?: number
-        ): T[];
+        takeRight<T>(array: List<T> | null | undefined, n?: number): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.takeRight
          */
-        takeRight<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            n?: number
-        ): LoDashImplicitWrapper<T[]>;
+        takeRight<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, n?: number): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.takeRight
          */
-        takeRight<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            n?: number
-        ): LoDashExplicitWrapper<T[]>;
+        takeRight<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, n?: number): LoDashExplicitWrapper<T[]>;
     }
 
     // takeRightWhile
@@ -2451,10 +2211,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the slice of array.
          */
-        takeRightWhile<T>(
-            array: List<T> | null | undefined,
-            predicate?: ListIteratee<T>
-        ): T[];
+        takeRightWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2463,7 +2220,7 @@ declare module "../index" {
          */
         takeRightWhile<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -2473,7 +2230,7 @@ declare module "../index" {
          */
         takeRightWhile<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -2488,10 +2245,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the slice of array.
          */
-        takeWhile<T>(
-            array: List<T> | null | undefined,
-            predicate?: ListIteratee<T>
-        ): T[];
+        takeWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2500,7 +2254,7 @@ declare module "../index" {
          */
         takeWhile<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -2510,7 +2264,7 @@ declare module "../index" {
          */
         takeWhile<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            predicate?: ListIteratee<T>
+            predicate?: ListIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -2559,10 +2313,7 @@ declare module "../index" {
          * @param iteratee The iteratee invoked per element.
          * @return Returns the new array of combined values.
          */
-        unionBy<T>(
-            arrays: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
-        ): T[];
+        unionBy<T>(arrays: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
 
         /**
          * @see _.unionBy
@@ -2570,7 +2321,7 @@ declare module "../index" {
         unionBy<T>(
             arrays1: List<T> | null | undefined,
             arrays2: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): T[];
 
         /**
@@ -2580,7 +2331,7 @@ declare module "../index" {
             arrays1: List<T> | null | undefined,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): T[];
 
         /**
@@ -2591,7 +2342,7 @@ declare module "../index" {
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             arrays4: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): T[];
 
         /**
@@ -2613,7 +2364,7 @@ declare module "../index" {
          */
         unionBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -2622,7 +2373,7 @@ declare module "../index" {
         unionBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -2632,7 +2383,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -2643,7 +2394,7 @@ declare module "../index" {
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             arrays4: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -2665,7 +2416,7 @@ declare module "../index" {
          */
         unionBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -2674,7 +2425,7 @@ declare module "../index" {
         unionBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -2684,7 +2435,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -2695,7 +2446,7 @@ declare module "../index" {
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             arrays4: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -2731,10 +2482,7 @@ declare module "../index" {
          * _.unionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
-        unionWith<T>(
-            arrays: List<T> | null | undefined,
-            comparator?: Comparator<T>
-        ): T[];
+        unionWith<T>(arrays: List<T> | null | undefined, comparator?: Comparator<T>): T[];
 
         /**
          * @see _.unionBy
@@ -2742,7 +2490,7 @@ declare module "../index" {
         unionWith<T>(
             arrays: List<T> | null | undefined,
             arrays2: List<T> | null | undefined,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): T[];
 
         /**
@@ -2762,7 +2510,7 @@ declare module "../index" {
          */
         unionWith<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -2771,7 +2519,7 @@ declare module "../index" {
         unionWith<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -2791,7 +2539,7 @@ declare module "../index" {
          */
         unionWith<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -2800,7 +2548,7 @@ declare module "../index" {
         unionWith<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -2831,9 +2579,7 @@ declare module "../index" {
          * _.uniq([2, 1, 2]);
          * // => [2, 1]
          */
-        uniq<T>(
-            array: List<T> | null | undefined
-        ): T[];
+        uniq<T>(array: List<T> | null | undefined): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2871,10 +2617,7 @@ declare module "../index" {
          * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }, { 'x': 2 }]
          */
-        uniqBy<T>(
-            array: List<T> | null | undefined,
-            iteratee: ValueIteratee<T>
-        ): T[];
+        uniqBy<T>(array: List<T> | null | undefined, iteratee: ValueIteratee<T>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2883,7 +2626,7 @@ declare module "../index" {
          */
         uniqBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee: ValueIteratee<T>
+            iteratee: ValueIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -2893,7 +2636,7 @@ declare module "../index" {
          */
         uniqBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee: ValueIteratee<T>
+            iteratee: ValueIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -2916,10 +2659,7 @@ declare module "../index" {
          * _.uniqWith(objects, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]
          */
-        uniqWith<T>(
-            array: List<T> | null | undefined,
-            comparator?: Comparator<T>
-        ): T[];
+        uniqWith<T>(array: List<T> | null | undefined, comparator?: Comparator<T>): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2928,7 +2668,7 @@ declare module "../index" {
          */
         uniqWith<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -2938,7 +2678,7 @@ declare module "../index" {
          */
         uniqWith<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -2982,15 +2722,13 @@ declare module "../index" {
          */
         unzipWith<T, TResult>(
             array: List<List<T>> | null | undefined,
-            iteratee: (...values: T[]) => TResult
+            iteratee: (...values: T[]) => TResult,
         ): TResult[];
 
         /**
          * @see _.unzipWith
          */
-        unzipWith<T>(
-            array: List<List<T>> | null | undefined
-        ): T[][];
+        unzipWith<T>(array: List<List<T>> | null | undefined): T[][];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2999,15 +2737,13 @@ declare module "../index" {
          */
         unzipWith<T, TResult>(
             this: LoDashImplicitWrapper<List<List<T>> | null | undefined>,
-            iteratee: (...values: T[]) => TResult
+            iteratee: (...values: T[]) => TResult,
         ): LoDashImplicitWrapper<TResult[]>;
 
         /**
          * @see _.unzipWith
          */
-        unzipWith<T>(
-            this: LoDashImplicitWrapper<List<List<T>> | null | undefined>
-        ): LoDashImplicitWrapper<T[][]>;
+        unzipWith<T>(this: LoDashImplicitWrapper<List<List<T>> | null | undefined>): LoDashImplicitWrapper<T[][]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -3016,15 +2752,13 @@ declare module "../index" {
          */
         unzipWith<T, TResult>(
             this: LoDashExplicitWrapper<List<List<T>> | null | undefined>,
-            iteratee: (...values: T[]) => TResult
+            iteratee: (...values: T[]) => TResult,
         ): LoDashExplicitWrapper<TResult[]>;
 
         /**
          * @see _.unzipWith
          */
-        unzipWith<T>(
-            this: LoDashExplicitWrapper<List<List<T>> | null | undefined>
-        ): LoDashExplicitWrapper<T[][]>;
+        unzipWith<T>(this: LoDashExplicitWrapper<List<List<T>> | null | undefined>): LoDashExplicitWrapper<T[][]>;
     }
 
     // without
@@ -3037,30 +2771,21 @@ declare module "../index" {
          * @param values The values to exclude.
          * @return Returns the new array of filtered values.
          */
-        without<T>(
-            array: List<T> | null | undefined,
-            ...values: T[]
-        ): T[];
+        without<T>(array: List<T> | null | undefined, ...values: T[]): T[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.without
          */
-        without<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: T[]
-        ): LoDashImplicitWrapper<T[]>;
+        without<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, ...values: T[]): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.without
          */
-        without<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: T[]
-        ): LoDashExplicitWrapper<T[]>;
+        without<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, ...values: T[]): LoDashExplicitWrapper<T[]>;
     }
 
     // xor
@@ -3116,10 +2841,7 @@ declare module "../index" {
          * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 2 }]
          */
-        xorBy<T>(
-            arrays: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
-        ): T[];
+        xorBy<T>(arrays: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
 
         /**
          * @see _.xorBy
@@ -3127,7 +2849,7 @@ declare module "../index" {
         xorBy<T>(
             arrays: List<T> | null | undefined,
             arrays2: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): T[];
 
         /**
@@ -3147,7 +2869,7 @@ declare module "../index" {
          */
         xorBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -3156,7 +2878,7 @@ declare module "../index" {
         xorBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -3176,7 +2898,7 @@ declare module "../index" {
          */
         xorBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -3185,7 +2907,7 @@ declare module "../index" {
         xorBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
-            iteratee?: ValueIteratee<T>
+            iteratee?: ValueIteratee<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -3219,10 +2941,7 @@ declare module "../index" {
          * _.xorWith(objects, others, _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
-        xorWith<T>(
-            arrays: List<T> | null | undefined,
-            comparator?: Comparator<T>
-        ): T[];
+        xorWith<T>(arrays: List<T> | null | undefined, comparator?: Comparator<T>): T[];
 
         /**
          * @see _.xorWith
@@ -3230,7 +2949,7 @@ declare module "../index" {
         xorWith<T>(
             arrays: List<T> | null | undefined,
             arrays2: List<T> | null | undefined,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): T[];
 
         /**
@@ -3250,7 +2969,7 @@ declare module "../index" {
          */
         xorWith<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -3259,7 +2978,7 @@ declare module "../index" {
         xorWith<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -3279,7 +2998,7 @@ declare module "../index" {
          */
         xorWith<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -3288,7 +3007,7 @@ declare module "../index" {
         xorWith<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
-            comparator?: Comparator<T>
+            comparator?: Comparator<T>,
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -3317,17 +3036,32 @@ declare module "../index" {
         /**
          * @see _.zip
          */
-        zip<T1, T2, T3>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>): Array<[T1 | undefined, T2 | undefined, T3 | undefined]>;
+        zip<T1, T2, T3>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+        ): Array<[T1 | undefined, T2 | undefined, T3 | undefined]>;
 
         /**
          * @see _.zip
          */
-        zip<T1, T2, T3, T4>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>;
+        zip<T1, T2, T3, T4>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+            arrays4: List<T4>,
+        ): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>;
 
         /**
          * @see _.zip
          */
-        zip<T1, T2, T3, T4, T5>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, arrays5: List<T5>): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>;
+        zip<T1, T2, T3, T4, T5>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+            arrays4: List<T4>,
+            arrays5: List<T5>,
+        ): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>;
 
         /**
          * @see _.zip
@@ -3372,7 +3106,9 @@ declare module "../index" {
             arrays3: List<T3>,
             arrays4: List<T4>,
             arrays5: List<T5>,
-        ): LoDashImplicitWrapper<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>>;
+        ): LoDashImplicitWrapper<
+            Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>
+        >;
 
         /**
          * @see _.zip
@@ -3420,7 +3156,9 @@ declare module "../index" {
             arrays3: List<T3>,
             arrays4: List<T4>,
             arrays5: List<T5>,
-        ): LoDashExplicitWrapper<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>>;
+        ): LoDashExplicitWrapper<
+            Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>
+        >;
 
         /**
          * @see _.zip
@@ -3442,17 +3180,12 @@ declare module "../index" {
          * @param values The property values.
          * @return Returns the new object.
          */
-        zipObject<T>(
-            props: List<PropertyName>,
-            values: List<T>
-        ): Dictionary<T>;
+        zipObject<T>(props: List<PropertyName>, values: List<T>): Dictionary<T>;
 
         /**
          * @see _.zipObject
          */
-        zipObject(
-            props?: List<PropertyName>
-        ): Dictionary<undefined>;
+        zipObject(props?: List<PropertyName>): Dictionary<undefined>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -3461,15 +3194,13 @@ declare module "../index" {
          */
         zipObject<T>(
             this: LoDashImplicitWrapper<List<PropertyName>>,
-            values: List<T>
+            values: List<T>,
         ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
          * @see _.zipObject
          */
-        zipObject(
-            this: LoDashImplicitWrapper<List<PropertyName>>
-        ): LoDashImplicitWrapper<Dictionary<undefined>>;
+        zipObject(this: LoDashImplicitWrapper<List<PropertyName>>): LoDashImplicitWrapper<Dictionary<undefined>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -3478,15 +3209,13 @@ declare module "../index" {
          */
         zipObject<T>(
             this: LoDashExplicitWrapper<List<PropertyName>>,
-            values: List<T>
+            values: List<T>,
         ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
          * @see _.zipObject
          */
-        zipObject(
-            this: LoDashExplicitWrapper<List<PropertyName>>
-        ): LoDashExplicitWrapper<Dictionary<undefined>>;
+        zipObject(this: LoDashExplicitWrapper<List<PropertyName>>): LoDashExplicitWrapper<Dictionary<undefined>>;
     }
 
     // zipObjectDeep
@@ -3499,10 +3228,7 @@ declare module "../index" {
          * @param values The property values.
          * @return Returns the new object.
          */
-        zipObjectDeep(
-            paths?: List<PropertyPath>,
-            values?: List<any>
-        ): object;
+        zipObjectDeep(paths?: List<PropertyPath>, values?: List<any>): object;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -3511,7 +3237,7 @@ declare module "../index" {
          */
         zipObjectDeep(
             this: LoDashImplicitWrapper<List<PropertyPath>>,
-            values?: List<any>
+            values?: List<any>,
         ): LoDashImplicitWrapper<object>;
     }
 
@@ -3521,7 +3247,7 @@ declare module "../index" {
          */
         zipObjectDeep(
             this: LoDashExplicitWrapper<List<PropertyPath>>,
-            values?: List<any>
+            values?: List<any>,
         ): LoDashExplicitWrapper<object>;
     }
 
@@ -3536,10 +3262,7 @@ declare module "../index" {
          * @param iteratee The function to combine grouped values.
          * @return Returns the new array of grouped elements.
          */
-        zipWith<T, TResult>(
-            arrays: List<T>,
-            iteratee: (value1: T) => TResult
-        ): TResult[];
+        zipWith<T, TResult>(arrays: List<T>, iteratee: (value1: T) => TResult): TResult[];
 
         /**
          * @see _.zipWith
@@ -3547,7 +3270,7 @@ declare module "../index" {
         zipWith<T1, T2, TResult>(
             arrays1: List<T1>,
             arrays2: List<T2>,
-            iteratee: (value1: T1, value2: T2) => TResult
+            iteratee: (value1: T1, value2: T2) => TResult,
         ): TResult[];
 
         /**
@@ -3557,7 +3280,7 @@ declare module "../index" {
             arrays1: List<T1>,
             arrays2: List<T2>,
             arrays3: List<T3>,
-            iteratee: (value1: T1, value2: T2, value3: T3) => TResult
+            iteratee: (value1: T1, value2: T2, value3: T3) => TResult,
         ): TResult[];
 
         /**
@@ -3568,7 +3291,7 @@ declare module "../index" {
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
-            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult
+            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult,
         ): TResult[];
 
         /**
@@ -3580,15 +3303,13 @@ declare module "../index" {
             arrays3: List<T3>,
             arrays4: List<T4>,
             arrays5: List<T5>,
-            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult
+            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult,
         ): TResult[];
 
         /**
          * @see _.zipWith
          */
-        zipWith<T, TResult>(
-            ...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined>
-        ): TResult[];
+        zipWith<T, TResult>(...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined>): TResult[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -3597,7 +3318,7 @@ declare module "../index" {
          */
         zipWith<T, TResult>(
             this: LoDashImplicitWrapper<List<T>>,
-            iteratee: (value1: T) => TResult
+            iteratee: (value1: T) => TResult,
         ): LoDashImplicitWrapper<TResult[]>;
 
         /**
@@ -3606,7 +3327,7 @@ declare module "../index" {
         zipWith<T1, T2, TResult>(
             this: LoDashImplicitWrapper<List<T1>>,
             arrays2: List<T2>,
-            iteratee: (value1: T1, value2: T2) => TResult
+            iteratee: (value1: T1, value2: T2) => TResult,
         ): LoDashImplicitWrapper<TResult[]>;
 
         /**
@@ -3616,7 +3337,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
-            iteratee: (value1: T1, value2: T2, value3: T3) => TResult
+            iteratee: (value1: T1, value2: T2, value3: T3) => TResult,
         ): LoDashImplicitWrapper<TResult[]>;
 
         /**
@@ -3627,7 +3348,7 @@ declare module "../index" {
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
-            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult
+            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult,
         ): LoDashImplicitWrapper<TResult[]>;
 
         /**
@@ -3639,7 +3360,7 @@ declare module "../index" {
             arrays3: List<T3>,
             arrays4: List<T4>,
             arrays5: List<T5>,
-            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult
+            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult,
         ): LoDashImplicitWrapper<TResult[]>;
 
         /**
@@ -3657,7 +3378,7 @@ declare module "../index" {
          */
         zipWith<T, TResult>(
             this: LoDashExplicitWrapper<List<T>>,
-            iteratee: (value1: T) => TResult
+            iteratee: (value1: T) => TResult,
         ): LoDashExplicitWrapper<TResult[]>;
 
         /**
@@ -3666,7 +3387,7 @@ declare module "../index" {
         zipWith<T1, T2, TResult>(
             this: LoDashExplicitWrapper<List<T1>>,
             arrays2: List<T2>,
-            iteratee: (value1: T1, value2: T2) => TResult
+            iteratee: (value1: T1, value2: T2) => TResult,
         ): LoDashExplicitWrapper<TResult[]>;
 
         /**
@@ -3676,7 +3397,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
-            iteratee: (value1: T1, value2: T2, value3: T3) => TResult
+            iteratee: (value1: T1, value2: T2, value3: T3) => TResult,
         ): LoDashExplicitWrapper<TResult[]>;
 
         /**
@@ -3687,7 +3408,7 @@ declare module "../index" {
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
-            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult
+            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult,
         ): LoDashExplicitWrapper<TResult[]>;
 
         /**
@@ -3699,7 +3420,7 @@ declare module "../index" {
             arrays3: List<T3>,
             arrays4: List<T4>,
             arrays5: List<T5>,
-            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult
+            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult,
         ): LoDashExplicitWrapper<TResult[]>;
 
         /**

@@ -5,12 +5,27 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace EngineAPI {
-    type CommandType = "JsonRequest" | "GetCustomCaption" | "IsConnected" | "DisableQlikViewSelectButton" | "HaveStarField";
-    type LogonType = "LOG_ON_SERVICE_USER" | "LOG_ON_CURRENT_USER";
-    type NxGrpType = "N" | "H" | "C" | string;
-    type FieldAttributesType = "U" | "A" | "I" | "R" | "F" | "M" | "D" | "T" | "TS" | "IV";
-    type FileDataFormatType = "CSV" | "FIX" | "DIF" | "EXCEL_BIFF" | "EXCEL_OOXML" | "HTML" | "XML" | "QVX" | "JSON" | "KML";
-    type TableRecordKeyType = "NOT_KEY" | "ANY_KEY" | "PRIMARY_KEY" | "PERFECT_KEY";
+    type CommandType =
+        | 'JsonRequest'
+        | 'GetCustomCaption'
+        | 'IsConnected'
+        | 'DisableQlikViewSelectButton'
+        | 'HaveStarField';
+    type LogonType = 'LOG_ON_SERVICE_USER' | 'LOG_ON_CURRENT_USER';
+    type NxGrpType = 'N' | 'H' | 'C' | string;
+    type FieldAttributesType = 'U' | 'A' | 'I' | 'R' | 'F' | 'M' | 'D' | 'T' | 'TS' | 'IV';
+    type FileDataFormatType =
+        | 'CSV'
+        | 'FIX'
+        | 'DIF'
+        | 'EXCEL_BIFF'
+        | 'EXCEL_OOXML'
+        | 'HTML'
+        | 'XML'
+        | 'QVX'
+        | 'JSON'
+        | 'KML';
+    type TableRecordKeyType = 'NOT_KEY' | 'ANY_KEY' | 'PRIMARY_KEY' | 'PERFECT_KEY';
 
     /**
      * One of:
@@ -25,32 +40,38 @@ declare namespace EngineAPI {
      *                      New selections are made on top of the current selections. If no selections were made before the search,
      *                      this mode is identical to the Cleared context.
      */
-    type ContextType = "Cleared" | "LockedFieldsOnly" | "CurrentSelections";
-    type SearchObjectsGroupType = "DatasetType" | "GenericObjectsType";
-    type SearchObjectsItemType = "0" | "1";
-    type NxPatchOpType = "Add" | "Remove" | "Replace";
-    type FileType = "CSV_C" | "CSV_T" | "OOXML";
-    type ExportStateType = "P" | "A";
-    type ReductionModeType = "N" | "D1" | "S" | "C" | "ST";
-    type FieldDefExType = "0" | "1" | "2";
-    type FolderItemType = "FOLDER" | "FILE" | "OTHER";
-    type NxCellStateType = "L" | "S" | "O" | "D" | "A" | "X" | "XS" | "XL";
-    type NxCellType = "V" | "E" | "N" | "T" | "P" | "R" | "U";
-    type NxSelectionCellType = "D" | "T" | "L";
-    type SortIndicatorType = "N" | "A" | "D";
-    type OtherModeType = "OTHER_OFF" | "OTHER_COUNTED" | "OTHER_ABS_LIMITED" | "OTHER_ABS_ACC_TARGET" | "OTHER_REL_LIMITED" | "OTHER_REL_ACC_TARGET";
-    type OtherLimitModeType = "OTHER_GE_LIMIT" | "OTHER_LE_LIMIT" | "OTHER_GT_LIMIT" | "OTHER_LT_LIMIT";
-    type OtherSortModeType = "OTHER_SORT_DEFAULT" | "OTHER_SORT_DESCENDING" | "OTHER_SORT_ASCENDING";
-    type TotalModeType = "TOTAL_OFF" | "TOTAL_EXPR";
+    type ContextType = 'Cleared' | 'LockedFieldsOnly' | 'CurrentSelections';
+    type SearchObjectsGroupType = 'DatasetType' | 'GenericObjectsType';
+    type SearchObjectsItemType = '0' | '1';
+    type NxPatchOpType = 'Add' | 'Remove' | 'Replace';
+    type FileType = 'CSV_C' | 'CSV_T' | 'OOXML';
+    type ExportStateType = 'P' | 'A';
+    type ReductionModeType = 'N' | 'D1' | 'S' | 'C' | 'ST';
+    type FieldDefExType = '0' | '1' | '2';
+    type FolderItemType = 'FOLDER' | 'FILE' | 'OTHER';
+    type NxCellStateType = 'L' | 'S' | 'O' | 'D' | 'A' | 'X' | 'XS' | 'XL';
+    type NxCellType = 'V' | 'E' | 'N' | 'T' | 'P' | 'R' | 'U';
+    type NxSelectionCellType = 'D' | 'T' | 'L';
+    type SortIndicatorType = 'N' | 'A' | 'D';
+    type OtherModeType =
+        | 'OTHER_OFF'
+        | 'OTHER_COUNTED'
+        | 'OTHER_ABS_LIMITED'
+        | 'OTHER_ABS_ACC_TARGET'
+        | 'OTHER_REL_LIMITED'
+        | 'OTHER_REL_ACC_TARGET';
+    type OtherLimitModeType = 'OTHER_GE_LIMIT' | 'OTHER_LE_LIMIT' | 'OTHER_GT_LIMIT' | 'OTHER_LT_LIMIT';
+    type OtherSortModeType = 'OTHER_SORT_DEFAULT' | 'OTHER_SORT_DESCENDING' | 'OTHER_SORT_ASCENDING';
+    type TotalModeType = 'TOTAL_OFF' | 'TOTAL_EXPR';
 
-    type BnfType = "S" | "E";
+    type BnfType = 'S' | 'E';
     /**
      * One of:
      * - N for NOT_META
      * - D for META_DOC_NAME
      * - R for META_RET_TYPE
      */
-    type MTType = "N" | "D" | "R";
+    type MTType = 'N' | 'D' | 'R';
 
     /**
      * One of:
@@ -58,7 +79,7 @@ declare namespace EngineAPI {
      * - CONNECT_64
      * - CONNECT_32
      */
-    type MachineModeType = "CONNECT_DEFAULT" | "CONNECT_64" | "CONNECT_32";
+    type MachineModeType = 'CONNECT_DEFAULT' | 'CONNECT_64' | 'CONNECT_32';
 
     /**
      * One of:
@@ -67,9 +88,9 @@ declare namespace EngineAPI {
      * - IT_BREAK; the engine breaks and waits for a response on what to do next.
      * - IT_END; the engine has finished to execute all statements in the script.
      */
-    type InteractionType = "IT_SCRIPTLINE" | "IT_MSGBOX" | "IT_BREAK" | "IT_END";
+    type InteractionType = 'IT_SCRIPTLINE' | 'IT_MSGBOX' | 'IT_BREAK' | 'IT_END';
 
-    type ErrorDataCodeType = "0" | "1" | "2";
+    type ErrorDataCodeType = '0' | '1' | '2';
 
     /**
      * One of:
@@ -101,10 +122,36 @@ declare namespace EngineAPI {
      * - GEO for FUNC_GROUP_GEO
      * - EXT for FUNC_GROUP_EXTERNAL
      */
-    type FunctionGroupType = "ALL" | "U" | "NONE" | "AGGR" | "NUM" | "RNG" | "EXP" | "TRIG" | "FIN" | "MATH" | "COUNT" | "STR" | "MAPP" |
-        "RCRD" | "CND" | "LOG" | "NULL" | "SYS" | "FILE" | "TBL" | "DATE" | "NUMI" | "FRMT" | "CLR" | "RNK" | "GEO" | "EXT";
+    type FunctionGroupType =
+        | 'ALL'
+        | 'U'
+        | 'NONE'
+        | 'AGGR'
+        | 'NUM'
+        | 'RNG'
+        | 'EXP'
+        | 'TRIG'
+        | 'FIN'
+        | 'MATH'
+        | 'COUNT'
+        | 'STR'
+        | 'MAPP'
+        | 'RCRD'
+        | 'CND'
+        | 'LOG'
+        | 'NULL'
+        | 'SYS'
+        | 'FILE'
+        | 'TBL'
+        | 'DATE'
+        | 'NUMI'
+        | 'FRMT'
+        | 'CLR'
+        | 'RNK'
+        | 'GEO'
+        | 'EXT';
 
-    type DimensionType = "D" | "N" | "T";
+    type DimensionType = 'D' | 'N' | 'T';
 
     /**
      * One of:
@@ -113,7 +160,7 @@ declare namespace EngineAPI {
      * - K for DATA_MODE_PIVOT_STACK; stacked table representation
      * - T for DATA_MODE_TREE; tree representation
      */
-    type NxHypercubeMode = "S" | "P" | "K" | "T";
+    type NxHypercubeMode = 'S' | 'P' | 'K' | 'T';
 
     /**
      * One of:
@@ -122,9 +169,13 @@ declare namespace EngineAPI {
      * - NX_FREQUENCY_PERCENT. The percentage is between 0 and 100.
      * - NX_FREQUENCY_RELATIVE. Same as percent except that the relative value is between 0 and 1.
      */
-    type FrequencyModeType = "NX_FREQUENCY_NONE" | "NX_FREQUENCY_VALUE" | "NX_FREQUENCY_PERCENT" | "NX_FREQUENCY_RELATIVE";
+    type FrequencyModeType =
+        | 'NX_FREQUENCY_NONE'
+        | 'NX_FREQUENCY_VALUE'
+        | 'NX_FREQUENCY_PERCENT'
+        | 'NX_FREQUENCY_RELATIVE';
 
-    type TypeSortDirection = "1" | "-1" | "0";
+    type TypeSortDirection = '1' | '-1' | '0';
 
     /**
      * Type of the drive. Can be:
@@ -135,7 +186,7 @@ declare namespace EngineAPI {
      * - RAM
      * - UNKNOWN_TYPE
      */
-    type DriveType = "REMOVABLE" | "FIXED" | "NETWORK" | "CD_ROM" | "RAM" | "UNKNOWN_TYPE";
+    type DriveType = 'REMOVABLE' | 'FIXED' | 'NETWORK' | 'CD_ROM' | 'RAM' | 'UNKNOWN_TYPE';
 
     /**
      * One of:
@@ -148,7 +199,7 @@ declare namespace EngineAPI {
      * - R for NX_DIM_CELL_ROOT. Applies to root node.
      * - U for NX_DIM_CELL_NULL. Applies to Null values in the data matrix.
      */
-    type NxTreeNodeType = "V" | "E" | "G" | "N" | "T" | "P" | "R" | "U";
+    type NxTreeNodeType = 'V' | 'E' | 'G' | 'N' | 'T' | 'P' | 'R' | 'U';
 
     /**
      * NxRange...
@@ -416,8 +467,7 @@ declare namespace EngineAPI {
     /**
      * GenericBookmarkProperties width extend GenericProperties
      */
-    interface IGenericBookmarkProperties extends IGenericProperties {
-    }
+    interface IGenericBookmarkProperties extends IGenericProperties {}
 
     /**
      * GenericDimensionProperties width extend GenericProperties
@@ -1946,7 +1996,7 @@ declare namespace EngineAPI {
          * Encoding used to compute qRanges of type SearchCharRange.
          * Possible values: Utf8 (default), Utf16
          */
-        qCharEncoding: "Utf8" | "Utf16";
+        qCharEncoding: 'Utf8' | 'Utf16';
 
         /**
          * For SearchSuggest method, this array is empty.
@@ -2803,7 +2853,7 @@ declare namespace EngineAPI {
          *                   qExpires - download expires in [s]
          * @returns - return a Promise with the qDownloadInfo
          */
-        exportReducedData(qOptions?: { qBookmarkId?: string, qExpires?: number}): Promise<{ qDownloadInfo: any }>;
+        exportReducedData(qOptions?: { qBookmarkId?: string; qExpires?: number }): Promise<{ qDownloadInfo: any }>;
 
         /**
          * Retrieves any fields that belong to the same archipelago as the specified field and
@@ -2935,7 +2985,12 @@ declare namespace EngineAPI {
          * @param qTable - Name of the table. >> This parameter is mandatory.
          * @returns - return a Promise Array of DataField.
          */
-        getDatabaseTableFields(qConnectionId: string, qTable: string, qDatabase?: string, qOwner?: string): Promise<IDataField[]>;
+        getDatabaseTableFields(
+            qConnectionId: string,
+            qTable: string,
+            qDatabase?: string,
+            qOwner?: string,
+        ): Promise<IDataField[]>;
 
         /**
          * Retrieves the values of the specified table of a database for a ODBC, OLEDB or CUSTOM connection.
@@ -2947,7 +3002,12 @@ declare namespace EngineAPI {
          * @param qTable - Name of the table. >> This parameter is mandatory.
          * @returns - return a Promise Array of DataRecord.
          */
-        getDatabaseTablePreview(qConnectionId: string, qTable: string, qDatabase?: string, qOwner?: string): Promise<IDataRecord[]>;
+        getDatabaseTablePreview(
+            qConnectionId: string,
+            qTable: string,
+            qDatabase?: string,
+            qOwner?: string,
+        ): Promise<IDataRecord[]>;
 
         /**
          * Lists the tables inside a database for a ODBC, OLEDB or CUSTOM connection.
@@ -2995,7 +3055,7 @@ declare namespace EngineAPI {
          * @param qReadableName: name of a Field that is declared with DECLARE FIELD DEFINITION
          * @returns qname wich contains the expression
          */
-        getFieldOnTheFlyByName(qReadableName: string): Promise<{qName: string}>;
+        getFieldOnTheFlyByName(qReadableName: string): Promise<{ qName: string }>;
 
         /**
          * Retrieves the description of a field.
@@ -3013,7 +3073,12 @@ declare namespace EngineAPI {
          * @param qTable - Name of the table. This parameter must be set for XLS, XLSX, HTML and XML files.
          * @returns - return a Promise Array of DataField or String.
          */
-        getFileTableFields(qConnectionId: string, qDataFormat: IFileDataFormat, qTable: string, qRelativePath?: string): Promise<{qFields: IDataField[], qFormatSpec: string}>;
+        getFileTableFields(
+            qConnectionId: string,
+            qDataFormat: IFileDataFormat,
+            qTable: string,
+            qRelativePath?: string,
+        ): Promise<{ qFields: IDataField[]; qFormatSpec: string }>;
 
         /**
          * Lists the values in a table for a folder connection.
@@ -3023,7 +3088,12 @@ declare namespace EngineAPI {
          * @param qTable - Name of the table. This parameter must be set for XLS, XLSX, HTML and XML files.
          * @returns - return a Promise <Array of DataField> or <String>.
          */
-        getFileTablePreview(qConnectionId: string, qRelativePath: string, qDataFormat: IFileDataFormat, qTable: string): Promise<{qPreview: IDataRecord[], qFormatSpec: string}>;
+        getFileTablePreview(
+            qConnectionId: string,
+            qRelativePath: string,
+            qDataFormat: IFileDataFormat,
+            qTable: string,
+        ): Promise<{ qPreview: IDataRecord[]; qFormatSpec: string }>;
 
         /**
          * Lists the tables and fields of a JSON or XML file for a folder connection.
@@ -3032,7 +3102,11 @@ declare namespace EngineAPI {
          * @param qDataFormat - Type of the file.
          * @returns - return a Promise Array of DataTableEx.
          */
-        getFileTablesEx(qConnectionId: string, qRelativePath: string, qDataFormat: IFileDataFormat): Promise<IDataTableEx[]>;
+        getFileTablesEx(
+            qConnectionId: string,
+            qRelativePath: string,
+            qDataFormat: IFileDataFormat,
+        ): Promise<IDataTableEx[]>;
 
         /**
          * Lists the tables for a folder connection.
@@ -3041,7 +3115,11 @@ declare namespace EngineAPI {
          * @param qDataFormat - Type of the file.
          * @returns - return a Promise Array of DataTable.
          */
-        getFileTables(qConnectionId: string, qRelativePath: string, qDataFormat: IFileDataFormat): Promise<IDataTable[]>;
+        getFileTables(
+            qConnectionId: string,
+            qRelativePath: string,
+            qDataFormat: IFileDataFormat,
+        ): Promise<IDataTable[]>;
 
         /**
          * There are two ways to specify the directory to retrieve the files from:
@@ -3199,7 +3277,13 @@ declare namespace EngineAPI {
          * @param qIncludeSysVars - If set to true, the system variables are included.
          * @returns - return a Promise <Array of TableRecord> or <Array of SourceKeyRecord>
          */
-        getTablesAndKeys(qWindowSize: ISize, qNullSize: ISize, qCellHeight: number, qSyntheticMode: boolean, qIncludeSysVars: boolean): Promise<{qtr: ITableRecord[], qk: ISourceKeyRecord[]}>;
+        getTablesAndKeys(
+            qWindowSize: ISize,
+            qNullSize: ISize,
+            qCellHeight: number,
+            qSyntheticMode: boolean,
+            qIncludeSysVars: boolean,
+        ): Promise<{ qtr: ITableRecord[]; qk: ISourceKeyRecord[] }>;
 
         /**
          * Fetches updated variables after a statement execution.
@@ -3419,7 +3503,11 @@ declare namespace EngineAPI {
          * >> This parameter is mandatory.
          * @returns - A Promise List of SearchResults
          */
-        searchResults(qOptions: ISearchCombinationOptions, qTerms: string[], qPage: ISearchPage): Promise<ISearchResult>;
+        searchResults(
+            qOptions: ISearchCombinationOptions,
+            qTerms: string[],
+            qPage: ISearchPage,
+        ): Promise<ISearchResult>;
 
         /**
          * For every search group item, there are one or several search matches. The position of the match in each search result is given.
@@ -3439,7 +3527,12 @@ declare namespace EngineAPI {
          * @param qSoftLock - This parameter is deprecated and should not be set.
          * @returns - A promise of a Qlik engine reply.
          */
-        selectAssociations(qOptions: ISearchCombinationOptions, qTerms: string[], qMatchIx: number, qSoftLock: boolean): Promise<void>;
+        selectAssociations(
+            qOptions: ISearchCombinationOptions,
+            qTerms: string[],
+            qMatchIx: number,
+            qSoftLock: boolean,
+        ): Promise<void>;
 
         /**
          * Sends a generic command to a custom connector.
@@ -3456,7 +3549,13 @@ declare namespace EngineAPI {
          * @param qAppendConnection - Name of the connection. This parameter is optional.
          * @returns - A promise of a Qlik engine reply.
          */
-        sendGenericCommandToCustomConnector(qProvider: string, qCommand: CommandType, qMethod: string, qParameters: string[], qAppendConnection: string[]): Promise<string>;
+        sendGenericCommandToCustomConnector(
+            qProvider: string,
+            qCommand: CommandType,
+            qMethod: string,
+            qParameters: string[],
+            qAppendConnection: string[],
+        ): Promise<string>;
 
         /**
          * Sets properties to an app.
@@ -3957,7 +4056,11 @@ declare namespace EngineAPI {
          * @param qDataPage - Start and End of DataPage
          * @returns - A promise of Array of FieldValues.
          */
-        getFieldValues(qField: string, qGetExcludedValues: boolean, qDataPage: {"qStartIndex": number, "qEndIndex": number}): Promise<{qFieldValues: IFieldValue[]}>;
+        getFieldValues(
+            qField: string,
+            qGetExcludedValues: boolean,
+            qDataPage: { qStartIndex: number; qEndIndex: number },
+        ): Promise<{ qFieldValues: IFieldValue[] }>;
 
         /**
          * Returns:
@@ -5371,7 +5474,12 @@ declare namespace EngineAPI {
          *
          * @returns - A Promise of String qUrl: <url of the exported file> and qWarnings: [1000] only if exported data is truncated
          */
-        exportData(qFileType: FileType, qPath: string, qFileName?: string, qExportState?: ExportStateType): Promise<string>;
+        exportData(
+            qFileType: FileType,
+            qPath: string,
+            qFileName?: string,
+            qExportState?: ExportStateType,
+        ): Promise<string>;
 
         /**
          * Returns the identifier and the type for each child in an app object.
@@ -5449,8 +5557,15 @@ declare namespace EngineAPI {
          *           0: Adaptive grid
          * @returns - A Promise Array of NxDataPage
          */
-        getHyperCubeBinnedData(qPath: string, qPages: INxPage[], qViewport: INxViewPort, qDataRanges: INxDataAreaPage,
-                               qMaxNbrCells: number, qQueryLevel: number, qBinningMethod: number): Promise<INxDataPage[]>;
+        getHyperCubeBinnedData(
+            qPath: string,
+            qPages: INxPage[],
+            qViewport: INxViewPort,
+            qDataRanges: INxDataAreaPage,
+            qMaxNbrCells: number,
+            qQueryLevel: number,
+            qBinningMethod: number,
+        ): Promise<INxDataPage[]>;
 
         /**
          * Retrieves and packs compressed hypercube and axis data. It is possible to retrieve specific pages of data.
@@ -5464,7 +5579,10 @@ declare namespace EngineAPI {
          * Options.MaxNbrTicks - maximum number of ticks.
          * @returns - A Promise <Boolean> or <Array of NxDataPage> or <Array of NxAxisData>
          */
-        getHyperCubeContinuousData(qPath: string, qOptions: IContinuousDataOptions[]): Promise<{qDataPages: INxDataPage[], qAxisData: INxAxisData[]}>;
+        getHyperCubeContinuousData(
+            qPath: string,
+            qOptions: IContinuousDataOptions[],
+        ): Promise<{ qDataPages: INxDataPage[]; qAxisData: INxAxisData[] }>;
 
         /**
          * Retrieves the values of a chart, a table, or a scatter plot. It is possible to retrieve specific pages of data.
@@ -5536,7 +5654,12 @@ declare namespace EngineAPI {
          *       - ST to reduce the data of a stacked pivot table.
          * @returns - A data set Array of NxDataPage.
          */
-        getHyperCubeReducedData(qPath: string, qPages: INxPage[], qZoomFactor: number, qReductionMode: ReductionModeType): Promise<INxDataPage[]>;
+        getHyperCubeReducedData(
+            qPath: string,
+            qPages: INxPage[],
+            qZoomFactor: number,
+            qReductionMode: ReductionModeType,
+        ): Promise<INxDataPage[]>;
 
         /**
          * Retrieves the values of a stacked pivot table. It is possible to retrieve specific pages of data.
@@ -5592,7 +5715,10 @@ declare namespace EngineAPI {
          * - Options.MaxNbrTicks - maximum number of ticks.
          * @returns - A data set Array of (NxDataPage) or (NxAxisData)
          */
-        getListObjectContinuousData(qPath: string, qOptions: IContinuousDataOptions): Promise<{qDataPages: INxDataPage, qAxisData: INxAxisData[]}>;
+        getListObjectContinuousData(
+            qPath: string,
+            qOptions: IContinuousDataOptions,
+        ): Promise<{ qDataPages: INxDataPage; qAxisData: INxAxisData[] }>;
 
         /**
          * Retrieves the values of a list object.
@@ -5664,7 +5790,13 @@ declare namespace EngineAPI {
          * >> The default value is false.
          * @returns - true or false
          */
-        multiRangeSelectHyperCubeValues(qPath: string, qRanges: INxMultiRangeSelectInfo, qDeselectOnlyOneSelected: boolean, qColumnsToSelect?: number[], qOrMode?: boolean): Promise<boolean>;
+        multiRangeSelectHyperCubeValues(
+            qPath: string,
+            qRanges: INxMultiRangeSelectInfo,
+            qDeselectOnlyOneSelected: boolean,
+            qColumnsToSelect?: number[],
+            qOrMode?: boolean,
+        ): Promise<boolean>;
 
         /**
          * Make range selections in measures.
@@ -5689,7 +5821,13 @@ declare namespace EngineAPI {
          * This parameter is optional. The default value is false.
          * @returns - true or false
          */
-        rangeSelectHyperCubeValues(qPath: string, qRanges: INxRangeSelectInfo[], qDeselectOnlyOneSelected: boolean, qColumnsToSelect?: number[], qOrMode?: boolean): Promise<boolean>;
+        rangeSelectHyperCubeValues(
+            qPath: string,
+            qRanges: INxRangeSelectInfo[],
+            qDeselectOnlyOneSelected: boolean,
+            qColumnsToSelect?: number[],
+            qOrMode?: boolean,
+        ): Promise<boolean>;
 
         /**
          * Resets all selections made in selection mode.
@@ -5738,7 +5876,13 @@ declare namespace EngineAPI {
          * The default value is false.
          * @returns - true or false.
          */
-        selectHyperCubeCells(qPath: string, qRowIndices: number[], qColIndices: number[], qSoftLock: boolean, qDeselectOnlyOneSelected: boolean): Promise<boolean>;
+        selectHyperCubeCells(
+            qPath: string,
+            qRowIndices: number[],
+            qColIndices: number[],
+            qSoftLock: boolean,
+            qDeselectOnlyOneSelected: boolean,
+        ): Promise<boolean>;
 
         /**
          * SelectHyperCubeContinuousRange method
@@ -5752,7 +5896,11 @@ declare namespace EngineAPI {
          * >> This parameter is mandatory.
          * @returns - true or false.
          */
-        selectHyperCubeContinuousRange(qPath: string, qRanges: INxContinuousRangeSelectInfo[], qSoftLock: boolean): Promise<boolean>;
+        selectHyperCubeContinuousRange(
+            qPath: string,
+            qRanges: INxContinuousRangeSelectInfo[],
+            qSoftLock: boolean,
+        ): Promise<boolean>;
 
         /**
          * Selects some values in one dimension.
@@ -5861,7 +6009,12 @@ declare namespace EngineAPI {
          * >> This parameter is optional.
          * @returns - true or false.
          */
-        selectListObjectValues(qPath: string, qValues: number[], qToggleMode: boolean, qSoftLock?: boolean): Promise<boolean>;
+        selectListObjectValues(
+            qPath: string,
+            qValues: number[],
+            qToggleMode: boolean,
+            qSoftLock?: boolean,
+        ): Promise<boolean>;
 
         /**
          * Note: This method only applies to hypercubes that are not represented as straight tables.
@@ -5887,7 +6040,12 @@ declare namespace EngineAPI {
          * The default value is false.
          * @returns - true or false.
          */
-        selectPivotCells(qPath: string, qSelections: INxSelectionCell[], qDeselectOnlyOneSelected: boolean, qSoftLock?: boolean): Promise<boolean>;
+        selectPivotCells(
+            qPath: string,
+            qSelections: INxSelectionCell[],
+            qDeselectOnlyOneSelected: boolean,
+            qSoftLock?: boolean,
+        ): Promise<boolean>;
 
         /**
          * Sets the order of the children in a generic object.
@@ -5999,8 +6157,7 @@ declare namespace EngineAPI {
         qActiveExpression: number;
     }
 
-    interface IGenericDerivedFieldProperties extends IGenericProperties {
-    }
+    interface IGenericDerivedFieldProperties extends IGenericProperties {}
 
     interface IGenericDerivedFields extends enigmaJS.IGeneratedAPI {
         /**
@@ -6963,7 +7120,11 @@ declare namespace EngineAPI {
          * This parameter is relevant only if the variable ErrorMode is set to 1 and the script is run in
          * debug mode (qDebug is set to true when calling the DoReload method).
          */
-        configureReload(qCancelOnScriptError: boolean, qUseErrorData: boolean, qInteractOnError: boolean): Promise<void>;
+        configureReload(
+            qCancelOnScriptError: boolean,
+            qUseErrorData: boolean,
+            qInteractOnError: boolean,
+        ): Promise<void>;
 
         /**
          * Copies an app that is in the Qlik Sense repository.
@@ -7016,7 +7177,13 @@ declare namespace EngineAPI {
          * >> The default value is Main.
          * @returns - A Promise of App
          */
-        createDocEx(qDocName: string, qUserName?: string, qPassword?: string, qSerial?: string, qLocalizedScriptMainSection?: string): Promise<IApp>;
+        createDocEx(
+            qDocName: string,
+            qUserName?: string,
+            qPassword?: string,
+            qSerial?: string,
+            qLocalizedScriptMainSection?: string,
+        ): Promise<IApp>;
 
         /**
          * Creates an empty session app.
@@ -7174,7 +7341,7 @@ declare namespace EngineAPI {
          *                   E: returns the chart functions.
          * @returns qBnfDefs and qBnfHash
          */
-        getBaseBNFString(qBnfType: BnfType): Promise<{qBnfDefs: IBNFDef, qBnfHash: string}>;
+        getBaseBNFString(qBnfType: BnfType): Promise<{ qBnfDefs: IBNFDef; qBnfHash: string }>;
 
         /**
          * Get a Config Object
@@ -7274,7 +7441,7 @@ declare namespace EngineAPI {
          * Gets the MyDocumenstFolder Path in the system.
          * @returns A Promise of the MyDocumenstFolder Path
          */
-        getMyDocumentsFolder(): Promise<{ qFolder: string; }>;
+        getMyDocumentsFolder(): Promise<{ qFolder: string }>;
 
         /**
          * Returns the list of the ODBC connectors that are installed in the system.
@@ -7404,7 +7571,13 @@ declare namespace EngineAPI {
          * >> The default value is false.
          * @returns A Promise of App
          */
-        openDoc(qDocName: string, qUserName?: string, qPassword?: string, qSerial?: string, qNoData?: boolean): Promise<IApp>;
+        openDoc(
+            qDocName: string,
+            qUserName?: string,
+            qPassword?: string,
+            qSerial?: string,
+            qNoData?: boolean,
+        ): Promise<IApp>;
 
         /**
          * Returns the name of the operating system.
@@ -8494,7 +8667,8 @@ declare namespace EngineAPI {
 
 //#region Prototype Interfaces for Class definitions
 declare namespace EngineAPI {
-    interface IGenericObjectPrototype<P extends IGenericObjectProperties, L extends IGenericBaseLayout> extends IGenericObject {
+    interface IGenericObjectPrototype<P extends IGenericObjectProperties, L extends IGenericBaseLayout>
+        extends IGenericObject {
         getLayout(): Promise<L>;
         getProperties(): Promise<P>;
         setProperties(properties: P): Promise<void>;
@@ -8669,13 +8843,12 @@ declare namespace EngineAPI {
     /**
      * GenericList...
      */
-    interface IGenericList extends IGenericObjectPrototype<IGenericListProperties, IGenericListLayout> {
-    }
+    interface IGenericList extends IGenericObjectPrototype<IGenericListProperties, IGenericListLayout> {}
 
     interface IApp extends IAppObjectPrototype<IGenericListProperties, IGenericList> {
         createObject(qProp: IGenericListProperties): Promise<IGenericList>;
         createSessionObject(qProp: IGenericListProperties): Promise<IGenericList>;
-        clearSelections(qPath: "/qListObjectDef", qColIndices?: number[]): Promise<void>;
+        clearSelections(qPath: '/qListObjectDef', qColIndices?: number[]): Promise<void>;
     }
 }
 //#endregion
@@ -8984,8 +9157,7 @@ declare namespace EngineAPI {
     /**
      * HyperCubeObject width extend GenericObjectPrototype<GenericHyperCubeProperties, GenericHyperCubeLayout>
      */
-    interface IHyperCubeObject extends IGenericObjectPrototype<IGenericHyperCubeProperties, IGenericHyperCubeLayout> {
-    }
+    interface IHyperCubeObject extends IGenericObjectPrototype<IGenericHyperCubeProperties, IGenericHyperCubeLayout> {}
 
     interface IApp {
         createObject(qProp: IGenericHyperCubeProperties): Promise<IHyperCubeObject>;
@@ -8996,7 +9168,7 @@ declare namespace EngineAPI {
 
 //#region SelectionListObject
 declare namespace EngineAPI {
-    type FieldSelectionModeType = "NORMAL" | "AND" | "NOT";
+    type FieldSelectionModeType = 'NORMAL' | 'AND' | 'NOT';
 
     /**
      * NxCurrentSelectionItem...
@@ -9104,7 +9276,7 @@ declare namespace EngineAPI {
      * GenericSelectionNxInfo width extend NxInfo
      */
     interface IGenericSelectionNxInfo extends INxInfo {
-        qType: "CurrentSelection";
+        qType: 'CurrentSelection';
     }
 
     /**
@@ -9134,8 +9306,8 @@ declare namespace EngineAPI {
     /**
      * SelectionListObject width extend GenericObject
      */
-    interface ISelectionListObject extends IGenericObjectPrototype<IGenericSelectionListProperties, IGenericSelectionListLayout> {
-    }
+    interface ISelectionListObject
+        extends IGenericObjectPrototype<IGenericSelectionListProperties, IGenericSelectionListLayout> {}
 
     interface IApp {
         createObject(qProp: IGenericSelectionListProperties): Promise<ISelectionListObject>;
@@ -9167,7 +9339,7 @@ declare namespace EngineAPI {
      * GenericBookmarkListNxInfo width extend NxInfo
      */
     interface IGenericBookmarkListNxInfo extends INxInfo {
-        qType: "BookmarkList";
+        qType: 'BookmarkList';
     }
 
     /**
@@ -9185,7 +9357,7 @@ declare namespace EngineAPI {
         /**
          * Type of the list
          */
-        qType: "bookmark";
+        qType: 'bookmark';
 
         /**
          * Data typ JSON
@@ -9196,8 +9368,8 @@ declare namespace EngineAPI {
     /**
      * BookmarkListObject width extend GenericObject
      */
-    interface IBookmarkListObject extends IGenericObjectPrototype<IGenericBookmarkListProperties, IGenericBookmarkListLayout> {
-    }
+    interface IBookmarkListObject
+        extends IGenericObjectPrototype<IGenericBookmarkListProperties, IGenericBookmarkListLayout> {}
 
     interface IApp {
         createObject(qProp: IGenericBookmarkListProperties): Promise<IBookmarkListObject>;
@@ -9234,7 +9406,7 @@ declare namespace EngineAPI {
      * IGenericMeassureListNxInfo
      */
     interface IGenericMeassureListNxInfo extends INxInfo {
-        qType: "MeasureList";
+        qType: 'MeasureList';
     }
 
     /**
@@ -9249,7 +9421,7 @@ declare namespace EngineAPI {
      * IMeasureListDef
      */
     interface IMeasureListDef {
-        qType: "measure";
+        qType: 'measure';
         // qData: INxMeasure[]; nicht dokumentiert
         // example from websocket
         // qData : { title: "/qMetaDef/title", tags: "/qMetaDef/tags" }
@@ -9258,8 +9430,8 @@ declare namespace EngineAPI {
     /**
      * IMeassureListObject
      */
-    interface IMeassureListObject extends IGenericObjectPrototype<IGenericMeasureListProperties, IGenericMeasureListLayout> {
-    }
+    interface IMeassureListObject
+        extends IGenericObjectPrototype<IGenericMeasureListProperties, IGenericMeasureListLayout> {}
 
     interface IApp {
         createObject(qProp: IGenericMeasureListProperties): Promise<IMeassureListObject>;
@@ -9300,7 +9472,7 @@ declare namespace EngineAPI {
      * GenericDimensionListNxInfo width extend NxInfo
      */
     interface IGenericDimensionListNxInfo extends INxInfo {
-        qType: "DimensionList";
+        qType: 'DimensionList';
     }
 
     /**
@@ -9318,7 +9490,7 @@ declare namespace EngineAPI {
         /**
          * Type of the list
          */
-        qType: "dimension";
+        qType: 'dimension';
 
         /**
          * Data type JSON
@@ -9326,8 +9498,8 @@ declare namespace EngineAPI {
         qData: any;
     }
 
-    interface IDimensionListObject extends IGenericObjectPrototype<IGenericDimensionsListProperties, IGenericDimensionListLayout> {
-    }
+    interface IDimensionListObject
+        extends IGenericObjectPrototype<IGenericDimensionsListProperties, IGenericDimensionListLayout> {}
 
     interface IApp {
         createObject(qProp: IGenericDimensionsListProperties): Promise<IDimensionListObject>;
@@ -9449,8 +9621,8 @@ declare namespace EngineAPI {
     /**
      * VariableListObject width extend GenericObject
      */
-    interface IVariableListObject extends IGenericObjectPrototype<IGenericVariableListProperties, IGenericVariableListLayout> {
-    }
+    interface IVariableListObject
+        extends IGenericObjectPrototype<IGenericVariableListProperties, IGenericVariableListLayout> {}
 
     interface IApp {
         createObject(qProp: IGenericVariableListProperties): Promise<IVariableListObject>;
@@ -9698,8 +9870,7 @@ declare namespace EngineAPI {
     /**
      * FieldListObject width extend GenericObject
      */
-    interface IFieldListObject extends IGenericObjectPrototype<IGenericFieldListProperties, IGenericFieldLayout> {
-    }
+    interface IFieldListObject extends IGenericObjectPrototype<IGenericFieldListProperties, IGenericFieldLayout> {}
 
     interface IApp {
         createObject(qProp: IGenericFieldListProperties): Promise<IFieldListObject>;
@@ -9709,6 +9880,5 @@ declare namespace EngineAPI {
 //#endregion
 
 declare namespace enigmaJS {
-    interface IGeneratedAPI {
-    }
+    interface IGeneratedAPI {}
 }

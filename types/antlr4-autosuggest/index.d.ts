@@ -15,4 +15,8 @@ export interface Constructor<T> {
     new (...args: any[]): T;
 }
 
-export function autosuggester(lexerCtr: Constructor<antlr4.Lexer>, parserCtr: Constructor<antlr4.Parser>, casePref?: CasePreference | null): AutoSuggester;
+export function autosuggester(
+    lexerCtr: Constructor<antlr4.Lexer>,
+    parserCtr: Constructor<antlr4.Parser>,
+    casePref?: CasePreference | null,
+): AutoSuggester;

@@ -101,7 +101,7 @@ declare namespace Less {
         /** @deprecated If true, enable evaluation of JavaScript inline in `.less` files. */
         javascriptEnabled?: boolean;
         /** Whether output file information and line numbers in compiled CSS code. */
-        dumpLineNumbers?: "comment" | string;
+        dumpLineNumbers?: 'comment' | string;
         /** Add a path to every generated import and url in output css files. */
         rootpath?: string;
         /** Math mode options for avoiding symbol conficts on math expressions. */
@@ -112,11 +112,11 @@ declare namespace Less {
         strictUnits?: boolean;
         /** Defines a variable that can be referenced by the file. */
         globalVars?: {
-          [key: string] : string,
+            [key: string]: string;
         };
         /** Puts Var declaration at the end of base file. */
         modifyVars?: {
-          [key: string] : string,
+            [key: string]: string;
         };
         /** Read files synchronously in Node.js */
         syncImport?: boolean;
@@ -157,19 +157,27 @@ interface LessStatic {
     refreshStyles(): void;
 
     render(input: string, callback: (error: Less.RenderError, output: Less.RenderOutput | undefined) => void): void;
-    render(input: string, options: Less.Options, callback: (error: Less.RenderError, output: Less.RenderOutput | undefined) => void): void;
+    render(
+        input: string,
+        options: Less.Options,
+        callback: (error: Less.RenderError, output: Less.RenderOutput | undefined) => void,
+    ): void;
 
     render(input: string): Promise<Less.RenderOutput>;
     render(input: string, options: Less.Options): Promise<Less.RenderOutput>;
 
-    refresh(reload?: boolean, modifyVars?: { [variable: string]: string }, clearFileCache?: boolean): Promise<Less.RefreshOutput>;
+    refresh(
+        reload?: boolean,
+        modifyVars?: { [variable: string]: string },
+        clearFileCache?: boolean,
+    ): Promise<Less.RefreshOutput>;
 
     version: number[];
 
     watch(): void;
 }
 
-declare module "less" {
+declare module 'less' {
     export = less;
 }
 

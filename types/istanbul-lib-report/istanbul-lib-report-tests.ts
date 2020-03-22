@@ -5,7 +5,7 @@ import {
     ReportBase,
     ConsoleWriter,
     XmlWriter,
-	FileWriter,
+    FileWriter,
 } from 'istanbul-lib-report';
 
 import { CoverageMap } from 'istanbul-lib-coverage';

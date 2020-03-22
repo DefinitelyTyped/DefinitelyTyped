@@ -28,27 +28,27 @@ import { matches } from 'material__dom/ponyfill';
 import { cssClasses, strings, Index } from './constants'; // eslint-disable-line no-unused-vars
 
 export class MDCList {
-  constructor(...args: any[]);
-  static attachTo(root: Element): MDCList;
+    constructor(...args: any[]);
+    static attachTo(root: Element): MDCList;
 
-  destroy(): void;
+    destroy(): void;
 
-  initialSyncWithDOM(): void;
+    initialSyncWithDOM(): void;
 
-  layout(): void;
+    layout(): void;
 
-  /**
-   * Initialize selectedIndex value based on pre-selected checkbox list items, single selection or radio.
-   */
-  initializeListType(): void;
+    /**
+     * Initialize selectedIndex value based on pre-selected checkbox list items, single selection or radio.
+     */
+    initializeListType(): void;
 
-  vertical: boolean;
-  readonly listElements: Element[];
-  wrapFocus: boolean;
-  singleSelection: boolean;
-  selectedIndex: Index;
+    vertical: boolean;
+    readonly listElements: Element[];
+    wrapFocus: boolean;
+    singleSelection: boolean;
+    selectedIndex: Index;
 
-  getDefaultFoundation(): MDCListFoundation;
+    getDefaultFoundation(): MDCListFoundation;
 }
 
-export {  MDCListFoundation };
+export { MDCListFoundation };

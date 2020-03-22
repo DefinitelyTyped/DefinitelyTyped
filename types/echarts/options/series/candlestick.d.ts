@@ -43,7 +43,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-candlestick
          */
         interface SeriesCandlestick {
-
             /**
              * @default
              * "candlestick"
@@ -190,7 +189,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * Fill color of bullish candle stick.
                  *
@@ -338,12 +336,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Fill color of bullish candle stick.
                      *
@@ -665,7 +661,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -795,7 +790,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1256,12 +1250,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1591,7 +1583,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -2056,12 +2047,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -2408,7 +2397,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2508,7 +2496,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -2643,7 +2630,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -2866,7 +2852,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -2968,7 +2953,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -3075,7 +3059,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3494,12 +3477,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3841,7 +3822,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -4262,12 +4242,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -4725,7 +4703,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -4778,7 +4755,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -4852,7 +4828,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -4933,7 +4908,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -5039,7 +5013,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -5183,7 +5156,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -5191,7 +5163,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -5420,7 +5391,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -5530,7 +5500,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -5648,7 +5617,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -5724,7 +5692,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -5806,7 +5773,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -6035,7 +6001,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -6145,7 +6110,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -6263,7 +6227,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -6339,7 +6302,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -6530,7 +6492,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6548,7 +6509,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -6963,12 +6923,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -7298,7 +7256,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -7717,12 +7674,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -8069,7 +8024,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -8169,7 +8123,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -8316,7 +8269,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -8324,7 +8276,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -8423,7 +8374,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -8528,7 +8478,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -8642,7 +8591,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -9063,12 +9011,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -9411,7 +9357,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -9846,12 +9791,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -10208,7 +10151,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -10307,7 +10249,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -10412,7 +10353,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -10526,7 +10466,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10947,12 +10886,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -11295,7 +11232,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -11730,12 +11666,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -12288,7 +12222,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-candlestick.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -12543,7 +12476,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -12740,7 +12672,6 @@ declare namespace echarts {
 
         namespace SeriesCandlestick {
             interface DataObject {
-
                 /**
                  * Name of data item.
                  *
@@ -12766,7 +12697,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Fill color of bullish candle stick.
                      *
@@ -12914,12 +12844,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * Fill color of bullish candle stick.
                          *
@@ -13072,7 +13000,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.data.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
@@ -13322,7 +13249,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *

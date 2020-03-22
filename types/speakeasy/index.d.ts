@@ -425,10 +425,7 @@ export const generate_key: typeof generateSecret;
  * @param  symbols Whether to include symbols in the key, defaults to false
  * @return The generated key.
  */
-export function generateSecretASCII(
-    length?: number,
-    symbols?: boolean
-): string;
+export function generateSecretASCII(length?: number, symbols?: boolean): string;
 /**
  * @deprecated use generateSecret
  */

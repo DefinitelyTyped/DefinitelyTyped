@@ -6,9 +6,6 @@
 
 /// <reference types="node"/>
 
-
-
-
 import events = require('events');
 
 /**
@@ -142,7 +139,7 @@ declare enum errors {
     durabilityFailed,
 
     /** An error occured during a RESTful operation. **/
-    restError
+    restError,
 }
 
 /**
@@ -163,7 +160,7 @@ declare class ClassicAuthenticator implements Authenticator {
      * @param username Cluster administration username.
      * @param password Cluster administration password.
      */
-    constructor(buckets: {[key: string]: string}, username: string, password: string);
+    constructor(buckets: { [key: string]: string }, username: string, password: string);
 
     username: string;
     password: string;
@@ -239,7 +236,6 @@ declare class Cluster {
      */
     openBucket(name?: string): Bucket;
 
-
     /**
      * Open a bucket to perform operations. This will begin the handshake process immediately and operations will complete later. Subscribe to the connect event to be alerted when the connection is ready, though be aware operations can be successfully queued before this.
      * @param name The name of the bucket to open.
@@ -275,7 +271,7 @@ interface CreateBucketOptions {
      * The bucket name
      */
     name?: string;
-    authType?: string,
+    authType?: string;
     bucketType?: string;
     ramQuotaMB?: number;
     replicaNumber?: number;
@@ -351,9 +347,9 @@ interface AppendOptions {
     replicate_to?: number;
 }
 
-interface PrependOptions extends AppendOptions { }
+interface PrependOptions extends AppendOptions {}
 
-interface RemoveOptions extends AppendOptions { }
+interface RemoveOptions extends AppendOptions {}
 
 interface ReplaceOptions extends AppendOptions {
     /**
@@ -362,7 +358,7 @@ interface ReplaceOptions extends AppendOptions {
     expiry?: number;
 }
 
-interface UpsertOptions extends ReplaceOptions { }
+interface UpsertOptions extends ReplaceOptions {}
 
 interface TouchOptions {
     /**
@@ -403,7 +399,6 @@ interface GetAndLockOptions {
 }
 
 interface GetReplicaOptions {
-
     /**
      * The index for which replica you wish to retrieve this value from, or if undefined, use the value from the first server that replies.
      */
@@ -411,7 +406,6 @@ interface GetReplicaOptions {
 }
 
 interface InsertOptions {
-
     /**
      * Set the initial expiration time for the document. A value of 0 represents never expiring.
      */
@@ -575,7 +569,12 @@ interface BucketManager {
      * @param options
      * @param callback The callback function.
      */
-    createIndex(indexName: string, fields: string[], options: CreateIndexOptions, callback: (err: CouchbaseError | null) => void): void;
+    createIndex(
+        indexName: string,
+        fields: string[],
+        options: CreateIndexOptions,
+        callback: (err: CouchbaseError | null) => void,
+    ): void;
 
     /**
      * Creates a primary GSI index with an optional name.
@@ -813,7 +812,7 @@ declare namespace ViewQuery {
         /**
          * Stops and errors query when an error occurs.
          */
-        STOP
+        STOP,
     }
 
     /**
@@ -828,7 +827,7 @@ declare namespace ViewQuery {
         /**
          * Orders with higher values first and lower values last.
          */
-        DESCENDING
+        DESCENDING,
     }
 
     /**
@@ -848,7 +847,7 @@ declare namespace ViewQuery {
         /**
          * Forces the view to be indexed after the results of this query has been fetched.
          */
-        AFTER
+        AFTER,
     }
 }
 
@@ -889,7 +888,7 @@ declare namespace N1qlQuery {
         /**
          * This implements strong consistency per statement.
          */
-        STATEMENT_PLUS
+        STATEMENT_PLUS,
     }
 }
 
@@ -987,7 +986,7 @@ declare namespace SpatialQuery {
         /**
          * 	Forces the view to be indexed after the results of this query has been fetched.
          */
-        AFTER
+        AFTER,
     }
 }
 
@@ -1051,7 +1050,12 @@ declare abstract class SearchQuery {
      * @param br_lat Bottom-right latitude.
      * @param br_lon Bottom-right longitude.
      */
-    static geoBoundingBoxQuery(tl_lat: number, tl_lon: number, br_lat: number, br_lon: number): SearchQuery.GeoBoundingBoxQuery;
+    static geoBoundingBoxQuery(
+        tl_lat: number,
+        tl_lon: number,
+        br_lat: number,
+        br_lon: number,
+    ): SearchQuery.GeoBoundingBoxQuery;
 
     /**
      * Creates a geographical distance based query.
@@ -1186,8 +1190,7 @@ declare abstract class SearchQuery {
 }
 
 declare namespace SearchQuery {
-    abstract class Query {
-    }
+    abstract class Query {}
 
     abstract class BooleanQuery extends Query {
         /**
@@ -1345,11 +1348,9 @@ declare namespace SearchQuery {
         field(field: string): this;
     }
 
-    abstract class MatchAllQuery extends Query {
-    }
+    abstract class MatchAllQuery extends Query {}
 
-    abstract class MatchNoneQuery extends Query {
-    }
+    abstract class MatchNoneQuery extends Query {}
 
     abstract class MatchPhraseQuery extends Query {
         /**
@@ -1580,12 +1581,10 @@ declare namespace SearchQuery {
     }
 }
 
-declare class SearchFacet {
-}
+declare class SearchFacet {}
 
 declare namespace SearchFacet {
-    class TermFacet extends SearchFacet {
-    }
+    class TermFacet extends SearchFacet {}
 
     function term(field: string, size: number): TermFacet;
 
@@ -1610,13 +1609,11 @@ declare class SearchSort {
 }
 
 declare namespace SearchSort {
-    class ScoreSort extends SearchSort {
-    }
+    class ScoreSort extends SearchSort {}
 
     function score(): ScoreSort;
 
-    class IdSort extends SearchSort {
-    }
+    class IdSort extends SearchSort {}
 
     function id(): IdSort;
 
@@ -1801,11 +1798,11 @@ interface Bucket extends events.EventEmitter {
     getReplica(key: string | Buffer, callback: Bucket.OpCallback): void;
 
     /**
-    * Get a document from a replica server in your cluster.
-    * @param key The target document key.
-    * @param options The options object.
-    * @param callback The callback function.
-    */
+     * Get a document from a replica server in your cluster.
+     * @param key The target document key.
+     * @param options The options object.
+     * @param callback The callback function.
+     */
     getReplica(key: string | Buffer, options: GetReplicaOptions, callback: Bucket.OpCallback): void;
 
     /**
@@ -1874,7 +1871,11 @@ interface Bucket extends events.EventEmitter {
      * @param params A list or map to do replacements on a N1QL query.
      * @param callback The callback function.
      */
-    query(query: N1qlQuery, params: {[param: string]: any} | any[], callback?: Bucket.N1qlQueryCallback): Bucket.N1qlQueryResponse;
+    query(
+        query: N1qlQuery,
+        params: { [param: string]: any } | any[],
+        callback?: Bucket.N1qlQueryCallback,
+    ): Bucket.N1qlQueryResponse;
 
     /**
      * Deletes a document on the server.
@@ -1975,7 +1976,6 @@ interface Bucket extends events.EventEmitter {
 }
 
 declare namespace Bucket {
-
     /**
      * This is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
      */
@@ -2059,16 +2059,14 @@ declare namespace Bucket {
          *
          * @param doc The data from Couchbase to decode.
          */
-        (doc: Bucket.TranscoderDoc): any
+        (doc: Bucket.TranscoderDoc): any;
     }
 
     /**
      * The CAS value is a special object that indicates the current state of the item on the server. Each time an object is mutated on the server, the value is changed. CAS objects can be used in conjunction with mutation operations to ensure that the value on the server matches the local value retrieved by the client. This is useful when doing document updates on the server as you can ensure no changes were applied by other clients while you were in the process of mutating the document locally.
      * In the Node.js SDK, the CAS is represented as an opaque value. As such, you cannot generate CAS objects, but should rather use the values returned from a Bucket.OpCallback.
      */
-    interface CAS {
-
-    }
+    interface CAS {}
 
     /**
      * An event emitter allowing you to bind to various query result set events.

@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface CallbackArgument {
     issuer: string;
     maxLength: number;
 }
 
-export type Focused = "name" | "number" | "expiry" | "cvc";
+export type Focused = 'name' | 'number' | 'expiry' | 'cvc';
 
 export interface ReactCreditCardProps {
     acceptedCards?: ReadonlyArray<string>;
@@ -27,9 +27,6 @@ export interface ReactCreditCardProps {
     preview?: boolean;
 }
 
-declare class ReactCreditCard extends React.Component<
-    ReactCreditCardProps,
-    never
-> {}
+declare class ReactCreditCard extends React.Component<ReactCreditCardProps, never> {}
 
 export default ReactCreditCard;

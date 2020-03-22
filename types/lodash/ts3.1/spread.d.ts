@@ -1,2 +1,2 @@
-import { spread } from "./index";
+import { spread } from './index';
 export = spread;

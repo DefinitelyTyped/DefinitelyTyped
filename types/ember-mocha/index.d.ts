@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { TestContext, ModuleCallbacks } from "ember-test-helpers";
+import { TestContext, ModuleCallbacks } from 'ember-test-helpers';
 import Ember from 'ember';
 import { it as mochaIt, ISuiteCallbackContext } from 'mocha';
 
@@ -22,7 +22,12 @@ type mochaSuiteTeardown = typeof suiteTeardown;
 
 declare module 'ember-mocha' {
     interface ContextDefinitionFunction {
-        (name: string, description: string, callbacks: ModuleCallbacks, tests: (this: ISuiteCallbackContext) => void): void;
+        (
+            name: string,
+            description: string,
+            callbacks: ModuleCallbacks,
+            tests: (this: ISuiteCallbackContext) => void,
+        ): void;
         (name: string, description: string, tests: (this: ISuiteCallbackContext) => void): void;
         (name: string, callbacks: ModuleCallbacks, tests: (this: ISuiteCallbackContext) => void): void;
         (name: string, tests: (this: ISuiteCallbackContext) => void): void;

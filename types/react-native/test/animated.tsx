@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 
 function TestAnimatedAPI() {
     // Value
@@ -9,7 +9,7 @@ function TestAnimatedAPI() {
 
     v1.setValue(0.1);
 
-    v1.addListener(e => {
+    v1.addListener((e) => {
         const n: number = e.value;
     });
 
@@ -54,7 +54,7 @@ function TestAnimatedAPI() {
         toValue: 1,
         duration: 100,
         delay: 100,
-        easing: v => v,
+        easing: (v) => v,
     });
 
     Animated.add(v1, v2);
@@ -88,7 +88,7 @@ function TestAnimatedAPI() {
                 ]}
             />
 
-            <Animated.Image style={position.getTranslateTransform()} source={{uri: 'https://picsum.photos/200'}} />
+            <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
         </View>
     );
 }

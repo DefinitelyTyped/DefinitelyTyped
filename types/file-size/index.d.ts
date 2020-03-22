@@ -9,9 +9,9 @@ interface Options {
     spacer?: string;
 }
 
-type Spec = "si" | "iec" | "jedec";
+type Spec = 'si' | 'iec' | 'jedec';
 
-type Unit = "B" | "KB" | "MB" | "GB" | "TB" | "PB" | "EB" | "ZB" | "YB";
+type Unit = 'B' | 'KB' | 'MB' | 'GB' | 'TB' | 'PB' | 'EB' | 'ZB' | 'YB';
 
 interface Bits {
     result: number;

@@ -17,44 +17,29 @@ declare namespace facebook {
         | 'auth.statusChange'
         | 'xfbml.render';
 
-    type LoginStatus =
-        | 'authorization_expired'
-        | 'connected'
-        | 'not_authorized'
-        | 'unknown';
+    type LoginStatus = 'authorization_expired' | 'connected' | 'not_authorized' | 'unknown';
 
-    type FacebookEventCallback<
-        TEvent extends FacebookEventType
-    > = TEvent extends 'xfbl.render'
+    type FacebookEventCallback<TEvent extends FacebookEventType> = TEvent extends 'xfbl.render'
         ? () => void
         : (response: StatusResponse) => void;
 
     interface FacebookStaticEvent {
-        subscribe<TEvent extends FacebookEventType>(
-            event: TEvent,
-            callback: FacebookEventCallback<TEvent>
-        ): void;
-        unsubscribe<TEvent extends FacebookEventType>(
-            event: TEvent,
-            callback: FacebookEventCallback<TEvent>
-        ): void;
+        subscribe<TEvent extends FacebookEventType>(event: TEvent, callback: FacebookEventCallback<TEvent>): void;
+        unsubscribe<TEvent extends FacebookEventType>(event: TEvent, callback: FacebookEventCallback<TEvent>): void;
     }
 
     interface FacebookStatic {
-        api<TResponse>(
-            path: string,
-            callback: (response: TResponse) => void
-        ): void;
+        api<TResponse>(path: string, callback: (response: TResponse) => void): void;
         api<TParams extends object, TResponse>(
             path: string,
             params: TParams,
-            callback: (response: TResponse) => void
+            callback: (response: TResponse) => void,
         ): void;
         api<TParams extends object, TResponse>(
             path: string,
             method: 'get' | 'post' | 'delete',
             params: TParams,
-            callback: (response: TResponse) => void
+            callback: (response: TResponse) => void,
         ): void;
 
         AppEvents: any;
@@ -76,10 +61,7 @@ declare namespace facebook {
          * @param callback function to handle the response.
          * @param roundtrip force a roundtrip to Facebook - effectively refreshing the cache of the response object
          */
-        getLoginStatus(
-            callback: (response: StatusResponse) => void,
-            roundtrip?: boolean
-        ): void;
+        getLoginStatus(callback: (response: StatusResponse) => void, roundtrip?: boolean): void;
 
         /**
          * The method FB.init() is used to initialize and setup the SDK.
@@ -98,10 +80,7 @@ declare namespace facebook {
          * @param callback function to handle the response.
          * @param options optional ILoginOption to add params such as scope.
          */
-        login(
-            callback: (response: StatusResponse) => void,
-            options?: LoginOptions
-        ): void;
+        login(callback: (response: StatusResponse) => void, options?: LoginOptions): void;
 
         /**
          * Use this function to log the user in
@@ -124,106 +103,70 @@ declare namespace facebook {
         /**
          * @see https://developers.facebook.com/docs/sharing/reference/share-dialog
          */
-        ui(
-            params: ShareDialogParams,
-            callback?: (response: ShareDialogResponse) => void
-        ): void;
+        ui(params: ShareDialogParams, callback?: (response: ShareDialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/sharing/reference/share-dialog
          */
-        ui(
-            params: ShareOpenGraphDialogParams,
-            callback?: (response: ShareOpenGraphDialogResponse) => void
-        ): void;
+        ui(params: ShareOpenGraphDialogParams, callback?: (response: ShareOpenGraphDialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/pages/page-tab-dialog
          */
-        ui(
-            params: AddPageTabDialogParams,
-            callback?: (response: DialogResponse) => void
-        ): void;
+        ui(params: AddPageTabDialogParams, callback?: (response: DialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/games/services/gamerequests
          */
-        ui(
-            params: GameRequestDialogParams,
-            callback?: (response: GameRequestDialogResponse) => void
-        ): void;
+        ui(params: GameRequestDialogParams, callback?: (response: GameRequestDialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/payments/reference/paydialog
          */
-        ui(
-            params: PayDialogParams,
-            callback?: (response: PayDialogResponse) => void
-        ): void;
+        ui(params: PayDialogParams, callback?: (response: PayDialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/games_payments/payments_lite
          */
-        ui(
-            params: PaymentsLiteDialogParams,
-            callback?: (response: PaymentsLiteDialogResponse) => void
-        ): void;
+        ui(params: PaymentsLiteDialogParams, callback?: (response: PaymentsLiteDialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/videos/live-video/exploring-live#golivedialog
          */
-        ui(
-            params: LiveDialogParams,
-            callback?: (response: LiveDialogResponse) => void
-        ): void;
+        ui(params: LiveDialogParams, callback?: (response: LiveDialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/sharing/reference/send-dialog
          */
-        ui(
-            params: SendDialogParams,
-            callback?: (response: DialogResponse) => void
-        ): void;
+        ui(params: SendDialogParams, callback?: (response: DialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/marketing-api/guides/offer-ads/#create-offer-dialog
          */
-        ui(
-            params: CreateOfferDialogParams,
-            callback?: (response: CreateOfferDialogResponse) => void
-        ): void;
+        ui(params: CreateOfferDialogParams, callback?: (response: CreateOfferDialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/marketing-api/guides/lead-ads/create#create-leadgen-dialog
          */
-        ui(
-            params: LeadgenDialogParams,
-            callback?: (response: LeadgenDialogResponse) => void
-        ): void;
+        ui(params: LeadgenDialogParams, callback?: (response: LeadgenDialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/marketing-api/guides/canvas-ads#canvas-ads-dialog
          */
         ui(
             params: InstantExperiencesAdsDialogParams,
-            callback?: (response: InstantExperiencesAdsDialogResponse) => void
+            callback?: (response: InstantExperiencesAdsDialogResponse) => void,
         ): void;
 
         /**
          * @see https://developers.facebook.com/docs/marketing-api/guides/canvas-ads#canvas-preview-dialog
          */
-        ui(
-            params: InstantExperiencesPreviewDialogParams,
-            callback?: (response: DialogResponse) => void
-        ): void;
+        ui(params: InstantExperiencesPreviewDialogParams, callback?: (response: DialogResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/marketing-api/guides/collection#collection-ads-dialog
          */
-        ui(
-            params: CollectionAdsDialogParams,
-            callback?: (response: CollectionAdsDialogResponse) => void
-        ): void;
+        ui(params: CollectionAdsDialogParams, callback?: (response: CollectionAdsDialogResponse) => void): void;
 
         XFBML: any;
     }
@@ -288,10 +231,7 @@ declare namespace facebook {
         action_type?: 'send' | 'askfor' | 'turn';
         data?: string;
         exclude_ids?: string[];
-        filters?:
-            | 'app_users'
-            | 'app_non_users'
-            | Array<{ name: string; user_ids: string[] }>;
+        filters?: 'app_users' | 'app_non_users' | Array<{ name: string; user_ids: string[] }>;
         max_recipients?: number;
         object_id?: string;
         suggestions?: string[];
@@ -367,8 +307,7 @@ declare namespace facebook {
         canvas_id: string;
     }
 
-    interface CollectionAdsDialogParams
-        extends InstantExperiencesAdsDialogParams {
+    interface CollectionAdsDialogParams extends InstantExperiencesAdsDialogParams {
         account_id: string;
         canvas_id?: undefined;
         template_id: string;
@@ -455,6 +394,5 @@ declare namespace facebook {
         success: boolean;
     }
 
-    interface CollectionAdsDialogResponse
-        extends InstantExperiencesAdsDialogResponse {}
+    interface CollectionAdsDialogResponse extends InstantExperiencesAdsDialogResponse {}
 }

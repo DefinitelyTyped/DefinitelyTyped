@@ -6,10 +6,10 @@
 
 /// <reference types="node" />
 
-import * as e from "elasticsearch";
-import * as AWS from "aws-sdk";
+import * as e from 'elasticsearch';
+import * as AWS from 'aws-sdk';
 
-declare module "elasticsearch" {
+declare module 'elasticsearch' {
     interface ConfigOptions {
         awsConfig?: AWS.Config;
     }

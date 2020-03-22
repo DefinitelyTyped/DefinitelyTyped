@@ -1,4 +1,4 @@
-import { ConnectOptions } from "../connect";
+import { ConnectOptions } from '../connect';
 
 declare function getAddressInfo(args: ConnectOptions): getAddressInfo.AddressInfo;
 

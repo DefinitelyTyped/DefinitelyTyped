@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as request from "request";
+import * as request from 'request';
 
 declare class Slack {
     token: string;
@@ -17,14 +17,13 @@ declare class Slack {
     constructor(token?: string, domain?: string);
     composeUrl(): string;
     setWebhook(url: string): this;
-    detectEmoji(emoji: string): { key: "icon_url" | "icon_emoji", val: string };
+    detectEmoji(emoji: string): { key: 'icon_url' | 'icon_emoji'; val: string };
     webhook(options: Slack.WebhookOptions, callback: (err: any, response: Slack.WebhookResponse) => void): void;
     api(method: string, callback: (err: any, response: any) => void): this;
     api(method: string, options: any, callback: (err: any, response: any) => void): this;
 }
 
 declare namespace Slack {
-
     export interface WebhookOptions {
         icon_emoji?: string;
         response_type?: string;
@@ -36,7 +35,7 @@ declare namespace Slack {
     }
 
     export interface WebhookResponse {
-        status: "fail" | "ok";
+        status: 'fail' | 'ok';
         statusCode: number;
         headers: any;
         response: any;

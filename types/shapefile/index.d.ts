@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import { Feature, FeatureCollection, GeometryObject, GeoJsonProperties } from "geojson";
-import { Readable } from "stream";
+import { Feature, FeatureCollection, GeometryObject, GeoJsonProperties } from 'geojson';
+import { Readable } from 'stream';
 
 export interface Options {
     encoding?: string;
@@ -16,7 +16,7 @@ export interface Options {
 }
 export interface Source<RecordType> {
     bbox: number[];
-    read(): Promise<{done: boolean, value: RecordType}>;
+    read(): Promise<{ done: boolean; value: RecordType }>;
     cancel(): Promise<void>;
 }
 

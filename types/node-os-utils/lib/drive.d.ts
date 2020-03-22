@@ -18,5 +18,4 @@ export interface DriveUsedInfo {
     usedPercentage: number;
 }
 
-export interface DriveInfo extends DriveFreeInfo, DriveUsedInfo {
-}
+export interface DriveInfo extends DriveFreeInfo, DriveUsedInfo {}

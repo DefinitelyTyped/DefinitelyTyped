@@ -8,7 +8,7 @@ path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
 
 try {
     path.join('foo', 'bar');
-} catch (error) { }
+} catch (error) {}
 
 path.resolve('foo/bar', '/tmp/file/', '..', 'a/../subfile');
 // Is similar to:
@@ -32,14 +32,14 @@ path.resolve('wwwroot', 'static_files/png/', '../gif/image.gif');
 //    '/home/myself/node/wwwroot/static_files/gif/image.gif'
 
 path.isAbsolute('/foo/bar'); // true
-path.isAbsolute('/baz/..');  // true
-path.isAbsolute('qux/');     // false
-path.isAbsolute('.');        // false
+path.isAbsolute('/baz/..'); // true
+path.isAbsolute('qux/'); // false
+path.isAbsolute('.'); // false
 
-path.isAbsolute('//server');  // true
+path.isAbsolute('//server'); // true
 path.isAbsolute('C:/foo/..'); // true
-path.isAbsolute('bar\\baz');   // false
-path.isAbsolute('.');         // false
+path.isAbsolute('bar\\baz'); // false
+path.isAbsolute('.'); // false
 
 path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb');
 // returns
@@ -85,7 +85,7 @@ path.extname('index');
 // returns
 //        ['foo', 'bar', 'baz']
 
-process.env["PATH"]; // $ExpectType string | undefined
+process.env['PATH']; // $ExpectType string | undefined
 
 path.parse('/home/user/dir/file.txt');
 // returns
@@ -108,60 +108,60 @@ path.parse('C:\\path\\dir\\index.html');
 //    }
 
 path.format({
-    root: "/",
-    dir: "/home/user/dir",
-    base: "file.txt",
-    ext: ".txt",
-    name: "file"
+    root: '/',
+    dir: '/home/user/dir',
+    base: 'file.txt',
+    ext: '.txt',
+    name: 'file',
 });
 // returns
 //    '/home/user/dir/file.txt'
 
 path.format({
-    root: "/",
-    dir: "/home/user/dir",
-    ext: ".txt",
-    name: "file"
+    root: '/',
+    dir: '/home/user/dir',
+    ext: '.txt',
+    name: 'file',
 });
 // returns
 //    '/home/user/dir/file.txt'
 
 path.format({
-    dir: "/home/user/dir",
-    base: "file.txt"
+    dir: '/home/user/dir',
+    base: 'file.txt',
 });
 // returns
 //    '/home/user/dir/file.txt'
 
 path.posix.format({
-    root: "/",
-    dir: "/home/user/dir",
-    base: "file.txt",
-    ext: ".txt",
-    name: "file"
+    root: '/',
+    dir: '/home/user/dir',
+    base: 'file.txt',
+    ext: '.txt',
+    name: 'file',
 });
 // returns
 //    '/home/user/dir/file.txt'
 
 path.posix.format({
-    dir: "/home/user/dir",
-    base: "file.txt"
+    dir: '/home/user/dir',
+    base: 'file.txt',
 });
 // returns
 //    '/home/user/dir/file.txt'
 
 path.win32.format({
-    root: "C:\\",
-    dir: "C:\\home\\user\\dir",
-    ext: ".txt",
-    name: "file"
+    root: 'C:\\',
+    dir: 'C:\\home\\user\\dir',
+    ext: '.txt',
+    name: 'file',
 });
 // returns
 //    'C:\home\user\dir\file.txt'
 
 path.win32.format({
-    dir: "C:\\home\\user\\dir",
-    base: "file.txt"
+    dir: 'C:\\home\\user\\dir',
+    base: 'file.txt',
 });
 // returns
 //    'C:\home\user\dir\file.txt'

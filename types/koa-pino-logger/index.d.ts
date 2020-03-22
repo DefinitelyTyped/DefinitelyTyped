@@ -14,10 +14,7 @@ import * as http from 'http';
 
 export = logger;
 
-declare function logger(
-    opts?: Options,
-    stream?: DestinationStream
-): Middleware;
+declare function logger(opts?: Options, stream?: DestinationStream): Middleware;
 declare function logger(stream?: DestinationStream): Middleware;
 
 declare module 'koa' {

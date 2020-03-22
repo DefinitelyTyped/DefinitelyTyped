@@ -65,5 +65,5 @@ export default interface MDCRippleAdapter {
 
     computeBoundingRect(): ClientRect;
 
-    getWindowPageOffset(): { x: number; y: number; };
+    getWindowPageOffset(): { x: number; y: number };
 }

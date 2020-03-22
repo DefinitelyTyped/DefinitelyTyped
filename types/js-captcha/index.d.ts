@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as jCaptcha from "./dist/js/jCaptcha";
+import * as jCaptcha from './dist/js/jCaptcha';

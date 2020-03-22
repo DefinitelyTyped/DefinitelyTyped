@@ -1,9 +1,9 @@
-import * as fs from "fs";
-import temp = require("promised-temp");
+import * as fs from 'fs';
+import temp = require('promised-temp');
 
 function testCleanup() {
     temp.cleanup().then((result: boolean | temp.Stats) => {
-        if (typeof result === "boolean") {
+        if (typeof result === 'boolean') {
             const x = result;
         } else {
             const { files, dirs } = result;
@@ -13,13 +13,13 @@ function testCleanup() {
 }
 
 function testOpen() {
-    temp.open({ dir: "tempDir", prefix: "pref", suffix: "suff" }).then((result: temp.OpenFile) => {
+    temp.open({ dir: 'tempDir', prefix: 'pref', suffix: 'suff' }).then((result: temp.OpenFile) => {
         const { path, fd } = result;
         path.length;
         fd.toPrecision(5);
     });
 
-    temp.open("strPrefix").then((result: temp.OpenFile) => {
+    temp.open('strPrefix').then((result: temp.OpenFile) => {
         const { path, fd } = result;
         path.length;
         fd.toPrecision(5);
@@ -27,24 +27,22 @@ function testOpen() {
 }
 
 function testCreateWriteStream() {
-    const stream =
-        temp.createWriteStream("HelloStreamAffix")
-            .then((stream: fs.WriteStream) => stream.write("data"));
+    const stream = temp.createWriteStream('HelloStreamAffix').then((stream: fs.WriteStream) => stream.write('data'));
 
     const stream2 = temp.createWriteStream();
 }
 
 function testMkdir() {
-    temp.mkdir("prefix").then((dirPath: string) => {
+    temp.mkdir('prefix').then((dirPath: string) => {
         dirPath.length;
     });
 }
 
 function testPath() {
-    const p = temp.path({ suffix: "justSuffix" }, "defaultPrefix");
+    const p = temp.path({ suffix: 'justSuffix' }, 'defaultPrefix');
     p.length;
-    const p2: string = temp.path("prefix");
-    const p3: string = temp.path({ prefix: "prefix" });
+    const p2: string = temp.path('prefix');
+    const p3: string = temp.path({ prefix: 'prefix' });
 }
 
 function testTrack() {

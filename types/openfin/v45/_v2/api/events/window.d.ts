@@ -1,7 +1,11 @@
 import { CrashedEvent } from './application';
 import { WindowEvent, BaseEventMap } from './base';
 import { WindowOptionDiff } from '../window/windowOption';
-import { WebContentsEventMapping, WindowResourceLoadFailedEvent, WindowResourceResponseReceivedEvent } from './webcontents';
+import {
+    WebContentsEventMapping,
+    WindowResourceLoadFailedEvent,
+    WindowResourceResponseReceivedEvent,
+} from './webcontents';
 export declare type SpecificWindowEvent<Type> = WindowEvent<'window', Type>;
 export interface WindowAlertRequestedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     message: string;
@@ -41,16 +45,18 @@ export interface WindowHiddenEvent<Topic, Type> extends WindowEvent<Topic, Type>
     reason: 'closing' | 'hide' | 'hide-on-close';
 }
 export interface PreloadScriptInfoRunning {
-    state: 'load-started' | // started loading preload script
-    'load-failed' | // preload script failed to load
-    'load-succeeded' | // preload script is loaded and ready to be eval'ed
-    'failed' | // preload script failed to eval
-    'succeeded';
+    state:
+        | 'load-started' // started loading preload script
+        | 'load-failed' // preload script failed to load
+        | 'load-succeeded' // preload script is loaded and ready to be eval'ed
+        | 'failed' // preload script failed to eval
+        | 'succeeded';
 }
 export interface PreloadScriptInfo {
-    state: 'load-failed' | // preload script failed to load
-    'failed' | // preload script failed to eval
-    'succeeded';
+    state:
+        | 'load-failed' // preload script failed to load
+        | 'failed' // preload script failed to eval
+        | 'succeeded';
 }
 export interface WindowPreloadScriptsStateChangeEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     preloadScripts: (PreloadScriptInfoRunning & any)[];
@@ -114,34 +120,34 @@ export interface WindowPerformanceReport<Topic, Type> extends WindowEvent<Topic,
 export interface WindowEventMapping<Topic = string, Type = string> extends WebContentsEventMapping {
     'auth-requested': WindowAuthRequestedEvent<Topic, Type>;
     'begin-user-bounds-changing': WindowBeginBoundsChangingEvent<Topic, Type>;
-    'blurred': WindowEvent<Topic, Type>;
+    blurred: WindowEvent<Topic, Type>;
     'bounds-changed': WindowBoundsChange<Topic, Type>;
     'bounds-changing': WindowBoundsChange<Topic, Type>;
     'close-requested': WindowEvent<Topic, Type>;
-    'closed': WindowEvent<Topic, Type>;
-    'closing': WindowEvent<Topic, Type>;
-    'crashed': CrashedEvent & WindowEvent<Topic, Type>;
+    closed: WindowEvent<Topic, Type>;
+    closing: WindowEvent<Topic, Type>;
+    crashed: CrashedEvent & WindowEvent<Topic, Type>;
     'disabled-movement-bounds-changed': WindowBoundsChange<Topic, Type>;
     'disabled-movement-bounds-changing': WindowBoundsChange<Topic, Type>;
-    'embedded': WindowEvent<Topic, Type>;
+    embedded: WindowEvent<Topic, Type>;
     'end-user-bounds-changing': WindowEndBoundsChangingEvent<Topic, Type>;
     'external-process-exited': WindowExternalProcessExitedEvent<Topic, Type>;
     'external-process-started': WindowExternalProcessStartedEvent<Topic, Type>;
-    'focused': WindowEvent<Topic, Type>;
+    focused: WindowEvent<Topic, Type>;
     'group-changed': WindowGroupChanged<Topic, Type>;
-    'hidden': WindowHiddenEvent<Topic, Type>;
-    'initialized': WindowEvent<Topic, Type>;
-    'maximized': WindowEvent<Topic, Type>;
-    'minimized': WindowEvent<Topic, Type>;
+    hidden: WindowHiddenEvent<Topic, Type>;
+    initialized: WindowEvent<Topic, Type>;
+    maximized: WindowEvent<Topic, Type>;
+    minimized: WindowEvent<Topic, Type>;
     'navigation-rejected': WindowNavigationRejectedEvent<Topic, Type>;
     'options-changed': WindowOptionsChangedEvent<Topic, Type>;
     'performance-report': WindowPerformanceReport<Topic, Type>;
     'preload-scripts-state-changed': WindowPreloadScriptsStateChangeEvent<Topic, Type>;
     'preload-scripts-state-changing': WindowPreloadScriptsStateChangeEvent<Topic, Type>;
-    'reloaded': WindowReloadedEvent<Topic, Type>;
-    'restored': WindowEvent<Topic, Type>;
+    reloaded: WindowReloadedEvent<Topic, Type>;
+    restored: WindowEvent<Topic, Type>;
     'show-requested': WindowEvent<Topic, Type>;
-    'shown': WindowEvent<Topic, Type>;
+    shown: WindowEvent<Topic, Type>;
     'user-movement-disabled': WindowEvent<Topic, Type>;
     'user-movement-enabled': WindowEvent<Topic, Type>;
     'will-move': WillMoveOrResize<Topic, Type>;

@@ -13,11 +13,7 @@ declare function scrypt(
     r: number,
     p: number,
     dklen: number,
-    callback: (
-        error: Error | undefined | null,
-        progress: number,
-        key?: ReadonlyArray<number>,
-    ) => void
+    callback: (error: Error | undefined | null, progress: number, key?: ReadonlyArray<number>) => void,
 ): void;
 
 export as namespace scrypt;

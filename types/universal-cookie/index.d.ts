@@ -47,11 +47,7 @@ export interface CookieOpts {
     httpOnly?: boolean;
 }
 
-export type ChangeListenerCallback = (
-    name: string,
-    value: string | object,
-    options: CookieOpts
-) => void;
+export type ChangeListenerCallback = (name: string, value: string | object, options: CookieOpts) => void;
 
 export default class Cookies {
     constructor(cookieHeader?: string | CookiesByName);

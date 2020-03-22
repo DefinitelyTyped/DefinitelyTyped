@@ -34,12 +34,12 @@ interface MediaRecorderOptions {
 type RecordingState = 'inactive' | 'recording' | 'paused';
 
 interface MediaRecorderEventMap {
-    "dataavailable": BlobEvent;
-    "error": MediaRecorderErrorEvent;
-    "pause": Event;
-    "resume": Event;
-    "start": Event;
-    "stop": Event;
+    dataavailable: BlobEvent;
+    error: MediaRecorderErrorEvent;
+    pause: Event;
+    resume: Event;
+    start: Event;
+    stop: Event;
 }
 
 declare class MediaRecorder extends EventTarget {
@@ -58,10 +58,26 @@ declare class MediaRecorder extends EventTarget {
 
     constructor(stream: MediaStream, options?: MediaRecorderOptions);
 
-    addEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: AudioTrackList, ev: MediaRecorderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: AudioTrackList, ev: MediaRecorderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof MediaRecorderEventMap>(
+        type: K,
+        listener: (this: AudioTrackList, ev: MediaRecorderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof MediaRecorderEventMap>(
+        type: K,
+        listener: (this: AudioTrackList, ev: MediaRecorderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 
     start(timeslice?: number): void;
     stop(): void;

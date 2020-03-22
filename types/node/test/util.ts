@@ -4,9 +4,9 @@ import { readFile } from 'fs';
 
 {
     // Old and new util.inspect APIs
-    util.inspect(["This is nice"], false, 5);
-    util.inspect(["This is nice"], false, null);
-    util.inspect(["This is nice"], {
+    util.inspect(['This is nice'], false, 5);
+    util.inspect(['This is nice'], false, null);
+    util.inspect(['This is nice'], {
         colors: true,
         depth: 5,
         customInspect: false,
@@ -19,7 +19,7 @@ import { readFile } from 'fs';
         },
         getters: false,
     });
-    util.inspect(["This is nice"], {
+    util.inspect(['This is nice'], {
         colors: true,
         depth: null,
         customInspect: false,
@@ -30,7 +30,7 @@ import { readFile } from 'fs';
         sorted: true,
         getters: 'set',
     });
-    util.inspect(["This is nice"], {
+    util.inspect(['This is nice'], {
         compact: 42,
     });
     assert(typeof util.inspect.custom === 'symbol');
@@ -40,7 +40,7 @@ import { readFile } from 'fs';
     };
 
     util.inspect({
-        [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
+        [util.inspect.custom]: <util.CustomInspectFunction>((depth, opts) => opts.stylize('woop', 'module')),
     });
 
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
@@ -106,27 +106,53 @@ import { readFile } from 'fs';
             const cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
             const cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
-            cfn((err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
-            cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
-            cfnT1('parameter', (err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
-            cfnT1E('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
-            cfnTResult((err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
-            cfnTResultE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
-            cfnT1TResult('parameter', (err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
-            cfnT1TResultE('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+            cfn((err: NodeJS.ErrnoException | null, ...args: string[]) =>
+                assert(err === null && args.length === 1 && args[0] === undefined),
+            );
+            cfnE((err: NodeJS.ErrnoException, ...args: string[]) =>
+                assert(err.message === 'fail' && args.length === 0),
+            );
+            cfnT1('parameter', (err: NodeJS.ErrnoException | null, ...args: string[]) =>
+                assert(err === null && args.length === 1 && args[0] === undefined),
+            );
+            cfnT1E('parameter', (err: NodeJS.ErrnoException, ...args: string[]) =>
+                assert(err.message === 'fail' && args.length === 0),
+            );
+            cfnTResult((err: NodeJS.ErrnoException | null, ...args: string[]) =>
+                assert(err === null && args.length === 1 && args[0] === 'result'),
+            );
+            cfnTResultE((err: NodeJS.ErrnoException, ...args: string[]) =>
+                assert(err.message === 'fail' && args.length === 0),
+            );
+            cfnT1TResult('parameter', (err: NodeJS.ErrnoException | null, ...args: string[]) =>
+                assert(err === null && args.length === 1 && args[0] === 'result'),
+            );
+            cfnT1TResultE('parameter', (err: NodeJS.ErrnoException, ...args: string[]) =>
+                assert(err.message === 'fail' && args.length === 0),
+            );
         }
     }
     callbackifyTest.test();
 
     // util.promisify
     const readPromised = util.promisify(readFile);
-    const sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
-    const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => { });
-    const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => { });
-    const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
-    const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
-    const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error | null) => void): void => { });
-    const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
+    const sampleRead: Promise<any> = readPromised(__filename)
+        .then((data: Buffer): void => {})
+        .catch((error: Error): void => {});
+    const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => {});
+    const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => {});
+    const arg1: (
+        arg: string,
+    ) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => {});
+    const arg1UnknownError: (
+        arg: string,
+    ) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => {});
+    const arg1NoResult: (
+        arg: string,
+    ) => Promise<any> = util.promisify((arg: string, cb: (err: Error | null) => void): void => {});
+    const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => {
+        cb();
+    }); // tslint:disable-line void-return
     assert(typeof util.promisify.custom === 'symbol');
     // util.deprecate
     const foo = () => {};
@@ -138,13 +164,13 @@ import { readFile } from 'fs';
     util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
     // util.isDeepStrictEqual
-    util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
+    util.isDeepStrictEqual({ foo: 'bar' }, { foo: 'bar' });
 
     // util.TextDecoder()
     const td = new util.TextDecoder();
-    new util.TextDecoder("utf-8");
-    new util.TextDecoder("utf-8", { fatal: true });
-    new util.TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
+    new util.TextDecoder('utf-8');
+    new util.TextDecoder('utf-8', { fatal: true });
+    new util.TextDecoder('utf-8', { fatal: true, ignoreBOM: true });
     const ignoreBom: boolean = td.ignoreBOM;
     const fatal: boolean = td.fatal;
     const encoding: string = td.encoding;
@@ -167,7 +193,7 @@ import { readFile } from 'fs';
     // util.TextEncoder()
     const te = new util.TextEncoder();
     const teEncoding: string = te.encoding;
-    const teEncodeRes: Uint8Array = te.encode("TextEncoder");
+    const teEncodeRes: Uint8Array = te.encode('TextEncoder');
 
     const encIntoRes: util.EncodeIntoResult = te.encodeInto('asdf', new Uint8Array(16));
 

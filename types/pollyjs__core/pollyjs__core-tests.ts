@@ -135,7 +135,7 @@ async function test() {
     await polly.stop();
 
     const { server } = polly;
-    server.get('/session').on('request', req => {
+    server.get('/session').on('request', (req) => {
         req.headers['X-AUTH'] = '<ACCESS_TOKEN>';
         req.query.email = 'test@app.com';
     });
@@ -164,7 +164,7 @@ async function test() {
 
     server
         .get('/session')
-        .once('request', req => {
+        .once('request', (req) => {
             req.headers['X-AUTH'] = '<ACCESS_TOKEN>';
             req.query.email = 'test@app.com';
         })
@@ -181,8 +181,8 @@ async function test() {
 
     server
         .get(['/users/:id', 'users/v2/:id'])
-        .filter(req => req.params.id === '1')
-        .filter(req => req.params.id !== '2')
+        .filter((req) => req.params.id === '1')
+        .filter((req) => req.params.id !== '2')
         .recordingName('test')
         .recordingName()
         .intercept((_req, res) => {
@@ -199,10 +199,7 @@ async function test() {
     });
 
     /* Pass-through all GET requests to /coverage */
-    server
-        .get('/coverage')
-        .configure({ expiresIn: '5d' })
-        .passthrough();
+    server.get('/coverage').configure({ expiresIn: '5d' }).passthrough();
 
     server.any().on('error', (req, error) => {
         req.setHeader('Content-Length', '2344')

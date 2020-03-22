@@ -17,9 +17,4 @@ export function substract(p1: string, p2: string, opt?: object): any;
 export function substract(p1: number[], p2: number[], opt?: object): any;
 export function similarity(w1: string, w2: string, options?: object): any;
 
-export function train(
-    trainFile: string,
-    modelFile: string,
-    options?: object,
-    callback?: () => void
-): void;
+export function train(trainFile: string, modelFile: string, options?: object, callback?: () => void): void;

@@ -8,12 +8,12 @@ export = withParser;
 
 declare function withParser(
     fn: (options: FilterBase.FilterOptions) => FilterBase,
-    options?: withParser.FilterOptions
+    options?: withParser.FilterOptions,
 ): Chain;
 
 declare function withParser(
     fn: (options?: StreamBase.StreamOptions) => StreamBase,
-    options?: withParser.StreamOptions
+    options?: withParser.StreamOptions,
 ): Chain;
 
 declare function withParser(fn: (options?: TransformOptions) => Transform, options?: Parser.ParserOptions): Chain;

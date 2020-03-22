@@ -7,14 +7,14 @@ import { Buf } from './buf';
 export namespace Filter {
     const enum FLAG {
         DEFAULT = 0,
-        ALLOW_UNSAFE = 1
+        ALLOW_UNSAFE = 1,
     }
 
     const enum MODE {
         TO_WORKTREE = 0,
         SMUDGE = 0,
         TO_ODB = 1,
-        CLEAN = 1
+        CLEAN = 1,
     }
 }
 

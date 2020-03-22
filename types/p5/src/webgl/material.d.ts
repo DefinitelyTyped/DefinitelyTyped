@@ -30,7 +30,7 @@ declare module '../../index' {
             vertFilename: string,
             fragFilename: string,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): Shader;
         createShader(vertSrc: string, fragSrc: string): Shader;
 

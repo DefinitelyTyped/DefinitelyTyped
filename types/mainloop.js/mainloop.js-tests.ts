@@ -22,16 +22,15 @@ html, body { height: 100%; margin: 0; overflow: hidden; position: relative; }
 */
 
 window.addEventListener('load', () => {
-
     let cx = window.innerWidth / 2 - 15,
         cy = window.innerHeight / 2 - 15,
         x = cx + 120,
         y = cy,
         lx = x,
         ly = y,
-        theta = 0
+        theta = 0;
     const radius = 120,
-        velocity = 0.1 * Math.PI / 180;
+        velocity = (0.1 * Math.PI) / 180;
 
     const actor = document.createElement('div');
     actor.style.width = '30px';
@@ -55,16 +54,15 @@ window.addEventListener('load', () => {
         cy = event.pageY;
     });
 
-    MainLoop
-        .setBegin((timestamp, delta) => {
-            lx = x;
-            ly = y;
-            x = cx + Math.cos(theta) * radius;
-            y = cy + Math.sin(theta) * radius;
-        })
+    MainLoop.setBegin((timestamp, delta) => {
+        lx = x;
+        ly = y;
+        x = cx + Math.cos(theta) * radius;
+        y = cy + Math.sin(theta) * radius;
+    })
         .setDraw((interpolationPercentage) => {
-            actor.style.left = (lx + (x - lx) * interpolationPercentage) + 'px';
-            actor.style.top = (ly + (y - ly) * interpolationPercentage) + 'px';
+            actor.style.left = lx + (x - lx) * interpolationPercentage + 'px';
+            actor.style.top = ly + (y - ly) * interpolationPercentage + 'px';
         })
         .setUpdate((delta) => {
             theta += velocity * delta;
@@ -73,21 +71,20 @@ window.addEventListener('load', () => {
             fpsCounter.textContent = Math.round(fps) + ' FPS';
             if (panic) {
                 console.info(
-                    `Main loop panicked; tried to simulate too much time. Discarding ${MainLoop.resetFrameDelta()}ms`
+                    `Main loop panicked; tried to simulate too much time. Discarding ${MainLoop.resetFrameDelta()}ms`,
                 );
             }
         })
         .start();
 
     document.body.addEventListener('keyup', (event) => {
-        if ((event.which || event.keyCode) === 80) { // Hit P to toggle Pause
+        if ((event.which || event.keyCode) === 80) {
+            // Hit P to toggle Pause
             if (MainLoop.isRunning()) {
                 MainLoop.stop();
-            }
-            else {
+            } else {
                 MainLoop.start();
             }
         }
     });
-
 });

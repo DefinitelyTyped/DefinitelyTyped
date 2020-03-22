@@ -7,14 +7,14 @@
 import * as React from 'react';
 
 export interface ScrollRotateProps {
-  target?: string;
-  throttle?: number;
-  from?: number;
-  to?: number;
-  method?: 'px' | 'prec';
-  loops?: number;
-  animationDuration?: number;
-  children: React.ReactNode;
+    target?: string;
+    throttle?: number;
+    from?: number;
+    to?: number;
+    method?: 'px' | 'prec';
+    loops?: number;
+    animationDuration?: number;
+    children: React.ReactNode;
 }
 
 export class ScrollRotate extends React.Component<ScrollRotateProps> {}

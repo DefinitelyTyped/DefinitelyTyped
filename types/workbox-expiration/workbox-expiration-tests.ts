@@ -1,13 +1,8 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
-import {
-    CacheExpiration,
-    CacheExpirationConfig,
-    ExpirationPluginConfig,
-    Plugin,
-} from "workbox-expiration";
+import { CacheExpiration, CacheExpirationConfig, ExpirationPluginConfig, Plugin } from 'workbox-expiration';
 
 //==============================================================================
 // WorkboxExpiration.CacheExpiration

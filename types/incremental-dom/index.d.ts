@@ -3,7 +3,7 @@
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>, Markus Lanthaler <https://github.com/lanthaler>, vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type NameOrCtorDef = string | { new (...args: any[]): Element; };
+type NameOrCtorDef = string | { new (...args: any[]): Element };
 
 /**
  * Patches the document starting at node with the provided function. This
@@ -99,7 +99,12 @@ export declare var skipNode: () => void;
  *     for the Element.
  * @return {!Element} The corresponding Element.
  */
-export declare var elementOpen: (nameOrCtor: NameOrCtorDef, key?: string, statics?: any[], ...var_args: any[]) => Element;
+export declare var elementOpen: (
+    nameOrCtor: NameOrCtorDef,
+    key?: string,
+    statics?: any[],
+    ...var_args: any[]
+) => Element;
 
 /**
  * Declares a virtual Element at the current location in the document. This
@@ -154,7 +159,12 @@ export declare var elementClose: (nameOrCtor: NameOrCtorDef) => Element;
  *     for the Element.
  * @return {!Element} The corresponding Element.
  */
-export declare var elementVoid: (nameOrCtor: NameOrCtorDef, key?: string, statics?: any[], ...var_args: any[]) => Element;
+export declare var elementVoid: (
+    nameOrCtor: NameOrCtorDef,
+    key?: string,
+    statics?: any[],
+    ...var_args: any[]
+) => Element;
 
 /**
  * Declares a virtual Text at this point in the document.

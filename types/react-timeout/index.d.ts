@@ -11,22 +11,22 @@ import * as React from 'react';
 export = ReactTimeout;
 
 declare function ReactTimeout<T>(
-    SourceComponent: React.ComponentClass<T> | React.StatelessComponent<T>
+    SourceComponent: React.ComponentClass<T> | React.StatelessComponent<T>,
 ): React.ComponentClass<T>;
 
 declare namespace ReactTimeout {
-  type Timer = NodeJS.Timer | number;
+    type Timer = NodeJS.Timer | number;
 
-  type Id = number;
+    type Id = number;
 
-  interface ReactTimeoutProps {
-      setTimeout?: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
-      clearTimeout?: (timer: Timer) => void;
-      setInterval?: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Id;
-      clearInterval?: (id: Id) => void;
-      setImmediate?: (callback: (...args: any[]) => void, ...args: any[]) => Id;
-      clearImmediate?: (id: Id) => void;
-      requestAnimationFrame?: (callback: (...args: any[]) => void) => Id;
-      cancelAnimationFrame?: (id: Id) => void;
-  }
+    interface ReactTimeoutProps {
+        setTimeout?: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
+        clearTimeout?: (timer: Timer) => void;
+        setInterval?: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Id;
+        clearInterval?: (id: Id) => void;
+        setImmediate?: (callback: (...args: any[]) => void, ...args: any[]) => Id;
+        clearImmediate?: (id: Id) => void;
+        requestAnimationFrame?: (callback: (...args: any[]) => void) => Id;
+        cancelAnimationFrame?: (id: Id) => void;
+    }
 }

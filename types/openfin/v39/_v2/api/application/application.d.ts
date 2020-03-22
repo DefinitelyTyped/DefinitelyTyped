@@ -118,12 +118,12 @@ export default class ApplicationModule extends Base {
     private _create;
     create(appOptions: ApplicationOption): Promise<Application>;
     /**
-    * Creates and starts a new Application.
-    * @param { ApplicationOption } appOptions
-    * @return {Promise.<Application>}
-    * @tutorial Application.start
-    * @static
-    */
+     * Creates and starts a new Application.
+     * @param { ApplicationOption } appOptions
+     * @return {Promise.<Application>}
+     * @tutorial Application.start
+     * @static
+     */
     start(appOptions: ApplicationOption): Promise<Application>;
     /**
      * Asynchronously returns an Application object that represents the current application
@@ -301,12 +301,12 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getWindow(): Promise<_Window>;
     /**
-    * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
-    * @param { string } userName - username to be passed to the RVM.
-    * @param { string } appName - app name to be passed to the RVM.
-    * @return {Promise.<void>}
-    * @tutorial Application.registerUser
-    */
+     * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
+     * @param { string } userName - username to be passed to the RVM.
+     * @param { string } appName - app name to be passed to the RVM.
+     * @return {Promise.<void>}
+     * @tutorial Application.registerUser
+     */
     registerUser(userName: string, appName: string): Promise<void>;
     /**
      * Removes the application’s icon from the tray.

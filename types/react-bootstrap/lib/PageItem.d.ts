@@ -4,5 +4,5 @@ import { PagerItemProps } from './PagerItem';
 declare namespace PageItem {
     export type PageItemProps = PagerItemProps;
 }
-declare class PageItem extends PagerItem { }
+declare class PageItem extends PagerItem {}
 export = PageItem;

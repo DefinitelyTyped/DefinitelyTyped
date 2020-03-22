@@ -1,7 +1,7 @@
-declare module "repl" {
-    import { Interface, Completer, AsyncCompleter } from "readline";
-    import { Context } from "vm";
-    import { InspectOptions } from "util";
+declare module 'repl' {
+    import { Interface, Completer, AsyncCompleter } from 'readline';
+    import { Context } from 'vm';
+    import { InspectOptions } from 'util';
 
     interface ReplOptions {
         /**
@@ -86,7 +86,13 @@ declare module "repl" {
         breakEvalOnSigint?: boolean;
     }
 
-    type REPLEval = (this: REPLServer, evalCmd: string, context: Context, file: string, cb: (err: Error | null, result: any) => void) => void;
+    type REPLEval = (
+        this: REPLServer,
+        evalCmd: string,
+        context: Context,
+        file: string,
+        cb: (err: Error | null, result: any) => void,
+    ) => void;
     type REPLWriter = (this: REPLServer, obj: any) => string;
 
     /**
@@ -284,70 +290,70 @@ declare module "repl" {
          */
 
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "line", listener: (input: string) => void): this;
-        addListener(event: "pause", listener: () => void): this;
-        addListener(event: "resume", listener: () => void): this;
-        addListener(event: "SIGCONT", listener: () => void): this;
-        addListener(event: "SIGINT", listener: () => void): this;
-        addListener(event: "SIGTSTP", listener: () => void): this;
-        addListener(event: "exit", listener: () => void): this;
-        addListener(event: "reset", listener: (context: Context) => void): this;
+        addListener(event: 'close', listener: () => void): this;
+        addListener(event: 'line', listener: (input: string) => void): this;
+        addListener(event: 'pause', listener: () => void): this;
+        addListener(event: 'resume', listener: () => void): this;
+        addListener(event: 'SIGCONT', listener: () => void): this;
+        addListener(event: 'SIGINT', listener: () => void): this;
+        addListener(event: 'SIGTSTP', listener: () => void): this;
+        addListener(event: 'exit', listener: () => void): this;
+        addListener(event: 'reset', listener: (context: Context) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "close"): boolean;
-        emit(event: "line", input: string): boolean;
-        emit(event: "pause"): boolean;
-        emit(event: "resume"): boolean;
-        emit(event: "SIGCONT"): boolean;
-        emit(event: "SIGINT"): boolean;
-        emit(event: "SIGTSTP"): boolean;
-        emit(event: "exit"): boolean;
-        emit(event: "reset", context: Context): boolean;
+        emit(event: 'close'): boolean;
+        emit(event: 'line', input: string): boolean;
+        emit(event: 'pause'): boolean;
+        emit(event: 'resume'): boolean;
+        emit(event: 'SIGCONT'): boolean;
+        emit(event: 'SIGINT'): boolean;
+        emit(event: 'SIGTSTP'): boolean;
+        emit(event: 'exit'): boolean;
+        emit(event: 'reset', context: Context): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "line", listener: (input: string) => void): this;
-        on(event: "pause", listener: () => void): this;
-        on(event: "resume", listener: () => void): this;
-        on(event: "SIGCONT", listener: () => void): this;
-        on(event: "SIGINT", listener: () => void): this;
-        on(event: "SIGTSTP", listener: () => void): this;
-        on(event: "exit", listener: () => void): this;
-        on(event: "reset", listener: (context: Context) => void): this;
+        on(event: 'close', listener: () => void): this;
+        on(event: 'line', listener: (input: string) => void): this;
+        on(event: 'pause', listener: () => void): this;
+        on(event: 'resume', listener: () => void): this;
+        on(event: 'SIGCONT', listener: () => void): this;
+        on(event: 'SIGINT', listener: () => void): this;
+        on(event: 'SIGTSTP', listener: () => void): this;
+        on(event: 'exit', listener: () => void): this;
+        on(event: 'reset', listener: (context: Context) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "line", listener: (input: string) => void): this;
-        once(event: "pause", listener: () => void): this;
-        once(event: "resume", listener: () => void): this;
-        once(event: "SIGCONT", listener: () => void): this;
-        once(event: "SIGINT", listener: () => void): this;
-        once(event: "SIGTSTP", listener: () => void): this;
-        once(event: "exit", listener: () => void): this;
-        once(event: "reset", listener: (context: Context) => void): this;
+        once(event: 'close', listener: () => void): this;
+        once(event: 'line', listener: (input: string) => void): this;
+        once(event: 'pause', listener: () => void): this;
+        once(event: 'resume', listener: () => void): this;
+        once(event: 'SIGCONT', listener: () => void): this;
+        once(event: 'SIGINT', listener: () => void): this;
+        once(event: 'SIGTSTP', listener: () => void): this;
+        once(event: 'exit', listener: () => void): this;
+        once(event: 'reset', listener: (context: Context) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "line", listener: (input: string) => void): this;
-        prependListener(event: "pause", listener: () => void): this;
-        prependListener(event: "resume", listener: () => void): this;
-        prependListener(event: "SIGCONT", listener: () => void): this;
-        prependListener(event: "SIGINT", listener: () => void): this;
-        prependListener(event: "SIGTSTP", listener: () => void): this;
-        prependListener(event: "exit", listener: () => void): this;
-        prependListener(event: "reset", listener: (context: Context) => void): this;
+        prependListener(event: 'close', listener: () => void): this;
+        prependListener(event: 'line', listener: (input: string) => void): this;
+        prependListener(event: 'pause', listener: () => void): this;
+        prependListener(event: 'resume', listener: () => void): this;
+        prependListener(event: 'SIGCONT', listener: () => void): this;
+        prependListener(event: 'SIGINT', listener: () => void): this;
+        prependListener(event: 'SIGTSTP', listener: () => void): this;
+        prependListener(event: 'exit', listener: () => void): this;
+        prependListener(event: 'reset', listener: (context: Context) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "line", listener: (input: string) => void): this;
-        prependOnceListener(event: "pause", listener: () => void): this;
-        prependOnceListener(event: "resume", listener: () => void): this;
-        prependOnceListener(event: "SIGCONT", listener: () => void): this;
-        prependOnceListener(event: "SIGINT", listener: () => void): this;
-        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
-        prependOnceListener(event: "exit", listener: () => void): this;
-        prependOnceListener(event: "reset", listener: (context: Context) => void): this;
+        prependOnceListener(event: 'close', listener: () => void): this;
+        prependOnceListener(event: 'line', listener: (input: string) => void): this;
+        prependOnceListener(event: 'pause', listener: () => void): this;
+        prependOnceListener(event: 'resume', listener: () => void): this;
+        prependOnceListener(event: 'SIGCONT', listener: () => void): this;
+        prependOnceListener(event: 'SIGINT', listener: () => void): this;
+        prependOnceListener(event: 'SIGTSTP', listener: () => void): this;
+        prependOnceListener(event: 'exit', listener: () => void): this;
+        prependOnceListener(event: 'reset', listener: (context: Context) => void): this;
     }
 
     /**

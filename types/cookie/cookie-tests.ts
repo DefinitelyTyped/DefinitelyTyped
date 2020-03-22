@@ -13,7 +13,7 @@ function test_parse(): void {
     let retVal: { [key: string]: string };
 
     retVal = cookie.parse('foo=bar; bar=baz;');
-    retVal = cookie.parse('foo=bar; bar=baz', { decode: x => x });
+    retVal = cookie.parse('foo=bar; bar=baz', { decode: (x) => x });
 }
 
 function test_options(): void {
@@ -25,10 +25,10 @@ function test_options(): void {
         domain: 'example.com',
         secure: false,
         httpOnly: false,
-        sameSite: 'strict'
+        sameSite: 'strict',
     };
 
     const parseOptios: cookie.CookieParseOptions = {
-        decode: (x: string) => x
+        decode: (x: string) => x,
     };
 }

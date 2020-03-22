@@ -1,4 +1,4 @@
-import * as windowsMutex from "windows-mutex";
+import * as windowsMutex from 'windows-mutex';
 
 const name = 'mutex-name';
 

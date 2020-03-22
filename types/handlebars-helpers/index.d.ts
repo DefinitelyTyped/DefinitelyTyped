@@ -6,7 +6,10 @@
 
 import * as Handlebars from 'handlebars';
 
-declare function helpers(groups?: helpers.Options | string | string[], options?: helpers.Options): { [name: string]: Handlebars.HelperDelegate };
+declare function helpers(
+    groups?: helpers.Options | string | string[],
+    options?: helpers.Options,
+): { [name: string]: Handlebars.HelperDelegate };
 
 interface Utils {
     /**

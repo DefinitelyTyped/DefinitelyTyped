@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from "angular";
+import * as angular from 'angular';
 
 declare module 'angular' {
     namespace blockUI {
@@ -76,7 +76,7 @@ declare module 'angular' {
              * @param config the Angular request config object.
              *
              */
-            requestFilter?(config: IRequestConfig): (string | boolean);
+            requestFilter?(config: IRequestConfig): string | boolean;
 
             /**
              * When the module is started it will inject the main block element
@@ -145,7 +145,7 @@ declare module 'angular' {
              *     If no argument is specified the default text message
              *     from the configuration is used.
              */
-            start(messageOrOptions?: (string | BlockUIConfig)): void;
+            start(messageOrOptions?: string | BlockUIConfig): void;
 
             /**
              * This will decrease the block count.

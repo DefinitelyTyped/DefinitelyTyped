@@ -19,7 +19,10 @@ declare namespace ParseTorrent {
         toMagnetURI: typeof MagnetUri.encode;
         toTorrentFile: typeof ParseTorrentFile.encode;
 
-        remote(torrent: string | Buffer | Instance | MagnetUri.Instance | ParseTorrentFile.Instance | Blob, cb?: (err: Error, torrent?: Instance) => void): void;
+        remote(
+            torrent: string | Buffer | Instance | MagnetUri.Instance | ParseTorrentFile.Instance | Blob,
+            cb?: (err: Error, torrent?: Instance) => void,
+        ): void;
     }
 
     interface Instance extends MagnetUri.Instance, ParseTorrentFile.Instance {

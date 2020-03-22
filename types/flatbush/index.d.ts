@@ -46,7 +46,7 @@ declare class FlatbushClass {
         y: number,
         maxResults?: number,
         maxDistance?: number,
-        filter?: (idx: number) => boolean
+        filter?: (idx: number) => boolean,
     ): number[];
 
     /**

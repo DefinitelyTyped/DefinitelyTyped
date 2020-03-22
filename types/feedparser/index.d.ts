@@ -17,14 +17,14 @@ declare class FeedParser extends stream.Duplex {
     options: FeedParser.Options;
     stream: SAXStream;
     meta: {
-        [key: string]: any
+        [key: string]: any;
     };
     _emitted_meta: boolean;
     stack: any[];
     xmlbase: any[];
     in_xhtml: boolean;
     xhtml: {
-        [key: string]: any
+        [key: string]: any;
     };
     errors: Error[];
 
@@ -99,7 +99,7 @@ declare class FeedParser extends stream.Duplex {
 }
 
 declare namespace FeedParser {
-    type Type = "atom" | "rss" | "rdf";
+    type Type = 'atom' | 'rss' | 'rdf';
 
     interface Options {
         normalize?: boolean;
@@ -131,9 +131,9 @@ declare namespace FeedParser {
     }
 
     interface Meta {
-        "#ns": NS[];
-        "#type": Type;
-        "#version": string;
+        '#ns': NS[];
+        '#type': Type;
+        '#version': string;
         title: string;
         description: string;
         date: Date | null;
@@ -150,9 +150,9 @@ declare namespace FeedParser {
     }
 
     interface Enclosure {
-       length?: string;
-       type?: string;
-       url: string;
+        length?: string;
+        type?: string;
+        url: string;
     }
 
     interface Item {

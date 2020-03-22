@@ -1,4 +1,4 @@
-import { Options } from "jquery-formatdatetime";
+import { Options } from 'jquery-formatdatetime';
 
 // basic usage
 $('#example').formatDateTime('mm/dd/y g:ii a');
@@ -21,18 +21,10 @@ const options: Options = {
         'Setembro',
         'Outubro',
         'Novembro',
-        'Dezembro'
+        'Dezembro',
     ],
-    dayNames: [
-        'Domingo',
-        'Segunda-Feira',
-        'Terça-Feira',
-        'Quarta-Feira',
-        'Quinta-Feira',
-        'Sexta-Feira',
-        'Sábado'
-    ],
-    ampmNames: ['AM', 'PM']
+    dayNames: ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'],
+    ampmNames: ['AM', 'PM'],
 };
 
 $.formatDateTime('mm/dd/y g:ii a', date, options);

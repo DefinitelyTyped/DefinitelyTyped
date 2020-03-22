@@ -207,26 +207,29 @@ declare namespace AMap {
              */
             zoomEnable: boolean;
         }
-        type HotspotEvent<N extends string> = Event<N, {
-            /**
-             * 经纬度坐标
-             */
-            lnglat: LngLat;
-            /**
-             * 热点名称
-             */
-            name: string;
-            /**
-             * 热点id
-             */
-            id: string;
+        type HotspotEvent<N extends string> = Event<
+            N,
+            {
+                /**
+                 * 经纬度坐标
+                 */
+                lnglat: LngLat;
+                /**
+                 * 热点名称
+                 */
+                name: string;
+                /**
+                 * 热点id
+                 */
+                id: string;
 
-            // internal
-            /**
-             * 是否室内热点
-             */
-            isIndoorPOI: boolean;
-        }>;
+                // internal
+                /**
+                 * 是否室内热点
+                 */
+                isIndoorPOI: boolean;
+            }
+        >;
         interface EventMap {
             click: MapsEvent<'click', Map>;
             dblclick: MapsEvent<'dblclick', Map>;
@@ -297,24 +300,26 @@ declare namespace AMap {
         /**
          * 获取地图中心点所在区域
          */
-        getCity(callback: (cityData: {
-            /**
-             * 市名称
-             */
-            city: string;
-            /**
-             * 市代码
-             */
-            citycode: string;
-            /**
-             * 区名称
-             */
-            district: string;
-            /**
-             * 省
-             */
-            province: string | never[]; // province is empty array when getCity fail
-        }) => void): void;
+        getCity(
+            callback: (cityData: {
+                /**
+                 * 市名称
+                 */
+                city: string;
+                /**
+                 * 市代码
+                 */
+                citycode: string;
+                /**
+                 * 区名称
+                 */
+                district: string;
+                /**
+                 * 省
+                 */
+                province: string | never[]; // province is empty array when getCity fail
+            }) => void,
+        ): void;
         /**
          * 获取当前地图视图范围，获取当前可视区域
          */
@@ -468,7 +473,7 @@ declare namespace AMap {
             overlayList?: Overlay | Overlay[],
             immediately?: boolean,
             avoid?: [number, number, number, number],
-            maxZoom?: number
+            maxZoom?: number,
         ): Bounds | false | undefined;
         /**
          * 删除地图上所有的覆盖物

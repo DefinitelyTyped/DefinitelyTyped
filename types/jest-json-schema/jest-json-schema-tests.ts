@@ -7,7 +7,7 @@ expect.extend(
                 test: /^test$/,
             },
         },
-        ajv => {
+        (ajv) => {
             ajv.addKeyword('test', {
                 validate: (schema: any, data: string) => {
                     return schema && data === 'test';

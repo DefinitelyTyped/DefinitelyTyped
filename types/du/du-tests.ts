@@ -1,3 +1,3 @@
-import du = require("du");
+import du = require('du');
 
-du("."); // $ExpectType Promise<number>
+du('.'); // $ExpectType Promise<number>

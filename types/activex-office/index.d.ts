@@ -3505,7 +3505,15 @@ declare namespace Office {
         AssistWithWizards: boolean;
         readonly BalloonError: MsoBalloonErrorType;
         readonly Creator: number;
-        DoAlert(bstrAlertTitle: string, bstrAlertText: string, alb: MsoAlertButtonType, alc: MsoAlertIconType, ald: MsoAlertDefaultType, alq: MsoAlertCancelType, varfSysAlert: boolean): number;
+        DoAlert(
+            bstrAlertTitle: string,
+            bstrAlertText: string,
+            alb: MsoAlertButtonType,
+            alc: MsoAlertIconType,
+            ald: MsoAlertDefaultType,
+            alq: MsoAlertCancelType,
+            varfSysAlert: boolean,
+        ): number;
         EndWizard(WizardID: number, varfSuccess: boolean, Animation?: MsoAnimationType): void;
         FeatureTips: boolean;
         FileName: string;
@@ -3526,7 +3534,17 @@ declare namespace Office {
         ResetTips(): void;
         SearchWhenProgramming: boolean;
         Sounds: boolean;
-        StartWizard(On: boolean, Callback: string, PrivateX: number, Animation?: MsoAnimationType, CustomTeaser?: any, Top?: number, Left?: number, Bottom?: number, Right?: number): number;
+        StartWizard(
+            On: boolean,
+            Callback: string,
+            PrivateX: number,
+            Animation?: MsoAnimationType,
+            CustomTeaser?: any,
+            Top?: number,
+            Left?: number,
+            Bottom?: number,
+            Right?: number,
+        ): number;
         TipOfDay: boolean;
         Top: number;
         Visible: boolean;
@@ -3650,11 +3668,28 @@ declare namespace Office {
          * @param Width [Width=-1]
          * @param Height [Height=-1]
          */
-        AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPicture(
+            FileName: string,
+            LinkToFile: MsoTriState,
+            SaveWithDocument: MsoTriState,
+            Left: number,
+            Top: number,
+            Width?: number,
+            Height?: number,
+        ): Shape;
         AddPolyline(SafeArrayOfPoints: SafeArray<number>): Shape;
         AddShape(Type: MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
         AddTextbox(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        AddTextEffect(PresetTextEffect: MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: MsoTriState, FontItalic: MsoTriState, Left: number, Top: number): Shape;
+        AddTextEffect(
+            PresetTextEffect: MsoPresetTextEffect,
+            Text: string,
+            FontName: string,
+            FontSize: number,
+            FontBold: MsoTriState,
+            FontItalic: MsoTriState,
+            Left: number,
+            Top: number,
+        ): Shape;
         readonly Application: any;
         readonly Background: Shape;
         BuildFreeform(EditingType: MsoEditingType, X1: number, Y1: number): FreeformBuilder;
@@ -4035,7 +4070,18 @@ declare namespace Office {
     }
 
     interface CommandBarControls {
-        Add(Type?: MsoControlType.msoControlButton | MsoControlType.msoControlEdit | MsoControlType.msoControlDropdown | MsoControlType.msoControlComboBox | MsoControlType.msoControlPopup, Id?: number, Parameter?: any, Before?: number, Temporary?: boolean): CommandBarControl;
+        Add(
+            Type?:
+                | MsoControlType.msoControlButton
+                | MsoControlType.msoControlEdit
+                | MsoControlType.msoControlDropdown
+                | MsoControlType.msoControlComboBox
+                | MsoControlType.msoControlPopup,
+            Id?: number,
+            Parameter?: any,
+            Before?: number,
+            Temporary?: boolean,
+        ): CommandBarControl;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -4106,7 +4152,15 @@ declare namespace Office {
         readonly Creator: number;
 
         /** @param boolean [ShowWithDelay=false] */
-        Show(CardStyle: MsoContactCardStyle, RectangleLeft: number, RectangleRight: number, RectangleTop: number, RectangleBottom: number, HorizontalPosition: number, ShowWithDelay?: boolean): void;
+        Show(
+            CardStyle: MsoContactCardStyle,
+            RectangleLeft: number,
+            RectangleRight: number,
+            RectangleTop: number,
+            RectangleBottom: number,
+            HorizontalPosition: number,
+            ShowWithDelay?: boolean,
+        ): void;
     }
 
     class Crop {
@@ -4149,7 +4203,12 @@ declare namespace Office {
          * @param NodeType [NodeType=1]
          * @param NodeValue [NodeValue='']
          */
-        AppendChildNode(Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
+        AppendChildNode(
+            Name?: string,
+            NamespaceURI?: string,
+            NodeType?: MsoCustomXMLNodeType,
+            NodeValue?: string,
+        ): void;
         AppendChildSubtree(XML: string): void;
         readonly Application: any;
         readonly Attributes: CustomXMLNodes;
@@ -4167,7 +4226,13 @@ declare namespace Office {
          * @param NodeValue [NodeValue='']
          * @param NextSibling [NextSibling=0]
          */
-        InsertNodeBefore(Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string, NextSibling?: CustomXMLNode): void;
+        InsertNodeBefore(
+            Name?: string,
+            NamespaceURI?: string,
+            NodeType?: MsoCustomXMLNodeType,
+            NodeValue?: string,
+            NextSibling?: CustomXMLNode,
+        ): void;
 
         /** @param NextSibling [NextSibling=0] */
         InsertSubtreeBefore(XML: string, NextSibling?: CustomXMLNode): void;
@@ -4189,7 +4254,13 @@ declare namespace Office {
          * @param NodeType [NodeType=1]
          * @param NodeValue [NodeValue='']
          */
-        ReplaceChildNode(OldNode: CustomXMLNode, Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
+        ReplaceChildNode(
+            OldNode: CustomXMLNode,
+            Name?: string,
+            NamespaceURI?: string,
+            NodeType?: MsoCustomXMLNodeType,
+            NodeValue?: string,
+        ): void;
         ReplaceChildSubtree(XML: string, OldNode: CustomXMLNode): void;
         SelectNodes(XPath: string): CustomXMLNodes;
         SelectSingleNode(XPath: string): CustomXMLNode;
@@ -4218,7 +4289,14 @@ declare namespace Office {
          * @param NodeType [NodeType=1]
          * @param NodeValue [NodeValue='']
          */
-        AddNode(Parent: CustomXMLNode, Name?: string, NamespaceURI?: string, NextSibling?: CustomXMLNode, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
+        AddNode(
+            Parent: CustomXMLNode,
+            Name?: string,
+            NamespaceURI?: string,
+            NextSibling?: CustomXMLNode,
+            NodeType?: MsoCustomXMLNodeType,
+            NodeValue?: string,
+        ): void;
         readonly Application: any;
         readonly BuiltIn: boolean;
         readonly Creator: number;
@@ -4412,7 +4490,13 @@ declare namespace Office {
     }
 
     interface DocumentProperties<TApplication = any> {
-        Add(Name: string, LinkToContent: boolean, Type?: MsoDocProperties, Value?: any, LinkSource?: string): DocumentProperty;
+        Add(
+            Name: string,
+            LinkToContent: boolean,
+            Type?: MsoDocProperties,
+            Value?: any,
+            LinkSource?: string,
+        ): DocumentProperty;
         Application: TApplication;
         Count: number;
         Creator: number;
@@ -4667,7 +4751,16 @@ declare namespace Office {
          * @param X3 [X3=0]
          * @param Y3 [Y3=0]
          */
-        AddNodes(SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        AddNodes(
+            SegmentType: MsoSegmentType,
+            EditingType: MsoEditingType,
+            X1: number,
+            Y1: number,
+            X2?: number,
+            Y2?: number,
+            X3?: number,
+            Y3?: number,
+        ): void;
         readonly Application: any;
         ConvertToShape(): Shape;
         readonly Creator: number;
@@ -4876,7 +4969,18 @@ declare namespace Office {
         ApplyCustomType(ChartType: XlChartType, TypeName?: any): void;
 
         /** @param Type [Type=2] */
-        ApplyDataLabels(Type?: XlDataLabelsType, IMsoLegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any, ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
+        ApplyDataLabels(
+            Type?: XlDataLabelsType,
+            IMsoLegendKey?: any,
+            AutoText?: any,
+            HasLeaderLines?: any,
+            ShowSeriesName?: any,
+            ShowCategoryName?: any,
+            ShowValue?: any,
+            ShowPercentage?: any,
+            ShowBubbleSize?: any,
+            Separator?: any,
+        ): void;
         ApplyLayout(Layout: number, varChartType?: any): void;
         readonly Area3DGroup: IMsoChartGroup;
         AreaGroups(Index?: any): any;
@@ -4897,7 +5001,19 @@ declare namespace Office {
         ChartStyle: any;
         readonly ChartTitle: IMsoChartTitle;
         ChartType: XlChartType;
-        ChartWizard(varSource?: any, varGallery?: any, varFormat?: any, varPlotBy?: any, varCategoryLabels?: any, varSeriesLabels?: any, varHasLegend?: any, varTitle?: any, varCategoryTitle?: any, varValueTitle?: any, varExtraTitle?: any): void;
+        ChartWizard(
+            varSource?: any,
+            varGallery?: any,
+            varFormat?: any,
+            varPlotBy?: any,
+            varCategoryLabels?: any,
+            varSeriesLabels?: any,
+            varHasLegend?: any,
+            varTitle?: any,
+            varCategoryTitle?: any,
+            varValueTitle?: any,
+            varExtraTitle?: any,
+        ): void;
         ClearToMatchColorStyle(): void;
         ClearToMatchStyle(): void;
         readonly Column3DGroup: IMsoChartGroup;
@@ -5544,7 +5660,14 @@ declare namespace Office {
 
     interface PickerResults {
         /** @param SIPId [SIPId=''] */
-        Add(Id: string, DisplayName: string, Type: string, SIPId?: string, ItemData?: any, SubItems?: any): PickerResult;
+        Add(
+            Id: string,
+            DisplayName: string,
+            Type: string,
+            SIPId?: string,
+            ItemData?: any,
+            SubItems?: any,
+        ): PickerResult;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -5716,7 +5839,14 @@ declare namespace Office {
          * @param Extended [Extended='']
          * @param ScriptText [ScriptText='']
          */
-        Add(Anchor?: any, Location?: MsoScriptLocation, Language?: MsoScriptLanguage, Id?: string, Extended?: string, ScriptText?: string): Script;
+        Add(
+            Anchor?: any,
+            Location?: MsoScriptLocation,
+            Language?: MsoScriptLanguage,
+            Id?: string,
+            Extended?: string,
+            ScriptText?: string,
+        ): Script;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -5896,7 +6026,17 @@ declare namespace Office {
          * @param X3 [X3=0]
          * @param Y3 [Y3=0]
          */
-        Insert(Index: number, SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        Insert(
+            Index: number,
+            SegmentType: MsoSegmentType,
+            EditingType: MsoEditingType,
+            X1: number,
+            Y1: number,
+            X2?: number,
+            Y2?: number,
+            X3?: number,
+            Y3?: number,
+        ): void;
         Item(Index: any): ShapeNode;
         readonly Parent: any;
         SetEditingType(Index: number, EditingType: MsoEditingType): void;
@@ -6017,7 +6157,15 @@ declare namespace Office {
          * @param Height [Height=-1]
          * @param NewLayout [NewLayout=true]
          */
-        AddChart2(Style?: number, Type?: XlChartType, Left?: number, Top?: number, Width?: number, Height?: number, NewLayout?: boolean): Shape;
+        AddChart2(
+            Style?: number,
+            Type?: XlChartType,
+            Left?: number,
+            Top?: number,
+            Width?: number,
+            Height?: number,
+            NewLayout?: boolean,
+        ): Shape;
         AddConnector(Type: MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
         AddCurve(SafeArrayOfPoints: any): Shape;
         AddDiagram(Type: MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
@@ -6028,7 +6176,15 @@ declare namespace Office {
          * @param Width [Width=-1]
          * @param Height [Height=-1]
          */
-        AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPicture(
+            FileName: string,
+            LinkToFile: MsoTriState,
+            SaveWithDocument: MsoTriState,
+            Left: number,
+            Top: number,
+            Width?: number,
+            Height?: number,
+        ): Shape;
         AddPolyline(SafeArrayOfPoints: any): Shape;
         AddShape(Type: MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
 
@@ -6041,7 +6197,16 @@ declare namespace Office {
         AddSmartArt(Layout: SmartArtLayout, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
         AddTable(NumRows: number, NumColumns: number, Left: number, Top: number, Width: number, Height: number): Shape;
         AddTextbox(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        AddTextEffect(PresetTextEffect: MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: MsoTriState, FontItalic: MsoTriState, Left: number, Top: number): Shape;
+        AddTextEffect(
+            PresetTextEffect: MsoPresetTextEffect,
+            Text: string,
+            FontName: string,
+            FontSize: number,
+            FontBold: MsoTriState,
+            FontItalic: MsoTriState,
+            Left: number,
+            Top: number,
+        ): Shape;
         readonly Application: any;
         readonly Background: Shape;
         BuildFreeform(EditingType: MsoEditingType, X1: number, Y1: number): FreeformBuilder;
@@ -6093,7 +6258,12 @@ declare namespace Office {
     }
 
     interface SharedWorkspaceFiles {
-        Add(FileName: string, ParentFolder?: SharedWorkspaceFolder, OverwriteIfFileAlreadyExists?: boolean, KeepInSync?: boolean): SharedWorkspaceFile;
+        Add(
+            FileName: string,
+            ParentFolder?: SharedWorkspaceFolder,
+            OverwriteIfFileAlreadyExists?: boolean,
+            KeepInSync?: boolean,
+        ): SharedWorkspaceFile;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -6197,7 +6367,14 @@ declare namespace Office {
     }
 
     interface SharedWorkspaceTasks {
-        Add(Title: string, Status?: MsoSharedWorkspaceTaskStatus, Priority?: MsoSharedWorkspaceTaskPriority, Assignee?: SharedWorkspaceMember, Description?: string, DueDate?: VarDate): SharedWorkspaceTask;
+        Add(
+            Title: string,
+            Status?: MsoSharedWorkspaceTaskStatus,
+            Priority?: MsoSharedWorkspaceTaskPriority,
+            Assignee?: SharedWorkspaceMember,
+            Description?: string,
+            DueDate?: VarDate,
+        ): SharedWorkspaceTask;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -6615,8 +6792,23 @@ declare namespace Office {
          * @param MatchCase [MatchCase=0]
          * @param WholeWords [WholeWords=0]
          */
-        Replace(FindWhat: string, ReplaceWhat: string, After?: number, MatchCase?: MsoTriState, WholeWords?: MsoTriState): TextRange2;
-        RotatedBounds(X1: number, Y1: number, X2: number, Y2: number, X3: number, Y3: number, x4: number, y4: number): void;
+        Replace(
+            FindWhat: string,
+            ReplaceWhat: string,
+            After?: number,
+            MatchCase?: MsoTriState,
+            WholeWords?: MsoTriState,
+        ): TextRange2;
+        RotatedBounds(
+            X1: number,
+            Y1: number,
+            X2: number,
+            Y2: number,
+            X3: number,
+            Y3: number,
+            x4: number,
+            y4: number,
+        ): void;
         RtlRun(): void;
 
         /**
@@ -6825,17 +7017,71 @@ declare namespace Office {
     }
 
     namespace EventHelperTypes {
-        type CommandBarButton_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CommandBarButton_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
-        type CommandBarComboBox_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CommandBarComboBox_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
-        type CommandBars_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CommandBars_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
-        type CustomTaskPane_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CustomTaskPane_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
-        type CustomXMLPart_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CustomXMLPart_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
-        type CustomXMLParts_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CustomXMLParts_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
         interface CommandBarButton_Invoke_Parameter {
             readonly dispidMember: number;
@@ -6906,52 +7152,394 @@ declare namespace Office {
 }
 
 interface ActiveXObject {
-    on(obj: Office.CommandBarButton, event: 'Click', argNames: ['Ctrl', 'CancelDefault'], handler: (this: Office.CommandBarButton, parameter: {readonly Ctrl: Office.CommandBarButton, CancelDefault: boolean}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CommandBarButton, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CommandBarButton, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CommandBarButton, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'Invoke', argNames: Office.EventHelperTypes.CommandBarButton_Invoke_ArgNames, handler: (this: Office.CommandBarButton, parameter: Office.EventHelperTypes.CommandBarButton_Invoke_Parameter) => void): void;
-    on(obj: Office.CommandBarButton, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CommandBarButton, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'Change', argNames: ['Ctrl'], handler: (this: Office.CommandBarComboBox, parameter: {readonly Ctrl: Office.CommandBarComboBox}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CommandBarComboBox, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CommandBarComboBox, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CommandBarComboBox, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'Invoke', argNames: Office.EventHelperTypes.CommandBarComboBox_Invoke_ArgNames, handler: (this: Office.CommandBarComboBox, parameter: Office.EventHelperTypes.CommandBarComboBox_Invoke_Parameter) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CommandBarComboBox, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CommandBars, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CommandBars, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CommandBars, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CommandBars, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CommandBars, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CommandBars, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CommandBars, event: 'Invoke', argNames: Office.EventHelperTypes.CommandBars_Invoke_ArgNames, handler: (this: Office.CommandBars, parameter: Office.EventHelperTypes.CommandBars_Invoke_Parameter) => void): void;
-    on(obj: Office.CommandBars, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CommandBars, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'DockPositionStateChange' | 'VisibleStateChange', argNames: ['CustomTaskPaneInst'], handler: (this: Office.CustomTaskPane, parameter: {readonly CustomTaskPaneInst: Office.CustomTaskPane}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CustomTaskPane, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CustomTaskPane, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CustomTaskPane, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'Invoke', argNames: Office.EventHelperTypes.CustomTaskPane_Invoke_ArgNames, handler: (this: Office.CustomTaskPane, parameter: Office.EventHelperTypes.CustomTaskPane_Invoke_Parameter) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CustomTaskPane, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CustomXMLPart, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CustomXMLPart, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CustomXMLPart, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'Invoke', argNames: Office.EventHelperTypes.CustomXMLPart_Invoke_ArgNames, handler: (this: Office.CustomXMLPart, parameter: Office.EventHelperTypes.CustomXMLPart_Invoke_Parameter) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'NodeAfterDelete', argNames: ['OldNode', 'OldParentNode', 'OldNextSibling', 'InUndoRedo'], handler: (this: Office.CustomXMLPart, parameter: {readonly OldNode: Office.CustomXMLNode, readonly OldParentNode: Office.CustomXMLNode, readonly OldNextSibling: Office.CustomXMLNode, readonly InUndoRedo: boolean}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'NodeAfterInsert', argNames: ['NewNode', 'InUndoRedo'], handler: (this: Office.CustomXMLPart, parameter: {readonly NewNode: Office.CustomXMLNode, readonly InUndoRedo: boolean}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'NodeAfterReplace', argNames: ['OldNode', 'NewNode', 'InUndoRedo'], handler: (this: Office.CustomXMLPart, parameter: {readonly OldNode: Office.CustomXMLNode, readonly NewNode: Office.CustomXMLNode, readonly InUndoRedo: boolean}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CustomXMLPart, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CustomXMLParts, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CustomXMLParts, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CustomXMLParts, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'Invoke', argNames: Office.EventHelperTypes.CustomXMLParts_Invoke_ArgNames, handler: (this: Office.CustomXMLParts, parameter: Office.EventHelperTypes.CustomXMLParts_Invoke_Parameter) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'PartAfterAdd', argNames: ['NewPart'], handler: (this: Office.CustomXMLParts, parameter: {readonly NewPart: Office.CustomXMLPart}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'PartAfterLoad', argNames: ['Part'], handler: (this: Office.CustomXMLParts, parameter: {readonly Part: Office.CustomXMLPart}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'PartBeforeDelete', argNames: ['OldPart'], handler: (this: Office.CustomXMLParts, parameter: {readonly OldPart: Office.CustomXMLPart}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CustomXMLParts, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'AddRef' | 'Release', handler: (this: Office.CommandBarButton, parameter: {}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'AddRef' | 'Release', handler: (this: Office.CommandBarComboBox, parameter: {}) => void): void;
-    on(obj: Office.CommandBars, event: 'AddRef' | 'OnUpdate' | 'Release', handler: (this: Office.CommandBars, parameter: {}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'AddRef' | 'Release', handler: (this: Office.CustomTaskPane, parameter: {}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'AddRef' | 'Release', handler: (this: Office.CustomXMLPart, parameter: {}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'AddRef' | 'Release', handler: (this: Office.CustomXMLParts, parameter: {}) => void): void;
-    on(obj: Office.MsoEnvelope, event: 'EnvelopeHide' | 'EnvelopeShow', handler: (this: Office.MsoEnvelope, parameter: {}) => void): void;
-    set(obj: Office.CommandBarButton | Office.CommandBarComboBox, propertyName: 'accName' | 'accValue', parameterTypes: [any], newValue: string): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: 'Click',
+        argNames: ['Ctrl', 'CancelDefault'],
+        handler: (
+            this: Office.CommandBarButton,
+            parameter: { readonly Ctrl: Office.CommandBarButton; CancelDefault: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: Office.CommandBarButton,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: Office.CommandBarButton,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: Office.CommandBarButton, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: 'Invoke',
+        argNames: Office.EventHelperTypes.CommandBarButton_Invoke_ArgNames,
+        handler: (
+            this: Office.CommandBarButton,
+            parameter: Office.EventHelperTypes.CommandBarButton_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: Office.CommandBarButton, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: 'Change',
+        argNames: ['Ctrl'],
+        handler: (this: Office.CommandBarComboBox, parameter: { readonly Ctrl: Office.CommandBarComboBox }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: Office.CommandBarComboBox,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: Office.CommandBarComboBox,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: Office.CommandBarComboBox, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: 'Invoke',
+        argNames: Office.EventHelperTypes.CommandBarComboBox_Invoke_ArgNames,
+        handler: (
+            this: Office.CommandBarComboBox,
+            parameter: Office.EventHelperTypes.CommandBarComboBox_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (
+            this: Office.CommandBarComboBox,
+            parameter: { readonly riid: stdole.GUID; ppvObj: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: Office.CommandBars,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: Office.CommandBars,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: Office.CommandBars, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: 'Invoke',
+        argNames: Office.EventHelperTypes.CommandBars_Invoke_ArgNames,
+        handler: (this: Office.CommandBars, parameter: Office.EventHelperTypes.CommandBars_Invoke_Parameter) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: Office.CommandBars, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: 'DockPositionStateChange' | 'VisibleStateChange',
+        argNames: ['CustomTaskPaneInst'],
+        handler: (
+            this: Office.CustomTaskPane,
+            parameter: { readonly CustomTaskPaneInst: Office.CustomTaskPane },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: Office.CustomTaskPane,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: Office.CustomTaskPane,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: Office.CustomTaskPane, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: 'Invoke',
+        argNames: Office.EventHelperTypes.CustomTaskPane_Invoke_ArgNames,
+        handler: (
+            this: Office.CustomTaskPane,
+            parameter: Office.EventHelperTypes.CustomTaskPane_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: Office.CustomTaskPane, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: Office.CustomXMLPart, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: 'Invoke',
+        argNames: Office.EventHelperTypes.CustomXMLPart_Invoke_ArgNames,
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: Office.EventHelperTypes.CustomXMLPart_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: 'NodeAfterDelete',
+        argNames: ['OldNode', 'OldParentNode', 'OldNextSibling', 'InUndoRedo'],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: {
+                readonly OldNode: Office.CustomXMLNode;
+                readonly OldParentNode: Office.CustomXMLNode;
+                readonly OldNextSibling: Office.CustomXMLNode;
+                readonly InUndoRedo: boolean;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: 'NodeAfterInsert',
+        argNames: ['NewNode', 'InUndoRedo'],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: { readonly NewNode: Office.CustomXMLNode; readonly InUndoRedo: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: 'NodeAfterReplace',
+        argNames: ['OldNode', 'NewNode', 'InUndoRedo'],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: {
+                readonly OldNode: Office.CustomXMLNode;
+                readonly NewNode: Office.CustomXMLNode;
+                readonly InUndoRedo: boolean;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: Office.CustomXMLPart, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: Office.CustomXMLParts,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: Office.CustomXMLParts,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: Office.CustomXMLParts, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: 'Invoke',
+        argNames: Office.EventHelperTypes.CustomXMLParts_Invoke_ArgNames,
+        handler: (
+            this: Office.CustomXMLParts,
+            parameter: Office.EventHelperTypes.CustomXMLParts_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: 'PartAfterAdd',
+        argNames: ['NewPart'],
+        handler: (this: Office.CustomXMLParts, parameter: { readonly NewPart: Office.CustomXMLPart }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: 'PartAfterLoad',
+        argNames: ['Part'],
+        handler: (this: Office.CustomXMLParts, parameter: { readonly Part: Office.CustomXMLPart }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: 'PartBeforeDelete',
+        argNames: ['OldPart'],
+        handler: (this: Office.CustomXMLParts, parameter: { readonly OldPart: Office.CustomXMLPart }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: Office.CustomXMLParts, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: 'AddRef' | 'Release',
+        handler: (this: Office.CommandBarButton, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: 'AddRef' | 'Release',
+        handler: (this: Office.CommandBarComboBox, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: 'AddRef' | 'OnUpdate' | 'Release',
+        handler: (this: Office.CommandBars, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: 'AddRef' | 'Release',
+        handler: (this: Office.CustomTaskPane, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: 'AddRef' | 'Release',
+        handler: (this: Office.CustomXMLPart, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: 'AddRef' | 'Release',
+        handler: (this: Office.CustomXMLParts, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.MsoEnvelope,
+        event: 'EnvelopeHide' | 'EnvelopeShow',
+        handler: (this: Office.MsoEnvelope, parameter: {}) => void,
+    ): void;
+    set(
+        obj: Office.CommandBarButton | Office.CommandBarComboBox,
+        propertyName: 'accName' | 'accValue',
+        parameterTypes: [any],
+        newValue: string,
+    ): void;
     set(obj: Office.CommandBarComboBox, propertyName: 'List', parameterTypes: [number], newValue: string): void;
 }

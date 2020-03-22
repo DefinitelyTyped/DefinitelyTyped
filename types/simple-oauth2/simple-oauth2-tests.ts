@@ -2,24 +2,27 @@
 // slightly changed to remove external dependencies
 
 // Initialize the OAuth2 Library
-import * as oauth2lib from "simple-oauth2";
+import * as oauth2lib from 'simple-oauth2';
 
 // Set the configuration settings
 const credentials: oauth2lib.ModuleOptions = {
     client: {
         id: '<client-id>',
-        secret: '<client-secret>'
+        secret: '<client-secret>',
     },
     auth: {
-        tokenHost: 'https://api.oauth.com'
-    }
+        tokenHost: 'https://api.oauth.com',
+    },
 };
 
 const oauth2 = oauth2lib.create(credentials);
 
 // Test custom `idParamName`
 {
-    const oauth2 = oauth2lib.create({ client: { id: 'x', secret: 'x', idParamName: 'foobar' }, auth: { tokenHost: 'x' } });
+    const oauth2 = oauth2lib.create({
+        client: { id: 'x', secret: 'x', idParamName: 'foobar' },
+        auth: { tokenHost: 'x' },
+    });
     oauth2.authorizationCode.authorizeURL({ foobar: 'x' });
 }
 
@@ -29,13 +32,13 @@ const oauth2 = oauth2lib.create(credentials);
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
         redirect_uri: 'http://localhost:3000/callback',
         scope: '<scope>',
-        state: '<state>'
+        state: '<state>',
     });
 
     oauth2.authorizationCode.authorizeURL({
         redirect_uri: 'http://localhost:3000/callback',
         scope: ['<scope1>', '<scope2>'],
-        state: '<state>'
+        state: '<state>',
     });
 
     // Redirect example using Express (see http://expressjs.com/api.html#res.redirect)
@@ -45,7 +48,7 @@ const oauth2 = oauth2lib.create(credentials);
     const tokenConfig = {
         code: '<code>',
         redirect_uri: 'http://localhost:3000/callback',
-        scope: ['<scope1>', '<scope2>']
+        scope: ['<scope1>', '<scope2>'],
     };
 
     // Save the access token
@@ -62,7 +65,7 @@ const oauth2 = oauth2lib.create(credentials);
     const tokenConfig = {
         username: 'username',
         password: 'password',
-        scope: [ '<scope1>', '<scope2>' ],
+        scope: ['<scope1>', '<scope2>'],
     };
 
     // Save the access token
@@ -93,7 +96,7 @@ const oauth2 = oauth2lib.create(credentials);
     const tokenObject = {
         access_token: '<access-token>',
         refresh_token: '<refresh-token>',
-        expires_in: '7200'
+        expires_in: '7200',
     };
 
     // Create the access token wrapper
@@ -149,8 +152,8 @@ const oauth2 = oauth2lib.create(credentials);
     const tokenConfig = {
         username: 'username',
         password: 'password',
-        scope: [ '<scope1>', '<scope2>' ],
-        grant_type: 'openapi_2lo'
+        scope: ['<scope1>', '<scope2>'],
+        grant_type: 'openapi_2lo',
     };
 
     // Save the access token

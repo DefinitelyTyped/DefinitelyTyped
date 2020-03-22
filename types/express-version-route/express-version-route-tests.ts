@@ -4,8 +4,8 @@ import * as versionRouter from 'express-version-route';
 const app = express();
 
 const routesMap = new Map<string, express.Handler>([
-    ["1.0", respondV1],
-    ["2.0", respondV2]
+    ['1.0', respondV1],
+    ['2.0', respondV2],
 ]);
 
 app.get('/test', versionRouter.route(routesMap));

@@ -1,5 +1,5 @@
-import inquirer = require("../..");
-import { Observable } from "rxjs";
+import inquirer = require('../..');
+import { Observable } from 'rxjs';
 
 /**
  * Represents a property-name of any question-type.
@@ -9,7 +9,11 @@ type QuestionProperty = inquirer.KeyUnion<inquirer.UnionToIntersection<inquirer.
 /**
  * Unpacks a question-property.
  */
-type UnpackQuestionProperty<T> = T extends inquirer.AsyncDynamicQuestionProperty<inquirer.Answers, infer U> ? (U extends Promise<infer U2> ? U2 : U) : T;
+type UnpackQuestionProperty<T> = T extends inquirer.AsyncDynamicQuestionProperty<inquirer.Answers, infer U>
+    ? U extends Promise<infer U2>
+        ? U2
+        : U
+    : T;
 
 /**
  * Fetches a property of the specified `question`.
@@ -29,6 +33,7 @@ type UnpackQuestionProperty<T> = T extends inquirer.AsyncDynamicQuestionProperty
 export function fetchAsyncQuestionPropertyQuestionProperty(
     question: inquirer.DistinctQuestion,
     prop: QuestionProperty,
-    answers: inquirer.Answers): Observable<inquirer.DistinctQuestion>;
+    answers: inquirer.Answers,
+): Observable<inquirer.DistinctQuestion>;
 
-export { };
+export {};

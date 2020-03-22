@@ -1,4 +1,4 @@
-import * as chardet from "chardet";
+import * as chardet from 'chardet';
 
 chardet.detect(new Buffer('hello there!'));
 chardet.detectFile('/path/to/file', (err, encoding) => {});

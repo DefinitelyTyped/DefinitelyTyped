@@ -9,12 +9,10 @@ class TestImageMagnify extends React.Component {
                 smallImage={{
                     alt: 'Wristwatch by Ted Baker London',
                     isFluidWidth: true,
-                    src:
-                        'https://ethanselzer.github.io/react-image-magnify/static/media/wristwatch_687.8ea75ffc.jpg',
+                    src: 'https://ethanselzer.github.io/react-image-magnify/static/media/wristwatch_687.8ea75ffc.jpg',
                 }}
                 largeImage={{
-                    src:
-                        'https://ethanselzer.github.io/react-image-magnify/static/media/wristwatch_687.8ea75ffc.jpg',
+                    src: 'https://ethanselzer.github.io/react-image-magnify/static/media/wristwatch_687.8ea75ffc.jpg',
                     width: 1200,
                     height: 1800,
                 }}
@@ -33,15 +31,14 @@ const App: React.FC = () => {
                     isFluidWidth: false,
                     width: 300,
                     height: 400,
-                    src: "https://ethanselzer.github.io/react-image-magnify/static/media/wristwatch_687.8ea75ffc.jpg"
+                    src: 'https://ethanselzer.github.io/react-image-magnify/static/media/wristwatch_687.8ea75ffc.jpg',
                 }}
                 largeImage={{
                     width: 1200,
                     height: 1200,
-                    src: "https://ethanselzer.github.io/react-image-magnify/static/media/wristwatch_1200.c9182206.jpg"
+                    src: 'https://ethanselzer.github.io/react-image-magnify/static/media/wristwatch_1200.c9182206.jpg',
                 }}
-            >
-            </ReactImageMagnify>
+            ></ReactImageMagnify>
         </div>
     );
 };

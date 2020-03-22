@@ -1,7 +1,7 @@
-import Two = require("two.js");
+import Two = require('two.js');
 {
     // Make an instance of two and place it on the page.
-    const elem = document.getElementById("draw-shapes")!;
+    const elem = document.getElementById('draw-shapes')!;
     const params = { width: 285, height: 200 };
     const two = new Two(params).appendTo(elem);
 
@@ -10,11 +10,11 @@ import Two = require("two.js");
     const rect = two.makeRectangle(213, 100, 100, 100);
 
     // The object returned has many stylable properties:
-    circle.fill = "#FF8000";
-    circle.stroke = "orangered"; // Accepts all valid css color
+    circle.fill = '#FF8000';
+    circle.stroke = 'orangered'; // Accepts all valid css color
     circle.linewidth = 5;
 
-    rect.fill = "rgb(0, 200, 255)";
+    rect.fill = 'rgb(0, 200, 255)';
     rect.opacity = 0.75;
     rect.noStroke();
 
@@ -24,15 +24,15 @@ import Two = require("two.js");
 }
 
 {
-    const elem = document.getElementById("draw-group")!;
+    const elem = document.getElementById('draw-group')!;
     const two = new Two({ width: 285, height: 200 }).appendTo(elem);
 
     const circle = two.makeCircle(-70, 0, 50);
     const rect = two.makeRectangle(70, 0, 100, 100);
-    circle.fill = "#FF8000";
-    circle.stroke = "orangered";
-    rect.fill = "rgba(0, 200, 255, 0.75)";
-    rect.stroke = "#1C75BC";
+    circle.fill = '#FF8000';
+    circle.stroke = 'orangered';
+    rect.fill = 'rgba(0, 200, 255, 0.75)';
+    rect.stroke = '#1C75BC';
 
     // Groups can take an array of shapes and/or groups.
     const group = two.makeGroup(circle, rect);
@@ -49,13 +49,13 @@ import Two = require("two.js");
 }
 
 {
-    const elem = document.getElementById("draw-animation")!;
+    const elem = document.getElementById('draw-animation')!;
     const two = new Two({ width: 285, height: 200 }).appendTo(elem);
 
     const circle = two.makeCircle(-70, 0, 50);
     const rect = two.makeRectangle(70, 0, 100, 100);
-    circle.fill = "#FF8000";
-    rect.fill = "rgba(0, 200, 255, 0.75)";
+    circle.fill = '#FF8000';
+    rect.fill = 'rgba(0, 200, 255, 0.75)';
 
     const group = two.makeGroup(circle, rect);
     group.translation.set(two.width / 2, two.height / 2);
@@ -64,7 +64,7 @@ import Two = require("two.js");
 
     // Bind a function to scale and rotate the group
     // to the animation loop.
-    two.bind("update", frameCount => {
+    two.bind('update', (frameCount) => {
         // This code is called everytime two.update() is called.
         // Effectively 60 times per second.
         if (group.scale > 0.9999) {

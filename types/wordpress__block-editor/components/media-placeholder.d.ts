@@ -80,7 +80,9 @@ declare namespace MediaPlaceholder {
         multiple?: T;
         value?: T extends true ? number[] : number;
         onSelect(
-            value: T extends true ? Array<{ id: number } & { [k: string]: any }> : { id: number } & { [k: string]: any }
+            value: T extends true
+                ? Array<{ id: number } & { [k: string]: any }>
+                : { id: number } & { [k: string]: any },
         ): void;
     }
     // type Props<T extends boolean> = BaseProps<T>;

@@ -15,9 +15,11 @@ import SMTPConnection = require('../smtp-connection');
 import XOAuth2 = require('../xoauth2');
 
 declare namespace Mail {
-    type Headers = { [key: string]: string | string[] | { prepared: boolean, value: string } } | Array<{ key: string, value: string }>;
+    type Headers =
+        | { [key: string]: string | string[] | { prepared: boolean; value: string } }
+        | Array<{ key: string; value: string }>;
 
-    type ListHeader = string | { url: string, comment: string };
+    type ListHeader = string | { url: string; comment: string };
 
     interface ListHeaders {
         [key: string]: ListHeader | ListHeader[] | ListHeader[][];
@@ -150,7 +152,7 @@ declare namespace Mail {
         dkim?: DKIM.Options;
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
-        priority?: "high"|"normal"|"low";
+        priority?: 'high' | 'normal' | 'low';
     }
 
     type PluginFunction = (mail: MailMessage, callback: (err?: Error | null) => void) => void;
@@ -190,12 +192,50 @@ declare class Mail extends EventEmitter {
     /** Sets up proxy handler for a Nodemailer object */
     setupProxy(proxyUrl: string): void;
 
-    set(key: 'oauth2_provision_cb', value: (user: string, renew: boolean, callback: (err: Error | null, accessToken?: string, expires?: number) => void) => void): Map<string, any>;
-    set(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a', value: (proxy: Url, options: TransportOptions, callback: (err: Error | null, socketOptions?: { connection: Socket }) => void) => void): Map<string, any>;
+    set(
+        key: 'oauth2_provision_cb',
+        value: (
+            user: string,
+            renew: boolean,
+            callback: (err: Error | null, accessToken?: string, expires?: number) => void,
+        ) => void,
+    ): Map<string, any>;
+    set(
+        key:
+            | 'proxy_handler_http'
+            | 'proxy_handler_https'
+            | 'proxy_handler_socks'
+            | 'proxy_handler_socks5'
+            | 'proxy_handler_socks4'
+            | 'proxy_handler_socks4a',
+        value: (
+            proxy: Url,
+            options: TransportOptions,
+            callback: (err: Error | null, socketOptions?: { connection: Socket }) => void,
+        ) => void,
+    ): Map<string, any>;
     set(key: string, value: any): Map<string, any>;
 
-    get(key: 'oauth2_provision_cb'): (user: string, renew: boolean, callback: (err: Error | null, accessToken: string, expires: number) => void) => void;
-    get(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a'): (proxy: Url, options: TransportOptions, callback: (err: Error | null, socketOptions: { connection: Socket }) => void) => void;
+    get(
+        key: 'oauth2_provision_cb',
+    ): (
+        user: string,
+        renew: boolean,
+        callback: (err: Error | null, accessToken: string, expires: number) => void,
+    ) => void;
+    get(
+        key:
+            | 'proxy_handler_http'
+            | 'proxy_handler_https'
+            | 'proxy_handler_socks'
+            | 'proxy_handler_socks5'
+            | 'proxy_handler_socks4'
+            | 'proxy_handler_socks4a',
+    ): (
+        proxy: Url,
+        options: TransportOptions,
+        callback: (err: Error | null, socketOptions: { connection: Socket }) => void,
+    ) => void;
     get(key: string): any;
 
     addListener(event: 'error', listener: (err: Error) => void): this;

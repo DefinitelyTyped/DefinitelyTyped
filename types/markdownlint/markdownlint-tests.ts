@@ -29,9 +29,7 @@ markdownlint(options, (err, results) => {
     // $ExpectType string
     results.toString();
 
-    const fileErrors: markdownlint.MarkdownlintResult[] = results[
-        'file.md'
-    ] as markdownlint.MarkdownlintResult[];
+    const fileErrors: markdownlint.MarkdownlintResult[] = results['file.md'] as markdownlint.MarkdownlintResult[];
     const firstFileError: markdownlint.MarkdownlintResult = fileErrors[0];
     const firstFileErrorRule: string = firstFileError.ruleName;
 });
@@ -39,44 +37,44 @@ markdownlint(options, (err, results) => {
 // tslint:disable: object-literal-key-quotes
 markdownlint.sync({
     config: {
-        "default": false,
-        "heading-style": {
-            "style": "atx"
+        default: false,
+        'heading-style': {
+            style: 'atx',
         },
-        "ul-style": {
-            "style": "asterisk"
+        'ul-style': {
+            style: 'asterisk',
         },
-        "list-indent": true,
-        "ul-start-left": true,
-        "ul-indent": {
-            "indent": 4
+        'list-indent': true,
+        'ul-start-left': true,
+        'ul-indent': {
+            indent: 4,
         },
-        "no-trailing-spaces": true,
-        "no-hard-tabs": true,
-        "no-reversed-links": true,
-        "no-multiple-blanks": true,
-        "no-missing-space-atx": true,
-        "no-multiple-space-atx": true,
-        "blanks-around-headings": true,
-        "heading-start-left": true,
-        "no-trailing-punctuation": {
-            "punctuation": ".,;:!"
+        'no-trailing-spaces': true,
+        'no-hard-tabs': true,
+        'no-reversed-links': true,
+        'no-multiple-blanks': true,
+        'no-missing-space-atx': true,
+        'no-multiple-space-atx': true,
+        'blanks-around-headings': true,
+        'heading-start-left': true,
+        'no-trailing-punctuation': {
+            punctuation: '.,;:!',
         },
-        "no-multiple-space-blockquote": true,
-        "no-blanks-blockquote": true,
-        "ol-prefix": {
-            "style": "ordered"
+        'no-multiple-space-blockquote': true,
+        'no-blanks-blockquote': true,
+        'ol-prefix': {
+            style: 'ordered',
         },
-        "list-marker-space": true,
-        "blanks-around-fences": true,
-        "blanks-around-lists": true,
-        "no-bare-urls": true,
-        "hr-style": {
-            "style": "---"
+        'list-marker-space': true,
+        'blanks-around-fences': true,
+        'blanks-around-lists': true,
+        'no-bare-urls': true,
+        'hr-style': {
+            style: '---',
         },
-        "no-space-in-emphasis": true,
-        "no-space-in-links": true,
-        "fenced-code-language": true
-    }
+        'no-space-in-emphasis': true,
+        'no-space-in-links': true,
+        'fenced-code-language': true,
+    },
 });
 // tslint:enable: object-literal-key-quotes

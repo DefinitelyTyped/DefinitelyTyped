@@ -2,7 +2,7 @@ import RSVP from 'rsvp';
 
 function testAndThen() {
     const result: RSVP.Promise<string> = andThen(() => 'some string');
-    result.then(s => s.length);
+    result.then((s) => s.length);
 }
 
 function testClick() {

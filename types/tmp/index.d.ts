@@ -37,18 +37,9 @@ export interface DirResult {
     removeCallback: () => void;
 }
 
-export type FileCallback = (
-    err: any,
-    name: string,
-    fd: number,
-    removeCallback: () => void
-) => void;
+export type FileCallback = (err: any, name: string, fd: number, removeCallback: () => void) => void;
 
-export type DirCallback = (
-    err: any,
-    name: string,
-    removeCallback: () => void
-) => void;
+export type DirCallback = (err: any, name: string, removeCallback: () => void) => void;
 
 export type TmpNameCallback = (err: any, name: string) => void;
 

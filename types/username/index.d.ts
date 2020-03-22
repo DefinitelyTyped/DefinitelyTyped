@@ -4,7 +4,6 @@
 //                 Akos Krivachy <https://github.com/krivachy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /**
  * Tries to get the username from the LOGNAME, USER, LNAME or USERNAME environment variables.
  * Falls back to `id -un` on OS X / Linux and `whoami` on Windows in the rare case none of the environment

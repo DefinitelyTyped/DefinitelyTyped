@@ -6,7 +6,7 @@ new UI({
     outputStream: process.stderr,
     errorStream: process.stdout,
     writeLevel: 'DEBUG',
-    ci: false
+    ci: false,
 });
 
 const ui = new UI();
@@ -52,9 +52,9 @@ ui.stopProgress('hello'); // $ExpectError
 
 const question: DistinctQuestion<{ answer: boolean }> = {
     message: 'Yes / No?',
-    type: 'confirm'
+    type: 'confirm',
 };
 
-ui.prompt(question).then(result => {
+ui.prompt(question).then((result) => {
     result.answer; // $ExpectType boolean
 });

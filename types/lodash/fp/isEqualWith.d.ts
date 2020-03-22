@@ -1,2 +1,2 @@
-import { isEqualWith } from "../fp";
+import { isEqualWith } from '../fp';
 export = isEqualWith;

@@ -1,4 +1,3 @@
-
 // From https://hapijs.com/api/16.1.1#servermime
 
 import * as Hapi from 'hapi';
@@ -10,10 +9,10 @@ const options: Hapi.ServerOptions = {
                 source: 'steve',
                 compressible: false,
                 extensions: ['node', 'module', 'npm'],
-                type: 'node/module'
-            }
-        }
-    }
+                type: 'node/module',
+            },
+        },
+    },
 };
 
 const server = new Hapi.Server(options);

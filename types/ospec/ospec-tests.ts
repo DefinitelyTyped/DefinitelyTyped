@@ -157,7 +157,7 @@ o.spec('ospec typings', () => {
 
     let definerFn: o.Definer;
     definerFn = () => {};
-    definerFn = done => {
+    definerFn = (done) => {
         done(); // $ExpectType void
         done(new Error('err'));
         done(null);
@@ -206,7 +206,7 @@ o.spec('ospec typings', () => {
     // $ExpectError
     o.specTimeout('42');
 
-    o('async test timeout', _ => {
+    o('async test timeout', (_) => {
         o.timeout(42); // $ExpectType void
 
         // $ExpectError
@@ -217,7 +217,7 @@ o.spec('ospec typings', () => {
 
     // ======================================================================
 
-    const myReporter: o.Reporter = results => {
+    const myReporter: o.Reporter = (results) => {
         const myResult = results[0]; // $ExpectType Result
         return 0;
     };
@@ -250,7 +250,7 @@ o.spec('ospec typings', () => {
 
     const o2: o.Ospec = o.new();
     o2.spec('New Ospec instance', () => {
-        o2('Works?', done => {
+        o2('Works?', (done) => {
             o2('Yes').equals('Yes');
             done();
         });

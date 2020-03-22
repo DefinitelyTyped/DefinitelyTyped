@@ -1,4 +1,4 @@
-declare module "url" {
+declare module 'url' {
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
     interface UrlObjectCommon {
@@ -35,7 +35,11 @@ declare module "url" {
     }
 
     function parse(urlStr: string): UrlWithStringQuery;
-    function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(
+        urlStr: string,
+        parseQueryString: false | undefined,
+        slashesDenoteHost?: boolean,
+    ): UrlWithStringQuery;
     function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
 
@@ -86,7 +90,14 @@ declare module "url" {
     }
 
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
+        constructor(
+            init?:
+                | URLSearchParams
+                | string
+                | { [key: string]: string | string[] | undefined }
+                | Iterable<[string, string]>
+                | Array<[string, string]>,
+        );
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;

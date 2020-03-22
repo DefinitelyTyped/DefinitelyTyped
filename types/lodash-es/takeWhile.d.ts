@@ -1,2 +1,2 @@
-import { takeWhile } from "lodash";
+import { takeWhile } from 'lodash';
 export default takeWhile;

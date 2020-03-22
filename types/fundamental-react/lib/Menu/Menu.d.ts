@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type MenuProps = {
     addonBefore?: boolean;
@@ -31,10 +31,10 @@ export type MenuListProps = {
 } & React.HTMLAttributes<HTMLUListElement>;
 
 declare const Menu: React.FunctionComponent<MenuProps> & {
-    displayName: "Menu";
-    Group: React.FunctionComponent<MenuGroupProps> & {displayName: "Menu.Group"};
-    Item: React.FunctionComponent<MenuItemProps> & {displayName: "Menu.Item"};
-    List: React.FunctionComponent<MenuListProps> & {displayName: "Menu.List"};
+    displayName: 'Menu';
+    Group: React.FunctionComponent<MenuGroupProps> & { displayName: 'Menu.Group' };
+    Item: React.FunctionComponent<MenuItemProps> & { displayName: 'Menu.Item' };
+    List: React.FunctionComponent<MenuListProps> & { displayName: 'Menu.List' };
 };
 
 export default Menu;

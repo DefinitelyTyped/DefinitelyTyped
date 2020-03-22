@@ -13,16 +13,14 @@ class DllPlugin {
 }
 
 class Compiler extends Tapable {
-    constructor(){
-        super()
+    constructor() {
+        super();
     }
 }
 
 const compiler = new Compiler();
 
-let callback: Tapable.CallbackFunction = function () {
-
-};
+let callback: Tapable.CallbackFunction = function () {};
 
 compiler.apply(new DllPlugin());
 

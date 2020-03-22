@@ -355,32 +355,68 @@ export class CommandsApi {
     /**
      * Checks if a user has permission to perform specified actions on specified resources.
      */
-    checkPermission(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    checkPermission(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
 
     /**
      * Retrieves the custom relationships between specified versions of items and other resources in the data domain service
      */
-    listRefs(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    listRefs(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
 
     /**
      * Retrieves metadata for up to 50 specified items. For example, an item name, or the date it was created. It returns the tip (latest) version of the items.
      */
-    listItems(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    listItems(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
 
     /**
      * Creates folders in BIM 360 Docs.
      */
-    createFolder(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    createFolder(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
 
     /**
      * Publishes the latest version of a Collaboration for Revit (C4R) model to BIM 360 Docs.
      */
-    publishModel(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    publishModel(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
 
     /**
      * Verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs.
      */
-    getPublishModelJob(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    getPublishModelJob(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
 }
 
 export class DerivativesApi {

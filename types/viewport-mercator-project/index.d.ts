@@ -85,7 +85,13 @@ export interface FittedBounds {
     zoom: number;
 }
 
-export function fitBounds(options: { width: number; height: number; bounds: Bounds; padding?: Padding; offset?: Coordinates }): FittedBounds;
+export function fitBounds(options: {
+    width: number;
+    height: number;
+    bounds: Bounds;
+    padding?: Padding;
+    offset?: Coordinates;
+}): FittedBounds;
 
 export interface TransitionViewport {
     longitude: number;
@@ -110,7 +116,11 @@ export interface NormalizedViewportProps extends FlyToViewportProps {
 
 export function normalizeViewportProps(props: ViewportProps): NormalizedViewportProps;
 
-export function flyToViewport(startProps: FlyToViewportProps, endProps: FlyToViewportProps, t: number): TransitionViewport;
+export function flyToViewport(
+    startProps: FlyToViewportProps,
+    endProps: FlyToViewportProps,
+    t: number,
+): TransitionViewport;
 
 export function lngLatToWorld(lngLat: Coordinates, scale: number): Coordinates;
 
@@ -118,7 +128,11 @@ export function worldToLngLat(point: Coordinates, scale: number): Coordinates;
 
 export function worldToPixels(coordinates: Coordinates | CoordinatesZ, pixelProjectionMatrix: mat4): CoordinatesZ;
 
-export function pixelsToWorld(pixels: Coordinates | CoordinatesZ, pixelUnprojectionMatrix: mat4, targetZ?: number): CoordinatesZ;
+export function pixelsToWorld(
+    pixels: Coordinates | CoordinatesZ,
+    pixelUnprojectionMatrix: mat4,
+    targetZ?: number,
+): CoordinatesZ;
 
 export function getMeterZoom(input: { latitude: number }): number;
 
@@ -139,13 +153,17 @@ export interface BaseDistanceScalesInput {
     latitude: number;
 }
 
-export type DistanceScalesInput = BaseDistanceScalesInput & { zoom: number } | BaseDistanceScalesInput & { scale: number };
+export type DistanceScalesInput =
+    | (BaseDistanceScalesInput & { zoom: number })
+    | (BaseDistanceScalesInput & { scale: number });
 
 export interface BaseHighPrecisionDistanceScalesInput extends BaseDistanceScalesInput {
     highPrecision: true;
 }
 
-export type HighPrecisionDistanceScalesInput = BaseHighPrecisionDistanceScalesInput & { zoom: number } | BaseHighPrecisionDistanceScalesInput & { scale: number };
+export type HighPrecisionDistanceScalesInput =
+    | (BaseHighPrecisionDistanceScalesInput & { zoom: number })
+    | (BaseHighPrecisionDistanceScalesInput & { scale: number });
 
 export function getDistanceScales(input: DistanceScalesInput): DistanceScales;
 export function getDistanceScales(input: HighPrecisionDistanceScalesInput): HighPrecisionDistanceScales;
@@ -153,7 +171,14 @@ export function getDistanceScales(input: HighPrecisionDistanceScalesInput): High
 export function addMetersToLngLat(lngLat: Coordinates, xy: Coordinates): Coordinates;
 export function addMetersToLngLat(lngLatZ: CoordinatesZ, xyz: CoordinatesZ): CoordinatesZ;
 
-export function getViewMatrix(input: { height: number; pitch: number; bearing: number; altitude: number; center?: CoordinatesZ; flipY?: boolean }): ViewMatrix;
+export function getViewMatrix(input: {
+    height: number;
+    pitch: number;
+    bearing: number;
+    altitude: number;
+    center?: CoordinatesZ;
+    flipY?: boolean;
+}): ViewMatrix;
 
 export interface ProjectionParametersInput {
     width: number;

@@ -17,11 +17,7 @@ declare module '@keystonejs/file-adapters' {
     class LocalFileAdapter {
         constructor(options: LocalFileAdapterConfig);
 
-        save(params: {
-            stream: any;
-            filename?: string;
-            id: string;
-        }): Promise<{ filename: string; id: string }>;
+        save(params: { stream: any; filename?: string; id: string }): Promise<{ filename: string; id: string }>;
         publicUrl(params: { filename: string }): string;
     }
 
@@ -35,11 +31,7 @@ declare module '@keystonejs/file-adapters' {
     class CloudinaryFileAdapter {
         constructor(options: CloudinaryFileAdapterConfig);
 
-        save(params: {
-            stream: any;
-            filename?: string;
-            id: string;
-        }): Promise<{ filename: string; id: string }>;
+        save(params: { stream: any; filename?: string; id: string }): Promise<{ filename: string; id: string }>;
         publicUrl(params: { filename: string }): string;
     }
 }

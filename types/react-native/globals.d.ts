@@ -302,14 +302,14 @@ declare var WebSocket: {
         uri: string,
         protocols?: string | string[] | null,
         options?: {
-            headers: {[headerName: string]: string};
+            headers: { [headerName: string]: string };
             [optionName: string]: any;
         } | null,
     ): WebSocket;
-  readonly CLOSED: number;
-  readonly CLOSING: number;
-  readonly CONNECTING: number;
-  readonly OPEN: number;
+    readonly CLOSED: number;
+    readonly CLOSING: number;
+    readonly CONNECTING: number;
+    readonly OPEN: number;
 };
 
 //

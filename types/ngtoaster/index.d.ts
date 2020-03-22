@@ -15,30 +15,79 @@ declare namespace ngtoaster {
         /**
          * @param type Type of toaster  -- 'error', 'info', 'wait', 'success', and 'warning'
          */
-        pop(type?: string, title?: string, body?: string, timeout?: number, bodyOutputType?: string, clickHandler?: EventListener,
-            toasterId?: number, showCloseButton?: boolean, toastId?: string|number,
-            onHideCallback?: IToastCallback): IPopReturn;
+        pop(
+            type?: string,
+            title?: string,
+            body?: string,
+            timeout?: number,
+            bodyOutputType?: string,
+            clickHandler?: EventListener,
+            toasterId?: number,
+            showCloseButton?: boolean,
+            toastId?: string | number,
+            onHideCallback?: IToastCallback,
+        ): IPopReturn;
         error(params: IPopParams): void;
-        error(title?: string, body?: string, timeout?: number, bodyOutputType?: string, clickHandler?: EventListener,
-            toasterId?: number, showCloseButton?: boolean, toastId?: string|number,
-            onHideCallback?: IToastCallback): IPopReturn;
+        error(
+            title?: string,
+            body?: string,
+            timeout?: number,
+            bodyOutputType?: string,
+            clickHandler?: EventListener,
+            toasterId?: number,
+            showCloseButton?: boolean,
+            toastId?: string | number,
+            onHideCallback?: IToastCallback,
+        ): IPopReturn;
         info(params: IPopParams): void;
-        info(title?: string, body?: string, timeout?: number, bodyOutputType?: string, clickHandler?: EventListener,
-            toasterId?: number, showCloseButton?: boolean, toastId?: string|number,
-            onHideCallback?: IToastCallback): IPopReturn;
+        info(
+            title?: string,
+            body?: string,
+            timeout?: number,
+            bodyOutputType?: string,
+            clickHandler?: EventListener,
+            toasterId?: number,
+            showCloseButton?: boolean,
+            toastId?: string | number,
+            onHideCallback?: IToastCallback,
+        ): IPopReturn;
         wait(params: IPopParams): void;
-        wait(title?: string, body?: string, timeout?: number, bodyOutputType?: string, clickHandler?: EventListener,
-            toasterId?: number, showCloseButton?: boolean, toastId?: string|number,
-            onHideCallback?: IToastCallback): IPopReturn;
+        wait(
+            title?: string,
+            body?: string,
+            timeout?: number,
+            bodyOutputType?: string,
+            clickHandler?: EventListener,
+            toasterId?: number,
+            showCloseButton?: boolean,
+            toastId?: string | number,
+            onHideCallback?: IToastCallback,
+        ): IPopReturn;
         success(params: IPopParams): void;
-        success(title?: string, body?: string, timeout?: number, bodyOutputType?: string, clickHandler?: EventListener,
-            toasterId?: number, showCloseButton?: boolean, toastId?: string|number,
-            onHideCallback?: IToastCallback): IPopReturn;
+        success(
+            title?: string,
+            body?: string,
+            timeout?: number,
+            bodyOutputType?: string,
+            clickHandler?: EventListener,
+            toasterId?: number,
+            showCloseButton?: boolean,
+            toastId?: string | number,
+            onHideCallback?: IToastCallback,
+        ): IPopReturn;
         warning(params: IPopParams): void;
-        warning(title?: string, body?: string, timeout?: number, bodyOutputType?: string, clickHandler?: EventListener,
-            toasterId?: number, showCloseButton?: boolean, toastId?: string|number,
-            onHideCallback?: IToastCallback): IPopReturn;
-        clear(toasterId?: number, toastId?: string|number): void;
+        warning(
+            title?: string,
+            body?: string,
+            timeout?: number,
+            bodyOutputType?: string,
+            clickHandler?: EventListener,
+            toasterId?: number,
+            showCloseButton?: boolean,
+            toastId?: string | number,
+            onHideCallback?: IToastCallback,
+        ): IPopReturn;
+        clear(toasterId?: number, toastId?: string | number): void;
         toast: IToast;
     }
 
@@ -56,12 +105,12 @@ declare namespace ngtoaster {
 
     interface IPopReturn {
         toasterId: number;
-        toastId: string|number;
+        toastId: string | number;
     }
 
     type IToastCallback = (toast: IToast) => void;
 
-    type IToastEventListener = (event: Event, toasterId: number, toastId: string|number) => void;
+    type IToastEventListener = (event: Event, toasterId: number, toastId: string | number) => void;
 
     interface IToast {
         /**
@@ -76,7 +125,7 @@ declare namespace ngtoaster {
         clickHandler?: EventListener;
         showCloseButton?: boolean;
         closeHtml?: string;
-        toastId?: string|number;
+        toastId?: string | number;
         /**
          * Called when the toast has been displayed.
          * @param toast the displayed toast

@@ -10,5 +10,5 @@ export interface TagProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class Tag<T = {[key: string]: any}> extends React.Component<TagProps> {}
+declare class Tag<T = { [key: string]: any }> extends React.Component<TagProps> {}
 export default Tag;

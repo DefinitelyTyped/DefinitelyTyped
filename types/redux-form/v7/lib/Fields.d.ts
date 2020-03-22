@@ -1,5 +1,5 @@
-import { Component, ComponentType } from "react";
-import { Formatter, Parser, WrappedFieldProps } from "../index";
+import { Component, ComponentType } from 'react';
+import { Formatter, Parser, WrappedFieldProps } from '../index';
 
 interface BaseFieldsProps<P = {}> {
     names: string[];

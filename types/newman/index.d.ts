@@ -5,13 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { EventEmitter } from "events";
-import {
-    Collection,
-    CollectionDefinition,
-    VariableScope,
-    VariableScopeDefinition
-} from "postman-collection";
+import { EventEmitter } from 'events';
+import { Collection, CollectionDefinition, VariableScope, VariableScopeDefinition } from 'postman-collection';
 
 export interface NewmanRunOptions {
     /** A JSON / Collection / String representing the collection. */
@@ -98,7 +93,7 @@ export interface NewmanRunOptions {
      *
      * Default value: false
      */
-    bail?: boolean | ["folder"] | ["failure"];
+    bail?: boolean | ['folder'] | ['failure'];
     /**
      * If present, allows overriding the default exit code from the current
      * collection run, useful for bypassing collection result failures.
@@ -117,7 +112,7 @@ export interface NewmanRunOptions {
      *
      * Default value: auto
      */
-    color?: "on" | "off" | "auto";
+    color?: 'on' | 'off' | 'auto';
     /**
      * The path to the public client certificate file.
      */
@@ -187,5 +182,5 @@ export interface NewmanRunFailure {
 }
 export function run(
     options: NewmanRunOptions,
-    callback?: (err: Error | null, summary: NewmanRunSummary) => void
+    callback?: (err: Error | null, summary: NewmanRunSummary) => void,
 ): EventEmitter;

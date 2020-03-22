@@ -9,7 +9,7 @@ const myText: SimpleText = new SimpleText('MyText', {
     fontStyle: 'italic',
     fontWeight: '300',
     align: 'center',
-    color: 'white'
+    color: 'white',
 });
 
 myText.setSize(100, 200);

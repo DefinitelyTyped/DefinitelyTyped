@@ -8,7 +8,10 @@
 
 import npmFetch = require('npm-registry-fetch');
 
-declare function search(query: string | ReadonlyArray<string>, opts: search.Options & { detailed: true }): Promise<search.DetailedResult[]>;
+declare function search(
+    query: string | ReadonlyArray<string>,
+    opts: search.Options & { detailed: true },
+): Promise<search.DetailedResult[]>;
 declare function search(query: string | ReadonlyArray<string>, opts?: search.Options): Promise<search.Result[]>;
 
 declare namespace search {

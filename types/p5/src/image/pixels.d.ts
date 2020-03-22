@@ -36,7 +36,7 @@ declare module '../../index' {
             dy: number,
             dw: number,
             dh: number,
-            blendMode: BLEND_MODE
+            blendMode: BLEND_MODE,
         ): void;
 
         /**
@@ -69,7 +69,7 @@ declare module '../../index' {
             dy: number,
             dw: number,
             dh: number,
-            blendMode: UNKNOWN_P5_CONSTANT
+            blendMode: UNKNOWN_P5_CONSTANT,
         ): void;
 
         /**
@@ -103,7 +103,7 @@ declare module '../../index' {
             dx: number,
             dy: number,
             dw: number,
-            dh: number
+            dh: number,
         ): void;
 
         /**

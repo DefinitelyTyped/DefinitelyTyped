@@ -21,11 +21,8 @@ import Pulsar = require('pulsar-client');
         partitionKey: 'key1',
         properties: ['c', 'd', 3, 4],
         eventTimestamp: Date.now(),
-        replicationClusters: [
-            'cluster1',
-            'cluster2',
-        ],
-      });
+        replicationClusters: ['cluster1', 'cluster2'],
+    });
 
     await producer.flush();
     await producer.close();

@@ -21,8 +21,11 @@ function onOwnMessage(msg: Element): boolean {
         const iq = $iq({
             to: from,
             type: 'error',
-            id: msg.getAttribute('id')
-        }).cnode(own).up().c('error', { type: 'cancel', code: '501' })
+            id: msg.getAttribute('id'),
+        })
+            .cnode(own)
+            .up()
+            .c('error', { type: 'cancel', code: '501' })
             .c('feature-not-implemented', { xmlns: 'urn:ietf:params:xml:ns:xmpp-stanzas' });
 
         connection.sendIQ(iq);
@@ -37,13 +40,12 @@ function onMessage(msg: Element): boolean {
     const type = msg.getAttribute('type');
     const elems = msg.getElementsByTagName('body');
 
-    if (type === "chat" && elems.length > 0) {
+    if (type === 'chat' && elems.length > 0) {
         const body = elems[0];
 
-        log('ECHOBOT: I got a message from ' + from + ': ' +
-            Strophe.getText(body));
+        log('ECHOBOT: I got a message from ' + from + ': ' + Strophe.getText(body));
 
-        const text = Strophe.getText(body) + " (this is echo)";
+        const text = Strophe.getText(body) + ' (this is echo)';
 
         log('ECHOBOT: I sent ' + from + ': ' + Strophe.getText(body));
     }
@@ -53,17 +55,17 @@ function onMessage(msg: Element): boolean {
     return true;
 }
 
-
 function sendMessage() {
-    const message = "some message";
-    const to = "some recipient";
+    const message = 'some message';
+    const to = 'some recipient';
     if (message && to) {
         const reply = $msg({
             to: to,
-            type: 'chat'
+            type: 'chat',
         })
-            .cnode(Strophe.xmlElement('body', message)).up()
-            .c('active', { xmlns: "http://jabber.org/protocol/chatstates" });
+            .cnode(Strophe.xmlElement('body', message))
+            .up()
+            .c('active', { xmlns: 'http://jabber.org/protocol/chatstates' });
 
         connection.send(reply);
 
@@ -71,7 +73,7 @@ function sendMessage() {
     }
 }
 
-const connection = new Strophe.Connection("someservice");
+const connection = new Strophe.Connection('someservice');
 connection.rawInput = rawInput;
 connection.rawOutput = rawOutput;
 
@@ -86,8 +88,7 @@ function onConnect(status: Strophe.Status): void {
         log('Strophe is disconnected.');
     } else if (status === Strophe.Status.CONNECTED) {
         log('Strophe is connected.');
-        log('ECHOBOT: Send a message to ' + connection.jid +
-            ' to talk to me.');
+        log('ECHOBOT: Send a message to ' + connection.jid + ' to talk to me.');
 
         connection.addHandler(onMessage, null, 'message', null, null, null);
         connection.addHandler(onOwnMessage, null, 'iq', 'set', null, null);
@@ -96,24 +97,24 @@ function onConnect(status: Strophe.Status): void {
 }
 
 function onRoomMessage(stanza: Element, room: Strophe.MUC.XmppRoom): boolean {
-  console.log(Strophe.serialize(stanza));
-  room.groupchat("hello");
-  return true;
+    console.log(Strophe.serialize(stanza));
+    room.groupchat('hello');
+    return true;
 }
 
 function onRoomPresence(stanza: Element, room: Strophe.MUC.XmppRoom): boolean {
-  const from = stanza.getAttribute("from");
-  console.log(`${from} precense updated`);
-  return true;
+    const from = stanza.getAttribute('from');
+    console.log(`${from} precense updated`);
+    return true;
 }
 
 function onRoomRoster(occupants: Strophe.MUC.OccupantMap, room: Strophe.MUC.XmppRoom): boolean {
-  for (const nick of Object.keys(occupants)) {
-    const occupant = occupants[nick];
-    console.log(occupant.nick, occupant.show, occupant.status);
-  }
-  return true;
+    for (const nick of Object.keys(occupants)) {
+        const occupant = occupants[nick];
+        console.log(occupant.nick, occupant.show, occupant.status);
+    }
+    return true;
 }
 
 connection.muc.init(connection);
-connection.muc.join("room", "nick", onRoomMessage, onRoomPresence, onRoomRoster);
+connection.muc.join('room', 'nick', onRoomMessage, onRoomPresence, onRoomRoster);

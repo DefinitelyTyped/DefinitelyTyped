@@ -13,16 +13,16 @@ export function evalHand(cards: string[]): EvaluatedHand;
 export function evalCard(card: string): number;
 
 export type HandName =
-    'invalid hand' |
-    'high card' |
-    'one pair' |
-    'two pairs' |
-    'three of a kind' |
-    'straight' |
-    'flush' |
-    'full house' |
-    'four of a kind' |
-    'straight flush';
+    | 'invalid hand'
+    | 'high card'
+    | 'one pair'
+    | 'two pairs'
+    | 'three of a kind'
+    | 'straight'
+    | 'flush'
+    | 'full house'
+    | 'four of a kind'
+    | 'straight flush';
 
 export interface Deck {
     [key: string]: number;

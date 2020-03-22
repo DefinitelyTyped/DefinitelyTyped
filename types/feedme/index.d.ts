@@ -25,15 +25,24 @@ declare class FeedMe extends Writable {
     done(): FeedMe.Document;
 
     on(event: string, listener: (...args: any[]) => void): this;
-    on(event: "close" | "drain" | "finish", listener: () => void): this;
-    on(event: "pipe" | "unpipe", listener: (src: Readable) => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "item", listener: (item: FeedMe.Item) => void): this;
-    on(event: "type", listener: (type: FeedMe.Type) => void): this;
+    on(event: 'close' | 'drain' | 'finish', listener: () => void): this;
+    on(event: 'pipe' | 'unpipe', listener: (src: Readable) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: 'item', listener: (item: FeedMe.Item) => void): this;
+    on(event: 'type', listener: (type: FeedMe.Type) => void): this;
 }
 
 declare namespace FeedMe {
-    type Type = "atom" | "rss 0.90" | "rss 0.91" | "rss 0.92" | "rss 0.93" | "rss 0.94" | "rss 1.0" | "rss 2.0" | "json";
+    type Type =
+        | 'atom'
+        | 'rss 0.90'
+        | 'rss 0.91'
+        | 'rss 0.92'
+        | 'rss 0.93'
+        | 'rss 0.94'
+        | 'rss 1.0'
+        | 'rss 2.0'
+        | 'json';
 
     interface Document extends Meta {
         items: Item[];
@@ -63,7 +72,7 @@ declare namespace FeedMe {
         [key: string]: any;
 
         // "#ns": NS[];
-        "type": Type;
+        type: Type;
         // "#version": string;
         title: string;
         description: string;

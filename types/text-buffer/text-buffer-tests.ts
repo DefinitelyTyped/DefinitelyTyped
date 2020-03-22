@@ -1,5 +1,5 @@
-import { Disposable } from "event-kit";
-import TextBuffer = require("text-buffer");
+import { Disposable } from 'event-kit';
+import TextBuffer = require('text-buffer');
 
 declare let obj: object;
 declare let bool: boolean;
@@ -80,9 +80,12 @@ range.start;
 range.end;
 
 // Construction
-range = TextBuffer.Range.fromObject({ start: point, end: point}, true);
+range = TextBuffer.Range.fromObject({ start: point, end: point }, true);
 TextBuffer.Range.fromObject([point, point]);
-TextBuffer.Range.fromObject([[0, 0], [0, 0]]);
+TextBuffer.Range.fromObject([
+    [0, 0],
+    [0, 0],
+]);
 TextBuffer.Range.fromObject([point, [0, 0]]);
 TextBuffer.Range.fromObject([[0, 0], point]);
 
@@ -118,13 +121,19 @@ num = range.compare(range);
 range.compare([point, point]);
 range.compare([point, [0, 0]]);
 range.compare([[0, 0], point]);
-range.compare([[0, 0], [0, 0]]);
+range.compare([
+    [0, 0],
+    [0, 0],
+]);
 
 bool = range.isEqual(range);
 range.isEqual([point, point]);
 range.isEqual([point, [0, 0]]);
 range.isEqual([[0, 0], point]);
-range.isEqual([[0, 0], [0, 0]]);
+range.isEqual([
+    [0, 0],
+    [0, 0],
+]);
 
 bool = range.coversSameRows(range);
 
@@ -135,12 +144,21 @@ bool = range.containsRange(range);
 range.containsRange([point, point]);
 range.containsRange([point, [0, 0]]);
 range.containsRange([[0, 0], point]);
-range.containsRange([[0, 0], [0, 0]]);
+range.containsRange([
+    [0, 0],
+    [0, 0],
+]);
 range.containsRange(range, true);
 range.containsRange([point, point], false);
 range.containsRange([point, [0, 0]], false);
 range.containsRange([[0, 0], point], false);
-range.containsRange([[0, 0], [0, 0]], false);
+range.containsRange(
+    [
+        [0, 0],
+        [0, 0],
+    ],
+    false,
+);
 
 bool = range.containsPoint(point);
 range.containsPoint([0, 0]);
@@ -156,23 +174,23 @@ str = range.toString();
 // TextBuffer =================================================================
 const shouldDestroyOnFileDelete = () => false;
 
-buffer = new TextBuffer("test");
+buffer = new TextBuffer('test');
 new TextBuffer();
-new TextBuffer({ text: "Test" });
+new TextBuffer({ text: 'Test' });
 new TextBuffer({ shouldDestroyOnFileDelete });
-new TextBuffer({ text: "Test", shouldDestroyOnFileDelete });
+new TextBuffer({ text: 'Test', shouldDestroyOnFileDelete });
 
 async function bufferLoadFile() {
-    buffer = await TextBuffer.load("Test.file");
-    buffer = await TextBuffer.load("Test.file", { encoding: "utf8" });
-    buffer = await TextBuffer.load("Test.file", { shouldDestroyOnFileDelete });
-    buffer = await TextBuffer.load("Test.file", { encoding: "utf8", shouldDestroyOnFileDelete });
+    buffer = await TextBuffer.load('Test.file');
+    buffer = await TextBuffer.load('Test.file', { encoding: 'utf8' });
+    buffer = await TextBuffer.load('Test.file', { shouldDestroyOnFileDelete });
+    buffer = await TextBuffer.load('Test.file', { encoding: 'utf8', shouldDestroyOnFileDelete });
 }
 
-buffer = TextBuffer.loadSync("Test.file");
-TextBuffer.loadSync("Test.file", { encoding: "utf8" });
-TextBuffer.loadSync("Test.file", { shouldDestroyOnFileDelete });
-TextBuffer.loadSync("Test.file", { encoding: "uft8", shouldDestroyOnFileDelete });
+buffer = TextBuffer.loadSync('Test.file');
+TextBuffer.loadSync('Test.file', { encoding: 'utf8' });
+TextBuffer.loadSync('Test.file', { shouldDestroyOnFileDelete });
+TextBuffer.loadSync('Test.file', { encoding: 'uft8', shouldDestroyOnFileDelete });
 
 async function deserializeBuffer() {
     buffer = await TextBuffer.deserialize({});
@@ -221,8 +239,8 @@ if (path) {
     str = path.substr(0, 42);
 }
 
-buffer.setPath("Test.file");
-buffer.setEncoding("utf8");
+buffer.setPath('Test.file');
+buffer.setEncoding('utf8');
 str = buffer.getEncoding();
 str = buffer.getUri();
 
@@ -232,7 +250,10 @@ str = buffer.getText();
 
 str = buffer.getTextInRange(range);
 str = buffer.getTextInRange([point, point]);
-str = buffer.getTextInRange([[0, 0], [0, 0]]);
+str = buffer.getTextInRange([
+    [0, 0],
+    [0, 0],
+]);
 str = buffer.getTextInRange([point, [0, 0]]);
 str = buffer.getTextInRange([[0, 0], point]);
 
@@ -263,34 +284,50 @@ if (nextRow) {
 }
 
 // Mutating Text
-range = buffer.setText("Test");
-buffer.setTextViaDiff("Test");
+range = buffer.setText('Test');
+buffer.setTextViaDiff('Test');
 
-range = buffer.setTextInRange(range, "Test");
-range = buffer.setTextInRange([point, point], "Test");
-range = buffer.setTextInRange([[0, 0], [0, 0]], "Test");
-range = buffer.setTextInRange([point, [0, 0]], "Test");
-range = buffer.setTextInRange([[0, 0], point], "Test");
-range = buffer.setTextInRange(range, "Test", { normalizeLineEndings: true });
-range = buffer.setTextInRange(range, "Test", { undo: "skip" });
-range = buffer.setTextInRange(range, "Test", { normalizeLineEndings: true, undo: "skip" });
-range = buffer.setTextInRange([[0, 0], [0, 0]], "Test", { undo: "skip" });
+range = buffer.setTextInRange(range, 'Test');
+range = buffer.setTextInRange([point, point], 'Test');
+range = buffer.setTextInRange(
+    [
+        [0, 0],
+        [0, 0],
+    ],
+    'Test',
+);
+range = buffer.setTextInRange([point, [0, 0]], 'Test');
+range = buffer.setTextInRange([[0, 0], point], 'Test');
+range = buffer.setTextInRange(range, 'Test', { normalizeLineEndings: true });
+range = buffer.setTextInRange(range, 'Test', { undo: 'skip' });
+range = buffer.setTextInRange(range, 'Test', { normalizeLineEndings: true, undo: 'skip' });
+range = buffer.setTextInRange(
+    [
+        [0, 0],
+        [0, 0],
+    ],
+    'Test',
+    { undo: 'skip' },
+);
 
-range = buffer.insert(point, "Test");
-buffer.insert([0, 0], "Test");
-buffer.insert(point, "Test", { normalizeLineEndings: true });
-buffer.insert(point, "Test", { undo: "skip" });
-buffer.insert(point, "Test", { normalizeLineEndings: true, undo: "skip" });
-buffer.insert([0, 0], "Test", { undo: "skip" });
+range = buffer.insert(point, 'Test');
+buffer.insert([0, 0], 'Test');
+buffer.insert(point, 'Test', { normalizeLineEndings: true });
+buffer.insert(point, 'Test', { undo: 'skip' });
+buffer.insert(point, 'Test', { normalizeLineEndings: true, undo: 'skip' });
+buffer.insert([0, 0], 'Test', { undo: 'skip' });
 
-range = buffer.append("Test");
-buffer.append("Test", { normalizeLineEndings: true });
-buffer.append("Test", { undo: "skip" });
-buffer.append("Test", { normalizeLineEndings: true, undo: "skip" });
+range = buffer.append('Test');
+buffer.append('Test', { normalizeLineEndings: true });
+buffer.append('Test', { undo: 'skip' });
+buffer.append('Test', { normalizeLineEndings: true, undo: 'skip' });
 
 range = buffer.delete(range);
 buffer.delete([point, point]);
-buffer.delete([[0, 0], [0, 0]]);
+buffer.delete([
+    [0, 0],
+    [0, 0],
+]);
 buffer.delete([point, [0, 0]]);
 buffer.delete([[0, 0], point]);
 
@@ -303,7 +340,7 @@ buffer.addMarkerLayer({ maintainHistory: true });
 buffer.addMarkerLayer({ persistent: true });
 buffer.addMarkerLayer({ maintainHistory: true, persistent: true });
 
-const testMarkerLayer = buffer.getMarkerLayer("Test");
+const testMarkerLayer = buffer.getMarkerLayer('Test');
 if (testMarkerLayer) {
     markerLayer = testMarkerLayer;
 }
@@ -312,20 +349,23 @@ markerLayer = buffer.getDefaultMarkerLayer();
 
 marker = buffer.markRange(range);
 buffer.markRange([point, point]);
-buffer.markRange([[0, 0], [0, 0]]);
+buffer.markRange([
+    [0, 0],
+    [0, 0],
+]);
 buffer.markRange([point, [0, 0]]);
 buffer.markRange([[0, 0], point]);
-buffer.markRange(range, { exclusive: true});
-buffer.markRange(range, { invalidate: "surround" });
+buffer.markRange(range, { exclusive: true });
+buffer.markRange(range, { invalidate: 'surround' });
 buffer.markRange(range, { reversed: true });
-buffer.markRange(range, { exclusive: true, invalidate: "surround", reversed: true });
+buffer.markRange(range, { exclusive: true, invalidate: 'surround', reversed: true });
 buffer.markRange([point, point], { exclusive: true });
 
 marker = buffer.markPosition(point);
 buffer.markPosition([0, 0]);
 buffer.markPosition(point, { exclusive: true });
-buffer.markPosition(point, { invalidate: "never" });
-buffer.markPosition(point, { exclusive: true, invalidate: "surround" });
+buffer.markPosition(point, { invalidate: 'never' });
+buffer.markPosition(point, { exclusive: true, invalidate: 'surround' });
 buffer.markPosition([0, 0], { exclusive: true });
 
 markers = buffer.getMarkers();
@@ -345,7 +385,12 @@ markers = buffer.findMarkers({
 markers = buffer.findMarkers({ startsInRange: [point, point] });
 markers = buffer.findMarkers({ startsInRange: [point, [0, 0]] });
 markers = buffer.findMarkers({ startsInRange: [[0, 0], point] });
-markers = buffer.findMarkers({ startsInRange: [[0, 0], [0, 0]] });
+markers = buffer.findMarkers({
+    startsInRange: [
+        [0, 0],
+        [0, 0],
+    ],
+});
 
 num = buffer.getMarkerCount();
 
@@ -367,78 +412,124 @@ buffer.scan(/r^Test/, (params) => {
     num = params.match.index;
     str = params.matchText;
     range = params.range;
-    params.replace("Test");
+    params.replace('Test');
     params.stop();
 });
-buffer.scan(/r^Test/, {
-    leadingContextLineCount: 5,
-    trailingContextLineCount: 5,
-}, (params) => {
-    strs = params.leadingContextLines;
-    strs = params.trailingContextLines;
-});
+buffer.scan(
+    /r^Test/,
+    {
+        leadingContextLineCount: 5,
+        trailingContextLineCount: 5,
+    },
+    (params) => {
+        strs = params.leadingContextLines;
+        strs = params.trailingContextLines;
+    },
+);
 
 buffer.backwardsScan(/r^Test/, (): void => {});
 buffer.backwardsScan(/r^Test/, (params) => {
     num = params.match.index;
     str = params.matchText;
     range = params.range;
-    params.replace("Test");
+    params.replace('Test');
     params.stop();
 });
-buffer.backwardsScan(/r^Test/, {
-    leadingContextLineCount: 5,
-    trailingContextLineCount: 5,
-}, (params) => {
-    strs = params.leadingContextLines;
-    strs = params.trailingContextLines;
-});
+buffer.backwardsScan(
+    /r^Test/,
+    {
+        leadingContextLineCount: 5,
+        trailingContextLineCount: 5,
+    },
+    (params) => {
+        strs = params.leadingContextLines;
+        strs = params.trailingContextLines;
+    },
+);
 
 buffer.scanInRange(/r^Test/, range, (): void => {});
 buffer.scanInRange(/r^Test/, range, (params) => {
     num = params.match.index;
     str = params.matchText;
     range = params.range;
-    params.replace("Test");
+    params.replace('Test');
     params.stop();
 });
-buffer.scanInRange(/r^Test/, range, {
-    leadingContextLineCount: 5,
-    trailingContextLineCount: 5,
-}, (params) => {
-    strs = params.leadingContextLines;
-    strs = params.trailingContextLines;
-});
+buffer.scanInRange(
+    /r^Test/,
+    range,
+    {
+        leadingContextLineCount: 5,
+        trailingContextLineCount: 5,
+    },
+    (params) => {
+        strs = params.leadingContextLines;
+        strs = params.trailingContextLines;
+    },
+);
 buffer.scanInRange(/r^Test/, [point, point], (): void => {});
-buffer.scanInRange(/r^Test/, [[0, 0], [0, 0]], (): void => {});
+buffer.scanInRange(
+    /r^Test/,
+    [
+        [0, 0],
+        [0, 0],
+    ],
+    (): void => {},
+);
 buffer.scanInRange(/r^Test/, [point, [0, 0]], (): void => {});
 buffer.scanInRange(/r^Test/, [[0, 0], point], (): void => {});
-buffer.scanInRange(/r^Test/, [[0, 0], [0, 0]], { trailingContextLineCount: 42 },
-    (): void => {});
+buffer.scanInRange(
+    /r^Test/,
+    [
+        [0, 0],
+        [0, 0],
+    ],
+    { trailingContextLineCount: 42 },
+    (): void => {},
+);
 
 buffer.backwardsScanInRange(/r^Test/, range, (): void => {});
 buffer.backwardsScanInRange(/r^Test/, range, (params) => {
     num = params.match.index;
     str = params.matchText;
     range = params.range;
-    params.replace("Test");
+    params.replace('Test');
     params.stop();
 });
-buffer.backwardsScanInRange(/r^Test/, range, {
-    leadingContextLineCount: 5,
-    trailingContextLineCount: 5,
-}, (params) => {
-    strs = params.leadingContextLines;
-    strs = params.trailingContextLines;
-});
+buffer.backwardsScanInRange(
+    /r^Test/,
+    range,
+    {
+        leadingContextLineCount: 5,
+        trailingContextLineCount: 5,
+    },
+    (params) => {
+        strs = params.leadingContextLines;
+        strs = params.trailingContextLines;
+    },
+);
 buffer.backwardsScanInRange(/r^Test/, [point, point], (): void => {});
-buffer.backwardsScanInRange(/r^Test/, [[0, 0], [0, 0]], (): void => {});
+buffer.backwardsScanInRange(
+    /r^Test/,
+    [
+        [0, 0],
+        [0, 0],
+    ],
+    (): void => {},
+);
 buffer.backwardsScanInRange(/r^Test/, [point, [0, 0]], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [[0, 0], point], (): void => {});
-buffer.backwardsScanInRange(/r^Test/, [[0, 0], [0, 0]], { trailingContextLineCount: 42 },
-    (): void => {});
+buffer.backwardsScanInRange(
+    /r^Test/,
+    [
+        [0, 0],
+        [0, 0],
+    ],
+    { trailingContextLineCount: 42 },
+    (): void => {},
+);
 
-num = buffer.replace(/r^Test/, "Test");
+num = buffer.replace(/r^Test/, 'Test');
 
 // Buffer TextBuffer.Range Details
 range = buffer.getRange();
@@ -455,7 +546,10 @@ range = buffer.clipRange(range);
 range = buffer.clipRange([point, point]);
 range = buffer.clipRange([point, [0, 0]]);
 range = buffer.clipRange([[0, 0], point]);
-range = buffer.clipRange([[0, 0], [0, 0]]);
+range = buffer.clipRange([
+    [0, 0],
+    [0, 0],
+]);
 
 point = buffer.clipPosition(point);
 point = buffer.clipPosition([0, 0]);
@@ -463,7 +557,7 @@ point = buffer.clipPosition([0, 0]);
 // Buffer Operations
 async function saveBuffer() {
     await buffer.save();
-    await buffer.saveAs("Test.file");
+    await buffer.saveAs('Test.file');
 }
 
 buffer.reload();
@@ -480,9 +574,9 @@ str = marker.invalidate;
 marker = marker.copy({
     tailed: true,
     reversed: true,
-    invalidate: "surround",
+    invalidate: 'surround',
     exclusive: false,
-    properties: { custom: "prop" },
+    properties: { custom: 'prop' },
 });
 
 marker.destroy();
@@ -490,7 +584,7 @@ marker.destroy();
 // Event Subscription
 sub = marker.onDidDestroy(() => {});
 
-sub = marker.onDidChange(event => {
+sub = marker.onDidChange((event) => {
     event.oldHeadPosition;
     event.newHeadPosition;
     event.oldTailPosition;
@@ -522,7 +616,10 @@ bool = marker.setRange(range);
 bool = marker.setRange([point, point]);
 bool = marker.setRange([point, [0, 0]]);
 bool = marker.setRange([[0, 0], point]);
-bool = marker.setRange([[0, 0], [0, 0]]);
+bool = marker.setRange([
+    [0, 0],
+    [0, 0],
+]);
 bool = marker.setRange([point, point], { exclusive: false });
 bool = marker.setRange(range, { exclusive: true, reversed: false });
 
@@ -567,29 +664,39 @@ markers = markerLayer.findMarkers({
 markers = markerLayer.findMarkers({ containsRange: [point, point] });
 markers = markerLayer.findMarkers({ containsRange: [point, [0, 0]] });
 markers = markerLayer.findMarkers({ containsRange: [[0, 0], point] });
-markers = markerLayer.findMarkers({ containsRange: [[0, 0], [0, 0]] });
+markers = markerLayer.findMarkers({
+    containsRange: [
+        [0, 0],
+        [0, 0],
+    ],
+});
 
 // Marker creation
 marker = markerLayer.markRange(range);
 marker = markerLayer.markRange([point, point]);
 marker = markerLayer.markRange([point, [0, 0]]);
 marker = markerLayer.markRange([[0, 0], point]);
-marker = markerLayer.markRange([[0, 0], [0, 0]]);
+marker = markerLayer.markRange([
+    [0, 0],
+    [0, 0],
+]);
 marker = markerLayer.markRange(range, { exclusive: true });
-marker = markerLayer.markRange([point, point], { invalidate: "never" });
+marker = markerLayer.markRange([point, point], { invalidate: 'never' });
 marker = markerLayer.markRange(range, {
-    exclusive: false, invalidate: "surround", reversed: false,
+    exclusive: false,
+    invalidate: 'surround',
+    reversed: false,
 });
 
 marker = markerLayer.markPosition(point);
 marker = markerLayer.markPosition([0, 0]);
 marker = markerLayer.markPosition(point, { exclusive: false });
-marker = markerLayer.markPosition([0, 0], { invalidate: "inside" });
-marker = markerLayer.markPosition(point, { exclusive: true, invalidate: "surround" });
+marker = markerLayer.markPosition([0, 0], { invalidate: 'inside' });
+marker = markerLayer.markPosition(point, { exclusive: true, invalidate: 'surround' });
 
 // Event subscription
 sub = markerLayer.onDidUpdate(() => {});
-sub = markerLayer.onDidCreateMarker(marker => marker.id);
+sub = markerLayer.onDidCreateMarker((marker) => marker.id);
 sub = markerLayer.onDidDestroy(() => {});
 
 // DisplayMarker ==============================================================
@@ -601,13 +708,15 @@ displayMarker = displayMarker.copy({});
 displayMarker = displayMarker.copy({
     tailed: true,
     reversed: false,
-    invalidate: "never",
+    invalidate: 'never',
     exclusive: false,
-    properties: { deprecated: "property" },
+    properties: { deprecated: 'property' },
 });
 
 // Event Subscription
-sub = displayMarker.onDidChange((event) => { event.hasTail; });
+sub = displayMarker.onDidChange((event) => {
+    event.hasTail;
+});
 sub = displayMarker.onDidDestroy(() => {});
 
 // TextEditorMarker Details
@@ -651,7 +760,10 @@ bool = displayMarker.matchesProperties({
     intersectsBufferRange: [[0, 0], point],
 });
 bool = displayMarker.matchesProperties({
-    intersectsBufferRange: [[0, 0], [0, 0]],
+    intersectsBufferRange: [
+        [0, 0],
+        [0, 0],
+    ],
 });
 
 // Comparing to other markers
@@ -666,32 +778,38 @@ displayMarker.setBufferRange(range);
 displayMarker.setBufferRange([point, point]);
 displayMarker.setBufferRange([point, [0, 0]]);
 displayMarker.setBufferRange([[0, 0], point]);
-displayMarker.setBufferRange([[0, 0], [0, 0]]);
+displayMarker.setBufferRange([
+    [0, 0],
+    [0, 0],
+]);
 displayMarker.setBufferRange(range, { reversed: true });
 
 displayMarker.setScreenRange(range);
 displayMarker.setScreenRange([point, point]);
 displayMarker.setScreenRange([point, [0, 0]]);
 displayMarker.setScreenRange([[0, 0], point]);
-displayMarker.setScreenRange([[0, 0], [0, 0]]);
+displayMarker.setScreenRange([
+    [0, 0],
+    [0, 0],
+]);
 displayMarker.setScreenRange(range, { reversed: false });
 
 point = displayMarker.getStartScreenPosition();
-point = displayMarker.getStartScreenPosition({ clipDirection: "backward" });
+point = displayMarker.getStartScreenPosition({ clipDirection: 'backward' });
 
 point = displayMarker.getEndScreenPosition();
-point = displayMarker.getEndScreenPosition({ clipDirection: "forward" });
+point = displayMarker.getEndScreenPosition({ clipDirection: 'forward' });
 
 // Extended Methods
 point = displayMarker.getHeadBufferPosition();
 displayMarker.setHeadBufferPosition(point);
 
 displayMarker.getHeadScreenPosition();
-displayMarker.getHeadScreenPosition({ clipDirection: "closest" });
+displayMarker.getHeadScreenPosition({ clipDirection: 'closest' });
 
 displayMarker.setHeadScreenPosition(point);
 displayMarker.setHeadScreenPosition([0, 0]);
-displayMarker.setHeadScreenPosition(point, { clipDirection: "backward" });
+displayMarker.setHeadScreenPosition(point, { clipDirection: 'backward' });
 
 point = displayMarker.getTailBufferPosition();
 
@@ -699,11 +817,11 @@ displayMarker.setTailBufferPosition(point);
 displayMarker.setTailBufferPosition([0, 0]);
 
 point = displayMarker.getTailScreenPosition();
-point = displayMarker.getTailScreenPosition({ clipDirection: "forward" });
+point = displayMarker.getTailScreenPosition({ clipDirection: 'forward' });
 
 displayMarker.setTailScreenPosition(point);
 displayMarker.setTailScreenPosition([0, 0]);
-displayMarker.setTailScreenPosition(point, { clipDirection: "closest" });
+displayMarker.setTailScreenPosition(point, { clipDirection: 'closest' });
 
 point = displayMarker.getStartBufferPosition();
 point = displayMarker.getEndBufferPosition();
@@ -720,52 +838,65 @@ bool = displayMarkerLayer.isDestroyed();
 // Event Subscription
 sub = displayMarkerLayer.onDidDestroy(() => {});
 sub = displayMarkerLayer.onDidUpdate(() => {});
-sub = displayMarkerLayer.onDidCreateMarker((marker) => { marker.isReversed(); });
+sub = displayMarkerLayer.onDidCreateMarker((marker) => {
+    marker.isReversed();
+});
 
 // Marker creation
 displayMarker = displayMarkerLayer.markScreenRange(range);
 displayMarker = displayMarkerLayer.markScreenRange(range, {});
-displayMarker = displayMarkerLayer.markScreenRange(range, { clipDirection: "forward" });
+displayMarker = displayMarkerLayer.markScreenRange(range, { clipDirection: 'forward' });
 displayMarker = displayMarkerLayer.markScreenRange(range, { exclusive: true });
-displayMarker = displayMarkerLayer.markScreenRange(range, { invalidate: "never" });
+displayMarker = displayMarkerLayer.markScreenRange(range, { invalidate: 'never' });
 displayMarker = displayMarkerLayer.markScreenRange(range, { reversed: true });
-displayMarker = displayMarkerLayer.markScreenRange(range, { clipDirection: "backward",
-    exclusive: false, invalidate: "overlap", reversed: false });
+displayMarker = displayMarkerLayer.markScreenRange(range, {
+    clipDirection: 'backward',
+    exclusive: false,
+    invalidate: 'overlap',
+    reversed: false,
+});
 displayMarker = displayMarkerLayer.markScreenRange([point, point]);
 displayMarker = displayMarkerLayer.markScreenRange([point, [0, 0]]);
 displayMarker = displayMarkerLayer.markScreenRange([[0, 0], point]);
-displayMarker = displayMarkerLayer.markScreenRange([[0, 0], [0, 0]]);
+displayMarker = displayMarkerLayer.markScreenRange([
+    [0, 0],
+    [0, 0],
+]);
 displayMarker = displayMarkerLayer.markScreenRange([[0, 0], point], { reversed: true });
 
 displayMarker = displayMarkerLayer.markScreenPosition(point);
 displayMarker = displayMarkerLayer.markScreenPosition(point, {});
-displayMarker = displayMarkerLayer.markScreenPosition(point, { clipDirection: "forward" });
+displayMarker = displayMarkerLayer.markScreenPosition(point, { clipDirection: 'forward' });
 displayMarker = displayMarkerLayer.markScreenPosition(point, { exclusive: true });
-displayMarker = displayMarkerLayer.markScreenPosition(point, { invalidate: "never" });
-displayMarker = displayMarkerLayer.markScreenPosition(point, { clipDirection: "backward",
-    exclusive: false, invalidate: "overlap" });
+displayMarker = displayMarkerLayer.markScreenPosition(point, { invalidate: 'never' });
+displayMarker = displayMarkerLayer.markScreenPosition(point, {
+    clipDirection: 'backward',
+    exclusive: false,
+    invalidate: 'overlap',
+});
 displayMarker = displayMarkerLayer.markScreenPosition([0, 0]);
 displayMarker = displayMarkerLayer.markScreenPosition([0, 0], { exclusive: false });
 
 displayMarker = displayMarkerLayer.markBufferRange(range);
 displayMarker = displayMarkerLayer.markBufferRange(range, {});
-displayMarker = displayMarkerLayer.markBufferRange(range, { invalidate: "inside" });
+displayMarker = displayMarkerLayer.markBufferRange(range, { invalidate: 'inside' });
 displayMarker = displayMarkerLayer.markBufferRange(range, { exclusive: true });
 displayMarker = displayMarkerLayer.markBufferRange(range, { reversed: true });
-displayMarker = displayMarkerLayer.markBufferRange(range, { exclusive: false,
-    invalidate: "overlap", reversed: false });
+displayMarker = displayMarkerLayer.markBufferRange(range, { exclusive: false, invalidate: 'overlap', reversed: false });
 displayMarker = displayMarkerLayer.markBufferRange([point, point]);
 displayMarker = displayMarkerLayer.markBufferRange([point, [0, 0]]);
 displayMarker = displayMarkerLayer.markBufferRange([[0, 0], point]);
-displayMarker = displayMarkerLayer.markBufferRange([[0, 0], [0, 0]]);
+displayMarker = displayMarkerLayer.markBufferRange([
+    [0, 0],
+    [0, 0],
+]);
 displayMarker = displayMarkerLayer.markBufferRange([[0, 0], point], { reversed: true });
 
 displayMarker = displayMarkerLayer.markBufferPosition(point);
 displayMarker = displayMarkerLayer.markBufferPosition(point, {});
 displayMarker = displayMarkerLayer.markBufferPosition(point, { exclusive: true });
-displayMarker = displayMarkerLayer.markBufferPosition(point, { invalidate: "never" });
-displayMarker = displayMarkerLayer.markBufferPosition(point, { exclusive: false,
-    invalidate: "overlap" });
+displayMarker = displayMarkerLayer.markBufferPosition(point, { invalidate: 'never' });
+displayMarker = displayMarkerLayer.markBufferPosition(point, { exclusive: false, invalidate: 'overlap' });
 displayMarker = displayMarkerLayer.markBufferPosition([0, 0]);
 displayMarker = displayMarkerLayer.markBufferPosition([0, 0], { exclusive: false });
 
@@ -806,5 +937,8 @@ displayMarkers = displayMarkerLayer.findMarkers({
     intersectsScreenRange: [[0, 0], point],
 });
 displayMarkers = displayMarkerLayer.findMarkers({
-    intersectsScreenRange: [[0, 0], [0, 0]],
+    intersectsScreenRange: [
+        [0, 0],
+        [0, 0],
+    ],
 });

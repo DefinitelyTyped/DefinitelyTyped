@@ -1,4 +1,4 @@
-import Steam = require("steam-client");
+import Steam = require('steam-client');
 
 const steamClient = new Steam.CMClient(Steam.EConnectionProtocol.TCP);
 
@@ -11,7 +11,7 @@ steamClient.disconnect();
 steamClient.on<'connected'>('connected', (serverLoad) => {
     steamClient.logOn({
         account_name: serverLoad,
-        password: "password"
+        password: 'password',
     });
 });
 
@@ -21,16 +21,20 @@ steamClient.on<'logOnResponse'>('logOnResponse', (details) => {
     return details.eresult + details.webapi_authenticate_user_nonce;
 });
 
-steamClient.send({
-    msg: Steam.EMsg.ClientGetFinalPrice,
-    proto: {
-        eresult: Steam.EResult.AdministratorOK
-    }
-}, new Buffer("lol"), (header, body) => {
-    return header.msg + body.reverse().toString();
-});
+steamClient.send(
+    {
+        msg: Steam.EMsg.ClientGetFinalPrice,
+        proto: {
+            eresult: Steam.EResult.AdministratorOK,
+        },
+    },
+    new Buffer('lol'),
+    (header, body) => {
+        return header.msg + body.reverse().toString();
+    },
+);
 
-steamClient.bind("127.0.0.1", 80);
+steamClient.bind('127.0.0.1', 80);
 
 if (steamClient.loggedOn) {
     console.log(steamClient.steamID);

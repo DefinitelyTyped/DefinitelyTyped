@@ -28,7 +28,7 @@ declare namespace __ParcelModuleApi {
         children: any[];
         hot?: Hot;
     }
-    type ModuleId = string|number;
+    type ModuleId = string | number;
 
     interface Hot {
         /**
@@ -148,8 +148,8 @@ declare namespace __ParcelModuleApi {
         autoApply?: boolean;
     }
     /**
-    * Inside env you can pass any variable
-    */
+     * Inside env you can pass any variable
+     */
     interface NodeProcess {
         env?: any;
     }
@@ -159,8 +159,7 @@ declare namespace __ParcelModuleApi {
     type RequireLambda = __Require1 & __Require2;
 }
 
-interface NodeRequire extends __ParcelModuleApi.RequireFunction {
-}
+interface NodeRequire extends __ParcelModuleApi.RequireFunction {}
 
 declare var require: NodeRequire;
 
@@ -169,8 +168,8 @@ interface NodeModule extends __ParcelModuleApi.Module {}
 declare var module: NodeModule;
 
 /**
-* Declare process variable
-*/
+ * Declare process variable
+ */
 declare namespace NodeJS {
     interface Process extends __ParcelModuleApi.NodeProcess {}
 }

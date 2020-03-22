@@ -48,7 +48,7 @@ fooContainer = document.getElementById('fooContainer');
 sr = ScrollReveal();
 sr.reveal('.foo', { container: fooContainer });
 var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
+xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == XMLHttpRequest.DONE) {
         if (xmlhttp.status == 200) {
             // Turn our response into HTML...

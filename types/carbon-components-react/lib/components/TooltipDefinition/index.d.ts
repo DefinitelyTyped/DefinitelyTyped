@@ -1,2 +1,2 @@
-export * from "./TooltipDefinition";
-export { default } from "./TooltipDefinition";
+export * from './TooltipDefinition';
+export { default } from './TooltipDefinition';

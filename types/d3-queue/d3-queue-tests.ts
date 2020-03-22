@@ -44,9 +44,7 @@ function getFileStats(path: string, callback: (error: any | null, stats?: any) =
     // magically get file stats and behave like fs.stat when invoking the callback
 }
 
-qWithResults
-    .defer(getFileStats, './workingpath/file1.json')
-    .defer(getFileStats, './yetanotherworkingpath/file2.json');
+qWithResults.defer(getFileStats, './workingpath/file1.json').defer(getFileStats, './yetanotherworkingpath/file2.json');
 
 // Await Tasks Completion =============================================
 
@@ -60,15 +58,15 @@ qNoResult = qNoResult.await((error) => {
 // Task with Results -------------------------------------------------
 
 // await
-qWithResults
-    .await((error, file1Stat, file2Stat) => {
-        if (error) throw error;
-        console.log(file1Stat, file2Stat);
-    });
+qWithResults.await((error, file1Stat, file2Stat) => {
+    if (error) throw error;
+    console.log(file1Stat, file2Stat);
+});
 
 // awaitAll
 
-qWithResults = d3Queue.queue()
+qWithResults = d3Queue
+    .queue()
     .defer(getFileStats, './workingpath/file1.json')
     .defer(getFileStats, './yetanotherworkingpath/file2.json')
     .awaitAll((error, fileStats) => {
@@ -82,7 +80,8 @@ function requestDataFromInterWeb(url: string, callback: (error: any | null, data
     // magically get data from the interweb, e.g. like d3-request would, while supporting an abort() method
 }
 
-qWithResults = d3Queue.queue()
+qWithResults = d3Queue
+    .queue()
     .defer(requestDataFromInterWeb, 'http://www.example.org:81')
     .defer(requestDataFromInterWeb, 'http://www.example.org:81')
     .awaitAll((error, results) => {

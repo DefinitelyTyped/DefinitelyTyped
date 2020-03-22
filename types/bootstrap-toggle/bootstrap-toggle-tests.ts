@@ -1,6 +1,6 @@
 import 'bootstrap-toggle';
 
-const $elem = $("#toggle");
+const $elem = $('#toggle');
 
 // Test Initialise Cases
 $elem.bootstrapToggle();
@@ -16,23 +16,23 @@ $elem.bootstrapToggle({
     size: 'normal',
     style: '',
     width: null,
-    height: null
+    height: null,
 });
 
 $elem.bootstrapToggle({
     width: 100,
-    height: 100
+    height: 100,
 });
 
 $elem.bootstrapToggle({
-    width: "100%",
-    height: "100%"
+    width: '100%',
+    height: '100%',
 });
 
 // Methods
-$elem.bootstrapToggle("destroy");
-$elem.bootstrapToggle("on");
-$elem.bootstrapToggle("off");
-$elem.bootstrapToggle("toggle");
-$elem.bootstrapToggle("enable");
-$elem.bootstrapToggle("disable");
+$elem.bootstrapToggle('destroy');
+$elem.bootstrapToggle('on');
+$elem.bootstrapToggle('off');
+$elem.bootstrapToggle('toggle');
+$elem.bootstrapToggle('enable');
+$elem.bootstrapToggle('disable');

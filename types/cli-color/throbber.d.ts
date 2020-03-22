@@ -15,5 +15,9 @@ declare namespace setupThrobber {
 /**
  * Writes throbber string to *write* function at given *interval*. Optionally throbber output can be formatted with given *format* function
  */
-declare function setupThrobber(write: (str: string) => void, interval: number, format?: (throbber: string) => string): setupThrobber.Throbber;
+declare function setupThrobber(
+    write: (str: string) => void,
+    interval: number,
+    format?: (throbber: string) => string,
+): setupThrobber.Throbber;
 export = setupThrobber;

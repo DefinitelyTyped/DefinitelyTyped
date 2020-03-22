@@ -7,23 +7,23 @@ import SelectInput, { ItemOfSelectInput } from 'ink-select-input';
 // `allowSyntheticDefaultImports` flag in compiler options needs to be set to `true`
 
 const items: ReadonlyArray<ItemOfSelectInput> = [
-	{
-		label: 'First',
-		value: 'first',
-		key: 0,
-	},
-	{
-		label: 'Second',
-		value: 'second',
-	},
-	{
-		label: 'Third',
-		value: 'third',
-	},
+    {
+        label: 'First',
+        value: 'first',
+        key: 0,
+    },
+    {
+        label: 'Second',
+        value: 'second',
+    },
+    {
+        label: 'Third',
+        value: 'third',
+    },
 ];
 
 class Demo extends React.PureComponent {
-	handleSelect = (item: ItemOfSelectInput) => {};
+    handleSelect = (item: ItemOfSelectInput) => {};
 
     render() {
         return <SelectInput items={items} onSelect={this.handleSelect} />;

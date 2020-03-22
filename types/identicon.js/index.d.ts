@@ -10,7 +10,7 @@ export interface IdenticonOptions {
     foreground?: Color;
     margin?: number;
     size?: number;
-    format?: "svg" | "png";
+    format?: 'svg' | 'png';
 }
 
 export interface PNGlib {
@@ -47,7 +47,7 @@ export interface Svg {
             width: number;
             height: number;
             color: Color;
-        }
+        },
     ];
 
     /**
@@ -75,7 +75,7 @@ export default class Identicon {
     foreground: Color;
     background: Color;
     size: number;
-    format: "svg" | "png";
+    format: 'svg' | 'png';
     margin: number;
 
     constructor(hash: string, size?: number);
@@ -100,14 +100,7 @@ export default class Identicon {
      * @param color The color.
      * @param image The image.
      */
-    rectangle(
-        x: number,
-        y: number,
-        w: number,
-        h: number,
-        color: Color,
-        image: Svg | PNGlib
-    ): void;
+    rectangle(x: number, y: number, w: number, h: number, color: Color, image: Svg | PNGlib): void;
 
     /**
      * Converts from hsl to rgb.

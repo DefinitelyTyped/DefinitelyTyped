@@ -5,16 +5,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { Component, ReactNode } from "react";
-import { ContentBlock, EditorState } from "draft-js";
-import draftjs = require("draft-js");
+import { Component, ReactNode } from 'react';
+import { ContentBlock, EditorState } from 'draft-js';
+import draftjs = require('draft-js');
 
-type CustomBlockFn = (
-    element: Element
-) => undefined | null | CustomBlockObject;
+type CustomBlockFn = (element: Element) => undefined | null | CustomBlockObject;
 type CustomInlineFn = (
     element: Element,
-    inlineCreators: InlineCreators
+    inlineCreators: InlineCreators,
 ) => undefined | null | Style | draftjs.EntityInstance;
 
 interface CustomBlockObject {
@@ -28,7 +26,7 @@ interface InlineCreators {
 }
 
 interface Style {
-    type: "STYLE";
+    type: 'STYLE';
     style: string;
 }
 
@@ -39,10 +37,7 @@ interface ImportOptions {
     customInlineFn?: CustomInlineFn;
 }
 
-declare function stateFromHTML(
-    html: string,
-    options?: ImportOptions
-): draftjs.ContentState;
+declare function stateFromHTML(html: string, options?: ImportOptions): draftjs.ContentState;
 
 type BlockStyleFn = (block: draftjs.ContentBlock) => RenderConfig;
 type EntityStyleFn = (entity: draftjs.EntityInstance) => RenderConfig;
@@ -60,10 +55,7 @@ interface ExportOptions {
     entityStyleFn?: EntityStyleFn;
 }
 
-declare function stateToHTML(
-    content: draftjs.ContentState,
-    options?: ExportOptions
-): string;
+declare function stateToHTML(content: draftjs.ContentState, options?: ExportOptions): string;
 
 interface StringMap {
     [key: string]: string;
@@ -74,19 +66,10 @@ export class EditorValue {
     getEditorState(): EditorState;
     setEditorState(editorState: EditorState): EditorValue;
     toString(format: string, options?: ExportOptions): string;
-    setContentFromString(
-        markup: string,
-        format: string,
-        options?: ImportOptions
-    ): EditorValue;
+    setContentFromString(markup: string, format: string, options?: ImportOptions): EditorValue;
     static createEmpty(decorator?: any): EditorValue;
     static createFromState(editorState: EditorState): EditorValue;
-    static createFromString(
-        markup: string,
-        format: string,
-        decorator?: any,
-        options?: ImportOptions
-    ): EditorValue;
+    static createFromString(markup: string, format: string, decorator?: any, options?: ImportOptions): EditorValue;
 }
 
 interface StyleConfig {
@@ -103,21 +86,17 @@ type GetControlState = (key: string) => string | undefined;
 
 type SetControlState = (key: string, value: string) => void;
 
-type CustControlFunc = (
-    set: SetControlState,
-    get: GetControlState,
-    state: EditorState
-) => ReactNode;
+type CustControlFunc = (set: SetControlState, get: GetControlState, state: EditorState) => ReactNode;
 
 type CustomControl = ReactNode | CustControlFunc;
 
 type GroupName =
-    | "INLINE_STYLE_BUTTONS"
-    | "BLOCK_TYPE_BUTTONS"
-    | "LINK_BUTTONS"
-    | "BLOCK_TYPE_DROPDOWN"
-    | "HISTORY_BUTTONS"
-    | "IMAGE_BUTTON";
+    | 'INLINE_STYLE_BUTTONS'
+    | 'BLOCK_TYPE_BUTTONS'
+    | 'LINK_BUTTONS'
+    | 'BLOCK_TYPE_DROPDOWN'
+    | 'HISTORY_BUTTONS'
+    | 'IMAGE_BUTTON';
 
 interface ToolbarConfig {
     display: GroupName[];
@@ -150,11 +129,7 @@ interface Props {
 
 declare class RichTextEditor extends Component<Props, any> {
     static createEmptyValue(): EditorValue;
-    static createValueFromString(
-        markup: string,
-        format: string,
-        options?: ImportOptions
-    ): EditorValue;
+    static createValueFromString(markup: string, format: string, options?: ImportOptions): EditorValue;
 }
 
 export default RichTextEditor;

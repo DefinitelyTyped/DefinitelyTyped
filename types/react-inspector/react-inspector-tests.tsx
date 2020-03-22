@@ -14,12 +14,7 @@ class TestInspector extends React.Component {
                     sortObjectKeys
                     theme={'chromeLight'}
                 />
-                <Inspector
-                    table
-                    data={{ foo: 'bar' }}
-                    columns={['foo']}
-                    theme={'chromeLight'}
-                />
+                <Inspector table data={{ foo: 'bar' }} columns={['foo']} theme={'chromeLight'} />
             </>
         );
     }
@@ -44,25 +39,13 @@ class TestObjectInspector extends React.Component {
 class TestDomInspector extends React.Component {
     render() {
         return (
-            <DOMInspector
-                data={{ foo: 'bar' }}
-                name="test"
-                expandLevel={1}
-                expandPaths={'foo'}
-                theme={'chromeLight'}
-            />
+            <DOMInspector data={{ foo: 'bar' }} name="test" expandLevel={1} expandPaths={'foo'} theme={'chromeLight'} />
         );
     }
 }
 
 class TestTableInspector extends React.Component {
     render() {
-        return (
-            <TableInspector
-                data={{ foo: 'bar' }}
-                columns={['foo']}
-                theme={'chromeLight'}
-            />
-        );
+        return <TableInspector data={{ foo: 'bar' }} columns={['foo']} theme={'chromeLight'} />;
     }
 }

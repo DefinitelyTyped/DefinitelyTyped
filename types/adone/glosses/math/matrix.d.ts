@@ -411,8 +411,14 @@ declare namespace adone.math {
              * @param arg additional argument to pass to fn
              * @returns a
              */
-            function forEach(a: Float32Array, stride: number, offset: number, count: number,
-                                    fn: (a: I.vec2 | number[], b: I.vec2 | number[], arg: any) => void, arg: any): Float32Array;
+            function forEach(
+                a: Float32Array,
+                stride: number,
+                offset: number,
+                count: number,
+                fn: (a: I.vec2 | number[], b: I.vec2 | number[], arg: any) => void,
+                arg: any,
+            ): Float32Array;
 
             /**
              * Perform some operation over an array of vec2s.
@@ -424,8 +430,13 @@ declare namespace adone.math {
              * @param fn Function to call for each vector in the array
              * @returns a
              */
-            function forEach(a: Float32Array, stride: number, offset: number, count: number,
-                                    fn: (a: I.vec2 | number[], b: I.vec2 | number[]) => void): Float32Array;
+            function forEach(
+                a: Float32Array,
+                stride: number,
+                offset: number,
+                count: number,
+                fn: (a: I.vec2 | number[], b: I.vec2 | number[]) => void,
+            ): Float32Array;
 
             /**
              * Returns a string representation of a vector
@@ -781,7 +792,14 @@ declare namespace adone.math {
              * @param t interpolation amount between the two inputs
              * @returns out
              */
-            function hermite(out: I.vec3, a: I.vec3 | number[], b: I.vec3 | number[], c: I.vec3 | number[], d: I.vec3 | number[], t: number): I.vec3;
+            function hermite(
+                out: I.vec3,
+                a: I.vec3 | number[],
+                b: I.vec3 | number[],
+                c: I.vec3 | number[],
+                d: I.vec3 | number[],
+                t: number,
+            ): I.vec3;
 
             /**
              * Performs a bezier interpolation with two control points
@@ -794,7 +812,14 @@ declare namespace adone.math {
              * @param t interpolation amount between the two inputs
              * @returns out
              */
-            function bezier(out: I.vec3, a: I.vec3 | number[], b: I.vec3 | number[], c: I.vec3 | number[], d: I.vec3 | number[], t: number): I.vec3;
+            function bezier(
+                out: I.vec3,
+                a: I.vec3 | number[],
+                b: I.vec3 | number[],
+                c: I.vec3 | number[],
+                d: I.vec3 | number[],
+                t: number,
+            ): I.vec3;
 
             /**
              * Generates a random unit vector
@@ -834,14 +859,14 @@ declare namespace adone.math {
              */
             function transformMat4(out: I.vec3, a: I.vec3 | number[], m: I.mat4): I.vec3;
 
-             /**
-              * Transforms the vec3 with a quat
-              *
-              * @param out the receiving vector
-              * @param a the vector to transform
-              * @param q quaternion to transform with
-              * @returns out
-              */
+            /**
+             * Transforms the vec3 with a quat
+             *
+             * @param out the receiving vector
+             * @param a the vector to transform
+             * @param q quaternion to transform with
+             * @returns out
+             */
             function transformQuat(out: I.vec3, a: I.vec3 | number[], q: I.quat): I.vec3;
 
             /**
@@ -885,8 +910,14 @@ declare namespace adone.math {
              * @param arg additional argument to pass to fn
              * @returns a
              */
-            function forEach(a: Float32Array, stride: number, offset: number, count: number,
-                                  fn: (a: I.vec3 | number[], b: I.vec3 | number[], arg: any) => void, arg: any): Float32Array;
+            function forEach(
+                a: Float32Array,
+                stride: number,
+                offset: number,
+                count: number,
+                fn: (a: I.vec3 | number[], b: I.vec3 | number[], arg: any) => void,
+                arg: any,
+            ): Float32Array;
 
             /**
              * Perform some operation over an array of vec3s.
@@ -898,8 +929,13 @@ declare namespace adone.math {
              * @param fn Function to call for each vector in the array
              * @returns a
              */
-            function forEach(a: Float32Array, stride: number, offset: number, count: number,
-                                  fn: (a: I.vec3 | number[], b: I.vec3 | number[]) => void): Float32Array;
+            function forEach(
+                a: Float32Array,
+                stride: number,
+                offset: number,
+                count: number,
+                fn: (a: I.vec3 | number[], b: I.vec3 | number[]) => void,
+            ): Float32Array;
 
             /**
              * Get the angle between two 3D vectors
@@ -1293,8 +1329,14 @@ declare namespace adone.math {
              * @param arg additional argument to pass to fn
              * @returns a
              */
-            function forEach(a: Float32Array, stride: number, offset: number, count: number,
-                                  fn: (a: I.vec4 | number[], b: I.vec4 | number[], arg: any) => void, arg: any): Float32Array;
+            function forEach(
+                a: Float32Array,
+                stride: number,
+                offset: number,
+                count: number,
+                fn: (a: I.vec4 | number[], b: I.vec4 | number[], arg: any) => void,
+                arg: any,
+            ): Float32Array;
 
             /**
              * Perform some operation over an array of vec4s.
@@ -1306,8 +1348,13 @@ declare namespace adone.math {
              * @param fn Function to call for each vector in the array
              * @returns a
              */
-            function forEach(a: Float32Array, stride: number, offset: number, count: number,
-                                  fn: (a: I.vec4 | number[], b: I.vec4 | number[]) => void): Float32Array;
+            function forEach(
+                a: Float32Array,
+                stride: number,
+                offset: number,
+                count: number,
+                fn: (a: I.vec4 | number[], b: I.vec4 | number[]) => void,
+            ): Float32Array;
 
             /**
              * Returns a string representation of a vector
@@ -1909,7 +1956,17 @@ declare namespace adone.math {
              * @param m22 Component in column 2, row 2 position (index 8)
              * @returns A new mat3
              */
-            function fromValues(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): I.mat3;
+            function fromValues(
+                m00: number,
+                m01: number,
+                m02: number,
+                m10: number,
+                m11: number,
+                m12: number,
+                m20: number,
+                m21: number,
+                m22: number,
+            ): I.mat3;
 
             /**
              * Set the components of a mat3 to the given values
@@ -1926,7 +1983,18 @@ declare namespace adone.math {
              * @param m22 Component in column 2, row 2 position (index 8)
              * @returns out
              */
-            function set(out: I.mat3, m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): I.mat3;
+            function set(
+                out: I.mat3,
+                m00: number,
+                m01: number,
+                m02: number,
+                m10: number,
+                m11: number,
+                m12: number,
+                m20: number,
+                m21: number,
+                m22: number,
+            ): I.mat3;
 
             /**
              * Set a mat3 to the identity matrix
@@ -2244,7 +2312,7 @@ declare namespace adone.math {
                 m30: number,
                 m31: number,
                 m32: number,
-                m33: number
+                m33: number,
             ): I.mat4;
 
             /**
@@ -2286,7 +2354,7 @@ declare namespace adone.math {
                 m30: number,
                 m31: number,
                 m32: number,
-                m33: number
+                m33: number,
             ): I.mat4;
 
             /**
@@ -2559,7 +2627,12 @@ declare namespace adone.math {
              * @param s Scaling vector
              * @returns out
              */
-            function fromRotationTranslationScale(out: I.mat4, q: I.quat, v: I.vec3 | number[], s: I.vec3 | number[]): I.mat4;
+            function fromRotationTranslationScale(
+                out: I.mat4,
+                q: I.quat,
+                v: I.vec3 | number[],
+                s: I.vec3 | number[],
+            ): I.mat4;
 
             /**
              * Creates a matrix from a quaternion rotation, vector translation and vector scale, rotating and scaling around the given origin
@@ -2581,7 +2654,13 @@ declare namespace adone.math {
              * @param o The origin vector around which to scale and rotate
              * @returns out
              */
-            function fromRotationTranslationScaleOrigin(out: I.mat4, q: I.quat, v: I.vec3 | number[], s: I.vec3 | number[], o: I.vec3 | number[]): I.mat4;
+            function fromRotationTranslationScaleOrigin(
+                out: I.mat4,
+                q: I.quat,
+                v: I.vec3 | number[],
+                s: I.vec3 | number[],
+                o: I.vec3 | number[],
+            ): I.mat4;
 
             /**
              * Calculates a 4x4 matrix from the given quaternion
@@ -2605,8 +2684,15 @@ declare namespace adone.math {
              * @param far Far bound of the frustum
              * @returns out
              */
-            function frustum(out: I.mat4, left: number, right: number,
-                                  bottom: number, top: number, near: number, far: number): I.mat4;
+            function frustum(
+                out: I.mat4,
+                left: number,
+                right: number,
+                bottom: number,
+                top: number,
+                near: number,
+                far: number,
+            ): I.mat4;
 
             /**
              * Generates a perspective projection matrix with the given bounds
@@ -2618,8 +2704,7 @@ declare namespace adone.math {
              * @param far Far bound of the frustum
              * @returns out
              */
-            function perspective(out: I.mat4, fovy: number, aspect: number,
-                                      near: number, far: number): I.mat4;
+            function perspective(out: I.mat4, fovy: number, aspect: number, near: number, far: number): I.mat4;
 
             /**
              * Generates a perspective projection matrix with the given field of view.
@@ -2635,13 +2720,13 @@ declare namespace adone.math {
             function perspectiveFromFieldOfView(
                 out: I.mat4,
                 fov: {
-                    upDegrees: number,
-                    downDegrees: number,
-                    leftDegrees: number,
-                    rightDegrees: number
+                    upDegrees: number;
+                    downDegrees: number;
+                    leftDegrees: number;
+                    rightDegrees: number;
                 },
                 near: number,
-                far: number
+                far: number,
             ): I.mat4;
 
             /**
@@ -2656,7 +2741,15 @@ declare namespace adone.math {
              * @param far Far bound of the frustum
              * @returns out
              */
-            function ortho(out: I.mat4, left: number, right: number, bottom: number, top: number, near: number, far: number): I.mat4;
+            function ortho(
+                out: I.mat4,
+                left: number,
+                right: number,
+                bottom: number,
+                top: number,
+                near: number,
+                far: number,
+            ): I.mat4;
 
             /**
              * Generates a look-at matrix with the given eye position, focal point, and up axis
@@ -2667,7 +2760,12 @@ declare namespace adone.math {
              * @param up vec3 pointing up
              * @returns out
              */
-            function lookAt(out: I.mat4, eye: I.vec3 | number[], center: I.vec3 | number[], up: I.vec3 | number[]): I.mat4;
+            function lookAt(
+                out: I.mat4,
+                eye: I.vec3 | number[],
+                center: I.vec3 | number[],
+                up: I.vec3 | number[],
+            ): I.mat4;
 
             /**
              * Returns a string representation of a mat4
@@ -2854,7 +2952,12 @@ declare namespace adone.math {
              * @param up    the vector representing the local "up" direction
              * @returns out
              */
-            function setAxes(out: I.quat, view: I.vec3 | number[], right: I.vec3 | number[], up: I.vec3 | number[]): I.quat;
+            function setAxes(
+                out: I.quat,
+                view: I.vec3 | number[],
+                right: I.vec3 | number[],
+                up: I.vec3 | number[],
+            ): I.quat;
 
             /**
              * Sets the specified quaternion with values corresponding to the given
@@ -2867,7 +2970,12 @@ declare namespace adone.math {
              * @param up    the vector representing the local "up" direction
              * @returns out
              */
-            function setAxes(out: I.quat, view: I.vec3 | number[], right: I.vec3 | number[], up: I.vec3 | number[]): I.quat;
+            function setAxes(
+                out: I.quat,
+                view: I.vec3 | number[],
+                right: I.vec3 | number[],
+                up: I.vec3 | number[],
+            ): I.quat;
 
             /**
              * Sets a quat from the given angle and rotation axis,

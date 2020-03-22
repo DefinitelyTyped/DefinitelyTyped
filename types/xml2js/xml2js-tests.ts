@@ -2,51 +2,59 @@ import xml2js = require('xml2js');
 import * as processors from 'xml2js/lib/processors';
 import fs = require('fs');
 
-xml2js.parseString('<root>Hello xml2js!</root>', (err: Error, result: any) => { });
+xml2js.parseString('<root>Hello xml2js!</root>', (err: Error, result: any) => {});
 
 xml2js.parseStringPromise('<root>Hello xml2js!</root>');
 
-xml2js.parseString('<root>Hello xml2js!</root>', {trim: true}, (err: Error, result: any) => { });
+xml2js.parseString('<root>Hello xml2js!</root>', { trim: true }, (err: Error, result: any) => {});
 
-xml2js.parseStringPromise('<root>Hello xml2js!</root>', {trim: true});
+xml2js.parseStringPromise('<root>Hello xml2js!</root>', { trim: true });
 
-xml2js.parseString('<root>Hello xml2js!</root>', {
-    attrkey: '$',
-    charkey: '_',
-    explicitCharkey: false,
-    trim: false,
-    normalizeTags: false,
-    explicitRoot: true,
-    emptyTag: '',
-    explicitArray: true,
-    ignoreAttrs: false,
-    mergeAttrs: false,
-    validator: undefined,
-    xmlns: false,
-    explicitChildren: false,
-    childkey: '$$',
-    preserveChildrenOrder: false,
-    charsAsChildren: false,
-    includeWhiteChars: false,
-    async: false,
-    strict: true,
-    attrNameProcessors: undefined,
-    attrValueProcessors: undefined,
-    tagNameProcessors: undefined,
-    valueProcessors: undefined
-}, (err: Error, result: any) => { });
+xml2js.parseString(
+    '<root>Hello xml2js!</root>',
+    {
+        attrkey: '$',
+        charkey: '_',
+        explicitCharkey: false,
+        trim: false,
+        normalizeTags: false,
+        explicitRoot: true,
+        emptyTag: '',
+        explicitArray: true,
+        ignoreAttrs: false,
+        mergeAttrs: false,
+        validator: undefined,
+        xmlns: false,
+        explicitChildren: false,
+        childkey: '$$',
+        preserveChildrenOrder: false,
+        charsAsChildren: false,
+        includeWhiteChars: false,
+        async: false,
+        strict: true,
+        attrNameProcessors: undefined,
+        attrValueProcessors: undefined,
+        tagNameProcessors: undefined,
+        valueProcessors: undefined,
+    },
+    (err: Error, result: any) => {},
+);
 
-xml2js.parseString('<root>Hello xml2js!</root>', {
-    attrNameProcessors: [processors.firstCharLowerCase, xml2js.processors.normalize],
-    attrValueProcessors: [processors.normalize],
-    tagNameProcessors: [processors.stripPrefix],
-    valueProcessors: [processors.parseBooleans, processors.parseNumbers]
-}, (err: Error, result: any) => { });
+xml2js.parseString(
+    '<root>Hello xml2js!</root>',
+    {
+        attrNameProcessors: [processors.firstCharLowerCase, xml2js.processors.normalize],
+        attrValueProcessors: [processors.normalize],
+        tagNameProcessors: [processors.stripPrefix],
+        valueProcessors: [processors.parseBooleans, processors.parseNumbers],
+    },
+    (err: Error, result: any) => {},
+);
 
 let builder = new xml2js.Builder({
     renderOpts: {
-        pretty: false
-    }
+        pretty: false,
+    },
 });
 
 builder = new xml2js.Builder({
@@ -54,26 +62,26 @@ builder = new xml2js.Builder({
     renderOpts: {
         pretty: true,
         indent: ' ',
-        newline: '\n'
+        newline: '\n',
     },
     xmldec: {
         version: '1.0',
         encoding: 'UTF-8',
-        standalone: true
+        standalone: true,
     },
     doctype: { ext: 'hello.dtd' },
     headless: false,
-    cdata: false
+    cdata: false,
 });
 
 const outString = builder.buildObject({
-    hello: 'xml2js!'
+    hello: 'xml2js!',
 });
 
 const parser = new xml2js.Parser();
 
 parser.on('end', (result: any) => {
-    console.log("Parser Finished");
+    console.log('Parser Finished');
     return;
 });
 
@@ -90,7 +98,7 @@ fs.readFile(__dirname + '/foo.xml', (err, data) => {
         console.log('Done parseString');
     });
 
-    parser.parseStringPromise(data).then(result => {
+    parser.parseStringPromise(data).then((result) => {
         console.dir(result);
         console.log('Done parseStringPromise');
     });

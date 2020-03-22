@@ -1,4 +1,3 @@
-
 import * as xmltojson from 'xmltojson';
 
 //Set options
@@ -16,8 +15,8 @@ var options: xmltojson.Options = {
     attrsAsObject: true,
     stripAttrPrefix: true,
     stripElemPrefix: true,
-    childrenAsArray: true
-}
+    childrenAsArray: true,
+};
 
 //Validate parseString(xmlString, opt)
 var xmlString: string = '<xml><a>It Works!</a></xml>';

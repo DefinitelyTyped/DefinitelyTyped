@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import { Submittable, Connection } from "pg";
-import { Transform, TransformOptions } from "stream";
+import { Submittable, Connection } from 'pg';
+import { Transform, TransformOptions } from 'stream';
 
 export function from(txt: string, options?: TransformOptions): CopyStreamQuery;
 export function to(txt: string, options?: TransformOptions): CopyToStreamQuery;

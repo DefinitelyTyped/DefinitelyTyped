@@ -5,7 +5,7 @@ import {
     ResolverRequest,
     LoggingCallbackWrapper,
     AbstractInputFileSystem,
-    ResolveContext
+    ResolveContext,
 } from './common-types';
 
 declare class Resolver extends Tapable {

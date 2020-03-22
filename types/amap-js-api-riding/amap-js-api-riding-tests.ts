@@ -14,7 +14,7 @@ const riding = new AMap.Riding({
     hideMarkers: false,
     isOutline: true,
     outlineColor: 'color',
-    autoFitView: true
+    autoFitView: true,
 });
 
 // $ExpectType void

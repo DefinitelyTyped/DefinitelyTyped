@@ -53,27 +53,27 @@ class MyMap extends React.Component<{}, State> {
                     {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
                     ref={this.setRefInteractive}
-                    onViewportChange={viewport => this.setState({ viewport })}
+                    onViewportChange={(viewport) => this.setState({ viewport })}
                     onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
                     <GeolocateControl
                         className="test-class"
                         style={{ marginTop: '8px' }}
-                        onGeolocate={options => {
+                        onGeolocate={(options) => {
                             console.log(options.enableHighAccuracy);
                         }}
                     />
                     <ScaleControl unit="nautical" />
                     <CanvasOverlay
-                        redraw={opts => {
+                        redraw={(opts) => {
                             const { ctx, height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                             ctx.clearRect(0, 0, width, height);
                         }}
                     />
                     <CanvasOverlay
-                        redraw={opts => {}}
+                        redraw={(opts) => {}}
                         captureScroll={true}
                         captureDrag={true}
                         captureClick={true}
@@ -81,7 +81,7 @@ class MyMap extends React.Component<{}, State> {
                     />
                     <SVGOverlay redraw={() => {}} />
                     <SVGOverlay
-                        redraw={opts => {
+                        redraw={(opts) => {
                             const { height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                         }}
@@ -92,7 +92,7 @@ class MyMap extends React.Component<{}, State> {
                     />
                     <HTMLOverlay redraw={() => {}} />
                     <HTMLOverlay
-                        redraw={opts => {
+                        redraw={(opts) => {
                             const { height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                         }}
@@ -128,9 +128,9 @@ class MyMap extends React.Component<{}, State> {
 
     private readonly setRefInteractive = (el: InteractiveMap) => {
         this.map = el.getMap();
-    }
+    };
 
     private readonly setRefStatic = (el: StaticMap) => {
         this.map = el.getMap();
-    }
+    };
 }

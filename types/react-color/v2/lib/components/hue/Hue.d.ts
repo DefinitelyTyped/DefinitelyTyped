@@ -1,5 +1,5 @@
-import { Component, ComponentType, CSSProperties } from "react";
-import { CustomPickerProps } from "../../..";
+import { Component, ComponentType, CSSProperties } from 'react';
+import { CustomPickerProps } from '../../..';
 
 export interface HuePickerDefaultStyle {
     picker?: CSSProperties;
@@ -13,7 +13,7 @@ export interface HuePickerStyle {
 export interface HuePickerProps extends CustomPickerProps {
     height?: string;
     width?: string;
-    direction?: "vertical" | "horizontal";
+    direction?: 'vertical' | 'horizontal';
     pointer?: ComponentType;
     styles?: HuePickerStyle;
     className?: string;

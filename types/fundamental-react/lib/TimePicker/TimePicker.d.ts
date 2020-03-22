@@ -1,5 +1,5 @@
-import * as React from "react";
-import { TimeBaseProps } from "../Time/Time";
+import * as React from 'react';
+import { TimeBaseProps } from '../Time/Time';
 
 export type TimePickerProps = TimeBaseProps & {
     buttonProps?: { [x: string]: any };
@@ -17,7 +17,7 @@ export type TimePickerProps = TimeBaseProps & {
 } & { [x: string]: any };
 
 declare class TimePicker extends React.Component<TimePickerProps> {
-    static displayName: "TimePicker";
+    static displayName: 'TimePicker';
 }
 
 export default TimePicker;

@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-
-
 interface IOptions {
     modifyVars?: {};
     paths?: string[];
@@ -16,6 +14,6 @@ interface IOptions {
 
 declare function less(options?: IOptions): NodeJS.ReadWriteStream;
 
-declare namespace less { }
+declare namespace less {}
 
 export = less;

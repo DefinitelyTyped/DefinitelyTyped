@@ -30,7 +30,7 @@ const MyApp: React.FC = () => (
 
 const ToastConsumerTest: React.FC = () => (
     <ToastConsumer>
-        {context => (
+        {(context) => (
             <div>
                 <button
                     onClick={() =>

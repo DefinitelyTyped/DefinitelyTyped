@@ -91,8 +91,8 @@ declare namespace M {
 
 interface JQuery {
     // Pick<T,K> to check methods exist.
-    autocomplete(method: keyof Pick<M.Autocomplete, "open" | "close" | "destroy">): JQuery;
-    autocomplete(method: keyof Pick<M.Autocomplete, "selectOption">, el: Element): JQuery;
-    autocomplete(method: keyof Pick<M.Autocomplete, "updateData">, data: M.AutocompleteData): JQuery;
+    autocomplete(method: keyof Pick<M.Autocomplete, 'open' | 'close' | 'destroy'>): JQuery;
+    autocomplete(method: keyof Pick<M.Autocomplete, 'selectOption'>, el: Element): JQuery;
+    autocomplete(method: keyof Pick<M.Autocomplete, 'updateData'>, data: M.AutocompleteData): JQuery;
     autocomplete(options?: Partial<M.AutocompleteOptions>): JQuery;
 }

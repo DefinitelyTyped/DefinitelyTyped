@@ -40,42 +40,45 @@ const opts: json2csv.Options<Car> = {
 
         // Supports label -> simple path
         {
-        label: 'some label', // (optional, column will be labeled 'path.to.something' if not defined)
-        value: 'path.to.something', // data.path.to.something
-        default: 'NULL' // default if value is not found (optional, overrides `defaultValue` for column)
+            label: 'some label', // (optional, column will be labeled 'path.to.something' if not defined)
+            value: 'path.to.something', // data.path.to.something
+            default: 'NULL', // default if value is not found (optional, overrides `defaultValue` for column)
         },
 
         // Supports label -> derived value
         {
-        label: 'some label', // Soptional, column will be labeled with the function name or empty if the function is anonymous)
-        value: (row: Car, field: json2csv.FieldValueCallbackInfo) => {
-            if (field) {
-                return (row as any)[field.label].toLowerCase() || field.default;
-            }
-        },
-        default: 'NULL', // default if value function returns null or undefined
-        },
-
-        // Supports label -> derived value
-        {
-        value: (row: Car) => row.car
+            label: 'some label', // Soptional, column will be labeled with the function name or empty if the function is anonymous)
+            value: (row: Car, field: json2csv.FieldValueCallbackInfo) => {
+                if (field) {
+                    return (row as any)[field.label].toLowerCase() || field.default;
+                }
+            },
+            default: 'NULL', // default if value function returns null or undefined
         },
 
         // Supports label -> derived value
         {
-        value: (row: Car) => `"${row.car}"`,
-        stringify: false // This flag signals if the resulting string should be quoted (stringified) or not (optional, default: true)
+            value: (row: Car) => row.car,
         },
-    ]
+
+        // Supports label -> derived value
+        {
+            value: (row: Car) => `"${row.car}"`,
+            stringify: false, // This flag signals if the resulting string should be quoted (stringified) or not (optional, default: true)
+        },
+    ],
 };
 
-const data = [{
-    car: 'VW Beetle',
-    price: 1395
-}, {
-    car: 'VW T1',
-    price: 1357
-}];
+const data = [
+    {
+        car: 'VW Beetle',
+        price: 1395,
+    },
+    {
+        car: 'VW T1',
+        price: 1357,
+    },
+];
 
 // Test for Synchronous Parser
 try {
@@ -110,15 +113,15 @@ const asyncParser = new AsyncParser(opts, transformOpts);
 
 let csv = '';
 asyncParser.processor
-    .on('data', chunk => (csv += chunk.toString()))
+    .on('data', (chunk) => (csv += chunk.toString()))
     .on('end', () => console.log(csv))
-    .on('error', err => console.error(err));
+    .on('error', (err) => console.error(err));
 
 // Test for transform events
 asyncParser.transform
-    .on('header', header => console.log(header))
-    .on('line', line => console.log(line))
-    .on('error', err => console.log(err));
+    .on('header', (header) => console.log(header))
+    .on('line', (line) => console.log(line))
+    .on('error', (err) => console.log(err));
 
 asyncParser.input.push(data); // This data might come from an HTTP request, etc.
 asyncParser.input.push(null); // Sending `null` to a stream signal that no more data is expected and ends it.
@@ -126,21 +129,23 @@ asyncParser.input.push(null); // Sending `null` to a stream signal that no more 
 const input = createReadStream('/path/to/input', { encoding: 'utf8' });
 const output = createWriteStream('path/to/output', { encoding: 'utf8' });
 
-asyncParser.fromInput(input).promise()
-    .then(csv => console.log(csv))
-    .catch(err => console.error(err));
+asyncParser
+    .fromInput(input)
+    .promise()
+    .then((csv) => console.log(csv))
+    .catch((err) => console.error(err));
 
 asyncParser.fromInput(input).toOutput(output);
 
 // Test convenience method "parseAsync" with object input
 parseAsync(data, opts)
-    .then(csv => console.log(csv))
-    .catch(err => console.error(err));
+    .then((csv) => console.log(csv))
+    .catch((err) => console.error(err));
 
 // Test convenience method "parseAsync" with stream input
 parseAsync(input, opts)
-    .then(csv => console.log(csv))
-    .catch(err => console.error(err));
+    .then((csv) => console.log(csv))
+    .catch((err) => console.error(err));
 
 /********************
  * Internal Methods *
@@ -165,8 +170,18 @@ class ParserExt extends Parser<ExampleObj> {
         s = this.processRow({ str: '', num: 1, obj: {} });
         s = this.processCell({}, { label: 'test', default: 'test2', value: 'field' });
         s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: 'field' });
-        s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string' });
-        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object) => 'string' });
+        s = this.processCell(
+            {},
+            {
+                label: 'test',
+                default: 'test2',
+                value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string',
+            },
+        );
+        s = this.processCell(
+            { str: '', num: 1, obj: {} },
+            { label: 'test', default: 'test2', value: (row: object) => 'string' },
+        );
         this.getValue({}, { value: 'test' });
         this.getValue({ str: '', num: 1, obj: {} }, { value: 'test' });
         s = this.processValue(undefined, true);
@@ -199,8 +214,18 @@ class TransformExt extends Transform<ExampleObj> {
         s = this.processRow({ str: '', num: 1, obj: {} });
         s = this.processCell({}, { label: 'test', default: 'test2', value: 'field' });
         s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: 'field' });
-        s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string' });
-        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object) => 'string' });
+        s = this.processCell(
+            {},
+            {
+                label: 'test',
+                default: 'test2',
+                value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string',
+            },
+        );
+        s = this.processCell(
+            { str: '', num: 1, obj: {} },
+            { label: 'test', default: 'test2', value: (row: object) => 'string' },
+        );
         this.getValue({}, { value: 'test' });
         this.getValue({ str: '', num: 1, obj: {} }, { value: 'test' });
         s = this.processValue(undefined, true);

@@ -10,7 +10,6 @@
 
 /// <reference types="node" />
 
-
 export = tape;
 
 /**
@@ -24,7 +23,6 @@ declare function tape(cb: tape.TestCase): void;
 declare function tape(opts: tape.TestOptions, cb: tape.TestCase): void;
 
 declare namespace tape {
-
     interface TestCase {
         (test: Test): void;
     }
@@ -33,8 +31,8 @@ declare namespace tape {
      * Available opts options for the tape function.
      */
     interface TestOptions {
-        skip?: boolean;		// See tape.skip.
-        timeout?: number;	// Set a timeout for the test, after which it will fail. See tape.timeoutAfter.
+        skip?: boolean; // See tape.skip.
+        timeout?: number; // Set a timeout for the test, after which it will fail. See tape.timeoutAfter.
     }
 
     /**

@@ -29,7 +29,7 @@ declare namespace StylelintWebpackPlugin {
         plugins?: string[];
         processors?: string[];
         ignoreFiles?: string | string[];
-        defaultSeverity?: "warning" | "error";
+        defaultSeverity?: 'warning' | 'error';
     }
 
     interface Options {
@@ -38,7 +38,7 @@ declare namespace StylelintWebpackPlugin {
         context?: string;
         emitErrors?: boolean;
         failOnError?: boolean;
-        files?: string|string[];
+        files?: string | string[];
         formatter?: Formatter;
         lintDirtyModulesOnly?: boolean;
         syntax?: string;

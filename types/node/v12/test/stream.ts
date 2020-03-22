@@ -1,7 +1,7 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex } from "stream";
-import { promisify } from "util";
-import { createReadStream, createWriteStream } from "fs";
-import { createGzip, constants } from "zlib";
+import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'stream';
+import { promisify } from 'util';
+import { createReadStream, createWriteStream } from 'fs';
+import { createGzip, constants } from 'zlib';
 import { ok as assert } from 'assert';
 
 // Simplified constructors
@@ -18,7 +18,7 @@ function simplified_stream_ctor_test() {
             error;
             // $ExpectType (error: Error | null) => void
             cb;
-        }
+        },
     });
 
     new Writable({
@@ -53,7 +53,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
-        }
+        },
     });
 
     new Duplex({
@@ -98,7 +98,7 @@ function simplified_stream_ctor_test() {
         readableObjectMode: true,
         writableObjectMode: true,
         readableHighWaterMark: 2048,
-        writableHighWaterMark: 1024
+        writableHighWaterMark: 1024,
     });
 
     new Transform({
@@ -158,7 +158,7 @@ function simplified_stream_ctor_test() {
         readableObjectMode: true,
         writableObjectMode: true,
         readableHighWaterMark: 2048,
-        writableHighWaterMark: 1024
+        writableHighWaterMark: 1024,
     });
 }
 

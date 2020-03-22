@@ -44,10 +44,10 @@ const _ = (
         css={{ background: '#eee' }}
         sx={{ py: [1, 2, 3], paddingBlockStart: '2em' }}
         px={[3, 2, 1]}
-        ref={ref => ref}
+        ref={(ref) => ref}
     >
         <Box
-            onPointerEnter={e => e.pointerType}
+            onPointerEnter={(e) => e.pointerType}
             sx={{
                 ':first-of-type': {
                     bg: 'red',
@@ -55,7 +55,7 @@ const _ = (
             }}
         />
         <Flex />
-        <Grid width={[128, null, 192]} backgroundColor="#eee" ref={ref => ref}>
+        <Grid width={[128, null, 192]} backgroundColor="#eee" ref={(ref) => ref}>
             <Box bg="primary">Box</Box>
             <Box bg="muted">Box</Box>
             <Box bg="primary">Box</Box>
@@ -68,20 +68,20 @@ const _ = (
             <Box bg="muted">Box</Box>
         </Grid>
         <Button
-            ref={ref => ref}
+            ref={(ref) => ref}
             sx={{
                 ':hover': {
                     bg: ['red', 'green', 'blue'],
                 },
             }}
         />
-        <Link href="#" target="_self" bg="blue" ref={r => r} />
+        <Link href="#" target="_self" bg="blue" ref={(r) => r} />
         <Text backgroundColor="red" sx={{ py: 1 }} paddingX={[3, 2, 1]} />
         <Heading contentEditable="true" m="1em" />
         <Image />
         <Card />
         <Label />
-        <Input value="Hello" onChange={e => console.log(e.target.value)} />
+        <Input value="Hello" onChange={(e) => console.log(e.target.value)} />
         <Select defaultValue="Hello">
             <option>Hello</option>
             <option>Hi</option>
@@ -124,7 +124,7 @@ const _ = (
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => console.log(e.target.value)}
             px={[1, 2, 3]}
         />
-        <Box as="form" onSubmit={e => e.preventDefault()}>
+        <Box as="form" onSubmit={(e) => e.preventDefault()}>
             <Label htmlFor="username">Username</Label>
             <Input name="username" mb={3} />
             <Label htmlFor="password">Password</Label>

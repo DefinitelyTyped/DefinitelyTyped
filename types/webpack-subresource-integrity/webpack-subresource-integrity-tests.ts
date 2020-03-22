@@ -5,11 +5,11 @@ const config: webpack.Configuration = {
     plugins: [
         new SriPlugin(),
         new SriPlugin({
-            hashFuncNames: ['sha256', 'sha384']
+            hashFuncNames: ['sha256', 'sha384'],
         }),
         new SriPlugin({
             enabled: false,
-            hashFuncNames: ['sha256']
-        })
-    ]
+            hashFuncNames: ['sha256'],
+        }),
+    ],
 };

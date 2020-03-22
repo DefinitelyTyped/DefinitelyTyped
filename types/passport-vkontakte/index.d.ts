@@ -40,21 +40,18 @@ export type VerifyFunctionWithParams = (
     refreshToken: string,
     params: Params,
     profile: Profile,
-    done: VerifyCallback
+    done: VerifyCallback,
 ) => void;
 
 export type VerifyFunction = (
     accessToken: string,
     refreshToken: string,
     profile: Profile,
-    done: VerifyCallback
+    done: VerifyCallback,
 ) => void;
 
 export class Strategy implements passport.Strategy {
-    constructor(
-        options: StrategyOptions,
-        verify: VerifyFunctionWithParams | VerifyFunction
-    );
+    constructor(options: StrategyOptions, verify: VerifyFunctionWithParams | VerifyFunction);
 
     name: string;
     authenticate: (req: express.Request, options?: object) => void;

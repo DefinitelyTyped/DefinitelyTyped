@@ -1,10 +1,19 @@
 declare namespace AMap {
     namespace LabelMarker {
-        interface EventMap<I = LabelMarker> extends LabelsLayer.EventMap<I> { }
+        interface EventMap<I = LabelMarker> extends LabelsLayer.EventMap<I> {}
 
         type TextDirection = 'top' | 'right' | 'bottom' | 'left' | 'center';
         type FontWeight = 'normal' | 'thin' | 'bold';
-        type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+        type Anchor =
+            | 'top-left'
+            | 'top-center'
+            | 'top-right'
+            | 'middle-left'
+            | 'center'
+            | 'middle-right'
+            | 'bottom-left'
+            | 'bottom-center'
+            | 'bottom-right';
         interface TextStyle {
             fontSize?: number;
             fontFamily?: string;
@@ -90,7 +99,7 @@ declare namespace AMap {
             handler: (this: C, event: any) => void,
             context?: C,
             once?: boolean,
-            unshift?: boolean
+            unshift?: boolean,
         ): any; // should be void
         /**
          * 移除事件绑定
@@ -98,11 +107,7 @@ declare namespace AMap {
          * @param handler 事件功能函数
          * @param context 事件上下文
          */
-        off<C = this>(
-            eventName: string,
-            handler: ((this: C, event: any) => void) | 'mv',
-            context?: C
-        ): any; // should be void
+        off<C = this>(eventName: string, handler: ((this: C, event: any) => void) | 'mv', context?: C): any; // should be void
 
         // internal
         getBounds(): Bounds;

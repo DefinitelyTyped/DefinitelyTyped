@@ -1,12 +1,7 @@
-import * as HashRing from "hashring";
+import * as HashRing from 'hashring';
 
-const ring = new HashRing([
-  '127.0.0.1',
-  '127.0.0.2',
-  '127.0.0.3',
-  '127.0.0.4'
-], 'md5', {
-  'max cache size': 10000
+const ring = new HashRing(['127.0.0.1', '127.0.0.2', '127.0.0.3', '127.0.0.4'], 'md5', {
+    'max cache size': 10000,
 });
 
 ring.get('foo bar banana');

@@ -8,8 +8,8 @@ class ReactMicTest extends React.Component {
             <ReactMic
                 record={true}
                 className="sound-wave"
-                onStop={data => console.log(data)}
-                onData={data => console.log(data)}
+                onStop={(data) => console.log(data)}
+                onData={(data) => console.log(data)}
                 strokeColor="#000000"
                 backgroundColor="#FF4081"
             />

@@ -7,4 +7,4 @@ validate('123numeric'); // $ExpectType Result
 validate('@npm/thingy'); // $ExpectType Result
 validate('@jane/foo.js'); // $ExpectType Result
 
-validate.scopedPackagePattern;  // $ExpectType RegExp
+validate.scopedPackagePattern; // $ExpectType RegExp

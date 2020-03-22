@@ -3,9 +3,9 @@
 // Definitions by: Linkun Chen <https://github.com/lk-chen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as d3 from "d3";
+import * as d3 from 'd3';
 
-declare module "d3" {
+declare module 'd3' {
     export function slider(): Slider;
 
     interface Slider {
@@ -30,6 +30,6 @@ declare module "d3" {
         snap(val: boolean): Slider;
         scale(): any;
         scale(val: any): Slider;
-        on(evt: ("slide" | "slideend"), callback: (evt: any, val: any) => void): Slider;
+        on(evt: 'slide' | 'slideend', callback: (evt: any, val: any) => void): Slider;
     }
 }

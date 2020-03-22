@@ -2,28 +2,21 @@ import * as gulp from 'gulp';
 import * as undertaker from 'undertaker';
 import * as registry from 'undertaker-registry';
 
-const minify: () => any = () => { };
-const jade: () => any = () => { };
-const someplugin: () => any = () => { };
-const promisedDel: (list: string[]) => any = (list) => { };
-const del: (pattern: string | string[]) => any = (pattern) => { };
+const minify: () => any = () => {};
+const jade: () => any = () => {};
+const someplugin: () => any = () => {};
+const promisedDel: (list: string[]) => any = (list) => {};
+const del: (pattern: string | string[]) => any = (pattern) => {};
 
-gulp.src('client/templates/*.jade')
-    .pipe(jade())
-    .pipe(minify())
-    .pipe(gulp.dest('build/minified_templates'));
+gulp.src('client/templates/*.jade').pipe(jade()).pipe(minify()).pipe(gulp.dest('build/minified_templates'));
 
 // exclude every JS file that starts with a b except bad.js
 gulp.src(['*.js', '!b*.js', 'bad.js']);
 
 // Matches 'client/js/somedir/somefile.js' and resolves `base` to `client/js/`
-gulp.src('client/js/**/*.js')
-    .pipe(minify())
-    .pipe(gulp.dest('build'));  // Writes 'build/somedir/somefile.js'
+gulp.src('client/js/**/*.js').pipe(minify()).pipe(gulp.dest('build')); // Writes 'build/somedir/somefile.js'
 
-gulp.src('client/js/**/*.js', { base: 'client' })
-    .pipe(minify())
-    .pipe(gulp.dest('build'));  // Writes 'build/js/somedir/somefile.js'
+gulp.src('client/js/**/*.js', { base: 'client' }).pipe(minify()).pipe(gulp.dest('build')); // Writes 'build/js/somedir/somefile.js'
 
 // Emits an error if app/scripts.js doesn't exist
 gulp.src('app/scripts.js');
@@ -50,10 +43,10 @@ const someNextTask = () => {
 
 gulp.task(someTask);
 
-const foo: gulp.TaskFunction = () => { };
+const foo: gulp.TaskFunction = () => {};
 foo.displayName === 'foo'; // true
 
-const bar: gulp.TaskFunction = () => { };
+const bar: gulp.TaskFunction = () => {};
 bar.displayName === ''; // true
 
 bar.displayName = 'bar';
@@ -68,9 +61,7 @@ gulp.task(test);
 gulp.task('clean', () => del(['.build/']));
 
 gulp.task('somename', () => {
-    return gulp.src('client/**/*.js')
-        .pipe(minify())
-        .pipe(gulp.dest('build'));
+    return gulp.src('client/**/*.js').pipe(minify()).pipe(gulp.dest('build'));
 });
 
 gulp.task('clean', () => {
@@ -87,10 +78,13 @@ gulp.task('two', (done) => {
     done();
 });
 
-gulp.task('default', gulp.parallel('one', 'two', (done) => {
-    // do more stuff
-    done();
-}));
+gulp.task(
+    'default',
+    gulp.parallel('one', 'two', (done) => {
+        // do more stuff
+        done();
+    }),
+);
 
 gulp.task('one', (done) => {
     // do stuff
@@ -102,10 +96,13 @@ gulp.task('two', (done) => {
     done();
 });
 
-gulp.task('default', gulp.series('one', 'two', (done) => {
-    // do more stuff
-    done();
-}));
+gulp.task(
+    'default',
+    gulp.series('one', 'two', (done) => {
+        // do more stuff
+        done();
+    }),
+);
 
 gulp.watch('js/**/*.js', gulp.parallel('concat', 'uglify'));
 
@@ -136,13 +133,15 @@ gulp.task('three', (done) => {
 
 gulp.task('four', gulp.series('one', 'two'));
 
-gulp.task('five',
-    gulp.series('four',
+gulp.task(
+    'five',
+    gulp.series(
+        'four',
         gulp.parallel('three', (done) => {
             // do more stuff
             done();
-        })
-    )
+        }),
+    ),
 );
 
 gulp.tree();
@@ -155,13 +154,16 @@ const companyTasks = {} as registry;
 
 gulp.registry(companyTasks);
 
-gulp.task('one', gulp.parallel('someCompanyTask', (done) => {
-    console.log('in task one');
-    done();
-}));
+gulp.task(
+    'one',
+    gulp.parallel('someCompanyTask', (done) => {
+        console.log('in task one');
+        done();
+    }),
+);
 
-gulp.symlink("path/to/dir");
+gulp.symlink('path/to/dir');
 
 gulp.symlink(() => {
-    return "resolved/path/to/dir";
+    return 'resolved/path/to/dir';
 });

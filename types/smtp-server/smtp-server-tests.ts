@@ -1,5 +1,13 @@
 import { AddressInfo } from 'net';
-import { SMTPServer, SMTPServerAddress, SMTPServerAuthentication, SMTPServerAuthenticationResponse, SMTPServerDataStream, SMTPServerOptions, SMTPServerSession } from 'smtp-server';
+import {
+    SMTPServer,
+    SMTPServerAddress,
+    SMTPServerAuthentication,
+    SMTPServerAuthenticationResponse,
+    SMTPServerDataStream,
+    SMTPServerOptions,
+    SMTPServerSession,
+} from 'smtp-server';
 import { Readable } from 'stream';
 
 function test_with_handlers_as_options() {
@@ -19,7 +27,11 @@ function test_with_handlers_as_options() {
         callback();
     }
 
-    function onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | undefined, response?: SMTPServerAuthenticationResponse) => void): void {
+    function onAuth(
+        auth: SMTPServerAuthentication,
+        session: SMTPServerSession,
+        callback: (err: Error | undefined, response?: SMTPServerAuthenticationResponse) => void,
+    ): void {
         if (auth.method === 'PLAIN' && auth.username === 'username' && auth.password === 'password') {
             callback(undefined, { user: auth.username });
         } else {
@@ -94,7 +106,11 @@ function test_with_handlers_in_subclass() {
             callback();
         }
 
-        onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void): void {
+        onAuth(
+            auth: SMTPServerAuthentication,
+            session: SMTPServerSession,
+            callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void,
+        ): void {
             if (auth.method === 'PLAIN' && auth.username === 'username' && auth.password === 'password') {
                 callback(undefined, { user: auth.username });
             } else {
@@ -139,7 +155,7 @@ function test_with_handlers_in_subclass() {
     }
 
     const options: SMTPServerOptions = {
-        hideSTARTTLS: true
+        hideSTARTTLS: true,
     };
 
     const port = 2525;

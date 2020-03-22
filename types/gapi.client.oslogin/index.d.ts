@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud OS Login API v1alpha */
-    function load(name: "oslogin", version: "v1alpha"): PromiseLike<void>;
-    function load(name: "oslogin", version: "v1alpha", callback: () => any): void;
+    function load(name: 'oslogin', version: 'v1alpha'): PromiseLike<void>;
+    function load(name: 'oslogin', version: 'v1alpha', callback: () => any): void;
 
     const users: oslogin.UsersResource;
 
@@ -73,7 +73,7 @@ declare namespace gapi.client {
             /** Deletes an SSH public key. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -108,7 +108,7 @@ declare namespace gapi.client {
             /** Retrieves an SSH public key. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -146,7 +146,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -188,7 +188,7 @@ declare namespace gapi.client {
              */
             getLoginProfile(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -223,7 +223,7 @@ declare namespace gapi.client {
              */
             importSshPublicKey(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

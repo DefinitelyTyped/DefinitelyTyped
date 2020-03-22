@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
 declare namespace npmlog {
     // TODO: newStream, newGroup, setGaugeTemplate and setGaugeTemplateSet need to be added
@@ -54,7 +54,7 @@ declare namespace npmlog {
         [key: string]: any;
     }
 
-    type LogLevels = "silly" | "verbose" | "info" | "timing" | "http" | "notice" | "warn" | "error" | "silent";
+    type LogLevels = 'silly' | 'verbose' | 'info' | 'timing' | 'http' | 'notice' | 'warn' | 'error' | 'silent';
 
     interface StyleObject {
         fg?: string;

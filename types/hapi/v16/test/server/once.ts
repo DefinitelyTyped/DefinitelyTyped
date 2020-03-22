@@ -1,4 +1,3 @@
-
 // From https://hapijs.com/api/16.1.1#serveroncecriteria-listener
 
 import * as Hapi from 'hapi';
@@ -11,4 +10,4 @@ server.once('test', (update: Update) => console.log(update));
 type Update = string;
 var toSend: Update = 'hello';
 server.emit('test', toSend);
-server.emit('test', toSend);       // Ignored
+server.emit('test', toSend); // Ignored

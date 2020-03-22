@@ -7,9 +7,9 @@ const logger = pino();
 const httpLogger = pinoHttp();
 
 function handle(req: http.IncomingMessage, res: http.ServerResponse) {
-  httpLogger(req, res);
-  req.log.info('something else: %s', req.id);
-  const err: Error | undefined = res.err;
+    httpLogger(req, res);
+    req.log.info('something else: %s', req.id);
+    const err: Error | undefined = res.err;
 }
 
 pinoHttp({ logger });
@@ -20,4 +20,8 @@ pinoHttp({ useLevel: 'error' });
 pinoHttp({ prettyPrint: true });
 pinoHttp({ autoLogging: false });
 pinoHttp(new Writable());
-pinoHttp({ customLogLevel(req, res) { return 'info'; } });
+pinoHttp({
+    customLogLevel(req, res) {
+        return 'info';
+    },
+});

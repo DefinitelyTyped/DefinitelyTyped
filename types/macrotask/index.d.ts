@@ -6,10 +6,7 @@
 
 export as namespace macrotask;
 
-export function run<TArgs extends any[]>(
-    task: (...args: TArgs) => void,
-    ...args: TArgs
-): CancelToken;
+export function run<TArgs extends any[]>(task: (...args: TArgs) => void, ...args: TArgs): CancelToken;
 
 export function clear(cancel: CancelToken): void;
 

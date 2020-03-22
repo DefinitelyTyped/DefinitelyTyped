@@ -1,9 +1,11 @@
 import * as querystring from 'querystring';
 
-interface SampleObject { [key: string]: string; }
+interface SampleObject {
+    [key: string]: string;
+}
 
 {
-    const obj: SampleObject = { a: "" };
+    const obj: SampleObject = { a: '' };
     const sep = '';
     const eq = '';
     const options: querystring.StringifyOptions = {
@@ -28,7 +30,7 @@ interface SampleObject { [key: string]: string; }
         bar2: [1, 2],
         baz2: [true, false],
         a: undefined,
-        b: null
+        b: null,
     });
 }
 

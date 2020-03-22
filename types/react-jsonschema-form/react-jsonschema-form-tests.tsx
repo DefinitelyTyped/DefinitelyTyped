@@ -60,7 +60,7 @@ const ExampleFieldTemplate = (_props: FieldTemplateProps) => null;
 
 const ExampleArrayFieldTemplate = ({ items }: ArrayFieldTemplateProps) => (
     <div>
-        {items.map(element => (
+        {items.map((element) => (
             <div key={element.key}>{element.children}</div>
         ))}
     </div>
@@ -138,7 +138,7 @@ export class Example extends React.Component<any, IExampleState> {
                         noHtml5Validate={false}
                         formData={this.state}
                         ErrorList={ErrorListExample}
-                        onChange={formData => this.setState({ formData })}
+                        onChange={(formData) => this.setState({ formData })}
                         customFormats={{
                             'phone-us': /\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}$/,
                         }}
@@ -184,19 +184,19 @@ export const FuncExample = (props: FuncExampleProps) => {
     );
 };
 
-export const BooleanCustomWidget: React.SFC<WidgetProps> = props => (
+export const BooleanCustomWidget: React.SFC<WidgetProps> = (props) => (
     <input onFocus={() => props.onFocus('id', true)} onBlur={() => props.onFocus('id', true)} />
 );
 
-export const NumberCustomWidget: React.SFC<WidgetProps> = props => (
+export const NumberCustomWidget: React.SFC<WidgetProps> = (props) => (
     <input onFocus={() => props.onFocus('id', 0)} onBlur={() => props.onFocus('id', 0)} />
 );
 
-export const StringCustomWidget: React.SFC<WidgetProps> = props => (
+export const StringCustomWidget: React.SFC<WidgetProps> = (props) => (
     <input onFocus={() => props.onFocus('id', 'value')} onBlur={() => props.onFocus('id', 'value')} />
 );
 
-export const NullCustomWidget: React.SFC<WidgetProps> = props => (
+export const NullCustomWidget: React.SFC<WidgetProps> = (props) => (
     <input onFocus={() => props.onFocus('id', null)} onBlur={() => props.onFocus('id', null)} />
 );
 
@@ -272,7 +272,7 @@ const TestForm = (props: React.ComponentProps<'form'>) => <form {...props} />;
 export const customTagNameUsingComponent = (schema: JSONSchema6) => {
     return <Form schema={schema} tagName={TestForm} />;
 };
-  
+
 const idSchema: IdSchema<{ test: {} }> = {
     $id: 'test',
     test: {

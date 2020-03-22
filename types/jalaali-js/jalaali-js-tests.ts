@@ -1,14 +1,14 @@
 import {
-  toJalaali,
-  toGregorian,
-  isValidJalaaliDate,
-  isLeapJalaaliYear,
-  jalaaliMonthLength,
-  jalCal,
-  j2d,
-  d2j,
-  g2d,
-  d2g,
+    toJalaali,
+    toGregorian,
+    isValidJalaaliDate,
+    isLeapJalaaliYear,
+    jalaaliMonthLength,
+    jalCal,
+    j2d,
+    d2j,
+    g2d,
+    d2g,
 } from 'jalaali-js';
 
 toJalaali(2016, 4, 11); // { jy: 1395, jm: 1, jd: 23 }

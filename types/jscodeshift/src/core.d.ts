@@ -1,9 +1,9 @@
-import nodes = require("ast-types/gen/nodes");
-import recast = require("recast");
-import Collection = require("./Collection");
-import template = require("./template");
-import VariableDeclarator = require("./collections/VariableDeclarator");
-import JSXElement = require("./collections/JSXElement");
+import nodes = require('ast-types/gen/nodes');
+import recast = require('recast');
+import Collection = require('./Collection');
+import template = require('./template');
+import VariableDeclarator = require('./collections/VariableDeclarator');
+import JSXElement = require('./collections/JSXElement');
 
 declare namespace core {
     type Parser = recast.Parser;
@@ -47,10 +47,7 @@ declare namespace core {
 
         types: typeof recast.default.types;
 
-        match(
-            path: ASTNode | ASTPath,
-            filter: ((path: ASTNode) => boolean) | ASTNode
-        ): boolean;
+        match(path: ASTNode | ASTPath, filter: ((path: ASTNode) => boolean) | ASTNode): boolean;
 
         /** template, bound to default parser */
         template: template.Template;

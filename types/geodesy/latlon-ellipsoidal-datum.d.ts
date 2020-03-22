@@ -13,12 +13,7 @@ declare class LatLonEllipsoidal_Datum extends LatLonEllipsoidal {
     get datum(): Datum;
     static get ellipsoids(): Ellipsoids;
     static get datums(): Datums;
-    static parse(
-        lat: number | string | object,
-        lon?: number,
-        height?: number,
-        datum?: Datum,
-    ): LatLonEllipsoidal_Datum;
+    static parse(lat: number | string | object, lon?: number, height?: number, datum?: Datum): LatLonEllipsoidal_Datum;
     convertDatum(toDatum: Datum): LatLonEllipsoidal_Datum;
     toCartesian(): Cartesian_Datum;
 }
@@ -31,9 +26,4 @@ declare class Cartesian_Datum extends Cartesian {
     convertDatum(toDatum: Datum): Cartesian_Datum;
 }
 
-export {
-    LatLonEllipsoidal_Datum as default,
-    Cartesian_Datum as Cartesian,
-    datums,
-    Dms,
-};
+export { LatLonEllipsoidal_Datum as default, Cartesian_Datum as Cartesian, datums, Dms };

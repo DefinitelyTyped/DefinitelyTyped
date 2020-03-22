@@ -24,7 +24,7 @@ zChat.sendChatMsg('fake_message', fakeCallback);
 zChat.sendChatRating('good', fakeCallback);
 zChat.sendFile(
     fakeFile,
-    (err: zChat.SendFileErrorMessage, data: { mime_type: string; name: string; size: number; url: string }) => 0
+    (err: zChat.SendFileErrorMessage, data: { mime_type: string; name: string; size: number; url: string }) => 0,
 );
 zChat.sendOfflineMsg({ name: 'fake_name', email: 'fake_email', message: 'fake_message' }, fakeCallback);
 zChat.sendTyping(true);

@@ -79,12 +79,7 @@ declare class telebot {
 
     stop(message: string): void;
 
-    getUpdates(
-        offset: number,
-        limit: number,
-        timeout: number,
-        allowed_updates: string | string[]
-    ): void;
+    getUpdates(offset: number, limit: number, timeout: number, allowed_updates: string | string[]): void;
 
     receiveUpdates(updateList: any[]): Promise<any>;
 
@@ -96,17 +91,9 @@ declare class telebot {
 
     removeMod(name: string, fn: telebot.genericCb): boolean;
 
-    on(
-        types: string | string[] | RegExp,
-        fn: telebot.genericCb,
-        opt?: any
-    ): boolean;
+    on(types: string | string[] | RegExp, fn: telebot.genericCb, opt?: any): boolean;
 
-    event(
-        types: string | string[],
-        data: any,
-        self?: any
-    ): Promise<any>;
+    event(types: string | string[], data: any, self?: any): Promise<any>;
 
     cleanEvent(type: string): boolean;
 
@@ -145,20 +132,17 @@ declare class telebot {
             replyMarkup?: any;
             notification?: boolean;
             webPreview?: boolean;
-        }
+        },
     ): any;
 
     forwardMessage(
         chat_id: number | string,
         from_chat_id: number | string,
         message_id: number,
-        opt?: { notification?: boolean }
+        opt?: { notification?: boolean },
     ): any;
 
-    deleteMessage(
-        chat_id: number | string,
-        from_message_id: number
-    ): boolean;
+    deleteMessage(chat_id: number | string, from_message_id: number): boolean;
 
     sendPhoto(
         chat_id: number | string,
@@ -170,7 +154,7 @@ declare class telebot {
             replyToMessage?: number;
             replyMarkup?: any;
             notification?: boolean;
-        }
+        },
     ): any;
 
     sendAudio(
@@ -186,7 +170,7 @@ declare class telebot {
             replyToMessage?: number;
             replyMarkup?: any;
             notification?: boolean;
-        }
+        },
     ): any;
 
     sendDocument(
@@ -199,7 +183,7 @@ declare class telebot {
             replyToMessage?: number;
             replyMarkup?: any;
             notification?: boolean;
-        }
+        },
     ): any;
 
     sendSticker(
@@ -211,7 +195,7 @@ declare class telebot {
             replyToMessage?: number;
             replyMarkup?: any;
             notification?: boolean;
-        }
+        },
     ): any;
 
     sendVideo(
@@ -227,7 +211,7 @@ declare class telebot {
             replyToMessage?: number;
             replyMarkup?: any;
             notification?: boolean;
-        }
+        },
     ): any;
 
     sendVideoNote(
@@ -240,7 +224,7 @@ declare class telebot {
             replyToMessage?: number;
             replyMarkup?: any;
             notification?: boolean;
-        }
+        },
     ): any;
 
     sendVoice(
@@ -254,13 +238,13 @@ declare class telebot {
             replyToMessage?: number;
             replyMarkup?: any;
             notification?: boolean;
-        }
+        },
     ): any;
 
     sendLocation(
         chat_id: number | string,
         coords: [number, number],
-        opt?: { replyToMessage?: number; replyMarkup?: any; notification?: boolean }
+        opt?: { replyToMessage?: number; replyMarkup?: any; notification?: boolean },
     ): any;
 
     sendVenue(
@@ -273,7 +257,7 @@ declare class telebot {
             replyToMessage?: number;
             replyMarkup?: any;
             notification?: boolean;
-        }
+        },
     ): any;
 
     sendContact(
@@ -281,7 +265,7 @@ declare class telebot {
         number: string,
         firstName: string,
         lastName?: string,
-        opt?: { replyToMessage?: number; replyMarkup?: any; notification?: boolean }
+        opt?: { replyToMessage?: number; replyMarkup?: any; notification?: boolean },
     ): any;
 
     sendAction(chat_id: number | string, action: string): boolean;
@@ -289,7 +273,7 @@ declare class telebot {
     sendGame(
         chat_id: number | string,
         game_short_name: string,
-        opt?: { replyToMessage?: number; replyMarkup?: any; notification?: boolean }
+        opt?: { replyToMessage?: number; replyMarkup?: any; notification?: boolean },
     ): any;
 
     setGameScore(
@@ -301,18 +285,12 @@ declare class telebot {
             chatId?: number;
             messageId?: number;
             inlineMessageId?: string;
-        }
+        },
     ): boolean | Error | any;
 
-    getGameHighScores(
-        user_id: number,
-        opt?: { chatId?: number; messageId?: number; inlineMessageId?: string }
-    ): any[];
+    getGameHighScores(user_id: number, opt?: { chatId?: number; messageId?: number; inlineMessageId?: string }): any[];
 
-    getUserProfilePhotos(
-        user_id: number,
-        opt?: { offset?: number; limit?: number }
-    ): any;
+    getUserProfilePhotos(user_id: number, opt?: { offset?: number; limit?: number }): any;
 
     getFile(file_id: string): any;
 
@@ -337,7 +315,7 @@ declare class telebot {
             notification?: boolean;
             replyToMessage?: number;
             replyMarkup?: any;
-        }
+        },
     ): any;
 
     getChat(chat_id: number | string): any;
@@ -355,42 +333,48 @@ declare class telebot {
     unbanChatMember(chat_id: number | string, user_id: number): boolean;
 
     editMessageText(
-        config: {
-            chatId: number | string;
-            messageId: number;
-            inlineMsgId?: number;
-        }|{
-            chatId?: number | string;
-            messageId?: number;
-            inlineMsgId: number;
-        },
-        text: string
+        config:
+            | {
+                  chatId: number | string;
+                  messageId: number;
+                  inlineMsgId?: number;
+              }
+            | {
+                  chatId?: number | string;
+                  messageId?: number;
+                  inlineMsgId: number;
+              },
+        text: string,
     ): any | boolean;
 
     editMessageCaption(
-        config: {
-            chatId: number | string;
-            messageId: number;
-            inlineMsgId?: number;
-        }|{
-            chatId?: number | string;
-            messageId?: number;
-            inlineMsgId: number;
-        },
-        caption: string
+        config:
+            | {
+                  chatId: number | string;
+                  messageId: number;
+                  inlineMsgId?: number;
+              }
+            | {
+                  chatId?: number | string;
+                  messageId?: number;
+                  inlineMsgId: number;
+              },
+        caption: string,
     ): any | boolean;
 
     editMessageReplyMarkup(
-        config: {
-            chatId: number | string;
-            messageId: number;
-            inlineMsgId?: number;
-        }|{
-            chatId?: number | string;
-            messageId?: number;
-            inlineMsgId: number;
-        },
-        replyMarkup: any
+        config:
+            | {
+                  chatId: number | string;
+                  messageId: number;
+                  inlineMsgId?: number;
+              }
+            | {
+                  chatId?: number | string;
+                  messageId?: number;
+                  inlineMsgId: number;
+              },
+        replyMarkup: any,
     ): any | boolean;
 
     answerCallbackQuery(
@@ -400,27 +384,18 @@ declare class telebot {
             url?: string;
             showAlert?: boolean;
             cacheTime?: number;
-        }
+        },
     ): boolean;
 
     answerShippingQuery(
         shipping_query_id: string,
         ok: boolean,
-        opt?: { shippingOptions?: any[]; errorMessage?: string }
+        opt?: { shippingOptions?: any[]; errorMessage?: string },
     ): boolean;
 
-    answerPreCheckoutQuery(
-        pre_checkout_query_id: string,
-        ok: boolean,
-        opt?: { errorMessage?: string }
-    ): boolean;
+    answerPreCheckoutQuery(pre_checkout_query_id: string, ok: boolean, opt?: { errorMessage?: string }): boolean;
 
-    setWebhook(
-        url: string,
-        certificate?: any,
-        allowed_updates?: string[],
-        max_connections?: number
-    ): boolean;
+    setWebhook(url: string, certificate?: any, allowed_updates?: string[], max_connections?: number): boolean;
 
     getWebhookInfo(): any;
 

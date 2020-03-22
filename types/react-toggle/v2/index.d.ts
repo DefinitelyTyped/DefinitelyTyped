@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, InputHTMLAttributes, ReactNode } from "react";
+import { ComponentClass, InputHTMLAttributes, ReactNode } from 'react';
 
 declare namespace Toggle {
     interface ToggleIcons {

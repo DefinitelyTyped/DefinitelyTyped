@@ -4,16 +4,16 @@ $('div').stickem();
 jQuery('div').stickem();
 
 // with options
-$('div').stickem({item:
-    '.stickem',
+$('div').stickem({
+    item: '.stickem',
     container: '.stickem-container',
     stickClass: 'stickit',
-    endStickClass: 'stickit-end'
+    endStickClass: 'stickit-end',
 });
 
 jQuery('div').stickem({
     item: '.stickem',
     container: '.stickem-container',
     stickClass: 'stickit',
-    endStickClass: 'stickit-end'
+    endStickClass: 'stickit-end',
 });

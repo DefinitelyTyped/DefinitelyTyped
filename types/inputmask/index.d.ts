@@ -7,18 +7,21 @@
 // The documentation is mainly copied from the source repo README.
 
 declare namespace Inputmask {
-    type Range = { start: string, end: string } | [string, string];
+    type Range = { start: string; end: string } | [string, string];
 
-    type PositionCaretOnClick =
-        "none" | "lvp" | "radixFocus" | "select" | "ignore";
+    type PositionCaretOnClick = 'none' | 'lvp' | 'radixFocus' | 'select' | 'ignore';
 
-    type InputMode =
-        "verbatim" | "none" | "text" | "decimal" | "numeric" | "tel" | "search" | "email" | "url";
+    type InputMode = 'verbatim' | 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
 
-    type Casing = "upper" | "lower" | "title";
+    type Casing = 'upper' | 'lower' | 'title';
 
-    type DefinitionValidator = (chrs: string, buffer: string[], pos: number, strict: boolean, opts: Options) =>
-        boolean | { pos: number, c: string };
+    type DefinitionValidator = (
+        chrs: string,
+        buffer: string[],
+        pos: number,
+        strict: boolean,
+        opts: Options,
+    ) => boolean | { pos: number; c: string };
 
     interface Options {
         /**
@@ -256,14 +259,23 @@ declare namespace Inputmask {
         /**
          * Hook to postValidate the result from isValid. Useful for validating the entry as a whole.
          */
-        postValidation?: (buffer: string[], pos: number, currentResult: CommandObject, opts: Options) =>
-            boolean | CommandObject;
+        postValidation?: (
+            buffer: string[],
+            pos: number,
+            currentResult: CommandObject,
+            opts: Options,
+        ) => boolean | CommandObject;
         /**
          * Hook to preValidate the input. Useful for validating regardless the definition. When return true, the normal
          * validation kicks in, otherwise it is skipped.
          */
-        preValidation?: (buffer: string[], pos: number, char: string, isSelection: boolean, opts: Options) =>
-            boolean | CommandObject;
+        preValidation?: (
+            buffer: string[],
+            pos: number,
+            char: string,
+            isSelection: boolean,
+            opts: Options,
+        ) => boolean | CommandObject;
         /**
          * The `staticDefinitionSymbol` option is used to indicate that the static entries in the mask can match a
          * certain definition. Especially useful with alternators so that static element in the mask can match
@@ -417,7 +429,7 @@ declare namespace Inputmask {
          *
          * @default { front: "-", back: "" }
          */
-        negationSymbol?: { front: string, back: string };
+        negationSymbol?: { front: string; back: string };
         /**
          * Number of integerDigits
          *
@@ -467,7 +479,7 @@ declare namespace Inputmask {
          *
          * @default "text"
          */
-        inputType?: "text" | "number";
+        inputType?: 'text' | 'number';
         /**
          * Format used to input a date. This option is only effective for the datetime alias.
          *
@@ -628,7 +640,7 @@ declare namespace Inputmask {
          * * `true` => refresh validPositions from the complete buffer .
          * * `{ start: , end: }` => refresh from start to end.
          */
-        refreshFromBuffer?: true | { start: number, end: number };
+        refreshFromBuffer?: true | { start: number; end: number };
     }
 
     interface Static {
@@ -667,15 +679,11 @@ declare namespace Inputmask {
         /**
          * Extends the set of available definitions.
          */
-        extendDefinitions(definitions: {
-            [key: string]: Definition,
-        }): void;
+        extendDefinitions(definitions: { [key: string]: Definition }): void;
         /**
          * Extends the set of available mask aliases.
          */
-        extendAliases(aliases: {
-            [key: string]: Options,
-        }): void;
+        extendAliases(aliases: { [key: string]: Options }): void;
         /**
          * Instead of masking an input element it is also possible to use the inputmask for formatting given values.
          * Think of formatting values to show in jqGrid or on other elements then inputs.
@@ -723,31 +731,31 @@ declare global {
         /**
          * Return the default (empty) mask value.
          */
-        inputmask(method: "getemptymask"): string; // tslint:disable-line:unified-signatures
+        inputmask(method: 'getemptymask'): string; // tslint:disable-line:unified-signatures
         /**
          * The metadata of the actual mask provided in the mask definitions can be obtained by calling getmetadata. If
          * only a mask is provided the mask definition will be returned by the getmetadata.
          */
-        inputmask(method: "getmetadata"): any;
+        inputmask(method: 'getmetadata'): any;
         /**
          * Check whether the returned value is masked or not; currently only works reliably when using `jquery.val` fn
          * to retrieve the value
          */
-        inputmask(method: "hasMaskedValue"): boolean; // tslint:disable-line:unified-signatures
+        inputmask(method: 'hasMaskedValue'): boolean; // tslint:disable-line:unified-signatures
         /**
          * Verify whether the current value is complete or not.
          */
-        inputmask(method: "isComplete"): boolean; // tslint:disable-line:unified-signatures
+        inputmask(method: 'isComplete'): boolean; // tslint:disable-line:unified-signatures
         /**
          * Validate a given value against the mask.
          */
-        inputmask(method: "isValid"): boolean; // tslint:disable-line:unified-signatures
+        inputmask(method: 'isValid'): boolean; // tslint:disable-line:unified-signatures
         /**
          * Get an option on an existing inputmask.
          *
          * @param key Name of option to retrieve.
          */
-        inputmask(method: "option", key: string): any;
+        inputmask(method: 'option', key: string): any;
         /**
          * Set an option on an existing inputmask. The option method is intented for adding extra options like
          * callbacks, etc at a later time to the mask.
@@ -755,11 +763,11 @@ declare global {
          * When extra options are set the mask is automatically reapplied, unless you pas true for the `noremask`
          * argument.
          */
-        inputmask(method: "option", opts: Inputmask.Options, noremask?: boolean): Inputmask.Instance;
+        inputmask(method: 'option', opts: Inputmask.Options, noremask?: boolean): Inputmask.Instance;
         /**
          * Remove the inputmask.
          */
-        inputmask(method: "remove"): void;
+        inputmask(method: 'remove'): void;
         /**
          * The `setvalue` functionality is to set a value to the inputmask like you would do with `jQuery.val`, BUT it
          * will trigger the internal event used by the inputmask always, whatever the case. This is particular useful
@@ -768,11 +776,11 @@ declare global {
          * masking. However when setting the value with jQuery.val there is none of the events triggered in that case.
          * The `setvalue` functionality does this for you.
          */
-        inputmask(method: "setValue", value: string): void;
+        inputmask(method: 'setValue', value: string): void;
         /**
          * Gets the unmasked value.
          */
-        inputmask(method: "unmaskedvalue"): string; // tslint:disable-line:unified-signatures
+        inputmask(method: 'unmaskedvalue'): string; // tslint:disable-line:unified-signatures
         /**
          * Creates a new Inputmask instance.
          *

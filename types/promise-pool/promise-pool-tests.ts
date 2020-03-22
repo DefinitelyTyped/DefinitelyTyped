@@ -1,5 +1,4 @@
-
-﻿import Q = require('q');
+import Q = require('q');
 import promisePool = require('promise-pool');
 
 var pool = new promisePool.Pool<number>((taskDataId, index) => {
@@ -9,8 +8,7 @@ var pool = new promisePool.Pool<number>((taskDataId, index) => {
     });
 }, 20);
 
-pool
-    .pause()
+pool.pause()
     .delay(5000)
     .then(function () {
         pool.resume();
@@ -23,16 +21,15 @@ pool.retryIntervalMultiplier == 0;
 
 pool.add(0);
 
-pool
-    .start(onProgress)
-    .then(result => {
+pool.start(onProgress)
+    .then((result) => {
         result.total == 0;
         return pool.reset();
     })
     .then(() => {
         return pool.start(onProgress);
     })
-    .then(result => {
+    .then((result) => {
         result.total == 0;
         return pool.reset();
     })

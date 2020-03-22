@@ -1,2 +1,2 @@
-import { isSafeInteger } from "./index";
+import { isSafeInteger } from './index';
 export = isSafeInteger;

@@ -46,11 +46,7 @@ declare class AuthenticationContext {
      * @param expectedState A unique identifier (guid).
      * @param callback The callback provided by the caller. It will be called with token or error.
      */
-    registerCallback(
-        expectedState: string,
-        resource: string,
-        callback: AuthenticationContext.TokenCallback
-    ): void;
+    registerCallback(expectedState: string, resource: string, callback: AuthenticationContext.TokenCallback): void;
     /**
      * Acquires token from the cache if it is not expired. Otherwise sends request to AAD to obtain a new token.
      * @param resource Resource URI identifying the target resource.
@@ -68,7 +64,7 @@ declare class AuthenticationContext {
         resource: string,
         extraQueryParameters: string | null | undefined,
         claims: string | null | undefined,
-        callback: AuthenticationContext.TokenCallback
+        callback: AuthenticationContext.TokenCallback,
     ): void;
     /**
      * Acquires token (interactive flow using a redirect) by sending request to AAD to obtain a new token. In this case the callback passed in the authentication request constructor will be called.
@@ -76,11 +72,7 @@ declare class AuthenticationContext {
      * @param extraQueryParameters Query parameters to add to the authentication request.
      * @param claims Claims to add to the authentication request.
      */
-    acquireTokenRedirect(
-        resource: string,
-        extraQueryParameters?: string | null,
-        claims?: string | null
-    ): void;
+    acquireTokenRedirect(resource: string, extraQueryParameters?: string | null, claims?: string | null): void;
     /**
      * Redirects the browser to Azure AD authorization endpoint.
      * @param urlNavigate URL of the authorization endpoint.
@@ -192,9 +184,9 @@ declare namespace AuthenticationContext {
 
     type LoggingLevel = 0 | 1 | 2 | 3;
 
-    type RequestType = "LOGIN" | "RENEW_TOKEN" | "UNKNOWN";
+    type RequestType = 'LOGIN' | 'RENEW_TOKEN' | 'UNKNOWN';
 
-    type ResponseType = "id_token token" | "token";
+    type ResponseType = 'id_token token' | 'token';
 
     interface RequestInfo {
         /**
@@ -230,11 +222,7 @@ declare namespace AuthenticationContext {
         profile: any;
     }
 
-    type TokenCallback = (
-        errorDesc: string | null,
-        token: string | null,
-        error: any
-    ) => void;
+    type TokenCallback = (errorDesc: string | null, token: string | null, error: any) => void;
 
     type UserCallback = (errorDesc: string | null, user: UserInfo | null) => void;
 
@@ -297,7 +285,7 @@ declare namespace AuthenticationContext {
         /**
          * Sets browser storage to either 'localStorage' or sessionStorage'. Defaults to `sessionStorage`.
          */
-        cacheLocation?: "localStorage" | "sessionStorage";
+        cacheLocation?: 'localStorage' | 'sessionStorage';
         /**
          * Array of keywords or URIs. Adal will attach a token to outgoing requests that have these keywords or URIs.
          */

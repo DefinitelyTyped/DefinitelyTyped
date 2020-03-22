@@ -1,4 +1,4 @@
-import { SQSEvent, SQSHandler } from "aws-lambda";
+import { SQSEvent, SQSHandler } from 'aws-lambda';
 
 // TODO: Update test to read all event properties, like the user will.
 

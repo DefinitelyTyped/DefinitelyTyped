@@ -1,9 +1,4 @@
-import {
-    TypeNode,
-    DocumentNode,
-    DirectiveLocationEnum,
-    ValueNode,
-} from 'graphql';
+import { TypeNode, DocumentNode, DirectiveLocationEnum, ValueNode } from 'graphql';
 import { Field as IRField } from './IR';
 
 export type AbstractTypeID = any;
@@ -21,16 +16,16 @@ export type TypeID = any;
 export type UnionTypeID = any;
 
 export type Argument = Readonly<{
-    name: string,
-    type: InputTypeID,
-    defaultValue: any
+    name: string;
+    type: InputTypeID;
+    defaultValue: any;
 }>;
 
 export type Directive = Readonly<{
-    args: ReadonlyArray<Argument>,
-    isClient: boolean,
-    locations: ReadonlyArray<DirectiveLocationEnum>,
-    name: string
+    args: ReadonlyArray<Argument>;
+    isClient: boolean;
+    locations: ReadonlyArray<DirectiveLocationEnum>;
+    name: string;
 }>;
 
 export interface Schema {
@@ -74,8 +69,8 @@ export interface Schema {
     getEnumValues: (type: EnumTypeID) => string[];
     getFieldByName: (type: CompositeTypeID | InputObjectTypeID, fieldName: string) => FieldID | null | undefined;
     getFieldArgs: (field: FieldID) => ReadonlyArray<Argument>;
-    getFieldArgByName: (field: FieldID, argName: string) => Argument | null  | undefined;
-    getFieldConfig: (field: FieldID) => { type: TypeID, args: ReadonlyArray<Argument> };
+    getFieldArgByName: (field: FieldID, argName: string) => Argument | null | undefined;
+    getFieldConfig: (field: FieldID) => { type: TypeID; args: ReadonlyArray<Argument> };
     getFieldName: (field: FieldID) => string;
     getFieldParentType: (field: FieldID) => TypeID;
     getFields: (type: TypeID) => FieldID[];

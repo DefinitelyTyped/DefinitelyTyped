@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react";
+import { Component, ReactNode } from 'react';
 
 export type EndHandler = (node: HTMLElement, done: () => void) => void;
 export type EnterHandler = (node: HTMLElement, isAppearing: boolean) => void;
@@ -103,15 +103,10 @@ interface BaseTransitionProps {
      * ```
      */
     children?: TransitionChildren;
-    [ prop: string ]: any;
+    [prop: string]: any;
 }
 
-export type TransitionStatus =
-    typeof ENTERING |
-    typeof ENTERED |
-    typeof EXITING |
-    typeof EXITED |
-    typeof UNMOUNTED;
+export type TransitionStatus = typeof ENTERING | typeof ENTERED | typeof EXITING | typeof EXITED | typeof UNMOUNTED;
 export type TransitionChildren = ReactNode | ((status: TransitionStatus) => ReactNode);
 
 interface TimeoutProps extends BaseTransitionProps {
@@ -134,7 +129,7 @@ interface TimeoutProps extends BaseTransitionProps {
      * - enter defaults to `0`
      * - exit defaults to `0`
      */
-    timeout: number | { appear?: number, enter?: number, exit?: number };
+    timeout: number | { appear?: number; enter?: number; exit?: number };
 
     /**
      * Add a custom transition end trigger. Called with the transitioning DOM
@@ -164,7 +159,7 @@ interface EndListenerProps extends BaseTransitionProps {
      * - enter defaults to `0`
      * - exit defaults to `0`
      */
-    timeout?: number | { appear?: number, enter?: number, exit?: number };
+    timeout?: number | { appear?: number; enter?: number; exit?: number };
     /**
      * Add a custom transition end trigger. Called with the transitioning DOM
      * node and a done callback. Allows for more fine grained transition end

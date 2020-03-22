@@ -19,7 +19,7 @@ declare class Pool<T extends pg.Client> extends pg.Pool {
 }
 
 declare namespace Pool {
-    type ClientLikeCtr<T extends pg.Client> = new(config?: string | pg.ClientConfig) => T;
+    type ClientLikeCtr<T extends pg.Client> = new (config?: string | pg.ClientConfig) => T;
 
     interface Config<T extends pg.Client> extends pg.PoolConfig {
         Client?: ClientLikeCtr<T>;

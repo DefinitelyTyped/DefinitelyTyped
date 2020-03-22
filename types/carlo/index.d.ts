@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Serializable, Browser, Page } from "puppeteer-core";
+import { Serializable, Browser, Page } from 'puppeteer-core';
 
 export type Channel = string;
 
@@ -21,7 +21,10 @@ export type Channel = string;
  * If the function passed to the Window.evaluate returns a non-Serializable value,
  * then Window.evaluate resolves to undefined.
  */
-export type EvaluateFunction = (pageFunction: ((...args: any[]) => any) | string, ...args: Serializable[]) => Promise<Serializable>;
+export type EvaluateFunction = (
+    pageFunction: ((...args: any[]) => any) | string,
+    ...args: Serializable[]
+) => Promise<Serializable>;
 
 export interface WindowOptions {
     /**
@@ -386,7 +389,9 @@ export function enterTestMode(): void;
  *
  * @param file File to get additional information for
  */
-export function fileInfo(file: any): Promise<{
+export function fileInfo(
+    file: any,
+): Promise<{
     /**
      * absolute path to the given file
      */

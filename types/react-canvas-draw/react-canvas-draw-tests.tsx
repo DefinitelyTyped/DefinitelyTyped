@@ -3,7 +3,7 @@ import * as React from 'react';
 
 const AllOptions: JSX.Element = (
     <CanvasDraw
-        onChange={canvas => canvas.getSaveData()}
+        onChange={(canvas) => canvas.getSaveData()}
         loadTimeOffset={7}
         lazyRadius={4}
         brushRadius={1}

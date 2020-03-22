@@ -1,7 +1,7 @@
 /* tslint:disable:no-mergeable-namespace no-namespace */
-"use strict";
+'use strict';
 
-import conventionalCommitsParser from "conventional-commits-parser";
+import conventionalCommitsParser from 'conventional-commits-parser';
 
 namespace Module {
     declare const options: conventionalCommitsParser.Options;

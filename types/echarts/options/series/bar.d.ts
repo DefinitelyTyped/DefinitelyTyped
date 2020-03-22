@@ -568,12 +568,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -922,28 +920,31 @@ declare namespace echarts {
                  * "auto"
                  * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.color
                  */
-                color?: string | {
-                    type: 'linear',
-                    x: number,
-                    y: number,
-                    x2: number,
-                    y2: number,
-                    colorStops: {
-                        offset: number,
-                        color: string
-                    }[],
-                    global: boolean
-                } | {
-                    type: 'radial',
-                    x: number,
-                    y: number,
-                    r: number,
-                    colorStops: {
-                        offset: number,
-                        color: string
-                    }[],
-                    global: boolean
-                };
+                color?:
+                    | string
+                    | {
+                          type: 'linear';
+                          x: number;
+                          y: number;
+                          x2: number;
+                          y2: number;
+                          colorStops: {
+                              offset: number;
+                              color: string;
+                          }[];
+                          global: boolean;
+                      }
+                    | {
+                          type: 'radial';
+                          x: number;
+                          y: number;
+                          r: number;
+                          colorStops: {
+                              offset: number;
+                              color: string;
+                          }[];
+                          global: boolean;
+                      };
 
                 /**
                  * The bodrder color of bar.
@@ -1031,12 +1032,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-bar.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1495,12 +1494,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1831,7 +1828,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Bar color..
                      *
@@ -2334,10 +2330,9 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-bar.data
              */
-            data?: (
-                (void | string | number | SeriesBar.DataObject)[]
-                | (void | string | number | SeriesBar.DataObject)[][]
-            );
+            data?:
+                | (void | string | number | SeriesBar.DataObject)[]
+                | (void | string | number | SeriesBar.DataObject)[][];
 
             /**
              * Mark point in a chart.
@@ -2346,7 +2341,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-bar.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2476,7 +2470,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2937,12 +2930,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3272,7 +3263,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3737,12 +3727,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4089,7 +4077,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -4189,7 +4176,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -4324,7 +4310,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -4547,7 +4532,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4649,7 +4633,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -4756,7 +4739,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -5175,12 +5157,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5522,7 +5502,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -5943,12 +5922,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -6406,7 +6383,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-bar.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6459,7 +6435,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -6533,7 +6508,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -6614,7 +6588,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -6720,7 +6693,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -6864,7 +6836,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -6872,7 +6843,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -7101,7 +7071,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7211,7 +7180,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7329,7 +7297,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7405,7 +7372,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -7487,7 +7453,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -7716,7 +7681,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7826,7 +7790,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7944,7 +7907,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -8020,7 +7982,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -8211,7 +8172,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-bar.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -8229,7 +8189,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -8644,12 +8603,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8979,7 +8936,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -9398,12 +9354,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9750,7 +9704,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9850,7 +9803,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -9997,7 +9949,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -10005,7 +9956,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -10104,7 +10054,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -10209,7 +10158,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -10323,7 +10271,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10744,12 +10691,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -11092,7 +11037,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -11527,12 +11471,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -11889,7 +11831,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -11988,7 +11929,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -12093,7 +12033,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -12207,7 +12146,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -12628,12 +12566,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -12976,7 +12912,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -13411,12 +13346,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -14021,7 +13954,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-bar.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -14276,7 +14208,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -14473,7 +14404,6 @@ declare namespace echarts {
 
         namespace SeriesBar {
             interface DataObject {
-
                 /**
                  * The name of data item.
                  *
@@ -14497,7 +14427,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -14914,12 +14843,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -15249,7 +15176,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -15668,12 +15594,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -16017,7 +15941,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Bar color..
                      *
@@ -16113,7 +16036,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Bar color..
                          *
@@ -16200,7 +16122,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-bar.data.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
@@ -16450,7 +16371,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-bar.data.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *

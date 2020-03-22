@@ -10,9 +10,7 @@ import * as ng from 'angular';
 
 declare module 'angular' {
     export namespace cgNotify {
-
         interface INotifyService {
-
             /**
              * The notify function can either be passed a string or an object.
              * This function will return an object with a close() method and a message property.
@@ -66,7 +64,6 @@ declare module 'angular' {
                  */
                 container?: any;
             }): INotify;
-
 
             /**
              * Call config to set the default configuration options for angular-notify.

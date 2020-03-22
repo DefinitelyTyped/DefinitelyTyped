@@ -1,7 +1,7 @@
-import repeating from "repeating";
+import repeating from 'repeating';
 
 repeating(5);
 // => '     '
 
-repeating(3, "unicorn ");
+repeating(3, 'unicorn ');
 // => 'unicorn unicorn unicorn '

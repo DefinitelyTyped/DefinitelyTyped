@@ -18,5 +18,5 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     close?: boolean;
 }
 
-declare class Button<T = {[key: string]: any}> extends React.Component<ButtonProps> {}
+declare class Button<T = { [key: string]: any }> extends React.Component<ButtonProps> {}
 export default Button;

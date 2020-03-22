@@ -47,12 +47,7 @@ export function _x(text: string, context: string, domain?: string): string;
  *                         singular or plural form.
  * @param  domain Domain to retrieve the translated text.
  */
-export function _n(
-    single: string,
-    plural: string,
-    n: number,
-    domain?: string
-): string;
+export function _n(single: string, plural: string, n: number, domain?: string): string;
 
 /**
  * Translates and retrieves the singular or plural form based on the supplied
@@ -67,13 +62,7 @@ export function _n(
  * @param  context Context information for the translators.
  * @param  domain  Domain to retrieve the translated text.
  */
-export function _nx(
-    single: string,
-    plural: string,
-    n: number,
-    context: string,
-    domain?: string
-): string;
+export function _nx(single: string, plural: string, n: number, context: string, domain?: string): string;
 
 /**
  * Returns a formatted string. If an error occurs in applying the format, the

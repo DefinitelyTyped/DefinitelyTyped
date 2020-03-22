@@ -8,5 +8,5 @@ export interface ListGroupItemHeadingProps extends React.HTMLAttributes<HTMLElem
     cssModule?: CSSModule;
 }
 
-declare class ListGroupItemHeading<T = {[key: string]: any}> extends React.Component<ListGroupItemHeadingProps> {}
+declare class ListGroupItemHeading<T = { [key: string]: any }> extends React.Component<ListGroupItemHeadingProps> {}
 export default ListGroupItemHeading;

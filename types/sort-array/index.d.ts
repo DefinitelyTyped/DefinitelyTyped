@@ -9,6 +9,10 @@ type CustomOrderTypes<T> = Array<T[keyof T]>;
 type CustomOrder<T> = Record<keyof T, CustomOrderTypes<T>>;
 
 declare function sortArray<T>(recordset: T[], columnNames: ColumnNames<T>, customOrder?: Partial<CustomOrder<T>>): T[];
-declare function sortArray(recordset: object[], columnNames: string | string[], customOrder?: Record<string, any[]>): object[];
+declare function sortArray(
+    recordset: object[],
+    columnNames: string | string[],
+    customOrder?: Record<string, any[]>,
+): object[];
 
 export = sortArray;

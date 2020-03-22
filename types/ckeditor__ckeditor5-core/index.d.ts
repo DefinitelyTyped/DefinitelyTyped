@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as engine from "ckeditor__ckeditor5-engine";
-import * as ckutils from "ckeditor__ckeditor5-utils";
+import * as engine from 'ckeditor__ckeditor5-engine';
+import * as ckutils from 'ckeditor__ckeditor5-utils';
 
 // TODO: depends on other libraries
 export interface AlignmentConfig {}
@@ -60,7 +60,7 @@ export namespace editor {
         readonly locale: ckutils.Locale;
         readonly model: engine.model.Model;
         readonly plugins: PluginCollection<Plugin<any>>;
-        state: "initializing" | "ready" | "destroyed";
+        state: 'initializing' | 'ready' | 'destroyed';
 
         static builtinPlugins: Array<Plugin<any>>;
         static defaultConfig: object;
@@ -76,10 +76,15 @@ export namespace editor {
         // Emitter
         delegate(...events: string[]): ckutils.EmitterMixinDelegateChain;
         fire(eventOrInfo: string | ckutils.EventInfo<ckutils.Emitter>, ...args: any[]): any;
-        listenTo(emitter: ckutils.Emitter, event: string, callback: Function, options?: {priority?: ckutils.PriorityString | number }): void;
+        listenTo(
+            emitter: ckutils.Emitter,
+            event: string,
+            callback: Function,
+            options?: { priority?: ckutils.PriorityString | number },
+        ): void;
         off(event: string, callback?: Function): void;
-        on(event: string, callback: Function, options?: {priority: ckutils.PriorityString | number}): void;
-        once(event: string, callback: Function, options?: {priority: ckutils.PriorityString | number}): void;
+        on(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
+        once(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
         stopDelegating(event?: string, emitter?: ckutils.Emitter): void;
         stopListening(emitter?: ckutils.Emitter, event?: string, callback?: Function): void;
 
@@ -109,7 +114,7 @@ export namespace editor {
         mediaEmbed: MediaEmbedConfig;
         plugins: Array<string | Plugin>;
         removePlugins: string[];
-        toolbar: string[] | {items: string[]; viewportTopOffset: number; };
+        toolbar: string[] | { items: string[]; viewportTopOffset: number };
         typing: TypingConfig;
     }
 
@@ -128,10 +133,15 @@ export namespace editor {
         // Emitter
         delegate(...events: string[]): ckutils.EmitterMixinDelegateChain;
         fire(eventOrInfo: string | ckutils.EventInfo<ckutils.Emitter>, ...args: any[]): any;
-        listenTo(emitter: ckutils.Emitter, event: string, callback: Function, options?: {priority?: ckutils.PriorityString | number }): void;
+        listenTo(
+            emitter: ckutils.Emitter,
+            event: string,
+            callback: Function,
+            options?: { priority?: ckutils.PriorityString | number },
+        ): void;
         off(event: string, callback?: Function): void;
-        on(event: string, callback: Function, options?: {priority: ckutils.PriorityString | number}): void;
-        once(event: string, callback: Function, options?: {priority: ckutils.PriorityString | number}): void;
+        on(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
+        once(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
         stopDelegating(event?: string, emitter?: ckutils.Emitter): void;
         stopListening(emitter?: ckutils.Emitter, event?: string, callback?: Function): void;
     }
@@ -159,10 +169,15 @@ export class Command<T = undefined> implements ckutils.Emitter, ckutils.Observab
     // Emitter
     delegate(...events: string[]): ckutils.EmitterMixinDelegateChain;
     fire(eventOrInfo: string | ckutils.EventInfo<ckutils.Emitter>, ...args: any[]): any;
-    listenTo(emitter: ckutils.Emitter, event: string, callback: Function, options?: {priority?: ckutils.PriorityString | number }): void;
+    listenTo(
+        emitter: ckutils.Emitter,
+        event: string,
+        callback: Function,
+        options?: { priority?: ckutils.PriorityString | number },
+    ): void;
     off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: {priority: ckutils.PriorityString | number}): void;
-    once(event: string, callback: Function, options?: {priority: ckutils.PriorityString | number}): void;
+    on(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
+    once(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
     stopDelegating(event?: string, emitter?: ckutils.Emitter): void;
     stopListening(emitter?: ckutils.Emitter, event?: string, callback?: Function): void;
 
@@ -196,21 +211,21 @@ export class EditingKeystrokeHandler extends ckutils.KeystrokeHandler {
     set(
         keystroke: string | Array<string | number>,
         callback: string | ((keyEvtData: engine.view.observer.KeyEventData, cancel: () => void) => void),
-        options?: {priority: ckutils.PriorityString | number}
+        options?: { priority: ckutils.PriorityString | number },
     ): void;
 }
 
 // core/pendingactions
 
 export class PendingActions extends Plugin {
-    static readonly pluginName: "PendingActions";
+    static readonly pluginName: 'PendingActions';
 
-    first: null | ckutils.Observable & {message: string};
+    first: null | (ckutils.Observable & { message: string });
     readonly hasAny: boolean;
 
-    [Symbol.iterator](): Iterator<ckutils.Observable & {message: string}>;
-    add(message: string): ckutils.Observable & {message: string};
-    remove(action: ckutils.Observable & {message: string}): void;
+    [Symbol.iterator](): Iterator<ckutils.Observable & { message: string }>;
+    add(message: string): ckutils.Observable & { message: string };
+    remove(action: ckutils.Observable & { message: string }): void;
 }
 
 // core/plugin
@@ -219,7 +234,7 @@ export abstract class Plugin<T = void> implements ckutils.Emitter, ckutils.Obser
     readonly editor: editor.Editor;
 
     static readonly pluginName?: string;
-    static readonly requires?: Array<new(editor: editor.Editor) => Plugin>;
+    static readonly requires?: Array<new (editor: editor.Editor) => Plugin>;
 
     constructor(editor: editor.Editor);
     afterInit?(): null | Promise<T>;
@@ -229,10 +244,15 @@ export abstract class Plugin<T = void> implements ckutils.Emitter, ckutils.Obser
     // Emitter
     delegate(...events: string[]): ckutils.EmitterMixinDelegateChain;
     fire(eventOrInfo: string | ckutils.EventInfo<ckutils.Emitter>, ...args: any[]): any;
-    listenTo(emitter: ckutils.Emitter, event: string, callback: Function, options?: {priority?: ckutils.PriorityString | number }): void;
+    listenTo(
+        emitter: ckutils.Emitter,
+        event: string,
+        callback: Function,
+        options?: { priority?: ckutils.PriorityString | number },
+    ): void;
     off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: {priority: ckutils.PriorityString | number}): void;
-    once(event: string, callback: Function, options?: {priority: ckutils.PriorityString | number}): void;
+    on(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
+    once(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
     stopDelegating(event?: string, emitter?: ckutils.Emitter): void;
     stopListening(emitter?: ckutils.Emitter, event?: string, callback?: Function): void;
 
@@ -249,21 +269,16 @@ export abstract class Plugin<T = void> implements ckutils.Emitter, ckutils.Obser
 // core/plugincollection
 
 export class PluginCollection<P extends Plugin<any>> {
-    constructor(
-        editor: editor.Editor,
-        availablePlugins?: Array<new(editor: editor.Editor) => P>
-    );
+    constructor(editor: editor.Editor, availablePlugins?: Array<new (editor: editor.Editor) => P>);
 
-    [Symbol.iterator](): Iterator<[new(editor: editor.Editor) => P, P]>;
+    [Symbol.iterator](): Iterator<[new (editor: editor.Editor) => P, P]>;
 
-    destroy(): Promise<Array<P & {destroy(): void | null | Promise<any>}>>;
+    destroy(): Promise<Array<P & { destroy(): void | null | Promise<any> }>>;
 
-    get(
-        key: string | (new(editor: editor.Editor) => P)
-    ): P | undefined;
+    get(key: string | (new (editor: editor.Editor) => P)): P | undefined;
 
     load(
-        plugins: Array<string | (new(editor: editor.Editor) => P)>,
-        removePlugins?: Array<string | (new(editor: editor.Editor) => P)>
+        plugins: Array<string | (new (editor: editor.Editor) => P)>,
+        removePlugins?: Array<string | (new (editor: editor.Editor) => P)>,
     ): Promise<P[]>;
 }

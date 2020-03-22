@@ -115,7 +115,7 @@ new Liftoff().launch(
         require: '',
         completion: '',
     },
-    env => {
+    (env) => {
         // $ExpectType LiftoffEnv
         env;
 
@@ -135,7 +135,7 @@ new Liftoff().launch(
         env.modulePackage;
         // $ExpectType { [extensions: string]: { [path: string]: string | null; }; } | undefined
         env.configFiles;
-    }
+    },
 );
 new Liftoff().launch({ cwd: '' }, () => {});
 new Liftoff().launch({ configPath: '' }, () => {});
@@ -144,21 +144,21 @@ new Liftoff().launch({ forcedFlags: ['--trace-deprecation'] }, () => {});
 new Liftoff().launch({ forcedFlags: '--trace-deprecation' }, () => {});
 new Liftoff().launch(
     {
-        forcedFlags: env => {
+        forcedFlags: (env) => {
             // $ExpectType LiftoffEnv
             env;
             return ['--trace-deprecation'];
         },
     },
-    () => {}
+    () => {},
 );
 new Liftoff().launch(
     {
-        forcedFlags: env => {
+        forcedFlags: (env) => {
             return '--trace-deprecation';
         },
     },
-    () => {}
+    () => {},
 );
 new Liftoff().launch({ completion: '' }, () => {});
 

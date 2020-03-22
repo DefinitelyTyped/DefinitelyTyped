@@ -1,18 +1,18 @@
-import AmBalloon from "./AmBalloon";
-import AmChart from "./AmChart";
-import AmSerialChart from "./AmSerialChart";
-import CategoryAxesSettings from "./CategoryAxesSettings";
-import ChartCursorSettings from "./ChartCursorSettings";
-import ChartScrollbarSettings from "./ChartScrollbarSettings";
-import DataSet from "./DataSet";
-import DataSetSelector from "./DataSetSelector";
-import LegendSettings from "./LegendSettings";
-import PanelsSettings from "./PanelSettings";
-import PeriodSelector from "./PeriodSelector";
-import StockEvent from "./StockEvent";
-import StockGraph from "./StockGraph";
-import StockPanel from "./StockPanel";
-import ValueAxesSettings from "./ValueAxesSettings";
+import AmBalloon from './AmBalloon';
+import AmChart from './AmChart';
+import AmSerialChart from './AmSerialChart';
+import CategoryAxesSettings from './CategoryAxesSettings';
+import ChartCursorSettings from './ChartCursorSettings';
+import ChartScrollbarSettings from './ChartScrollbarSettings';
+import DataSet from './DataSet';
+import DataSetSelector from './DataSetSelector';
+import LegendSettings from './LegendSettings';
+import PanelsSettings from './PanelSettings';
+import PeriodSelector from './PeriodSelector';
+import StockEvent from './StockEvent';
+import StockGraph from './StockGraph';
+import StockPanel from './StockPanel';
+import ValueAxesSettings from './ValueAxesSettings';
 
 /**
  * AmStockChart is a main class Stock chart.
@@ -177,19 +177,17 @@ export default class AmStockChart {
      */
     addListener(
         type: string,
-        handler: (
-            e: {
-                chart: AmStockChart;
-                date?: Date;
-                endDate?: Date;
-                eventObject?: StockEvent;
-                graph?: StockGraph;
-                panel?: StockPanel;
-                period?: string;
-                startDate?: Date;
-                type: string;
-            },
-        ) => void,
+        handler: (e: {
+            chart: AmStockChart;
+            date?: Date;
+            endDate?: Date;
+            eventObject?: StockEvent;
+            graph?: StockGraph;
+            panel?: StockPanel;
+            period?: string;
+            startDate?: Date;
+            type: string;
+        }) => void,
     ): void;
     /**
      * Removes event listener from chart object.

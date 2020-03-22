@@ -3,7 +3,7 @@
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as acorn from "acorn";
+import * as acorn from 'acorn';
 
 /**
  * Find all calls to require() by walking the AST
@@ -18,7 +18,7 @@ declare namespace detective {
         /**
          * Give some source body 'src', return 'found' DetectiveResults
          */
-		find(src: string, opts?: Options): DetectiveResults;
+        find(src: string, opts?: Options): DetectiveResults;
     }
 
     interface Options {
@@ -51,7 +51,7 @@ declare namespace detective {
          * false for higher versions. When given the value "never", reserved words and keywords can
          * also not be used as property names (as in Internet Explorer's old parser).
          */
-        allowReserved?: boolean | "never";
+        allowReserved?: boolean | 'never';
         /**
          * By default, a return statement at the top level raises an error. Set this to true to accept such code.
          */
@@ -82,7 +82,7 @@ declare namespace detective {
          * Indicate the mode the code should be parsed in. Can be either "script" or "module".
          * This influences global strict mode and parsing of import and export declarations.
          */
-        sourceType?: ("script" | "module");
+        sourceType?: 'script' | 'module';
     }
 
     interface DetectiveResults {

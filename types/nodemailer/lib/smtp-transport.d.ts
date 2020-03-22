@@ -69,7 +69,9 @@ declare class SMTPTransport extends EventEmitter implements Transport {
     /** Placeholder function for creating proxy sockets. This method immediatelly returns without a socket */
     getSocket(options: SMTPTransport.Options, callback: (err: Error | null, socketOptions: object) => void): void;
 
-    getAuth(authOpts: SMTPConnection.AuthenticationTypeLogin | SMTPConnection.AuthenticationTypeOAuth2): SMTPTransport.AuthenticationType;
+    getAuth(
+        authOpts: SMTPConnection.AuthenticationTypeLogin | SMTPConnection.AuthenticationTypeOAuth2,
+    ): SMTPTransport.AuthenticationType;
 
     /** Sends an e-mail using the selected settings */
     send(mail: MailMessage, callback: (err: Error | null, info: SMTPTransport.SentMessageInfo) => void): void;

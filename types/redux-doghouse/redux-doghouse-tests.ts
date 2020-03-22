@@ -1,19 +1,19 @@
 import { Action, ActionCreator, createStore, Dispatch } from 'redux';
 import {
-  bindActionCreatorsDeep,
-  bindScopedActionFactories,
-  scopeActionCreators,
-  ScopedActionFactory,
-  scopeReducers
+    bindActionCreatorsDeep,
+    bindScopedActionFactories,
+    scopeActionCreators,
+    ScopedActionFactory,
+    scopeReducers,
 } from 'redux-doghouse';
 
 // ==== scopeActionCreators
 function fooActionCreator(bar: string): { [key: string]: any } {
-  return {};
+    return {};
 }
 
 const actionCreators = {
-  foo: fooActionCreator
+    foo: fooActionCreator,
 };
 
 scopeActionCreators(actionCreators, 'a').foo('bar');
@@ -34,11 +34,11 @@ actionCreatorScopedToB('bar');
 // ==== bindScopedActionFactories
 const store = createStore((state: any, action: Action) => state);
 const scopeableActionsFactories = {
-  myComponentActions: new ScopedActionFactory(actionCreators),
-  otherActions: {
-    fooAction: new ScopedActionFactory(fooActionCreator),
-    plainFooAction: fooActionCreator,
-  },
+    myComponentActions: new ScopedActionFactory(actionCreators),
+    otherActions: {
+        fooAction: new ScopedActionFactory(fooActionCreator),
+        plainFooAction: fooActionCreator,
+    },
 };
 const boundScopeableActions = bindScopedActionFactories(scopeableActionsFactories, store.dispatch);
 boundScopeableActions['myComponentActions'].scope('bar');
@@ -61,18 +61,21 @@ bindActionCreatorsDeep(fooActionCreator, store.dispatch)('bar');
 
 // ==== scopeReducers
 const reducers = {
-  foo: (state = 0, action: Action) => {
-    return state;
-  },
+    foo: (state = 0, action: Action) => {
+        return state;
+    },
 };
-const actionCreatorsA = scopeActionCreators({
-  incrementFoo: () => ({type: 'INCREMENT_FOO'})
-}, 'a');
+const actionCreatorsA = scopeActionCreators(
+    {
+        incrementFoo: () => ({ type: 'INCREMENT_FOO' }),
+    },
+    'a',
+);
 
 const scopedReducers = scopeReducers(reducers);
 const state = {
-  a: {foo: 0},
-  b: {foo: 2}
+    a: { foo: 0 },
+    b: { foo: 2 },
 };
 const newState = scopedReducers(state, actionCreatorsA.incrementFoo());
 const aScopedFoo: number = newState.a.foo;

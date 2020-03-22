@@ -10,18 +10,13 @@ declare namespace AMap {
     }
 
     class Object3DLayer extends Layer {
-        constructor(options?: Object3DLayer.Options)
+        constructor(options?: Object3DLayer.Options);
         add(object3d: Object3D): void;
         remove(object3d: Object3D): void;
         clear(): void;
         reDraw(): void;
 
         // internal
-        setOption(options: {
-            position?: number;
-            scale?: number;
-            height?: number;
-            scene?: number;
-        }): void;
+        setOption(options: { position?: number; scale?: number; height?: number; scene?: number }): void;
     }
 }

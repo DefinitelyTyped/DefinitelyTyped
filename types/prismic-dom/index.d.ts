@@ -31,20 +31,10 @@ interface Elements {
 
 type ElementType = Elements[keyof Elements];
 
-type HTMLSerializer<T> = (
-    type: ElementType,
-    element: any,
-    text: string | null,
-    children: T[],
-    index: number,
-) => T;
+type HTMLSerializer<T> = (type: ElementType, element: any, text: string | null, children: T[], index: number) => T;
 
 interface RichText {
-    asHtml(
-        richText: any,
-        linkResolver?: (doc: any) => string,
-        serializer?: HTMLSerializer<string>,
-    ): string;
+    asHtml(richText: any, linkResolver?: (doc: any) => string, serializer?: HTMLSerializer<string>): string;
     asText(richText: any, joinString?: string): string;
     Elements: Elements;
 }
@@ -59,7 +49,7 @@ export const HTMLSerializer: HTMLSerializer<string>;
 
 declare const _default: {
     RichText: RichText;
-    Link: Link
+    Link: Link;
 };
 
 export default _default;

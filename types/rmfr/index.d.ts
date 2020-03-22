@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import rimraf = require("rimraf");
+import rimraf = require('rimraf');
 
 declare namespace rmfr {
     type Options = rimraf.Options & {
-        glob?: rimraf.Options["glob"] | true;
+        glob?: rimraf.Options['glob'] | true;
         disableGlob?: never;
     };
 }

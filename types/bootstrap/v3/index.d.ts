@@ -16,18 +16,23 @@ export as namespace Bootstrap;
 /**
  * Same as jQuery v3 `JQuery.EventHandlerBase`.
  */
-export type JQueryEventHandlerBase<TContext, T> =
-    (this: TContext, t: T, ...args: any[]) => void | false;
+export type JQueryEventHandlerBase<TContext, T> = (this: TContext, t: T, ...args: any[]) => void | false;
 
 // --------------------------------------------------------------------------
 // Some Types and Interfaces
 // --------------------------------------------------------------------------
 
-export type Placement = "auto" | "top" | "bottom" | "left" | "right";
+export type Placement = 'auto' | 'top' | 'bottom' | 'left' | 'right';
 
-export type Trigger = "click" | "hover" | "focus" | "manual" |
-    "click hover" | "click focus" | "hover focus" |
-    "click hover focus";
+export type Trigger =
+    | 'click'
+    | 'hover'
+    | 'focus'
+    | 'manual'
+    | 'click hover'
+    | 'click focus'
+    | 'hover focus'
+    | 'click hover focus';
 
 export type DynamicOffset = (elem: JQuery) => number;
 
@@ -61,7 +66,7 @@ export interface ModalOptions {
      *
      * @default true
      */
-    backdrop?: boolean | "static";
+    backdrop?: boolean | 'static';
 
     /**
      * Closes the modal when escape key is pressed.
@@ -206,7 +211,7 @@ export interface TooltipOptions {
     /**
      * Object which contains allowed attributes and tags.
      */
-    whiteList?: {[key: string]: string[]};
+    whiteList?: { [key: string]: string[] };
 
     /**
      * Here you can supply your own sanitize function. This can be useful if you prefer to use a dedicated library to perform sanitization.
@@ -257,7 +262,7 @@ export interface CarouselOptions {
      *
      * @default "hover"
      */
-    pause?: "hover" | null;
+    pause?: 'hover' | null;
 
     /**
      * Whether the carousel should cycle continuously or have hard stops.
@@ -300,7 +305,7 @@ export interface CarouselEventHandler extends JQueryEventObject {
     /**
      * The direction in which the carousel is sliding.
      */
-    direction: "left" | "right";
+    direction: 'left' | 'right';
 
     /**
      * The DOM element that is being slid into place as the active item.
@@ -331,15 +336,31 @@ export interface TapEventHandler extends JQueryEventObject {
     relatedTarget: HTMLElement;
 }
 
-export type AffixEvent = "affix.bs.affix" | "affixed.bs.affix" | "affix-top.bs.affix" | "affixed-top.bs.affix" | "affix-bottom.bs.affix" | "affixed-bottom.bs.affix";
-export type AlertEvent = "close.bs.alert" | "closed.bs.alert";
-export type CarouselEvent = "slide.bs.carousel" | "slid.bs.carousel";
-export type CollapseEvent = "show.bs.collapse" | "shown.bs.collapse" | "hide.bs.collapse" | "hidden.bs.collapse";
-export type DropdownEvent = "show.bs.dropdown" | "shown.bs.dropdown" | "hide.bs.dropdown" | "hidden.bs.dropdown";
-export type PopoverEvent = "show.bs.popover" | "shown.bs.popover" | "hide.bs.popover" | "hidden.bs.popover" | "inserted.bs.popover";
-export type ScrollspyEvent = "activate.bs.scrollspy";
-export type TapEvent = "show.bs.tab" | "shown.bs.tab" | "hide.bs.tab" | "hidden.bs.tab";
-export type TooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" | "hidden.bs.tooltip" | "inserted.bs.tooltip";
+export type AffixEvent =
+    | 'affix.bs.affix'
+    | 'affixed.bs.affix'
+    | 'affix-top.bs.affix'
+    | 'affixed-top.bs.affix'
+    | 'affix-bottom.bs.affix'
+    | 'affixed-bottom.bs.affix';
+export type AlertEvent = 'close.bs.alert' | 'closed.bs.alert';
+export type CarouselEvent = 'slide.bs.carousel' | 'slid.bs.carousel';
+export type CollapseEvent = 'show.bs.collapse' | 'shown.bs.collapse' | 'hide.bs.collapse' | 'hidden.bs.collapse';
+export type DropdownEvent = 'show.bs.dropdown' | 'shown.bs.dropdown' | 'hide.bs.dropdown' | 'hidden.bs.dropdown';
+export type PopoverEvent =
+    | 'show.bs.popover'
+    | 'shown.bs.popover'
+    | 'hide.bs.popover'
+    | 'hidden.bs.popover'
+    | 'inserted.bs.popover';
+export type ScrollspyEvent = 'activate.bs.scrollspy';
+export type TapEvent = 'show.bs.tab' | 'shown.bs.tab' | 'hide.bs.tab' | 'hidden.bs.tab';
+export type TooltipEvent =
+    | 'show.bs.tooltip'
+    | 'shown.bs.tooltip'
+    | 'hide.bs.tooltip'
+    | 'hidden.bs.tooltip'
+    | 'inserted.bs.tooltip';
 
 // --------------------------------------------------------------------------------------
 // jQuery
@@ -357,7 +378,7 @@ declare global {
          *
          * Returns to the caller before the modal has actually been shown or hidden (i.e. before the `shown.bs.modal` or `hidden.bs.modal` event occurs).
          */
-        modal(action: "toggle" | "show" | "hide" | "handleUpdate"): this;
+        modal(action: 'toggle' | 'show' | 'hide' | 'handleUpdate'): this;
         /**
          * Activates a content as a modal.
          */
@@ -369,9 +390,9 @@ declare global {
          *
          * When _method_ `toggle` is specified, toggles the dropdown menu of a given navbar or tabbed navigation.
          */
-        dropdown(action?: "toggle"): this;
+        dropdown(action?: 'toggle'): this;
 
-    // tslint:disable:jsdoc-format
+        // tslint:disable:jsdoc-format
         /**
          * When using scrollspy in conjunction with adding or removing of elements from the DOM, you'll need to call the refresh, see example.
          * @example
@@ -381,8 +402,8 @@ $('[data-spy="scroll"]').each(function () {
 })
     ```
         */
-    // tslint:enable:jsdoc-format
-        scrollspy(action: "refresh"): this;
+        // tslint:enable:jsdoc-format
+        scrollspy(action: 'refresh'): this;
         /**
          * Add scrollspy behavior to a topbar navigation.
          */
@@ -396,7 +417,7 @@ $('[data-spy="scroll"]').each(function () {
          *
          * Returns to the caller before the tab pane has actually been shown (i.e. before the `shown.bs.tab` event occurs).
          */
-        tab(action?: "show"): this;
+        tab(action?: 'show'): this;
 
         /**
          * Call a method on the tooltip element:
@@ -409,7 +430,7 @@ $('[data-spy="scroll"]').each(function () {
          * Returns to the caller before the tooltip has actually been shown or hidden (i.e. before the `shown.bs.tooltip` or `hidden.bs.tooltip` event occurs).
          * This is considered a "manual" triggering of the tooltip.
          */
-        tooltip(action: "show" | "hide" | "toggle" | "destroy"): this;
+        tooltip(action: 'show' | 'hide' | 'toggle' | 'destroy'): this;
         /**
          * Attaches a tooltip handler to an element collection.
          */
@@ -426,7 +447,7 @@ $('[data-spy="scroll"]').each(function () {
          * Returns to the caller before the popover has actually been shown or hidden (i.e. before the `shown.bs.popover` or `hidden.bs.popover` event occurs).
          * This is considered a "manual" triggering of the popover.
          */
-        popover(action: "show" | "hide" | "toggle" | "destroy"): this;
+        popover(action: 'show' | 'hide' | 'toggle' | 'destroy'): this;
         /**
          * Initializes popovers for an element collection.
          */
@@ -439,7 +460,7 @@ $('[data-spy="scroll"]').each(function () {
          * When _method_ `close` is specified, closes an alert by removing it from the DOM. If the `.fade` and `.in` classes are present on the element,
          * the alert will fade out before it is removed.
          */
-        alert(action?: "close"): this;
+        alert(action?: 'close'): this;
 
         /**
          * Call a method on the button element:
@@ -447,7 +468,7 @@ $('[data-spy="scroll"]').each(function () {
          * * `reset` – Resets button state: swaps text to original text. This method is asynchronous and returns before the resetting has actually completed.
          * * _string_ – Swaps text to any data defined text state.
          */
-        button(action: "toggle" | "reset" | string): this;
+        button(action: 'toggle' | 'reset' | string): this;
 
         /**
          * Call a method on the collapsible element:
@@ -457,7 +478,7 @@ $('[data-spy="scroll"]').each(function () {
          *
          * Returns to the caller before the collapsible element has actually been shown or hidden (i.e. before the `shown.bs.collapse` or `hidden.bs.collapse` event occurs).
          */
-        collapse(action: "toggle" | "show" | "hide"): this;
+        collapse(action: 'toggle' | 'show' | 'hide'): this;
         /**
          * Activates a content as a collapsible element.
          */
@@ -473,7 +494,7 @@ $('[data-spy="scroll"]').each(function () {
          *
          * Returns to the caller before the target item has been shown (i.e. before the `slid.bs.carousel` event occurs).
          */
-        carousel(action: "cycle" | "pause" | number | "prev" | "next"): this;
+        carousel(action: 'cycle' | 'pause' | number | 'prev' | 'next'): this;
         /**
          * Initializes the carousel and starts cycling through items.
          */
@@ -484,7 +505,7 @@ $('[data-spy="scroll"]').each(function () {
          * The `.affix`, `.affix-top`, and `.affix-bottom` classes are added to or removed from the affixed content according to the new state.
          * This method needs to be called whenever the dimensions of the affixed content or the target element are changed, to ensure correct positioning of the affixed content.
          */
-        affix(action: "checkPosition"): this;
+        affix(action: 'checkPosition'): this;
         /**
          * Activates your content as affixed content.
          */
@@ -495,7 +516,7 @@ $('[data-spy="scroll"]').each(function () {
         on(events: TapEvent, handler: JQueryEventHandlerBase<HTMLElement, TapEventHandler>): this;
         on(
             events: AffixEvent | AlertEvent | CollapseEvent | PopoverEvent | ScrollspyEvent | TooltipEvent,
-            handler: JQueryEventHandlerBase<HTMLElement, JQueryEventObject>
+            handler: JQueryEventHandlerBase<HTMLElement, JQueryEventObject>,
         ): this;
 
         /** @deprecated */

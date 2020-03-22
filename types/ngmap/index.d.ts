@@ -7,7 +7,7 @@
 /// <reference types="angular" />
 /// <reference types="googlemaps" />
 
-declare module "ngmap" {
+declare module 'ngmap' {
     let _: string;
     export = _;
 }
@@ -39,12 +39,12 @@ declare namespace angular.map {
              * @default false
              */
             draggable?: boolean;
-           /**
+            /**
              * Icon for the foreground.
              * If a string is provided, it is treated as though it were an Icon with the string as url.
              * @type {(string|Icon|Symbol)}
              */
-            icon?: string|google.maps.Icon|google.maps.Symbol;
+            icon?: string | google.maps.Icon | google.maps.Symbol;
             /**
              * Adds a label to the marker. The label can either be a string, or a MarkerLabel object.
              * Only the first character of the string will be displayed.
@@ -56,7 +56,7 @@ declare namespace angular.map {
              * @type {(Map|StreetViewPanorama)}
              *
              */
-            map?: google.maps.Map|google.maps.StreetViewPanorama;
+            map?: google.maps.Map | google.maps.StreetViewPanorama;
             /** The marker's opacity between 0.0 and 1.0. */
             opacity?: number;
             /**
@@ -80,7 +80,7 @@ declare namespace angular.map {
              * with lower markers appearing in front of markers further up the screen.
              */
             zIndex?: number;
-        }
+        };
     }
 
     interface IObserveAndSetFunc {
@@ -88,30 +88,30 @@ declare namespace angular.map {
     }
 
     interface INgMap {
-    	/**
-    	 * Add map to pool
-    	 * @param {Function | any[]} mapCtrl Map controller
-    	 */
+        /**
+         * Add map to pool
+         * @param {Function | any[]} mapCtrl Map controller
+         */
         addMap(mapCtrl: Function | any[]): void;
-		/**
-		 * Delete map from pool
-		 * @param {Function | any[]} mapCtrl Map controller optional. Defaults to last
-		 * controller in pool
-		 */
+        /**
+         * Delete map from pool
+         * @param {Function | any[]} mapCtrl Map controller optional. Defaults to last
+         * controller in pool
+         */
         deleteMap(mapCtrl?: Function | any[]): void;
-		/**
-		 * Get map coordinates from address.
-		 * @param  {string}                               address Use 'current' to get users location
-		 * @param  {PositionOptions}                      options optional
-		 * @return {angular.IPromise<google.maps.LatLng>}         Latitude ang longitude of the address
-		 */
-        getGeoLocation(address: string, options?: PositionOptions): ng.IPromise<google.maps.LatLng>
-    	/**
-    	 * Get map from the pool of all shown maps.
-    	 * @param  {IGetMapOptions}                    options optional
-    	 * @return {angular.IPromise<google.maps.Map>}         promise
-    	 */
-        getMap(options?: IGetMapOptions): ng.IPromise<google.maps.Map>
+        /**
+         * Get map coordinates from address.
+         * @param  {string}                               address Use 'current' to get users location
+         * @param  {PositionOptions}                      options optional
+         * @return {angular.IPromise<google.maps.LatLng>}         Latitude ang longitude of the address
+         */
+        getGeoLocation(address: string, options?: PositionOptions): ng.IPromise<google.maps.LatLng>;
+        /**
+         * Get map from the pool of all shown maps.
+         * @param  {IGetMapOptions}                    options optional
+         * @return {angular.IPromise<google.maps.Map>}         promise
+         */
+        getMap(options?: IGetMapOptions): ng.IPromise<google.maps.Map>;
         /**
          * Initialize map from mapId or the current first shown map
          * @param  {string}          mapId id of the map. default 0

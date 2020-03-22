@@ -21,7 +21,7 @@ retry(() => Promise.resolve(), {
             log(options.name);
             log('iteration', options.$current);
         }
-    }
+    },
 });
-retry<Product>(() => Promise.resolve({ name: 'test' }) , {});
+retry<Product>(() => Promise.resolve({ name: 'test' }), {});
 retry<Product>(() => Promise.reject(new Error('No matching product')), {});

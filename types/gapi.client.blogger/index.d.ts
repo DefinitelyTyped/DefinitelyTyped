@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Blogger API v3 */
-    function load(name: "blogger", version: "v3"): PromiseLike<void>;
-    function load(name: "blogger", version: "v3", callback: () => any): void;
+    function load(name: 'blogger', version: 'v3'): PromiseLike<void>;
+    function load(name: 'blogger', version: 'v3', callback: () => any): void;
 
     const blogUserInfos: blogger.BlogUserInfosResource;
 

@@ -8,5 +8,5 @@ export interface CardBodyProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class CardBody<T = {[key: string]: any}> extends React.Component<CardBodyProps> {}
+declare class CardBody<T = { [key: string]: any }> extends React.Component<CardBodyProps> {}
 export default CardBody;

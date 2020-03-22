@@ -13,11 +13,20 @@ import Timeline, {
 import * as moment from 'moment';
 import { Moment } from 'moment';
 
-const groups1: TimelineGroupBase[] = [{ id: 1, title: 'group 1' }, { id: 'two', title: 'group 2' }];
+const groups1: TimelineGroupBase[] = [
+    { id: 1, title: 'group 1' },
+    { id: 'two', title: 'group 2' },
+];
 
 const items1: TimelineItemBase<Moment>[] = [
     { id: 1, group: 1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour') },
-    { id: 2, group: 'two', title: 'item 2', start_time: moment().add(-0.5, 'hour'), end_time: moment().add(0.5, 'hour') },
+    {
+        id: 2,
+        group: 'two',
+        title: 'item 2',
+        start_time: moment().add(-0.5, 'hour'),
+        end_time: moment().add(0.5, 'hour'),
+    },
     { id: 'three', group: 1, title: 'item 3', start_time: moment().add(2, 'hour'), end_time: moment().add(3, 'hour') },
 ];
 
@@ -95,7 +104,7 @@ const Example: React.FC = () => (
                 {({ headerContext: { intervals }, getRootProps, getIntervalProps, showPeriod, data }) => {
                     return (
                         <div {...getRootProps()}>
-                            {intervals.map(interval => {
+                            {intervals.map((interval) => {
                                 const intervalStyle = {
                                     lineHeight: '30px',
                                     textAlign: 'center',
@@ -126,7 +135,10 @@ const Example: React.FC = () => (
     </Timeline>
 );
 
-const groups: TimelineGroupBase[] = [{ id: 1, title: 'group 1' }, { id: 2, title: 'group 2' }];
+const groups: TimelineGroupBase[] = [
+    { id: 1, title: 'group 1' },
+    { id: 2, title: 'group 2' },
+];
 
 const items: TimelineItemBase<number>[] = [
     { id: 1, group: 1, title: 'item 1', start_time: 1, end_time: 1 },
@@ -134,13 +146,8 @@ const items: TimelineItemBase<number>[] = [
     { id: 3, group: 1, title: 'item 3', start_time: 1, end_time: 1 },
 ];
 
-const defaultTimeStart = moment()
-    .startOf('day')
-    .toDate();
-const defaultTimeEnd = moment()
-    .startOf('day')
-    .add(1, 'day')
-    .toDate();
+const defaultTimeStart = moment().startOf('day').toDate();
+const defaultTimeEnd = moment().startOf('day').add(1, 'day').toDate();
 
 const Resize = () => {
     const [itemsState, setItems] = useState(items);
@@ -160,7 +167,7 @@ const Resize = () => {
                 const group = groups[newGroupOrder];
 
                 setItems(
-                    itemsState.map(item =>
+                    itemsState.map((item) =>
                         item.id === itemId
                             ? {
                                   ...item,
@@ -178,7 +185,7 @@ const Resize = () => {
             }}
             onItemResize={(itemId, time, edge) => {
                 setItems(
-                    itemsState.map(item =>
+                    itemsState.map((item) =>
                         item.id === itemId
                             ? {
                                   ...item,
@@ -219,7 +226,7 @@ const TimelineDragTest = () => {
                     const group = groups[newGroupOrder];
 
                     setItems(
-                        itemsState.map(item =>
+                        itemsState.map((item) =>
                             item.id === itemId
                                 ? {
                                       ...item,
@@ -237,7 +244,7 @@ const TimelineDragTest = () => {
                 }}
                 onItemResize={(itemId, time, edge) => {
                     setItems(
-                        itemsState.map(item =>
+                        itemsState.map((item) =>
                             item.id === itemId
                                 ? {
                                       ...item,
@@ -253,12 +260,12 @@ const TimelineDragTest = () => {
 
                     console.log('Resized', itemId, time, edge);
                 }}
-                onItemDrag={itemDragObject => {
+                onItemDrag={(itemDragObject) => {
                     if (itemDragObject.eventType === 'move') {
                         const { itemId, newGroupOrder, time } = itemDragObject;
                         let item = draggedItem ? draggedItem.item : undefined;
                         if (!item) {
-                            item = itemsState.find(i => i.id === itemId);
+                            item = itemsState.find((i) => i.id === itemId);
                         }
                         setDraggedItem({ item: item, group: groups[newGroupOrder], time });
                     }

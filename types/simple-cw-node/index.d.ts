@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import superagent = require("superagent");
+import superagent = require('superagent');
 // TODO 1. update superagent with generics
 // TODO 2. create underscore.deffered .d.ts file
 // TODO 3. refactor & improve specialized parameter methods
@@ -27,18 +27,18 @@ declare namespace ChatWork {
         init(options: ChatWorkInitOptions): void;
 
         // http://developer.chatwork.com/ja/endpoint_me.html
-        get(api: "me", callback: (err: Error, res: superagent.Response) => void): void;
+        get(api: 'me', callback: (err: Error, res: superagent.Response) => void): void;
 
         // http://developer.chatwork.com/ja/endpoint_my.html
-        get(api: "my/status", callback: (err: Error, res: superagent.Response) => void): void;
-        get(api: "my/tasks", callback: (err: Error, res: superagent.Response) => void): void;
+        get(api: 'my/status', callback: (err: Error, res: superagent.Response) => void): void;
+        get(api: 'my/tasks', callback: (err: Error, res: superagent.Response) => void): void;
 
         // http://developer.chatwork.com/ja/endpoint_contacts.html
-        get(api: "contacts", callback: (err: Error, res: superagent.Response) => void): void;
+        get(api: 'contacts', callback: (err: Error, res: superagent.Response) => void): void;
 
         // http://developer.chatwork.com/ja/endpoint_rooms.html
-        get(api: "rooms", callback: (err: Error, res: superagent.Response) => void): void;
-        post(api: "rooms", args: any, callback: (err: Error, res: superagent.Response) => void): void;
+        get(api: 'rooms', callback: (err: Error, res: superagent.Response) => void): void;
+        post(api: 'rooms', args: any, callback: (err: Error, res: superagent.Response) => void): void;
 
         // can't create specialized parameter
         // specialized parameter required compile-time constant string literal

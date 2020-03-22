@@ -3,11 +3,15 @@
 // Definitions by: Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import writeFileAtomic = require("write-file-atomic");
+import writeFileAtomic = require('write-file-atomic');
 
 export = WriteFileAtomically;
 
-declare function WriteFileAtomically(path: string, data: WriteFileAtomically.Data, options?: writeFileAtomic.Options): Promise<void>;
+declare function WriteFileAtomically(
+    path: string,
+    data: WriteFileAtomically.Data,
+    options?: writeFileAtomic.Options,
+): Promise<void>;
 
 declare namespace WriteFileAtomically {
     type Data = string | Buffer | Uint8Array;

@@ -8,5 +8,5 @@ export interface CardImgOverlayProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class CardImgOverlay<T = {[key: string]: any}> extends React.Component<CardImgOverlayProps> {}
+declare class CardImgOverlay<T = { [key: string]: any }> extends React.Component<CardImgOverlayProps> {}
 export default CardImgOverlay;

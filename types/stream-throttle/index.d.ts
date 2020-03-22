@@ -8,15 +8,15 @@
 import { Transform } from 'stream';
 
 export interface ThrottleOptions {
-  readonly rate: number;
-  readonly chunksize?: number;
+    readonly rate: number;
+    readonly chunksize?: number;
 }
 
 export class Throttle extends Transform {
-  constructor(options: ThrottleOptions);
+    constructor(options: ThrottleOptions);
 }
 
 export class ThrottleGroup {
-  constructor(options: ThrottleOptions);
-  throttle(options: ThrottleOptions): Throttle;
+    constructor(options: ThrottleOptions);
+    throttle(options: ThrottleOptions): Throttle;
 }

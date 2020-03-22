@@ -9,28 +9,27 @@ const loggerSimpleOpts = createLogger({
     logger: console,
     logErrors: true,
     predicate: (getState, action) => true,
-    stateTransformer: state => state,
-    actionTransformer: action => action,
-    errorTransformer: error => error,
+    stateTransformer: (state) => state,
+    actionTransformer: (action) => action,
+    errorTransformer: (error) => error,
     diff: true,
-    diffPredicate: (getState, action) => true
+    diffPredicate: (getState, action) => true,
 });
 
 const loggerCollapsedBool = createLogger({
-    collapsed: true
+    collapsed: true,
 });
 
 const loggerCollapsedPredicate = createLogger({
-    collapsed: (getAction, action) => true
+    collapsed: (getAction, action) => true,
 });
 
 const loggerCollapsedLogEntryPredicate = createLogger({
-    collapsed: (getAction, action, logEntry) =>
-        logEntry !== undefined && !logEntry.error
+    collapsed: (getAction, action, logEntry) => logEntry !== undefined && !logEntry.error,
 });
 
 const loggerColorsOverallBoolean = createLogger({
-    colors: false
+    colors: false,
 });
 
 const loggerColorsBoolean = createLogger({
@@ -39,35 +38,35 @@ const loggerColorsBoolean = createLogger({
         prevState: false,
         action: false,
         nextState: false,
-        error: false
-    }
+        error: false,
+    },
 });
 
 const loggerColorsFunction = createLogger({
     colors: {
-        title: action => '#000',
-        prevState: state => '#000',
-        action: action => '#000',
-        nextState: state => '#000',
-        error: (error, prevState) => '#000'
-    }
+        title: (action) => '#000',
+        prevState: (state) => '#000',
+        action: (action) => '#000',
+        nextState: (state) => '#000',
+        error: (error, prevState) => '#000',
+    },
 });
 
 const loggerLevelString = createLogger({
-    level: 'log'
+    level: 'log',
 });
 
 const loggerLevelFunction = createLogger({
-    level: action => 'log'
+    level: (action) => 'log',
 });
 
 const loggerLevelObjectFunction = createLogger({
     level: {
-        prevState: state => 'log',
-        action: action => 'log',
-        nextState: state => 'log',
-        error: (error, prevState) => 'log'
-    }
+        prevState: (state) => 'log',
+        action: (action) => 'log',
+        nextState: (state) => 'log',
+        error: (error, prevState) => 'log',
+    },
 });
 
 const loggerLevelObjectBoolean = createLogger({
@@ -75,8 +74,8 @@ const loggerLevelObjectBoolean = createLogger({
         prevState: false,
         action: false,
         nextState: false,
-        error: false
-    }
+        error: false,
+    },
 });
 
 const loggerLevelObjectString = createLogger({
@@ -84,8 +83,8 @@ const loggerLevelObjectString = createLogger({
         prevState: 'log',
         action: 'log',
         nextState: 'log',
-        error: 'log'
-    }
+        error: 'log',
+    },
 });
 
 const createStoreWithMiddleware = applyMiddleware(
@@ -100,5 +99,5 @@ const createStoreWithMiddleware = applyMiddleware(
     loggerLevelFunction,
     loggerLevelObjectFunction,
     loggerLevelObjectBoolean,
-    loggerLevelObjectString
+    loggerLevelObjectString,
 )(createStore);

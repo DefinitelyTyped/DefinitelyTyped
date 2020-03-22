@@ -9,8 +9,13 @@ hubProxy.on('message', (message) => {
 });
 
 // connect
-connection.start({ jsonp: true })
-    .done(() => { console.log('Now connected, connection ID=' + connection.id); })
-    .fail(() => { console.log('Could not connect'); });
+connection
+    .start({ jsonp: true })
+    .done(() => {
+        console.log('Now connected, connection ID=' + connection.id);
+    })
+    .fail(() => {
+        console.log('Could not connect');
+    });
 
 connection.stop(false, false);

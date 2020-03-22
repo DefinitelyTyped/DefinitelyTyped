@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type MultiInputProps = {
     data: any[];
@@ -13,8 +13,8 @@ export type MultiInputProps = {
     popoverProps?: any;
     tagProps?: any;
     validationState?: {
-      state?: any,
-      text?: string
+        state?: any;
+        text?: string;
     };
     onTagsUpdate?: (...args: any[]) => any;
 } & { [x: string]: any };

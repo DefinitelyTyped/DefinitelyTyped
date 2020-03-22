@@ -1,2 +1,2 @@
-import "./test/import-tests";
-import "./test/require-tests";
+import './test/import-tests';
+import './test/require-tests';

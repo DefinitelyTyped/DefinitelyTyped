@@ -31,7 +31,7 @@ function test_embed() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).embed({
@@ -40,7 +40,7 @@ function test_embed() {
         source: 'source',
         id: 'id',
         parameters: {
-            key: 'value'
+            key: 'value',
         },
         autoplay: true,
         color: 'color',
@@ -65,18 +65,18 @@ function test_embed() {
         selector: {
             embed: 'embed',
             placeholder: 'placeholder',
-            play: 'play'
+            play: 'play',
         },
         metadata: {
             id: 'id',
             icon: 'icon',
             placeholder: 'placeholder',
             source: 'source',
-            url: 'url'
+            url: 'url',
         },
         className: {
             active: 'active',
-            embed: 'embed'
+            embed: 'embed',
         },
         templates: {
             iframe(url, parameters) {
@@ -90,12 +90,12 @@ function test_embed() {
                 icon; // $ExpectType string
 
                 return '<div></div>';
-            }
+            },
         },
         error: {
             noURL: 'noURL',
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).embed(); // $ExpectType JQuery<HTMLElement>
 

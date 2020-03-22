@@ -15,7 +15,7 @@ import {
     PaymentMethodNonce,
     Transaction,
     WebhookNotificationKind,
-    MerchantAccountCreateRequest
+    MerchantAccountCreateRequest,
 } from 'braintree';
 
 /**
@@ -65,14 +65,14 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     const response = await gateway.paymentMethod.create(paymentMethodRequest).catch(console.error);
     if (!response) return;
     const { token }: PaymentMethod = response.paymentMethod;
-    const applePayCard = <ApplePayCard> response.paymentMethod;
-    const paypalAccount = <PayPalAccount> response.paymentMethod;
-    const androidPayCard = <AndroidPayCard> response.paymentMethod;
-    const creditCard = <CreditCard> response.paymentMethod;
-    const venmoAccount = <braintree.VenmoAccount> response.paymentMethod;
-    const visaCheckoutCard = <VisaCheckoutCard> response.paymentMethod;
-    const samsungPayCard = <SamsungPayCard> response.paymentMethod;
-    const masterpassCard = <MasterpassCard> response.paymentMethod;
+    const applePayCard = <ApplePayCard>response.paymentMethod;
+    const paypalAccount = <PayPalAccount>response.paymentMethod;
+    const androidPayCard = <AndroidPayCard>response.paymentMethod;
+    const creditCard = <CreditCard>response.paymentMethod;
+    const venmoAccount = <braintree.VenmoAccount>response.paymentMethod;
+    const visaCheckoutCard = <VisaCheckoutCard>response.paymentMethod;
+    const samsungPayCard = <SamsungPayCard>response.paymentMethod;
+    const masterpassCard = <MasterpassCard>response.paymentMethod;
 })();
 
 (async () => {
@@ -105,7 +105,9 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
     if (!sampleResponse) return;
 
-    const notification = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    const notification = await gateway.webhookNotification
+        .parse(sampleResponse.bt_signature, sampleResponse.bt_payload)
+        .catch(console.error);
     if (!notification) return;
 
     // this should cause the type of `notification` to be narrowed to `SubscriptionNotification`
@@ -121,7 +123,9 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
     if (!sampleResponse) return;
 
-    const notification = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    const notification = await gateway.webhookNotification
+        .parse(sampleResponse.bt_signature, sampleResponse.bt_payload)
+        .catch(console.error);
     if (!notification) return;
 
     // this should cause the type of `notification` to be narrowed to `PaymentMethodNotification`
@@ -138,7 +142,9 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
     if (!sampleResponse) return;
 
-    const notification = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    const notification = await gateway.webhookNotification
+        .parse(sampleResponse.bt_signature, sampleResponse.bt_payload)
+        .catch(console.error);
     if (!notification) return;
 
     // this should cause the type of `notification` to be narrowed to `AccountUpdaterNotification`
@@ -165,20 +171,20 @@ const gateway2: BraintreeGateway = braintree.connect({
                 locality: 'New York',
                 postalCode: '10001',
                 region: 'New York',
-                streetAddress: '222 Oak Street'
+                streetAddress: '222 Oak Street',
             },
             dateOfBirth: '20200214',
             email: 'merchant@example.com',
             firstName: 'Jane',
-            lastName: 'Doe'
+            lastName: 'Doe',
         },
         funding: {
             destination: 'Bank',
             accountNumber: '123456789',
-            routingNumber: '021000021'
+            routingNumber: '021000021',
         },
         masterMerchantAccountId: 'master_merchant',
-        tosAccepted: true
+        tosAccepted: true,
     };
     const response = await gateway2.merchantAccount.create(merchantAccount);
     if (!response) return;

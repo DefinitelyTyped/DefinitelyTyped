@@ -4,20 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import { GraphQLSchema } from "graphql";
-import { Middleware, ParameterizedContext } from "koa";
+import { GraphQLSchema } from 'graphql';
+import { Middleware, ParameterizedContext } from 'koa';
 
 export interface ExecuteOptions {
-  schema?: GraphQLSchema;
-  rootValue?: any;
-  contextValue?: any;
-  fieldResolver?: any;
+    schema?: GraphQLSchema;
+    rootValue?: any;
+    contextValue?: any;
+    fieldResolver?: any;
 }
 
 export function errorHandler(): Middleware;
 
 export function execute<StateT = any, CustomT = {}>(
-  options: ExecuteOptions & {
-    override?: (ctx: ParameterizedContext<StateT, CustomT>) => ExecuteOptions;
-  }
+    options: ExecuteOptions & {
+        override?: (ctx: ParameterizedContext<StateT, CustomT>) => ExecuteOptions;
+    },
 ): Middleware<StateT, CustomT>;

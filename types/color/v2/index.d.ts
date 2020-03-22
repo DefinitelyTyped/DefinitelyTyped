@@ -16,7 +16,7 @@ interface Color {
     array(): number[];
     object(): { alpha?: number } & { [key: string]: number };
     unitArray(): number[];
-    unitObject(): { r: number, g: number, b: number, alpha?: number };
+    unitObject(): { r: number; g: number; b: number; alpha?: number };
     round(places?: number): Color;
     alpha(): number;
     alpha(val: number): Color;
@@ -102,8 +102,8 @@ interface Color {
 }
 
 interface ColorConstructor {
-    (obj?: ColorParam, model?: keyof (typeof convert)): Color;
-    new(obj?: ColorParam, model?: keyof (typeof convert)): Color;
+    (obj?: ColorParam, model?: keyof typeof convert): Color;
+    new (obj?: ColorParam, model?: keyof typeof convert): Color;
     rgb(...val: number[]): Color;
     rgb(color: ColorParam): Color;
     hsl(...val: number[]): Color;

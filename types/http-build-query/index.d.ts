@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/http-build-query
 
 export function httpBuildQuery(
-        queryData: {[param: string]: string|number},
-        numericPrefix?: string,
-        argSeparator?: string,
-        tempKey?: string
-    ): string;
+    queryData: { [param: string]: string | number },
+    numericPrefix?: string,
+    argSeparator?: string,
+    tempKey?: string,
+): string;

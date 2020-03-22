@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type LocalizationEditorProps = {
     control: {
@@ -25,7 +25,7 @@ export type LocalizationEditorProps = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare const LocalizationEditor: React.FunctionComponent<LocalizationEditorProps> & {
-    displayName: "LocalizationEditor";
+    displayName: 'LocalizationEditor';
 };
 
 export default LocalizationEditor;

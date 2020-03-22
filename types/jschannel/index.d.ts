@@ -11,7 +11,11 @@ export function build(config: ChannelConfiguration): MessagingChannel;
 
 export interface MessagingChannel {
     unbind: (method: string, doNotPublish?: boolean) => boolean;
-    bind: (method: string, callback?: (transaction: MessageTransaction, params: any) => void, doNotPublish?: boolean) => MessagingChannel;
+    bind: (
+        method: string,
+        callback?: (transaction: MessageTransaction, params: any) => void,
+        doNotPublish?: boolean,
+    ) => MessagingChannel;
     call: (message: Message) => void;
     notify: (message: Message) => void;
     destroy: () => void;

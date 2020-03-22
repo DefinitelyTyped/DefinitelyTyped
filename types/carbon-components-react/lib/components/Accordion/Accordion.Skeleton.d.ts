@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface AccordionSkeletonProps {
-    count?: number,
-    open?: boolean,
-    uid?: any,
+    count?: number;
+    open?: boolean;
+    uid?: any;
 }
 
 declare const AccordionSkeleton: React.FC<AccordionSkeletonProps>;

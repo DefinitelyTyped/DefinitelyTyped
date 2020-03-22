@@ -12,7 +12,7 @@ declare class FrameBuffer {
     gl: WebGLRenderingContext;
     handle: WebGLFramebuffer;
     color: Texture[];
-    depth: Texture|null;
+    depth: Texture | null;
 
     bind(): void;
     dispose(): void;
@@ -26,10 +26,6 @@ interface FrameBufferOptions {
     stencil?: boolean;
 }
 
- declare function glFBO(
-     gl: WebGLRenderingContext,
-     shape: [number, number],
-     options?: FrameBufferOptions
- ): FrameBuffer;
+declare function glFBO(gl: WebGLRenderingContext, shape: [number, number], options?: FrameBufferOptions): FrameBuffer;
 
- export = glFBO;
+export = glFBO;

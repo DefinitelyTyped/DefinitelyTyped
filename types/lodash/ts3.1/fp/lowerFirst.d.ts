@@ -1,2 +1,2 @@
-import { lowerFirst } from "../fp";
+import { lowerFirst } from '../fp';
 export = lowerFirst;

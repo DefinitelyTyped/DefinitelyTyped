@@ -26,52 +26,52 @@ options.ca = '';
 options.ciphers = undefined;
 options.rejectUnauthorized = true;
 options.perMessageDeflate = false;
-options.extraHeaders = {foo: 'bar'};
+options.extraHeaders = { foo: 'bar' };
 options.onlyBinaryUpgrades = true;
 options.forceNode = false;
 options.localAddress = 'localhost';
 
-socket = client("ws://localhost:32767", options);
+socket = client('ws://localhost:32767', options);
 socket.on('close', (mes, detail) => {
-	console.log('CLOSE', mes, detail);
+    console.log('CLOSE', mes, detail);
 });
 socket.on('error', (err) => {
-	console.log('ERROR', err);
+    console.log('ERROR', err);
 });
 
-server = engine.listen(8000, {pingTimeout: 100, pingInterval: 30});
-server.on("connection", socket => {
-	socket.send('hello');
+server = engine.listen(8000, { pingTimeout: 100, pingInterval: 30 });
+server.on('connection', (socket) => {
+    socket.send('hello');
 });
 
-socket = client("ws://localhost:8000");
-socket.on("message", (data) => {
-	console.log('MESSAGE', data);
+socket = client('ws://localhost:8000');
+socket.on('message', (data) => {
+    console.log('MESSAGE', data);
 });
 socket.on('close', (mes, detail) => {
-	console.log('CLOSE', mes, detail);
+    console.log('CLOSE', mes, detail);
 });
 socket.on('ping', () => {
-		console.log('client ping callback');
+    console.log('client ping callback');
 });
 socket.on('pong', () => {
-		console.log('client pong callback');
+    console.log('client pong callback');
 });
 socket.on('flush', () => {
-		console.log('client flush callback');
+    console.log('client flush callback');
 });
 socket.on('drain', () => {
-		console.log('client drain callback');
+    console.log('client drain callback');
 });
-socket.on("open", () => {
-	socket.send("hi", {compress: false}, () => {
-		console.log('client send callback');
-		setTimeout(() => {
-			socket.close();
-			setTimeout(() => {
-				server.close();
-				server.httpServer!.close();
-			}, 200);
-		}, 200);
-	});
+socket.on('open', () => {
+    socket.send('hi', { compress: false }, () => {
+        console.log('client send callback');
+        setTimeout(() => {
+            socket.close();
+            setTimeout(() => {
+                server.close();
+                server.httpServer!.close();
+            }, 200);
+        }, 200);
+    });
 });

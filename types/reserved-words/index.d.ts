@@ -4,17 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-export type Dialect =
-    | "es3"
-    | 3
-    | "es5"
-    | 5
-    | "es2015"
-    | 6
-    | "es7"
-    | 7
-    | "es6"
-    | "next";
+export type Dialect = 'es3' | 3 | 'es5' | 5 | 'es2015' | 6 | 'es7' | 7 | 'es6' | 'next';
 
 export interface Keywords {
     [index: string]: {
@@ -33,8 +23,4 @@ export const KEYWORDS: Keywords;
  * @param strict strict mode additionally checks whether word is a keyword or
  * future reserved word under strict mode.
  */
-export function check(
-    word: string,
-    dialect?: Dialect,
-    strict?: boolean
-): boolean;
+export function check(word: string, dialect?: Dialect, strict?: boolean): boolean;

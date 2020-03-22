@@ -4,39 +4,44 @@ interface TestContainer {
 
 var tests: TestContainer = {
     'Chrome Mobile 16.0.912.77 on Android 4.0.3': {
-        description: "Chrome Mobile 16.0.912.77 on Android 4.0.3",
-        layout: "WebKit",
+        description: 'Chrome Mobile 16.0.912.77 on Android 4.0.3',
+        layout: 'WebKit',
         manufacturer: null,
-        name: "Chrome Mobile",
+        name: 'Chrome Mobile',
         os: {
             architecture: 32,
-            family: "Android",
-            version: "4.0.3"
+            family: 'Android',
+            version: '4.0.3',
         },
         prerelease: null,
         product: null,
-        ua: "Mozilla/5.0 (Linux; U; Android 4.0.3; zh-cn; HTC Sensation XE with Beats Audio Build/IML74K) AppleWebKit/535.7 (KHTML, like Gecko) CrMo/16.0.912.77 Mobile Safari/535.7",
-        version: "16.0.912.77",
-        parse: function () {throw new Error()}
+        ua:
+            'Mozilla/5.0 (Linux; U; Android 4.0.3; zh-cn; HTC Sensation XE with Beats Audio Build/IML74K) AppleWebKit/535.7 (KHTML, like Gecko) CrMo/16.0.912.77 Mobile Safari/535.7',
+        version: '16.0.912.77',
+        parse: function () {
+            throw new Error();
+        },
     },
     'WebKit Nightly 528.4 (like Safari 4.x) on Mac OS X 10.4.11': {
-        description: "WebKit Nightly 528.4 (like Safari 4.x) on Mac OS X 10.4.11",
-        layout: "WebKit",
+        description: 'WebKit Nightly 528.4 (like Safari 4.x) on Mac OS X 10.4.11',
+        layout: 'WebKit',
         manufacturer: null,
-        name: "WebKit Nightly",
+        name: 'WebKit Nightly',
         os: {
             architecture: 32,
-            family: "Mac OS X",
-            version: "10.4.11"
+            family: 'Mac OS X',
+            version: '10.4.11',
         },
-        prerelease: "alpha",
+        prerelease: 'alpha',
         product: null,
-        ua: "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_4_11; tr) AppleWebKit/528.4+ (KHTML, like Gecko) Version/4.0dp1 Safari/526.11.2",
-        version: "528.4",
-        parse: function () {throw new Error()}
-    }
+        ua:
+            'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_4_11; tr) AppleWebKit/528.4+ (KHTML, like Gecko) Version/4.0dp1 Safari/526.11.2',
+        version: '528.4',
+        parse: function () {
+            throw new Error();
+        },
+    },
 };
-
 
 function runTests() {
     var t: Platform;
@@ -73,7 +78,5 @@ function runTests() {
 }
 
 function falsy(condition: () => boolean, action: () => any) {
-    if (condition() === false)
-        action();
+    if (condition() === false) action();
 }
-

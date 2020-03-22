@@ -13,7 +13,7 @@ declare namespace isColor {
     function isHex(str: string): boolean;
     function isKeyword(str: string): boolean;
     function isInherit(str: string): str is 'inherit';
-    function isCurrentColor(str: string): str is ('currentColor' | 'currentcolor');
+    function isCurrentColor(str: string): str is 'currentColor' | 'currentcolor';
     function isTransparent(str: string): str is 'transparent';
 }
 

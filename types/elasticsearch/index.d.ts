@@ -14,7 +14,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import HttpConnector = require("./src/lib/connectors/http");
+import HttpConnector = require('./src/lib/connectors/http');
 
 export class Client {
     constructor(params: ConfigOptions);
@@ -31,11 +31,17 @@ export class Client {
     clearScroll(params: ClearScrollParams): Promise<any>;
     count(params: CountParams, callback: (error: any, response: CountResponse) => void): void;
     count(params: CountParams): Promise<CountResponse>;
-    create(params: CreateDocumentParams, callback: (err: any, response: CreateDocumentResponse, status: any) => void): void;
+    create(
+        params: CreateDocumentParams,
+        callback: (err: any, response: CreateDocumentResponse, status: any) => void,
+    ): void;
     create(params: CreateDocumentParams): Promise<CreateDocumentResponse>;
     delete(params: DeleteDocumentParams, callback: (error: any, response: DeleteDocumentResponse) => void): void;
     delete(params: DeleteDocumentParams): Promise<DeleteDocumentResponse>;
-    deleteByQuery(params: DeleteDocumentByQueryParams, callback: (error: any, response: DeleteDocumentByQueryResponse) => void): void;
+    deleteByQuery(
+        params: DeleteDocumentByQueryParams,
+        callback: (error: any, response: DeleteDocumentByQueryResponse) => void,
+    ): void;
     deleteByQuery(params: DeleteDocumentByQueryParams): Promise<DeleteDocumentByQueryResponse>;
     deleteScript(params: DeleteScriptParams, callback: (error: any, response: any) => void): void;
     deleteScript(params: DeleteScriptParams): Promise<any>;
@@ -63,7 +69,10 @@ export class Client {
     mget<T>(params: MGetParams): Promise<MGetResponse<T>>;
     msearch<T>(params: MSearchParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
     msearch<T>(params: MSearchParams): Promise<MSearchResponse<T>>;
-    msearchTemplate<T>(params: MSearchTemplateParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
+    msearchTemplate<T>(
+        params: MSearchTemplateParams,
+        callback: (error: any, response: MSearchResponse<T>) => void,
+    ): void;
     msearchTemplate<T>(params: MSearchTemplateParams): Promise<MSearchResponse<T>>;
     mtermvectors(params: MTermVectorsParams, callback: (error: any, response: any) => void): void;
     mtermvectors(params: MTermVectorsParams): Promise<any>;
@@ -93,7 +102,10 @@ export class Client {
     termvectors(params: TermvectorsParams): Promise<any>;
     update(params: UpdateDocumentParams, callback: (error: any, response: any) => void): void;
     update(params: UpdateDocumentParams): Promise<any>;
-    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: UpdateDocumentByQueryResponse) => void): void;
+    updateByQuery(
+        params: UpdateDocumentByQueryParams,
+        callback: (error: any, response: UpdateDocumentByQueryResponse) => void,
+    ): void;
     updateByQuery(params: UpdateDocumentByQueryParams): Promise<UpdateDocumentByQueryResponse>;
     close(): void;
 }
@@ -154,11 +166,11 @@ export interface ShardsResponse {
 export type TimeSpan = string;
 
 export type NameList = string | string[] | boolean;
-export type Refresh = boolean | "true" | "false" | "wait_for" | "";
-export type VersionType = "internal" | "external" | "external_gte" | "force";
-export type ExpandWildcards = "open" | "closed" | "none" | "all";
-export type DefaultOperator = "AND" | "OR";
-export type Conflicts = "abort" | "proceed";
+export type Refresh = boolean | 'true' | 'false' | 'wait_for' | '';
+export type VersionType = 'internal' | 'external' | 'external_gte' | 'force';
+export type ExpandWildcards = 'open' | 'closed' | 'none' | 'all';
+export type DefaultOperator = 'AND' | 'OR';
+export type Conflicts = 'abort' | 'proceed';
 
 export interface BulkIndexDocumentsParams extends GenericParams {
     waitForActiveShards?: string;
@@ -266,7 +278,7 @@ export interface DeleteDocumentByQueryParams extends GenericParams {
     q?: string;
     routing?: string | string[] | boolean;
     scroll?: string;
-    searchType?: "query_then_fetch" | "dfs_query_then_fetch";
+    searchType?: 'query_then_fetch' | 'dfs_query_then_fetch';
     searchTimeout?: TimeSpan;
     size?: number;
     sort?: NameList;
@@ -348,7 +360,7 @@ export interface ExplainResponseDetails {
 
 export interface FieldStatsParams extends GenericParams {
     fields?: NameList;
-    level?: "indices" | "cluster";
+    level?: 'indices' | 'cluster';
     ignoreUnavailable?: boolean;
     allowNoIndices?: boolean;
     expandWildcards?: ExpandWildcards;
@@ -430,7 +442,7 @@ export interface GetTemplateParams extends GenericParams {
 
 export interface IndexDocumentParams<T> extends GenericParams {
     waitForActiveShards?: string;
-    opType?: "index" | "create";
+    opType?: 'index' | 'create';
     parent?: string;
     refresh?: Refresh;
     routing?: string;
@@ -446,8 +458,7 @@ export interface IndexDocumentParams<T> extends GenericParams {
     body: T;
 }
 
-export interface InfoParams extends GenericParams {
-}
+export interface InfoParams extends GenericParams {}
 
 export interface MGetParams extends GenericParams {
     storedFields?: NameList;
@@ -467,7 +478,7 @@ export interface MGetResponse<T> {
 }
 
 export interface MSearchParams extends GenericParams {
-    search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
+    search_type?: 'query_then_fetch' | 'query_and_fetch' | 'dfs_query_then_fetch' | 'dfs_query_and_fetch';
     maxConcurrentSearches?: number;
     index?: NameList;
     type?: NameList;
@@ -478,7 +489,7 @@ export interface MSearchResponse<T> {
 }
 
 export interface MSearchTemplateParams extends GenericParams {
-    search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
+    search_type?: 'query_then_fetch' | 'query_and_fetch' | 'dfs_query_then_fetch' | 'dfs_query_and_fetch';
     index?: NameList;
     type?: NameList;
 }
@@ -501,8 +512,7 @@ export interface MTermVectorsParams extends GenericParams {
     type: string;
 }
 
-export interface PingParams extends GenericParams {
-}
+export interface PingParams extends GenericParams {}
 
 export interface PutScriptParams extends GenericParams {
     id: string;
@@ -534,7 +544,7 @@ export interface ReindexParams extends GenericParams {
                 host: string;
                 username?: string;
                 password?: string;
-            }
+            };
         };
         dest: {
             index: string;
@@ -546,7 +556,7 @@ export interface ReindexParams extends GenericParams {
         script?: {
             inline: string;
             lang: string;
-        }
+        };
     };
 }
 
@@ -583,7 +593,7 @@ export interface SearchParams extends GenericParams {
     q?: string;
     routing?: NameList;
     scroll?: TimeSpan;
-    searchType?: "query_then_fetch" | "dfs_query_then_fetch";
+    searchType?: 'query_then_fetch' | 'dfs_query_then_fetch';
     size?: number;
     sort?: NameList;
     _source?: NameList;
@@ -592,7 +602,7 @@ export interface SearchParams extends GenericParams {
     terminateAfter?: number;
     stats?: NameList;
     suggestField?: string;
-    suggestMode?: "missing" | "popular" | "always";
+    suggestMode?: 'missing' | 'popular' | 'always';
     suggestSize?: number;
     suggestText?: string;
     timeout?: TimeSpan;
@@ -664,7 +674,7 @@ export interface SearchTemplateParams extends GenericParams {
     preference?: string;
     routing?: NameList;
     scroll?: TimeSpan;
-    searchType?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
+    searchType?: 'query_then_fetch' | 'query_and_fetch' | 'dfs_query_then_fetch' | 'dfs_query_and_fetch';
     index: NameList;
     type: NameList;
 }
@@ -711,7 +721,7 @@ export interface UpdateDocumentParams extends GenericParams {
     timestamp?: Date | number;
     ttl?: TimeSpan;
     version?: number;
-    versionType?: "internal" | "force";
+    versionType?: 'internal' | 'force';
     id: string;
     index: string;
     type: string;
@@ -738,7 +748,7 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     q?: string;
     routing?: NameList;
     scroll?: TimeSpan;
-    searchType?: "query_then_fetch" | "dfs_query_then_fetch";
+    searchType?: 'query_then_fetch' | 'dfs_query_then_fetch';
     searchTimeout?: TimeSpan;
     size?: number;
     sort?: NameList;
@@ -748,7 +758,7 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     terminateAfter?: number;
     stats?: NameList;
     suggestField?: string;
-    suggestMode?: "missing" | "popular" | "always";
+    suggestMode?: 'missing' | 'popular' | 'always';
     suggestSize?: number;
     suggestText?: string;
     timeout?: TimeSpan;
@@ -838,7 +848,7 @@ export interface Cat {
     threadPool(params: CatThreadPoolParams): Promise<any>;
 }
 
-export type CatBytes = "b" | "k" | "kb" | "m" | "mb" | "g" | "gb" | "t" | "tb" | "p" | "pb";
+export type CatBytes = 'b' | 'k' | 'kb' | 'm' | 'mb' | 'g' | 'gb' | 't' | 'tb' | 'p' | 'pb';
 
 export interface CatCommonParams extends GenericParams {
     format: string;
@@ -877,7 +887,7 @@ export interface CatHelpParams extends GenericParams {
 
 export interface CatIndicesParams extends CatCommonParams {
     bytes?: CatBytes;
-    health?: "green" | "yellow" | "red";
+    health?: 'green' | 'yellow' | 'red';
     pri?: boolean;
     index?: NameList;
 }
@@ -927,7 +937,7 @@ export interface CatTasksParams extends GenericParams {
 }
 
 export interface CatThreadPoolParams extends CatCommonParams {
-    size?: "" | "k" | "m" | "g" | "t" | "p";
+    size?: '' | 'k' | 'm' | 'g' | 't' | 'p';
     threadPoolPatterns?: NameList;
 }
 
@@ -963,14 +973,14 @@ export interface ClusterGetSettingsParams extends GenericParams {
 }
 
 export interface ClusterHealthParams extends GenericParams {
-    level?: "cluster" | "indices" | "shards";
+    level?: 'cluster' | 'indices' | 'shards';
     local?: boolean;
     masterTimeout?: TimeSpan;
     waitForActiveShards?: string;
     waitForNodes?: string;
-    waitForEvents?: "immediate" | "urgent" | "high" | "normal" | "low" | "languid";
+    waitForEvents?: 'immediate' | 'urgent' | 'high' | 'normal' | 'low' | 'languid';
     waitForRelocatingShards?: boolean;
-    waitForStatus?: "green" | "yellow" | "red";
+    waitForStatus?: 'green' | 'yellow' | 'red';
     index?: NameList;
 }
 
@@ -1025,13 +1035,19 @@ export class Indices {
     delete(params: IndicesDeleteParams): Promise<any>;
     deleteAlias(params: IndicesDeleteAliasParams, callback: (error: any, response: any, status: any) => void): void;
     deleteAlias(params: IndicesDeleteAliasParams): Promise<any>;
-    deleteTemplate(params: IndicesDeleteTemplateParams, callback: (error: any, response: any, status: any) => void): void;
+    deleteTemplate(
+        params: IndicesDeleteTemplateParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     deleteTemplate(params: IndicesDeleteTemplateParams): Promise<any>;
     exists(params: IndicesExistsParams, callback: (error: any, response: boolean, status: any) => void): void;
     exists(params: IndicesExistsParams): Promise<boolean>;
     existsAlias(params: IndicesExistsAliasParams, callback: (error: any, response: boolean, status: any) => void): void;
     existsAlias(params: IndicesExistsAliasParams): Promise<boolean>;
-    existsTemplate(params: IndicesExistsTemplateParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsTemplate(
+        params: IndicesExistsTemplateParams,
+        callback: (error: any, response: boolean, status: any) => void,
+    ): void;
     existsTemplate(params: IndicesExistsTemplateParams): Promise<boolean>;
     existsType(params: IndicesExistsTypeParams, callback: (error: any, response: boolean, status: any) => void): void;
     existsType(params: IndicesExistsTypeParams): Promise<boolean>;
@@ -1045,7 +1061,10 @@ export class Indices {
     get(params: IndicesGetParams): Promise<any>;
     getAlias(params: IndicesGetAliasParams, callback: (error: any, response: any, status: any) => void): void;
     getAlias(params: IndicesGetAliasParams): Promise<any>;
-    getFieldMapping(params: IndicesGetFieldMappingParams, callback: (error: any, response: any, status: any) => void): void;
+    getFieldMapping(
+        params: IndicesGetFieldMappingParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     getFieldMapping(params: IndicesGetFieldMappingParams): Promise<any>;
     getMapping(params: IndicesGetMappingParams, callback: (error: any, response: any, status: any) => void): void;
     getMapping(params: IndicesGetMappingParams): Promise<any>;
@@ -1098,12 +1117,12 @@ export interface IndicesAnalyzeParams extends GenericParams {
     tokenizer?: string;
     explain?: boolean;
     attributes?: NameList;
-    format?: "";
+    format?: '';
 }
 
 export interface IndicesClearCacheParams extends GenericParams {
     fieldData?: boolean;
-    fielddata?: boolean;    // yes the docs really have both
+    fielddata?: boolean; // yes the docs really have both
     fields?: NameList;
     query?: boolean;
     ignoreUnavailable?: boolean;
@@ -1196,7 +1215,7 @@ export interface IndicesForcemergeParams extends GenericParams {
     expandWildcards?: ExpandWildcards;
     maxNumSegments?: number;
     onlyExpungeDeletes?: boolean;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     waitForMerge?: boolean;
     index: NameList;
 }
@@ -1286,16 +1305,16 @@ export interface IndicesPutAliasParams extends GenericParams {
 }
 
 export interface IndicesPutMappingParams extends GenericParams {
-  timeout?: TimeSpan;
-  masterTimeout?: TimeSpan;
-  ignoreUnavailable?: boolean;
-  allowNoIndices?: boolean;
-  expandWildcards?: ExpandWildcards;
-  updateAllTypes?: boolean;
-  index: NameList;
-  type: string;
-  includeTypeName?: boolean;
-  body: any;
+    timeout?: TimeSpan;
+    masterTimeout?: TimeSpan;
+    ignoreUnavailable?: boolean;
+    allowNoIndices?: boolean;
+    expandWildcards?: ExpandWildcards;
+    updateAllTypes?: boolean;
+    index: NameList;
+    type: string;
+    includeTypeName?: boolean;
+    body: any;
 }
 
 export interface IndicesPutSettingsParams extends GenericParams {
@@ -1331,7 +1350,7 @@ export interface IndicesRefreshParams extends GenericParams {
     allowNoIndices?: boolean;
     expandWildcards?: ExpandWildcards;
     force?: boolean;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     index: NameList;
 }
 
@@ -1358,7 +1377,7 @@ export interface IndicesSegmentsParams extends GenericParams {
     allowNoIndices?: boolean;
     expandWildcards?: ExpandWildcards;
     human?: boolean;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     verbose?: boolean;
     index: NameList;
 }
@@ -1368,7 +1387,7 @@ export interface IndicesShardStoresParams extends GenericParams {
     ignoreUnavailable?: boolean;
     allowNoIndices?: boolean;
     expandWildcards?: ExpandWildcards;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     index: NameList;
 }
 
@@ -1386,7 +1405,7 @@ export interface IndicesStatsParams extends GenericParams {
     fields?: NameList;
     groups?: NameList;
     human?: boolean;
-    level?: "cluster" | "indices" | "shards";
+    level?: 'cluster' | 'indices' | 'shards';
     types?: NameList;
     index: NameList;
     metric?: NameList;
@@ -1431,7 +1450,7 @@ export interface IndicesValidateQueryParams extends GenericParams {
     ignoreUnavailable?: boolean;
     allowNoIndices?: boolean;
     expandWildcards?: ExpandWildcards;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     q?: string;
     analyzer?: string;
     analyzeWildcard?: boolean;
@@ -1445,7 +1464,10 @@ export interface IndicesValidateQueryParams extends GenericParams {
 }
 
 export class Ingest {
-    deletePipeline(params: IngestDeletePipelineParams, callback: (error: any, response: any, status: any) => void): void;
+    deletePipeline(
+        params: IngestDeletePipelineParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     deletePipeline(params: IngestDeletePipelineParams): Promise<any>;
     getPipeline(params: IngestGetPipelineParams, callback: (error: any, response: any, status: any) => void): void;
     getPipeline(params: IngestGetPipelineParams): Promise<any>;
@@ -1492,7 +1514,7 @@ export interface NodesHotThreadsParams extends GenericParams {
     snapshots?: number;
     threads?: number;
     ignoreIdleThreads?: boolean;
-    type?: "cpu" | "wait" | "blocked";
+    type?: 'cpu' | 'wait' | 'blocked';
     timeout?: TimeSpan;
     nodeId: NameList;
 }
@@ -1511,7 +1533,7 @@ export interface NodesStatsParams extends GenericParams {
     fields?: NameList;
     groups?: boolean;
     human?: boolean;
-    level?: "indices" | "node" | "shards";
+    level?: 'indices' | 'node' | 'shards';
     types?: NameList;
     timeout?: TimeSpan;
     metric?: NameList;
@@ -1522,21 +1544,33 @@ export interface NodesStatsParams extends GenericParams {
 export class Snapshot {
     create(params: SnapshotCreateParams, callback: (error: any, response: any, status: any) => void): void;
     create(params: SnapshotCreateParams): Promise<any>;
-    createRepository(params: SnapshotCreateRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
+    createRepository(
+        params: SnapshotCreateRepositoryParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     createRepository(params: SnapshotCreateRepositoryParams): Promise<any>;
     delete(params: SnapshotDeleteParams, callback: (error: any, response: any, status: any) => void): void;
     delete(params: SnapshotDeleteParams): Promise<any>;
-    deleteRepository(params: SnapshotDeleteRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
+    deleteRepository(
+        params: SnapshotDeleteRepositoryParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     deleteRepository(params: SnapshotDeleteRepositoryParams): Promise<any>;
     get(params: SnapshotGetParams, callback: (error: any, response: any, status: any) => void): void;
     get(params: SnapshotGetParams): Promise<any>;
-    getRepository(params: SnapshotGetRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
+    getRepository(
+        params: SnapshotGetRepositoryParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     getRepository(params: SnapshotGetRepositoryParams): Promise<any>;
     restore(params: SnapshotRestoreParams, callback: (error: any, response: any, status: any) => void): void;
     restore(params: SnapshotRestoreParams): Promise<any>;
     status(params: SnapshotStatusParams, callback: (error: any, response: any, status: any) => void): void;
     status(params: SnapshotStatusParams): Promise<any>;
-    verifyRepository(params: SnapshotVerifyRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
+    verifyRepository(
+        params: SnapshotVerifyRepositoryParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     verifyRepository(params: SnapshotVerifyRepositoryParams): Promise<any>;
 }
 
@@ -1628,7 +1662,7 @@ export interface TasksListParams extends GenericParams {
     parentNode?: string;
     parentTask?: string;
     waitForCompletion?: boolean;
-    groupBy?: "nodes" | "parents";
+    groupBy?: 'nodes' | 'parents';
 }
 
 export namespace errors {

@@ -15,7 +15,7 @@ app.use(async (ctx: Koa.Context) => {
         hidden: true,
         format: true,
         gzip: true,
-        setHeaders: () => { },
+        setHeaders: () => {},
         extensions: ['shemp'],
     });
 });

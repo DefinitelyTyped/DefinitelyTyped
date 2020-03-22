@@ -1,9 +1,9 @@
-import "jquery";
-import { UIDateCompareOptions } from "./Options/UIDateCompareOptions";
-import { UIDateRangeOptions } from "./Options/UIDateRangeOptions";
-import { UIRangeOptions } from "./Options/UIRangeOptions";
-import { UISliderOptions } from "./Options/UISliderOptions";
-import { UISpinnerOptions } from "./Options/UISpinnerOptions";
+import 'jquery';
+import { UIDateCompareOptions } from './Options/UIDateCompareOptions';
+import { UIDateRangeOptions } from './Options/UIDateRangeOptions';
+import { UIRangeOptions } from './Options/UIRangeOptions';
+import { UISliderOptions } from './Options/UISliderOptions';
+import { UISpinnerOptions } from './Options/UISpinnerOptions';
 
 /**
  * Provides the functionality to generate html5-controls.

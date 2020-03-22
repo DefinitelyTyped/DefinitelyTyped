@@ -12,7 +12,7 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
 // Preparatory Steps
 // -----------------------------------------------------------------------
 
-let colorInterpolator: ((t: number) => string);
+let colorInterpolator: (t: number) => string;
 let simpleScheme: ReadonlyArray<string>;
 let nestedScheme: ReadonlyArray<ReadonlyArray<string>>;
 

@@ -7,29 +7,29 @@
 
 /// <reference types="node" />
 
-import * as FtpClient from "ftp";
-import * as PromiseFtpCommon from "promise-ftp-common";
-import * as Promise from "bluebird";
+import * as FtpClient from 'ftp';
+import * as PromiseFtpCommon from 'promise-ftp-common';
+import * as Promise from 'bluebird';
 
 declare namespace PromiseFtp {
     interface ERROR_CODES {
-        421: "Service not available, closing control connection";
+        421: 'Service not available, closing control connection';
         425: "Can't open data connection";
-        426: "Connection closed, transfer aborted";
-        450: "Requested file action not taken / File unavailable (e.g., file busy)";
-        451: "Requested action aborted: local error in processing";
-        452: "Requested action not taken / Insufficient storage space in system";
-        500: "Syntax error / Command unrecognized";
-        501: "Syntax error in parameters or arguments";
-        502: "Command not implemented";
-        503: "Bad sequence of commands";
-        504: "Command not implemented for that parameter";
-        530: "Not logged in";
-        532: "Need account for storing files";
-        550: "Requested action not taken / File unavailable (e.g., file not found, no access)";
-        551: "Requested action aborted: page type unknown";
-        552: "Requested file action aborted / Exceeded storage allocation (for current directory or dataset)";
-        553: "Requested action not taken / File name not allowed";
+        426: 'Connection closed, transfer aborted';
+        450: 'Requested file action not taken / File unavailable (e.g., file busy)';
+        451: 'Requested action aborted: local error in processing';
+        452: 'Requested action not taken / Insufficient storage space in system';
+        500: 'Syntax error / Command unrecognized';
+        501: 'Syntax error in parameters or arguments';
+        502: 'Command not implemented';
+        503: 'Bad sequence of commands';
+        504: 'Command not implemented for that parameter';
+        530: 'Not logged in';
+        532: 'Need account for storing files';
+        550: 'Requested action not taken / File unavailable (e.g., file not found, no access)';
+        551: 'Requested action aborted: page type unknown';
+        552: 'Requested file action aborted / Exceeded storage allocation (for current directory or dataset)';
+        553: 'Requested action not taken / File name not allowed';
     }
     const ERROR_CODES: ERROR_CODES;
     // tslint:disable-next-line strict-export-declare-modifiers
@@ -104,10 +104,7 @@ declare class PromiseFtp {
      * @param useCompression - defaults to false.
      * @returns the contents of the specified directory
      */
-    listSafe(
-        path?: string,
-        useCompression?: boolean
-    ): Promise<Array<FtpClient.ListingElement | string>>;
+    listSafe(path?: string, useCompression?: boolean): Promise<Array<FtpClient.ListingElement | string>>;
     listSafe(useCompression: boolean): Promise<Array<FtpClient.ListingElement | string>>;
 
     /**
@@ -124,11 +121,7 @@ declare class PromiseFtp {
      * @param destPath - the path of the file to write to.
      * @param useCompression - defaults to false.
      */
-    put(
-        input: NodeJS.ReadableStream | Buffer | string,
-        destPath: string,
-        useCompression?: boolean
-    ): Promise<void>;
+    put(input: NodeJS.ReadableStream | Buffer | string, destPath: string, useCompression?: boolean): Promise<void>;
 
     /**
      * Create a new file on the server or append to one that already exists.
@@ -136,11 +129,7 @@ declare class PromiseFtp {
      * @param destPath - the path of the file to create or append to.
      * @param useCompression - defaults to false.
      */
-    append(
-        input: NodeJS.ReadableStream | Buffer | string,
-        destPath: string,
-        useCompression?: boolean
-    ): Promise<void>;
+    append(input: NodeJS.ReadableStream | Buffer | string, destPath: string, useCompression?: boolean): Promise<void>;
 
     /**
      * Rename a file on the server.

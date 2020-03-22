@@ -1,8 +1,8 @@
-import { StripeJS } from "stripejs";
-import { StripeElement } from "stripejs/element";
-import { CanMakePaymentResult, StripePaymentResponse } from "stripejs/payment";
-import { BankTokenData, IBANTokenData, TokenData, TokenResult } from "stripejs/token";
-import { SourceData, SourceResult } from "stripejs/source";
+import { StripeJS } from 'stripejs';
+import { StripeElement } from 'stripejs/element';
+import { CanMakePaymentResult, StripePaymentResponse } from 'stripejs/payment';
+import { BankTokenData, IBANTokenData, TokenData, TokenResult } from 'stripejs/token';
+import { SourceData, SourceResult } from 'stripejs/source';
 
 declare function describe(desc: string, fn: () => void): void;
 
@@ -13,7 +13,7 @@ describe('StripeJS', () => {
 
     it('Should be able to initialize', () => {
         stripe('test');
-        stripe('test', {stripeAccount: 'test123'});
+        stripe('test', { stripeAccount: 'test123' });
     });
 
     it('Should be possible to get information from stripe', () => {
@@ -23,10 +23,10 @@ describe('StripeJS', () => {
 
     it('Should be possible to create and modify elements', () => {
         const creator = stripe.elements();
-        stripe.elements({fonts: [], locale: 'nl'});
-        stripe.elements({fonts: [], locale: 'nl'});
+        stripe.elements({ fonts: [], locale: 'nl' });
+        stripe.elements({ fonts: [], locale: 'nl' });
 
-        const element = creator.create("cardCvc", {value: {postalCode: '94110'}});
+        const element = creator.create('cardCvc', { value: { postalCode: '94110' } });
         element.blur();
         element.focus();
         element.clear();
@@ -35,19 +35,19 @@ describe('StripeJS', () => {
         element.mount('#card-element');
         element.mount(new HTMLElement());
         element.unmount();
-        element.update({value: {postalCode: '123'}});
+        element.update({ value: { postalCode: '123' } });
         element.destroy();
     });
 
     it('Should be possible to create a payment request', () => {
-        const data = {country: 'NL', currency: 'eur', total: {amount: 100, label: 'hello world'}};
+        const data = { country: 'NL', currency: 'eur', total: { amount: 100, label: 'hello world' } };
         const request = stripe.paymentRequest(data);
         request.canMakePayment().then((result: CanMakePaymentResult | null) => null);
-        request.on('token', ((event: StripePaymentResponse) => {
+        request.on('token', (event: StripePaymentResponse) => {
             const token: any = event.token ? event.token : null;
-            event.complete("fail");
+            event.complete('fail');
             const name: string = event.payerName ? event.payerName : '';
-        }));
+        });
         request.show();
         request.update(data);
     });
@@ -75,12 +75,12 @@ describe('StripeJS', () => {
 
         const bankData = {
             country: 'NL',
-            account_number: '12345'
+            account_number: '12345',
         };
-        const bank: BankTokenData = {...iban, ...bankData};
+        const bank: BankTokenData = { ...iban, ...bankData };
         stripe.createToken('bank_account', bank).then((result: TokenResult) => result.token);
 
-        stripe.createToken('pii', {personal_id_number: ''}).then((result: TokenResult) => result.error);
+        stripe.createToken('pii', { personal_id_number: '' }).then((result: TokenResult) => result.error);
     });
 
     it('Should be possible to create a source object', () => {
@@ -90,13 +90,13 @@ describe('StripeJS', () => {
             flow: 'none',
             amount: 1000,
             currency: 'eur',
-            usage: 'single_use'
+            usage: 'single_use',
         };
         stripe.createSource(element, data).then((result: SourceResult) => result.source);
         stripe.createSource(data).then((result: SourceResult) => result.error);
     });
 
     it('Should be possible to fetch a source object', () => {
-        stripe.retrieveSource({id: '', client_secret: ''}).then((result: SourceResult) => result.source);
+        stripe.retrieveSource({ id: '', client_secret: '' }).then((result: SourceResult) => result.source);
     });
 });

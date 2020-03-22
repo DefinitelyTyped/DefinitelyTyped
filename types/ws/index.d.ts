@@ -45,31 +45,45 @@ declare class WebSocket extends events.EventEmitter {
     onmessage: (event: WebSocket.MessageEvent) => void;
 
     constructor(address: string | url.URL, options?: WebSocket.ClientOptions | http.ClientRequestArgs);
-    constructor(address: string | url.URL, protocols?: string | string[], options?: WebSocket.ClientOptions | http.ClientRequestArgs);
+    constructor(
+        address: string | url.URL,
+        protocols?: string | string[],
+        options?: WebSocket.ClientOptions | http.ClientRequestArgs,
+    );
 
     close(code?: number, data?: string): void;
     ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     pong(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     send(data: any, cb?: (err?: Error) => void): void;
-    send(data: any, options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean }, cb?: (err?: Error) => void): void;
+    send(
+        data: any,
+        options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean },
+        cb?: (err?: Error) => void,
+    ): void;
     terminate(): void;
 
     // HTML5 WebSocket events
     addEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
-    addEventListener(method: 'close', cb?: (event: {
-        wasClean: boolean; code: number;
-        reason: string; target: WebSocket
-    }) => void): void;
-    addEventListener(method: 'error', cb?: (event: {error: any, message: any, type: string, target: WebSocket }) => void): void;
+    addEventListener(
+        method: 'close',
+        cb?: (event: { wasClean: boolean; code: number; reason: string; target: WebSocket }) => void,
+    ): void;
+    addEventListener(
+        method: 'error',
+        cb?: (event: { error: any; message: any; type: string; target: WebSocket }) => void,
+    ): void;
     addEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
     addEventListener(method: string, listener?: () => void): void;
 
     removeEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
-    removeEventListener(method: 'close', cb?: (event: {
-        wasClean: boolean; code: number;
-        reason: string; target: WebSocket
-    }) => void): void;
-    removeEventListener(method: 'error', cb?: (event: {error: any, message: any, type: string, target: WebSocket }) => void): void;
+    removeEventListener(
+        method: 'close',
+        cb?: (event: { wasClean: boolean; code: number; reason: string; target: WebSocket }) => void,
+    ): void;
+    removeEventListener(
+        method: 'error',
+        cb?: (event: { error: any; message: any; type: string; target: WebSocket }) => void,
+    ): void;
     removeEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
     removeEventListener(method: string, listener?: () => void): void;
 
@@ -78,27 +92,36 @@ declare class WebSocket extends events.EventEmitter {
     on(event: 'error', listener: (this: WebSocket, err: Error) => void): this;
     on(event: 'upgrade', listener: (this: WebSocket, request: http.IncomingMessage) => void): this;
     on(event: 'message', listener: (this: WebSocket, data: WebSocket.Data) => void): this;
-    on(event: 'open' , listener: (this: WebSocket) => void): this;
+    on(event: 'open', listener: (this: WebSocket) => void): this;
     on(event: 'ping' | 'pong', listener: (this: WebSocket, data: Buffer) => void): this;
-    on(event: 'unexpected-response', listener: (this: WebSocket, request: http.ClientRequest, response: http.IncomingMessage) => void): this;
+    on(
+        event: 'unexpected-response',
+        listener: (this: WebSocket, request: http.ClientRequest, response: http.IncomingMessage) => void,
+    ): this;
     on(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
 
     addListener(event: 'close', listener: (code: number, message: string) => void): this;
     addListener(event: 'error', listener: (err: Error) => void): this;
     addListener(event: 'upgrade', listener: (request: http.IncomingMessage) => void): this;
     addListener(event: 'message', listener: (data: WebSocket.Data) => void): this;
-    addListener(event: 'open' , listener: () => void): this;
+    addListener(event: 'open', listener: () => void): this;
     addListener(event: 'ping' | 'pong', listener: (data: Buffer) => void): this;
-    addListener(event: 'unexpected-response', listener: (request: http.ClientRequest, response: http.IncomingMessage) => void): this;
+    addListener(
+        event: 'unexpected-response',
+        listener: (request: http.ClientRequest, response: http.IncomingMessage) => void,
+    ): this;
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
     removeListener(event: 'close', listener: (code: number, message: string) => void): this;
     removeListener(event: 'error', listener: (err: Error) => void): this;
     removeListener(event: 'upgrade', listener: (request: http.IncomingMessage) => void): this;
     removeListener(event: 'message', listener: (data: WebSocket.Data) => void): this;
-    removeListener(event: 'open' , listener: () => void): this;
+    removeListener(event: 'open', listener: () => void): this;
     removeListener(event: 'ping' | 'pong', listener: (data: Buffer) => void): this;
-    removeListener(event: 'unexpected-response', listener: (request: http.ClientRequest, response: http.IncomingMessage) => void): this;
+    removeListener(
+        event: 'unexpected-response',
+        listener: (request: http.ClientRequest, response: http.IncomingMessage) => void,
+    ): this;
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -125,8 +148,10 @@ declare namespace WebSocket {
      * incoming message. The return value (boolean) of the function determines
      * whether or not to accept the handshake.
      */
-    type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
-        , callback: (res: boolean, code?: number, message?: string, headers?: http.OutgoingHttpHeaders) => void) => void;
+    type VerifyClientCallbackAsync = (
+        info: { origin: string; secure: boolean; req: http.IncomingMessage },
+        callback: (res: boolean, code?: number, message?: string, headers?: http.OutgoingHttpHeaders) => void,
+    ) => void;
 
     interface ClientOptions {
         protocol?: string;
@@ -227,8 +252,12 @@ declare namespace WebSocket {
 
         address(): AddressInfo | string;
         close(cb?: (err?: Error) => void): void;
-        handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
-            upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
+        handleUpgrade(
+            request: http.IncomingMessage,
+            socket: net.Socket,
+            upgradeHead: Buffer,
+            callback: (client: WebSocket) => void,
+        ): void;
         shouldHandle(request: http.IncomingMessage): boolean;
 
         // Events

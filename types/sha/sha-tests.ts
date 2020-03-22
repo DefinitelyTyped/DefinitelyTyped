@@ -2,7 +2,9 @@ import * as sha from 'sha';
 import * as fs from 'fs';
 
 const algorithm = 'sha256';
-interface CustType { n: number; }
+interface CustType {
+    n: number;
+}
 const C: CustType = { n: 1 };
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -87,9 +89,7 @@ sha.getSync('./file', { error: true }); // $ExpectError
 // $ExpectType Transform
 const s = sha.stream('1a2b3c4d');
 
-fs.createReadStream('./file')
-    .pipe(s)
-    .pipe(fs.createWriteStream('dest'));
+fs.createReadStream('./file').pipe(s).pipe(fs.createWriteStream('dest'));
 
 sha.stream({ name: 'hello' }); // $ExpectError
 sha.stream('1a2b3c4d', {}); // $ExpectType Transform

@@ -121,14 +121,11 @@ declare namespace EW {
         readonly cpCode: number;
     }
 
-    interface MutableRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request {
-    }
+    interface MutableRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request {}
 
-    interface ImmutableRequest extends ReadsHeaders, ReadsVariables, Request {
-    }
+    interface ImmutableRequest extends ReadsHeaders, ReadsVariables, Request {}
 
-    interface Response extends HasStatus, MutatesHeaders, ReadsHeaders {
-    }
+    interface Response extends HasStatus, MutatesHeaders, ReadsHeaders {}
 
     /**
      * Notes:
@@ -298,7 +295,7 @@ declare namespace EW {
 /**
  * Query, add, and remove cookies.
  */
-declare module "cookies" {
+declare module 'cookies' {
     /**
      * Provides access to the Cookies header of a request, allowing the
      * addition, removal, or modification of cookie values.
@@ -377,7 +374,7 @@ declare module "cookies" {
             expires?: { toUTCString: () => string };
             httpOnly?: boolean;
             secure?: boolean;
-            sameSite?: "Strict" | "Lax" | "None" | true;
+            sameSite?: 'Strict' | 'Lax' | 'None' | true;
         });
 
         /**
@@ -394,14 +391,14 @@ declare module "cookies" {
         expires: { toUTCString: () => string };
         httpOnly: boolean;
         secure: boolean;
-        sameSite: "Strict" | "Lax" | "None" | true;
+        sameSite: 'Strict' | 'Lax' | 'None' | true;
     }
 }
 
 /**
  * Query, add, and remove parameters from the query string.
  */
-declare module "url-search-params" {
+declare module 'url-search-params' {
     export default class URLSearchParams {
         /**
          * Create a new URLSearchParams object.

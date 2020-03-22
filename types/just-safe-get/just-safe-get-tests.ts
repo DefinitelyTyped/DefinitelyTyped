@@ -1,7 +1,7 @@
-import get = require("just-safe-get");
+import get = require('just-safe-get');
 
 const arr = ['one', 'two'];
-const obj = {foo: {bar: arr}};
+const obj = { foo: { bar: arr } };
 
 // Pass single `object`.
 get(arr, '0'); // $ExpectType any

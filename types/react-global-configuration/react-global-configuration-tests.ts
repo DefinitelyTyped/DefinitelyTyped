@@ -1,4 +1,4 @@
-import config from "react-global-configuration";
+import config from 'react-global-configuration';
 
 interface UserConfig {
     a: number;
@@ -11,11 +11,11 @@ interface UserConfig {
 
 config.set({
     a: 456,
-    b: "DEF",
+    b: 'DEF',
     c: {
         ca: 123,
         cb: 'ABC',
-    }
+    },
 });
 
 config.serialize();

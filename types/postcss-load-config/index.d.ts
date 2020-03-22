@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Parser, Plugin, ProcessOptions, Processor, Stringifier, Syntax, Transformer } from "postcss";
+import { Parser, Plugin, ProcessOptions, Processor, Stringifier, Syntax, Transformer } from 'postcss';
 import { Options as CosmiconfigOptions } from 'cosmiconfig';
 
 // In the ConfigContext, these three options can be instances of the
@@ -17,8 +17,7 @@ interface ProcessOptionsPreload {
 }
 
 // The remaining ProcessOptions, sans the three above.
-type RemainingProcessOptions =
-    Pick<ProcessOptions, Exclude<keyof ProcessOptions, keyof ProcessOptionsPreload>>;
+type RemainingProcessOptions = Pick<ProcessOptions, Exclude<keyof ProcessOptions, keyof ProcessOptionsPreload>>;
 
 // Additional context options that postcss-load-config understands.
 interface Context {

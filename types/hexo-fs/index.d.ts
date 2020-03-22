@@ -65,7 +65,7 @@ import {
     watchFile,
     unwatchFile,
     // write,
-    writeSync
+    writeSync,
 } from 'graceful-fs';
 
 export interface DirectoryOptions {
@@ -96,7 +96,12 @@ export function appendFile(path: string, data: any, callback?: (err: any) => voi
 /**
  * Appends data to a file.
  */
-export function appendFile(path: string, data: any, options: string | AppendFileOptions, callback?: (err: any) => void): Promise<void>;
+export function appendFile(
+    path: string,
+    data: any,
+    options: string | AppendFileOptions,
+    callback?: (err: any) => void,
+): Promise<void>;
 /**
  * Synchronous version of fs.appendFile.
  */
@@ -126,7 +131,12 @@ export function copyDir(src: string, dest: string, callback?: (err: any, value?:
 /**
  * Copies a directory from src to dest. It returns an array of copied files.
  */
-export function copyDir(src: string, dest: string, options?: DirectoryOptions, callback?: (err: any, value?: string[]) => void): Promise<string[]>;
+export function copyDir(
+    src: string,
+    dest: string,
+    options?: DirectoryOptions,
+    callback?: (err: any, value?: string[]) => void,
+): Promise<string[]>;
 /**
  * Copies a file from src to dest.
  */
@@ -139,13 +149,20 @@ export { createReadStream, createWriteStream };
 /**
  * Deletes all files in a directory. It returns an array of deleted files.
  */
-export function emptyDir(path: string, callback?: (err: any, value?: string | string[]) => void): Promise<string | string[]>;
+export function emptyDir(
+    path: string,
+    callback?: (err: any, value?: string | string[]) => void,
+): Promise<string | string[]>;
 export function emptyDir(
     path: string,
     options?: DirectoryOptions & { exclude?: string[] },
-    callback?: (err: any, value?: string | string[]) => void
+    callback?: (err: any, value?: string | string[]) => void,
 ): Promise<string | string[]>;
-export function emptyDirSync(path: string, options?: DirectoryOptions & { exclude?: string[] }, parent?: string): string | string[];
+export function emptyDirSync(
+    path: string,
+    options?: DirectoryOptions & { exclude?: string[] },
+    parent?: string,
+): string | string[];
 
 // ensurePath
 /**
@@ -161,33 +178,43 @@ export function ensurePathSync(path: string): string;
 /**
  * Creates the parent directories if they does not exist and returns a writable stream.
  */
-export function ensureWriteStream(path: string, callback?: (err: any, value?: WriteStream) => void): Promise<WriteStream>;
+export function ensureWriteStream(
+    path: string,
+    callback?: (err: any, value?: WriteStream) => void,
+): Promise<WriteStream>;
 /**
  * Creates the parent directories if they does not exist and returns a writable stream.
  */
 export function ensureWriteStream(
     path: string,
-    options?: string | {
-        flags?: string;
-        defaultEncoding?: string;
-        fd?: number;
-        mode?: number;
-        autoClose?: boolean;
-        start?: number;
-    },
-    callback?: (err: any, value?: WriteStream) => void
+    options?:
+        | string
+        | {
+              flags?: string;
+              defaultEncoding?: string;
+              fd?: number;
+              mode?: number;
+              autoClose?: boolean;
+              start?: number;
+          },
+    callback?: (err: any, value?: WriteStream) => void,
 ): Promise<WriteStream>;
 /**
  * Synchronous version of fs.ensureWriteStream.
  */
-export function ensureWriteStreamSync(path: string, options?: string | {
-    flags?: string;
-    defaultEncoding?: string;
-    fd?: number;
-    mode?: number;
-    autoClose?: boolean;
-    start?: number;
-}): WriteStream;
+export function ensureWriteStreamSync(
+    path: string,
+    options?:
+        | string
+        | {
+              flags?: string;
+              defaultEncoding?: string;
+              fd?: number;
+              mode?: number;
+              autoClose?: boolean;
+              start?: number;
+          },
+): WriteStream;
 
 // exists
 /**
@@ -216,7 +243,11 @@ export function listDir(path: string, callback?: (err: any, value?: string[]) =>
 /**
  * Lists files in a directory.
  */
-export function listDir(path: string, options?: DirectoryOptions, callback?: (err: any, value?: string[]) => void): Promise<string[]>;
+export function listDir(
+    path: string,
+    options?: DirectoryOptions,
+    callback?: (err: any, value?: string[]) => void,
+): Promise<string[]>;
 /**
  * Synchronous version of `fs.listDir`.
  */
@@ -250,14 +281,20 @@ export function read<TBuffer extends Buffer | Uint8Array>(
     buffer: TBuffer,
     offset: number,
     length: number,
-    position: number | null
-): Promise<{ bytesRead: number, buffer: TBuffer }>; // promisify
+    position: number | null,
+): Promise<{ bytesRead: number; buffer: TBuffer }>; // promisify
 export { readSync };
 
 // readdir
-export function readdir(path: PathLike, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): Promise<string[]>; // promisify
-export function readdir(path: PathLike, options: "buffer" | { encoding: "buffer" }): Promise<Buffer[]>; // promisify
-export function readdir(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<Array<string | Buffer>>; // promisify
+export function readdir(
+    path: PathLike,
+    options?: { encoding: BufferEncoding | null } | BufferEncoding | null,
+): Promise<string[]>; // promisify
+export function readdir(path: PathLike, options: 'buffer' | { encoding: 'buffer' }): Promise<Buffer[]>; // promisify
+export function readdir(
+    path: PathLike,
+    options?: { encoding?: string | null } | string | null,
+): Promise<Array<string | Buffer>>; // promisify
 export { readdirSync };
 
 // readFile
@@ -270,24 +307,39 @@ export function readFile(path: PathLike | number, callback?: (err: any, value?: 
  */
 export function readFile(
     path: PathLike | number,
-    options?: { encoding?: string; flag?: string; escape?: boolean; },
-    callback?: (err: any, value?: string) => void
+    options?: { encoding?: string; flag?: string; escape?: boolean },
+    callback?: (err: any, value?: string) => void,
 ): Promise<string>;
 /**
  * Synchronous version of `fs.readFile`.
  */
-export function readFileSync(path: PathLike | number, options?: { encoding?: string; flag?: string; escape?: boolean; }): string;
+export function readFileSync(
+    path: PathLike | number,
+    options?: { encoding?: string; flag?: string; escape?: boolean },
+): string;
 
 // readlink
-export function readlink(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>; // promisify
+export function readlink(
+    path: PathLike,
+    options?: { encoding?: BufferEncoding | null } | BufferEncoding | null,
+): Promise<string>; // promisify
 export function readlink(path: PathLike, options: { encoding: 'buffer' } | 'buffer'): Promise<Buffer>; // promisify
-export function readlink(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>; // promisify
+export function readlink(
+    path: PathLike,
+    options?: { encoding?: string | null } | string | null,
+): Promise<string | Buffer>; // promisify
 export { readlinkSync };
 
 // realpath
-export function realpath(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>; // promisify
+export function realpath(
+    path: PathLike,
+    options?: { encoding?: BufferEncoding | null } | BufferEncoding | null,
+): Promise<string>; // promisify
 export function realpath(path: PathLike, options: { encoding: 'buffer' } | 'buffer'): Promise<Buffer>; // promisify
-export function realpath(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>; // promisify
+export function realpath(
+    path: PathLike,
+    options?: { encoding?: string | null } | string | null,
+): Promise<string | Buffer>; // promisify
 export { realpathSync };
 
 // rename
@@ -325,7 +377,11 @@ import { FSWatcher, WatchOptions } from 'chokidar';
  *
  * See Chokidar API for more info.
  */
-export function watch(path: string | string[], options?: WatchOptions, callback?: (err: any, value?: FSWatcher) => void): Promise<FSWatcher>;
+export function watch(
+    path: string | string[],
+    options?: WatchOptions,
+    callback?: (err: any, value?: FSWatcher) => void,
+): Promise<FSWatcher>;
 export { watchFile, unwatchFile };
 
 // write
@@ -334,14 +390,14 @@ export function write<TBuffer extends Buffer | Uint8Array>(
     buffer?: TBuffer,
     offset?: number,
     length?: number,
-    position?: number | null
-): Promise<{ bytesWritten: number, buffer: TBuffer }>; // promisify
+    position?: number | null,
+): Promise<{ bytesWritten: number; buffer: TBuffer }>; // promisify
 export function write(
     fd: number,
     string: any,
     position?: number | null,
-    encoding?: string | null
-): Promise<{ bytesWritten: number, buffer: string }>; // promisify
+    encoding?: string | null,
+): Promise<{ bytesWritten: number; buffer: string }>; // promisify
 export { writeSync };
 
 // writeFile
@@ -356,12 +412,16 @@ export function writeFile(
     path: string,
     data: any,
     options?: string | { encoding?: string | null; mode?: string | number; flag?: string },
-    callback?: (err: any) => void
+    callback?: (err: any) => void,
 ): Promise<void>;
 /**
  * Synchronous version of `fs.writeFile`.
  */
-export function writeFileSync(path: string, data: any, options?: string | { encoding?: string | null; mode?: string | number; flag?: string }): void;
+export function writeFileSync(
+    path: string,
+    data: any,
+    options?: string | { encoding?: string | null; mode?: string | number; flag?: string },
+): void;
 
 // Static classes
 export { Stats, ReadStream, WriteStream } from 'graceful-fs';

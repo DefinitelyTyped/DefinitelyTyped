@@ -80,14 +80,12 @@ declare namespace karma {
         run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
     }
 
-
     interface Stopper {
         /**
-          * This function will signal a running server to stop. The equivalent of karma stop.
-          */
+         * This function will signal a running server to stop. The equivalent of karma stop.
+         */
         stop(options?: ConfigOptions, callback?: ServerCallback): void;
     }
-
 
     interface TestResults {
         disconnected: boolean;
@@ -150,8 +148,8 @@ declare namespace karma {
         category?: string;
         layout?: {
             type: string;
-            [key: string]: any
-        }
+            [key: string]: any;
+        };
     }
 
     interface ConfigOptions {
@@ -312,7 +310,7 @@ declare namespace karma {
          * @description Redefine default mapping from file extensions to MIME-type.
          * Set property name to required MIME, provide Array of extensions (without dots) as it's value.
          */
-        mime?: {[type: string]: string[]};
+        mime?: { [type: string]: string[] };
         /**
          * @default ['karma-*']
          * @description List of plugins to load. A plugin can be a string (in which case it will be required
@@ -342,7 +340,7 @@ declare namespace karma {
          * but your interactive debugging does not.
          *
          */
-        preprocessors?: { [name: string]: string | string[] }
+        preprocessors?: { [name: string]: string | string[] };
         /**
          * @default 'http:'
          * Possible Values:
@@ -359,7 +357,7 @@ declare namespace karma {
          * @default {}
          * @description A map of path-proxy pairs.
          */
-        proxies?: { [path: string]: string }
+        proxies?: { [path: string]: string };
         /**
          * @default true
          * @description Whether or not Karma or any browsers should raise an error when an inavlid SSL certificate is found.

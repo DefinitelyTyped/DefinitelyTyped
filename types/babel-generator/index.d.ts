@@ -14,7 +14,11 @@ import * as t from 'babel-types';
  * @param code - the original source code, used for source maps.
  * @returns - an object containing the output code and source map.
  */
-export default function generate(ast: t.Node, opts?: GeneratorOptions, code?: string | {[filename: string]: string}): GeneratorResult;
+export default function generate(
+    ast: t.Node,
+    opts?: GeneratorOptions,
+    code?: string | { [filename: string]: string },
+): GeneratorResult;
 
 export interface GeneratorOptions {
     /**

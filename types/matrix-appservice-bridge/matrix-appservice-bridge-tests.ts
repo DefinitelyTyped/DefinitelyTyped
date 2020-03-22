@@ -1,13 +1,11 @@
 /**
  * Generate from https://github.com/wechaty/matrix-appservice-wechaty/blob/master/src/cli/create-cli.ts
  */
-import {
-  Cli,
-} from 'matrix-appservice-bridge';
+import { Cli } from 'matrix-appservice-bridge';
 
-const port             = 8788;
+const port = 8788;
 const registrationPath = 'file.yaml';
-const schema           = 'schema.json';
+const schema = 'schema.json';
 
 const bridgeConfig = {
     schema,
@@ -17,7 +15,7 @@ const generateRegistration = (...args: any[]) => {
     return args;
 };
 
-const run =  (...args: any[]) => {
+const run = (...args: any[]) => {
     return args;
 };
 

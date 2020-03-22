@@ -4,22 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as moment from "moment-timezone";
+import * as React from 'react';
+import * as moment from 'moment-timezone';
 
 export type AnyDate = string | moment.Moment;
 export type DateFunc = (now: moment.Moment) => AnyDate;
 export type DateInputType = AnyDate | DateFunc;
-export type LanguageType =
-    | "cn"
-    | "jp"
-    | "fr"
-    | "it"
-    | "de"
-    | "ko"
-    | "es"
-    | "ru"
-    | "tr";
+export type LanguageType = 'cn' | 'jp' | 'fr' | 'it' | 'de' | 'ko' | 'es' | 'ru' | 'tr';
 export type SizeType = number;
 
 export interface DateContainerType {
@@ -109,11 +100,7 @@ export class DateRange extends React.Component<DateRangeProps> {}
 
 export class DateRangePicker extends React.Component<DateRangeProps> {}
 
-export type DateRangeIndex =
-    | "Today"
-    | "Yesterday"
-    | "Last 7 Days"
-    | "Last 30 Days";
+export type DateRangeIndex = 'Today' | 'Yesterday' | 'Last 7 Days' | 'Last 30 Days';
 
 export interface DateRangeObject {
     startDate: (now: moment.Moment) => moment.Moment;

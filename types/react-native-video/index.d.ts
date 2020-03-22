@@ -117,8 +117,8 @@ export interface VideoProperties extends ViewProps {
     source: { uri?: string } | number;
     minLoadRetryCount?: number;
     maxBitRate?: number;
-    resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
-    posterResizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
+    resizeMode?: 'stretch' | 'contain' | 'cover' | 'none'; // via Image#resizeMode
+    posterResizeMode?: 'stretch' | 'contain' | 'cover' | 'none'; // via Image#resizeMode
     poster?: string;
     repeat?: boolean;
     automaticallyWaitsToMinimizeStalling?: boolean;

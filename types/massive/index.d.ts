@@ -14,7 +14,7 @@ export = massive;
 declare function massive(
     connection: massive.ConnectionInfo | string,
     loaderConfig?: massive.Loader,
-    driverConfig?: object
+    driverConfig?: object,
 ): Promise<massive.Database>;
 
 declare namespace massive {
@@ -61,8 +61,8 @@ declare namespace massive {
     interface OrderingOptions {
         field?: string;
         expr?: string;
-        direction?: "ASC" | "asc" | "DESC" | "desc";
-        nulls?: "FIRST" | "first" | "LAST" | "last";
+        direction?: 'ASC' | 'asc' | 'DESC' | 'desc';
+        nulls?: 'FIRST' | 'first' | 'LAST' | 'last';
         type?: string;
         last?: string;
     }
@@ -106,7 +106,7 @@ declare namespace massive {
     }
 
     type QueryParamTypes = string | number | object;
-    type QueryParams = QueryParamTypes[] |  QueryParamTypes;
+    type QueryParams = QueryParamTypes[] | QueryParamTypes;
 
     interface EntitySpecification {
         /** A Database. */
@@ -175,21 +175,15 @@ declare namespace massive {
         countDoc(criteria: object): Promise<number>;
 
         /** Find rows matching criteria. */
-        find(
-            criteria?: AnyObject | number | UUID,
-            options?: RetrievalOptions & ResultProcessingOptions
-        ): Promise<any>;
+        find(criteria?: AnyObject | number | UUID, options?: RetrievalOptions & ResultProcessingOptions): Promise<any>;
 
         /** Find a document by searching in the body. */
-        findDoc(
-            criteria?: AnyObject | number | UUID,
-            options?: RetrievalOptions
-        ): Promise<any>;
+        findDoc(criteria?: AnyObject | number | UUID, options?: RetrievalOptions): Promise<any>;
 
         /** Return a single record. */
         findOne(
             criteria: AnyObject | number | UUID,
-            options?: RetrievalOptions & ResultProcessingOptions
+            options?: RetrievalOptions & ResultProcessingOptions,
         ): Promise<any>;
 
         /**
@@ -204,23 +198,13 @@ declare namespace massive {
         /**
          * Perform a full-text search on queryable fields. If options.document is true, looks in the document body fields instead of the table columns.
          */
-        search(
-            plan: SearchDefinition,
-            options?: RetrievalOptions
-        ): Promise<any[]>;
+        search(plan: SearchDefinition, options?: RetrievalOptions): Promise<any[]>;
 
         /** Shortcut to perform a full text search on a document table. */
-        searchDoc(
-            plan: Pick<SearchDefinition, "fields" | "term">,
-            options?: RetrievalOptions
-        ): Promise<any[]>;
+        searchDoc(plan: Pick<SearchDefinition, 'fields' | 'term'>, options?: RetrievalOptions): Promise<any[]>;
 
         /** Run a query with a raw SQL predicate, eg: db.mytable.where('id=$1', [123]).then(...); */
-        where(
-            conditions: string,
-            params?: any[],
-            options?: RetrievalOptions & ResultProcessingOptions
-        ): Promise<any[]>;
+        where(conditions: string, params?: any[], options?: RetrievalOptions & ResultProcessingOptions): Promise<any[]>;
     }
 
     interface WritableSpecification {
@@ -239,10 +223,7 @@ declare namespace massive {
         constructor(spec: WritableSpecification);
 
         /** Delete a record or records. */
-        destroy(
-            criteria: AnyObject,
-            options?: ResultProcessingOptions
-        ): Promise<any[]>;
+        destroy(criteria: AnyObject, options?: ResultProcessingOptions): Promise<any[]>;
 
         /**
          * Attempts to assemble primary key criteria for a record object representing a row in this table.
@@ -251,14 +232,8 @@ declare namespace massive {
         getPkCriteria(record: AnyObject): AnyObject;
 
         /** Insert a record or records into the table. */
-        insert(
-            data: AnyObject,
-            options?: PersistenceInsertOptions & ResultProcessingOptions
-        ): Promise<AnyObject>;
-        insert(
-            data: AnyObject[],
-            options?: PersistenceInsertOptions & ResultProcessingOptions
-        ): Promise<AnyObject[]>;
+        insert(data: AnyObject, options?: PersistenceInsertOptions & ResultProcessingOptions): Promise<AnyObject>;
+        insert(data: AnyObject[], options?: PersistenceInsertOptions & ResultProcessingOptions): Promise<AnyObject[]>;
 
         /**
          * Saves an object.
@@ -269,9 +244,7 @@ declare namespace massive {
          */
         save(
             record: AnyObject,
-            options?: PersistenceInsertOptions &
-                PersistenceUpdateDocOptions &
-                ResultProcessingOptions
+            options?: PersistenceInsertOptions & PersistenceUpdateDocOptions & ResultProcessingOptions,
         ): Promise<AnyObject>;
 
         /** Save a document to the database. This function will create or replace the entire document body. */
@@ -281,12 +254,12 @@ declare namespace massive {
         update(
             criteria: UUID | number,
             changes: AnyObject,
-            options?: PersistenceUpdateDocOptions & ResultProcessingOptions
+            options?: PersistenceUpdateDocOptions & ResultProcessingOptions,
         ): Promise<AnyObject>;
         update(
             criteria: AnyObject,
             changes: AnyObject,
-            options?: PersistenceUpdateDocOptions & ResultProcessingOptions
+            options?: PersistenceUpdateDocOptions & ResultProcessingOptions,
         ): Promise<AnyObject[]>;
 
         /**
@@ -298,7 +271,7 @@ declare namespace massive {
         updateDoc(
             criteria: UUID | number | AnyObject,
             changes: AnyObject,
-            options?: PersistenceUpdateDocOptions & ResultProcessingOptions
+            options?: PersistenceUpdateDocOptions & ResultProcessingOptions,
         ): Promise<AnyObject>;
     }
 
@@ -330,21 +303,13 @@ declare namespace massive {
         singleValue(obj: AnyObject): any;
 
         /** Implement the Transform stream that invokes singleValue on everything which passes through it. */
-        private _transform(
-            obj: AnyObject,
-            encoding: string,
-            cb: (err?: Error) => void
-        ): void;
+        private _transform(obj: AnyObject, encoding: string, cb: (err?: Error) => void): void;
     }
 
     /** Represents a SELECT query. */
     class Select {
         /** Represents an SELECT query. */
-        constructor(
-            source: Readable,
-            criteria: AnyObject | UUID,
-            options?: RetrievalOptions & ResultProcessingOptions
-        );
+        constructor(source: Readable, criteria: AnyObject | UUID, options?: RetrievalOptions & ResultProcessingOptions);
 
         /** Format this object into a SQL SELECT. */
         format(): string;
@@ -356,7 +321,7 @@ declare namespace massive {
         constructor(
             source: Readable,
             record: AnyObject | any[],
-            options?: ResultProcessingOptions & PersistenceInsertOptions
+            options?: ResultProcessingOptions & PersistenceInsertOptions,
         );
 
         /** Format this object into a SQL SELECT. */
@@ -370,7 +335,7 @@ declare namespace massive {
             source: Readable,
             changes: AnyObject,
             criteria: AnyObject,
-            options?: ResultProcessingOptions & PersistenceUpdateDocOptions
+            options?: ResultProcessingOptions & PersistenceUpdateDocOptions,
         );
 
         /** Format this object into a SQL SELECT. */
@@ -383,7 +348,7 @@ declare namespace massive {
         constructor(
             source: Readable,
             criteria?: AnyObject | UUID | number,
-            options?: ResultProcessingOptions & InheritanceOptions
+            options?: ResultProcessingOptions & InheritanceOptions,
         );
 
         /** Format this object into a SQL SELECT. */
@@ -394,11 +359,7 @@ declare namespace massive {
         /**
          * @param connection A connection object or connection string
          */
-        constructor(
-            connection: object | string,
-            loader?: Loader,
-            driverConfig?: object
-        );
+        constructor(connection: object | string, loader?: Loader, driverConfig?: object);
 
         /** Attach an entity to the connected instance. */
         attach(entities: AnyObject | any[]): Promise<any[]>;
@@ -446,7 +407,7 @@ declare namespace massive {
         query(
             query: Select | Insert | Update | Delete | string,
             params?: QueryParams,
-            options?: ResultProcessingOptions
+            options?: ResultProcessingOptions,
         ): Promise<any>;
 
         /**
@@ -459,16 +420,10 @@ declare namespace massive {
         saveDoc(collection: string, doc: AnyObject): Promise<any>;
 
         /** Begin a task, returning a copy of the connected instance which will route all queries made in the callback through the task scope. */
-        withConnection(
-            cb: (withTask: any) => any,
-            options?: AnyObject
-        ): Promise<any>;
+        withConnection(cb: (withTask: any) => any, options?: AnyObject): Promise<any>;
 
         /** Begin a transaction, returning a copy of the connected instance which will route all queries made in the callback through the transaction scope. */
-        withTransaction(
-            cb: (withTx: any) => any,
-            options?: AnyObject
-        ): Promise<any>;
+        withTransaction(cb: (withTx: any) => any, options?: AnyObject): Promise<any>;
 
         [tableName: string]: Writable | any;
     }

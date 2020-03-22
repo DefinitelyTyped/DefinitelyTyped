@@ -491,7 +491,7 @@ declare namespace fm {
              * This method should only be called from the callback specified by onSreamFailure and only if the args.willReconnect flag is set to false.
              * Otherwise, the client will reconnect automatically.
              */
-             reconnect(config?: connectConfig): client;
+            reconnect(config?: connectConfig): client;
 
             /**
              * Subscribes the client to receive messages on one or more channels.

@@ -1,4 +1,3 @@
-
 /// <reference types="jquery" />
 
 function test_postMessage() {
@@ -6,11 +5,15 @@ function test_postMessage() {
     $.postMessage('test message', 'http://dummy.url/', parent);
 
     // post object message
-    $.postMessage({
-        'a': '1',
-        'b': '2'
-    }, 'http://dummy.url/', parent);
-};
+    $.postMessage(
+        {
+            a: '1',
+            b: '2',
+        },
+        'http://dummy.url/',
+        parent,
+    );
+}
 
 function test_receiveMessage() {
     // receive plain source origin
@@ -22,7 +25,11 @@ function test_receiveMessage() {
     }, 'http://dummy.url');
 
     // receive source origin callback
-    $.receiveMessage((e) => {}, (sourceOrigin) => {
-        return sourceOrigin === 'http://dummy.url';
-    }, 100);
-};
+    $.receiveMessage(
+        (e) => {},
+        (sourceOrigin) => {
+            return sourceOrigin === 'http://dummy.url';
+        },
+        100,
+    );
+}

@@ -17,7 +17,7 @@ http.createServer((req, res) => {
     // $ExpectType boolean
     typeis.hasBody(req);
     if (typeis.hasBody(req)) {
-        req.on('data', chunk => {});
+        req.on('data', (chunk) => {});
     }
 
     const mediaType = 'application/json';

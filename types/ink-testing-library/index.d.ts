@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { Component, InkElement } from "ink";
+import { Component, InkElement } from 'ink';
 export interface RenderResponse {
     rerender: (tree: InkElement) => void;
     unmount: () => void;

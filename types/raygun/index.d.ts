@@ -42,7 +42,7 @@ export namespace raygun {
         occurredOn: Date;
         details: {
             client: {
-                name: "raygun-node";
+                name: 'raygun-node';
                 version: string;
             };
             groupingKey?: string;
@@ -75,24 +75,11 @@ export namespace raygun {
         };
     }
 
-    interface RaygunOfflineStorageProvider<
-        TTransportItem = RaygunPayload,
-        TStorageItem = string
-    > {
+    interface RaygunOfflineStorageProvider<TTransportItem = RaygunPayload, TStorageItem = string> {
         init(options: any): RaygunOfflineStorageProvider;
         save(item: TTransportItem, callback: (error?: Error) => void): void;
-        retrieve(
-            callback: (
-                error: Error,
-                storageItems: ReadonlyArray<TStorageItem>
-            ) => void
-        ): void;
-        send(
-            callback: (
-                error: Error,
-                sendItems: ReadonlyArray<TStorageItem>
-            ) => void
-        ): void;
+        retrieve(callback: (error: Error, storageItems: ReadonlyArray<TStorageItem>) => void): void;
+        send(callback: (error: Error, sendItems: ReadonlyArray<TStorageItem>) => void): void;
     }
 
     type OnBeforeSend = (
@@ -100,7 +87,7 @@ export namespace raygun {
         exception: Error,
         customData: KeyValueObject,
         request: RaygunRequest,
-        tags: ReadonlyArray<string>
+        tags: ReadonlyArray<string>,
     ) => boolean | RaygunPayload;
 
     type GroupingKey = (
@@ -108,7 +95,7 @@ export namespace raygun {
         exception: Error,
         customData: KeyValueObject,
         request: RaygunRequest,
-        tags: ReadonlyArray<string>
+        tags: ReadonlyArray<string>,
     ) => string;
 
     interface RaygunOptions {
@@ -121,7 +108,7 @@ export namespace raygun {
         offlineStorage?: RaygunOfflineStorageProvider;
         offlineStorageOptions?: any;
         isOffline?: boolean;
-        groupingKey?: string|GroupingKey;
+        groupingKey?: string | GroupingKey;
         tags?: ReadonlyArray<string>;
         userHumanStringForObject?: boolean;
         reportColumnNumbers?: boolean;
@@ -134,7 +121,7 @@ declare class Client {
     setUser(user: raygun.RaygunUser): Client;
     setVersion(version: string): Client;
     onBeforeSend(callback: raygun.OnBeforeSend): Client;
-    groupingKey(groupingKey: string|raygun.GroupingKey): Client;
+    groupingKey(groupingKey: string | raygun.GroupingKey): Client;
     offline(): Client;
     online(): Client;
     send(
@@ -142,15 +129,10 @@ declare class Client {
         customData?: raygun.KeyValueObject,
         offlineStorageCallback?: (error?: Error) => void,
         request?: raygun.RaygunRequest,
-        tags?: ReadonlyArray<string>
+        tags?: ReadonlyArray<string>,
     ): raygun.RaygunPayload;
-    expressHandler(
-        error: Error,
-        request: raygun.RaygunRequest,
-        res: any,
-        next: any
-    ): void;
-    user(req: raygun.RaygunRequest): raygun.RaygunUser|string;
+    expressHandler(error: Error, request: raygun.RaygunRequest, res: any, next: any): void;
+    user(req: raygun.RaygunRequest): raygun.RaygunUser | string;
 }
 
 export { Client };

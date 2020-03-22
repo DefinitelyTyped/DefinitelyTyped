@@ -19,7 +19,7 @@ import {
     scalePow,
     ScalePower,
     scaleTime,
-    ScaleTime
+    ScaleTime,
 } from 'd3-scale';
 import { select, Selection } from 'd3-selection';
 import { Transition } from 'd3-transition';
@@ -53,9 +53,9 @@ axisScaleString = scalePoint();
 // --------------------------------------------------------------------------
 
 let containerElement: d3Axis.AxisContainerElement;
-const svg: SVGSVGElement = select<SVGSVGElement, any>('svg').node() !; // mock
-const g: SVGGElement = select<SVGGElement, any>('g').node() !; // mock
-const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node() !; // mock
+const svg: SVGSVGElement = select<SVGSVGElement, any>('svg').node()!; // mock
+const g: SVGGElement = select<SVGGElement, any>('g').node()!; // mock
+const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node()!; // mock
 
 containerElement = svg;
 containerElement = g;
@@ -119,7 +119,7 @@ topAxis = topAxis.tickFormat(null);
 const formatFn: ((domainValue: string, index: number) => string) | null = bottomAxis.tickFormat();
 
 bottomAxis.tickFormat((d, i) => '#' + i);
-bottomAxis.tickFormat(d => d + '!');
+bottomAxis.tickFormat((d) => d + '!');
 
 // tickSize(...) ----------------------------------------------------------------
 

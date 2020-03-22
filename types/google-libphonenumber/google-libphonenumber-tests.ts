@@ -1,4 +1,3 @@
-
 import libphonenumber = require('google-libphonenumber');
 import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-libphonenumber';
 
@@ -15,7 +14,7 @@ import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-l
     // Print number in the international format.
     console.log(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
     // => +1 202-456-1414
-}
+};
 
 () => {
     // Require `AsYouTypeFormatter`.
@@ -32,4 +31,4 @@ import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-l
     console.log(formatter.inputDigit('2')); // => (650) 253-22
 
     formatter.clear();
-}
+};

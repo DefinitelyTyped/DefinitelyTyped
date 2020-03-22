@@ -113,12 +113,7 @@ multisort(input1, (a) => a);
 const input2 = ['hello', [1], [1, 2], []];
 multisort(input2, 'length');
 
-const input3 = [
-    { prop: true },
-    { prop: undefined },
-    { prop: false },
-    { prop: null },
-];
+const input3 = [{ prop: true }, { prop: undefined }, { prop: false }, { prop: null }];
 multisort(input3, 'prop?');
 multisort(gameShowHosts, 'say.name()');
 multisort(gameShowHosts, '~say.catchphrase(3)');
@@ -136,17 +131,14 @@ multisort(input4, 'name.toLowerCase()');
 const input5 = ['dog', 'Dog', 'DOG', 'demon', 'Demon', 'DEMON'];
 multisort(input5, 'toLowerCase()');
 
-const input6: Array<{ func: () => any }> = [
-    { func: () => true },
-    { func: () => null },
-];
+const input6: Array<{ func: () => any }> = [{ func: () => true }, { func: () => null }];
 multisort(input6, 'func()?');
 multisort(input6, 'func?');
 
-multisort(input1, [a => a % 2, a => a % 3, a => a]);
+multisort(input1, [(a) => a % 2, (a) => a % 3, (a) => a]);
 multisort(gameShowHosts, ['~fame', 'retired', 'name.last']);
 
-const sorter = multisort<number>([a => a % 2, a => a % 3, a => a]);
+const sorter = multisort<number>([(a) => a % 2, (a) => a % 3, (a) => a]);
 sorter(input1);
 
 const comparator = sorter.comparator;

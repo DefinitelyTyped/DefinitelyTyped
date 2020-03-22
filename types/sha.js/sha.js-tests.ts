@@ -1,8 +1,6 @@
 import shajs = require('sha.js');
 
-shajs('sha256')
-    .update('42')
-    .digest('hex');
+shajs('sha256').update('42').digest('hex');
 new shajs.sha().update('42').digest('hex');
 new shajs.sha1().update('42').digest('hex');
 new shajs.sha224().update('42').digest('hex');

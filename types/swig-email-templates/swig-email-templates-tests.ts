@@ -10,6 +10,6 @@ templates.rewriteUrls(jQuery, () => {});
 templates.render('templatePath', {}, () => {});
 
 withOptions.generateText('templatePath', {}, 'html', () => {});
-withOptions.generateSubject('templatePath', {}, () => { });
+withOptions.generateSubject('templatePath', {}, () => {});
 withOptions.rewriteUrls(jQuery, () => {});
 withOptions.render('templatePath', {}, () => {});

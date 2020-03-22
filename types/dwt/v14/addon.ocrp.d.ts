@@ -3,12 +3,12 @@
 // tslint:disable:no-irregular-whitespace
 
 /*!
-* Product: Dynamsoft Web Twain
-* Web Site: http://www.dynamsoft.com
-*
-* Copyright 2019, Dynamsoft Corporation
-* Author: Dynamsoft Support Team
-*/
+ * Product: Dynamsoft Web Twain
+ * Web Site: http://www.dynamsoft.com
+ *
+ * Copyright 2019, Dynamsoft Corporation
+ * Author: Dynamsoft Support Team
+ */
 
 interface Redaction {
     FindText: string;
@@ -60,55 +60,55 @@ interface DynamsoftLib {
 declare enum EnumDWT_OCRFindTextFlags {
     OCRFT_WHOLEWORD = 1,
     OCRFT_MATCHCASE = 2,
-    OCRFT_FUZZYMATCH = 4
+    OCRFT_FUZZYMATCH = 4,
 }
 declare enum EnumDWT_OCRFindTextAction {
     OCRFT_HIGHLIGHT = 0,
     OCRFT_STRIKEOUT = 1,
-    OCRFT_MARKFORREDACT = 2
+    OCRFT_MARKFORREDACT = 2,
 }
 
 declare enum EnumDWT_OCRProOutputFormat {
-    OCRPFT_IOTPDF = "IOTPDF",
-    OCRPFT_IOTPDF_MRC = "IOTPDF_MRC",
-    OCRPFT_TXTCSV = "TXTCSV",
-    OCRPFT_TXTF = "TXTF",
-    OCRPFT_TXTS = "TXTS",
-    OCRPFT_XML = "XML"
+    OCRPFT_IOTPDF = 'IOTPDF',
+    OCRPFT_IOTPDF_MRC = 'IOTPDF_MRC',
+    OCRPFT_TXTCSV = 'TXTCSV',
+    OCRPFT_TXTF = 'TXTF',
+    OCRPFT_TXTS = 'TXTS',
+    OCRPFT_XML = 'XML',
 }
 
 declare enum EnumDWT_OCRProPDFAVersion {
-    OCRPPDFAV_1A = "pdf/a-1a",
-    OCRPPDFAV_1B = "pdf/a-1b",
-    OCRPPDFAV_2A = "pdf/a-2a",
-    OCRPPDFAV_2B = "pdf/a-2b",
-    OCRPPDFAV_2U = "pdf/a-2u",
-    OCRPPDFAV_3A = "pdf/a-3a",
-    OCRPPDFAV_3B = "pdf/a-3b",
-    OCRPPDFAV_3U = "pdf/a-3u"
+    OCRPPDFAV_1A = 'pdf/a-1a',
+    OCRPPDFAV_1B = 'pdf/a-1b',
+    OCRPPDFAV_2A = 'pdf/a-2a',
+    OCRPPDFAV_2B = 'pdf/a-2b',
+    OCRPPDFAV_2U = 'pdf/a-2u',
+    OCRPPDFAV_3A = 'pdf/a-3a',
+    OCRPPDFAV_3B = 'pdf/a-3b',
+    OCRPPDFAV_3U = 'pdf/a-3u',
 }
 
 declare enum EnumDWT_OCRProPDFVersion {
-    OCRPPDFV_0 = "1.0",
-    OCRPPDFV_1 = "1.1",
-    OCRPPDFV_2 = "1.2",
-    OCRPPDFV_3 = "1.3",
-    OCRPPDFV_4 = "1.4",
-    OCRPPDFV_5 = "1.5",
-    OCRPPDFV_6 = "1.6",
-    OCRPPDFV_7 = "1.7"
+    OCRPPDFV_0 = '1.0',
+    OCRPPDFV_1 = '1.1',
+    OCRPPDFV_2 = '1.2',
+    OCRPPDFV_3 = '1.3',
+    OCRPPDFV_4 = '1.4',
+    OCRPPDFV_5 = '1.5',
+    OCRPPDFV_6 = '1.6',
+    OCRPPDFV_7 = '1.7',
 }
 
 declare enum EnumDWT_OCRProRecognitionModule {
-    OCRPM_AUTO = "AUTO",
-    OCRPM_MOSTACCURATE = "MOSTACCURATE",
-    OCRPM_BALANCED = "BALANCED",
-    OCRPM_FASTEST = "FASTEST"
+    OCRPM_AUTO = 'AUTO',
+    OCRPM_MOSTACCURATE = 'MOSTACCURATE',
+    OCRPM_BALANCED = 'BALANCED',
+    OCRPM_FASTEST = 'FASTEST',
 }
 
 declare enum EnumDWT_OCRProType {
     OCRDT_File = 0,
-    OCRDT_Index = 1
+    OCRDT_Index = 1,
 }
 
 interface OCRPro {
@@ -119,7 +119,7 @@ interface OCRPro {
     IsModuleInstalled(): boolean;
 
     /**
-     *  Downloads and installs the ocr add-on on the local system. 
+     *  Downloads and installs the ocr add-on on the local system.
      * @param {string} remoteFile specifies the URL to download a ZIP which contains the OCR Pro addon
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the download fails. Please refer to the function prototype OnFailure.
@@ -128,7 +128,7 @@ interface OCRPro {
     Download(remoteFile: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
 
     /**
-     *  Performs OCR on a given image. 
+     *  Performs OCR on a given image.
      * @param {number} sImageIndex Specifies the index of the image.
      * @param {function} AsyncSuccessFunc  The function to call when OCR operation succeeds. Please refer to the function prototype OnOCRSuccess.
      * @param {function} AsyncFailureFunc  The function to call when OCR operation fails. Please refer to the function prototype OnOCRFailure.
@@ -143,17 +143,26 @@ interface OCRPro {
      * @param {function} AsyncFailureFunc  The function to call when OCR operation fails. Please refer to the function prototype OnOCRFailure.
      * @return {void}
      */
-    RecognizeFile(fileNames: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
+    RecognizeFile(
+        fileNames: string,
+        optionalAsyncSuccessFunc?: () => void,
+        optionalAsyncFailureFunc?: () => void,
+    ): void;
 
     /**
-     *  Peforms OCR on the given rectangle on a specified image. 
+     *  Peforms OCR on the given rectangle on a specified image.
      * @param {number} sImageIndex Specifies the index of the image.
      * @param {number[]} aryZone specifies the coordinates of the rectangle.
      * @param {function} AsyncSuccessFunc  The function to call when OCR operation succeeds. Please refer to the function prototype OnOCRSuccess.
      * @param {function} AsyncFailureFunc  The function to call when OCR operation fails. Please refer to the function prototype OnOCRFailure.
      * @return {void}
      */
-    RecognizeRect(sImageIndex: number, aryZone: number[], optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
+    RecognizeRect(
+        sImageIndex: number,
+        aryZone: number[],
+        optionalAsyncSuccessFunc?: () => void,
+        optionalAsyncFailureFunc?: () => void,
+    ): void;
 
     /**
      *   Performs OCR on the currently selected images in the buffer.
@@ -163,10 +172,10 @@ interface OCRPro {
      */
     RecognizeSelectedImages(optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
 
-	NewOCRError(): OCRError;
-	NewOCRReadPara(): OCRReadPara;
-	NewOCRZone(): OCRZone;
-	NewSettings(): Settings;
+    NewOCRError(): OCRError;
+    NewOCRReadPara(): OCRReadPara;
+    NewOCRZone(): OCRZone;
+    NewSettings(): Settings;
 }
 
 interface DynamsoftWebTwainAddon {

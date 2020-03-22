@@ -5,8 +5,21 @@ import { Signature } from './signature';
 import { Strarray } from './str-array';
 
 export class Tag {
-    static annotationCreate(repo: Repository, tagName: string, target: Object, tagger: Signature, message: string): Promise<Oid>;
-    static create(repo: Repository, tagName: string, target: Object, tagger: Signature, message: string, force: number): Promise<Oid>;
+    static annotationCreate(
+        repo: Repository,
+        tagName: string,
+        target: Object,
+        tagger: Signature,
+        message: string,
+    ): Promise<Oid>;
+    static create(
+        repo: Repository,
+        tagName: string,
+        target: Object,
+        tagger: Signature,
+        message: string,
+        force: number,
+    ): Promise<Oid>;
     static createLightweight(repo: Repository, tagName: string, target: Object, force: number): Promise<Oid>;
     static delete(repo: Repository, tagName: string): Promise<number>;
     static list(repo: Repository): Promise<any[]>;

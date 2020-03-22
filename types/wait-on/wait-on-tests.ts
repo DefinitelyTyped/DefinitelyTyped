@@ -50,7 +50,7 @@ const opts = {
 const handleError = (err: any) => undefined;
 
 // Usage with callback function
-waitOn(opts, err => {
+waitOn(opts, (err) => {
     if (err) {
         return handleError(err);
     }
@@ -62,7 +62,7 @@ waitOn(opts)
     .then(() => {
         // once here, all resources are available
     })
-    .catch(err => {
+    .catch((err) => {
         handleError(err);
     });
 

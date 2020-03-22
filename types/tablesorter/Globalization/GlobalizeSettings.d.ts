@@ -1,5 +1,5 @@
-import Globalize = require("globalize");
-import { DateFormatterOptions } from "globalize";
+import Globalize = require('globalize');
+import { DateFormatterOptions } from 'globalize';
 
 /**
  * Provides settings for `Globalize`.

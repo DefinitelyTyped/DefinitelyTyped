@@ -1,7 +1,6 @@
-import { Icon } from "./Icon";
+import { Icon } from './Icon';
 
 /**
  * Represents a non-vector icon.
  */
-export interface ImageIcon extends Icon {
-}
+export interface ImageIcon extends Icon {}

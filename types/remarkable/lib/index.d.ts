@@ -1,8 +1,8 @@
 // tslint:disable:no-empty-interface
 
-import * as Utils from "./common/utils";
-import Renderer = require("./renderer");
-import Ruler = require("./ruler");
+import * as Utils from './common/utils';
+import Renderer = require('./renderer');
+import Ruler = require('./ruler');
 
 export = Remarkable;
 
@@ -29,7 +29,7 @@ declare class Remarkable {
      * Remarkable offers some "presets" as a convenience to quickly enable/disable
      * active syntax rules and options for common use cases.
      */
-    constructor(preset: "commonmark" | "full" | "remarkable", options?: Remarkable.Options);
+    constructor(preset: 'commonmark' | 'full' | 'remarkable', options?: Remarkable.Options);
 
     /**
      * `"# Remarkable rulezz!"` => `"<h1>Remarkable rulezz!</h1>"`
@@ -78,7 +78,7 @@ declare namespace Remarkable {
         [key: string]: any;
     }
 
-    type GetBreak = Rule<ContentToken, "" | "\n">;
+    type GetBreak = Rule<ContentToken, '' | '\n'>;
 
     interface Options {
         /**
@@ -134,8 +134,8 @@ declare namespace Remarkable {
     interface Presets {
         components: {
             [name: string]: {
-                rules: Rules,
-            },
+                rules: Rules;
+            };
         };
 
         options: Options;
@@ -199,13 +199,13 @@ declare namespace Remarkable {
         labelUnmatchedScopes: number;
         push: (token: ContentToken) => void;
         pushPending: () => void;
-        }
+    }
 
-        /**
-         * Return `true` if the parsing function has recognized the current position
-         * in the input as one if its tokens.
-         */
-        type CoreParsingRule = (
+    /**
+     * Return `true` if the parsing function has recognized the current position
+     * in the input as one if its tokens.
+     */
+    type CoreParsingRule = (
         /**
          * Representation of the current input stream, and the results of
          * parsing it so far.
@@ -228,7 +228,7 @@ declare namespace Remarkable {
          * If `true` we just do the recognition part, and don't bother to push a
          * token.
          */
-        silent: boolean
+        silent: boolean,
     ) => boolean;
 
     /**
@@ -256,7 +256,7 @@ declare namespace Remarkable {
          * If `true` we just do the recognition part, and don't bother to push a
          * token.
          */
-        silent: boolean
+        silent: boolean,
     ) => boolean;
 
     type Rule<T extends TagToken = TagToken, R extends string = string> = (
@@ -292,68 +292,68 @@ declare namespace Remarkable {
      */
     interface Rules {
         [name: string]: Rule | { [name: string]: Rule<ContentToken> };
-        "blockquote_open": Rule<BlockquoteOpenToken>;
-        "blockquote_close": Rule<BlockquoteCloseToken>;
-        "code": Rule<CodeToken>;
-        "fence": Rule<FenceToken>;
-        "fence_custom": { [name: string]: Rule<FenceToken> };
-        "heading_open": Rule<HeadingOpenToken>;
-        "heading_close": Rule<HeadingCloseToken>;
-        "hr": Rule<HrToken>;
-        "bullet_list_open": Rule<BulletListOpenToken>;
-        "bullet_list_close": Rule<BulletListCloseToken>;
-        "list_item_open": Rule<ListItemOpenToken>;
-        "list_item_close": Rule<ListItemCloseToken>;
-        "ordered_list_open": Rule<OrderedListOpenToken>;
-        "ordered_list_close": Rule<OrderedListCloseToken>;
-        "paragraph_open": Rule<ParagraphOpenToken>;
-        "paragraph_close": Rule<ParagraphCloseToken>;
-        "link_open": Rule<LinkOpenToken>;
-        "link_close": Rule<LinkCloseToken>;
-        "image": Rule<ImageToken>;
-        "table_open": Rule<TableOpenToken>;
-        "table_close": Rule<TableCloseToken>;
-        "thead_open": Rule<THeadOpenToken>;
-        "thead_close": Rule<THeadCloseToken>;
-        "tbody_open": Rule<TBodyOpenToken>;
-        "tbody_close": Rule<TBodyCloseToken>;
-        "tr_open": Rule<TROpenToken>;
-        "tr_close": Rule<TRCloseToken>;
-        "th_open": Rule<THOpenToken>;
-        "th_close": Rule<THCloseToken>;
-        "td_open": Rule<TDOpenToken>;
-        "td_close": Rule<TDCloseToken>;
-        "strong_open": Rule<StrongOpenToken>;
-        "strong_close": Rule<StrongCloseToken>;
-        "em_open": Rule<EmOpenToken>;
-        "em_close": Rule<EmCloseToken>;
-        "del_open": Rule<DelOpenToken>;
-        "del_close": Rule<DelCloseToken>;
-        "ins_open": Rule<InsOpenToken>;
-        "ins_close": Rule<InsCloseToken>;
-        "mark_open": Rule<MarkOpenToken>;
-        "mark_close": Rule<MarkCloseToken>;
-        "sub": Rule<SubToken>;
-        "sup": Rule<SupToken>;
-        "hardbreak": Rule<HardbreakToken>;
-        "softbreak": Rule<SoftbreakToken>;
-        "text": Rule<TextToken>;
-        "htmlblock": Rule<HtmlBlockToken>;
-        "htmltag": Rule<HtmlTagToken>;
-        "abbr_open": Rule<AbbrOpenToken>;
-        "abbr_close": Rule<AbbrCloseToken>;
-        "footnote_ref": Rule<FootnoteInlineToken>;
-        "footnote_block_open": Rule<FootnoteBlockOpenToken>;
-        "footnote_block_close": Rule<FootnoteBlockCloseToken>;
-        "footnote_open": Rule<FootnoteOpenToken>;
-        "footnote_close": Rule<FootnoteCloseToken>;
-        "footnote_anchor": Rule<FootnoteAnchorToken>;
-        "dl_open": Rule<DlOpenToken>;
-        "dt_open": Rule<DtOpenToken>;
-        "dd_open": Rule<DdOpenToken>;
-        "dl_close": Rule<DlCloseToken>;
-        "dt_close": Rule<DtCloseToken>;
-        "dd_close": Rule<DdCloseToken>;
+        blockquote_open: Rule<BlockquoteOpenToken>;
+        blockquote_close: Rule<BlockquoteCloseToken>;
+        code: Rule<CodeToken>;
+        fence: Rule<FenceToken>;
+        fence_custom: { [name: string]: Rule<FenceToken> };
+        heading_open: Rule<HeadingOpenToken>;
+        heading_close: Rule<HeadingCloseToken>;
+        hr: Rule<HrToken>;
+        bullet_list_open: Rule<BulletListOpenToken>;
+        bullet_list_close: Rule<BulletListCloseToken>;
+        list_item_open: Rule<ListItemOpenToken>;
+        list_item_close: Rule<ListItemCloseToken>;
+        ordered_list_open: Rule<OrderedListOpenToken>;
+        ordered_list_close: Rule<OrderedListCloseToken>;
+        paragraph_open: Rule<ParagraphOpenToken>;
+        paragraph_close: Rule<ParagraphCloseToken>;
+        link_open: Rule<LinkOpenToken>;
+        link_close: Rule<LinkCloseToken>;
+        image: Rule<ImageToken>;
+        table_open: Rule<TableOpenToken>;
+        table_close: Rule<TableCloseToken>;
+        thead_open: Rule<THeadOpenToken>;
+        thead_close: Rule<THeadCloseToken>;
+        tbody_open: Rule<TBodyOpenToken>;
+        tbody_close: Rule<TBodyCloseToken>;
+        tr_open: Rule<TROpenToken>;
+        tr_close: Rule<TRCloseToken>;
+        th_open: Rule<THOpenToken>;
+        th_close: Rule<THCloseToken>;
+        td_open: Rule<TDOpenToken>;
+        td_close: Rule<TDCloseToken>;
+        strong_open: Rule<StrongOpenToken>;
+        strong_close: Rule<StrongCloseToken>;
+        em_open: Rule<EmOpenToken>;
+        em_close: Rule<EmCloseToken>;
+        del_open: Rule<DelOpenToken>;
+        del_close: Rule<DelCloseToken>;
+        ins_open: Rule<InsOpenToken>;
+        ins_close: Rule<InsCloseToken>;
+        mark_open: Rule<MarkOpenToken>;
+        mark_close: Rule<MarkCloseToken>;
+        sub: Rule<SubToken>;
+        sup: Rule<SupToken>;
+        hardbreak: Rule<HardbreakToken>;
+        softbreak: Rule<SoftbreakToken>;
+        text: Rule<TextToken>;
+        htmlblock: Rule<HtmlBlockToken>;
+        htmltag: Rule<HtmlTagToken>;
+        abbr_open: Rule<AbbrOpenToken>;
+        abbr_close: Rule<AbbrCloseToken>;
+        footnote_ref: Rule<FootnoteInlineToken>;
+        footnote_block_open: Rule<FootnoteBlockOpenToken>;
+        footnote_block_close: Rule<FootnoteBlockCloseToken>;
+        footnote_open: Rule<FootnoteOpenToken>;
+        footnote_close: Rule<FootnoteCloseToken>;
+        footnote_anchor: Rule<FootnoteAnchorToken>;
+        dl_open: Rule<DlOpenToken>;
+        dt_open: Rule<DtOpenToken>;
+        dd_open: Rule<DdOpenToken>;
+        dl_close: Rule<DlCloseToken>;
+        dt_close: Rule<DtCloseToken>;
+        dd_close: Rule<DdCloseToken>;
 
         /**
          * Check to see if `\n` is needed before the next token.

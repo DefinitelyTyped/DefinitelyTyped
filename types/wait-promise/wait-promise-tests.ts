@@ -1,4 +1,4 @@
-import * as wait from "wait-promise";
+import * as wait from 'wait-promise';
 
 function exampleVoidFn() {}
 
@@ -17,11 +17,8 @@ async function testExamples() {
         await wait
             .every(50)
             .and(exampleVoidFn)
-            .until(() => true)
+            .until(() => true),
     ];
-    await wait
-        .every(500)
-        .and(exampleVoidFn)
-        .forward();
+    await wait.every(500).and(exampleVoidFn).forward();
     await wait.sleep(200);
 }

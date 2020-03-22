@@ -117,10 +117,7 @@ declare namespace confetti {
     /**
      * This method creates an instance of the confetti function that uses a custom canvas.
      */
-    function create(
-        canvas: HTMLCanvasElement,
-        options?: GlobalOptions
-    ): CreateTypes;
+    function create(canvas: HTMLCanvasElement, options?: GlobalOptions): CreateTypes;
 }
 
 export = confetti;

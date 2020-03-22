@@ -39,7 +39,10 @@ declare class BaseRequest {
     protected replyCookies: string[];
     protected jSend: boolean;
     constructor(opts: any);
-    _parseOptions(args: IArguments, type: string): {
+    _parseOptions(
+        args: IArguments,
+        type: string,
+    ): {
         opts: any;
         cb: any;
     };

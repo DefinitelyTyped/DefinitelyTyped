@@ -1,180 +1,205 @@
 namespace ngCordova {
     'use strict';
 
-
-    angular.module('test')
-    // Adapted from http://ngcordova.com/docs/plugins/file/
-        .controller('MyCtrl', function($scope: ng.IScope, $cordovaFile: ngCordova.IFileService) {
-
-            document.addEventListener('deviceready', function() {
-
-                $cordovaFile.getFreeDiskSpace()
-                    .then(function(success) {
+    angular
+        .module('test')
+        // Adapted from http://ngcordova.com/docs/plugins/file/
+        .controller('MyCtrl', function ($scope: ng.IScope, $cordovaFile: ngCordova.IFileService) {
+            document.addEventListener('deviceready', function () {
+                $cordovaFile.getFreeDiskSpace().then(
+                    function (success) {
                         // success in kilobytes
                         var freeSpace: number = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
-
+                    },
+                );
 
                 // CHECK
-                $cordovaFile.checkDir(cordova.file.dataDirectory, "dir/other_dir")
-                    .then(function(success) {
+                $cordovaFile.checkDir(cordova.file.dataDirectory, 'dir/other_dir').then(
+                    function (success) {
                         // success
                         var dir: DirectoryEntry = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-
-                $cordovaFile.checkFile(cordova.file.dataDirectory, "some_file.txt")
-                    .then(function(success) {
+                $cordovaFile.checkFile(cordova.file.dataDirectory, 'some_file.txt').then(
+                    function (success) {
                         // success
                         var fileResult: FileEntry = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
-
+                    },
+                );
 
                 // CREATE
-                $cordovaFile.createDir(cordova.file.dataDirectory, "new_dir", false)
-                    .then(function(success) {
+                $cordovaFile.createDir(cordova.file.dataDirectory, 'new_dir', false).then(
+                    function (success) {
                         // success
                         var dir: DirectoryEntry = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-                $cordovaFile.createFile(cordova.file.dataDirectory, "new_file.txt", true)
-                    .then(function(success) {
+                $cordovaFile.createFile(cordova.file.dataDirectory, 'new_file.txt', true).then(
+                    function (success) {
                         // success
                         var fileResult: FileEntry = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
-
+                    },
+                );
 
                 // REMOVE
-                $cordovaFile.removeDir(cordova.file.dataDirectory, "some_dir")
-                    .then(function(success) {
+                $cordovaFile.removeDir(cordova.file.dataDirectory, 'some_dir').then(
+                    function (success) {
                         // success
                         if (success.success) {
                             var dirResult: DirectoryEntry = success.fileRemoved;
                         }
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-                $cordovaFile.removeFile(cordova.file.dataDirectory, "some_file.txt")
-                    .then(function(success) {
+                $cordovaFile.removeFile(cordova.file.dataDirectory, 'some_file.txt').then(
+                    function (success) {
                         // success
                         if (success.success) {
                             var fileResult: FileEntry = success.fileRemoved;
                         }
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-                $cordovaFile.removeRecursively(cordova.file.dataDirectory, "")
-                    .then(function(success) {
+                $cordovaFile.removeRecursively(cordova.file.dataDirectory, '').then(
+                    function (success) {
                         // success
                         if (success.success) {
                             var dirResult: DirectoryEntry = success.fileRemoved;
                         }
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
-
+                    },
+                );
 
                 // WRITE
-                $cordovaFile.writeFile(cordova.file.dataDirectory, "file.txt", "text", true)
-                    .then(function(success) {
+                $cordovaFile.writeFile(cordova.file.dataDirectory, 'file.txt', 'text', true).then(
+                    function (success) {
                         // success
                         var endEvent: ProgressEvent = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-                $cordovaFile.writeExistingFile(cordova.file.dataDirectory, "file.txt", "text")
-                    .then(function(success) {
+                $cordovaFile.writeExistingFile(cordova.file.dataDirectory, 'file.txt', 'text').then(
+                    function (success) {
                         // success
                         var endEvent: ProgressEvent = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
-
+                    },
+                );
 
                 // READ
-                $cordovaFile.readAsText(cordova.file.dataDirectory, "file.txt")
-                    .then(function(success) {
+                $cordovaFile.readAsText(cordova.file.dataDirectory, 'file.txt').then(
+                    function (success) {
                         // success
                         var text: string = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-                $cordovaFile.readAsDataURL(cordova.file.dataDirectory, "file.txt")
-                    .then(function(success) {
+                $cordovaFile.readAsDataURL(cordova.file.dataDirectory, 'file.txt').then(
+                    function (success) {
                         // success
                         var text: string = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-                $cordovaFile.readAsBinaryString(cordova.file.dataDirectory, "file.txt")
-                    .then(function(success) {
+                $cordovaFile.readAsBinaryString(cordova.file.dataDirectory, 'file.txt').then(
+                    function (success) {
                         // success
                         var text: string = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-                $cordovaFile.readAsArrayBuffer(cordova.file.dataDirectory, "file.txt")
-                    .then(function(success) {
+                $cordovaFile.readAsArrayBuffer(cordova.file.dataDirectory, 'file.txt').then(
+                    function (success) {
                         // success
                         var buffer: ArrayBuffer = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
-
+                    },
+                );
 
                 // MOVE
-                $cordovaFile.moveDir(cordova.file.dataDirectory, "dir", cordova.file.tempDirectory, "new_dir")
-                    .then(function(success) {
+                $cordovaFile.moveDir(cordova.file.dataDirectory, 'dir', cordova.file.tempDirectory, 'new_dir').then(
+                    function (success) {
                         // success
                         var dirResult: DirectoryEntry = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-                $cordovaFile.moveFile(cordova.file.dataDirectory, "file.txt", cordova.file.tempDirectory)
-                    .then(function(success) {
+                $cordovaFile.moveFile(cordova.file.dataDirectory, 'file.txt', cordova.file.tempDirectory).then(
+                    function (success) {
                         // success
                         var fileResult: FileEntry = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
-
+                    },
+                );
 
                 // COPY
-                $cordovaFile.copyDir(cordova.file.dataDirectory, "dir", cordova.file.tempDirectory, "new_dir")
-                    .then(function(success) {
+                $cordovaFile.copyDir(cordova.file.dataDirectory, 'dir', cordova.file.tempDirectory, 'new_dir').then(
+                    function (success) {
                         // success
                         var dirResult: DirectoryEntry = success;
-                    }, function(error) {
+                    },
+                    function (error) {
                         // error
-                    });
+                    },
+                );
 
-                $cordovaFile.copyFile(cordova.file.dataDirectory, "file.txt", cordova.file.tempDirectory, "new_file.txt")
-                    .then(function(success) {
-                        // success
-                        var fileResult: FileEntry = success;
-                    }, function(error) {
-                        // error
-                    });
-
-
+                $cordovaFile
+                    .copyFile(cordova.file.dataDirectory, 'file.txt', cordova.file.tempDirectory, 'new_file.txt')
+                    .then(
+                        function (success) {
+                            // success
+                            var fileResult: FileEntry = success;
+                        },
+                        function (error) {
+                            // error
+                        },
+                    );
             });
-
         });
 }

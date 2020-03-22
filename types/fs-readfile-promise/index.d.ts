@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { PathLike } from "fs";
+import { PathLike } from 'fs';
 type PathType = PathLike | number;
-type OptionsType = { encoding: string; flag?: string; } | string;
+type OptionsType = { encoding: string; flag?: string } | string;
 
 export = fsReadFilePromise;
 
@@ -26,4 +26,4 @@ declare function fsReadFilePromise(path: PathType, options: OptionsType): Promis
  */
 declare function fsReadFilePromise(path: PathType, options?: null): Promise<Buffer>;
 
-declare namespace fsReadFilePromise { }
+declare namespace fsReadFilePromise {}

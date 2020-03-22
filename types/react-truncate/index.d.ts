@@ -13,5 +13,5 @@ export interface TruncateProps extends React.HTMLProps<Truncate> {
     onTruncate?(isTruncated: boolean): void;
 }
 
-declare class Truncate extends React.Component<TruncateProps> { }
+declare class Truncate extends React.Component<TruncateProps> {}
 export default Truncate;

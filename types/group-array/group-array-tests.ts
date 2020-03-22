@@ -1,4 +1,4 @@
-import groupArray = require("group-array");
+import groupArray = require('group-array');
 
 const input = [
     { tag: 'one', content: 'A' },
@@ -6,7 +6,7 @@ const input = [
     { tag: 'two', content: 'C' },
     { tag: 'two', content: 'D' },
     { tag: 'three', content: 'E' },
-    { tag: 'three', content: 'F' }
+    { tag: 'three', content: 'F' },
 ];
 
 groupArray(input, 'tag'); // $ExpectType object

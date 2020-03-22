@@ -4,7 +4,7 @@
 // Definitions: https://github.com/huan086/postcss-plugins-typings
 // TypeScript Version: 2.2
 
-import { Plugin } from "postcss";
+import { Plugin } from 'postcss';
 
 declare namespace extractImports {
     interface Options {

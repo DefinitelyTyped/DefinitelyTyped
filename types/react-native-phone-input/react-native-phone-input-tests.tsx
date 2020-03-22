@@ -30,10 +30,10 @@ const test: React.SFC = () => (
         buttonTextStyle={{
             color: 'red',
         }}
-        onChangePhoneNumber={newPhoneNumber => {
+        onChangePhoneNumber={(newPhoneNumber) => {
             console.info('New phone number', newPhoneNumber);
         }}
-        onSelectCountry={selected => {
+        onSelectCountry={(selected) => {
             console.info('Selected country', selected);
         }}
         onPressFlag={() => {

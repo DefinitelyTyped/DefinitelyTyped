@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { RequestHandler } from "express-serve-static-core";
+import { RequestHandler } from 'express-serve-static-core';
 
 declare const correlator: {
     (options?: { header?: string }): RequestHandler;

@@ -16,12 +16,15 @@ import * as net from 'net';
         foo: string;
     }
 
-    server = new http.Server({ IncomingMessage: MyIncomingMessage});
+    server = new http.Server({ IncomingMessage: MyIncomingMessage });
 
-    server = new http.Server({
-        IncomingMessage: MyIncomingMessage,
-        ServerResponse: MyServerResponse
-    }, reqListener);
+    server = new http.Server(
+        {
+            IncomingMessage: MyIncomingMessage,
+            ServerResponse: MyServerResponse,
+        },
+        reqListener,
+    );
 
     server = http.createServer(reqListener);
     server = http.createServer({ IncomingMessage: MyIncomingMessage });
@@ -33,7 +36,11 @@ import * as net from 'net';
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
-    server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    server
+        .setTimeout()
+        .setTimeout(1000)
+        .setTimeout(() => {})
+        .setTimeout(100, () => {});
 }
 
 // http IncomingMessage
@@ -61,7 +68,7 @@ import * as net from 'net';
         ['x-fOo', 'xOxOxOx'],
         ['x-foO', 'OxOxOxO'],
         ['X-fOo', 'xOxOxOx'],
-        ['X-foO', 'OxOxOxO']
+        ['X-foO', 'OxOxOxO'],
     ]);
     res.addTrailers({ 'x-foo': 'bar' });
 
@@ -78,7 +85,7 @@ import * as net from 'net';
     res.write(chunk, 'hex');
 
     // end
-    res.end("end msg");
+    res.end('end msg');
     // without msg
     res.end();
 
@@ -88,8 +95,8 @@ import * as net from 'net';
 
 // http ClientRequest
 {
-    let req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
-    req = new http.ClientRequest(new url.URL("https://www.google.com"));
+    let req: http.ClientRequest = new http.ClientRequest('https://www.google.com');
+    req = new http.ClientRequest(new url.URL('https://www.google.com'));
     req = new http.ClientRequest({ path: 'http://0.0.0.0' });
     req = new http.ClientRequest({ setHost: false });
 
@@ -109,10 +116,10 @@ import * as net from 'net';
     req.abort();
 
     // connection
-    req.connection.on('pause', () => { });
+    req.connection.on('pause', () => {});
 
     // event
-    req.on('data', () => { });
+    req.on('data', () => {});
 
     // path
     const path: string = req.path;
@@ -130,7 +137,7 @@ import * as net from 'net';
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
         maxFreeSockets: 256,
-        timeout: 15000
+        timeout: 15000,
     });
 
     agent = http.globalAgent;
@@ -154,7 +161,7 @@ import * as net from 'net';
     http.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
 
     const opts: http.RequestOptions = {
-        path: '"/some/path'
+        path: '"/some/path',
     };
     http.get(new url.URL('http://www.example.com'), opts);
     http.request(new url.URL('http://www.example.com'), opts);
@@ -170,7 +177,7 @@ import * as net from 'net';
 
 {
     const request = http.request({ path: 'http://0.0.0.0' });
-    request.once('error', () => { });
+    request.once('error', () => {});
     request.setNoDelay(true);
     request.abort();
 }
@@ -178,11 +185,11 @@ import * as net from 'net';
 // http request options
 {
     const requestOpts: http.RequestOptions = {
-        timeout: 30000
+        timeout: 30000,
     };
 
     const clientArgs: http.ClientRequestArgs = {
-        timeout: 30000
+        timeout: 30000,
     };
 }
 
@@ -190,7 +197,7 @@ import * as net from 'net';
 {
     const headers: http.IncomingHttpHeaders = {
         'content-type': 'application/json',
-        'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        'set-cookie': ['type=ninja', 'language=javascript'],
     };
 }
 

@@ -16,8 +16,6 @@ declare namespace PeerDepsExternalPlugin {
     }
 }
 
-declare function PeerDepsExternalPlugin(
-    options?: PeerDepsExternalPlugin.PluginPeerDepsExternalOptions
-): Plugin;
+declare function PeerDepsExternalPlugin(options?: PeerDepsExternalPlugin.PluginPeerDepsExternalOptions): Plugin;
 
 export = PeerDepsExternalPlugin;

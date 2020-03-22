@@ -32,15 +32,13 @@ const b = browserify({
 });
 
 b.on('update', bundle);
-b.on('update', ids => {});
-b.on('bytes', bytes => {});
-b.on('time', time => {});
-b.on('log', msg => {});
+b.on('update', (ids) => {});
+b.on('bytes', (bytes) => {});
+b.on('time', (time) => {});
+b.on('log', (msg) => {});
 
 bundle();
 
 function bundle() {
-    b.bundle()
-        .on('error', console.error)
-        .pipe(fs.createWriteStream('output.js'));
+    b.bundle().on('error', console.error).pipe(fs.createWriteStream('output.js'));
 }

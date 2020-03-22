@@ -16,5 +16,5 @@ export interface NavProps extends React.HTMLProps<HTMLUListElement> {
     cssModule?: CSSModule;
 }
 
-declare class Nav<T = {[key: string]: any}> extends React.Component<NavProps> {}
+declare class Nav<T = { [key: string]: any }> extends React.Component<NavProps> {}
 export default Nav;

@@ -10,7 +10,7 @@ const query = {
     order: '-consensus_weight',
 };
 
-onionoo.summary(query).then(response => {
+onionoo.summary(query).then((response) => {
     response.body; // $ExpectType Response<RelaySummary, BridgeSummary> || Summary
 
     const body = response.body;

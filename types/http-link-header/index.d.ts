@@ -46,9 +46,9 @@ declare class Link {
 }
 
 declare namespace Link {
-  interface Reference {
-      uri: string;
-      rel: string;
-      [index: string]: string;
-  }
+    interface Reference {
+        uri: string;
+        rel: string;
+        [index: string]: string;
+    }
 }

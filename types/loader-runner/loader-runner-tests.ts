@@ -2,12 +2,13 @@ import { runLoaders, getContext } from 'loader-runner';
 
 const option = {
     resource: 'test.js',
-    loaders: [{
-        request: 'test.js'
-    }],
+    loaders: [
+        {
+            request: 'test.js',
+        },
+    ],
     context: './lib/',
-    readResource: function () {
-    }
+    readResource: function () {},
 };
 
 runLoaders(option, function (err, result) {

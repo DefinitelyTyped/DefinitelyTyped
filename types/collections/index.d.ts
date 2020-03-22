@@ -3,4 +3,4 @@
 // Definitions by: Scarabe Dore <https://github.com/scarabedore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export {}
+export {};

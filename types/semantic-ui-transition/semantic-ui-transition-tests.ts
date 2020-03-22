@@ -43,7 +43,7 @@ function test_transition() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     $(selector).transition('fade'); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
@@ -77,12 +77,12 @@ function test_transition() {
             looping: 'looping',
             outward: 'outward',
             transition: 'transition',
-            visible: 'visible'
+            visible: 'visible',
         },
         error: {
             noAnimation: 'noAnimation',
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).transition(); // $ExpectType JQuery<HTMLElement>
 

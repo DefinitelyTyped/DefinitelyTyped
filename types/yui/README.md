@@ -1,5 +1,4 @@
-yui.d.ts
-========
+# yui.d.ts
 
 typescript definition type for [yui3](https://github.com/yui/yui3).
 

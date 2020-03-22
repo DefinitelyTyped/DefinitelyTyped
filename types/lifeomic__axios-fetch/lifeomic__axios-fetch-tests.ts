@@ -3,7 +3,7 @@ import { buildAxiosFetch } from '@lifeomic/axios-fetch';
 
 const instance = axios.create();
 
-const fetch = buildAxiosFetch(instance, config => {
+const fetch = buildAxiosFetch(instance, (config) => {
     config.timeout = 1000;
     return config;
 });
@@ -13,6 +13,6 @@ fetch('https://jsonplaceholder.typicode.com/users', {
     headers: {
         'Content-Type': 'application/json',
     },
-}).then(response => {
+}).then((response) => {
     return response.json();
 });

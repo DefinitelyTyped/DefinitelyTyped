@@ -51,6 +51,6 @@ function testFakeXMLHttpRequest() {
 function testFakeXMLHttpRequestStatic() {
     fakeXhr.FakeXMLHttpRequest.useFilters = true;
     fakeXhr.FakeXMLHttpRequest.addFilter((method, url, async, user, pass) => true);
-    fakeXhr.FakeXMLHttpRequest.onCreate = (xhr: FakeXMLHttpRequest) => { };
+    fakeXhr.FakeXMLHttpRequest.onCreate = (xhr: FakeXMLHttpRequest) => {};
     fakeXhr.FakeXMLHttpRequest.restore();
 }

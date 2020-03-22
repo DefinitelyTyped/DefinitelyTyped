@@ -6,17 +6,14 @@
 
 /// <reference types="react" />
 
-import * as React from "react";
+import * as React from 'react';
 
 import Select = RcSelect.Select;
 import Option = RcSelect.Option;
 import OptGroup = RcSelect.OptGroup;
 
 export default Select;
-export {
-    Option,
-    OptGroup
-};
+export { Option, OptGroup };
 
 declare namespace RcSelect {
     interface SelectProps {
@@ -63,7 +60,7 @@ declare namespace RcSelect {
         transitionName?: string;
         value?: string | Array<string>;
     }
-    export class Select extends React.Component<SelectProps> { }
+    export class Select extends React.Component<SelectProps> {}
     interface OptionProps {
         className?: string;
         disabled?: boolean;
@@ -71,12 +68,12 @@ declare namespace RcSelect {
         title?: string;
         value?: string;
     }
-    export class Option extends React.Component<OptionProps> { }
+    export class Option extends React.Component<OptionProps> {}
 
     interface OptGroupProps {
         label?: string | React.ReactElement;
         key?: string;
         value?: string;
     }
-    export class OptGroup extends React.Component<OptGroupProps> { }
+    export class OptGroup extends React.Component<OptGroupProps> {}
 }

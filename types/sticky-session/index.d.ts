@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Server } from "http";
+import { Server } from 'http';
 
 /**
  * Method to create the sticky session
@@ -17,7 +17,7 @@ export function listen(
     server: Server,
     port?: number,
     options?: {
-        readonly workers?: number,
-        readonly env?: any
-    }
+        readonly workers?: number;
+        readonly env?: any;
+    },
 ): boolean;

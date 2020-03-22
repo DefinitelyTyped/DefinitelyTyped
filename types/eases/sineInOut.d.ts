@@ -1,2 +1,2 @@
-import { sineInOut } from "./index";
+import { sineInOut } from './index';
 export = sineInOut;

@@ -22,16 +22,16 @@ forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
                 forge.asn1.Class.UNIVERSAL,
                 forge.asn1.Type.OID,
                 false,
-                forge.asn1.oidToDer(forge.pki.oids['rsaEncryption']).getBytes()
+                forge.asn1.oidToDer(forge.pki.oids['rsaEncryption']).getBytes(),
             ),
-            forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.NULL, false, '')
+            forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.NULL, false, ''),
         ]),
         forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.BITSTRING, false, [
             forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
                 forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, []),
-                forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, [])
-            ])
-        ])
+                forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, []),
+            ]),
+        ]),
     ]);
     let derBuffer = forge.asn1.toDer(subjectPublicKeyInfo);
     let object = forge.asn1.fromDer(derBuffer);
@@ -120,7 +120,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
-    let key = forge.random.getBytesSync(24)
+    let key = forge.random.getBytesSync(24);
     let payload = { asd: 'asd' };
     let cipher = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(key, 'raw'));
     cipher.start();
@@ -148,28 +148,28 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     const attrs = [
         {
             name: 'commonName',
-            value: 'x22x22'
+            value: 'x22x22',
         },
         {
             name: 'countryName',
-            value: 'GitHub'
+            value: 'GitHub',
         },
         {
             shortName: 'ST',
-            value: 'GitHub'
+            value: 'GitHub',
         },
         {
             name: 'localityName',
-            value: 'GitHub'
+            value: 'GitHub',
         },
         {
             name: 'organizationName',
-            value: 'x22x22'
+            value: 'x22x22',
         },
         {
             shortName: 'OU',
-            value: 'https://github.com/x22x22'
-        }
+            value: 'https://github.com/x22x22',
+        },
     ];
     cert.setSubject(attrs);
     cert.setIssuer(attrs);
@@ -177,20 +177,19 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         {
             name: 'basicConstraints',
             critical: true,
-            cA: true
+            cA: true,
         },
         {
             name: 'keyUsage',
             critical: true,
-            keyCertSign: true
+            keyCertSign: true,
         },
         {
-            name: 'subjectKeyIdentifier'
-        }
+            name: 'subjectKeyIdentifier',
+        },
     ]);
 
-    const attr: forge.pki.Attribute | undefined = cert.getAttribute({ name: "challengePassword" });
-
+    const attr: forge.pki.Attribute | undefined = cert.getAttribute({ name: 'challengePassword' });
 
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
@@ -199,15 +198,15 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 {
     let md: forge.md.MessageDigest;
     let hex: string;
-    let signature: forge.Bytes
+    let signature: forge.Bytes;
 
     md = forge.md.sha256.create();
     md = md.update('Test');
     hex = md.digest().toHex();
 
-    signature = keypair.privateKey.sign(md)
+    signature = keypair.privateKey.sign(md);
     if (!keypair.publicKey.verify(md.digest().bytes(), signature)) {
-        throw Error("rsa signature verification fail");
+        throw Error('rsa signature verification fail');
     }
 }
 
@@ -234,23 +233,19 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let md: forge.md.MessageDigest;
     md = forge.md.sha256.create();
 
-    const key1: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32);
-    const key2: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32, md);
+    const key1: string = forge.pkcs5.pbkdf2('password', 'salt', 1000, 32);
+    const key2: string = forge.pkcs5.pbkdf2('password', 'salt', 1000, 32, md);
 
     let key3: string;
-    forge.pkcs5.pbkdf2("password", "salt", 1000, 32, function(err: Error | null, dk: null | string) {
-        if (err === null)
-            key3 = dk;
-        else
-            throw Error("pbkdf2 key derivation fail");
+    forge.pkcs5.pbkdf2('password', 'salt', 1000, 32, function (err: Error | null, dk: null | string) {
+        if (err === null) key3 = dk;
+        else throw Error('pbkdf2 key derivation fail');
     });
 
     let key4: string;
-    forge.pkcs5.pbkdf2("password", "salt", 1000, 32, md, function(err: Error | null, dk: null | string) {
-        if (err === null)
-            key4 = dk;
-        else
-            throw Error("pbkdf2 key derivation fail");
+    forge.pkcs5.pbkdf2('password', 'salt', 1000, 32, md, function (err: Error | null, dk: null | string) {
+        if (err === null) key4 = dk;
+        else throw Error('pbkdf2 key derivation fail');
     });
 }
 
@@ -266,55 +261,59 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         // supported cipher suites in order of preference
         cipherSuites: [
             forge.tls.CipherSuites.TLS_RSA_WITH_AES_128_CBC_SHA,
-            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA],
+            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA,
+        ],
         virtualHost: 'server',
-        verify: function(c, verified, depth, certs) {
+        verify: function (c, verified, depth, certs) {
             console.log(
-                'TLS Client verifying certificate w/CN: \"' +
+                'TLS Client verifying certificate w/CN: "' +
                     certs[0].subject.getField('CN').value +
-                    '\", verified: ' + verified + '...');
+                    '", verified: ' +
+                    verified +
+                    '...',
+            );
             return verified;
         },
-        connected: function(c) {
+        connected: function (c) {
             console.log('Client connected...');
 
             // send message to server
-            setTimeout(function() {
+            setTimeout(function () {
                 c.prepareHeartbeatRequest('heartbeat');
                 c.prepare('Hello Server');
             }, 1);
         },
-        getCertificate: function(c, hint) {
+        getCertificate: function (c, hint) {
             console.log('Client getting certificate ...');
             return forge.pki.certificateToPem(cert);
         },
-        getPrivateKey: function(c, cert) {
+        getPrivateKey: function (c, cert) {
             return privateKeyPem;
         },
-        tlsDataReady: function(c) {
+        tlsDataReady: function (c) {
             // send TLS data to server
             server.process(c.tlsData.getBytes());
         },
-        dataReady: function(c) {
+        dataReady: function (c) {
             var response = c.data.getBytes();
-            console.log('Client received \"' + response + '\"');
-            success = (response === 'Hello Client');
+            console.log('Client received "' + response + '"');
+            success = response === 'Hello Client';
             c.close();
         },
-        heartbeatReceived: function(c, payload) {
+        heartbeatReceived: function (c, payload) {
             console.log('Client received heartbeat: ' + payload.getBytes());
         },
-        closed: function(c) {
+        closed: function (c) {
             console.log('Client disconnected.');
-            if(success) {
+            if (success) {
                 console.log('PASS');
             } else {
                 console.log('FAIL');
             }
         },
-        error: function(c, error) {
+        error: function (c, error) {
             console.log('Client error: ' + error.message);
-        }
+        },
     });
 
     // create TLS server
@@ -325,46 +324,50 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         // supported cipher suites in order of preference
         cipherSuites: [
             forge.tls.CipherSuites.TLS_RSA_WITH_AES_128_CBC_SHA,
-            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA],
-        connected: function(c) {
+            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA,
+        ],
+        connected: function (c) {
             console.log('Server connected');
             c.prepareHeartbeatRequest('heartbeat');
         },
         verifyClient: true,
-        verify: function(c, verified, depth, certs) {
+        verify: function (c, verified, depth, certs) {
             console.log(
-                'Server verifying certificate w/CN: \"' +
+                'Server verifying certificate w/CN: "' +
                     certs[0].subject.getField('CN').value +
-                    '\", verified: ' + verified + '...');
+                    '", verified: ' +
+                    verified +
+                    '...',
+            );
             return verified;
         },
-        getCertificate: function(c, hint) {
-            console.log('Server getting certificate for \"' + (hint as string[])[0] + '\"...');
+        getCertificate: function (c, hint) {
+            console.log('Server getting certificate for "' + (hint as string[])[0] + '"...');
             return forge.pki.certificateToPem(cert);
         },
-        getPrivateKey: function(c, cert) {
+        getPrivateKey: function (c, cert) {
             return privateKeyPem;
         },
-        tlsDataReady: function(c) {
+        tlsDataReady: function (c) {
             // send TLS data to client
             client.process(c.tlsData.getBytes());
         },
-        dataReady: function(c) {
-            console.log('Server received \"' + c.data.getBytes() + '\"');
+        dataReady: function (c) {
+            console.log('Server received "' + c.data.getBytes() + '"');
 
             // send response
             c.prepare('Hello Client');
             c.close();
         },
-        heartbeatReceived: function(c, payload) {
+        heartbeatReceived: function (c, payload) {
             console.log('Server received heartbeat: ' + payload.getBytes());
         },
-        closed: function(c) {
+        closed: function (c) {
             console.log('Server disconnected.');
         },
-        error: function(c, error) {
+        error: function (c, error) {
             console.log('Server error: ' + error.message);
-        }
+        },
     });
 
     console.log('created TLS client and server, doing handshake...');
@@ -376,14 +379,14 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     const toSign = Buffer.from('test', 'utf8');
     forge.pki.ed25519.sign({
         message: toSign,
-        privateKey
+        privateKey,
     });
 
     const toSign2 = 'foo';
     forge.pki.ed25519.sign({
         message: toSign2,
         encoding: 'utf8',
-        privateKey
+        privateKey,
     });
 }
 
@@ -396,12 +399,12 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let hex: forge.Hex = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
         type: 'SubjectPublicKeyInfo',
         md: forge.md.sha256.create(),
-        encoding: 'hex'
+        encoding: 'hex',
     });
 
     let bytes: forge.Bytes = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
         type: 'SubjectPublicKeyInfo',
         md: forge.md.sha256.create(),
-        encoding: 'binary'
+        encoding: 'binary',
     });
 }

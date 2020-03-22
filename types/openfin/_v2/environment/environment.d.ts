@@ -12,4 +12,4 @@ export interface Environment {
     getCurrentEntityIdentity(): Identity;
     getCurrentEntityType(): EntityType;
 }
-export declare const notImplementedEnvErrorMsg = "Not implemented in this environment";
+export declare const notImplementedEnvErrorMsg = 'Not implemented in this environment';

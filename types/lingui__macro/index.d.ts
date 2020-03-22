@@ -7,7 +7,7 @@
 import { MessageDescriptor } from '@lingui/core';
 import { ComponentClass } from 'react';
 import { FormatPropsWithoutI18n } from './createFormat';
-import { SelectProps, PluralProps } from "./select";
+import { SelectProps, PluralProps } from './select';
 
 // JS
 export function t(strings: TemplateStringsArray, ...values: any[]): MessageDescriptor;

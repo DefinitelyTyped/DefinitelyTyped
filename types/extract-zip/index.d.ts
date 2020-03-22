@@ -12,10 +12,6 @@ declare namespace extract {
     }
 }
 
-declare function extract(
-    zipPath: string,
-    opts: extract.Options,
-    cb: (err?: Error) => void,
-): void;
+declare function extract(zipPath: string, opts: extract.Options, cb: (err?: Error) => void): void;
 
 export = extract;

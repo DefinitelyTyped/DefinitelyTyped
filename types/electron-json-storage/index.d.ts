@@ -6,14 +6,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export interface DataOptions { dataPath: string; }
+export interface DataOptions {
+    dataPath: string;
+}
 export function getDefaultDataPath(): string;
 export function setDataPath(directory?: string): void;
 export function getDataPath(): string;
 export function get(key: string, callback: (error: any, data: object) => void): void;
 export function get(key: string, options: DataOptions, callback: (error: any, data: object) => void): void;
 export function getMany(keys: ReadonlyArray<string>, callback: (error: any, data: object) => void): void;
-export function getMany(keys: ReadonlyArray<string>, options: DataOptions, callback: (error: any, data: object) => void): void;
+export function getMany(
+    keys: ReadonlyArray<string>,
+    options: DataOptions,
+    callback: (error: any, data: object) => void,
+): void;
 export function getAll(callback: (error: any, data: object) => void): void;
 export function getAll(options: DataOptions, callback: (error: any, data: object) => void): void;
 export function set(key: string, json: object, callback: (error: any) => void): void;

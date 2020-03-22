@@ -118,12 +118,7 @@ export interface LatLngLiteralVerbose {
  *  - an object with 'lat', 'lng' properties; or
  *  - an object with 'latitude', 'longitude' properties.
  */
-export type LatLng = (
-    LatLngArray |
-    LatLngString |
-    LatLngLiteral |
-    LatLngLiteralVerbose
-);
+export type LatLng = LatLngArray | LatLngString | LatLngLiteral | LatLngLiteralVerbose;
 
 /** The bounds parameter defines the latitude/longitude coordinates of the southwest and northeast corners of this bounding box. */
 export interface LatLngBounds {
@@ -137,133 +132,138 @@ export interface LatLngBounds {
  *
  * @see https://developers.google.com/maps/faq#languagesupport
  */
-export type Language = (
+export type Language =
     /** Arabic */
-    'ar' |
+    | 'ar'
     /** Belarusian */
-    'be' |
+    | 'be'
     /** Bulgarian */
-    'bg' |
+    | 'bg'
     /** Bengali */
-    'bn' |
+    | 'bn'
     /** Catalan */
-    'ca' |
+    | 'ca'
     /** Czech */
-    'cs' |
+    | 'cs'
     /** Danish */
-    'da' |
+    | 'da'
     /** German */
-    'de' |
+    | 'de'
     /** Greek */
-    'el' |
+    | 'el'
     /** English */
-    'en' |
+    | 'en'
     /** English (Australian) */
-    'en-Au' |
+    | 'en-Au'
     /** English (Great Britain) */
-    'en-GB' |
+    | 'en-GB'
     /** Spanish */
-    'es' |
+    | 'es'
     /** Basque */
-    'eu' |
+    | 'eu'
     /** Farsi */
-    'fa' |
+    | 'fa'
     /** Finnish */
-    'fi' |
+    | 'fi'
     /** Filipino */
-    'fil' |
+    | 'fil'
     /** French */
-    'fr' |
+    | 'fr'
     /** Galician */
-    'gl' |
+    | 'gl'
     /** Gujarati */
-    'gu' |
+    | 'gu'
     /** Hindi */
-    'hi' |
+    | 'hi'
     /** Croatian */
-    'hr' |
+    | 'hr'
     /** Hungarian */
-    'hu' |
+    | 'hu'
     /** Indonesian */
-    'id' |
+    | 'id'
     /** Italian */
-    'it' |
+    | 'it'
     /** Hebrew */
-    'iw' |
+    | 'iw'
     /** Japanese */
-    'ja' |
+    | 'ja'
     /** Kazakh */
-    'kk' |
+    | 'kk'
     /** Kannada */
-    'kn' |
+    | 'kn'
     /** Korean */
-    'ko' |
+    | 'ko'
     /** Kyrgyz */
-    'ky' |
+    | 'ky'
     /** Lithuanian */
-    'lt' |
+    | 'lt'
     /** Latvian */
-    'lv' |
+    | 'lv'
     /** Macedonian */
-    'mk' |
+    | 'mk'
     /** Malayalam */
-    'ml' |
+    | 'ml'
     /** Marathi */
-    'mr' |
+    | 'mr'
     /** Burmese */
-    'my' |
+    | 'my'
     /** Dutch */
-    'nl' |
+    | 'nl'
     /** Norwegian */
-    'no' |
+    | 'no'
     /** Punjabi */
-    'pa' |
+    | 'pa'
     /** Polish */
-    'pl' |
+    | 'pl'
     /** Portuguese */
-    'pt' |
+    | 'pt'
     /** Portuguese (Brazil) */
-    'pt-BR' |
+    | 'pt-BR'
     /** Portuguese (Portugal) */
-    'pt-PT' |
+    | 'pt-PT'
     /** Romanian */
-    'ro' |
+    | 'ro'
     /** Russian */
-    'ru' |
+    | 'ru'
     /** Slovak */
-    'sk' |
+    | 'sk'
     /** Slovenian */
-    'sl' |
+    | 'sl'
     /** Albanian */
-    'sq' |
+    | 'sq'
     /** Serbian */
-    'sr' |
+    | 'sr'
     /** Swedish */
-    'sv' |
+    | 'sv'
     /** Tamil */
-    'ta' |
+    | 'ta'
     /** Telugu */
-    'te' |
+    | 'te'
     /** Thai */
-    'th' |
+    | 'th'
     /** Tagalog */
-    'tl' |
+    | 'tl'
     /** Turkish */
-    'tr' |
+    | 'tr'
     /** Ukrainian */
-    'uk' |
+    | 'uk'
     /** Uzbek */
-    'uz' |
+    | 'uz'
     /** Vietnamese */
-    'vi' |
+    | 'vi'
     /** Chinese (Simlified) */
-    'zh-CN' |
+    | 'zh-CN'
     /** Chinese (Traditional) */
-    'zh-TW'
-);
+    | 'zh-TW';
 
-export type GoogleMapsClientEndpoint<Request, Response> = (query: Request, callback?: ResponseCallback<Response>) => RequestHandle<Response>;
-export type GoogleMapsClientEndpointWithPromise<Request, Response> = (query: Request, callback?: ResponseCallback<Response>) => RequestHandleWithPromise<Response>;
+export type GoogleMapsClientEndpoint<Request, Response> = (
+    query: Request,
+    callback?: ResponseCallback<Response>,
+) => RequestHandle<Response>;
+export type GoogleMapsClientEndpointWithPromise<Request, Response> = (
+    query: Request,
+    callback?: ResponseCallback<Response>,
+) => RequestHandleWithPromise<Response>;
 
 /**
  * Google Maps clieant that provides access to all the APIs.
@@ -860,46 +860,43 @@ export interface DirectionsRequest {
  * **Note:** Both walking and bicycling directions may sometimes not include clear pedestrian or bicycling paths,
  * so these directions will return warnings in the returned result which you must display to the user.
  */
-export type TravelMode = (
+export type TravelMode =
     /** (default) indicates standard driving directions using the road network. */
-    'driving' |
+    | 'driving'
     /** requests walking directions via pedestrian paths & sidewalks (where available). */
-    'walking' |
+    | 'walking'
     /** requests bicycling directions via bicycle paths & preferred streets (where available). */
-    'bicycling' |
+    | 'bicycling'
     /**
      * requests directions via public transit routes (where available).
      * If you set the mode to transit, you can optionally specify either a departure_time or an arrival_time.
      * If neither time is specified, the departure_time defaults to now (that is, the departure time defaults to the current time).
      * You can also optionally include a transit_mode and/or a transit_routing_preference.
      */
-    'transit'
-);
+    | 'transit';
 
-export type TravelRestriction = (
+export type TravelRestriction =
     /** indicates that the calculated route should avoid toll roads/bridges. */
-    'tolls' |
+    | 'tolls'
     /** indicates that the calculated route should avoid highways. */
-    'highways' |
+    | 'highways'
     /** indicates that the calculated route should avoid ferries. */
-    'ferries' |
+    | 'ferries'
     /**
      * indicates that the calculated route should avoid indoor steps for walking and transit directions.
      * Only requests that include an API key or a Google Maps APIs Premium Plan client ID will receive indoor steps by default.
      */
-    'indoor'
-);
+    | 'indoor';
 
 /**
  * Directions results contain text within distance fields that may be displayed to the user to indicate the distance of
  * a particular "step" of the route. By default, this text uses the unit system of the origin's country or region.
  */
-export type UnitSystem = (
+export type UnitSystem =
     /** specifies usage of the metric system. Textual distances are returned using kilometers and meters. */
-    'metric' |
+    | 'metric'
     /** specifies usage of the Imperial (English) system. Textual distances are returned using miles and feet. */
-    'imperial'
-);
+    | 'imperial';
 
 export interface DirectionsResponse {
     /** contains metadata on the request. */
@@ -933,72 +930,69 @@ export interface DirectionsResponse {
     available_travel_modes: string[];
 }
 
-export type TrafficModel = (
+export type TrafficModel =
     /**
      * indicates that the returned `duration_in_traffic` should be the best estimate of travel time given what is known about
      * both historical traffic conditions and live traffic. Live traffic becomes more important the closer the `departure_time` is to now.
      */
-    'best_guess' |
+    | 'best_guess'
     /**
      * indicates that the returned `duration_in_traffic` should be longer than the actual travel time on most days,
      * though occasional days with particularly bad traffic conditions may exceed this value.
      */
-    'pessimistic' |
+    | 'pessimistic'
     /**
      * indicates that the returned `duration_in_traffic` should be shorter than the actual travel time on most days,
      * though occasional days with particularly good traffic conditions may be faster than this value.
      */
-    'optimistic'
-);
+    | 'optimistic';
 
-export type TransitMode = (
+export type TransitMode =
     /** indicates that the calculated route should prefer travel by bus. */
-    'bus' |
+    | 'bus'
     /** indicates that the calculated route should prefer travel by subway. */
-    'subway' |
+    | 'subway'
     /** indicates that the calculated route should prefer travel by train. */
-    'train' |
+    | 'train'
     /** indicates that the calculated route should prefer travel by tram and light rail. */
-    'tram' |
+    | 'tram'
     /**
      * indicates that the calculated route should prefer travel by train, tram, light rail, and subway.
      * This is equivalent to `transit_mode=train|tram|subway`
      */
-    'rail'
-);
+    | 'rail';
 
-export type TransitRoutingPreference = (
+export type TransitRoutingPreference =
     /** indicates that the calculated route should prefer limited amounts of walking. */
-    'less_walking' |
+    | 'less_walking'
     /** indicates that the calculated route should prefer a limited number of transfers. */
-    'fewer_transfers'
-);
+    | 'fewer_transfers';
 
 /**
  * The `status` field within the Directions response object contains the status of the request, and may contain debugging information
  * to help you track down why the Directions service failed.
  */
-export type DirectionsReponseStatus = (
+export type DirectionsReponseStatus =
     /** indicates the response contains a valid `result`. */
-    'OK' |
+    | 'OK'
     /** indicates at least one of the locations specified in the request's origin, destination, or waypoints could not be geocoded. */
-    'NOT_FOUND' |
+    | 'NOT_FOUND'
     /** indicates no route could be found between the origin and destination. */
-    'ZERO_RESULTS' |
+    | 'ZERO_RESULTS'
     /**
      * indicates that too many `waypoints` were provided in the request. For applications using the Directions API as a web service,
      * or the [directions service in the Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/directions),
      * the maximum allowed number of `waypoints` is 23, plus the origin and destination.
      */
-    'MAX_WAYPOINTS_EXCEEDED' |
+    | 'MAX_WAYPOINTS_EXCEEDED'
     /**
      * indicates the requested route is too long and cannot be processed.
      * This error occurs when more complex directions are returned.
      * Try reducing the number of waypoints, turns, or instructions.
      */
-    'MAX_ROUTE_LENGTH_EXCEEDED ' |
+    | 'MAX_ROUTE_LENGTH_EXCEEDED '
     /** indicates that the provided request was invalid. Common causes of this status include an invalid parameter or parameter value. */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /**
      * indicates any of the following:
      *  - The API key is missing or invalid.
@@ -1007,14 +1001,13 @@ export type DirectionsReponseStatus = (
      *  - The provided method of payment is no longer valid (for example, a credit card has expired).
      * See the [Maps FAQ](https://developers.google.com/maps/faq#over-limit-key-error) to learn how to fix this.
      */
-    'OVER_DAILY_LIMIT' |
+    | 'OVER_DAILY_LIMIT'
     /** indicates the service has received too many requests from your application within the allowed time period. */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /** indicates that the service denied use of the directions service by your application. */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /** indicates a directions request could not be processed due to a server error. The request may succeed if you try again. */
-    'UNKNOWN_ERROR'
-);
+    | 'UNKNOWN_ERROR';
 
 /**
  * Elements in the `geocoded_waypoints` array correspond, by their zero-based position, to the origin,
@@ -1044,92 +1037,90 @@ export interface GeocodedWaypoint {
     types: AddressType[];
 }
 
-export type GeocodedWaypointStatus = (
+export type GeocodedWaypointStatus =
     /** indicates that no errors occurred; the address was successfully parsed and at least one geocode was returned. */
-    'OK' |
+    | 'OK'
     /**
      * indicates that the geocode was successful but returned no results.
      * This may occur if the geocoder was passed a non-existent `address`.
      */
-    'ZERO_RESULTS'
-);
+    | 'ZERO_RESULTS';
 
-export type AddressType = (
+export type AddressType =
     /** indicates a precise street address. */
-    'street_address' |
+    | 'street_address'
     /** indicates a named route (such as "US 101"). */
-    'route' |
+    | 'route'
     /** indicates a major intersection, usually of two major roads. */
-    'intersection' |
+    | 'intersection'
     /** indicates a political entity. Usually, this type indicates a polygon of some civil administration. */
-    'political' |
+    | 'political'
     /** indicates the national political entity, and is typically the highest order type returned by the Geocoder. */
-    'country' |
+    | 'country'
     /**
      * indicates a first-order civil entity below the country level. Within the United States, these administrative levels are states.
      * Not all nations exhibit these administrative levels. In most cases, `administrative_area_level_1` short names will closely match
      * ISO 3166-2 subdivisions and other widely circulated lists; however this is not guaranteed as our geocoding results are based
      * on a variety of signals and location data.
      */
-    'administrative_area_level_1' |
+    | 'administrative_area_level_1'
     /**
      * indicates a second-order civil entity below the country level. Within the United States, these administrative levels are counties.
      * Not all nations exhibit these administrative levels.
      */
-    'administrative_area_level_2' |
+    | 'administrative_area_level_2'
     /**
      * indicates a third-order civil entity below the country level. This type indicates a minor civil division.
      * Not all nations exhibit these administrative levels.
      */
-    'administrative_area_level_3' |
+    | 'administrative_area_level_3'
     /**
      * indicates a fourth-order civil entity below the country level. This type indicates a minor civil division.
      * Not all nations exhibit these administrative levels.
      */
-    'administrative_area_level_4' |
+    | 'administrative_area_level_4'
     /**
      * indicates a fifth-order civil entity below the country level. This type indicates a minor civil division.
      * Not all nations exhibit these administrative levels.
      */
-    'administrative_area_level_5' |
+    | 'administrative_area_level_5'
     /** indicates a commonly-used alternative name for the entity. */
-    'colloquial_area' |
+    | 'colloquial_area'
     /** indicates an incorporated city or town political entity. */
-    'locality' |
+    | 'locality'
     /**
      * indicates a specific type of Japanese locality, to facilitate distinction between multiple locality components within a
      * Japanese address.
      */
-    'ward' |
+    | 'ward'
     /**
      * indicates a first-order civil entity below a locality. For some locations may receive one of the additional types:
      * `sublocality_level_1` to `sublocality_level_5`. Each sublocality level is a civil entity. Larger numbers indicate a smaller
      * geographic area.
      */
-    'sublocality' |
+    | 'sublocality'
     /** indicates a named neighborhood */
-    'neighborhood' |
+    | 'neighborhood'
     /** indicates a named location, usually a building or collection of buildings with a common name */
-    'premise' |
+    | 'premise'
     /**
      * indicates a first-order entity below a named location, usually a singular building within a collection of buildings with a
      * common name.
      */
-    'subpremise' |
+    | 'subpremise'
     /** indicates a postal code as used to address postal mail within the country. */
-    'postal_code' |
+    | 'postal_code'
     /** indicates a prominent natural feature. */
-    'natural_feature' |
+    | 'natural_feature'
     /** indicates an airport. */
-    'airport' |
+    | 'airport'
     /** indicates a named park. */
-    'park' |
+    | 'park'
     /**
      * indicates a named point of interest. Typically, these "POI"s are prominent local entities that don't easily fit in another category,
      * such as "Empire State Building" or "Statue of Liberty".
      */
-    'point_of_interest'
-);
+    | 'point_of_interest';
 
 /**
  * This route may consist of one or more `legs` depending on whether any waypoints were specified. As well, the route also contains
@@ -1329,26 +1320,25 @@ export interface Time {
     time_zone: string;
 }
 
-export type Maneuver = (
-    'turn-slight-left' |
-    'turn-sharp-left' |
-    'uturn-left' |
-    'turn-left' |
-    'turn-slight-right' |
-    'turn-sharp-right' |
-    'uturn-right' |
-    'turn-right' |
-    'straight' |
-    'ramp-left' |
-    'ramp-right' |
-    'merge' |
-    'fork-left' |
-    'fork-right' |
-    'ferry' |
-    'ferry-train' |
-    'roundabout-left' |
-    'roundabout-right'
-);
+export type Maneuver =
+    | 'turn-slight-left'
+    | 'turn-sharp-left'
+    | 'uturn-left'
+    | 'turn-left'
+    | 'turn-slight-right'
+    | 'turn-sharp-right'
+    | 'uturn-right'
+    | 'turn-right'
+    | 'straight'
+    | 'ramp-left'
+    | 'ramp-right'
+    | 'merge'
+    | 'fork-left'
+    | 'fork-right'
+    | 'ferry'
+    | 'ferry-train'
+    | 'roundabout-left'
+    | 'roundabout-right';
 
 /**
  * Transit directions return additional information that is not relevant for other modes of transportation.
@@ -1435,45 +1425,44 @@ export interface TransitVehicle {
 }
 
 /** @see https://developers.google.com/maps/documentation/directions/intro#VehicleType. */
-export type VehicleType = (
+export type VehicleType =
     /** Rail. */
-    'RAIL' |
+    | 'RAIL'
     /** Light rail transit. */
-    'METRO_RAIL' |
+    | 'METRO_RAIL'
     /** Underground light rail. */
-    'SUBWAY' |
+    | 'SUBWAY'
     /** Above ground light rail. */
-    'TRAM' |
+    | 'TRAM'
     /** Monorail. */
-    'MONORAIL' |
+    | 'MONORAIL'
     /** Heavy rail. */
-    'HEAVY_RAIL' |
+    | 'HEAVY_RAIL'
     /** Commuter rail. */
-    'COMMUTER_TRAIN' |
+    | 'COMMUTER_TRAIN'
     /** High speed train. */
-    'HIGH_SPEED_TRAIN' |
+    | 'HIGH_SPEED_TRAIN'
     /** Bus. */
-    'BUS' |
+    | 'BUS'
     /** Intercity bus. */
-    'INTERCITY_BUS' |
+    | 'INTERCITY_BUS'
     /** Trolleybus. */
-    'TROLLEYBUS' |
+    | 'TROLLEYBUS'
     /** Share taxi is a kind of bus with the ability to drop off and pick up passengers anywhere on its route. */
-    'SHARE_TAXI' |
+    | 'SHARE_TAXI'
     /** Ferry. */
-    'FERRY' |
+    | 'FERRY'
     /** A vehicle that operates on a cable, usually on the ground. Aerial cable cars may be of the type `GONDOLA_LIFT`. */
-    'CABLE_CAR' |
+    | 'CABLE_CAR'
     /** An aerial cable car. */
-    'GONDOLA_LIFT' |
+    | 'GONDOLA_LIFT'
     /**
      * A vehicle that is pulled up a steep incline by a cable.
      * A Funicular typically consists of two cars, with each car acting as a counterweight for the other.
      */
-    'FUNICULAR' |
+    | 'FUNICULAR'
     /** All other vehicles will return this type. */
-    'OTHER'
-);
+    | 'OTHER';
 
 export interface DistanceMatrixRequest {
     /**
@@ -1620,13 +1609,13 @@ export interface DistanceMatrixResponse {
  * The Distance Matrix API returns a top-level status field, with information about the request in general,
  * as well as a status field for each element field, with information about that particular origin-destination pairing.
  */
-export type DistanceMatrixResponseTopLevelStatus = (
+export type DistanceMatrixResponseTopLevelStatus =
     /** indicates the response contains a valid result. */
-    'OK' |
+    | 'OK'
     /** indicates that the provided request was invalid. */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /** indicates that the product of origins and destinations exceeds the per-query limit. */
-    'MAX_ELEMENTS_EXCEEDED' |
+    | 'MAX_ELEMENTS_EXCEEDED'
     /**
      * indicates any of the following:
      *  - The API key is missing or invalid.
@@ -1635,25 +1624,23 @@ export type DistanceMatrixResponseTopLevelStatus = (
      *  - The provided method of payment is no longer valid (for example, a credit card has expired).
      * See the [Maps FAQ](https://developers.google.com/maps/faq#over-limit-key-error) to learn how to fix this.
      */
-    'OVER_DAILY_LIMIT' |
+    | 'OVER_DAILY_LIMIT'
     /** indicates the service has received too many requests from your application within the allowed time period. */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /** indicates that the service denied use of the Distance Matrix service by your application. */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /** indicates a Distance Matrix request could not be processed due to a server error. The request may succeed if you try again. */
-    'UNKNOWN_ERROR'
-);
+    | 'UNKNOWN_ERROR';
 
-export type DistanceMatrixResponseElementLevelStatus = (
+export type DistanceMatrixResponseElementLevelStatus =
     /** indicates the response contains a valid result. */
-    'OK' |
+    | 'OK'
     /** indicates that the origin and/or destination of this pairing could not be geocoded. */
-    'NOT_FOUND' |
+    | 'NOT_FOUND'
     /** indicates no route could be found between the origin and destination. */
-    'ZERO_RESULTS' |
+    | 'ZERO_RESULTS'
     /** indicates the requested route is too long and cannot be processed. */
-    'MAX_ROUTE_LENGTH_EXCEEDED'
-);
+    | 'MAX_ROUTE_LENGTH_EXCEEDED';
 
 /**
  * When the Distance Matrix API returns results, it places them within a JSON `rows` array.
@@ -1723,11 +1710,11 @@ export interface ElevationResponse {
     results: ElevationResult[];
 }
 
-export type ElevationResponseStatus = (
+export type ElevationResponseStatus =
     /** indicating the API request was successful. */
-    'OK' |
+    | 'OK'
     /** indicating the API request was malformed. */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /**
      * indicating any of the following:
      * The API key is missing or invalid.
@@ -1736,14 +1723,13 @@ export type ElevationResponseStatus = (
      *  - The provided method of payment is no longer valid (for example, a credit card has expired).
      * See the [Maps FAQ](https://developers.google.com/maps/faq#over-limit-key-error) to learn how to fix this.
      */
-    'OVER_DAILY_LIMIT' |
+    | 'OVER_DAILY_LIMIT'
     /** indicating the requestor has exceeded quota. */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /** indicating the API did not complete the request. */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /** indicating an unknown error. */
-    'UNKNOWN_ERROR'
-);
+    | 'UNKNOWN_ERROR';
 
 export interface ElevationResult {
     /**
@@ -1833,23 +1819,22 @@ export interface PlaceSearchResponse {
  * The `"status"` field within the search response object contains the status of the request,
  * and may contain debugging information to help you track down why the request failed.
  */
-export type SearchResponseStatus = (
+export type SearchResponseStatus =
     /** indicates that no errors occurred; the place was successfully detected and at least one result was returned. */
-    'OK' |
+    | 'OK'
     /**
      * indicates that the search was successful but returned no results.
      * This may occur if the search was passed a latlng in a remote location.
      */
-    'ZERO_RESULTS' |
+    | 'ZERO_RESULTS'
     /** indicates that you are over your quota. */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /** indicates that your request was denied, generally because of lack of an invalid key parameter. */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /** generally indicates that a required query parameter (location or radius) is missing. */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /** indicates a server-side error; trying again may be successful. */
-    'UNKNOWN_ERROR'
-);
+    | 'UNKNOWN_ERROR';
 
 /**
  * When the Google Places service returns JSON results from a search, it places them within a `results` array.
@@ -2004,15 +1989,14 @@ export interface PlacePhoto {
     html_attributions: string[];
 }
 
-export type PlaceIdScope = (
+export type PlaceIdScope =
     /**
      * The place ID is recognised by your application only.
      * This is because your application added the place, and the place has not yet passed the moderation process.
      */
-    'APP' |
+    | 'APP'
     /** The place ID is available to other applications and on Google Maps. */
-    'GOOGLE'
-);
+    | 'GOOGLE';
 
 export interface AlternativePlaceId {
     /**
@@ -2034,98 +2018,97 @@ export interface AlternativePlaceId {
  *
  * @see https://developers.google.com/places/web-service/supported_types#table1
  */
-export type PlaceType1 = (
-    'accounting' |
-    'airport' |
-    'amusement_park' |
-    'aquarium' |
-    'art_gallery' |
-    'atm' |
-    'bakery' |
-    'bank' |
-    'bar' |
-    'beauty_salon' |
-    'bicycle_store' |
-    'book_store' |
-    'bowling_alley' |
-    'bus_station' |
-    'cafe' |
-    'campground' |
-    'car_dealer' |
-    'car_rental' |
-    'car_repair' |
-    'car_wash' |
-    'casino' |
-    'cemetery' |
-    'church' |
-    'city_hall' |
-    'clothing_store' |
-    'convenience_store' |
-    'courthouse' |
-    'dentist' |
-    'department_store' |
-    'doctor' |
-    'electrician' |
-    'electronics_store' |
-    'embassy' |
-    'fire_station' |
-    'florist' |
-    'funeral_home' |
-    'furniture_store' |
-    'gas_station' |
-    'gym' |
-    'hair_care' |
-    'hardware_store' |
-    'hindu_temple' |
-    'home_goods_store' |
-    'hospital' |
-    'insurance_agency' |
-    'jewelry_store' |
-    'laundry' |
-    'lawyer' |
-    'library' |
-    'liquor_store' |
-    'local_government_office' |
-    'locksmith' |
-    'lodging' |
-    'meal_delivery' |
-    'meal_takeaway' |
-    'mosque' |
-    'movie_rental' |
-    'movie_theater' |
-    'moving_company' |
-    'museum' |
-    'night_club' |
-    'painter' |
-    'park' |
-    'parking' |
-    'pet_store' |
-    'pharmacy' |
-    'physiotherapist' |
-    'plumber' |
-    'police' |
-    'post_office' |
-    'real_estate_agency' |
-    'restaurant' |
-    'roofing_contractor' |
-    'rv_park' |
-    'school' |
-    'shoe_store' |
-    'shopping_mall' |
-    'spa' |
-    'stadium' |
-    'storage' |
-    'store' |
-    'subway_station' |
-    'supermarket' |
-    'synagogue' |
-    'taxi_stand' |
-    'train_station' |
-    'transit_station' |
-    'travel_agency' |
-    'veterinary_care' |
-    'zoo'
-);
+export type PlaceType1 =
+    | 'accounting'
+    | 'airport'
+    | 'amusement_park'
+    | 'aquarium'
+    | 'art_gallery'
+    | 'atm'
+    | 'bakery'
+    | 'bank'
+    | 'bar'
+    | 'beauty_salon'
+    | 'bicycle_store'
+    | 'book_store'
+    | 'bowling_alley'
+    | 'bus_station'
+    | 'cafe'
+    | 'campground'
+    | 'car_dealer'
+    | 'car_rental'
+    | 'car_repair'
+    | 'car_wash'
+    | 'casino'
+    | 'cemetery'
+    | 'church'
+    | 'city_hall'
+    | 'clothing_store'
+    | 'convenience_store'
+    | 'courthouse'
+    | 'dentist'
+    | 'department_store'
+    | 'doctor'
+    | 'electrician'
+    | 'electronics_store'
+    | 'embassy'
+    | 'fire_station'
+    | 'florist'
+    | 'funeral_home'
+    | 'furniture_store'
+    | 'gas_station'
+    | 'gym'
+    | 'hair_care'
+    | 'hardware_store'
+    | 'hindu_temple'
+    | 'home_goods_store'
+    | 'hospital'
+    | 'insurance_agency'
+    | 'jewelry_store'
+    | 'laundry'
+    | 'lawyer'
+    | 'library'
+    | 'liquor_store'
+    | 'local_government_office'
+    | 'locksmith'
+    | 'lodging'
+    | 'meal_delivery'
+    | 'meal_takeaway'
+    | 'mosque'
+    | 'movie_rental'
+    | 'movie_theater'
+    | 'moving_company'
+    | 'museum'
+    | 'night_club'
+    | 'painter'
+    | 'park'
+    | 'parking'
+    | 'pet_store'
+    | 'pharmacy'
+    | 'physiotherapist'
+    | 'plumber'
+    | 'police'
+    | 'post_office'
+    | 'real_estate_agency'
+    | 'restaurant'
+    | 'roofing_contractor'
+    | 'rv_park'
+    | 'school'
+    | 'shoe_store'
+    | 'shopping_mall'
+    | 'spa'
+    | 'stadium'
+    | 'storage'
+    | 'store'
+    | 'subway_station'
+    | 'supermarket'
+    | 'synagogue'
+    | 'taxi_stand'
+    | 'train_station'
+    | 'transit_station'
+    | 'travel_agency'
+    | 'veterinary_care'
+    | 'zoo';
 
 /**
  * Table 2: Additional types returned by the Places service
@@ -2136,46 +2119,45 @@ export type PlaceType1 = (
  *
  * @see https://developers.google.com/places/web-service/supported_types#table2
  */
-export type PlaceType2 = (
-    'administrative_area_level_1' |
-    'administrative_area_level_2' |
-    'administrative_area_level_3' |
-    'administrative_area_level_4' |
-    'administrative_area_level_5' |
-    'colloquial_area' |
-    'country' |
-    'establishment' |
-    'finance' |
-    'floor' |
-    'food' |
-    'general_contractor' |
-    'geocode' |
-    'health' |
-    'intersection' |
-    'locality' |
-    'natural_feature' |
-    'neighborhood' |
-    'place_of_worship' |
-    'political' |
-    'point_of_interest' |
-    'post_box' |
-    'postal_code' |
-    'postal_code_prefix' |
-    'postal_code_suffix' |
-    'postal_town' |
-    'premise' |
-    'room' |
-    'route' |
-    'street_address' |
-    'street_number' |
-    'sublocality' |
-    'sublocality_level_4' |
-    'sublocality_level_5' |
-    'sublocality_level_3' |
-    'sublocality_level_2' |
-    'sublocality_level_1' |
-    'subpremise'
-);
+export type PlaceType2 =
+    | 'administrative_area_level_1'
+    | 'administrative_area_level_2'
+    | 'administrative_area_level_3'
+    | 'administrative_area_level_4'
+    | 'administrative_area_level_5'
+    | 'colloquial_area'
+    | 'country'
+    | 'establishment'
+    | 'finance'
+    | 'floor'
+    | 'food'
+    | 'general_contractor'
+    | 'geocode'
+    | 'health'
+    | 'intersection'
+    | 'locality'
+    | 'natural_feature'
+    | 'neighborhood'
+    | 'place_of_worship'
+    | 'political'
+    | 'point_of_interest'
+    | 'post_box'
+    | 'postal_code'
+    | 'postal_code_prefix'
+    | 'postal_code_suffix'
+    | 'postal_town'
+    | 'premise'
+    | 'room'
+    | 'route'
+    | 'street_address'
+    | 'street_number'
+    | 'sublocality'
+    | 'sublocality_level_4'
+    | 'sublocality_level_5'
+    | 'sublocality_level_3'
+    | 'sublocality_level_2'
+    | 'sublocality_level_1'
+    | 'subpremise';
 
 export interface GeocodingRequest {
     /**
@@ -2268,14 +2250,14 @@ export interface GeocodingResponse<STATUSES = GeocodingResponseStatus> {
  * The `"status" `field within the Geocoding response object contains the status of the request,
  * and may contain debugging information to help you track down why geocoding is not working.
  */
-export type GeocodingResponseStatus = (
+export type GeocodingResponseStatus =
     /** indicates that no errors occurred; the address was successfully parsed and at least one geocode was returned. */
-    'OK' |
+    | 'OK'
     /**
      * indicates that the geocode was successful but returned no results.
      * This may occur if the geocoder was passed a non-existent `address`.
      */
-    'ZERO_RESULTS' |
+    | 'ZERO_RESULTS'
     /**
      * indicates any of the following:
      *  - The API key is missing or invalid.
@@ -2284,16 +2266,15 @@ export type GeocodingResponseStatus = (
      *  - The provided method of payment is no longer valid (for example, a credit card has expired).
      * See the [Maps FAQ](https://developers.google.com/maps/faq#over-limit-key-error) to learn how to fix this.
      */
-    'OVER_DAILY_LIMIT' |
+    | 'OVER_DAILY_LIMIT'
     /** indicates that you are over your quota. */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /** indicates that your request was denied. */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /** generally indicates that the query (`address`, `components` or `latlng`) is missing. */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /** indicates that the request could not be processed due to a server error. The request may succeed if you try again. */
-    'UNKNOWN_ERROR'
-);
+    | 'UNKNOWN_ERROR';
 
 /**
  * When the geocoder returns results, it places them within a (JSON) `results` array.
@@ -2375,30 +2356,29 @@ export interface GeocodingResult {
     place_id: string;
 }
 
-export type GeocodingAddressComponentType = (
+export type GeocodingAddressComponentType =
     /** indicates the floor of a building address. */
-    'floor' |
+    | 'floor'
     /** typically indicates a place that has not yet been categorized. */
-    'establishment' |
+    | 'establishment'
     /** indicates a named point of interest. */
-    'point_of_interest' |
+    | 'point_of_interest'
     /** indicates a parking lot or parking structure. */
-    'parking' |
+    | 'parking'
     /** indicates a specific postal box. */
-    'post_box' |
+    | 'post_box'
     /** indicates a grouping of geographic areas, such as locality and sublocality, used for mailing addresses in some countries. */
-    'postal_town' |
+    | 'postal_town'
     /** indicates the room of a building address. */
-    'room' |
+    | 'room'
     /** indicates the precise street number. */
-    'street_number' |
+    | 'street_number'
     /**  indicate the location of a bus. */
-    'bus_station' |
+    | 'bus_station'
     /**  indicate the location of a train. */
-    'train_station' |
+    | 'train_station'
     /**  indicate the location of a public transit stop. */
-    'transit_station'
-);
+    | 'transit_station';
 
 export interface AddressComponent {
     /** is an array indicating the *type* of the address component. */
@@ -2433,25 +2413,24 @@ export interface AddressGeometry {
     bounds: LatLngBounds;
 }
 
-export type LocationType = (
+export type LocationType =
     /**
      * indicates that the returned result is a precise geocode for which we have location information
      * accurate down to street address precision
      */
-    'ROOFTOP' |
+    | 'ROOFTOP'
     /**
      * indicates that the returned result reflects an approximation (usually on a road) interpolated between two precise points
      * (such as intersections). Interpolated results are generally returned when rooftop geocodes are unavailable for a street address.
      */
-    'RANGE_INTERPOLATED' |
+    | 'RANGE_INTERPOLATED'
     /**
      * indicates that the returned result is the geometric center of a result such as a polyline
      * (for example, a street) or polygon (region).
      */
-    'GEOMETRIC_CENTER' |
+    | 'GEOMETRIC_CENTER'
     /** indicates that the returned result is approximate. */
-    'APPROXIMATE'
-);
+    | 'APPROXIMATE';
 
 export interface PlusCode {
     /** is a 4 character area code and 6 character or longer local code (849VCWC8+R9). */
@@ -2480,12 +2459,7 @@ export interface GeolocationRequest {
     wifiAccessPoints?: WifiAccessPoint[];
 }
 
-export type RadioType = (
-    'lte' |
-    'gsm' |
-    'cdma' |
-    'wcdma'
-);
+export type RadioType = 'lte' | 'gsm' | 'cdma' | 'wcdma';
 
 export interface CellTower {
     /**
@@ -2552,20 +2526,20 @@ export interface GeolocationError {
     };
 }
 
-export type GeolocationErrorReason = (
+export type GeolocationErrorReason =
     /**
      * You have exceeded your daily limit.
      * Domain: usageLimits
      * Code: 403
      */
-    'dailyLimitExceeded' |
+    | 'dailyLimitExceeded'
     /**
      * Your API key is not valid for the Geolocation API. Please ensure that you've included the entire key,
      * and that you've either purchased the API or have enabled billing and activated the API to obtain the free quota.
      * Domain: usageLimits
      * Code: 400
      */
-    'keyInvalid' |
+    | 'keyInvalid'
     /**
      * You have exceeded the requests per second per user limit that you configured in the Google Cloud Platform Console.
      * This limit should be configured to prevent a single or small group of users from exhausting your daily quota,
@@ -2573,20 +2547,19 @@ export type GeolocationErrorReason = (
      * Domain: usageLimits
      * Code: 403
      */
-    'userRateLimitExceeded' |
+    | 'userRateLimitExceeded'
     /**
      * The request was valid, but no results were returned.
      * Domain: geolocation
      * Code: 404
      */
-    'notFound' |
+    | 'notFound'
     /**
      * The request body is not valid JSON. Refer to the Request Body section for details on each field.
      * Domain: global
      * Code: 400
      */
-    'parseError'
-);
+    | 'parseError';
 
 export interface NearestRoadsRequest {
     /**
@@ -2654,32 +2627,32 @@ export interface PlaceDetailsRequest {
     fields?: PlaceDetailsRequestField[];
 }
 
-export type PlaceDetailsRequestField = (
-    "address_component" |
-    "adr_address" |
-    "alt_id" |
-    "formatted_address" |
-    "geometry" |
-    "icon" |
-    "id" |
-    "name" |
-    "permanently_closed" |
-    "photo" |
-    "place_id" |
-    "plus_code" |
-    "scope" |
-    "type" |
-    "url" |
-    "user_ratings_total" |
-    "utc_offset" |
-    "vicinity" |
-    "formatted_phone_number" |
-    "international_phone_number" |
-    "opening_hours" |
-    "website" |
-    "price_level" |
-    "rating" |
-    "review");
+export type PlaceDetailsRequestField =
+    | 'address_component'
+    | 'adr_address'
+    | 'alt_id'
+    | 'formatted_address'
+    | 'geometry'
+    | 'icon'
+    | 'id'
+    | 'name'
+    | 'permanently_closed'
+    | 'photo'
+    | 'place_id'
+    | 'plus_code'
+    | 'scope'
+    | 'type'
+    | 'url'
+    | 'user_ratings_total'
+    | 'utc_offset'
+    | 'vicinity'
+    | 'formatted_phone_number'
+    | 'international_phone_number'
+    | 'opening_hours'
+    | 'website'
+    | 'price_level'
+    | 'rating'
+    | 'review';
 
 export interface PlaceDetailsResponse {
     /** contains metadata on the request. */
@@ -2698,16 +2671,16 @@ export interface PlaceDetailsResponse {
  * The `"status"` field within the place response object contains the status of the request,
  * and may contain debugging information to help you track down why the place request failed
  */
-export type PlaceDetailsResponseStatus = (
+export type PlaceDetailsResponseStatus =
     /** indicates that no errors occurred; the place was successfully detected and at least one result was returned. */
-    'OK' |
+    | 'OK'
     /** indicates a server-side error; trying again may be successful. */
-    'UNKNOWN_ERROR' |
+    | 'UNKNOWN_ERROR'
     /**
      * indicates that the referenced location (placeid) was valid but no longer refers to a valid result.
      * This may occur if the establishment is no longer in business.
      */
-    'ZERO_RESULTS' |
+    | 'ZERO_RESULTS'
     /**
      * indicates any of the following:
      *  - You have exceeded the QPS limits.
@@ -2718,14 +2691,13 @@ export type PlaceDetailsResponseStatus = (
      * See the [Maps FAQ](https://developers.google.com/maps/faq#over-limit-key-error) for more information
      * about how to resolve this error.
      */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /** indicates that your request was denied, generally because an invalid key parameter. */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /** generally indicates that the query (placeid) is missing. */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /** indicates that the referenced location (placeid) was not found in the Places database. */
-    'NOT_FOUND'
-);
+    | 'NOT_FOUND';
 
 /** When the Places service returns results from a details request, it places them within a single `result`. */
 export interface PlaceDetailsResult {
@@ -2907,16 +2879,15 @@ export interface AspectRating {
     rating: number;
 }
 
-export type AspectRatingType = (
-    'appeal' |
-    'atmosphere' |
-    'decor' |
-    'facilities' |
-    'food' |
-    'overall' |
-    'quality' |
-    'service'
-);
+export type AspectRatingType =
+    | 'appeal'
+    | 'atmosphere'
+    | 'decor'
+    | 'facilities'
+    | 'food'
+    | 'overall'
+    | 'quality'
+    | 'service';
 
 export interface PlacesRequest {
     /**
@@ -3056,19 +3027,19 @@ export interface PlaceAutocompleteRequest {
  * The exception is that you can safely mix the geocode and establishment types,
  * but note that this will have the same effect as specifying no types.
  */
-export type PlaceAutocompleteType = (
+export type PlaceAutocompleteType =
     /**
      * instructs the Place Autocomplete service to return only geocoding results, rather than business results.
      * Generally, you use this request to disambiguate results where the location specified may be indeterminate.
      */
-    'geocode' |
+    | 'geocode'
     /**
      * instructs the Place Autocomplete service to return only geocoding results with a precise address.
      * Generally, you use this request when you know the user will be looking for a fully specified address.
      */
-    'address' |
+    | 'address'
     /** instructs the Place Autocomplete service to return only business results. */
-    'establishment' |
+    | 'establishment'
     /**
      * the `(regions)` type collection instructs the Places service to return any result matching the following types:
      *  - `locality`
@@ -3078,10 +3049,9 @@ export type PlaceAutocompleteType = (
      *  - `administrative_area_level_1`
      *  - `administrative_area_level_2`
      */
-    '(regions)' |
+    | '(regions)'
     /** the (cities) type collection instructs the Places service to return results that match `locality` or `administrative_area_level_3`. */
-    '(cities)'
-);
+    | '(cities)';
 
 export interface PlaceAutocompleteResponse {
     /** contains metadata on the request. */
@@ -3103,23 +3073,22 @@ export interface PlaceAutocompleteResponse {
  * The `status` field within the Place Autocomplete response object contains the status of the request,
  * and may contain debugging information to help you track down why the Place Autocomplete request failed.
  */
-export type PlaceAutocompleteResponseStatus = (
+export type PlaceAutocompleteResponseStatus =
     /** indicates that no errors occurred and at least one result was returned. */
-    'OK' |
+    | 'OK'
     /**
      * indicates that the search was successful but returned no results.
      * This may occur if the search was passed a bounds in a remote location.
      */
-    'ZERO_RESULTS' |
+    | 'ZERO_RESULTS'
     /** indicates that you are over your quota. */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /** indicates that your request was denied, generally because of lack of an invalid key parameter. */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /** generally indicates that the input parameter is missing. */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /** indicates a server-side error; trying again may be successful. */
-    'UNKNOWN_ERROR'
-);
+    | 'UNKNOWN_ERROR';
 
 /**
  * When the Places service returns JSON results from a search, it places them within a `predictions` array.
@@ -3240,7 +3209,7 @@ export interface PlacesNearbyRequest {
      * Restricts the results to places matching the specified type.
      * Only one type may be specified (if more than one type is provided, all types following the first entry are ignored).
      */
-    type?: PlaceType1|PlaceType2;
+    type?: PlaceType1 | PlaceType2;
     /**
      * Returns the next 20 results from a previously run search.
      * Setting a pagetoken parameter will execute a search with the same parameters used previously —
@@ -3249,18 +3218,17 @@ export interface PlacesNearbyRequest {
     pagetoken?: string;
 }
 
-export type PlacesNearbyRanking = (
+export type PlacesNearbyRanking =
     /**
      * This option sorts results based on their importance. Ranking will favor prominent places within the specified area.
      * Prominence can be affected by a place's ranking in Google's index, global popularity, and other factors.
      */
-    'prominence' |
+    | 'prominence'
     /**
      * This option biases search results in ascending order by their distance from the specified `location`.
      * When distance is specified, one or more of `keyword`, `name`, or `type` is required.
      */
-    'distance'
-);
+    | 'distance';
 
 export interface PlacePhotoRequest {
     /**
@@ -3342,23 +3310,22 @@ export interface QueryAutocompleteResponse {
  * The `status` field within the Query Autocomplete response object contains the status of the request,
  * and may contain debugging information to help you track down why the request failed.
  */
-export type QueryAutocompleteResponseStatus = (
+export type QueryAutocompleteResponseStatus =
     /** indicates that no errors occurred and at least one result was returned. */
-    'OK' |
+    | 'OK'
     /**
      * indicates that the search was successful but returned no results.
      * This may occur if the search was passed a bounds in a remote location.
      */
-    'ZERO_RESULTS' |
+    | 'ZERO_RESULTS'
     /** indicates that you are over your quota. */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /** indicates that your request was denied, generally because the key parameter is missing or invalid. */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /** generally indicates that the input parameter is missing. */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /** indicates a server-side error; trying again may be successful. */
-    'UNKNOWN_ERROR'
-);
+    | 'UNKNOWN_ERROR';
 
 /**
  * When the Places service returns JSON results from a search, it places them within a `predictions` array.
@@ -3478,19 +3445,18 @@ export interface ReverseGeocodingRequest {
     location_type?: ReverseGeocodingLocationType;
 }
 
-export type ReverseGeocodingLocationType = (
+export type ReverseGeocodingLocationType =
     /** returns only the addresses for which Google has location information accurate down to street address precision. */
-    'ROOFTOP' |
+    | 'ROOFTOP'
     /**
      * returns only the addresses that reflect an approximation (usually on a road) interpolated between two precise points
      * (such as intersections). An interpolated range generally indicates that rooftop geocodes are unavailable for a street address.
      */
-    'RANGE_INTERPOLATED' |
+    | 'RANGE_INTERPOLATED'
     /** returns only geometric centers of a location such as a polyline (for example, a street) or polygon (region). */
-    'GEOMETRIC_CENTER' |
+    | 'GEOMETRIC_CENTER'
     /** returns only the addresses that are characterized as approximate. */
-    'APPROXIMATE'
-);
+    | 'APPROXIMATE';
 
 export type ReverseGeocodingResponse = GeocodingResponse<ReverseGeocodingResponseStatus>;
 
@@ -3498,31 +3464,30 @@ export type ReverseGeocodingResponse = GeocodingResponse<ReverseGeocodingRespons
  * The `"status"` field within the Geocoding response object contains the status of the request,
  * and may contain debugging information to help you track down why reverse geocoding is not working.
  */
-export type ReverseGeocodingResponseStatus = (
+export type ReverseGeocodingResponseStatus =
     /** indicates that no errors occurred and at least one address was returned. */
-    'OK' |
+    | 'OK'
     /**
      * indicates that the reverse geocoding was successful but returned no results.
      * This may occur if the geocoder was passed a latlng in a remote location.
      */
-    'ZERO_RESULTS' |
+    | 'ZERO_RESULTS'
     /** indicates that you are over your quota. */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /**
      * indicates that the request was denied.
      * Possibly because the request includes a `result_type` or `location_type` parameter but does not include
      * an API key or client ID.
      */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /**
      * generally indicates one of the following:
      *  - The query (`address`, `components` or `latlng`) is missing.
      *  - An invalid `result_type` or `location_type` was given.
      */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /** indicates that the request could not be processed due to a server error. The request may succeed if you try again. */
-    'UNKNOWN_ERROR'
-);
+    | 'UNKNOWN_ERROR';
 
 export interface SnappedSpeedLimitsRequest {
     /**
@@ -3566,10 +3531,7 @@ export interface SpeedLimitsRequest {
     units?: SpeedLimitUnit;
 }
 
-export type SpeedLimitUnit = (
-    'KPH' |
-    'MPH'
-);
+export type SpeedLimitUnit = 'KPH' | 'MPH';
 
 export interface SpeedLimitsResponse {
     /** An array of road metadata. */
@@ -3687,11 +3649,11 @@ export interface TimeZoneResponse {
     errorMessage: string;
 }
 
-export type TimeZoneResponseStatus = (
+export type TimeZoneResponseStatus =
     /** indicates that the request was successful. */
-    'OK' |
+    | 'OK'
     /** indicates that the request was malformed. */
-    'INVALID_REQUEST' |
+    | 'INVALID_REQUEST'
     /**
      * indicates any of the following:
      *  - The API `key` is missing or invalid.
@@ -3700,16 +3662,15 @@ export type TimeZoneResponseStatus = (
      *  - The provided method of payment is no longer valid (for example, a credit card has expired).
      * See the [Maps FAQ](https://developers.google.com/maps/faq#over-limit-key-error) to learn how to fix this.
      */
-    'OVER_DAILY_LIMIT' |
+    | 'OVER_DAILY_LIMIT'
     /** indicates the requestor has exceeded quota. */
-    'OVER_QUERY_LIMIT' |
+    | 'OVER_QUERY_LIMIT'
     /** indicates that the API did not complete the request. Confirm that the request was sent over HTTPS instead of HTTP. */
-    'REQUEST_DENIED' |
+    | 'REQUEST_DENIED'
     /** indicates an unknown error. */
-    'UNKNOWN_ERROR' |
+    | 'UNKNOWN_ERROR'
     /**
      * indicates that no time zone data could be found for the specified position or time. Confirm that the request is for a location on land,
      * and not over water.
      */
-    'ZERO_RESULTS'
-);
+    | 'ZERO_RESULTS';

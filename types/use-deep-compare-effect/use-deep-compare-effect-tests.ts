@@ -1,15 +1,13 @@
 import useDeepCompareEffect, { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect';
 
 useDeepCompareEffect(() => {
-  return () => { };
+    return () => {};
 });
 
-useDeepCompareEffect(() => {
-});
-
-useDeepCompareEffectNoCheck(() => {
-  return () => { };
-});
+useDeepCompareEffect(() => {});
 
 useDeepCompareEffectNoCheck(() => {
+    return () => {};
 });
+
+useDeepCompareEffectNoCheck(() => {});

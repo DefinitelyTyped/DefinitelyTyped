@@ -20,9 +20,6 @@ declare namespace listen {
     type OffKeyPress = (key: Key) => void;
 }
 
-declare function listen(
-    stream: NodeJS.ReadStream,
-    callback: listen.Callback
-): listen.OffKeyPress;
+declare function listen(stream: NodeJS.ReadStream, callback: listen.Callback): listen.OffKeyPress;
 
 export = listen;

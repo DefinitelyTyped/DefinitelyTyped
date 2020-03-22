@@ -36,12 +36,7 @@ interface VerifyFunction {
 declare class OAuthStrategy implements passport.Strategy {
     constructor(
         options: IOAuthStrategyOption,
-        verify: (
-            accessToken: string,
-            refreshToken: string,
-            profile: Profile,
-            done: VerifyFunction
-        ) => void
+        verify: (accessToken: string, refreshToken: string, profile: Profile, done: VerifyFunction) => void,
     );
     name: string;
     authenticate(req: express.Request, options?: Object): void;
@@ -72,12 +67,7 @@ interface IOAuth2StrategyOptionWithRequest extends IOAuth2StrategyOption {
 declare class OAuth2Strategy implements passport.Strategy {
     constructor(
         options: IOAuth2StrategyOption,
-        verify: (
-            accessToken: string,
-            refreshToken: string,
-            profile: Profile,
-            done: VerifyFunction
-        ) => void
+        verify: (accessToken: string, refreshToken: string, profile: Profile, done: VerifyFunction) => void,
     );
     constructor(
         options: IOAuth2StrategyOptionWithRequest,
@@ -86,8 +76,8 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
 
     name: string;

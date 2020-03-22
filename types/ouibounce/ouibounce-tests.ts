@@ -3,7 +3,7 @@ import ouibounce = require('ouibounce');
 ouibounce(document.getElementById('test-item'));
 
 ouibounce(false, {
-    callback: () => console.log('test')
+    callback: () => console.log('test'),
 });
 
 const bounce = ouibounce(document.getElementById('test-item'), {
@@ -14,7 +14,7 @@ const bounce = ouibounce(document.getElementById('test-item'), {
     cookieExpire: 30,
     cookieDomain: 'example.com',
     cookieName: 'cookie',
-    sitewide: false
+    sitewide: false,
 });
 
 bounce.fire();
@@ -24,5 +24,5 @@ bounce.disable({
     cookieExpire: 10,
     cookieDomain: 'example.com',
     cookieName: 'cookie',
-    sitewide: true
+    sitewide: true,
 });

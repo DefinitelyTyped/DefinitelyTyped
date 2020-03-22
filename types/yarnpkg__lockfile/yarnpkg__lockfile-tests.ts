@@ -8,8 +8,8 @@ const fileAgain = stringify(parseResult);
 fileAgain.toLowerCase();
 
 if (parseResult.type === 'merge' || parseResult.type === 'success') {
-  Object.keys(parseResult.object).forEach(k => {
-    const value = parseResult.object[k];
-    testFirstLevelDependency(value);
-  });
+    Object.keys(parseResult.object).forEach((k) => {
+        const value = parseResult.object[k];
+        testFirstLevelDependency(value);
+    });
 }

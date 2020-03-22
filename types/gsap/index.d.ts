@@ -15,6 +15,6 @@
 /// <reference path="Timeline.d.ts"/>
 /// <reference path="Plugins.d.ts"/>
 
-declare module "gsap" {
+declare module 'gsap' {
     export = gsap;
 }

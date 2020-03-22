@@ -1,4 +1,4 @@
-import AmRectangularChart from "./AmRectangularChart";
+import AmRectangularChart from './AmRectangularChart';
 
 /**
  * AmXYChart is the class you have to use for XY/Bubble/Scatter chart types.

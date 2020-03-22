@@ -1,6 +1,6 @@
-import * as jsonPatch from "json8-patch";
+import * as jsonPatch from 'json8-patch';
 
-const doc1 = { foo: "bar" };
+const doc1 = { foo: 'bar' };
 const doc2 = { bar: 42 };
 
 const patch = jsonPatch.diff(doc1, doc2);

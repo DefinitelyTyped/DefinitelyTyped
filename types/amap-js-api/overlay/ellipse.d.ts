@@ -15,9 +15,12 @@ declare namespace AMap {
              */
             radius?: [number, number];
         }
-        type GetOptionsResult<ExtraData = any> = Merge<Circle.GetOptionsResult<ExtraData>, {
-            radius: [number, number];
-        }>;
+        type GetOptionsResult<ExtraData = any> = Merge<
+            Circle.GetOptionsResult<ExtraData>,
+            {
+                radius: [number, number];
+            }
+        >;
     }
 
     class Ellipse<ExtraData = any> extends Polygon<ExtraData> {

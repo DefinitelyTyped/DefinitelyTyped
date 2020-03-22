@@ -25,12 +25,12 @@ declare namespace caseless {
     }
 
     interface Httpified {
-      headers: RawDict;
-      setHeader(name: KeyType, value: ValueType, clobber?: boolean): KeyType | false;
-      setHeader(dict: RawDict): void;
-      hasHeader(name: KeyType): KeyType | false;
-      getHeader(name: KeyType): ValueType | undefined;
-      removeHeader(name: KeyType): boolean;
+        headers: RawDict;
+        setHeader(name: KeyType, value: ValueType, clobber?: boolean): KeyType | false;
+        setHeader(dict: RawDict): void;
+        hasHeader(name: KeyType): KeyType | false;
+        getHeader(name: KeyType): ValueType | undefined;
+        removeHeader(name: KeyType): boolean;
     }
 }
 

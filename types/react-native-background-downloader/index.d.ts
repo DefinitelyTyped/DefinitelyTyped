@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface DownloadHeaders {
-  [key: string]: string | null;
+    [key: string]: string | null;
 }
 
 type SetHeaders = (h: DownloadHeaders) => void;
@@ -23,9 +23,9 @@ export type ProgressHandler = (percent: number, bytesWritten: number, totalBytes
 export type DoneHandler = () => any;
 export type ErrorHandler = (error: any, errorCode: any) => any;
 export enum DownloadTaskState {
-  DOWNLOADING = 'DOWNLOADING',
-  PAUSED = 'PAUSED',
-  DONE = 'DONE',
+    DOWNLOADING = 'DOWNLOADING',
+    PAUSED = 'PAUSED',
+    DONE = 'DONE',
 }
 
 export interface DownloadTask {

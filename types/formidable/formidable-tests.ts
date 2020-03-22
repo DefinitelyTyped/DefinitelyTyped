@@ -1,36 +1,34 @@
-
 import formidable = require('formidable');
 import http = require('http');
 import util = require('util');
 
 http.createServer((req, res) => {
-  if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
-    // parse a file upload
-    var form = new formidable.IncomingForm();
+    if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
+        // parse a file upload
+        var form = new formidable.IncomingForm();
 
-    form.parse(req, (err, fields, files) => {
-      res.writeHead(200, {'content-type': 'text/plain'});
-      res.write('received upload:\n\n');
+        form.parse(req, (err, fields, files) => {
+            res.writeHead(200, { 'content-type': 'text/plain' });
+            res.write('received upload:\n\n');
 
-      let array = fields['an-array'] as Array<string>;
+            let array = fields['an-array'] as Array<string>;
 
-      res.end(util.inspect({fields: fields, files: files}));
-    });
+            res.end(util.inspect({ fields: fields, files: files }));
+        });
 
-    return;
-  }
+        return;
+    }
 
-  // show a file upload form
-  res.writeHead(200, {'content-type': 'text/html'});
-  res.end(
-    '<form action="/upload" enctype="multipart/form-data" method="post">'+
-    '<input type="text" name="title"><br>'+
-    '<input type="file" name="upload" multiple="multiple"><br>'+
-    '<input type="submit" value="Upload">'+
-    '</form>'
-  );
+    // show a file upload form
+    res.writeHead(200, { 'content-type': 'text/html' });
+    res.end(
+        '<form action="/upload" enctype="multipart/form-data" method="post">' +
+            '<input type="text" name="title"><br>' +
+            '<input type="file" name="upload" multiple="multiple"><br>' +
+            '<input type="submit" value="Upload">' +
+            '</form>',
+    );
 });
-
 
 var form = new formidable.IncomingForm();
 
@@ -54,20 +52,20 @@ var req: http.IncomingMessage;
 
 form.parse(req);
 form.parse(req, (err: any, fields: formidable.Fields, files: formidable.Files) => {
-	var key: string;
-	for (key in fields) {
-		console.log(key, '=', fields[key]);
-	}
+    var key: string;
+    for (key in fields) {
+        console.log(key, '=', fields[key]);
+    }
 
-	for (key in files) {
-		console.log('file', key, 'is', files[key].type);
-	}
+    for (key in files) {
+        console.log('file', key, 'is', files[key].type);
+    }
 });
 
 form.onPart = function (part: formidable.Part) {
-	if (!part.filename) {
-		form.handlePart(part);
-	}
+    if (!part.filename) {
+        form.handlePart(part);
+    }
 };
 
 var file: formidable.File;

@@ -9,7 +9,7 @@ const locale: string = bcpStringify(result);
 
 const schema: bcp47.Schema = {
     language: 'en',
-    region: 'US'
+    region: 'US',
 };
 
 bcpStringify(schema);

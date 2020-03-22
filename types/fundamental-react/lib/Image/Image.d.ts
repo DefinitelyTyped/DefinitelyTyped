@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type imageSize = "s" | "m" | "l";
-export type imageType = "circle";
+export type imageSize = 's' | 'm' | 'l';
+export type imageType = 'circle';
 export type ImageProps = {
     photo: string;
     size: imageSize;

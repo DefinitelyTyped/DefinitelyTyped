@@ -8,7 +8,7 @@
 
 import * as angular from 'angular';
 
-declare const exportedString: "ui.router";
+declare const exportedString: 'ui.router';
 export default exportedString;
 
 export type IState = angular.ui.IState;
@@ -59,7 +59,6 @@ declare module 'angular' {
              */
             parent?: string | IState;
 
-
             resolve?: { [name: string]: any };
             /**
              * A url with optional parameters. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
@@ -104,13 +103,12 @@ declare module 'angular' {
              * Synchronously or asynchronously redirects Transitions to a different state/params
              */
             redirectTo?: string | Function | IState;
-
         }
 
         interface IUnfoundState {
-            to: string,
-            toParams: {},
-            options: IStateOptions
+            to: string;
+            toParams: {};
+            options: IStateOptions;
         }
 
         interface IStateProvider extends angular.IServiceProvider {
@@ -236,7 +234,7 @@ declare module 'angular' {
              */
             notify?: boolean;
             /**
-         * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
+             * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
              */
             reload?: boolean | string | IState;
         }
@@ -294,7 +292,7 @@ declare module 'angular' {
                 /**
                  * Currently resolved "resolve" values from the current state
                  */
-                globals: { [key: string]: any; };
+                globals: { [key: string]: any };
             };
         }
 
@@ -371,5 +369,4 @@ declare module 'angular' {
             pattern?: RegExp;
         }
     }
-
 }

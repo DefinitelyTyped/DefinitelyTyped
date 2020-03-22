@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Middleware, Context } from "koa";
-import { RedisClient } from "redis";
+import { Middleware, Context } from 'koa';
+import { RedisClient } from 'redis';
 
 declare function KoaRatelimit(options?: KoaRatelimit.MiddlewareOptions): Middleware;
 

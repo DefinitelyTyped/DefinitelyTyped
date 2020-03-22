@@ -13,7 +13,7 @@ async function boot() {
             cache: {
                 cache: 'test',
                 expiresIn: 123141243,
-            }
+            },
         },
     });
 

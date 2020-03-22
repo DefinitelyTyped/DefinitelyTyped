@@ -7,8 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as ast from "./lib/ast";
-export * from "./lib/ast";
+import * as ast from './lib/ast';
+export * from './lib/ast';
 
 export interface Options {
     /** Explicitly tell the parser when the input ends. */
@@ -36,7 +36,7 @@ export interface Options {
      */
     onLocalDeclaration: (identifier: ast.Identifier) => void;
     /** The version of Lua the parser will target; supported values are '5.1', '5.2', '5.3' and 'LuaJIT'. */
-    luaVersion: "5.1" | "5.2" | "5.3" | "LuaJIT";
+    luaVersion: '5.1' | '5.2' | '5.3' | 'LuaJIT';
     /**
      * Whether to allow code points ≥ U+0080 in identifiers, like LuaJIT does.
      * See 'Note on character encodings' below if you wish to use this option.

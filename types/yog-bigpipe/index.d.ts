@@ -11,8 +11,8 @@ import { RequestHandler } from 'express';
 interface BigPipeOption {
     skipAnalysis?: boolean;
     tpl?: {
-        _default?: string,
-        quickling?: string
+        _default?: string;
+        quickling?: string;
     };
 }
 
@@ -29,7 +29,7 @@ declare function yogBigpipe(option?: BigPipeOption): RequestHandler;
 export = yogBigpipe;
 declare namespace yogBigpipe {
     class BigPipe extends Readable {
-        constructor(option?: BigPipeOption)
+        constructor(option?: BigPipeOption);
         map: { [key: string]: Pagelet };
         pagelets: Pagelet[];
         pipelines: Pagelet[];
@@ -53,7 +53,7 @@ declare namespace yogBigpipe {
 
         addPagelet(obj: AddPageletConfig): void;
 
-        isQuicklingWidget(item: { 'mode': Pagelet.mode, [key: string]: any }): void;
+        isQuicklingWidget(item: { mode: Pagelet.mode; [key: string]: any }): void;
 
         render(): void;
 
@@ -102,7 +102,7 @@ declare namespace yogBigpipe {
         scripts: string[];
     }
     class Pagelet extends EventEmitter {
-        constructor(obj: PageletOption)
+        constructor(obj: PageletOption);
 
         model: {};
         container: string;

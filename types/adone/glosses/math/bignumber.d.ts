@@ -1,8 +1,8 @@
 declare namespace adone.math {
     namespace I.BigNumber {
         interface BufferConvertOptions {
-            endian?: 1 | -1 | "big" | "little";
-            size?: "auto" | number;
+            endian?: 1 | -1 | 'big' | 'little';
+            size?: 'auto' | number;
         }
     }
 
@@ -152,7 +152,7 @@ declare namespace adone.math {
          *
          * - certainly composite (false)
          */
-        probPrime(): boolean | "maybe";
+        probPrime(): boolean | 'maybe';
 
         /**
          * Returns the next prime number after this bignum

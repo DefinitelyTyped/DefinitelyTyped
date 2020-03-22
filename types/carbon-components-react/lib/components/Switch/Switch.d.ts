@@ -1,3 +1,3 @@
-import { Switch } from "../ContentSwitcher";
+import { Switch } from '../ContentSwitcher';
 
 export default Switch;

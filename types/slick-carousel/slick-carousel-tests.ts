@@ -8,7 +8,7 @@ $('.single-item').slick();
 $('.multiple-items').slick({
     infinite: true,
     slidesToShow: 3,
-    slidesToScroll: 3
+    slidesToScroll: 3,
 });
 
 $('.responsive').slick({
@@ -24,27 +24,27 @@ $('.responsive').slick({
                 slidesToShow: 3,
                 slidesToScroll: 3,
                 infinite: true,
-                dots: true
-            }
+                dots: true,
+            },
         },
         {
             breakpoint: 600,
             settings: {
                 slidesToShow: 2,
-                slidesToScroll: 2
-            }
+                slidesToScroll: 2,
+            },
         },
         {
             breakpoint: 480,
             settings: {
                 slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        }
+                slidesToScroll: 1,
+            },
+        },
         // You can unslick at a given breakpoint now by adding:
         // settings: "unslick"
         // instead of a settings object
-    ]
+    ],
 });
 
 $('.variable-width').slick({
@@ -53,7 +53,7 @@ $('.variable-width').slick({
     speed: 300,
     slidesToShow: 1,
     centerMode: true,
-    variableWidth: true
+    variableWidth: true,
 });
 
 $('.one-time').slick({
@@ -61,7 +61,7 @@ $('.one-time').slick({
     infinite: true,
     speed: 300,
     slidesToShow: 1,
-    adaptiveHeight: true
+    adaptiveHeight: true,
 });
 
 $('.center').slick({
@@ -75,8 +75,8 @@ $('.center').slick({
                 arrows: false,
                 centerMode: true,
                 centerPadding: '40px',
-                slidesToShow: 3
-            }
+                slidesToShow: 3,
+            },
         },
         {
             breakpoint: 480,
@@ -84,10 +84,10 @@ $('.center').slick({
                 arrows: false,
                 centerMode: true,
                 centerPadding: '40px',
-                slidesToShow: 1
-            }
-        }
-    ]
+                slidesToShow: 1,
+            },
+        },
+    ],
 });
 
 // To use lazy loading, set a data-lazy attribute
@@ -97,7 +97,7 @@ $('.center').slick({
 $('.lazy').slick({
     lazyLoad: 'ondemand',
     slidesToShow: 3,
-    slidesToScroll: 1
+    slidesToScroll: 1,
 });
 
 $('.autoplay').slick({
@@ -112,36 +112,36 @@ $('.fade').slick({
     infinite: true,
     speed: 500,
     fade: true,
-    cssEase: 'linear'
+    cssEase: 'linear',
 });
 
 var slideIndex = 1;
 $('.add-remove').slick({
     slidesToShow: 3,
-    slidesToScroll: 3
+    slidesToScroll: 3,
 });
-$('.js-add-slide').on('click', function() {
+$('.js-add-slide').on('click', function () {
     slideIndex++;
-    $('.add-remove').slick('slickAdd','<div><h3>' + slideIndex + '</h3></div>');
+    $('.add-remove').slick('slickAdd', '<div><h3>' + slideIndex + '</h3></div>');
 });
 
-$('.js-remove-slide').on('click', function() {
+$('.js-remove-slide').on('click', function () {
     $('.add-remove').slick('slickRemove', slideIndex - 1);
-    if (slideIndex !== 0){
+    if (slideIndex !== 0) {
         slideIndex--;
     }
 });
 
 $('.filtering').slick({
     slidesToShow: 4,
-    slidesToScroll: 4
+    slidesToScroll: 4,
 });
 
 var filtered = false;
 
-$('.js-filter').on('click', function(){
+$('.js-filter').on('click', function () {
     if (filtered === false) {
-        $('.filtering').slick('slickFilter',':even');
+        $('.filtering').slick('slickFilter', ':even');
         $(this).text('Unfilter Slides');
         filtered = true;
     } else {
@@ -158,7 +158,7 @@ $('.slider-for').slick({
     slidesToScroll: 1,
     arrows: false,
     fade: true,
-    asNavFor: '.slider-nav'
+    asNavFor: '.slider-nav',
 });
 $('.slider-nav').slick({
     slidesToShow: 3,
@@ -166,37 +166,37 @@ $('.slider-nav').slick({
     asNavFor: '.slider-for',
     dots: true,
     centerMode: true,
-    focusOnSelect: true
+    focusOnSelect: true,
 });
 
 $('.single-item-rtl').slick({
-    rtl: true
+    rtl: true,
 });
 
 $('.no-arrows-slide').slick({
-    appendArrows: false
-})
+    appendArrows: false,
+});
 
 // --------------------------------------------------------
 // ---------------- TEST DEFAULT OPTIONS ------------------
 // --------------------------------------------------------
 
-$("#diaporama").slick({
+$('#diaporama').slick({
     accessibility: true,
     adaptiveHeight: false,
     autoplay: false,
     autoplaySpeed: 3000,
     arrows: true,
-    asNavFor: "#slideshow",
-    appendArrows: "",
-    appendDots: "",
-    prevArrow: "<button type=\"button\" class=\"slick-prev\">Previous</button>",
-    nextArrow: "<button type=\"button\" class=\"slick-next\">Next</button>",
+    asNavFor: '#slideshow',
+    appendArrows: '',
+    appendDots: '',
+    prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+    nextArrow: '<button type="button" class="slick-next">Next</button>',
     centerMode: false,
-    centerPadding: "50px",
-    cssEase: "ease",
+    centerPadding: '50px',
+    cssEase: 'ease',
     customPaging: (slider: any, i: number) => {
-        return "customPaging slider " + slider + " customPaging index " + i;
+        return 'customPaging slider ' + slider + ' customPaging index ' + i;
     },
     dots: false,
     dotsClass: 'slick-dots',
@@ -204,19 +204,19 @@ $("#diaporama").slick({
     fade: false,
     focusOnChange: false,
     focusOnSelect: false,
-    easing: "linear",
+    easing: 'linear',
     edgeFriction: 0.15,
     infinite: true,
     initialSlide: 0,
-    lazyLoad: "ondemand",
+    lazyLoad: 'ondemand',
     mobileFirst: false,
     pauseOnFocus: true,
     pauseOnHover: true,
     pauseOnDotsHover: false,
-    respondTo:  "window",
+    respondTo: 'window',
     responsive: null,
     rows: 1,
-    slide: "div",
+    slide: 'div',
     slidesPerRow: 1,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -232,7 +232,7 @@ $("#diaporama").slick({
     verticalSwiping: false,
     rtl: false,
     waitForAnimate: true,
-    zIndex: 1000
+    zIndex: 1000,
 });
 
 // --------------------------------------------------------
@@ -240,23 +240,23 @@ $("#diaporama").slick({
 // --------------------------------------------------------
 
 // $ExpectedType: JQuerySlick
-$("#diaporama").slick("getSlick");
+$('#diaporama').slick('getSlick');
 
-$("#diaporama").on('beforeChange', function(event, slick: JQuerySlick, currentSlide: number, nextSlide: number) {
-   slick.defaults; // $ExpectedType JQuerySlickOptions
-   slick.options; // $ExpectedType JQuerySlickOptions
-   slick.originalSettings; // $ExpectedType JQuerySlickOptions
-   slick.initials; // $ExpectedType JQuerySlickInitials
+$('#diaporama').on('beforeChange', function (event, slick: JQuerySlick, currentSlide: number, nextSlide: number) {
+    slick.defaults; // $ExpectedType JQuerySlickOptions
+    slick.options; // $ExpectedType JQuerySlickOptions
+    slick.originalSettings; // $ExpectedType JQuerySlickOptions
+    slick.initials; // $ExpectedType JQuerySlickInitials
 
-   // Some properties of `initials` object (that are merged to the Slick instance)
-   slick.animating; // $ExpectedType boolean
-   slick.initials.animating; // $ExpectedType boolean
-   slick.dragging; // $ExpectedType boolean
-   slick.initials.dragging; // $ExpectedType boolean
-   slick.scrolling; // $ExpectedType boolean
-   slick.initials.scrolling; // $ExpectedType boolean
-   slick.sliding; // $ExpectedType boolean
-   slick.initials.sliding; // $ExpectedType boolean
-   slick.swiping; // $ExpectedType boolean
-   slick.initials.swiping; // $ExpectedType boolean
+    // Some properties of `initials` object (that are merged to the Slick instance)
+    slick.animating; // $ExpectedType boolean
+    slick.initials.animating; // $ExpectedType boolean
+    slick.dragging; // $ExpectedType boolean
+    slick.initials.dragging; // $ExpectedType boolean
+    slick.scrolling; // $ExpectedType boolean
+    slick.initials.scrolling; // $ExpectedType boolean
+    slick.sliding; // $ExpectedType boolean
+    slick.initials.sliding; // $ExpectedType boolean
+    slick.swiping; // $ExpectedType boolean
+    slick.initials.swiping; // $ExpectedType boolean
 });

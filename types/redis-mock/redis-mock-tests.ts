@@ -1,24 +1,20 @@
-import * as redis from "redis-mock";
+import * as redis from 'redis-mock';
 
 declare const value: any;
 let valueArr: any[];
 declare const commandArr: any[][];
 let num = 1;
-const str = "hi";
+const str = 'hi';
 let bool = false;
 const err: Error = new Error();
 const args: any[] = [];
 const options: redis.ClientOpts = {};
 let client: redis.RedisClient;
 let info: redis.ServerInfo;
-const resCallback: (err: Error, res: any) => void = () => {
-};
-const numCallback: (err: Error, res: number) => void = () => {
-};
-const strCallback: (err: Error, res: string) => void = () => {
-};
-const messageHandler: (channel: string, message: any) => void = () => {
-};
+const resCallback: (err: Error, res: any) => void = () => {};
+const numCallback: (err: Error, res: number) => void = () => {};
+const strCallback: (err: Error, res: string) => void = () => {};
+const messageHandler: (channel: string, message: any) => void = () => {};
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -32,22 +28,22 @@ client = redis.createClient(num, str, options);
 // Test the `retry_strategy` property
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 function retryStrategyNumber(options: redis.RetryStrategyOptions): number {
-  // Ensure that the properties of RetryStrategyOptions are resilient to breaking change.
-  // If the properties of the interface changes, the variables below will also need to be adapted.
-  const error: Error = options.error;
-  const total_retry_time: number = options.total_retry_time;
-  const times_connected: number = options.times_connected;
-  const attempt: number = options.attempt;
-  return 5000;
+    // Ensure that the properties of RetryStrategyOptions are resilient to breaking change.
+    // If the properties of the interface changes, the variables below will also need to be adapted.
+    const error: Error = options.error;
+    const total_retry_time: number = options.total_retry_time;
+    const times_connected: number = options.times_connected;
+    const attempt: number = options.attempt;
+    return 5000;
 }
 function retryStrategyError(options: redis.RetryStrategyOptions): Error {
-  return new Error('Foo');
+    return new Error('Foo');
 }
 client = redis.createClient({
-  retry_strategy: retryStrategyNumber
+    retry_strategy: retryStrategyNumber,
 });
 client = redis.createClient({
-  retry_strategy: retryStrategyError
+    retry_strategy: retryStrategyError,
 });
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -100,12 +96,7 @@ client.publish(str, value);
 client.subscribe(str);
 
 // Multi
-client.multi()
-  .scard(str)
-  .smembers(str)
-  .keys('*', resCallback)
-  .dbsize()
-  .exec(resCallback);
+client.multi().scard(str).smembers(str).keys('*', resCallback).dbsize().exec(resCallback);
 
 client.multi([['get', 'test']]).exec();
 
@@ -119,6 +110,6 @@ client.duplicate();
 
 // Pipeline
 client.cork();
-client.set("abc", "fff", strCallback);
-client.get("abc", resCallback);
+client.set('abc', 'fff', strCallback);
+client.get('abc', resCallback);
 client.uncork();

@@ -1,19 +1,10 @@
-import ReactTimeago, { Unit, Suffix } from "react-timeago";
-import * as React from "react";
+import ReactTimeago, { Unit, Suffix } from 'react-timeago';
+import * as React from 'react';
 
-const ReactTimeagoRequiredOptions: JSX.Element = (
-    <ReactTimeago date={new Date()} />
-);
+const ReactTimeagoRequiredOptions: JSX.Element = <ReactTimeago date={new Date()} />;
 
-const customFormatter = (
-    value: number,
-    unit: Unit,
-    suffix: Suffix,
-    epochMiliseconds: number
-) => {
-    return epochMiliseconds > 300000
-        ? `${value}${unit[0]} ${suffix}`
-        : "a really long time ago";
+const customFormatter = (value: number, unit: Unit, suffix: Suffix, epochMiliseconds: number) => {
+    return epochMiliseconds > 300000 ? `${value}${unit[0]} ${suffix}` : 'a really long time ago';
 };
 
 const ReactTimeagoAllOptions: JSX.Element = (
@@ -32,7 +23,7 @@ const ReactTimeagoAllOptions: JSX.Element = (
 class Text extends React.Component<{
     style?: Array<{}>;
     numberOfLines?: number;
-    ellipsizeMode?: "head" | "middle" | "tail" | "clip";
+    ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
     allowFontScaling?: boolean;
 }> {}
 
@@ -41,7 +32,7 @@ const ReactTimeagoCustomComponent: JSX.Element = (
         date={new Date()}
         component={Text}
         // props passed down to Text
-        style={[{ textAlign: "center" }, { fontSize: 24 }]}
+        style={[{ textAlign: 'center' }, { fontSize: 24 }]}
         numberOfLines={2}
         ellipsizeMode="middle"
         allowFontScaling

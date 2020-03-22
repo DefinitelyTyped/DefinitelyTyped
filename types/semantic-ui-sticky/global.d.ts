@@ -23,28 +23,30 @@ declare namespace SemanticUI {
     type StickySettings = StickySettings.Param;
 
     namespace StickySettings {
-        type Param = (Pick<_Impl, 'pushing'> |
-            Pick<_Impl, 'setSize'> |
-            Pick<_Impl, 'jitter'> |
-            Pick<_Impl, 'observeChanges'> |
-            Pick<_Impl, 'context'> |
-            Pick<_Impl, 'scrollContext'> |
-            Pick<_Impl, 'offset'> |
-            Pick<_Impl, 'bottomOffset'> |
-            Pick<_Impl, 'onReposition'> |
-            Pick<_Impl, 'onScroll'> |
-            Pick<_Impl, 'onStick'> |
-            Pick<_Impl, 'onUnstick'> |
-            Pick<_Impl, 'onTop'> |
-            Pick<_Impl, 'onBottom'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
+        type Param = (
+            | Pick<_Impl, 'pushing'>
+            | Pick<_Impl, 'setSize'>
+            | Pick<_Impl, 'jitter'>
+            | Pick<_Impl, 'observeChanges'>
+            | Pick<_Impl, 'context'>
+            | Pick<_Impl, 'scrollContext'>
+            | Pick<_Impl, 'offset'>
+            | Pick<_Impl, 'bottomOffset'>
+            | Pick<_Impl, 'onReposition'>
+            | Pick<_Impl, 'onScroll'>
+            | Pick<_Impl, 'onStick'>
+            | Pick<_Impl, 'onUnstick'>
+            | Pick<_Impl, 'onTop'>
+            | Pick<_Impl, 'onBottom'>
+            | Pick<_Impl, 'className'>
+            | Pick<_Impl, 'error'>
+            | Pick<_Impl, 'namespace'>
+            | Pick<_Impl, 'name'>
+            | Pick<_Impl, 'silent'>
+            | Pick<_Impl, 'debug'>
+            | Pick<_Impl, 'performance'>
+            | Pick<_Impl, 'verbose'>
+        ) &
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
@@ -191,11 +193,13 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'bound'> |
-                Pick<_Impl, 'fixed'> |
-                Pick<_Impl, 'supported'> |
-                Pick<_Impl, 'top'> |
-                Pick<_Impl, 'bottom'>) &
+            type Param = (
+                | Pick<_Impl, 'bound'>
+                | Pick<_Impl, 'fixed'>
+                | Pick<_Impl, 'supported'>
+                | Pick<_Impl, 'top'>
+                | Pick<_Impl, 'bottom'>
+            ) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -225,11 +229,13 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'container'> |
-                Pick<_Impl, 'visible'> |
-                Pick<_Impl, 'method'> |
-                Pick<_Impl, 'invalidContext'> |
-                Pick<_Impl, 'elementSize'>) &
+            type Param = (
+                | Pick<_Impl, 'container'>
+                | Pick<_Impl, 'visible'>
+                | Pick<_Impl, 'method'>
+                | Pick<_Impl, 'invalidContext'>
+                | Pick<_Impl, 'elementSize'>
+            ) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {

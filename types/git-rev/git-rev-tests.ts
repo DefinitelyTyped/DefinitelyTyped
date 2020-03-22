@@ -1,4 +1,4 @@
-import * as gitRev from "git-rev";
+import * as gitRev from 'git-rev';
 
 gitRev.short((result) => {});
 gitRev.long((result) => {});

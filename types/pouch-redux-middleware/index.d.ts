@@ -7,9 +7,9 @@
 import { Dispatch, Action, Middleware } from 'redux';
 import * as PouchDB from 'pouchdb';
 
-export type Document<T = {[field: string]: any}> = PouchDB.Core.IdMeta & T;
+export type Document<T = { [field: string]: any }> = PouchDB.Core.IdMeta & T;
 
-export interface Path<T = {[field: string]: any}> {
+export interface Path<T = { [field: string]: any }> {
     path: string;
     db: PouchDB.Database<T>;
     scheduleRemove?(doc: Document<T>): void;
@@ -30,4 +30,6 @@ export interface Path<T = {[field: string]: any}> {
     };
 }
 
-export default function PouchMiddlewareFactory<T = {[field: string]: any}>(paths?: Array<Path<T>> | Path<T>): Middleware;
+export default function PouchMiddlewareFactory<T = { [field: string]: any }>(
+    paths?: Array<Path<T>> | Path<T>,
+): Middleware;

@@ -1,5 +1,5 @@
-import * as React from "react";
-import { createSubscription, Subscription } from "create-subscription";
+import * as React from 'react';
+import { createSubscription, Subscription } from 'create-subscription';
 
 //
 // Example: Subscribing to event dispatchers
@@ -14,8 +14,8 @@ function FollowerComponent({ followersCount }: { followersCount: number }) {
 
 interface EventDispatcher<T> {
     value: T;
-    addEventListener(eventName: "change", onChange: (newValue: T) => any): void;
-    removeEventListener(eventName: "change", onChange: (newValue: T) => any): void;
+    addEventListener(eventName: 'change', onChange: (newValue: T) => any): void;
+    removeEventListener(eventName: 'change', onChange: (newValue: T) => any): void;
 }
 
 // Create a wrapper component to manage the subscription.
@@ -24,9 +24,9 @@ const EventHandlerSubscription = createSubscription({
     getCurrentValue: (eventDispatcher: EventDispatcher<number>) => eventDispatcher.value,
     subscribe: (eventDispatcher: EventDispatcher<number>, callback) => {
         const onChange = (event: any) => callback(eventDispatcher.value);
-        eventDispatcher.addEventListener("change", onChange);
-        return () => eventDispatcher.removeEventListener("change", onChange);
-    }
+        eventDispatcher.addEventListener('change', onChange);
+        return () => eventDispatcher.removeEventListener('change', onChange);
+    },
 });
 
 declare const eventDispatcher: EventDispatcher<number>;
@@ -34,7 +34,7 @@ declare const eventDispatcher: EventDispatcher<number>;
 // Your component can now be used as shown below.
 // In this example, 'eventDispatcher' represents a generic event dispatcher.
 <EventHandlerSubscription source={eventDispatcher}>
-    {value => {
+    {(value) => {
         // $ExpectType number
         const followersCount = value;
         return <FollowerComponent followersCount={followersCount} />;
@@ -63,7 +63,7 @@ const LoadingComponent: React.SFC<{ loadingStatus: string | undefined }> = ({ lo
 // It will add and remove subscriptions in an async-safe way when props change.
 // $ExpectType Subscription<Promise<string>, string | undefined>
 const PromiseSubscription = createSubscription({
-    getCurrentValue: promise => {
+    getCurrentValue: (promise) => {
         // There is no way to synchronously read a Promise's value,
         // So this method should return undefined.
         return undefined;
@@ -73,20 +73,20 @@ const PromiseSubscription = createSubscription({
             // Success
             callback,
             // Failure
-            () => callback(undefined)
+            () => callback(undefined),
         );
 
         // There is no way to "unsubscribe" from a Promise.
         // create-subscription will still prevent stale values from rendering.
         return () => {};
-    }
+    },
 });
 
 declare const loadingPromise: Promise<string>;
 
 // Your component can now be used as shown below.
 <PromiseSubscription source={loadingPromise}>
-    {value => {
+    {(value) => {
         // $ExpectType string | undefined
         const loadingStatus = value;
         return <LoadingComponent loadingStatus={loadingStatus} />;
@@ -100,12 +100,18 @@ declare const loadingPromise: Promise<string>;
 declare const wrongPromise: Promise<number>;
 
 // $ExpectError
-<PromiseSubscription source={wrongPromise}>
-    {value => null}
-</PromiseSubscription>;
+<PromiseSubscription source={wrongPromise}>{(value) => null}</PromiseSubscription>;
 
 // $ExpectError
-const MismatchSubscription = createSubscription({ getCurrentValue: (a: number) => null, subscribe: (a: string, callback) => (() => undefined) });
+const MismatchSubscription = createSubscription({
+    getCurrentValue: (a: number) => null,
+    subscribe: (a: string, callback) => () => undefined,
+});
 
 // $ExpectError
-const NoUnsubscribe = createSubscription({ getCurrentValue: (a: number) => a, subscribe: (a: number, callback) => { /* oops, should've returned a callback here */ }});
+const NoUnsubscribe = createSubscription({
+    getCurrentValue: (a: number) => a,
+    subscribe: (a: number, callback) => {
+        /* oops, should've returned a callback here */
+    },
+});

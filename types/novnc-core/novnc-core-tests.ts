@@ -5,7 +5,7 @@ const host = '';
 const port = 0;
 const password = '';
 const path = '';
-const canvas = <HTMLCanvasElement> document.getElementById('noVNC_canvas');
+const canvas = <HTMLCanvasElement>document.getElementById('noVNC_canvas');
 
 function setPassword() {
     rfb.sendPassword('password');
@@ -19,12 +19,11 @@ function init() {
     rfb = new RFB({
         target: canvas,
         encrypt: true,
-        repeaterID: "myrepeaterid",
+        repeaterID: 'myrepeaterid',
         local_cursor: true,
         shared: true,
         view_only: true,
-        onPasswordRequired: (rfb) => {
-        }
+        onPasswordRequired: (rfb) => {},
     });
     rfb.connect(host, port, password, path);
 }

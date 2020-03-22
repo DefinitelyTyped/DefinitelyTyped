@@ -9,7 +9,7 @@ trans.end(); // $ExpectType void
 trans.end(() => {}); // $ExpectType void
 const payload = trans.createDistributedTracePayload(); // $ExpectType DistributedTracePayload
 trans.acceptDistributedTracePayload(payload); // $ExpectType void
-trans.insertDistributedTraceHeaders({ test: "test" }); // $ExpectType void
+trans.insertDistributedTraceHeaders({ test: 'test' }); // $ExpectType void
 
 newrelic.setDispatcher('foo'); // $ExpectType void
 newrelic.setDispatcher('foo', '42'); // $ExpectType void
@@ -37,7 +37,12 @@ newrelic.addIgnoringRule(/^[0-9]+$/); // $ExpectType void
 newrelic.getBrowserTimingHeader(); // $ExpectType string
 
 newrelic.startSegment('foo', false, () => 'bar'); // $ExpectType string
-newrelic.startSegment('foo', false, () => 'bar', () => 'baz'); // $ExpectType string
+newrelic.startSegment(
+    'foo',
+    false,
+    () => 'bar',
+    () => 'baz',
+); // $ExpectType string
 newrelic.startSegment('foo', false, Promise.all([5, 7])).then(([a, b]: [number, number]) => {
     console.log(a, b);
 });
@@ -57,7 +62,7 @@ newrelic.startWebTransaction('/some/url/path', () => {
 
 newrelic.startWebTransaction('/some/url/path', Promise.resolve(7)); // $ExpectType Promise<number>
 
-newrelic.startBackgroundTransaction('Red October', foo => foo); // $ExpectType any
+newrelic.startBackgroundTransaction('Red October', (foo) => foo); // $ExpectType any
 newrelic.startBackgroundTransaction('Red October', () => 7); // $ExpectType number
 newrelic.startBackgroundTransaction('Red October', Promise.resolve(7)); // $ExpectType Promise<number>
 newrelic.startBackgroundTransaction('Red October', 'Subs', () => {
@@ -89,7 +94,11 @@ newrelic.recordCustomEvent('my_event', {
 });
 
 newrelic.instrument('foo', () => {}); // $ExpectType void
-newrelic.instrumentDatastore('foo', () => {}, (err: Error) => {});
+newrelic.instrumentDatastore(
+    'foo',
+    () => {},
+    (err: Error) => {},
+);
 newrelic.instrumentLoadedModule('foo', () => {}); // $ExpectType boolean
 newrelic.instrumentWebframework({
     moduleName: 'foo',
@@ -98,7 +107,7 @@ newrelic.instrumentWebframework({
 newrelic.instrumentMessages({
     moduleName: 'foo',
     onRequire: () => {},
-    onError: err => {
+    onError: (err) => {
         const error: Error = err;
     },
 });
@@ -107,14 +116,14 @@ newrelic.shutdown(); // $ExpectType void
 newrelic.shutdown({ collectPendingData: true });
 newrelic.shutdown({ timeout: 3000 });
 newrelic.shutdown({ collectPendingData: true, timeout: 3000 });
-newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, err => {
+newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, (err) => {
     const error: Error | undefined = err;
 });
 newrelic.shutdown({ collectPendingData: true, timeout: 3000, waitForIdle: true });
-newrelic.shutdown({ collectPendingData: true, timeout: 3000, waitForIdle: true }, err => {
+newrelic.shutdown({ collectPendingData: true, timeout: 3000, waitForIdle: true }, (err) => {
     const error: Error | undefined = err;
 });
-newrelic.shutdown(err => {
+newrelic.shutdown((err) => {
     const error: Error | undefined = err;
 });
 

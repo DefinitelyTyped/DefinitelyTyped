@@ -1,8 +1,8 @@
 /* tslint:disable:no-mergeable-namespace no-namespace */
-"use strict";
+'use strict';
 
-import conventionalCommitsParser from "conventional-commits-parser";
-import conventionalRecommendedBump from "conventional-recommended-bump";
+import conventionalCommitsParser from 'conventional-commits-parser';
+import conventionalRecommendedBump from 'conventional-recommended-bump';
 
 namespace Module {
     declare const callback: conventionalRecommendedBump.Callback;

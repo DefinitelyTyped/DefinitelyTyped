@@ -40,10 +40,14 @@ declare global {
 }
 
 declare class Observable<T> {
-    constructor(subscriber: ZenObservable.Subscriber<T>)
+    constructor(subscriber: ZenObservable.Subscriber<T>);
 
     subscribe(observer: ZenObservable.Observer<T>): ZenObservable.Subscription;
-    subscribe(onNext: (value: T) => void, onError?: (error: any) => void, onComplete?: () => void): ZenObservable.Subscription;
+    subscribe(
+        onNext: (value: T) => void,
+        onError?: (error: any) => void,
+        onComplete?: () => void,
+    ): ZenObservable.Subscription;
 
     [Symbol.observable](): Observable<T>;
 
@@ -59,7 +63,6 @@ declare class Observable<T> {
     static of<R>(...items: R[]): Observable<R>;
 }
 
-declare namespace Observable {
-}
+declare namespace Observable {}
 
 export = Observable;

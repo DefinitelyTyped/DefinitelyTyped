@@ -8,4 +8,8 @@ export interface LanguageNegotiationOptions {
     defaultLocale?: string;
 }
 
-export function negotiateLanguages(requestedLocales: ReadonlyArray<string>, availableLocales: ReadonlyArray<string>, options?: LanguageNegotiationOptions): string[];
+export function negotiateLanguages(
+    requestedLocales: ReadonlyArray<string>,
+    availableLocales: ReadonlyArray<string>,
+    options?: LanguageNegotiationOptions,
+): string[];

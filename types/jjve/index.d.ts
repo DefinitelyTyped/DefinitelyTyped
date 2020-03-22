@@ -3,7 +3,6 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 import jjv = require('jjv');
 
 declare function jjve(jjv: jjv.Env): jjve.Env;

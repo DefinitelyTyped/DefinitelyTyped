@@ -26,7 +26,7 @@ const customFormatted = prettier.format('lodash ( )', {
     },
 });
 
-prettier.resolveConfig('path/to/somewhere').then(options => {
+prettier.resolveConfig('path/to/somewhere').then((options) => {
     if (options !== null) {
         const formatted = prettier.format('hello world', options);
     }
@@ -36,7 +36,7 @@ if (prettier.getFileInfo.sync('./tsconfig.json').inferredParser !== 'json') {
     throw new Error('Bad parser');
 }
 
-prettier.getFileInfo('./tsconfig.json').then(result => {
+prettier.getFileInfo('./tsconfig.json').then((result) => {
     if (result.inferredParser !== 'json') {
         throw new Error('Bad parser');
     }
@@ -50,12 +50,12 @@ if (options !== null) {
     const formatted = prettier.format('hello world', options);
 }
 
-prettier.resolveConfigFile().then(filePath => {
+prettier.resolveConfigFile().then((filePath) => {
     if (filePath !== null) {
         prettier.resolveConfig(filePath);
     }
 });
-prettier.resolveConfigFile('/path').then(filePath => {
+prettier.resolveConfigFile('/path').then((filePath) => {
     if (filePath !== null) {
         prettier.resolveConfig(filePath);
     }
@@ -82,4 +82,6 @@ markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { 
 postcssParser.parsers.postcss.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 
-prettier.format('hello world', {plugins: [typescriptParser, graphqlParser, babylonParser, htmlParser, markdownParser, postcssParser, yamlParser]});
+prettier.format('hello world', {
+    plugins: [typescriptParser, graphqlParser, babylonParser, htmlParser, markdownParser, postcssParser, yamlParser],
+});

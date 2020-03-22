@@ -4,38 +4,38 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import dotenv = require("dotenv")
+import dotenv = require('dotenv');
 
 export interface MissingEnvVarsError extends Error {
-  /**
-   * Path to example environment file.
-   */
-  sample: string
+    /**
+     * Path to example environment file.
+     */
+    sample: string;
 
-  /**
-   * Variables which existing in the sample file, but not in the loaded file.
-   */
-  missing: string[]
+    /**
+     * Variables which existing in the sample file, but not in the loaded file.
+     */
+    missing: string[];
 }
 
 export interface DotenvSafeOptions extends dotenv.DotenvConfigOptions {
-  /**
-   * Path to example environment file. (Option 1)
-   * @default ".env.example"
-   */
-  example?: string,
+    /**
+     * Path to example environment file. (Option 1)
+     * @default ".env.example"
+     */
+    example?: string;
 
-  /**
-   * Path to example environment file. (Option 2 -- example takes precedence)
-   * @default ".env.example"
-   */
-  sample?: string,
+    /**
+     * Path to example environment file. (Option 2 -- example takes precedence)
+     * @default ".env.example"
+     */
+    sample?: string;
 
-  /**
-   * Enabling this option will not throw an error after loading.
-   * @default false
-   */
-  allowEmptyValues?: boolean,
+    /**
+     * Enabling this option will not throw an error after loading.
+     * @default false
+     */
+    allowEmptyValues?: boolean;
 }
 
 /**
@@ -43,4 +43,4 @@ export interface DotenvSafeOptions extends dotenv.DotenvConfigOptions {
  *
  * @throws MissingEnvVarsError
  */
-export function config(options?: DotenvSafeOptions): dotenv.DotenvConfigOutput
+export function config(options?: DotenvSafeOptions): dotenv.DotenvConfigOutput;

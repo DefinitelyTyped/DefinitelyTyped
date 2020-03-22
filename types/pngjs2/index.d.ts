@@ -5,10 +5,9 @@
 
 /// <reference types="node" />
 
-
-import fs = require("fs");
-import events = require("events");
-import stream = require("stream");
+import fs = require('fs');
+import events = require('events');
+import stream = require('stream');
 
 interface PNGOptions {
     width?: number;
@@ -41,18 +40,25 @@ export declare class PNG extends stream.Writable {
     gamma: number;
 
     on(event: string, callback: Function): this;
-    on(event: "metadata", callback: (metadata: PNGMetadata) => void): this;
-    on(event: "parsed", callback: (data: Buffer) => void): this;
-    on(event: "error", callback: (err: Error) => void): this;
+    on(event: 'metadata', callback: (metadata: PNGMetadata) => void): this;
+    on(event: 'parsed', callback: (data: Buffer) => void): this;
+    on(event: 'error', callback: (err: Error) => void): this;
 
     parse(data: string | Buffer, callback?: (err: Error, data: Buffer) => void): PNG;
     pack(): PNG;
 
-    static bitblt(src: PNG, dst: PNG, srcX: number, srcY: number,
-        width: number, height: number, deltaX: number, deltaY: number): void;
+    static bitblt(
+        src: PNG,
+        dst: PNG,
+        srcX: number,
+        srcY: number,
+        width: number,
+        height: number,
+        deltaX: number,
+        deltaY: number,
+    ): void;
 
-    bitblt(dst: PNG, srcX: number, srcY: number,
-        width: number, height: number, deltaX: number, deltaY: number): PNG;
+    bitblt(dst: PNG, srcX: number, srcY: number, width: number, height: number, deltaX: number, deltaY: number): PNG;
 }
 
 export declare namespace PNG {

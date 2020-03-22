@@ -16,7 +16,11 @@ declare namespace mock {
          * @param plugins An array of either Plugin objects or NPM modules as strings.
          * @param skipDefaults Set true to skip loading of default mocks.
          */
-        (mocks?: ReadonlyArray<requests.AllRequests | string>, plugins?: ReadonlyArray<Plugin1<any> | Plugin2<any, any> | string>, skipDefaults?: boolean): ProtractorHttpMock;
+        (
+            mocks?: ReadonlyArray<requests.AllRequests | string>,
+            plugins?: ReadonlyArray<Plugin1<any> | Plugin2<any, any> | string>,
+            skipDefaults?: boolean,
+        ): ProtractorHttpMock;
 
         /**
          * Clean up.
@@ -58,22 +62,22 @@ declare namespace mock {
                  * Name of the folder where mocks will reside.
                  * Default: 'mocks'
                  */
-                dir?: string,
+                dir?: string;
 
                 /**
                  * Collection of default mocks to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string>
-            },
+                default?: ReadonlyArray<string>;
+            };
 
             plugins?: {
                 /**
                  * Collection of default plugins to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string>
-            }
+                default?: ReadonlyArray<string>;
+            };
         };
 
         /**
@@ -141,26 +145,27 @@ declare namespace mock {
         /**
          * Request methods type
          */
-        type Method = "GET" | "POST" | "DELETE" | "PUT" | "HEAD" | "PATCH" | "JSONP";
+        type Method = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'HEAD' | 'PATCH' | 'JSONP';
 
         /**
          * All available request types.
          */
-        type AllRequests = Get<any> |
-            PostData<any, any> |
-            Post<any> |
-            Head<any> |
-            Delete<any> |
-            Put<any> |
-            Patch<any> |
-            Jsonp<any>;
+        type AllRequests =
+            | Get<any>
+            | PostData<any, any>
+            | Post<any>
+            | Head<any>
+            | Delete<any>
+            | Put<any>
+            | Patch<any>
+            | Jsonp<any>;
 
         /**
          * GET request mock.
          */
         interface Get<TResponse> {
             request: {
-                method: "GET";
+                method: 'GET';
                 path: string;
                 regex?: boolean;
                 params?: Object;
@@ -179,7 +184,7 @@ declare namespace mock {
          */
         interface PostData<TResponse, TPayload> {
             request: {
-                method: "POST";
+                method: 'POST';
                 path: string;
                 regex?: boolean;
                 data: TPayload;
@@ -196,7 +201,7 @@ declare namespace mock {
          */
         interface Post<TResponse> {
             request: {
-                method: "POST";
+                method: 'POST';
                 path: string;
                 regex?: boolean;
             };
@@ -212,7 +217,7 @@ declare namespace mock {
          */
         interface Head<TResponse> {
             request: {
-                method: "HEAD";
+                method: 'HEAD';
                 path: string;
                 regex?: boolean;
             };
@@ -228,7 +233,7 @@ declare namespace mock {
          */
         interface Delete<TResponse> {
             request: {
-                method: "DELETE";
+                method: 'DELETE';
                 path: string;
                 regex?: boolean;
             };
@@ -244,7 +249,7 @@ declare namespace mock {
          */
         interface Put<TResponse> {
             request: {
-                method: "PUT";
+                method: 'PUT';
                 path: string;
                 regex?: boolean;
             };
@@ -260,7 +265,7 @@ declare namespace mock {
          */
         interface Patch<TResponse> {
             request: {
-                method: "PATCH";
+                method: 'PATCH';
                 path: string;
                 regex?: boolean;
             };
@@ -276,7 +281,7 @@ declare namespace mock {
          */
         interface Jsonp<TResponse> {
             request: {
-                method: "JSONP";
+                method: 'JSONP';
                 path: string;
                 regex?: boolean;
             };

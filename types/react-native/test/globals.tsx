@@ -1,18 +1,18 @@
-const fetchCopy: WindowOrWorkerGlobalScope["fetch"] = fetch;
+const fetchCopy: WindowOrWorkerGlobalScope['fetch'] = fetch;
 
 const myHeaders = new Headers();
-myHeaders.append("Content-Type", "image/jpeg");
+myHeaders.append('Content-Type', 'image/jpeg');
 
 const myInit: RequestInit = {
-    method: "GET",
+    method: 'GET',
     headers: myHeaders,
-    mode: "cors",
+    mode: 'cors',
 };
 
-const myRequest = new Request("flowers.jpg");
+const myRequest = new Request('flowers.jpg');
 
 fetch(myRequest, myInit)
-    .then(response => {
+    .then((response) => {
         console.log(response.type);
         console.log(response.url);
         console.log(response.status);
@@ -22,17 +22,17 @@ fetch(myRequest, myInit)
 
         return response.blob();
     })
-    .then(blob => {
-        const init = { status: 200, statusText: "SuperSmashingGreat!" };
+    .then((blob) => {
+        const init = { status: 200, statusText: 'SuperSmashingGreat!' };
         const myResponse = new Response(blob, init);
     });
 
 const xmlRequest = new XMLHttpRequest();
 
-xmlRequest.addEventListener("load", (ev) => {
-    console.log(ev.lengthComputable)
-    console.log(ev.loaded)
-    console.log(ev.total)
+xmlRequest.addEventListener('load', (ev) => {
+    console.log(ev.lengthComputable);
+    console.log(ev.loaded);
+    console.log(ev.total);
 });
 
 const test = new URLSearchParams();

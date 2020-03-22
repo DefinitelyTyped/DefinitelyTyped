@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-export function decode(str: string, LIMIT?: number): { prefix: string, words: number[] };
+export function decode(str: string, LIMIT?: number): { prefix: string; words: number[] };
 
 export function encode(prefix: string, words: ArrayLike<number>, LIMIT?: number): string;
 

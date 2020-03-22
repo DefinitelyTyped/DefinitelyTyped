@@ -1,5 +1,11 @@
-export interface InstructionsContext { isSearchable?: boolean; isMulti?: boolean; label?: string; }
-export interface ValueEventContext { value: string; }
+export interface InstructionsContext {
+    isSearchable?: boolean;
+    isMulti?: boolean;
+    label?: string;
+}
+export interface ValueEventContext {
+    value: string;
+}
 
 export function instructionsAriaMessage(event: any, context?: InstructionsContext): string;
 

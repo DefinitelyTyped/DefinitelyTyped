@@ -7,5 +7,8 @@ function matchTest() {
 }
 
 function parseTest() {
-    const parts = parse('Pretty cool text', [[7, 9], [12, 13]]); // $ExpectType { text: string; highlight: boolean; }[]
+    const parts = parse('Pretty cool text', [
+        [7, 9],
+        [12, 13],
+    ]); // $ExpectType { text: string; highlight: boolean; }[]
 }

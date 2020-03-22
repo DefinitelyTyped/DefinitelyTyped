@@ -1,10 +1,8 @@
-import * as React from "react";
+import * as React from 'react';
 
-import Overlay = require("./Overlay");
+import Overlay = require('./Overlay');
 
-declare class DropdownMenu extends React.Component<
-    DropdownMenu.DropdownMenuProps
-> {}
+declare class DropdownMenu extends React.Component<DropdownMenu.DropdownMenuProps> {}
 export = DropdownMenu;
 
 declare namespace DropdownMenu {

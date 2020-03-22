@@ -8,5 +8,5 @@ export interface PopoverBodyProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class PopoverBody<T = {[key: string]: any}> extends React.Component<PopoverBodyProps> {}
+declare class PopoverBody<T = { [key: string]: any }> extends React.Component<PopoverBodyProps> {}
 export default PopoverBody;

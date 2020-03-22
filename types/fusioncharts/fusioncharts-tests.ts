@@ -1,4 +1,4 @@
-import * as FusionCharts from "fusioncharts";
+import * as FusionCharts from 'fusioncharts';
 
 FusionCharts.addEventListener('ready', (eventObject) => {
     eventObject.stopPropagation();
@@ -10,7 +10,7 @@ FusionCharts.version;
 
 FusionCharts('chartId').render();
 
-FusionCharts["debugger"].enable(true);
+FusionCharts['debugger'].enable(true);
 
 const chartData = {
     type: 'column2d',
@@ -20,24 +20,26 @@ const chartData = {
     dataFormat: 'json',
     dataSource: {
         chart: {
-            caption: "Monthly revenue for last year",
+            caption: 'Monthly revenue for last year',
             subCaption: "Harry's SuperMart",
         },
-        data: [{
-            label: "Jan",
-            value: "420000"
-        }, {
-            label: "Feb",
-            value: "810000"
-        }
-        ]
-    }
+        data: [
+            {
+                label: 'Jan',
+                value: '420000',
+            },
+            {
+                label: 'Feb',
+                value: '810000',
+            },
+        ],
+    },
 };
 
 const chart = new FusionCharts(chartData);
 chart.render();
 chart.isActive();
-chart.addEventListener('ready', eventObject => {
+chart.addEventListener('ready', (eventObject) => {
     eventObject.type;
 });
 chart.chartType();

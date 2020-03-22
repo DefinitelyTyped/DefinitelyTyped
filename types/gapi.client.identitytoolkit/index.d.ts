@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Identity Toolkit API v3 */
-    function load(name: "identitytoolkit", version: "v3"): PromiseLike<void>;
-    function load(name: "identitytoolkit", version: "v3", callback: () => any): void;
+    function load(name: 'identitytoolkit', version: 'v3'): PromiseLike<void>;
+    function load(name: 'identitytoolkit', version: 'v3', callback: () => any): void;
 
     const relyingparty: identitytoolkit.RelyingpartyResource;
 

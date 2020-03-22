@@ -1,2 +1,2 @@
-import { isElement } from "lodash";
+import { isElement } from 'lodash';
 export default isElement;

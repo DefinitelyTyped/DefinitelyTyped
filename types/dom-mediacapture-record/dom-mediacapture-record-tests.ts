@@ -1,22 +1,20 @@
-const isWebmSupported: boolean = window.MediaRecorder.isTypeSupported(
-    'video/webm'
-);
+const isWebmSupported: boolean = window.MediaRecorder.isTypeSupported('video/webm');
 
 const mediaStream = new MediaStream();
 
 const mediaRecorderOptions: MediaRecorderOptions = {
     mimeType: 'video/webm',
     audioBitsPerSecond: 1000000,
-    videoBitsPerSecond: 4000000
+    videoBitsPerSecond: 4000000,
 };
 
 const blobEvent = new BlobEvent('dataavailable', {
     data: new Blob(),
-    bubbles: false
+    bubbles: false,
 });
 const errorEvent = new MediaRecorderErrorEvent('error', {
     error: new DOMException(),
-    bubbles: false
+    bubbles: false,
 });
 
 const onDataAvailable = (event: BlobEvent) => {

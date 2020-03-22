@@ -1,2 +1,2 @@
-import { unescape } from "lodash";
+import { unescape } from 'lodash';
 export default unescape;

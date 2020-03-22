@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 interface ICache {
     [path: string]: NodeJS.ReadWriteStream;
 }

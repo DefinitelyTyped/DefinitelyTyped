@@ -6,8 +6,8 @@ blacklist(someInput, 'b', 'c');
 // => { a: 1 }
 
 blacklist(someInput, {
-    a: true,   // a will not be in the result
-    b: false,  // b will be in the result
-    c: 1 > 2   // false, therefore c will be in the result
+    a: true, // a will not be in the result
+    b: false, // b will be in the result
+    c: 1 > 2, // false, therefore c will be in the result
 });
 // => { b: 2, c: 3 }

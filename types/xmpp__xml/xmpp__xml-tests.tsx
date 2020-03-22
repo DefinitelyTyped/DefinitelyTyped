@@ -8,7 +8,7 @@ const message = (
     <message to={recipient}>
         <body>{1 + 2}</body>
         <days>
-            {days.map(day => (
+            {days.map((day) => (
                 <day>${day}</day>
             ))}
         </days>
@@ -19,7 +19,7 @@ const message = (
 message.append(
     <myevent xmlns="xmpp:example.org">
         <json xmlns="urn:xmpp:json:0">{JSON.stringify(days)}</json>
-    </myevent>
+    </myevent>,
 );
 
 // read

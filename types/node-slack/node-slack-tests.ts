@@ -1,5 +1,3 @@
-
-
 import express = require('express');
 import Slack = require('node-slack');
 let app = express();
@@ -12,7 +10,7 @@ var slack = new Slack(hook_url, options);
 slack.send({
     text: 'Howdy!',
     channel: '#foo',
-    username: 'Bot'
+    username: 'Bot',
 });
 
 var attachment_array: any[] = [];
@@ -24,22 +22,16 @@ slack.send({
     icon_emoji: 'taco',
     attachments: attachment_array,
     unfurl_links: true,
-    link_names: 1
+    link_names: 1,
 });
 
-
-app.post('/yesman', function(req, res) {
-
-    var reply = slack.respond(req.body, function(hook: any) {
-
+app.post('/yesman', function (req, res) {
+    var reply = slack.respond(req.body, function (hook: any) {
         return {
             text: 'Good point, ' + hook.user_name,
-            username: 'Bot'
+            username: 'Bot',
         };
-
     });
 
     res.json(reply);
-
 });
-

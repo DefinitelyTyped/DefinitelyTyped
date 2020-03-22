@@ -34,7 +34,7 @@ import {
     DataTypeRange,
     DataTypeReal,
     DataTypeDouble,
-    DataTypeGeometry
+    DataTypeGeometry,
 } from 'sequelize';
 
 import { Express, Request, Response } from 'express';
@@ -172,12 +172,39 @@ export class DeleteController extends BaseController {
 
 export class ListController extends BaseController {
     fetch: (req: Request, res: Response, context: Context) => Promise<() => void>;
-    _safeishParse: (value: any, type: DataTypeAbstract | DataTypeString | DataTypeChar | DataTypeText | DataTypeNumber |
-                        DataTypeInteger | DataTypeBigInt | DataTypeFloat | DataTypeTime | DataTypeDate | DataTypeDateOnly |
-                        DataTypeBoolean | DataTypeNow | DataTypeBlob | DataTypeDecimal | DataTypeUUID | DataTypeUUIDv1 |
-                        DataTypeUUIDv4 | DataTypeHStore | DataTypeJSONType | DataTypeJSONB | DataTypeVirtual |
-                        DataTypeArray | DataTypeEnum | DataTypeRange | DataTypeReal | DataTypeDouble | DataTypeGeometry,
-                    sequelize: Sequelize) => any;
+    _safeishParse: (
+        value: any,
+        type:
+            | DataTypeAbstract
+            | DataTypeString
+            | DataTypeChar
+            | DataTypeText
+            | DataTypeNumber
+            | DataTypeInteger
+            | DataTypeBigInt
+            | DataTypeFloat
+            | DataTypeTime
+            | DataTypeDate
+            | DataTypeDateOnly
+            | DataTypeBoolean
+            | DataTypeNow
+            | DataTypeBlob
+            | DataTypeDecimal
+            | DataTypeUUID
+            | DataTypeUUIDv1
+            | DataTypeUUIDv4
+            | DataTypeHStore
+            | DataTypeJSONType
+            | DataTypeJSONB
+            | DataTypeVirtual
+            | DataTypeArray
+            | DataTypeEnum
+            | DataTypeRange
+            | DataTypeReal
+            | DataTypeDouble
+            | DataTypeGeometry,
+        sequelize: Sequelize,
+    ) => any;
 }
 
 export interface ResourceOptions {

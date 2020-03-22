@@ -2,57 +2,52 @@ export type NumberProp = string | number;
 export type NumberArrayProp = [NumberProp] | NumberProp;
 
 export interface FillProps {
-  fill?: string;
-  fillOpacity?: NumberProp;
-  fillRule?: 'evenodd' | 'nonzero';
+    fill?: string;
+    fillOpacity?: NumberProp;
+    fillRule?: 'evenodd' | 'nonzero';
 }
 
 export interface ClipProps {
-  clipRule?: 'evenodd' | 'nonzero';
-  clipPath?: string;
+    clipRule?: 'evenodd' | 'nonzero';
+    clipPath?: string;
 }
 
 export interface DefinationProps {
-  name?: string;
+    name?: string;
 }
 
 export interface StrokeProps {
-  stroke?: string;
-  strokeWidth?: NumberProp;
-  strokeOpacity?: NumberProp;
-  strokeDasharray?: NumberArrayProp;
-  strokeDashoffset?: NumberProp;
-  strokeLinecap?: 'butt' | 'square' | 'round';
-  strokeLinejoin?: 'miter' | 'bevel' | 'round';
-  strokeMiterlimit?: NumberProp;
+    stroke?: string;
+    strokeWidth?: NumberProp;
+    strokeOpacity?: NumberProp;
+    strokeDasharray?: NumberArrayProp;
+    strokeDashoffset?: NumberProp;
+    strokeLinecap?: 'butt' | 'square' | 'round';
+    strokeLinejoin?: 'miter' | 'bevel' | 'round';
+    strokeMiterlimit?: NumberProp;
 }
 
 export interface TransformProps {
-  scale?: NumberProp;
-  scaleX?: NumberProp;
-  scaleY?: NumberProp;
-  rotate?: NumberProp;
-  rotation?: NumberProp;
-  translate?: NumberProp;
-  translateX?: NumberProp;
-  translateY?: NumberProp;
-  x?: NumberProp;
-  y?: NumberProp;
-  origin?: NumberProp;
-  originX?: NumberProp;
-  originY?: NumberProp;
-  skew?: NumberProp;
-  skewX?: NumberProp;
-  skewY?: NumberProp;
-  transform?: object | string;
+    scale?: NumberProp;
+    scaleX?: NumberProp;
+    scaleY?: NumberProp;
+    rotate?: NumberProp;
+    rotation?: NumberProp;
+    translate?: NumberProp;
+    translateX?: NumberProp;
+    translateY?: NumberProp;
+    x?: NumberProp;
+    y?: NumberProp;
+    origin?: NumberProp;
+    originX?: NumberProp;
+    originY?: NumberProp;
+    skew?: NumberProp;
+    skewX?: NumberProp;
+    skewY?: NumberProp;
+    transform?: object | string;
 }
 
-export interface PathProps
-  extends FillProps,
-    StrokeProps,
-    ClipProps,
-    TransformProps,
-    DefinationProps {}
+export interface PathProps extends FillProps, StrokeProps, ClipProps, TransformProps, DefinationProps {}
 
 // normal | italic | oblique | inherit
 // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-style
@@ -65,35 +60,35 @@ export type FontVariant = 'normal' | 'small-caps';
 // normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
 // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-weight
 export type FontWeight =
-  | 'normal'
-  | 'bold'
-  | 'bolder'
-  | 'lighter'
-  | '100'
-  | '200'
-  | '300'
-  | '400'
-  | '500'
-  | '600'
-  | '700'
-  | '800'
-  | '900';
+    | 'normal'
+    | 'bold'
+    | 'bolder'
+    | 'lighter'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900';
 
 // normal | wider | narrower | ultra-condensed | extra-condensed |
 // condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | inherit
 // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-stretch
 export type FontStretch =
-  | 'normal'
-  | 'wider'
-  | 'narrower'
-  | 'ultra-condensed'
-  | 'extra-condensed'
-  | 'condensed'
-  | 'semi-condensed'
-  | 'semi-expanded'
-  | 'expanded'
-  | 'extra-expanded'
-  | 'ultra-expanded';
+    | 'normal'
+    | 'wider'
+    | 'narrower'
+    | 'ultra-condensed'
+    | 'extra-condensed'
+    | 'condensed'
+    | 'semi-condensed'
+    | 'semi-expanded'
+    | 'expanded'
+    | 'extra-expanded'
+    | 'ultra-expanded';
 
 // <absolute-size> | <relative-size> | <length> | <percentage> | inherit
 // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/font-size
@@ -131,12 +126,7 @@ export type TextAnchor = 'start' | 'middle' | 'end';
 
 // none | underline | overline | line-through | blink | inherit
 // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-decoration
-export type TextDecoration =
-  | 'none'
-  | 'underline'
-  | 'overline'
-  | 'line-through'
-  | 'blink';
+export type TextDecoration = 'none' | 'underline' | 'overline' | 'line-through' | 'blink';
 
 // normal | <length> | inherit
 // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/letter-spacing
@@ -175,19 +165,19 @@ Value: normal | none | [ <common-lig-values> || <discretionary-lig-values> ||
 export type FontVariantLigatures = 'normal' | 'none';
 
 export interface FontProps {
-  fontStyle?: FontStyle;
-  fontVariant?: FontVariant;
-  fontWeight?: FontWeight;
-  fontStretch?: FontStretch;
-  fontSize?: fontSize;
-  fontFamily?: FontFamily;
-  textAnchor?: TextAnchor;
-  textDecoration?: TextDecoration;
-  letterSpacing?: LetterSpacing;
-  wordSpacing?: WordSpacing;
-  kerning?: Kerning;
-  fontVariantLigatures?: FontVariantLigatures;
-  font?: Font;
+    fontStyle?: FontStyle;
+    fontVariant?: FontVariant;
+    fontWeight?: FontWeight;
+    fontStretch?: FontStretch;
+    fontSize?: fontSize;
+    fontFamily?: FontFamily;
+    textAnchor?: TextAnchor;
+    textDecoration?: TextDecoration;
+    letterSpacing?: LetterSpacing;
+    wordSpacing?: WordSpacing;
+    kerning?: Kerning;
+    fontVariantLigatures?: FontVariantLigatures;
+    font?: Font;
 }
 
 /*
@@ -250,22 +240,22 @@ export type VerticalAlign = NumberProp;
  https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/alignment-baseline
 */
 export type AlignmentBaseline =
-  | 'baseline'
-  | 'text-bottom'
-  | 'alphabetic'
-  | 'ideographic'
-  | 'middle'
-  | 'central'
-  | 'mathematical'
-  | 'text-top'
-  | 'bottom'
-  | 'center'
-  | 'top'
-  | 'text-before-edge'
-  | 'text-after-edge'
-  | 'before-edge'
-  | 'after-edge'
-  | 'hanging';
+    | 'baseline'
+    | 'text-bottom'
+    | 'alphabetic'
+    | 'ideographic'
+    | 'middle'
+    | 'central'
+    | 'mathematical'
+    | 'text-top'
+    | 'bottom'
+    | 'center'
+    | 'top'
+    | 'text-before-edge'
+    | 'text-after-edge'
+    | 'before-edge'
+    | 'after-edge'
+    | 'hanging';
 
 /*
  2.2.2. Alignment Shift: baseline-shift longhand
@@ -285,12 +275,7 @@ export type AlignmentBaseline =
 
  https://www.w3.org/TR/css-inline-3/#propdef-baseline-shift
 */
-export type BaselineShift =
-  | 'sub'
-  | 'super'
-  | 'baseline'
-  | [NumberProp]
-  | NumberProp;
+export type BaselineShift = 'sub' | 'super' | 'baseline' | [NumberProp] | NumberProp;
 
 /*
  6.12. Low-level font feature settings control: the font-feature-settings property
@@ -400,19 +385,19 @@ export type BaselineShift =
 export type FontFeatureSettings = string;
 
 export interface TextSpecificProps extends PathProps, FontProps {
-  alignmentBaseline?: AlignmentBaseline;
-  baselineShift?: BaselineShift;
-  verticalAlign?: VerticalAlign;
-  lengthAdjust?: LengthAdjust;
-  textLength?: TextLength;
-  fontData?: object;
-  fontFeatureSettings?: FontFeatureSettings;
+    alignmentBaseline?: AlignmentBaseline;
+    baselineShift?: BaselineShift;
+    verticalAlign?: VerticalAlign;
+    lengthAdjust?: LengthAdjust;
+    textLength?: TextLength;
+    fontData?: object;
+    fontFeatureSettings?: FontFeatureSettings;
 }
 
 // https://svgwg.org/svg2-draft/text.html#TSpanAttributes
 export interface TextProps extends TextSpecificProps {
-  dx?: NumberArrayProp;
-  dy?: NumberArrayProp;
+    dx?: NumberArrayProp;
+    dy?: NumberArrayProp;
 }
 
 /*
@@ -485,10 +470,10 @@ export type MidLine = 'sharp' | 'smooth';
 // https://svgwg.org/svg2-draft/text.html#TextPathAttributes
 // https://developer.mozilla.org/en/docs/Web/SVG/Element/textPath
 export interface TextPathProps extends TextSpecificProps {
-  href: string;
-  startOffset?: StartOffset;
-  method?: Method;
-  spacing?: Spacing;
-  side?: Side;
-  midLine?: MidLine;
+    href: string;
+    startOffset?: StartOffset;
+    method?: Method;
+    spacing?: Spacing;
+    side?: Side;
+    midLine?: MidLine;
 }

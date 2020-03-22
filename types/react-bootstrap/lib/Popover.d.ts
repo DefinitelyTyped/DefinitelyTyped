@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Sizes, Omit } from 'react-bootstrap';
 
 declare namespace Popover {
-    export interface PopoverProps extends Omit<React.HTMLProps<Popover>, "title"> {
+    export interface PopoverProps extends Omit<React.HTMLProps<Popover>, 'title'> {
         // Optional
         arrowOffsetLeft?: number | string;
         arrowOffsetTop?: number | string;
@@ -15,5 +15,5 @@ declare namespace Popover {
         title?: React.ReactNode;
     }
 }
-declare class Popover extends React.Component<Popover.PopoverProps> { }
+declare class Popover extends React.Component<Popover.PopoverProps> {}
 export = Popover;

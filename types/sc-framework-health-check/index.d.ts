@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import SCWorker = require("socketcluster/scworker");
-import { Express } from "express";
+import SCWorker = require('socketcluster/scworker');
+import { Express } from 'express';
 
 export function attach(worker: SCWorker, expressApp: Express): void;

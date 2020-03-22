@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Prediction API v1.6 */
-    function load(name: "prediction", version: "v1.6"): PromiseLike<void>;
-    function load(name: "prediction", version: "v1.6", callback: () => any): void;
+    function load(name: 'prediction', version: 'v1.6'): PromiseLike<void>;
+    function load(name: 'prediction', version: 'v1.6', callback: () => any): void;
 
     const hostedmodels: prediction.HostedmodelsResource;
 

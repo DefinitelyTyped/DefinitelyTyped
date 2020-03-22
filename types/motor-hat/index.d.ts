@@ -330,11 +330,7 @@ export interface Stepper {
      * @param   steps   Number of steps.
      * @param   cb      Node style callback. cb(err, result).
      */
-    step(
-        dir: Direction,
-        steps: number,
-        cb: (err?: Error, result?: StepResult) => void
-    ): void;
+    step(dir: Direction, steps: number, cb: (err?: Error, result?: StepResult) => void): void;
 
     /**
      * Perform arbitrary number of steps synchronously.

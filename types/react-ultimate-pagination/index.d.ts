@@ -3,7 +3,7 @@
 // Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import * as React from "react";
+import * as React from 'react';
 
 export interface PaginationComponentProps {
     /**
@@ -28,12 +28,12 @@ export interface PaginationComponentProps {
 }
 
 export enum ITEM_TYPES {
-    PAGE = "PAGE",
-    ELLIPSIS = "ELLIPSIS",
-    FIRST_PAGE_LINK = "FIRST_PAGE_LINK",
-    PREVIOUS_PAGE_LINK = "PREVIOUS_PAGE_LINK",
-    NEXT_PAGE_LINK = "NEXT_PAGE_LINK",
-    LAST_PAGE_LINK = "LAST_PAGE_LINK",
+    PAGE = 'PAGE',
+    ELLIPSIS = 'ELLIPSIS',
+    FIRST_PAGE_LINK = 'FIRST_PAGE_LINK',
+    PREVIOUS_PAGE_LINK = 'PREVIOUS_PAGE_LINK',
+    NEXT_PAGE_LINK = 'NEXT_PAGE_LINK',
+    LAST_PAGE_LINK = 'LAST_PAGE_LINK',
 }
 
 export interface ItemTypeToComponent {
@@ -77,7 +77,7 @@ export interface CreateUltimatePaginationOptions {
     /**
      * A React.js component that will be used as a wrapper for pagination items
      */
-    WrapperComponent?: string|React.ComponentType<any>;
+    WrapperComponent?: string | React.ComponentType<any>;
 }
 
 export interface UltimatePaginationProps {
@@ -127,4 +127,6 @@ export interface UltimatePaginationProps {
     disabled?: boolean;
 }
 
-export function createUltimatePagination(options: CreateUltimatePaginationOptions): React.ComponentType<UltimatePaginationProps>;
+export function createUltimatePagination(
+    options: CreateUltimatePaginationOptions,
+): React.ComponentType<UltimatePaginationProps>;

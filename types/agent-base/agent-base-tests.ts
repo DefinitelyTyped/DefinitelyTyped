@@ -20,4 +20,7 @@ agent((req, opts) => {}, 1); // $ExpectError
 agent((req, opts) => {}, ''); // $ExpectError
 agent((req, opts) => {}, true); // $ExpectError
 agent((req, opts) => {}, null); // $ExpectError
-agent((req, opts) => {}, (req, opts) => {}); // $ExpectError
+agent(
+    (req, opts) => {},
+    (req, opts) => {},
+); // $ExpectError

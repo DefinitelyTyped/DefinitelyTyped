@@ -16,5 +16,7 @@ async function main() {
 
     const server = createServer(dispatch);
 
-    console.log((await inject(dispatch, { method: 'get', url: '/', headers: { test: 'asd', test2: ['a', 'b'] } })).payload);
+    console.log(
+        (await inject(dispatch, { method: 'get', url: '/', headers: { test: 'asd', test2: ['a', 'b'] } })).payload,
+    );
 }

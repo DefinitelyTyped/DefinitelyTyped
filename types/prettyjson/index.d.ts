@@ -34,7 +34,7 @@ export interface RendererOptions {
     /**
      * Define behavior for Array objects
      */
-    emptyArrayMsg?: string;  // default: (empty)
+    emptyArrayMsg?: string; // default: (empty)
     inlineArrays?: boolean;
     noAlign?: boolean;
 

@@ -1,4 +1,4 @@
-import ForeverAgent = require("forever-agent");
+import ForeverAgent = require('forever-agent');
 
 const agent = new ForeverAgent();
 const agentSsl = new ForeverAgent.SSL();

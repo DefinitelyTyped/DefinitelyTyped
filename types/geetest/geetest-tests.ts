@@ -16,26 +16,33 @@ captcha.register((err, data) => {
     };
 });
 
-captcha.register().then((data) => {
-    const body = {
-        gt: data.geetest_id,
-        challenge: data.challenge,
-        success: data.success,
-    };
-}, (err) => {
-});
+captcha.register().then(
+    (data) => {
+        const body = {
+            gt: data.geetest_id,
+            challenge: data.challenge,
+            success: data.success,
+        };
+    },
+    (err) => {},
+);
 
-captcha.validate({
-    challenge: 'xxx',
-    validate: 'xxx',
-    seccode: 'xxx',
-}, (err, success) => {
-});
+captcha.validate(
+    {
+        challenge: 'xxx',
+        validate: 'xxx',
+        seccode: 'xxx',
+    },
+    (err, success) => {},
+);
 
-captcha.validate({
-    challenge: 'xxx',
-    validate: 'xxx',
-    seccode: 'xxx',
-}).then((success) => {
-}, (err) => {
-});
+captcha
+    .validate({
+        challenge: 'xxx',
+        validate: 'xxx',
+        seccode: 'xxx',
+    })
+    .then(
+        (success) => {},
+        (err) => {},
+    );

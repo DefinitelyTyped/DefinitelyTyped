@@ -3,7 +3,7 @@ import * as fs from 'fs';
 
 const opts: Zopfli.Options = {
     verbose: true,
-    numiterations: 1
+    numiterations: 1,
 };
 let input: Buffer = Buffer.from('foo');
 const read = fs.createReadStream('foo');

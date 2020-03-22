@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -15,7 +15,7 @@ new materialize.Autocomplete(elem);
 const autocomplete = new materialize.Autocomplete(elem, {
     data: {
         Apple: null,
-        Google: "https://placehold.it/250x250"
+        Google: 'https://placehold.it/250x250',
     },
     minLength: 3,
     limit: 3,
@@ -33,7 +33,7 @@ const autocomplete = new materialize.Autocomplete(elem, {
         // $ExpectType string
         input;
         return 0;
-    }
+    },
 });
 // $ExpectType void
 autocomplete.updateData({ Microsoft: null });
@@ -50,10 +50,10 @@ autocomplete.el;
 // $ExpectType boolean
 autocomplete.isOpen;
 
-$(".whatever").autocomplete({
+$('.whatever').autocomplete({
     data: {
         Apple: null,
-        Google: "https://placehold.it/250x250"
-    }
+        Google: 'https://placehold.it/250x250',
+    },
 });
-$(".whatever").autocomplete("updateData", { Microsoft: null });
+$('.whatever').autocomplete('updateData', { Microsoft: null });

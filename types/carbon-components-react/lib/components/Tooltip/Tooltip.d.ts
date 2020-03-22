@@ -1,11 +1,8 @@
-import * as React from "react";
-import { Direction, EmbeddedIconProps, MenuOffsetData, ReactAttr, ReactDivAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { Direction, EmbeddedIconProps, MenuOffsetData, ReactAttr, ReactDivAttr } from '../../../typings/shared';
 
-type ExcludedAttributes = "onBlur" | "onChange" | "onContextMenu" | "onFocus" | "onMouseOut" | "onMouseOver" | "role";
-interface InheritedProps extends
-    Omit<ReactDivAttr, ExcludedAttributes>,
-    EmbeddedIconProps
-{ }
+type ExcludedAttributes = 'onBlur' | 'onChange' | 'onContextMenu' | 'onFocus' | 'onMouseOut' | 'onMouseOver' | 'role';
+interface InheritedProps extends Omit<ReactDivAttr, ExcludedAttributes>, EmbeddedIconProps {}
 
 type TooltipOnChangeEvent<T extends Element> = React.FocusEvent<T> | React.KeyboardEvent<T> | React.MouseEvent<T>;
 export interface TooltipProps extends InheritedProps {
@@ -13,7 +10,7 @@ export interface TooltipProps extends InheritedProps {
     direction?: Direction;
     iconName?: string;
     menuOffset?:
-        MenuOffsetData
+        | MenuOffsetData
         | ((menuBody: HTMLElement, menuDirection: TooltipProps['direction']) => Required<MenuOffsetData> | undefined);
     onChange?(event: TooltipOnChangeEvent<HTMLDivElement>, data: { open: boolean }): void; // optional/required depending on static carbon lib config
     open?: boolean;

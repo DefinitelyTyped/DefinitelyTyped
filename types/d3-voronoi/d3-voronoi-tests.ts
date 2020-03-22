@@ -30,7 +30,7 @@ const testData: VoronoiTestDatum[] = [
     { x: 10, y: 20 },
     { x: 20, y: 20 },
     { x: 50, y: 40 },
-    { x: 30, y: 15 }
+    { x: 30, y: 15 },
 ];
 let testDatum: VoronoiTestDatum;
 
@@ -79,7 +79,10 @@ pointPair[0][1] = 10; // y-coordinate of first point
 pointPair[1][0] = 20; // x-coordinate of second point
 pointPair[1][1] = 10; // y-coordinate of second point
 
-pointPair = [[10, 10], [50, 50]];
+pointPair = [
+    [10, 10],
+    [50, 50],
+];
 
 // $ExpectError
 pointPair = [[10, 10]]; // fails, second point coordinates missing
@@ -88,7 +91,10 @@ pointPair = [[10, 10], [50]]; // fails, one element is not of type [number, numb
 // $ExpectError
 pointPair = [[10], [50, 50]]; // fails, one element is not of type [number, number]
 // $ExpectError
-pointPair = [['a', 10], [50, 50]]; // fails, one element is not of type [number, number]
+pointPair = [
+    ['a', 10],
+    [50, 50],
+]; // fails, one element is not of type [number, number]
 
 // VoronoiPolygon -------------------------------------------------------
 
@@ -121,19 +127,22 @@ voronoiLayout = d3Voronoi.voronoi<VoronoiTestDatum>();
 
 //  x(...) -------------------------------------------------------------
 
-voronoiLayout = voronoiLayout.x(d => d.x); // data type of d is VoronoiTestDatum
+voronoiLayout = voronoiLayout.x((d) => d.x); // data type of d is VoronoiTestDatum
 
 numberAccessor = voronoiLayout.x();
 
 //  y(...) -------------------------------------------------------------
 
-voronoiLayout = voronoiLayout.y(d => d.y); // data type of d is VoronoiTestDatum
+voronoiLayout = voronoiLayout.y((d) => d.y); // data type of d is VoronoiTestDatum
 
 numberAccessor = voronoiLayout.y();
 
 //  extent(...) --------------------------------------------------------
 
-voronoiLayout = voronoiLayout.extent([[0, 0], [60, 60]]);
+voronoiLayout = voronoiLayout.extent([
+    [0, 0],
+    [60, 60],
+]);
 extent = voronoiLayout.extent();
 
 // size(...) -----------------------------------------------------------
@@ -147,7 +156,13 @@ size = voronoiLayout.size();
 
 let defaultVoronoiDiagram: d3Voronoi.VoronoiDiagram<[number, number]>;
 
-defaultVoronoiDiagram = defaultVoronoiLayout([[10, 10], [10, 20], [15, 30], [40, 10], [40, 40]]);
+defaultVoronoiDiagram = defaultVoronoiLayout([
+    [10, 10],
+    [10, 20],
+    [15, 30],
+    [40, 10],
+    [40, 40],
+]);
 
 let voronoiDiagram: d3Voronoi.VoronoiDiagram<VoronoiTestDatum>;
 voronoiDiagram = voronoiLayout(testData);

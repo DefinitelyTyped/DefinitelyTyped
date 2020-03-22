@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import { Transform } from "redux-persist";
+import { Transform } from 'redux-persist';
 
-export default function createFilter<State, Raw>(reducerName: string, inboundPaths?: string[], outboundPaths?: string[]): Transform<State, Raw>;
+export default function createFilter<State, Raw>(
+    reducerName: string,
+    inboundPaths?: string[],
+    outboundPaths?: string[],
+): Transform<State, Raw>;

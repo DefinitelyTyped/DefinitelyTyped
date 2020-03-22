@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
+import stream = require('stream');
 export = progress_stream;
 
 declare function progress_stream(
@@ -15,9 +15,7 @@ declare function progress_stream(
 ): progress_stream.ProgressStream;
 
 declare function progress_stream(
-    optionsOrProgressListener?:
-        | progress_stream.Options
-        | progress_stream.ProgressListener,
+    optionsOrProgressListener?: progress_stream.Options | progress_stream.ProgressListener,
 ): progress_stream.ProgressStream;
 
 declare namespace progress_stream {
@@ -32,10 +30,10 @@ declare namespace progress_stream {
     type ProgressListener = (progress: Progress) => void;
 
     interface ProgressStream extends stream.Transform {
-        on(event: "progress", listener: ProgressListener): this;
-        on(event: "length", listener: (length: number) => void): this;
-        once(event: "progress", listener: ProgressListener): this;
-        once(event: "length", listener: (length: number) => void): this;
+        on(event: 'progress', listener: ProgressListener): this;
+        on(event: 'length', listener: (length: number) => void): this;
+        once(event: 'progress', listener: ProgressListener): this;
+        once(event: 'length', listener: (length: number) => void): this;
         setLength(length: number): void;
         progress(): Progress;
 
@@ -47,38 +45,38 @@ declare namespace progress_stream {
         // stream.Readable events
 
         /* tslint:disable-next-line adjacent-overload-signatures */
-        on(event: "close", listener: () => void): this;
-        on(event: "data", listener: (chunk: any) => void): this;
+        on(event: 'close', listener: () => void): this;
+        on(event: 'data', listener: (chunk: any) => void): this;
         /* tslint:disable-next-line unified-signatures */
-        on(event: "end", listener: () => void): this;
+        on(event: 'end', listener: () => void): this;
         /* tslint:disable-next-line unified-signatures */
-        on(event: "readable", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
+        on(event: 'readable', listener: () => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
         /* tslint:disable-next-line adjacent-overload-signatures */
-        once(event: "close", listener: () => void): this;
-        once(event: "data", listener: (chunk: any) => void): this;
+        once(event: 'close', listener: () => void): this;
+        once(event: 'data', listener: (chunk: any) => void): this;
         /* tslint:disable-next-line unified-signatures */
-        once(event: "end", listener: () => void): this;
+        once(event: 'end', listener: () => void): this;
         /* tslint:disable-next-line unified-signatures */
-        once(event: "readable", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
+        once(event: 'readable', listener: () => void): this;
+        once(event: 'error', listener: (err: Error) => void): this;
 
         // stream.Writable events
 
         /* tslint:disable-next-line adjacent-overload-signatures unified-signatures */
-        on(event: "drain", listener: () => void): this;
+        on(event: 'drain', listener: () => void): this;
         /* tslint:disable-next-line unified-signatures */
-        on(event: "finish", listener: () => void): this;
-        on(event: "pipe", listener: (src: stream.Readable) => void): this;
+        on(event: 'finish', listener: () => void): this;
+        on(event: 'pipe', listener: (src: stream.Readable) => void): this;
         /* tslint:disable-next-line unified-signatures */
-        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        on(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         /* tslint:disable-next-line adjacent-overload-signatures unified-signatures */
-        once(event: "drain", listener: () => void): this;
+        once(event: 'drain', listener: () => void): this;
         /* tslint:disable-next-line unified-signatures */
-        once(event: "finish", listener: () => void): this;
-        once(event: "pipe", listener: (src: stream.Readable) => void): this;
+        once(event: 'finish', listener: () => void): this;
+        once(event: 'pipe', listener: (src: stream.Readable) => void): this;
         /* tslint:disable-next-line unified-signatures */
-        once(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        once(event: 'unpipe', listener: (src: stream.Readable) => void): this;
 
         // events shared by stream.Readable and stream.Writable
 

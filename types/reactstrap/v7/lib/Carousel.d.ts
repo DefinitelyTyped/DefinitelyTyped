@@ -12,7 +12,7 @@ export type CarouselProps<T = {}> = React.HTMLProps<HTMLElement> & {
     mouseEnter?: () => void;
     mouseExit?: () => void;
     slide?: boolean;
-    cssModule?: CSSModule
+    cssModule?: CSSModule;
 } & T;
 
 export type UncontrolledProps<T = {}> = React.HTMLProps<HTMLElement> & {
@@ -21,8 +21,8 @@ export type UncontrolledProps<T = {}> = React.HTMLProps<HTMLElement> & {
     next?: () => void;
     previous?: () => void;
     keyboard?: boolean;
-    pause?: "hover" | false;
-    ride?: "carousel";
+    pause?: 'hover' | false;
+    ride?: 'carousel';
     interval?: number | string | boolean;
     mouseEnter?: () => void;
     mouseExit?: () => void;
@@ -35,5 +35,5 @@ export type UncontrolledProps<T = {}> = React.HTMLProps<HTMLElement> & {
 
 export type UncontrolledCarouselProps<T = {}> = UncontrolledProps<T>;
 
-declare class Carousel<T = {[key: string]: any}> extends React.Component<CarouselProps<T>> {}
+declare class Carousel<T = { [key: string]: any }> extends React.Component<CarouselProps<T>> {}
 export default Carousel;

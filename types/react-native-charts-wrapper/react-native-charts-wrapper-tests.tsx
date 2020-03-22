@@ -89,7 +89,7 @@ class AxisLineChartScreen extends React.Component {
                         }}
                         legend={{ enabled: false }}
                         onSelect={this.handleSelect.bind(this)}
-                        onChange={event => console.log(event.nativeEvent)}
+                        onChange={(event) => console.log(event.nativeEvent)}
                     />
                 </View>
             </View>
@@ -158,7 +158,7 @@ class BarChartScreen extends React.Component {
                         drawValueAboveBar={true}
                         onSelect={this.handleSelect.bind(this)}
                         highlights={[{ x: 3 }, { x: 6 }]}
-                        onChange={event => console.log(event.nativeEvent)}
+                        onChange={(event) => console.log(event.nativeEvent)}
                     />
                 </View>
             </View>
@@ -225,7 +225,7 @@ class BubbleChartScreen extends React.Component {
                             easingX: 'EaseInCirc',
                         }}
                         onSelect={this.handleSelect.bind(this)}
-                        onChange={event => console.log(event.nativeEvent)}
+                        onChange={(event) => console.log(event.nativeEvent)}
                     />
                 </View>
             </View>
@@ -366,7 +366,7 @@ class CandleStickChartScreen extends React.Component {
                         zoom={{ scaleX: 15.41, scaleY: 1, xValue: 40, yValue: 916, axisDependency: 'LEFT' }}
                         onSelect={this.handleSelect.bind(this)}
                         ref="chart"
-                        onChange={event => console.log(event.nativeEvent)}
+                        onChange={(event) => console.log(event.nativeEvent)}
                     />
                 </View>
             </View>
@@ -439,7 +439,7 @@ class StackedBarChartScreen extends React.Component {
                         }}
                         drawValueAboveBar={false}
                         onSelect={this.handleSelect.bind(this)}
-                        onChange={event => console.log(event.nativeEvent)}
+                        onChange={(event) => console.log(event.nativeEvent)}
                         highlights={[
                             { x: 1, y: 40 },
                             { x: 2, y: 50 },
@@ -516,7 +516,7 @@ class HorizontalBarChartScreen extends React.Component {
                         drawBarShadow={false}
                         drawValueAboveBar={true}
                         onSelect={this.handleSelect.bind(this)}
-                        onChange={event => console.log(event.nativeEvent)}
+                        onChange={(event) => console.log(event.nativeEvent)}
                     />
                 </View>
             </View>
@@ -725,7 +725,7 @@ class Combined extends React.Component {
                             },
                         }}
                         onSelect={this.handleSelect.bind(this)}
-                        onChange={event => console.log(event.nativeEvent)}
+                        onChange={(event) => console.log(event.nativeEvent)}
                         marker={{
                             enabled: true,
                             markerColor: processColor('#F0C0FF8C'),
@@ -787,8 +787,8 @@ class PieChartScreen extends React.Component {
                                         valueTextColor: processColor('green'),
                                         sliceSpace: 5,
                                         selectionShift: 13,
-                                        xValuePosition: "OUTSIDE_SLICE",
-                                        yValuePosition: "OUTSIDE_SLICE",
+                                        xValuePosition: 'OUTSIDE_SLICE',
+                                        yValuePosition: 'OUTSIDE_SLICE',
                                         valueFormatter: "#.#'%'",
                                         valueLineColor: processColor('green'),
                                         valueLinePart1Length: 0.5,
@@ -821,7 +821,7 @@ class PieChartScreen extends React.Component {
                         transparentCircleColor={processColor('#f0f0f088')}
                         maxAngle={350}
                         onSelect={this.handleSelect.bind(this)}
-                        onChange={event => console.log(event.nativeEvent)}
+                        onChange={(event) => console.log(event.nativeEvent)}
                     />
                 </View>
             </View>

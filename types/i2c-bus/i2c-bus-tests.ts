@@ -24,11 +24,11 @@ const toCelsius = (rawData: number) => {
  */
 function example1(): void {
     openPromisified(1)
-        .then(i2c1 =>
+        .then((i2c1) =>
             i2c1
                 .readWord(MCP9808_ADDR, TEMP_REG)
-                .then(rawData => console.log(toCelsius(rawData)))
-                .then(_ => i2c1.close()),
+                .then((rawData) => console.log(toCelsius(rawData)))
+                .then((_) => i2c1.close()),
         )
         .catch(console.log);
 }
@@ -41,12 +41,12 @@ function example2(): void {
     const rbuf = Buffer.alloc(2);
 
     openPromisified(1)
-        .then(i2c1 =>
+        .then((i2c1) =>
             i2c1
                 .i2cWrite(MCP9808_ADDR, wbuf.length, wbuf)
-                .then(_ => i2c1.i2cRead(MCP9808_ADDR, rbuf.length, rbuf))
-                .then(data => console.log(toCelsius(data.buffer.readUInt16BE(0))))
-                .then(_ => i2c1.close()),
+                .then((_) => i2c1.i2cRead(MCP9808_ADDR, rbuf.length, rbuf))
+                .then((data) => console.log(toCelsius(data.buffer.readUInt16BE(0))))
+                .then((_) => i2c1.close()),
         )
         .catch(console.log);
 }
@@ -55,7 +55,7 @@ function example2(): void {
  * Example 3 from the i2c-bus README file.
  */
 function example3(): void {
-    const i2c1 = open(1, err => {
+    const i2c1 = open(1, (err) => {
         if (err) throw err;
 
         i2c1.readWord(MCP9808_ADDR, TEMP_REG, (err, rawData) => {
@@ -63,7 +63,7 @@ function example3(): void {
 
             console.log(toCelsius(rawData));
 
-            i2c1.close(err => {
+            i2c1.close((err) => {
                 if (err) throw err;
             });
         });

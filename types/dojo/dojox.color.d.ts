@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/color.html
      *
@@ -13,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface color {
-    }
+    interface color {}
     namespace color {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/color/MeanColorModel.html
@@ -143,7 +140,9 @@ declare namespace dojox {
          *
          * @param base
          */
-        interface Palette{(base: String): void}
+        interface Palette {
+            (base: String): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/color/Palette.html
          *
@@ -159,7 +158,9 @@ declare namespace dojox {
          *
          * @param base
          */
-        interface Palette{(base: any[]): void}
+        interface Palette {
+            (base: any[]): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/color/Palette.html
          *
@@ -175,7 +176,9 @@ declare namespace dojox {
          *
          * @param base
          */
-        interface Palette{(base: dojo._base.Color): void}
+        interface Palette {
+            (base: dojo._base.Color): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/color/Palette.html
          *
@@ -191,17 +194,21 @@ declare namespace dojox {
          *
          * @param base
          */
-        interface Palette{(base: dojox.color.Palette): void}
+        interface Palette {
+            (base: dojox.color.Palette): void;
+        }
         namespace Palette {
             /**
              *
              */
-            var generators: Object
+            var generators: Object;
             /**
              * Clones the current palette.
              *
              */
-            interface clone{(): any}
+            interface clone {
+                (): any;
+            }
             /**
              * Generate a new Palette using any of the named functions in
              * dojox.color.Palette.generators or an optional function definition.  Current
@@ -211,7 +218,9 @@ declare namespace dojox {
              * @param base
              * @param type
              */
-            interface generate{(base: String, type: Function): any}
+            interface generate {
+                (base: String, type: Function): any;
+            }
             /**
              * Generate a new Palette using any of the named functions in
              * dojox.color.Palette.generators or an optional function definition.  Current
@@ -221,7 +230,9 @@ declare namespace dojox {
              * @param base
              * @param type
              */
-            interface generate { (base: dojo._base.Color, type: Function): any}
+            interface generate {
+                (base: dojo._base.Color, type: Function): any;
+            }
             /**
              * Generate a new Palette using any of the named functions in
              * dojox.color.Palette.generators or an optional function definition.  Current
@@ -231,7 +242,9 @@ declare namespace dojox {
              * @param base
              * @param type
              */
-            interface generate{(base: String, type: String): any}
+            interface generate {
+                (base: String, type: String): any;
+            }
             /**
              * Generate a new Palette using any of the named functions in
              * dojox.color.Palette.generators or an optional function definition.  Current
@@ -241,7 +254,9 @@ declare namespace dojox {
              * @param base
              * @param type
              */
-            interface generate { (base: dojo._base.Color, type: String): any}
+            interface generate {
+                (base: dojo._base.Color, type: String): any;
+            }
             /**
              * Transform the palette using a specific transformation function
              * and a set of transformation parameters.
@@ -259,7 +274,9 @@ declare namespace dojox {
              *
              * @param kwArgs An object with the following properties:use (String, optional): Specify the color model to use for the transformation.  Can be "rgb", "rgba", "hsv", "hsl", "cmy", "cmyk".dr (Number, optional): The delta to be applied to the red aspect of the RGB/RGBA color model.dg (Number, optional): The delta to be applied to the green aspect of the RGB/RGBA color model.db (Number, optional): The delta to be applied to the blue aspect of the RGB/RGBA color model.da (Number, optional): The delta to be applied to the alpha aspect of the RGBA color model.dc (Number, optional): The delta to be applied to the cyan aspect of the CMY/CMYK color model.dm (Number, optional): The delta to be applied to the magenta aspect of the CMY/CMYK color model.dy (Number, optional): The delta to be applied to the yellow aspect of the CMY/CMYK color model.dk (Number, optional): The delta to be applied to the black aspect of the CMYK color model.dh (Number, optional): The delta to be applied to the hue aspect of the HSL/HSV color model.ds (Number, optional): The delta to be applied to the saturation aspect of the HSL/HSV color model.dl (Number, optional): The delta to be applied to the luminosity aspect of the HSL color model.dv (Number, optional): The delta to be applied to the value aspect of the HSV color model.
              */
-            interface transform{(kwArgs: Object): any}
+            interface transform {
+                (kwArgs: Object): any;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/color/Palette.generators.html
              *
@@ -318,8 +335,7 @@ declare namespace dojox {
             }
         }
 
-        module _base {
-        }
+        module _base {}
 
         namespace api {
             /**
@@ -346,36 +362,34 @@ declare namespace dojox {
                 initialize(items: Object[], colorFunc: Function): void;
             }
         }
-
     }
-
 }
 
-declare module "dojox/color" {
-    var exp: dojox.color
-    export=exp;
+declare module 'dojox/color' {
+    var exp: dojox.color;
+    export = exp;
 }
-declare module "dojox/color/MeanColorModel" {
-    var exp: dojox.color.MeanColorModel
-    export=exp;
+declare module 'dojox/color/MeanColorModel' {
+    var exp: dojox.color.MeanColorModel;
+    export = exp;
 }
-declare module "dojox/color/NeutralColorModel" {
-    var exp: dojox.color.NeutralColorModel
-    export=exp;
+declare module 'dojox/color/NeutralColorModel' {
+    var exp: dojox.color.NeutralColorModel;
+    export = exp;
 }
-declare module "dojox/color/SimpleColorModel" {
-    var exp: dojox.color.SimpleColorModel
-    export=exp;
+declare module 'dojox/color/SimpleColorModel' {
+    var exp: dojox.color.SimpleColorModel;
+    export = exp;
 }
-declare module "dojox/color/Palette" {
-    var exp: dojox.color.Palette
-    export=exp;
+declare module 'dojox/color/Palette' {
+    var exp: dojox.color.Palette;
+    export = exp;
 }
-declare module "dojox/color/Palette.generators" {
-    var exp: dojox.color.Palette.generators
-    export=exp;
+declare module 'dojox/color/Palette.generators' {
+    var exp: dojox.color.Palette.generators;
+    export = exp;
 }
-declare module "dojox/color/api/ColorModel" {
-    var exp: dojox.color.api.ColorModel
-    export=exp;
+declare module 'dojox/color/api/ColorModel' {
+    var exp: dojox.color.api.ColorModel;
+    export = exp;
 }

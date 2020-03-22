@@ -43,11 +43,11 @@ const query = graphql`
 const variables = {};
 
 const dispose = fetchQuery(environment, query, variables).subscribe({
-    start: subsctiption => {},
-    next: payload => {},
+    start: (subsctiption) => {},
+    next: (payload) => {},
     error: (error: Error) => {},
     complete: () => {},
-    unsubscribe: subscription => {},
+    unsubscribe: (subscription) => {},
 });
 
 dispose.unsubscribe();
@@ -100,7 +100,7 @@ function TodoList() {
 
     return (
         <>
-            {data.todos.map(todo => (
+            {data.todos.map((todo) => (
                 <>
                     <TodoItem todo={todo} />
                     <TodoItemRefetchable todo={todo} />
@@ -142,7 +142,7 @@ function TodoItemRefetchable(props: TodoItemProps) {
     refetch(
         { id: 'id:2' },
         {
-            onComplete: error => {
+            onComplete: (error) => {
                 console.info('teste');
             },
         },

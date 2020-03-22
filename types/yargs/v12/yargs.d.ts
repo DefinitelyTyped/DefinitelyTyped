@@ -2,8 +2,4 @@ import { Argv } from '.';
 
 export = Yargs;
 
-declare function Yargs(
-    processArgs?: ReadonlyArray<string>,
-    cwd?: string,
-    parentRequire?: NodeRequire,
-): Argv;
+declare function Yargs(processArgs?: ReadonlyArray<string>, cwd?: string, parentRequire?: NodeRequire): Argv;

@@ -1,24 +1,26 @@
-import * as fs from "fs";
-import * as gulp from "gulp";
-import cache = require("gulp-cache");
-import File = require("vinyl");
+import * as fs from 'fs';
+import * as gulp from 'gulp';
+import cache = require('gulp-cache');
+import File = require('vinyl');
 
 // Some gulp plugin
 let jshint: any;
 
 gulp.task('lint', function () {
     gulp.src('./non/existent/path/*.js')
-        .pipe(cache(jshint('.jshintrc'), {
-            key: makeHashKey,
-            success: function (jshintedFile) {
-                return jshintedFile.jshint.success;
-            },
-            value: function (jshintedFile) {
-                return {
-                    jshint: jshintedFile.jshint
-                };
-            }
-        }))
+        .pipe(
+            cache(jshint('.jshintrc'), {
+                key: makeHashKey,
+                success: function (jshintedFile) {
+                    return jshintedFile.jshint.success;
+                },
+                value: function (jshintedFile) {
+                    return {
+                        jshint: jshintedFile.jshint,
+                    };
+                },
+            }),
+        )
         .pipe(jshint.reporter('default'));
 });
 

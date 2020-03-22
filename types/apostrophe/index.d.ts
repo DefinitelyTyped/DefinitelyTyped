@@ -7,10 +7,7 @@
 export = apostrophe;
 export as namespace apos;
 
-declare function apostrophe(
-    options: apostrophe.AposConstructor,
-    ...args: any[]
-): any;
+declare function apostrophe(options: apostrophe.AposConstructor, ...args: any[]): any;
 
 declare namespace apostrophe {
     const moogBundle: {
@@ -34,12 +31,7 @@ declare namespace apostrophe {
 
     const ui: {
         globalBusy: (state: any) => any;
-        link: (
-            sel: string,
-            verb: string,
-            object: object,
-            callback?: () => any
-        ) => any;
+        link: (sel: string, verb: string, object: object, callback?: () => any) => any;
     };
 
     const pages: {
@@ -61,11 +53,7 @@ declare namespace apostrophe {
         type: string;
     };
 
-    function define(
-        type: string | string[],
-        definition: any,
-        extending?: any
-    ): any;
+    function define(type: string | string[], definition: any, extending?: any): any;
 
     const docs: {
         getManager: (type: string) => void;
@@ -97,29 +85,10 @@ declare namespace apostrophe {
     function on(eventName: string, fn?: () => any): any;
 
     const schemas: {
-        convert: (
-            $el: HTMLElement,
-            schema: Schema,
-            data: any,
-            options: any,
-            callback?: () => any
-        ) => any;
+        convert: ($el: HTMLElement, schema: Schema, data: any, options: any, callback?: () => any) => any;
         newInstance: (schema: Schema) => any;
-        populate: (
-            data: any,
-            name: string,
-            $field: any,
-            callback?: () => void,
-            $el?: HTMLElement,
-            field?: any
-        ) => any;
-        returnToError: (
-            $el: HTMLElement,
-            schema: Schema,
-            errorPath: any,
-            error: any,
-            callback: () => any
-        ) => void;
+        populate: (data: any, name: string, $field: any, callback?: () => void, $el?: HTMLElement, field?: any) => any;
+        returnToError: ($el: HTMLElement, schema: Schema, errorPath: any, error: any, callback: () => any) => void;
     };
 
     const utils: {
@@ -160,22 +129,8 @@ declare namespace apostrophe {
     interface AposType {
         name: string;
         converters: {
-            string(
-                req: any,
-                data: any,
-                name: string,
-                object: AposObject,
-                field: any,
-                callback: () => any
-            ): void;
-            form(
-                req: any,
-                data: any,
-                name: string,
-                object: AposObject,
-                field: any,
-                callback: () => any
-            ): void;
+            string(req: any, data: any, name: string, object: AposObject, field: any, callback: () => any): void;
+            form(req: any, data: any, name: string, object: AposObject, field: any, callback: () => any): void;
         };
         empty?(field: any, value: any): void;
         bless?(req: any, field: any): void;
@@ -194,23 +149,9 @@ declare namespace apostrophe {
         subsetInstance(schema: Schema, instance: AposObject): any;
         empty(schema: Schema, object: AposObject): void;
         indexFields(schema: Schema, object: AposObject, texts: any): void;
-        convert(
-            req: any,
-            schema: Schema,
-            to: any,
-            object: AposObject,
-            output: any,
-            callback: () => any
-        ): void;
+        convert(req: any, schema: Schema, to: any, object: AposObject, output: any, callback: () => any): void;
         isVisible(schema: Schema, object: AposObject, name: string): void;
-        export(
-            req: any,
-            schema: Schema,
-            to: any,
-            object: AposObject,
-            output: any,
-            callback: () => any
-        ): void;
+        export(req: any, schema: Schema, to: any, object: AposObject, output: any, callback: () => any): void;
         joinDriver(
             req: any,
             method: any,
@@ -220,15 +161,9 @@ declare namespace apostrophe {
             relationshipsField: any,
             objectField: any,
             options: any,
-            callback: () => any
+            callback: () => any,
         ): void;
-        join(
-            req: any,
-            schema: Schema,
-            objectOrArray: any,
-            withJoins: any,
-            callback: () => any
-        ): void;
+        join(req: any, schema: Schema, objectOrArray: any, withJoins: any, callback: () => any): void;
         addFieldType(type: AposType): void;
         getFieldType(typeName: string): void;
         addFilters(schema: Schema, options: any, cursor: any): void;
@@ -247,60 +182,60 @@ declare namespace apostrophe {
     }
 
     type AposCoreModules =
-        | "apostrophe-admin-bar"
-        | "apostrophe-any-page-manager"
-        | "apostrophe-areas"
-        | "apostrophe-assets"
-        | "apostrophe-attachments"
-        | "apostrophe-browser-utils"
-        | "apostrophe-caches"
-        | "apostrophe-custom-pages"
-        | "apostrophe-db"
-        | "apostrophe-doc-type-manager"
-        | "apostrophe-docs"
-        | "apostrophe-email"
-        | "apostrophe-express"
-        | "apostrophe-files"
-        | "apostrophe-files-widgets"
-        | "apostrophe-global"
-        | "apostrophe-groups"
-        | "apostrophe-html-widgets"
-        | "apostrophe-i18n"
-        | "apostrophe-images"
-        | "apostrophe-images-widgets"
-        | "apostrophe-jobs"
-        | "apostrophe-launder"
-        | "apostrophe-locks"
-        | "apostrophe-login"
-        | "apostrophe-migrations"
-        | "apostrophe-modal"
-        | "apostrophe-module"
-        | "apostrophe-notifications"
-        | "apostrophe-oembed"
-        | "apostrophe-pager"
-        | "apostrophe-pages"
-        | "apostrophe-permissions"
-        | "apostrophe-pieces"
-        | "apostrophe-pieces-pages"
-        | "apostrophe-pieces-widgets"
-        | "apostrophe-polymorphic-manager"
-        | "apostrophe-push"
-        | "apostrophe-rich-text-widgets"
-        | "apostrophe-schemas"
-        | "apostrophe-search"
-        | "apostrophe-service-bridge"
-        | "apostrophe-soft-redirects"
-        | "apostrophe-tags"
-        | "apostrophe-tasks"
-        | "apostrophe-templates"
-        | "apostrophe-ui"
-        | "apostrophe-urls"
-        | "apostrophe-users"
-        | "apostrophe-utils"
-        | "apostrophe-versions"
-        | "apostrophe-video-fields"
-        | "apostrophe-video-widgets"
-        | "apostrophe-widgets";
+        | 'apostrophe-admin-bar'
+        | 'apostrophe-any-page-manager'
+        | 'apostrophe-areas'
+        | 'apostrophe-assets'
+        | 'apostrophe-attachments'
+        | 'apostrophe-browser-utils'
+        | 'apostrophe-caches'
+        | 'apostrophe-custom-pages'
+        | 'apostrophe-db'
+        | 'apostrophe-doc-type-manager'
+        | 'apostrophe-docs'
+        | 'apostrophe-email'
+        | 'apostrophe-express'
+        | 'apostrophe-files'
+        | 'apostrophe-files-widgets'
+        | 'apostrophe-global'
+        | 'apostrophe-groups'
+        | 'apostrophe-html-widgets'
+        | 'apostrophe-i18n'
+        | 'apostrophe-images'
+        | 'apostrophe-images-widgets'
+        | 'apostrophe-jobs'
+        | 'apostrophe-launder'
+        | 'apostrophe-locks'
+        | 'apostrophe-login'
+        | 'apostrophe-migrations'
+        | 'apostrophe-modal'
+        | 'apostrophe-module'
+        | 'apostrophe-notifications'
+        | 'apostrophe-oembed'
+        | 'apostrophe-pager'
+        | 'apostrophe-pages'
+        | 'apostrophe-permissions'
+        | 'apostrophe-pieces'
+        | 'apostrophe-pieces-pages'
+        | 'apostrophe-pieces-widgets'
+        | 'apostrophe-polymorphic-manager'
+        | 'apostrophe-push'
+        | 'apostrophe-rich-text-widgets'
+        | 'apostrophe-schemas'
+        | 'apostrophe-search'
+        | 'apostrophe-service-bridge'
+        | 'apostrophe-soft-redirects'
+        | 'apostrophe-tags'
+        | 'apostrophe-tasks'
+        | 'apostrophe-templates'
+        | 'apostrophe-ui'
+        | 'apostrophe-urls'
+        | 'apostrophe-users'
+        | 'apostrophe-utils'
+        | 'apostrophe-versions'
+        | 'apostrophe-video-fields'
+        | 'apostrophe-video-widgets'
+        | 'apostrophe-widgets';
 
     // Pass in custom modules to AposModuleOptions to allow them in extend
     interface AposModuleOptions<C = {}> {
@@ -309,7 +244,7 @@ declare namespace apostrophe {
         label: string;
         pluralLabel?: string;
         playerData?: false | string[];
-        scene?: "user";
+        scene?: 'user';
         addFields?: Field[];
         removeFields?: Field[];
         arrangeFields?: {

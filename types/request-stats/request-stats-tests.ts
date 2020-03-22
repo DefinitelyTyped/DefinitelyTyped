@@ -3,7 +3,7 @@ import * as http from 'http';
 
 const server = http.createServer((req, res) => {
     requestStats(req, res); // $ExpectType StatsEmitter
-    requestStats(req, res, stats => {
+    requestStats(req, res, (stats) => {
         stats; // $ExpectType Stats
     });
 });
@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
 const stats = requestStats(server);
 stats; // $ExpectType StatsEmitter
 // $ExpectType StatsEmitter
-requestStats(server, stats => {
+requestStats(server, (stats) => {
     stats; // $ExpectType Stats
 
     stats.ok; // $ExpectType boolean
@@ -28,11 +28,11 @@ requestStats(server, stats => {
     stats.res.raw; // $ExpectType ServerResponse
 });
 
-stats.on('complete', stats => {
+stats.on('complete', (stats) => {
     stats; // $ExpectType Stats
 });
 
-stats.on('request', req => {
+stats.on('request', (req) => {
     req; // $ExpectType Request
 
     const progress = req.progress();

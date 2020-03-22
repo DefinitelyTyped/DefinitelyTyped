@@ -7,10 +7,10 @@ const pack = tar.pack();
 pack.entry({ name: 'headers.txt' });
 pack.entry({ name: 'headers.txt' }, 'buffer');
 pack.entry({ name: 'headers.txt' }, Buffer.from('buffer'));
-pack.entry({ name: 'headers.txt' }, err => {
+pack.entry({ name: 'headers.txt' }, (err) => {
     pack.finalize();
 });
-pack.entry({ name: 'headers.txt' }, Buffer.from('buffer'), err => {
+pack.entry({ name: 'headers.txt' }, Buffer.from('buffer'), (err) => {
     pack.finalize();
 });
 
@@ -18,7 +18,7 @@ pack.entry({ name: 'headers.txt' }, Buffer.from('buffer'), err => {
 pack.entry({ name: 'my-test1.txt' }, 'Hello World!');
 
 // add a file called my-stream-test.txt from a stream
-const entry = pack.entry({ name: 'my-test2.txt', size: 11 }, err => {
+const entry = pack.entry({ name: 'my-test2.txt', size: 11 }, (err) => {
     // the stream was added
     // no more entries
     pack.finalize();
@@ -59,7 +59,7 @@ const path = 'YourTarBall.tar';
 const yourTarball = fs.createWriteStream(path);
 
 // add a file called YourFile.txt with the content "Hello World!"
-pack.entry({ name: 'YourFile.txt' }, 'Hello World!', err => {
+pack.entry({ name: 'YourFile.txt' }, 'Hello World!', (err) => {
     if (err) throw err;
     pack.finalize();
 });

@@ -10,7 +10,7 @@ cloneDeep<string>('clone'); // $ExpectType string
 cloneDeep<object>({}, true); // $ExpectType object
 cloneDeep({}, true); // $ExpectType {}
 cloneDeep<number>(42, true); // $ExpectType number
-cloneDeep<object>({}, _ => ({})); // $ExpectType object
-cloneDeep({}, _ => ({})); // $ExpectType {}
-cloneDeep<object>({}, _ => 42); // $ExpectError
-cloneDeep(42, _ => ({})); // $ExpectError
+cloneDeep<object>({}, (_) => ({})); // $ExpectType object
+cloneDeep({}, (_) => ({})); // $ExpectType {}
+cloneDeep<object>({}, (_) => 42); // $ExpectError
+cloneDeep(42, (_) => ({})); // $ExpectError

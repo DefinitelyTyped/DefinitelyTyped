@@ -1,10 +1,10 @@
-import "jquery";
-import { AjaxDataProcessor } from "./AjaxDataProcessor";
-import { AjaxErrorHandler } from "./AjaxErrorHandler";
-import { AjaxUrlProcessor } from "./AjaxUrlProcessor";
-import { PagerInitialRows } from "./PagerInitialRows";
-import { PagerOutputProcessor } from "./PagerOutputProcessor";
-import { PageSize } from "./PageSize";
+import 'jquery';
+import { AjaxDataProcessor } from './AjaxDataProcessor';
+import { AjaxErrorHandler } from './AjaxErrorHandler';
+import { AjaxUrlProcessor } from './AjaxUrlProcessor';
+import { PagerInitialRows } from './PagerInitialRows';
+import { PagerOutputProcessor } from './PagerOutputProcessor';
+import { PageSize } from './PageSize';
 
 /**
  * Provides options for the pager.

@@ -15,8 +15,8 @@ inline('', '', {
     selector: '',
     noscript: false,
     polyfill: true,
-    replaceStylesheets: false
+    replaceStylesheets: false,
 });
 
 // $ExpectType string
-inline('', '', {ignore: [/a/]});
+inline('', '', { ignore: [/a/] });

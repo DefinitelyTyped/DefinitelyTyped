@@ -14,10 +14,10 @@ new KJUR.asn1.cades.OtherHash({ alg: 'sha256', cert: '' });
 new KJUR.asn1.cades.OtherHash({ cert: '' });
 
 new KJUR.asn1.x509.AuthorityKeyIdentifier({
-  critical: true,
-  kid: { hex: '89ab' },
-  issuer: { str: '/C=US/CN=a' },
-  sn: { hex: '1234' },
+    critical: true,
+    kid: { hex: '89ab' },
+    issuer: { str: '/C=US/CN=a' },
+    sn: { hex: '1234' },
 });
 
 KEYUTIL.getKey('pemPKCS1PrivateKey');

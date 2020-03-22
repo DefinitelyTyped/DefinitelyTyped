@@ -38,7 +38,7 @@ class ComplexForm extends React.PureComponent {
                     <Field
                         name="birth"
                         type="calendar"
-                        validator={v => (new Date(v) < new Date('1950-01-01') ? 'You can’t be too old' : '')}
+                        validator={(v) => (new Date(v) < new Date('1950-01-01') ? 'You can’t be too old' : '')}
                     >
                         Day of birth
                     </Field>

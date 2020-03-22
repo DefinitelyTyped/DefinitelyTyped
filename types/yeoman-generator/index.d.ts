@@ -25,11 +25,7 @@ declare namespace Generator {
     };
     type Answers = inquirer.Answers;
 
-    type Questions<A extends Answers = Answers> = (
-        | Question<A>
-        | Array<Question<A>>
-        | Observable<Question<A>>
-    );
+    type Questions<A extends Answers = Answers> = Question<A> | Array<Question<A>> | Observable<Question<A>>;
 
     class Storage {
         constructor(name: string, fs: MemFsEditor, configPath: string);
@@ -63,7 +59,7 @@ declare namespace Generator {
         description?: string;
         required?: boolean;
         optional?: boolean;
-        type?: typeof String|typeof Number|typeof Array|typeof Object;
+        type?: typeof String | typeof Number | typeof Array | typeof Object;
         default?: any;
     }
     interface OptionConfig {
@@ -71,7 +67,7 @@ declare namespace Generator {
         default?: any;
         description?: string;
         hide?: boolean;
-        type?: typeof Boolean|typeof String|typeof Number;
+        type?: typeof Boolean | typeof String | typeof Number;
     }
     interface MemFsEditor {
         read(filepath: string, options?: {}): string;
@@ -90,7 +86,7 @@ declare namespace Generator {
 }
 
 declare class Generator extends EventEmitter {
-    constructor(args: string|string[], options: {});
+    constructor(args: string | string[], options: {});
 
     env: {
         error(...e: Error[]): void;
@@ -108,13 +104,17 @@ declare class Generator extends EventEmitter {
     log(message?: string, context?: any): void;
 
     argument(name: string, config: Generator.ArgumentConfig): this;
-    composeWith(namespace: string, options: { [name: string]: any }, settings?: { local: string, link: 'weak'|'strong' }): this;
+    composeWith(
+        namespace: string,
+        options: { [name: string]: any },
+        settings?: { local: string; link: 'weak' | 'strong' },
+    ): this;
     destinationPath(...path: string[]): string;
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
     option(name: string, config: Generator.OptionConfig): this;
     prompt<A extends Generator.Answers = Generator.Answers>(questions: Generator.Questions<A>): Promise<A>;
-    registerTransformStream(stream: {}|Array<{}>): this;
+    registerTransformStream(stream: {} | Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
     run(cb?: Callback): this;
@@ -143,7 +143,7 @@ declare class Generator extends EventEmitter {
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): void;
+    bowerInstall(component?: string | string[], options?: object, spawnOptions?: object): void;
     /**
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
@@ -171,7 +171,7 @@ declare class Generator extends EventEmitter {
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
+    npmInstall(pkgs?: string | string[], options?: object, spawnOptions?: object): void;
     /**
      * Combine package manager cmd line arguments and run the `install` command.
      *
@@ -184,7 +184,7 @@ declare class Generator extends EventEmitter {
      * @param spawnOptions Options to pass `child_process.spawn`. ref
      *                     https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
      */
-    scheduleInstallTask(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): void;
+    scheduleInstallTask(installer: string, paths?: string | string[], options?: object, spawnOptions?: object): void;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -194,7 +194,7 @@ declare class Generator extends EventEmitter {
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
+    yarnInstall(pkgs?: string | string[], options?: object, spawnOptions?: object): void;
 
     // actions/user mixin
     readonly user: {
@@ -219,7 +219,7 @@ declare class Generator extends EventEmitter {
              *         get the information
              */
             username(): Promise<string>;
-        }
+        };
     };
 }
 export = Generator;

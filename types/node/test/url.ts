@@ -1,4 +1,4 @@
-import assert = require("assert");
+import assert = require('assert');
 import * as url from 'url';
 
 {
@@ -9,9 +9,9 @@ import * as url from 'url';
     // https://google.com/search?q=you're%20a%20lizard%2C%20gary
     url.format({
         protocol: 'https',
-        host: "google.com",
+        host: 'google.com',
         pathname: 'search',
-        query: { q: "you're a lizard, gary" }
+        query: { q: "you're a lizard, gary" },
     });
 
     const myURL = new url.URL('https://a:b@你好你好?abc#foo');
@@ -33,9 +33,11 @@ import * as url from 'url';
     strUrl = url.parse('http://example.com/?hello=world', false);
     queryStr = strUrl.query!;
 
-    function getBoolean(): boolean { return false; }
+    function getBoolean(): boolean {
+        return false;
+    }
     const urlUrl = url.parse('http://example.com/?hello=world', getBoolean());
-    if (typeof(urlUrl.query) === 'string') {
+    if (typeof urlUrl.query === 'string') {
         queryStr = urlUrl.query;
     } else if (urlUrl.query) {
         helloQuery = urlUrl.query['hello'];
@@ -57,9 +59,9 @@ import * as url from 'url';
     assert.equal(myURL.password, 'thepwd');
     assert.equal(myURL.username, 'theuser');
     assert.equal(myURL.pathname, '/foo/path');
-    assert.equal(myURL.port, "81");
-    assert.equal(myURL.protocol, "https:");
-    assert.equal(myURL.search, "?query=string");
+    assert.equal(myURL.port, '81');
+    assert.equal(myURL.protocol, 'https:');
+    assert.equal(myURL.search, '?query=string');
     assert.equal(myURL.toString(), 'https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
     assert(myURL.searchParams instanceof url.URLSearchParams);
 
@@ -67,12 +69,12 @@ import * as url from 'url';
     myURL.hostname = 'example.com';
     myURL.href = 'http://other.com';
     myURL.hash = 'baz';
-    myURL.password = "otherpwd";
-    myURL.username = "otheruser";
-    myURL.pathname = "/otherPath";
-    myURL.port = "82";
-    myURL.protocol = "http";
-    myURL.search = "a=b";
+    myURL.password = 'otherpwd';
+    myURL.username = 'otheruser';
+    myURL.pathname = '/otherPath';
+    myURL.port = '82';
+    myURL.protocol = 'http';
+    myURL.search = 'a=b';
     assert.equal(myURL.href, 'http://otheruser:otherpwd@other.com:82/otherPath?a=b#baz');
 
     myURL = new url.URL('/foo', 'https://example.org/');
@@ -97,18 +99,18 @@ import * as url from 'url';
     assert.deepEqual(searchParams.getAll('abc'), ['123', 'xyz']);
 
     const entries = searchParams.entries();
-    assert.deepEqual(entries.next(), { value: ["abc", "123"], done: false });
-    assert.deepEqual(entries.next(), { value: ["abc", "xyz"], done: false });
+    assert.deepEqual(entries.next(), { value: ['abc', '123'], done: false });
+    assert.deepEqual(entries.next(), { value: ['abc', 'xyz'], done: false });
     assert.deepEqual(entries.next(), { value: undefined, done: true });
 
     const keys = searchParams.keys();
-    assert.deepEqual(keys.next(), { value: "abc", done: false });
-    assert.deepEqual(keys.next(), { value: "abc", done: false });
+    assert.deepEqual(keys.next(), { value: 'abc', done: false });
+    assert.deepEqual(keys.next(), { value: 'abc', done: false });
     assert.deepEqual(keys.next(), { value: undefined, done: true });
 
     const values = searchParams.values();
-    assert.deepEqual(values.next(), { value: "123", done: false });
-    assert.deepEqual(values.next(), { value: "xyz", done: false });
+    assert.deepEqual(values.next(), { value: '123', done: false });
+    assert.deepEqual(values.next(), { value: 'xyz', done: false });
     assert.deepEqual(values.next(), { value: undefined, done: true });
 
     searchParams.set('abc', 'b');
@@ -124,7 +126,7 @@ import * as url from 'url';
 {
     const searchParams = new url.URLSearchParams({
         user: 'abc',
-        query: ['first', 'second']
+        query: ['first', 'second'],
     });
 
     assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');

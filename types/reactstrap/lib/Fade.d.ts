@@ -19,5 +19,5 @@ export interface FadeProps extends React.HTMLAttributes<HTMLElement> {
     onEnter?: () => void;
 }
 
-declare class Fade<T = {[key: string]: any}> extends React.Component<FadeProps> {}
+declare class Fade<T = { [key: string]: any }> extends React.Component<FadeProps> {}
 export default Fade;

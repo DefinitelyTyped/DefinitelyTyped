@@ -1,4 +1,4 @@
-function defaultCallback(result: string, components: [{ key: string, value: string }]) {
+function defaultCallback(result: string, components: [{ key: string; value: string }]) {
     console.log(`res: ${result}; components: ${components}`);
 }
 
@@ -11,11 +11,11 @@ function test_get_exclude_swfContainerId() {
 }
 
 function test_get_exclude_swfPath() {
-    const fingerprint = new Fingerprint2({swfPath: 'pathToSwf'}).get(defaultCallback);
+    const fingerprint = new Fingerprint2({ swfPath: 'pathToSwf' }).get(defaultCallback);
 }
 
 function test_get_exclude_userDefinedFonts() {
-    const fingerprint = new Fingerprint2({ userDefinedFonts: ['font1', 'font2']}).get(defaultCallback);
+    const fingerprint = new Fingerprint2({ userDefinedFonts: ['font1', 'font2'] }).get(defaultCallback);
 }
 
 function test_get_excludeUserAgent() {

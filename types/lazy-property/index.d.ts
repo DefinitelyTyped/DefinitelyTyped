@@ -4,11 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare function addLazyProperty(
-    object: object,
-    name: string,
-    initializer: () => any,
-    enumerable?: boolean,
-): void;
+declare function addLazyProperty(object: object, name: string, initializer: () => any, enumerable?: boolean): void;
 
 export = addLazyProperty;

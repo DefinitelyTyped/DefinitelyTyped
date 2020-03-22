@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
-export interface PaginationSkeletonProps { }
+export interface PaginationSkeletonProps {}
 
-declare class PaginationSkeleton extends React.Component<PaginationSkeletonProps> { }
+declare class PaginationSkeleton extends React.Component<PaginationSkeletonProps> {}
 
 export default PaginationSkeleton;

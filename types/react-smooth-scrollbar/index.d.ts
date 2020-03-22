@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import SmoothScrollbar from "smooth-scrollbar";
-import { ScrollbarOptions, ScrollStatus } from "smooth-scrollbar/interfaces";
+import * as React from 'react';
+import SmoothScrollbar from 'smooth-scrollbar';
+import { ScrollbarOptions, ScrollStatus } from 'smooth-scrollbar/interfaces';
 
 declare namespace Scrollbar {
     interface ScrollbarProps extends Partial<ScrollbarOptions> {

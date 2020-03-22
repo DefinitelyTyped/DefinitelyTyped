@@ -1,5 +1,5 @@
-import * as React from "react";
-import ElevatedView from "react-native-elevated-view";
+import * as React from 'react';
+import ElevatedView from 'react-native-elevated-view';
 
 () => {
     <ElevatedView />;

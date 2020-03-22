@@ -7,22 +7,23 @@ const { Provider, Consumer, mutate } = createStore({
     number: 1,
 });
 
-const incrementNumber = () => mutate((draft) => {
-    draft.number++;
-});
+const incrementNumber = () =>
+    mutate((draft) => {
+        draft.number++;
+    });
 
 const App = () => (
     <Provider>
         <div>
-            <Consumer>
-                {state => (
-                    <div>Letter: {state.letter}</div>
-                )}
-            </Consumer>
+            <Consumer>{(state) => <div>Letter: {state.letter}</div>}</Consumer>
 
-            <Consumer render={state => (
-                <div>Number (<span onClick={incrementNumber}>increment</span>): {state.number}</div>
-            )} />
+            <Consumer
+                render={(state) => (
+                    <div>
+                        Number (<span onClick={incrementNumber}>increment</span>): {state.number}
+                    </div>
+                )}
+            />
         </div>
     </Provider>
 );

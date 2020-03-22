@@ -1,8 +1,8 @@
-import { WorkboxPlugin } from "workbox-core/types/WorkboxPlugin";
+import { WorkboxPlugin } from 'workbox-core/types/WorkboxPlugin';
 
-import { CleanupResult } from "./types/CleanupResult";
-import { InstallResult } from "./types/InstallResult";
-import { PrecacheEntry } from "./types/PrecacheEntry";
+import { CleanupResult } from './types/CleanupResult';
+import { InstallResult } from './types/InstallResult';
+import { PrecacheEntry } from './types/PrecacheEntry';
 
 export class PrecacheController {
     constructor(cacheName?: string);

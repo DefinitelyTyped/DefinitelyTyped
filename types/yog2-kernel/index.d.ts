@@ -5,11 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as express from "express";
-import * as _ from "lodash";
-import * as ral from "node-ral";
-import * as log from "yog-log";
-import * as yogBigpipe from "yog-bigpipe";
+import * as express from 'express';
+import * as _ from 'lodash';
+import * as ral from 'node-ral';
+import * as log from 'yog-log';
+import * as yogBigpipe from 'yog-bigpipe';
 
 export as namespace yog;
 declare namespace yog {

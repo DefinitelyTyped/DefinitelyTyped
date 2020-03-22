@@ -1,9 +1,6 @@
-import {
-    RouteHandlerCallback,
-    RouteHandlerCallbackContext
-} from "workbox-routing";
+import { RouteHandlerCallback, RouteHandlerCallbackContext } from 'workbox-routing';
 
-import { StreamSource } from "./types/StreamSource";
+import { StreamSource } from './types/StreamSource';
 
 export function strategy(sourceFunctions: StreamsHandlerCallback[], headersInit?: HeadersInit): RouteHandlerCallback;
 

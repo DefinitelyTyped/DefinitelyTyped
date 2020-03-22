@@ -88,10 +88,14 @@ declare namespace AMap {
          * https://lbs.amap.com/api/javascript-api/reference/layer#m_AMap.Heatmap
          * @param dataset 数据集
          */
-        setDataSet(dataset: Heatmap.DataSet | {
-            data: string;
-            dataParser?(data: any): Heatmap.DataSet;
-        }): void;
+        setDataSet(
+            dataset:
+                | Heatmap.DataSet
+                | {
+                      data: string;
+                      dataParser?(data: any): Heatmap.DataSet;
+                  },
+        ): void;
         /**
          * 向热力图数据集中添加坐标点，count不填写时默认：1
          * @param lng 经度

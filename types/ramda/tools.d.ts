@@ -1,4 +1,4 @@
-import { A, O, T } from "ts-toolbelt";
+import { A, O, T } from 'ts-toolbelt';
 
 // ///////////////////////////////////////////////////////////////////////////////////////
 // TOOLS /////////////////////////////////////////////////////////////////////////////////
@@ -62,72 +62,55 @@ export interface CharList extends String {
  * @param V0
  * @param R
  */
-export type ComposeWithFns<V0, R> = [
-    (x0: V0) => R
-] | [
-    (x: any) => R,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-];
+export type ComposeWithFns<V0, R> =
+    | [(x0: V0) => R]
+    | [(x: any) => R, (x: V0) => any]
+    | [(x: any) => R, (x: any) => any, (x: V0) => any]
+    | [(x: any) => R, (x: any) => any, (x: any) => any, (x: V0) => any]
+    | [(x: any) => R, (x: any) => any, (x: any) => any, (x: any) => any, (x: V0) => any]
+    | [(x: any) => R, (x: any) => any, (x: any) => any, (x: any) => any, (x: any) => any, (x: V0) => any]
+    | [
+          (x: any) => R,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: V0) => any,
+      ]
+    | [
+          (x: any) => R,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: V0) => any,
+      ]
+    | [
+          (x: any) => R,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: V0) => any,
+      ]
+    | [
+          (x: any) => R,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: V0) => any,
+      ];
 
 // ---------------------------------------------------------------------------------------
 // D
@@ -157,21 +140,14 @@ export type Evolvable<E extends Evolver> = {
  * @param E
  */
 export type Evolve<O extends Evolvable<E>, E extends Evolver> = {
-    [P in keyof O]: P extends keyof E
-                    ? EvolveValue<O[P], E[P]>
-                    : O[P];
+    [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
 };
 
 /**
  * <needs description>
  * @param A
  */
-type Evolved<A> =
-    A extends (value: infer V) => any
-    ? V
-    : A extends Evolver
-      ? Evolvable<A>
-      : never;
+type Evolved<A> = A extends (value: infer V) => any ? V : A extends Evolver ? Evolvable<A> : never;
 
 /**
  * A set of transformation to run as part of an evolve
@@ -187,11 +163,10 @@ export type Evolver<T extends Evolvable<any> = any> = {
  * @param O
  * @param E
  */
-type EvolveNestedValue<O, E extends Evolver> =
-    O extends object
+type EvolveNestedValue<O, E extends Evolver> = O extends object
     ? O extends Evolvable<E>
-      ? Evolve<O, E>
-      : never
+        ? Evolve<O, E>
+        : never
     : never;
 
 /**
@@ -199,12 +174,11 @@ type EvolveNestedValue<O, E extends Evolver> =
  * @param V
  * @param E
  */
-type EvolveValue<V, E> =
-    E extends (value: V) => any
+type EvolveValue<V, E> = E extends (value: V) => any
     ? ReturnType<E>
     : E extends Evolver
-      ? EvolveNestedValue<V, E>
-      : never;
+    ? EvolveNestedValue<V, E>
+    : never;
 
 // ---------------------------------------------------------------------------------------
 // F
@@ -224,13 +198,9 @@ export interface Filter {
  * <needs description>
  * @param A
  */
-type FilterOnceApplied<A> =
-    <K extends A[] | Dictionary<A>>(source: K) =>
-        K extends Array<infer U>
-        ? U[]
-        : K extends Dictionary<infer U>
-          ? Dictionary<U>
-          : never;
+type FilterOnceApplied<A> = <K extends A[] | Dictionary<A>>(
+    source: K,
+) => K extends Array<infer U> ? U[] : K extends Dictionary<infer U> ? Dictionary<U> : never;
 
 /**
  * <needs description>
@@ -279,8 +249,11 @@ export interface Lens {
  *
  * <created by @pirix-gh>
  */
-export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
-    O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth>;
+export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = O.MergeUp<
+    T.ObjectOf<O1>,
+    T.ObjectOf<O2>,
+    Depth
+>;
 
 /**
  * Merge multiple objects `Os` with each other
@@ -291,11 +264,10 @@ export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | '
  *
  * <created by @pirix-gh>
  */
-export type MergeAll<Os extends readonly object[]> =
-    O.AssignUp<{}, Os> extends infer M
-    ? {} extends M         // nothing merged => bcs no `as const`
-      ? T.UnionOf<Os>      // so we output the approximate types
-      : T.ObjectOf<M & {}> // otherwise, we can get accurate types
+export type MergeAll<Os extends readonly object[]> = O.AssignUp<{}, Os> extends infer M
+    ? {} extends M // nothing merged => bcs no `as const`
+        ? T.UnionOf<Os> // so we output the approximate types
+        : T.ObjectOf<M & {}> // otherwise, we can get accurate types
     : never;
 
 // ---------------------------------------------------------------------------------------
@@ -317,12 +289,12 @@ export type Ord = number | string | boolean | Date;
 /**
  * <needs description>
  */
-export type Path = Array<(number | string)>;
+export type Path = Array<number | string>;
 
 /**
  * <needs description>
  */
-export type Placeholder = A.x & {'@@functional/placeholder': true};
+export type Placeholder = A.x & { '@@functional/placeholder': true };
 
 /**
  * <needs description>
@@ -334,72 +306,55 @@ export type Pred = (...a: readonly any[]) => boolean;
  * @param V0
  * @param R
  */
-export type PipeWithFns<V0, R> = [
-    (x0: V0) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-];
+export type PipeWithFns<V0, R> =
+    | [(x0: V0) => R]
+    | [(x0: V0) => any, (x: any) => R]
+    | [(x0: V0) => any, (x: any) => any, (x: any) => R]
+    | [(x0: V0) => any, (x: any) => any, (x: any) => any, (x: any) => R]
+    | [(x0: V0) => any, (x: any) => any, (x: any) => any, (x: any) => any, (x: any) => R]
+    | [(x0: V0) => any, (x: any) => any, (x: any) => any, (x: any) => any, (x: any) => any, (x: any) => R]
+    | [
+          (x0: V0) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => R,
+      ]
+    | [
+          (x0: V0) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => R,
+      ]
+    | [
+          (x0: V0) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => R,
+      ]
+    | [
+          (x0: V0) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => any,
+          (x: any) => R,
+      ];
 
 // ---------------------------------------------------------------------------------------
 // R
@@ -429,9 +384,6 @@ export type SafePred<A> = (...a: readonly A[]) => boolean;
  * <needs description>
  * @param R
  */
-export type ValueOfRecord<R> =
-    R extends Record<any, infer T>
-    ? T
-    : never;
+export type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never;
 
 export {};

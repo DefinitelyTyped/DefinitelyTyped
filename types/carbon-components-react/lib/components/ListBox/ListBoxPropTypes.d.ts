@@ -1,1 +1,1 @@
-export type ListBoxType = "default" | "inline";
+export type ListBoxType = 'default' | 'inline';

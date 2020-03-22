@@ -1,17 +1,13 @@
-
-
-
 function test_version() {
     var version: string = JsHamcrest.version;
 }
-
 
 //
 // Descriptions
 //
 
 function test_append() {
-    new JsHamcrest.Description().append("foo");
+    new JsHamcrest.Description().append('foo');
 }
 
 function test_appendDescriptionOf_acceptsSelfDescribingType() {
@@ -23,13 +19,13 @@ function test_appendDescriptionOf_acceptsObjectWithDescribeToMethod() {
     var obj: any = {
         describeTo(description: JsHamcrest.Description): void {
             description.append('obj');
-        }
-    }
+        },
+    };
     new JsHamcrest.Description().appendDescriptionOf(obj);
 }
 
 function test_appendList() {
-    new JsHamcrest.Description().appendList("[", ",", "]", [1, 2, 3]);
+    new JsHamcrest.Description().appendList('[', ',', ']', [1, 2, 3]);
 }
 
 function test_appendLiteral() {
@@ -38,20 +34,19 @@ function test_appendLiteral() {
     new JsHamcrest.Description().appendLiteral(true);
     new JsHamcrest.Description().appendLiteral(42);
     new JsHamcrest.Description().appendLiteral(3.14159);
-    new JsHamcrest.Description().appendLiteral("foo");
+    new JsHamcrest.Description().appendLiteral('foo');
     new JsHamcrest.Description().appendLiteral([1, 2, 3]);
     new JsHamcrest.Description().appendLiteral(JsHamcrest.Description);
 }
 
 function test_appendValueList() {
     var obj: JsHamcrest.SelfDescribing;
-    new JsHamcrest.Description().appendValueList("[", ",", "]", [obj, obj, obj]);
+    new JsHamcrest.Description().appendValueList('[', ',', ']', [obj, obj, obj]);
 }
 
 function test_get() {
     var desc: string = new JsHamcrest.Description().get();
 }
-
 
 //
 // Matcher
@@ -65,8 +60,7 @@ function test_SimpleMatcher(actual: any, matcher: JsHamcrest.SimpleMatcher): JsH
         description.append(', but was ');
         matcher.describeValueTo(actual, description);
         description.append(': FAIL');
-    }
-    else {
+    } else {
         description.append(': PASS');
     }
     return description;
@@ -75,7 +69,6 @@ function test_SimpleMatcher(actual: any, matcher: JsHamcrest.SimpleMatcher): JsH
 function test_CombinableMatcher(matcher: JsHamcrest.CombinableMatcher): JsHamcrest.CombinableMatcher {
     return matcher.and(not(string())).or(bool());
 }
-
 
 //
 // Helpers
@@ -93,13 +86,12 @@ function test_EqualTo() {
             },
             describeTo: function (description: JsHamcrest.Description) {
                 description.append('string with second character ').appendDescriptionOf(matcher);
-            }
+            },
         });
     });
     assertThat('foo', hasSecondCharacter('o'));
     assertThat('foo', hasSecondCharacter(greaterThan('n')));
 }
-
 
 //
 // Operators
@@ -115,8 +107,12 @@ function test_assert() {
     // options
     JsHamcrest.Operators.assert('foo', is('foo'), {
         message: 'Name',
-        pass: function (result) { alert('[PASS] ' + result); },
-        fail: function (result) { alert('[FAIL] ' + result); }
+        pass: function (result) {
+            alert('[PASS] ' + result);
+        },
+        fail: function (result) {
+            alert('[FAIL] ' + result);
+        },
     });
 }
 
@@ -125,9 +121,12 @@ function test_filter() {
 }
 
 function test_callTo() {
-    var thrower = JsHamcrest.Operators.callTo(function (ok) { if (!ok) { throw new Error(); } }, false);
+    var thrower = JsHamcrest.Operators.callTo(function (ok) {
+        if (!ok) {
+            throw new Error();
+        }
+    }, false);
 }
-
 
 //
 // Collection Matchers
@@ -139,37 +138,37 @@ function test_empty() {
 }
 
 function test_everyItem() {
-    assertThat([1,2,3], everyItem(greaterThan(0)));
-    assertThat([1,'1'], everyItem(1));
+    assertThat([1, 2, 3], everyItem(greaterThan(0)));
+    assertThat([1, '1'], everyItem(1));
 }
 
 function test_hasItem() {
-    assertThat([1,2,3], hasItem(equalTo(3)));
-    assertThat([1,2,3], hasItem(3));
+    assertThat([1, 2, 3], hasItem(equalTo(3)));
+    assertThat([1, 2, 3], hasItem(3));
 }
 
 function test_hasItems() {
-    assertThat([1,2,3], hasItems(2,3));
-    assertThat([1,2,3], hasItems(greaterThan(2)));
-    assertThat([1,2,3], hasItems(1, greaterThan(2)));
+    assertThat([1, 2, 3], hasItems(2, 3));
+    assertThat([1, 2, 3], hasItems(greaterThan(2)));
+    assertThat([1, 2, 3], hasItems(1, greaterThan(2)));
 }
 
 function test_hasSize() {
-    assertThat([1,2,3], hasSize(3));
-    assertThat([1,2,3], hasSize(lessThan(5)));
+    assertThat([1, 2, 3], hasSize(3));
+    assertThat([1, 2, 3], hasSize(lessThan(5)));
     assertThat('string', hasSize(6));
     assertThat('string', hasSize(greaterThan(3)));
-    assertThat({a:1, b:2}, hasSize(equalTo(2)));
+    assertThat({ a: 1, b: 2 }, hasSize(equalTo(2)));
 }
 
 function test_isIn() {
-    assertThat(1, isIn([1,2,3]));
-    assertThat(1, isIn(1,2,3));
+    assertThat(1, isIn([1, 2, 3]));
+    assertThat(1, isIn(1, 2, 3));
 }
 
 function test_oneOf() {
-    assertThat(1, oneOf([1,2,3]));
-    assertThat(1, oneOf(1,2,3));
+    assertThat(1, oneOf([1, 2, 3]));
+    assertThat(1, oneOf(1, 2, 3));
 }
 
 //
@@ -216,7 +215,7 @@ function test_not() {
 }
 
 function test_raises() {
-    var myFunction = function() {
+    var myFunction = function () {
         // Do something dangerous...
         throw new Error();
     };
@@ -225,7 +224,7 @@ function test_raises() {
 }
 
 function test_raisesAnything() {
-    var myFunction = function() {
+    var myFunction = function () {
         // Do something dangerous...
         throw 'Some unexpected error';
     };
@@ -234,7 +233,8 @@ function test_raisesAnything() {
 }
 
 function test_sameAs() {
-    var number = 10, anotherNumber = number;
+    var number = 10,
+        anotherNumber = number;
     assertThat(number, sameAs(anotherNumber));
 }
 
@@ -246,7 +246,6 @@ function test_truth() {
     assertThat(null, not(truth()));
     assertThat(undefined, not(truth()));
 }
-
 
 //
 // Number Matchers
@@ -296,7 +295,6 @@ function test_zero() {
     assertThat('0', not(zero()));
 }
 
-
 //
 // Object Matchers
 //
@@ -304,19 +302,19 @@ function test_zero() {
 function test_bool() {
     assertThat(true, bool());
     assertThat(false, bool());
-    assertThat("text", not(bool()));
+    assertThat('text', not(bool()));
 }
 
 function test_func() {
-    assertThat(function() {}, func());
-    assertThat("text", not(func()));
+    assertThat(function () {}, func());
+    assertThat('text', not(func()));
 }
 
 function test_hasFunction() {
     var greeter = {
-        sayHello: function(name: string) {
+        sayHello: function (name: string) {
             alert('Hello, ' + name);
-        }
+        },
     };
 
     assertThat(greeter, hasFunction('sayHello'));
@@ -325,9 +323,9 @@ function test_hasFunction() {
 function test_hasMember() {
     var greeter = {
         marco: 'polo',
-        sayHello: function(name: string) {
+        sayHello: function (name: string) {
             alert('Hello, ' + name);
-        }
+        },
     };
 
     assertThat(greeter, hasMember('marco'));
@@ -359,9 +357,8 @@ function test_typeOf() {
     assertThat(10, typeOf('number'));
     assertThat({}, typeOf('object'));
     assertThat('10', typeOf('string'));
-    assertThat(function(){}, typeOf('function'));
+    assertThat(function () {}, typeOf('function'));
 }
-
 
 //
 // Text Matchers
@@ -391,7 +388,6 @@ function test_startsWith() {
     assertThat('string', startsWith('str'));
 }
 
-
 //
 // Integration
 //
@@ -405,9 +401,8 @@ JsHamcrest.Integration.installMatchers({ truthy: JsHamcrest.Matchers.truth });
 JsHamcrest.Integration.installOperators({
     assertNotThat: function (actual: any, matcher: JsHamcrest.Matcher, message?: string): JsHamcrest.Description {
         return JsHamcrest.Operators.assert(actual, JsHamcrest.Matchers.not(matcher), { message: message });
-    }
+    },
 });
-
 
 //
 // Testing Frameworks

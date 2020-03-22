@@ -39,7 +39,7 @@ resolve.sync('typescript', {
 
 resolve.sync('@scope/my-module', {
     browser: 'module',
-    packageFilter: pkg => {
+    packageFilter: (pkg) => {
         pkg.module = pkg.module || pkg.browser;
         return pkg;
     },

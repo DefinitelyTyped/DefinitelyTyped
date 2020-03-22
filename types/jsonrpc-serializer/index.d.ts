@@ -67,7 +67,12 @@ export function deserializeObject(msg: PayloadObject): DeserializeObject;
 export type errorHandler = (errors: string[] | null) => void;
 
 export namespace err {
-    type ErrorName = 'JsonRpcError' | 'ParseError' | 'InvalidRequestError' | 'MethodNotFoundError' | 'InvalidParamsError';
+    type ErrorName =
+        | 'JsonRpcError'
+        | 'ParseError'
+        | 'InvalidRequestError'
+        | 'MethodNotFoundError'
+        | 'InvalidParamsError';
     // const ErrorName = {
     //    JsonRpcError: 'JsonRpcError' as ErrorName,
     //    ParseError: 'ParseError' as ErrorName,

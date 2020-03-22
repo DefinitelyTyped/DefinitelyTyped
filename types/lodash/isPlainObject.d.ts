@@ -1,2 +1,2 @@
-import { isPlainObject } from "./index";
+import { isPlainObject } from './index';
 export = isPlainObject;

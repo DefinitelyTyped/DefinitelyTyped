@@ -17,12 +17,12 @@ declare namespace env {
     }
 
     interface IntegerMapping extends GenericMapping {
-        type: "integer";
+        type: 'integer';
         radix: number;
     }
 
     interface BooleanMapping {
-        type: "boolean";
+        type: 'boolean';
         strict: boolean;
     }
 

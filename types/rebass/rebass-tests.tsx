@@ -82,7 +82,7 @@ export default () => (
                 String css prop
             </Box>
             <Button
-                sx={theme => ({
+                sx={(theme) => ({
                     bg: 'magenta',
                     border: '1em',
                     borderRadius: '1em',

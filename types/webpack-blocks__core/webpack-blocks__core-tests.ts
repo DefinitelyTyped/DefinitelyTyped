@@ -10,10 +10,10 @@ const block = (config: Configuration): Block => {
 const config: Configuration = {};
 const blocks: Block[] = [block(config)];
 const emptyMatchOptions: MatchOptions = {};
-const filledMatchOptions: MatchOptions = {exclude: new RegExp(''), include: ''};
+const filledMatchOptions: MatchOptions = { exclude: new RegExp(''), include: '' };
 
 // tests
-createConfig({webpack: null, webpackVersion: ''}, blocks);
+createConfig({ webpack: null, webpackVersion: '' }, blocks);
 createConfig([
     css(),
     match(['*.eot', '*.ttf', '*.woff', '*.woff2'], [file()]),

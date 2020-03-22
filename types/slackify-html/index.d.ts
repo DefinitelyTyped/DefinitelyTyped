@@ -3,7 +3,7 @@
 // Definitions by: Scott Rippee <https://github.com/hypexr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "slackify-html" {
-    function slackify(html : string) : string;
+declare module 'slackify-html' {
+    function slackify(html: string): string;
     export = slackify;
 }

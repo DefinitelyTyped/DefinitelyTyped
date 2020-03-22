@@ -5,7 +5,7 @@ const config: webpack.Configuration = {
     plugins: [
         new AssetsPlugin(),
         new AssetsPlugin({
-            filename: 'assets.json'
+            filename: 'assets.json',
         }),
         new AssetsPlugin({
             entrypoints: true,
@@ -18,14 +18,12 @@ const config: webpack.Configuration = {
             manifestFirst: true,
             path: '/foo/bar',
             prettyPrint: true,
-            processOutput: (assets) => (
-                'window.assets = ' + JSON.stringify(assets)
-            ),
+            processOutput: (assets) => 'window.assets = ' + JSON.stringify(assets),
             update: true,
             useCompilerPath: true,
             metadata: {
-                meta: 'data'
+                meta: 'data',
             },
-        })
-    ]
+        }),
+    ],
 };

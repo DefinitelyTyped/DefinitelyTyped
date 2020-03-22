@@ -47,11 +47,11 @@ declare class NeverBounce {
     };
 
     static result: {
-        "0": string;
-        "1": string;
-        "2": string;
-        "3": string;
-        "4": string;
+        '0': string;
+        '1': string;
+        '2': string;
+        '3': string;
+        '4': string;
         catchall: number;
         disposable: number;
         flags: {
@@ -87,10 +87,10 @@ declare class Errors extends Error {
     constructor(type: string, message: string);
 
     static _lut: {
-        general_failure: string,
-        auth_failure: string,
-        bad_referrer: string,
-        throttle_triggered: string,
+        general_failure: string;
+        auth_failure: string;
+        bad_referrer: string;
+        throttle_triggered: string;
     };
 
     static AuthError: string;
@@ -106,7 +106,14 @@ declare class Account {
 declare class Jobs {
     search(query: any): Promise<Response>;
 
-    create(input: any, inputLocation: any, fileName: any, runSample?: any, autoParse?: any, autoStart?: any): Promise<Response>;
+    create(
+        input: any,
+        inputLocation: any,
+        fileName: any,
+        runSample?: any,
+        autoParse?: any,
+        autoStart?: any,
+    ): Promise<Response>;
 
     parse(jobId: number, autoStart?: any): Promise<Response>;
 
@@ -136,8 +143,8 @@ interface Config {
 interface ConfigOptions {
     acceptedType?: string;
     headers?: {
-        "Content-Type"?: string;
-        "User-Agent"?: string;
+        'Content-Type'?: string;
+        'User-Agent'?: string;
     };
     host?: string;
     port?: number;

@@ -1,2 +1,2 @@
-import { reverse } from "lodash";
+import { reverse } from 'lodash';
 export default reverse;

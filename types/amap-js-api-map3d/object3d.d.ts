@@ -33,7 +33,7 @@ declare namespace AMap {
         }
 
         // tslint:disable-next-line
-        class Wall extends Prism { }
+        class Wall extends Prism {}
 
         class Line extends Object3D {
             readonly geometry: Geometry3D.Line;
@@ -66,13 +66,16 @@ declare namespace AMap {
                 width?: number;
                 height?: number | number[];
                 color?: string | number[];
-            } & ({
-                unit?: 'meter';
-                path: Array<[number, number]> | LngLat[];
-            } | {
-                unit: 'px';
-                path: Array<[number, number]> | Pixel[];
-            });
+            } & (
+                | {
+                      unit?: 'meter';
+                      path: Array<[number, number]> | LngLat[];
+                  }
+                | {
+                      unit: 'px';
+                      path: Array<[number, number]> | Pixel[];
+                  }
+            );
         }
         // inherit from WideLine
         class MeshLine extends Object3D {

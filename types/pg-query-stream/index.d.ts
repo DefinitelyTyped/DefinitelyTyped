@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
-import pg = require("pg");
+import stream = require('stream');
+import pg = require('pg');
 
 declare namespace QueryStream {
     interface Options {

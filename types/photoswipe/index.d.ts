@@ -39,7 +39,7 @@ declare namespace PhotoSwipe {
         /**
          * Internal property added by PhotoSwipe.
          */
-        vGap?: {top: number; bottom: number};
+        vGap?: { top: number; bottom: number };
 
         /**
          * Internal property added by PhotoSwipe.
@@ -384,10 +384,12 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
      * (3) Array with objects (slides).
      * (4) Options.
      */
-    constructor(pswpElement: HTMLElement,
-                uiConstructor: (new (pswp: PhotoSwipe<T>, framework: PhotoSwipe.UIFramework) => PhotoSwipe.UI<T>) | boolean,
-                items: PhotoSwipe.Item[],
-                options: T);
+    constructor(
+        pswpElement: HTMLElement,
+        uiConstructor: (new (pswp: PhotoSwipe<T>, framework: PhotoSwipe.UIFramework) => PhotoSwipe.UI<T>) | boolean,
+        items: PhotoSwipe.Item[],
+        options: T,
+    );
 
     /**
      * Current slide object.
@@ -426,8 +428,8 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
      * Size of the current viewport.
      */
     viewportSize: {
-         x: number;
-         y: number;
+        x: number;
+        y: number;
     };
 
     /**
@@ -534,11 +536,13 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
      * pswp.zoomTo(2, {x:pswp.viewportSize.x/2,y:pswp.viewportSize.y/2}, 2000, false, function(now) {});
      *
      */
-    zoomTo(destZoomLevel: number,
-           centerPoint: {x: number; y: number},
-           speed: number,
-           easingFn?: (k: number) => number,
-           updateFn?: (now: number) => void): void;
+    zoomTo(
+        destZoomLevel: number,
+        centerPoint: { x: number; y: number },
+        speed: number,
+        easingFn?: (k: number) => number,
+        updateFn?: (now: number) => void,
+    ): void;
 
     /**
      * Apply zoom and pan to the current slide
@@ -636,7 +640,10 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
     /**
      * Allow to call preventDefault on down and up events.
      */
-    listen(eventName: 'preventDragEvent', callback: (e: MouseEvent, isDown: boolean, preventObj: {prevent: boolean}) => void): void;
+    listen(
+        eventName: 'preventDragEvent',
+        callback: (e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }) => void,
+    ): void;
 
     /**
      * Triggers eventName event with args passed through to listeners.

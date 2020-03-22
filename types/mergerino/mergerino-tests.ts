@@ -37,11 +37,11 @@ function functionSubWorks() {
     const state: State = {
         age: 10,
         name: 'bob',
-        obj: { prop: true }
+        obj: { prop: true },
     };
 
     const newState = merge(state, {
-        age: x => x * 10,
+        age: (x) => x * 10,
         name: (x, m) => {
             return x;
         },
@@ -60,19 +60,16 @@ function deepFunctionSubToUncreatedObjectPath() {
     }
 
     const state: State = {
-        orig: true
+        orig: true,
     };
 
-    const newState = merge(
-        state,
-        {
-            add: {
-                stats: {
-                    count: x => x + 1
-                },
-            }
-        }
-    );
+    const newState = merge(state, {
+        add: {
+            stats: {
+                count: (x) => x + 1,
+            },
+        },
+    });
 }
 
 function addNestedObject() {
@@ -99,22 +96,19 @@ function deepMergeObjects() {
     }
 
     const state: State = {
-        age: 10, sub: {
+        age: 10,
+        sub: {
             sub: { prop: true },
         },
     };
 
-    const newState = merge(
-        state,
-        {
+    const newState = merge(state, {
+        sub: {
             sub: {
-                sub:
-                {
-                    newProp: true,
-                }
+                newProp: true,
             },
         },
-    );
+    });
 }
 
 function functionPatch() {
@@ -184,9 +178,9 @@ function deepMergeWithArr() {
 function topLevelFunctionPatch() {
     type State =
         | {
-            age: number;
-            foo: string;
-        }
+              age: number;
+              foo: string;
+          }
         | { replaced: boolean };
     const state = { age: 20, foo: 'bar' };
     const replacement = { replaced: true };
@@ -201,15 +195,15 @@ function reuseObjectIfSameRefWhenPatching() {
 function replacePrimitiveWithObjectAndViceVersa() {
     interface State {
         count:
-        | number
-        | {
-            prop: boolean;
-        };
+            | number
+            | {
+                  prop: boolean;
+              };
         foo:
-        | number
-        | {
-            prop: boolean;
-        };
+            | number
+            | {
+                  prop: boolean;
+              };
     }
     const state: State = { count: 10, foo: { prop: true } };
     const newState = merge(state, { count: { prop: true }, foo: 10 });

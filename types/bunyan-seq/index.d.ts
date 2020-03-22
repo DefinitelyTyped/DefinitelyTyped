@@ -5,7 +5,7 @@
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
-import * as Logger from "bunyan";
+import * as Logger from 'bunyan';
 export interface Configuration {
     apiKey?: string;
     batchSizeLimit?: number;

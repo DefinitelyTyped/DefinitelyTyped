@@ -1,16 +1,14 @@
-
-
-import Long = require("long");
+import Long = require('long');
 
 var val: Long;
 var n: number = 42;
 var b: boolean = true;
-var s: string = "1337";
+var s: string = '1337';
 var bytes: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
 
-val = new Long(0xFFFFFFFF, 0x7FFFFFFF, true);
-val = new Long(0xFFFFFFFF, 0x7FFFFFFF);
-val = new Long(0xFFFFFFFF);
+val = new Long(0xffffffff, 0x7fffffff, true);
+val = new Long(0xffffffff, 0x7fffffff);
+val = new Long(0xffffffff);
 
 n = val.low;
 n = val.high;
@@ -123,28 +121,27 @@ val = Long.fromBytes(bytes);
 val = Long.fromBytes(bytes, true);
 val = Long.fromBytes(bytes, true, true);
 bytes = val.toBytes();
-val = Long.fromBytes(bytes)
-bytes = val.toBytesLE()
-val = Long.fromBytesLE(bytes)
-bytes = val.toBytesBE()
-val = Long.fromBytesBE(bytes)
-
+val = Long.fromBytes(bytes);
+bytes = val.toBytesLE();
+val = Long.fromBytesLE(bytes);
+bytes = val.toBytesBE();
+val = Long.fromBytesBE(bytes);
 
 // Testing module augmentation
 declare module 'long' {
     interface Long {
         to42(): number;
     }
-  
+
     interface LongConstructor {
         from42(input: number): Long;
     }
 }
 
-Long.prototype.to42 = function() {
-    return 42
-}
+Long.prototype.to42 = function () {
+    return 42;
+};
 
-Long.from42 = function(input: number): Long {
-    return Long.fromNumber(42)
-}
+Long.from42 = function (input: number): Long {
+    return Long.fromNumber(42);
+};

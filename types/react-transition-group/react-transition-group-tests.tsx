@@ -1,7 +1,7 @@
-import * as React from "react";
-import { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING, TransitionStatus } from "react-transition-group/Transition";
-import { modes } from "react-transition-group/SwitchTransition";
-import { Transition, CSSTransition, TransitionGroup, SwitchTransition, config } from "react-transition-group";
+import * as React from 'react';
+import { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING, TransitionStatus } from 'react-transition-group/Transition';
+import { modes } from 'react-transition-group/SwitchTransition';
+import { Transition, CSSTransition, TransitionGroup, SwitchTransition, config } from 'react-transition-group';
 
 interface ContainerProps {
     theme: string;
@@ -9,11 +9,7 @@ interface ContainerProps {
 }
 
 const Container: React.StatelessComponent<ContainerProps> = (props: ContainerProps) => {
-    return (
-        <div data-theme={props.theme}>
-            {props.children}
-        </div>
-    );
+    return <div data-theme={props.theme}>{props.children}</div>;
 };
 
 const Test: React.StatelessComponent = () => {
@@ -22,7 +18,7 @@ const Test: React.StatelessComponent = () => {
     function handleExit(node: HTMLElement) {}
 
     function handleEndListener(node: HTMLElement, done: () => void) {
-        node.addEventListener("transitionend", done, false);
+        node.addEventListener('transitionend', done, false);
     }
 
     function statusAsArgument(status: TransitionStatus) {
@@ -46,16 +42,16 @@ const Test: React.StatelessComponent = () => {
                     appear
                     enter
                     exit
-                    timeout={ 500 }
-                    addEndListener={ handleEndListener }
-                    onEnter={ handleEnter }
-                    onEntering={ handleEnter }
-                    onEntered={ handleEnter }
-                    onExit={ handleExit }
-                    onExiting={ handleExit }
-                    onExited={ handleExit }
+                    timeout={500}
+                    addEndListener={handleEndListener}
+                    onEnter={handleEnter}
+                    onEntering={handleEnter}
+                    onEntered={handleEnter}
+                    onExit={handleExit}
+                    onExiting={handleExit}
+                    onExited={handleExit}
                 >
-                    <div>{ "test" }</div>
+                    <div>{'test'}</div>
                 </Transition>
             </SwitchTransition>
 
@@ -67,16 +63,16 @@ const Test: React.StatelessComponent = () => {
                     appear
                     enter
                     exit
-                    timeout={ 500 }
-                    addEndListener={ handleEndListener }
-                    onEnter={ handleEnter }
-                    onEntering={ handleEnter }
-                    onEntered={ handleEnter }
-                    onExit={ handleExit }
-                    onExiting={ handleExit }
-                    onExited={ handleExit }
+                    timeout={500}
+                    addEndListener={handleEndListener}
+                    onEnter={handleEnter}
+                    onEntering={handleEnter}
+                    onEntered={handleEnter}
+                    onExit={handleExit}
+                    onExiting={handleExit}
+                    onExited={handleExit}
                 >
-                    <div>{ "test" }</div>
+                    <div>{'test'}</div>
                 </Transition>
             </SwitchTransition>
 
@@ -88,16 +84,16 @@ const Test: React.StatelessComponent = () => {
                     appear
                     enter
                     exit
-                    timeout={ 500 }
-                    addEndListener={ handleEndListener }
-                    onEnter={ handleEnter }
-                    onEntering={ handleEnter }
-                    onEntered={ handleEnter }
-                    onExit={ handleExit }
-                    onExiting={ handleExit }
-                    onExited={ handleExit }
+                    timeout={500}
+                    addEndListener={handleEndListener}
+                    onEnter={handleEnter}
+                    onEntering={handleEnter}
+                    onEntered={handleEnter}
+                    onExit={handleExit}
+                    onExiting={handleExit}
+                    onExited={handleExit}
                 >
-                    <div>{ "test" }</div>
+                    <div>{'test'}</div>
                 </Transition>
             </SwitchTransition>
 
@@ -109,16 +105,16 @@ const Test: React.StatelessComponent = () => {
                     appear
                     enter
                     exit
-                    timeout={ 500 }
-                    addEndListener={ handleEndListener }
-                    onEnter={ handleEnter }
-                    onEntering={ handleEnter }
-                    onEntered={ handleEnter }
-                    onExit={ handleExit }
-                    onExiting={ handleExit }
-                    onExited={ handleExit }
+                    timeout={500}
+                    addEndListener={handleEndListener}
+                    onEnter={handleEnter}
+                    onEntering={handleEnter}
+                    onEntered={handleEnter}
+                    onExit={handleExit}
+                    onExiting={handleExit}
+                    onExited={handleExit}
                 >
-                    <div>{ "test" }</div>
+                    <div>{'test'}</div>
                 </Transition>
             </SwitchTransition>
 
@@ -126,7 +122,7 @@ const Test: React.StatelessComponent = () => {
                 component={Container}
                 theme="test"
                 className="animated-list"
-                childFactory={ (child: React.ReactElement) => child }
+                childFactory={(child: React.ReactElement) => child}
             >
                 <Transition
                     in
@@ -135,16 +131,16 @@ const Test: React.StatelessComponent = () => {
                     appear
                     enter
                     exit
-                    timeout={ 500 }
-                    addEndListener={ handleEndListener }
-                    onEnter={ handleEnter }
-                    onEntering={ handleEnter }
-                    onEntered={ handleEnter }
-                    onExit={ handleExit }
-                    onExiting={ handleExit }
-                    onExited={ handleExit }
+                    timeout={500}
+                    addEndListener={handleEndListener}
+                    onEnter={handleEnter}
+                    onEntering={handleEnter}
+                    onEntered={handleEnter}
+                    onExit={handleExit}
+                    onExiting={handleExit}
+                    onExited={handleExit}
                 >
-                    <div>{ "test" }</div>
+                    <div>{'test'}</div>
                 </Transition>
                 <Transition in timeout={500}>
                     {(status) => {
@@ -163,13 +159,11 @@ const Test: React.StatelessComponent = () => {
                     {statusAsArgument}
                 </Transition>
 
-                <Transition
-                    timeout={ { enter : 500, exit : 500 } }
-                >
-                    <div>{ "test" }</div>
+                <Transition timeout={{ enter: 500, exit: 500 }}>
+                    <div>{'test'}</div>
                 </Transition>
 
-                <Transition addEndListener={() => {}}/>
+                <Transition addEndListener={() => {}} />
 
                 <CSSTransition
                     in
@@ -178,38 +172,38 @@ const Test: React.StatelessComponent = () => {
                     appear
                     enter
                     exit
-                    timeout={ 500 }
-                    addEndListener={ handleEndListener }
-                    onEnter={ handleEnter }
-                    onEntering={ handleEnter }
-                    onEntered={ handleEnter }
-                    onExit={ handleExit }
-                    onExiting={ handleExit }
-                    onExited={ handleExit }
+                    timeout={500}
+                    addEndListener={handleEndListener}
+                    onEnter={handleEnter}
+                    onEntering={handleEnter}
+                    onEntered={handleEnter}
+                    onExit={handleExit}
+                    onExiting={handleExit}
+                    onExited={handleExit}
                     classNames="fade"
                 >
-                    <div>{ "test" }</div>
+                    <div>{'test'}</div>
                 </CSSTransition>
 
                 <CSSTransition
-                    timeout={ { enter : 500, exit : 500 } }
-                    classNames={ {
-                        appear: "fade-appear",
-                        appearActive: "fade-active-appear",
-                        appearDone: "fade-done-appear",
-                        enter: "fade-enter",
-                        enterActive: "fade-active-enter",
-                        enterDone: "fade-done-enter",
-                        exit: "fade-exit",
-                        exitActive: "fade-active-exit",
-                        exitDone: "fade-done-exit",
-                    } }
+                    timeout={{ enter: 500, exit: 500 }}
+                    classNames={{
+                        appear: 'fade-appear',
+                        appearActive: 'fade-active-appear',
+                        appearDone: 'fade-done-appear',
+                        enter: 'fade-enter',
+                        enterActive: 'fade-active-enter',
+                        enterDone: 'fade-done-enter',
+                        exit: 'fade-exit',
+                        exitActive: 'fade-active-exit',
+                        exitDone: 'fade-done-exit',
+                    }}
                 >
-                    <div>{ "test" }</div>
+                    <div>{'test'}</div>
                 </CSSTransition>
 
-                <CSSTransition timeout={ 100 }>
-                    <div>{ "test" }</div>
+                <CSSTransition timeout={100}>
+                    <div>{'test'}</div>
                 </CSSTransition>
             </TransitionGroup>
         </>

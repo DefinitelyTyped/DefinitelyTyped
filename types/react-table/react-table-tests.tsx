@@ -178,7 +178,7 @@ function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter
     return (
         <input
             value={filterValue || ''}
-            onChange={e => {
+            onChange={(e) => {
                 setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
             }}
             placeholder={`Search ${count} records...`}
@@ -193,7 +193,7 @@ function SelectColumnFilter({ column: { filterValue, setFilter, preFilteredRows,
     // using the preFilteredRows
     const options = React.useMemo(() => {
         const options = new Set<any>();
-        preFilteredRows.forEach(row => {
+        preFilteredRows.forEach((row) => {
             options.add(row.values[id]);
         });
         return [...Array.from(options.values())];
@@ -203,7 +203,7 @@ function SelectColumnFilter({ column: { filterValue, setFilter, preFilteredRows,
     return (
         <select
             value={filterValue}
-            onChange={e => {
+            onChange={(e) => {
                 setFilter(e.target.value || undefined);
             }}
         >
@@ -227,7 +227,7 @@ function SliderColumnFilter({ column: { filterValue, setFilter, preFilteredRows,
     const [min, max] = React.useMemo(() => {
         let min = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
         let max = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
-        preFilteredRows.forEach(row => {
+        preFilteredRows.forEach((row) => {
             min = Math.min(row.values[id], min);
             max = Math.max(row.values[id], max);
         });
@@ -241,7 +241,7 @@ function SliderColumnFilter({ column: { filterValue, setFilter, preFilteredRows,
                 min={min}
                 max={max}
                 value={filterValue || min}
-                onChange={e => {
+                onChange={(e) => {
                     setFilter(parseInt(e.target.value, 10));
                 }}
             />
@@ -257,7 +257,7 @@ function NumberRangeColumnFilter({ column: { filterValue = [], preFilteredRows, 
     const [min, max] = React.useMemo(() => {
         let min = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
         let max = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
-        preFilteredRows.forEach(row => {
+        preFilteredRows.forEach((row) => {
             min = Math.min(row.values[id], min);
             max = Math.max(row.values[id], max);
         });
@@ -273,7 +273,7 @@ function NumberRangeColumnFilter({ column: { filterValue = [], preFilteredRows, 
             <input
                 value={filterValue[0] || ''}
                 type="number"
-                onChange={e => {
+                onChange={(e) => {
                     const val = e.target.value;
                     setFilter((old: any[] = []) => [val ? parseInt(val, 10) : undefined, old[1]]);
                 }}
@@ -287,7 +287,7 @@ function NumberRangeColumnFilter({ column: { filterValue = [], preFilteredRows, 
             <input
                 value={filterValue[1] || ''}
                 type="number"
-                onChange={e => {
+                onChange={(e) => {
                     const val = e.target.value;
                     setFilter((old: any[] = []) => [old[0], val ? parseInt(val, 10) : undefined]);
                 }}
@@ -327,12 +327,10 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
             // Or, override the default text filter to use
             // "startWith"
             text: (rows: Array<Row<Data>>, id: IdType<Data>, filterValue: FilterValue) => {
-                return rows.filter(row => {
+                return rows.filter((row) => {
                     const rowValue = row.values[id];
                     return rowValue !== undefined
-                        ? String(rowValue)
-                              .toLowerCase()
-                              .startsWith(String(filterValue).toLowerCase())
+                        ? String(rowValue).toLowerCase().startsWith(String(filterValue).toLowerCase())
                         : true;
                 });
             },
@@ -395,7 +393,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
         usePagination,
         useRowSelect,
         (hooks: Hooks<Data>) => {
-            hooks.allColumns.push(columns => [
+            hooks.allColumns.push((columns) => [
                 {
                     id: 'selection',
                     // Make this column a groupByBoundary. This ensures that groupBy columns
@@ -428,7 +426,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                 <thead>
                     {headerGroups.map((headerGroup: HeaderGroup<Data>) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
+                            {headerGroup.headers.map((column) => (
                                 <th {...column.getHeaderProps()}>
                                     <div>
                                         {column.canGroupBy ? (
@@ -510,7 +508,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                     <input
                         type="number"
                         defaultValue={pageIndex + 1}
-                        onChange={e => {
+                        onChange={(e) => {
                             const page = e.target.value ? Number(e.target.value) - 1 : 0;
                             gotoPage(page);
                         }}
@@ -519,11 +517,11 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                 </span>{' '}
                 <select
                     value={pageSize}
-                    onChange={e => {
+                    onChange={(e) => {
                         setPageSize(Number(e.target.value));
                     }}
                 >
-                    {[10, 20, 30, 40, 50].map(pageSize => (
+                    {[10, 20, 30, 40, 50].map((pageSize) => (
                         <option key={pageSize} value={pageSize}>
                             Show {pageSize}
                         </option>
@@ -555,7 +553,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
 
 // Define a custom filter filter function!
 function filterGreaterThan(rows: Array<Row<any>>, id: Array<IdType<any>>, filterValue: FilterValue) {
-    return rows.filter(row => {
+    return rows.filter((row) => {
         const rowValue = row.values[id[0]];
         return rowValue >= filterValue;
     });
@@ -574,7 +572,7 @@ function roundedMedian(values: any[]) {
     let min = values[0] || '';
     let max = values[0] || '';
 
-    values.forEach(value => {
+    values.forEach((value) => {
         min = Math.min(min, value);
         max = Math.max(max, value);
     });
@@ -701,7 +699,7 @@ const Component = (props: {}) => {
     const updateMyData = (rowIndex: number, columnId: string, value: any) => {
         // We also turn on the flag to not reset the page
         skipPageResetRef.current = true;
-        setData(old =>
+        setData((old) =>
             old.map((row, index) => {
                 if (index === rowIndex) {
                     return {

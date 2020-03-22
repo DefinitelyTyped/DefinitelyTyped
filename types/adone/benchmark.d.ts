@@ -1,4 +1,4 @@
-import Benchmark = require("benchmark");
+import Benchmark = require('benchmark');
 
 export { Benchmark };
 

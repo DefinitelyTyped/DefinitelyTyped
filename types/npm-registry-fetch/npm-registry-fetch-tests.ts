@@ -29,14 +29,15 @@ const opts: fetch.Options = {
     'ignore-body': true,
     'is-from-ci': false,
     'local-address': 'address.local',
-    'map-json': obj => obj.toString(),
+    'map-json': (obj) => obj.toString(),
     'max-sockets': 42,
     'npm-session': 'session',
     'prefer-offline': false,
     'prefer-online': true,
     'project-scope': 'scope',
     'strict-ssl': true,
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3891.0 Safari/537.36 Edg/78.0.268.3',
+    'user-agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3891.0 Safari/537.36 Edg/78.0.268.3',
     agent: new Agent(),
     body: 'sometext',
     ca: new Buffer(1000),
@@ -45,7 +46,7 @@ const opts: fetch.Options = {
     email: 'nobody@mail.com',
     gzip: true,
     headers: {
-        'Content-Type': 'text/plain'
+        'Content-Type': 'text/plain',
     },
     integrity: new Integrity(),
     key: 'XXXX',

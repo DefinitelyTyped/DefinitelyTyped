@@ -7,7 +7,7 @@
 import * as React from 'react';
 
 export type AlertProps = {
-  type?: 'assertive' | 'polite';
+    type?: 'assertive' | 'polite';
 } & React.HTMLProps<HTMLDivElement>;
 
 declare const Alert: React.FC<AlertProps>;

@@ -5,26 +5,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from "react";
+import * as React from 'react';
 
 declare namespace ReactTimeago {
-    type Unit =
-        | "second"
-        | "minute"
-        | "hour"
-        | "day"
-        | "week"
-        | "month"
-        | "year";
+    type Unit = 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
 
-    type Suffix = "ago" | "from now";
+    type Suffix = 'ago' | 'from now';
 
     type Formatter = (
         value: number,
         unit: Unit,
         suffix: Suffix,
         epochMiliseconds: number,
-        nextFormatter?: Formatter
+        nextFormatter?: Formatter,
     ) => React.ReactNode;
 
     interface ReactTimeagoProps<T extends React.ComponentType> {
@@ -39,9 +32,7 @@ declare namespace ReactTimeago {
     }
 }
 
-declare class ReactTimeago<
-    T extends React.ComponentType
-> extends React.Component<
+declare class ReactTimeago<T extends React.ComponentType> extends React.Component<
     ReactTimeago.ReactTimeagoProps<T> & React.ComponentProps<T>
 > {}
 

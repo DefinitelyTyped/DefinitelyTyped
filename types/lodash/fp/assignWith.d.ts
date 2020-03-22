@@ -1,2 +1,2 @@
-import { assignWith } from "../fp";
+import { assignWith } from '../fp';
 export = assignWith;

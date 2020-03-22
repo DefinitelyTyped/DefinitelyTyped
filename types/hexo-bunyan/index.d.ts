@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import bunyan = require("bunyan");
+import bunyan = require('bunyan');
 
 export = bunyan;

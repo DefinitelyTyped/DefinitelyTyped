@@ -105,7 +105,7 @@ declare module '../../index' {
             sx: number,
             sy: number,
             sWidth?: number,
-            sHeight?: number
+            sHeight?: number,
         ): void;
 
         /**

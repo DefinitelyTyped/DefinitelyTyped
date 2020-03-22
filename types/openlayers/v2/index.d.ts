@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace OpenLayers {
-
     export interface MapOptions {
-
         projection?: string;
 
         maxExtend?: Bounds;
@@ -59,9 +57,7 @@ declare namespace OpenLayers {
         rightTolerance?: number;
     }
 
-    export interface LayerOptions {
-
-    }
+    export interface LayerOptions {}
 
     export class Animation {
         // TODO
@@ -342,46 +338,46 @@ declare namespace OpenLayers {
         RESOLUTION_PROPERTIES: string[];
 
         /**
-        * APIProperty: events
-        * {<OpenLayers.Events>}
-        *
-        * Register a listener for a particular event with the following syntax:
-        * (code)
-        * layer.events.register(type, obj, listener);
-        * (end)
-        *
-        * Listeners will be called with a reference to an event object. The
-        * properties of this event depends on exactly what happened.
-        *
-        * All event objects have at least the following properties:
-        * object - {Object} A reference to layer.events.object.
-        * element - {DOMElement} A reference to layer.events.element.
-        *
-        * Supported map event types:
-        * loadstart - Triggered when layer loading starts. When using a Vector
-        * layer with a Fixed or BBOX strategy, the event object includes
-        * a *filter* property holding the OpenLayers.Filter used when
-        * calling read on the protocol.
-        * loadend - Triggered when layer loading ends. When using a Vector layer
-        * with a Fixed or BBOX strategy, the event object includes a
-        * *response* property holding an OpenLayers.Protocol.Response object.
-        * visibilitychanged - Triggered when the layer's visibility property is
-        * changed, e.g. by turning the layer on or off in the layer switcher.
-        * Note that the actual visibility of the layer can also change if it
-        * gets out of range (see <calculateInRange>). If you also want to catch
-        * these cases, register for the map's 'changelayer' event instead.
-        * move - Triggered when layer moves (triggered with every mousemove
-        * during a drag).
-        * moveend - Triggered when layer is done moving, object passed as
-        * argument has a zoomChanged boolean property which tells that the
-        * zoom has changed.
-        * added - Triggered after the layer is added to a map. Listeners will
-        * receive an object with a *map* property referencing the map and a
-        * *layer* property referencing the layer.
-        * removed - Triggered after the layer is removed from the map. Listeners
-        * will receive an object with a *map* property referencing the map and
-        * a *layer* property referencing the layer.
-        */
+         * APIProperty: events
+         * {<OpenLayers.Events>}
+         *
+         * Register a listener for a particular event with the following syntax:
+         * (code)
+         * layer.events.register(type, obj, listener);
+         * (end)
+         *
+         * Listeners will be called with a reference to an event object. The
+         * properties of this event depends on exactly what happened.
+         *
+         * All event objects have at least the following properties:
+         * object - {Object} A reference to layer.events.object.
+         * element - {DOMElement} A reference to layer.events.element.
+         *
+         * Supported map event types:
+         * loadstart - Triggered when layer loading starts. When using a Vector
+         * layer with a Fixed or BBOX strategy, the event object includes
+         * a *filter* property holding the OpenLayers.Filter used when
+         * calling read on the protocol.
+         * loadend - Triggered when layer loading ends. When using a Vector layer
+         * with a Fixed or BBOX strategy, the event object includes a
+         * *response* property holding an OpenLayers.Protocol.Response object.
+         * visibilitychanged - Triggered when the layer's visibility property is
+         * changed, e.g. by turning the layer on or off in the layer switcher.
+         * Note that the actual visibility of the layer can also change if it
+         * gets out of range (see <calculateInRange>). If you also want to catch
+         * these cases, register for the map's 'changelayer' event instead.
+         * move - Triggered when layer moves (triggered with every mousemove
+         * during a drag).
+         * moveend - Triggered when layer is done moving, object passed as
+         * argument has a zoomChanged boolean property which tells that the
+         * zoom has changed.
+         * added - Triggered after the layer is added to a map. Listeners will
+         * receive an object with a *map* property referencing the map and a
+         * *layer* property referencing the layer.
+         * removed - Triggered after the layer is removed from the map. Listeners
+         * will receive an object with a *map* property referencing the map and
+         * a *layer* property referencing the layer.
+         */
         events: Events;
 
         /**
@@ -555,12 +551,12 @@ declare namespace OpenLayers {
         metadata: Object;
 
         /**
-        * Constructor: OpenLayers.Layer
-        *
-        * Parameters:
-        * name - {String} The layer name
-        * options - {Object} Hashtable of extra options to tag onto the layer
-        */
+         * Constructor: OpenLayers.Layer
+         *
+         * Parameters:
+         * name - {String} The layer name
+         * options - {Object} Hashtable of extra options to tag onto the layer
+         */
         constructor(name: string, options: LayerOptions);
 
         /**
@@ -1054,13 +1050,13 @@ declare namespace OpenLayers {
         bounds: Bounds;
 
         /**
-          * A Geometry is a description of a geographic object.
-          */
+         * A Geometry is a description of a geographic object.
+         */
         constructor();
 
         /**
-          * Destroy this geometry.
-          */
+         * Destroy this geometry.
+         */
         destroy(): void;
 
         /**
@@ -1131,38 +1127,38 @@ declare namespace OpenLayers {
 
     export class Projection {
         /**
-          * This class offers several methods for interacting with a wrapped pro4js projection object.
-          */
+         * This class offers several methods for interacting with a wrapped pro4js projection object.
+         */
         constructor(projCode: string, options?: any);
 
         /**
-          * Get the string SRS code.
-          */
+         * Get the string SRS code.
+         */
         getCode(): string;
 
         /**
-          * Get the units string for the projection -- returns null if proj4js is not available.
-          */
+         * Get the units string for the projection -- returns null if proj4js is not available.
+         */
         getUnits(): string;
 
         /**
-          * Set a custom transform method between two projections.  Use this method in cases where the proj4js lib is not available or where custom projections need to be handled.
-          */
+         * Set a custom transform method between two projections.  Use this method in cases where the proj4js lib is not available or where custom projections need to be handled.
+         */
         addTransform(from: string, to: string, method: () => void): void;
 
         /**
-          * Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
-          */
+         * Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
+         */
         transform(point: Geometry.Point, source: Projection, dest: OpenLayers.Projection): Object;
 
         /**
-          * Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
-          */
+         * Transform a point coordinate from one projection to another. Note that the input point is transformed in place.
+         */
         transform(point: Object, source: Projection, dest: OpenLayers.Projection): Object;
 
         /**
-          * A null transformation useful for defining projection aliases when proj4js is not available:
-          */
+         * A null transformation useful for defining projection aliases when proj4js is not available:
+         */
         nullTransform(point: Object): Function;
     }
 
@@ -1368,43 +1364,43 @@ declare namespace OpenLayers {
 
     export class LonLat {
         /**
-          * Create a new map location.  Coordinates can be passed either as two arguments, or as a single argument.
-          */
+         * Create a new map location.  Coordinates can be passed either as two arguments, or as a single argument.
+         */
         constructor(lon: number, lat: number);
 
         /**
-          * Create a new map location.  Coordinates can be passed either as two arguments, or as a single argument.
-          */
+         * Create a new map location.  Coordinates can be passed either as two arguments, or as a single argument.
+         */
         constructor(lonlat: number[]);
 
         /**
-          * Shortened String representation of OpenLayers.LonLat object.
-          */
+         * Shortened String representation of OpenLayers.LonLat object.
+         */
         toShortString(): string;
 
         /**
-          * New OpenLayers.LonLat object with the same lon and lat values
-          */
+         * New OpenLayers.LonLat object with the same lon and lat values
+         */
         clone(): LonLat;
 
         /**
-          * A new OpenLayers.LonLat object with the lon and lat passed-in added to this’s.
-          */
+         * A new OpenLayers.LonLat object with the lon and lat passed-in added to this’s.
+         */
         add(lon: number, lat: number): LonLat;
 
         /**
-          * Boolean value indicating whether the passed-in OpenLayers.LonLat object has the same lon and lat components as this.  Note: if ll passed in is null, returns false.
-          */
+         * Boolean value indicating whether the passed-in OpenLayers.LonLat object has the same lon and lat components as this.  Note: if ll passed in is null, returns false.
+         */
         equals(ll: LonLat): boolean;
 
         /**
-          * Transform the LonLat object from source to dest.  This transformation is in place: if you want a new lonlat, use .clone() first.
-          */
+         * Transform the LonLat object from source to dest.  This transformation is in place: if you want a new lonlat, use .clone() first.
+         */
         transform(source: Projection, dest: Projection): LonLat;
 
         /**
-          * Returns a copy of this lonlat, but wrapped around the "dateline" (as specified by the borders of maxExtent).
-          */
+         * Returns a copy of this lonlat, but wrapped around the "dateline" (as specified by the borders of maxExtent).
+         */
         wrapDateLine(maxExtend: Bounds): LonLat;
     }
 
@@ -2587,9 +2583,7 @@ declare namespace OpenLayers {
         static TILE_HEIGHT: string;
     }
 
-    export class Class {
-
-    }
+    export class Class {}
 
     export class Date {
         /**
@@ -2755,15 +2749,15 @@ declare namespace OpenLayers {
 
     export class Pixel {
         /**
-        * APIProperty: x
-        * {Number} The x coordinate
-        */
+         * APIProperty: x
+         * {Number} The x coordinate
+         */
         x: number;
 
         /**
-        * APIProperty: y
-        * {Number} The y coordinate
-        */
+         * APIProperty: y
+         * {Number} The y coordinate
+         */
         y: number;
 
         /**
@@ -2830,16 +2824,16 @@ declare namespace OpenLayers {
         add(x: number, y: number): Pixel;
 
         /**
-        * APIMethod: offset
-        *
-        * Parameters
-        * px - {<OpenLayers.Pixel>|Object} An OpenLayers.Pixel or an object with
-        * a 'x' and 'y' properties.
-        *
-        * Returns:
-        * {<OpenLayers.Pixel>} A new Pixel with this pixel's x&y augmented by the
-        * x&y values of the pixel passed in.
-        */
+         * APIMethod: offset
+         *
+         * Parameters
+         * px - {<OpenLayers.Pixel>|Object} An OpenLayers.Pixel or an object with
+         * a 'x' and 'y' properties.
+         *
+         * Returns:
+         * {<OpenLayers.Pixel>} A new Pixel with this pixel's x&y augmented by the
+         * x&y values of the pixel passed in.
+         */
         offset(px: Pixel): Pixel;
         offset(px: { x: number; y: number }): Pixel;
 
@@ -2908,7 +2902,6 @@ declare namespace OpenLayers {
     }
 
     namespace Geometry {
-
         export class Collection extends Geometry {
             /**
              * The component parts of this geometry
@@ -3045,7 +3038,6 @@ declare namespace OpenLayers {
         }
 
         export class Point extends Geometry {
-
             x: number;
 
             y: number;
@@ -3107,375 +3099,252 @@ declare namespace OpenLayers {
         }
 
         export class Curve extends Geometry.MultiPoint {
-
             // TODO
-
         }
 
         export class LineString extends Geometry.Curve {
-
             // TODO
-
         }
 
         export class LinearRing extends Geometry.LineString {
-
             // TODO
-
         }
 
         export class MultiLineString extends Geometry.Collection {
-
             // TODO
-
         }
 
-        export class MultiPoint extends Geometry.Collection {
-
-        }
+        export class MultiPoint extends Geometry.Collection {}
         // TODO
 
-
         export class MultiPolygon extends Geometry.Collection {
-
             // TODO
-
         }
 
         export class Polygon extends Geometry.Collection {
-
             // TODO
-
         }
     }
 
     namespace Control {
         export class ArgParser {
-
             // TODO
-
         }
 
         export class Attribution {
-
             // TODO
-
         }
 
         export class Button {
-
             // TODO
-
         }
 
         export class CacheRead {
-
             // TODO
-
         }
 
         export class CacheWrite {
-
             // TODO
-
         }
 
         export class DragFeature {
-
             // TODO
-
         }
 
         export class DragPan {
-
             // TODO
-
         }
 
         export class DrawFeature {
-
             // TODO
-
         }
 
         export class EditingToolbar {
-
             // TODO
-
         }
 
         export class Geolocate {
-
             // TODO
-
         }
 
         export class GetFeature {
-
             // TODO
-
         }
 
         export class Graticule {
-
             // TODO
-
         }
 
         export class KeyboardDefaults {
-
             // TODO
-
         }
 
         export class LayerSwitcher {
-
             // TODO
-
         }
 
         export class Measure {
-
             // TODO
-
         }
 
         export class ModifyFeature {
-
             // TODO
-
         }
 
         export class MousePosition {
-
             // TODO
-
         }
 
         export class NavToolbar {
-
             // TODO
-
         }
 
         export class Navigation {
-
             // TODO
-
         }
 
         export class NavigationHistory {
-
             // TODO
-
         }
 
         export class OverviewMap {
-
             // TODO
-
         }
 
         export class Pan {
-
             // TODO
-
         }
 
         export class PanPanel {
-
             // TODO
-
         }
 
         export class PanZoom {
-
             // TODO
-
         }
 
         export class PanZoomBar {
-
             // TODO
-
         }
 
         export class Panel {
-
             // TODO
-
         }
 
         export class Permalink {
-
             // TODO
-
         }
 
         export class PinchZoom {
-
             // TODO
-
         }
 
-        export class SLDSelect {
-
-        }
+        export class SLDSelect {}
 
         export class Scale {
-
             // TODO
-
         }
 
         export class ScaleLine {
-
             // TODO
-
         }
 
         export class SelectFeature {
-
             // TODO
-
         }
 
         export class Snapping {
-
             // TODO
-
         }
 
         export class Split {
-
             // TODO
-
         }
 
         export class TextButtonPanel {
-
             // TODO
-
         }
 
         export class TouchNavigation {
-
             // TODO
-
         }
 
         export class TransformFeature {
-
             // TODO
-
         }
 
         export class UTFGrid {
-
             // TODO
-
         }
 
         export class WMSGetFeatureInfo {
-
             // TODO
-
         }
 
         export class WMTSGetFeatureInfo {
-
             // TODO
-
         }
 
         export class Zoom {
-
             // TODO
-
         }
 
         export class ZoomBox {
-
             // TODO
-
         }
 
         export class ZoomIn {
-
             // TODO
-
         }
 
         export class ZoomOut {
-
             // TODO
-
         }
 
         export class ZoomPanel {
-
             // TODO
-
         }
 
         export class ZoomToMaxExtent {
-
             // TODO
-
         }
     }
 
     namespace Events {
         export class buttonclick extends OpenLayers.Class {
-
             // TODO
-
         }
 
         export class featureclick extends OpenLayers.Class {
-
             // TODO
-
         }
     }
 
     namespace Feature {
         export class Vector {
-
             // TODO
-
         }
     }
 
     namespace Filter {
         export class Comparison {
-
             // TODO
-
         }
 
         export class FeatureId {
-
             // TODO
-
         }
 
         export class Function {
-
             // TODO
-
         }
 
         export class Logical {
-
             // TODO
-
         }
 
         export class Spatial {
-
             // TODO
-
         }
     }
 
@@ -3485,27 +3354,19 @@ declare namespace OpenLayers {
         }
 
         export class Atom {
-
             // TODO
-
         }
 
         export class CQL {
-
             // TODO
-
         }
 
         export class CSWGetDomain {
-
             // TODO
-
         }
 
         export class CSWGetRecords {
-
             // TODO
-
         }
 
         export class Context {
@@ -3625,9 +3486,7 @@ declare namespace OpenLayers {
 
         namespace ArcXML {
             export class Features extends OpenLayers.Class {
-
                 // TODO
-
             }
         }
 
@@ -3644,186 +3503,125 @@ declare namespace OpenLayers {
         }
 
         namespace Filter {
-
             // TODO
-
         }
 
         namespace GML {
-
             // TODO
-
         }
 
         namespace OWSCommon {
-
             // TODO
-
         }
 
         namespace OWSContext {
-
             // TODO
-
         }
 
         namespace SLD {
-
             // TODO
-
         }
 
         namespace SOSCapabilities {
-
             // TODO
-
         }
 
         namespace WCSCapabilities {
-
             // TODO
-
         }
 
         namespace WCSDescribeCoverage {
-
             // TODO
-
         }
 
         namespace WFSCapabilities {
-
             // TODO
-
         }
 
         namespace WFST {
-
             // TODO
-
         }
 
         namespace WMC {
-
             // TODO
-
         }
 
         namespace WMSCapabilities {
-
             // TODO
-
-
         }
 
         namespace WMSDescribeLayer {
-
             // TODO
-
         }
 
         namespace WMTSCapabilities {
-
             // TODO
-
         }
 
         namespace WPSCapabilities {
-
             // TODO
-
         }
 
         namespace XLS {
-
             // TODO
-
         }
 
         namespace XML {
-
             // TODO
-
         }
     }
 
     namespace Handler {
         export class Box {
-
             // TODO
-
         }
 
         export class Click {
-
             // TODO
-
         }
 
         export class Drag {
-
             // TODO
-
         }
 
         export class Feature {
-
             // TODO
-
         }
 
         export class Hover {
-
             // TODO
-
         }
 
         export class Keyboard {
-
             // TODO
-
         }
 
         export class MouseWheel {
-
             // TODO
-
         }
 
         export class Path {
-
             // TODO
-
         }
 
         export class Pinch {
-
             // TODO
-
         }
 
         export class Point {
-
             // TODO
-
         }
 
         export class Polygon {
-
             // TODO
-
         }
 
         export class RegularPolygon {
-
             // TODO
-
         }
     }
 
-    namespace Lang {
-
-    }
+    namespace Lang {}
 
     namespace Layer {
         export interface WMSGetMapParams {
@@ -3849,15 +3647,15 @@ declare namespace OpenLayers {
             crossOriginKeyword?: string;
         }
 
-        export class ArcGIS93Rest { }
-        export class ArcGISCache { }
-        export class ArcIMS { }
-        export class Bing { }
-        export class Boxes { }
-        export class EventPane { }
-        export class FixedZoomLevels { }
-        export class GeoRSS { }
-        export class Google { }
+        export class ArcGIS93Rest {}
+        export class ArcGISCache {}
+        export class ArcIMS {}
+        export class Bing {}
+        export class Boxes {}
+        export class EventPane {}
+        export class FixedZoomLevels {}
+        export class GeoRSS {}
+        export class Google {}
 
         export class Grid extends HTTPRequest {
             /**
@@ -4059,7 +3857,7 @@ declare namespace OpenLayers {
              * {Object} Object containing properties tilelon, tilelat, startcol,
              * startrow
              */
-            gridLayout: { tilelon: number; tilelat: number; startcol: number; startrow: number; };
+            gridLayout: { tilelon: number; tilelat: number; startcol: number; startrow: number };
 
             /**
              * Property: rowSign
@@ -4288,7 +4086,11 @@ declare namespace OpenLayers {
              * {Object} Object containing properties tilelon, tilelat, startcol,
              * startrow
              */
-            private calculateGridLayout(bounds: Bounds, origin: LonLat, resolution: number): { tilelon: number; tilelat: number; startcol: number; startrow: number };
+            private calculateGridLayout(
+                bounds: Bounds,
+                origin: LonLat,
+                resolution: number,
+            ): { tilelon: number; tilelat: number; startcol: number; startrow: number };
 
             getImageSize(): Size;
 
@@ -5162,4 +4964,3 @@ declare namespace OpenLayers {
         }
     }
 }
-

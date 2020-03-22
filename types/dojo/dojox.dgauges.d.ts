@@ -3,12 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
-
 declare namespace dojox {
-
     namespace dgauges {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/CircularRangeIndicator.html
@@ -26,34 +21,46 @@ declare namespace dojox {
              * Set this property to 0 to disable animation.
              *
              */
-            "animationDuration": number;
-            set(property:"animationDuration", value: number): void;
-            get(property:"animationDuration"): number;
-            watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'animationDuration': number;
+            set(property: 'animationDuration', value: number): void;
+            get(property: 'animationDuration'): number;
+            watch(
+                property: 'animationDuration',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The easer function of the value change animation. Default is fx._defaultEasing.
              *
              */
-            "animationEaser": Object;
-            set(property:"animationEaser", value: Object): void;
-            get(property:"animationEaser"): Object;
-            watch(property:"animationEaser", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'animationEaser': Object;
+            set(property: 'animationEaser', value: Object): void;
+            get(property: 'animationEaser'): Object;
+            watch(
+                property: 'animationEaser',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The end thickness of the donut slice in pixels.
              *
              */
-            "endThickness": number;
-            set(property:"endThickness", value: number): void;
-            get(property:"endThickness"): number;
-            watch(property:"endThickness", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'endThickness': number;
+            set(property: 'endThickness', value: number): void;
+            get(property: 'endThickness'): number;
+            watch(
+                property: 'endThickness',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * A fill object that will be passed to the setFill method of GFX.
              *
              */
-            "fill": Object;
-            set(property:"fill", value: Object): void;
-            get(property:"fill"): Object;
-            watch(property:"fill", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'fill': Object;
+            set(property: 'fill', value: Object): void;
+            get(property: 'fill'): Object;
+            watch(
+                property: 'fill',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * How to interact with the indicator using mouse or touch interactions.
              * Can be "indicator", "gauge", "area" or "none". The default value is "gauge".
@@ -63,78 +70,108 @@ declare namespace dojox {
              * If "none", interactions are disabled.
              *
              */
-            "interactionArea": string;
-            set(property:"interactionArea", value: string): void;
-            get(property:"interactionArea"): string;
-            watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionArea': string;
+            set(property: 'interactionArea', value: string): void;
+            get(property: 'interactionArea'): string;
+            watch(
+                property: 'interactionArea',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Deprecated. Can be "mouse" or "touch".
              *
              */
-            "interactionMode": string;
-            set(property:"interactionMode", value: string): void;
-            get(property:"interactionMode"): string;
-            watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionMode': string;
+            set(property: 'interactionMode', value: string): void;
+            get(property: 'interactionMode'): string;
+            watch(
+                property: 'interactionMode',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The outer radius in pixels of the range indicator.
              *
              */
-            "radius": number;
-            set(property:"radius", value: number): void;
-            get(property:"radius"): number;
-            watch(property:"radius", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'radius': number;
+            set(property: 'radius', value: number): void;
+            get(property: 'radius'): number;
+            watch(
+                property: 'radius',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "scale": Object;
-            set(property:"scale", value: Object): void;
-            get(property:"scale"): Object;
-            watch(property:"scale", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'scale': Object;
+            set(property: 'scale', value: Object): void;
+            get(property: 'scale'): Object;
+            watch(
+                property: 'scale',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The start value of the range indicator.
              *
              */
-            "start": number;
-            set(property:"start", value: number): void;
-            get(property:"start"): number;
-            watch(property:"start", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'start': number;
+            set(property: 'start', value: number): void;
+            get(property: 'start'): number;
+            watch(
+                property: 'start',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The start thickness of the donut slice in pixels.
              *
              */
-            "startThickness": number;
-            set(property:"startThickness", value: number): void;
-            get(property:"startThickness"): number;
-            watch(property:"startThickness", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'startThickness': number;
+            set(property: 'startThickness', value: number): void;
+            get(property: 'startThickness'): number;
+            watch(
+                property: 'startThickness',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * A stroke object that will be passed to the setStroke method of GFX.
              *
              */
-            "stroke": Object;
-            set(property:"stroke", value: Object): void;
-            get(property:"stroke"): Object;
-            watch(property:"stroke", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'stroke': Object;
+            set(property: 'stroke', value: Object): void;
+            get(property: 'stroke'): Object;
+            watch(
+                property: 'stroke',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Add properties to the watched properties to trigger invalidation. This method must be called in
              * the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
@@ -197,7 +234,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/CircularScale.html
@@ -211,108 +251,147 @@ declare namespace dojox {
              * The end angle of the scale in degrees.
              *
              */
-            "endAngle": number;
-            set(property:"endAngle", value: number): void;
-            get(property:"endAngle"): number;
-            watch(property:"endAngle", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'endAngle': number;
+            set(property: 'endAngle', value: number): void;
+            get(property: 'endAngle'): number;
+            watch(
+                property: 'endAngle',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The font used for the ticks labels.
              * This is null by default which means this scale use the font defined
              * on the gauge.
              *
              */
-            "font": Object;
-            set(property:"font", value: Object): void;
-            get(property:"font"): Object;
-            watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'font': Object;
+            set(property: 'font', value: Object): void;
+            get(property: 'font'): Object;
+            watch(
+                property: 'font',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The label gap between the ticks and their labels. Default value is 1.
              *
              */
-            "labelGap": number;
-            set(property:"labelGap", value: number): void;
-            get(property:"labelGap"): number;
-            watch(property:"labelGap", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'labelGap': number;
+            set(property: 'labelGap', value: number): void;
+            get(property: 'labelGap'): number;
+            watch(
+                property: 'labelGap',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * See CircularScale and RectangularScale for valid values.
              *
              */
-            "labelPosition": string;
-            set(property:"labelPosition", value: string): void;
-            get(property:"labelPosition"): string;
-            watch(property:"labelPosition", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'labelPosition': string;
+            set(property: 'labelPosition', value: string): void;
+            get(property: 'labelPosition'): string;
+            watch(
+                property: 'labelPosition',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The orientation of the scale. Can be "clockwise" or "cclockwise".
              * The default value is "clockwise".
              *
              */
-            "orientation": string;
-            set(property:"orientation", value: string): void;
-            get(property:"orientation"): string;
-            watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'orientation': string;
+            set(property: 'orientation', value: string): void;
+            get(property: 'orientation'): string;
+            watch(
+                property: 'orientation',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The origin x-coordinate of the scale in pixels.
              *
              */
-            "originX": number;
-            set(property:"originX", value: number): void;
-            get(property:"originX"): number;
-            watch(property:"originX", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'originX': number;
+            set(property: 'originX', value: number): void;
+            get(property: 'originX'): number;
+            watch(
+                property: 'originX',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The origin y-coordinate of the scale in pixels.
              *
              */
-            "originY": number;
-            set(property:"originY", value: number): void;
-            get(property:"originY"): number;
-            watch(property:"originY", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'originY': number;
+            set(property: 'originY', value: number): void;
+            get(property: 'originY'): number;
+            watch(
+                property: 'originY',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The outer radius in pixels of the scale.
              *
              */
-            "radius": number;
-            set(property:"radius", value: number): void;
-            get(property:"radius"): number;
-            watch(property:"radius", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'radius': number;
+            set(property: 'radius', value: number): void;
+            get(property: 'radius'): number;
+            watch(
+                property: 'radius',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The scaler used for tick generation and data-transform operations.
              * This property is mandatory for using the scale.
              *
              */
-            "scaler": Object;
-            set(property:"scaler", value: Object): void;
-            get(property:"scaler"): Object;
-            watch(property:"scaler", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'scaler': Object;
+            set(property: 'scaler', value: Object): void;
+            get(property: 'scaler'): Object;
+            watch(
+                property: 'scaler',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The start angle of the scale in degrees.
              *
              */
-            "startAngle": number;
-            set(property:"startAngle", value: number): void;
-            get(property:"startAngle"): number;
-            watch(property:"startAngle", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'startAngle': number;
+            set(property: 'startAngle', value: number): void;
+            get(property: 'startAngle'): number;
+            watch(
+                property: 'startAngle',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The GFX stroke used by the default tickShapeFunc implementation.
              *
              */
-            "tickStroke": Object;
-            set(property:"tickStroke", value: Object): void;
-            get(property:"tickStroke"): Object;
-            watch(property:"tickStroke", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'tickStroke': Object;
+            set(property: 'tickStroke', value: Object): void;
+            get(property: 'tickStroke'): Object;
+            watch(
+                property: 'tickStroke',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Add an indicator to the scale. Before calling this function, ensure
              * this scale has already been added to a gauge using the addElement method
@@ -419,7 +498,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/CircularGauge.html
@@ -475,26 +557,35 @@ declare namespace dojox {
              * "" --> { node: "domNode", type: "attribute" }
              *
              */
-            "attributeMap": Object;
-            set(property:"attributeMap", value: Object): void;
-            get(property:"attributeMap"): Object;
-            watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'attributeMap': Object;
+            set(property: 'attributeMap', value: Object): void;
+            get(property: 'attributeMap'): Object;
+            watch(
+                property: 'attributeMap',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
              * widget state.
              *
              */
-            "baseClass": string;
-            set(property:"baseClass", value: string): void;
-            get(property:"baseClass"): string;
-            watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'baseClass': string;
+            set(property: 'baseClass', value: string): void;
+            get(property: 'baseClass'): string;
+            watch(
+                property: 'baseClass',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "class": string;
-            set(property:"class", value: string): void;
-            get(property:"class"): string;
-            watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'class': string;
+            set(property: 'class', value: string): void;
+            get(property: 'class'): string;
+            watch(
+                property: 'class',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Designates where children of the source DOM node will be placed.
              * "Children" in this case refers to both DOM nodes and widgets.
@@ -518,20 +609,26 @@ declare namespace dojox {
              * is null for widgets that don't, like TextBox.
              *
              */
-            "containerNode": HTMLElement;
-            set(property:"containerNode", value: HTMLElement): void;
-            get(property:"containerNode"): HTMLElement;
-            watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'containerNode': HTMLElement;
+            set(property: 'containerNode', value: HTMLElement): void;
+            get(property: 'containerNode'): HTMLElement;
+            watch(
+                property: 'containerNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * Bi-directional support, as defined by the HTML DIR
              * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
              * default direction.
              *
              */
-            "dir": string;
-            set(property:"dir", value: string): void;
-            get(property:"dir"): string;
-            watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'dir': string;
+            set(property: 'dir', value: string): void;
+            get(property: 'dir'): string;
+            watch(
+                property: 'dir',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This is our visible representation of the widget! Other DOM
              * Nodes may by assigned to other properties, usually through the
@@ -539,27 +636,36 @@ declare namespace dojox {
              * property is the canonical "top level" node in widget UI.
              *
              */
-            "domNode": HTMLElement;
-            set(property:"domNode", value: HTMLElement): void;
-            get(property:"domNode"): HTMLElement;
-            watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'domNode': HTMLElement;
+            set(property: 'domNode', value: HTMLElement): void;
+            get(property: 'domNode'): HTMLElement;
+            watch(
+                property: 'domNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * This widget or a widget it contains has focus, or is "active" because
              * it was recently clicked.
              *
              */
-            "focused": boolean;
-            set(property:"focused", value: boolean): void;
-            get(property:"focused"): boolean;
-            watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'focused': boolean;
+            set(property: 'focused', value: boolean): void;
+            get(property: 'focused'): boolean;
+            watch(
+                property: 'focused',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The font of the gauge used by elements if not overridden.
              *
              */
-            "font": Object;
-            set(property:"font", value: Object): void;
-            get(property:"font"): Object;
-            watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'font': Object;
+            set(property: 'font', value: Object): void;
+            get(property: 'font'): Object;
+            watch(
+                property: 'font',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * A unique, opaque ID string that can be assigned by users or by the
              * system. If the developer passes an ID which is known not to be
@@ -567,24 +673,33 @@ declare namespace dojox {
              * used instead.
              *
              */
-            "id": string;
-            set(property:"id", value: string): void;
-            get(property:"id"): string;
-            watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'id': string;
+            set(property: 'id', value: string): void;
+            get(property: 'id'): string;
+            watch(
+                property: 'id',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * Rarely used.  Overrides the default Dojo locale used to render this widget,
              * as defined by the HTML LANG attribute.
@@ -592,35 +707,47 @@ declare namespace dojox {
              * formatted according to RFC 3066 (like en-us).
              *
              */
-            "lang": string;
-            set(property:"lang", value: string): void;
-            get(property:"lang"): string;
-            watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'lang': string;
+            set(property: 'lang', value: string): void;
+            get(property: 'lang'): string;
+            watch(
+                property: 'lang',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The document this widget belongs to.  If not specified to constructor, will default to
              * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
              *
              */
-            "ownerDocument": Object;
-            set(property:"ownerDocument", value: Object): void;
-            get(property:"ownerDocument"): Object;
-            watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'ownerDocument': Object;
+            set(property: 'ownerDocument', value: Object): void;
+            get(property: 'ownerDocument'): Object;
+            watch(
+                property: 'ownerDocument',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * pointer to original DOM node
              *
              */
-            "srcNodeRef": HTMLElement;
-            set(property:"srcNodeRef", value: HTMLElement): void;
-            get(property:"srcNodeRef"): HTMLElement;
-            watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'srcNodeRef': HTMLElement;
+            set(property: 'srcNodeRef', value: HTMLElement): void;
+            get(property: 'srcNodeRef'): HTMLElement;
+            watch(
+                property: 'srcNodeRef',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * HTML style attributes as cssText string or name/value hash
              *
              */
-            "style": string;
-            set(property:"style", value: string): void;
-            get(property:"style"): string;
-            watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'style': string;
+            set(property: 'style', value: string): void;
+            get(property: 'style'): string;
+            watch(
+                property: 'style',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * HTML title attribute.
              *
@@ -632,29 +759,38 @@ declare namespace dojox {
              * interpreted as HTML.
              *
              */
-            "title": string;
-            set(property:"title", value: string): void;
-            get(property:"title"): string;
-            watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'title': string;
+            set(property: 'title', value: string): void;
+            get(property: 'title'): string;
+            watch(
+                property: 'title',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
              * this specifies the tooltip to appear when the mouse is hovered over that text.
              *
              */
-            "tooltip": string;
-            set(property:"tooltip", value: string): void;
-            get(property:"tooltip"): string;
-            watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'tooltip': string;
+            set(property: 'tooltip', value: string): void;
+            get(property: 'tooltip'): string;
+            watch(
+                property: 'tooltip',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This property acts as a top-level wrapper for the value of the first indicator added to
              * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
              * This property must be manipulated with get("value") and set("value", xxx).
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Adds a element to the gauge.
              *
@@ -1145,7 +1281,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
             /**
              * Called when the widget stops being "active" because
              * focus moved to something outside of it, or the user
@@ -1188,18 +1327,24 @@ declare namespace dojox {
              * Set this property to 0 to disable animation.
              *
              */
-            "animationDuration": number;
-            set(property:"animationDuration", value: number): void;
-            get(property:"animationDuration"): number;
-            watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'animationDuration': number;
+            set(property: 'animationDuration', value: number): void;
+            get(property: 'animationDuration'): number;
+            watch(
+                property: 'animationDuration',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The easer function of the value change animation. Default is fx._defaultEasing.
              *
              */
-            "animationEaser": Object;
-            set(property:"animationEaser", value: Object): void;
-            get(property:"animationEaser"): Object;
-            watch(property:"animationEaser", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'animationEaser': Object;
+            set(property: 'animationEaser', value: Object): void;
+            get(property: 'animationEaser'): Object;
+            watch(
+                property: 'animationEaser',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * How to interact with the indicator using mouse or touch interactions.
              * Can be "indicator", "gauge", "area" or "none". The default value is "gauge".
@@ -1209,46 +1354,64 @@ declare namespace dojox {
              * If "none", interactions are disabled.
              *
              */
-            "interactionArea": string;
-            set(property:"interactionArea", value: string): void;
-            get(property:"interactionArea"): string;
-            watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionArea': string;
+            set(property: 'interactionArea', value: string): void;
+            get(property: 'interactionArea'): string;
+            watch(
+                property: 'interactionArea',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Deprecated. Can be "mouse" or "touch".
              *
              */
-            "interactionMode": string;
-            set(property:"interactionMode", value: string): void;
-            get(property:"interactionMode"): string;
-            watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionMode': string;
+            set(property: 'interactionMode', value: string): void;
+            get(property: 'interactionMode'): string;
+            watch(
+                property: 'interactionMode',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "scale": Object;
-            set(property:"scale", value: Object): void;
-            get(property:"scale"): Object;
-            watch(property:"scale", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'scale': Object;
+            set(property: 'scale', value: Object): void;
+            get(property: 'scale'): Object;
+            watch(
+                property: 'scale',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Add properties to the watched properties to trigger invalidation. This method must be called in
              * the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
@@ -1318,7 +1481,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/IndicatorBase.html
@@ -1331,25 +1497,34 @@ declare namespace dojox {
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The value of this indicator.
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Add properties to the watched properties to trigger invalidation. This method must be called in
              * the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
@@ -1402,7 +1577,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/LogScaler.html
@@ -1421,34 +1599,46 @@ declare namespace dojox {
              * property when using the scaler.
              *
              */
-            "majorTicks": Object;
-            set(property:"majorTicks", value: Object): void;
-            get(property:"majorTicks"): Object;
-            watch(property:"majorTicks", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'majorTicks': Object;
+            set(property: 'majorTicks', value: Object): void;
+            get(property: 'majorTicks'): Object;
+            watch(
+                property: 'majorTicks',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The maximum value of the scaler. Default is 1000.
              *
              */
-            "maximum": number;
-            set(property:"maximum", value: number): void;
-            get(property:"maximum"): number;
-            watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'maximum': number;
+            set(property: 'maximum', value: number): void;
+            get(property: 'maximum'): number;
+            watch(
+                property: 'maximum',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The minimum value of the scaler. Default is 0.
              *
              */
-            "minimum": number;
-            set(property:"minimum", value: number): void;
-            get(property:"minimum"): number;
-            watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'minimum': number;
+            set(property: 'minimum', value: number): void;
+            get(property: 'minimum'): number;
+            watch(
+                property: 'minimum',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The interval between two major ticks.
              *
              */
-            "multiplier": number;
-            set(property:"multiplier", value: number): void;
-            get(property:"multiplier"): number;
-            watch(property:"multiplier", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'multiplier': number;
+            set(property: 'multiplier', value: number): void;
+            get(property: 'multiplier'): number;
+            watch(
+                property: 'multiplier',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Creates or re-creates the ticks for this scaler.
              *
@@ -1516,7 +1706,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/MultiLinearScaler.html
@@ -1538,37 +1731,49 @@ declare namespace dojox {
              * property when using the scaler.
              *
              */
-            "majorTicks": Object;
-            set(property:"majorTicks", value: Object): void;
-            get(property:"majorTicks"): Object;
-            watch(property:"majorTicks", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'majorTicks': Object;
+            set(property: 'majorTicks', value: Object): void;
+            get(property: 'majorTicks'): Object;
+            watch(
+                property: 'majorTicks',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * An array of Number for creating major ticks.
              * This array must be sorted in ascendant order.
              *
              */
-            "majorTickValues": any[];
-            set(property:"majorTickValues", value: any[]): void;
-            get(property:"majorTickValues"): any[];
-            watch(property:"majorTickValues", callback:{(property?:string, oldValue?:any[], newValue?: any[]):void}) :{unwatch():void}
+            'majorTickValues': any[];
+            set(property: 'majorTickValues', value: any[]): void;
+            get(property: 'majorTickValues'): any[];
+            watch(
+                property: 'majorTickValues',
+                callback: { (property?: string, oldValue?: any[], newValue?: any[]): void },
+            ): { unwatch(): void };
             /**
              * The number of minor ticks between two contiguous major ticks.
              * The default value is 4.
              *
              */
-            "minorTickCount": any[];
-            set(property:"minorTickCount", value: any[]): void;
-            get(property:"minorTickCount"): any[];
-            watch(property:"minorTickCount", callback:{(property?:string, oldValue?:any[], newValue?: any[]):void}) :{unwatch():void}
+            'minorTickCount': any[];
+            set(property: 'minorTickCount', value: any[]): void;
+            get(property: 'minorTickCount'): any[];
+            watch(
+                property: 'minorTickCount',
+                callback: { (property?: string, oldValue?: any[], newValue?: any[]): void },
+            ): { unwatch(): void };
             /**
              * The array of generated minor ticks. You should not set this
              * property when using the scaler.
              *
              */
-            "minorTicks": Object;
-            set(property:"minorTicks", value: Object): void;
-            get(property:"minorTicks"): Object;
-            watch(property:"minorTicks", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'minorTicks': Object;
+            set(property: 'minorTicks', value: Object): void;
+            get(property: 'minorTicks'): Object;
+            watch(
+                property: 'minorTicks',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Creates or re-creates the ticks for this scaler.
              *
@@ -1615,7 +1820,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/LinearScaler.html
@@ -1631,70 +1839,94 @@ declare namespace dojox {
              * The interval between two major ticks.
              *
              */
-            "majorTickInterval": number;
-            set(property:"majorTickInterval", value: number): void;
-            get(property:"majorTickInterval"): number;
-            watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'majorTickInterval': number;
+            set(property: 'majorTickInterval', value: number): void;
+            get(property: 'majorTickInterval'): number;
+            watch(
+                property: 'majorTickInterval',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The array of generated major ticks. You should not set this
              * property when using the scaler.
              *
              */
-            "majorTicks": Object;
-            set(property:"majorTicks", value: Object): void;
-            get(property:"majorTicks"): Object;
-            watch(property:"majorTicks", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'majorTicks': Object;
+            set(property: 'majorTicks', value: Object): void;
+            get(property: 'majorTicks'): Object;
+            watch(
+                property: 'majorTicks',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The maximum value of the scaler. Default is 100.
              *
              */
-            "maximum": number;
-            set(property:"maximum", value: number): void;
-            get(property:"maximum"): number;
-            watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'maximum': number;
+            set(property: 'maximum', value: number): void;
+            get(property: 'maximum'): number;
+            watch(
+                property: 'maximum',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The minimum value of the scaler. Default is 0.
              *
              */
-            "minimum": number;
-            set(property:"minimum", value: number): void;
-            get(property:"minimum"): number;
-            watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'minimum': number;
+            set(property: 'minimum', value: number): void;
+            get(property: 'minimum'): number;
+            watch(
+                property: 'minimum',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The interval between two minor ticks.
              *
              */
-            "minorTickInterval": number;
-            set(property:"minorTickInterval", value: number): void;
-            get(property:"minorTickInterval"): number;
-            watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'minorTickInterval': number;
+            set(property: 'minorTickInterval', value: number): void;
+            get(property: 'minorTickInterval'): number;
+            watch(
+                property: 'minorTickInterval',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The array of generated minor ticks. You should not set this
              * property when using the scaler.
              *
              */
-            "minorTicks": Object;
-            set(property:"minorTicks", value: Object): void;
-            get(property:"minorTicks"): Object;
-            watch(property:"minorTicks", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'minorTicks': Object;
+            set(property: 'minorTicks', value: Object): void;
+            get(property: 'minorTicks'): Object;
+            watch(
+                property: 'minorTicks',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * If false, minor ticks are not generated. Default is true.
              *
              */
-            "minorTicksEnabled": boolean;
-            set(property:"minorTicksEnabled", value: boolean): void;
-            get(property:"minorTicksEnabled"): boolean;
-            watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'minorTicksEnabled': boolean;
+            set(property: 'minorTicksEnabled', value: boolean): void;
+            get(property: 'minorTicksEnabled'): boolean;
+            watch(
+                property: 'minorTicksEnabled',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * Specifies the increment value to be used as snap values on this scale
              * during user interaction.
              * Default is 1.
              *
              */
-            "snapInterval": number;
-            set(property:"snapInterval", value: number): void;
-            get(property:"snapInterval"): number;
-            watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'snapInterval': number;
+            set(property: 'snapInterval', value: number): void;
+            get(property: 'snapInterval'): number;
+            watch(
+                property: 'snapInterval',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Creates or re-creates the ticks for this scaler.
              *
@@ -1751,7 +1983,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/GaugeBase.html
@@ -1818,26 +2053,35 @@ declare namespace dojox {
              * "" --> { node: "domNode", type: "attribute" }
              *
              */
-            "attributeMap": Object;
-            set(property:"attributeMap", value: Object): void;
-            get(property:"attributeMap"): Object;
-            watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'attributeMap': Object;
+            set(property: 'attributeMap', value: Object): void;
+            get(property: 'attributeMap'): Object;
+            watch(
+                property: 'attributeMap',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
              * widget state.
              *
              */
-            "baseClass": string;
-            set(property:"baseClass", value: string): void;
-            get(property:"baseClass"): string;
-            watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'baseClass': string;
+            set(property: 'baseClass', value: string): void;
+            get(property: 'baseClass'): string;
+            watch(
+                property: 'baseClass',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "class": string;
-            set(property:"class", value: string): void;
-            get(property:"class"): string;
-            watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'class': string;
+            set(property: 'class', value: string): void;
+            get(property: 'class'): string;
+            watch(
+                property: 'class',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Designates where children of the source DOM node will be placed.
              * "Children" in this case refers to both DOM nodes and widgets.
@@ -1861,20 +2105,26 @@ declare namespace dojox {
              * is null for widgets that don't, like TextBox.
              *
              */
-            "containerNode": HTMLElement;
-            set(property:"containerNode", value: HTMLElement): void;
-            get(property:"containerNode"): HTMLElement;
-            watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'containerNode': HTMLElement;
+            set(property: 'containerNode', value: HTMLElement): void;
+            get(property: 'containerNode'): HTMLElement;
+            watch(
+                property: 'containerNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * Bi-directional support, as defined by the HTML DIR
              * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
              * default direction.
              *
              */
-            "dir": string;
-            set(property:"dir", value: string): void;
-            get(property:"dir"): string;
-            watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'dir': string;
+            set(property: 'dir', value: string): void;
+            get(property: 'dir'): string;
+            watch(
+                property: 'dir',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This is our visible representation of the widget! Other DOM
              * Nodes may by assigned to other properties, usually through the
@@ -1882,27 +2132,36 @@ declare namespace dojox {
              * property is the canonical "top level" node in widget UI.
              *
              */
-            "domNode": HTMLElement;
-            set(property:"domNode", value: HTMLElement): void;
-            get(property:"domNode"): HTMLElement;
-            watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'domNode': HTMLElement;
+            set(property: 'domNode', value: HTMLElement): void;
+            get(property: 'domNode'): HTMLElement;
+            watch(
+                property: 'domNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * This widget or a widget it contains has focus, or is "active" because
              * it was recently clicked.
              *
              */
-            "focused": boolean;
-            set(property:"focused", value: boolean): void;
-            get(property:"focused"): boolean;
-            watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'focused': boolean;
+            set(property: 'focused', value: boolean): void;
+            get(property: 'focused'): boolean;
+            watch(
+                property: 'focused',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The font of the gauge used by elements if not overridden.
              *
              */
-            "font": Object;
-            set(property:"font", value: Object): void;
-            get(property:"font"): Object;
-            watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'font': Object;
+            set(property: 'font', value: Object): void;
+            get(property: 'font'): Object;
+            watch(
+                property: 'font',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * A unique, opaque ID string that can be assigned by users or by the
              * system. If the developer passes an ID which is known not to be
@@ -1910,24 +2169,33 @@ declare namespace dojox {
              * used instead.
              *
              */
-            "id": string;
-            set(property:"id", value: string): void;
-            get(property:"id"): string;
-            watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'id': string;
+            set(property: 'id', value: string): void;
+            get(property: 'id'): string;
+            watch(
+                property: 'id',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * Rarely used.  Overrides the default Dojo locale used to render this widget,
              * as defined by the HTML LANG attribute.
@@ -1935,35 +2203,47 @@ declare namespace dojox {
              * formatted according to RFC 3066 (like en-us).
              *
              */
-            "lang": string;
-            set(property:"lang", value: string): void;
-            get(property:"lang"): string;
-            watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'lang': string;
+            set(property: 'lang', value: string): void;
+            get(property: 'lang'): string;
+            watch(
+                property: 'lang',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The document this widget belongs to.  If not specified to constructor, will default to
              * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
              *
              */
-            "ownerDocument": Object;
-            set(property:"ownerDocument", value: Object): void;
-            get(property:"ownerDocument"): Object;
-            watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'ownerDocument': Object;
+            set(property: 'ownerDocument', value: Object): void;
+            get(property: 'ownerDocument'): Object;
+            watch(
+                property: 'ownerDocument',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * pointer to original DOM node
              *
              */
-            "srcNodeRef": HTMLElement;
-            set(property:"srcNodeRef", value: HTMLElement): void;
-            get(property:"srcNodeRef"): HTMLElement;
-            watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'srcNodeRef': HTMLElement;
+            set(property: 'srcNodeRef', value: HTMLElement): void;
+            get(property: 'srcNodeRef'): HTMLElement;
+            watch(
+                property: 'srcNodeRef',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * HTML style attributes as cssText string or name/value hash
              *
              */
-            "style": string;
-            set(property:"style", value: string): void;
-            get(property:"style"): string;
-            watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'style': string;
+            set(property: 'style', value: string): void;
+            get(property: 'style'): string;
+            watch(
+                property: 'style',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * HTML title attribute.
              *
@@ -1975,29 +2255,38 @@ declare namespace dojox {
              * interpreted as HTML.
              *
              */
-            "title": string;
-            set(property:"title", value: string): void;
-            get(property:"title"): string;
-            watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'title': string;
+            set(property: 'title', value: string): void;
+            get(property: 'title'): string;
+            watch(
+                property: 'title',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
              * this specifies the tooltip to appear when the mouse is hovered over that text.
              *
              */
-            "tooltip": string;
-            set(property:"tooltip", value: string): void;
-            get(property:"tooltip"): string;
-            watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'tooltip': string;
+            set(property: 'tooltip', value: string): void;
+            get(property: 'tooltip'): string;
+            watch(
+                property: 'tooltip',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This property acts as a top-level wrapper for the value of the first indicator added to
              * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
              * This property must be manipulated with get("value") and set("value", xxx).
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Adds a element to the gauge.
              *
@@ -2489,7 +2778,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
             /**
              * Called when the widget stops being "active" because
              * focus moved to something outside of it, or the user
@@ -2530,122 +2822,170 @@ declare namespace dojox {
             /**
              *
              */
-            "endThickness": number;
-            set(property:"endThickness", value: number): void;
-            get(property:"endThickness"): number;
-            watch(property:"endThickness", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'endThickness': number;
+            set(property: 'endThickness', value: number): void;
+            get(property: 'endThickness'): number;
+            watch(
+                property: 'endThickness',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "fill": Object;
-            set(property:"fill", value: Object): void;
-            get(property:"fill"): Object;
-            watch(property:"fill", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'fill': Object;
+            set(property: 'fill', value: Object): void;
+            get(property: 'fill'): Object;
+            watch(
+                property: 'fill',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "paddingBottom": number;
-            set(property:"paddingBottom", value: number): void;
-            get(property:"paddingBottom"): number;
-            watch(property:"paddingBottom", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingBottom': number;
+            set(property: 'paddingBottom', value: number): void;
+            get(property: 'paddingBottom'): number;
+            watch(
+                property: 'paddingBottom',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "paddingLeft": number;
-            set(property:"paddingLeft", value: number): void;
-            get(property:"paddingLeft"): number;
-            watch(property:"paddingLeft", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingLeft': number;
+            set(property: 'paddingLeft', value: number): void;
+            get(property: 'paddingLeft'): number;
+            watch(
+                property: 'paddingLeft',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "paddingRight": number;
-            set(property:"paddingRight", value: number): void;
-            get(property:"paddingRight"): number;
-            watch(property:"paddingRight", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingRight': number;
+            set(property: 'paddingRight', value: number): void;
+            get(property: 'paddingRight'): number;
+            watch(
+                property: 'paddingRight',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "paddingTop": number;
-            set(property:"paddingTop", value: number): void;
-            get(property:"paddingTop"): number;
-            watch(property:"paddingTop", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingTop': number;
+            set(property: 'paddingTop', value: number): void;
+            get(property: 'paddingTop'): number;
+            watch(
+                property: 'paddingTop',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * An array containing objects to define color ranges. Example [{color:"#FF0000", size:20}, {color:"#FF8800", size:50}].
              *
              */
-            "ranges": any[];
-            set(property:"ranges", value: any[]): void;
-            get(property:"ranges"): any[];
-            watch(property:"ranges", callback:{(property?:string, oldValue?:any[], newValue?: any[]):void}) :{unwatch():void}
+            'ranges': any[];
+            set(property: 'ranges', value: any[]): void;
+            get(property: 'ranges'): any[];
+            watch(
+                property: 'ranges',
+                callback: { (property?: string, oldValue?: any[], newValue?: any[]): void },
+            ): { unwatch(): void };
             /**
              * Indicates if the extremity segments are rounded.
              * Default is true.
              *
              */
-            "rounded": boolean;
-            set(property:"rounded", value: boolean): void;
-            get(property:"rounded"): boolean;
-            watch(property:"rounded", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'rounded': boolean;
+            set(property: 'rounded', value: boolean): void;
+            get(property: 'rounded'): boolean;
+            watch(
+                property: 'rounded',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The number of segments making the indicator.
              * By default it is 10.
              *
              */
-            "segments": number;
-            set(property:"segments", value: number): void;
-            get(property:"segments"): number;
-            watch(property:"segments", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'segments': number;
+            set(property: 'segments', value: number): void;
+            get(property: 'segments'): number;
+            watch(
+                property: 'segments',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The blank space between two segments. The default value is 2
              *
              */
-            "segmentSpacing": number;
-            set(property:"segmentSpacing", value: number): void;
-            get(property:"segmentSpacing"): number;
-            watch(property:"segmentSpacing", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'segmentSpacing': number;
+            set(property: 'segmentSpacing', value: number): void;
+            get(property: 'segmentSpacing'): number;
+            watch(
+                property: 'segmentSpacing',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "start": number;
-            set(property:"start", value: number): void;
-            get(property:"start"): number;
-            watch(property:"start", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'start': number;
+            set(property: 'start', value: number): void;
+            get(property: 'start'): number;
+            watch(
+                property: 'start',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "startThickness": number;
-            set(property:"startThickness", value: number): void;
-            get(property:"startThickness"): number;
-            watch(property:"startThickness", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'startThickness': number;
+            set(property: 'startThickness', value: number): void;
+            get(property: 'startThickness'): number;
+            watch(
+                property: 'startThickness',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "stroke": Object;
-            set(property:"stroke", value: Object): void;
-            get(property:"stroke"): Object;
-            watch(property:"stroke", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'stroke': Object;
+            set(property: 'stroke', value: Object): void;
+            get(property: 'stroke'): Object;
+            watch(
+                property: 'stroke',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The value of this indicator.
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Add properties to the watched properties to trigger invalidation. This method must be called in
              * the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
@@ -2697,7 +3037,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/ScaleBase.html
@@ -2715,57 +3058,78 @@ declare namespace dojox {
              * on the gauge.
              *
              */
-            "font": Object;
-            set(property:"font", value: Object): void;
-            get(property:"font"): Object;
-            watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'font': Object;
+            set(property: 'font', value: Object): void;
+            get(property: 'font'): Object;
+            watch(
+                property: 'font',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The label gap between the ticks and their labels. Default value is 1.
              *
              */
-            "labelGap": number;
-            set(property:"labelGap", value: number): void;
-            get(property:"labelGap"): number;
-            watch(property:"labelGap", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'labelGap': number;
+            set(property: 'labelGap', value: number): void;
+            get(property: 'labelGap'): number;
+            watch(
+                property: 'labelGap',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * See CircularScale and RectangularScale for valid values.
              *
              */
-            "labelPosition": string;
-            set(property:"labelPosition", value: string): void;
-            get(property:"labelPosition"): string;
-            watch(property:"labelPosition", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'labelPosition': string;
+            set(property: 'labelPosition', value: string): void;
+            get(property: 'labelPosition'): string;
+            watch(
+                property: 'labelPosition',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The scaler used for tick generation and data-transform operations.
              * This property is mandatory for using the scale.
              *
              */
-            "scaler": Object;
-            set(property:"scaler", value: Object): void;
-            get(property:"scaler"): Object;
-            watch(property:"scaler", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'scaler': Object;
+            set(property: 'scaler', value: Object): void;
+            get(property: 'scaler'): Object;
+            watch(
+                property: 'scaler',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The GFX stroke used by the default tickShapeFunc implementation.
              *
              */
-            "tickStroke": Object;
-            set(property:"tickStroke", value: Object): void;
-            get(property:"tickStroke"): Object;
-            watch(property:"tickStroke", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'tickStroke': Object;
+            set(property: 'tickStroke', value: Object): void;
+            get(property: 'tickStroke'): Object;
+            watch(
+                property: 'tickStroke',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Add an indicator to the scale. Before calling this function, ensure
              * this scale has already been added to a gauge using the addElement method
@@ -2866,7 +3230,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/RectangularScale.html
@@ -2882,89 +3249,122 @@ declare namespace dojox {
              * on the gauge.
              *
              */
-            "font": Object;
-            set(property:"font", value: Object): void;
-            get(property:"font"): Object;
-            watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'font': Object;
+            set(property: 'font', value: Object): void;
+            get(property: 'font'): Object;
+            watch(
+                property: 'font',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The label gap between the ticks and their labels. Default value is 1.
              *
              */
-            "labelGap": number;
-            set(property:"labelGap", value: number): void;
-            get(property:"labelGap"): number;
-            watch(property:"labelGap", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'labelGap': number;
+            set(property: 'labelGap', value: number): void;
+            get(property: 'labelGap'): number;
+            watch(
+                property: 'labelGap',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * See CircularScale and RectangularScale for valid values.
              *
              */
-            "labelPosition": string;
-            set(property:"labelPosition", value: string): void;
-            get(property:"labelPosition"): string;
-            watch(property:"labelPosition", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'labelPosition': string;
+            set(property: 'labelPosition', value: string): void;
+            get(property: 'labelPosition'): string;
+            watch(
+                property: 'labelPosition',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The bottom padding.
              *
              */
-            "paddingBottom": number;
-            set(property:"paddingBottom", value: number): void;
-            get(property:"paddingBottom"): number;
-            watch(property:"paddingBottom", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingBottom': number;
+            set(property: 'paddingBottom', value: number): void;
+            get(property: 'paddingBottom'): number;
+            watch(
+                property: 'paddingBottom',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The left padding.
              *
              */
-            "paddingLeft": number;
-            set(property:"paddingLeft", value: number): void;
-            get(property:"paddingLeft"): number;
-            watch(property:"paddingLeft", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingLeft': number;
+            set(property: 'paddingLeft', value: number): void;
+            get(property: 'paddingLeft'): number;
+            watch(
+                property: 'paddingLeft',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The right padding.
              *
              */
-            "paddingRight": number;
-            set(property:"paddingRight", value: number): void;
-            get(property:"paddingRight"): number;
-            watch(property:"paddingRight", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingRight': number;
+            set(property: 'paddingRight', value: number): void;
+            get(property: 'paddingRight'): number;
+            watch(
+                property: 'paddingRight',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The top padding.
              *
              */
-            "paddingTop": number;
-            set(property:"paddingTop", value: number): void;
-            get(property:"paddingTop"): number;
-            watch(property:"paddingTop", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingTop': number;
+            set(property: 'paddingTop', value: number): void;
+            get(property: 'paddingTop'): number;
+            watch(
+                property: 'paddingTop',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The scaler used for tick generation and data-transform operations.
              * This property is mandatory for using the scale.
              *
              */
-            "scaler": Object;
-            set(property:"scaler", value: Object): void;
-            get(property:"scaler"): Object;
-            watch(property:"scaler", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'scaler': Object;
+            set(property: 'scaler', value: Object): void;
+            get(property: 'scaler'): Object;
+            watch(
+                property: 'scaler',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The GFX stroke used by the default tickShapeFunc implementation.
              *
              */
-            "tickStroke": Object;
-            set(property:"tickStroke", value: Object): void;
-            get(property:"tickStroke"): Object;
-            watch(property:"tickStroke", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'tickStroke': Object;
+            set(property: 'tickStroke', value: Object): void;
+            get(property: 'tickStroke'): Object;
+            watch(
+                property: 'tickStroke',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Add an indicator to the scale. Before calling this function, ensure
              * this scale has already been added to a gauge using the addElement method
@@ -3065,7 +3465,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/RectangularValueIndicator.html
@@ -3081,18 +3484,24 @@ declare namespace dojox {
              * Set this property to 0 to disable animation.
              *
              */
-            "animationDuration": number;
-            set(property:"animationDuration", value: number): void;
-            get(property:"animationDuration"): number;
-            watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'animationDuration': number;
+            set(property: 'animationDuration', value: number): void;
+            get(property: 'animationDuration'): number;
+            watch(
+                property: 'animationDuration',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The easer function of the value change animation. Default is fx._defaultEasing.
              *
              */
-            "animationEaser": Object;
-            set(property:"animationEaser", value: Object): void;
-            get(property:"animationEaser"): Object;
-            watch(property:"animationEaser", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'animationEaser': Object;
+            set(property: 'animationEaser', value: Object): void;
+            get(property: 'animationEaser'): Object;
+            watch(
+                property: 'animationEaser',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * How to interact with the indicator using mouse or touch interactions.
              * Can be "indicator", "gauge", "area" or "none". The default value is "gauge".
@@ -3102,78 +3511,108 @@ declare namespace dojox {
              * If "none", interactions are disabled.
              *
              */
-            "interactionArea": string;
-            set(property:"interactionArea", value: string): void;
-            get(property:"interactionArea"): string;
-            watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionArea': string;
+            set(property: 'interactionArea', value: string): void;
+            get(property: 'interactionArea'): string;
+            watch(
+                property: 'interactionArea',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Deprecated. Can be "mouse" or "touch".
              *
              */
-            "interactionMode": string;
-            set(property:"interactionMode", value: string): void;
-            get(property:"interactionMode"): string;
-            watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionMode': string;
+            set(property: 'interactionMode', value: string): void;
+            get(property: 'interactionMode'): string;
+            watch(
+                property: 'interactionMode',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The bottom padding.
              *
              */
-            "paddingBottom": number;
-            set(property:"paddingBottom", value: number): void;
-            get(property:"paddingBottom"): number;
-            watch(property:"paddingBottom", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingBottom': number;
+            set(property: 'paddingBottom', value: number): void;
+            get(property: 'paddingBottom'): number;
+            watch(
+                property: 'paddingBottom',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The left padding.
              *
              */
-            "paddingLeft": number;
-            set(property:"paddingLeft", value: number): void;
-            get(property:"paddingLeft"): number;
-            watch(property:"paddingLeft", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingLeft': number;
+            set(property: 'paddingLeft', value: number): void;
+            get(property: 'paddingLeft'): number;
+            watch(
+                property: 'paddingLeft',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The right padding.
              *
              */
-            "paddingRight": number;
-            set(property:"paddingRight", value: number): void;
-            get(property:"paddingRight"): number;
-            watch(property:"paddingRight", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingRight': number;
+            set(property: 'paddingRight', value: number): void;
+            get(property: 'paddingRight'): number;
+            watch(
+                property: 'paddingRight',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The top padding.
              *
              */
-            "paddingTop": number;
-            set(property:"paddingTop", value: number): void;
-            get(property:"paddingTop"): number;
-            watch(property:"paddingTop", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingTop': number;
+            set(property: 'paddingTop', value: number): void;
+            get(property: 'paddingTop'): number;
+            watch(
+                property: 'paddingTop',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "scale": Object;
-            set(property:"scale", value: Object): void;
-            get(property:"scale"): Object;
-            watch(property:"scale", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'scale': Object;
+            set(property: 'scale', value: Object): void;
+            get(property: 'scale'): Object;
+            watch(
+                property: 'scale',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Add properties to the watched properties to trigger invalidation. This method must be called in
              * the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
@@ -3243,7 +3682,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/RectangularRangeIndicator.html
@@ -3261,35 +3703,47 @@ declare namespace dojox {
              * Set this property to 0 to disable animation.
              *
              */
-            "animationDuration": number;
-            set(property:"animationDuration", value: number): void;
-            get(property:"animationDuration"): number;
-            watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'animationDuration': number;
+            set(property: 'animationDuration', value: number): void;
+            get(property: 'animationDuration'): number;
+            watch(
+                property: 'animationDuration',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The easer function of the value change animation. Default is fx._defaultEasing.
              *
              */
-            "animationEaser": Object;
-            set(property:"animationEaser", value: Object): void;
-            get(property:"animationEaser"): Object;
-            watch(property:"animationEaser", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'animationEaser': Object;
+            set(property: 'animationEaser', value: Object): void;
+            get(property: 'animationEaser'): Object;
+            watch(
+                property: 'animationEaser',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The thickness in pixels of the shape at the position defined by the value property.
              * Default is 10.
              *
              */
-            "endThickness": number;
-            set(property:"endThickness", value: number): void;
-            get(property:"endThickness"): number;
-            watch(property:"endThickness", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'endThickness': number;
+            set(property: 'endThickness', value: number): void;
+            get(property: 'endThickness'): number;
+            watch(
+                property: 'endThickness',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * A fill object that will be passed to the setFill method of GFX.
              *
              */
-            "fill": Object;
-            set(property:"fill", value: Object): void;
-            get(property:"fill"): Object;
-            watch(property:"fill", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'fill': Object;
+            set(property: 'fill', value: Object): void;
+            get(property: 'fill'): Object;
+            watch(
+                property: 'fill',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * How to interact with the indicator using mouse or touch interactions.
              * Can be "indicator", "gauge", "area" or "none". The default value is "gauge".
@@ -3299,103 +3753,142 @@ declare namespace dojox {
              * If "none", interactions are disabled.
              *
              */
-            "interactionArea": string;
-            set(property:"interactionArea", value: string): void;
-            get(property:"interactionArea"): string;
-            watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionArea': string;
+            set(property: 'interactionArea', value: string): void;
+            get(property: 'interactionArea'): string;
+            watch(
+                property: 'interactionArea',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Deprecated. Can be "mouse" or "touch".
              *
              */
-            "interactionMode": string;
-            set(property:"interactionMode", value: string): void;
-            get(property:"interactionMode"): string;
-            watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionMode': string;
+            set(property: 'interactionMode', value: string): void;
+            get(property: 'interactionMode'): string;
+            watch(
+                property: 'interactionMode',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The bottom padding. Not used for vertical gauges.
              *
              */
-            "paddingBottom": number;
-            set(property:"paddingBottom", value: number): void;
-            get(property:"paddingBottom"): number;
-            watch(property:"paddingBottom", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingBottom': number;
+            set(property: 'paddingBottom', value: number): void;
+            get(property: 'paddingBottom'): number;
+            watch(
+                property: 'paddingBottom',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The left padding. Not used for horizontal gauges.
              *
              */
-            "paddingLeft": number;
-            set(property:"paddingLeft", value: number): void;
-            get(property:"paddingLeft"): number;
-            watch(property:"paddingLeft", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingLeft': number;
+            set(property: 'paddingLeft', value: number): void;
+            get(property: 'paddingLeft'): number;
+            watch(
+                property: 'paddingLeft',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The right padding. Not used for horizontal gauges.
              *
              */
-            "paddingRight": number;
-            set(property:"paddingRight", value: number): void;
-            get(property:"paddingRight"): number;
-            watch(property:"paddingRight", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingRight': number;
+            set(property: 'paddingRight', value: number): void;
+            get(property: 'paddingRight'): number;
+            watch(
+                property: 'paddingRight',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The top padding. Not used for vertical gauges.
              *
              */
-            "paddingTop": number;
-            set(property:"paddingTop", value: number): void;
-            get(property:"paddingTop"): number;
-            watch(property:"paddingTop", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'paddingTop': number;
+            set(property: 'paddingTop', value: number): void;
+            get(property: 'paddingTop'): number;
+            watch(
+                property: 'paddingTop',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "scale": Object;
-            set(property:"scale", value: Object): void;
-            get(property:"scale"): Object;
-            watch(property:"scale", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'scale': Object;
+            set(property: 'scale', value: Object): void;
+            get(property: 'scale'): Object;
+            watch(
+                property: 'scale',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The start value of the range. Default is 0.
              *
              */
-            "start": number;
-            set(property:"start", value: number): void;
-            get(property:"start"): number;
-            watch(property:"start", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'start': number;
+            set(property: 'start', value: number): void;
+            get(property: 'start'): number;
+            watch(
+                property: 'start',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The thickness in pixels of the shape at the position defined by the start property.
              * Default is 10.
              *
              */
-            "startThickness": number;
-            set(property:"startThickness", value: number): void;
-            get(property:"startThickness"): number;
-            watch(property:"startThickness", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'startThickness': number;
+            set(property: 'startThickness', value: number): void;
+            get(property: 'startThickness'): number;
+            watch(
+                property: 'startThickness',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * A stroke object that will be passed to the setStroke method of GFX.
              *
              */
-            "stroke": Object;
-            set(property:"stroke", value: Object): void;
-            get(property:"stroke"): Object;
-            watch(property:"stroke", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'stroke': Object;
+            set(property: 'stroke', value: Object): void;
+            get(property: 'stroke'): Object;
+            watch(
+                property: 'stroke',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Add properties to the watched properties to trigger invalidation. This method must be called in
              * the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
@@ -3458,7 +3951,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/TextIndicator.html
@@ -3481,82 +3977,112 @@ declare namespace dojox {
              * "end": A text's baseline ends at the anchor point.
              *
              */
-            "align": string;
-            set(property:"align", value: string): void;
-            get(property:"align"): string;
-            watch(property:"align", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'align': string;
+            set(property: 'align', value: string): void;
+            get(property: 'align'): string;
+            watch(
+                property: 'align',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The color of the text.
              *
              */
-            "color": Object;
-            set(property:"color", value: Object): void;
-            get(property:"color"): Object;
-            watch(property:"color", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'color': Object;
+            set(property: 'color', value: Object): void;
+            get(property: 'color'): Object;
+            watch(
+                property: 'color',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Font used by this element.
              *
              */
-            "font": Object;
-            set(property:"font", value: Object): void;
-            get(property:"font"): Object;
-            watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'font': Object;
+            set(property: 'font', value: Object): void;
+            get(property: 'font'): Object;
+            watch(
+                property: 'font',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * If this property is set, the value of the indicator is automatically
              * rendered by this text element.
              *
              */
-            "indicator": Object;
-            set(property:"indicator", value: Object): void;
-            get(property:"indicator"): Object;
-            watch(property:"indicator", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'indicator': Object;
+            set(property: 'indicator', value: Object): void;
+            get(property: 'indicator'): Object;
+            watch(
+                property: 'indicator',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * If set, this method allows to format the value of this text indicator.
              * A label function takes the text to render as argument and returns a String.
              *
              */
-            "labelFunc": Object;
-            set(property:"labelFunc", value: Object): void;
-            get(property:"labelFunc"): Object;
-            watch(property:"labelFunc", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'labelFunc': Object;
+            set(property: 'labelFunc', value: Object): void;
+            get(property: 'labelFunc'): Object;
+            watch(
+                property: 'labelFunc',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * The value of this indicator.
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The text anchor x-position. Default is 0.
              *
              */
-            "x": number;
-            set(property:"x", value: number): void;
-            get(property:"x"): number;
-            watch(property:"x", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'x': number;
+            set(property: 'x', value: number): void;
+            get(property: 'x'): number;
+            watch(
+                property: 'x',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The text anchor y-position. Default is 0.
              *
              */
-            "y": number;
-            set(property:"y", value: number): void;
-            get(property:"y"): number;
-            watch(property:"y", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'y': number;
+            set(property: 'y', value: number): void;
+            get(property: 'y'): number;
+            watch(
+                property: 'y',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Add properties to the watched properties to trigger invalidation. This method must be called in
              * the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
@@ -3603,7 +4129,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dgauges/RectangularGauge.html
@@ -3657,26 +4186,35 @@ declare namespace dojox {
              * "" --> { node: "domNode", type: "attribute" }
              *
              */
-            "attributeMap": Object;
-            set(property:"attributeMap", value: Object): void;
-            get(property:"attributeMap"): Object;
-            watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'attributeMap': Object;
+            set(property: 'attributeMap', value: Object): void;
+            get(property: 'attributeMap'): Object;
+            watch(
+                property: 'attributeMap',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
              * widget state.
              *
              */
-            "baseClass": string;
-            set(property:"baseClass", value: string): void;
-            get(property:"baseClass"): string;
-            watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'baseClass': string;
+            set(property: 'baseClass', value: string): void;
+            get(property: 'baseClass'): string;
+            watch(
+                property: 'baseClass',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "class": string;
-            set(property:"class", value: string): void;
-            get(property:"class"): string;
-            watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'class': string;
+            set(property: 'class', value: string): void;
+            get(property: 'class'): string;
+            watch(
+                property: 'class',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Designates where children of the source DOM node will be placed.
              * "Children" in this case refers to both DOM nodes and widgets.
@@ -3700,20 +4238,26 @@ declare namespace dojox {
              * is null for widgets that don't, like TextBox.
              *
              */
-            "containerNode": HTMLElement;
-            set(property:"containerNode", value: HTMLElement): void;
-            get(property:"containerNode"): HTMLElement;
-            watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'containerNode': HTMLElement;
+            set(property: 'containerNode', value: HTMLElement): void;
+            get(property: 'containerNode'): HTMLElement;
+            watch(
+                property: 'containerNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * Bi-directional support, as defined by the HTML DIR
              * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
              * default direction.
              *
              */
-            "dir": string;
-            set(property:"dir", value: string): void;
-            get(property:"dir"): string;
-            watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'dir': string;
+            set(property: 'dir', value: string): void;
+            get(property: 'dir'): string;
+            watch(
+                property: 'dir',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This is our visible representation of the widget! Other DOM
              * Nodes may by assigned to other properties, usually through the
@@ -3721,27 +4265,36 @@ declare namespace dojox {
              * property is the canonical "top level" node in widget UI.
              *
              */
-            "domNode": HTMLElement;
-            set(property:"domNode", value: HTMLElement): void;
-            get(property:"domNode"): HTMLElement;
-            watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'domNode': HTMLElement;
+            set(property: 'domNode', value: HTMLElement): void;
+            get(property: 'domNode'): HTMLElement;
+            watch(
+                property: 'domNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * This widget or a widget it contains has focus, or is "active" because
              * it was recently clicked.
              *
              */
-            "focused": boolean;
-            set(property:"focused", value: boolean): void;
-            get(property:"focused"): boolean;
-            watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'focused': boolean;
+            set(property: 'focused', value: boolean): void;
+            get(property: 'focused'): boolean;
+            watch(
+                property: 'focused',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The font of the gauge used by elements if not overridden.
              *
              */
-            "font": Object;
-            set(property:"font", value: Object): void;
-            get(property:"font"): Object;
-            watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'font': Object;
+            set(property: 'font', value: Object): void;
+            get(property: 'font'): Object;
+            watch(
+                property: 'font',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * A unique, opaque ID string that can be assigned by users or by the
              * system. If the developer passes an ID which is known not to be
@@ -3749,24 +4302,33 @@ declare namespace dojox {
              * used instead.
              *
              */
-            "id": string;
-            set(property:"id", value: string): void;
-            get(property:"id"): string;
-            watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'id': string;
+            set(property: 'id', value: string): void;
+            get(property: 'id'): string;
+            watch(
+                property: 'id',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * Rarely used.  Overrides the default Dojo locale used to render this widget,
              * as defined by the HTML LANG attribute.
@@ -3774,43 +4336,58 @@ declare namespace dojox {
              * formatted according to RFC 3066 (like en-us).
              *
              */
-            "lang": string;
-            set(property:"lang", value: string): void;
-            get(property:"lang"): string;
-            watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'lang': string;
+            set(property: 'lang', value: string): void;
+            get(property: 'lang'): string;
+            watch(
+                property: 'lang',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The orientation of the gauge. Default is "horizontal".
              *
              */
-            "orientation": string;
-            set(property:"orientation", value: string): void;
-            get(property:"orientation"): string;
-            watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'orientation': string;
+            set(property: 'orientation', value: string): void;
+            get(property: 'orientation'): string;
+            watch(
+                property: 'orientation',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * The document this widget belongs to.  If not specified to constructor, will default to
              * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
              *
              */
-            "ownerDocument": Object;
-            set(property:"ownerDocument", value: Object): void;
-            get(property:"ownerDocument"): Object;
-            watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'ownerDocument': Object;
+            set(property: 'ownerDocument', value: Object): void;
+            get(property: 'ownerDocument'): Object;
+            watch(
+                property: 'ownerDocument',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * pointer to original DOM node
              *
              */
-            "srcNodeRef": HTMLElement;
-            set(property:"srcNodeRef", value: HTMLElement): void;
-            get(property:"srcNodeRef"): HTMLElement;
-            watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+            'srcNodeRef': HTMLElement;
+            set(property: 'srcNodeRef', value: HTMLElement): void;
+            get(property: 'srcNodeRef'): HTMLElement;
+            watch(
+                property: 'srcNodeRef',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * HTML style attributes as cssText string or name/value hash
              *
              */
-            "style": string;
-            set(property:"style", value: string): void;
-            get(property:"style"): string;
-            watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'style': string;
+            set(property: 'style', value: string): void;
+            get(property: 'style'): string;
+            watch(
+                property: 'style',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * HTML title attribute.
              *
@@ -3822,29 +4399,38 @@ declare namespace dojox {
              * interpreted as HTML.
              *
              */
-            "title": string;
-            set(property:"title", value: string): void;
-            get(property:"title"): string;
-            watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'title': string;
+            set(property: 'title', value: string): void;
+            get(property: 'title'): string;
+            watch(
+                property: 'title',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
              * this specifies the tooltip to appear when the mouse is hovered over that text.
              *
              */
-            "tooltip": string;
-            set(property:"tooltip", value: string): void;
-            get(property:"tooltip"): string;
-            watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'tooltip': string;
+            set(property: 'tooltip', value: string): void;
+            get(property: 'tooltip'): string;
+            watch(
+                property: 'tooltip',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This property acts as a top-level wrapper for the value of the first indicator added to
              * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
              * This property must be manipulated with get("value") and set("value", xxx).
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Adds a element to the gauge.
              *
@@ -4336,7 +4922,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
             /**
              * Called when the widget stops being "active" because
              * focus moved to something outside of it, or the user
@@ -4380,18 +4969,24 @@ declare namespace dojox {
              * Set this property to 0 to disable animation.
              *
              */
-            "animationDuration": number;
-            set(property:"animationDuration", value: number): void;
-            get(property:"animationDuration"): number;
-            watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'animationDuration': number;
+            set(property: 'animationDuration', value: number): void;
+            get(property: 'animationDuration'): number;
+            watch(
+                property: 'animationDuration',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The easer function of the value change animation. Default is fx._defaultEasing.
              *
              */
-            "animationEaser": Object;
-            set(property:"animationEaser", value: Object): void;
-            get(property:"animationEaser"): Object;
-            watch(property:"animationEaser", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'animationEaser': Object;
+            set(property: 'animationEaser', value: Object): void;
+            get(property: 'animationEaser'): Object;
+            watch(
+                property: 'animationEaser',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * How to interact with the indicator using mouse or touch interactions.
              * Can be "indicator", "gauge", "area" or "none". The default value is "gauge".
@@ -4401,46 +4996,64 @@ declare namespace dojox {
              * If "none", interactions are disabled.
              *
              */
-            "interactionArea": string;
-            set(property:"interactionArea", value: string): void;
-            get(property:"interactionArea"): string;
-            watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionArea': string;
+            set(property: 'interactionArea', value: string): void;
+            get(property: 'interactionArea'): string;
+            watch(
+                property: 'interactionArea',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Deprecated. Can be "mouse" or "touch".
              *
              */
-            "interactionMode": string;
-            set(property:"interactionMode", value: string): void;
-            get(property:"interactionMode"): string;
-            watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+            'interactionMode': string;
+            set(property: 'interactionMode', value: string): void;
+            get(property: 'interactionMode'): string;
+            watch(
+                property: 'interactionMode',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidatingProperties": Object;
-            set(property:"invalidatingProperties", value: Object): void;
-            get(property:"invalidatingProperties"): Object;
-            watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'invalidatingProperties': Object;
+            set(property: 'invalidatingProperties', value: Object): void;
+            get(property: 'invalidatingProperties'): Object;
+            watch(
+                property: 'invalidatingProperties',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "invalidRendering": boolean;
-            set(property:"invalidRendering", value: boolean): void;
-            get(property:"invalidRendering"): boolean;
-            watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+            'invalidRendering': boolean;
+            set(property: 'invalidRendering', value: boolean): void;
+            get(property: 'invalidRendering'): boolean;
+            watch(
+                property: 'invalidRendering',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "scale": Object;
-            set(property:"scale", value: Object): void;
-            get(property:"scale"): Object;
-            watch(property:"scale", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+            'scale': Object;
+            set(property: 'scale', value: Object): void;
+            get(property: 'scale'): Object;
+            watch(
+                property: 'scale',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "value": number;
-            set(property:"value", value: number): void;
-            get(property:"value"): number;
-            watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+            'value': number;
+            set(property: 'value', value: number): void;
+            get(property: 'value'): number;
+            watch(
+                property: 'value',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * Add properties to the watched properties to trigger invalidation. This method must be called in
              * the constructor. It is typically used by subclasses of a _Invalidating class to add more properties
@@ -4503,7 +5116,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
         }
         namespace components {
             /**
@@ -4520,7 +5136,7 @@ declare namespace dojox {
                  * Set this property to 0 to disable animation.
                  *
                  */
-                "animationDuration": number;
+                'animationDuration': number;
                 /**
                  * How to interact with the indicator using mouse or touch interactions.
                  * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -4529,48 +5145,48 @@ declare namespace dojox {
                  * If "none", interactions are disabled.
                  *
                  */
-                "interactionArea": string;
+                'interactionArea': string;
                 /**
                  * Can be "mouse" or "touch".
                  *
                  */
-                "interactionMode": string;
+                'interactionMode': string;
                 /**
                  * The interval between two major ticks.
                  *
                  */
-                "majorTickInterval": number;
+                'majorTickInterval': number;
                 /**
                  * The maximum value of the scaler. Default is 100.
                  *
                  */
-                "maximum": number;
+                'maximum': number;
                 /**
                  * The minimum value of the scaler. Default is 0.
                  *
                  */
-                "minimum": number;
+                'minimum': number;
                 /**
                  * The interval between two minor ticks.
                  *
                  */
-                "minorTickInterval": number;
+                'minorTickInterval': number;
                 /**
                  * If false, minor ticks are not generated. Default is true.
                  *
                  */
-                "minorTicksEnabled": boolean;
+                'minorTicksEnabled': boolean;
                 /**
                  * Specifies the increment value to be used as snap values on this scale
                  * during user interaction.
                  * Default is 1.
                  *
                  */
-                "snapInterval": number;
+                'snapInterval': number;
                 /**
                  *
                  */
-                "value": number;
+                'value': number;
             }
             namespace black {
                 /**
@@ -4579,7 +5195,8 @@ declare namespace dojox {
                  * A circular gauge widget.
                  *
                  */
-                class CircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class CircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -4587,10 +5204,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -4633,34 +5253,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#000000".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -4684,20 +5316,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -4705,35 +5343,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#000000".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -4741,18 +5391,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#A4A4A4".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -4761,32 +5417,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -4794,85 +5462,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -4884,29 +5582,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -5409,7 +6116,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -5444,7 +6154,8 @@ declare namespace dojox {
                  * A horizontal gauge widget.
                  *
                  */
-                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -5452,10 +6163,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -5498,34 +6212,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#000000".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -5549,20 +6275,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -5570,35 +6302,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#000000".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -5606,18 +6350,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#A4A4A4".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -5626,32 +6376,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -5659,93 +6421,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -5757,29 +6552,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -6279,7 +7083,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -6314,7 +7121,8 @@ declare namespace dojox {
                  * A semi circular gauge widget.
                  *
                  */
-                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -6322,10 +7130,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -6368,34 +7179,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#000000".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -6419,20 +7242,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -6440,35 +7269,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#000000".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -6476,18 +7317,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#A4A4A4".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -6496,32 +7343,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -6529,85 +7388,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -6619,29 +7508,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -7144,7 +8042,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -7179,7 +8080,8 @@ declare namespace dojox {
                  * A vertical gauge widget.
                  *
                  */
-                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -7187,10 +8089,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -7233,34 +8138,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#000000".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -7284,20 +8201,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -7305,35 +8228,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#000000".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -7341,18 +8276,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#A4A4A4".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -7361,32 +8302,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -7394,93 +8347,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -7492,29 +8478,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -8014,7 +9009,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -8052,7 +9050,8 @@ declare namespace dojox {
                  * A horizontal gauge widget.
                  *
                  */
-                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -8060,10 +9059,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -8106,34 +9108,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#797E86".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -8157,20 +9171,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -8178,35 +9198,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#9498A1".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -8214,18 +9246,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#FFFFFF".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -8234,32 +9272,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -8267,93 +9317,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -8365,29 +9448,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -8887,7 +9979,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -8922,7 +10017,8 @@ declare namespace dojox {
                  * A circular gauge widget.
                  *
                  */
-                class CircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class CircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -8930,10 +10026,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -8976,34 +10075,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#797E86".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -9027,20 +10138,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -9048,35 +10165,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#9498A1".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -9084,18 +10213,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#FFFFFF".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -9104,32 +10239,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -9137,85 +10284,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -9227,29 +10404,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -9752,7 +10938,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -9787,7 +10976,8 @@ declare namespace dojox {
                  * A semi circular gauge widget.
                  *
                  */
-                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -9795,10 +10985,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -9841,34 +11034,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#797E86".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -9892,20 +11097,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -9913,35 +11124,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#9498A1".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -9949,18 +11172,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#FFFFFF".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -9969,32 +11198,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -10002,85 +11243,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -10092,29 +11363,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -10617,7 +11897,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -10652,7 +11935,8 @@ declare namespace dojox {
                  * A vertical gauge widget.
                  *
                  */
-                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -10660,10 +11944,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -10706,34 +11993,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#797E86".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -10757,20 +12056,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -10778,35 +12083,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#9498A1".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -10814,18 +12131,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#FFFFFF".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -10834,32 +12157,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -10867,93 +12202,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -10965,29 +12333,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -11487,7 +12864,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -11525,7 +12905,8 @@ declare namespace dojox {
                  * A semi circular gauge widget.
                  *
                  */
-                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -11533,10 +12914,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -11579,34 +12963,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#C9DFF2".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -11630,20 +13026,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -11651,35 +13053,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#FCFCFF".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -11687,18 +13101,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#F01E28".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -11707,32 +13127,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -11740,85 +13172,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -11830,29 +13292,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -12355,7 +13826,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -12390,7 +13864,8 @@ declare namespace dojox {
                  * A horizontal gauge widget.
                  *
                  */
-                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -12398,10 +13873,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -12444,34 +13922,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#C9DFF2".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -12495,20 +13985,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -12516,35 +14012,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#FCFCFF".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -12552,18 +14060,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#F01E28".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -12572,32 +14086,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -12605,93 +14131,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -12703,29 +14262,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -13225,7 +14793,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -13260,7 +14831,8 @@ declare namespace dojox {
                  * A circular gauge widget.
                  *
                  */
-                class CircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class CircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -13268,10 +14840,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -13314,34 +14889,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#C9DFF2".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -13365,20 +14952,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -13386,35 +14979,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#FCFCFF".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -13422,18 +15027,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#F01E28".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -13442,32 +15053,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -13475,85 +15098,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -13565,29 +15218,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -14090,7 +15752,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -14125,7 +15790,8 @@ declare namespace dojox {
                  * A vertical gauge widget.
                  *
                  */
-                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -14133,10 +15799,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -14179,34 +15848,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#C9DFF2".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -14230,20 +15911,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -14251,35 +15938,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#FCFCFF".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -14287,18 +15986,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#F01E28".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -14307,32 +16012,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -14340,93 +16057,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -14438,29 +16188,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -14960,7 +16719,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -14998,7 +16760,8 @@ declare namespace dojox {
                  * A circular gauge widget.
                  *
                  */
-                class CircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class CircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -15006,10 +16769,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -15052,34 +16818,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#323232".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -15103,20 +16881,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -15124,35 +16908,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The fill color. Default is "#6DB713".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -15160,18 +16956,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#000000".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -15180,32 +16982,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -15213,85 +17027,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -15303,29 +17147,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -15828,7 +17681,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -15863,7 +17719,8 @@ declare namespace dojox {
                  * A horizontal gauge widget.
                  *
                  */
-                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -15871,10 +17728,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -15917,34 +17777,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#323232".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -15968,20 +17840,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -15989,35 +17867,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#6DB713".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -16025,18 +17915,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#000000".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -16045,32 +17941,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -16078,93 +17986,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -16176,29 +18117,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -16698,7 +18648,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -16733,7 +18686,8 @@ declare namespace dojox {
                  * A semi circular gauge widget.
                  *
                  */
-                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -16741,10 +18695,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -16787,34 +18744,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#323232".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -16838,20 +18807,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -16859,35 +18834,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The fill color. Default is "#6DB713".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -16895,18 +18882,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#000000".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -16915,32 +18908,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -16948,85 +18953,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -17038,29 +19073,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -17563,7 +19607,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -17598,7 +19645,8 @@ declare namespace dojox {
                  * A vertical gauge widget.
                  *
                  */
-                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -17606,10 +19654,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -17652,34 +19703,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#323232".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -17703,20 +19766,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -17724,35 +19793,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#6DB713".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -17760,18 +19841,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#000000".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -17780,32 +19867,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -17813,93 +19912,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -17911,29 +20043,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -18433,7 +20574,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -18473,7 +20617,8 @@ declare namespace dojox {
                  * @param args
                  * @param node
                  */
-                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class SemiCircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor(args: any, node: any);
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -18481,10 +20626,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -18527,34 +20675,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#9498A1".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -18578,20 +20738,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -18599,35 +20765,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#9498A1".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -18635,18 +20813,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#3F3F3F".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -18655,32 +20839,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -18688,85 +20884,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -18778,29 +21004,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -19303,7 +21538,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -19340,7 +21578,8 @@ declare namespace dojox {
                  * @param args
                  * @param node
                  */
-                class CircularLinearGauge extends dojox.dgauges.CircularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class CircularLinearGauge extends dojox.dgauges.CircularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor(args: any, node: any);
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -19348,10 +21587,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -19394,34 +21636,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#9498A1".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -19445,20 +21699,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -19466,35 +21726,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#9498A1".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -19502,18 +21774,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#3F3F3F".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -19522,32 +21800,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -19555,85 +21845,115 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -19645,29 +21965,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -20170,7 +22499,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -20205,7 +22537,8 @@ declare namespace dojox {
                  * A horizontal gauge widget.
                  *
                  */
-                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class HorizontalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -20213,10 +22546,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -20259,34 +22595,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#9498A1".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -20310,20 +22658,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -20331,35 +22685,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#9498A1".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -20367,18 +22733,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#3F3F3F".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -20387,32 +22759,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -20420,93 +22804,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -20518,29 +22935,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -21040,7 +23466,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -21075,7 +23504,8 @@ declare namespace dojox {
                  * A vertical gauge widget.
                  *
                  */
-                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge implements dojox.dgauges.components.DefaultPropertiesMixin {
+                class VerticalLinearGauge extends dojox.dgauges.RectangularGauge
+                    implements dojox.dgauges.components.DefaultPropertiesMixin {
                     constructor();
                     /**
                      * The duration of the value change animation in milliseconds. Default is 0.
@@ -21083,10 +23513,13 @@ declare namespace dojox {
                      * Set this property to 0 to disable animation.
                      *
                      */
-                    "animationDuration": number;
-                    set(property:"animationDuration", value: number): void;
-                    get(property:"animationDuration"): number;
-                    watch(property:"animationDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'animationDuration': number;
+                    set(property: 'animationDuration', value: number): void;
+                    get(property: 'animationDuration'): number;
+                    watch(
+                        property: 'animationDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -21129,34 +23562,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The border color. Default is "#9498A1".
                      *
                      */
-                    "borderColor": Object;
-                    set(property:"borderColor", value: Object): void;
-                    get(property:"borderColor"): Object;
-                    watch(property:"borderColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'borderColor': Object;
+                    set(property: 'borderColor', value: Object): void;
+                    get(property: 'borderColor'): Object;
+                    watch(
+                        property: 'borderColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -21180,20 +23625,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -21201,35 +23652,47 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * The background color. Default is "#9498A1".
                      *
                      */
-                    "fillColor": Object;
-                    set(property:"fillColor", value: Object): void;
-                    get(property:"fillColor"): Object;
-                    watch(property:"fillColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'fillColor': Object;
+                    set(property: 'fillColor', value: Object): void;
+                    get(property: 'fillColor'): Object;
+                    watch(
+                        property: 'fillColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The font of the gauge used by elements if not overridden.
                      *
                      */
-                    "font": Object;
-                    set(property:"font", value: Object): void;
-                    get(property:"font"): Object;
-                    watch(property:"font", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'font': Object;
+                    set(property: 'font', value: Object): void;
+                    get(property: 'font'): Object;
+                    watch(
+                        property: 'font',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -21237,18 +23700,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The indicator fill color. Default is "#3F3F3F".
                      *
                      */
-                    "indicatorColor": Object;
-                    set(property:"indicatorColor", value: Object): void;
-                    get(property:"indicatorColor"): Object;
-                    watch(property:"indicatorColor", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'indicatorColor': Object;
+                    set(property: 'indicatorColor', value: Object): void;
+                    get(property: 'indicatorColor'): Object;
+                    watch(
+                        property: 'indicatorColor',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * How to interact with the indicator using mouse or touch interactions.
                      * Can be "indicator", "gauge" or "none". The default value is "gauge".
@@ -21257,32 +23726,44 @@ declare namespace dojox {
                      * If "none", interactions are disabled.
                      *
                      */
-                    "interactionArea": string;
-                    set(property:"interactionArea", value: string): void;
-                    get(property:"interactionArea"): string;
-                    watch(property:"interactionArea", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionArea': string;
+                    set(property: 'interactionArea', value: string): void;
+                    get(property: 'interactionArea'): string;
+                    watch(
+                        property: 'interactionArea',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Can be "mouse" or "touch".
                      *
                      */
-                    "interactionMode": string;
-                    set(property:"interactionMode", value: string): void;
-                    get(property:"interactionMode"): string;
-                    watch(property:"interactionMode", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'interactionMode': string;
+                    set(property: 'interactionMode', value: string): void;
+                    get(property: 'interactionMode'): string;
+                    watch(
+                        property: 'interactionMode',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidatingProperties": Object;
-                    set(property:"invalidatingProperties", value: Object): void;
-                    get(property:"invalidatingProperties"): Object;
-                    watch(property:"invalidatingProperties", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'invalidatingProperties': Object;
+                    set(property: 'invalidatingProperties', value: Object): void;
+                    get(property: 'invalidatingProperties'): Object;
+                    watch(
+                        property: 'invalidatingProperties',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "invalidRendering": boolean;
-                    set(property:"invalidRendering", value: boolean): void;
-                    get(property:"invalidRendering"): boolean;
-                    watch(property:"invalidRendering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'invalidRendering': boolean;
+                    set(property: 'invalidRendering', value: boolean): void;
+                    get(property: 'invalidRendering'): boolean;
+                    watch(
+                        property: 'invalidRendering',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -21290,93 +23771,126 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two major ticks.
                      *
                      */
-                    "majorTickInterval": number;
-                    set(property:"majorTickInterval", value: number): void;
-                    get(property:"majorTickInterval"): number;
-                    watch(property:"majorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'majorTickInterval': number;
+                    set(property: 'majorTickInterval', value: number): void;
+                    get(property: 'majorTickInterval'): number;
+                    watch(
+                        property: 'majorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The maximum value of the scaler. Default is 100.
                      *
                      */
-                    "maximum": number;
-                    set(property:"maximum", value: number): void;
-                    get(property:"maximum"): number;
-                    watch(property:"maximum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'maximum': number;
+                    set(property: 'maximum', value: number): void;
+                    get(property: 'maximum'): number;
+                    watch(
+                        property: 'maximum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The minimum value of the scaler. Default is 0.
                      *
                      */
-                    "minimum": number;
-                    set(property:"minimum", value: number): void;
-                    get(property:"minimum"): number;
-                    watch(property:"minimum", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minimum': number;
+                    set(property: 'minimum', value: number): void;
+                    get(property: 'minimum'): number;
+                    watch(
+                        property: 'minimum',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The interval between two minor ticks.
                      *
                      */
-                    "minorTickInterval": number;
-                    set(property:"minorTickInterval", value: number): void;
-                    get(property:"minorTickInterval"): number;
-                    watch(property:"minorTickInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'minorTickInterval': number;
+                    set(property: 'minorTickInterval', value: number): void;
+                    get(property: 'minorTickInterval'): number;
+                    watch(
+                        property: 'minorTickInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * If false, minor ticks are not generated. Default is true.
                      *
                      */
-                    "minorTicksEnabled": boolean;
-                    set(property:"minorTicksEnabled", value: boolean): void;
-                    get(property:"minorTicksEnabled"): boolean;
-                    watch(property:"minorTicksEnabled", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'minorTicksEnabled': boolean;
+                    set(property: 'minorTicksEnabled', value: boolean): void;
+                    get(property: 'minorTicksEnabled'): boolean;
+                    watch(
+                        property: 'minorTicksEnabled',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The orientation of the gauge. Default is "horizontal".
                      *
                      */
-                    "orientation": string;
-                    set(property:"orientation", value: string): void;
-                    get(property:"orientation"): string;
-                    watch(property:"orientation", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'orientation': string;
+                    set(property: 'orientation', value: string): void;
+                    get(property: 'orientation'): string;
+                    watch(
+                        property: 'orientation',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Specifies the increment value to be used as snap values on this scale
                      * during user interaction.
                      * Default is 1.
                      *
                      */
-                    "snapInterval": number;
-                    set(property:"snapInterval", value: number): void;
-                    get(property:"snapInterval"): number;
-                    watch(property:"snapInterval", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'snapInterval': number;
+                    set(property: 'snapInterval', value: number): void;
+                    get(property: 'snapInterval'): number;
+                    watch(
+                        property: 'snapInterval',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -21388,29 +23902,38 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This property acts as a top-level wrapper for the value of the first indicator added to
                      * its scale with the name "indicator", i.e. myScale.addIndicator("indicator", myIndicator).
                      * This property must be manipulated with get("value") and set("value", xxx).
                      *
                      */
-                    "value": number;
-                    set(property:"value", value: number): void;
-                    get(property:"value"): number;
-                    watch(property:"value", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'value': number;
+                    set(property: 'value', value: number): void;
+                    get(property: 'value'): number;
+                    watch(
+                        property: 'value',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * Adds a element to the gauge.
                      *
@@ -21910,7 +24433,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Called when the widget stops being "active" because
                      * focus moved to something outside of it, or the user
@@ -21975,7 +24501,19 @@ declare namespace dojox {
                  * @param labelPosition               OptionalThe position of the labels regarding
                  * @param tickShapeFunc               OptionalA drawing function for the ticks
                  */
-                genericCircularGauge(scale: number, indicator: dojox.dgauges.IndicatorBase, originX: number, originY: number, radius: number, startAngle: number, endAngle: number, orientation: String, font: Object, labelPosition: String, tickShapeFunc: Object): number;
+                genericCircularGauge(
+                    scale: number,
+                    indicator: dojox.dgauges.IndicatorBase,
+                    originX: number,
+                    originY: number,
+                    radius: number,
+                    startAngle: number,
+                    endAngle: number,
+                    orientation: String,
+                    font: Object,
+                    labelPosition: String,
+                    tickShapeFunc: Object,
+                ): number;
             }
         }
 
@@ -21984,169 +24522,167 @@ declare namespace dojox {
          *
          *
          */
-        interface _circularUtils {
-        }
+        interface _circularUtils {}
     }
-
 }
 
-declare module "dojox/dgauges/_circularUtils" {
-    var exp: dojox.dgauges._circularUtils
-    export=exp;
+declare module 'dojox/dgauges/_circularUtils' {
+    var exp: dojox.dgauges._circularUtils;
+    export = exp;
 }
-declare module "dojox/dgauges/CircularScale" {
-    var exp: dojox.dgauges.CircularScale
-    export=exp;
+declare module 'dojox/dgauges/CircularScale' {
+    var exp: dojox.dgauges.CircularScale;
+    export = exp;
 }
-declare module "dojox/dgauges/CircularValueIndicator" {
-    var exp: dojox.dgauges.CircularValueIndicator
-    export=exp;
+declare module 'dojox/dgauges/CircularValueIndicator' {
+    var exp: dojox.dgauges.CircularValueIndicator;
+    export = exp;
 }
-declare module "dojox/dgauges/CircularGauge" {
-    var exp: dojox.dgauges.CircularGauge
-    export=exp;
+declare module 'dojox/dgauges/CircularGauge' {
+    var exp: dojox.dgauges.CircularGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/CircularRangeIndicator" {
-    var exp: dojox.dgauges.CircularRangeIndicator
-    export=exp;
+declare module 'dojox/dgauges/CircularRangeIndicator' {
+    var exp: dojox.dgauges.CircularRangeIndicator;
+    export = exp;
 }
-declare module "dojox/dgauges/IndicatorBase" {
-    var exp: dojox.dgauges.IndicatorBase
-    export=exp;
+declare module 'dojox/dgauges/IndicatorBase' {
+    var exp: dojox.dgauges.IndicatorBase;
+    export = exp;
 }
-declare module "dojox/dgauges/LinearScaler" {
-    var exp: dojox.dgauges.LinearScaler
-    export=exp;
+declare module 'dojox/dgauges/LinearScaler' {
+    var exp: dojox.dgauges.LinearScaler;
+    export = exp;
 }
-declare module "dojox/dgauges/LogScaler" {
-    var exp: dojox.dgauges.LogScaler
-    export=exp;
+declare module 'dojox/dgauges/LogScaler' {
+    var exp: dojox.dgauges.LogScaler;
+    export = exp;
 }
-declare module "dojox/dgauges/MultiLinearScaler" {
-    var exp: dojox.dgauges.MultiLinearScaler
-    export=exp;
+declare module 'dojox/dgauges/MultiLinearScaler' {
+    var exp: dojox.dgauges.MultiLinearScaler;
+    export = exp;
 }
-declare module "dojox/dgauges/GaugeBase" {
-    var exp: dojox.dgauges.GaugeBase
-    export=exp;
+declare module 'dojox/dgauges/GaugeBase' {
+    var exp: dojox.dgauges.GaugeBase;
+    export = exp;
 }
-declare module "dojox/dgauges/RectangularScale" {
-    var exp: dojox.dgauges.RectangularScale
-    export=exp;
+declare module 'dojox/dgauges/RectangularScale' {
+    var exp: dojox.dgauges.RectangularScale;
+    export = exp;
 }
-declare module "dojox/dgauges/RectangularSegmentedRangeIndicator" {
-    var exp: dojox.dgauges.RectangularSegmentedRangeIndicator
-    export=exp;
+declare module 'dojox/dgauges/RectangularSegmentedRangeIndicator' {
+    var exp: dojox.dgauges.RectangularSegmentedRangeIndicator;
+    export = exp;
 }
-declare module "dojox/dgauges/RectangularRangeIndicator" {
-    var exp: dojox.dgauges.RectangularRangeIndicator
-    export=exp;
+declare module 'dojox/dgauges/RectangularRangeIndicator' {
+    var exp: dojox.dgauges.RectangularRangeIndicator;
+    export = exp;
 }
-declare module "dojox/dgauges/RectangularValueIndicator" {
-    var exp: dojox.dgauges.RectangularValueIndicator
-    export=exp;
+declare module 'dojox/dgauges/RectangularValueIndicator' {
+    var exp: dojox.dgauges.RectangularValueIndicator;
+    export = exp;
 }
-declare module "dojox/dgauges/ScaleBase" {
-    var exp: dojox.dgauges.ScaleBase
-    export=exp;
+declare module 'dojox/dgauges/ScaleBase' {
+    var exp: dojox.dgauges.ScaleBase;
+    export = exp;
 }
-declare module "dojox/dgauges/TextIndicator" {
-    var exp: dojox.dgauges.TextIndicator
-    export=exp;
+declare module 'dojox/dgauges/TextIndicator' {
+    var exp: dojox.dgauges.TextIndicator;
+    export = exp;
 }
-declare module "dojox/dgauges/ScaleIndicatorBase" {
-    var exp: dojox.dgauges.ScaleIndicatorBase
-    export=exp;
+declare module 'dojox/dgauges/ScaleIndicatorBase' {
+    var exp: dojox.dgauges.ScaleIndicatorBase;
+    export = exp;
 }
-declare module "dojox/dgauges/RectangularGauge" {
-    var exp: dojox.dgauges.RectangularGauge
-    export=exp;
+declare module 'dojox/dgauges/RectangularGauge' {
+    var exp: dojox.dgauges.RectangularGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/utils" {
-    var exp: dojox.dgauges.components.utils
-    export=exp;
+declare module 'dojox/dgauges/components/utils' {
+    var exp: dojox.dgauges.components.utils;
+    export = exp;
 }
-declare module "dojox/dgauges/components/DefaultPropertiesMixin" {
-    var exp: dojox.dgauges.components.DefaultPropertiesMixin
-    export=exp;
+declare module 'dojox/dgauges/components/DefaultPropertiesMixin' {
+    var exp: dojox.dgauges.components.DefaultPropertiesMixin;
+    export = exp;
 }
-declare module "dojox/dgauges/components/black/CircularLinearGauge" {
-    var exp: dojox.dgauges.components.black.CircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/black/CircularLinearGauge' {
+    var exp: dojox.dgauges.components.black.CircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/black/SemiCircularLinearGauge" {
-    var exp: dojox.dgauges.components.black.SemiCircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/black/SemiCircularLinearGauge' {
+    var exp: dojox.dgauges.components.black.SemiCircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/black/HorizontalLinearGauge" {
-    var exp: dojox.dgauges.components.black.HorizontalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/black/HorizontalLinearGauge' {
+    var exp: dojox.dgauges.components.black.HorizontalLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/black/VerticalLinearGauge" {
-    var exp: dojox.dgauges.components.black.VerticalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/black/VerticalLinearGauge' {
+    var exp: dojox.dgauges.components.black.VerticalLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/classic/CircularLinearGauge" {
-    var exp: dojox.dgauges.components.classic.CircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/classic/CircularLinearGauge' {
+    var exp: dojox.dgauges.components.classic.CircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/classic/HorizontalLinearGauge" {
-    var exp: dojox.dgauges.components.classic.HorizontalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/classic/HorizontalLinearGauge' {
+    var exp: dojox.dgauges.components.classic.HorizontalLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/classic/VerticalLinearGauge" {
-    var exp: dojox.dgauges.components.classic.VerticalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/classic/VerticalLinearGauge' {
+    var exp: dojox.dgauges.components.classic.VerticalLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/classic/SemiCircularLinearGauge" {
-    var exp: dojox.dgauges.components.classic.SemiCircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/classic/SemiCircularLinearGauge' {
+    var exp: dojox.dgauges.components.classic.SemiCircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/default/CircularLinearGauge" {
-    var exp: dojox.dgauges.components.default_.CircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/default/CircularLinearGauge' {
+    var exp: dojox.dgauges.components.default_.CircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/default/HorizontalLinearGauge" {
-    var exp: dojox.dgauges.components.default_.HorizontalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/default/HorizontalLinearGauge' {
+    var exp: dojox.dgauges.components.default_.HorizontalLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/default/SemiCircularLinearGauge" {
-    var exp: dojox.dgauges.components.default_.SemiCircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/default/SemiCircularLinearGauge' {
+    var exp: dojox.dgauges.components.default_.SemiCircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/default/VerticalLinearGauge" {
-    var exp: dojox.dgauges.components.default_.VerticalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/default/VerticalLinearGauge' {
+    var exp: dojox.dgauges.components.default_.VerticalLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/green/HorizontalLinearGauge" {
-    var exp: dojox.dgauges.components.green.HorizontalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/green/HorizontalLinearGauge' {
+    var exp: dojox.dgauges.components.green.HorizontalLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/green/CircularLinearGauge" {
-    var exp: dojox.dgauges.components.green.CircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/green/CircularLinearGauge' {
+    var exp: dojox.dgauges.components.green.CircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/green/SemiCircularLinearGauge" {
-    var exp: dojox.dgauges.components.green.SemiCircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/green/SemiCircularLinearGauge' {
+    var exp: dojox.dgauges.components.green.SemiCircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/green/VerticalLinearGauge" {
-    var exp: dojox.dgauges.components.green.VerticalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/green/VerticalLinearGauge' {
+    var exp: dojox.dgauges.components.green.VerticalLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/grey/CircularLinearGauge" {
-    var exp: dojox.dgauges.components.grey.CircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/grey/CircularLinearGauge' {
+    var exp: dojox.dgauges.components.grey.CircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/grey/SemiCircularLinearGauge" {
-    var exp: dojox.dgauges.components.grey.SemiCircularLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/grey/SemiCircularLinearGauge' {
+    var exp: dojox.dgauges.components.grey.SemiCircularLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/grey/HorizontalLinearGauge" {
-    var exp: dojox.dgauges.components.grey.HorizontalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/grey/HorizontalLinearGauge' {
+    var exp: dojox.dgauges.components.grey.HorizontalLinearGauge;
+    export = exp;
 }
-declare module "dojox/dgauges/components/grey/VerticalLinearGauge" {
-    var exp: dojox.dgauges.components.grey.VerticalLinearGauge
-    export=exp;
+declare module 'dojox/dgauges/components/grey/VerticalLinearGauge' {
+    var exp: dojox.dgauges.components.grey.VerticalLinearGauge;
+    export = exp;
 }

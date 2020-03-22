@@ -49,7 +49,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<void>}
      * @experimental
      * @tutorial Window.close
-    */
+     */
     close(): Promise<void>;
     /**
      * Flashes the external window’s frame and taskbar icon until stopFlashing is called.
@@ -71,7 +71,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<Bounds>}
      * @experimental
      * @tutorial Window.getBounds
-    */
+     */
     getBounds(): Promise<Bounds>;
     /**
      * Retrieves an array containing wrapped external windows that are grouped

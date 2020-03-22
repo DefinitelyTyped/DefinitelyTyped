@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/flash.html
      *
@@ -13,17 +11,13 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface flash {
-    }
+    interface flash {}
     namespace flash {
-        module _base {
-        }
-
+        module _base {}
     }
-
 }
 
-declare module "dojox/flash" {
-    var exp: dojox.flash
-    export=exp;
+declare module 'dojox/flash' {
+    var exp: dojox.flash;
+    export = exp;
 }

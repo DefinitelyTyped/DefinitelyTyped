@@ -1,2 +1,2 @@
-import { extend } from "../fp";
+import { extend } from '../fp';
 export = extend;

@@ -2,13 +2,13 @@ import * as xmlrpc from 'xmlrpc';
 
 const serverOpts = {
     host: 'localhost',
-    port: 9000
+    port: 9000,
 };
 
 const server = xmlrpc.createServer(serverOpts, () => {
-    server.on('NotFound', method => {
+    server.on('NotFound', (method) => {
         console.log(`Method ${method} not found`);
-    })
+    });
 
     server.on('hello', (err, params, cb) => {
         cb(null, `Hello, ${params[0]}!`);
@@ -17,7 +17,7 @@ const server = xmlrpc.createServer(serverOpts, () => {
     var client = xmlrpc.createClient({
         host: 'localhost',
         port: 9000,
-        path: '/'
+        path: '/',
     });
 
     client.methodCall('hello', ['world'], (err, val) => {

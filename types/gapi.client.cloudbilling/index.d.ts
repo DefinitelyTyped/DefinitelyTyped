@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Billing API v1 */
-    function load(name: "cloudbilling", version: "v1"): PromiseLike<void>;
-    function load(name: "cloudbilling", version: "v1", callback: () => any): void;
+    function load(name: 'cloudbilling', version: 'v1'): PromiseLike<void>;
+    function load(name: 'cloudbilling', version: 'v1', callback: () => any): void;
 
     const billingAccounts: cloudbilling.BillingAccountsResource;
 
@@ -296,7 +296,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -347,7 +347,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -384,7 +384,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -432,7 +432,7 @@ declare namespace gapi.client {
              */
             getBillingInfo(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -498,7 +498,7 @@ declare namespace gapi.client {
              */
             updateBillingInfo(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -534,7 +534,7 @@ declare namespace gapi.client {
             /** Lists all publicly available SKUs for a given cloud service. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -600,7 +600,7 @@ declare namespace gapi.client {
             /** Lists all public cloud services. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

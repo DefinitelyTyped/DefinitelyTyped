@@ -30,19 +30,38 @@ declare class Nightmare {
     uncheck(seletor: string): Nightmare;
     select(seletor: string, option: string): Nightmare;
     upload(selector: string, path: string): Nightmare;
-    download(path:string): Nightmare;
-    download(action: "cancel" | "continue"): Nightmare;
+    download(path: string): Nightmare;
+    download(action: 'cancel' | 'continue'): Nightmare;
     scrollTo(top: number, left: number): Nightmare;
     viewport(width: number, height: number): Nightmare;
     inject(type: string, file: string): Nightmare;
-    evaluate<T1, T2, T3, R>(fn: (arg1: T1, arg2: T2, arg3: T3) => R, cb: (result: R) => void, arg1: T1, arg2: T2, arg3: T3): Nightmare;
+    evaluate<T1, T2, T3, R>(
+        fn: (arg1: T1, arg2: T2, arg3: T3) => R,
+        cb: (result: R) => void,
+        arg1: T1,
+        arg2: T2,
+        arg3: T3,
+    ): Nightmare;
     evaluate<T1, T2, R>(fn: (arg1: T1, arg2: T2) => R, cb: (result: R) => void, arg1: T1, arg2: T2): Nightmare;
     evaluate<T, R>(fn: (arg: T) => R, cb: (result: R) => void, arg: T): Nightmare;
     evaluate<T>(fn: (arg: T) => void, cb: () => void, arg: T): Nightmare;
     evaluate<R>(fn: () => R, cb: (result: R) => void): Nightmare;
     evaluate(fn: () => void): Nightmare;
-    wait<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => any, value1: T1, value2: T2, value3: T3, value4: T4, value5: T5): Nightmare;
-    wait<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => any, value1: T1, value2: T2, value3: T3, value4: T4): Nightmare;
+    wait<T1, T2, T3, T4, T5>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => any,
+        value1: T1,
+        value2: T2,
+        value3: T3,
+        value4: T4,
+        value5: T5,
+    ): Nightmare;
+    wait<T1, T2, T3, T4>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => any,
+        value1: T1,
+        value2: T2,
+        value3: T3,
+        value4: T4,
+    ): Nightmare;
     wait<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => any, value1: T1, value2: T2, value3: T3): Nightmare;
     wait<T1, T2>(fn: (arg1: T1, arg2: T2) => any, value1: T1, value2: T2): Nightmare;
     wait<T1>(fn: (arg1: T1) => any, value1: T1): Nightmare;
@@ -63,8 +82,14 @@ declare class Nightmare {
     on(event: 'loadStarted', cb: () => void): Nightmare;
     on(event: 'loadFinished', cb: (status: string) => void): Nightmare;
     on(event: 'urlChanged', cb: (targetUrl: string) => void): Nightmare;
-    on(event: 'navigationRequested', cb: (url: string, type: string, willNavigate: boolean, main: boolean) => void): Nightmare;
-    on(event: 'resourceRequested', cb: (requestData: Nightmare.IRequest, networkRequest: Nightmare.INetwordRequest) => void): Nightmare;
+    on(
+        event: 'navigationRequested',
+        cb: (url: string, type: string, willNavigate: boolean, main: boolean) => void,
+    ): Nightmare;
+    on(
+        event: 'resourceRequested',
+        cb: (requestData: Nightmare.IRequest, networkRequest: Nightmare.INetwordRequest) => void,
+    ): Nightmare;
     on(event: 'resourceReceived', cb: (response: Nightmare.IResponse) => void): Nightmare;
     on(event: 'resourceError', cb: (resourceError: Nightmare.IResourceError) => void): Nightmare;
     on(event: 'consoleMessage', cb: (msg: string, lineNumber: number, sourceId: number) => void): Nightmare;
@@ -78,8 +103,14 @@ declare class Nightmare {
     once(event: 'loadStarted', cb: () => void): Nightmare;
     once(event: 'loadFinished', cb: (status: string) => void): Nightmare;
     once(event: 'urlChanged', cb: (targetUrl: string) => void): Nightmare;
-    once(event: 'navigationRequested', cb: (url: string, type: string, willNavigate: boolean, main: boolean) => void): Nightmare;
-    once(event: 'resourceRequested', cb: (requestData: Nightmare.IRequest, networkRequest: Nightmare.INetwordRequest) => void): Nightmare;
+    once(
+        event: 'navigationRequested',
+        cb: (url: string, type: string, willNavigate: boolean, main: boolean) => void,
+    ): Nightmare;
+    once(
+        event: 'resourceRequested',
+        cb: (requestData: Nightmare.IRequest, networkRequest: Nightmare.INetwordRequest) => void,
+    ): Nightmare;
     once(event: 'resourceReceived', cb: (response: Nightmare.IResponse) => void): Nightmare;
     once(event: 'resourceError', cb: (resourceError: Nightmare.IResourceError) => void): Nightmare;
     once(event: 'consoleMessage', cb: (msg: string, lineNumber: number, sourceId: number) => void): Nightmare;
@@ -93,8 +124,14 @@ declare class Nightmare {
     removeListener(event: 'loadStarted', cb: () => void): Nightmare;
     removeListener(event: 'loadFinished', cb: (status: string) => void): Nightmare;
     removeListener(event: 'urlChanged', cb: (targetUrl: string) => void): Nightmare;
-    removeListener(event: 'navigationRequested', cb: (url: string, type: string, willNavigate: boolean, main: boolean) => void): Nightmare;
-    removeListener(event: 'resourceRequested', cb: (requestData: Nightmare.IRequest, networkRequest: Nightmare.INetwordRequest) => void): Nightmare;
+    removeListener(
+        event: 'navigationRequested',
+        cb: (url: string, type: string, willNavigate: boolean, main: boolean) => void,
+    ): Nightmare;
+    removeListener(
+        event: 'resourceRequested',
+        cb: (requestData: Nightmare.IRequest, networkRequest: Nightmare.INetwordRequest) => void,
+    ): Nightmare;
     removeListener(event: 'resourceReceived', cb: (response: Nightmare.IResponse) => void): Nightmare;
     removeListener(event: 'resourceError', cb: (resourceError: Nightmare.IResourceError) => void): Nightmare;
     removeListener(event: 'consoleMessage', cb: (msg: string, lineNumber: number, sourceId: number) => void): Nightmare;
@@ -105,8 +142,15 @@ declare class Nightmare {
     removeListener(event: 'timeout', cb: (msg: string) => void): Nightmare;
     screenshot(done?: (err: any, buffer: Buffer) => void): Nightmare;
     screenshot(path: string, done?: (err: any) => void): Nightmare;
-    screenshot(clip: { x: number, y: number, width: number, height: number }, done?: (err: any, buffer: Buffer) => void): Nightmare;
-    screenshot(path: string, clip?: { x: number, y: number, width: number, height: number }, done?: (err: any) => void): Nightmare;
+    screenshot(
+        clip: { x: number; y: number; width: number; height: number },
+        done?: (err: any, buffer: Buffer) => void,
+    ): Nightmare;
+    screenshot(
+        path: string,
+        clip?: { x: number; y: number; width: number; height: number },
+        done?: (err: any) => void,
+    ): Nightmare;
     html(path: string, saveType: string): Nightmare;
     html(path: string, saveType: 'HTMLOnly'): Nightmare;
     html(path: string, saveType: 'HTMLComplete'): Nightmare;
@@ -132,11 +176,11 @@ declare class Nightmare {
 
 declare namespace Nightmare {
     export interface IConstructorOptions {
-        timeout?: any;  // number | string;
-        waitTimeout?:number //in ms
-        gotoTimeout?:number
-        pollInterval?:number
-        executionTimeout?:number
+        timeout?: any; // number | string;
+        waitTimeout?: number; //in ms
+        gotoTimeout?: number;
+        pollInterval?: number;
+        executionTimeout?: number;
         interval?: any; // number | string;
         port?: number;
         weak?: boolean;
@@ -151,10 +195,10 @@ declare namespace Nightmare {
         phantomPath?: string;
         show?: boolean;
         paths?: {
-            downloads?:string;
+            downloads?: string;
         };
-        maxDownloadRequestWait?:number;
-        ignoreDownloads?:boolean;
+        maxDownloadRequestWait?: number;
+        ignoreDownloads?: boolean;
         typeInterval?: number;
         x?: number;
         y?: number;
@@ -221,12 +265,11 @@ declare namespace Nightmare {
         path?: string;
         secure?: boolean;
         session?: boolean;
-
     }
     export interface ICookie {
         name: string;
         value: string;
-        url?: string
+        url?: string;
         domain?: string;
         hostOnly?: boolean;
         path?: string;

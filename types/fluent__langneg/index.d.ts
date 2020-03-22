@@ -17,11 +17,9 @@ export interface NegotiateLanguageOptions {
 export function negotiateLanguages(
     requestedLocales: ReadonlyArray<string>,
     availableLocales: ReadonlyArray<string>,
-    options?: NegotiateLanguageOptions
+    options?: NegotiateLanguageOptions,
 ): string[];
 
-export function acceptedLanguages(
-    acceptedLanguages: string
-): string[];
+export function acceptedLanguages(acceptedLanguages: string): string[];
 
 export as namespace FluentLangNeg;

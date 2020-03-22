@@ -21,8 +21,8 @@ function test_options_classNames() {
             content: 'simplebar-content',
             scrollContent: 'simplebar-scroll-content',
             scrollbar: 'simplebar-scrollbar',
-            track: 'simplebar-track'
-        }
+            track: 'simplebar-track',
+        },
     });
 }
 
@@ -38,7 +38,7 @@ function test_getScrollElement() {
 
 function test_scrollEvent() {
     const el = new SimpleBar(document.getElementById('myElement'));
-    el.getScrollElement().addEventListener('scroll', () => { });
+    el.getScrollElement().addEventListener('scroll', () => {});
 }
 
 function test_getContentElement() {

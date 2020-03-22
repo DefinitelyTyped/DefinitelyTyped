@@ -1283,5 +1283,5 @@ declare namespace adone.math {
          * Not a rounding mode
          */
         static readonly EUCLID: 9;
-      }
+    }
 }

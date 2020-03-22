@@ -9,31 +9,30 @@ const example: LevelTTL = ttl(db, opts);
 
 example.open();
 example.close();
-example.open(error => { });
+example.open((error) => {});
 
-example.close(error => { });
+example.close((error) => {});
 
 example.stop();
-example.stop(error => { });
+example.stop((error) => {});
 
 example.put('key', { ttl: 500 });
-example.put('key', {}, error => { });
-example.put('key', { ttl: 500 }, { sync: true }, error => { });
+example.put('key', {}, (error) => {});
+example.put('key', { ttl: 500 }, { sync: true }, (error) => {});
 
-example.put('hello', 'world', () => {
-});
+example.put('hello', 'world', () => {});
 
-example.get('key', { keyEncoding: 'json' }, (error, val) => { });
-example.get('key', { fillCache: true }, (error, val) => { });
-example.get('key', (error, val) => { });
+example.get('key', { keyEncoding: 'json' }, (error, val) => {});
+example.get('key', { fillCache: true }, (error, val) => {});
+example.get('key', (error, val) => {});
 
 example.ttl('key', 500);
-example.ttl('key', 500, err => { });
+example.ttl('key', 500, (err) => {});
 
 example.del('key');
-example.del('key', error => { });
-example.del('key', { keyEncoding: 'json' }, error => { });
-example.del('key', { sync: true }, error => { });
+example.del('key', (error) => {});
+example.del('key', { keyEncoding: 'json' }, (error) => {});
+example.del('key', { sync: true }, (error) => {});
 
 example.batch(
     [
@@ -44,7 +43,7 @@ example.batch(
         },
     ],
     { ttl: 500 },
-    (error: Error | undefined) => { },
+    (error: Error | undefined) => {},
 );
 
 example

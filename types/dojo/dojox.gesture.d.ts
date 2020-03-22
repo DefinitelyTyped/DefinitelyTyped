@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     namespace gesture {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/gesture/Base.html
@@ -19,18 +17,18 @@ declare namespace dojox {
              * Default event e.g. 'tap' is a default event of dojox.gesture.tap
              *
              */
-            "defaultEvent": string;
+            'defaultEvent': string;
             /**
              * A list of sub events e.g ['hold', 'doubletap'],
              * used by being combined with defaultEvent like 'tap.hold', 'tap.doubletap' etc.
              *
              */
-            "subEvents": any[];
+            'subEvents': any[];
             /**
              * Whether the gesture is touch-device only
              *
              */
-            "touchOnly": boolean;
+            'touchOnly': boolean;
             /**
              * Process the 'cancel' phase of a gesture
              *
@@ -97,11 +95,9 @@ declare namespace dojox {
             unLock(): void;
         }
     }
-
 }
 
-
-declare module "dojox/gesture/Base" {
-    var exp: dojox.gesture.Base
-    export=exp;
+declare module 'dojox/gesture/Base' {
+    var exp: dojox.gesture.Base;
+    export = exp;
 }

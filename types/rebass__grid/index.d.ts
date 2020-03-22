@@ -9,8 +9,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from "react";
-import * as StyledSystem from "styled-system";
+import * as React from 'react';
+import * as StyledSystem from 'styled-system';
 
 export {};
 
@@ -29,9 +29,7 @@ interface BoxKnownProps
         StyledSystem.FlexProps,
         StyledSystem.OrderProps,
         StyledSystem.AlignSelfProps {}
-export interface BoxProps
-    extends BoxKnownProps,
-        Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
+export interface BoxProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
 export const Box: React.FunctionComponent<BoxProps>;
 
 interface FlexKnownProps
@@ -40,7 +38,5 @@ interface FlexKnownProps
         StyledSystem.FlexDirectionProps,
         StyledSystem.AlignItemsProps,
         StyledSystem.JustifyContentProps {}
-export interface FlexProps
-    extends FlexKnownProps,
-        Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
+export interface FlexProps extends FlexKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
 export const Flex: React.FunctionComponent<FlexProps>;

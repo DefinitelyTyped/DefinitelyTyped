@@ -133,16 +133,16 @@ declare namespace procfs {
 
     interface Net {
         Interface: string;
-        bytes: { Receive: string; Transmit: string; };
-        packets: { Receive: string; Transmit: string; };
-        errs: { Receive: string; Transmit: string; };
-        drop: { Receive: string; Transmit: string; };
-        fifo: { Receive: string; Transmit: string; };
-        frame: { Receive: string; };
-        compressed: { Receive: string; Transmit: string; };
-        multicast: { Receive: string; };
-        colls: { Transmit: string; };
-        carrier: { Transmit: string; };
+        bytes: { Receive: string; Transmit: string };
+        packets: { Receive: string; Transmit: string };
+        errs: { Receive: string; Transmit: string };
+        drop: { Receive: string; Transmit: string };
+        fifo: { Receive: string; Transmit: string };
+        frame: { Receive: string };
+        compressed: { Receive: string; Transmit: string };
+        multicast: { Receive: string };
+        colls: { Transmit: string };
+        carrier: { Transmit: string };
     }
 
     interface Io {
@@ -257,7 +257,7 @@ declare namespace procfs {
         uid: string;
         timeout: string;
         inode: string;
-        _: { [key: string]: string; };
+        _: { [key: string]: string };
     }
 
     interface Udp {

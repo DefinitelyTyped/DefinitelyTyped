@@ -17,13 +17,17 @@ shp.getShapeFile(new ArrayBuffer(50)).then((geojson) => {});
 shp.getShapeFile(new Int32Array(50)).then((geojson) => {});
 
 const combinedGeojson = shp.combine([
-    [{
-        type: 'Point',
-        coordinates: []
-    }],
-    [{
-        test: 'test'
-    }]
+    [
+        {
+            type: 'Point',
+            coordinates: [],
+        },
+    ],
+    [
+        {
+            test: 'test',
+        },
+    ],
 ]);
 
 let parsedShp: GeoJSON.Geometry[];

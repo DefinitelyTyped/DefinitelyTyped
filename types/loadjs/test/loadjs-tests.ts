@@ -10,7 +10,7 @@ const loadOptions: importedLoadJs.LoadOptions = {
         pathsNotFound; // $ExpectType string[]
     },
     async: true,
-    numRetries: 3
+    numRetries: 3,
 };
 
 const readyOptions: importedLoadJs.ReadyOptions = {

@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-
 declare namespace DotObject {
     interface DotConstructor extends Dot {
         new (separator: string): Dot;
@@ -29,7 +28,14 @@ declare namespace DotObject {
          * @param {Function|Array} mods
          * @param {Boolean} merge
          */
-        copy(source: string, target: string, obj1: any, obj2: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>, merge?: boolean): void;
+        copy(
+            source: string,
+            target: string,
+            obj1: any,
+            obj2: any,
+            mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>,
+            merge?: boolean,
+        ): void;
         /**
          *
          * Convert object to dotted-key/value pair
@@ -41,18 +47,18 @@ declare namespace DotObject {
          * @param {Object} obj source object
          * @param {Object} tgt target object
          */
-        dot(obj: any, tgt: any): void
+        dot(obj: any, tgt: any): void;
         /**
-        *
-        * Convert object to dotted-key/value pair
-        *
-        * Usage:
-        *
-        *   var tgt = dot.dot(obj)
-        * @param {Object} obj source object
-        * @return {Object} result
-        */
-        dot(obj: any): any
+         *
+         * Convert object to dotted-key/value pair
+         *
+         * Usage:
+         *
+         *   var tgt = dot.dot(obj)
+         * @param {Object} obj source object
+         * @return {Object} result
+         */
+        dot(obj: any): any;
 
         /**
          *
@@ -76,7 +82,13 @@ declare namespace DotObject {
          * @param {Function|Array} mods
          * @param {Boolean} merge
          */
-        move(source: string, target: string, obj: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>, merge?: boolean): void;
+        move(
+            source: string,
+            target: string,
+            obj: any,
+            mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>,
+            merge?: boolean,
+        ): void;
         /**
          *
          * Converts an object with dotted-key/value pairs to it's expanded version
@@ -128,7 +140,7 @@ declare namespace DotObject {
          * @param {String} v value to be set
          * @param {Object} obj object to be modified
          * @param {Function|Array} mods optional modifier
-        */
+         */
         str(path: string, v: any, obj: object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
         /**
          *
@@ -138,8 +150,8 @@ declare namespace DotObject {
          * @param {Object} v object to be set
          * @param {Object} obj object to be modified
          * @param {Boolean} merge optional merge
-        */
-		set(path: string, v: any, obj: object, merge?: boolean): void;
+         */
+        set(path: string, v: any, obj: object, merge?: boolean): void;
         /**
          *
          * Transfer a property from one object to another object.
@@ -154,7 +166,14 @@ declare namespace DotObject {
          * @param {Function|Array} mods
          * @param {Boolean} merge
          */
-        transfer(source: string, target: string, obj1: any, obj2: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>, merge?: boolean): void;
+        transfer(
+            source: string,
+            target: string,
+            obj1: any,
+            obj2: any,
+            mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>,
+            merge?: boolean,
+        ): void;
         /**
          *
          * Transform an object
@@ -163,14 +182,14 @@ declare namespace DotObject {
          *
          *   var obj = {
          *     "id": 1,
-          *    "some": {
-          *      "thing": "else"
-          *    }
+         *    "some": {
+         *      "thing": "else"
+         *    }
          *   }
          *
          *   var transform = {
          *     "id": "nr",
-          *    "some.thing": "name"
+         *    "some.thing": "name"
          *   }
          *
          *   var tgt = dot.transform(transform, obj)

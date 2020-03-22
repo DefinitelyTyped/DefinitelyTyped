@@ -4,36 +4,31 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Request,
-    Plugin,
-    ResponseToolkit,
-    AuthenticationData,
-  } from '@hapi/hapi';
+import { Request, Plugin, ResponseToolkit, AuthenticationData } from '@hapi/hapi';
 
-  type ValidateReturn = AuthenticationData & { isValid: boolean };
+type ValidateReturn = AuthenticationData & { isValid: boolean };
 
-  declare module '@hapi/hapi' {
+declare module '@hapi/hapi' {
     interface ServerAuth {
-      strategy(name: string, scheme: 'bearer-access-token', options: BearerToken.SchemaOptions): void;
+        strategy(name: string, scheme: 'bearer-access-token', options: BearerToken.SchemaOptions): void;
     }
-  }
+}
 
-  declare namespace BearerToken {
+declare namespace BearerToken {
     interface SchemaOptions {
-      validate: Validate;
-      accessTokenName?: string;
-      allowQueryToken?: boolean;
-      allowCookieToken?: boolean;
-      allowMultipleHeaders?: boolean;
-      allowChaining?: boolean;
-      tokenType?: string;
-      unauthorized?: (message: string | null, scheme: string) => any;
+        validate: Validate;
+        accessTokenName?: string;
+        allowQueryToken?: boolean;
+        allowCookieToken?: boolean;
+        allowMultipleHeaders?: boolean;
+        allowChaining?: boolean;
+        tokenType?: string;
+        unauthorized?: (message: string | null, scheme: string) => any;
     }
 
     type Validate = (request: Request, token: string, h: ResponseToolkit) => Promise<ValidateReturn> | ValidateReturn;
-  }
+}
 
-  declare var BearerToken: Plugin<{}>;
+declare var BearerToken: Plugin<{}>;
 
-  export = BearerToken;
+export = BearerToken;

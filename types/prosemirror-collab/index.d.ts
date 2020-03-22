@@ -15,19 +15,16 @@ import { Step } from 'prosemirror-transform';
  * Creates a plugin that enables the collaborative editing framework
  * for the editor.
  */
-export function collab(config?: {
-  version?: number | null;
-  clientID?: number | string | null;
-}): Plugin;
+export function collab(config?: { version?: number | null; clientID?: number | string | null }): Plugin;
 /**
  * Create a transaction that represents a set of new steps received from
  * the authority. Applying this transaction moves the state forward to
  * adjust to the authority's view of the document.
  */
 export function receiveTransaction<S extends Schema = any>(
-  state: EditorState<S>,
-  steps: Array<Step<S>>,
-  clientIDs: Array<number | string>
+    state: EditorState<S>,
+    steps: Array<Step<S>>,
+    clientIDs: Array<number | string>,
 ): Transaction<S>;
 /**
  * Provides data describing the editor's unconfirmed steps, which need
@@ -41,13 +38,16 @@ export function receiveTransaction<S extends Schema = any>(
  * unchanged objects.
  */
 export function sendableSteps<S extends Schema = any>(
-  state: EditorState<S>
-): {
-  version: number;
-  steps: Array<Step<S>>;
-  clientID: number | string;
-  origins: Array<Transaction<S>>;
-} | null | undefined;
+    state: EditorState<S>,
+):
+    | {
+          version: number;
+          steps: Array<Step<S>>;
+          clientID: number | string;
+          origins: Array<Transaction<S>>;
+      }
+    | null
+    | undefined;
 /**
  * Get the version up to which the collab plugin has synced with the
  * central authority.

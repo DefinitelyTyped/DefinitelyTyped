@@ -43,7 +43,7 @@ export function getMetaBoxesPerLocation(location: MetaboxLocation): MetaboxDescr
 export function getPreference<T = unknown>(preferenceKey: string): T | undefined; // tslint:disable-line:no-unnecessary-generics
 export function getPreference<T>(
     preferenceKey: string,
-    defaultValue: T
+    defaultValue: T,
 ): T extends string ? string : T extends number ? number : T;
 
 /**

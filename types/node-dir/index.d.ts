@@ -6,7 +6,7 @@
 
 ///<reference types="node"/>
 
-import { ReadStream } from "fs";
+import { ReadStream } from 'fs';
 
 export interface Options {
     // file encoding (defaults to 'utf8')
@@ -62,13 +62,32 @@ export interface PathsResult {
 
 export function readFiles(dir: string, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
 export function readFiles(dir: string, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
-export function readFiles(dir: string, options: Options, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
-export function readFiles(dir: string, options: Options, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
+export function readFiles(
+    dir: string,
+    options: Options,
+    fileCallback: FileCallback,
+    finishedCallback?: FinishedCallback,
+): void;
+export function readFiles(
+    dir: string,
+    options: Options,
+    fileCallback: FileNamedCallback,
+    finishedCallback?: FinishedCallback,
+): void;
 export function readFilesStream(dir: string, streamCallback: StreamCallback, finishedCallback?: FinishedCallback): void;
-export function readFilesStream(dir: string, options: Options, streamCallback: StreamCallback, finishedCallback?: FinishedCallback): void;
+export function readFilesStream(
+    dir: string,
+    options: Options,
+    streamCallback: StreamCallback,
+    finishedCallback?: FinishedCallback,
+): void;
 export function files(dir: string, callback: (error: any, files: string[]) => void): void;
 export function files(dir: string, syncOption: { sync: true }): string[];
 export function promiseFiles(dir: string): Promise<string[]>;
 export function subdirs(dir: string, callback: (error: any, subdirs: string[]) => void): void;
 export function paths(dir: string, callback: (error: any, paths: PathsResult) => void): void;
-export function paths(dir: string, combine: boolean, callback: (error: any, paths: string[] | PathsResult) => void): void;
+export function paths(
+    dir: string,
+    combine: boolean,
+    callback: (error: any, paths: string[] | PathsResult) => void,
+): void;

@@ -1,6 +1,6 @@
 // tslint:disable-next-line:no-bad-reference
-import "../node-tests";
-import * as util from "util";
+import '../node-tests';
+import * as util from 'util';
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///

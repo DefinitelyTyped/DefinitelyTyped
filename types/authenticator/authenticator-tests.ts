@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import * as authenticator from "authenticator";
+import * as authenticator from 'authenticator';
 
 // Functions to test return type of 'function verifyToken()'
 function foo(_result: authenticator.VerifyResult) {}
@@ -13,16 +13,16 @@ const token: string = authenticator.generateToken(key);
 const verifyResult = authenticator.verifyToken(key, token);
 // Test return type of 'function verifyToken()'
 if (verifyResult) {
-  // interface VerifyResult
-  foo(verifyResult);
+    // interface VerifyResult
+    foo(verifyResult);
 } else {
-  // null
-  bar(verifyResult);
+    // null
+    bar(verifyResult);
 }
 
 // Test 'function generateTotpUri()'
 let uri: string;
-const accountName = "yourface@gmail.com";
-const issuer = "Your Face Co";
-uri = authenticator.generateTotpUri(key, accountName, issuer, "sha1", 6, 30);
+const accountName = 'yourface@gmail.com';
+const issuer = 'Your Face Co';
+uri = authenticator.generateTotpUri(key, accountName, issuer, 'sha1', 6, 30);
 uri;

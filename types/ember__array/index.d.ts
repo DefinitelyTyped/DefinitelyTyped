@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import ComputedProperty from "@ember/object/computed";
-import Mixin from "@ember/object/mixin";
-import Enumerable from "@ember/array/-private/enumerable";
-import NativeArray from "@ember/array/-private/native-array";
+import ComputedProperty from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
+import Enumerable from '@ember/array/-private/enumerable';
+import NativeArray from '@ember/array/-private/native-array';
 
 /**
  * This module implements Observer-friendly Array-like behavior. This mixin is picked up by the

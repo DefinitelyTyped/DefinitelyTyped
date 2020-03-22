@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { Options as CoreOptions } from "conventional-changelog-core";
-import { Commit } from "conventional-commits-parser";
-import { Context as WriterContext } from "conventional-changelog-writer";
+import { Options as CoreOptions } from 'conventional-changelog-core';
+import { Commit } from 'conventional-commits-parser';
+import { Context as WriterContext } from 'conventional-changelog-writer';
 
 /**
  * The string that is passed to the preset loader is manipulated by prepending

@@ -51,7 +51,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', 'none', or true (which maps to 'strict').
          */
-        sameSite?: "strict" | "lax" | "none" | boolean;
+        sameSite?: 'strict' | 'lax' | 'none' | boolean;
 
         /**
          * a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS).
@@ -112,7 +112,7 @@ declare namespace CookieSessionInterfaces {
     }
 }
 
-declare module "cookie-session" {
+declare module 'cookie-session' {
     import express = require('express');
 
     function cookieSession(options?: CookieSessionInterfaces.CookieSessionOptions): express.RequestHandler;

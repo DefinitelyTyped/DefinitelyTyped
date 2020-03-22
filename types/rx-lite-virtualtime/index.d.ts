@@ -12,9 +12,17 @@ declare namespace Rx {
         advanceBy(time: TRelative): void;
         advanceTo(time: TAbsolute): void;
         scheduleAbsolute(dueTime: TAbsolute, action: () => void): IDisposable;
-        scheduleAbsoluteWithState<TState>(state: TState, dueTime: TAbsolute, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
+        scheduleAbsoluteWithState<TState>(
+            state: TState,
+            dueTime: TAbsolute,
+            action: (scheduler: IScheduler, state: TState) => IDisposable,
+        ): IDisposable;
         scheduleRelative(dueTime: TRelative, action: () => void): IDisposable;
-        scheduleRelativeWithState<TState>(state: TState, dueTime: TRelative, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
+        scheduleRelativeWithState<TState>(
+            state: TState,
+            dueTime: TRelative,
+            action: (scheduler: IScheduler, state: TState) => IDisposable,
+        ): IDisposable;
         sleep(time: TRelative): void;
         start(): IDisposable;
         stop(): void;
@@ -28,14 +36,13 @@ declare namespace Rx {
         /* protected */ getNext(): internals.ScheduledItem<TAbsolute>;
     }
 
-    interface HistoricalScheduler extends VirtualTimeScheduler<number, number> {
-    }
+    interface HistoricalScheduler extends VirtualTimeScheduler<number, number> {}
 
     const HistoricalScheduler: {
         new (initialClock: number, comparer: (first: number, second: number) => number): HistoricalScheduler;
     };
 }
 
-declare module "rx-lite-virtualtime" {
+declare module 'rx-lite-virtualtime' {
     export = Rx;
 }

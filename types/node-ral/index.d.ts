@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 import { EventEmitter } from 'events';
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
 export interface LogInfo {
     service: string;
@@ -44,7 +44,7 @@ export namespace RAL {
     }
 
     class NormalizerManager {
-        constructor()
+        constructor();
         normalizers: string[];
         setConfigNormalizer(normalizers: string[]): void;
         needUpdate(config: any): boolean;
@@ -82,7 +82,7 @@ export abstract class RalModule {
     static load(pathOrModule: string | RalModule): void;
 
     static modules: {
-        [key: string]: RalModule
+        [key: string]: RalModule;
     };
 }
 
@@ -92,7 +92,16 @@ export interface Server {
     port: string | number;
 }
 
-export type buildInConverter = 'form' | 'formData' | 'json' | 'protobuf' | 'querystring' | 'raw' | 'redis' | 'stream' | 'string';
+export type buildInConverter =
+    | 'form'
+    | 'formData'
+    | 'json'
+    | 'protobuf'
+    | 'querystring'
+    | 'raw'
+    | 'redis'
+    | 'stream'
+    | 'string';
 export interface Service {
     method?: 'GET' | 'POST';
     server: Server[];
@@ -105,7 +114,7 @@ export interface Service {
     balance: 'random' | 'roundrobin' | 'hashring';
     protocol: 'http' | 'https' | 'soap' | 'redis';
     headers?: {
-        [key: string]: string | number
+        [key: string]: string | number;
     };
     query?: any;
     data?: any;
@@ -128,7 +137,7 @@ export abstract class Balance {
 
 export namespace Balance {
     class BalanceContextClass {
-        constructor(serviceID: string, service: Service)
+        constructor(serviceID: string, service: Service);
         currentIDC: string;
         serviceID: string;
         reqIDCServers: string[];

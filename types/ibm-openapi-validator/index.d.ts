@@ -10,8 +10,8 @@ interface validatorResultItem {
 }
 
 interface validatorResult {
-    errors: [] | [ validatorResultItem ];
-    warnings: [] | [ validatorResultItem ];
+    errors: [] | [validatorResultItem];
+    warnings: [] | [validatorResultItem];
 }
 
 /**
@@ -25,6 +25,9 @@ type validatorParameterDefaultMode = boolean;
  * @param defaultMode - If set to true, the validator will ignore the .validaterc file and will use the [configuration defaults](https://github.com/IBM/openapi-validator#default-values).
  * @returns Validation results
  */
-declare function validator(openApiDoc: {[property: string]: any}, defaultMode?: validatorParameterDefaultMode): Promise<validatorResult>;
+declare function validator(
+    openApiDoc: { [property: string]: any },
+    defaultMode?: validatorParameterDefaultMode,
+): Promise<validatorResult>;
 
 export = validator;

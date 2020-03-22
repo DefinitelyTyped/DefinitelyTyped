@@ -138,7 +138,7 @@ render(
     document.body,
 );
 
-<Markdown options={{ slugify: str => str }}># 中文</Markdown>;
+<Markdown options={{ slugify: (str) => str }}># 中文</Markdown>;
 
 // supports passing extra properties to the underlying element
 <Markdown className="markdown-body">{`

@@ -42,7 +42,7 @@ declare module '../../index' {
             path: string | any[],
             successCallback?: (...args: any[]) => any,
             errorCallback?: (...args: any[]) => any,
-            whileLoadingCallback?: (...args: any[]) => any
+            whileLoadingCallback?: (...args: any[]) => any,
         );
 
         /**
@@ -72,7 +72,7 @@ declare module '../../index' {
             path: string | any[],
             successCallback?: (...args: any[]) => any,
             errorCallback?: (...args: any[]) => any,
-            whileLoading?: (...args: any[]) => any
+            whileLoading?: (...args: any[]) => any,
         ): SoundFile;
 
         /**
@@ -356,7 +356,7 @@ declare module '../../index' {
             callback: (...args: any[]) => any,
             initThreshold?: number,
             minThreshold?: number,
-            minPeaks?: number
+            minPeaks?: number,
         ): any[];
 
         /**
@@ -903,7 +903,7 @@ declare module '../../index' {
             decayTime: number,
             decayLevel: number,
             releaseTime: number,
-            releaseLevel: number
+            releaseLevel: number,
         ): void;
 
         /**
@@ -1762,7 +1762,7 @@ declare module '../../index' {
         createConvolver(
             path: string,
             callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
+            errorCallback?: (...args: any[]) => any,
         ): Convolver;
 
         /**
@@ -2150,7 +2150,7 @@ declare module '../../index' {
             knee?: number,
             ratio?: number,
             threshold?: number,
-            release?: number
+            release?: number,
         ): void;
 
         /**

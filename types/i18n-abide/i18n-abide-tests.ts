@@ -15,24 +15,24 @@ i18n.abide(); // $ExpectType RequestHandler<ParamsDictionary>
 i18n.abide(emptyAbideOptions); // $ExpectType RequestHandler<ParamsDictionary>
 i18n.abide(fullAbideOptions); // $ExpectType RequestHandler<ParamsDictionary>
 
-i18n.parseAcceptLanguage(""); // $ExpectType { lang: string; quality: number; }[]
+i18n.parseAcceptLanguage(''); // $ExpectType { lang: string; quality: number; }[]
 
-i18n.bestLanguage([{lang: 'en-US', quality: 1.0}], ['en-US'], 'en-US'); // $ExpectType string
+i18n.bestLanguage([{ lang: 'en-US', quality: 1.0 }], ['en-US'], 'en-US'); // $ExpectType string
 
 i18n.localeFrom(); // $ExpectType string
-i18n.localeFrom(""); // $ExpectType string
+i18n.localeFrom(''); // $ExpectType string
 
 i18n.languageFrom(); // $ExpectType string
-i18n.languageFrom(""); // $ExpectType string
+i18n.languageFrom(''); // $ExpectType string
 
 i18n.normalizeLanguage(); // $ExpectType string
-i18n.normalizeLanguage(""); // $ExpectType string
+i18n.normalizeLanguage(''); // $ExpectType string
 
 i18n.normalizeLocale(); // $ExpectType string
-i18n.normalizeLocale(""); // $ExpectType string
+i18n.normalizeLocale(''); // $ExpectType string
 
-i18n.format(""); // $ExpectType string
-i18n.format("", {}); // $ExpectType string
-i18n.format("", {}, false); // $ExpectType string
+i18n.format(''); // $ExpectType string
+i18n.format('', {}); // $ExpectType string
+i18n.format('', {}, false); // $ExpectType string
 
 i18n.getLocales(); // $ExpectType string[]

@@ -6,7 +6,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Request, ResponseObject, Plugin, ResponseToolkit, AuthCredentials, ServerStateCookieOptions } from '@hapi/hapi';
+import {
+    Request,
+    ResponseObject,
+    Plugin,
+    ResponseToolkit,
+    AuthCredentials,
+    ServerStateCookieOptions,
+} from '@hapi/hapi';
 
 declare module '@hapi/hapi' {
     interface ServerAuth {
@@ -30,7 +37,10 @@ declare module '@hapi/hapi' {
 }
 
 declare namespace hapiAuthCookie {
-    interface ValidateResponse { valid: boolean; credentials?: AuthCredentials; }
+    interface ValidateResponse {
+        valid: boolean;
+        credentials?: AuthCredentials;
+    }
     type ValidateFunction = (request?: Request, session?: object) => Promise<ValidateResponse>;
     type RedirectToFunction = (request?: Request) => string;
 

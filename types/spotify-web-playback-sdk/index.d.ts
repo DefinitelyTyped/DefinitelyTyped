@@ -97,10 +97,9 @@ declare namespace Spotify {
     type PlaybackInstanceListener = (inst: WebPlaybackInstance) => void;
     type PlaybackStateListener = (s: PlaybackState) => void;
 
-    type AddListenerFn =
-        & ((event: 'ready' | 'not_ready', cb: PlaybackInstanceListener) => void)
-        & ((event: 'player_state_changed', cb: PlaybackStateListener) => void)
-        & ((event: ErrorTypes, cb: ErrorListener) => void);
+    type AddListenerFn = ((event: 'ready' | 'not_ready', cb: PlaybackInstanceListener) => void) &
+        ((event: 'player_state_changed', cb: PlaybackStateListener) => void) &
+        ((event: ErrorTypes, cb: ErrorListener) => void);
 
     class SpotifyPlayer {
         constructor(options: PlayerInit);

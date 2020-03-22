@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface TimeBaseProps {
     disableStyles?: boolean;
@@ -33,7 +33,7 @@ export type TimeProps = TimeBaseProps & {
 } & { [x: string]: any };
 
 declare class Time extends React.Component<TimeProps> {
-    static displayName: "Time";
+    static displayName: 'Time';
 }
 
 export default Time;

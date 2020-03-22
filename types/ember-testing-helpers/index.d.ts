@@ -49,12 +49,7 @@ declare global {
     function resumeTest(): void;
 
     // https://github.com/emberjs/ember.js/blob/master/packages/ember-testing/lib/helpers/trigger_event.js
-    function triggerEvent(
-        selector: string,
-        context: Object,
-        type: string,
-        options: Object
-    ): WaitResult<void>;
+    function triggerEvent(selector: string, context: Object, type: string, options: Object): WaitResult<void>;
     function triggerEvent(selector: string, context: Object, type: string): WaitResult<void>;
     function triggerEvent(selector: string, type: string, options: Object): WaitResult<void>;
     function triggerEvent(selector: string, type: string): WaitResult<void>;

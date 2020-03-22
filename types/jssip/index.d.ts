@@ -17,7 +17,7 @@ export namespace NameAddrHeader {
 export class NameAddrHeader {
     display_name: string;
     uri: JsSIP.URI;
-    constructor(uri: JsSIP.URI, display_name?: string, parameters?: { [s: string]: string; });
+    constructor(uri: JsSIP.URI, display_name?: string, parameters?: { [s: string]: string });
     clearParams(): void;
     clone(): JsSIP.NameAddrHeader;
     deleteParam(parameter: string): any;
@@ -87,7 +87,7 @@ export interface UserAgentCallOptions {
     rtcConstraints?: any;
     rtcAnswerConstraints?: RTCAnswerOptions;
     rtcOfferConstraints?: RTCOfferOptions;
-    eventHandlers?: { [s: string]: (data: any) => void; };
+    eventHandlers?: { [s: string]: (data: any) => void };
     extraHeaders?: string[];
     anonymous?: boolean;
     sessionTimersExpires?: number;
@@ -95,7 +95,7 @@ export interface UserAgentCallOptions {
 
 export interface UserAgentSendMessageOptions {
     contentType?: string;
-    eventHandlers?: { [s: string]: (data: any) => void; };
+    eventHandlers?: { [s: string]: (data: any) => void };
     extraHeaders?: string[];
 }
 
@@ -132,23 +132,23 @@ export interface UserAgentRegistrationFailedEvent {
 export interface UserAgentNewRtcSessionEvent {
     originator: string;
     session: JsSIP.RTCSession;
-    request: JsSIP.IncomingRequest|JsSIP.OutgoingRequest;
+    request: JsSIP.IncomingRequest | JsSIP.OutgoingRequest;
 }
 
 export interface UserAgentNewMessageEvent {
     originator: string;
     message: JsSIP.Message;
-    request: JsSIP.IncomingRequest|JsSIP.OutgoingRequest;
+    request: JsSIP.IncomingRequest | JsSIP.OutgoingRequest;
 }
 
 export interface UserAgentSipEvent {
-    event: { event: string, params: any };
+    event: { event: string; params: any };
     request: JsSIP.IncomingRequest;
 }
 
 export interface MessageSendOptions {
     contentType?: string;
-    eventHandlers?: { [s: string]: (data: any) => void; };
+    eventHandlers?: { [s: string]: (data: any) => void };
     extraHeaders?: string[];
 }
 
@@ -182,40 +182,40 @@ export class Message {
     send(target: string, body: string, options?: MessageSendOptions): void;
     accept(options?: MessageAcceptOptions): void;
     reject(options?: MessageRejectOptions): void;
-    on(eventName: "succeeded", handler: EventHandler<MessageSucceededEvent>): void;
-    on(eventName: "failed", handler: EventHandler<MessageFailedEvent>): void;
+    on(eventName: 'succeeded', handler: EventHandler<MessageSucceededEvent>): void;
+    on(eventName: 'failed', handler: EventHandler<MessageFailedEvent>): void;
 }
 
 export class UA {
     constructor(configuration: JsSIP.UserAgentConfiguration);
-    call(target: string|JsSIP.URI, options?: UserAgentCallOptions): any;
-    get(parameter: string): string|undefined;
+    call(target: string | JsSIP.URI, options?: UserAgentCallOptions): any;
+    get(parameter: string): string | undefined;
     isConnected(): boolean;
     isRegistered(): boolean;
     register(): void;
     registrator(): JsSIP.Registrator;
-    sendMessage(target: string|JsSIP.URI, body: string, options?: UserAgentSendMessageOptions): any;
+    sendMessage(target: string | JsSIP.URI, body: string, options?: UserAgentSendMessageOptions): any;
     set(parameter: string, value: string): any;
     start(): void;
     stop(): void;
     terminateSessions(options: SessionTerminateOptions): void;
     unregister(options?: UserAgentUnregisterOptions): void;
-    on(eventName: "connecting", handler: EventHandler<UserAgentConnectingEvent>): void;
-    on(eventName: "connected", handler: EventHandler<UserAgentConnectedEvent>): void;
-    on(eventName: "disconnected", handler: EventHandler<UserAgentDisconnectedEvent>): void;
-    on(eventName: "registered", handler: EventHandler<UserAgentRegisteredEvent>): void;
-    on(eventName: "unregistered", handler: EventHandler<UserAgentUnregisteredEvent>): void;
-    on(eventName: "registrationFailed", handler: EventHandler<UserAgentRegistrationFailedEvent>): void;
-    on(eventName: "registrationExpiring", handler: () => void): void;
-    on(eventName: "newRTCSession", handler: EventHandler<UserAgentNewRtcSessionEvent>): void;
-    on(eventName: "newMessage", handler: EventHandler<UserAgentNewMessageEvent>): void;
-    on(eventName: "sipEvent", handler: EventHandler<UserAgentSipEvent>): void;
+    on(eventName: 'connecting', handler: EventHandler<UserAgentConnectingEvent>): void;
+    on(eventName: 'connected', handler: EventHandler<UserAgentConnectedEvent>): void;
+    on(eventName: 'disconnected', handler: EventHandler<UserAgentDisconnectedEvent>): void;
+    on(eventName: 'registered', handler: EventHandler<UserAgentRegisteredEvent>): void;
+    on(eventName: 'unregistered', handler: EventHandler<UserAgentUnregisteredEvent>): void;
+    on(eventName: 'registrationFailed', handler: EventHandler<UserAgentRegistrationFailedEvent>): void;
+    on(eventName: 'registrationExpiring', handler: () => void): void;
+    on(eventName: 'newRTCSession', handler: EventHandler<UserAgentNewRtcSessionEvent>): void;
+    on(eventName: 'newMessage', handler: EventHandler<UserAgentNewMessageEvent>): void;
+    on(eventName: 'sipEvent', handler: EventHandler<UserAgentSipEvent>): void;
 }
 
 export type EventHandler<T> = (e: T) => void;
 
 export interface SessionConnectingEvent {
-    request: JsSIP.IncomingRequest|JsSIP.OutgoingRequest;
+    request: JsSIP.IncomingRequest | JsSIP.OutgoingRequest;
 }
 
 export interface SessionSendingEvent {
@@ -239,26 +239,26 @@ export interface SessionConfirmedEvent {
 
 export interface SessionEndedEvent {
     originator: string;
-    message?: JsSIP.IncomingResponse|JsSIP.IncomingResponse;
+    message?: JsSIP.IncomingResponse | JsSIP.IncomingResponse;
     cause: string;
 }
 
 export interface SessionFailedEvent {
     originator: string;
-    message?: JsSIP.IncomingResponse|JsSIP.IncomingResponse;
+    message?: JsSIP.IncomingResponse | JsSIP.IncomingResponse;
     cause: string;
 }
 
 export interface SessionNewDtmfEvent {
     originator: string;
     dtmf: JsSIP.RTCSession.DTMF;
-    request: JsSIP.IncomingRequest|JsSIP.OutgoingRequest;
+    request: JsSIP.IncomingRequest | JsSIP.OutgoingRequest;
 }
 
 export interface SessionNewInfoEvent {
     originator: string;
     info: JsSIP.RTCSession.Info;
-    request: JsSIP.IncomingRequest|JsSIP.OutgoingRequest;
+    request: JsSIP.IncomingRequest | JsSIP.OutgoingRequest;
 }
 
 export interface SessionHoldEvent {
@@ -420,7 +420,7 @@ export interface SessionMuteOptions {
 
 export interface SessionReferOptions {
     extraHeaders?: string[];
-    eventHandlers?: { [s: string]: (data: any) => void; };
+    eventHandlers?: { [s: string]: (data: any) => void };
     replaces?: JsSIP.RTCSession;
 }
 
@@ -438,7 +438,7 @@ export class RTCSession {
     isReadyToReOffer(): boolean;
     answer(options?: SessionAnswerOptions): void;
     terminate(options?: SessionTerminateOptions): void;
-    sendDTMF(tone: string|number, options?: SessionSendDtmfOptions): void;
+    sendDTMF(tone: string | number, options?: SessionSendDtmfOptions): void;
     sendInfo(contentType: string, body?: string, options?: SessionSendInfoOptions): void;
     hold(options?: SessionHoldOptions, done?: () => void): void;
     unhold(options?: SessionHoldOptions, done?: () => void): void;
@@ -447,38 +447,44 @@ export class RTCSession {
     mute(options?: SessionMuteOptions): void;
     unmute(options?: SessionMuteOptions): void;
     isMuted(): boolean;
-    refer(target: string|JsSIP.URI, options?: SessionReferOptions): void;
+    refer(target: string | JsSIP.URI, options?: SessionReferOptions): void;
     resetLocalMedia(): void;
-    on(eventName: "peerconnection", handler: EventHandler<RTCPeerConnection>): void;
-    on(eventName: "connecting", handler: EventHandler<SessionConnectingEvent>): void;
-    on(eventName: "sending", handler: EventHandler<SessionSendingEvent>): void;
-    on(eventName: "progress", handler: EventHandler<SessionProgressEvent>): void;
-    on(eventName: "accepted", handler: EventHandler<SessionAcceptedEvent>): void;
-    on(eventName: "confirmed", handler: EventHandler<SessionConfirmedEvent>): void;
-    on(eventName: "ended", handler: EventHandler<SessionEndedEvent>): void;
-    on(eventName: "failed", handler: EventHandler<SessionFailedEvent>): void;
-    on(eventName: "newDTMF", handler: EventHandler<SessionNewDtmfEvent>): void;
-    on(eventName: "newInfo", handler: EventHandler<SessionNewInfoEvent>): void;
-    on(eventName: "hold", handler: EventHandler<SessionHoldEvent>): void;
-    on(eventName: "unhold", handler: EventHandler<SessionUnholdEvent>): void;
-    on(eventName: "muted", handler: EventHandler<SessionMuteEvent>): void;
-    on(eventName: "unmuted", handler: EventHandler<SessionUnmuteEvent>): void;
-    on(eventName: "reinvite", handler: EventHandler<SessionReinviteEvent>): void;
-    on(eventName: "update", handler: EventHandler<SessionUpdateEvent>): void;
-    on(eventName: "refer", handler: EventHandler<SessionReferEvent>): void;
-    on(eventName: "replaces", handler: EventHandler<SessionReplaceEvent>): void;
-    on(eventName: "sdp", handler: EventHandler<SessionSdpEvent>): void;
-    on(eventName: "icecandidate", handler: EventHandler<SessionIceCandidateEvent>): void;
-    on(eventName: "getusermediafailed", handler: EventHandler<SessionUserMediaFailedEvent>): void;
-    on(eventName: "peerconnection:createofferfailed", handler: EventHandler<SessionCreateOfferFailedEvent>): void;
-    on(eventName: "peerconnection:createanswerfailed", handler: EventHandler<SessionCreateAnswerFailedEvent>): void;
-    on(eventName: "peerconnection:setlocaldescriptionfailed", handler: EventHandler<SessionSetLocalDescriptionFailedEvent>): void;
-    on(eventName: "peerconnection:setremotedescriptionfailed", handler: EventHandler<SessionSetRemoteDescriptionFailedEvent>): void;
+    on(eventName: 'peerconnection', handler: EventHandler<RTCPeerConnection>): void;
+    on(eventName: 'connecting', handler: EventHandler<SessionConnectingEvent>): void;
+    on(eventName: 'sending', handler: EventHandler<SessionSendingEvent>): void;
+    on(eventName: 'progress', handler: EventHandler<SessionProgressEvent>): void;
+    on(eventName: 'accepted', handler: EventHandler<SessionAcceptedEvent>): void;
+    on(eventName: 'confirmed', handler: EventHandler<SessionConfirmedEvent>): void;
+    on(eventName: 'ended', handler: EventHandler<SessionEndedEvent>): void;
+    on(eventName: 'failed', handler: EventHandler<SessionFailedEvent>): void;
+    on(eventName: 'newDTMF', handler: EventHandler<SessionNewDtmfEvent>): void;
+    on(eventName: 'newInfo', handler: EventHandler<SessionNewInfoEvent>): void;
+    on(eventName: 'hold', handler: EventHandler<SessionHoldEvent>): void;
+    on(eventName: 'unhold', handler: EventHandler<SessionUnholdEvent>): void;
+    on(eventName: 'muted', handler: EventHandler<SessionMuteEvent>): void;
+    on(eventName: 'unmuted', handler: EventHandler<SessionUnmuteEvent>): void;
+    on(eventName: 'reinvite', handler: EventHandler<SessionReinviteEvent>): void;
+    on(eventName: 'update', handler: EventHandler<SessionUpdateEvent>): void;
+    on(eventName: 'refer', handler: EventHandler<SessionReferEvent>): void;
+    on(eventName: 'replaces', handler: EventHandler<SessionReplaceEvent>): void;
+    on(eventName: 'sdp', handler: EventHandler<SessionSdpEvent>): void;
+    on(eventName: 'icecandidate', handler: EventHandler<SessionIceCandidateEvent>): void;
+    on(eventName: 'getusermediafailed', handler: EventHandler<SessionUserMediaFailedEvent>): void;
+    on(eventName: 'peerconnection:createofferfailed', handler: EventHandler<SessionCreateOfferFailedEvent>): void;
+    on(eventName: 'peerconnection:createanswerfailed', handler: EventHandler<SessionCreateAnswerFailedEvent>): void;
+    on(
+        eventName: 'peerconnection:setlocaldescriptionfailed',
+        handler: EventHandler<SessionSetLocalDescriptionFailedEvent>,
+    ): void;
+    on(
+        eventName: 'peerconnection:setremotedescriptionfailed',
+        handler: EventHandler<SessionSetRemoteDescriptionFailedEvent>,
+    ): void;
 }
 
 export class Registrator {
     setExtraHeaders(extraHeaders?: string[]): void;
-    setExtraContactParams(extraContactParams?: { [s: string]: string; }): void;
+    setExtraContactParams(extraContactParams?: { [s: string]: string }): void;
 }
 
 export namespace URI {
@@ -486,7 +492,14 @@ export namespace URI {
 }
 
 export class URI {
-    constructor(scheme: string | null, user: string | null, host: string, port?: number, parameters?: { [s: string]: string; }, headers?: { [s: string]: string; });
+    constructor(
+        scheme: string | null,
+        user: string | null,
+        host: string,
+        port?: number,
+        parameters?: { [s: string]: string },
+        headers?: { [s: string]: string },
+    );
     clearHeaders(): void;
     clearParams(): void;
     clone(): JsSIP.URI;

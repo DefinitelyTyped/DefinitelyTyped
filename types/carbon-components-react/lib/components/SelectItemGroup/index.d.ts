@@ -1,2 +1,2 @@
-export * from "./SelectItemGroup";
-export { default } from "./SelectItemGroup";
+export * from './SelectItemGroup';
+export { default } from './SelectItemGroup';

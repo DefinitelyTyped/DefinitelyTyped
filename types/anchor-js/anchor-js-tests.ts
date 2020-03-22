@@ -18,7 +18,7 @@ footerAnchors.remove('.links');
 anchors.options = {
     placement: 'left',
     visible: 'always',
-    icon: '¶'
+    icon: '¶',
 };
 
 anchors.options.base = '/2019/1/03/my-post';

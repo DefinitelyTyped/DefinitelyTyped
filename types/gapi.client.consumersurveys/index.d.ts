@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Consumer Surveys API v2 */
-    function load(name: "consumersurveys", version: "v2"): PromiseLike<void>;
-    function load(name: "consumersurveys", version: "v2", callback: () => any): void;
+    function load(name: 'consumersurveys', version: 'v2'): PromiseLike<void>;
+    function load(name: 'consumersurveys', version: 'v2', callback: () => any): void;
 
     const mobileapppanels: consumersurveys.MobileapppanelsResource;
 

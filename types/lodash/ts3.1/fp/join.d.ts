@@ -1,2 +1,2 @@
-import { join } from "../fp";
+import { join } from '../fp';
 export = join;

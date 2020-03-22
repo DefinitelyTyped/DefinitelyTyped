@@ -1,2 +1,2 @@
-import { assignInWith } from "lodash";
+import { assignInWith } from 'lodash';
 export default assignInWith;

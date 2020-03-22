@@ -15,11 +15,7 @@ declare const userEvent: {
     click: (element: TargetElement) => void;
     dblClick: (element: TargetElement) => void;
     selectOptions: (element: TargetElement, values: string | string[]) => void;
-    type: (
-        element: TargetElement,
-        text: string,
-        userOpts?: UserOptions,
-    ) => Promise<void>;
+    type: (element: TargetElement, text: string, userOpts?: UserOptions) => Promise<void>;
 };
 
 export default userEvent;

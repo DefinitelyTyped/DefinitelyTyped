@@ -5,14 +5,14 @@
 
 /// <reference types="node" />
 
-import * as fs from 'fs'
+import * as fs from 'fs';
 declare namespace klawSync {
     interface Item {
-        path: string
-        stats: fs.Stats
+        path: string;
+        stats: fs.Stats;
     }
 
-    type Filter = (item: Item) => boolean
+    type Filter = (item: Item) => boolean;
 
     interface Options {
         /**
@@ -20,14 +20,14 @@ declare namespace klawSync {
          *              Defaults to false if not specified.
          * @default false
          */
-        nodir?: boolean
+        nodir?: boolean;
 
         /**
          * @description True to only return directories (ignore files).
          *              Defaults to false if not specified.
          * @default false
          */
-        nofile?: boolean
+        nofile?: boolean;
 
         /**
          * @description The number of times to recurse before stopping.
@@ -35,7 +35,7 @@ declare namespace klawSync {
          * @default -1
          * @since v5.0.0
          */
-        depthLimit?: number
+        depthLimit?: number;
 
         /**
          * @description Custom fs, useful when mocking fs object.
@@ -43,16 +43,16 @@ declare namespace klawSync {
          * @since v4.0.0
          */
         fs?: {
-            readdirSync(path: string): string[]
-            statSync(path: string): fs.Stats
-        }
+            readdirSync(path: string): string[];
+            statSync(path: string): fs.Stats;
+        };
 
         /**
          * @description function that gets one argument fn({path: '', stats: {}}) and returns true to include
          *              or false to exclude the item
          * @since v2.0.0
          */
-        filter?: Filter
+        filter?: Filter;
 
         /**
          * @description traverse all subdirectories, regardless of `filter` option.
@@ -63,13 +63,10 @@ declare namespace klawSync {
          *
          * @since v6.0.0
          */
-        traverseAll?: boolean
+        traverseAll?: boolean;
     }
 }
 
-declare function klawSync(
-    root: string,
-    options?: klawSync.Options,
-): ReadonlyArray<klawSync.Item>
+declare function klawSync(root: string, options?: klawSync.Options): ReadonlyArray<klawSync.Item>;
 
-export = klawSync
+export = klawSync;

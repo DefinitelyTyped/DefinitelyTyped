@@ -1,2 +1,2 @@
-export * from "./Link";
+export * from './Link';
 export { default } from './Link';

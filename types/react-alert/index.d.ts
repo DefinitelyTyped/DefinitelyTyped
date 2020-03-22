@@ -132,18 +132,15 @@ export interface AlertCustomOptionsWithType extends AlertCustomOptions {
 export interface AlertManager {
     root?: HTMLElement;
     alerts: AlertComponentProps[];
-    show(
-        message?: React.ReactNode,
-        options?: AlertCustomOptionsWithType
-    ): AlertComponentProps;
+    show(message?: React.ReactNode, options?: AlertCustomOptionsWithType): AlertComponentProps;
     remove(alert: AlertComponentProps): void;
     success(message?: React.ReactNode, options?: AlertCustomOptions): AlertComponentProps;
     error(message?: React.ReactNode, options?: AlertCustomOptions): AlertComponentProps;
     info(message?: React.ReactNode, options?: AlertCustomOptions): AlertComponentProps;
 }
 
-export function withAlert<P extends { alert: AlertManager }>(context?: React.Context<AlertManager | undefined>):
-    (c: React.ComponentType<P>) =>
-        React.ComponentType<Pick<P, Exclude<keyof P, 'alert'>>>;
+export function withAlert<P extends { alert: AlertManager }>(
+    context?: React.Context<AlertManager | undefined>,
+): (c: React.ComponentType<P>) => React.ComponentType<Pick<P, Exclude<keyof P, 'alert'>>>;
 
 export function useAlert(context?: React.Context<AlertManager | undefined>): AlertManager;

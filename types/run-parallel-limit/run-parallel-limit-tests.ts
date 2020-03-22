@@ -5,7 +5,7 @@ const tasks: Array<rpl.Task<string>> = [
     (callback) => () => callback(new Error('boom')),
 
     // $ExpectError
-    (callback) => () => callback(null, 1)
+    (callback) => () => callback(null, 1),
 ];
 
 const justTaskCallback: rpl.TaskCallback<string> = (err, result) => {
@@ -37,7 +37,7 @@ const tasksObj: rpl.TaskObj<string> = {
     two: (callback) => () => callback(new Error('boom')),
 
     // $ExpectError
-    three: (callback) => () => callback(1)
+    three: (callback) => () => callback(1),
 };
 
 rpl(tasksObj, 5, (err, results) => {

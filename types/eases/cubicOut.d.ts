@@ -1,2 +1,2 @@
-import { cubicOut } from "./index";
+import { cubicOut } from './index';
 export = cubicOut;

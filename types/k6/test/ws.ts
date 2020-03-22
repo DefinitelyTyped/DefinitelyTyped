@@ -15,10 +15,14 @@ response = connect(address, executor);
 connect(address, 5, executor); // $ExpectError
 response = connect(address, null, executor);
 response = connect(address, {}, executor);
-response = connect(address, {
-    headers: { 'User-Agent': 'ITS' },
-    tags: { user: 'zbt' }
-}, executor);
+response = connect(
+    address,
+    {
+        headers: { 'User-Agent': 'ITS' },
+        tags: { user: 'zbt' },
+    },
+    executor,
+);
 connect(address, executor, 5); // $ExpectError
 connect(address, {}, executor, 5); // $ExpectError
 

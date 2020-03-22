@@ -22,13 +22,13 @@ declare namespace Html2Canvas {
 
         /** Whether to use ForeignObject rendering if the browser supports it */
         foreignObjectRendering?: boolean;
-        
+
         /** Predicate function which removes the matching elements from the render. */
         ignoreElements?: (element: HTMLElement) => boolean;
-        
+
         /** Timeout for loading images, in milliseconds. Setting it to 0 will result in no timeout. */
         imageTimeout?: number;
-        
+
         /** Whether to render each letter seperately. Necessary if letter-spacing is used. */
         letterRendering?: boolean;
 
@@ -49,7 +49,7 @@ declare namespace Html2Canvas {
 
         /** Use svg powered rendering where available (FF11+). */
         svgRendering?: boolean;
-        
+
         /** Whether to test each image if it taints the canvas before drawing them */
         taintTest?: boolean;
 
@@ -83,16 +83,15 @@ declare namespace Html2Canvas {
 }
 
 interface Html2CanvasStatic {
-
     /**
-      * Renders an HTML element to a canvas so that a screenshot can be generated.
-      *
-      * The screenshot is based on the DOM and as such may not be 100% accurate to the real representation as it does not make an actual screenshot,
-      * but builds the screenshot based on the information available on the page.
-      *
-      * @param {HTMLElement} element The HTML element which will be rendered to the canvas. Use the root element to render the entire window.
-      * @param {Html2CanvasOptions} options The options object that controls how the element will be rendered.
-      */
+     * Renders an HTML element to a canvas so that a screenshot can be generated.
+     *
+     * The screenshot is based on the DOM and as such may not be 100% accurate to the real representation as it does not make an actual screenshot,
+     * but builds the screenshot based on the information available on the page.
+     *
+     * @param {HTMLElement} element The HTML element which will be rendered to the canvas. Use the root element to render the entire window.
+     * @param {Html2CanvasOptions} options The options object that controls how the element will be rendered.
+     */
     (element: HTMLElement, options?: Html2Canvas.Html2CanvasOptions): Html2CanvasPromise<HTMLCanvasElement>;
 }
 
@@ -100,13 +99,25 @@ interface Html2CanvasStatic {
 // Find out a way to dependent on real Promise interface.
 // And remove following custome Promise interface.
 interface Html2CanvasThenable<R> {
-    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasThenable<U>;
-    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => void): Html2CanvasThenable<U>;
+    then<U>(
+        onFulfilled?: (value: R) => U | Html2CanvasThenable<U>,
+        onRejected?: (error: any) => U | Html2CanvasThenable<U>,
+    ): Html2CanvasThenable<U>;
+    then<U>(
+        onFulfilled?: (value: R) => U | Html2CanvasThenable<U>,
+        onRejected?: (error: any) => void,
+    ): Html2CanvasThenable<U>;
 }
 
 interface Html2CanvasPromise<R> extends Html2CanvasThenable<R> {
-    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasPromise<U>;
-    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => void): Html2CanvasPromise<U>;
+    then<U>(
+        onFulfilled?: (value: R) => U | Html2CanvasThenable<U>,
+        onRejected?: (error: any) => U | Html2CanvasThenable<U>,
+    ): Html2CanvasPromise<U>;
+    then<U>(
+        onFulfilled?: (value: R) => U | Html2CanvasThenable<U>,
+        onRejected?: (error: any) => void,
+    ): Html2CanvasPromise<U>;
     catch<U>(onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasPromise<U>;
 }
 

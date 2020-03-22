@@ -1,4 +1,4 @@
-import { StreamSource } from "./types/StreamSource";
+import { StreamSource } from './types/StreamSource';
 
 export function concatenate(sourcePromises: Array<Promise<StreamSource>>): ConcatenateReturn;
 

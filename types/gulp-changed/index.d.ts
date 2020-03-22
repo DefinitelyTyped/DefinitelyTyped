@@ -6,8 +6,8 @@
 /// <reference types="node"/>
 /// <reference types="vinyl" />
 
-import { Transform } from "stream";
-import File = require("vinyl");
+import { Transform } from 'stream';
+import File = require('vinyl');
 
 interface IComparator {
     /**
@@ -40,7 +40,7 @@ interface IOptions {
      * @default changed.compareLastModifiedTime
      */
     hasChanged?: IComparator;
-    
+
     /**
      * Function to transform the path to the destination file. Should return the absolute path to the (renamed) destination file.
      */

@@ -1,2 +1,2 @@
-import { sortedUniqBy } from "lodash";
+import { sortedUniqBy } from 'lodash';
 export default sortedUniqBy;

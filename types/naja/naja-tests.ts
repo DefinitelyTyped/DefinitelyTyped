@@ -26,7 +26,7 @@ const completeListener = (event: CompleteEvent): void => {
     }
 };
 
-const successListener: NajaEventListener<SuccessEvent<{ message: string }>> = event =>
+const successListener: NajaEventListener<SuccessEvent<{ message: string }>> = (event) =>
     console.log(event.response.message);
 
 naja.registerExtension(TestExtension, 'optionalArg');
@@ -37,21 +37,21 @@ naja.formsHandler.initForms(document.body);
 naja.formsHandler.processForm(new Event('submit'));
 naja.uiHandler.allowedOrigins.push('http://localhost');
 
-naja.snippetHandler.addEventListener('beforeUpdate', event => console.log(event.snippet, event.content));
-naja.snippetHandler.addEventListener('afterUpdate', event => console.log(event.snippet, event.content));
+naja.snippetHandler.addEventListener('beforeUpdate', (event) => console.log(event.snippet, event.content));
+naja.snippetHandler.addEventListener('afterUpdate', (event) => console.log(event.snippet, event.content));
 
 naja.uiHandler.bindUI(document.createElement('div'));
 naja.uiHandler.clickElement(document.createElement('button'));
 naja.uiHandler.handleUI(new Event('change'));
 naja.uiHandler.submitForm(document.createElement('form'));
 
-naja.addEventListener('init', event => console.log(event.defaultOptions));
-naja.addEventListener('interaction', event => console.log(event.element, event.originalEvent, event.options));
-naja.addEventListener('before', event => console.log(event.data, event.method, event.url, event.xhr));
+naja.addEventListener('init', (event) => console.log(event.defaultOptions));
+naja.addEventListener('interaction', (event) => console.log(event.element, event.originalEvent, event.options));
+naja.addEventListener('before', (event) => console.log(event.data, event.method, event.url, event.xhr));
 naja.addEventListener('start', genericListener);
 naja.addEventListener('abort', genericListener);
 naja.addEventListener('success', successListener);
-naja.addEventListener('error', event => console.error(event.error));
+naja.addEventListener('error', (event) => console.error(event.error));
 naja.addEventListener('complete', completeListener);
 
 naja.removeEventListener('start', genericListener);
@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
     naja.fireEvent('customEvent', { extra: 1 });
     naja.fireEvent('anotherEvent');
     naja.addEventListener<TestEvent>('testEvent', handler);
-    naja.addEventListener('someEvent', event => console.log(event.target));
+    naja.addEventListener('someEvent', (event) => console.log(event.target));
     naja.removeEventListener('testEvent', handler);
-    naja.removeEventListener('someEvent', event => {});
-    naja.addEventListener<OtherEvent>('otherEvent', event => console.log(event.otherProperty === 1));
+    naja.removeEventListener('someEvent', (event) => {});
+    naja.addEventListener<OtherEvent>('otherEvent', (event) => console.log(event.otherProperty === 1));
 });

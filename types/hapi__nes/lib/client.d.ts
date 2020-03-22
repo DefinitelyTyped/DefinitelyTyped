@@ -10,12 +10,15 @@ declare class Client {
     constructor(url: string, options?: Client.ClientOptions);
     onError: (err: any) => void;
     onConnect: () => void;
-    onDisconnect: (willReconnect: boolean, log: { code: number, explanation: string, reason: string, wasClean: boolean }) => void;
+    onDisconnect: (
+        willReconnect: boolean,
+        log: { code: number; explanation: string; reason: string; wasClean: boolean },
+    ) => void;
     onUpdate: (message: any) => void;
     connect(options: Client.ClientConnectOptions): Promise<any>;
     connect(): Promise<any>;
     disconnect(): Promise<any>;
-    id: any;  // can be `null | number` but also the "socket" value from websocket message data.
+    id: any; // can be `null | number` but also the "socket" value from websocket message data.
     request(options: string | Client.ClientRequestOptions): Promise<any>;
     message(message: any): Promise<any>;
     subscribe(path: string, handler: Client.Handler): Promise<any>;

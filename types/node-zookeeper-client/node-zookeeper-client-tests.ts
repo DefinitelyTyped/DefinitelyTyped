@@ -1,4 +1,4 @@
-import * as zookeeper from "node-zookeeper-client";
+import * as zookeeper from 'node-zookeeper-client';
 
 {
     const client = zookeeper.createClient('localhost:2181');
@@ -7,7 +7,7 @@ import * as zookeeper from "node-zookeeper-client";
     client.once('connected', () => {
         console.log('Connected to the server.');
 
-        client.create(path, error => {
+        client.create(path, (error) => {
             if (error) {
                 console.log('Failed to create node: %s due to: %s.', path, error);
             } else {
@@ -24,22 +24,18 @@ import * as zookeeper from "node-zookeeper-client";
 function listChildren(client: zookeeper.Client, path: string) {
     client.getChildren(
         path,
-        event => {
+        (event) => {
             console.log('Got watcher event: %s', event);
             listChildren(client, path);
         },
         (error, children, stat) => {
             if (error) {
-                console.log(
-                    'Failed to list children of %s due to: %s.',
-                    path,
-                    error
-                );
+                console.log('Failed to list children of %s due to: %s.', path, error);
                 return;
             }
 
             console.log('Children of %s are: %j.', path, children);
-        }
+        },
     );
 }
 
@@ -55,25 +51,17 @@ function listChildren(client: zookeeper.Client, path: string) {
     client.connect();
 }
 
-const client = zookeeper.createClient(
-    'localhost:2181/test',
-    { sessionTimeout: 10000 }
-);
+const client = zookeeper.createClient('localhost:2181/test', { sessionTimeout: 10000 });
 
 {
-    client.create(
-        '/test/demo',
-        new Buffer('data'),
-        zookeeper.CreateMode.EPHEMERAL,
-        (error: Error, path) => {
-            if (error) {
-                console.log(error.stack);
-                return;
-            }
-
-            console.log('Node: %s is created.', path);
+    client.create('/test/demo', new Buffer('data'), zookeeper.CreateMode.EPHEMERAL, (error: Error, path) => {
+        if (error) {
+            console.log(error.stack);
+            return;
         }
-    );
+
+        console.log('Node: %s is created.', path);
+    });
 }
 
 {
@@ -116,7 +104,7 @@ const client = zookeeper.createClient(
 {
     client.getData(
         '/test/demo',
-        event => {
+        (event) => {
             console.log('Got event: %s.', event);
         },
         (error: Error, data, stat) => {
@@ -126,7 +114,7 @@ const client = zookeeper.createClient(
             }
 
             console.log('Got data: %s', data.toString('utf8'));
-        }
+        },
     );
 }
 
@@ -155,12 +143,7 @@ const client = zookeeper.createClient(
 {
     client.setACL(
         '/test/demo',
-        [
-            new zookeeper.ACL(
-                zookeeper.Permission.ADMIN,
-                new zookeeper.Id('ip', '127.0.0.1')
-            )
-        ],
+        [new zookeeper.ACL(zookeeper.Permission.ADMIN, new zookeeper.Id('ip', '127.0.0.1'))],
         (error: Error, stat) => {
             if (error) {
                 console.log(error.stack);
@@ -168,7 +151,7 @@ const client = zookeeper.createClient(
             }
 
             console.log('New ACL is set.');
-        }
+        },
     );
 }
 
@@ -204,7 +187,7 @@ const client = zookeeper.createClient(
     client.on('connected', () => {
         console.log('Client state is changed to connected.');
     });
-    client.on('state', state => {
+    client.on('state', (state) => {
         if (state === zookeeper.State.SYNC_CONNECTED) {
             console.log('Client state is changed to connected.');
         }
@@ -213,20 +196,17 @@ const client = zookeeper.createClient(
 
 {
     client.once('connected', () => {
-        client.transaction().
-            create('/txn').
-            create('/txn/1', new Buffer('transaction')).
-            setData('/txn/1', new Buffer('test'), -1).
-            check('/txn/1').
-            remove('/txn/1', -1).
-            remove('/txn').
-            commit((error, results) => {
+        client
+            .transaction()
+            .create('/txn')
+            .create('/txn/1', new Buffer('transaction'))
+            .setData('/txn/1', new Buffer('test'), -1)
+            .check('/txn/1')
+            .remove('/txn/1', -1)
+            .remove('/txn')
+            .commit((error, results) => {
                 if (error) {
-                    console.log(
-                        'Failed to execute the transaction: %s, results: %j',
-                        error,
-                        results
-                    );
+                    console.log('Failed to execute the transaction: %s, results: %j', error, results);
 
                     return;
                 }

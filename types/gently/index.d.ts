@@ -5,7 +5,6 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/gently.d.ts
 
-
 export = Gently;
 
 declare class Gently {

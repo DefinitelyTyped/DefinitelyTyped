@@ -1,5 +1,3 @@
-
-
 /**
  * @summary Test for "electronicFormat" method.
  */

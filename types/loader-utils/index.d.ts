@@ -17,8 +17,8 @@ export interface InterpolateOption {
 export interface OptionObject {
     [key: string]: any;
 }
-export type HashType = "sha1" | "md5" | "sha256" | "sha512";
-export type DigestType = "hex" | "base26" | "base32" | "base36" | "base49" | "base52" | "base58" | "base62" | "base64";
+export type HashType = 'sha1' | 'md5' | 'sha256' | 'sha512';
+export type DigestType = 'hex' | 'base26' | 'base32' | 'base36' | 'base49' | 'base52' | 'base58' | 'base62' | 'base64';
 
 export function getOptions(loaderContext: loader.LoaderContext): OptionObject;
 export function parseQuery(optionString: string): OptionObject;

@@ -23,21 +23,19 @@ class Test extends React.Component {
                 console.info(latLng, status);
             });
         });
-    }
+    };
 
     onChange = (address: string) => this.setState({ address });
 
     render() {
-        const inputProps: PlacesAutocomplete["props"]["inputProps"] = {
+        const inputProps: PlacesAutocomplete['props']['inputProps'] = {
             value: this.state.address,
             onChange: this.onChange,
         };
 
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <PlacesAutocomplete
-                    inputProps={inputProps}
-                />
+                <PlacesAutocomplete inputProps={inputProps} />
             </form>
         );
     }

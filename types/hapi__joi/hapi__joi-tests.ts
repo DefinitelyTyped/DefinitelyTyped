@@ -57,9 +57,9 @@ validOpts = {
     errors: { wrapArrays: bool },
     messages: {
         'any.ref': str,
-        'string.email': str
+        'string.email': str,
     },
-    dateFormat: 'iso'
+    dateFormat: 'iso',
 };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -169,14 +169,14 @@ let validErrFunc: Joi.ValidationErrorFunction;
 validErrItem = {
     message: str,
     type: str,
-    path: [str]
+    path: [str],
 };
 
 validErrItem = {
     message: str,
     type: str,
     path: [str],
-    context: obj
+    context: obj,
 };
 
 validErrItem = {
@@ -186,12 +186,12 @@ validErrItem = {
     context: obj,
 };
 
-validErrFunc = errs => errs[0];
-validErrFunc = errs => 'Some error';
-validErrFunc = errs => err;
+validErrFunc = (errs) => errs[0];
+validErrFunc = (errs) => 'Some error';
+validErrFunc = (errs) => err;
 
 // error() can take function with ErrorReport argument
-validErrFunc = errors => {
+validErrFunc = (errors) => {
     const path: string = errors[0].path[0];
     const code: string = errors[0].code;
     const messages = errors[0].prefs.messages;
@@ -233,41 +233,36 @@ let schemaMap: Joi.SchemaMap = {};
 
 schemaMap = {
     a: numSchema,
-    b: strSchema
+    b: strSchema,
 };
 schemaMap = {
     a: numSchema,
     b: {
         b1: strSchema,
-        b2: anySchema
-    }
+        b2: anySchema,
+    },
 };
 schemaMap = {
     a: numSchema,
-    b: [
-        { b1: strSchema },
-        { b2: anySchema }
-    ],
+    b: [{ b1: strSchema }, { b2: anySchema }],
     c: arrSchema,
-    d: schemaLike
+    d: schemaLike,
 };
 schemaMap = {
     a: 1,
     b: {
         b1: '1',
-        b2: 2
+        b2: 2,
     },
-    c: [
-        { c1: true },
-        { c2: null }
-    ]
+    c: [{ c1: true }, { c2: null }],
 };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 anySchema = Joi.any();
 
-{ // common
+{
+    // common
     anySchema = anySchema.allow(x);
     anySchema = anySchema.allow(x, x);
     anySchema = anySchema.allow(...[x, x, x]);
@@ -342,7 +337,18 @@ arrSchema = arrSchema.sort({ by: 'n' });
 arrSchema = arrSchema.sort({ by: ref });
 arrSchema = arrSchema.sort();
 arrSchema = arrSchema.ordered(anySchema);
-arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema, schemaLike);
+arrSchema = arrSchema.ordered(
+    anySchema,
+    numSchema,
+    strSchema,
+    arrSchema,
+    boolSchema,
+    binSchema,
+    dateSchema,
+    funcSchema,
+    objSchema,
+    schemaLike,
+);
 arrSchema = arrSchema.ordered(schemaMap);
 arrSchema = arrSchema.ordered([schemaMap, schemaMap, schemaLike]);
 arrSchema = arrSchema.min(num);
@@ -362,7 +368,8 @@ arrSchema = arrSchema.items([schemaMap, schemaMap, schemaLike]);
 
 // - - - - - - - -
 
-{ // common copy paste
+{
+    // common copy paste
     // use search & replace from any
     arrSchema = arrSchema.allow(x);
     arrSchema = arrSchema.allow(x, x);
@@ -414,7 +421,8 @@ arrSchema = arrSchema.items([schemaMap, schemaMap, schemaLike]);
 boolSchema = Joi.bool();
 boolSchema = Joi.boolean();
 
-{ // common copy paste
+{
+    // common copy paste
     boolSchema = boolSchema.allow(x);
     boolSchema = boolSchema.allow(x, x);
     boolSchema = boolSchema.allow(...[x, x, x]);
@@ -479,7 +487,8 @@ binSchema = binSchema.min(num);
 binSchema = binSchema.max(num);
 binSchema = binSchema.length(num);
 
-{ // common
+{
+    // common
     binSchema = binSchema.allow(x);
     binSchema = binSchema.allow(x, x);
     binSchema = binSchema.allow(...[x, x, x]);
@@ -560,7 +569,8 @@ dateSchema = dateSchema.timestamp();
 dateSchema = dateSchema.timestamp('javascript');
 dateSchema = dateSchema.timestamp('unix');
 
-{ // common
+{
+    // common
     dateSchema = dateSchema.allow(x);
     dateSchema = dateSchema.allow(x, x);
     dateSchema = dateSchema.allow(...[x, x, x]);
@@ -635,7 +645,8 @@ numSchema = numSchema.positive();
 numSchema = numSchema.negative();
 numSchema = numSchema.port();
 
-{ // common
+{
+    // common
     numSchema = numSchema.allow(x);
     numSchema = numSchema.allow(x, x);
     numSchema = numSchema.allow(...[x, x, x]);
@@ -743,7 +754,8 @@ objSchema = objSchema.instance(func, str);
 
 objSchema = objSchema.ref();
 
-{ // common
+{
+    // common
     objSchema = objSchema.allow(x);
     objSchema = objSchema.allow(x, x);
     objSchema = objSchema.allow(...[x, x, x]);
@@ -827,7 +839,7 @@ strSchema = strSchema.uri();
 strSchema = strSchema.uri(uriOpts);
 strSchema = strSchema.guid();
 strSchema = strSchema.guid({
-    version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5']
+    version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'],
 });
 strSchema = strSchema.guid({ version: 'uuidv4' });
 strSchema = strSchema.uuid();
@@ -851,7 +863,8 @@ strSchema = strSchema.base64(base64Opts);
 strSchema = strSchema.dataUri();
 strSchema = strSchema.dataUri(dataUriOpts);
 
-{ // common
+{
+    // common
     strSchema = strSchema.allow(x);
     strSchema = strSchema.allow(x, x);
     strSchema = strSchema.allow(...[x, x, x]);
@@ -949,12 +962,15 @@ schema = Joi.link(str);
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-{ // validate tests
+{
+    // validate tests
     {
         let value = { username: 'example', password: 'example' };
         const schema = Joi.object().keys({
             username: Joi.string().max(255).required(),
-            password: Joi.string().pattern(/^[a-zA-Z0-9]{3,255}$/).required(),
+            password: Joi.string()
+                .pattern(/^[a-zA-Z0-9]{3,255}$/)
+                .required(),
         });
         let result: Joi.ValidationResult;
         let asyncResult: Promise<any>;
@@ -970,9 +986,11 @@ schema = Joi.link(str);
         asyncResult = schema.validateAsync(value, validOpts);
 
         asyncResult
-            .then(val => JSON.stringify(val, null, 2))
-            .then(val => { throw new Error('one error'); })
-            .catch(e => { });
+            .then((val) => JSON.stringify(val, null, 2))
+            .then((val) => {
+                throw new Error('one error');
+            })
+            .catch((e) => {});
 
         const falsyValue = { username: 'example' };
         result = schema.validate(falsyValue);
@@ -1021,7 +1039,7 @@ const Joi3 = Joi.extend({
     type: 'string',
     base: Joi.string(),
     messages: {
-        asd: 'must be exactly asd(f)'
+        asd: 'must be exactly asd(f)',
     },
     coerce(schema, value) {
         return { value };
@@ -1033,25 +1051,25 @@ const Joi3 = Joi.extend({
                     name: 'allowFalse',
                     ref: true,
                     assert: Joi.boolean(),
-                }
+                },
             ],
             method(allowFalse: boolean) {
                 return this.$_addRule({
                     name: 'asd',
                     args: {
                         allowFalse,
-                    }
+                    },
                 });
             },
             validate(value: boolean, helpers, params, options) {
-                if (value || params.allowFalse && !value) {
+                if (value || (params.allowFalse && !value)) {
                     return value;
                 }
 
                 return helpers.error('asd', { v: value }, options);
-            }
-        }
-    }
+            },
+        },
+    },
 });
 
 const Joi4 = Joi.extend({ type: '', base: schema }, { type: '', base: schema });
@@ -1149,27 +1167,33 @@ let anyObject = Joi.object({
     family: Joi.string(),
 });
 
-anyObject = anyObject.append({
-    age: Joi.number(),
-}).append({
-    height: Joi.number(),
-});
+anyObject = anyObject
+    .append({
+        age: Joi.number(),
+    })
+    .append({
+        height: Joi.number(),
+    });
 
 anyObject = anyObject.keys({
-    length: Joi.string()
+    length: Joi.string(),
 });
 
 // test with keys
-Joi.object().keys({
-    name: Joi.string().required(),
-    family: Joi.string(),
-}).append({
-    age: Joi.number(),
-}).append({
-    height: Joi.number(),
-}).keys({
-    length: Joi.string()
-});
+Joi.object()
+    .keys({
+        name: Joi.string().required(),
+        family: Joi.string(),
+    })
+    .append({
+        age: Joi.number(),
+    })
+    .append({
+        height: Joi.number(),
+    })
+    .keys({
+        length: Joi.string(),
+    });
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // Test generic types
@@ -1198,11 +1222,13 @@ userSchema = userSchema.append({
     height: Joi.number(), // $ExpectError
 });
 
-const userSchema2 = Joi.object<User>().keys({
-    name: Joi.string().required(),
-}).keys({
-    family: Joi.string(),
-});
+const userSchema2 = Joi.object<User>()
+    .keys({
+        name: Joi.string().required(),
+    })
+    .keys({
+        family: Joi.string(),
+    });
 
 const userSchemaError = Joi.object<User>().keys({
     name: Joi.string().required(),

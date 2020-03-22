@@ -6,8 +6,7 @@
 
 import * as React from 'react';
 
-declare class FileInput extends React.Component<FileInput.Props> {
-}
+declare class FileInput extends React.Component<FileInput.Props> {}
 
 declare namespace FileInput {
     type Format = 'buffer' | 'binary' | 'url' | 'text';

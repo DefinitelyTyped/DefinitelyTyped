@@ -176,12 +176,12 @@ declare class Endpoints {
     constructor(
         endpoint: StubbyData | StubbyData[],
         callback: (err: Error | undefined, datadir: string) => void,
-        datadir: string
+        datadir: string,
     );
     create(
         endpoint: StubbyData | StubbyData[],
         callback: (err: Error | undefined, endpoint: Endpoint) => void,
-        datadir: string
+        datadir: string,
     ): void;
     retrieve(id: string, callback: (err: Error | undefined, endpoint: Endpoint) => void): void;
     update(id: string, data: StubbyData, callback: (err?: Error) => void): void;

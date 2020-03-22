@@ -1,4 +1,4 @@
-import { adone } from "adone";
+import { adone } from 'adone';
 
 const { std } = adone;
 
@@ -8,19 +8,19 @@ namespace stdTests {
     }
 
     namespace fs {
-        std.fs.readFileSync("test").length;
+        std.fs.readFileSync('test').length;
     }
 
     namespace path {
-        std.path.join("a", "b").charAt(0);
+        std.path.join('a', 'b').charAt(0);
     }
 
     namespace util {
-        std.util.format("hello").charAt(0);
+        std.util.format('hello').charAt(0);
     }
 
     namespace events {
-        new std.events.EventEmitter().on("event", () => {});
+        new std.events.EventEmitter().on('event', () => {});
     }
 
     namespace steam {
@@ -28,29 +28,29 @@ namespace stdTests {
     }
 
     namespace url {
-        std.url.parse("https://adone.io").hostname;
+        std.url.parse('https://adone.io').hostname;
     }
 
     namespace net {
-        std.net.connect(31337).write("hello");
+        std.net.connect(31337).write('hello');
     }
 
     namespace http {
-        std.http.get("http://localhost").end();
+        std.http.get('http://localhost').end();
     }
 
     namespace http2 {
-        std.http2.connect("somewhere").on("stream", (stream) => {
+        std.http2.connect('somewhere').on('stream', (stream) => {
             stream.pipe(process.stdout);
         });
     }
 
     namespace https {
-        std.https.get("https://adone.io").end();
+        std.https.get('https://adone.io').end();
     }
 
     namespace child_process {
-        std.child_process.fork(__filename, [], { stdio: ["ipc"] }).send("hello");
+        std.child_process.fork(__filename, [], { stdio: ['ipc'] }).send('hello');
     }
 
     namespace os {
@@ -66,7 +66,7 @@ namespace stdTests {
     }
 
     namespace punycode {
-        std.punycode.decode("ads").charAt(0);
+        std.punycode.decode('ads').charAt(0);
     }
 
     namespace readline {
@@ -78,15 +78,15 @@ namespace stdTests {
     }
 
     namespace querystring {
-        std.querystring.escape("hello").charAt(0);
+        std.querystring.escape('hello').charAt(0);
     }
 
     namespace crypto {
-        std.crypto.createHash("sha1").update("hello").digest("hex");
+        std.crypto.createHash('sha1').update('hello').digest('hex');
     }
 
     namespace vm {
-        std.vm.runInContext("a + 2", std.vm.createContext({ a: 1 }));
+        std.vm.runInContext('a + 2', std.vm.createContext({ a: 1 }));
     }
 
     namespace v8 {
@@ -98,7 +98,7 @@ namespace stdTests {
     }
 
     namespace module {
-        new std.module.Module("1").exports;
+        new std.module.Module('1').exports;
     }
 
     namespace tty {
@@ -114,7 +114,7 @@ namespace stdTests {
     }
 
     namespace zlib {
-        std.zlib.createDeflate().write("ttt");
+        std.zlib.createDeflate().write('ttt');
     }
 
     namespace tls {
@@ -122,11 +122,11 @@ namespace stdTests {
     }
 
     namespace console {
-        std.console.trace("message");
+        std.console.trace('message');
     }
 
     namespace dns {
-        std.dns.resolve4("adone.io", (err, data) => {});
+        std.dns.resolve4('adone.io', (err, data) => {});
     }
 
     namespace timers {
@@ -134,10 +134,10 @@ namespace stdTests {
     }
 
     namespace dgram {
-        std.dgram.createSocket("udp4").bind(31337);
+        std.dgram.createSocket('udp4').bind(31337);
     }
 
     namespace perf_hooks {
-        std.perf_hooks.performance.measure("1", "2", "3");
+        std.perf_hooks.performance.measure('1', '2', '3');
     }
 }

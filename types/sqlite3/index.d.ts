@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import events = require("events");
+import events = require('events');
 
 export const OPEN_READONLY: number;
 export const OPEN_READWRITE: number;
@@ -47,7 +47,11 @@ export class Statement {
     all(...params: any[]): this;
 
     each(callback?: (err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
-    each(params: any, callback?: (this: RunResult, err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
+    each(
+        params: any,
+        callback?: (this: RunResult, err: Error | null, row: any) => void,
+        complete?: (err: Error | null, count: number) => void,
+    ): this;
     each(...params: any[]): this;
 }
 
@@ -69,8 +73,17 @@ export class Database extends events.EventEmitter {
     all(sql: string, params: any, callback?: (this: Statement, err: Error | null, rows: any[]) => void): this;
     all(sql: string, ...params: any[]): this;
 
-    each(sql: string, callback?: (this: Statement, err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
-    each(sql: string, params: any, callback?: (this: Statement, err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
+    each(
+        sql: string,
+        callback?: (this: Statement, err: Error | null, row: any) => void,
+        complete?: (err: Error | null, count: number) => void,
+    ): this;
+    each(
+        sql: string,
+        params: any,
+        callback?: (this: Statement, err: Error | null, row: any) => void,
+        complete?: (err: Error | null, count: number) => void,
+    ): this;
     each(sql: string, ...params: any[]): this;
 
     exec(sql: string, callback?: (this: Statement, err: Error | null) => void): this;
@@ -82,13 +95,13 @@ export class Database extends events.EventEmitter {
     serialize(callback?: () => void): void;
     parallelize(callback?: () => void): void;
 
-    on(event: "trace", listener: (sql: string) => void): this;
-    on(event: "profile", listener: (sql: string, time: number) => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "open" | "close", listener: () => void): this;
+    on(event: 'trace', listener: (sql: string) => void): this;
+    on(event: 'profile', listener: (sql: string, time: number) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: 'open' | 'close', listener: () => void): this;
     on(event: string, listener: (...args: any[]) => void): this;
 
-    configure(option: "busyTimeout", value: number): void;
+    configure(option: 'busyTimeout', value: number): void;
     interrupt(): void;
 }
 

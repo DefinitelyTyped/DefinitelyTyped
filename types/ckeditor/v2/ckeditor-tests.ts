@@ -6,10 +6,8 @@ function test_CKEDITOR() {
     var editor = new CKEDITOR.editor();
     if (editor.getSelection().getType() === CKEDITOR.SELECTION_ELEMENT)
         if (editor.getSelection().getType() === CKEDITOR.SELECTION_NONE)
-            if (editor.getSelection().getType() === CKEDITOR.SELECTION_TEXT)
-                alert(CKEDITOR.basePath);
-    if (CKEDITOR.currentInstance)
-        alert(CKEDITOR.currentInstance.name);
+            if (editor.getSelection().getType() === CKEDITOR.SELECTION_TEXT) alert(CKEDITOR.basePath);
+    if (CKEDITOR.currentInstance) alert(CKEDITOR.currentInstance.name);
     alert(CKEDITOR.document.getBody().getName());
     alert(CKEDITOR.instances[0].name);
     CKEDITOR.loadFullCoreTimeout = 5;
@@ -25,8 +23,7 @@ function test_CKEDITOR() {
     alert(CKEDITOR.getUrl('/skins/default/editor.css'));
     alert(CKEDITOR.getUrl('http://www.somesite.com/skins/default/editor.css'));
     CKEDITOR.inline('content');
-    if (CKEDITOR.loadFullCore)
-        CKEDITOR.loadFullCore();
+    if (CKEDITOR.loadFullCore) CKEDITOR.loadFullCore();
     CKEDITOR.replace('myfield');
     var textarea = document.createElement('textarea');
     CKEDITOR.replace(textarea);
@@ -48,30 +45,30 @@ function test_config() {
     };
     var config2: CKEDITOR.config = {
         toolbar: [
-            [ 'mode', 'document', 'doctools' ],
-            [ 'clipboard', 'undo' ],
+            ['mode', 'document', 'doctools'],
+            ['clipboard', 'undo'],
             '/',
-            [ 'find', 'selection', 'spellchecker' ],
-            [ 'basicstyles', 'cleanup' ],
+            ['find', 'selection', 'spellchecker'],
+            ['basicstyles', 'cleanup'],
             '/',
-            [ 'list', 'indent', 'blocks', 'align', 'bidi' ],
+            ['list', 'indent', 'blocks', 'align', 'bidi'],
         ],
     };
     var config3: CKEDITOR.config = {
         toolbarGroups: [
-            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-            { name: 'links', groups: [ 'links' ] },
-            { name: 'insert', groups: [ 'insert' ] },
-            { name: 'tools', groups: [ 'tools' ] },
-            { name: 'document', groups: [ 'mode' ] },
-            { name: 'about', groups: [ 'about' ] },
+            { name: 'clipboard', groups: ['clipboard', 'undo'] },
+            { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
+            { name: 'links', groups: ['links'] },
+            { name: 'insert', groups: ['insert'] },
+            { name: 'tools', groups: ['tools'] },
+            { name: 'document', groups: ['mode'] },
+            { name: 'about', groups: ['about'] },
             '/',
-            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'paragraph' ] },
+            { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+            { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'paragraph'] },
             '/',
-            { name: 'styles', groups: [ 'styles' ] },
-            { name: 'colors', groups: [ 'colors' ] },
+            { name: 'styles', groups: ['styles'] },
+            { name: 'colors', groups: ['colors'] },
         ],
     };
 }
@@ -97,10 +94,10 @@ function test_dom_document() {
     alert(selection.getType());
     document.write(
         '<html>' +
-        '<head><title>Sample Doc</title></head>' +
-        '<body>Document contents created by code</body>' +
-        '</html>'
-        );
+            '<head><title>Sample Doc</title></head>' +
+            '<body>Document contents created by code</body>' +
+            '</html>',
+    );
 }
 
 function test_dom_documentFragment() {
@@ -145,7 +142,7 @@ function test_dom_element() {
     element.focus();
     element.focusNext();
     element.focusPrevious();
-    element.forEach(node => {
+    element.forEach((node) => {
         console.log(node);
     });
     var element2 = CKEDITOR.dom.element.createFromHtml('<input type="text" />');
@@ -179,7 +176,7 @@ function test_dom_element() {
     element.setAttribute('title', 'This is an example');
     element.setAttributes({
         class: 'myClass',
-        title: 'This is an example'
+        title: 'This is an example',
     });
     p.setHtml('<b>Inner</b> HTML');
     element.setOpacity(0.75);
@@ -188,7 +185,7 @@ function test_dom_element() {
     element.setStyle('float', 'right');
     element.setStyles({
         position: 'absolute',
-        float: 'right'
+        float: 'right',
     });
     element.setText('A > B & C < D');
     element.show();
@@ -200,22 +197,22 @@ function test_dom_element() {
 }
 
 function test_dom_event() {
-    var event = new CKEDITOR.dom.event(new Event(""));
+    var event = new CKEDITOR.dom.event(new Event(''));
     alert(event.getKey());
     alert(event.getKeystroke() === 65);
     alert(event.getKeystroke() === CKEDITOR.CTRL + 65);
     alert(event.getKeystroke() === CKEDITOR.CTRL + CKEDITOR.SHIFT + 65);
     var element = new CKEDITOR.dom.element('div');
-    element.on('mousemouse', ev => {
+    element.on('mousemouse', (ev) => {
         var pageOffset = ev.data.getPageOffset();
         alert(pageOffset.x);
         alert(pageOffset.y);
     });
-    element.on('click', ev => {
+    element.on('click', (ev) => {
         var domEvent = ev.data;
         domEvent.getTarget().addClass('clicked');
     });
-    element.on('click', ev => {
+    element.on('click', (ev) => {
         var domEvent = ev.data as CKEDITOR.dom.event;
         domEvent.preventDefault();
     });
@@ -300,7 +297,7 @@ function test_adding_command_and_buttons() {
         exec: (editor: CKEDITOR.editor) => {
             // empty logic
             return true;
-        }
+        },
     });
 
     instance.ui.addButton('firstButton', {
@@ -308,13 +305,13 @@ function test_adding_command_and_buttons() {
         iconOffset: -32,
         label: 'Label 1',
         command: 'aCommand',
-        toolbar: 'tools'
+        toolbar: 'tools',
     });
 
     instance.ui.addButton('secondButton', {
         label: 'Label 2',
         command: 'aCommand',
-        toolbar: 'tools'
+        toolbar: 'tools',
     });
 }
 
@@ -337,14 +334,14 @@ function test_adding_dialog_by_definition() {
                 {
                     id: 'tab-basic',
                     label: 'Basic Settings',
-                    elements: [] as any[]
+                    elements: [] as any[],
                 },
                 {
                     id: 'tab-adv',
                     label: 'Advanced Settings',
-                    elements: []
-                }
-            ]
+                    elements: [],
+                },
+            ],
         };
     });
 }
@@ -353,7 +350,7 @@ function test_plugins() {
     CKEDITOR.plugins.add('abbr', {
         init: (editor: CKEDITOR.editor) => {
             // empty logic
-        }
+        },
     });
 
     console.log(CKEDITOR.plugins.registered['abbr']);
@@ -361,13 +358,13 @@ function test_plugins() {
 
 function test_adding_widget() {
     function wrapper(editor: CKEDITOR.editor) {
-            editor.widgets.add("widgetty", {
-            button: "Activate widgetty",
-            template: "<imaginary-element>",
-            dialog: "widgetty",
+        editor.widgets.add('widgetty', {
+            button: 'Activate widgetty',
+            template: '<imaginary-element>',
+            dialog: 'widgetty',
             init: () => {
                 // no logic
-            }
+            },
         });
     }
 }
@@ -415,7 +412,7 @@ function test_htmlWriter() {
     writer.selfClosingEnd = '>';
     writer.indentation();
     writer.lineBreak();
-    writer.setRules('img', {breakBeforeOpen: true, breakAfterOpen: true});
+    writer.setRules('img', { breakBeforeOpen: true, breakAfterOpen: true });
 }
 
 function test_sharedSpace() {
@@ -423,12 +420,12 @@ function test_sharedSpace() {
         removePlugins: 'maximize,resize',
         sharedSpaces: {
             top: 'someElementId',
-            bottom: document.getElementById('anotherId')
-        }
+            bottom: document.getElementById('anotherId'),
+        },
     });
 
     CKEDITOR.inline('content', {
-        sharedSpaces: { }
+        sharedSpaces: {},
     });
 }
 
@@ -513,8 +510,8 @@ function test_editor_instance_event() {
             toHtml: () => {},
             unlockSnapshot: () => {},
             updateSnapshot: () => {},
-            widgetDefinition: () => {}
-        }
+            widgetDefinition: () => {},
+        },
     });
 }
 
@@ -588,11 +585,15 @@ function test_tools() {
 function test_htmlParser() {
     var html = '<div><span>text</span></div>';
     var fragment = CKEDITOR.htmlParser.fragment.fromHtml(html);
-    fragment.forEach((node) => {
-        if (node instanceof CKEDITOR.htmlParser.element) {
-            node.forEach((node) => {
-                console.log(node);
-            });
-        }
-    }, CKEDITOR.NODE_ELEMENT, true);
+    fragment.forEach(
+        (node) => {
+            if (node instanceof CKEDITOR.htmlParser.element) {
+                node.forEach((node) => {
+                    console.log(node);
+                });
+            }
+        },
+        CKEDITOR.NODE_ELEMENT,
+        true,
+    );
 }

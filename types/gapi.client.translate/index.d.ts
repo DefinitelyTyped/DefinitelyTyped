@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Translation API v2 */
-    function load(name: "translate", version: "v2"): PromiseLike<void>;
-    function load(name: "translate", version: "v2", callback: () => any): void;
+    function load(name: 'translate', version: 'v2'): PromiseLike<void>;
+    function load(name: 'translate', version: 'v2', callback: () => any): void;
 
     const detections: translate.DetectionsResource;
 
@@ -112,7 +112,7 @@ declare namespace gapi.client {
             /** Detects the language of text within a request. */
             detect(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -144,7 +144,7 @@ declare namespace gapi.client {
             /** Detects the language of text within a request. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -183,7 +183,7 @@ declare namespace gapi.client {
             /** Returns a list of supported languages for translation. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -224,7 +224,7 @@ declare namespace gapi.client {
             /** Translates input text, returning translated text. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -285,7 +285,7 @@ declare namespace gapi.client {
             /** Translates input text, returning translated text. */
             translate(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

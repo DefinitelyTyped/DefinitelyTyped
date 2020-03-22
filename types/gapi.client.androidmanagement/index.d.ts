@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Android Management API v1 */
-    function load(name: "androidmanagement", version: "v1"): PromiseLike<void>;
-    function load(name: "androidmanagement", version: "v1", callback: () => any): void;
+    function load(name: 'androidmanagement', version: 'v1'): PromiseLike<void>;
+    function load(name: 'androidmanagement', version: 'v1', callback: () => any): void;
 
     const enterprises: androidmanagement.EnterprisesResource;
 
@@ -657,7 +657,7 @@ declare namespace gapi.client {
             /** Gets info about an application. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -700,7 +700,7 @@ declare namespace gapi.client {
              */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -734,7 +734,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -768,7 +768,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -805,7 +805,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -844,7 +844,7 @@ declare namespace gapi.client {
             /** Deletes a device, which causes the device to be wiped. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -875,7 +875,7 @@ declare namespace gapi.client {
             /** Gets a device. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -909,7 +909,7 @@ declare namespace gapi.client {
              */
             issueCommand(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -940,7 +940,7 @@ declare namespace gapi.client {
             /** Lists devices for a given enterprise. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -975,7 +975,7 @@ declare namespace gapi.client {
             /** Updates a device. */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1011,7 +1011,7 @@ declare namespace gapi.client {
             /** Creates an enrollment token for a given enterprise. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1042,7 +1042,7 @@ declare namespace gapi.client {
             /** Deletes an enrollment token, which prevents future use of the token. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1075,7 +1075,7 @@ declare namespace gapi.client {
             /** Deletes a policy. This operation is only permitted if no devices are currently referencing the policy. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1106,7 +1106,7 @@ declare namespace gapi.client {
             /** Gets a policy. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1137,7 +1137,7 @@ declare namespace gapi.client {
             /** Lists policies for a given enterprise. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1172,7 +1172,7 @@ declare namespace gapi.client {
             /** Updates or creates a policy. */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1207,7 +1207,7 @@ declare namespace gapi.client {
             /** Creates a web token to access an embeddable managed Google Play web UI for a given enterprise. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1240,7 +1240,7 @@ declare namespace gapi.client {
             /** Creates an enterprise by completing the enterprise signup flow. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1275,7 +1275,7 @@ declare namespace gapi.client {
             /** Gets an enterprise. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1306,7 +1306,7 @@ declare namespace gapi.client {
             /** Updates an enterprise. */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1346,7 +1346,7 @@ declare namespace gapi.client {
             /** Creates an enterprise signup URL. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

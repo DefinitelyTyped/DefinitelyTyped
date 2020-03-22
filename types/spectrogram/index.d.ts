@@ -27,7 +27,7 @@ interface Spectrogram {
 
 interface SpectrogramConstructor {
     (canvas: HTMLCanvasElement, options: SpectrogramOptions): Spectrogram;
-    new(canvas: HTMLCanvasElement, options: SpectrogramOptions): Spectrogram;
+    new (canvas: HTMLCanvasElement, options: SpectrogramOptions): Spectrogram;
 }
 
 declare var Spectrogram: SpectrogramConstructor;

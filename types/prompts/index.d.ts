@@ -12,7 +12,7 @@ export = prompts;
 
 declare function prompts<T extends string = string>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
-    options?: prompts.Options
+    options?: prompts.Options,
 ): Promise<prompts.Answers<T>>;
 
 declare namespace prompts {
@@ -86,22 +86,30 @@ declare namespace prompts {
         inactive?: string;
         choices?: Choice[];
         hint?: string;
-        suggest?: ((input: any, choices: Choice[]) => Promise<any>);
+        suggest?: (input: any, choices: Choice[]) => Promise<any>;
         limit?: number;
         mask?: string;
     }
 
     type Answers<T extends string> = { [id in T]: any };
 
-    type PrevCaller<T extends string, R = T> = (
-        prev: any,
-        values: Answers<T>,
-        prompt: PromptObject
-    ) => R;
+    type PrevCaller<T extends string, R = T> = (prev: any, values: Answers<T>, prompt: PromptObject) => R;
 
     type Falsy = false | null | undefined;
 
-    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date" | "autocompleteMultiselect";
+    type PromptType =
+        | 'text'
+        | 'password'
+        | 'invisible'
+        | 'number'
+        | 'confirm'
+        | 'list'
+        | 'toggle'
+        | 'select'
+        | 'multiselect'
+        | 'autocomplete'
+        | 'date'
+        | 'autocompleteMultiselect';
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }

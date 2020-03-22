@@ -85,12 +85,12 @@ maybeEl = el.getChildByAttr('my', 'attr', 'ns', true);
 els = el.getChildrenByAttr('my', 'attr');
 els = el.getChildrenByAttr('my', 'attr', 'ns');
 els = el.getChildrenByAttr('my', 'attr', 'ns', true);
-els = el.getChildrenByFilter(child => {
+els = el.getChildrenByFilter((child) => {
     // $ExpectType Node
     child;
     return true;
 });
-els = el.getChildrenByFilter(child => {
+els = el.getChildrenByFilter((child) => {
     // $ExpectType Node
     child;
     return true;
@@ -127,7 +127,7 @@ el.attr('my');
 el.attr('my', 'attr');
 str = el.toString();
 const json: ltx.ElementJson = el.toJSON();
-el.write(part => {
+el.write((part) => {
     // $ExpectType string
     part;
 });

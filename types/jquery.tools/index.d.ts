@@ -24,9 +24,11 @@ declare namespace JQueryTools {
 
     namespace overlay {
         interface OverlayStatic {
-            addEffect(effectName: string,
-                      effectFn: (this: Overlay, position: CssOptions, done: () => void) => void,
-                      closeFn: (this: Overlay, done: () => void) => void): void;
+            addEffect(
+                effectName: string,
+                effectFn: (this: Overlay, position: CssOptions, done: () => void) => void,
+                closeFn: (this: Overlay, done: () => void) => void,
+            ): void;
         }
 
         interface CssOptions {

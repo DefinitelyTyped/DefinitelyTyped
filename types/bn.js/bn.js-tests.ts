@@ -25,7 +25,7 @@ function runTests(BN: typeof BN_esm) {
 
     const expected = new BN(0x4020);
     const actualArray = new BN([0x40, 0x20]);
-    const actualUint8Array =  new BN(new Uint8Array([0x40, 0x20]));
+    const actualUint8Array = new BN(new Uint8Array([0x40, 0x20]));
     const actualString = new BN('0x4020');
 }
 

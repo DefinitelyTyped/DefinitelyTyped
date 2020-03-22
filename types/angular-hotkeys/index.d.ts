@@ -58,7 +58,14 @@ declare module 'angular' {
             /**
              * Creates a new Hotkey and creates the Mousetrap binding.
              */
-            add(combo: string | string[], description?: string, callback?: (event: Event, hotkey: Hotkey) => void, action?: string, allowIn?: string[], persistent?: boolean): Hotkey;
+            add(
+                combo: string | string[],
+                description?: string,
+                callback?: (event: Event, hotkey: Hotkey) => void,
+                action?: string,
+                allowIn?: string[],
+                persistent?: boolean,
+            ): Hotkey;
 
             /**
              * Creates a new Hotkey and creates the Mousetrap binding.
@@ -98,7 +105,11 @@ declare module 'angular' {
         }
 
         interface HotkeysProviderChained {
-            add(combo: string | string[], description: string, callback: (event: Event, hotkeys: Hotkey) => void): HotkeysProviderChained;
+            add(
+                combo: string | string[],
+                description: string,
+                callback: (event: Event, hotkeys: Hotkey) => void,
+            ): HotkeysProviderChained;
 
             add(hotkeyObj: Hotkey): HotkeysProviderChained;
         }

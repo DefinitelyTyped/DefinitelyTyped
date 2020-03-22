@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type TabGroupProps = {
     className?: string;
@@ -10,7 +10,7 @@ export type TabGroupProps = {
 } & { [x: string]: any };
 
 declare class TabGroup extends React.Component<TabGroupProps> {
-    static displayName: "TabGroup";
+    static displayName: 'TabGroup';
 }
 
 export default TabGroup;

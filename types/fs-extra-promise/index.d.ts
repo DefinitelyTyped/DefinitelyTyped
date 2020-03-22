@@ -66,8 +66,20 @@ export function openAsync(path: string, flags: string, mode?: string): Promise<n
 export function utimesAsync(path: string, atime: number, mtime: number): Promise<void>;
 export function futimesAsync(fd: number, atime: number, mtime: number): Promise<void>;
 export function fsyncAsync(fd: number): Promise<void>;
-export function writeAsync(fd: number, buffer: Buffer, offset: number, length: number, position: number): Promise<[number, Buffer]>;
-export function readAsync(fd: number, buffer: Buffer, offset: number, length: number, position: number): Promise<[number, Buffer]>;
+export function writeAsync(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+): Promise<[number, Buffer]>;
+export function readAsync(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+): Promise<[number, Buffer]>;
 export function readFileAsync(filename: string, options: string | ReadOptions): Promise<string>;
 export function readFileAsync(filename: string): Promise<Buffer>;
 export function writeFileAsync(filename: string, data: any, options?: string | WriteOptions): Promise<void>;

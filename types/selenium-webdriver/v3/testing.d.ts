@@ -3,10 +3,10 @@ import * as Testing from './testing';
 
 export const describe: {
     /**
-    * Registers a new test suite.
-    * @param name The suite name.
-    * @param fn The suite function, or {@code undefined} to define a pending test suite.
-    */
+     * Registers a new test suite.
+     * @param name The suite name.
+     * @param fn The suite function, or {@code undefined} to define a pending test suite.
+     */
     (name: string, fn: Function): void;
 
     /**
@@ -80,7 +80,7 @@ export const it: {
      * @param fn The test function, or {@code undefined} to define a pending test case.
      */
     skip(name: string, fn: Function): void;
-}
+};
 
 /**
  * Adds a test to the current suite while suppressing it so it is not run.

@@ -6,19 +6,12 @@
 
 import * as React from 'react';
 
-export type KawaiiMood =
-  | 'sad'
-  | 'shocked'
-  | 'happy'
-  | 'blissful'
-  | 'lovestruck'
-  | 'excited'
-  | 'ko';
+export type KawaiiMood = 'sad' | 'shocked' | 'happy' | 'blissful' | 'lovestruck' | 'excited' | 'ko';
 
 export interface KawaiiProps {
-  size?: number;
-  color?: string;
-  mood?: KawaiiMood;
+    size?: number;
+    color?: string;
+    mood?: KawaiiMood;
 }
 
 export const SpeechBubble: React.ComponentType<KawaiiProps>;

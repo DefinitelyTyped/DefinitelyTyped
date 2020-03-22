@@ -1,14 +1,14 @@
-import Component = require("@egjs/component");
-import { AnimationManager } from "./AnimationManager";
-import { EventManager } from "./EventManager";
-import { InterruptManager } from "./InterruptManager";
-import { AxisManager, AxisOption, Axis } from "./AxisManager";
-import { InputObserver } from "./InputObserver";
-import { PanInput } from "./inputType/PanInput";
-import { PinchInput } from "./inputType/PinchInput";
-import { WheelInput } from "./inputType/WheelInput";
-import { DIRECTION } from "./const";
-import { IInputType } from "./inputType/InputType";
+import Component = require('@egjs/component');
+import { AnimationManager } from './AnimationManager';
+import { EventManager } from './EventManager';
+import { InterruptManager } from './InterruptManager';
+import { AxisManager, AxisOption, Axis } from './AxisManager';
+import { InputObserver } from './InputObserver';
+import { PanInput } from './inputType/PanInput';
+import { PinchInput } from './inputType/PinchInput';
+import { WheelInput } from './inputType/WheelInput';
+import { DIRECTION } from './const';
+import { IInputType } from './inputType/InputType';
 export interface AxesOption {
     easing?: (x: number) => number;
     maximumDuration?: number;
@@ -40,9 +40,13 @@ export default class Axes extends Component {
     private _am: AnimationManager;
     private _io: InputObserver;
     private _inputs: IInputType[];
-    constructor(axis: {
-        [key: string]: AxisOption;
-    }, options: AxesOption, startPos?: Axis);
+    constructor(
+        axis: {
+            [key: string]: AxisOption;
+        },
+        options: AxesOption,
+        startPos?: Axis,
+    );
     private _complementOptions();
     connect(axes: string[] | string, inputType: IInputType): this;
     disconnect(inputType?: IInputType): this;

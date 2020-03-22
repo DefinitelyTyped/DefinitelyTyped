@@ -1,5 +1,5 @@
-import { Component, HTMLAttributes, ReactElement, ReactType } from "react";
-import { HTMLTransitionGroupProps } from "./index";
+import { Component, HTMLAttributes, ReactElement, ReactType } from 'react';
+import { HTMLTransitionGroupProps } from './index';
 
 declare namespace TransitionGroup {
     interface TransitionGroupChildLifecycle {

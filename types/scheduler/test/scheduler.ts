@@ -1,4 +1,10 @@
-import { unstable_scheduleCallback, unstable_cancelCallback, unstable_now, unstable_NormalPriority, unstable_next } from 'scheduler';
+import {
+    unstable_scheduleCallback,
+    unstable_cancelCallback,
+    unstable_now,
+    unstable_NormalPriority,
+    unstable_next,
+} from 'scheduler';
 
 // $ExpectType CallbackNode
 const callbackNode = unstable_scheduleCallback(unstable_NormalPriority, () => {}, { timeout: 100 });

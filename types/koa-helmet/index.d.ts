@@ -11,7 +11,8 @@ import {
     IHelmetXssFilterConfiguration,
     IHelmetDnsPrefetchControlConfiguration,
     IHelmetHpkpConfiguration,
-    IHelmetReferrerPolicyConfiguration } from 'helmet';
+    IHelmetReferrerPolicyConfiguration,
+} from 'helmet';
 import { Middleware, Context } from 'koa';
 
 declare namespace koaHelmet {

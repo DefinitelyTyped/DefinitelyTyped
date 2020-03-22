@@ -1,2 +1,2 @@
-import { sortBy } from "../fp";
+import { sortBy } from '../fp';
 export = sortBy;

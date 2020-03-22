@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import { LinkProps } from "react-router-dom";
+import * as React from 'react';
+import { LinkProps } from 'react-router-dom';
 
-export class ParamLink extends React.Component<LinkProps, any> { }
+export class ParamLink extends React.Component<LinkProps, any> {}

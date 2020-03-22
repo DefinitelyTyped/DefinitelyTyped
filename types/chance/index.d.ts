@@ -31,7 +31,7 @@ declare namespace Chance {
 
     interface Chance extends Seeded {
         // Basics
-        bool(opts?: {likelihood: number}): boolean;
+        bool(opts?: { likelihood: number }): boolean;
         character(opts?: AtLeastOneKey<CharacterOptions>): string;
         floating(opts?: Options): number;
         integer(opts?: AtLeastOneKey<IntegerOptions>): number;
@@ -98,8 +98,8 @@ declare namespace Chance {
         depth(opts?: Options): number;
         geohash(opts?: Options): string;
         latitude(opts?: Options): number;
-        locale(opts?: {region: true}): string;
-        locales(opts?: {region: true}): string[];
+        locale(opts?: { region: true }): string;
+        locales(opts?: { region: true }): string[];
         longitude(opts?: Options): number;
         phone(opts?: Options): string;
         postcode(): string;
@@ -209,7 +209,7 @@ declare namespace Chance {
         symbols: boolean;
     }
 
-    type StringOptions = CharacterOptions & { length: number } ;
+    type StringOptions = CharacterOptions & { length: number };
 
     interface UrlOptions {
         protocol: string;
@@ -301,16 +301,16 @@ declare namespace Chance {
     }
 
     interface Setter {
-        (key: "firstNames", values: string[]): any;
-        (key: "lastNames", values: string[]): any;
-        (key: "provinces", values: string[]): any;
-        (key: "us_states_and_dc", values: string[]): any;
-        (key: "territories", values: string[]): any;
-        (key: "armed_forces", values: string[]): any;
-        (key: "street_suffixes", values: string[]): any;
-        (key: "months", values: string[]): any;
-        (key: "cc_types", values: string[]): any;
-        (key: "currency_types", values: string[]): any;
+        (key: 'firstNames', values: string[]): any;
+        (key: 'lastNames', values: string[]): any;
+        (key: 'provinces', values: string[]): any;
+        (key: 'us_states_and_dc', values: string[]): any;
+        (key: 'territories', values: string[]): any;
+        (key: 'armed_forces', values: string[]): any;
+        (key: 'street_suffixes', values: string[]): any;
+        (key: 'months', values: string[]): any;
+        (key: 'cc_types', values: string[]): any;
+        (key: 'currency_types', values: string[]): any;
         <T>(key: string, values: T[]): any;
     }
 
@@ -329,7 +329,7 @@ declare namespace Chance {
     }
 }
 
-declare module "chance" {
+declare module 'chance' {
     interface ExportedChance extends Chance.ChanceStatic {
         Chance: ExportedChance;
     }

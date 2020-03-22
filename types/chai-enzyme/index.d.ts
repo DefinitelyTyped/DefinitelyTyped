@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-
 /// <reference types="enzyme" />
 /// <reference types="chai" />
 /// <reference types="react" />
@@ -173,13 +172,12 @@ declare namespace Chai {
     }
 }
 
-declare module "chai-enzyme" {
-    import { ShallowWrapper, ReactWrapper } from "enzyme";
+declare module 'chai-enzyme' {
+    import { ShallowWrapper, ReactWrapper } from 'enzyme';
 
-    type DebugWrapper = ShallowWrapper<any,any> | Cheerio | ReactWrapper<any, any>;
+    type DebugWrapper = ShallowWrapper<any, any> | Cheerio | ReactWrapper<any, any>;
     function chaiEnzyMe(wrapper?: (debugWrapper: DebugWrapper) => string): Chai.ChaiPlugin;
 
-    module chaiEnzyMe {
-    }
+    module chaiEnzyMe {}
     export = chaiEnzyMe;
 }

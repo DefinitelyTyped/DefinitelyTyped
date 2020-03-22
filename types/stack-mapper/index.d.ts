@@ -3,12 +3,8 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace stackMapper {
-
     export class StackMapper {
-
         /**
          * Maps the trace statements of the given error stack and replaces locations
          * referencing code in the generated file with the locations inside the original files.
@@ -29,7 +25,6 @@ declare namespace stackMapper {
         line: number;
         column: number;
     }
-
 }
 
 /**

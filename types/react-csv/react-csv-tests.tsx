@@ -1,18 +1,18 @@
-import * as React from "react";
-import { render } from "react-dom";
-import { CSVLink, CSVDownload } from "react-csv";
+import * as React from 'react';
+import { render } from 'react-dom';
+import { CSVLink, CSVDownload } from 'react-csv';
 
 const headers = [
-    { label: "First Name", key: "details.firstName" },
-    { label: "Last Name", key: "details.lastName" },
-    { label: "Job", key: "job" }
+    { label: 'First Name', key: 'details.firstName' },
+    { label: 'Last Name', key: 'details.lastName' },
+    { label: 'Job', key: 'job' },
 ];
 
-const headersStrings = ["foo", "bar"];
+const headersStrings = ['foo', 'bar'];
 
 const data = [
-    { details: { firstName: "Ahmed", lastName: "Tomi" }, job: "manager" },
-    { details: { firstName: "John", lastName: "Jones" }, job: "developer" }
+    { details: { firstName: 'Ahmed', lastName: 'Tomi' }, job: 'manager' },
+    { details: { firstName: 'John', lastName: 'Jones' }, job: 'developer' },
 ];
 
 const dataString = `firstname,lastname
@@ -21,123 +21,97 @@ Raed,Labes
 Yezzi,Min l3b
 `;
 
-const syncOnClickReturn = (
-    event: React.MouseEventHandler<HTMLAnchorElement>
-) => {
+const syncOnClickReturn = (event: React.MouseEventHandler<HTMLAnchorElement>) => {
     window.console.log(event);
     return true;
 };
-const syncOnClickVoid = (event: React.MouseEventHandler<HTMLAnchorElement>) =>
-    window.console.log(event);
-const asyncOnClickReturn = (
-    event: React.MouseEventHandler<HTMLAnchorElement>,
-    done: (proceed?: boolean) => void
-) => {
+const syncOnClickVoid = (event: React.MouseEventHandler<HTMLAnchorElement>) => window.console.log(event);
+const asyncOnClickReturn = (event: React.MouseEventHandler<HTMLAnchorElement>, done: (proceed?: boolean) => void) => {
     window.console.log(event);
     done(true);
 };
-const asyncOnClickVoid = (
-    event: React.MouseEventHandler<HTMLAnchorElement>,
-    done: (proceed?: boolean) => void
-) => {
+const asyncOnClickVoid = (event: React.MouseEventHandler<HTMLAnchorElement>, done: (proceed?: boolean) => void) => {
     window.console.log(event);
     done();
 };
 
-const node = document.getElementById("main");
+const node = document.getElementById('main');
 
 render(<CSVLink data={dataString} />, node);
 render(<CSVLink data={dataString} headers={headersStrings} />, node);
 render(<CSVLink data={data} />, node);
 render(<CSVLink data={data} headers={headers} />, node);
 render(<CSVLink data={data} headers={headers} />, node);
-render(<CSVLink data={data} headers={headers} separator={","} />, node);
+render(<CSVLink data={data} headers={headers} separator={','} />, node);
+render(<CSVLink data={data} headers={headers} separator={','} filename={'bob.csv'} />, node);
+render(<CSVLink data={data} headers={headers} separator={','} filename={'bob.csv'} uFEFF={true} />, node);
 render(
     <CSVLink
         data={data}
         headers={headers}
-        separator={","}
-        filename={"bob.csv"}
-    />,
-    node
-);
-render(
-    <CSVLink
-        data={data}
-        headers={headers}
-        separator={","}
-        filename={"bob.csv"}
-        uFEFF={true}
-    />,
-    node
-);
-render(
-    <CSVLink
-        data={data}
-        headers={headers}
-        separator={","}
-        filename={"bob.csv"}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         enclosingCharacter={`'`}
     />,
-    node
+    node,
 );
 render(
     <CSVLink
         data={data}
         headers={headers}
-        separator={","}
-        filename={"bob.csv"}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         enclosingCharacter={`'`}
         onClick={syncOnClickReturn}
     />,
-    node
+    node,
 );
 render(
     <CSVLink
         data={data}
         headers={headers}
-        separator={","}
-        filename={"bob.csv"}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         enclosingCharacter={`'`}
         onClick={syncOnClickVoid}
     />,
-    node
+    node,
 );
 render(
     <CSVLink
         data={data}
         headers={headers}
-        separator={","}
-        filename={"bob.csv"}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         enclosingCharacter={`'`}
         onClick={asyncOnClickReturn}
         asyncOnClick={true}
     />,
-    node
+    node,
 );
 render(
     <CSVLink
         data={data}
         headers={headers}
-        separator={","}
-        filename={"bob.csv"}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         enclosingCharacter={`'`}
         onClick={asyncOnClickVoid}
         asyncOnClick={true}
     />,
-    node
+    node,
 );
 render(
     <CSVLink
         data={data}
         headers={headers}
-        separator={","}
-        filename={"bob.csv"}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         enclosingCharacter={`'`}
         onClick={asyncOnClickVoid}
@@ -145,102 +119,71 @@ render(
         className="test"
         target="_blank"
     />,
-    node
+    node,
 );
 
 render(<CSVDownload data={dataString} />, node);
 render(<CSVDownload data={dataString} headers={headersStrings} />, node);
 render(<CSVDownload data={data} />, node);
 render(<CSVDownload data={data} headers={headers} />, node);
-render(<CSVDownload data={data} headers={headers} target={"_blank"} />, node);
+render(<CSVDownload data={data} headers={headers} target={'_blank'} />, node);
+render(<CSVDownload data={data} headers={headers} target={'_blank'} separator={','} />, node);
+render(<CSVDownload data={data} headers={headers} target={'_blank'} separator={','} filename={'bob.csv'} />, node);
 render(
-    <CSVDownload
-        data={data}
-        headers={headers}
-        target={"_blank"}
-        separator={","}
-    />,
-    node
+    <CSVDownload data={data} headers={headers} target={'_blank'} separator={','} filename={'bob.csv'} uFEFF={true} />,
+    node,
+);
+render(
+    <CSVDownload data={data} headers={headers} target={'_blank'} separator={','} filename={'bob.csv'} uFEFF={true} />,
+    node,
 );
 render(
     <CSVDownload
         data={data}
         headers={headers}
-        target={"_blank"}
-        separator={","}
-        filename={"bob.csv"}
-    />,
-    node
-);
-render(
-    <CSVDownload
-        data={data}
-        headers={headers}
-        target={"_blank"}
-        separator={","}
-        filename={"bob.csv"}
-        uFEFF={true}
-    />,
-    node
-);
-render(
-    <CSVDownload
-        data={data}
-        headers={headers}
-        target={"_blank"}
-        separator={","}
-        filename={"bob.csv"}
-        uFEFF={true}
-    />,
-    node
-);
-render(
-    <CSVDownload
-        data={data}
-        headers={headers}
-        target={"_blank"}
-        separator={","}
-        filename={"bob.csv"}
+        target={'_blank'}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         onClick={syncOnClickReturn}
     />,
-    node
+    node,
 );
 render(
     <CSVDownload
         data={data}
         headers={headers}
-        target={"_blank"}
-        separator={","}
-        filename={"bob.csv"}
+        target={'_blank'}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         onClick={syncOnClickVoid}
     />,
-    node
+    node,
 );
 render(
     <CSVDownload
         data={data}
         headers={headers}
-        target={"_blank"}
-        separator={","}
-        filename={"bob.csv"}
+        target={'_blank'}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         onClick={asyncOnClickReturn}
         asyncOnClick={true}
     />,
-    node
+    node,
 );
 render(
     <CSVDownload
         data={data}
         headers={headers}
-        target={"_blank"}
-        separator={","}
-        filename={"bob.csv"}
+        target={'_blank'}
+        separator={','}
+        filename={'bob.csv'}
         uFEFF={true}
         onClick={asyncOnClickVoid}
         asyncOnClick={true}
     />,
-    node
+    node,
 );

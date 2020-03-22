@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     interface LoDashStatic {
         /**
          * Assigns own enumerable properties of source objects to the destination
@@ -33,15 +33,30 @@ declare module "../index" {
         /**
          * @see _.assign
          */
-        assign<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
+        assign<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+        ): TObject & TSource1 & TSource2;
         /**
          * @see _.assign
          */
-        assign<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
+        assign<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.assign
          */
-        assign<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        assign<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.assign
          */
@@ -63,11 +78,20 @@ declare module "../index" {
         /**
          * @see _.assign
          */
-        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        assign<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.assign
          */
-        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assign<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.assign
          */
@@ -89,11 +113,20 @@ declare module "../index" {
         /**
          * @see _.assign
          */
-        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        assign<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.assign
          */
-        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assign<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.assign
          */
@@ -135,15 +168,30 @@ declare module "../index" {
         /**
          * @see _.assignIn
          */
-        assignIn<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
+        assignIn<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+        ): TObject & TSource1 & TSource2;
         /**
          * @see _.assignIn
          */
-        assignIn<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
+        assignIn<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.assignIn
          */
-        assignIn<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        assignIn<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.assignIn
          */
@@ -165,11 +213,20 @@ declare module "../index" {
         /**
          * @see _.assignIn
          */
-        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        assignIn<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.assignIn
          */
-        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignIn<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.assignIn
          */
@@ -191,11 +248,20 @@ declare module "../index" {
         /**
          * @see _.assignIn
          */
-        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        assignIn<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.assignIn
          */
-        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignIn<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.assignIn
          */
@@ -232,19 +298,41 @@ declare module "../index" {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        assignInWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
+        assignInWith<TObject, TSource>(
+            object: TObject,
+            source: TSource,
+            customizer: AssignCustomizer,
+        ): TObject & TSource;
         /**
          * @see _.assignInWith
          */
-        assignInWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
+        assignInWith<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer,
+        ): TObject & TSource1 & TSource2;
         /**
          * @see _.assignInWith
          */
-        assignInWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3;
+        assignInWith<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer,
+        ): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.assignInWith
          */
-        assignInWith<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        assignInWith<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer,
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.assignInWith
          */
@@ -262,15 +350,30 @@ declare module "../index" {
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Object<T & TSource1 & TSource2>;
+        assignInWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer,
+        ): Object<T & TSource1 & TSource2>;
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        assignInWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer,
+        ): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignInWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer,
+        ): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.assignInWith
          */
@@ -288,15 +391,30 @@ declare module "../index" {
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2>;
+        assignInWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        assignInWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignInWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.assignInWith
          */
@@ -335,15 +453,33 @@ declare module "../index" {
         /**
          * @see _.assignWith
          */
-        assignWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
+        assignWith<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer,
+        ): TObject & TSource1 & TSource2;
         /**
          * @see _.assignWith
          */
-        assignWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3;
+        assignWith<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer,
+        ): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.assignWith
          */
-        assignWith<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        assignWith<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer,
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.assignWith
          */
@@ -361,15 +497,30 @@ declare module "../index" {
         /**
          * @see _.assignWith
          */
-        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Object<T & TSource1 & TSource2>;
+        assignWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer,
+        ): Object<T & TSource1 & TSource2>;
         /**
          * @see _.assignWith
          */
-        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        assignWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer,
+        ): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.assignWith
          */
-        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer,
+        ): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.assignWith
          */
@@ -387,15 +538,30 @@ declare module "../index" {
         /**
          * @see _.assignWith
          */
-        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2>;
+        assignWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.assignWith
          */
-        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        assignWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.assignWith
          */
-        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.assignWith
          */
@@ -414,7 +580,7 @@ declare module "../index" {
          * @param props The property names or indexes of elements to pick, specified individually or in arrays.
          * @return Returns the new array of picked elements.
          */
-        at<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
+        at<T>(object: Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
         /**
          * @see _.at
          */
@@ -483,15 +649,30 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): NonNullable<TSource2 & TSource1 & TObject>;
+        defaults<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+        ): NonNullable<TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
+        defaults<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
+        defaults<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
@@ -509,15 +690,27 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<NonNullable<TSource2 & TSource1 & T>>;
+        defaults<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+        ): Object<NonNullable<TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
+        defaults<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): Object<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): Object<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
@@ -535,15 +728,27 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<NonNullable<TSource2 & TSource1 & T>>;
+        defaults<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+        ): ObjectChain<NonNullable<TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
+        defaults<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): ObjectChain<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): ObjectChain<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
@@ -650,15 +855,30 @@ declare module "../index" {
         /**
          * @see _.extend
          */
-        extend<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
+        extend<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+        ): TObject & TSource1 & TSource2;
         /**
          * @see _.extend
          */
-        extend<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
+        extend<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.extend
          */
-        extend<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        extend<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.extend
          */
@@ -680,11 +900,20 @@ declare module "../index" {
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        extend<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        extend<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.extend
          */
@@ -706,11 +935,20 @@ declare module "../index" {
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        extend<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        extend<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.extend
          */
@@ -728,15 +966,33 @@ declare module "../index" {
         /**
          * @see _.extendWith
          */
-        extendWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
+        extendWith<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer,
+        ): TObject & TSource1 & TSource2;
         /**
          * @see _.extendWith
          */
-        extendWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3;
+        extendWith<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer,
+        ): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.extendWith
          */
-        extendWith<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        extendWith<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer,
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.extendWith
          */
@@ -754,15 +1010,30 @@ declare module "../index" {
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Object<T & TSource1 & TSource2>;
+        extendWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer,
+        ): Object<T & TSource1 & TSource2>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        extendWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer,
+        ): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        extendWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer,
+        ): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.extendWith
          */
@@ -780,15 +1051,30 @@ declare module "../index" {
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2>;
+        extendWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        extendWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        extendWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.extendWith
          */
@@ -1033,47 +1319,119 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject>(object: TObject | null | undefined, path: TKey | [TKey]): TObject[TKey] | undefined;
+        get<TObject extends object, TKey extends keyof TObject>(
+            object: TObject | null | undefined,
+            path: TKey | [TKey],
+        ): TObject[TKey] | undefined;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject, TDefault>(object: TObject | null | undefined, path: TKey | [TKey], defaultValue: TDefault): Exclude<TObject[TKey], undefined> | TDefault;
+        get<TObject extends object, TKey extends keyof TObject, TDefault>(
+            object: TObject | null | undefined,
+            path: TKey | [TKey],
+            defaultValue: TDefault,
+        ): Exclude<TObject[TKey], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(object: TObject, path: [TKey1, TKey2]): TObject[TKey1][TKey2];
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(
+            object: TObject,
+            path: [TKey1, TKey2],
+        ): TObject[TKey1][TKey2];
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(object: TObject | null | undefined, path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2],
+        ): TObject[TKey1][TKey2] | undefined;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2],
+            defaultValue: TDefault,
+        ): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(object: TObject, path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3];
+        get<
+            TObject extends object,
+            TKey1 extends keyof TObject,
+            TKey2 extends keyof TObject[TKey1],
+            TKey3 extends keyof TObject[TKey1][TKey2]
+        >(
+            object: TObject,
+            path: [TKey1, TKey2, TKey3],
+        ): TObject[TKey1][TKey2][TKey3];
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
+        get<
+            TObject extends object,
+            TKey1 extends keyof TObject,
+            TKey2 extends keyof TObject[TKey1],
+            TKey3 extends keyof TObject[TKey1][TKey2]
+        >(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2, TKey3],
+        ): TObject[TKey1][TKey2][TKey3] | undefined;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        get<
+            TObject extends object,
+            TKey1 extends keyof TObject,
+            TKey2 extends keyof TObject[TKey1],
+            TKey3 extends keyof TObject[TKey1][TKey2],
+            TDefault
+        >(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2, TKey3],
+            defaultValue: TDefault,
+        ): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(object: TObject, path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4];
+        get<
+            TObject extends object,
+            TKey1 extends keyof TObject,
+            TKey2 extends keyof TObject[TKey1],
+            TKey3 extends keyof TObject[TKey1][TKey2],
+            TKey4 extends keyof TObject[TKey1][TKey2][TKey3]
+        >(
+            object: TObject,
+            path: [TKey1, TKey2, TKey3, TKey4],
+        ): TObject[TKey1][TKey2][TKey3][TKey4];
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+        get<
+            TObject extends object,
+            TKey1 extends keyof TObject,
+            TKey2 extends keyof TObject[TKey1],
+            TKey3 extends keyof TObject[TKey1][TKey2],
+            TKey4 extends keyof TObject[TKey1][TKey2][TKey3]
+        >(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2, TKey3, TKey4],
+        ): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        get<
+            TObject extends object,
+            TKey1 extends keyof TObject,
+            TKey2 extends keyof TObject[TKey1],
+            TKey3 extends keyof TObject[TKey1][TKey2],
+            TKey4 extends keyof TObject[TKey1][TKey2][TKey3],
+            TDefault
+        >(
+            object: TObject | null | undefined,
+            path: [TKey1, TKey2, TKey3, TKey4],
+            defaultValue: TDefault,
+        ): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
         /**
          * @see _.get
          */
@@ -1085,7 +1443,11 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<T, TDefault>(object: NumericDictionary<T> | null | undefined, path: number, defaultValue: TDefault): T | TDefault;
+        get<T, TDefault>(
+            object: NumericDictionary<T> | null | undefined,
+            path: number,
+            defaultValue: TDefault,
+        ): T | TDefault;
         /**
          * @see _.get
          */
@@ -1117,7 +1479,10 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exclude<T[TKey], undefined> | TDefault;
+        get<TKey extends keyof T, TDefault>(
+            path: TKey | [TKey],
+            defaultValue: TDefault,
+        ): Exclude<T[TKey], undefined> | TDefault;
         /**
          * @see _.get
          */
@@ -1125,23 +1490,47 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(path: [TKey1, TKey2], defaultValue: TDefault): Exclude<T[TKey1][TKey2], undefined> | TDefault;
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(
+            path: [TKey1, TKey2],
+            defaultValue: TDefault,
+        ): Exclude<T[TKey1][TKey2], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): T[TKey1][TKey2][TKey3];
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(
+            path: [TKey1, TKey2, TKey3],
+        ): T[TKey1][TKey2][TKey3];
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault;
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(
+            path: [TKey1, TKey2, TKey3],
+            defaultValue: TDefault,
+        ): Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): T[TKey1][TKey2][TKey3][TKey4];
+        get<
+            TKey1 extends keyof T,
+            TKey2 extends keyof T[TKey1],
+            TKey3 extends keyof T[TKey1][TKey2],
+            TKey4 extends keyof T[TKey1][TKey2][TKey3]
+        >(
+            path: [TKey1, TKey2, TKey3, TKey4],
+        ): T[TKey1][TKey2][TKey3][TKey4];
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        get<
+            TKey1 extends keyof T,
+            TKey2 extends keyof T[TKey1],
+            TKey3 extends keyof T[TKey1][TKey2],
+            TKey4 extends keyof T[TKey1][TKey2][TKey3],
+            TDefault
+        >(
+            path: [TKey1, TKey2, TKey3, TKey4],
+            defaultValue: TDefault,
+        ): Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
         /**
          * @see _.get
          */
@@ -1185,11 +1574,19 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TKey extends keyof T>(path: TKey | [TKey], defaultValue: never[]): T[TKey] extends any[] ? ExpChain<Exclude<T[TKey], undefined>> : ExpChain<Exclude<T[TKey], undefined> | never[]>;
+        get<TKey extends keyof T>(
+            path: TKey | [TKey],
+            defaultValue: never[],
+        ): T[TKey] extends any[]
+            ? ExpChain<Exclude<T[TKey], undefined>>
+            : ExpChain<Exclude<T[TKey], undefined> | never[]>;
         /**
          * @see _.get
          */
-        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): ExpChain<Exclude<T[TKey], undefined> | TDefault>;
+        get<TKey extends keyof T, TDefault>(
+            path: TKey | [TKey],
+            defaultValue: TDefault,
+        ): ExpChain<Exclude<T[TKey], undefined> | TDefault>;
         /**
          * @see _.get
          */
@@ -1197,35 +1594,79 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2], defaultValue: never[]): T[TKey1][TKey2] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2], undefined>> : ExpChain<Exclude<T[TKey1][TKey2], undefined> | never[]>;
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(
+            path: [TKey1, TKey2],
+            defaultValue: never[],
+        ): T[TKey1][TKey2] extends any[]
+            ? ExpChain<Exclude<T[TKey1][TKey2], undefined>>
+            : ExpChain<Exclude<T[TKey1][TKey2], undefined> | never[]>;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(path: [TKey1, TKey2], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2], undefined> | TDefault>;
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(
+            path: [TKey1, TKey2],
+            defaultValue: TDefault,
+        ): ExpChain<Exclude<T[TKey1][TKey2], undefined> | TDefault>;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): ExpChain<T[TKey1][TKey2][TKey3]>;
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(
+            path: [TKey1, TKey2, TKey3],
+        ): ExpChain<T[TKey1][TKey2][TKey3]>;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], defaultValue: never[]): T[TKey1][TKey2][TKey3] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined>> : ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | never[]>;
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(
+            path: [TKey1, TKey2, TKey3],
+            defaultValue: never[],
+        ): T[TKey1][TKey2][TKey3] extends any[]
+            ? ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined>>
+            : ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | never[]>;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(path: [TKey1, TKey2, TKey3], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault>;
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(
+            path: [TKey1, TKey2, TKey3],
+            defaultValue: TDefault,
+        ): ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault>;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): ExpChain<T[TKey1][TKey2][TKey3][TKey4]>;
+        get<
+            TKey1 extends keyof T,
+            TKey2 extends keyof T[TKey1],
+            TKey3 extends keyof T[TKey1][TKey2],
+            TKey4 extends keyof T[TKey1][TKey2][TKey3]
+        >(
+            path: [TKey1, TKey2, TKey3, TKey4],
+        ): ExpChain<T[TKey1][TKey2][TKey3][TKey4]>;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: never[]): T[TKey1][TKey2][TKey3][TKey4] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined>> : ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | never[]>;
+        get<
+            TKey1 extends keyof T,
+            TKey2 extends keyof T[TKey1],
+            TKey3 extends keyof T[TKey1][TKey2],
+            TKey4 extends keyof T[TKey1][TKey2][TKey3]
+        >(
+            path: [TKey1, TKey2, TKey3, TKey4],
+            defaultValue: never[],
+        ): T[TKey1][TKey2][TKey3][TKey4] extends any[]
+            ? ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined>>
+            : ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | never[]>;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault>;
+        get<
+            TKey1 extends keyof T,
+            TKey2 extends keyof T[TKey1],
+            TKey3 extends keyof T[TKey1][TKey2],
+            TKey4 extends keyof T[TKey1][TKey2][TKey3],
+            TDefault
+        >(
+            path: [TKey1, TKey2, TKey3, TKey4],
+            defaultValue: TDefault,
+        ): ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault>;
         /**
          * @see _.get
          */
@@ -1351,11 +1792,17 @@ declare module "../index" {
          * @param interatee The iteratee invoked per element.
          * @return Returns the new inverted object.
          */
-        invertBy<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, interatee?: ValueIteratee<T>): Dictionary<string[]>;
+        invertBy<T>(
+            object: Dictionary<T> | NumericDictionary<T> | null | undefined,
+            interatee?: ValueIteratee<T>,
+        ): Dictionary<string[]>;
         /**
          * @see _.invertBy
          */
-        invertBy<T extends object>(object: T | null | undefined, interatee?: ValueIteratee<T[keyof T]>): Dictionary<string[]>;
+        invertBy<T extends object>(
+            object: T | null | undefined,
+            interatee?: ValueIteratee<T[keyof T]>,
+        ): Dictionary<string[]>;
     }
     interface String {
         /**
@@ -1401,10 +1848,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-        * Invokes the method at path of object.
-        * @param object The object to query.
-        * @param path The path of the method to invoke.
-        * @param args The arguments to invoke the method with.
+         * Invokes the method at path of object.
+         * @param object The object to query.
+         * @param path The path of the method to invoke.
+         * @param args The arguments to invoke the method with.
          */
         invoke(object: any, path: PropertyPath, ...args: any[]): any;
     }
@@ -1507,23 +1954,32 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-        * Creates an object with the same keys as object and values generated by running each own
-        * enumerable property of object through iteratee. The iteratee function is
-        * invoked with three arguments: (value, key, object).
-        *
-        * @param object The object to iterate over.
-        * @param iteratee  The function invoked per iteration.
-        * @return Returns the new mapped object.
+         * Creates an object with the same keys as object and values generated by running each own
+         * enumerable property of object through iteratee. The iteratee function is
+         * invoked with three arguments: (value, key, object).
+         *
+         * @param object The object to iterate over.
+         * @param iteratee  The function invoked per iteration.
+         * @return Returns the new mapped object.
          */
-        mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
+        mapValues<TResult>(
+            obj: string | null | undefined,
+            callback: StringIterator<TResult>,
+        ): NumericDictionary<TResult>;
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
+        mapValues<T extends object, TResult>(
+            obj: T | null | undefined,
+            callback: ObjectIterator<T, TResult>,
+        ): { [P in keyof T]: TResult };
         /**
          * @see _.mapValues
          */
-        mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: object): Dictionary<boolean>;
+        mapValues<T>(
+            obj: Dictionary<T> | NumericDictionary<T> | null | undefined,
+            iteratee: object,
+        ): Dictionary<boolean>;
         /**
          * @see _.mapValues
          */
@@ -1531,7 +1987,10 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<T, TKey extends keyof T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: TKey): Dictionary<T[TKey]>;
+        mapValues<T, TKey extends keyof T>(
+            obj: Dictionary<T> | NumericDictionary<T> | null | undefined,
+            iteratee: TKey,
+        ): Dictionary<T[TKey]>;
         /**
          * @see _.mapValues
          */
@@ -1715,15 +2174,30 @@ declare module "../index" {
         /**
          * @see _.merge
          */
-        merge<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
+        merge<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+        ): TObject & TSource1 & TSource2;
         /**
          * @see _.merge
          */
-        merge<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
+        merge<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.merge
          */
-        merge<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        merge<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.merge
          */
@@ -1741,11 +2215,20 @@ declare module "../index" {
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        merge<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        merge<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.merge
          */
@@ -1763,17 +2246,28 @@ declare module "../index" {
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        merge<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        merge<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.merge
          */
         merge(...otherArgs: any[]): ObjectChain<any>;
     }
-    type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"];
+    type MergeWithCustomizer = {
+        bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any;
+    }['bivariantHack'];
     // TODO: Probably should just put all these methods on Object and forget about it.
     // oh, except for Collection<any> I GUESS
     interface LoDashStatic {
@@ -1810,19 +2304,41 @@ declare module "../index" {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        mergeWith<TObject, TSource>(object: TObject, source: TSource, customizer: MergeWithCustomizer): TObject & TSource;
+        mergeWith<TObject, TSource>(
+            object: TObject,
+            source: TSource,
+            customizer: MergeWithCustomizer,
+        ): TObject & TSource;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2;
+        mergeWith<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            customizer: MergeWithCustomizer,
+        ): TObject & TSource1 & TSource2;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2 & TSource3;
+        mergeWith<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: MergeWithCustomizer,
+        ): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        mergeWith<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: MergeWithCustomizer,
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.mergeWith
          */
@@ -1836,15 +2352,30 @@ declare module "../index" {
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): Object<T & TSource1 & TSource2>;
+        mergeWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: MergeWithCustomizer,
+        ): Object<T & TSource1 & TSource2>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        mergeWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: MergeWithCustomizer,
+        ): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        mergeWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: MergeWithCustomizer,
+        ): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.mergeWith
          */
@@ -1858,15 +2389,30 @@ declare module "../index" {
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): ObjectChain<T & TSource1 & TSource2>;
+        mergeWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: MergeWithCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        mergeWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: MergeWithCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        mergeWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: MergeWithCustomizer,
+        ): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.mergeWith
          */
@@ -1955,11 +2501,17 @@ declare module "../index" {
         /**
          * @see _.omitBy
          */
-        omitBy<T>(object: NumericDictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): NumericDictionary<T>;
+        omitBy<T>(
+            object: NumericDictionary<T> | null | undefined,
+            predicate?: ValueKeyIteratee<T>,
+        ): NumericDictionary<T>;
         /**
          * @see _.omitBy
          */
-        omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
+        omitBy<T extends object>(
+            object: T | null | undefined,
+            predicate: ValueKeyIteratee<T[keyof T]>,
+        ): PartialObject<T>;
     }
     interface Collection<T> {
         /**
@@ -2043,11 +2595,17 @@ declare module "../index" {
          * _.pickBy(object, _.isNumber);
          * // => { 'a': 1, 'c': 3 }
          */
-        pickBy<T, S extends T>(object: Dictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): Dictionary<S>;
+        pickBy<T, S extends T>(
+            object: Dictionary<T> | null | undefined,
+            predicate: ValueKeyIterateeTypeGuard<T, S>,
+        ): Dictionary<S>;
         /**
          * @see _.pickBy
          */
-        pickBy<T, S extends T>(object: NumericDictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): NumericDictionary<S>;
+        pickBy<T, S extends T>(
+            object: NumericDictionary<T> | null | undefined,
+            predicate: ValueKeyIterateeTypeGuard<T, S>,
+        ): NumericDictionary<S>;
         /**
          * @see _.pickBy
          */
@@ -2055,11 +2613,17 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy<T>(object: NumericDictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): NumericDictionary<T>;
+        pickBy<T>(
+            object: NumericDictionary<T> | null | undefined,
+            predicate?: ValueKeyIteratee<T>,
+        ): NumericDictionary<T>;
         /**
          * @see _.pickBy
          */
-        pickBy<T extends object>(object: T | null | undefined, predicate?: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
+        pickBy<T extends object>(
+            object: T | null | undefined,
+            predicate?: ValueKeyIteratee<T[keyof T]>,
+        ): PartialObject<T>;
     }
     interface Collection<T> {
         /**
@@ -2075,7 +2639,9 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): Object<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
+        pickBy<S extends T[keyof T]>(
+            predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>,
+        ): Object<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
         /**
          * @see _.pickBy
          */
@@ -2095,7 +2661,9 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ObjectChain<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
+        pickBy<S extends T[keyof T]>(
+            predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>,
+        ): ObjectChain<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
         /**
          * @see _.pickBy
          */
@@ -2111,7 +2679,11 @@ declare module "../index" {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        result<TResult>(object: any, path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
+        result<TResult>(
+            object: any,
+            path: PropertyPath,
+            defaultValue?: TResult | ((...args: any[]) => TResult),
+        ): TResult;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
@@ -2179,7 +2751,12 @@ declare module "../index" {
         /**
          * @see _.setWith
          */
-        setWith<T extends object, TResult>(object: T, path: PropertyPath, value: any, customizer?: SetWithCustomizer<T>): TResult;
+        setWith<T extends object, TResult>(
+            object: T,
+            path: PropertyPath,
+            value: any,
+            customizer?: SetWithCustomizer<T>,
+        ): TResult;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
@@ -2218,13 +2795,17 @@ declare module "../index" {
         /**
          * @see _.toPairs
          */
-        toPairs(): Collection<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
+        toPairs(): Collection<
+            [string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]
+        >;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toPairs
          */
-        toPairs(): CollectionChain<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
+        toPairs(): CollectionChain<
+            [string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]
+        >;
     }
     interface LoDashStatic {
         /**
@@ -2243,13 +2824,17 @@ declare module "../index" {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn(): Collection<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
+        toPairsIn(): Collection<
+            [string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]
+        >;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn(): CollectionChain<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
+        toPairsIn(): CollectionChain<
+            [string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]
+        >;
     }
     interface LoDashStatic {
         /**
@@ -2267,7 +2852,11 @@ declare module "../index" {
         /**
          * @see _.transform
          */
-        transform<T, TResult>(object: Dictionary<T>, iteratee: MemoVoidDictionaryIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<T, TResult>(
+            object: Dictionary<T>,
+            iteratee: MemoVoidDictionaryIterator<T, TResult>,
+            accumulator?: TResult,
+        ): TResult;
         /**
          * @see _.transform
          */
@@ -2291,7 +2880,10 @@ declare module "../index" {
         /**
          * @see _.transform
          */
-        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): ImpChain<TResult>;
+        transform<TResult>(
+            iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>,
+            accumulator?: TResult,
+        ): ImpChain<TResult>;
         /**
          * @see _.transform
          */
@@ -2311,7 +2903,10 @@ declare module "../index" {
         /**
          * @see _.transform
          */
-        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): ExpChain<TResult>;
+        transform<TResult>(
+            iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>,
+            accumulator?: TResult,
+        ): ExpChain<TResult>;
         /**
          * @see _.transform
          */
@@ -2388,11 +2983,21 @@ declare module "../index" {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        updateWith<T extends object>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): T;
+        updateWith<T extends object>(
+            object: T,
+            path: PropertyPath,
+            updater: (oldValue: any) => any,
+            customizer?: SetWithCustomizer<T>,
+        ): T;
         /**
          * @see _.updateWith
          */
-        updateWith<T extends object, TResult>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): TResult;
+        updateWith<T extends object, TResult>(
+            object: T,
+            path: PropertyPath,
+            updater: (oldValue: any) => any,
+            customizer?: SetWithCustomizer<T>,
+        ): TResult;
     }
     interface Object<T> {
         /**
@@ -2402,7 +3007,11 @@ declare module "../index" {
         /**
          * @see _.updateWith
          */
-        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): Object<TResult>;
+        updateWith<TResult>(
+            path: PropertyPath,
+            updater: (oldValue: any) => any,
+            customizer?: SetWithCustomizer<T>,
+        ): Object<TResult>;
     }
     interface ObjectChain<T> {
         /**
@@ -2412,7 +3021,11 @@ declare module "../index" {
         /**
          * @see _.updateWith
          */
-        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): ObjectChain<TResult>;
+        updateWith<TResult>(
+            path: PropertyPath,
+            updater: (oldValue: any) => any,
+            customizer?: SetWithCustomizer<T>,
+        ): ObjectChain<TResult>;
     }
     interface LoDashStatic {
         /**

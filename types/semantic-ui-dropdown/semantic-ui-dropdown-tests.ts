@@ -58,7 +58,7 @@ function test_dropdown() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown({
@@ -151,19 +151,19 @@ function test_dropdown() {
             },
             regExp: {
                 required: /{\$*[A-z0-9]+}/g,
-                optional: /{\/\$*[A-z0-9]+}/g
+                optional: /{\/\$*[A-z0-9]+}/g,
             },
             selector: {
                 disabled: '.disabled',
-                form: 'form'
+                form: 'form',
             },
             className: {
                 loading: 'loading',
-                error: 'error'
+                error: 'error',
             },
             metadata: {
                 action: 'action',
-                url: 'url'
+                url: 'url',
             },
             error: {
                 beforeSend: 'beforeSend',
@@ -178,14 +178,14 @@ function test_dropdown() {
                 parseError: 'parseError',
                 requiredParameter: 'requiredParameter',
                 statusMessage: 'statusMessage',
-                timeout: 'timeout'
-            }
+                timeout: 'timeout',
+            },
         },
         fields: {
             remoteValues: 'remoteValues',
             values: 'values',
             name: 'name',
-            value: 'value'
+            value: 'value',
         },
         saveRemoteData: true,
         filterRemoteData: false,
@@ -195,7 +195,7 @@ function test_dropdown() {
         label: {
             transition: 'horizontal flip',
             duration: 200,
-            variation: 'basic'
+            variation: 'basic',
         },
         direction: 'downward',
         keepOnScreen: false,
@@ -218,13 +218,13 @@ function test_dropdown() {
             leftArrow: 37,
             upArrow: 38,
             rightArrow: 30,
-            downArrow: 40
+            downArrow: 40,
         },
         delay: {
             hide: 300,
             show: 200,
             search: 50,
-            touch: 50
+            touch: 50,
         },
         onChange(value, text, $choice) {
             value; // $ExpectType any
@@ -258,7 +258,7 @@ function test_dropdown() {
             text: 'text',
         },
         regExp: {
-            escape: /[-[\]{}()*+?.,\\^$|#\s]/g
+            escape: /[-[\]{}()*+?.,\\^$|#\s]/g,
         },
         metadata: {
             defaultText: 'defaultText',
@@ -293,8 +293,8 @@ function test_dropdown() {
             alreadySetup: 'alreadySetup',
             labels: 'labels',
             method: 'method',
-            noTransition: 'noTransition'
-        }
+            noTransition: 'noTransition',
+        },
     });
     $(selector).dropdown(); // $ExpectType JQuery<HTMLElement>
 

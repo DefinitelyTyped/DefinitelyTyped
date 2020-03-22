@@ -1,2 +1,2 @@
-import { overArgs } from "./index";
+import { overArgs } from './index';
 export = overArgs;

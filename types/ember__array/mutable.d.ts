@@ -1,7 +1,7 @@
-import Mixin from "@ember/object/mixin";
-import MutableEnumerable from "@ember/array/-private/mutable-enumerable";
+import Mixin from '@ember/object/mixin';
+import MutableEnumerable from '@ember/array/-private/mutable-enumerable';
 import EmberArray from '@ember/array';
-import Enumerable from "@ember/array/-private/enumerable";
+import Enumerable from '@ember/array/-private/enumerable';
 
 /**
  * This mixin defines the API for modifying array-like objects. These methods

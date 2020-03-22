@@ -291,8 +291,7 @@ declare namespace whale {
         }
         export type ColorArray = [number, number, number, number];
 
-        export interface BrowserClickedEvent
-            extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
+        export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
 
         /**
          * 지정한 윈도우에 사이드바 영역을 열고 포커스를 주는 메소드입니다. 이미 사이드바가 열려있다면 포커스만 옮겨줍니다.
@@ -304,7 +303,7 @@ declare namespace whale {
         export function show(
             windowId: number,
             details?: SidebarShowDetail,
-            callback?: (windowId: number) => void
+            callback?: (windowId: number) => void,
         ): void;
 
         /**
@@ -313,10 +312,7 @@ declare namespace whale {
          * @param details Optional. url 설정
          * @param callback Optional. 콜백 함수. 인자값으로 windowId가 넘어감
          */
-        export function show(
-            details: SidebarShowDetail,
-            callback?: (windowId: number) => void
-        ): void;
+        export function show(details: SidebarShowDetail, callback?: (windowId: number) => void): void;
 
         /**
          * 현재 윈도우에 사이드바 영역을 열고 포커스를 주는 메소드입니다. 이미 사이드바가 열려있다면 포커스만 옮겨줍니다.
@@ -336,10 +332,7 @@ declare namespace whale {
          * @param windowId Optional. 대상 윈도우의 ID. 지정하지 않으면 현재 윈도우.
          * @param callback Optional. 콜백 함수. 인자값으로 windowId가 넘어감
          */
-        export function hide(
-            windowId: number,
-            callback?: (windowId: number) => void
-        ): void;
+        export function hide(windowId: number, callback?: (windowId: number) => void): void;
 
         /**
          * 현재 윈도우의 사이드바를 닫습니다. 현재 확장앱에 포커스가 있는 상황에만 동작합니다.
@@ -401,17 +394,13 @@ declare namespace whale {
          * 확장앱 아이콘 위에 표시되는 뱃지의 배경 색상을 변경합니다. 열려 있는 모든 윈도우에 동시 적용됩니다.
          * @param details 뱃지 배경 색상을 담은 객체
          */
-        export function setBadgeBackgroundColor(
-            details: BadgeBackgroundColorDetails
-        ): void;
+        export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): void;
 
         /**
          * 확장앱 아이콘 위에 표시되는 뱃지의 배경색상을 반환합니다.
          * @param callback 뱃지 배경 색상. RGBA 색상값 배열 [R, G, B, A]를 담은 인자값으로 넣은 콜백 함수.
          */
-        export function getBadgeBackgroundColor(
-            callback: (color: ColorArray) => void
-        ): void;
+        export function getBadgeBackgroundColor(callback: (color: ColorArray) => void): void;
 
         /**
          * 팝업 윈도우를 사이드바에 도킹합니다. details를 통해 도킹하고자 하는 부모 윈도우를 지정할 수 있습니다.
@@ -423,7 +412,7 @@ declare namespace whale {
         export function dock(
             popupWindowId: number,
             details: SidebarDockDetail,
-            callback: (windowId: number) => void
+            callback: (windowId: number) => void,
         ): void;
 
         /**
@@ -432,10 +421,7 @@ declare namespace whale {
          * @param popupWindowId 팝업 윈도우의 ID.
          * @param callback 도킹 된 windowId를 인자값으로 넣은 콜백 함수.
          */
-        export function dock(
-            popupWindowId: number,
-            callback: (windowId: number) => void
-        ): void;
+        export function dock(popupWindowId: number, callback: (windowId: number) => void): void;
 
         /**
          * 도킹된 윈도우를 부모 윈도우에서 떼어냅니다.
@@ -443,10 +429,7 @@ declare namespace whale {
          * @param callback 새로 부여된 윈도우 Id를 인자값으로 넣은 콜백 함수.
          * 여기서 windowId는 `whale.sidebarAction.dock()`으로 붙일 때 사용했던 윈도우 ID와는 다르다.
          */
-        export function undock(
-            popupWindowId: number,
-            callback: (windowId: number) => void
-        ): void;
+        export function undock(popupWindowId: number, callback: (windowId: number) => void): void;
 
         /**
          * 사이드바 확장앱 아이콘이 클릭될 때 발생하는 이벤트 핸들러
@@ -538,11 +521,7 @@ declare namespace whale {
          * @param title 제목
          * @param callback 상태를 콜백 함수의 인자값으로 보냅니다. 성공시 true, 실패시 false
          */
-        export function add(
-            url: string,
-            title: string,
-            callback?: (status: boolean) => void
-        ): void;
+        export function add(url: string, title: string, callback?: (status: boolean) => void): void;
 
         /**
          * 자주 가는 사이트에서 해당 url을 삭제합니다.
@@ -568,10 +547,7 @@ declare namespace whale {
          * @param url 확인할 uri
          * @param callback block 여부를 콜백함수의 인자값으로 보냅니다.
          */
-        export function isBlocked(
-            url: string,
-            callback: (status: boolean) => void
-        ): void;
+        export function isBlocked(url: string, callback: (status: boolean) => void): void;
 
         /**
          * 방문기록에서 자주 가는 사이트 순으로 검색을 합니다.
@@ -579,11 +555,7 @@ declare namespace whale {
          * @param count 검색할 개수.
          * @param callback 결과 리스트를 함수의 인자값으로 보냅니다.
          */
-        export function search(
-            term: string,
-            count: number,
-            callback?: (result: MostVisitedURL2[]) => void
-        ): void;
+        export function search(term: string, count: number, callback?: (result: MostVisitedURL2[]) => void): void;
 
         /**
          * 자주 가는 사이트에 해당 배열을 추가합니다.

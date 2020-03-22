@@ -13,8 +13,10 @@ export {};
 // when calling the constructor. (No need to export this).
 type OptionalOptionParameters = 'authorizationURL' | 'tokenURL' | 'scopeSeparator' | 'customHeaders';
 
-export type MicrosoftStrategyOptions = Omit<oauth2.StrategyOptions, OptionalOptionParameters> & Partial<oauth2.StrategyOptions>;
-export type MicrosoftStrategyOptionsWithRequest = Omit<oauth2.StrategyOptionsWithRequest, OptionalOptionParameters> & Partial<oauth2.StrategyOptionsWithRequest>;
+export type MicrosoftStrategyOptions = Omit<oauth2.StrategyOptions, OptionalOptionParameters> &
+    Partial<oauth2.StrategyOptions>;
+export type MicrosoftStrategyOptionsWithRequest = Omit<oauth2.StrategyOptionsWithRequest, OptionalOptionParameters> &
+    Partial<oauth2.StrategyOptionsWithRequest>;
 
 export class Strategy extends oauth2.Strategy {
     constructor(options: MicrosoftStrategyOptions, verify: oauth2.VerifyFunction);

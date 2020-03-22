@@ -1,34 +1,38 @@
-import * as restify from "restify";
-import * as url from "url";
-import * as Logger from "bunyan";
-import * as http from "http";
-import * as stream from "stream";
+import * as restify from 'restify';
+import * as url from 'url';
+import * as Logger from 'bunyan';
+import * as http from 'http';
+import * as stream from 'stream';
 
 let server: restify.Server;
 
 server = restify.createServer({
     formatters: {
         'application/foo': function formatFoo(req: restify.Request, res: restify.Response, body: any) {
-            if (body instanceof Error)
-                return body.stack;
+            if (body instanceof Error) return body.stack;
 
-            if (body)
-                return body.toString('base64');
+            if (body) return body.toString('base64');
 
             return body;
-        }
-    }
+        },
+    },
 });
 
 server = restify.createServer({});
 
 server.pre(restify.pre.sanitizePath());
 
-server.on('someEvent', () => { });
+server.on('someEvent', () => {});
 
-server.use((req: restify.Request, res: restify.Response, next: restify.Next) => { });
-server.use([(req: restify.Request, res: restify.Response, next: restify.Next) => { }, (req: restify.Request, res: restify.Response, next: restify.Next) => { }]);
-server.use((req: restify.Request, res: restify.Response, next: restify.Next) => { }, (req: restify.Request, res: restify.Response, next: restify.Next) => { });
+server.use((req: restify.Request, res: restify.Response, next: restify.Next) => {});
+server.use([
+    (req: restify.Request, res: restify.Response, next: restify.Next) => {},
+    (req: restify.Request, res: restify.Response, next: restify.Next) => {},
+]);
+server.use(
+    (req: restify.Request, res: restify.Response, next: restify.Next) => {},
+    (req: restify.Request, res: restify.Response, next: restify.Next) => {},
+);
 
 function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.header('key', 'val');
@@ -98,7 +102,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     res.send('hello ' + req.params.name);
     res.writeHead(200);
     res.writeHead(200, {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
     });
     next();
 }
@@ -117,17 +121,17 @@ server.get(/(.*)/, send);
 server.head(/(.*)/, send);
 server.opts(/(.*)/, send);
 
-server.name = "";
-server.versions = [""];
-server.acceptable = ["test"];
-server.url = "";
+server.name = '';
+server.versions = [''];
+server.acceptable = ['test'];
+server.url = '';
 server.server = new http.Server();
 
 server.address().port;
 server.address().family;
 server.address().address;
 
-server.listen("somePath", send);
+server.listen('somePath', send);
 server.close();
 
 server.use(restify.plugins.acceptParser(server.acceptable));
@@ -137,27 +141,33 @@ server.use(restify.plugins.queryParser());
 server.use(restify.plugins.jsonp());
 server.use(restify.plugins.gzipResponse());
 server.use(restify.plugins.bodyParser());
-server.use(restify.plugins.throttle({
-    burst: 100,
-    rate: 50,
-    ip: true,
-    overrides: {
-        '192.168.1.1': {
-            rate: 0,
-            burst: 0
-        }
-    }
-}));
-server.use(restify.plugins.conditionalHandler([{
-    contentType: ['text/plain'],
-    handler: (req: restify.Request, res: restify.Response, next: restify.Next): void => {
-        res.send('OK');
-        next();
-    },
-    version: '0.0.0',
-}]));
+server.use(
+    restify.plugins.throttle({
+        burst: 100,
+        rate: 50,
+        ip: true,
+        overrides: {
+            '192.168.1.1': {
+                rate: 0,
+                burst: 0,
+            },
+        },
+    }),
+);
+server.use(
+    restify.plugins.conditionalHandler([
+        {
+            contentType: ['text/plain'],
+            handler: (req: restify.Request, res: restify.Response, next: restify.Next): void => {
+                res.send('OK');
+                next();
+            },
+            version: '0.0.0',
+        },
+    ]),
+);
 
-const logger = Logger.createLogger({ name: "test" });
+const logger = Logger.createLogger({ name: 'test' });
 
 server.on('after', restify.plugins.auditLogger({ event: 'after', log: logger }));
 
@@ -170,7 +180,7 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     restify.plugins.auditLogger({ event: 'after', log: logger })(req, res, route, err);
 });
 
-(restify as any).defaultResponseHeaders = function(this: restify.Request, data: any) {
+(restify as any).defaultResponseHeaders = function (this: restify.Request, data: any) {
     this.header('Server', 'helloworld');
 };
 
@@ -180,7 +190,7 @@ const requestCaptureOptions: restify.bunyan.RequestCaptureOptions = {};
 requestCaptureOptions.stream = loggerStream;
 requestCaptureOptions.streams = Object.freeze([loggerStream, loggerStream]);
 requestCaptureOptions.level = Logger.DEBUG;
-requestCaptureOptions.level = "info";
+requestCaptureOptions.level = 'info';
 requestCaptureOptions.maxRecords = 50;
 requestCaptureOptions.maxRequestIds = 500;
 requestCaptureOptions.dumpDefault = true;
@@ -188,4 +198,4 @@ requestCaptureOptions.dumpDefault = true;
 const requestCaptureStream = new restify.bunyan.RequestCaptureStream(requestCaptureOptions);
 const asStream: stream.Stream = requestCaptureStream;
 
-const logger2: Logger = restify.bunyan.createLogger("horse");
+const logger2: Logger = restify.bunyan.createLogger('horse');

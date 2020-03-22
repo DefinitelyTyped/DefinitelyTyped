@@ -1,4 +1,4 @@
-import { IconClassGenerator } from "./IconClassGenerator";
+import { IconClassGenerator } from './IconClassGenerator';
 
 /**
  * Represents a css-class resolver.

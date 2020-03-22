@@ -10,7 +10,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { CSSProperties } from 'aphrodite';
 
-interface Theme { [key: string]: any; }
+interface Theme {
+    [key: string]: any;
+}
 
 interface WithStylesProps<T = Theme> {
     /**
@@ -58,13 +60,4 @@ declare function withStyles<T = Theme>(
 
 declare function css(...styles: any[]): object;
 
-export {
-  css,
-  withStyles,
-  WithStylesProps,
-  withStylesPropTypes,
-  WithStylesOptions,
-  Theme,
-  Styles,
-  CSSProperties,
-};
+export { css, withStyles, WithStylesProps, withStylesPropTypes, WithStylesOptions, Theme, Styles, CSSProperties };

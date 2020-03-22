@@ -86,18 +86,10 @@ export interface DecodeOptions {
     complete?: boolean;
     json?: boolean;
 }
-export type VerifyErrors =
-    | JsonWebTokenError
-    | NotBeforeError
-    | TokenExpiredError;
-export type VerifyCallback = (
-    err: VerifyErrors,
-    decoded: object,
-) => void;
+export type VerifyErrors = JsonWebTokenError | NotBeforeError | TokenExpiredError;
+export type VerifyCallback = (err: VerifyErrors, decoded: object) => void;
 
-export type SignCallback = (
-    err: Error, encoded: string
-) => void;
+export type SignCallback = (err: Error, encoded: string) => void;
 
 export interface JwtHeader {
     alg: string;
@@ -109,26 +101,25 @@ export interface JwtHeader {
 }
 
 export type Algorithm =
-    "HS256" | "HS384" | "HS512" |
-    "RS256" | "RS384" | "RS512" |
-    "ES256" | "ES384" | "ES512" |
-    "PS256" | "PS384" | "PS512" |
-    "none";
+    | 'HS256'
+    | 'HS384'
+    | 'HS512'
+    | 'RS256'
+    | 'RS384'
+    | 'RS512'
+    | 'ES256'
+    | 'ES384'
+    | 'ES512'
+    | 'PS256'
+    | 'PS384'
+    | 'PS512'
+    | 'none';
 
-export type SigningKeyCallback = (
-    err: any,
-    signingKey?: Secret,
-) => void;
+export type SigningKeyCallback = (err: any, signingKey?: Secret) => void;
 
-export type GetPublicKeyOrSecret = (
-    header: JwtHeader,
-    callback: SigningKeyCallback
-) => void;
+export type GetPublicKeyOrSecret = (header: JwtHeader, callback: SigningKeyCallback) => void;
 
-export type Secret =
-    | string
-    | Buffer
-    | { key: string | Buffer; passphrase: string };
+export type Secret = string | Buffer | { key: string | Buffer; passphrase: string };
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string
@@ -137,11 +128,7 @@ export type Secret =
  * [options] - Options for the signature
  * returns - The JSON Web Token string
  */
-export function sign(
-    payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
-    options?: SignOptions,
-): string;
+export function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, options?: SignOptions): string;
 
 /**
  * Sign the given payload into a JSON Web Token string
@@ -150,11 +137,7 @@ export function sign(
  * [options] - Options for the signature
  * callback - Callback to get the encoded token on
  */
-export function sign(
-    payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
-    callback: SignCallback,
-): void;
+export function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, callback: SignCallback): void;
 export function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,

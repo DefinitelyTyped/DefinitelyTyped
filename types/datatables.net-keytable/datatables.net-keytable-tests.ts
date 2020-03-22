@@ -3,15 +3,15 @@ $(document).ready(() => {
         // KeyTable extension options
         keys: {
             blurable: true,
-            className: "focusClass",
+            className: 'focusClass',
             clipboard: false,
-            columns: ":not(:first-child)",
+            columns: ':not(:first-child)',
             editOnFocus: false,
-            focus: ":eq(0)",
+            focus: ':eq(0)',
             tabIndex: 2,
-            keys: [ "\t".charCodeAt(0) ],
+            keys: ['\t'.charCodeAt(0)],
             clipboardOrthogonal: 'export',
-            editor: null
-        }
+            editor: null,
+        },
     };
 });

@@ -7,17 +7,17 @@ function testFind() {
         sort: ['fieldName'],
         limit: 1,
         skip: 1,
-        use_index: 'ddocName'
+        use_index: 'ddocName',
     });
 
     db.find({
         selector: {},
-        use_index: ['ddocName', 'name']
+        use_index: ['ddocName', 'name'],
     });
 
     db.find({
         selector: {},
-        sort: [{fieldName: 'asc'}]
+        sort: [{ fieldName: 'asc' }],
     });
 
     // test combinations of selectors
@@ -25,7 +25,7 @@ function testFind() {
         selector: {
             // test id
             _id: {
-                $gt: null
+                $gt: null,
             },
 
             // conditions
@@ -39,13 +39,13 @@ function testFind() {
                 $elemMatch: null,
 
                 $exists: true,
-                $type: "null",
-                $in: ["string", null, 1, true, {}, []],
-                $nin: ["string", null, 1, true, {}, []],
+                $type: 'null',
+                $in: ['string', null, 1, true, {}, []],
+                $nin: ['string', null, 1, true, {}, []],
                 $size: 5,
                 $mod: [1, 2],
-                $regex: "pattern",
-                $all: ["string", null, 1, true, {}, []]
+                $regex: 'pattern',
+                $all: ['string', null, 1, true, {}, []],
             },
 
             // value
@@ -63,11 +63,11 @@ function testFind() {
                     {
                         foo: 'bar',
                         bar: {
-                            $gt: null
-                        }
-                    }
-                ]
-            }
-        }
+                            $gt: null,
+                        },
+                    },
+                ],
+            },
+        },
     });
 }

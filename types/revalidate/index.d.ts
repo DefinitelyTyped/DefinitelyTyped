@@ -52,8 +52,14 @@ export type ConfigurableValidator = UnconfiguredValidator & CurryableValidator;
 
 export type Validator = ConfiguredValidator & UnconfiguredValidator;
 
-export function createValidator(curriedDefinition: ValidatorImpl, defaultMessageCreator?: MessageCreator): ConfigurableValidator;
-export function composeValidators(firstValidator: Validator | any, ...validators: Validator[]): ComposedCurryableValidator;
+export function createValidator(
+    curriedDefinition: ValidatorImpl,
+    defaultMessageCreator?: MessageCreator,
+): ConfigurableValidator;
+export function composeValidators(
+    firstValidator: Validator | any,
+    ...validators: Validator[]
+): ComposedCurryableValidator;
 export function combineValidators(validators: any, options?: CombineValidatorsOptions): ConfiguredCombinedValidator;
 
 export function hasLengthBetween(min: number, max: number): ConfigurableValidator;

@@ -1,7 +1,7 @@
-import invariant = require("invariant");
+import invariant = require('invariant');
 
 // has assertion side effect
-const val: {a: number} | false = null;
+const val: { a: number } | false = null;
 // $ExpectError
 val.a === 1;
 invariant(val, 'val must be truthy');

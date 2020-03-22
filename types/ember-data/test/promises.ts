@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 declare const store: DS.Store;
 
@@ -13,8 +13,8 @@ declare module 'ember-data/types/registries/model' {
     }
 }
 
-const promiseFind = store.findRecord("person", 1);
+const promiseFind = store.findRecord('person', 1);
 
 promiseFind.content; // $ExpectType Person | undefined
 
-promiseFind.get("firstName");
+promiseFind.get('firstName');

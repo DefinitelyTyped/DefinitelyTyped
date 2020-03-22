@@ -71,5 +71,5 @@ export {
     transformMat2,
     transformMat2d,
     transformMat3,
-    transformMat4
+    transformMat4,
 };

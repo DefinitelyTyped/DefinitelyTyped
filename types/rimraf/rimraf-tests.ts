@@ -1,9 +1,9 @@
 import rimraf = require('rimraf');
 
-rimraf('./xyz', (err: Error) => { });
+rimraf('./xyz', (err: Error) => {});
 rimraf.sync('./xyz');
 
-rimraf('./xyz', { glob: { ignore: '' } }, (err: Error) => { });
+rimraf('./xyz', { glob: { ignore: '' } }, (err: Error) => {});
 rimraf.sync('./xyz', { glob: { ignore: '' } });
 
 rimraf.EMFILE_MAX = 0;

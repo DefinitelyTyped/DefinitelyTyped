@@ -6,34 +6,34 @@
 
 /// <reference types="react" />
 
-declare module "react-imageloader" {
-  interface ImageLoaderProps extends React.Props<ImageLoader> {
-      /** An optional class name for the wrapper component. */
-      className?: string;
+declare module 'react-imageloader' {
+    interface ImageLoaderProps extends React.Props<ImageLoader> {
+        /** An optional class name for the wrapper component. */
+        className?: string;
 
-      /** An optional object containing props for the underlying img component. */
-      imgProps?: any;
+        /** An optional object containing props for the underlying img component. */
+        imgProps?: any;
 
-      /** An optional handler for the error event. */
-      onError?: (event: any) => void;
+        /** An optional handler for the error event. */
+        onError?: (event: any) => void;
 
-      /** An optional handler for the load event. */
-      onLoad?: (event: any) => void;
+        /** An optional handler for the load event. */
+        onLoad?: (event: any) => void;
 
-      /** An optional function that returns a React element to be shown while the image loads. */
-      preloader?: (params: any) => React.ReactElement;
+        /** An optional function that returns a React element to be shown while the image loads. */
+        preloader?: (params: any) => React.ReactElement;
 
-      /** The URL of the image to be loaded. */
-      src: string;
+        /** The URL of the image to be loaded. */
+        src: string;
 
-      /** An optional object containing styles for the wrapper component. */
-      style?: React.CSSProperties;
+        /** An optional object containing styles for the wrapper component. */
+        style?: React.CSSProperties;
 
-      /** A function that takes a props argument and returns a React element to be used as the wrapper component. Defaults to React.DOM.span. */
-      wrapper?: (props: any) => React.ReactElement;
-  }
+        /** A function that takes a props argument and returns a React element to be used as the wrapper component. Defaults to React.DOM.span. */
+        wrapper?: (props: any) => React.ReactElement;
+    }
 
-  class ImageLoader extends React.Component<ImageLoaderProps> {}
+    class ImageLoader extends React.Component<ImageLoaderProps> {}
 
-  export = ImageLoader;
+    export = ImageLoader;
 }

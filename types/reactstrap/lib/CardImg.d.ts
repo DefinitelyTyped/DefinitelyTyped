@@ -14,5 +14,5 @@ export interface CardImgProps extends React.HTMLAttributes<HTMLElement> {
     alt?: string;
 }
 
-declare class CardImg<T = {[key: string]: any}> extends React.Component<CardImgProps> {}
+declare class CardImg<T = { [key: string]: any }> extends React.Component<CardImgProps> {}
 export default CardImg;

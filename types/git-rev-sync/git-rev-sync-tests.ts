@@ -1,4 +1,4 @@
-import * as gitRevSync from "git-rev-sync";
+import * as gitRevSync from 'git-rev-sync';
 
 gitRevSync.branch();
 gitRevSync.count();

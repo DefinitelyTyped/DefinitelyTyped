@@ -3,10 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl.html
      *
@@ -14,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface dtl {
-    }
+    interface dtl {}
     namespace dtl {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_Templated.html
@@ -32,23 +28,23 @@ declare namespace dojox {
              * to 'this'.
              *
              */
-            "attachScope": Object;
+            'attachScope': Object;
             /**
              *
              */
-            "searchContainerNode": boolean;
+            'searchContainerNode': boolean;
             /**
              * Path to template (HTML file) for this widget relative to dojo.baseUrl.
              * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
              *
              */
-            "templatePath": string;
+            'templatePath': string;
             /**
              * A string that represents the widget template.
              * Use in conjunction with dojo.cache() to load from a file.
              *
              */
-            "templateString": string;
+            'templateString': string;
             /**
              *
              */
@@ -242,7 +238,7 @@ declare namespace dojox {
              *
              * @param obj
              */
-            DomTemplate(obj:  dojo._base.url): void;
+            DomTemplate(obj: dojo._base.url): void;
             /**
              *
              * @param args
@@ -272,7 +268,7 @@ declare namespace dojox {
              * @param template The string or location of the string touse as a template
              * @param isString Indicates whether the template is a string or a url.
              */
-            Template(template:  dojo._base.url, isString: boolean): void;
+            Template(template: dojo._base.url, isString: boolean): void;
         }
         module _base {
             /**
@@ -317,29 +313,25 @@ declare namespace dojox {
              *
              *
              */
-            interface date {
-            }
+            interface date {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.data.html
              *
              *
              */
-            interface data {
-            }
+            interface data {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.dates.html
              *
              *
              */
-            interface dates {
-            }
+            interface dates {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.dijit.html
              *
              *
              */
-            interface dijit {
-            }
+            interface dijit {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.dom.html
              *
@@ -362,64 +354,55 @@ declare namespace dojox {
              *
              *
              */
-            interface html {
-            }
+            interface html {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.htmlstrings.html
              *
              *
              */
-            interface htmlstrings {
-            }
+            interface htmlstrings {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.integers.html
              *
              *
              */
-            interface integers {
-            }
+            interface integers {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.loader.html
              *
              *
              */
-            interface loader {
-            }
+            interface loader {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.lists.html
              *
              *
              */
-            interface lists {
-            }
+            interface lists {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.loop.html
              *
              *
              */
-            interface loop {
-            }
+            interface loop {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.logic.html
              *
              *
              */
-            interface logic {
-            }
+            interface logic {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.misc.html
              *
              *
              */
-            interface misc {
-            }
+            interface misc {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.objects.html
              *
              *
              */
-            interface objects {
-            }
+            interface objects {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.register.html
              *
@@ -455,8 +438,7 @@ declare namespace dojox {
              *
              *
              */
-            interface strings {
-            }
+            interface strings {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/_base.text.html
              *
@@ -516,15 +498,13 @@ declare namespace dojox {
              *
              *
              */
-            interface _uppers {
-            }
+            interface _uppers {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/dom._attributes.html
              *
              *
              */
-            interface _attributes {
-            }
+            interface _attributes {}
         }
 
         /**
@@ -533,34 +513,44 @@ declare namespace dojox {
          * The base class for DOM-based templating.
          *
          */
-        interface _DomTemplated{(): void}
+        interface _DomTemplated {
+            (): void;
+        }
         module _DomTemplated {
             /**
              * Constructs the DOM representation.
              *
              */
-            interface buildRendering{(): void}
+            interface buildRendering {
+                (): void;
+            }
             /**
              * Renders this template.
              *
              * @param context               OptionalThe runtime context.
              * @param tpl               OptionalThe template to render. Optional.
              */
-            interface render{(context: dojox.dtl.Context, tpl: dojox.dtl._DomTemplated): void}
+            interface render {
+                (context: dojox.dtl.Context, tpl: dojox.dtl._DomTemplated): void;
+            }
             /**
              * Quickly switch between templated by location
              *
              * @param template The new template.
              * @param context               OptionalThe runtime context.
              */
-            interface setTemplate{(template: String, context: dojox.dtl.Context): void}
+            interface setTemplate {
+                (template: String, context: dojox.dtl.Context): void;
+            }
             /**
              * Quickly switch between templated by location
              *
              * @param template The new template.
              * @param context               OptionalThe runtime context.
              */
-            interface setTemplate{(template:  dojo._base.url, context: dojox.dtl.Context): void}
+            interface setTemplate {
+                (template: dojo._base.url, context: dojox.dtl.Context): void;
+            }
         }
 
         /**
@@ -570,79 +560,107 @@ declare namespace dojox {
          *
          * @param dict
          */
-        interface Context{(dict: Object): void}
+        interface Context {
+            (dict: Object): void;
+        }
         namespace Context {
             /**
              * Returns a clone of this context object, with the items from the passed objecct mixed in.
              *
              * @param obj The object to extend.
              */
-            interface extend{(obj: dojox.dtl.Context ): any}
+            interface extend {
+                (obj: dojox.dtl.Context): any;
+            }
             /**
              * Returns a clone of this context object, with the items from the passed objecct mixed in.
              *
              * @param obj The object to extend.
              */
-            interface extend{(obj: Object): any}
+            interface extend {
+                (obj: Object): any;
+            }
             /**
              * Returns a clone of this context, only containing the items defined in the filter.
              *
              * @param filter
              */
-            interface filter{(filter: dojox.dtl.Context ): any}
+            interface filter {
+                (filter: dojox.dtl.Context): any;
+            }
             /**
              * Returns a clone of this context, only containing the items defined in the filter.
              *
              * @param filter
              */
-            interface filter{(filter: Object): any}
+            interface filter {
+                (filter: Object): any;
+            }
             /**
              * Returns a clone of this context, only containing the items defined in the filter.
              *
              * @param filter
              */
-            interface filter{(filter: String[]): any}
+            interface filter {
+                (filter: String[]): any;
+            }
             /**
              *
              * @param key
              * @param otherwise
              */
-            interface get{(key: any, otherwise: any): any}
+            interface get {
+                (key: any, otherwise: any): any;
+            }
             /**
              * Returns the set of keys exported by this context.
              *
              */
-            interface getKeys{(): any[]}
+            interface getKeys {
+                (): any[];
+            }
             /**
              * Gets the object on which to perform operations.
              *
              */
-            interface getThis{(): any}
+            interface getThis {
+                (): any;
+            }
             /**
              * Indicates whether the specified key is defined on this context.
              *
              * @param key The key to look up.
              */
-            interface hasKey{(key: String): boolean}
+            interface hasKey {
+                (key: String): boolean;
+            }
             /**
              *
              */
-            interface pop{(): void}
+            interface pop {
+                (): void;
+            }
             /**
              *
              */
-            interface push{(): any}
+            interface push {
+                (): any;
+            }
             /**
              * Sets the object on which to perform operations.
              *
              * @param scope the this ref.
              */
-            interface setThis{(scope: Object): void}
+            interface setThis {
+                (scope: Object): void;
+            }
             /**
              *
              * @param dict
              */
-            interface update{(dict: any): any}
+            interface update {
+                (dict: any): any;
+            }
         }
 
         /**
@@ -696,17 +714,17 @@ declare namespace dojox {
              * "" --> { node: "domNode", type: "attribute" }
              *
              */
-            attributeMap: Object
+            attributeMap: Object;
             /**
              * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
              * widget state.
              *
              */
-            baseClass: string
+            baseClass: string;
             /**
              *
              */
-            "class": string
+            'class': string;
             /**
              * Designates where children of the source DOM node will be placed.
              * "Children" in this case refers to both DOM nodes and widgets.
@@ -730,22 +748,22 @@ declare namespace dojox {
              * is null for widgets that don't, like TextBox.
              *
              */
-            containerNode: HTMLElement
+            containerNode: HTMLElement;
             /**
              *
              */
-            context: Object
+            context: Object;
             /**
              *
              */
-            declaredClass: string
+            declaredClass: string;
             /**
              * Bi-directional support, as defined by the HTML DIR
              * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
              * default direction.
              *
              */
-            dir: string
+            dir: string;
             /**
              * This is our visible representation of the widget! Other DOM
              * Nodes may by assigned to other properties, usually through the
@@ -753,13 +771,13 @@ declare namespace dojox {
              * property is the canonical "top level" node in widget UI.
              *
              */
-            domNode: HTMLElement
+            domNode: HTMLElement;
             /**
              * This widget or a widget it contains has focus, or is "active" because
              * it was recently clicked.
              *
              */
-            focused: boolean
+            focused: boolean;
             /**
              * A unique, opaque ID string that can be assigned by users or by the
              * system. If the developer passes an ID which is known not to be
@@ -767,7 +785,7 @@ declare namespace dojox {
              * used instead.
              *
              */
-            id: string
+            id: string;
             /**
              * Rarely used.  Overrides the default Dojo locale used to render this widget,
              * as defined by the HTML LANG attribute.
@@ -775,23 +793,23 @@ declare namespace dojox {
              * formatted according to RFC 3066 (like en-us).
              *
              */
-            lang: string
+            lang: string;
             /**
              * The document this widget belongs to.  If not specified to constructor, will default to
              * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
              *
              */
-            ownerDocument: Object
+            ownerDocument: Object;
             /**
              * pointer to original DOM node
              *
              */
-            srcNodeRef: HTMLElement
+            srcNodeRef: HTMLElement;
             /**
              * HTML style attributes as cssText string or name/value hash
              *
              */
-            style: string
+            style: string;
             /**
              * HTML title attribute.
              *
@@ -803,33 +821,17 @@ declare namespace dojox {
              * interpreted as HTML.
              *
              */
-            title: string
+            title: string;
             /**
              * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
              * this specifies the tooltip to appear when the mouse is hovered over that text.
              *
              */
-            tooltip: string
+            tooltip: string;
             /**
              *
              */
-             buildRendering(): void
-            /**
-             * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
-             *
-             * Connects specified obj/event to specified method of this object
-             * and registers for disconnect() on widget destroy.
-             *
-             * Provide widget-specific analog to dojo.connect, except with the
-             * implicit use of this widget as the target object.
-             * Events connected with this.connect are disconnected upon
-             * destruction.
-             *
-             * @param obj
-             * @param event
-             * @param method
-             */
-             connect(obj: Object, event: String, method: String): any
+            buildRendering(): void;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -845,7 +847,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-             connect(obj: any, event: String, method: String): any
+            connect(obj: Object, event: String, method: String): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -861,7 +863,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-             connect(obj: Object, event: Function, method: String): any
+            connect(obj: any, event: String, method: String): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -877,7 +879,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-             connect(obj: any, event: Function, method: String): any
+            connect(obj: Object, event: Function, method: String): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -893,7 +895,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-             connect(obj: Object, event: String, method: Function): any
+            connect(obj: any, event: Function, method: String): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -909,7 +911,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-             connect(obj: any, event: String, method: Function): any
+            connect(obj: Object, event: String, method: Function): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -925,7 +927,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-             connect(obj: Object, event: Function, method: Function): any
+            connect(obj: any, event: String, method: Function): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -941,7 +943,23 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-             connect(obj: any, event: Function, method: Function): any
+            connect(obj: Object, event: Function, method: Function): any;
+            /**
+             * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
+             *
+             * Connects specified obj/event to specified method of this object
+             * and registers for disconnect() on widget destroy.
+             *
+             * Provide widget-specific analog to dojo.connect, except with the
+             * implicit use of this widget as the target object.
+             * Events connected with this.connect are disconnected upon
+             * destruction.
+             *
+             * @param obj
+             * @param event
+             * @param method
+             */
+            connect(obj: any, event: Function, method: Function): any;
             /**
              * Wrapper to setTimeout to avoid deferred functions executing
              * after the originating widget has been destroyed.
@@ -950,7 +968,7 @@ declare namespace dojox {
              * @param fcn Function reference.
              * @param delay               OptionalDelay, defaults to 0.
              */
-             defer(fcn: Function, delay: number): Object
+            defer(fcn: Function, delay: number): Object;
             /**
              * Destroy this widget, but not its descendants.  Descendants means widgets inside of
              * this.containerNode.   Will also destroy any resources (including widgets) registered via this.own().
@@ -964,14 +982,14 @@ declare namespace dojox {
              *
              * @param preserveDom If true, this method will leave the original DOM structure alone.Note: This will not yet work with _TemplatedMixin widgets
              */
-             destroy(preserveDom: boolean): void
+            destroy(preserveDom: boolean): void;
             /**
              * Recursively destroy the children of this widget and their
              * descendants.
              *
              * @param preserveDom               OptionalIf true, the preserveDom attribute is passed to all descendantwidget's .destroy() method. Not for use with _Templatedwidgets.
              */
-             destroyDescendants(preserveDom: boolean): void
+            destroyDescendants(preserveDom: boolean): void;
             /**
              * Destroy this widget and its descendants
              * This is the generic "destructor" function that all widget users
@@ -980,13 +998,13 @@ declare namespace dojox {
              *
              * @param preserveDom               OptionalIf true, this method will leave the original DOM structurealone of descendant Widgets. Note: This will NOT work withdijit._TemplatedMixin widgets.
              */
-             destroyRecursive(preserveDom: boolean): void
+            destroyRecursive(preserveDom: boolean): void;
             /**
              * Destroys the DOM nodes associated with this widget.
              *
              * @param preserveDom               OptionalIf true, this method will leave the original DOM structure aloneduring tear-down. Note: this will not work with _Templatedwidgets yet.
              */
-             destroyRendering(preserveDom: boolean): void
+            destroyRendering(preserveDom: boolean): void;
             /**
              * Deprecated, will be removed in 2.0, use handle.remove() instead.
              *
@@ -994,7 +1012,7 @@ declare namespace dojox {
              *
              * @param handle
              */
-             disconnect(handle: any): void
+            disconnect(handle: any): void;
             /**
              * Used by widgets to signal that a synthetic event occurred, ex:
              *
@@ -1008,7 +1026,7 @@ declare namespace dojox {
              * @param eventObj               Optional
              * @param callbackArgs               Optional
              */
-             emit(type: String, eventObj: Object, callbackArgs: any[]): any
+            emit(type: String, eventObj: Object, callbackArgs: any[]): any;
             /**
              * Get a property from a widget.
              * Get a named property from a widget. The property may
@@ -1024,7 +1042,7 @@ declare namespace dojox {
              *
              * @param name The property to get.
              */
-             get(name: any): any
+            get(name: any): any;
             /**
              * Returns all direct children of this widget, i.e. all widgets underneath this.containerNode whose parent
              * is this widget.   Note that it does not return all descendants, but rather just direct children.
@@ -1038,23 +1056,23 @@ declare namespace dojox {
              * existence of methods like forEach().
              *
              */
-             getChildren(): any[]
+            getChildren(): any[];
             /**
              * Returns the parent widget of this widget.
              *
              */
-             getParent(): any
+            getParent(): any;
             /**
              * Return true if this widget can currently be focused
              * and false if not
              *
              */
-             isFocusable(): any
+            isFocusable(): any;
             /**
              * Return this widget's explicit or implicit orientation (true for LTR, false for RTL)
              *
              */
-             isLeftToRight(): any
+            isLeftToRight(): any;
             /**
              * Call specified function when event occurs, ex: myWidget.on("click", function() ... ).
              * Call specified function when event type occurs, ex: myWidget.on("click", function() ... ).
@@ -1064,7 +1082,7 @@ declare namespace dojox {
              * @param type Name of event (ex: "click") or extension event like touch.press.
              * @param func
              */
-             on(type: String, func: Function): any
+            on(type: String, func: Function): any;
             /**
              * Call specified function when event occurs, ex: myWidget.on("click", function() ... ).
              * Call specified function when event type occurs, ex: myWidget.on("click", function() ... ).
@@ -1074,13 +1092,13 @@ declare namespace dojox {
              * @param type Name of event (ex: "click") or extension event like touch.press.
              * @param func
              */
-             on(type: Function, func: Function): any
+            on(type: Function, func: Function): any;
             /**
              * Track specified handles and remove/destroy them when this instance is destroyed, unless they were
              * already removed/destroyed manually.
              *
              */
-             own(): any
+            own(): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1091,7 +1109,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-             placeAt(reference: String, position: String): any
+            placeAt(reference: String, position: String): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1102,7 +1120,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-             placeAt(reference: HTMLElement, position: String): any
+            placeAt(reference: HTMLElement, position: String): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1113,7 +1131,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-             placeAt(reference: dijit._WidgetBase, position: String): any
+            placeAt(reference: dijit._WidgetBase, position: String): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1124,7 +1142,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-             placeAt(reference: String, position: number): any
+            placeAt(reference: String, position: number): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1135,7 +1153,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-             placeAt(reference: HTMLElement, position: number): any
+            placeAt(reference: HTMLElement, position: number): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1146,7 +1164,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-             placeAt(reference: dijit._WidgetBase, position: number): any
+            placeAt(reference: dijit._WidgetBase, position: number): any;
             /**
              * Processing after the DOM fragment is created
              * Called after the DOM fragment has been created, but not necessarily
@@ -1154,16 +1172,16 @@ declare namespace dojox {
              * node dimensions or placement.
              *
              */
-             postCreate(): void
+            postCreate(): void;
             /**
              *
              */
-             postMixInProperties(): void
+            postMixInProperties(): void;
             /**
              *
              * @param context               Optional
              */
-             render(context: dojox.dtl.Context): void
+            render(context: dojox.dtl.Context): void;
             /**
              * Set a property on a widget
              * Sets named properties on a widget which may potentially be handled by a
@@ -1186,7 +1204,7 @@ declare namespace dojox {
              * @param name The property to set.
              * @param value The value to set in the property.
              */
-             set(name: any, value: any): any
+            set(name: any, value: any): any;
             /**
              * Processing after the DOM fragment is added to the document
              * Called after a widget and its children have been created and added to the page,
@@ -1198,7 +1216,7 @@ declare namespace dojox {
              * extend dijit/layout/_LayoutWidget so that resize() is called when the widget is visible.
              *
              */
-             startup(): void
+            startup(): void;
             /**
              * Deprecated, will be removed in 2.0, use this.own(topic.subscribe()) instead.
              *
@@ -1211,7 +1229,7 @@ declare namespace dojox {
              * @param t The topic
              * @param method The callback
              */
-             subscribe(t: String, method: Function): any
+            subscribe(t: String, method: Function): any;
             /**
              * Returns a string that represents the widget.
              * When a widget is cast to a string, this method will be used to generate the
@@ -1219,13 +1237,13 @@ declare namespace dojox {
              * serialization.
              *
              */
-             toString(): string
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
              *
              */
-             uninitialize(): boolean
+            uninitialize(): boolean;
             /**
              * Deprecated, will be removed in 2.0, use handle.remove() instead.
              *
@@ -1234,14 +1252,14 @@ declare namespace dojox {
              *
              * @param handle
              */
-             unsubscribe(handle: Object): void
+            unsubscribe(handle: Object): void;
             /**
              * Watches a property for changes
              *
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-             watch(name: String, callback: Function): any
+            watch(name: String, callback: Function): any;
         }
 
         /**
@@ -1252,7 +1270,7 @@ declare namespace dojox {
          * @param node
          */
         class Inline {
-            constructor(args:Object, node:HTMLElement);
+            constructor(args: Object, node: HTMLElement);
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -1295,17 +1313,17 @@ declare namespace dojox {
              * "" --> { node: "domNode", type: "attribute" }
              *
              */
-            attributeMap: Object
+            attributeMap: Object;
             /**
              * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
              * widget state.
              *
              */
-            baseClass: string
+            baseClass: string;
             /**
              *
              */
-            class: string
+            class: string;
             /**
              * Designates where children of the source DOM node will be placed.
              * "Children" in this case refers to both DOM nodes and widgets.
@@ -1329,22 +1347,22 @@ declare namespace dojox {
              * is null for widgets that don't, like TextBox.
              *
              */
-            containerNode: HTMLElement
+            containerNode: HTMLElement;
             /**
              *
              */
-            context: Object
+            context: Object;
             /**
              *
              */
-            declaredClass: string
+            declaredClass: string;
             /**
              * Bi-directional support, as defined by the HTML DIR
              * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
              * default direction.
              *
              */
-            dir: string
+            dir: string;
             /**
              * This is our visible representation of the widget! Other DOM
              * Nodes may by assigned to other properties, usually through the
@@ -1352,13 +1370,13 @@ declare namespace dojox {
              * property is the canonical "top level" node in widget UI.
              *
              */
-            domNode: HTMLElement
+            domNode: HTMLElement;
             /**
              * This widget or a widget it contains has focus, or is "active" because
              * it was recently clicked.
              *
              */
-            focused: boolean
+            focused: boolean;
             /**
              * A unique, opaque ID string that can be assigned by users or by the
              * system. If the developer passes an ID which is known not to be
@@ -1366,7 +1384,7 @@ declare namespace dojox {
              * used instead.
              *
              */
-            id: string
+            id: string;
             /**
              * Rarely used.  Overrides the default Dojo locale used to render this widget,
              * as defined by the HTML LANG attribute.
@@ -1374,23 +1392,23 @@ declare namespace dojox {
              * formatted according to RFC 3066 (like en-us).
              *
              */
-            lang: string
+            lang: string;
             /**
              * The document this widget belongs to.  If not specified to constructor, will default to
              * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
              *
              */
-            ownerDocument: Object
+            ownerDocument: Object;
             /**
              * pointer to original DOM node
              *
              */
-            srcNodeRef: HTMLElement
+            srcNodeRef: HTMLElement;
             /**
              * HTML style attributes as cssText string or name/value hash
              *
              */
-            style: string
+            style: string;
             /**
              * HTML title attribute.
              *
@@ -1402,33 +1420,17 @@ declare namespace dojox {
              * interpreted as HTML.
              *
              */
-            title: string
+            title: string;
             /**
              * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
              * this specifies the tooltip to appear when the mouse is hovered over that text.
              *
              */
-            tooltip: string
+            tooltip: string;
             /**
              *
              */
-            buildRendering(): void
-            /**
-             * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
-             *
-             * Connects specified obj/event to specified method of this object
-             * and registers for disconnect() on widget destroy.
-             *
-             * Provide widget-specific analog to dojo.connect, except with the
-             * implicit use of this widget as the target object.
-             * Events connected with this.connect are disconnected upon
-             * destruction.
-             *
-             * @param obj
-             * @param event
-             * @param method
-             */
-            connect(obj: Object, event: String, method: String): any
+            buildRendering(): void;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -1444,7 +1446,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-            connect(obj: any, event: String, method: String): any
+            connect(obj: Object, event: String, method: String): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -1460,7 +1462,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-            connect(obj: Object, event: Function, method: String): any
+            connect(obj: any, event: String, method: String): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -1476,7 +1478,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-            connect(obj: any, event: Function, method: String): any
+            connect(obj: Object, event: Function, method: String): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -1492,7 +1494,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-            connect(obj: Object, event: String, method: Function): any
+            connect(obj: any, event: Function, method: String): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -1508,7 +1510,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-            connect(obj: any, event: String, method: Function): any
+            connect(obj: Object, event: String, method: Function): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -1524,7 +1526,7 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-            connect(obj: Object, event: Function, method: Function): any
+            connect(obj: any, event: String, method: Function): any;
             /**
              * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
              *
@@ -1540,7 +1542,23 @@ declare namespace dojox {
              * @param event
              * @param method
              */
-            connect(obj: any, event: Function, method: Function): any
+            connect(obj: Object, event: Function, method: Function): any;
+            /**
+             * Deprecated, will be removed in 2.0, use this.own(on(...)) or this.own(aspect.after(...)) instead.
+             *
+             * Connects specified obj/event to specified method of this object
+             * and registers for disconnect() on widget destroy.
+             *
+             * Provide widget-specific analog to dojo.connect, except with the
+             * implicit use of this widget as the target object.
+             * Events connected with this.connect are disconnected upon
+             * destruction.
+             *
+             * @param obj
+             * @param event
+             * @param method
+             */
+            connect(obj: any, event: Function, method: Function): any;
             /**
              * Wrapper to setTimeout to avoid deferred functions executing
              * after the originating widget has been destroyed.
@@ -1549,7 +1567,7 @@ declare namespace dojox {
              * @param fcn Function reference.
              * @param delay               OptionalDelay, defaults to 0.
              */
-            defer(fcn: Function, delay: number): Object
+            defer(fcn: Function, delay: number): Object;
             /**
              * Destroy this widget, but not its descendants.  Descendants means widgets inside of
              * this.containerNode.   Will also destroy any resources (including widgets) registered via this.own().
@@ -1563,14 +1581,14 @@ declare namespace dojox {
              *
              * @param preserveDom If true, this method will leave the original DOM structure alone.Note: This will not yet work with _TemplatedMixin widgets
              */
-            destroy(preserveDom: boolean): void
+            destroy(preserveDom: boolean): void;
             /**
              * Recursively destroy the children of this widget and their
              * descendants.
              *
              * @param preserveDom               OptionalIf true, the preserveDom attribute is passed to all descendantwidget's .destroy() method. Not for use with _Templatedwidgets.
              */
-            destroyDescendants(preserveDom: boolean): void
+            destroyDescendants(preserveDom: boolean): void;
             /**
              * Destroy this widget and its descendants
              * This is the generic "destructor" function that all widget users
@@ -1579,13 +1597,13 @@ declare namespace dojox {
              *
              * @param preserveDom               OptionalIf true, this method will leave the original DOM structurealone of descendant Widgets. Note: This will NOT work withdijit._TemplatedMixin widgets.
              */
-            destroyRecursive(preserveDom: boolean): void
+            destroyRecursive(preserveDom: boolean): void;
             /**
              * Destroys the DOM nodes associated with this widget.
              *
              * @param preserveDom               OptionalIf true, this method will leave the original DOM structure aloneduring tear-down. Note: this will not work with _Templatedwidgets yet.
              */
-            destroyRendering(preserveDom: boolean): void
+            destroyRendering(preserveDom: boolean): void;
             /**
              * Deprecated, will be removed in 2.0, use handle.remove() instead.
              *
@@ -1593,7 +1611,7 @@ declare namespace dojox {
              *
              * @param handle
              */
-            disconnect(handle: any): void
+            disconnect(handle: any): void;
             /**
              * Used by widgets to signal that a synthetic event occurred, ex:
              *
@@ -1607,7 +1625,7 @@ declare namespace dojox {
              * @param eventObj               Optional
              * @param callbackArgs               Optional
              */
-            emit(type: String, eventObj: Object, callbackArgs: any[]): any
+            emit(type: String, eventObj: Object, callbackArgs: any[]): any;
             /**
              * Get a property from a widget.
              * Get a named property from a widget. The property may
@@ -1623,7 +1641,7 @@ declare namespace dojox {
              *
              * @param name The property to get.
              */
-            get(name: any): any
+            get(name: any): any;
             /**
              * Returns all direct children of this widget, i.e. all widgets underneath this.containerNode whose parent
              * is this widget.   Note that it does not return all descendants, but rather just direct children.
@@ -1637,23 +1655,23 @@ declare namespace dojox {
              * existence of methods like forEach().
              *
              */
-            getChildren(): any[]
+            getChildren(): any[];
             /**
              * Returns the parent widget of this widget.
              *
              */
-            getParent(): any
+            getParent(): any;
             /**
              * Return true if this widget can currently be focused
              * and false if not
              *
              */
-            isFocusable(): any
+            isFocusable(): any;
             /**
              * Return this widget's explicit or implicit orientation (true for LTR, false for RTL)
              *
              */
-            isLeftToRight(): any
+            isLeftToRight(): any;
             /**
              * Call specified function when event occurs, ex: myWidget.on("click", function(){ ... }).
              * Call specified function when event type occurs, ex: myWidget.on("click", function(){ ... }).
@@ -1663,7 +1681,7 @@ declare namespace dojox {
              * @param type Name of event (ex: "click") or extension event like touch.press.
              * @param func
              */
-            on(type: String, func: Function): any
+            on(type: String, func: Function): any;
             /**
              * Call specified function when event occurs, ex: myWidget.on("click", function(){ ... }).
              * Call specified function when event type occurs, ex: myWidget.on("click", function(){ ... }).
@@ -1673,13 +1691,13 @@ declare namespace dojox {
              * @param type Name of event (ex: "click") or extension event like touch.press.
              * @param func
              */
-            on(type: Function, func: Function): any
+            on(type: Function, func: Function): any;
             /**
              * Track specified handles and remove/destroy them when this instance is destroyed, unless they were
              * already removed/destroyed manually.
              *
              */
-            own(): any
+            own(): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1690,7 +1708,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-            placeAt(reference: String, position: String): any
+            placeAt(reference: String, position: String): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1701,7 +1719,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-            placeAt(reference: HTMLElement, position: String): any
+            placeAt(reference: HTMLElement, position: String): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1712,7 +1730,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-            placeAt(reference: dijit._WidgetBase, position: String): any
+            placeAt(reference: dijit._WidgetBase, position: String): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1723,7 +1741,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-            placeAt(reference: String, position: number): any
+            placeAt(reference: String, position: number): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1734,7 +1752,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-            placeAt(reference: HTMLElement, position: number): any
+            placeAt(reference: HTMLElement, position: number): any;
             /**
              * Place this widget somewhere in the DOM based
              * on standard domConstruct.place() conventions.
@@ -1745,7 +1763,7 @@ declare namespace dojox {
              * @param reference Widget, DOMNode, or id of widget or DOMNode
              * @param position               OptionalIf reference is a widget (or id of widget), and that widget has an ".addChild" method,it will be called passing this widget instance into that method, supplying the optionalposition index passed.  In this case position (if specified) should be an integer.If reference is a DOMNode (or id matching a DOMNode but not a widget),the position argument can be a numeric index or a string"first", "last", "before", or "after", same as dojo/dom-construct::place().
              */
-            placeAt(reference: dijit._WidgetBase, position: number): any
+            placeAt(reference: dijit._WidgetBase, position: number): any;
             /**
              * Processing after the DOM fragment is created
              * Called after the DOM fragment has been created, but not necessarily
@@ -1753,21 +1771,21 @@ declare namespace dojox {
              * node dimensions or placement.
              *
              */
-            postCreate(): void
+            postCreate(): void;
             /**
              *
              */
-            postMixInProperties(): void
-            /**
-             *
-             * @param context               Optional
-             */
-            render(context: Object): void
+            postMixInProperties(): void;
             /**
              *
              * @param context               Optional
              */
-            render(context:  dojox.dtl.Context): void
+            render(context: Object): void;
+            /**
+             *
+             * @param context               Optional
+             */
+            render(context: dojox.dtl.Context): void;
             /**
              * Set a property on a widget
              * Sets named properties on a widget which may potentially be handled by a
@@ -1790,7 +1808,7 @@ declare namespace dojox {
              * @param name The property to set.
              * @param value The value to set in the property.
              */
-            set(name: any, value: any): any
+            set(name: any, value: any): any;
             /**
              * Processing after the DOM fragment is added to the document
              * Called after a widget and its children have been created and added to the page,
@@ -1802,7 +1820,7 @@ declare namespace dojox {
              * extend dijit/layout/_LayoutWidget so that resize() is called when the widget is visible.
              *
              */
-            startup(): void
+            startup(): void;
             /**
              * Deprecated, will be removed in 2.0, use this.own(topic.subscribe()) instead.
              *
@@ -1815,7 +1833,7 @@ declare namespace dojox {
              * @param t The topic
              * @param method The callback
              */
-            subscribe(t: String, method: Function): any
+            subscribe(t: String, method: Function): any;
             /**
              * Returns a string that represents the widget.
              * When a widget is cast to a string, this method will be used to generate the
@@ -1823,13 +1841,13 @@ declare namespace dojox {
              * serialization.
              *
              */
-            toString(): string
+            toString(): string;
             /**
              * Deprecated. Override destroy() instead to implement custom widget tear-down
              * behavior.
              *
              */
-            uninitialize(): boolean
+            uninitialize(): boolean;
             /**
              * Deprecated, will be removed in 2.0, use handle.remove() instead.
              *
@@ -1838,14 +1856,14 @@ declare namespace dojox {
              *
              * @param handle
              */
-            unsubscribe(handle: Object): void
+            unsubscribe(handle: Object): void;
             /**
              * Watches a property for changes
              *
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(name: String, callback: Function): any
+            watch(name: String, callback: Function): any;
         }
 
         namespace contrib {
@@ -2026,24 +2044,30 @@ declare namespace dojox {
              *
              * @param array
              */
-            interface NodeList{(array: any): void}
+            interface NodeList {
+                (array: any): void;
+            }
             namespace NodeList {
                 /**
                  *
                  */
-                var events: any[]
+                var events: any[];
                 /**
                  * adds the specified class to every node in the list
                  *
                  * @param className A String class name to add, or several space-separated class names,or an array of class names.
                  */
-                interface addClass{(className: String): void}
+                interface addClass {
+                    (className: String): void;
+                }
                 /**
                  * adds the specified class to every node in the list
                  *
                  * @param className A String class name to add, or several space-separated class names,or an array of class names.
                  */
-                interface addClass{(className: any[]): void}
+                interface addClass {
+                    (className: any[]): void;
+                }
                 /**
                  * Animate the effects of adding a class to all nodes in this list.
                  * see dojox.fx.addClass
@@ -2051,7 +2075,9 @@ declare namespace dojox {
                  * @param cssClass
                  * @param args
                  */
-                interface addClassFx{(cssClass: any, args: any): {type:Function;value:any}}
+                interface addClassFx {
+                    (cssClass: any, args: any): { type: Function; value: any };
+                }
                 /**
                  * add a node, NodeList or some HTML as a string to every item in the
                  * list.  Returns the original list.
@@ -2063,7 +2089,9 @@ declare namespace dojox {
                  * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
                  * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
                  */
-                interface addContent{(content: String, position: String): Function}
+                interface addContent {
+                    (content: String, position: String): Function;
+                }
                 /**
                  * add a node, NodeList or some HTML as a string to every item in the
                  * list.  Returns the original list.
@@ -2075,7 +2103,9 @@ declare namespace dojox {
                  * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
                  * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
                  */
-                interface addContent{(content: HTMLElement, position: String): Function}
+                interface addContent {
+                    (content: HTMLElement, position: String): Function;
+                }
                 /**
                  * add a node, NodeList or some HTML as a string to every item in the
                  * list.  Returns the original list.
@@ -2087,7 +2117,9 @@ declare namespace dojox {
                  * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
                  * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
                  */
-                interface addContent{(content: Object, position: String): Function}
+                interface addContent {
+                    (content: Object, position: String): Function;
+                }
                 /**
                  * add a node, NodeList or some HTML as a string to every item in the
                  * list.  Returns the original list.
@@ -2099,7 +2131,9 @@ declare namespace dojox {
                  * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
                  * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
                  */
-                interface addContent{(content:  dojo.NodeList, position: String): Function}
+                interface addContent {
+                    (content: dojo.NodeList, position: String): Function;
+                }
                 /**
                  * add a node, NodeList or some HTML as a string to every item in the
                  * list.  Returns the original list.
@@ -2111,7 +2145,9 @@ declare namespace dojox {
                  * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
                  * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
                  */
-                interface addContent{(content: String, position: number): Function}
+                interface addContent {
+                    (content: String, position: number): Function;
+                }
                 /**
                  * add a node, NodeList or some HTML as a string to every item in the
                  * list.  Returns the original list.
@@ -2123,7 +2159,9 @@ declare namespace dojox {
                  * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
                  * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
                  */
-                interface addContent{(content: HTMLElement, position: number): Function}
+                interface addContent {
+                    (content: HTMLElement, position: number): Function;
+                }
                 /**
                  * add a node, NodeList or some HTML as a string to every item in the
                  * list.  Returns the original list.
@@ -2135,7 +2173,9 @@ declare namespace dojox {
                  * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
                  * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
                  */
-                interface addContent{(content: Object, position: number): Function}
+                interface addContent {
+                    (content: Object, position: number): Function;
+                }
                 /**
                  * add a node, NodeList or some HTML as a string to every item in the
                  * list.  Returns the original list.
@@ -2147,7 +2187,9 @@ declare namespace dojox {
                  * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
                  * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
                  */
-                interface addContent{(content:  dojo.NodeList, position: number): Function}
+                interface addContent {
+                    (content: dojo.NodeList, position: number): Function;
+                }
                 /**
                  * places any/all elements in queryOrListOrNode at a
                  * position relative to the first element in this list.
@@ -2156,7 +2198,9 @@ declare namespace dojox {
                  * @param queryOrListOrNode a DOM node or a query string or a query result.Represents the nodes to be adopted relative to thefirst element of this NodeList.
                  * @param position               Optionalcan be one of:"last" (default)"first""before""after""only""replace"or an offset in the childNodes property
                  */
-                interface adopt{(queryOrListOrNode: String, position: String): any}
+                interface adopt {
+                    (queryOrListOrNode: String, position: String): any;
+                }
                 /**
                  * places any/all elements in queryOrListOrNode at a
                  * position relative to the first element in this list.
@@ -2165,7 +2209,9 @@ declare namespace dojox {
                  * @param queryOrListOrNode a DOM node or a query string or a query result.Represents the nodes to be adopted relative to thefirst element of this NodeList.
                  * @param position               Optionalcan be one of:"last" (default)"first""before""after""only""replace"or an offset in the childNodes property
                  */
-                interface adopt{(queryOrListOrNode: any[], position: String): any}
+                interface adopt {
+                    (queryOrListOrNode: any[], position: String): any;
+                }
                 /**
                  * places any/all elements in queryOrListOrNode at a
                  * position relative to the first element in this list.
@@ -2174,7 +2220,9 @@ declare namespace dojox {
                  * @param queryOrListOrNode a DOM node or a query string or a query result.Represents the nodes to be adopted relative to thefirst element of this NodeList.
                  * @param position               Optionalcan be one of:"last" (default)"first""before""after""only""replace"or an offset in the childNodes property
                  */
-                interface adopt{(queryOrListOrNode: HTMLElement, position: String): any}
+                interface adopt {
+                    (queryOrListOrNode: HTMLElement, position: String): any;
+                }
                 /**
                  * Places the content after every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2183,7 +2231,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface after{(content: String): any}
+                interface after {
+                    (content: String): any;
+                }
                 /**
                  * Places the content after every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2192,7 +2242,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface after{(content: HTMLElement): any}
+                interface after {
+                    (content: HTMLElement): any;
+                }
                 /**
                  * Places the content after every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2201,14 +2253,18 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface after{(content: NodeList): any}
+                interface after {
+                    (content: NodeList): any;
+                }
                 /**
                  * Adds the nodes from the previous dojo/NodeList to the current dojo/NodeList.
                  * .end() can be used on the returned dojo/NodeList to get back to the
                  * original dojo/NodeList.
                  *
                  */
-                interface andSelf{(): any}
+                interface andSelf {
+                    (): any;
+                }
                 /**
                  * Animate one or more CSS properties for all nodes in this list.
                  * The returned animation object will already be playing when it
@@ -2220,14 +2276,18 @@ declare namespace dojox {
                  * @param onEnd               OptionalA function to be called when the animation ends
                  * @param delay               Optionalhow long to delay playing the returned animation
                  */
-                interface anim{(properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any}
+                interface anim {
+                    (properties: Object, duration: number, easing: Function, onEnd: Function, delay: number): any;
+                }
                 /**
                  * Animate all elements of this NodeList across the properties specified.
                  * syntax identical to dojo.animateProperty
                  *
                  * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.
                  */
-                interface animateProperty{(args: Object): any}
+                interface animateProperty {
+                    (args: Object): any;
+                }
                 /**
                  * appends the content to every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2236,7 +2296,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface append{(content: String): any}
+                interface append {
+                    (content: String): any;
+                }
                 /**
                  * appends the content to every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2245,7 +2307,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface append{(content: HTMLElement): any}
+                interface append {
+                    (content: HTMLElement): any;
+                }
                 /**
                  * appends the content to every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2254,7 +2318,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface append{(content: NodeList): any}
+                interface append {
+                    (content: NodeList): any;
+                }
                 /**
                  * appends nodes in this NodeList to the nodes matched by
                  * the query passed to appendTo.
@@ -2264,14 +2330,18 @@ declare namespace dojox {
                  *
                  * @param query
                  */
-                interface appendTo{(query: String): any}
+                interface appendTo {
+                    (query: String): any;
+                }
                 /**
                  * Returns a new NodeList comprised of items in this NodeList
                  * at the given index or indices.
                  *
                  * @param index One or more 0-based indices of items in the currentNodeList. A negative index will start at the end of thelist and go backwards.
                  */
-                interface at{(index: number[]): any}
+                interface at {
+                    (index: number[]): any;
+                }
                 /**
                  * gets or sets the DOM attribute for every element in the
                  * NodeList. See also dojo/dom-attr
@@ -2279,7 +2349,9 @@ declare namespace dojox {
                  * @param property the attribute to get/set
                  * @param value               Optionaloptional. The value to set the property to
                  */
-                interface attr{(property: String, value: String): any}
+                interface attr {
+                    (property: String, value: String): any;
+                }
                 /**
                  * Places the content before every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2288,7 +2360,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface before{(content: String): any}
+                interface before {
+                    (content: String): any;
+                }
                 /**
                  * Places the content before every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2297,7 +2371,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface before{(content: HTMLElement): any}
+                interface before {
+                    (content: HTMLElement): any;
+                }
                 /**
                  * Places the content before every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2306,7 +2382,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface before{(content: NodeList): any}
+                interface before {
+                    (content: NodeList): any;
+                }
                 /**
                  * Returns all immediate child elements for nodes in this dojo/NodeList.
                  * Optionally takes a query to filter the child elements.
@@ -2315,13 +2393,17 @@ declare namespace dojox {
                  *
                  * @param query               Optionala CSS selector.
                  */
-                interface children{(query: String): any}
+                interface children {
+                    (query: String): any;
+                }
                 /**
                  * Clones all the nodes in this NodeList and returns them as a new NodeList.
                  * Only the DOM nodes are cloned, not any attached event handlers.
                  *
                  */
-                interface clone{(): any}
+                interface clone {
+                    (): any;
+                }
                 /**
                  * Returns closest parent that matches query, including current node in this
                  * dojo/NodeList if it matches the query.
@@ -2331,7 +2413,9 @@ declare namespace dojox {
                  * @param query a CSS selector.
                  * @param root               OptionalIf specified, query is relative to "root" rather than document body.
                  */
-                interface closest{(query: String, root: String): any}
+                interface closest {
+                    (query: String, root: String): any;
+                }
                 /**
                  * Returns closest parent that matches query, including current node in this
                  * dojo/NodeList if it matches the query.
@@ -2341,7 +2425,9 @@ declare namespace dojox {
                  * @param query a CSS selector.
                  * @param root               OptionalIf specified, query is relative to "root" rather than document body.
                  */
-                interface closest{(query: String, root: HTMLElement): any}
+                interface closest {
+                    (query: String, root: HTMLElement): any;
+                }
                 /**
                  * Returns a new NodeList comprised of items in this NodeList
                  * as well as items passed in as parameters
@@ -2352,7 +2438,9 @@ declare namespace dojox {
                  *
                  * @param item               OptionalAny number of optional parameters may be passed in to bespliced into the NodeList
                  */
-                interface concat{(item: Object): any}
+                interface concat {
+                    (item: Object): any;
+                }
                 /**
                  * Attach event handlers to every item of the NodeList. Uses dojo.connect()
                  * so event properties are normalized.
@@ -2363,7 +2451,9 @@ declare namespace dojox {
                  * @param objOrFunc if 2 arguments are passed (methodName, objOrFunc), objOrFunc shouldreference a function or be the name of the function in the globalnamespace to attach. If 3 arguments are provided(methodName, objOrFunc, funcName), objOrFunc must be the scope tolocate the bound function in
                  * @param funcName               Optionaloptional. A string naming the function in objOrFunc to bind to theevent. May also be a function reference.
                  */
-                interface connect{(methodName: String, objOrFunc: Object, funcName: String): void}
+                interface connect {
+                    (methodName: String, objOrFunc: Object, funcName: String): void;
+                }
                 /**
                  * Attach event handlers to every item of the NodeList. Uses dojo.connect()
                  * so event properties are normalized.
@@ -2374,7 +2464,9 @@ declare namespace dojox {
                  * @param objOrFunc if 2 arguments are passed (methodName, objOrFunc), objOrFunc shouldreference a function or be the name of the function in the globalnamespace to attach. If 3 arguments are provided(methodName, objOrFunc, funcName), objOrFunc must be the scope tolocate the bound function in
                  * @param funcName               Optionaloptional. A string naming the function in objOrFunc to bind to theevent. May also be a function reference.
                  */
-                interface connect{(methodName: String, objOrFunc: Function, funcName: String): void}
+                interface connect {
+                    (methodName: String, objOrFunc: Function, funcName: String): void;
+                }
                 /**
                  * Attach event handlers to every item of the NodeList. Uses dojo.connect()
                  * so event properties are normalized.
@@ -2385,7 +2477,9 @@ declare namespace dojox {
                  * @param objOrFunc if 2 arguments are passed (methodName, objOrFunc), objOrFunc shouldreference a function or be the name of the function in the globalnamespace to attach. If 3 arguments are provided(methodName, objOrFunc, funcName), objOrFunc must be the scope tolocate the bound function in
                  * @param funcName               Optionaloptional. A string naming the function in objOrFunc to bind to theevent. May also be a function reference.
                  */
-                interface connect{(methodName: String, objOrFunc: String, funcName: String): void}
+                interface connect {
+                    (methodName: String, objOrFunc: String, funcName: String): void;
+                }
                 /**
                  * Deprecated: Use position() for border-box x/y/w/h
                  * or marginBox() for margin-box w/h/l/t.
@@ -2394,7 +2488,9 @@ declare namespace dojox {
                  * the node passed is each node in this list.
                  *
                  */
-                interface coords{(): void}
+                interface coords {
+                    (): void;
+                }
                 /**
                  * stash or get some arbitrary data on/from these nodes.
                  * Stash or get some arbitrary data on/from these nodes. This private _data function is
@@ -2409,7 +2505,9 @@ declare namespace dojox {
                  * @param key               OptionalIf an object, act as a setter and iterate over said object setting data items as defined.If a string, and value present, set the data for defined key to valueIf a string, and value absent, act as a getter, returning the data associated with said key
                  * @param value               OptionalThe value to set for said key, provided key is a string (and not an object)
                  */
-                interface data{(key: Object, value: any): any}
+                interface data {
+                    (key: Object, value: any): any;
+                }
                 /**
                  * stash or get some arbitrary data on/from these nodes.
                  * Stash or get some arbitrary data on/from these nodes. This private _data function is
@@ -2424,7 +2522,9 @@ declare namespace dojox {
                  * @param key               OptionalIf an object, act as a setter and iterate over said object setting data items as defined.If a string, and value present, set the data for defined key to valueIf a string, and value absent, act as a getter, returning the data associated with said key
                  * @param value               OptionalThe value to set for said key, provided key is a string (and not an object)
                  */
-                interface data{(key: String, value: any): any}
+                interface data {
+                    (key: String, value: any): any;
+                }
                 /**
                  * Monitor nodes in this NodeList for [bubbled] events on nodes that match selector.
                  * Calls fn(evt) for those events, where (inside of fn()), this == the node
@@ -2444,21 +2544,27 @@ declare namespace dojox {
                  * @param eventName Standard event name used as an argument to dojo.connect, like "onclick".
                  * @param fn Callback function passed the event object, and where this == the node that matches the selector.That means that for example, after setting up a handler viadojo.query("body").delegate("fieldset", "onclick", ...)clicking on a fieldset or any nodes inside of a fieldset will be reportedas a click on the fieldset itself.
                  */
-                interface delegate{(selector: String, eventName: String, fn: Function): any}
+                interface delegate {
+                    (selector: String, eventName: String, fn: Function): any;
+                }
                 /**
                  * Renders the specified template in each of the NodeList entries.
                  *
                  * @param template The template string or location
                  * @param context The context object or location
                  */
-                interface dtl{(template: String, context: Object): Function}
+                interface dtl {
+                    (template: String, context: Object): Function;
+                }
                 /**
                  * clears all content from each node in the list. Effectively
                  * equivalent to removing all child nodes from every item in
                  * the list.
                  *
                  */
-                interface empty{(): any}
+                interface empty {
+                    (): any;
+                }
                 /**
                  * Ends use of the current NodeList by returning the previous NodeList
                  * that generated the current NodeList.
@@ -2466,14 +2572,18 @@ declare namespace dojox {
                  * is no parent NodeList, an empty NodeList is returned.
                  *
                  */
-                interface end{(): any}
+                interface end {
+                    (): any;
+                }
                 /**
                  * Returns the even nodes in this dojo/NodeList as a dojo/NodeList.
                  * .end() can be used on the returned dojo/NodeList to get back to the
                  * original dojo/NodeList.
                  *
                  */
-                interface even{(): any}
+                interface even {
+                    (): any;
+                }
                 /**
                  * see dojo/_base/array.every() and the Array.every
                  * docs.
@@ -2484,19 +2594,25 @@ declare namespace dojox {
                  * @param callback the callback
                  * @param thisObject               Optionalthe context
                  */
-                interface every{(callback: Function, thisObject: Object): any}
+                interface every {
+                    (callback: Function, thisObject: Object): any;
+                }
                 /**
                  * fade in all elements of this NodeList via dojo.fadeIn
                  *
                  * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.
                  */
-                interface fadeIn{(args: Object): any}
+                interface fadeIn {
+                    (args: Object): any;
+                }
                 /**
                  * fade out all elements of this NodeList via dojo.fadeOut
                  *
                  * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.
                  */
-                interface fadeOut{(args: Object): any}
+                interface fadeOut {
+                    (args: Object): any;
+                }
                 /**
                  * "masks" the built-in javascript filter() method (supported
                  * in Dojo via dojo.filter) to support passing a simple
@@ -2505,7 +2621,9 @@ declare namespace dojox {
                  *
                  * @param filter If a string, a CSS rule like ".thinger" or "div > span".
                  */
-                interface filter{(filter: String): any}
+                interface filter {
+                    (filter: String): any;
+                }
                 /**
                  * "masks" the built-in javascript filter() method (supported
                  * in Dojo via dojo.filter) to support passing a simple
@@ -2514,14 +2632,18 @@ declare namespace dojox {
                  *
                  * @param filter If a string, a CSS rule like ".thinger" or "div > span".
                  */
-                interface filter{(filter: Function): any}
+                interface filter {
+                    (filter: Function): any;
+                }
                 /**
                  * Returns the first node in this dojo/NodeList as a dojo/NodeList.
                  * .end() can be used on the returned dojo/NodeList to get back to the
                  * original dojo/NodeList.
                  *
                  */
-                interface first{(): any}
+                interface first {
+                    (): any;
+                }
                 /**
                  * see dojo/_base/array.forEach(). The primary difference is that the acted-on
                  * array is implicitly this NodeList. If you want the option to break out
@@ -2530,7 +2652,9 @@ declare namespace dojox {
                  * @param callback
                  * @param thisObj
                  */
-                interface forEach{(callback: any, thisObj: any): Function}
+                interface forEach {
+                    (callback: any, thisObj: any): Function;
+                }
                 /**
                  * allows setting the innerHTML of each node in the NodeList,
                  * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2548,7 +2672,9 @@ declare namespace dojox {
                  *
                  * @param value               Optional
                  */
-                interface html{(value: String): any}
+                interface html {
+                    (value: String): any;
+                }
                 /**
                  * allows setting the innerHTML of each node in the NodeList,
                  * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2566,7 +2692,9 @@ declare namespace dojox {
                  *
                  * @param value               Optional
                  */
-                interface html{(value: HTMLElement): any}
+                interface html {
+                    (value: HTMLElement): any;
+                }
                 /**
                  * allows setting the innerHTML of each node in the NodeList,
                  * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2584,7 +2712,9 @@ declare namespace dojox {
                  *
                  * @param value               Optional
                  */
-                interface html{(value: NodeList): any}
+                interface html {
+                    (value: NodeList): any;
+                }
                 /**
                  * see dojo/_base/array.indexOf(). The primary difference is that the acted-on
                  * array is implicitly this NodeList
@@ -2595,7 +2725,9 @@ declare namespace dojox {
                  * @param value The value to search for.
                  * @param fromIndex               OptionalThe location to start searching from. Optional. Defaults to 0.
                  */
-                interface indexOf{(value: Object, fromIndex: number): any}
+                interface indexOf {
+                    (value: Object, fromIndex: number): any;
+                }
                 /**
                  * allows setting the innerHTML of each node in the NodeList,
                  * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2613,7 +2745,9 @@ declare namespace dojox {
                  *
                  * @param value               Optional
                  */
-                interface innerHTML{(value: String): any}
+                interface innerHTML {
+                    (value: String): any;
+                }
                 /**
                  * allows setting the innerHTML of each node in the NodeList,
                  * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2631,7 +2765,9 @@ declare namespace dojox {
                  *
                  * @param value               Optional
                  */
-                interface innerHTML{(value: HTMLElement): any}
+                interface innerHTML {
+                    (value: HTMLElement): any;
+                }
                 /**
                  * allows setting the innerHTML of each node in the NodeList,
                  * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -2649,7 +2785,9 @@ declare namespace dojox {
                  *
                  * @param value               Optional
                  */
-                interface innerHTML{(value: NodeList): any}
+                interface innerHTML {
+                    (value: NodeList): any;
+                }
                 /**
                  * The nodes in this NodeList will be placed after the nodes
                  * matched by the query passed to insertAfter.
@@ -2659,7 +2797,9 @@ declare namespace dojox {
                  *
                  * @param query
                  */
-                interface insertAfter{(query: String): any}
+                interface insertAfter {
+                    (query: String): any;
+                }
                 /**
                  * The nodes in this NodeList will be placed after the nodes
                  * matched by the query passed to insertAfter.
@@ -2669,7 +2809,9 @@ declare namespace dojox {
                  *
                  * @param query
                  */
-                interface insertBefore{(query: String): any}
+                interface insertBefore {
+                    (query: String): any;
+                }
                 /**
                  * Create a new instance of a specified class, using the
                  * specified properties and each node in the NodeList as a
@@ -2678,7 +2820,9 @@ declare namespace dojox {
                  * @param declaredClass
                  * @param properties               Optional
                  */
-                interface instantiate{(declaredClass: String, properties: Object): any}
+                interface instantiate {
+                    (declaredClass: String, properties: Object): any;
+                }
                 /**
                  * Create a new instance of a specified class, using the
                  * specified properties and each node in the NodeList as a
@@ -2687,14 +2831,18 @@ declare namespace dojox {
                  * @param declaredClass
                  * @param properties               Optional
                  */
-                interface instantiate{(declaredClass: Object, properties: Object): any}
+                interface instantiate {
+                    (declaredClass: Object, properties: Object): any;
+                }
                 /**
                  * Returns the last node in this dojo/NodeList as a dojo/NodeList.
                  * .end() can be used on the returned dojo/NodeList to get back to the
                  * original dojo/NodeList.
                  *
                  */
-                interface last{(): any}
+                interface last {
+                    (): any;
+                }
                 /**
                  * see dojo/_base/array.lastIndexOf(). The primary difference is that the
                  * acted-on array is implicitly this NodeList
@@ -2705,7 +2853,9 @@ declare namespace dojox {
                  * @param value The value to search for.
                  * @param fromIndex               OptionalThe location to start searching from. Optional. Defaults to 0.
                  */
-                interface lastIndexOf{(value: Object, fromIndex: number): any}
+                interface lastIndexOf {
+                    (value: Object, fromIndex: number): any;
+                }
                 /**
                  * see dojo/_base/array.map(). The primary difference is that the acted-on
                  * array is implicitly this NodeList and the return is a
@@ -2714,12 +2864,16 @@ declare namespace dojox {
                  * @param func
                  * @param obj               Optional
                  */
-                interface map{(func: Function, obj: Function): any}
+                interface map {
+                    (func: Function, obj: Function): any;
+                }
                 /**
                  * Returns margin-box size of nodes
                  *
                  */
-                interface marginBox{(): void}
+                interface marginBox {
+                    (): void;
+                }
                 /**
                  * Returns the next element for nodes in this dojo/NodeList.
                  * Optionally takes a query to filter the next elements.
@@ -2728,7 +2882,9 @@ declare namespace dojox {
                  *
                  * @param query               Optionala CSS selector.
                  */
-                interface next{(query: String): any}
+                interface next {
+                    (query: String): any;
+                }
                 /**
                  * Returns all sibling elements that come after the nodes in this dojo/NodeList.
                  * Optionally takes a query to filter the sibling elements.
@@ -2737,28 +2893,36 @@ declare namespace dojox {
                  *
                  * @param query               Optionala CSS selector.
                  */
-                interface nextAll{(query: String): any}
+                interface nextAll {
+                    (query: String): any;
+                }
                 /**
                  * Returns the odd nodes in this dojo/NodeList as a dojo/NodeList.
                  * .end() can be used on the returned dojo/NodeList to get back to the
                  * original dojo/NodeList.
                  *
                  */
-                interface odd{(): any}
+                interface odd {
+                    (): any;
+                }
                 /**
                  * Listen for events on the nodes in the NodeList. Basic usage is:
                  *
                  * @param eventName
                  * @param listener
                  */
-                interface on{(eventName: any, listener: any): any}
+                interface on {
+                    (eventName: any, listener: any): any;
+                }
                 /**
                  * removes elements in this list that match the filter
                  * from their parents and returns them as a new NodeList.
                  *
                  * @param filter               OptionalCSS selector like ".foo" or "div > span"
                  */
-                interface orphan{(filter: String): any}
+                interface orphan {
+                    (filter: String): any;
+                }
                 /**
                  * Returns immediate parent elements for nodes in this dojo/NodeList.
                  * Optionally takes a query to filter the parent elements.
@@ -2767,7 +2931,9 @@ declare namespace dojox {
                  *
                  * @param query               Optionala CSS selector.
                  */
-                interface parent{(query: String): any}
+                interface parent {
+                    (query: String): any;
+                }
                 /**
                  * Returns all parent elements for nodes in this dojo/NodeList.
                  * Optionally takes a query to filter the child elements.
@@ -2776,7 +2942,9 @@ declare namespace dojox {
                  *
                  * @param query               Optionala CSS selector.
                  */
-                interface parents{(query: String): any}
+                interface parents {
+                    (query: String): any;
+                }
                 /**
                  * places elements of this node list relative to the first element matched
                  * by queryOrNode. Returns the original NodeList. See: dojo/dom-construct.place
@@ -2784,7 +2952,9 @@ declare namespace dojox {
                  * @param queryOrNode may be a string representing any valid CSS3 selector or a DOM node.In the selector case, only the first matching element will be usedfor relative positioning.
                  * @param position can be one of:"last" (default)"first""before""after""only""replace"or an offset in the childNodes property
                  */
-                interface place{(queryOrNode: String, position: String): any}
+                interface place {
+                    (queryOrNode: String, position: String): any;
+                }
                 /**
                  * places elements of this node list relative to the first element matched
                  * by queryOrNode. Returns the original NodeList. See: dojo/dom-construct.place
@@ -2792,14 +2962,18 @@ declare namespace dojox {
                  * @param queryOrNode may be a string representing any valid CSS3 selector or a DOM node.In the selector case, only the first matching element will be usedfor relative positioning.
                  * @param position can be one of:"last" (default)"first""before""after""only""replace"or an offset in the childNodes property
                  */
-                interface place{(queryOrNode: HTMLElement, position: String): any}
+                interface place {
+                    (queryOrNode: HTMLElement, position: String): any;
+                }
                 /**
                  * Returns border-box objects (x/y/w/h) of all elements in a node list
                  * as an Array (not a NodeList). Acts like dojo/dom-geometry-position, though
                  * assumes the node passed is each node in this list.
                  *
                  */
-                interface position{(): any}
+                interface position {
+                    (): any;
+                }
                 /**
                  * prepends the content to every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2808,7 +2982,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface prepend{(content: String): any}
+                interface prepend {
+                    (content: String): any;
+                }
                 /**
                  * prepends the content to every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2817,7 +2993,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface prepend{(content: HTMLElement): any}
+                interface prepend {
+                    (content: HTMLElement): any;
+                }
                 /**
                  * prepends the content to every node in the NodeList.
                  * The content will be cloned if the length of NodeList
@@ -2826,7 +3004,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface prepend{(content: NodeList): any}
+                interface prepend {
+                    (content: NodeList): any;
+                }
                 /**
                  * prepends nodes in this NodeList to the nodes matched by
                  * the query passed to prependTo.
@@ -2836,7 +3016,9 @@ declare namespace dojox {
                  *
                  * @param query
                  */
-                interface prependTo{(query: String): any}
+                interface prependTo {
+                    (query: String): any;
+                }
                 /**
                  * Returns the previous element for nodes in this dojo/NodeList.
                  * Optionally takes a query to filter the previous elements.
@@ -2845,7 +3027,9 @@ declare namespace dojox {
                  *
                  * @param query               Optionala CSS selector.
                  */
-                interface prev{(query: String): any}
+                interface prev {
+                    (query: String): any;
+                }
                 /**
                  * Returns all sibling elements that come before the nodes in this dojo/NodeList.
                  * Optionally takes a query to filter the sibling elements.
@@ -2856,7 +3040,9 @@ declare namespace dojox {
                  *
                  * @param query               Optionala CSS selector.
                  */
-                interface prevAll{(query: String): any}
+                interface prevAll {
+                    (query: String): any;
+                }
                 /**
                  * Returns a new list whose members match the passed query,
                  * assuming elements of the current NodeList as the root for
@@ -2864,32 +3050,42 @@ declare namespace dojox {
                  *
                  * @param queryStr
                  */
-                interface query{(queryStr: String): any}
+                interface query {
+                    (queryStr: String): any;
+                }
                 /**
                  * removes elements in this list that match the filter
                  * from their parents and returns them as a new NodeList.
                  *
                  * @param filter               OptionalCSS selector like ".foo" or "div > span"
                  */
-                interface remove{(filter: String): any}
+                interface remove {
+                    (filter: String): any;
+                }
                 /**
                  * Removes an attribute from each node in the list.
                  *
                  * @param name the name of the attribute to remove
                  */
-                interface removeAttr{(name: String): void}
+                interface removeAttr {
+                    (name: String): void;
+                }
                 /**
                  * removes the specified class from every node in the list
                  *
                  * @param className               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.
                  */
-                interface removeClass{(className: String): any}
+                interface removeClass {
+                    (className: String): any;
+                }
                 /**
                  * removes the specified class from every node in the list
                  *
                  * @param className               OptionalAn optional String class name to remove, or several space-separatedclass names, or an array of class names. If omitted, all class nameswill be deleted.
                  */
-                interface removeClass{(className: any[]): any}
+                interface removeClass {
+                    (className: any[]): any;
+                }
                 /**
                  * Animate the effect of removing a class to all nodes in this list.
                  * see dojox.fx.removeClass
@@ -2897,13 +3093,17 @@ declare namespace dojox {
                  * @param cssClass
                  * @param args
                  */
-                interface removeClassFx{(cssClass: any, args: any): {type:Function;value:any}}
+                interface removeClassFx {
+                    (cssClass: any, args: any): { type: Function; value: any };
+                }
                 /**
                  * Remove the data associated with these nodes.
                  *
                  * @param key               OptionalIf omitted, clean all data for this node.If passed, remove the data item found at key
                  */
-                interface removeData{(key: String): void}
+                interface removeData {
+                    (key: String): void;
+                }
                 /**
                  * replaces nodes matched by the query passed to replaceAll with the nodes
                  * in this NodeList.
@@ -2913,7 +3113,9 @@ declare namespace dojox {
                  *
                  * @param query
                  */
-                interface replaceAll{(query: String): any}
+                interface replaceAll {
+                    (query: String): any;
+                }
                 /**
                  * Replaces one or more classes on a node if not present.
                  * Operates more quickly than calling removeClass() and addClass()
@@ -2921,7 +3123,9 @@ declare namespace dojox {
                  * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.
                  * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.
                  */
-                interface replaceClass{(addClassStr: String, removeClassStr: String): void}
+                interface replaceClass {
+                    (addClassStr: String, removeClassStr: String): void;
+                }
                 /**
                  * Replaces one or more classes on a node if not present.
                  * Operates more quickly than calling removeClass() and addClass()
@@ -2929,7 +3133,9 @@ declare namespace dojox {
                  * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.
                  * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.
                  */
-                interface replaceClass{(addClassStr: any[], removeClassStr: String): void}
+                interface replaceClass {
+                    (addClassStr: any[], removeClassStr: String): void;
+                }
                 /**
                  * Replaces one or more classes on a node if not present.
                  * Operates more quickly than calling removeClass() and addClass()
@@ -2937,7 +3143,9 @@ declare namespace dojox {
                  * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.
                  * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.
                  */
-                interface replaceClass{(addClassStr: String, removeClassStr: any[]): void}
+                interface replaceClass {
+                    (addClassStr: String, removeClassStr: any[]): void;
+                }
                 /**
                  * Replaces one or more classes on a node if not present.
                  * Operates more quickly than calling removeClass() and addClass()
@@ -2945,7 +3153,9 @@ declare namespace dojox {
                  * @param addClassStr A String class name to add, or several space-separated class names,or an array of class names.
                  * @param removeClassStr               OptionalA String class name to remove, or several space-separated class names,or an array of class names.
                  */
-                interface replaceClass{(addClassStr: any[], removeClassStr: any[]): void}
+                interface replaceClass {
+                    (addClassStr: any[], removeClassStr: any[]): void;
+                }
                 /**
                  * Replaces each node in ths NodeList with the content passed to replaceWith.
                  * The content will be cloned if the length of NodeList
@@ -2954,7 +3164,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface replaceWith{(content: String): any}
+                interface replaceWith {
+                    (content: String): any;
+                }
                 /**
                  * Replaces each node in ths NodeList with the content passed to replaceWith.
                  * The content will be cloned if the length of NodeList
@@ -2963,7 +3175,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface replaceWith{(content: HTMLElement): any}
+                interface replaceWith {
+                    (content: HTMLElement): any;
+                }
                 /**
                  * Replaces each node in ths NodeList with the content passed to replaceWith.
                  * The content will be cloned if the length of NodeList
@@ -2972,7 +3186,9 @@ declare namespace dojox {
                  *
                  * @param content
                  */
-                interface replaceWith{(content: NodeList): any}
+                interface replaceWith {
+                    (content: NodeList): any;
+                }
                 /**
                  * Returns all sibling elements for nodes in this dojo/NodeList.
                  * Optionally takes a query to filter the sibling elements.
@@ -2981,7 +3197,9 @@ declare namespace dojox {
                  *
                  * @param query               Optionala CSS selector.
                  */
-                interface siblings{(query: String): any}
+                interface siblings {
+                    (query: String): any;
+                }
                 /**
                  * Returns a new NodeList, maintaining this one in place
                  * This method behaves exactly like the Array.slice method
@@ -2992,13 +3210,17 @@ declare namespace dojox {
                  * @param begin Can be a positive or negative integer, with positiveintegers noting the offset to begin at, and negativeintegers denoting an offset from the end (i.e., to the leftof the end)
                  * @param end               OptionalOptional parameter to describe what position relative tothe NodeList's zero index to end the slice at. Like begin,can be positive or negative.
                  */
-                interface slice{(begin: number, end: number): any}
+                interface slice {
+                    (begin: number, end: number): any;
+                }
                 /**
                  * slide all elements of the node list to the specified place via dojo/fx.slideTo()
                  *
                  * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.
                  */
-                interface slideTo{(args: Object): any}
+                interface slideTo {
+                    (args: Object): any;
+                }
                 /**
                  * Takes the same structure of arguments and returns as
                  * dojo/_base/array.some() with the caveat that the passed array is
@@ -3009,7 +3231,9 @@ declare namespace dojox {
                  * @param callback the callback
                  * @param thisObject               Optionalthe context
                  */
-                interface some{(callback: Function, thisObject: Object): any}
+                interface some {
+                    (callback: Function, thisObject: Object): any;
+                }
                 /**
                  * Returns a new NodeList, manipulating this NodeList based on
                  * the arguments passed, potentially splicing in new elements
@@ -3025,14 +3249,18 @@ declare namespace dojox {
                  * @param howmany               OptionalOptional parameter to describe what position relative tothe NodeList's zero index to end the slice at. Like begin,can be positive or negative.
                  * @param item               OptionalAny number of optional parameters may be passed in to bespliced into the NodeList
                  */
-                interface splice{(index: number, howmany: number, item: Object[]): any}
+                interface splice {
+                    (index: number, howmany: number, item: Object[]): any;
+                }
                 /**
                  * gets or sets the CSS property for every element in the NodeList
                  *
                  * @param property the CSS property to get/set, in JavaScript notation("lineHieght" instead of "line-height")
                  * @param value               Optionaloptional. The value to set the property to
                  */
-                interface style{(property: String, value: String): any}
+                interface style {
+                    (property: String, value: String): any;
+                }
                 /**
                  * allows setting the text value of each node in the NodeList,
                  * if there is a value passed in, otherwise, returns the text value for all the
@@ -3040,7 +3268,9 @@ declare namespace dojox {
                  *
                  * @param value
                  */
-                interface text{(value: String): any}
+                interface text {
+                    (value: String): any;
+                }
                 /**
                  * Adds a class to node if not present, or removes if present.
                  * Pass a boolean condition if you want to explicitly add or remove.
@@ -3048,7 +3278,9 @@ declare namespace dojox {
                  * @param className the CSS class to add
                  * @param condition               OptionalIf passed, true means to add the class, false means to remove.
                  */
-                interface toggleClass{(className: String, condition: boolean): void}
+                interface toggleClass {
+                    (className: String, condition: boolean): void;
+                }
                 /**
                  * Animate the effect of adding or removing a class to all nodes in this list.
                  * see dojox.fx.toggleClass
@@ -3057,20 +3289,15 @@ declare namespace dojox {
                  * @param force
                  * @param args
                  */
-                interface toggleClassFx{(cssClass: any, force: any, args: any): {type:Function;value:any}}
+                interface toggleClassFx {
+                    (cssClass: any, force: any, args: any): { type: Function; value: any };
+                }
                 /**
                  *
                  */
-                interface toString{(): any}
-                /**
-                 * If a value is passed, allows seting the value property of form elements in this
-                 * NodeList, or properly selecting/checking the right value for radio/checkbox/select
-                 * elements. If no value is passed, the value of the first node in this NodeList
-                 * is returned.
-                 *
-                 * @param value
-                 */
-                interface val{(value: String): any}
+                interface toString {
+                    (): any;
+                }
                 /**
                  * If a value is passed, allows seting the value property of form elements in this
                  * NodeList, or properly selecting/checking the right value for radio/checkbox/select
@@ -3079,19 +3306,36 @@ declare namespace dojox {
                  *
                  * @param value
                  */
-                interface val{(value: any[]): any}
+                interface val {
+                    (value: String): any;
+                }
+                /**
+                 * If a value is passed, allows seting the value property of form elements in this
+                 * NodeList, or properly selecting/checking the right value for radio/checkbox/select
+                 * elements. If no value is passed, the value of the first node in this NodeList
+                 * is returned.
+                 *
+                 * @param value
+                 */
+                interface val {
+                    (value: any[]): any;
+                }
                 /**
                  * wipe in all elements of this NodeList via dojo/fx.wipeIn()
                  *
                  * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.
                  */
-                interface wipeIn{(args: Object): any}
+                interface wipeIn {
+                    (args: Object): any;
+                }
                 /**
                  * wipe out all elements of this NodeList via dojo/fx.wipeOut()
                  *
                  * @param args               OptionalAdditional dojo/_base/fx.Animation arguments to mix into this set with the addition ofan auto parameter.
                  */
-                interface wipeOut{(args: Object): any}
+                interface wipeOut {
+                    (args: Object): any;
+                }
                 /**
                  * Wrap each node in the NodeList with html passed to wrap.
                  * html will be cloned if the NodeList has more than one
@@ -3100,7 +3344,9 @@ declare namespace dojox {
                  *
                  * @param html
                  */
-                interface wrap{(html: String): any}
+                interface wrap {
+                    (html: String): any;
+                }
                 /**
                  * Wrap each node in the NodeList with html passed to wrap.
                  * html will be cloned if the NodeList has more than one
@@ -3109,21 +3355,27 @@ declare namespace dojox {
                  *
                  * @param html
                  */
-                interface wrap{(html: HTMLElement): any}
+                interface wrap {
+                    (html: HTMLElement): any;
+                }
                 /**
                  * Insert html where the first node in this NodeList lives, then place all
                  * nodes in this NodeList as the child of the html.
                  *
                  * @param html
                  */
-                interface wrapAll{(html: String): any}
+                interface wrapAll {
+                    (html: String): any;
+                }
                 /**
                  * Insert html where the first node in this NodeList lives, then place all
                  * nodes in this NodeList as the child of the html.
                  *
                  * @param html
                  */
-                interface wrapAll{(html: HTMLElement): any}
+                interface wrapAll {
+                    (html: HTMLElement): any;
+                }
                 /**
                  * For each node in the NodeList, wrap all its children with the passed in html.
                  * html will be cloned if the NodeList has more than one
@@ -3132,7 +3384,9 @@ declare namespace dojox {
                  *
                  * @param html
                  */
-                interface wrapInner{(html: String): any}
+                interface wrapInner {
+                    (html: String): any;
+                }
                 /**
                  * For each node in the NodeList, wrap all its children with the passed in html.
                  * html will be cloned if the NodeList has more than one
@@ -3141,16 +3395,16 @@ declare namespace dojox {
                  *
                  * @param html
                  */
-                interface wrapInner{(html: HTMLElement): any}
+                interface wrapInner {
+                    (html: HTMLElement): any;
+                }
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/ext-dojo/NodeList._nodeDataCache.html
                  *
                  *
                  */
-                interface _nodeDataCache {
-                }
+                interface _nodeDataCache {}
             }
-
         }
 
         namespace filter {
@@ -3668,8 +3922,7 @@ declare namespace dojox {
                  *
                  *
                  */
-                interface _strings {
-                }
+                interface _strings {}
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/dtl/filter/strings._truncate_singlets.html
                  *
@@ -3714,7 +3967,6 @@ declare namespace dojox {
                     param: boolean;
                 }
             }
-
         }
 
         namespace render {
@@ -4044,216 +4296,214 @@ declare namespace dojox {
                 DateFormat(format: String): void;
             }
         }
-
     }
-
 }
 
-declare module "dojox/dtl" {
-    var exp: dojox.dtl
-    export=exp;
+declare module 'dojox/dtl' {
+    var exp: dojox.dtl;
+    export = exp;
 }
-declare module "dojox/dtl/_Templated" {
-    var exp: dojox.dtl._Templated
-    export=exp;
+declare module 'dojox/dtl/_Templated' {
+    var exp: dojox.dtl._Templated;
+    export = exp;
 }
-declare module "dojox/dtl/Context" {
-    var exp: dojox.dtl.Context
-    export=exp;
+declare module 'dojox/dtl/Context' {
+    var exp: dojox.dtl.Context;
+    export = exp;
 }
-declare module "dojox/dtl/_DomTemplated" {
-    var exp: dojox.dtl._DomTemplated
-    export=exp;
+declare module 'dojox/dtl/_DomTemplated' {
+    var exp: dojox.dtl._DomTemplated;
+    export = exp;
 }
-declare module "dojox/dtl/DomInline" {
-    var exp: dojox.dtl.DomInline
-    export=exp;
+declare module 'dojox/dtl/DomInline' {
+    var exp: dojox.dtl.DomInline;
+    export = exp;
 }
-declare module "dojox/dtl/Inline" {
-    var exp: dojox.dtl.Inline
-    export=exp;
+declare module 'dojox/dtl/Inline' {
+    var exp: dojox.dtl.Inline;
+    export = exp;
 }
-declare module "dojox/dtl/_base" {
-    var exp: dojox.dtl._base
-    export=exp;
+declare module 'dojox/dtl/_base' {
+    var exp: dojox.dtl._base;
+    export = exp;
 }
-declare module "dojox/dtl/_base._base" {
-    var exp: dojox.dtl._base._base
-    export=exp;
+declare module 'dojox/dtl/_base._base' {
+    var exp: dojox.dtl._base._base;
+    export = exp;
 }
-declare module "dojox/dtl/_base.BOOLS" {
-    var exp: dojox.dtl._base.BOOLS
-    export=exp;
+declare module 'dojox/dtl/_base.BOOLS' {
+    var exp: dojox.dtl._base.BOOLS;
+    export = exp;
 }
-declare module "dojox/dtl/_base.data" {
-    var exp: dojox.dtl._base.data
-    export=exp;
+declare module 'dojox/dtl/_base.data' {
+    var exp: dojox.dtl._base.data;
+    export = exp;
 }
-declare module "dojox/dtl/_base.date" {
-    var exp: dojox.dtl._base.date
-    export=exp;
+declare module 'dojox/dtl/_base.date' {
+    var exp: dojox.dtl._base.date;
+    export = exp;
 }
-declare module "dojox/dtl/_base.dates" {
-    var exp: dojox.dtl._base.dates
-    export=exp;
+declare module 'dojox/dtl/_base.dates' {
+    var exp: dojox.dtl._base.dates;
+    export = exp;
 }
-declare module "dojox/dtl/_base.dijit" {
-    var exp: dojox.dtl._base.dijit
-    export=exp;
+declare module 'dojox/dtl/_base.dijit' {
+    var exp: dojox.dtl._base.dijit;
+    export = exp;
 }
-declare module "dojox/dtl/_base.html" {
-    var exp: dojox.dtl._base.html
-    export=exp;
+declare module 'dojox/dtl/_base.html' {
+    var exp: dojox.dtl._base.html;
+    export = exp;
 }
-declare module "dojox/dtl/_base.htmlstrings" {
-    var exp: dojox.dtl._base.htmlstrings
-    export=exp;
+declare module 'dojox/dtl/_base.htmlstrings' {
+    var exp: dojox.dtl._base.htmlstrings;
+    export = exp;
 }
-declare module "dojox/dtl/_base.dom" {
-    var exp: dojox.dtl._base.dom
-    export=exp;
+declare module 'dojox/dtl/_base.dom' {
+    var exp: dojox.dtl._base.dom;
+    export = exp;
 }
-declare module "dojox/dtl/_base.integers" {
-    var exp: dojox.dtl._base.integers
-    export=exp;
+declare module 'dojox/dtl/_base.integers' {
+    var exp: dojox.dtl._base.integers;
+    export = exp;
 }
-declare module "dojox/dtl/_base.logic" {
-    var exp: dojox.dtl._base.logic
-    export=exp;
+declare module 'dojox/dtl/_base.logic' {
+    var exp: dojox.dtl._base.logic;
+    export = exp;
 }
-declare module "dojox/dtl/_base.loader" {
-    var exp: dojox.dtl._base.loader
-    export=exp;
+declare module 'dojox/dtl/_base.loader' {
+    var exp: dojox.dtl._base.loader;
+    export = exp;
 }
-declare module "dojox/dtl/_base.loop" {
-    var exp: dojox.dtl._base.loop
-    export=exp;
+declare module 'dojox/dtl/_base.loop' {
+    var exp: dojox.dtl._base.loop;
+    export = exp;
 }
-declare module "dojox/dtl/_base.misc" {
-    var exp: dojox.dtl._base.misc
-    export=exp;
+declare module 'dojox/dtl/_base.misc' {
+    var exp: dojox.dtl._base.misc;
+    export = exp;
 }
-declare module "dojox/dtl/_base.objects" {
-    var exp: dojox.dtl._base.objects
-    export=exp;
+declare module 'dojox/dtl/_base.objects' {
+    var exp: dojox.dtl._base.objects;
+    export = exp;
 }
-declare module "dojox/dtl/_base.strings" {
-    var exp: dojox.dtl._base.strings
-    export=exp;
+declare module 'dojox/dtl/_base.strings' {
+    var exp: dojox.dtl._base.strings;
+    export = exp;
 }
-declare module "dojox/dtl/_base.register" {
-    var exp: dojox.dtl._base.register
-    export=exp;
+declare module 'dojox/dtl/_base.register' {
+    var exp: dojox.dtl._base.register;
+    export = exp;
 }
-declare module "dojox/dtl/_base.text" {
-    var exp: dojox.dtl._base.text
-    export=exp;
+declare module 'dojox/dtl/_base.text' {
+    var exp: dojox.dtl._base.text;
+    export = exp;
 }
-declare module "dojox/dtl/dom" {
-    var exp: dojox.dtl.dom
-    export=exp;
+declare module 'dojox/dtl/dom' {
+    var exp: dojox.dtl.dom;
+    export = exp;
 }
-declare module "dojox/dtl/dom._uppers" {
-    var exp: dojox.dtl.dom._uppers
-    export=exp;
+declare module 'dojox/dtl/dom._uppers' {
+    var exp: dojox.dtl.dom._uppers;
+    export = exp;
 }
-declare module "dojox/dtl/dom._attributes" {
-    var exp: dojox.dtl.dom._attributes
-    export=exp;
+declare module 'dojox/dtl/dom._attributes' {
+    var exp: dojox.dtl.dom._attributes;
+    export = exp;
 }
-declare module "dojox/dtl/contrib/data" {
-    var exp: dojox.dtl.contrib.data
-    export=exp;
+declare module 'dojox/dtl/contrib/data' {
+    var exp: dojox.dtl.contrib.data;
+    export = exp;
 }
-declare module "dojox/dtl/contrib/objects" {
-    var exp: dojox.dtl.contrib.objects
-    export=exp;
+declare module 'dojox/dtl/contrib/objects' {
+    var exp: dojox.dtl.contrib.objects;
+    export = exp;
 }
-declare module "dojox/dtl/contrib/dom" {
-    var exp: dojox.dtl.contrib.dom
-    export=exp;
+declare module 'dojox/dtl/contrib/dom' {
+    var exp: dojox.dtl.contrib.dom;
+    export = exp;
 }
-declare module "dojox/dtl/contrib/dijit" {
-    var exp: dojox.dtl.contrib.dijit
-    export=exp;
+declare module 'dojox/dtl/contrib/dijit' {
+    var exp: dojox.dtl.contrib.dijit;
+    export = exp;
 }
-declare module "dojox/dtl/ext-dojo/NodeList" {
-    var exp: dojox.dtl.ext_dojo.NodeList
-    export=exp;
+declare module 'dojox/dtl/ext-dojo/NodeList' {
+    var exp: dojox.dtl.ext_dojo.NodeList;
+    export = exp;
 }
-declare module "dojox/dtl/ext-dojo/NodeList._nodeDataCache" {
-    var exp: dojox.dtl.ext_dojo.NodeList._nodeDataCache
-    export=exp;
+declare module 'dojox/dtl/ext-dojo/NodeList._nodeDataCache' {
+    var exp: dojox.dtl.ext_dojo.NodeList._nodeDataCache;
+    export = exp;
 }
-declare module "dojox/dtl/filter/dates" {
-    var exp: dojox.dtl.filter.dates
-    export=exp;
+declare module 'dojox/dtl/filter/dates' {
+    var exp: dojox.dtl.filter.dates;
+    export = exp;
 }
-declare module "dojox/dtl/filter/htmlstrings" {
-    var exp: dojox.dtl.filter.htmlstrings
-    export=exp;
+declare module 'dojox/dtl/filter/htmlstrings' {
+    var exp: dojox.dtl.filter.htmlstrings;
+    export = exp;
 }
-declare module "dojox/dtl/filter/integers" {
-    var exp: dojox.dtl.filter.integers
-    export=exp;
+declare module 'dojox/dtl/filter/integers' {
+    var exp: dojox.dtl.filter.integers;
+    export = exp;
 }
-declare module "dojox/dtl/filter/logic" {
-    var exp: dojox.dtl.filter.logic
-    export=exp;
+declare module 'dojox/dtl/filter/logic' {
+    var exp: dojox.dtl.filter.logic;
+    export = exp;
 }
-declare module "dojox/dtl/filter/misc" {
-    var exp: dojox.dtl.filter.misc
-    export=exp;
+declare module 'dojox/dtl/filter/misc' {
+    var exp: dojox.dtl.filter.misc;
+    export = exp;
 }
-declare module "dojox/dtl/filter/misc._phone2numeric" {
-    var exp: dojox.dtl.filter.misc._phone2numeric
-    export=exp;
+declare module 'dojox/dtl/filter/misc._phone2numeric' {
+    var exp: dojox.dtl.filter.misc._phone2numeric;
+    export = exp;
 }
-declare module "dojox/dtl/filter/lists" {
-    var exp: dojox.dtl.filter.lists
-    export=exp;
+declare module 'dojox/dtl/filter/lists' {
+    var exp: dojox.dtl.filter.lists;
+    export = exp;
 }
-declare module "dojox/dtl/filter/strings" {
-    var exp: dojox.dtl.filter.strings
-    export=exp;
+declare module 'dojox/dtl/filter/strings' {
+    var exp: dojox.dtl.filter.strings;
+    export = exp;
 }
-declare module "dojox/dtl/filter/strings._strings" {
-    var exp: dojox.dtl.filter.strings._strings
-    export=exp;
+declare module 'dojox/dtl/filter/strings._strings' {
+    var exp: dojox.dtl.filter.strings._strings;
+    export = exp;
 }
-declare module "dojox/dtl/filter/strings._truncate_singlets" {
-    var exp: dojox.dtl.filter.strings._truncate_singlets
-    export=exp;
+declare module 'dojox/dtl/filter/strings._truncate_singlets' {
+    var exp: dojox.dtl.filter.strings._truncate_singlets;
+    export = exp;
 }
-declare module "dojox/dtl/render/html" {
-    var exp: dojox.dtl.render.html
-    export=exp;
+declare module 'dojox/dtl/render/html' {
+    var exp: dojox.dtl.render.html;
+    export = exp;
 }
-declare module "dojox/dtl/render/dom" {
-    var exp: dojox.dtl.render.dom
-    export=exp;
+declare module 'dojox/dtl/render/dom' {
+    var exp: dojox.dtl.render.dom;
+    export = exp;
 }
-declare module "dojox/dtl/tag/date" {
-    var exp: dojox.dtl.tag.date
-    export=exp;
+declare module 'dojox/dtl/tag/date' {
+    var exp: dojox.dtl.tag.date;
+    export = exp;
 }
-declare module "dojox/dtl/tag/loader" {
-    var exp: dojox.dtl.tag.loader
-    export=exp;
+declare module 'dojox/dtl/tag/loader' {
+    var exp: dojox.dtl.tag.loader;
+    export = exp;
 }
-declare module "dojox/dtl/tag/logic" {
-    var exp: dojox.dtl.tag.logic
-    export=exp;
+declare module 'dojox/dtl/tag/logic' {
+    var exp: dojox.dtl.tag.logic;
+    export = exp;
 }
-declare module "dojox/dtl/tag/loop" {
-    var exp: dojox.dtl.tag.loop
-    export=exp;
+declare module 'dojox/dtl/tag/loop' {
+    var exp: dojox.dtl.tag.loop;
+    export = exp;
 }
-declare module "dojox/dtl/tag/misc" {
-    var exp: dojox.dtl.tag.misc
-    export=exp;
+declare module 'dojox/dtl/tag/misc' {
+    var exp: dojox.dtl.tag.misc;
+    export = exp;
 }
-declare module "dojox/dtl/utils/date" {
-    var exp: dojox.dtl.utils.date
-    export=exp;
+declare module 'dojox/dtl/utils/date' {
+    var exp: dojox.dtl.utils.date;
+    export = exp;
 }

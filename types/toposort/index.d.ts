@@ -25,9 +25,6 @@ declare namespace toposort {
      * @returns a list of vertices, sorted from "start" to "end"
      * @throws if there are any cycles in the graph
      */
-    function array<T = string>(
-      nodes: ReadonlyArray<T>,
-      edges: ReadonlyArray<[T, T | undefined]>,
-    ): T[];
+    function array<T = string>(nodes: ReadonlyArray<T>, edges: ReadonlyArray<[T, T | undefined]>): T[];
 }
 export = toposort;

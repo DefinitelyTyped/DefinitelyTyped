@@ -1,6 +1,6 @@
-import * as utils from "ckeditor__ckeditor5-utils";
-import * as core from "ckeditor__ckeditor5-core";
-import * as engine from "ckeditor__ckeditor5-engine";
+import * as utils from 'ckeditor__ckeditor5-utils';
+import * as core from 'ckeditor__ckeditor5-core';
+import * as engine from 'ckeditor__ckeditor5-engine';
 
 declare let bool: boolean;
 declare let command: core.Command;
@@ -40,11 +40,11 @@ class MyPlugin extends core.Plugin {
     }
 
     static get pluginName() {
-        return "A";
+        return 'A';
     }
 
     myMethod() {
-        return "this is MyPlugin method";
+        return 'this is MyPlugin method';
     }
 }
 
@@ -62,7 +62,7 @@ class DataApiEditor extends core.editor.Editor implements core.editor.utils.Data
 utils.mix(DataApiEditor, core.editor.utils.DataApiMixin);
 const dataApiEditor = new DataApiEditor();
 
-dataApiEditor.setData("foo");
+dataApiEditor.setData('foo');
 str = dataApiEditor.getData();
 
 // core/editor/utils/elementapimixin ==========================================
@@ -97,17 +97,17 @@ locale = editor.locale;
 model = editor.model;
 pluginCollection = editor.plugins;
 
-if (editor.state === "initializing") {
-    console.log("new Editor()");
-} else if (editor.state === "ready") {
-    console.log("Editor.create()");
-} else if (editor.state === "destroyed") {
-    console.log("editor.destroy");
+if (editor.state === 'initializing') {
+    console.log('new Editor()');
+} else if (editor.state === 'ready') {
+    console.log('Editor.create()');
+} else if (editor.state === 'destroyed') {
+    console.log('editor.destroy');
 } else {
     const n: never = editor.state;
 }
 
-editor.state = "ready";
+editor.state = 'ready';
 
 core.editor.Editor.builtinPlugins = [plugin, pluginStr, plugin];
 const plugins: Array<core.Plugin<any>> = core.editor.Editor.builtinPlugins;
@@ -115,20 +115,20 @@ const plugins: Array<core.Plugin<any>> = core.editor.Editor.builtinPlugins;
 core.editor.Editor.defaultConfig = {
     foo: {
         a: 1,
-        b: 2
-    }
+        b: 2,
+    },
 };
 
 editor = new core.editor.Editor();
-editor = new core.editor.Editor({language: "pl"});
+editor = new core.editor.Editor({ language: 'pl' });
 
 editor.destroy();
 editor.destroy().then(() => {
     console.log(`${editor.state} == destroyed`);
 });
 
-editor.execute("someCommand");
-editor.execute("someCommand2", "arg1", 2);
+editor.execute('someCommand');
+editor.execute('someCommand2', 'arg1', 2);
 
 editor.initPlugins();
 editor.initPlugins().then(() => {
@@ -136,8 +136,8 @@ editor.initPlugins().then(() => {
 });
 
 locale.t = editor.t;
-str = editor.t("Label");
-str = editor.t('Created file "%0" in %1ms.', ["fileName", "100"]);
+str = editor.t('Label');
+str = editor.t('Created file "%0" in %1ms.', ['fileName', '100']);
 
 // core/editor/editorui =======================================================
 
@@ -182,17 +182,17 @@ const collectionsPair = collectionsPairs[0];
 str = collectionsPair[0];
 command = collectionsPair[1];
 
-commandCollection.add("foo", new SomeCommand(editor));
+commandCollection.add('foo', new SomeCommand(editor));
 
 command = commandCollection.commands().next().value;
 commands = Array.from(commandCollection.commands());
 
 commandCollection.destroy();
 
-commandCollection.execute("foo");
-commandCollection.execute("bar", 1, "param");
+commandCollection.execute('foo');
+commandCollection.execute('bar', 1, 'param');
 
-command = commandCollection.get("foo");
+command = commandCollection.get('foo');
 
 str = commandCollection.names().next().value;
 strs = Array.from(commandCollection.names());
@@ -203,14 +203,14 @@ keystrokes = new core.EditingKeystrokeHandler(editor);
 
 editor = keystrokes.editor;
 
-keystrokes.press({keyCode: 123});
+keystrokes.press({ keyCode: 123 });
 
-keystrokes.set("Ctrl+A", "foo");
-keystrokes.set(["shift", "33"], "foo");
-keystrokes.set(["ctrl", "A"], "foo", {priority: 10});
-keystrokes.set(["ctrl", "A"], "foo", {priority: "high"});
-keystrokes.set(["ctrl", "A"], () => console.log("key"));
-keystrokes.set(["ctrl", "A"], (keyEvtData, cancel) => {
+keystrokes.set('Ctrl+A', 'foo');
+keystrokes.set(['shift', '33'], 'foo');
+keystrokes.set(['ctrl', 'A'], 'foo', { priority: 10 });
+keystrokes.set(['ctrl', 'A'], 'foo', { priority: 'high' });
+keystrokes.set(['ctrl', 'A'], () => console.log('key'));
+keystrokes.set(['ctrl', 'A'], (keyEvtData, cancel) => {
     console.log(keyEvtData.keyCode);
     cancel();
 });
@@ -225,9 +225,9 @@ const firstAction = pendingActions.first;
 
 bool = pendingActions.hasAny;
 
-strs = Array.from(pendingActions, action => action.message);
+strs = Array.from(pendingActions, (action) => action.message);
 
-const action1 = pendingActions.add("Action 1");
+const action1 = pendingActions.add('Action 1');
 
 pendingActions.remove(action1);
 
@@ -249,16 +249,22 @@ class MyPluginAll extends core.Plugin<string> {
     }
 
     static get pluginName() {
-        return "All";
+        return 'All';
     }
 
     static get requires() {
         return [MyPlugin, MyPluginMini];
     }
 
-    afterInit() {return Math.random() ? null : Promise.resolve("resolved"); }
-    destroy() {return Math.random() ? null : Promise.resolve("destroy"); }
-    init() {return Math.random() ? null : Promise.resolve("init"); }
+    afterInit() {
+        return Math.random() ? null : Promise.resolve('resolved');
+    }
+    destroy() {
+        return Math.random() ? null : Promise.resolve('destroy');
+    }
+    init() {
+        return Math.random() ? null : Promise.resolve('init');
+    }
 }
 
 plugin = new MyPlugin(editor);
@@ -302,27 +308,25 @@ const aColl = new core.PluginCollection<MyPluginAll | MyPluginMini>(editor, [MyP
 const myColl = new core.PluginCollection(editor, [MyPlugin]);
 
 const myCollArray = Array.from(myColl);
-myPlugins = myCollArray.map(entry => entry[1]);
-myPlugin = new (myCollArray[0][0])(editor);
+myPlugins = myCollArray.map((entry) => entry[1]);
+myPlugin = new myCollArray[0][0](editor);
 
-myColl.destroy()
-    .then(destroyedPlugins => {
-        num = destroyedPlugins.length;
-        const plugin = destroyedPlugins[0];
-        editor = plugin.editor;
-        plugin.init!();
-        plugin.destroy();
-        str = plugin.myMethod();
-    });
+myColl.destroy().then((destroyedPlugins) => {
+    num = destroyedPlugins.length;
+    const plugin = destroyedPlugins[0];
+    editor = plugin.editor;
+    plugin.init!();
+    plugin.destroy();
+    str = plugin.myMethod();
+});
 
-myPluginMaybe = myColl.get("A");
+myPluginMaybe = myColl.get('A');
 myPluginMaybe = myColl.get(MyPlugin);
 
-myColl.load([MyPlugin, "A"])
-    .then((loadedPlugins) => {
-        const plugin = loadedPlugins[0];
-        editor = plugin.editor;
-        str = plugin.myMethod();
-    });
+myColl.load([MyPlugin, 'A']).then((loadedPlugins) => {
+    const plugin = loadedPlugins[0];
+    editor = plugin.editor;
+    str = plugin.myMethod();
+});
 
-myColl.load([MyPlugin, "A"], [MyPlugin, "A"]);
+myColl.load([MyPlugin, 'A'], [MyPlugin, 'A']);

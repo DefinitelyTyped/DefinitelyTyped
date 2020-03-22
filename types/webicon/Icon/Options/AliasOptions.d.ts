@@ -1,4 +1,4 @@
-import { Identifiable } from "../../System/Identifiable";
+import { Identifiable } from '../../System/Identifiable';
 
 /**
  * Provides options for aliases.

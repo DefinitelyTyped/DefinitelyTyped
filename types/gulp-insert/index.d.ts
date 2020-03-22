@@ -7,15 +7,13 @@
 /// <reference types="vinyl"/>
 
 declare module 'gulp-insert' {
-
     import File = require('vinyl');
 
     interface Transformer {
-        (contents: string, file: File): string
+        (contents: string, file: File): string;
     }
 
     namespace Insert {
-
         /**
          * Prepends a string onto the contents
          * @param {string} content
@@ -44,9 +42,8 @@ declare module 'gulp-insert' {
          * @returns {NodeJS.ReadWriteStream}
          */
         function transform(transformer: Transformer): NodeJS.ReadWriteStream;
-
     }
 
-    module Insert { }
+    module Insert {}
     export = Insert;
 }

@@ -1,2 +1,2 @@
-import { expoInOut } from "./index";
+import { expoInOut } from './index';
 export = expoInOut;

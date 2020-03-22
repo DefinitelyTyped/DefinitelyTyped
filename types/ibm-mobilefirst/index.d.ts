@@ -42,10 +42,10 @@ declare namespace WL {
     }
     class ResponseBase {
         invocationContext: any;
-        headerJSON: {[key: string]: any}; // JSON Object
+        headerJSON: { [key: string]: any }; // JSON Object
         readyState: number;
         request: any;
-        responseJSON: {[key: string]: any}; // JSON Object
+        responseJSON: { [key: string]: any }; // JSON Object
         responseText: string;
         responseXML: string;
         status: number;
@@ -53,8 +53,7 @@ declare namespace WL {
         errorCode: number;
         errorMsg: string;
     }
-    class FailureResponse extends ResponseBase {
-    }
+    class FailureResponse extends ResponseBase {}
     class Response extends ResponseBase {
         getHeaderNames(): string[];
         getAllHeaders(): Headers;
@@ -96,8 +95,7 @@ declare namespace WL.App {
         resizable?: number;
         scrollbars?: number;
     }
-    interface Data {
-    }
+    interface Data {}
     interface KeepAliveInBackgroundOptions {
         tickerText?: string;
         contentTitle?: string;
@@ -174,8 +172,7 @@ declare namespace WL.Client {
         procedure: string;
         parameters: any[];
     }
-    interface ChallengeHandlerAuthenticationOptions {
-    }
+    interface ChallengeHandlerAuthenticationOptions {}
     interface ChallengeHandlerSubmitLoginFormOptions {
         timeout?: number;
         headers?: Object;
@@ -184,9 +181,16 @@ declare namespace WL.Client {
     class AbstractChallengeHandler {
         handleChallenge(challenge: any): boolean;
         isCustomResponse(transport: any): boolean;
-        submitAdapterAuthentication(invocationData: ChallengehandlerInvocationData, options: ChallengeHandlerAuthenticationOptions): void;
+        submitAdapterAuthentication(
+            invocationData: ChallengehandlerInvocationData,
+            options: ChallengeHandlerAuthenticationOptions,
+        ): void;
         submitFailure(error: string): void;
-        submitLoginForm(reqURL: string, options: ChallengeHandlerSubmitLoginFormOptions, submitLoginFormCallback: (transport: any) => void): void;
+        submitLoginForm(
+            reqURL: string,
+            options: ChallengeHandlerSubmitLoginFormOptions,
+            submitLoginFormCallback: (transport: any) => void,
+        ): void;
         submitSuccess(): void;
     }
     interface InitOptions extends Options {
@@ -265,7 +269,10 @@ declare namespace WL.Client {
     function getUserPref(key: any): any;
     function hasUserPref(key: any): boolean;
     function init(options: InitOptions): void;
-    function invokeProcedure(invocationData: ProcedureInvocationData, options?: ProcedureInvocationOptions): JQueryDeferred<Response>;
+    function invokeProcedure(
+        invocationData: ProcedureInvocationData,
+        options?: ProcedureInvocationOptions,
+    ): JQueryDeferred<Response>;
     /**
      * @deprecated since version 4.1.3. Use WL.Device.getNetworkInfo instead.
      */
@@ -281,7 +288,11 @@ declare namespace WL.Client {
     /**
      * @deprecated since version 7.0
      */
-    function obtainAccessToken(scope: string, onSuccess: ResponseHandler<Response>, onFailure: ResponseHandler<FailureResponse>): void;
+    function obtainAccessToken(
+        scope: string,
+        onSuccess: ResponseHandler<Response>,
+        onFailure: ResponseHandler<FailureResponse>,
+    ): void;
     function purgeEventTransmissionBuffer(): void;
     function reloadApp(): void;
     function removeGlobalHeader(headerName: string): void;
@@ -303,7 +314,7 @@ declare namespace WL.Client {
 declare namespace WL.Device {
     interface AddressPair {
         wifiAddress: string;
-        "3GAddress": string;
+        '3GAddress': string;
     }
     interface NetworkInfo {
         isNetworkConnected?: boolean;
@@ -343,7 +354,12 @@ declare namespace WL.EncryptedCache {
     }
     function close(successHandler: StatusHandler, failureHandler: StatusHandler): void;
     function destroy(successHandler: StatusHandler, failureHandler: StatusHandler): void;
-    function open(credentials: string, createIfNone: boolean, successHandler: StatusHandler, failureHandler: StatusHandler): void;
+    function open(
+        credentials: string,
+        createIfNone: boolean,
+        successHandler: StatusHandler,
+        failureHandler: StatusHandler,
+    ): void;
     function read(key: string, successHandler: StatusHandler, failureHandler: StatusHandler): void;
     function remove(key: string, successHandler: StatusHandler, failureHandler: StatusHandler): void;
     function write(key: string, value: string, successHandler: StatusHandler, failureHandler: StatusHandler): void;
@@ -384,7 +400,12 @@ declare namespace WL.JSONStore {
     /**
      * Changes the password for the internal storage. You must have an initialized collection before calling WL.JSONStore.changePassword.
      */
-    function changePassword(oldPassword: string, newPassword: string, username: string, options: WL.Options): JQueryDeferred<any>;
+    function changePassword(
+        oldPassword: string,
+        newPassword: string,
+        username: string,
+        options: WL.Options,
+    ): JQueryDeferred<any>;
     /**
      * @deprecated since version 5.0.6, it is no longer needed if you use WL.JSONStore.init
      */
@@ -666,8 +687,8 @@ declare namespace WL {
      */
     class LoggerObject {
         /**
-        * Configures the logger globally.
-        */
+         * Configures the logger globally.
+         */
         config(options?: LoggerOptions): LoggerObject;
         /**
          * Creates an instance of a logger with its own context (also called status or state).
@@ -836,7 +857,10 @@ declare namespace WL.Trusteer {
         'total.risk.generic'?: AssesmentRisk;
         'tas.config_update'?: AssesmentRisk;
     }
-    function getRiskAssessment(onSuccess: ResponseHandler<Response>, onFailure: ResponseHandler<FailureResponse>): AssetmentRisks;
+    function getRiskAssessment(
+        onSuccess: ResponseHandler<Response>,
+        onFailure: ResponseHandler<FailureResponse>,
+    ): AssetmentRisks;
 }
 declare namespace WL.UserAuth {
     function deleteCertificate(provisioningEntity?: string): JQueryDeferred<void>;
@@ -882,7 +906,7 @@ declare namespace WL {
 
 declare class WLResourceRequest {
     constructor(url: string, method: string, timeout?: number);
-    addHeader(name: string, value: string|number|boolean): void;
+    addHeader(name: string, value: string | number | boolean): void;
     getHeader(name: string): string;
     getHeaderNames(): string[];
     getHeaders(name: string): string[];
@@ -892,10 +916,10 @@ declare class WLResourceRequest {
     getUrl(): string;
     send(content?: any): JQueryDeferred<any>;
     sendFormParameters(json: Object): JQueryDeferred<any>;
-    setHeader(name: string, value: string|number|boolean): void;
-    setHeaders(requestHeaders?: { [name: string]: string|string[] }): void;
-    setQueryParameter(name: string, value: string|number|boolean|Object): void;
-    setQueryParameters(parameters?: { [name: string]: string|number|boolean|Object }): void;
+    setHeader(name: string, value: string | number | boolean): void;
+    setHeaders(requestHeaders?: { [name: string]: string | string[] }): void;
+    setQueryParameter(name: string, value: string | number | boolean | Object): void;
+    setQueryParameters(parameters?: { [name: string]: string | number | boolean | Object }): void;
     setTimeout(requestTimeout: number): void;
 
     static GET: string;

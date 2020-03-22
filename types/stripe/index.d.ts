@@ -5465,7 +5465,18 @@ declare namespace Stripe {
                 /**
                  * One of authentication_failed, authorization_controls, card_active, card_inactive, insufficient_funds, account_compliance_disabled, account_inactive, suspected_fraud, webhook_approved, webhook_declined, or webhook_timeout.
                  */
-                reason: 'authentication_failed' | 'authorization_controls' | 'card_active' | 'card_inactive' | 'insufficient_funds' | 'account_compliance_disabled' | 'account_inactive' | 'suspected_fraud' | 'webhook_approved' | 'webhook_declined' | 'webhook_timeout';
+                reason:
+                    | 'authentication_failed'
+                    | 'authorization_controls'
+                    | 'card_active'
+                    | 'card_inactive'
+                    | 'insufficient_funds'
+                    | 'account_compliance_disabled'
+                    | 'account_inactive'
+                    | 'suspected_fraud'
+                    | 'webhook_approved'
+                    | 'webhook_declined'
+                    | 'webhook_timeout';
 
                 /**
                  * When an authorization is declined due to authorization_controls, this array contains details about the authorization controls that were violated. Otherwise, it is empty.
@@ -5474,12 +5485,17 @@ declare namespace Stripe {
                     /**
                      * Entity which the authorization control acts on. One of account, card, or cardholder.
                      */
-                    entity: 'account' | 'cardholder' | 'card',
+                    entity: 'account' | 'cardholder' | 'card';
 
                     /**
                      * Name of the authorization control. One of allowed_categories, blocked_categories, max_amount, max_approvals, or spending_limits.
                      */
-                    name: 'allowed_categories' | 'blocked_categories' | 'max_amount' | 'max_approvals' | 'spending_limits',
+                    name:
+                        | 'allowed_categories'
+                        | 'blocked_categories'
+                        | 'max_amount'
+                        | 'max_approvals'
+                        | 'spending_limits';
                 };
             }
 
@@ -5497,7 +5513,7 @@ declare namespace Stripe {
                 /**
                  * One of exempt, failure, none, or success.
                  */
-                authentication: 'exempt' | 'failure' | 'none' |'success';
+                authentication: 'exempt' | 'failure' | 'none' | 'success';
 
                 /**
                  * One of match, mismatch, or not_provided.
@@ -6468,7 +6484,13 @@ declare namespace Stripe {
                 type: TransactionType;
             }
 
-            type TransactionType = 'capture' | 'refund' | 'cash_withdrawal' | 'refund_reversal' | 'dispute' | 'dispute_loss';
+            type TransactionType =
+                | 'capture'
+                | 'refund'
+                | 'cash_withdrawal'
+                | 'refund_reversal'
+                | 'dispute'
+                | 'dispute_loss';
 
             interface ITransactionUpdateOptions {
                 metadata?: IOptionsMetadata;
@@ -9474,12 +9496,14 @@ declare namespace Stripe {
             status?: 'canceled' | 'failed' | 'pending' | 'succeeded';
         }
 
-        type IAmountFilter = string | {
-            gt?: string;
-            gte?: string;
-            lt?: string;
-            lte?: string;
-        };
+        type IAmountFilter =
+            | string
+            | {
+                  gt?: string;
+                  gte?: string;
+                  lt?: string;
+                  lte?: string;
+              };
     }
 
     namespace transfers {
@@ -11573,11 +11597,11 @@ declare namespace Stripe {
             retrieve(
                 id: string,
                 options: HeaderOptions,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
             retrieve(
                 id: string,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
 
             /**
@@ -11587,12 +11611,12 @@ declare namespace Stripe {
                 id: string,
                 data: issuing.authorizations.IAuthorizationUpdateOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
             update(
                 id: string,
                 data: issuing.authorizations.IAuthorizationUpdateOptions,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
 
             /**
@@ -11602,21 +11626,21 @@ declare namespace Stripe {
                 id: string,
                 data: issuing.authorizations.IAuthorizationApproveOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
             approve(
                 id: string,
                 options: HeaderOptions,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
             approve(
                 id: string,
                 data: issuing.authorizations.IAuthorizationApproveOptions,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
             approve(
                 id: string,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
 
             /**
@@ -11626,21 +11650,21 @@ declare namespace Stripe {
                 id: string,
                 data: issuing.authorizations.IAuthorizationDeclineOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
             decline(
                 id: string,
                 options: HeaderOptions,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
             decline(
                 id: string,
                 data: issuing.authorizations.IAuthorizationDeclineOptions,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
             decline(
                 id: string,
-                response?: IResponseFn<issuing.authorizations.IAuthorization>
+                response?: IResponseFn<issuing.authorizations.IAuthorization>,
             ): Promise<issuing.authorizations.IAuthorization>;
 
             /**
@@ -11797,9 +11821,7 @@ declare namespace Stripe {
                 data: issuing.cards.IIssuingCardListOptions,
                 response?: IResponseFn<IList<issuing.cards.IIssuingCard>>,
             ): Promise<IList<issuing.cards.IIssuingCard>>;
-            list(
-                response?: IResponseFn<IList<issuing.cards.IIssuingCard>>,
-            ): Promise<IList<issuing.cards.IIssuingCard>>;
+            list(response?: IResponseFn<IList<issuing.cards.IIssuingCard>>): Promise<IList<issuing.cards.IIssuingCard>>;
         }
 
         class IssuingDisputes extends StripeResource {
@@ -15780,10 +15802,7 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<reviews.IReview>,
             ): Promise<reviews.IReview>;
-            retrieve(
-                id: string,
-                response?: IResponseFn<reviews.IReview>,
-            ): Promise<reviews.IReview>;
+            retrieve(id: string, response?: IResponseFn<reviews.IReview>): Promise<reviews.IReview>;
 
             /**
              * Returns a list of Review objects that have open set to true. The objects are sorted in descending
@@ -15798,10 +15817,7 @@ declare namespace Stripe {
                 data: IListOptionsCreated,
                 response?: IResponseFn<IList<reviews.IReview>>,
             ): IListPromise<reviews.IReview>;
-            list(
-                options: HeaderOptions,
-                response?: IResponseFn<IList<reviews.IReview>>,
-            ): IListPromise<reviews.IReview>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<reviews.IReview>>): IListPromise<reviews.IReview>;
             list(response?: IResponseFn<IList<reviews.IReview>>): IListPromise<reviews.IReview>;
         }
 
@@ -15921,23 +15937,13 @@ declare namespace Stripe {
                 options: HeaderOptions,
                 response?: IResponseFn<topups.ITopup>,
             ): Promise<topups.ITopup>;
-            create(
-                data: topups.ITopupCreationOptions,
-                response?: IResponseFn<topups.ITopup>,
-            ): Promise<topups.ITopup>;
+            create(data: topups.ITopupCreationOptions, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>;
 
             /**
              * Retrieves the details of a top-up that has previously been created.
              */
-            retrieve(
-                id: string,
-                options: HeaderOptions,
-                response?: IResponseFn<topups.ITopup>,
-            ): Promise<topups.ITopup>;
-            retrieve(
-                id: string,
-                response?: IResponseFn<topups.ITopup>,
-            ): Promise<topups.ITopup>;
+            retrieve(id: string, options: HeaderOptions, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>;
+            retrieve(id: string, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>;
 
             /**
              * Updates the metadata of a top-up. Other top-up details are not editable by design.
@@ -15974,11 +15980,7 @@ declare namespace Stripe {
              * Cancels a top-up. Only pending top-ups can be canceled. Returns the canceled top-up. If the top-up
              * is already canceled or can’t be canceled, an error is returned.
              */
-            cancel(
-                id: string,
-                options: HeaderOptions,
-                response?: IResponseFn<topups.ITopup>,
-            ): Promise<topups.ITopup>;
+            cancel(id: string, options: HeaderOptions, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>;
             cancel(id: string, response?: IResponseFn<topups.ITopup>): Promise<topups.ITopup>;
         }
 

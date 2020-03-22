@@ -22,8 +22,15 @@ declare class DexieBatch {
 
     each<T>(collection: Dexie.Collection<T, any>, callback: DexieBatch.Callback<T>): Dexie.Promise<number>;
     eachBatch<T>(collection: Dexie.Collection<T, any>, callback: DexieBatch.Callback<T[]>): Dexie.Promise<number>;
-    eachBatchParallel<T>(collection: Dexie.Collection<T, any>, callback: DexieBatch.Callback<T[]>): Dexie.Promise<number>;
-    eachBatchSerial<T>(collection: Dexie.Collection<T, any>, callback: DexieBatch.Callback<T[]>, batchIdx?: number): Dexie.Promise<number>;
+    eachBatchParallel<T>(
+        collection: Dexie.Collection<T, any>,
+        callback: DexieBatch.Callback<T[]>,
+    ): Dexie.Promise<number>;
+    eachBatchSerial<T>(
+        collection: Dexie.Collection<T, any>,
+        callback: DexieBatch.Callback<T[]>,
+        batchIdx?: number,
+    ): Dexie.Promise<number>;
 }
 
 export as namespace DexieBatch;

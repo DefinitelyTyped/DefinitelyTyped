@@ -3,15 +3,11 @@ import DuplicatePackageCheckerWebpackPlugin = require('duplicate-package-checker
 
 const a: webpack.Configuration = {
     entry: 'test.js',
-    plugins: [
-        new DuplicatePackageCheckerWebpackPlugin()
-    ]
+    plugins: [new DuplicatePackageCheckerWebpackPlugin()],
 };
 const b: webpack.Configuration = {
     entry: 'test.js',
-    plugins: [
-        new DuplicatePackageCheckerWebpackPlugin({})
-    ]
+    plugins: [new DuplicatePackageCheckerWebpackPlugin({})],
 };
 const c: webpack.Configuration = {
     entry: 'test.js',
@@ -22,8 +18,8 @@ const c: webpack.Configuration = {
             showHelp: false,
             strict: false,
             exclude(instance) {
-                return instance.name === "fbjs";
-            }
-        })
-    ]
+                return instance.name === 'fbjs';
+            },
+        }),
+    ],
 };

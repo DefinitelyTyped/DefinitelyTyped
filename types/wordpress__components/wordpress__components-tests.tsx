@@ -35,18 +35,18 @@ interface MyCompleteOption {
                 { visual: '🍇', name: 'Grapes', id: 3 },
             ],
             // Returns a label for an option like "🍊 Orange"
-            getOptionLabel: option => (
+            getOptionLabel: (option) => (
                 <span>
                     <span className="icon">{option.visual}</span>
                     {option.name}
                 </span>
             ),
             // Declares that options should be matched by their name
-            getOptionKeywords: option => [option.name],
+            getOptionKeywords: (option) => [option.name],
             // Declares that the Grapes option is disabled
-            isOptionDisabled: option => option.name === 'Grapes',
+            isOptionDisabled: (option) => option.name === 'Grapes',
             // Declares completions should be inserted as abbreviations
-            getOptionCompletion: option => <abbr title={option.name}>{option.visual}</abbr>,
+            getOptionCompletion: (option) => <abbr title={option.name}>{option.visual}</abbr>,
         },
     ]}
 >
@@ -128,7 +128,7 @@ interface MyCompleteOption {
 //
 // checkbox-control
 //
-<C.CheckboxControl checked onChange={isChecked => console.log(isChecked)} />;
+<C.CheckboxControl checked onChange={(isChecked) => console.log(isChecked)} />;
 
 //
 // clipboard-button
@@ -150,13 +150,13 @@ interface MyCompleteOption {
         { name: 'blue', color: '#0000ff' },
     ]}
     value={{ name: 'red', color: '#ff0000' }}
-    onChange={color => color && console.log(color.name)}
+    onChange={(color) => color && console.log(color.name)}
 />;
 
 //
 // color-picker
 //
-<C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} />;
+<C.ColorPicker color="#ff0000" onChangeComplete={(color) => console.log(color.hex)} />;
 
 //
 // dashicon
@@ -166,9 +166,9 @@ interface MyCompleteOption {
 //
 // date-time
 //
-<C.DatePicker isInvalidDate={date => isNaN(date.valueOf())} onChange={date => console.log(date.toUpperCase())} />;
-<C.TimePicker currentTime={new Date().toISOString()} onChange={time => console.log(time.toUpperCase())} is12Hour />;
-<C.DateTimePicker onChange={date => console.log(date.toUpperCase())} />;
+<C.DatePicker isInvalidDate={(date) => isNaN(date.valueOf())} onChange={(date) => console.log(date.toUpperCase())} />;
+<C.TimePicker currentTime={new Date().toISOString()} onChange={(time) => console.log(time.toUpperCase())} is12Hour />;
+<C.DateTimePicker onChange={(date) => console.log(date.toUpperCase())} />;
 
 //
 // disabled
@@ -176,7 +176,7 @@ interface MyCompleteOption {
 <C.Disabled>
     <input type="text" />
 </C.Disabled>;
-<C.Disabled.Consumer>{isDisabled => <button style={{ opacity: isDisabled ? 0.5 : 1 }} />}</C.Disabled.Consumer>;
+<C.Disabled.Consumer>{(isDisabled) => <button style={{ opacity: isDisabled ? 0.5 : 1 }} />}</C.Disabled.Consumer>;
 
 //
 // draggable
@@ -192,9 +192,9 @@ interface MyCompleteOption {
 //
 <C.DropZoneProvider>
     <C.DropZone
-        onFilesDrop={files => console.log(files.length)}
-        onHTMLDrop={html => console.log(html.toUpperCase())}
-        onDrop={e => console.log(e.dataTransfer.files.length)}
+        onFilesDrop={(files) => console.log(files.length)}
+        onHTMLDrop={(html) => console.log(html.toUpperCase())}
+        onDrop={(e) => console.log(e.dataTransfer.files.length)}
     />
 </C.DropZoneProvider>;
 
@@ -261,7 +261,7 @@ interface MyCompleteOption {
 <C.FocalPointPicker
     url="/path/to/image"
     value={{ x: 0.5, y: 0.5 }}
-    onChange={value => console.log(`x = ${value.x}, y = ${value.y}`)}
+    onChange={(value) => console.log(`x = ${value.x}, y = ${value.y}`)}
 />;
 
 //
@@ -287,7 +287,7 @@ interface MyCompleteOption {
     ]}
     value={16}
     fallbackFontSize={16}
-    onChange={newFontSize => console.log(newFontSize)}
+    onChange={(newFontSize) => console.log(newFontSize)}
 />;
 
 //
@@ -324,7 +324,7 @@ interface MyCompleteOption {
         },
     ]}
     suggestions={['foo', 'bar', 'baz', 'qux']}
-    onChange={tokens => console.log(tokens)}
+    onChange={(tokens) => console.log(tokens)}
 />;
 
 //
@@ -401,7 +401,7 @@ const kbshortcuts = {
         },
     ]}
     value="visual"
-    onSelect={value => console.log(`selected value is ${value}`)}
+    onSelect={(value) => console.log(`selected value is ${value}`)}
 />;
 
 //
@@ -487,14 +487,14 @@ const kbshortcuts = {
 //
 <C.Popover
     className="my-popover"
-    getAnchorRect={anchorEl => {
+    getAnchorRect={(anchorEl) => {
         if (anchorEl && anchorEl.parentElement) {
             return anchorEl.parentElement.getBoundingClientRect();
         }
     }}
     onClose={() => {}}
     onClickOutside={() => {}}
-    onFocusOutside={e => {
+    onFocusOutside={(e) => {
         if (e.relatedTarget === document.querySelector('#my-element')) return;
     }}
 >
@@ -506,13 +506,13 @@ const kbshortcuts = {
 //
 // query-controls
 //
-<C.QueryControls numberOfItems={3} onNumberOfItemsChange={n => console.log(Math.floor(n))} />;
+<C.QueryControls numberOfItems={3} onNumberOfItemsChange={(n) => console.log(Math.floor(n))} />;
 <C.QueryControls
     orderBy="title"
     order="asc"
     numberOfItems={10}
-    onOrderByChange={orderBy => console.log(orderBy.toUpperCase())}
-    onOrderChange={order => console.log(order.toUpperCase())}
+    onOrderByChange={(orderBy) => console.log(orderBy.toUpperCase())}
+    onOrderChange={(order) => console.log(order.toUpperCase())}
     categoriesList={[
         {
             id: 1,
@@ -531,8 +531,8 @@ const kbshortcuts = {
         },
     ]}
     selectedCategoryId={1}
-    onCategoryChange={categoryId => console.log(Math.floor(categoryId))}
-    onNumberOfItemsChange={n => console.log(Math.floor(n))}
+    onCategoryChange={(categoryId) => console.log(Math.floor(categoryId))}
+    onNumberOfItemsChange={(n) => console.log(Math.floor(n))}
 />;
 
 //
@@ -542,21 +542,34 @@ const kbshortcuts = {
     label="User type"
     help="The type of the current user"
     selected="a"
-    options={[{ label: 'Author', value: 'a' }, { label: 'Editor', value: 'e' }]}
-    onChange={value => value && console.log(value.toUpperCase())}
+    options={[
+        { label: 'Author', value: 'a' },
+        { label: 'Editor', value: 'e' },
+    ]}
+    onChange={(value) => value && console.log(value.toUpperCase())}
 />;
 <C.RadioControl
     label="User type"
     help="The type of the current user"
     selected={{ foo: 'bar' }}
-    options={[{ label: 'Author', value: { foo: 'bar' } }, { label: 'Editor', value: { foo: 'baz' } }]}
-    onChange={value => value && console.log(value.foo)}
+    options={[
+        { label: 'Author', value: { foo: 'bar' } },
+        { label: 'Editor', value: { foo: 'baz' } },
+    ]}
+    onChange={(value) => value && console.log(value.foo)}
 />;
 
 //
 // range-control
 //
-<C.RangeControl beforeIcon="move" label="Columns" value={5} min={2} max={10} onChange={value => console.log(value)} />;
+<C.RangeControl
+    beforeIcon="move"
+    label="Columns"
+    value={5}
+    min={2}
+    max={10}
+    onChange={(value) => console.log(value)}
+/>;
 
 //
 // resizable-box
@@ -603,15 +616,23 @@ const kbshortcuts = {
 <C.SelectControl
     label="Size"
     value="50%"
-    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
-    onChange={size => console.log(size)}
+    options={[
+        { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
+    onChange={(size) => console.log(size)}
 />;
 <C.SelectControl
     label="Size"
     value={['50%']}
     multiple
-    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
-    onChange={size => console.log(size)}
+    options={[
+        { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
+    onChange={(size) => console.log(size)}
 />;
 
 //
@@ -659,7 +680,7 @@ const kbshortcuts = {
 <C.TabPanel
     className="my-tab-panel"
     activeClass="active-tab"
-    onSelect={tabName => console.log(tabName.toUpperCase())}
+    onSelect={(tabName) => console.log(tabName.toUpperCase())}
     tabs={[
         {
             name: 'tab1',
@@ -673,19 +694,19 @@ const kbshortcuts = {
         },
     ]}
 >
-    {tab => <p>{tab.title}</p>}
+    {(tab) => <p>{tab.title}</p>}
 </C.TabPanel>;
 
 //
 // text-control
 //
-<C.TextControl label="My text value" value={'foo'} onChange={value => console.log(value.toUpperCase())} />;
+<C.TextControl label="My text value" value={'foo'} onChange={(value) => console.log(value.toUpperCase())} />;
 <C.TextControl
     type="number"
     label="My numeric value"
     hideLabelFromVision
     value={3}
-    onChange={value => console.log(value.toUpperCase())}
+    onChange={(value) => console.log(value.toUpperCase())}
 />;
 
 //
@@ -695,13 +716,13 @@ const kbshortcuts = {
     label="Text"
     help="Enter some text"
     value="hello world"
-    onChange={value => console.log(value.toUpperCase())}
+    onChange={(value) => console.log(value.toUpperCase())}
 />;
 
 //
 // toggle-control
 //
-<C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} />;
+<C.ToggleControl label="Controlled" checked={true} onChange={(isChecked) => console.log(isChecked)} />;
 <C.ToggleControl label="Uncontrolled" />;
 
 //
@@ -793,7 +814,7 @@ const kbshortcuts = {
 //
 // tree-select
 //
-<C.TreeSelect onChange={id => console.log(id)} />;
+<C.TreeSelect onChange={(id) => console.log(id)} />;
 <C.TreeSelect
     label="Complex tree"
     noOptionLabel="No options"
@@ -836,13 +857,13 @@ const kbshortcuts = {
             name: 'Childless',
         },
     ]}
-    onChange={id => console.log(id)}
+    onChange={(id) => console.log(id)}
 />;
 
 //
 // isolated-event-container
 //
-<C.IsolatedEventContainer className="component-some_component" onClick={e => console.log(e.currentTarget.nodeName)}>
+<C.IsolatedEventContainer className="component-some_component" onClick={(e) => console.log(e.currentTarget.nodeName)}>
     <p>This is an isolated component</p>
 </C.IsolatedEventContainer>;
 
@@ -878,7 +899,7 @@ const MySlotFillProvider = () => {
     );
 })();
 <C.Slot name="RichText.ToolbarControls">
-    {fills =>
+    {(fills) =>
         fills.length !== 0 ? (
             <C.DropdownMenu
                 position="bottom left"

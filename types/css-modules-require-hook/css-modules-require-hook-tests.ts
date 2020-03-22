@@ -11,11 +11,11 @@ hook({ generateScopedName: '[name]__[local]___[hash:base64:5]' });
 //
 
 hook({
-	prepend: [
-		() => {
-			// my prepender
-		},
-	],
+    prepend: [
+        () => {
+            // my prepender
+        },
+    ],
 });
 
 //
@@ -29,17 +29,19 @@ hook({ generateScopedName: '[name]__[local]___[hash:base64:5]' });
 //
 
 hook({
-	extensions: ['.styl'],
-	preprocessCss: (css: string, filepath: string) => {
-		// my preprocesser
-	},
+    extensions: ['.styl'],
+    preprocessCss: (css: string, filepath: string) => {
+        // my preprocesser
+    },
 });
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#tuning-options
 //
 
-hook({ /* my option */ });
+hook({
+    /* my option */
+});
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#devmode-boolean
@@ -78,12 +80,12 @@ hook({ processCss: (css: string, filepath: string) => css });
 //
 
 hook({
-	extensions: '.scss',
-	processorOpts: {
-		parser: () => {
-			// my parser
-		},
-	},
+    extensions: '.scss',
+    processorOpts: {
+        parser: () => {
+            // my parser
+        },
+    },
 });
 
 //
@@ -97,11 +99,11 @@ hook({ camelCase: true });
 //
 
 hook({
-	append: [
-		() => {
-			// another plugin
-		},
-	],
+    append: [
+        () => {
+            // another plugin
+        },
+    ],
 });
 
 //
@@ -109,11 +111,11 @@ hook({
 //
 
 hook({
-	prepend: [
-		() => {
-			// again, another plugin
-		},
-	],
+    prepend: [
+        () => {
+            // again, another plugin
+        },
+    ],
 });
 
 //
@@ -121,11 +123,11 @@ hook({
 //
 
 hook({
-	use: [
-		() => {
-			// they like plugins very much
-		},
-	],
+    use: [
+        () => {
+            // they like plugins very much
+        },
+    ],
 });
 
 //
@@ -133,9 +135,9 @@ hook({
 //
 
 hook({
-	createImportedName: (css: string, filepath: string) => {
-		// my import name creator
-	},
+    createImportedName: (css: string, filepath: string) => {
+        // my import name creator
+    },
 });
 
 //
@@ -144,9 +146,9 @@ hook({
 
 hook({ generateScopedName: '[name]__[local]___[hash:base64:5]' });
 hook({
-	generateScopedName: () => {
-		// should generate something
-	},
+    generateScopedName: () => {
+        // should generate something
+    },
 });
 
 //

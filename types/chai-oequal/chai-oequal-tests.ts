@@ -3,10 +3,7 @@ import ChaiOequal = require('chai-oequal');
 
 Chai.use(ChaiOequal);
 
-import {
-    expect,
-    assert
-} from 'chai';
+import { expect, assert } from 'chai';
 
 expect({
     equals: () => true,
@@ -21,15 +18,28 @@ expect({
     equals: () => true,
 }).to.be.oeq({});
 
-assert.oequal({
-    equals: () => true,
-}, {});
-assert.oequal({
-    customequals: () => true,
-}, {}, 'customequals');
-assert.oeql({
-    equals: () => true,
-}, {});
-assert.oeq({
-    equals: () => true,
-}, {});
+assert.oequal(
+    {
+        equals: () => true,
+    },
+    {},
+);
+assert.oequal(
+    {
+        customequals: () => true,
+    },
+    {},
+    'customequals',
+);
+assert.oeql(
+    {
+        equals: () => true,
+    },
+    {},
+);
+assert.oeq(
+    {
+        equals: () => true,
+    },
+    {},
+);

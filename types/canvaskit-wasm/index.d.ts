@@ -14,8 +14,24 @@ export interface CanvasKit {
     MakeAnimation(lottieJson: any): SkAnimation;
     MakeAnimatedImageFromEncoded(buffer: ArrayBuffer): SkAnimatedImage;
     MakeCanvasSurface(canvas: HTMLCanvasElement): SkSurface;
-    MakeLinearGradientShader(start: SkPoint, end: SkPoint, colors: SkColor[], positions: number[], mode: number, localMatrix: SkMatrix | null, flags: number): SkShader;
-    MakeRadialGradientShader(center: SkPoint, radius: number, colors: SkColor[], positions: number[], mode: number, localMatrix: SkMatrix | null, flags: number): SkShader;
+    MakeLinearGradientShader(
+        start: SkPoint,
+        end: SkPoint,
+        colors: SkColor[],
+        positions: number[],
+        mode: number,
+        localMatrix: SkMatrix | null,
+        flags: number,
+    ): SkShader;
+    MakeRadialGradientShader(
+        center: SkPoint,
+        radius: number,
+        colors: SkColor[],
+        positions: number[],
+        mode: number,
+        localMatrix: SkMatrix | null,
+        flags: number,
+    ): SkShader;
     MakeSurface(width: number, height: number): SkSurface;
     MakeTwoPointConicalGradientShader(
         start: SkPoint,
@@ -79,189 +95,252 @@ export interface CanvasKit {
 
     // enums
 
-    readonly Affinity: SkEnum<SkAffinity, {
-        Downstream: SkAffinity;
-        Upstream: SkAffinity;
-    }>;
+    readonly Affinity: SkEnum<
+        SkAffinity,
+        {
+            Downstream: SkAffinity;
+            Upstream: SkAffinity;
+        }
+    >;
 
-    readonly AlphaType: SkEnum<SkAlphaType, {
-        Opaque: SkAlphaType;
-        Premul: SkAlphaType;
-        Unpremul: SkAlphaType;
-    }>;
+    readonly AlphaType: SkEnum<
+        SkAlphaType,
+        {
+            Opaque: SkAlphaType;
+            Premul: SkAlphaType;
+            Unpremul: SkAlphaType;
+        }
+    >;
 
-    readonly BlendMode: SkEnum<SkBlendMode, {
-        Clear: SkBlendMode;
-        Color: SkBlendMode;
-        ColorBurn: SkBlendMode;
-        ColorDodge: SkBlendMode;
-        Darken: SkBlendMode;
-        Difference: SkBlendMode;
-        Dst: SkBlendMode;
-        DstATop: SkBlendMode;
-        DstIn: SkBlendMode;
-        DstOut: SkBlendMode;
-        DstOver: SkBlendMode;
-        Exclusion: SkBlendMode;
-        HardLight: SkBlendMode;
-        Hue: SkBlendMode;
-        Lighten: SkBlendMode;
-        Luminosity: SkBlendMode;
-        Modulate: SkBlendMode;
-        Multiply: SkBlendMode;
-        Overlay: SkBlendMode;
-        Plus: SkBlendMode;
-        Saturation: SkBlendMode;
-        Screen: SkBlendMode;
-        SoftLight: SkBlendMode;
-        Src: SkBlendMode;
-        SrcATop: SkBlendMode;
-        SrcIn: SkBlendMode;
-        SrcOut: SkBlendMode;
-        SrcOver: SkBlendMode;
-        Xor: SkBlendMode;
-    }>;
+    readonly BlendMode: SkEnum<
+        SkBlendMode,
+        {
+            Clear: SkBlendMode;
+            Color: SkBlendMode;
+            ColorBurn: SkBlendMode;
+            ColorDodge: SkBlendMode;
+            Darken: SkBlendMode;
+            Difference: SkBlendMode;
+            Dst: SkBlendMode;
+            DstATop: SkBlendMode;
+            DstIn: SkBlendMode;
+            DstOut: SkBlendMode;
+            DstOver: SkBlendMode;
+            Exclusion: SkBlendMode;
+            HardLight: SkBlendMode;
+            Hue: SkBlendMode;
+            Lighten: SkBlendMode;
+            Luminosity: SkBlendMode;
+            Modulate: SkBlendMode;
+            Multiply: SkBlendMode;
+            Overlay: SkBlendMode;
+            Plus: SkBlendMode;
+            Saturation: SkBlendMode;
+            Screen: SkBlendMode;
+            SoftLight: SkBlendMode;
+            Src: SkBlendMode;
+            SrcATop: SkBlendMode;
+            SrcIn: SkBlendMode;
+            SrcOut: SkBlendMode;
+            SrcOver: SkBlendMode;
+            Xor: SkBlendMode;
+        }
+    >;
 
-    readonly BlurStyle: SkEnum<SkBlurStyle, {
-        Inner: SkBlurStyle;
-        Normal: SkBlurStyle;
-        Outer: SkBlurStyle;
-        Solid: SkBlurStyle;
-    }>;
+    readonly BlurStyle: SkEnum<
+        SkBlurStyle,
+        {
+            Inner: SkBlurStyle;
+            Normal: SkBlurStyle;
+            Outer: SkBlurStyle;
+            Solid: SkBlurStyle;
+        }
+    >;
 
-    readonly ClipOp: SkEnum<SkClipOp, {
-        Difference: SkClipOp;
-        Intersect: SkClipOp;
-    }>;
+    readonly ClipOp: SkEnum<
+        SkClipOp,
+        {
+            Difference: SkClipOp;
+            Intersect: SkClipOp;
+        }
+    >;
 
-    readonly ColorType: SkEnum<SkColorType, {
-        A16_float: SkColorType;
-        A16_unorm: SkColorType;
-        ARGB_4444: SkColorType;
-        Alpha_8: SkColorType;
-        BGRA_8888: SkColorType;
-        Gray_8: SkColorType;
-        R8G8_unorm: SkColorType;
-        R16G16B16A16_unorm: SkColorType;
-        R16G16_float: SkColorType;
-        R16G16_unorm: SkColorType;
-        RGBA_8888: SkColorType;
-        RGBA_1010102: SkColorType;
-        RGBA_F16: SkColorType;
-        RGBA_F32: SkColorType;
-        RGB_565: SkColorType;
-        RGB_888x: SkColorType;
-        RGB_101010x: SkColorType;
-    }>;
+    readonly ColorType: SkEnum<
+        SkColorType,
+        {
+            A16_float: SkColorType;
+            A16_unorm: SkColorType;
+            ARGB_4444: SkColorType;
+            Alpha_8: SkColorType;
+            BGRA_8888: SkColorType;
+            Gray_8: SkColorType;
+            R8G8_unorm: SkColorType;
+            R16G16B16A16_unorm: SkColorType;
+            R16G16_float: SkColorType;
+            R16G16_unorm: SkColorType;
+            RGBA_8888: SkColorType;
+            RGBA_1010102: SkColorType;
+            RGBA_F16: SkColorType;
+            RGBA_F32: SkColorType;
+            RGB_565: SkColorType;
+            RGB_888x: SkColorType;
+            RGB_101010x: SkColorType;
+        }
+    >;
 
-    readonly FillType: SkEnum<SkFillType, {
-        EvenOdd: SkFillType;
-        InverseEvenOdd: SkFillType;
-        InverseWinding: SkFillType;
-        Winding: SkFillType;
-    }>;
+    readonly FillType: SkEnum<
+        SkFillType,
+        {
+            EvenOdd: SkFillType;
+            InverseEvenOdd: SkFillType;
+            InverseWinding: SkFillType;
+            Winding: SkFillType;
+        }
+    >;
 
-    readonly FilterQuality: SkEnum<SkFilterQuality, {
-        High: SkFilterQuality,
-        Low: SkFilterQuality,
-        Medium: SkFilterQuality,
-        None: SkFilterQuality,
-    }>;
+    readonly FilterQuality: SkEnum<
+        SkFilterQuality,
+        {
+            High: SkFilterQuality;
+            Low: SkFilterQuality;
+            Medium: SkFilterQuality;
+            None: SkFilterQuality;
+        }
+    >;
 
-    readonly FontSlant: SkEnum<SkFontSlant, {
-        Italic: SkFontSlant;
-        Oblique: SkFontSlant;
-        Upright: SkFontSlant;
-    }>;
+    readonly FontSlant: SkEnum<
+        SkFontSlant,
+        {
+            Italic: SkFontSlant;
+            Oblique: SkFontSlant;
+            Upright: SkFontSlant;
+        }
+    >;
 
-    readonly FontWeight: SkEnum<SkFontWeight, {
-        ExtraBlack: SkFontWeight;
-        Black: SkFontWeight;
-        ExtraBold: SkFontWeight;
-        Bold: SkFontWeight;
-        SemiBold: SkFontWeight;
-        Medium: SkFontWeight;
-        Normal: SkFontWeight;
-        Light: SkFontWeight;
-        ExtraLight: SkFontWeight;
-        Thin: SkFontWeight;
-    }>;
+    readonly FontWeight: SkEnum<
+        SkFontWeight,
+        {
+            ExtraBlack: SkFontWeight;
+            Black: SkFontWeight;
+            ExtraBold: SkFontWeight;
+            Bold: SkFontWeight;
+            SemiBold: SkFontWeight;
+            Medium: SkFontWeight;
+            Normal: SkFontWeight;
+            Light: SkFontWeight;
+            ExtraLight: SkFontWeight;
+            Thin: SkFontWeight;
+        }
+    >;
 
-    readonly FontWidth: SkEnum<SkFontWidth, {
-        Condensed: SkFontWidth;
-        Expanded: SkFontWidth;
-        ExtraCondensed: SkFontWidth;
-        ExtraExpanded: SkFontWidth;
-        Normal: SkFontWidth;
-        SemiCondensed: SkFontWidth;
-        SemiExpanded: SkFontWidth;
-        UltraCondensed: SkFontWidth;
-        UltraExpanded: SkFontWidth;
-    }>;
+    readonly FontWidth: SkEnum<
+        SkFontWidth,
+        {
+            Condensed: SkFontWidth;
+            Expanded: SkFontWidth;
+            ExtraCondensed: SkFontWidth;
+            ExtraExpanded: SkFontWidth;
+            Normal: SkFontWidth;
+            SemiCondensed: SkFontWidth;
+            SemiExpanded: SkFontWidth;
+            UltraCondensed: SkFontWidth;
+            UltraExpanded: SkFontWidth;
+        }
+    >;
 
-    readonly ImageFormat: SkEnum<SkImageFormat, {
-        JPEG: SkImageFormat;
-        PNG: SkImageFormat;
-    }>;
+    readonly ImageFormat: SkEnum<
+        SkImageFormat,
+        {
+            JPEG: SkImageFormat;
+            PNG: SkImageFormat;
+        }
+    >;
 
-    readonly PaintStyle: SkEnum<SkPaintStyle, {
-        Fill: SkPaintStyle,
-        Stroke: SkPaintStyle,
-        StrokeAndFill: SkPaintStyle,
-    }>;
+    readonly PaintStyle: SkEnum<
+        SkPaintStyle,
+        {
+            Fill: SkPaintStyle;
+            Stroke: SkPaintStyle;
+            StrokeAndFill: SkPaintStyle;
+        }
+    >;
 
-    readonly PathOp: SkEnum<SkPathOp, {
-        Difference: SkPathOp;
-        Intersect: SkPathOp;
-        ReverseDifference: SkPathOp;
-        Union: SkPathOp;
-        XOR: SkPathOp;
-    }>;
+    readonly PathOp: SkEnum<
+        SkPathOp,
+        {
+            Difference: SkPathOp;
+            Intersect: SkPathOp;
+            ReverseDifference: SkPathOp;
+            Union: SkPathOp;
+            XOR: SkPathOp;
+        }
+    >;
 
-    readonly PointMode: SkEnum<SkPointMode, {
-        Lines: SkPointMode,
-        Points: SkPointMode,
-        Polygon: SkPointMode,
-    }>;
+    readonly PointMode: SkEnum<
+        SkPointMode,
+        {
+            Lines: SkPointMode;
+            Points: SkPointMode;
+            Polygon: SkPointMode;
+        }
+    >;
 
-    readonly StrokeCap: SkEnum<SkStrokeCap, {
-        Butt: SkStrokeCap;
-        Round: SkStrokeCap;
-        Square: SkStrokeCap;
-    }>;
+    readonly StrokeCap: SkEnum<
+        SkStrokeCap,
+        {
+            Butt: SkStrokeCap;
+            Round: SkStrokeCap;
+            Square: SkStrokeCap;
+        }
+    >;
 
-    readonly StrokeJoin: SkEnum<SkStrokeJoin, {
-        Bevel: SkStrokeJoin;
-        Miter: SkStrokeJoin;
-        Round: SkStrokeJoin;
-    }>;
+    readonly StrokeJoin: SkEnum<
+        SkStrokeJoin,
+        {
+            Bevel: SkStrokeJoin;
+            Miter: SkStrokeJoin;
+            Round: SkStrokeJoin;
+        }
+    >;
 
-    readonly TextAlign: SkEnum<SkTextAlign, {
-        Center: SkTextAlign,
-        End: SkTextAlign,
-        Justify: SkTextAlign,
-        Left: SkTextAlign,
-        Right: SkTextAlign,
-        Start: SkTextAlign,
-    }>;
+    readonly TextAlign: SkEnum<
+        SkTextAlign,
+        {
+            Center: SkTextAlign;
+            End: SkTextAlign;
+            Justify: SkTextAlign;
+            Left: SkTextAlign;
+            Right: SkTextAlign;
+            Start: SkTextAlign;
+        }
+    >;
 
-    readonly TextDirection: SkEnum<SkTextDirection, {
-        LTR: SkTextDirection,
-        RTL: SkTextDirection,
-    }>;
+    readonly TextDirection: SkEnum<
+        SkTextDirection,
+        {
+            LTR: SkTextDirection;
+            RTL: SkTextDirection;
+        }
+    >;
 
-    readonly TileMode: SkEnum<SkTileMode, {
-        Clamp: SkTileMode;
-        Decal: SkTileMode;
-        Mirror: SkTileMode;
-        Repeat: SkTileMode;
-    }>;
+    readonly TileMode: SkEnum<
+        SkTileMode,
+        {
+            Clamp: SkTileMode;
+            Decal: SkTileMode;
+            Mirror: SkTileMode;
+            Repeat: SkTileMode;
+        }
+    >;
 
-    readonly VertexMode: SkEnum<SkVertexMode, {
-        TriangleFan: SkVertexMode;
-        Triangles: SkVertexMode;
-        TrianglesStrip: SkVertexMode;
-    }>;
+    readonly VertexMode: SkEnum<
+        SkVertexMode,
+        {
+            TriangleFan: SkVertexMode;
+            Triangles: SkVertexMode;
+            TrianglesStrip: SkVertexMode;
+        }
+    >;
 }
 
 // interfaces
@@ -392,13 +471,42 @@ export interface SkPath extends SkObject<SkPath> {
     addArc(oval: SkRect, startAngle: number, sweepAngle: number): void;
     addOval(oval: SkRect, isCCW: boolean, startIndex: number): void;
     addPath(path: SkPath, extend?: boolean): void;
-    addPath(path: SkPath, m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, extend?: boolean): void;
-    addPath(path: SkPath, m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number, extend?: boolean): void;
+    addPath(
+        path: SkPath,
+        m00: number,
+        m01: number,
+        m02: number,
+        m10: number,
+        m11: number,
+        m12: number,
+        extend?: boolean,
+    ): void;
+    addPath(
+        path: SkPath,
+        m00: number,
+        m01: number,
+        m02: number,
+        m10: number,
+        m11: number,
+        m12: number,
+        m20: number,
+        m21: number,
+        m22: number,
+        extend?: boolean,
+    ): void;
     addPoly(points: SkPoint[], close: boolean): void;
     addRect(rect: SkRect, isCCW?: boolean): void;
     addRect(left: number, top: number, right: number, bottom: number, isCCW?: boolean): void;
     addRoundRect(rect: SkRect, rx: number, ry: number, isCCW: boolean): void;
-    addRoundRect(left: number, top: number, right: number, bottom: number, rx: number, ry: number, isCCW: boolean): void;
+    addRoundRect(
+        left: number,
+        top: number,
+        right: number,
+        bottom: number,
+        rx: number,
+        ry: number,
+        isCCW: boolean,
+    ): void;
     arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, isCCW: boolean): void;
     arcTo(oval: SkRect, startAngle: number, sweepAngle: number, forceMoveTo: boolean): void;
     close(): void;
@@ -416,7 +524,15 @@ export interface SkPath extends SkObject<SkPath> {
     offset(dx: number, dy: number): void;
     op(other: SkPath, op: SkPathOp): void;
     quadTo(cpx: number, cpy: number, x: number, y: number): void;
-    rArcTo(rx: number, ry: number, xAxisRotate: number, useSmallArc: boolean, isCCW: boolean, dx: number, dy: number): void;
+    rArcTo(
+        rx: number,
+        ry: number,
+        xAxisRotate: number,
+        useSmallArc: boolean,
+        isCCW: boolean,
+        dx: number,
+        dy: number,
+    ): void;
     rConicTo(dx1: number, dy1: number, dx2: number, dy2: number, w: number): void;
     rCubicTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
     rLineTo(dx: number, dy: number): void;
@@ -431,7 +547,17 @@ export interface SkPath extends SkObject<SkPath> {
     toCmds(): SkPathCommand[];
     toSVGString(): string;
     transform(matrix: SkMatrix): void;
-    transform(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): void;
+    transform(
+        m00: number,
+        m01: number,
+        m02: number,
+        m10: number,
+        m11: number,
+        m12: number,
+        m20: number,
+        m21: number,
+        m22: number,
+    ): void;
     trim(startT: any, stopT: any, isComplement: boolean): void;
 }
 
@@ -481,7 +607,15 @@ export interface SkCanvas extends SkObject<SkCanvas> {
     getSaveCount(): number;
     getTotalMatrix(): SkMatrix;
     makeSurface(info: SkImageInfo): SkSurface;
-    readPixels(x: number, y: number, w: number, h: number, alphaType?: SkAlphaType, colorType?: SkColorType, dstRowBytes?: number): Uint8Array;
+    readPixels(
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        alphaType?: SkAlphaType,
+        colorType?: SkColorType,
+        dstRowBytes?: number,
+    ): Uint8Array;
     restore(): void;
     restoreToCount(count: number): void;
     rotate(degree: number, px: number, py: number): void;
@@ -490,7 +624,15 @@ export interface SkCanvas extends SkObject<SkCanvas> {
     scale(sx: number, sy: number): void;
     skew(sx: number, sy: number): void;
     translate(x: number, y: number): void;
-    writePixels(pixels: Uint8Array, srcWidth: number, srcHeight: number, destX: number, destY: number, alphaType?: SkAlphaType, colorType?: SkColorType): void;
+    writePixels(
+        pixels: Uint8Array,
+        srcWidth: number,
+        srcHeight: number,
+        destX: number,
+        destY: number,
+        alphaType?: SkAlphaType,
+        colorType?: SkColorType,
+    ): void;
 }
 
 export interface SkPaint extends SkObject<SkPaint> {

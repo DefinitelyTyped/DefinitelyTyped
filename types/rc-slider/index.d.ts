@@ -12,14 +12,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import { RCTooltip } from "rc-tooltip";
+import * as React from 'react';
+import { RCTooltip } from 'rc-tooltip';
 
 export interface Marks {
-    [number: number]:
-        | JSX.Element
-        | string
-        | { style: any; label: string | JSX.Element };
+    [number: number]: JSX.Element | string | { style: any; label: string | JSX.Element };
 }
 
 export interface CommonApiProps {
@@ -217,10 +214,10 @@ export interface HandleProps extends CommonApiProps {
      * Styling option offset
      */
     offset: number;
-   /**
-    * Set the tabIndex of the slider handle.
-    * @default 0
-    */
+    /**
+     * Set the tabIndex of the slider handle.
+     * @default 0
+     */
     tabIndex?: number;
 }
 
@@ -234,8 +231,6 @@ export class Range extends React.Component<RangeProps> {}
 export class Handle extends React.Component<HandleProps> {}
 
 export function createSliderWithTooltip(
-    slider: typeof Slider
+    slider: typeof Slider,
 ): new () => React.Component<WithTooltipProps & SliderProps>;
-export function createSliderWithTooltip(
-    range: typeof Range
-): new () => React.Component<WithTooltipProps & RangeProps>;
+export function createSliderWithTooltip(range: typeof Range): new () => React.Component<WithTooltipProps & RangeProps>;

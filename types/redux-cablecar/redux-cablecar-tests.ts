@@ -8,8 +8,8 @@ cablecar.setProvider('testProvider');
 const car = cablecar.connect(store, 'testChannel');
 
 const options: Options = {
-    connected: () => { },
-    prefix: 'ASDF'
+    connected: () => {},
+    prefix: 'ASDF',
 };
 
 const anotherCar = cablecar.connect(store, 'secondeTestChannel', options);

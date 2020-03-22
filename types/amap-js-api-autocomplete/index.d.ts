@@ -112,7 +112,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: Autocomplete.SearchStatus, result: Autocomplete.SearchResult | string) => void
+            callback: (status: Autocomplete.SearchStatus, result: Autocomplete.SearchResult | string) => void,
         ): void;
         /**
          * 设置提示Poi类型，多个类型用“|”分隔

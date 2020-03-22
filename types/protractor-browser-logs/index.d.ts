@@ -27,10 +27,13 @@ declare namespace browserLogs {
         reset(): void;
         logs(): Entry[];
         verify(): void;
-        ignore(... matches: matchPredicate[]): matchPredicateFunction[];
-        expect(... matches: matchPredicate[]): matchPredicateFunction[];
+        ignore(...matches: matchPredicate[]): matchPredicateFunction[];
+        expect(...matches: matchPredicate[]): matchPredicateFunction[];
     }
 }
 
 export = browserLogs;
-declare function browserLogs(browser: ProtractorBrowser, options?: browserLogs.BrowserLogOptions): browserLogs.BrowserLogs;
+declare function browserLogs(
+    browser: ProtractorBrowser,
+    options?: browserLogs.BrowserLogOptions,
+): browserLogs.BrowserLogs;

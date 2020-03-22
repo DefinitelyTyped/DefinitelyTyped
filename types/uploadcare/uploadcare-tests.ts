@@ -1,7 +1,7 @@
-import * as Uploadcare from "uploadcare";
+import * as Uploadcare from 'uploadcare';
 
-const uploadcare = Uploadcare("", "");
+const uploadcare = Uploadcare('', '');
 
-uploadcare.file.fromUrl("", {}, (err, res) => {
+uploadcare.file.fromUrl('', {}, (err, res) => {
     const file: Uploadcare.File = res;
 });

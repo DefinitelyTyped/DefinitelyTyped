@@ -148,13 +148,18 @@ interface Video {
 
     fnExtractFrameToJPG(destinationFolder: string, settings: FrameToJPGSettings, callback: SaveCallback): void;
 
-    fnAddWatermark(watermarkPath: string, newPilePath: string, settings: WatermarkSettings, callback: SaveCallback): void;
+    fnAddWatermark(
+        watermarkPath: string,
+        newPilePath: string,
+        settings: WatermarkSettings,
+        callback: SaveCallback,
+    ): void;
 
     metadata: StandardVideoMetadata & AVIMetadata & FLVMetadata;
 }
 
 interface Iffmpeg {
-    new(filePath: string, cb?: (err: Error, video: Video) => void): Promise<Video>;
+    new (filePath: string, cb?: (err: Error, video: Video) => void): Promise<Video>;
 }
 
 declare var ffmpeg: Iffmpeg;

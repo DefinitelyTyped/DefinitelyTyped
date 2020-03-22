@@ -1,11 +1,11 @@
-import jsen = require("jsen");
+import jsen = require('jsen');
 import JsenSettings = jsen.JsenSettings;
 
 // any
 {
     // passes validation on any type
     {
-        const schema = { type: "any" };
+        const schema = { type: 'any' };
         const validate = jsen(schema);
 
         console.assert(validate(null));
@@ -101,35 +101,40 @@ import JsenSettings = jsen.JsenSettings;
                 type: 'object',
                 properties: {
                     strProp: { type: 'string' },
-                    boolProp: { type: 'boolean' }
+                    boolProp: { type: 'boolean' },
                 },
-                required: ['strProp']
-            }
+                required: ['strProp'],
+            },
         };
 
         validate = jsen(schema);
 
         console.assert(!validate([123]));
         console.assert(!validate([{}]));
-        console.assert(!validate([{
-            strProp: 'value',
-            boolProp: 123
-        }]));
+        console.assert(
+            !validate([
+                {
+                    strProp: 'value',
+                    boolProp: 123,
+                },
+            ]),
+        );
 
-        console.assert(validate([{
-            strProp: 'value',
-            boolProp: false
-        }]));
+        console.assert(
+            validate([
+                {
+                    strProp: 'value',
+                    boolProp: false,
+                },
+            ]),
+        );
     }
 
     // items: array
     {
         const schema = {
             type: 'array',
-            items: [
-                { type: 'string' },
-                { type: 'number' }
-            ]
+            items: [{ type: 'string' }, { type: 'number' }],
         };
 
         const validate = jsen(schema);
@@ -161,10 +166,7 @@ import JsenSettings = jsen.JsenSettings;
         console.assert(validate([1]));
         console.assert(validate([1, 2, 3]));
 
-        schema.items = [
-            { type: 'string' },
-            { type: 'number' }
-        ];
+        schema.items = [{ type: 'string' }, { type: 'number' }];
         validate = jsen(schema);
 
         console.assert(!validate(['a', 1, 2]));
@@ -181,11 +183,11 @@ import JsenSettings = jsen.JsenSettings;
         let schema: any = {
             type: 'array',
             items: {
-                type: 'string'
+                type: 'string',
             },
             additionalItems: {
-                type: 'number'
-            }
+                type: 'number',
+            },
         };
 
         let validate = jsen(schema);
@@ -197,10 +199,7 @@ import JsenSettings = jsen.JsenSettings;
 
         // when `items` is an array, any other positional
         // data item must validate against `additionalItems`
-        schema.items = [
-            { type: 'string' },
-            { type: 'boolean' }
-        ];
+        schema.items = [{ type: 'string' }, { type: 'boolean' }];
         validate = jsen(schema);
 
         console.assert(!validate(['abc', false, 'def']));
@@ -221,7 +220,7 @@ import JsenSettings = jsen.JsenSettings;
         let schema = {
             type: 'array',
             items: { type: 'number' },
-            uniqueItems: false
+            uniqueItems: false,
         };
 
         let validate = jsen(schema);
@@ -299,15 +298,7 @@ import JsenSettings = jsen.JsenSettings;
     // does not modify initial defined value
     {
         const validate = jsen({ type: 'string', default: 'abc' });
-        const initials = [
-            null,
-            '',
-            'string value',
-            true,
-            false,
-            123,
-            Math.PI
-        ];
+        const initials = [null, '', 'string value', true, false, 123, Math.PI];
 
         let obj: any;
 
@@ -320,11 +311,7 @@ import JsenSettings = jsen.JsenSettings;
     // returns a copy of initial defined value
     {
         const validate = jsen({ type: 'string', default: 'abc' });
-        const initials = [
-            {},
-            [],
-            new Date()
-        ];
+        const initials = [{}, [], new Date()];
 
         let obj: any;
 
@@ -338,19 +325,7 @@ import JsenSettings = jsen.JsenSettings;
     // returns initial if no default in schema
     {
         const validate = jsen({}),
-            initials = [
-                undefined,
-                null,
-                '',
-                'string value',
-                true,
-                false,
-                123,
-                Math.PI,
-                {},
-                [],
-                new Date()
-            ];
+            initials = [undefined, null, '', 'string value', true, false, 123, Math.PI, {}, [], new Date()];
 
         let obj: any;
 
@@ -370,7 +345,7 @@ import JsenSettings = jsen.JsenSettings;
             { default: true },
             { default: false },
             { default: 123 },
-            { default: Math.PI }
+            { default: Math.PI },
         ];
 
         schemas.forEach((schema) => {
@@ -385,7 +360,7 @@ import JsenSettings = jsen.JsenSettings;
             { default: { a: { b: 123 } } },
             { default: [[1, 2, 3], { a: { b: 123 } }] },
             { default: /\d+/ },
-            { default: new Date('05/14/2015') }
+            { default: new Date('05/14/2015') },
         ];
 
         schemas.forEach((schema) => {
@@ -407,16 +382,16 @@ import JsenSettings = jsen.JsenSettings;
                     type: 'array',
                     default: [],
                     items: {
-                        type: 'string'
-                    }
+                        type: 'string',
+                    },
                 },
                 b: {
                     type: 'array',
                     default: [],
                     items: {
                         type: 'string',
-                        default: 'abc'
-                    }
+                        default: 'abc',
+                    },
                 },
                 c: {
                     type: 'object',
@@ -424,40 +399,44 @@ import JsenSettings = jsen.JsenSettings;
                     properties: {
                         d: {
                             type: 'boolean',
-                            default: false
+                            default: false,
                         },
                         e: {
                             type: 'date',
-                            default: new Date('05/14/2015')
+                            default: new Date('05/14/2015'),
                         },
                         f: {
                             type: 'array',
                             default: [{}, {}],
-                            items: [{
-                                type: 'object',
-                                properties: {
-                                    g: {
-                                        type: 'string',
-                                        default: 'yes'
-                                    }
-                                }
-                            }, {
-                                type: 'object',
-                                properties: {
-                                    g: {
-                                        type: 'integer',
-                                        default: 0
-                                    }
-                                }
-                            }, {
-                                type: 'object',
-                                properties: {
-                                    g: {
-                                        type: 'boolean',
-                                        default: true
-                                    }
-                                }
-                            }]
+                            items: [
+                                {
+                                    type: 'object',
+                                    properties: {
+                                        g: {
+                                            type: 'string',
+                                            default: 'yes',
+                                        },
+                                    },
+                                },
+                                {
+                                    type: 'object',
+                                    properties: {
+                                        g: {
+                                            type: 'integer',
+                                            default: 0,
+                                        },
+                                    },
+                                },
+                                {
+                                    type: 'object',
+                                    properties: {
+                                        g: {
+                                            type: 'boolean',
+                                            default: true,
+                                        },
+                                    },
+                                },
+                            ],
                         },
                         h: {
                             type: 'array',
@@ -467,10 +446,10 @@ import JsenSettings = jsen.JsenSettings;
                                 properties: {
                                     i: {
                                         type: 'object',
-                                        default: { foo: 'bar' }
-                                    }
-                                }
-                            }
+                                        default: { foo: 'bar' },
+                                    },
+                                },
+                            },
                         },
                         i: {
                             type: 'object',
@@ -478,22 +457,22 @@ import JsenSettings = jsen.JsenSettings;
                             properties: {
                                 j: {
                                     type: 'string',
-                                    default: 'baz'
-                                }
-                            }
-                        }
-                    }
+                                    default: 'baz',
+                                },
+                            },
+                        },
+                    },
                 },
                 j: {
                     type: 'object',
                     properties: {
                         k: {
                             type: 'boolean',
-                            default: false
-                        }
-                    }
-                }
-            }
+                            default: false,
+                        },
+                    },
+                },
+            },
         };
 
         const expected: any = {
@@ -502,16 +481,10 @@ import JsenSettings = jsen.JsenSettings;
             c: {
                 d: false,
                 e: new Date('05/14/2015'),
-                f: [
-                    { g: 'yes' },
-                    { g: 0 }
-                ],
-                h: [
-                    { i: { foo: 'bar' } },
-                    { i: { foo: 'bar' } }
-                ],
-                i: null
-            }
+                f: [{ g: 'yes' }, { g: 0 }],
+                h: [{ i: { foo: 'bar' } }, { i: { foo: 'bar' } }],
+                i: null,
+            },
         };
 
         const validate = jsen(schema);
@@ -523,58 +496,42 @@ import JsenSettings = jsen.JsenSettings;
         const schemas = [
             {
                 properties: {
-                    foo: { default: 'bar' }
-                }
+                    foo: { default: 'bar' },
+                },
             },
             {
                 properties: {
-                    foo: { default: 'bar' }
-                }
+                    foo: { default: 'bar' },
+                },
             },
             {
                 properties: {
-                    foo: { default: 'bar' }
-                }
+                    foo: { default: 'bar' },
+                },
             },
             {
                 items: {
                     properties: {
-                        foo: { default: 'bar' }
-                    }
-                }
+                        foo: { default: 'bar' },
+                    },
+                },
             },
             {
                 items: {
                     properties: {
-                        foo: { default: 'bar' }
-                    }
-                }
+                        foo: { default: 'bar' },
+                    },
+                },
             },
             {
-                items: [
-                    { default: 'foo' },
-                    { default: 'bar' },
-                    { default: 'baz' }
-                ]
+                items: [{ default: 'foo' }, { default: 'bar' }, { default: 'baz' }],
             },
             {
-                items: [
-                    { default: 'foo' },
-                    { default: 'bar' },
-                    { default: 'baz' }
-                ]
-            }
+                items: [{ default: 'foo' }, { default: 'bar' }, { default: 'baz' }],
+            },
         ];
 
-        const defaults = [
-            {},
-            { foo: 'baz' },
-            { x: 'yz' },
-            [],
-            [{}],
-            [],
-            [null, {}, undefined, false]
-        ];
+        const defaults = [{}, { foo: 'baz' }, { x: 'yz' }, [], [{}], [], [null, {}, undefined, false]];
 
         const expected = [
             { foo: 'bar' },
@@ -583,7 +540,7 @@ import JsenSettings = jsen.JsenSettings;
             [],
             [{ foo: 'bar' }],
             ['foo', 'bar', 'baz'],
-            [null, {}, 'baz', false]
+            [null, {}, 'baz', false],
         ];
 
         schemas.forEach((schema, index) => {
@@ -599,10 +556,10 @@ import JsenSettings = jsen.JsenSettings;
                 positiveInteger: {
                     type: 'integer',
                     minimum: 1,
-                    default: 7
-                }
+                    default: 7,
+                },
             },
-            $ref: '#definitions/positiveInteger'
+            $ref: '#definitions/positiveInteger',
         };
 
         const validate = jsen(schema);
@@ -618,9 +575,9 @@ import JsenSettings = jsen.JsenSettings;
                 properties: {
                     foo: {
                         type: 'string',
-                        default: 'bar'
-                    }
-                }
+                        default: 'bar',
+                    },
+                },
             };
 
             const expected = { foo: 'bar' };
@@ -636,9 +593,9 @@ import JsenSettings = jsen.JsenSettings;
                 properties: {
                     foo: {
                         type: 'string',
-                        default: 'bar'
-                    }
-                }
+                        default: 'bar',
+                    },
+                },
             };
 
             const expected: any = [];
@@ -656,8 +613,8 @@ import JsenSettings = jsen.JsenSettings;
                 default: [],
                 items: {
                     type: 'string',
-                    default: 'bar'
-                }
+                    default: 'bar',
+                },
             };
 
             const expected: any = [];
@@ -670,10 +627,12 @@ import JsenSettings = jsen.JsenSettings;
         {
             const schema: any = {
                 default: [],
-                items: [{
-                    type: 'string',
-                    default: 'bar'
-                }]
+                items: [
+                    {
+                        type: 'string',
+                        default: 'bar',
+                    },
+                ],
             };
 
             const expected = ['bar'];
@@ -690,10 +649,10 @@ import JsenSettings = jsen.JsenSettings;
                     properties: {
                         foo: {
                             type: 'string',
-                            default: 'bar'
-                        }
-                    }
-                }
+                            default: 'bar',
+                        },
+                    },
+                },
             };
 
             const expected: any = [{ foo: 'bar' }, null, []];
@@ -711,14 +670,14 @@ import JsenSettings = jsen.JsenSettings;
                         properties: {
                             foo: {
                                 type: 'string',
-                                default: 'bar'
-                            }
-                        }
+                                default: 'bar',
+                            },
+                        },
                     },
                     { default: 'abc' },
                     { default: 123 },
-                    { default: 123 }
-                ]
+                    { default: 123 },
+                ],
             };
 
             const expected = [{ foo: 'bar' }, null, {}, 123];
@@ -733,8 +692,8 @@ import JsenSettings = jsen.JsenSettings;
                 default: 'foobar',
                 items: {
                     type: 'string',
-                    default: 'bar'
-                }
+                    default: 'bar',
+                },
             };
 
             const expected = 'foobar';
@@ -766,11 +725,11 @@ import JsenSettings = jsen.JsenSettings;
                         items: {
                             properties: {
                                 c: { default: 'bar' },
-                                d: { default: 'baz' }
-                            }
-                        }
-                    }
-                }
+                                d: { default: 'baz' },
+                            },
+                        },
+                    },
+                },
             };
 
             const initial = { b: [{ d: 'xyz' }] };
@@ -790,8 +749,8 @@ import JsenSettings = jsen.JsenSettings;
         {
             const schema = {
                 properties: {
-                    foo: {}
-                }
+                    foo: {},
+                },
             };
 
             const initial = { foo: 1, bar: 2 };
@@ -806,8 +765,8 @@ import JsenSettings = jsen.JsenSettings;
             const schema = {
                 additionalProperties: false,
                 properties: {
-                    foo: {}
-                }
+                    foo: {},
+                },
             };
 
             const initial = { foo: 1, bar: 2 };
@@ -822,8 +781,8 @@ import JsenSettings = jsen.JsenSettings;
             const schema = {
                 additionalProperties: false,
                 properties: {
-                    foo: {}
-                }
+                    foo: {},
+                },
             };
 
             const initial = { foo: 1, bar: 2 };
@@ -840,8 +799,8 @@ import JsenSettings = jsen.JsenSettings;
         {
             const schema = {
                 properties: {
-                    foo: {}
-                }
+                    foo: {},
+                },
             };
 
             const initial = { foo: 1, bar: 2 };
@@ -850,7 +809,7 @@ import JsenSettings = jsen.JsenSettings;
             const validate = jsen(schema);
             const actual = validate.build(initial, {
                 copy: false,
-                additionalProperties: false
+                additionalProperties: false,
             });
 
             console.assert(actual === initial);
@@ -862,15 +821,17 @@ import JsenSettings = jsen.JsenSettings;
             const schema = {
                 additionalProperties: true,
                 properties: {
-                    foo: {}
-                }
+                    foo: {},
+                },
             };
 
             const initial = { foo: 1, bar: 2 };
             const expected = { foo: 1, bar: 2 };
 
             const validate = jsen(schema);
-            console.assert(JSON.stringify(validate.build(initial, { additionalProperties: false })) === JSON.stringify(expected));
+            console.assert(
+                JSON.stringify(validate.build(initial, { additionalProperties: false })) === JSON.stringify(expected),
+            );
         }
     }
 }
@@ -901,8 +862,7 @@ import JsenSettings = jsen.JsenSettings;
 
     // function
     {
-        const func = () => {
-        };
+        const func = () => {};
         console.assert(clone(func) === func);
     }
 
@@ -1019,10 +979,8 @@ import JsenSettings = jsen.JsenSettings;
 
     // function
     {
-        const f1 = () => {
-        };
-        const f2 = () => {
-        };
+        const f1 = () => {};
+        const f2 = () => {};
         const f3 = f1;
 
         // two functions are only equal if they
@@ -1033,8 +991,7 @@ import JsenSettings = jsen.JsenSettings;
 
     // array
     {
-        const f = () => {
-        };
+        const f = () => {};
         const obj1 = { a: 123, b: 'abc', c: f };
         const obj2 = { a: 123, b: 'abc', c: f };
         const arr1 = [1, 'a', f, obj1];
@@ -1148,28 +1105,28 @@ import JsenSettings = jsen.JsenSettings;
     {
         const schemas = [
             {
-                type: 'number'
+                type: 'number',
             },
 
             {
                 type: 'object',
                 properties: {
                     a: {
-                        type: 'string'
-                    }
-                }
+                        type: 'string',
+                    },
+                },
             },
 
             {
                 type: 'array',
-                uniqueItems: true
+                uniqueItems: true,
             },
 
             {
                 type: 'array',
                 items: {
-                    maximum: 10
-                }
+                    maximum: 10,
+                },
             },
 
             {
@@ -1177,50 +1134,45 @@ import JsenSettings = jsen.JsenSettings;
                 properties: {
                     a: {
                         type: 'array',
-                        items: [{
-                            type: 'object',
-                            properties: {
-                                b: {
-                                    multipleOf: 7
-                                }
-                            }
-                        }]
-                    }
-                }
+                        items: [
+                            {
+                                type: 'object',
+                                properties: {
+                                    b: {
+                                        multipleOf: 7,
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                },
             },
 
             {
-                allOf: [
-                    { minimum: 5 },
-                    { maximum: 10 }
-                ]
+                allOf: [{ minimum: 5 }, { maximum: 10 }],
             },
 
             {
                 type: 'object',
                 properties: {
                     a: {
-                        anyOf: [
-                            { type: 'string' },
-                            { type: 'number' }
-                        ]
-                    }
-                }
+                        anyOf: [{ type: 'string' }, { type: 'number' }],
+                    },
+                },
             },
 
             {
                 type: 'array',
-                items: [{
-                    type: 'object',
-                    properties: {
-                        a: {
-                            oneOf: [
-                                { type: 'boolean' },
-                                { type: 'null' }
-                            ]
-                        }
-                    }
-                }]
+                items: [
+                    {
+                        type: 'object',
+                        properties: {
+                            a: {
+                                oneOf: [{ type: 'boolean' }, { type: 'null' }],
+                            },
+                        },
+                    },
+                ],
             },
 
             {
@@ -1228,10 +1180,10 @@ import JsenSettings = jsen.JsenSettings;
                 properties: {
                     a: {
                         not: {
-                            type: 'string'
-                        }
-                    }
-                }
+                            type: 'string',
+                        },
+                    },
+                },
             },
 
             {
@@ -1239,8 +1191,8 @@ import JsenSettings = jsen.JsenSettings;
                     positiveInteger: {
                         type: 'integer',
                         minimum: 0,
-                        exclusiveMinimum: true
-                    }
+                        exclusiveMinimum: true,
+                    },
                 },
                 type: 'object',
                 properties: {
@@ -1251,35 +1203,35 @@ import JsenSettings = jsen.JsenSettings;
                                 type: 'object',
                                 properties: {
                                     c: {
-                                        $ref: '#/definitions/positiveInteger'
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                                        $ref: '#/definitions/positiveInteger',
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
             },
 
             {
                 type: 'object',
-                required: ['a', 'b']
+                required: ['a', 'b'],
             },
 
             {
                 type: 'object',
                 dependencies: {
                     a: {
-                        required: ['b']
-                    }
-                }
+                        required: ['b'],
+                    },
+                },
             },
 
             {
                 type: 'object',
                 dependencies: {
-                    a: ['b']
-                }
-            }
+                    a: ['b'],
+                },
+            },
         ];
 
         const data = [
@@ -1295,7 +1247,7 @@ import JsenSettings = jsen.JsenSettings;
             { a: { b: { c: 0 } } },
             {},
             { a: 123 },
-            { a: 123 }
+            { a: 123 },
         ];
 
         // property: path
@@ -1313,7 +1265,7 @@ import JsenSettings = jsen.JsenSettings;
                 ['a.b.c'],
                 ['a'],
                 ['b'],
-                ['b']
+                ['b'],
             ];
 
             schemas.forEach((schema, index) => {
@@ -1325,8 +1277,7 @@ import JsenSettings = jsen.JsenSettings;
                 expectedPaths[index].forEach((path, pindex) => {
                     try {
                         console.assert(validate.errors[pindex].path === path);
-                    }
-                    catch (e) {
+                    } catch (e) {
                         // console.log(index);
                         // console.log(validate.errors);
                         throw e;
@@ -1350,7 +1301,7 @@ import JsenSettings = jsen.JsenSettings;
                 ['exclusiveMinimum'],
                 ['required'],
                 ['required'],
-                ['dependencies']
+                ['dependencies'],
             ];
 
             schemas.forEach((schema, index) => {
@@ -1362,8 +1313,7 @@ import JsenSettings = jsen.JsenSettings;
                 expectedKeywords[index].forEach((keyword, kindex) => {
                     try {
                         console.assert(validate.errors[kindex].keyword === keyword);
-                    }
-                    catch (e) {
+                    } catch (e) {
                         // console.log(index);
                         // console.log(validate.errors);
                         throw e;
@@ -1390,10 +1340,10 @@ import JsenSettings = jsen.JsenSettings;
                         type: 'array',
                         items: {
                             type: 'object',
-                            required: ['b']
-                        }
-                    }
-                }
+                            required: ['b'],
+                        },
+                    },
+                },
             };
 
             validate = jsen(schema);
@@ -1410,8 +1360,8 @@ import JsenSettings = jsen.JsenSettings;
             let schema: any = {
                 type: 'object',
                 dependencies: {
-                    a: ['b']
-                }
+                    a: ['b'],
+                },
             };
 
             let validate = jsen(schema);
@@ -1430,11 +1380,11 @@ import JsenSettings = jsen.JsenSettings;
                         items: {
                             type: 'object',
                             dependencies: {
-                                a: ['b']
-                            }
-                        }
-                    }
-                }
+                                a: ['b'],
+                            },
+                        },
+                    },
+                },
             };
 
             validate = jsen(schema);
@@ -1452,8 +1402,8 @@ import JsenSettings = jsen.JsenSettings;
         const schema = {
             definitions: {
                 array: {
-                    maxItems: 1
-                }
+                    maxItems: 1,
+                },
             },
             type: 'object',
             properties: {
@@ -1461,10 +1411,10 @@ import JsenSettings = jsen.JsenSettings;
                     anyOf: [
                         { items: { type: 'integer' } },
                         { $ref: '#/definitions/array' },
-                        { items: [{ maximum: 3 }] }
-                    ]
-                }
-            }
+                        { items: [{ maximum: 3 }] },
+                    ],
+                },
+            },
         };
 
         const data = { a: [Math.PI, Math.E] };
@@ -1487,7 +1437,7 @@ import JsenSettings = jsen.JsenSettings;
             {
                 type: 'string',
                 invalidMessage: 'string is invalid',
-                requiredMessage: 'string is required'
+                requiredMessage: 'string is required',
             },
             {
                 type: 'object',
@@ -1495,9 +1445,9 @@ import JsenSettings = jsen.JsenSettings;
                 properties: {
                     a: {
                         invalidMessage: 'a is invalid',
-                        requiredMessage: 'a is required'
-                    }
-                }
+                        requiredMessage: 'a is required',
+                    },
+                },
             },
             {
                 type: 'array',
@@ -1509,13 +1459,13 @@ import JsenSettings = jsen.JsenSettings;
                             properties: {
                                 b: {
                                     invalidMessage: 'b is invalid',
-                                    requiredMessage: 'b is required'
-                                }
+                                    requiredMessage: 'b is required',
+                                },
                             },
-                            required: ['b']
-                        }
-                    }
-                }
+                            required: ['b'],
+                        },
+                    },
+                },
             },
             {
                 type: 'object',
@@ -1526,27 +1476,17 @@ import JsenSettings = jsen.JsenSettings;
                             c: {
                                 type: 'string',
                                 invalidMessage: 'c is invalid',
-                                requiredMessage: 'c is required'
-                            }
-                        }
-                    }
-                }
-            }
+                                requiredMessage: 'c is required',
+                            },
+                        },
+                    },
+                },
+            },
         ];
 
-        const data = [
-            undefined,
-            {},
-            [{ a: {} }],
-            { a: { c: 123 } }
-        ];
+        const data = [undefined, {}, [{ a: {} }], { a: { c: 123 } }];
 
-        const expectedMessages = [
-            'string is invalid',
-            'a is required',
-            'b is required',
-            'c is invalid'
-        ];
+        const expectedMessages = ['string is invalid', 'a is required', 'b is required', 'c is invalid'];
 
         schemas.forEach((schema, index) => {
             //it(expectedMessages[index], function () {
@@ -1567,130 +1507,124 @@ import JsenSettings = jsen.JsenSettings;
             const schemas: any = [
                 {
                     type: 'string',
-                    messages: { type: 'custom message for keyword "type"' }
+                    messages: { type: 'custom message for keyword "type"' },
                 },
                 {
                     enum: [1, 2, 3],
-                    messages: { enum: 'custom message for keyword "enum"' }
+                    messages: { enum: 'custom message for keyword "enum"' },
                 },
                 {
                     minimum: 3,
-                    messages: { minimum: 'custom message for keyword "minimum"' }
+                    messages: { minimum: 'custom message for keyword "minimum"' },
                 },
                 {
                     minimum: 3,
                     exclusiveMinimum: true,
-                    messages: { exclusiveMinimum: 'custom message for keyword "exclusiveMinimum"' }
+                    messages: { exclusiveMinimum: 'custom message for keyword "exclusiveMinimum"' },
                 },
                 {
                     maximum: 10,
-                    messages: { maximum: 'custom message for keyword "maximum"' }
+                    messages: { maximum: 'custom message for keyword "maximum"' },
                 },
                 {
                     maximum: 10,
                     exclusiveMaximum: true,
-                    messages: { exclusiveMaximum: 'custom message for keyword "exclusiveMaximum"' }
+                    messages: { exclusiveMaximum: 'custom message for keyword "exclusiveMaximum"' },
                 },
                 {
                     multipleOf: 5,
-                    messages: { multipleOf: 'custom message for keyword "multipleOf"' }
+                    messages: { multipleOf: 'custom message for keyword "multipleOf"' },
                 },
                 {
                     minLength: 3,
-                    messages: { minLength: 'custom message for keyword "minLength"' }
+                    messages: { minLength: 'custom message for keyword "minLength"' },
                 },
                 {
                     maxLength: 5,
-                    messages: { maxLength: 'custom message for keyword "maxLength"' }
+                    messages: { maxLength: 'custom message for keyword "maxLength"' },
                 },
                 {
                     pattern: '\\d+',
-                    messages: { pattern: 'custom message for keyword "pattern"' }
+                    messages: { pattern: 'custom message for keyword "pattern"' },
                 },
                 {
                     format: 'email',
-                    messages: { format: 'custom message for keyword "format"' }
+                    messages: { format: 'custom message for keyword "format"' },
                 },
                 {
                     minItems: 1,
-                    messages: { minItems: 'custom message for keyword "minItems"' }
+                    messages: { minItems: 'custom message for keyword "minItems"' },
                 },
                 {
                     maxItems: 1,
-                    messages: { maxItems: 'custom message for keyword "maxItems"' }
+                    messages: { maxItems: 'custom message for keyword "maxItems"' },
                 },
                 {
                     additionalItems: false,
                     items: [{ type: 'string' }],
-                    messages: { additionalItems: 'custom message for keyword "additionalItems"' }
+                    messages: { additionalItems: 'custom message for keyword "additionalItems"' },
                 },
                 {
                     uniqueItems: true,
-                    messages: { uniqueItems: 'custom message for keyword "uniqueItems"' }
+                    messages: { uniqueItems: 'custom message for keyword "uniqueItems"' },
                 },
                 {
                     minProperties: 1,
-                    messages: { minProperties: 'custom message for keyword "minProperties"' }
+                    messages: { minProperties: 'custom message for keyword "minProperties"' },
                 },
                 {
                     maxProperties: 1,
-                    messages: { maxProperties: 'custom message for keyword "maxProperties"' }
+                    messages: { maxProperties: 'custom message for keyword "maxProperties"' },
                 },
                 {
                     required: ['foo'],
-                    messages: { required: 'custom message for keyword "required"' }
-                },
-                {
-                    required: ['foo'],
-                    properties: {
-                        foo: {
-                            messages: {
-                                required: 'custom message for keyword "required"'
-                            }
-                        }
-                    }
+                    messages: { required: 'custom message for keyword "required"' },
                 },
                 {
                     required: ['foo'],
                     properties: {
                         foo: {
                             messages: {
-                                required: 'this custom message for keyword "required" is assigned'
-                            }
-                        }
+                                required: 'custom message for keyword "required"',
+                            },
+                        },
                     },
-                    messages: { required: 'this custom message for keyword "required" is NOT assigned' }
+                },
+                {
+                    required: ['foo'],
+                    properties: {
+                        foo: {
+                            messages: {
+                                required: 'this custom message for keyword "required" is assigned',
+                            },
+                        },
+                    },
+                    messages: { required: 'this custom message for keyword "required" is NOT assigned' },
                 },
                 {
                     additionalProperties: false,
-                    messages: { additionalProperties: 'custom message for keyword "additionalProperties"' }
+                    messages: { additionalProperties: 'custom message for keyword "additionalProperties"' },
                 },
                 {
                     dependencies: {
-                        foo: ['bar']
+                        foo: ['bar'],
                     },
-                    messages: { dependencies: 'custom message for keyword "dependencies"' }
+                    messages: { dependencies: 'custom message for keyword "dependencies"' },
                 },
                 {
-                    anyOf: [
-                        { type: 'string' },
-                        { type: 'integer' }
-                    ],
-                    messages: { anyOf: 'custom message for keyword "anyOf"' }
+                    anyOf: [{ type: 'string' }, { type: 'integer' }],
+                    messages: { anyOf: 'custom message for keyword "anyOf"' },
                 },
                 {
-                    oneOf: [
-                        { type: 'string' },
-                        { type: 'integer' }
-                    ],
-                    messages: { oneOf: 'custom message for keyword "oneOf"' }
+                    oneOf: [{ type: 'string' }, { type: 'integer' }],
+                    messages: { oneOf: 'custom message for keyword "oneOf"' },
                 },
                 {
                     not: {
-                        type: 'string'
+                        type: 'string',
                     },
-                    messages: { not: 'custom message for keyword "not"' }
-                }
+                    messages: { not: 'custom message for keyword "not"' },
+                },
             ];
 
             const data = [
@@ -1718,7 +1652,7 @@ import JsenSettings = jsen.JsenSettings;
                 { foo: 'abc' },
                 null,
                 null,
-                'abc'
+                'abc',
             ];
 
             const expectedMessages = [
@@ -1746,7 +1680,7 @@ import JsenSettings = jsen.JsenSettings;
                 schemas[21].messages.dependencies,
                 schemas[22].messages.anyOf,
                 schemas[23].messages.oneOf,
-                schemas[24].messages.not
+                schemas[24].messages.not,
             ];
 
             schemas.forEach((schema: any, index: number) => {
@@ -1764,12 +1698,12 @@ import JsenSettings = jsen.JsenSettings;
                 items: {
                     type: 'string',
                     messages: {
-                        type: 'will be assigned'
-                    }
+                        type: 'will be assigned',
+                    },
                 },
                 messages: {
-                    items: 'will not be assigned'
-                }
+                    items: 'will not be assigned',
+                },
             };
 
             const validate = jsen(schema);
@@ -1783,15 +1717,17 @@ import JsenSettings = jsen.JsenSettings;
         // does not use custom messages on keyword: items (array)
         {
             const schema = {
-                items: [{
-                    type: 'string',
-                    messages: {
-                        type: 'will be assigned'
-                    }
-                }],
+                items: [
+                    {
+                        type: 'string',
+                        messages: {
+                            type: 'will be assigned',
+                        },
+                    },
+                ],
                 messages: {
-                    items: 'will not be assigned'
-                }
+                    items: 'will not be assigned',
+                },
             };
 
             const validate = jsen(schema);
@@ -1809,13 +1745,13 @@ import JsenSettings = jsen.JsenSettings;
                     foo: {
                         type: 'number',
                         messages: {
-                            type: 'will be assigned'
-                        }
-                    }
+                            type: 'will be assigned',
+                        },
+                    },
                 },
                 messages: {
-                    properties: 'will not be assigned'
-                }
+                    properties: 'will not be assigned',
+                },
             };
 
             const validate = jsen(schema);
@@ -1833,13 +1769,13 @@ import JsenSettings = jsen.JsenSettings;
                     '^foo$': {
                         type: 'number',
                         messages: {
-                            type: 'will be assigned'
-                        }
-                    }
+                            type: 'will be assigned',
+                        },
+                    },
                 },
                 messages: {
-                    patternProperties: 'will not be assigned'
-                }
+                    patternProperties: 'will not be assigned',
+                },
             };
 
             const validate = jsen(schema);
@@ -1857,13 +1793,13 @@ import JsenSettings = jsen.JsenSettings;
                     foo: {
                         minProperties: 2,
                         messages: {
-                            minProperties: 'will be assigned'
-                        }
-                    }
+                            minProperties: 'will be assigned',
+                        },
+                    },
                 },
                 messages: {
-                    dependencies: 'will not be assigned'
-                }
+                    dependencies: 'will not be assigned',
+                },
             };
 
             const validate = jsen(schema);
@@ -1881,27 +1817,27 @@ import JsenSettings = jsen.JsenSettings;
                     foo: {
                         minProperties: 2,
                         messages: {
-                            minProperties: 'will be assigned'
-                        }
-                    }
+                            minProperties: 'will be assigned',
+                        },
+                    },
                 },
                 allOf: [
                     {
                         minimum: 2,
                         messages: {
-                            minimum: 'will not be assigned'
-                        }
+                            minimum: 'will not be assigned',
+                        },
                     },
                     {
                         maximum: 5,
                         messages: {
-                            maximum: 'will be assigned'
-                        }
-                    }
+                            maximum: 'will be assigned',
+                        },
+                    },
                 ],
                 messages: {
-                    allOf: 'will not be assigned'
-                }
+                    allOf: 'will not be assigned',
+                },
             };
 
             const validate = jsen(schema);
@@ -1917,8 +1853,7 @@ import JsenSettings = jsen.JsenSettings;
 const doesThrow = (func: Function) => {
     try {
         func();
-    }
-    catch (e) {
+    } catch (e) {
         return true;
     }
 
@@ -1935,7 +1870,7 @@ const doesNotThrow = (func: Function) => {
     {
         const schema = {
             type: 'string',
-            pattern: '^/dev/[^/]+(/[^/]+)*$'
+            pattern: '^/dev/[^/]+(/[^/]+)*$',
         };
 
         console.assert(doesNotThrow(jsen(schema)));
@@ -1947,15 +1882,16 @@ const doesNotThrow = (func: Function) => {
             type: 'object',
             properties: {
                 123: {
-                    type: 'boolean'
-                }
-            }
+                    type: 'boolean',
+                },
+            },
         };
 
-        console.assert(doesNotThrow(() => {
+        console.assert(
+            doesNotThrow(() => {
                 let validate = jsen(schema);
                 console.assert(validate({ 123: true }));
-            })
+            }),
         );
     }
 
@@ -1966,19 +1902,19 @@ const doesNotThrow = (func: Function) => {
             definitions: {
                 child: {
                     id: '#child',
-                    type: 'string'
-                }
-            }
+                    type: 'string',
+                },
+            },
         };
 
-        console.assert(doesNotThrow(() => {
+        console.assert(
+            doesNotThrow(() => {
                 let validate = jsen(schema);
 
                 console.assert(validate('abc'));
                 console.assert(!validate(123));
-            })
+            }),
         );
-
 
         schema = {
             $ref: '#child/definitions/subchild',
@@ -1987,16 +1923,17 @@ const doesNotThrow = (func: Function) => {
                     id: '#child',
                     definitions: {
                         subchild: {
-                            type: 'number'
-                        }
-                    }
-                }
-            }
+                            type: 'number',
+                        },
+                    },
+                },
+            },
         };
 
-        console.assert(doesThrow(() => {
+        console.assert(
+            doesThrow(() => {
                 let validate = jsen(schema);
-            })
+            }),
         );
     }
 
@@ -2007,10 +1944,10 @@ const doesNotThrow = (func: Function) => {
             items: {
                 type: 'object',
                 properties: {
-                    foo: { $ref: '#' }
+                    foo: { $ref: '#' },
                 },
-                required: ['foo']
-            }
+                required: ['foo'],
+            },
         };
 
         const validate = jsen(schema);
@@ -2062,7 +1999,11 @@ const doesNotThrow = (func: Function) => {
         const maxLongHostname2 = new Array(9).join('.' + new Array(32).join('a')).substr(1); // 255 chars (8 groups x 31 chars)
 
         console.assert(validate('me@domain'));
-        console.assert(validate('first.last+plus-dash#hash!bang$dollar%percent&amp\'quote*star/dash=equal?question^pow_under`backtick{brace}|bar~tilde@domain'));
+        console.assert(
+            validate(
+                "first.last+plus-dash#hash!bang$dollar%percent&amp'quote*star/dash=equal?question^pow_under`backtick{brace}|bar~tilde@domain",
+            ),
+        );
         console.assert(validate('me@domain.with.multiple.subdomains'));
         console.assert(validate('me@domain-parts.may.contain-dashes'));
         console.assert(validate('me@a-single-domain-part-can-be-up-to-sixty-three-characters-long63'));
@@ -2155,8 +2096,8 @@ const doesNotThrow = (func: Function) => {
     {
         const schema = { format: 'hostname' },
             validate = jsen(schema),
-            maxLong1 = new Array(5).join('.' + new Array(64).join('a')).substr(1),  // 255 chars (4 groups x 63 chars)
-            maxLong2 = new Array(9).join('.' + new Array(32).join('a')).substr(1);  // 255 chars (8 groups x 31 chars)
+            maxLong1 = new Array(5).join('.' + new Array(64).join('a')).substr(1), // 255 chars (4 groups x 63 chars)
+            maxLong2 = new Array(9).join('.' + new Array(32).join('a')).substr(1); // 255 chars (8 groups x 31 chars)
 
         console.assert(validate('my.host'));
         console.assert(validate('host'));
@@ -2189,8 +2130,8 @@ const doesNotThrow = (func: Function) => {
                 custom = '^\\d+$',
                 validate = jsen(schema, {
                     formats: {
-                        custom: custom
-                    }
+                        custom: custom,
+                    },
                 });
 
             console.assert(validate('123'));
@@ -2203,8 +2144,8 @@ const doesNotThrow = (func: Function) => {
                 custom = /^\d+$/,
                 validate = jsen(schema, {
                     formats: {
-                        custom: custom
-                    }
+                        custom: custom,
+                    },
                 });
 
             console.assert(validate('123'));
@@ -2225,8 +2166,8 @@ const doesNotThrow = (func: Function) => {
                 },
                 validate = jsen(schema, {
                     formats: {
-                        custom: custom
-                    }
+                        custom: custom,
+                    },
                 });
 
             console.assert(validate('123'));
@@ -2243,22 +2184,11 @@ const doesNotThrow = (func: Function) => {
                         custom: () => {
                             callCount++;
                             return true;
-                        }
-                    }
+                        },
+                    },
                 },
                 validate = jsen(schema, options),
-                data = [
-                    undefined,
-                    null,
-                    'abc',
-                    123,
-                    Math.PI,
-                    true,
-                    false,
-                    {},
-                    [],
-                    new Date()
-                ];
+                data = [undefined, null, 'abc', 123, Math.PI, true, false, {}, [], new Date()];
 
             data.forEach((dataItem) => {
                 validate(dataItem);
@@ -2272,7 +2202,7 @@ const doesNotThrow = (func: Function) => {
             let schema = {
                     format: 'custom',
                     type: 'number',
-                    maximum: 10
+                    maximum: 10,
                 },
                 callCount = 0,
                 options = {
@@ -2280,8 +2210,8 @@ const doesNotThrow = (func: Function) => {
                         custom: () => {
                             callCount++;
                             return true;
-                        }
-                    }
+                        },
+                    },
                 },
                 validate = jsen(schema, options);
 
@@ -2302,26 +2232,26 @@ const doesNotThrow = (func: Function) => {
                         properties: {
                             password: {
                                 type: 'string',
-                                minLength: 8
+                                minLength: 8,
                             },
                             password_confirm: {
                                 type: 'string',
-                                minLength: 8
-                            }
+                                minLength: 8,
+                            },
                         },
-                        format: 'passwordsMatch'
+                        format: 'passwordsMatch',
                     },
                     options = {
                         formats: {
                             passwordsMatch: (obj: any) => {
                                 callCount++;
                                 return obj.password === obj.password_confirm;
-                            }
-                        }
+                            },
+                        },
                     },
                     data = {
                         password: '1234567',
-                        password_confirm: '1234567'
+                        password_confirm: '1234567',
                     },
                     validate = jsen(schema, options),
                     callCount = 0;
@@ -2352,48 +2282,49 @@ const doesNotThrow = (func: Function) => {
                 type: 'object',
                 properties: {
                     test1: {
-                        type: 'string'
+                        type: 'string',
                     },
                     test2: {
                         type: 'object',
                         properties: {
                             test21: {
-                                type: 'number'
-                            }
-                        }
+                                type: 'number',
+                            },
+                        },
                     },
                     test3: {
-                        type: 'number'
+                        type: 'number',
                     },
-                    test4: { $ref: '#external' }
+                    test4: { $ref: '#external' },
                 },
-                additionalProperties: false
+                additionalProperties: false,
             },
             options = {
                 greedy: true,
                 schemas: {
                     external: {
-                        type: 'string'
-                    }
-                }
+                        type: 'string',
+                    },
+                },
             },
             validate = jsen(schema, options),
             invalidTest = {
                 test1: 1,
                 test2: '2',
                 test3: 'j',
-                test4: 4
+                test4: 4,
             },
             ret = validate(invalidTest);
 
         console.assert(!ret); // false
-        console.assert(JSON.stringify(validate.errors)
-            === JSON.stringify([
-                { path: 'test1', keyword: 'type' },
-                { path: 'test2', keyword: 'type' },
-                { path: 'test3', keyword: 'type' },
-                { path: 'test4', keyword: 'type' }
-            ])
+        console.assert(
+            JSON.stringify(validate.errors) ===
+                JSON.stringify([
+                    { path: 'test1', keyword: 'type' },
+                    { path: 'test2', keyword: 'type' },
+                    { path: 'test3', keyword: 'type' },
+                    { path: 'test4', keyword: 'type' },
+                ]),
         );
 
         delete options.greedy;
@@ -2403,9 +2334,7 @@ const doesNotThrow = (func: Function) => {
         ret = validate(invalidTest);
 
         console.assert(!ret); // false
-        console.assert(JSON.stringify(validate.errors)
-            === JSON.stringify([{ path: 'test1', keyword: 'type' }])
-        );
+        console.assert(JSON.stringify(validate.errors) === JSON.stringify([{ path: 'test1', keyword: 'type' }]));
     }
 
     // does not descend into invalid objects
@@ -2415,40 +2344,41 @@ const doesNotThrow = (func: Function) => {
                 properties: {
                     test1: { type: 'object' },
                     test2: {
-                        required: ['foo']
+                        required: ['foo'],
                     },
                     test3: {
                         properties: {
-                            foo: { type: 'string' }
-                        }
+                            foo: { type: 'string' },
+                        },
                     },
                     test4: {
                         type: 'array',
                         items: {
                             type: 'object',
-                            required: ['foo']
-                        }
-                    }
-                }
+                            required: ['foo'],
+                        },
+                    },
+                },
             },
             options = { greedy: true },
             data = {
                 test1: 123,
                 test2: {},
                 test3: 123,
-                test4: [{}, { foo: 123 }, null]
+                test4: [{}, { foo: 123 }, null],
             },
             validate = jsen(schema, options),
             ret = validate(data);
 
         console.assert(!ret);
-        console.assert(JSON.stringify(validate.errors)
-            === JSON.stringify([
-                { path: 'test1', keyword: 'type' },
-                { path: 'test2.foo', keyword: 'required' },
-                { path: 'test4.0.foo', keyword: 'required' },
-                { path: 'test4.2', keyword: 'type' }
-            ])
+        console.assert(
+            JSON.stringify(validate.errors) ===
+                JSON.stringify([
+                    { path: 'test1', keyword: 'type' },
+                    { path: 'test2.foo', keyword: 'required' },
+                    { path: 'test4.0.foo', keyword: 'required' },
+                    { path: 'test4.2', keyword: 'type' },
+                ]),
         );
     }
 }
@@ -2457,7 +2387,7 @@ const doesNotThrow = (func: Function) => {
 {
     // is a function
     {
-        console.assert(typeof jsen === "function");
+        console.assert(typeof jsen === 'function');
     }
 
     // throws if schema is not an object
@@ -2466,7 +2396,7 @@ const doesNotThrow = (func: Function) => {
         console.assert(doesThrow(jsen(null)));
         console.assert(doesThrow(jsen(false)));
         console.assert(doesThrow(jsen(123)));
-        console.assert(doesThrow(jsen("abc")));
+        console.assert(doesThrow(jsen('abc')));
         console.assert(doesThrow(jsen([])));
         console.assert(doesNotThrow(jsen({})));
     }
@@ -2543,7 +2473,7 @@ const doesNotThrow = (func: Function) => {
         const schema = {
                 type: 'integer',
                 minimum: 7,
-                exclusiveMinimum: true
+                exclusiveMinimum: true,
             },
             validate = jsen(schema);
 
@@ -2571,7 +2501,7 @@ const doesNotThrow = (func: Function) => {
         const schema = {
                 type: 'integer',
                 maximum: 77,
-                exclusiveMaximum: true
+                exclusiveMaximum: true,
             },
             validate = jsen(schema);
 
@@ -2605,45 +2535,45 @@ const doesNotThrow = (func: Function) => {
                 properties: {
                     test1: { $ref: '#external1' },
                     test2: {
-                        type: 'number'
+                        type: 'number',
                     },
-                    test3: { $ref: '#external3' } //missing
+                    test3: { $ref: '#external3' }, //missing
                 },
-                additionalProperties: false
+                additionalProperties: false,
             },
             external1 = {
                 type: 'object',
                 properties: {
                     test11: { $ref: '#external11' }, //missing
                     test12: {
-                        type: 'number'
+                        type: 'number',
                     },
-                    test13: { $ref: '#external11' } //duplicate
-                }
+                    test13: { $ref: '#external11' }, //duplicate
+                },
             },
             validate = jsen(schema, {
                 schemas: {
-                    external1: external1
+                    external1: external1,
                 },
-                missing$Ref: true
+                missing$Ref: true,
             }),
             missingTest = {
                 test1: {
                     test11: 'missing',
                     test12: 5,
-                    test13: 'missing too'
+                    test13: 'missing too',
                 },
                 test2: 2,
-                test3: 3
+                test3: 3,
             },
             invalidTest = {
                 test1: {
                     test11: 'missing',
                     test12: 5,
-                    test13: 'missing too'
+                    test13: 'missing too',
                 },
                 test2: 'fail',
-                test3: 3
+                test3: 3,
             },
             ret: boolean;
 
@@ -2660,10 +2590,7 @@ const doesNotThrow = (func: Function) => {
     // allOf
     {
         const schema = {
-                allOf: [
-                    { type: 'number' },
-                    { type: 'integer' }
-                ]
+                allOf: [{ type: 'number' }, { type: 'integer' }],
             },
             validate = jsen(schema);
 
@@ -2678,10 +2605,7 @@ const doesNotThrow = (func: Function) => {
     // anyOf
     {
         const schema = {
-                anyOf: [
-                    { type: 'string' },
-                    { type: 'number' }
-                ]
+                anyOf: [{ type: 'string' }, { type: 'number' }],
             },
             validate = jsen(schema);
 
@@ -2701,8 +2625,8 @@ const doesNotThrow = (func: Function) => {
         const schema = {
                 oneOf: [
                     { type: 'number', maximum: 5 },
-                    { type: 'number', minimum: 3 }
-                ]
+                    { type: 'number', minimum: 3 },
+                ],
             },
             validate = jsen(schema);
 
@@ -2724,8 +2648,8 @@ const doesNotThrow = (func: Function) => {
     {
         const schema = {
                 not: {
-                    type: 'array'
-                }
+                    type: 'array',
+                },
             },
             validate = jsen(schema);
 
@@ -2810,7 +2734,7 @@ const doesNotThrow = (func: Function) => {
     {
         const schema = {
                 type: 'number',
-                enum: [1, Math.E, 3, 5, 7]
+                enum: [1, Math.E, 3, 5, 7],
             },
             validate = jsen(schema);
 
@@ -2838,7 +2762,7 @@ const doesNotThrow = (func: Function) => {
         const schema = {
                 type: 'number',
                 minimum: 7,
-                exclusiveMinimum: true
+                exclusiveMinimum: true,
             },
             validate = jsen(schema);
 
@@ -2869,7 +2793,7 @@ const doesNotThrow = (func: Function) => {
         const schema = {
                 type: 'number',
                 maximum: 77,
-                exclusiveMaximum: true
+                exclusiveMaximum: true,
             },
             validate = jsen(schema);
 
@@ -2895,7 +2819,7 @@ const doesNotThrow = (func: Function) => {
 
         schema = {
             type: 'number',
-            multipleOf: 3.14 // Math.PI
+            multipleOf: 3.14, // Math.PI
         };
 
         validate = jsen(schema);
@@ -2984,9 +2908,9 @@ const doesNotThrow = (func: Function) => {
                 properties: {
                     a: { type: 'string' },
                     b: { type: 'number' },
-                    c: { type: 'boolean' }
+                    c: { type: 'boolean' },
                 },
-                required: ['a', 'b']
+                required: ['a', 'b'],
             },
             validate = jsen(schema);
 
@@ -3006,9 +2930,9 @@ const doesNotThrow = (func: Function) => {
                 type: 'object',
                 properties: {
                     a: { type: 'string' },
-                    b: { type: 'number' }
+                    b: { type: 'number' },
                 },
-                additionalProperties: true
+                additionalProperties: true,
             },
             validate = jsen(schema);
 
@@ -3033,11 +2957,11 @@ const doesNotThrow = (func: Function) => {
                 type: 'object',
                 properties: {
                     a: { type: 'string' },
-                    b: { type: 'number' }
+                    b: { type: 'number' },
                 },
                 additionalProperties: {
-                    type: 'boolean'
-                }
+                    type: 'boolean',
+                },
             },
             validate = jsen(schema);
 
@@ -3051,12 +2975,12 @@ const doesNotThrow = (func: Function) => {
         let schema = {
                 type: 'object',
                 properties: {
-                    a: { type: 'string' }
+                    a: { type: 'string' },
                 },
                 patternProperties: {
-                    '^b': { type: 'number' }
+                    '^b': { type: 'number' },
                 },
-                additionalProperties: true
+                additionalProperties: true,
             },
             validate = jsen(schema);
 
@@ -3081,8 +3005,8 @@ const doesNotThrow = (func: Function) => {
                 type: 'object',
                 patternProperties: {
                     '^a': { type: 'string' },
-                    '^b': { type: 'number' }
-                }
+                    '^b': { type: 'number' },
+                },
             },
             validate = jsen(schema);
 
@@ -3101,33 +3025,33 @@ const doesNotThrow = (func: Function) => {
                 type: 'object',
                 properties: {
                     a: { type: 'string' },
-                    b: { type: 'number' }
+                    b: { type: 'number' },
                 },
                 dependencies: {
                     a: {
                         type: 'object',
                         required: ['c'],
                         properties: {
-                            c: { type: 'boolean' }
-                        }
+                            c: { type: 'boolean' },
+                        },
                     },
                     b: {
                         type: 'object',
                         required: ['f'],
                         properties: {
-                            f: { type: 'null' }
-                        }
+                            f: { type: 'null' },
+                        },
                     },
                     g: {
                         type: 'object',
                         required: ['b'],
                         properties: {
                             b: {
-                                type: 'integer'
-                            }
-                        }
-                    }
-                }
+                                type: 'integer',
+                            },
+                        },
+                    },
+                },
             },
             validate = jsen(schema);
 
@@ -3149,11 +3073,11 @@ const doesNotThrow = (func: Function) => {
                 properties: {
                     a: { type: 'string' },
                     b: { type: 'number' },
-                    c: { type: 'boolean' }
+                    c: { type: 'boolean' },
                 },
                 dependencies: {
-                    a: ['b', 'c']
-                }
+                    a: ['b', 'c'],
+                },
             },
             validate = jsen(schema);
 
@@ -3173,10 +3097,10 @@ const doesNotThrow = (func: Function) => {
                     b: { type: 'number' },
                     c: {
                         type: 'array',
-                        items: { type: 'boolean' }
-                    }
+                        items: { type: 'boolean' },
+                    },
                 },
-                required: ['a']
+                required: ['a'],
             },
             validate = jsen(schema);
 
@@ -3198,54 +3122,52 @@ const doesNotThrow = (func: Function) => {
 {
     // throws if string is not in correct format
     {
-        console.assert(doesThrow(
-            jsen({ $ref: '' })
-        ));
+        console.assert(doesThrow(jsen({ $ref: '' })));
 
-        console.assert(doesThrow(
-            jsen({ $ref: '#double//slash' })
-        ));
+        console.assert(doesThrow(jsen({ $ref: '#double//slash' })));
 
-        console.assert(doesThrow(
-            jsen({ $ref: '#ends/with/slash/' })
-        ));
+        console.assert(doesThrow(jsen({ $ref: '#ends/with/slash/' })));
 
-        console.assert(doesThrow(
-            // invalid reference, non-existent schema properties
-            jsen({ $ref: '#a/b/c' })
-        ));
+        console.assert(
+            doesThrow(
+                // invalid reference, non-existent schema properties
+                jsen({ $ref: '#a/b/c' }),
+            ),
+        );
 
-        console.assert(doesNotThrow(
-            // schema resolves to itself
-            jsen({ $ref: '#' })
-        ));
+        console.assert(
+            doesNotThrow(
+                // schema resolves to itself
+                jsen({ $ref: '#' }),
+            ),
+        );
 
-        console.assert(doesNotThrow(
-            jsen({
-                a: {
-                    b: {
-                        c: {
-                            type: 'any'
-                        }
-                    }
-                },
-                $ref: '#/a/b/c'
-            })
-        ));
+        console.assert(
+            doesNotThrow(
+                jsen({
+                    a: {
+                        b: {
+                            c: {
+                                type: 'any',
+                            },
+                        },
+                    },
+                    $ref: '#/a/b/c',
+                }),
+            ),
+        );
 
-        console.assert(doesNotThrow(
-            jsen({
-                arr: [
-                    { value: { type: 'string' } },
-                    { value: { type: 'number' } },
-                    { value: { type: 'boolean' } }
-                ],
-                type: 'object',
-                properties: {
-                    a: { $ref: '#arr/2/value' }
-                }
-            })
-        ));
+        console.assert(
+            doesNotThrow(
+                jsen({
+                    arr: [{ value: { type: 'string' } }, { value: { type: 'number' } }, { value: { type: 'boolean' } }],
+                    type: 'object',
+                    properties: {
+                        a: { $ref: '#arr/2/value' },
+                    },
+                }),
+            ),
+        );
     }
 
     // external schema
@@ -3256,8 +3178,8 @@ const doesNotThrow = (func: Function) => {
                 schema = { $ref: '#external' },
                 validate = jsen(schema, {
                     schemas: {
-                        external: external
-                    }
+                        external: external,
+                    },
                 });
 
             console.assert(validate('abc'));
@@ -3270,8 +3192,8 @@ const doesNotThrow = (func: Function) => {
                 schema = { $ref: 'external' },
                 validate = jsen(schema, {
                     schemas: {
-                        external: external
-                    }
+                        external: external,
+                    },
                 });
 
             console.assert(validate('abc'));
@@ -3282,9 +3204,7 @@ const doesNotThrow = (func: Function) => {
         {
             const schema = { $ref: '#external' };
 
-            console.assert(doesNotThrow(
-                jsen(schema)
-            ));
+            console.assert(doesNotThrow(jsen(schema)));
         }
 
         // own property takes precendence over external schema
@@ -3292,12 +3212,12 @@ const doesNotThrow = (func: Function) => {
             const external = { type: 'string' },
                 schema = {
                     external: { type: 'number' },
-                    $ref: '#external'
+                    $ref: '#external',
                 },
                 validate = jsen(schema, {
                     schemas: {
-                        external: external
-                    }
+                        external: external,
+                    },
                 });
 
             console.assert(!validate('abc'));
@@ -3308,16 +3228,16 @@ const doesNotThrow = (func: Function) => {
         {
             const external = {
                     inner: { type: 'string' },
-                    $ref: '#inner'
+                    $ref: '#inner',
                 },
                 schema = {
                     inner: { type: 'number' },
-                    $ref: '#external'
+                    $ref: '#external',
                 },
                 validate = jsen(schema, {
                     schemas: {
-                        external: external
-                    }
+                        external: external,
+                    },
                 });
 
             console.assert(validate('abc'));
@@ -3414,11 +3334,11 @@ const doesNotThrow = (func: Function) => {
     {
         const inputs = [
                 [1, 'a', 3, false, null, undefined],
-                ['abc', 123, true, 123, false, Math.PI, 'abc', true, null, null]
+                ['abc', 123, true, 123, false, Math.PI, 'abc', true, null, null],
             ],
             expected = [
                 [1, 'a', 3, false, null, undefined],
-                ['abc', 123, true, false, Math.PI, null]
+                ['abc', 123, true, false, Math.PI, null],
             ];
 
         for (let i = 0; i < inputs.length; i++) {
@@ -3438,7 +3358,7 @@ const doesNotThrow = (func: Function) => {
                 { a: 1, b: undefined },
                 { b: { e: 'abc', c: { f: null, d: 123 } } },
                 [1, 2, 3],
-                [{ a: 213 }]
+                [{ a: 213 }],
             ],
             expected: any = [
                 {},
@@ -3447,7 +3367,7 @@ const doesNotThrow = (func: Function) => {
                 [1, 2, 3],
                 [{ a: 213 }],
                 { b: 1 },
-                { a: 1, b: undefined }
+                { a: 1, b: undefined },
             ];
 
         console.assert(JSON.stringify(jsen.unique(input)) === JSON.stringify(expected));

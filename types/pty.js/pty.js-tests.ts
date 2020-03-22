@@ -1,4 +1,3 @@
-
 import pty = require('pty.js');
 
 var term: pty.Terminal = pty.spawn('bash', [], {
@@ -6,10 +5,10 @@ var term: pty.Terminal = pty.spawn('bash', [], {
     cols: 80,
     rows: 30,
     cwd: process.env.HOME,
-    env: process.env
+    env: process.env,
 });
 
-term.on('data', function(data: any) {
+term.on('data', function (data: any) {
     console.log(data);
 });
 

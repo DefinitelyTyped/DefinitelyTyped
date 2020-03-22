@@ -8,8 +8,7 @@
 
 import { IncomingMessage, ServerResponse } from 'http';
 
-type HTTPHandler =
-  (req: IncomingMessage, res: ServerResponse, next: (err?: any) => void) => any;
+type HTTPHandler = (req: IncomingMessage, res: ServerResponse, next: (err?: any) => void) => any;
 
 interface WritableStream {
     write(data: string): void;
@@ -19,18 +18,20 @@ interface RequestLoggerOptions {
     immediate?: boolean;
     elapsed?: string;
 }
-type RequestLoggerFormatter =
-  (req: IncomingMessage, res: ServerResponse) => object;
+type RequestLoggerFormatter = (req: IncomingMessage, res: ServerResponse) => object;
 
 interface RequestLogger {
     (options?: RequestLoggerOptions, formatter?: RequestLoggerFormatter): HTTPHandler;
     (formatter: RequestLoggerFormatter): HTTPHandler;
-    commonFormatter: (req: IncomingMessage, res: ServerResponse) => {
+    commonFormatter: (
+        req: IncomingMessage,
+        res: ServerResponse,
+    ) => {
         ip: string;
         time: string;
         method: string;
         path: string;
-        "status": number;
+        status: number;
         request_id?: string;
         content_length?: string;
         content_type?: string;
@@ -46,7 +47,7 @@ interface Logfmt {
     namespace(data: object): Logfmt;
     error(err: Error, id?: string): void;
 
-    streamParser(options?: { end?: boolean; }): NodeJS.ReadWriteStream;
+    streamParser(options?: { end?: boolean }): NodeJS.ReadWriteStream;
     streamStringify(options?: { delimiter?: string }): NodeJS.ReadWriteStream;
 
     bodyParser(options?: { contentType?: string }): HTTPHandler;

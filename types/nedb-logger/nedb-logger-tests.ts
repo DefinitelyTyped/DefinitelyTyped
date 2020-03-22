@@ -17,12 +17,13 @@ const doc: any = {
     today: new Date(),
     nedbIsAwesome: true,
     notthere: null,
-    notToBeSaved: undefined,  // Will not be saved
+    notToBeSaved: undefined, // Will not be saved
     fruits: ['apple', 'orange', 'pear'],
     infos: { name: 'nedb' },
 };
 
-db.insert(doc, (err: Error, newDoc: any) => {   // Callback is optional
+db.insert(doc, (err: Error, newDoc: any) => {
+    // Callback is optional
     // newDoc is the newly inserted document, including its _id
     // newDoc has no key called notToBeSaved since its value was undefined
 });

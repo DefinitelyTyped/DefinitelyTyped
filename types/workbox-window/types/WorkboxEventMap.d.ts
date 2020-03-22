@@ -1,4 +1,4 @@
-import { WorkboxEvent } from "../types/WorkboxEvent";
+import { WorkboxEvent } from '../types/WorkboxEvent';
 
 export interface WorkboxEventMap {
     message: WorkboxMessageEvent;

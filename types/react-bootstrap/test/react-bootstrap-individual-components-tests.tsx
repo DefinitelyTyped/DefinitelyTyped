@@ -107,167 +107,171 @@ const noop = () => {};
  */
 
 export class ReactBootstrapIndividualComponentsTest extends React.Component {
-  render() {
-    return (
-      <div>
-        <Accordion />
-        <Alert />
-        <Badge />
-        <Breadcrumb>
-          <BreadcrumbItem />
-          <Breadcrumb.Item />
-        </Breadcrumb>
-        <Button />
-        <ButtonGroup><Button /></ButtonGroup>
-        <ButtonToolbar><Button /></ButtonToolbar>
-        <Carousel>
-          <CarouselCaption />
-          <Carousel.Caption />
-          <CarouselItem />
-          <Carousel.Item />
-        </Carousel>
-        <Checkbox />
-        <Clearfix />
-        <Col />
-        <Collapse />
-        <ControlLabel />
-        <Dropdown id="foo" />
-        <Dropdown.Menu />
-        <Dropdown.Toggle />
-        <DropdownButton id="foo" title="bar" />
-        <DropdownMenu />
-        <DropdownToggle />
-        <Fade />
-        <Form />
-        <FormControl />
-        <FormControl.Feedback />
-        <FormControl.Static />
-        <FormControlFeedback />
-        <FormControlStatic />
-        <FormGroup />
-        <Glyphicon glyph="foo" />
-        <Grid />
-        <HelpBlock />
-        <Image />
-        <InputGroup />
-        <InputGroup.Addon />
-        <InputGroup.Button />
-        <InputGroupAddon />
-        <InputGroupButton />
-        <Jumbotron />
-        <Label />
-        <ListGroup />
-        <ListGroupItem />
-        <Media />
-        <Media.Body />
-        <Media.Heading />
-        <Media.Left />
-        <Media.List />
-        <Media.ListItem />
-        <Media.Right />
-        <MediaBody />
-        <MediaHeading />
-        <MediaLeft />
-        <MediaList />
-        <MediaListItem />
-        <MediaRight />
-        <MenuItem />
-        <Modal onHide={noop} />
-        <Modal.Body />
-        <Modal.Dialog />
-        <Modal.Footer />
-        <Modal.Header />
-        <Modal.Title />
-        <ModalBody />
-        <ModalDialog />
-        <ModalFooter />
-        <ModalHeader />
-        <ModalTitle />
-        <Nav />
-        <NavDropdown id="foo" title={<h4>Test</h4>} />
-        <NavItem />
-        <Navbar />
-        <Navbar.Brand />
-        <Navbar.Collapse />
-        <Navbar.Header />
-        <Navbar.Toggle />
-        <Navbar.Link href="foo" />
-        <Navbar.Text />
-        <Navbar.Form />
-        <NavbarBrand />
-        <NavbarCollapse />
-        <NavbarHeader />
-        <NavbarToggle />
-        <Overlay />
-        <OverlayTrigger overlay="" />
-        <PageHeader />
-        <PageItem />
-        <Pager />
-        <Pager.Item />
-        <PagerItem />
-        <Pagination />
-        <Pagination.Item />
-        <Pagination.First />
-        <Pagination.Last />
-        <Pagination.Next />
-        <Pagination.Prev />
-        <Pagination.Ellipsis />
-        <PaginationItem />
-        <PaginationFirst />
-        <PaginationLast />
-        <PaginationNext />
-        <PaginationPrev />
-        <PaginationEllipsis />
-        <Panel />
-        <Panel.Heading />
-        <Panel.Body />
-        <Panel.Collapse />
-        <Panel.Footer />
-        <Panel.Title />
-        <Panel.Toggle />
-        <PanelHeading />
-        <PanelBody />
-        <PanelCollapse />
-        <PanelFooter />
-        <PanelTitle />
-        <PanelToggle />
-        <PanelGroup />
-        <Popover />
-        <ProgressBar />
-        <Radio />
-        <ResponsiveEmbed />
-        <Row />
-        <SafeAnchor />
-        <SplitButton id="foo" title="bar" />
-        <SplitToggle />
-        <Tab />
-        <Tab.Container />
-        <Tab.Content />
-        <Tab.Pane />
-        <TabContainer />
-        <TabContent />
-        <TabPane />
-        <Table />
-        <Tabs />
-        <Thumbnail />
-        <ToggleButton value="foo" bsSize="small" />
-        <ToggleButtonGroup
-          type="checkbox"
-          bsSize="small"
-          defaultValue={[1]}
-          value={[1, 2]}
-          onChange={(value: number[]) => { }}
-        />
-        <ToggleButtonGroup
-          type="radio"
-          name="foo"
-          defaultValue={1}
-          value={1}
-          onChange={(value: number) => { }}
-        />
-        <Tooltip />
-        <Well />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Accordion />
+                <Alert />
+                <Badge />
+                <Breadcrumb>
+                    <BreadcrumbItem />
+                    <Breadcrumb.Item />
+                </Breadcrumb>
+                <Button />
+                <ButtonGroup>
+                    <Button />
+                </ButtonGroup>
+                <ButtonToolbar>
+                    <Button />
+                </ButtonToolbar>
+                <Carousel>
+                    <CarouselCaption />
+                    <Carousel.Caption />
+                    <CarouselItem />
+                    <Carousel.Item />
+                </Carousel>
+                <Checkbox />
+                <Clearfix />
+                <Col />
+                <Collapse />
+                <ControlLabel />
+                <Dropdown id="foo" />
+                <Dropdown.Menu />
+                <Dropdown.Toggle />
+                <DropdownButton id="foo" title="bar" />
+                <DropdownMenu />
+                <DropdownToggle />
+                <Fade />
+                <Form />
+                <FormControl />
+                <FormControl.Feedback />
+                <FormControl.Static />
+                <FormControlFeedback />
+                <FormControlStatic />
+                <FormGroup />
+                <Glyphicon glyph="foo" />
+                <Grid />
+                <HelpBlock />
+                <Image />
+                <InputGroup />
+                <InputGroup.Addon />
+                <InputGroup.Button />
+                <InputGroupAddon />
+                <InputGroupButton />
+                <Jumbotron />
+                <Label />
+                <ListGroup />
+                <ListGroupItem />
+                <Media />
+                <Media.Body />
+                <Media.Heading />
+                <Media.Left />
+                <Media.List />
+                <Media.ListItem />
+                <Media.Right />
+                <MediaBody />
+                <MediaHeading />
+                <MediaLeft />
+                <MediaList />
+                <MediaListItem />
+                <MediaRight />
+                <MenuItem />
+                <Modal onHide={noop} />
+                <Modal.Body />
+                <Modal.Dialog />
+                <Modal.Footer />
+                <Modal.Header />
+                <Modal.Title />
+                <ModalBody />
+                <ModalDialog />
+                <ModalFooter />
+                <ModalHeader />
+                <ModalTitle />
+                <Nav />
+                <NavDropdown id="foo" title={<h4>Test</h4>} />
+                <NavItem />
+                <Navbar />
+                <Navbar.Brand />
+                <Navbar.Collapse />
+                <Navbar.Header />
+                <Navbar.Toggle />
+                <Navbar.Link href="foo" />
+                <Navbar.Text />
+                <Navbar.Form />
+                <NavbarBrand />
+                <NavbarCollapse />
+                <NavbarHeader />
+                <NavbarToggle />
+                <Overlay />
+                <OverlayTrigger overlay="" />
+                <PageHeader />
+                <PageItem />
+                <Pager />
+                <Pager.Item />
+                <PagerItem />
+                <Pagination />
+                <Pagination.Item />
+                <Pagination.First />
+                <Pagination.Last />
+                <Pagination.Next />
+                <Pagination.Prev />
+                <Pagination.Ellipsis />
+                <PaginationItem />
+                <PaginationFirst />
+                <PaginationLast />
+                <PaginationNext />
+                <PaginationPrev />
+                <PaginationEllipsis />
+                <Panel />
+                <Panel.Heading />
+                <Panel.Body />
+                <Panel.Collapse />
+                <Panel.Footer />
+                <Panel.Title />
+                <Panel.Toggle />
+                <PanelHeading />
+                <PanelBody />
+                <PanelCollapse />
+                <PanelFooter />
+                <PanelTitle />
+                <PanelToggle />
+                <PanelGroup />
+                <Popover />
+                <ProgressBar />
+                <Radio />
+                <ResponsiveEmbed />
+                <Row />
+                <SafeAnchor />
+                <SplitButton id="foo" title="bar" />
+                <SplitToggle />
+                <Tab />
+                <Tab.Container />
+                <Tab.Content />
+                <Tab.Pane />
+                <TabContainer />
+                <TabContent />
+                <TabPane />
+                <Table />
+                <Tabs />
+                <Thumbnail />
+                <ToggleButton value="foo" bsSize="small" />
+                <ToggleButtonGroup
+                    type="checkbox"
+                    bsSize="small"
+                    defaultValue={[1]}
+                    value={[1, 2]}
+                    onChange={(value: number[]) => {}}
+                />
+                <ToggleButtonGroup
+                    type="radio"
+                    name="foo"
+                    defaultValue={1}
+                    value={1}
+                    onChange={(value: number) => {}}
+                />
+                <Tooltip />
+                <Well />
+            </div>
+        );
+    }
 }

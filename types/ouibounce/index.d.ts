@@ -7,7 +7,7 @@ export as namespace ouibounce;
 
 export = Ouibounce;
 
-declare function Ouibounce(el: Element|false|null, custom_config?: Ouibounce.OuibounceConfig): Ouibounce.Ouibounce;
+declare function Ouibounce(el: Element | false | null, custom_config?: Ouibounce.OuibounceConfig): Ouibounce.Ouibounce;
 
 declare namespace Ouibounce {
     interface OuibounceConfig {
@@ -99,6 +99,11 @@ declare namespace Ouibounce {
         /**
          * Disables the ouibounce event.
          */
-        disable: (custom_options?: {cookieExpire?: number, cookieDomain?: string, cookieName?: string, sitewide?: boolean}) => void;
+        disable: (custom_options?: {
+            cookieExpire?: number;
+            cookieDomain?: string;
+            cookieName?: string;
+            sitewide?: boolean;
+        }) => void;
     }
 }

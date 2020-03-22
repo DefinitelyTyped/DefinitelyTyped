@@ -1,4 +1,9 @@
-import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels, MUIDataTableState, MUIDataTableColumn } from 'mui-datatables';
+import MUIDataTable, {
+    MUIDataTableOptions,
+    MUIDataTableTextLabels,
+    MUIDataTableState,
+    MUIDataTableColumn,
+} from 'mui-datatables';
 import * as React from 'react';
 
 interface Props extends MUIDataTableOptions {
@@ -13,26 +18,26 @@ const MuiCustomTable: React.FC<Props> = (props) => {
     const columns: MUIDataTableColumn[] = [
         {
             name: 'id',
-            label: 'id'
+            label: 'id',
         },
         {
             name: 'name',
             label: 'Name',
             options: {
                 filterType: 'custom',
-                sortDirection: 'none'
-            }
+                sortDirection: 'none',
+            },
         },
         {
             name: 'amount',
-            label: 'Amount'
-        }
+            label: 'Amount',
+        },
     ];
 
     const TableOptions: MUIDataTableOptions = {
         fixedHeaderOptions: {
             xAxis: false,
-            yAxis: true
+            yAxis: true,
         },
         filterType: 'checkbox',
         responsive: 'scrollFullHeight',
@@ -72,7 +77,7 @@ const MuiCustomTable: React.FC<Props> = (props) => {
         onTableChange: (action, tableState: MUIDataTableState) => {
             switch (action) {
                 case 'sort':
-                    tableState.columns.forEach(c => {
+                    tableState.columns.forEach((c) => {
                         if (c.sort && (c.sortDirection === 'asc' || c.sortDirection === 'desc')) {
                             console.log(`${c.sortDirection} sort set on ${c.name}`);
                         }
@@ -114,15 +119,15 @@ const MuiCustomTable: React.FC<Props> = (props) => {
         },
     };
 
-    return (<MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />);
+    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />;
 };
 
 const TableFruits = [
-    { id: 1, name: "Apple", amount: 1 },
-    { id: 2, name: "Pear", amount: 2 },
-    { id: 3, name: "Strawberry", amount: 5 },
-    { id: 4, name: "Banana", amount: 7 },
-    { id: 5, name: "Orange", amount: 9 },
+    { id: 1, name: 'Apple', amount: 1 },
+    { id: 2, name: 'Pear', amount: 2 },
+    { id: 3, name: 'Strawberry', amount: 5 },
+    { id: 4, name: 'Banana', amount: 7 },
+    { id: 5, name: 'Orange', amount: 9 },
 ];
 
 const options: MUIDataTableOptions = {

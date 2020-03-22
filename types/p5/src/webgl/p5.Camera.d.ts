@@ -108,7 +108,7 @@ declare module '../../index' {
             centerZ?: number,
             upX?: number,
             upY?: number,
-            upZ?: number
+            upZ?: number,
         ): p5;
 
         /**

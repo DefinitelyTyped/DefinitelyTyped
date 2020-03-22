@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface CalendarBaseProps {
     blockedDates?: Date[];
@@ -11,10 +11,10 @@ export interface CalendarBaseProps {
     disableWeekday?: string[];
     disableWeekends?: boolean;
     localizedText?: {
-        nextMonth?: string
-        previousMonth?: string
-        show12NextYears?: string
-        show12PreviousYears?: string
+        nextMonth?: string;
+        previousMonth?: string;
+        show12NextYears?: string;
+        show12PreviousYears?: string;
     };
 }
 

@@ -13,7 +13,7 @@ const options: Options = {
     delimiterStart: true,
     delimiterEnd: true,
     alignDelimiters: true,
-    stringLength: _ => 0
+    stringLength: (_) => 0,
 };
 options.align = [''];
 

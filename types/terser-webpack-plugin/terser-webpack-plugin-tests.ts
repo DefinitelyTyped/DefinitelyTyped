@@ -1,10 +1,8 @@
 import * as webpack from 'webpack';
-import * as TerserPlugin from "terser-webpack-plugin";
+import * as TerserPlugin from 'terser-webpack-plugin';
 
 const compiler = webpack({
-    plugins: [
-        new TerserPlugin(),
-    ],
+    plugins: [new TerserPlugin()],
 });
 
 const compilerOptions = webpack({
@@ -30,7 +28,7 @@ const compilerOptions = webpack({
             include: /src\//,
             exclude: /node_modules\//,
             sourceMap: true,
-            terserOptions: { mangle: true }
+            terserOptions: { mangle: true },
         }),
     ],
 });

@@ -14,6 +14,6 @@ http.createServer((req, res) => {
 });
 
 // $ExpectType string
-contentType.format({type: 'image/svg+xml'});
-contentType.format({type: 'image/svg+xml', parameters: {charset: 'utf-8'}});
+contentType.format({ type: 'image/svg+xml' });
+contentType.format({ type: 'image/svg+xml', parameters: { charset: 'utf-8' } });
 contentType.format(mediaType);

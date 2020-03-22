@@ -6,5 +6,5 @@
 
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
-import { nthArg } from "lodash";
+import { nthArg } from 'lodash';
 export = nthArg;

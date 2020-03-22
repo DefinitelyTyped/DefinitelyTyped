@@ -15,12 +15,12 @@ export function getAbsoluteFSPath(): string;
 export function absolutePath(): string;
 
 export interface Url {
-  url: string;
-  name: string;
+    url: string;
+    name: string;
 }
 
 export interface Spec {
-  [k: string]: any;
+    [k: string]: any;
 }
 
 export interface SwaggerConfigs {
@@ -97,35 +97,35 @@ export interface SwaggerConfigs {
      *  Function to intercept remote definition, "Try it out", and OAuth 2.0 requests.
      *  Accepts one argument requestInterceptor(request) and must return the modified request, or a Promise that resolves to the modified request.
      */
-    requestInterceptor?: ((request: SwaggerRequest) => SwaggerRequest);
+    requestInterceptor?: (request: SwaggerRequest) => SwaggerRequest;
 
     /**
      *  Function to intercept remote definition, "Try it out", and OAuth 2.0 responses.
      *  Accepts one argument responseInterceptor(response) and must return the modified response, or a Promise that resolves to the modified response.
      */
-    responseInterceptor?: ((response: SwaggerResponse) => SwaggerResponse);
+    responseInterceptor?: (response: SwaggerResponse) => SwaggerResponse;
 
     [k: string]: any;
 }
 
 export interface SwaggerUIBundle {
-  (a?: SwaggerConfigs): any;
+    (a?: SwaggerConfigs): any;
 
-  [k: string]: any;
+    [k: string]: any;
 
-  getConfigs(): SwaggerConfigs;
+    getConfigs(): SwaggerConfigs;
 }
 
 export const SwaggerUIBundle: SwaggerUIBundle;
 
 export interface SwaggerRequest {
-  url: string;
-  credentials: string;
-  [k: string]: any;
+    url: string;
+    credentials: string;
+    [k: string]: any;
 }
 
 export interface SwaggerResponse {
-  [k: string]: any;
+    [k: string]: any;
 }
 
 export const SwaggerUIStandalonePreset: any;

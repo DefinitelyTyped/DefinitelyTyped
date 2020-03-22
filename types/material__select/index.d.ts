@@ -37,7 +37,10 @@ export class MDCSelect extends MDCComponent<MDCSelectAdapter, MDCSelectFoundatio
 
     disabled: boolean;
 
-    initialize(labelFactory?: (el: Element) => MDCFloatingLabel, lineRippleFactory?: (el: Element) => MDCLineRipple): void;
+    initialize(
+        labelFactory?: (el: Element) => MDCFloatingLabel,
+        lineRippleFactory?: (el: Element) => MDCLineRipple,
+    ): void;
 
     initialSyncWithDOM(): void;
 }

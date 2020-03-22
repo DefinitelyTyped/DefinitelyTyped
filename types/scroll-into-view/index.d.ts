@@ -5,37 +5,35 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module __ScrollIntoView {
-
     interface Settings {
-        time?: number
-        ease?: (value: number) => number
-        validTarget?: (target: HTMLElement, parentsScrolled: number) => boolean
-        align?: Alignment
+        time?: number;
+        ease?: (value: number) => number;
+        validTarget?: (target: HTMLElement, parentsScrolled: number) => boolean;
+        align?: Alignment;
     }
 
     interface Alignment {
         /** 0 to 1, default 0.5 (center) */
-        top?: number
+        top?: number;
         /** 0 to 1, default 0.5 (center) */
-        left?: number
+        left?: number;
         /** pixels to offset top alignment */
-        topOffset?: number
+        topOffset?: number;
         /** pixels to offset left alignment */
-        leftOffset?: number
+        leftOffset?: number;
     }
 
     /** type will be 'complete' if the scroll completed or 'canceled' if the current scroll was canceled by a new scroll */
-    type callbackParameterType = "complete" | "canceled"
-    type Callback = (type: callbackParameterType) => void
+    type callbackParameterType = 'complete' | 'canceled';
+    type Callback = (type: callbackParameterType) => void;
 
     interface ScrollIntoView {
-        (target: HTMLElement, callback?: __ScrollIntoView.Callback) : void
-        (target: HTMLElement, settings: __ScrollIntoView.Settings, callback?: __ScrollIntoView.Callback) :  void
+        (target: HTMLElement, callback?: __ScrollIntoView.Callback): void;
+        (target: HTMLElement, settings: __ScrollIntoView.Settings, callback?: __ScrollIntoView.Callback): void;
     }
-
 }
 
-declare module "scroll-into-view" {
-    var scrollIntoView: __ScrollIntoView.ScrollIntoView
+declare module 'scroll-into-view' {
+    var scrollIntoView: __ScrollIntoView.ScrollIntoView;
     export = scrollIntoView;
 }

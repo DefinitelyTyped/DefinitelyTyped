@@ -1,4 +1,4 @@
-import socketty = require("socketty");
+import socketty = require('socketty');
 
 /* Server */
 

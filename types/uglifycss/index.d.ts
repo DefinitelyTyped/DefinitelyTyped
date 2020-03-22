@@ -3,31 +3,28 @@
 // Definitions by: gevik Babakhani <https://github.com/blendsdk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "uglifycss" {
-
+declare module 'uglifycss' {
     namespace UglifyCSS {
-
         interface UglifyCSSOptions {
-
             /**
              * Adds a newline (approx.) every n characters; 0 means no newline and is the default value
              */
-            maxLineLen?: number
+            maxLineLen?: number;
 
             /**
              * eEpands variables; by default, @variables blocks are preserved and var(x)s are not expanded
              */
-            expandVars?: boolean
+            expandVars?: boolean;
 
             /**
              * Removes newlines within preserved comments; by default, newlines are preserved
              */
-            uglyComments?: boolean
+            uglyComments?: boolean;
 
             /**
              * Preserves newlines within and around preserved comments
              */
-            cuteComments?: boolean
+            cuteComments?: boolean;
         }
 
         /**
@@ -39,9 +36,7 @@ declare module "uglifycss" {
          * Uglify one or more files
          */
         function processFiles(filenames: Array<string>, options?: UglifyCSSOptions): string;
-
     }
 
     export = UglifyCSS;
-
 }

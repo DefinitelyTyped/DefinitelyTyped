@@ -9,5 +9,5 @@ export interface InputGroupAddonProps extends React.HTMLAttributes<HTMLElement> 
     addonType: 'prepend' | 'append';
 }
 
-declare class InputGroupAddon<T = {[key: string]: any}> extends React.Component<InputGroupAddonProps> {}
+declare class InputGroupAddon<T = { [key: string]: any }> extends React.Component<InputGroupAddonProps> {}
 export default InputGroupAddon;

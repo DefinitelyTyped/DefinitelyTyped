@@ -1,2 +1,2 @@
-export * from "./Loading";
+export * from './Loading';
 export { default } from './Loading';

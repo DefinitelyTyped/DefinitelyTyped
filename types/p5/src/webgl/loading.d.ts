@@ -33,7 +33,7 @@ declare module '../../index' {
             path: string,
             normalize: boolean,
             successCallback?: (p1: Geometry) => any,
-            failureCallback?: (p1: Event) => any
+            failureCallback?: (p1: Event) => any,
         ): Geometry;
 
         /**
@@ -62,7 +62,7 @@ declare module '../../index' {
         loadModel(
             path: string,
             successCallback?: (p1: Geometry) => any,
-            failureCallback?: (p1: Event) => any
+            failureCallback?: (p1: Event) => any,
         ): Geometry;
 
         /**

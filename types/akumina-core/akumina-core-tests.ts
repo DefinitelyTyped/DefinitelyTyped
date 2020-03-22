@@ -8,10 +8,18 @@ class CompanyNewsItemWidget extends Akumina.BaseWidget {
     }
 }
 
-const stringTest = (param: string): void => { return; };
-const numberTest = (param: number): void => { return; };
-const boolTest = (param: boolean): void => { return; };
-const functionTest = (param: (s: string) => string): void => { return; };
+const stringTest = (param: string): void => {
+    return;
+};
+const numberTest = (param: number): void => {
+    return;
+};
+const boolTest = (param: boolean): void => {
+    return;
+};
+const functionTest = (param: (s: string) => string): void => {
+    return;
+};
 
 stringTest(Akumina.Digispace.ConfigurationContext.LoadingTemplateHtml);
 numberTest(Akumina.Digispace.UserContext.LanguageId);
@@ -20,9 +28,19 @@ functionTest(Akumina.Digispace.PageContext.MapPageUrl);
 
 const factory = new Akumina.Digispace.Data.DataFactory();
 const request = {
-    listName: '', selectFields: '', personaCheckRequired: true, isRoot: true,
-    isHosted: true, hostUrl: '', viewXml: '', rowLimit: 499, isPagedResult: false,
-    additionalSelectFields: '', contextSiteUrl: '', expandFields: '', postData: {}
+    listName: '',
+    selectFields: '',
+    personaCheckRequired: true,
+    isRoot: true,
+    isHosted: true,
+    hostUrl: '',
+    viewXml: '',
+    rowLimit: 499,
+    isPagedResult: false,
+    additionalSelectFields: '',
+    contextSiteUrl: '',
+    expandFields: '',
+    postData: {},
 };
 factory.GetList(request);
 

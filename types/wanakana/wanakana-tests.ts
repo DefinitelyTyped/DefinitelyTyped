@@ -1,4 +1,4 @@
-import * as wanakana from "wanakana";
+import * as wanakana from 'wanakana';
 
 wanakana.isJapanese('泣き虫。！〜２￥ｚｅｎｋａｋｕ'); // $ExpectType boolean
 wanakana.isKana('あーア'); // $ExpectType boolean
@@ -8,7 +8,7 @@ wanakana.isKanji('切腹'); // $ExpectType boolean
 wanakana.isRomaji('Tōkyō and Ōsaka'); // $ExpectType boolean
 
 wanakana.toKana('ONAJI buttsuuji'); // $ExpectType string
-wanakana.toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' }}); // $ExpectType string
+wanakana.toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' } }); // $ExpectType string
 
 wanakana.toHiragana('toukyou, オオサカ'); // $ExpectType string
 wanakana.toHiragana('only カナ', { passRomaji: true }); // $ExpectType string

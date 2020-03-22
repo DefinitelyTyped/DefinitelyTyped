@@ -6,20 +6,14 @@
 
 /// <reference types="node" />
 
-import * as Stream from "stream";
+import * as Stream from 'stream';
 
-import {
-    Context as BaseContext,
-    Options as BaseWriterOptions,
-} from "conventional-changelog-writer";
-import {
-    Commit,
-    Options as BaseParserOptions,
-} from "conventional-commits-parser";
-import { Options as RecommendedBumpOptions } from "conventional-recommended-bump";
-import { GitOptions as BaseGitRawCommitsOptions } from "git-raw-commits";
+import { Context as BaseContext, Options as BaseWriterOptions } from 'conventional-changelog-writer';
+import { Commit, Options as BaseParserOptions } from 'conventional-commits-parser';
+import { Options as RecommendedBumpOptions } from 'conventional-recommended-bump';
+import { GitOptions as BaseGitRawCommitsOptions } from 'git-raw-commits';
 
-import { Package } from "normalize-package-data";
+import { Package } from 'normalize-package-data';
 
 /**
  * Returns a readable stream.
@@ -31,7 +25,13 @@ import { Package } from "normalize-package-data";
  * @param writerOpts
  */
 // tslint:disable-next-line max-line-length
-declare function conventionalChangelogCore<TCommit extends Commit = Commit, TContext extends BaseContext = Context>(options?: Options<TCommit, TContext>, context?: Partial<TContext>, gitRawCommitsOpts?: GitRawCommitsOptions, parserOpts?: ParserOptions, writerOpts?: WriterOptions<TCommit, TContext>): Stream.Readable;
+declare function conventionalChangelogCore<TCommit extends Commit = Commit, TContext extends BaseContext = Context>(
+    options?: Options<TCommit, TContext>,
+    context?: Partial<TContext>,
+    gitRawCommitsOpts?: GitRawCommitsOptions,
+    parserOpts?: ParserOptions,
+    writerOpts?: WriterOptions<TCommit, TContext>,
+): Stream.Readable;
 
 declare namespace conventionalChangelogCore {
     interface Context extends BaseContext {
@@ -41,7 +41,7 @@ declare namespace conventionalChangelogCore {
          * @defaults
          * Normalized host found in `package.json`.
          */
-        host?: BaseContext["host"];
+        host?: BaseContext['host'];
 
         /**
          * Version number of the up-coming release. If `version` is found in the last
@@ -50,7 +50,7 @@ declare namespace conventionalChangelogCore {
          * @defaults
          * Version found in `package.json`.
          */
-        version?: BaseContext["version"];
+        version?: BaseContext['version'];
 
         /**
          * The owner of the repository. Eg: `'stevemao'`.
@@ -58,7 +58,7 @@ declare namespace conventionalChangelogCore {
          * @defaults
          * Extracted from normalized `package.json` `repository.url` field.
          */
-        owner?: BaseContext["owner"];
+        owner?: BaseContext['owner'];
 
         /**
          * The repository name on `host`. Eg: `'conventional-changelog-writer'`.
@@ -66,7 +66,7 @@ declare namespace conventionalChangelogCore {
          * @defaults
          * Extracted from normalized `package.json` `repository.url` field.
          */
-        repository?: BaseContext["repository"];
+        repository?: BaseContext['repository'];
 
         /**
          * The whole repository url. Eg: `'https://github.com/conventional-changelog/conventional-changelog-writer'`.
@@ -75,7 +75,7 @@ declare namespace conventionalChangelogCore {
          * @defaults
          * The whole normalized repository url in `package.json`.
          */
-        repoUrl?: BaseContext["repoUrl"];
+        repoUrl?: BaseContext['repoUrl'];
 
         /**
          * @defaults
@@ -124,13 +124,13 @@ declare namespace conventionalChangelogCore {
          * @default
          * '%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci'
          */
-        format?: BaseGitRawCommitsOptions["format"];
+        format?: BaseGitRawCommitsOptions['format'];
 
         /**
          * @defaults
          * Based on `options.releaseCount`.
          */
-        from?: BaseGitRawCommitsOptions["from"];
+        from?: BaseGitRawCommitsOptions['from'];
 
         /**
          * @defaults
@@ -144,7 +144,7 @@ declare namespace conventionalChangelogCore {
          * @default
          * options.debug
          */
-        debug?: BaseGitRawCommitsOptions["debug"];
+        debug?: BaseGitRawCommitsOptions['debug'];
     }
 
     type MergedContext<T extends BaseContext = BaseContext> = T & MergedContext.ExtraContext;
@@ -254,13 +254,21 @@ declare namespace conventionalChangelogCore {
 
     namespace Options {
         // tslint:disable-next-line max-line-length
-        type Config<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = Promise<Config.Object<TCommit, TContext>> | Config.Function<TCommit, TContext> | Config.Object<TCommit, TContext>;
+        type Config<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> =
+            | Promise<Config.Object<TCommit, TContext>>
+            | Config.Function<TCommit, TContext>
+            | Config.Object<TCommit, TContext>;
 
         namespace Config {
-            type FunctionType<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = (callback: FunctionType.Callback<TCommit, TContext>) => void;
+            type FunctionType<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = (
+                callback: FunctionType.Callback<TCommit, TContext>,
+            ) => void;
 
             namespace FunctionType {
-                type Callback<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = (error: any, config: ObjectType<TCommit, TContext>) => void;
+                type Callback<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = (
+                    error: any,
+                    config: ObjectType<TCommit, TContext>,
+                ) => void;
             }
 
             interface ObjectType<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> {
@@ -271,10 +279,7 @@ declare namespace conventionalChangelogCore {
                 writerOpts?: WriterOptions<TCommit, TContext>;
             }
 
-            export {
-                FunctionType as Function,
-                ObjectType as Object,
-            };
+            export { FunctionType as Function, ObjectType as Object };
         }
 
         type Logger = (message?: any) => void;
@@ -323,10 +328,11 @@ declare namespace conventionalChangelogCore {
          * @default
          * options.warn
          */
-        warn?: BaseParserOptions["warn"];
+        warn?: BaseParserOptions['warn'];
     }
 
-    interface WriterOptions<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> extends BaseWriterOptions<TCommit, MergedContext<TContext>> {
+    interface WriterOptions<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext>
+        extends BaseWriterOptions<TCommit, MergedContext<TContext>> {
         /**
          * Last chance to modify your context before generating a changelog.
          *
@@ -335,7 +341,7 @@ declare namespace conventionalChangelogCore {
          * @remarks
          * If you overwrite this value the above context defaults will be gone.
          */
-        finalizeContext?: BaseWriterOptions<TCommit, MergedContext<TContext>>["finalizeContext"];
+        finalizeContext?: BaseWriterOptions<TCommit, MergedContext<TContext>>['finalizeContext'];
 
         /**
          * A function to get debug information.
@@ -343,7 +349,7 @@ declare namespace conventionalChangelogCore {
          * @default
          * options.debug
          */
-        debug?: BaseWriterOptions["debug"];
+        debug?: BaseWriterOptions['debug'];
 
         /**
          * The normal order means reverse chronological order. `reverse` order means
@@ -355,7 +361,7 @@ declare namespace conventionalChangelogCore {
          * @default
          * options.append
          */
-        reverse?: BaseWriterOptions["reverse"];
+        reverse?: BaseWriterOptions['reverse'];
 
         /**
          * If `true`, the stream will flush out the last bit of commits (could be empty)
@@ -364,14 +370,20 @@ declare namespace conventionalChangelogCore {
          * @default
          * options.outputUnreleased
          */
-        doFlush?: BaseWriterOptions["doFlush"];
+        doFlush?: BaseWriterOptions['doFlush'];
     }
 }
 
 type Context = conventionalChangelogCore.Context;
 type GitRawCommitsOptions = conventionalChangelogCore.GitRawCommitsOptions;
-type Options<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = conventionalChangelogCore.Options<TCommit, TContext>;
+type Options<
+    TCommit extends Commit = Commit,
+    TContext extends BaseContext = BaseContext
+> = conventionalChangelogCore.Options<TCommit, TContext>;
 type ParserOptions = conventionalChangelogCore.ParserOptions;
-type WriterOptions<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = conventionalChangelogCore.WriterOptions<TCommit, TContext>;
+type WriterOptions<
+    TCommit extends Commit = Commit,
+    TContext extends BaseContext = BaseContext
+> = conventionalChangelogCore.WriterOptions<TCommit, TContext>;
 
 export = conventionalChangelogCore;

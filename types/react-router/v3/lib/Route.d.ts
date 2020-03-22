@@ -1,5 +1,5 @@
-import { ComponentClass, ClassAttributes } from "react";
-import { LocationState } from "history";
+import { ComponentClass, ClassAttributes } from 'react';
+import { LocationState } from 'history';
 import {
     EnterHook,
     ChangeHook,
@@ -7,9 +7,9 @@ import {
     RouteComponent,
     RouteComponents,
     RoutePattern,
-    RouterState
-} from "react-router";
-import { IndexRouteProps } from "react-router/lib/IndexRoute";
+    RouterState,
+} from 'react-router';
+import { IndexRouteProps } from 'react-router/lib/IndexRoute';
 
 export interface RouteProps<Props = any> extends IndexRouteProps<Props> {
     path?: RoutePattern;

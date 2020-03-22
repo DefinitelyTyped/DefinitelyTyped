@@ -1,5 +1,5 @@
-import express = require("express");
-import query = require("qs-middleware");
+import express = require('express');
+import query = require('qs-middleware');
 
 const app = express();
 
@@ -7,9 +7,9 @@ app.use(query());
 app.use(query({}));
 app.use(
     query({
-        delimiter: "string",
+        delimiter: 'string',
         depth: 123,
-        decoder: str => str.toLowerCase(),
+        decoder: (str) => str.toLowerCase(),
         arrayLimit: 123,
         parseArrays: true,
         allowDots: true,
@@ -17,7 +17,7 @@ app.use(
         allowPrototypes: true,
         parameterLimit: 123,
         strictNullHandling: true,
-        ignoreQueryPrefix: true
-    })
+        ignoreQueryPrefix: true,
+    }),
 );
 app.use(query({ delimiter: /regexp/ }));

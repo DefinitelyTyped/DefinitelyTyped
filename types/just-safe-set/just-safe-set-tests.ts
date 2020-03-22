@@ -1,7 +1,7 @@
-import set = require("just-safe-set");
+import set = require('just-safe-set');
 
 const arr = ['one', 'two'];
-const obj = {foo: {bar: arr}};
+const obj = { foo: { bar: arr } };
 
 // Pass single `object`.
 set(arr, '0', {}); // $ExpectType boolean

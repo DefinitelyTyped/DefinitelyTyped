@@ -45,8 +45,7 @@ export interface TwoHandleSliderState {
  * @returns {XML}
  */
 export declare const SliderHandle: React.StatelessComponent<SliderHandleProps>;
-export interface SliderHandleProps extends React.HTMLAttributes<HTMLSpanElement> {
-}
+export interface SliderHandleProps extends React.HTMLAttributes<HTMLSpanElement> {}
 export interface SliderFillProps {
     className?: string;
 }

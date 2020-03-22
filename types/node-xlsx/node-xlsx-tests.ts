@@ -6,8 +6,8 @@ const data = [
     ['baz', null, 'qux'],
 ];
 
-const options =  { '!merges': [{ s: { c: 0, r: 0 }, e: { c: 11, r: 0 } }] };
+const options = { '!merges': [{ s: { c: 0, r: 0 }, e: { c: 11, r: 0 } }] };
 
 const buffer1 = build([{ name: 'mySheetName1', data }]);
 const buffer2 = build([{ name: 'mySheetName2', data }], options);
-const buffer3 = build([{ name: 'mySheetName3', data, options}]);
+const buffer3 = build([{ name: 'mySheetName3', data, options }]);

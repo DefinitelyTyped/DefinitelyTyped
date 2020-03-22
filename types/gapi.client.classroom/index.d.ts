@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Classroom API v1 */
-    function load(name: "classroom", version: "v1"): PromiseLike<void>;
-    function load(name: "classroom", version: "v1", callback: () => any): void;
+    function load(name: 'classroom', version: 'v1'): PromiseLike<void>;
+    function load(name: 'classroom', version: 'v1', callback: () => any): void;
 
     namespace classroom {
         interface Announcement {
@@ -497,8 +497,7 @@ declare namespace gapi.client {
             title?: string;
         }
         // tslint:disable-next-line:no-empty-interface
-        interface Empty {
-        }
+        interface Empty {}
         interface Feed {
             /**
              * Information about a `Feed` with a `feed_type` of `COURSE_ROSTER_CHANGES`.
@@ -834,8 +833,7 @@ declare namespace gapi.client {
             givenName?: string;
         }
         // tslint:disable-next-line:no-empty-interface
-        interface ReclaimStudentSubmissionRequest {
-        }
+        interface ReclaimStudentSubmissionRequest {}
         interface Registration {
             /** The Cloud Pub/Sub topic that notifications are to be sent to. */
             cloudPubsubTopic?: CloudPubsubTopic;
@@ -858,8 +856,7 @@ declare namespace gapi.client {
             registrationId?: string;
         }
         // tslint:disable-next-line:no-empty-interface
-        interface ReturnStudentSubmissionRequest {
-        }
+        interface ReturnStudentSubmissionRequest {}
         interface SharedDriveFile {
             /** Drive file details. */
             driveFile?: DriveFile;
@@ -1094,8 +1091,7 @@ declare namespace gapi.client {
             updateTime?: string;
         }
         // tslint:disable-next-line:no-empty-interface
-        interface TurnInStudentSubmissionRequest {
-        }
+        interface TurnInStudentSubmissionRequest {}
         interface UserProfile {
             /**
              * Email address of the user.
@@ -1174,7 +1170,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1204,37 +1200,39 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: CourseAlias;
             }): Request<CourseAlias>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course to alias.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: CourseAlias): Request<CourseAlias>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course to alias.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: CourseAlias,
+            ): Request<CourseAlias>;
             /**
              * Deletes an alias of a course.
              *
@@ -1249,7 +1247,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1293,7 +1291,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1355,7 +1353,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1385,37 +1383,39 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Announcement;
             }): Request<Announcement>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Announcement): Request<Announcement>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Announcement,
+            ): Request<Announcement>;
             /**
              * Deletes an announcement.
              *
@@ -1434,7 +1434,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1479,7 +1479,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1524,7 +1524,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1597,7 +1597,7 @@ declare namespace gapi.client {
              */
             modifyAssignees(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1629,39 +1629,41 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: ModifyAnnouncementAssigneesRequest;
             }): Request<Announcement>;
-            modifyAssignees(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the announcement. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: ModifyAnnouncementAssigneesRequest): Request<Announcement>;
+            modifyAssignees(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the announcement. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: ModifyAnnouncementAssigneesRequest,
+            ): Request<Announcement>;
             /**
              * Updates one or more fields of an announcement.
              *
@@ -1676,7 +1678,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1724,55 +1726,57 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Announcement;
             }): Request<Announcement>;
-            patch(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the announcement. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /**
-                 * Mask that identifies which fields on the announcement to update.
-                 * This field is required to do an update. The update fails if invalid
-                 * fields are specified. If a field supports empty values, it can be cleared
-                 * by specifying it in the update mask and not in the Announcement object. If
-                 * a field that does not support empty values is included in the update mask
-                 * and not set in the Announcement object, an `INVALID_ARGUMENT` error will be
-                 * returned.
-                 *
-                 * The following fields may be specified by teachers:
-                 *
-                 * &#42; `text`
-                 * &#42; `state`
-                 * &#42; `scheduled_time`
-                 */
-                updateMask?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Announcement): Request<Announcement>;
+            patch(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the announcement. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /**
+                     * Mask that identifies which fields on the announcement to update.
+                     * This field is required to do an update. The update fails if invalid
+                     * fields are specified. If a field supports empty values, it can be cleared
+                     * by specifying it in the update mask and not in the Announcement object. If
+                     * a field that does not support empty values is included in the update mask
+                     * and not set in the Announcement object, an `INVALID_ARGUMENT` error will be
+                     * returned.
+                     *
+                     * The following fields may be specified by teachers:
+                     *
+                     * &#42; `text`
+                     * &#42; `state`
+                     * &#42; `scheduled_time`
+                     */
+                    updateMask?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Announcement,
+            ): Request<Announcement>;
         }
         interface StudentSubmissionsResource {
             /**
@@ -1787,7 +1791,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1837,7 +1841,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1931,7 +1935,7 @@ declare namespace gapi.client {
              */
             modifyAttachments(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1965,41 +1969,43 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: ModifyAttachmentsRequest;
             }): Request<StudentSubmission>;
-            modifyAttachments(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Identifier of the course work. */
-                courseWorkId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the student submission. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: ModifyAttachmentsRequest): Request<StudentSubmission>;
+            modifyAttachments(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Identifier of the course work. */
+                    courseWorkId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the student submission. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: ModifyAttachmentsRequest,
+            ): Request<StudentSubmission>;
             /**
              * Updates one or more fields of a student submission.
              *
@@ -2022,7 +2028,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2067,52 +2073,54 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: StudentSubmission;
             }): Request<StudentSubmission>;
-            patch(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Identifier of the course work. */
-                courseWorkId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the student submission. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /**
-                 * Mask that identifies which fields on the student submission to update.
-                 * This field is required to do an update. The update fails if invalid
-                 * fields are specified.
-                 *
-                 * The following fields may be specified by teachers:
-                 *
-                 * &#42; `draft_grade`
-                 * &#42; `assigned_grade`
-                 */
-                updateMask?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: StudentSubmission): Request<StudentSubmission>;
+            patch(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Identifier of the course work. */
+                    courseWorkId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the student submission. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /**
+                     * Mask that identifies which fields on the student submission to update.
+                     * This field is required to do an update. The update fails if invalid
+                     * fields are specified.
+                     *
+                     * The following fields may be specified by teachers:
+                     *
+                     * &#42; `draft_grade`
+                     * &#42; `assigned_grade`
+                     */
+                    updateMask?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: StudentSubmission,
+            ): Request<StudentSubmission>;
             /**
              * Reclaims a student submission on behalf of the student that owns it.
              *
@@ -2138,7 +2146,7 @@ declare namespace gapi.client {
              */
             reclaim(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2172,41 +2180,43 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: ReclaimStudentSubmissionRequest;
             }): Request<{}>;
-            reclaim(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Identifier of the course work. */
-                courseWorkId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the student submission. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: ReclaimStudentSubmissionRequest): Request<{}>;
+            reclaim(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Identifier of the course work. */
+                    courseWorkId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the student submission. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: ReclaimStudentSubmissionRequest,
+            ): Request<{}>;
             /**
              * Returns a student submission.
              *
@@ -2233,7 +2243,7 @@ declare namespace gapi.client {
              */
             return(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2267,41 +2277,43 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: ReturnStudentSubmissionRequest;
             }): Request<{}>;
-            return(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Identifier of the course work. */
-                courseWorkId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the student submission. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: ReturnStudentSubmissionRequest): Request<{}>;
+            return(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Identifier of the course work. */
+                    courseWorkId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the student submission. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: ReturnStudentSubmissionRequest,
+            ): Request<{}>;
             /**
              * Turns in a student submission.
              *
@@ -2326,7 +2338,7 @@ declare namespace gapi.client {
              */
             turnIn(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2360,41 +2372,43 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: TurnInStudentSubmissionRequest;
             }): Request<{}>;
-            turnIn(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Identifier of the course work. */
-                courseWorkId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the student submission. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: TurnInStudentSubmissionRequest): Request<{}>;
+            turnIn(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Identifier of the course work. */
+                    courseWorkId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the student submission. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: TurnInStudentSubmissionRequest,
+            ): Request<{}>;
         }
         interface CourseWorkResource {
             /**
@@ -2419,7 +2433,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2449,37 +2463,39 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: CourseWork;
             }): Request<CourseWork>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: CourseWork): Request<CourseWork>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: CourseWork,
+            ): Request<CourseWork>;
             /**
              * Deletes a course work.
              *
@@ -2498,7 +2514,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2543,7 +2559,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2588,7 +2604,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2662,7 +2678,7 @@ declare namespace gapi.client {
              */
             modifyAssignees(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2694,39 +2710,41 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: ModifyCourseWorkAssigneesRequest;
             }): Request<CourseWork>;
-            modifyAssignees(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the coursework. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: ModifyCourseWorkAssigneesRequest): Request<CourseWork>;
+            modifyAssignees(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the coursework. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: ModifyCourseWorkAssigneesRequest,
+            ): Request<CourseWork>;
             /**
              * Updates one or more fields of a course work.
              *
@@ -2751,7 +2769,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2805,61 +2823,63 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: CourseWork;
             }): Request<CourseWork>;
-            patch(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the course work. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /**
-                 * Mask that identifies which fields on the course work to update.
-                 * This field is required to do an update. The update fails if invalid
-                 * fields are specified. If a field supports empty values, it can be cleared
-                 * by specifying it in the update mask and not in the CourseWork object. If a
-                 * field that does not support empty values is included in the update mask and
-                 * not set in the CourseWork object, an `INVALID_ARGUMENT` error will be
-                 * returned.
-                 *
-                 * The following fields may be specified by teachers:
-                 *
-                 * &#42; `title`
-                 * &#42; `description`
-                 * &#42; `state`
-                 * &#42; `due_date`
-                 * &#42; `due_time`
-                 * &#42; `max_points`
-                 * &#42; `scheduled_time`
-                 * &#42; `submission_modification_mode`
-                 * &#42; `topic_id`
-                 */
-                updateMask?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: CourseWork): Request<CourseWork>;
+            patch(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the course work. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /**
+                     * Mask that identifies which fields on the course work to update.
+                     * This field is required to do an update. The update fails if invalid
+                     * fields are specified. If a field supports empty values, it can be cleared
+                     * by specifying it in the update mask and not in the CourseWork object. If a
+                     * field that does not support empty values is included in the update mask and
+                     * not set in the CourseWork object, an `INVALID_ARGUMENT` error will be
+                     * returned.
+                     *
+                     * The following fields may be specified by teachers:
+                     *
+                     * &#42; `title`
+                     * &#42; `description`
+                     * &#42; `state`
+                     * &#42; `due_date`
+                     * &#42; `due_time`
+                     * &#42; `max_points`
+                     * &#42; `scheduled_time`
+                     * &#42; `submission_modification_mode`
+                     * &#42; `topic_id`
+                     */
+                    updateMask?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: CourseWork,
+            ): Request<CourseWork>;
             studentSubmissions: StudentSubmissionsResource;
         }
         interface StudentsResource {
@@ -2881,7 +2901,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2918,44 +2938,46 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Student;
             }): Request<Student>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course to create the student in.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /**
-                 * Enrollment code of the course to create the student in.
-                 * This code is required if userId
-                 * corresponds to the requesting user; it may be omitted if the requesting
-                 * user has administrative permissions to create students for any user.
-                 */
-                enrollmentCode?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Student): Request<Student>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course to create the student in.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /**
+                     * Enrollment code of the course to create the student in.
+                     * This code is required if userId
+                     * corresponds to the requesting user; it may be omitted if the requesting
+                     * user has administrative permissions to create students for any user.
+                     */
+                    enrollmentCode?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Student,
+            ): Request<Student>;
             /**
              * Deletes a student of a course.
              *
@@ -2968,7 +2990,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3017,7 +3039,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3065,7 +3087,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3130,7 +3152,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3160,37 +3182,39 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Teacher;
             }): Request<Teacher>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Teacher): Request<Teacher>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Teacher,
+            ): Request<Teacher>;
             /**
              * Deletes a teacher of a course.
              *
@@ -3205,7 +3229,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3254,7 +3278,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3302,7 +3326,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3361,7 +3385,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3391,37 +3415,39 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Topic;
             }): Request<Topic>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Topic): Request<Topic>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Topic,
+            ): Request<Topic>;
             /**
              * Deletes a topic.
              *
@@ -3435,7 +3461,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3477,7 +3503,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3515,7 +3541,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3572,7 +3598,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3618,53 +3644,55 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Topic;
             }): Request<Topic>;
-            patch(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /**
-                 * Identifier of the course.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                courseId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Identifier of the topic. */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /**
-                 * Mask that identifies which fields on the topic to update.
-                 * This field is required to do an update. The update fails if invalid
-                 * fields are specified. If a field supports empty values, it can be cleared
-                 * by specifying it in the update mask and not in the Topic object. If a
-                 * field that does not support empty values is included in the update mask and
-                 * not set in the Topic object, an `INVALID_ARGUMENT` error will be
-                 * returned.
-                 *
-                 * The following fields may be specified:
-                 *
-                 * &#42; `name`
-                 */
-                updateMask?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Topic): Request<Topic>;
+            patch(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /**
+                     * Identifier of the course.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    courseId: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** Identifier of the topic. */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /**
+                     * Mask that identifies which fields on the topic to update.
+                     * This field is required to do an update. The update fails if invalid
+                     * fields are specified. If a field supports empty values, it can be cleared
+                     * by specifying it in the update mask and not in the Topic object. If a
+                     * field that does not support empty values is included in the update mask and
+                     * not set in the Topic object, an `INVALID_ARGUMENT` error will be
+                     * returned.
+                     *
+                     * The following fields may be specified:
+                     *
+                     * &#42; `name`
+                     */
+                    updateMask?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Topic,
+            ): Request<Topic>;
         }
         interface CoursesResource {
             /**
@@ -3686,7 +3714,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3710,31 +3738,33 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Course;
             }): Request<Course>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Course): Request<Course>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Course,
+            ): Request<Course>;
             /**
              * Deletes a course.
              *
@@ -3746,7 +3776,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3785,7 +3815,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3826,7 +3856,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3903,7 +3933,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3955,59 +3985,61 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Course;
             }): Request<Course>;
-            patch(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /**
-                 * Identifier of the course to update.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /**
-                 * Mask that identifies which fields on the course to update.
-                 * This field is required to do an update. The update will fail if invalid
-                 * fields are specified. The following fields are valid:
-                 *
-                 * &#42; `name`
-                 * &#42; `section`
-                 * &#42; `descriptionHeading`
-                 * &#42; `description`
-                 * &#42; `room`
-                 * &#42; `courseState`
-                 * &#42; `ownerId`
-                 *
-                 * Note: patches to ownerId are treated as being effective immediately, but in
-                 * practice it may take some time for the ownership transfer of all affected
-                 * resources to complete.
-                 *
-                 * When set in a query parameter, this field should be specified as
-                 *
-                 * `updateMask=<field1>,<field2>,...`
-                 */
-                updateMask?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Course): Request<Course>;
+            patch(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /**
+                     * Identifier of the course to update.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /**
+                     * Mask that identifies which fields on the course to update.
+                     * This field is required to do an update. The update will fail if invalid
+                     * fields are specified. The following fields are valid:
+                     *
+                     * &#42; `name`
+                     * &#42; `section`
+                     * &#42; `descriptionHeading`
+                     * &#42; `description`
+                     * &#42; `room`
+                     * &#42; `courseState`
+                     * &#42; `ownerId`
+                     *
+                     * Note: patches to ownerId are treated as being effective immediately, but in
+                     * practice it may take some time for the ownership transfer of all affected
+                     * resources to complete.
+                     *
+                     * When set in a query parameter, this field should be specified as
+                     *
+                     * `updateMask=<field1>,<field2>,...`
+                     */
+                    updateMask?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Course,
+            ): Request<Course>;
             /**
              * Updates a course.
              *
@@ -4021,7 +4053,7 @@ declare namespace gapi.client {
              */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4051,37 +4083,39 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Course;
             }): Request<Course>;
-            update(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /**
-                 * Identifier of the course to update.
-                 * This identifier can be either the Classroom-assigned identifier or an
-                 * alias.
-                 */
-                id: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Course): Request<Course>;
+            update(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /**
+                     * Identifier of the course to update.
+                     * This identifier can be either the Classroom-assigned identifier or an
+                     * alias.
+                     */
+                    id: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Course,
+            ): Request<Course>;
             aliases: AliasesResource;
             announcements: AnnouncementsResource;
             courseWork: CourseWorkResource;
@@ -4108,7 +4142,7 @@ declare namespace gapi.client {
              */
             accept(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4148,7 +4182,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4172,31 +4206,33 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Invitation;
             }): Request<Invitation>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Invitation): Request<Invitation>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Invitation,
+            ): Request<Invitation>;
             /**
              * Deletes an invitation.
              *
@@ -4208,7 +4244,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4243,7 +4279,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4280,7 +4316,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4369,7 +4405,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4393,38 +4429,40 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Registration;
             }): Request<Registration>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: Registration): Request<Registration>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: Registration,
+            ): Request<Registration>;
             /**
              * Deletes a `Registration`, causing Classroom to stop sending notifications
              * for that `Registration`.
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4484,7 +4522,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4510,33 +4548,35 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: GuardianInvitation;
             }): Request<GuardianInvitation>;
-            create(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** ID of the student (in standard format) */
-                studentId: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: GuardianInvitation): Request<GuardianInvitation>;
+            create(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** ID of the student (in standard format) */
+                    studentId: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: GuardianInvitation,
+            ): Request<GuardianInvitation>;
             /**
              * Returns a specific guardian invitation.
              *
@@ -4555,7 +4595,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4601,7 +4641,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4684,7 +4724,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4724,47 +4764,49 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: GuardianInvitation;
             }): Request<GuardianInvitation>;
-            patch(request: {
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** The `id` field of the `GuardianInvitation` to be modified. */
-                invitationId: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** The ID of the student whose guardian invitation is to be modified. */
-                studentId: string;
-                /**
-                 * Mask that identifies which fields on the course to update.
-                 * This field is required to do an update. The update will fail if invalid
-                 * fields are specified. The following fields are valid:
-                 *
-                 * &#42; `state`
-                 *
-                 * When set in a query parameter, this field should be specified as
-                 *
-                 * `updateMask=<field1>,<field2>,...`
-                 */
-                updateMask?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            },
-            body: GuardianInvitation): Request<GuardianInvitation>;
+            patch(
+                request: {
+                    /** V1 error format. */
+                    '$.xgafv'?: string;
+                    /** OAuth access token. */
+                    access_token?: string;
+                    /** Data format for response. */
+                    alt?: string;
+                    /** JSONP */
+                    callback?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** The `id` field of the `GuardianInvitation` to be modified. */
+                    invitationId: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** The ID of the student whose guardian invitation is to be modified. */
+                    studentId: string;
+                    /**
+                     * Mask that identifies which fields on the course to update.
+                     * This field is required to do an update. The update will fail if invalid
+                     * fields are specified. The following fields are valid:
+                     *
+                     * &#42; `state`
+                     *
+                     * When set in a query parameter, this field should be specified as
+                     *
+                     * `updateMask=<field1>,<field2>,...`
+                     */
+                    updateMask?: string;
+                    /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                    uploadType?: string;
+                    /** Upload protocol for media (e.g. "raw", "multipart"). */
+                    upload_protocol?: string;
+                },
+                body: GuardianInvitation,
+            ): Request<GuardianInvitation>;
         }
         interface GuardiansResource {
             /**
@@ -4789,7 +4831,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4840,7 +4882,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4896,7 +4938,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -4965,7 +5007,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

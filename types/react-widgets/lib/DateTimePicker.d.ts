@@ -2,7 +2,7 @@ import { ComponentClass, KeyboardEvent, ReactElement, ReactType } from 'react';
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 declare namespace DateTimePicker {
-    type Open = false | "date" | "time";
+    type Open = false | 'date' | 'time';
 
     interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
         /**
@@ -92,12 +92,12 @@ declare namespace DateTimePicker {
         /**
          * The starting and lowest level view the calendar can navigate down to.
          */
-        initialView?: "month" | "year" | "decade" | "century";
+        initialView?: 'month' | 'year' | 'decade' | 'century';
         /**
          * The highest level view the calendar can navigate up to. This value should be higher than
          * initialView.
          */
-        finalView?: "month" | "year" | "decade" | "century";
+        finalView?: 'month' | 'year' | 'decade' | 'century';
         /**
          * The current selected date, should be a Date instance or null.
          */

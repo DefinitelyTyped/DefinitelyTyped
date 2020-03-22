@@ -7,14 +7,14 @@ const visualPlugin: IVisualPlugin = {
     name: 'string',
     create: (options?: powerbi.extensibility.VisualConstructorOptions) => {
         const value: IVisual = {
-            update: (options: powerbi.extensibility.VisualUpdateOptions) => {}
+            update: (options: powerbi.extensibility.VisualUpdateOptions) => {},
         };
         return value;
     },
     class: 'string',
     custom: true,
-    apiVersion: "1.11.0",
-    displayName: "string"
+    apiVersion: '1.11.0',
+    displayName: 'string',
 };
 
 import ISelectionIdBuilder = powerbi.visuals.ISelectionIdBuilder;
@@ -24,7 +24,10 @@ const selectionBuilder: ISelectionIdBuilder = {
     withCategory: (categoryColumn: powerbi.DataViewCategoryColumn, index: number): ISelectionIdBuilder => {
         return selectionBuilder;
     },
-    withSeries: (ser: powerbi.DataViewValueColumns, val: powerbi.DataViewValueColumn | powerbi.DataViewValueColumnGroup): ISelectionIdBuilder => {
+    withSeries: (
+        ser: powerbi.DataViewValueColumns,
+        val: powerbi.DataViewValueColumn | powerbi.DataViewValueColumnGroup,
+    ): ISelectionIdBuilder => {
         return selectionBuilder;
     },
     withMeasure: (measure: string): ISelectionIdBuilder => {
@@ -34,21 +37,19 @@ const selectionBuilder: ISelectionIdBuilder = {
         const selection: ISelectionId = {
             equals: (sel: ISelectionId) => false,
             includes: (sel: ISelectionId, ignoreHL: boolean) => false,
-            getKey: () => "string",
+            getKey: () => 'string',
             getSelector: () => {
-                const selector: powerbi.data.Selector = {
-                };
+                const selector: powerbi.data.Selector = {};
                 return selector;
             },
             getSelectorsByColumn: () => {
-                const selector: powerbi.data.SelectorsByColumn = {
-                };
+                const selector: powerbi.data.SelectorsByColumn = {};
                 return selector;
             },
-            hasIdentity: () => false
+            hasIdentity: () => false,
         };
         return selection;
-    }
+    },
 };
 
 import DataView = powerbi.DataView;
@@ -62,12 +63,10 @@ import DataViewScriptResultData = powerbi.DataViewScriptResultData;
 
 const dataView: DataView = {
     metadata: {
-        columns: [
-        ],
+        columns: [],
         objects: undefined,
         dataReduction: undefined,
-        segment: {
-        }
+        segment: {},
     },
     categorical: {
         categories: [
@@ -75,36 +74,36 @@ const dataView: DataView = {
                 identity: [
                     {
                         expr: {},
-                        key: "string",
-                        kind: powerbi.DataRepetitionKind.ScopeIdentity
-                    }
+                        key: 'string',
+                        kind: powerbi.DataRepetitionKind.ScopeIdentity,
+                    },
                 ],
                 identityFields: [],
                 objects: undefined,
                 source: {
-                    displayName: "string",
-                    format: "string",
-                    groupName: "string",
+                    displayName: 'string',
+                    format: 'string',
+                    groupName: 'string',
                     objects: undefined,
                     aggregates: {
-                        average: true
+                        average: true,
                     },
                     isMeasure: false,
-                    queryName: "string",
+                    queryName: 'string',
                     sort: powerbi.SortDirection.Ascending || powerbi.SortDirection.Descending,
                     index: 0,
                     type: {
-                        text: true
+                        text: true,
                     },
                     sortOrder: 0,
                     kpi: {
-                        graphic: "string",
-                        normalizedFiveStateKpiRange: false
-                    }
+                        graphic: 'string',
+                        normalizedFiveStateKpiRange: false,
+                    },
                 },
-                values: []
-            }
+                values: [],
+            },
         ],
-        values: undefined
-    }
+        values: undefined,
+    },
 };

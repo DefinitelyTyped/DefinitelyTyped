@@ -108,12 +108,12 @@ export interface LayersControlEvents {
     onoverlayremove?(event: Leaflet.LayersControlEvent): void;
 }
 
-export type LeafletEvents = MapEvents
-    & MarkerEvents
-    & TileLayerEvents
-    & PathEvents
-    & FeatureGroupEvents
-    & LayersControlEvents;
+export type LeafletEvents = MapEvents &
+    MarkerEvents &
+    TileLayerEvents &
+    PathEvents &
+    FeatureGroupEvents &
+    LayersControlEvents;
 
 // Most react-leaflet components take two type parameters:
 // - P : the component's props object
@@ -204,7 +204,7 @@ export interface PaneState {
 export class Pane<P extends PaneProps = PaneProps, S extends PaneState = PaneState> extends React.Component<P, S> {
     createPane(props: P): void;
     removePane(): void;
-    setStyle(arg: { style?: string, className?: string }): void;
+    setStyle(arg: { style?: string; className?: string }): void;
     getParentPane(): HTMLElement | null | undefined;
     getPane(name: string | null | undefined): HTMLElement | null | undefined;
 }
@@ -241,7 +241,10 @@ export interface Viewport {
     zoom: number | null | undefined;
 }
 
-export class MapLayer<P extends MapLayerProps = MapLayerProps, E extends Leaflet.Layer = Leaflet.Layer> extends MapComponent<P, E> {
+export class MapLayer<
+    P extends MapLayerProps = MapLayerProps,
+    E extends Leaflet.Layer = Leaflet.Layer
+> extends MapComponent<P, E> {
     contextValue: LeafletContext | null | undefined;
     leafletElement: E;
     createLeafletElement(props: P): E;
@@ -249,8 +252,11 @@ export class MapLayer<P extends MapLayerProps = MapLayerProps, E extends Leaflet
     readonly layerContainer: LayerContainer | Leaflet.Map;
 }
 
-export interface GridLayerProps extends MapLayerProps, Leaflet.GridLayerOptions { }
-export class GridLayer<P extends GridLayerProps = GridLayerProps, E extends Leaflet.GridLayer = Leaflet.GridLayer> extends MapLayer<P, E> {
+export interface GridLayerProps extends MapLayerProps, Leaflet.GridLayerOptions {}
+export class GridLayer<
+    P extends GridLayerProps = GridLayerProps,
+    E extends Leaflet.GridLayer = Leaflet.GridLayer
+> extends MapLayer<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
     getOptions(props: P): P;
@@ -259,7 +265,10 @@ export class GridLayer<P extends GridLayerProps = GridLayerProps, E extends Leaf
 export interface TileLayerProps extends GridLayerProps, TileLayerEvents, Leaflet.TileLayerOptions {
     url: string;
 }
-export class TileLayer<P extends TileLayerProps = TileLayerProps, E extends Leaflet.TileLayer = Leaflet.TileLayer> extends GridLayer<P, E> {
+export class TileLayer<
+    P extends TileLayerProps = TileLayerProps,
+    E extends Leaflet.TileLayer = Leaflet.TileLayer
+> extends GridLayer<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
@@ -268,7 +277,10 @@ export interface WMSTileLayerProps extends TileLayerEvents, Leaflet.WMSOptions, 
     children?: Children;
     url: string;
 }
-export class WMSTileLayer<P extends WMSTileLayerProps = WMSTileLayerProps,  E extends Leaflet.TileLayer.WMS = Leaflet.TileLayer.WMS> extends GridLayer<P, E> {
+export class WMSTileLayer<
+    P extends WMSTileLayerProps = WMSTileLayerProps,
+    E extends Leaflet.TileLayer.WMS = Leaflet.TileLayer.WMS
+> extends GridLayer<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
     getOptions(params: P): P;
@@ -279,7 +291,10 @@ export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOp
     url: string | HTMLImageElement;
     zIndex?: number;
 }
-export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay> extends MapLayer<P, E> {
+export class ImageOverlay<
+    P extends ImageOverlayProps = ImageOverlayProps,
+    E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay
+> extends MapLayer<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
@@ -287,7 +302,10 @@ export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E ext
 export interface SVGOverlayProps extends Leaflet.ImageOverlayOptions, MapComponentProps {
     children?: Children;
 }
-export class SVGOverlay<P extends SVGOverlayProps = SVGOverlayProps, E extends Leaflet.SVGOverlay = Leaflet.SVGOverlay> extends MapComponent<P, E> {
+export class SVGOverlay<
+    P extends SVGOverlayProps = SVGOverlayProps,
+    E extends Leaflet.SVGOverlay = Leaflet.SVGOverlay
+> extends MapComponent<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
@@ -300,24 +318,33 @@ export interface VideoOverlayProps extends Leaflet.VideoOverlayOptions, MapCompo
     url: string | string[] | HTMLVideoElement;
     zIndex?: number;
 }
-export class VideoOverlay<P extends VideoOverlayProps = VideoOverlayProps, E extends Leaflet.VideoOverlay = Leaflet.VideoOverlay> extends MapLayer<P, E> {
+export class VideoOverlay<
+    P extends VideoOverlayProps = VideoOverlayProps,
+    E extends Leaflet.VideoOverlay = Leaflet.VideoOverlay
+> extends MapLayer<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
-export class LayerGroup<P extends MapLayerProps = MapLayerProps, E extends Leaflet.LayerGroup = Leaflet.LayerGroup> extends MapLayer<P, E> {
+export class LayerGroup<
+    P extends MapLayerProps = MapLayerProps,
+    E extends Leaflet.LayerGroup = Leaflet.LayerGroup
+> extends MapLayer<P, E> {
     createLeafletElement(props: P): E;
 }
 
 export interface MarkerProps extends MapLayerProps, MarkerEvents, Leaflet.MarkerOptions {
     position: Leaflet.LatLngExpression;
 }
-export class Marker<P extends MarkerProps = MarkerProps, E extends Leaflet.Marker = Leaflet.Marker> extends MapLayer<P, E> {
+export class Marker<P extends MarkerProps = MarkerProps, E extends Leaflet.Marker = Leaflet.Marker> extends MapLayer<
+    P,
+    E
+> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
-export interface PathProps extends PathEvents, Leaflet.PathOptions, MapLayerProps { }
+export interface PathProps extends PathEvents, Leaflet.PathOptions, MapLayerProps {}
 export abstract class Path<P extends PathProps, E extends Leaflet.Path> extends MapLayer<P, E> {
     getChildContext(): { popupContainer: E };
     getPathOptions(props: P): Leaflet.PathOptions;
@@ -338,20 +365,29 @@ export interface CircleMarkerProps extends PathProps, PathEvents, Leaflet.Circle
     center: Leaflet.LatLngExpression;
     radius: number;
 }
-export class CircleMarker<P extends CircleMarkerProps = CircleMarkerProps, E extends Leaflet.CircleMarker = Leaflet.CircleMarker> extends Path<P, E> {
+export class CircleMarker<
+    P extends CircleMarkerProps = CircleMarkerProps,
+    E extends Leaflet.CircleMarker = Leaflet.CircleMarker
+> extends Path<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
-export interface FeatureGroupProps extends MapLayerProps, FeatureGroupEvents, Leaflet.PathOptions { }
-export class FeatureGroup<P extends FeatureGroupProps = FeatureGroupProps, E extends Leaflet.FeatureGroup = Leaflet.FeatureGroup> extends LayerGroup<P, E> {
+export interface FeatureGroupProps extends MapLayerProps, FeatureGroupEvents, Leaflet.PathOptions {}
+export class FeatureGroup<
+    P extends FeatureGroupProps = FeatureGroupProps,
+    E extends Leaflet.FeatureGroup = Leaflet.FeatureGroup
+> extends LayerGroup<P, E> {
     createLeafletElement(props: P): E;
 }
 
 export interface GeoJSONProps extends PathProps, FeatureGroupEvents, Leaflet.GeoJSONOptions {
     data: GeoJSON.GeoJsonObject | GeoJSON.GeoJsonObject[];
 }
-export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends FeatureGroup<P, E> {
+export class GeoJSON<
+    P extends GeoJSONProps = GeoJSONProps,
+    E extends Leaflet.GeoJSON = Leaflet.GeoJSON
+> extends FeatureGroup<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
@@ -359,7 +395,10 @@ export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.Ge
 export interface PolylineProps extends PathProps, PathEvents, Leaflet.PolylineOptions {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][];
 }
-export class Polyline<P extends PolylineProps = PolylineProps, E extends Leaflet.Polyline = Leaflet.Polyline> extends Path<P, E> {
+export class Polyline<
+    P extends PolylineProps = PolylineProps,
+    E extends Leaflet.Polyline = Leaflet.Polyline
+> extends Path<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
@@ -367,7 +406,10 @@ export class Polyline<P extends PolylineProps = PolylineProps, E extends Leaflet
 export interface PolygonProps extends PathProps, PathEvents, Leaflet.PolylineOptions {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][] | Leaflet.LatLngExpression[][][];
 }
-export class Polygon<P extends PolygonProps = PolygonProps, E extends Leaflet.Polygon = Leaflet.Polygon> extends Path<P, E> {
+export class Polygon<P extends PolygonProps = PolygonProps, E extends Leaflet.Polygon = Leaflet.Polygon> extends Path<
+    P,
+    E
+> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
@@ -375,7 +417,10 @@ export class Polygon<P extends PolygonProps = PolygonProps, E extends Leaflet.Po
 export interface RectangleProps extends PathProps, PathEvents, Leaflet.PolylineOptions {
     bounds: Leaflet.LatLngBoundsExpression;
 }
-export class Rectangle<P extends RectangleProps = RectangleProps, E extends Leaflet.Rectangle = Leaflet.Rectangle> extends Path<P, E> {
+export class Rectangle<
+    P extends RectangleProps = RectangleProps,
+    E extends Leaflet.Rectangle = Leaflet.Rectangle
+> extends Path<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
@@ -383,7 +428,10 @@ export class Rectangle<P extends RectangleProps = RectangleProps, E extends Leaf
 export interface PopupProps extends Leaflet.PopupOptions, DivOverlayProps {
     position?: Leaflet.LatLngExpression;
 }
-export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = Leaflet.Popup> extends DivOverlay<P, E> {
+export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = Leaflet.Popup> extends DivOverlay<
+    P,
+    E
+> {
     getOptions(props: P): P;
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
@@ -392,24 +440,33 @@ export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = 
     onRender: () => void;
 }
 
-export interface TooltipProps extends Leaflet.TooltipOptions, DivOverlayProps { }
-export class Tooltip<P extends TooltipProps = TooltipProps, E extends Leaflet.Tooltip = Leaflet.Tooltip> extends DivOverlay<P, E> {
+export interface TooltipProps extends Leaflet.TooltipOptions, DivOverlayProps {}
+export class Tooltip<
+    P extends TooltipProps = TooltipProps,
+    E extends Leaflet.Tooltip = Leaflet.Tooltip
+> extends DivOverlay<P, E> {
     onTooltipOpen(arg: { tooltip: E }): void;
     onTooltipClose(arg: { tooltip: E }): void;
 }
 
 export type MapControlProps = {
-    leaflet?: LeafletContext
+    leaflet?: LeafletContext;
 } & Leaflet.ControlOptions;
 
-export class MapControl<P extends MapControlProps = MapControlProps, E extends Leaflet.Control = Leaflet.Control> extends React.Component<P> {
+export class MapControl<
+    P extends MapControlProps = MapControlProps,
+    E extends Leaflet.Control = Leaflet.Control
+> extends React.Component<P> {
     leafletElement: E;
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
 export type AttributionControlProps = Leaflet.Control.AttributionOptions & MapControlProps;
-export class AttributionControl<P extends AttributionControlProps = AttributionControlProps, E extends Leaflet.Control.Attribution = Leaflet.Control.Attribution> extends MapControl<P, E> {
+export class AttributionControl<
+    P extends AttributionControlProps = AttributionControlProps,
+    E extends Leaflet.Control.Attribution = Leaflet.Control.Attribution
+> extends MapControl<P, E> {
     createLeafletElement(props: P): E;
 }
 
@@ -417,12 +474,15 @@ export interface LayersControlProps extends MapControlProps, LayersControlEvents
     children: Children;
     collapsed?: boolean;
 }
-export class LayersControl<P extends LayersControlProps = LayersControlProps, E extends Leaflet.Control.Layers = Leaflet.Control.Layers> extends MapControl<P, E> {
+export class LayersControl<
+    P extends LayersControlProps = LayersControlProps,
+    E extends Leaflet.Control.Layers = Leaflet.Control.Layers
+> extends MapControl<P, E> {
     controlProps: {
-        addBaseLayer: AddLayerHandler,
-        addOverlay: AddLayerHandler,
-        removeLayer: RemoveLayerHandler,
-        removeLayerControl: RemoveLayerHandler
+        addBaseLayer: AddLayerHandler;
+        addOverlay: AddLayerHandler;
+        removeLayer: RemoveLayerHandler;
+        removeLayerControl: RemoveLayerHandler;
     };
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
@@ -459,12 +519,18 @@ export namespace LayersControl {
 }
 
 export type ScaleControlProps = Leaflet.Control.ScaleOptions & MapControlProps;
-export class ScaleControl<P extends ScaleControlProps = ScaleControlProps, E extends Leaflet.Control.Scale = Leaflet.Control.Scale> extends MapControl<P, E> {
+export class ScaleControl<
+    P extends ScaleControlProps = ScaleControlProps,
+    E extends Leaflet.Control.Scale = Leaflet.Control.Scale
+> extends MapControl<P, E> {
     createLeafletElement(props: P): E;
 }
 
 export type ZoomControlProps = Leaflet.Control.ZoomOptions & MapControlProps;
-export class ZoomControl<P extends ZoomControlProps = ZoomControlProps, E extends Leaflet.Control.Zoom = Leaflet.Control.Zoom> extends MapControl<P, E> {
+export class ZoomControl<
+    P extends ZoomControlProps = ZoomControlProps,
+    E extends Leaflet.Control.Zoom = Leaflet.Control.Zoom
+> extends MapControl<P, E> {
     createLeafletElement(props: P): E;
 }
 
@@ -477,5 +543,7 @@ export interface ContextProps {
 }
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export function withLeaflet<T extends ContextProps>(WrappedComponent: React.ComponentType<T>): React.ComponentType<Omit<T, 'leaflet'>>;
+export function withLeaflet<T extends ContextProps>(
+    WrappedComponent: React.ComponentType<T>,
+): React.ComponentType<Omit<T, 'leaflet'>>;
 export function useLeaflet(): LeafletContext;

@@ -32,13 +32,15 @@ export interface BaseConfig {
     devToolsPort?: number;
     installerUI?: boolean;
     runtime?: RuntimeConfig;
-    appAssets?: [{
-        src: string;
-        alias: string;
-        target: string;
-        version: string;
-        args: string;
-    }];
+    appAssets?: [
+        {
+            src: string;
+            alias: string;
+            target: string;
+            version: string;
+            args: string;
+        },
+    ];
     customItems?: [any];
     timeout?: number;
 }
@@ -67,5 +69,5 @@ export declare enum READY_STATE {
     CONNECTING = 0,
     OPEN = 1,
     CLOSING = 2,
-    CLOSED = 3
+    CLOSED = 3,
 }

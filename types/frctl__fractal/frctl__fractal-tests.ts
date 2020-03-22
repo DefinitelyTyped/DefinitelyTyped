@@ -29,10 +29,10 @@ fractal.components.set('default.collator', (markup: string, item: any) => {
     return `<!-- Start: @${item.handle} -->\n${markup}\n<!-- End: @${item.handle} -->\n`;
 });
 fractal.components.set('default.context', {
-    'site-name': 'FooCorp'
+    'site-name': 'FooCorp',
 });
 fractal.components.set('default.display', {
-    'max-width': '400px'
+    'max-width': '400px',
 });
 fractal.components.set('default.prefix', 'foobar');
 fractal.components.set('default.preview', '@my-preview-layout');
@@ -42,15 +42,15 @@ fractal.components.set('label', 'Patterns');
 fractal.components.set('path', __dirname + '/src/components');
 fractal.components.set('statuses', {
     doing: {
-        label: "Doing",
+        label: 'Doing',
         description: "I'm doing it.",
-        color: '#F00'
+        color: '#F00',
     },
     done: {
-        label: "Done",
+        label: 'Done',
         description: "I'm done with this.",
-        color: "green"
-    }
+        color: 'green',
+    },
 });
 fractal.components.set('title', 'Patterns');
 fractal.components.set('yield', 'rendered_content');
@@ -58,7 +58,7 @@ fractal.components.set('yield', 'rendered_content');
 // Source: https://fractal.build/guide/docs/configuration
 
 fractal.docs.set('default.context', {
-    'site-name': 'FooCorp'
+    'site-name': 'FooCorp',
 });
 fractal.docs.set('default.prefix', 'foobar');
 fractal.docs.set('default.status', 'wip');
@@ -70,15 +70,15 @@ fractal.docs.set('markdown.smartypants', false);
 fractal.docs.set('path', __dirname + '/src/docs');
 fractal.docs.set('statuses', {
     doing: {
-        label: "Doing",
+        label: 'Doing',
         description: "I'm doing it.",
-        color: '#F00'
+        color: '#F00',
     },
     done: {
-        label: "Done",
+        label: 'Done',
         description: "I'm done with this.",
-        color: "green"
-    }
+        color: 'green',
+    },
 });
 fractal.docs.set('title', 'Pages');
 
@@ -92,7 +92,7 @@ fractal.web.set('server.sync', true);
 fractal.web.set('server.syncOptions', {
     open: true,
     browser: ['google chrome', 'firefox'],
-    notify: true
+    notify: true,
 });
 fractal.web.set('server.port', 4444);
 fractal.web.set('server.watch', true);
@@ -103,16 +103,20 @@ fractal.web.set('static.mount', 'project-assets');
 
 {
     const config = {
-        description: 'Lists components in the project'
+        description: 'Lists components in the project',
     };
 
-    fractal.cli.command('list-components', function(args, done) {
-        const app = this.fractal;
-        for (const item of app.components.flatten()) {
-            this.log(`${item.handle} - ${item.status.label}`);
-        }
-        done();
-    }, config);
+    fractal.cli.command(
+        'list-components',
+        function (args, done) {
+            const app = this.fractal;
+            for (const item of app.components.flatten()) {
+                this.log(`${item.handle} - ${item.status.label}`);
+            }
+            done();
+        },
+        config,
+    );
 }
 
 fractal.cli.exec('list-components');
@@ -124,16 +128,18 @@ fractal.cli.command('foo <requiredArg> [optionalArg] [anotherOptionalArg]', (arg
 
 {
     const config = {
-        options: [
-            ['-p, --port <number>', 'The port to use.'],
-        ]
+        options: [['-p, --port <number>', 'The port to use.']],
     };
 
-    fractal.cli.command('foo', (args, done) => {
-        // do something
-        console.log(`Something was started on port ${args.options.port}`);
-        done();
-    }, config);
+    fractal.cli.command(
+        'foo',
+        (args, done) => {
+            // do something
+            console.log(`Something was started on port ${args.options.port}`);
+            done();
+        },
+        config,
+    );
 }
 
 // Source: https://fractal.build/guide/integration/build-tools
@@ -169,9 +175,9 @@ import * as gulp from 'gulp';
 
     gulp.task('fractal:start', () => {
         const server = fractal.web.server({
-            sync: true
+            sync: true,
         });
-        server.on('error', err => logger.error(err.message));
+        server.on('error', (err) => logger.error(err.message));
         return server.start().then(() => {
             logger.success(`Fractal server is now running at ${server.url}`);
         });
@@ -190,7 +196,7 @@ import * as gulp from 'gulp';
     gulp.task('fractal:build', () => {
         const builder = fractal.web.builder();
         builder.on('progress', (completed, total) => logger.update(`Exported ${completed} of ${total} items`, 'info'));
-        builder.on('error', err => logger.error(err.message));
+        builder.on('error', (err) => logger.error(err.message));
         return builder.build().then(() => {
             logger.success('Fractal build completed!');
         });

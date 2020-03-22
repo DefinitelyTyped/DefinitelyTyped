@@ -2,7 +2,7 @@ import nsqjs = require('nsqjs');
 
 // Reader
 const reader = new nsqjs.Reader('sample_topic', 'test_channel', {
-    nsqdTCPAddresses: '127.0.0.1:4150'
+    nsqdTCPAddresses: '127.0.0.1:4150',
 });
 
 reader.connect();
@@ -13,10 +13,10 @@ reader.close();
 
 reader.on('nsqd_connected', (host, port) => {});
 reader.on('nsqd_closed', (host, port) => {});
-reader.on('error', error => {});
-reader.on('discard', message => {});
+reader.on('error', (error) => {});
+reader.on('discard', (message) => {});
 
-reader.on('message', message => {
+reader.on('message', (message) => {
     console.log('Received message [%s]', message.id);
 
     message.body.toString();
@@ -38,13 +38,15 @@ const writer = new nsqjs.Writer('127.0.0.1', 4150);
 writer.connect();
 
 writer.on('closed', () => {});
-writer.on('error', error => {});
+writer.on('error', (error) => {});
 
 writer.on('ready', () => {
     writer.publish('sample_topic', 'message');
     writer.publish('sample_topic', ['message 1', 'message 2']);
-    writer.publish('sample_topic', 'message', error => {
-        if (error) { return; }
+    writer.publish('sample_topic', 'message', (error) => {
+        if (error) {
+            return;
+        }
         writer.close();
     });
 });

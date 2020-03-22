@@ -3,14 +3,14 @@
 // Definitions by: Ross Hendry <https://github.com/chooban>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-export type IMEModes = true|false|"toHiragana"|"toKatakana";
+export type IMEModes = true | false | 'toHiragana' | 'toKatakana';
 
 export interface WanakanaOptions {
     useObsoleteKana?: boolean;
     passRomaji?: boolean;
     upcaseKatakana?: boolean;
     IMEMode?: IMEModes;
-    romanization?: "hepburn";
+    romanization?: 'hepburn';
     customKanaMapping?: Record<string, string>;
     customRomajiMapping?: Record<string, string>;
 }

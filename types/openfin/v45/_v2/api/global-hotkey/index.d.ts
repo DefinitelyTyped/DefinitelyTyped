@@ -2,8 +2,8 @@ import { EmitterBase } from '../base';
 import Transport from '../../transport/transport';
 import { GlobalHotkeyEvents } from '../events/globalHotkey';
 export declare const enum nonHotkeyEvents {
-    REGISTERED = "registered",
-    UNREGISTERED = "unregistered"
+    REGISTERED = 'registered',
+    UNREGISTERED = 'unregistered',
 }
 /**
  * The GlobalHotkey module can register/unregister a global hotkeys.

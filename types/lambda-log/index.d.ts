@@ -5,9 +5,9 @@
 // TypeScript Version: 2.8
 /// <reference types="node" />
 
-import { WriteStream } from "fs";
-import { Console } from "console";
-import { EventEmitter } from "events";
+import { WriteStream } from 'fs';
+import { Console } from 'console';
+import { EventEmitter } from 'events';
 
 export interface LogRecordOptions {
     level: string;
@@ -62,10 +62,10 @@ export interface LambdaLogOptions {
 }
 
 export interface LogLevels {
-    info: "info";
-    warn: "warn";
-    error: "error";
-    debug: "log" | false;
+    info: 'info';
+    warn: 'warn';
+    error: 'error';
+    debug: 'log' | false;
     [key: string]: any;
 }
 
@@ -87,32 +87,13 @@ export class LambdaLog extends EventEmitter {
     error(msg: string | Error, meta?: object, tags?: string[]): LogMessage;
     debug(msg: string, meta?: object, tags?: string[]): LogMessage;
 
-    assert(
-        test: any,
-        msg: string,
-        meta?: object,
-        tags?: string[]
-    ): boolean | LogMessage;
+    assert(test: any, msg: string, meta?: object, tags?: string[]): boolean | LogMessage;
 }
 
-export function log(
-    level: string,
-    msg: string,
-    meta?: object,
-    tags?: string[]
-): LogMessage;
+export function log(level: string, msg: string, meta?: object, tags?: string[]): LogMessage;
 export function info(msg: string, meta?: object, tags?: string[]): LogMessage;
 export function warn(msg: string, meta?: object, tags?: string[]): LogMessage;
-export function error(
-    msg: string | Error,
-    meta?: object,
-    tags?: string[]
-): LogMessage;
-export function assert(
-    test: any,
-    msg: string,
-    meta?: object,
-    tags?: string[]
-): LogMessage;
+export function error(msg: string | Error, meta?: object, tags?: string[]): LogMessage;
+export function assert(test: any, msg: string, meta?: object, tags?: string[]): LogMessage;
 export function debug(msg: string, meta?: object, tags?: string[]): LogMessage;
 export const options: LambdaLogOptions;

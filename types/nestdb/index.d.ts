@@ -129,7 +129,12 @@ declare class NestDb<G = any> extends EventEmitter {
      *
      * @api private Use Datastore.update which has the same signature
      */
-    update(query: any, updateQuery: any, options?: NestDb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, upsert: boolean) => void): void;
+    update(
+        query: any,
+        updateQuery: any,
+        options?: NestDb.UpdateOptions,
+        cb?: (err: Error, numberOfUpdated: number, upsert: boolean) => void,
+    ): void;
 
     /**
      * Update all docs matching query v1.8 signature.
@@ -144,7 +149,12 @@ declare class NestDb<G = any> extends EventEmitter {
      *
      * @api private Use Datastore.update which has the same signature
      */
-    update<T extends G>(query: any, updateQuery: any, options?: NestDb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void): void;
+    update<T extends G>(
+        query: any,
+        updateQuery: any,
+        options?: NestDb.UpdateOptions,
+        cb?: (err: Error, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void,
+    ): void;
 
     /**
      * Remove all docs matching the query

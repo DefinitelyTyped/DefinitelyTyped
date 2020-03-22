@@ -72,6 +72,7 @@ declare namespace requireDirectory {
 declare function requireDirectory<T, U>(
     m: NodeModule,
     path?: string | requireDirectory.RequireDirectoryOptions<T, U>,
-    options?: requireDirectory.RequireDirectoryOptions<T, U>): requireDirectory.RequireDirectoryResult<U>;
+    options?: requireDirectory.RequireDirectoryOptions<T, U>,
+): requireDirectory.RequireDirectoryResult<U>;
 
 export = requireDirectory;

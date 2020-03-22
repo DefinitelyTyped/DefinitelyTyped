@@ -22,6 +22,9 @@ export interface SystemEventMapping<Topic = string, Type = string> extends BaseE
     'monitor-info-changed': MonitorEvent<Topic, Type>;
     'session-changed': SessionChangedEvent<Topic, Type>;
 }
-export declare type SystemEvents = PropagatedWindowEvents<'system'> & PropagatedApplicationEvents<'system'> & PropagatedViewEvents<'system'> & {
-    [Type in keyof SystemEventMapping]: SystemEventMapping<'system', Type>[Type];
-};
+export declare type SystemEvents = PropagatedWindowEvents<'system'> &
+    PropagatedApplicationEvents<'system'> &
+    PropagatedViewEvents<'system'> &
+    {
+        [Type in keyof SystemEventMapping]: SystemEventMapping<'system', Type>[Type];
+    };

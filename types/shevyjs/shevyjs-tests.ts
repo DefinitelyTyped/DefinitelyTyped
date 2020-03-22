@@ -22,7 +22,7 @@ shevy.addMarginBottom; // $ExpectType boolean
 shevy.proximity; // $ExpectType boolean
 shevy.proximityFactor; // $ExpectType number
 
-headings.forEach(heading => {
+headings.forEach((heading) => {
     shevy[heading].fontSize; // $ExpectType string
     shevy[heading].lineHeight; // $ExpectType number
     shevy[heading].marginBottom; // $ExpectType string

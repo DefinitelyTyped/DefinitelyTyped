@@ -18,7 +18,7 @@ server.register({
         skip: () => false,
         enforce: true,
         logUnauthorized: false,
-    }
+    },
 });
 
 server.route({

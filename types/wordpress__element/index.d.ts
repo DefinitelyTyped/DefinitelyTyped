@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
-import * as R from "react";
-import * as RD from "react-dom";
+import * as R from 'react';
+import * as RD from 'react-dom';
 
 declare global {
     namespace React {
@@ -27,9 +27,7 @@ declare global {
          *
          * @return Dangerously-rendering element.
          */
-        function RawHTML(
-            props: { children: string } & HTMLProps<HTMLDivElement>
-        ): JSX.Element;
+        function RawHTML(props: { children: string } & HTMLProps<HTMLDivElement>): JSX.Element;
 
         /**
          * Checks if the provided WP element is empty.
@@ -48,11 +46,7 @@ declare global {
          *
          * @return Serialized element.
          */
-        function renderToString(
-            element: ReactNode,
-            context?: any,
-            legacyContext?: any
-        ): string;
+        function renderToString(element: ReactNode, context?: any, legacyContext?: any): string;
     }
 }
 

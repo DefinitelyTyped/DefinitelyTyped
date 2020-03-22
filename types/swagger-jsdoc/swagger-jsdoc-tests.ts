@@ -19,7 +19,7 @@ const options: swaggerJSDoc.Options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-app.get('/api-docs.json', function(req, res) {
+app.get('/api-docs.json', function (req, res) {
     res.send(swaggerSpec);
 });
 

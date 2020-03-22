@@ -16,8 +16,8 @@
 
  =============================================== */
 
-import Koa = require("koa");
-import Cookies = require("cookies");
+import Koa = require('koa');
+import Cookies = require('cookies');
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
@@ -50,7 +50,7 @@ declare namespace session {
         /**
          * get/set session maxAge
          */
-        maxAge: opts["maxAge"];
+        maxAge: opts['maxAge'];
 
         /**
          * save this session no matter whether it is populated
@@ -66,7 +66,7 @@ declare namespace session {
     interface ContextSession {
         ctx: Koa.Context;
 
-        app: Koa.Context["app"];
+        app: Koa.Context['app'];
 
         opts: opts;
 
@@ -123,17 +123,17 @@ declare namespace session {
          * "session" will result in a cookie that expires when session/browser is closed
          * Warning: If a session cookie is stolen, this cookie will never expire
          */
-        maxAge?: number | "session";
+        maxAge?: number | 'session';
 
         /**
          * custom encode method
          */
-        encode: util["encode"];
+        encode: util['encode'];
 
         /**
          * custom decode method
          */
-        decode: util["decode"];
+        decode: util['decode'];
 
         /**
          * The way of generating external session id is controlled by the options.genid, which defaults to Date.now() + "-" + uid.sync(24).
@@ -166,7 +166,7 @@ declare namespace session {
          * ContextStore must be a class which claims three instance methods demonstrated above.
          * new ContextStore(ctx) will be executed on every request.
          */
-        ContextStore?: { new(ctx: Koa.Context): stores };
+        ContextStore?: { new (ctx: Koa.Context): stores };
 
         /**
          * If you want to add prefix for all external session id, you can use options.prefix, it will not work if options.genid present.
@@ -188,12 +188,17 @@ declare namespace session {
         /**
          * get session object by key
          */
-        get(key: string, maxAge: opts["maxAge"], data: { rolling: opts["rolling"] }): any;
+        get(key: string, maxAge: opts['maxAge'], data: { rolling: opts['rolling'] }): any;
 
         /**
          * set session object for key, with a maxAge (in ms)
          */
-        set(key: string, sess: Partial<Session> & { _expire?: number, _maxAge?: number }, maxAge: opts["maxAge"], data: { changed: boolean; rolling: opts["rolling"] }): any;
+        set(
+            key: string,
+            sess: Partial<Session> & { _expire?: number; _maxAge?: number },
+            maxAge: opts['maxAge'],
+            data: { changed: boolean; rolling: opts['rolling'] },
+        ): any;
 
         /**
          * destroy session for key
@@ -218,7 +223,7 @@ declare function session(CONFIG: Partial<session.opts>, app: Koa): Koa.Middlewar
 
 declare function session(app: Koa): Koa.Middleware;
 
-declare module "koa" {
+declare module 'koa' {
     interface Context {
         session: session.Session | null;
         readonly sessionOptions: session.opts | undefined;

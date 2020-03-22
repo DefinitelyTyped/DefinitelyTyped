@@ -15,5 +15,5 @@ export interface SelectSource {
     /**
      * Classes to add to the dropdown-entries.
      */
-    "data-class"?: string;
+    'data-class'?: string;
 }

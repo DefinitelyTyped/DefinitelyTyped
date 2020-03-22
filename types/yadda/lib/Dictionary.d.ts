@@ -1,4 +1,4 @@
-import { Converter } from ".";
+import { Converter } from '.';
 
 declare class Dictionary {
     constructor(prefix?: string);

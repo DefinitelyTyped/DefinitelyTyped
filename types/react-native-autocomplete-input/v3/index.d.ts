@@ -5,13 +5,7 @@
 // TypeScript Version: 2.8
 
 import { Component, ReactNode } from 'react';
-import {
-    GestureResponderHandlers,
-    ListViewProperties,
-    StyleProp,
-    TextInputProperties,
-    ViewStyle,
-} from 'react-native';
+import { GestureResponderHandlers, ListViewProperties, StyleProp, TextInputProperties, ViewStyle } from 'react-native';
 
 export interface AutocompleteProps<T> extends TextInputProperties {
     /**

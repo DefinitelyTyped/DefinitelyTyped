@@ -1,6 +1,6 @@
 const aMap = new AMap.Map('id', {
     resizeEnable: true,
-    animateEnable: true
+    animateEnable: true,
 });
 
 aMap.setCenter(new AMap.LngLat(0, 0));

@@ -35,9 +35,9 @@ myComponent.set('foo', 'baz');
 const person = Ember.Object.create({
     name: 'Fred',
     age: 29,
-    capitalized: Ember.computed<string>(function() {
+    capitalized: Ember.computed<string>(function () {
         return this.get('name').toUpperCase();
-    })
+    }),
 });
 
 const pojo = { name: 'Fred', age: 29 };
@@ -54,14 +54,16 @@ function testGet() {
 
 function testGetProperties() {
     assertType<{ name: string }>(Ember.getProperties(person, 'name'));
-    assertType<{ name: string, age: number }>(Ember.getProperties(person, 'name', 'age'));
-    assertType<{ name: string, age: number }>(Ember.getProperties(person, [ 'name', 'age' ]));
-    assertType<{ name: string, age: number, capitalized: string }>(Ember.getProperties(person, 'name', 'age', 'capitalized'));
+    assertType<{ name: string; age: number }>(Ember.getProperties(person, 'name', 'age'));
+    assertType<{ name: string; age: number }>(Ember.getProperties(person, ['name', 'age']));
+    assertType<{ name: string; age: number; capitalized: string }>(
+        Ember.getProperties(person, 'name', 'age', 'capitalized'),
+    );
     assertType<{ name: string }>(person.getProperties('name'));
-    assertType<{ name: string, age: number }>(person.getProperties('name', 'age'));
-    assertType<{ name: string, age: number }>(person.getProperties([ 'name', 'age' ]));
-    assertType<{ name: string, age: number, capitalized: string }>(person.getProperties('name', 'age', 'capitalized'));
-    assertType<{ name: string, age: number }>(Ember.getProperties(pojo, 'name', 'age'));
+    assertType<{ name: string; age: number }>(person.getProperties('name', 'age'));
+    assertType<{ name: string; age: number }>(person.getProperties(['name', 'age']));
+    assertType<{ name: string; age: number; capitalized: string }>(person.getProperties('name', 'age', 'capitalized'));
+    assertType<{ name: string; age: number }>(Ember.getProperties(pojo, 'name', 'age'));
 }
 
 function testGetWithDefault() {
@@ -86,12 +88,12 @@ function testSet() {
 
 function testSetProperties() {
     assertType<{ name: string }>(Ember.setProperties(person, { name: 'Joe' }));
-    assertType<{ name: string, age: number }>(Ember.setProperties(person, { name: 'Joe', age: 35 }));
-    assertType<{ name: string, capitalized: string }>(Ember.setProperties(person, { name: 'Joe', capitalized: 'JOE' }));
+    assertType<{ name: string; age: number }>(Ember.setProperties(person, { name: 'Joe', age: 35 }));
+    assertType<{ name: string; capitalized: string }>(Ember.setProperties(person, { name: 'Joe', capitalized: 'JOE' }));
     assertType<{ name: string }>(person.setProperties({ name: 'Joe' }));
-    assertType<{ name: string, age: number }>(person.setProperties({ name: 'Joe', age: 35 }));
-    assertType<{ name: string, capitalized: string }>(person.setProperties({ name: 'Joe', capitalized: 'JOE' }));
-    assertType<{ name: string, age: number }>(Ember.setProperties(pojo, { name: 'Joe', age: 35 }));
+    assertType<{ name: string; age: number }>(person.setProperties({ name: 'Joe', age: 35 }));
+    assertType<{ name: string; capitalized: string }>(person.setProperties({ name: 'Joe', capitalized: 'JOE' }));
+    assertType<{ name: string; age: number }>(Ember.setProperties(pojo, { name: 'Joe', age: 35 }));
 }
 
 function testDynamic() {
@@ -103,11 +105,11 @@ function testDynamic() {
     assertType<string>(Ember.getWithDefault(obj, 'dummy', 'default'));
     assertType<string>(Ember.getWithDefault(obj, dynamicKey, 'default'));
     assertType<{ dummy: any }>(Ember.getProperties(obj, 'dummy'));
-    assertType<{ dummy: any }>(Ember.getProperties(obj, [ 'dummy' ]));
+    assertType<{ dummy: any }>(Ember.getProperties(obj, ['dummy']));
     assertType<object>(Ember.getProperties(obj, dynamicKey));
-    assertType<object>(Ember.getProperties(obj, [ dynamicKey ]));
+    assertType<object>(Ember.getProperties(obj, [dynamicKey]));
     assertType<string>(Ember.set(obj, 'dummy', 'value'));
     assertType<string>(Ember.set(obj, dynamicKey, 'value'));
-    assertType<{ dummy: string }>(Ember.setProperties(obj, { dummy: 'value '}));
+    assertType<{ dummy: string }>(Ember.setProperties(obj, { dummy: 'value ' }));
     assertType<object>(Ember.setProperties(obj, { [dynamicKey]: 'value' }));
 }

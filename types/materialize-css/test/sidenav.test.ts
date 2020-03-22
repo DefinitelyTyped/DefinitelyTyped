@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -13,14 +13,14 @@ const els = M.Sidenav.init(document.querySelectorAll('.whatever'));
 new materialize.Sidenav(elem);
 // $ExpectType Sidenav
 const sidenav = new materialize.Sidenav(elem, {
-    edge: "left",
+    edge: 'left',
     inDuration: 300,
     onCloseStart(el) {
         // $ExpectType Sidenav
         this;
         // $ExpectType Element
         el;
-    }
+    },
 });
 // $ExpectType void
 sidenav.open();
@@ -33,7 +33,7 @@ sidenav.el;
 // $ExpectType boolean
 sidenav.isOpen;
 
-$(".whatever").sidenav();
-$(".whatever").sidenav({ inDuration: 200 });
-$(".whatever").sidenav("open");
-$(".whatever").sidenav("destroy");
+$('.whatever').sidenav();
+$('.whatever').sidenav({ inDuration: 200 });
+$('.whatever').sidenav('open');
+$('.whatever').sidenav('destroy');

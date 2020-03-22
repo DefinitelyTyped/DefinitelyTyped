@@ -14,34 +14,31 @@ const TestComponent: React.FunctionComponent<Props> = ({ title }) => {
 const testComponentModule = Promise.resolve(TestComponent);
 
 function Loading() {
-  return <div>Loading...</div>;
+    return <div>Loading...</div>;
 }
 
 const LoadableComponentAsDefaultImportComponent = LoadableComponentVisibilityAsDefaultImport(
-  () => testComponentModule,
-  {
-    fallback: <Loading />,
-  },
+    () => testComponentModule,
+    {
+        fallback: <Loading />,
+    },
 );
 
-const LoadableComponentComponent = LoadableComponentVisibility(
-  () => testComponentModule,
-  {
+const LoadableComponentComponent = LoadableComponentVisibility(() => testComponentModule, {
     fallback: <Loading />,
-  },
-);
+});
 
 const ReactLoadableComponent = ReactLoadableVisibility({
-  loader: () => testComponentModule,
-  loading: Loading,
+    loader: () => testComponentModule,
+    loading: Loading,
 });
 
 function App() {
-  return (
-    <div>
-      <LoadableComponentAsDefaultImportComponent title='test' />
-      <LoadableComponentComponent title='test' />
-      <ReactLoadableComponent title='test' />
-    </div>
-  );
+    return (
+        <div>
+            <LoadableComponentAsDefaultImportComponent title="test" />
+            <LoadableComponentComponent title="test" />
+            <ReactLoadableComponent title="test" />
+        </div>
+    );
 }

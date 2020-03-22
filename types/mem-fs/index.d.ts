@@ -18,5 +18,4 @@ export interface Store extends EventEmitter {
 
 export function create(): Store;
 
-export namespace memFs {
-}
+export namespace memFs {}

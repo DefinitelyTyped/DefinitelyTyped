@@ -1,5 +1,5 @@
-import { ComponentClass, CSSProperties, HTMLProps } from "react";
-import { Location, LocationDescriptor } from "history";
+import { ComponentClass, CSSProperties, HTMLProps } from 'react';
+import { Location, LocationDescriptor } from 'history';
 
 type ToLocationFunction = (location: Location) => LocationDescriptor;
 

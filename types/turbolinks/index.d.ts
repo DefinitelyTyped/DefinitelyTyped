@@ -10,7 +10,7 @@ declare const Turbolinks: Turbolinks.TurbolinksStatic;
 
 declare namespace Turbolinks {
     interface Action {
-        action: "advance" | "replace";
+        action: 'advance' | 'replace';
     }
     interface TurbolinksStatic {
         start(): void;

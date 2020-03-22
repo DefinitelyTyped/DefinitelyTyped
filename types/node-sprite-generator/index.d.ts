@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as e from "express";
+import * as e from 'express';
 
 export as namespace NodeSpriteGenerator;
 export = NodeSpriteGenerator;
@@ -12,9 +12,9 @@ export = NodeSpriteGenerator;
 declare function NodeSpriteGenerator(option: NodeSpriteGenerator.Option, callback?: (err: Error) => void): void;
 
 declare namespace NodeSpriteGenerator {
-    type BuiltinStylesheetFormats = "stylus" | "less" | "sass" | "scss" | "css" | "prefixed-css" | "javascript";
-    type BuiltinLayouts = "packed" | "vertical" | "horizontal" | "diagonal";
-    type BuiltinCompositors = "canvas" | "gm" | "jimp";
+    type BuiltinStylesheetFormats = 'stylus' | 'less' | 'sass' | 'scss' | 'css' | 'prefixed-css' | 'javascript';
+    type BuiltinLayouts = 'packed' | 'vertical' | 'horizontal' | 'diagonal';
+    type BuiltinCompositors = 'canvas' | 'gm' | 'jimp';
 
     interface StylesheetOption {
         prefix?: string;
@@ -28,7 +28,7 @@ declare namespace NodeSpriteGenerator {
         scaling?: number;
     }
 
-    type CompositorFilters = "all" | "none" | "sub" | "up" | "average" | "paeth";
+    type CompositorFilters = 'all' | 'none' | 'sub' | 'up' | 'average' | 'paeth';
     interface CompositorOption {
         compressionLevel?: number;
         filter?: CompositorFilters;
@@ -46,14 +46,26 @@ declare namespace NodeSpriteGenerator {
     interface Layout {
         width: number;
         height: number;
-        images: Array<{
-            x: number;
-            y: number;
-        } & Image>;
+        images: Array<
+            {
+                x: number;
+                y: number;
+            } & Image
+        >;
     }
-    type LayoutFunc = (images: Image[], options: LayoutOption, callback: (error: Error, layout: Layout) => void) => void;
+    type LayoutFunc = (
+        images: Image[],
+        options: LayoutOption,
+        callback: (error: Error, layout: Layout) => void,
+    ) => void;
 
-    type StylesheetFunc = (layout: Layout, stylesheetPath: string, spritePath: string, options: StylesheetOption, callback: (error: Error) => void) => void;
+    type StylesheetFunc = (
+        layout: Layout,
+        stylesheetPath: string,
+        spritePath: string,
+        options: StylesheetOption,
+        callback: (error: Error) => void,
+    ) => void;
 
     interface Option {
         src?: string[];

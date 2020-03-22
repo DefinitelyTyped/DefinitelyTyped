@@ -1,4 +1,5 @@
+import fullname = require('fullname');
 
-import fullname = require("fullname");
-
-fullname().then(function(name) { name === "string"; });
+fullname().then(function (name) {
+    name === 'string';
+});

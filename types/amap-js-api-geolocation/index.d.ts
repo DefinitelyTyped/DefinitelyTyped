@@ -215,7 +215,12 @@ declare namespace AMap {
          * 获取用户当前的精确位置信息
          * @param callback 回调
          */
-        getCurrentPosition(callback: (status: Geolocation.SearchStatus, result: Geolocation.GeolocationResult | Geolocation.ErrorStatus) => void): void;
+        getCurrentPosition(
+            callback: (
+                status: Geolocation.SearchStatus,
+                result: Geolocation.GeolocationResult | Geolocation.ErrorStatus,
+            ) => void,
+        ): void;
         /**
          * 使用浏览器定位接口监控当前位置，移动端有效
          */
@@ -229,6 +234,11 @@ declare namespace AMap {
          * 进行IP城市查询
          * @param callback 回调
          */
-        getCityInfo(callback: (status: Geolocation.SearchStatus, result: Geolocation.CityResult | Geolocation.ErrorStatus) => void): void;
+        getCityInfo(
+            callback: (
+                status: Geolocation.SearchStatus,
+                result: Geolocation.CityResult | Geolocation.ErrorStatus,
+            ) => void,
+        ): void;
     }
 }

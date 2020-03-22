@@ -1,4 +1,4 @@
-import strftime = require("strftime");
+import strftime = require('strftime');
 
 strftime('%B %d, %Y %H:%M:%S');
 strftime('%F %T', new Date(1307472705067));
@@ -6,7 +6,20 @@ strftime('%F %T', new Date(1307472705067));
 var it_IT = {
     days: ['domenica', 'lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'],
     shortDays: ['dom', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab'],
-    months: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
+    months: [
+        'gennaio',
+        'febbraio',
+        'marzo',
+        'aprile',
+        'maggio',
+        'giugno',
+        'luglio',
+        'agosto',
+        'settembre',
+        'ottobre',
+        'novembre',
+        'dicembre',
+    ],
     shortMonths: ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'],
     AM: 'AM',
     PM: 'PM',
@@ -21,8 +34,8 @@ var it_IT = {
         r: '%I:%M:%S %p',
         T: '%H:%M:%S',
         v: '%e-%b-%Y',
-        x: '%D'
-    }
+        x: '%D',
+    },
 };
 
 var strftimeIT = strftime.localize(it_IT);

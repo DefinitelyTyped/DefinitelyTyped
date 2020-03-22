@@ -28,7 +28,7 @@ function test_tab() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).tab({
@@ -113,19 +113,19 @@ function test_tab() {
             },
             regExp: {
                 required: /{\$*[A-z0-9]+}/g,
-                optional: /{\/\$*[A-z0-9]+}/g
+                optional: /{\/\$*[A-z0-9]+}/g,
             },
             selector: {
                 disabled: '.disabled',
-                form: 'form'
+                form: 'form',
             },
             className: {
                 loading: 'loading',
-                error: 'error'
+                error: 'error',
             },
             metadata: {
                 action: 'action',
-                url: 'url'
+                url: 'url',
             },
             error: {
                 beforeSend: 'beforeSend',
@@ -140,8 +140,8 @@ function test_tab() {
                 parseError: 'parseError',
                 requiredParameter: 'requiredParameter',
                 statusMessage: 'statusMessage',
-                timeout: 'timeout'
-            }
+                timeout: 'timeout',
+            },
         },
         historyType: 'state',
         path: 'path',
@@ -174,20 +174,20 @@ function test_tab() {
                 tabArray; // $ExpectType any[]
 
                 return 'title';
-            }
+            },
         },
         selector: {
             tabs: 'tabs',
-            parent: 'parent'
+            parent: 'parent',
         },
         metadata: {
             tab: 'tab',
             loaded: 'loaded',
-            promise: 'promise'
+            promise: 'promise',
         },
         className: {
             loading: 'loading',
-            active: 'active'
+            active: 'active',
         },
         error: {
             api: 'api',
@@ -196,8 +196,8 @@ function test_tab() {
             noContent: 'noContent',
             path: 'path',
             recursion: 'recursion',
-            state: 'state'
-        }
+            state: 'state',
+        },
     });
     $(selector).tab(); // $ExpectType JQuery<HTMLElement>
 

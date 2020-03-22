@@ -1,11 +1,9 @@
-
-
 function test_path() {
-    fixtures.path = "/fixtures";
+    fixtures.path = '/fixtures';
 }
 
 function test_containerId() {
-    fixtures.containerId = "fixtures";
+    fixtures.containerId = 'fixtures';
 }
 
 function test_body() {

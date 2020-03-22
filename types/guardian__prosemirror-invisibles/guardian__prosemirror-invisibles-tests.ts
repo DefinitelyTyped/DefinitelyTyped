@@ -5,7 +5,7 @@ import invisibles, { hardBreak, paragraph, space, Builder, character, node } fro
 
 const plugin1: Plugin = invisibles([hardBreak((node: Node) => true), paragraph(), space((char: string) => false)]);
 
-const a: Builder = character('letter-a')(char => char === 'a');
+const a: Builder = character('letter-a')((char) => char === 'a');
 
 const someNode: Builder = node('some-node', (node: Node, pos: number) => 1)((node: Node) => true);
 

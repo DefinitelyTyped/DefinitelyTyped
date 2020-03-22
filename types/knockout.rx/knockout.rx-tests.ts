@@ -6,5 +6,5 @@ ao(100);
 ao.getSubscriptionsCount();
 
 ao.toObservable();
-ao.toObservable("change");
-ao.toObservable<Error>("error");
+ao.toObservable('change');
+ao.toObservable<Error>('error');

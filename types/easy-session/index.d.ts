@@ -25,7 +25,7 @@ declare namespace Express {
     }
 }
 
-declare module "easy-session" {
+declare module 'easy-session' {
     import express = require('express');
 
     interface SessionOptions {

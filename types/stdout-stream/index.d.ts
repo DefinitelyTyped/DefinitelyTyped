@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Writable } from "stream";
+import { Writable } from 'stream';
 
 interface StdoutStream extends Writable {
     readonly _isStdio: true;

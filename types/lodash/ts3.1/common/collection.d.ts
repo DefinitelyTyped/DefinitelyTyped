@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     interface LoDashStatic {
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
@@ -14,7 +14,10 @@ declare module "../index" {
         /**
          * @see _.countBy
          */
-        countBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<number>;
+        countBy<T extends object>(
+            collection: T | null | undefined,
+            iteratee?: ValueIteratee<T[keyof T]>,
+        ): Dictionary<number>;
     }
     interface Object<T> {
         /**
@@ -110,7 +113,7 @@ declare module "../index" {
         /**
          * @see _.forEachRight
          */
-        eachRight: LoDashStatic["forEachRight"];
+        eachRight: LoDashStatic['forEachRight'];
     }
     interface String {
         /**
@@ -167,7 +170,10 @@ declare module "../index" {
         /**
          * @see _.every
          */
-        every<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): boolean;
+        every<T extends object>(
+            collection: T | null | undefined,
+            predicate?: ObjectIterateeCustom<T, boolean>,
+        ): boolean;
     }
     interface Collection<T> {
         /**
@@ -214,11 +220,17 @@ declare module "../index" {
         /**
          * @see _.filter
          */
-        filter<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>): S[];
+        filter<T extends object, S extends T[keyof T]>(
+            collection: T | null | undefined,
+            predicate: ObjectIteratorTypeGuard<T, S>,
+        ): S[];
         /**
          * @see _.filter
          */
-        filter<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): Array<T[keyof T]>;
+        filter<T extends object>(
+            collection: T | null | undefined,
+            predicate?: ObjectIterateeCustom<T, boolean>,
+        ): Array<T[keyof T]>;
     }
     interface String {
         /**
@@ -288,59 +300,78 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return Returns the matched element, else undefined.
          */
-        find<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        find<T, S extends T>(
+            collection: List<T> | null | undefined,
+            predicate: ListIteratorTypeGuard<T, S>,
+            fromIndex?: number,
+        ): S | undefined;
         /**
          * @see _.find
          */
-        find<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
+        find<T>(
+            collection: List<T> | null | undefined,
+            predicate?: ListIterateeCustom<T, boolean>,
+            fromIndex?: number,
+        ): T | undefined;
         /**
          * @see _.find
          */
-        find<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        find<T extends object, S extends T[keyof T]>(
+            collection: T | null | undefined,
+            predicate: ObjectIteratorTypeGuard<T, S>,
+            fromIndex?: number,
+        ): S | undefined;
         /**
          * @see _.find
          */
-        find<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
+        find<T extends object>(
+            collection: T | null | undefined,
+            predicate?: ObjectIterateeCustom<T, boolean>,
+            fromIndex?: number,
+        ): T[keyof T] | undefined;
     }
     interface Collection<T> {
         /**
          * @see _.find
          */
-        find<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        find<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S | undefined;
         /**
          * @see _.find
          */
-        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
+        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T | undefined;
     }
     interface Object<T> {
         /**
          * @see _.find
          */
-        find< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        find<S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S | undefined;
         /**
          * @see _.find
          */
-        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
+        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T] | undefined;
     }
     interface CollectionChain<T> {
         /**
          * @see _.find
          */
-        find< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        find<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S | undefined>;
         /**
          * @see _.find
          */
-        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T|undefined>;
+        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T | undefined>;
     }
     interface ObjectChain<T> {
         /**
          * @see _.find
          */
-        find< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        find<S extends T[keyof T]>(
+            predicate: ObjectIteratorTypeGuard<T, S>,
+            fromIndex?: number,
+        ): ExpChain<S | undefined>;
         /**
          * @see _.find
          */
-        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T[keyof T]|undefined>;
+        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T[keyof T] | undefined>;
     }
     interface LoDashStatic {
         /**
@@ -351,59 +382,78 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return The found element, else undefined.
          */
-        findLast<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        findLast<T, S extends T>(
+            collection: List<T> | null | undefined,
+            predicate: ListIteratorTypeGuard<T, S>,
+            fromIndex?: number,
+        ): S | undefined;
         /**
          * @see _.findLast
          */
-        findLast<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
+        findLast<T>(
+            collection: List<T> | null | undefined,
+            predicate?: ListIterateeCustom<T, boolean>,
+            fromIndex?: number,
+        ): T | undefined;
         /**
          * @see _.findLast
          */
-        findLast<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        findLast<T extends object, S extends T[keyof T]>(
+            collection: T | null | undefined,
+            predicate: ObjectIteratorTypeGuard<T, S>,
+            fromIndex?: number,
+        ): S | undefined;
         /**
          * @see _.findLast
          */
-        findLast<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
+        findLast<T extends object>(
+            collection: T | null | undefined,
+            predicate?: ObjectIterateeCustom<T, boolean>,
+            fromIndex?: number,
+        ): T[keyof T] | undefined;
     }
     interface Collection<T> {
         /**
          * @see _.findLast
          */
-        findLast<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        findLast<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S | undefined;
         /**
          * @see _.findLast
          */
-        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
+        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T | undefined;
     }
     interface Object<T> {
         /**
          * @see _.findLast
          */
-        findLast< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        findLast<S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S | undefined;
         /**
          * @see _.findLast
          */
-        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
+        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T] | undefined;
     }
     interface CollectionChain<T> {
         /**
          * @see _.findLast
          */
-        findLast< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        findLast<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S | undefined>;
         /**
          * @see _.findLast
          */
-        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T|undefined>;
+        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T | undefined>;
     }
     interface ObjectChain<T> {
         /**
          * @see _.findLast
          */
-        findLast< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        findLast<S extends T[keyof T]>(
+            predicate: ObjectIteratorTypeGuard<T, S>,
+            fromIndex?: number,
+        ): ExpChain<S | undefined>;
         /**
          * @see _.findLast
          */
-        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T[keyof T]|undefined>;
+        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T[keyof T] | undefined>;
     }
     interface LoDashStatic {
         /**
@@ -423,11 +473,17 @@ declare module "../index" {
         /**
          * @see _.flatMap
          */
-        flatMap<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, Many<TResult>>): TResult[];
+        flatMap<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee: ListIterator<T, Many<TResult>>,
+        ): TResult[];
         /**
          * @see _.flatMap
          */
-        flatMap<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, Many<TResult>>): TResult[];
+        flatMap<T extends object, TResult>(
+            collection: T | null | undefined,
+            iteratee: ObjectIterator<T, Many<TResult>>,
+        ): TResult[];
         /**
          * @see _.flatMap
          */
@@ -542,15 +598,27 @@ declare module "../index" {
          * _.flatMapDeep([1, 2], duplicate);
          * // => [1, 1, 2, 2]
          */
-        flatMapDeep<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
+        flatMapDeep<T>(
+            collection:
+                | Dictionary<ListOfRecursiveArraysOrValues<T> | T>
+                | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T>
+                | null
+                | undefined,
+        ): T[];
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): TResult[];
+        flatMapDeep<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
+        ): TResult[];
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): TResult[];
+        flatMapDeep<T extends object, TResult>(
+            collection: T | null | undefined,
+            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
+        ): TResult[];
         /**
          * @see _.flatMapDeep
          */
@@ -564,7 +632,9 @@ declare module "../index" {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>): Collection<TResult>;
+        flatMapDeep<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>,
+        ): Collection<TResult>;
         /**
          * @see _.flatMapDeep
          */
@@ -574,7 +644,9 @@ declare module "../index" {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TResult = any>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): Collection<TResult>;
+        flatMapDeep<TResult = any>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName,
+        ): Collection<TResult>;
         /**
          * @see _.flatMapDeep
          */
@@ -588,7 +660,9 @@ declare module "../index" {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TResult = any>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): Collection<TResult>;
+        flatMapDeep<TResult = any>(
+            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName,
+        ): Collection<TResult>;
         /**
          * @see _.flatMapDeep
          */
@@ -602,7 +676,9 @@ declare module "../index" {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>): CollectionChain<TResult>;
+        flatMapDeep<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>,
+        ): CollectionChain<TResult>;
         /**
          * @see _.flatMapDeep
          */
@@ -612,7 +688,9 @@ declare module "../index" {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>): CollectionChain<TResult>;
+        flatMapDeep<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>,
+        ): CollectionChain<TResult>;
         /**
          * @see _.flatMapDeep
          */
@@ -622,7 +700,9 @@ declare module "../index" {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TResult = any>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): CollectionChain<TResult>;
+        flatMapDeep<TResult = any>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName,
+        ): CollectionChain<TResult>;
         /**
          * @see _.flatMapDeep
          */
@@ -636,7 +716,9 @@ declare module "../index" {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TResult = any>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): CollectionChain<TResult>;
+        flatMapDeep<TResult = any>(
+            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName,
+        ): CollectionChain<TResult>;
         /**
          * @see _.flatMapDeep
          */
@@ -666,15 +748,29 @@ declare module "../index" {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        flatMapDepth<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
+        flatMapDepth<T>(
+            collection:
+                | Dictionary<ListOfRecursiveArraysOrValues<T> | T>
+                | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T>
+                | null
+                | undefined,
+        ): T[];
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): TResult[];
+        flatMapDepth<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
+            depth?: number,
+        ): TResult[];
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): TResult[];
+        flatMapDepth<T extends object, TResult>(
+            collection: T | null | undefined,
+            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>,
+            depth?: number,
+        ): TResult[];
         /**
          * @see _.flatMapDepth
          */
@@ -688,7 +784,10 @@ declare module "../index" {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): Collection<TResult>;
+        flatMapDepth<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>,
+            depth?: number,
+        ): Collection<TResult>;
         /**
          * @see _.flatMapDepth
          */
@@ -698,7 +797,10 @@ declare module "../index" {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TResult = any>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): Collection<TResult>;
+        flatMapDepth<TResult = any>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName,
+            depth?: number,
+        ): Collection<TResult>;
         /**
          * @see _.flatMapDepth
          */
@@ -712,7 +814,10 @@ declare module "../index" {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TResult = any>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): Collection<TResult>;
+        flatMapDepth<TResult = any>(
+            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName,
+            depth?: number,
+        ): Collection<TResult>;
         /**
          * @see _.flatMapDepth
          */
@@ -726,7 +831,10 @@ declare module "../index" {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): CollectionChain<TResult>;
+        flatMapDepth<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>,
+            depth?: number,
+        ): CollectionChain<TResult>;
         /**
          * @see _.flatMapDepth
          */
@@ -736,7 +844,10 @@ declare module "../index" {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): CollectionChain<TResult>;
+        flatMapDepth<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>,
+            depth?: number,
+        ): CollectionChain<TResult>;
         /**
          * @see _.flatMapDepth
          */
@@ -746,7 +857,10 @@ declare module "../index" {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TResult = any>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): CollectionChain<TResult>;
+        flatMapDepth<TResult = any>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName,
+            depth?: number,
+        ): CollectionChain<TResult>;
         /**
          * @see _.flatMapDepth
          */
@@ -760,7 +874,10 @@ declare module "../index" {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TResult = any>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): CollectionChain<TResult>;
+        flatMapDepth<TResult = any>(
+            iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName,
+            depth?: number,
+        ): CollectionChain<TResult>;
         /**
          * @see _.flatMapDepth
          */
@@ -799,19 +916,31 @@ declare module "../index" {
         /**
          * @see _.forEach
          */
-        forEach<T, TArray extends T[] | null | undefined>(collection: TArray & (T[] | null | undefined), iteratee?: ArrayIterator<T, any>): TArray;
+        forEach<T, TArray extends T[] | null | undefined>(
+            collection: TArray & (T[] | null | undefined),
+            iteratee?: ArrayIterator<T, any>,
+        ): TArray;
         /**
          * @see _.forEach
          */
-        forEach<TString extends string | null | undefined>(collection: TString, iteratee?: StringIterator<any>): TString;
+        forEach<TString extends string | null | undefined>(
+            collection: TString,
+            iteratee?: StringIterator<any>,
+        ): TString;
         /**
          * @see _.forEach
          */
-        forEach<T, TList extends List<T> | null | undefined>(collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any>): TList;
+        forEach<T, TList extends List<T> | null | undefined>(
+            collection: TList & (List<T> | null | undefined),
+            iteratee?: ListIterator<T, any>,
+        ): TList;
         /**
          * @see _.forEach
          */
-        forEach<T extends object>(collection: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
+        forEach<T extends object>(
+            collection: T | null | undefined,
+            iteratee?: ObjectIterator<T, any>,
+        ): T | null | undefined;
     }
     interface String {
         /**
@@ -880,19 +1009,31 @@ declare module "../index" {
         /**
          * @see _.forEachRight
          */
-        forEachRight<T, TArray extends T[] | null | undefined>(collection: TArray & (T[] | null | undefined), iteratee?: ArrayIterator<T, any>): TArray;
+        forEachRight<T, TArray extends T[] | null | undefined>(
+            collection: TArray & (T[] | null | undefined),
+            iteratee?: ArrayIterator<T, any>,
+        ): TArray;
         /**
          * @see _.forEachRight
          */
-        forEachRight<TString extends string | null | undefined>(collection: TString, iteratee?: StringIterator<any>): TString;
+        forEachRight<TString extends string | null | undefined>(
+            collection: TString,
+            iteratee?: StringIterator<any>,
+        ): TString;
         /**
          * @see _.forEachRight
          */
-        forEachRight<T, TList extends List<T> | null | undefined>(collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any>): TList;
+        forEachRight<T, TList extends List<T> | null | undefined>(
+            collection: TList & (List<T> | null | undefined),
+            iteratee?: ListIterator<T, any>,
+        ): TList;
         /**
          * @see _.forEachRight
          */
-        forEachRight<T extends object>(collection: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
+        forEachRight<T extends object>(
+            collection: T | null | undefined,
+            iteratee?: ObjectIterator<T, any>,
+        ): T | null | undefined;
     }
     interface String {
         /**
@@ -950,7 +1091,10 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<Array<T[keyof T]>>;
+        groupBy<T extends object>(
+            collection: T | null | undefined,
+            iteratee?: ValueIteratee<T[keyof T]>,
+        ): Dictionary<Array<T[keyof T]>>;
     }
     interface String {
         /**
@@ -1004,7 +1148,11 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number): boolean;
+        includes<T>(
+            collection: Dictionary<T> | NumericDictionary<T> | null | undefined,
+            target: T,
+            fromIndex?: number,
+        ): boolean;
     }
     interface Object<T> {
         /**
@@ -1044,19 +1192,23 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-        * Invokes the method named by methodName on each element in the collection returning
-        * an array of the results of each invoked method. Additional arguments will be provided
-        * to each invoked method. If methodName is a function it will be invoked for, and this
-        * bound to, each element in the collection.
-        * @param collection The collection to iterate over.
-        * @param methodName The name of the method to invoke.
-        * @param args Arguments to invoke the method with.
+         * Invokes the method named by methodName on each element in the collection returning
+         * an array of the results of each invoked method. Additional arguments will be provided
+         * to each invoked method. If methodName is a function it will be invoked for, and this
+         * bound to, each element in the collection.
+         * @param collection The collection to iterate over.
+         * @param methodName The name of the method to invoke.
+         * @param args Arguments to invoke the method with.
          */
         invokeMap(collection: object | null | undefined, methodName: string, ...args: any[]): any[];
         /**
          * @see _.invokeMap
          */
-        invokeMap<TResult>(collection: object | null | undefined, method: (...args: any[]) => TResult, ...args: any[]): TResult[];
+        invokeMap<TResult>(
+            collection: object | null | undefined,
+            method: (...args: any[]) => TResult,
+            ...args: any[]
+        ): TResult[];
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
@@ -1088,11 +1240,17 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the composed aggregate object.
          */
-        keyBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIterateeCustom<T, PropertyName>): Dictionary<T>;
+        keyBy<T>(
+            collection: List<T> | null | undefined,
+            iteratee?: ValueIterateeCustom<T, PropertyName>,
+        ): Dictionary<T>;
         /**
          * @see _.keyBy
          */
-        keyBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Dictionary<T[keyof T]>;
+        keyBy<T extends object>(
+            collection: T | null | undefined,
+            iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>,
+        ): Dictionary<T[keyof T]>;
     }
     interface String {
         /**
@@ -1165,11 +1323,17 @@ declare module "../index" {
         /**
          * @see _.map
          */
-        map<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, TResult>): TResult[];
+        map<T extends object, TResult>(
+            collection: T | null | undefined,
+            iteratee: ObjectIterator<T, TResult>,
+        ): TResult[];
         /**
          * @see _.map
          */
-        map<T, K extends keyof T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: K): Array<T[K]>;
+        map<T, K extends keyof T>(
+            collection: Dictionary<T> | NumericDictionary<T> | null | undefined,
+            iteratee: K,
+        ): Array<T[K]>;
         /**
          * @see _.map
          */
@@ -1324,55 +1488,86 @@ declare module "../index" {
          * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
          * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
-        orderBy<T>(collection: List<T> | null | undefined, iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): T[];
+        orderBy<T>(
+            collection: List<T> | null | undefined,
+            iteratees?: Many<ListIterator<T, NotVoid>>,
+            orders?: Many<boolean | 'asc' | 'desc'>,
+        ): T[];
         /**
          * @see _.orderBy
          */
-        orderBy<T>(collection: List<T> | null | undefined, iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): T[];
+        orderBy<T>(
+            collection: List<T> | null | undefined,
+            iteratees?: Many<ListIteratee<T>>,
+            orders?: Many<boolean | 'asc' | 'desc'>,
+        ): T[];
         /**
          * @see _.orderBy
          */
-        orderBy<T extends object>(collection: T | null | undefined, iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): Array<T[keyof T]>;
+        orderBy<T extends object>(
+            collection: T | null | undefined,
+            iteratees?: Many<ObjectIterator<T, NotVoid>>,
+            orders?: Many<boolean | 'asc' | 'desc'>,
+        ): Array<T[keyof T]>;
         /**
          * @see _.orderBy
          */
-        orderBy<T extends object>(collection: T | null | undefined, iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): Array<T[keyof T]>;
+        orderBy<T extends object>(
+            collection: T | null | undefined,
+            iteratees?: Many<ObjectIteratee<T>>,
+            orders?: Many<boolean | 'asc' | 'desc'>,
+        ): Array<T[keyof T]>;
     }
     interface Collection<T> {
         /**
          * @see _.orderBy
          */
-        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>, orders?: Many<boolean|"asc"|"desc">): Collection<T>;
+        orderBy(
+            iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>,
+            orders?: Many<boolean | 'asc' | 'desc'>,
+        ): Collection<T>;
     }
     interface Object<T> {
         /**
          * @see _.orderBy
          */
-        orderBy(iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): Collection<T[keyof T]>;
+        orderBy(
+            iteratees?: Many<ObjectIterator<T, NotVoid>>,
+            orders?: Many<boolean | 'asc' | 'desc'>,
+        ): Collection<T[keyof T]>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.orderBy
          */
-        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>, orders?: Many<boolean|"asc"|"desc">): CollectionChain<T>;
+        orderBy(
+            iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>,
+            orders?: Many<boolean | 'asc' | 'desc'>,
+        ): CollectionChain<T>;
     }
     interface ObjectChain<T> {
         /**
          * @see _.orderBy
          */
-        orderBy(iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): CollectionChain<T[keyof T]>;
+        orderBy(
+            iteratees?: Many<ObjectIterator<T, NotVoid>>,
+            orders?: Many<boolean | 'asc' | 'desc'>,
+        ): CollectionChain<T[keyof T]>;
     }
     interface LoDashStatic {
         /**
-        * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
-        * while the second of which contains elements predicate returns falsey for.
-        * The predicate is invoked with three arguments: (value, index|key, collection).
-        *
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @return Returns the array of grouped elements.
+         * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
+         * while the second of which contains elements predicate returns falsey for.
+         * The predicate is invoked with three arguments: (value, index|key, collection).
+         *
+         * @param collection The collection to iterate over.
+         * @param callback The function called per iteration.
+         * @return Returns the array of grouped elements.
          */
-        partition<T, U extends T>(collection: List<T> | null | undefined, callback: ValueIteratorTypeGuard<T, U>): [U[], Array<Exclude<T, U>>];
+        partition<T, U extends T>(
+            collection: List<T> | null | undefined,
+            callback: ValueIteratorTypeGuard<T, U>,
+        ): [U[], Array<Exclude<T, U>>];
         /**
          * @see _.partition
          */
@@ -1380,7 +1575,10 @@ declare module "../index" {
         /**
          * @see _.partition
          */
-        partition<T extends object>(collection: T | null | undefined, callback: ValueIteratee<T[keyof T]>): [Array<T[keyof T]>, Array<T[keyof T]>];
+        partition<T extends object>(
+            collection: T | null | undefined,
+            callback: ValueIteratee<T[keyof T]>,
+        ): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
     interface String {
         /**
@@ -1392,7 +1590,9 @@ declare module "../index" {
         /**
          * @see _.partition
          */
-        partition<U extends T>(callback: ValueIteratorTypeGuard<T, U>): LoDashImplicitWrapper<[U[], Array<Exclude<T, U>>]>;
+        partition<U extends T>(
+            callback: ValueIteratorTypeGuard<T, U>,
+        ): LoDashImplicitWrapper<[U[], Array<Exclude<T, U>>]>;
         /**
          * @see _.partition
          */
@@ -1420,7 +1620,9 @@ declare module "../index" {
         /**
          * @see _.partition
          */
-        partition<U extends T>(callback: ValueIteratorTypeGuard<T, U>): LoDashExplicitWrapper<[U[], Array<Exclude<T, U>>]>;
+        partition<U extends T>(
+            callback: ValueIteratorTypeGuard<T, U>,
+        ): LoDashExplicitWrapper<[U[], Array<Exclude<T, U>>]>;
         /**
          * @see _.partition
          */
@@ -1434,25 +1636,37 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-        * Reduces a collection to a value which is the accumulated result of running each
-        * element in the collection through the callback, where each successive callback execution
-        * consumes the return value of the previous execution. If accumulator is not provided the
-        * first element of the collection will be used as the initial accumulator value. The callback
-        * is invoked with four arguments: (accumulator, value, index|key, collection).
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param accumulator Initial value of the accumulator.
-        * @return Returns the accumulated value.
+         * Reduces a collection to a value which is the accumulated result of running each
+         * element in the collection through the callback, where each successive callback execution
+         * consumes the return value of the previous execution. If accumulator is not provided the
+         * first element of the collection will be used as the initial accumulator value. The callback
+         * is invoked with four arguments: (accumulator, value, index|key, collection).
+         * @param collection The collection to iterate over.
+         * @param callback The function called per iteration.
+         * @param accumulator Initial value of the accumulator.
+         * @return Returns the accumulated value.
          */
-        reduce<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
+        reduce<T, TResult>(
+            collection: T[] | null | undefined,
+            callback: MemoListIterator<T, TResult, T[]>,
+            accumulator: TResult,
+        ): TResult;
         /**
          * @see _.reduce
          */
-        reduce<T, TResult>(collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
+        reduce<T, TResult>(
+            collection: List<T> | null | undefined,
+            callback: MemoListIterator<T, TResult, List<T>>,
+            accumulator: TResult,
+        ): TResult;
         /**
          * @see _.reduce
          */
-        reduce<T extends object, TResult>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
+        reduce<T extends object, TResult>(
+            collection: T | null | undefined,
+            callback: MemoObjectIterator<T[keyof T], TResult, T>,
+            accumulator: TResult,
+        ): TResult;
         /**
          * @see _.reduce
          */
@@ -1464,7 +1678,10 @@ declare module "../index" {
         /**
          * @see _.reduce
          */
-        reduce<T extends object>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
+        reduce<T extends object>(
+            collection: T | null | undefined,
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>,
+        ): T[keyof T] | undefined;
     }
     interface Collection<T> {
         /**
@@ -1508,22 +1725,34 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-        * This method is like _.reduce except that it iterates over elements of a collection from
-        * right to left.
-        * @param collection The collection to iterate over.
-        * @param callback The function called per iteration.
-        * @param accumulator Initial value of the accumulator.
-        * @return The accumulated value.
+         * This method is like _.reduce except that it iterates over elements of a collection from
+         * right to left.
+         * @param collection The collection to iterate over.
+         * @param callback The function called per iteration.
+         * @param accumulator Initial value of the accumulator.
+         * @return The accumulated value.
          */
-        reduceRight<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
+        reduceRight<T, TResult>(
+            collection: T[] | null | undefined,
+            callback: MemoListIterator<T, TResult, T[]>,
+            accumulator: TResult,
+        ): TResult;
         /**
          * @see _.reduceRight
          */
-        reduceRight<T, TResult>(collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
+        reduceRight<T, TResult>(
+            collection: List<T> | null | undefined,
+            callback: MemoListIterator<T, TResult, List<T>>,
+            accumulator: TResult,
+        ): TResult;
         /**
          * @see _.reduceRight
          */
-        reduceRight<T extends object, TResult>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
+        reduceRight<T extends object, TResult>(
+            collection: T | null | undefined,
+            callback: MemoObjectIterator<T[keyof T], TResult, T>,
+            accumulator: TResult,
+        ): TResult;
         /**
          * @see _.reduceRight
          */
@@ -1531,11 +1760,17 @@ declare module "../index" {
         /**
          * @see _.reduceRight
          */
-        reduceRight<T>(collection: List<T> | null | undefined, callback: MemoListIterator<T, T, List<T>>): T | undefined;
+        reduceRight<T>(
+            collection: List<T> | null | undefined,
+            callback: MemoListIterator<T, T, List<T>>,
+        ): T | undefined;
         /**
          * @see _.reduceRight
          */
-        reduceRight<T extends object>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
+        reduceRight<T extends object>(
+            collection: T | null | undefined,
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>,
+        ): T[keyof T] | undefined;
     }
     interface Collection<T> {
         /**
@@ -1571,7 +1806,10 @@ declare module "../index" {
         /**
          * @see _.reduceRight
          */
-        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): ExpChain<TResult>;
+        reduceRight<TResult>(
+            callback: MemoObjectIterator<T[keyof T], TResult, T>,
+            accumulator: TResult,
+        ): ExpChain<TResult>;
         /**
          * @see _.reduceRight
          */
@@ -1594,7 +1832,10 @@ declare module "../index" {
         /**
          * @see _.reject
          */
-        reject<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): Array<T[keyof T]>;
+        reject<T extends object>(
+            collection: T | null | undefined,
+            predicate?: ObjectIterateeCustom<T, boolean>,
+        ): Array<T[keyof T]>;
     }
     interface String {
         /**
@@ -1901,7 +2142,10 @@ declare module "../index" {
         /**
          * @see _.sortBy
          */
-        sortBy<T extends object>(collection: T | null | undefined, ...iteratees: Array<Many<ObjectIteratee<T>>>): Array<T[keyof T]>;
+        sortBy<T extends object>(
+            collection: T | null | undefined,
+            ...iteratees: Array<Many<ObjectIteratee<T>>>
+        ): Array<T[keyof T]>;
     }
     interface Collection<T> {
         /**

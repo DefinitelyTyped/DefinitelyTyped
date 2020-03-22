@@ -16,17 +16,20 @@ parse(['--foo', '-bar'], {
 // alias
 
 parse(['--foo', '-bar'], {
-    alias: { foo: 'foo', bar: ['bar'] }
+    alias: { foo: 'foo', bar: ['bar'] },
 });
 
 // array
 
 parse(['--foo', '-bar'], {
-    array: ['foo', 'bar']
+    array: ['foo', 'bar'],
 });
 
 parse(['--foo', '-bar'], {
-    array: [{ key: 'foo', boolean: true }, { key: 'bar', number: true }],
+    array: [
+        { key: 'foo', boolean: true },
+        { key: 'bar', number: true },
+    ],
 });
 
 // boolean
@@ -38,15 +41,15 @@ parse(['--foo', '-bar'], {
 //  config
 
 parse(['--foo', '-bar'], {
-    config: 'path to config'
+    config: 'path to config',
 });
 
 parse(['--foo', '-bar'], {
-    config: ['path to config #1', 'path to config #2']
+    config: ['path to config #1', 'path to config #2'],
 });
 
 parse(['--foo', '-bar'], {
-    config: { foo: true }
+    config: { foo: true },
 });
 
 // configuration
@@ -64,26 +67,26 @@ parse(['--foo', '-bar'], {
         'negation-prefix': 'nope-',
         'populate--': true,
         'set-placeholder-key': true,
-        'halt-at-non-option': true
-    }
+        'halt-at-non-option': true,
+    },
 });
 
 // coerce
 
 parse(['--foo', '-bar'], {
-    coerce: { foo: arg => arg }
+    coerce: { foo: (arg) => arg },
 });
 
 // count
 
 parse(['--foo', '-bar'], {
-    count: ['foo', 'bar']
+    count: ['foo', 'bar'],
 });
 
 // default
 
 parse(['--foo', '-bar'], {
-    default: { x: 33, y: 'hello world!' }
+    default: { x: 33, y: 'hello world!' },
 });
 
 // envPrefix
@@ -99,25 +102,25 @@ parse(['--foo', '-bar'], {
 // narg
 
 parse(['--foo', '-bar'], {
-    narg: { x: 2 }
+    narg: { x: 2 },
 });
 
 // normalize
 
 parse(['--foo', '-bar'], {
-    normalize: ['foo', 'bar']
+    normalize: ['foo', 'bar'],
 });
 
 // string
 
 parse(['--foo', '-bar'], {
-    string: ['foo', 'bar']
+    string: ['foo', 'bar'],
 });
 
 // number
 
 parse(['--foo', '-bar'], {
-    number: ['foo', 'bar']
+    number: ['foo', 'bar'],
 });
 
 parse.detailed('--foo -bar');
@@ -126,4 +129,4 @@ parse.detailed(['--foo', '-bar']);
 
 parse.detailed(['--foo'], {});
 
-function test(args: Arguments) { }
+function test(args: Arguments) {}

@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Config } from "conventional-changelog-config-spec";
+import { Config } from 'conventional-changelog-config-spec';
 
 declare function standardVersion(options: Options): Promise<void>;
 
@@ -215,7 +215,7 @@ declare namespace standardVersion {
             posttag?: string;
         }
 
-        type Skip = Partial<Record<"bump" | "changelog" | "commit" | "tag", boolean>>;
+        type Skip = Partial<Record<'bump' | 'changelog' | 'commit' | 'tag', boolean>>;
     }
 }
 

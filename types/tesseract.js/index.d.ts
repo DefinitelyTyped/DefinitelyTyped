@@ -6,8 +6,16 @@
 /// <reference types="node" />
 
 declare namespace Tesseract {
-    type ImageLike = string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement
-        | CanvasRenderingContext2D | File | Blob | ImageData | Buffer;
+    type ImageLike =
+        | string
+        | HTMLImageElement
+        | HTMLCanvasElement
+        | HTMLVideoElement
+        | CanvasRenderingContext2D
+        | File
+        | Blob
+        | ImageData
+        | Buffer;
     interface Progress {
         status: string;
         progress: number;
@@ -133,11 +141,7 @@ declare namespace Tesseract {
         recognize(image: ImageLike, options: any): TesseractJob;
         detect(image: ImageLike): TesseractJob;
 
-        create(paths: {
-            workerPath: string;
-            langPath: string;
-            corePath: string;
-        }): TesseractStatic;
+        create(paths: { workerPath: string; langPath: string; corePath: string }): TesseractStatic;
     }
 }
 

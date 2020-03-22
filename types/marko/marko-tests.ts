@@ -16,9 +16,7 @@ const template: Template = require('template.marko');
 
 (document: Document) => {
     // $ExpectType RenderResult
-    template
-        .renderSync({ name: 'Marko' })
-        .appendTo(document.body);
+    template.renderSync({ name: 'Marko' }).appendTo(document.body);
 
     createServer((req, res) => {
         res.setHeader('content-type', 'text/html');
@@ -26,12 +24,10 @@ const template: Template = require('template.marko');
         template.render({ name: 'Marko' }, res);
     }).listen(8080);
 
-    template
-        .render({ $global: { flags: ['mobile'] } })
-        .then((result) => {
-            // $ExpectType RenderResult
-            result.appendTo(document.body);
-        });
+    template.render({ $global: { flags: ['mobile'] } }).then((result) => {
+        // $ExpectType RenderResult
+        result.appendTo(document.body);
+    });
 
     template.render({}, (err: Error | null, result: RenderResult) => {
         // $ExpectType RenderResult
@@ -123,7 +119,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
     res.marko(template, {
         name: 'Frank',
         count: 30,
-        colors: ['red', 'green', 'blue']
+        colors: ['red', 'green', 'blue'],
     });
 });
 
@@ -131,12 +127,12 @@ app.get('/', (req: express.Request, res: express.Response) => {
 
 const lookup = buildTaglibLookup('some/dir');
 
-lookup.forEachTag(tag => {
+lookup.forEachTag((tag) => {
     // $ExpectType string
     tag.name;
 });
 
-lookup.forEachAttribute('div', attr => {
+lookup.forEachAttribute('div', (attr) => {
     // $ExpectType string | undefined
     attr.name;
 });

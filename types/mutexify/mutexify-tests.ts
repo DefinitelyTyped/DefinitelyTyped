@@ -1,6 +1,6 @@
-import mutexify = require("mutexify");
+import mutexify = require('mutexify');
 const lock = mutexify();
 
-lock(release => {
+lock((release) => {
     release();
 });

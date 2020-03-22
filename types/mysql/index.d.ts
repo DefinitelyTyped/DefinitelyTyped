@@ -9,8 +9,8 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
-import tls = require("tls");
+import stream = require('stream');
+import tls = require('tls');
 
 export interface EscapeFunctions {
     /**
@@ -190,7 +190,10 @@ export interface Pool extends EscapeFunctions {
 
     getConnection(callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    acquireConnection(connection: PoolConnection, callback: (err: MysqlError, connection: PoolConnection) => void): void;
+    acquireConnection(
+        connection: PoolConnection,
+        callback: (err: MysqlError, connection: PoolConnection) => void,
+    ): void;
 
     releaseConnection(connection: PoolConnection): void;
 
@@ -269,7 +272,11 @@ export interface PoolCluster {
 
     getConnection(pattern: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    getConnection(pattern: string, selector: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
+    getConnection(
+        pattern: string,
+        selector: string,
+        callback: (err: MysqlError, connection: PoolConnection) => void,
+    ): void;
 
     /**
      * Set handler to be run on a certain event.
@@ -347,15 +354,23 @@ export interface Query {
     on(ev: 'end', callback: () => void): Query;
 }
 
-export interface GeometryType extends Array<{ x: number, y: number } | GeometryType> {
+export interface GeometryType extends Array<{ x: number; y: number } | GeometryType> {
     x: number;
     y: number;
 }
 
-export type TypeCast = boolean | (
-    (field: UntypedFieldInfo
-        & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null | GeometryType },
-        next: () => void) => any);
+export type TypeCast =
+    | boolean
+    | ((
+          field: UntypedFieldInfo & {
+              type: string;
+              length: number;
+              string(): string;
+              buffer(): Buffer;
+              geometry(): null | GeometryType;
+          },
+          next: () => void,
+      ) => any);
 
 export type queryCallback = (err: MysqlError | null, results?: any, fields?: FieldInfo[]) => void;
 

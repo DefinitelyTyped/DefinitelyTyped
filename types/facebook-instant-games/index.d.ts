@@ -180,7 +180,7 @@ declare namespace FBInstant {
      * and can only contain '_', '-', ' ', and alphanumeric characters. Values must be less than 100 characters in length.
      * @returns The error if the event failed to log; otherwise returns null.
      */
-    function logEvent(eventName: string, valueToSum?: number, parameters?: { [key: string]: string; }): APIError | null;
+    function logEvent(eventName: string, valueToSum?: number, parameters?: { [key: string]: string }): APIError | null;
 
     /**
      * Set a callback to be fired when a pause event is triggered.
@@ -226,7 +226,11 @@ declare namespace FBInstant {
      * @throws CLIENT_UNSUPPORTED_OPERATION
      * @throws INVALID_OPERATION
      */
-    function matchPlayerAsync(matchTag?: string, switchContextWhenMatched?: boolean, offlineMatch?: boolean): Promise<void>;
+    function matchPlayerAsync(
+        matchTag?: string,
+        switchContextWhenMatched?: boolean,
+        offlineMatch?: boolean,
+    ): Promise<void>;
 
     /**
      * Checks if the current player is eligible for the matchPlayerAsync API.
@@ -976,7 +980,7 @@ declare namespace FBInstant {
          * versions of your own call to action, pass an object with the default cta as the value of 'default' and another object mapping
          * locale keys to translations as the value of 'localizations'.
          */
-        cta?: (string | LocalizableContent);
+        cta?: string | LocalizableContent;
 
         /**
          * Data URL of a base64 encoded image.
@@ -987,7 +991,7 @@ declare namespace FBInstant {
          * A text message, or an object with the default text as the value of 'default' and another object mapping locale keys to
          * translations as the value of 'localizations'.
          */
-        text: (string | LocalizableContent);
+        text: string | LocalizableContent;
 
         /**
          * A blob of data to attach to the update. All game sessions launched from the update will be able to access this blob
@@ -1050,11 +1054,17 @@ declare namespace FBInstant {
         localizations: LocalizationsDict;
     }
 
-    interface DataObject { [ key: string ]: any; }
+    interface DataObject {
+        [key: string]: any;
+    }
 
-    interface StatsObject { [ key: string ]: number; }
+    interface StatsObject {
+        [key: string]: number;
+    }
 
-    interface IncrementObject { [ key: string ]: number; }
+    interface IncrementObject {
+        [key: string]: number;
+    }
 
     /**
      * Represents a mapping from locales to translations of a given string. Each property is an optional five-character Facebook locale code of the form xx_XX.
@@ -1072,7 +1082,7 @@ declare namespace FBInstant {
      * 'INCLUDE_EXISTING_CHALLENGES' - Include the "Existing Challenges" section, which surfaces actively played-in contexts that the player is a part of.
      * 'NEW_PLAYERS_ONLY' - In sections containing individuals, prefer people who have not played the game.
      */
-    type ContextFilter = "NEW_CONTEXT_ONLY" | "INCLUDE_EXISTING_CHALLENGES" | "NEW_PLAYERS_ONLY";
+    type ContextFilter = 'NEW_CONTEXT_ONLY' | 'INCLUDE_EXISTING_CHALLENGES' | 'NEW_PLAYERS_ONLY';
 
     /**
      * Represents the type of the update action to perform.
@@ -1080,32 +1090,33 @@ declare namespace FBInstant {
      * "CUSTOM": A custom update, with all content specified by the game.
      * "LEADERBOARD": An update associated with an Instant Game leaderboard.
      */
-    type UpdateAction = "CUSTOM" | "LEADERBOARD";
+    type UpdateAction = 'CUSTOM' | 'LEADERBOARD';
 
     /**
      * Represents the current platform that the user is playing on.
      */
-    type Platform = "IOS" | "ANDROID" | "WEB" | "MOBILE_WEB";
+    type Platform = 'IOS' | 'ANDROID' | 'WEB' | 'MOBILE_WEB';
 
-    type Type = "POST" | "THREAD" | "GROUP" | "SOLO";
+    type Type = 'POST' | 'THREAD' | 'GROUP' | 'SOLO';
 
-    type Intent = "INVITE" | "REQUEST" | "CHALLENGE" | "SHARE";
+    type Intent = 'INVITE' | 'REQUEST' | 'CHALLENGE' | 'SHARE';
 
-    type ErrorCodeType = "ADS_FREQUENT_LOAD" |
-        "ADS_NO_FILL" |
-        "ADS_NOT_LOADED" |
-        "ADS_TOO_MANY_INSTANCES" |
-        "ANALYTICS_POST_EXCEPTION" |
-        "CLIENT_REQUIRES_UPDATE" |
-        "CLIENT_UNSUPPORTED_OPERATION" |
-        "INVALID_OPERATION" |
-        "INVALID_PARAM" |
-        "LEADERBOARD_NOT_FOUND" |
-        "LEADERBOARD_WRONG_CONTEXT" |
-        "NETWORK_FAILURE" |
-        "PENDING_REQUEST" |
-        "RATE_LIMITED" |
-        "SAME_CONTEXT" |
-        "UNKNOWN" |
-        "USER_INPUT";
+    type ErrorCodeType =
+        | 'ADS_FREQUENT_LOAD'
+        | 'ADS_NO_FILL'
+        | 'ADS_NOT_LOADED'
+        | 'ADS_TOO_MANY_INSTANCES'
+        | 'ANALYTICS_POST_EXCEPTION'
+        | 'CLIENT_REQUIRES_UPDATE'
+        | 'CLIENT_UNSUPPORTED_OPERATION'
+        | 'INVALID_OPERATION'
+        | 'INVALID_PARAM'
+        | 'LEADERBOARD_NOT_FOUND'
+        | 'LEADERBOARD_WRONG_CONTEXT'
+        | 'NETWORK_FAILURE'
+        | 'PENDING_REQUEST'
+        | 'RATE_LIMITED'
+        | 'SAME_CONTEXT'
+        | 'UNKNOWN'
+        | 'USER_INPUT';
 }

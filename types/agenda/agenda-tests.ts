@@ -1,9 +1,9 @@
-import Agenda = require("agenda");
-import { Db, Server, MongoClient } from "mongodb";
+import Agenda = require('agenda');
+import { Db, Server, MongoClient } from 'mongodb';
 
-var mongoConnectionString = "mongodb://127.0.0.1/agenda";
+var mongoConnectionString = 'mongodb://127.0.0.1/agenda';
 
-(async () => {
+async () => {
     var agenda = new Agenda({ db: { address: mongoConnectionString } });
     var agenda = new Agenda({
         mongo: (await MongoClient.connect(mongoConnectionString)).db(),
@@ -11,7 +11,7 @@ var mongoConnectionString = "mongodb://127.0.0.1/agenda";
     });
 
     agenda.define<{ foo: Error }>('delete old users', (job, done) => {
-        done(job.attrs.data.foo)
+        done(job.attrs.data.foo);
     });
 
     agenda.on('ready', () => {
@@ -23,8 +23,7 @@ var mongoConnectionString = "mongodb://127.0.0.1/agenda";
         agenda.start();
     });
 
-    agenda.define('send email report', { priority: 'high', concurrency: 10 }, (job, done) => {
-    });
+    agenda.define('send email report', { priority: 'high', concurrency: 10 }, (job, done) => {});
 
     agenda.on('ready', () => {
         agenda.schedule('in 20 minutes', 'send email report', { to: 'admin@example.com' });
@@ -101,11 +100,10 @@ var mongoConnectionString = "mongodb://127.0.0.1/agenda";
     job.fail(new Error('insufficient disk space'));
     const job2 = await job.run();
     await job.remove();
-});
+};
 
 class ExtendedAgenda extends Agenda {
-    async start() { }
+    async start() {}
 }
 
-const extendedAgenda: ExtendedAgenda = new ExtendedAgenda()
-    .mongo(new Db('some-database', new Server('host.name', 0)))
+const extendedAgenda: ExtendedAgenda = new ExtendedAgenda().mongo(new Db('some-database', new Server('host.name', 0)));

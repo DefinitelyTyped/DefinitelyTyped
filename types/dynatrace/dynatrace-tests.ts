@@ -1,10 +1,10 @@
 function customActions() {
-    const actionId = dynaTrace.enterAction("my custom action", "click");
+    const actionId = dynaTrace.enterAction('my custom action', 'click');
     dynaTrace.leaveAction(actionId);
 }
 
 function customVisit() {
-    dynaTrace.tagVisit("My Custom Visit");
+    dynaTrace.tagVisit('My Custom Visit');
     /** after some code execution we can end the visit early */
     dynaTrace.endVisit();
 }
@@ -28,19 +28,19 @@ function automaticDetection() {
 }
 
 function reporting() {
-    dynaTrace.reportError(" Custom error");
-    const actionId = dynaTrace.enterAction("second action", "keypress");
-    dynaTrace.reportError("Second custom error", actionId);
+    dynaTrace.reportError(' Custom error');
+    const actionId = dynaTrace.enterAction('second action', 'keypress');
+    dynaTrace.reportError('Second custom error', actionId);
 
-    dynaTrace.reportEvent("My Event");
-    dynaTrace.reportString("My Key", "Custom value");
-    dynaTrace.reportValue("Value Key", 2);
-    dynaTrace.reportWarning("Warning");
+    dynaTrace.reportEvent('My Event');
+    dynaTrace.reportString('My Key', 'Custom value');
+    dynaTrace.reportValue('Value Key', 2);
+    dynaTrace.reportWarning('Warning');
 }
 
 function thirdParty() {
-    const url = "http://somescript.com";
-    dynaTrace.startThirdParty("s", url);
+    const url = 'http://somescript.com';
+    dynaTrace.startThirdParty('s', url);
     dynaTrace.stopThirdParty(url, true, Date.now() - 1000, Date.now());
 }
 
@@ -50,39 +50,25 @@ function listener() {
 }
 
 function streaming() {
-    dynaTrace.addStreamingNode(
-        "http://youtube.com",
-        120,
-        true,
-        false,
-        120,
-        30,
-        10,
-        5,
-        "_info_"
-    );
+    dynaTrace.addStreamingNode('http://youtube.com', 120, true, false, 120, 30, 10, 5, '_info_');
 }
 
 function userInput() {
-    const userInput = dynaTrace.beginUserInput("", "click", "RETURN", 23);
+    const userInput = dynaTrace.beginUserInput('', 'click', 'RETURN', 23);
     dynaTrace.endUserInput(userInput);
 }
 
 function Xhr() {
-    const enterActionId = dynaTrace.enterXhrAction(
-        "Angular Http request",
-        0,
-        false
-    );
+    const enterActionId = dynaTrace.enterXhrAction('Angular Http request', 0, false);
     dynaTrace.enterXhrCallback(enterActionId);
     dynaTrace.leaveXhrCallback(enterActionId);
     dynaTrace.leaveXhrAction(enterActionId);
 }
 
 function appVersion() {
-    dynaTrace.setAppVersion("1.1.1");
+    dynaTrace.setAppVersion('1.1.1');
 }
 
 function metadata() {
-    dynaTrace.setMetaData("some metadata", "value");
+    dynaTrace.setMetaData('some metadata', 'value');
 }

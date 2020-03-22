@@ -129,7 +129,7 @@ pData.whenSkippable = 321;
 // tslint:disable-next-line
 const playerDataBinderWithPlayerData = new cast.framework.ui.PlayerDataBinder(pData);
 const binder = new cast.framework.ui.PlayerDataBinder({});
-binder.addEventListener(cast.framework.ui.PlayerDataEventType.ANY_CHANGE, e => {});
+binder.addEventListener(cast.framework.ui.PlayerDataEventType.ANY_CHANGE, (e) => {});
 // tslint:disable-next-line
 const supportedCommands: number =
     cast.framework.messages.Command.ALL_BASIC_MEDIA |
@@ -161,13 +161,13 @@ cast.framework.CastReceiverContext.getInstance()
     .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, null);
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
-    .setMessageInterceptor(cast.framework.messages.MessageType.CUSTOM_COMMAND, customCommandRequestData => {
+    .setMessageInterceptor(cast.framework.messages.MessageType.CUSTOM_COMMAND, (customCommandRequestData) => {
         const data = customCommandRequestData.data;
         return customCommandRequestData;
     });
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
-    .setMessageInterceptor(cast.framework.messages.MessageType.SET_VOLUME, volumeRequestData => {
+    .setMessageInterceptor(cast.framework.messages.MessageType.SET_VOLUME, (volumeRequestData) => {
         const volume = volumeRequestData.volume;
         return volumeRequestData;
     });
@@ -175,6 +175,6 @@ cast.framework.CastReceiverContext.getInstance()
 // PlayerManager event listeners
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
-    .addEventListener(cast.framework.events.EventType.BITRATE_CHANGED, bitrateChangedEvent => {
+    .addEventListener(cast.framework.events.EventType.BITRATE_CHANGED, (bitrateChangedEvent) => {
         const bitrate = bitrateChangedEvent.totalBitrate;
     });

@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
+import * as stream from 'stream';
 import { EventEmitter } from 'events';
 
 export interface SyncOptions {
@@ -37,7 +37,12 @@ export class Watcher extends EventEmitter {
     close(): void;
 }
 
-export function copy(source: string, dest: string, options?: AsyncOptions, callback?: (error: Error | null) => void): void;
+export function copy(
+    source: string,
+    dest: string,
+    options?: AsyncOptions,
+    callback?: (error: Error | null) => void,
+): void;
 export function copy(source: string, dest: string, callback?: (error: Error | null) => void): void;
 
 export function copySync(source: string, dest: string, options?: SyncOptions): void;

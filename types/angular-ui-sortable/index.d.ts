@@ -10,11 +10,13 @@
 import * as ng from 'angular';
 
 // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+type Omit<T, K extends keyof T> = Pick<
+    T,
+    ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never; [x: number]: never })[keyof T]
+>;
 
 declare module 'angular' {
     export namespace ui {
-
         interface UISortableOptions<T> extends SortableOptions<T> {
             'ui-floating'?: 'auto' | boolean;
         }
@@ -59,7 +61,7 @@ declare module 'angular' {
             /**
              * Holds the ui-sortable element that the dragged item originated from.
              */
-            source: ng.IAugmentedJQuery
+            source: ng.IAugmentedJQuery;
 
             /**
              * Holds the array that is specified by the `ng-model` of the [`source`](#source) ui-sortable element.

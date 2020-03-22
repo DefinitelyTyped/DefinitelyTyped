@@ -16,8 +16,8 @@ new RPromise<number>((res, rej) => {
 
 const et = REventTarget.mixin({});
 type etType = keyof typeof et; // $ExpectType "on" | "off" | "trigger"
-et.on('error', handler => {}); // $ExpectType void
-et.off('error', handler => {}); // $ExpectType void
+et.on('error', (handler) => {}); // $ExpectType void
+et.off('error', (handler) => {}); // $ExpectType void
 et.trigger('error'); // $ExpectType void
 et.trigger('error', '12', 34); // $ExpectError
 
@@ -34,11 +34,11 @@ async function testAsyncAwait() {
 }
 
 function testCast() {
-    RSVP.Promise.cast('foo').then(value => {
+    RSVP.Promise.cast('foo').then((value) => {
         assertType<string>(value);
     });
 
-    RSVP.cast(42).then(value => {
+    RSVP.cast(42).then((value) => {
         assertType<number>(value);
     });
 }
@@ -49,7 +49,7 @@ function testConfigure() {
 }
 
 function testAsap() {
-    const result = RSVP.asap(something => {
+    const result = RSVP.asap((something) => {
         console.log(something);
     }, 'srsly');
 
@@ -57,7 +57,7 @@ function testAsap() {
 }
 
 function testAsync() {
-    const result = RSVP.async(something => {
+    const result = RSVP.async((something) => {
         console.log(something);
     }, 'rly srsly');
 
@@ -87,7 +87,7 @@ function testAll() {
     let promise1 = RSVP.resolve(1);
     let promise2 = RSVP.resolve('2');
     let promise3 = RSVP.resolve({ key: 13 });
-    RSVP.Promise.all([promise1, promise2, promise3], 'my label').then(function(array) {
+    RSVP.Promise.all([promise1, promise2, promise3], 'my label').then(function (array) {
         assertType<number>(array[0]);
         assertType<string>(array[1]);
         assertType<{ key: number }>(array[2]);
@@ -107,7 +107,7 @@ function testAllSettled() {
     });
 
     // Types flow into resolution properly
-    RSVP.allSettled([resolved1, resolved2, rejected, pending]).then(states => {
+    RSVP.allSettled([resolved1, resolved2, rejected, pending]).then((states) => {
         assertType<RSVP.PromiseState<number>>(states[0]);
         assertType<RSVP.PromiseState<string>>(states[1]);
         assertType<RSVP.PromiseState<never>>(states[2]);
@@ -115,8 +115,8 @@ function testAllSettled() {
     });
 
     // Switching on state gives the correctly available items.
-    RSVP.allSettled([resolved1, resolved2, rejected, pending]).then(states => {
-        states.forEach(element => {
+    RSVP.allSettled([resolved1, resolved2, rejected, pending]).then((states) => {
+        states.forEach((element) => {
             switch (element.state) {
                 case RSVP.State.fulfilled:
                     assertType<RSVP.Resolved<typeof element.value>>(element);
@@ -141,7 +141,7 @@ function testAllSettled() {
 function testDefer() {
     let deferred = RSVP.defer<string>();
     deferred.resolve('Success!');
-    deferred.promise.then(function(value) {
+    deferred.promise.then(function (value) {
         assertType<string>(value);
     });
 }
@@ -177,36 +177,36 @@ function testDenodeify() {
     // resulting object.
     assertType<(value: A1) => RSVP.Promise<{ first: D1 }>>(RSVP.denodeify(nodeFn1Arg1CbParam, ['first']));
     assertType<(value: A1) => RSVP.Promise<{ first: D1; second: D2 }>>(
-        RSVP.denodeify(nodeFn1Arg2CbParam, ['first', 'second'])
+        RSVP.denodeify(nodeFn1Arg2CbParam, ['first', 'second']),
     );
     assertType<(value: A1) => RSVP.Promise<{ first: D1; second: D2; third: D3 }>>(
-        RSVP.denodeify(nodeFn1Arg3CbParam, ['first', 'second', 'third'])
+        RSVP.denodeify(nodeFn1Arg3CbParam, ['first', 'second', 'third']),
     );
 
     const foo = RSVP.denodeify(nodeFn1Arg2CbParam, ['quux', 'baz']);
-    foo([{ arg: true }]).then(value => {
+    foo([{ arg: true }]).then((value) => {
         console.log(value.quux + 1);
         console.log(value.baz.length);
     });
 }
 
 function testFilter() {
-    RSVP.filter([RSVP.resolve(1), RSVP.resolve(2)], item => item > 1, 'over one').then(results => {
+    RSVP.filter([RSVP.resolve(1), RSVP.resolve(2)], (item) => item > 1, 'over one').then((results) => {
         assertType<number[]>(results);
     });
 
     RSVP.filter(
         [RSVP.resolve('a string'), RSVP.resolve(112233)],
-        item => String(item).length < 10,
-        'short string'
-    ).then(results => {
+        (item) => String(item).length < 10,
+        'short string',
+    ).then((results) => {
         assertType<Array<string | number>>(results);
     });
 
     // This is the best we can do: we can't actually write the full type here,
     // which would be `assertType<never>(results)`, but TS can't infer that.
     const isString = (item: any): item is string => typeof item === 'string';
-    RSVP.filter([RSVP.reject('for any reason')], isString).then(results => {
+    RSVP.filter([RSVP.reject('for any reason')], isString).then((results) => {
         assertType<{}>(results);
     });
 }
@@ -218,7 +218,7 @@ function testHash() {
         theirPromise: RSVP.resolve({ key: 3 }),
         notAPromise: 4,
     };
-    RSVP.hash(promises, 'my label').then(function(hash) {
+    RSVP.hash(promises, 'my label').then(function (hash) {
         assertType<number>(hash.myPromise);
         assertType<string>(hash.yourPromise);
         assertType<{ key: number }>(hash.theirPromise);
@@ -236,7 +236,7 @@ function testHashSettled() {
         theirPromise: RSVP.Promise.resolve({ key: 3 }),
         notAPromise: 4,
     };
-    RSVP.hashSettled(promises).then(function(hash) {
+    RSVP.hashSettled(promises).then(function (hash) {
         if (isFulfilled(hash.myPromise)) {
             assertType<number>(hash.myPromise.value);
         }
@@ -253,19 +253,19 @@ function testHashSettled() {
 }
 
 function testMap() {
-    RSVP.map([RSVP.resolve(1), RSVP.resolve(2)], item => item + 1, 'add one').then(results => {
+    RSVP.map([RSVP.resolve(1), RSVP.resolve(2)], (item) => item + 1, 'add one').then((results) => {
         assertType<number[]>(results);
         assertType<{ length: 2 }>(results);
     });
 
-    RSVP.map([RSVP.resolve('a string'), RSVP.resolve(112233)], String).then(results => {
+    RSVP.map([RSVP.resolve('a string'), RSVP.resolve(112233)], String).then((results) => {
         assertType<string[]>(results);
         assertType<{ length: 2 }>(results);
     });
 
     // This is the best we can do: we can't actually write the full type here,
     // which would be `assertType<never>(results)`, but TS can't infer that.
-    RSVP.map([RSVP.reject('for any reason')], String).then(results => {
+    RSVP.map([RSVP.reject('for any reason')], String).then((results) => {
         assertType<{}>(results);
     });
 }
@@ -277,7 +277,7 @@ function testRace() {
 
     let promise1 = RSVP.resolve(1);
     let promise2 = RSVP.resolve('2');
-    RSVP.Promise.race([promise1, promise2], 'my label').then(function(result) {
+    RSVP.Promise.race([promise1, promise2], 'my label').then(function (result) {
         assertType<string | number>(result);
     });
 }
@@ -286,7 +286,7 @@ function testReject() {
     assertType<RSVP.Promise<never>>(RSVP.reject());
     assertType<RSVP.Promise<never>>(RSVP.reject('this is a string'));
 
-    RSVP.reject({ ok: false }).catch(reason => {
+    RSVP.reject({ ok: false }).catch((reason) => {
         console.log(`${reason} could be anything`);
     });
     RSVP.reject({ ok: false }, 'some label').catch((reason: any) => reason.ok);
@@ -307,10 +307,10 @@ function testResolve() {
 function testRethrow() {
     RSVP.reject(new Error('all the badness'))
         .catch(RSVP.rethrow)
-        .then(value => {
+        .then((value) => {
             assertType<void>(value);
         })
-        .catch(reason => {
+        .catch((reason) => {
             if (reason instanceof Error) {
                 console.log(reason);
             }
@@ -324,7 +324,7 @@ function testOnAndOff() {
 
     RSVP.off('whatever', (value: any) => {
         console.log(
-            `any old value will do: ${value !== undefined && value !== null ? value.toString() : 'even undefined'}`
+            `any old value will do: ${value !== undefined && value !== null ? value.toString() : 'even undefined'}`,
         );
     });
 }

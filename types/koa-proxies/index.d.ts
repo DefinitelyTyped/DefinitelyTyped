@@ -10,7 +10,7 @@ declare namespace proxy {
     interface Options extends HttpProxy.ServerOptions {
         logs?: boolean;
         rewrite?: (url: string, ctx: Koa.DefaultContext) => string;
-        events?: { [key: string]: (...args: any[]) => void; };
+        events?: { [key: string]: (...args: any[]) => void };
     }
 }
 

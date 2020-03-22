@@ -317,7 +317,7 @@ interface WindowMovementOptions {
  * @property {Opacity} opacity - The Opacity transition
  * @property {Position} position - The Position transition
  * @property {Size} size - The Size transition
-*/
+ */
 /**
  * @typedef {object} TransitionOptions
  * @property {boolean} interrupt - This option interrupts the current animation. When false it pushes
@@ -343,7 +343,7 @@ this animation onto the end of the animation queue.
  * @property {number} duration - The total time in milliseconds this transition should take.
  * @property {boolean} relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
  * @property {number} opacity - This value is clamped from 0.0 to 1.0.
-*/
+ */
 /**
  * Bounds is a interface that has the properties of height,
  * width, left, top which are all numbers
@@ -446,13 +446,13 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.EventEmitter
      */
     /**
-    * Returns the zoom level of the window.
-    * @function getZoomLevel
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<number>}
-    * @tutorial Window.getZoomLevel
-    */
+     * Returns the zoom level of the window.
+     * @function getZoomLevel
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<number>}
+     * @tutorial Window.getZoomLevel
+     */
     /**
      * Sets the zoom level of the window.
      * @param { number } level The zoom level
@@ -508,7 +508,7 @@ export declare class _Window extends WebContents<WindowEvents> {
      * Gets the current bounds (top, bottom, right, left, width, height) of the window.
      * @return {Promise.<Bounds>}
      * @tutorial Window.getBounds
-    */
+     */
     getBounds(): Promise<Bounds>;
     /**
      * Gives focus to the window.
@@ -549,7 +549,7 @@ export declare class _Window extends WebContents<WindowEvents> {
      *  ‘close-requested’ has been subscribed to for application’s main window.
      * @return {Promise.<void>}
      * @tutorial Window.close
-    */
+     */
     close(force?: boolean): Promise<void>;
     /**
      * Returns the native OS level Id.
@@ -725,7 +725,12 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.<void>}
      * @tutorial Window.resizeBy
      */
-    resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType, options?: WindowMovementOptions): Promise<void>;
+    resizeBy(
+        deltaWidth: number,
+        deltaHeight: number,
+        anchor: AnchorType,
+        options?: WindowMovementOptions,
+    ): Promise<void>;
     /**
      * Resizes the window to the specified dimensions.
      * @param { number } width The change in the width of the window

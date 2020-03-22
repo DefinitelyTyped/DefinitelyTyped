@@ -26,7 +26,7 @@ pubnub.publish({ channel: 'channel-1', message: { data: 1 } }, (status, response
 });
 
 // publish promise
-pubnub.publish({ channel: 'channel-1', message: { data: 1 } }).then(response => {
+pubnub.publish({ channel: 'channel-1', message: { data: 1 } }).then((response) => {
     /*
      * Do something
      */
@@ -44,7 +44,7 @@ pubnub
 pubnub.subscribe({ channels: ['channel-1', 'user-1', 'space-1'] });
 
 pubnub.addListener({
-    status: statusEvent => {
+    status: (statusEvent) => {
         if (statusEvent.category === Pubnub.CATEGORIES.PNConnectedCategory) {
             console.log(statusEvent.category);
         } else if (statusEvent.operation === Pubnub.OPERATIONS.PNAccessManagerAudit) {
@@ -110,7 +110,7 @@ pubnub.whereNow({ uuid: '' }, (status, res) => {
     }
 });
 
-pubnub.whereNow({ uuid: '' }).then(res => {
+pubnub.whereNow({ uuid: '' }).then((res) => {
     console.log(res.channels[1]);
 });
 
@@ -120,7 +120,7 @@ pubnub.getState({ uuid: '' }, (status, res) => {
     }
 });
 
-pubnub.getState({ uuid: '' }).then(res => {
+pubnub.getState({ uuid: '' }).then((res) => {
     console.log(res.channels[1]);
 });
 
@@ -130,7 +130,7 @@ pubnub.setState({ channels: [] }, (status, res) => {
     }
 });
 
-pubnub.setState({ channels: [] }).then(res => {
+pubnub.setState({ channels: [] }).then((res) => {
     console.log(res.state);
 });
 
@@ -141,13 +141,13 @@ const grantOptions = {
     write: false,
     manage: false,
 };
-pubnub.grant(grantOptions).then(status => {
+pubnub.grant(grantOptions).then((status) => {
     console.log(status);
 });
 
 pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));
 
-pubnub.history({ channel: 'channel-1', count: 2 }).then(res => console.log(res));
+pubnub.history({ channel: 'channel-1', count: 2 }).then((res) => console.log(res));
 
 pubnub.fetchMessages(
     {
@@ -159,11 +159,11 @@ pubnub.fetchMessages(
         includeMessageActions: true,
     },
     (status, { channels }) =>
-        Object.keys(channels).forEach(channel =>
+        Object.keys(channels).forEach((channel) =>
             channels[channel].forEach(({ message, timetoken, meta, actions = {} }) => {
                 console.log({ message, timetoken, meta });
-                Object.keys(actions).forEach(type =>
-                    Object.keys(actions[type]).forEach(value =>
+                Object.keys(actions).forEach((type) =>
+                    Object.keys(actions[type]).forEach((value) =>
                         actions[type][value].forEach(({ uuid, actionTimetoken }) =>
                             console.log({ uuid, actionTimetoken }),
                         ),
@@ -180,7 +180,7 @@ pubnub
         start: '15343325214676133',
         end: '15343325004275466',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.deleteMessages(
     {
@@ -188,7 +188,7 @@ pubnub.deleteMessages(
         start: '15088506076921021',
         end: '15088532035597390',
     },
-    status => console.log(status),
+    (status) => console.log(status),
 );
 
 pubnub
@@ -205,7 +205,7 @@ pubnub.messageCounts(
         channelTimetokens: ['15518041524300251'],
     },
     (status, { channels }) => {
-        Object.keys(channels).forEach(channel => {
+        Object.keys(channels).forEach((channel) => {
             console.log(channels[channel]);
         });
     },
@@ -216,7 +216,7 @@ pubnub
         channels: ['ch1'],
         channelTimetokens: ['15518041524300251'],
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.push.addChannels(
     {
@@ -224,7 +224,7 @@ pubnub.push.addChannels(
         device: 'niceDevice',
         pushGateway: 'apns',
     },
-    status => console.log(status),
+    (status) => console.log(status),
 );
 
 pubnub.push
@@ -240,7 +240,7 @@ pubnub.push.listChannels(
         device: 'niceDevice',
         pushGateway: 'apns',
     },
-    (status, { channels = [] }) => channels.forEach(channel => console.log(channel)),
+    (status, { channels = [] }) => channels.forEach((channel) => console.log(channel)),
 );
 
 pubnub.push
@@ -248,7 +248,7 @@ pubnub.push
         device: 'niceDevice',
         pushGateway: 'apns',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.push.removeChannels(
     {
@@ -256,7 +256,7 @@ pubnub.push.removeChannels(
         device: 'niceDevice',
         pushGateway: 'apns', // apns, gcm, mpns
     },
-    status => console.log(status),
+    (status) => console.log(status),
 );
 pubnub.push
     .removeChannels({
@@ -271,7 +271,7 @@ pubnub.push.deleteDevice(
         device: 'niceDevice',
         pushGateway: 'apns', // apns, gcm, mpns
     },
-    status => console.log(status),
+    (status) => console.log(status),
 );
 
 pubnub.push
@@ -296,32 +296,32 @@ pubnub.decrypt(mySecret, undefined, cryptoOptions);
 pubnub.decrypt('mySecretString', undefined, cryptoOptions);
 pubnub.encrypt('egrah5rwgrehwqh5eh3hwfwef', undefined, cryptoOptions);
 
-pubnub.time().then(response => console.log(response));
+pubnub.time().then((response) => console.log(response));
 
 pubnub.time((status, response) => console.log(status, response));
 
 const channelGroup = 'channel-group-1';
 const channels = ['channel-1'];
 
-pubnub.channelGroups.addChannels({ channelGroup, channels }).then(response => console.log(response));
+pubnub.channelGroups.addChannels({ channelGroup, channels }).then((response) => console.log(response));
 
-pubnub.channelGroups.listChannels({ channelGroup }).then(response => console.log(response));
+pubnub.channelGroups.listChannels({ channelGroup }).then((response) => console.log(response));
 
-pubnub.channelGroups.listGroups().then(response => console.log(response));
+pubnub.channelGroups.listGroups().then((response) => console.log(response));
 
-pubnub.channelGroups.removeChannels({ channelGroup, channels }).then(response => console.log(response));
+pubnub.channelGroups.removeChannels({ channelGroup, channels }).then((response) => console.log(response));
 
-pubnub.channelGroups.deleteGroup({ channelGroup }).then(response => console.log(response));
+pubnub.channelGroups.deleteGroup({ channelGroup }).then((response) => console.log(response));
 
-pubnub.channelGroups.addChannels({ channelGroup, channels }, status => console.log(status));
+pubnub.channelGroups.addChannels({ channelGroup, channels }, (status) => console.log(status));
 
 pubnub.channelGroups.listChannels({ channelGroup }, (status, response) => console.log(status, response));
 
 pubnub.channelGroups.listGroups((status, response) => console.log(status, response));
 
-pubnub.channelGroups.removeChannels({ channelGroup, channels }, status => console.log(status));
+pubnub.channelGroups.removeChannels({ channelGroup, channels }, (status) => console.log(status));
 
-pubnub.channelGroups.deleteGroup({ channelGroup }, status => console.log(status));
+pubnub.channelGroups.deleteGroup({ channelGroup }, (status) => console.log(status));
 
 /**
  * Objects
@@ -354,7 +354,7 @@ pubnub
         id: 'user-1',
         name: 'John Doe',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.updateUser(
     {
@@ -369,11 +369,11 @@ pubnub
         id: 'user-1',
         name: 'John Updated Doe',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.deleteUser('user-1', (status, res) => console.log(status, res));
 
-pubnub.deleteUser('user-1').then(res => console.log(res));
+pubnub.deleteUser('user-1').then((res) => console.log(res));
 
 pubnub.getUsers(
     {
@@ -390,7 +390,7 @@ pubnub
     .getUsers({
         limit: 10,
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.getUser(
     {
@@ -403,7 +403,7 @@ pubnub
     .getUser({
         userId: 'user-1',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.createSpace(
     {
@@ -423,7 +423,7 @@ pubnub
         id: 'space-1',
         name: 'Updated Space Name',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.updateSpace(
     {
@@ -438,11 +438,11 @@ pubnub
         id: 'space-1',
         name: 'Updated Space Name',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.deleteSpace('space-1', (status, res) => console.log(status, res));
 
-pubnub.deleteSpace('space-1').then(res => console.log(res));
+pubnub.deleteSpace('space-1').then((res) => console.log(res));
 
 pubnub.getSpaces(
     {
@@ -459,7 +459,7 @@ pubnub
     .getSpaces({
         limit: 10,
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.getSpace(
     {
@@ -472,7 +472,7 @@ pubnub
     .getSpace({
         spaceId: 'space-1',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.getMemberships(
     {
@@ -489,7 +489,7 @@ pubnub
     .getMemberships({
         userId: 'user-1',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.getMembers(
     {
@@ -506,7 +506,7 @@ pubnub
     .getMembers({
         spaceId: 'space-1',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.joinSpaces(
     {
@@ -535,7 +535,7 @@ pubnub
             },
         ],
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.updateMemberships(
     {
@@ -562,7 +562,7 @@ pubnub
         ],
         include: { customFields: true },
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.leaveSpaces(
     {
@@ -577,7 +577,7 @@ pubnub
         userId: 'user-1',
         spaces: ['space-1', 'space-2'],
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.addMembers(
     {
@@ -606,7 +606,7 @@ pubnub
             },
         ],
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.updateMembers(
     {
@@ -637,7 +637,7 @@ pubnub
             },
         ],
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.removeMembers(
     {
@@ -654,7 +654,7 @@ pubnub
         spaceId: 'space-1',
         users: ['user-1', 'user-2'],
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.addMessageAction(
     {
@@ -678,7 +678,7 @@ pubnub
             value: 'smiley_face',
         },
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.removeMessageAction(
     {
@@ -695,7 +695,7 @@ pubnub
         messageTimetoken: '15610547826970040',
         actionTimetoken: '15610547826970040',
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 pubnub.getMessageActions(
     {
@@ -718,8 +718,8 @@ pubnub
         end: '15610547826970040',
         limit: 100,
     })
-    .then(res => console.log(res));
+    .then((res) => console.log(res));
 
 // APNS
 
-Pubnub.notificationPayload('Chat invitation', 'You have been invited to \'quiz\' chat').buildPayload(['apns2', 'fcm']);
+Pubnub.notificationPayload('Chat invitation', "You have been invited to 'quiz' chat").buildPayload(['apns2', 'fcm']);

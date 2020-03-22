@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as s from "sinon";
+import * as s from 'sinon';
 
-declare module "sinon" {
+declare module 'sinon' {
     interface SinonStub {
         /**
          * Causes the stub to resolve with the provided value.

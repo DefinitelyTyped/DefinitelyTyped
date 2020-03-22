@@ -30,8 +30,8 @@ export interface FieldParameters {
 
     /** A list of CSS classes for label and field wrapper. */
     cssClasses?: {
-        field?: string[]
-        label?: string[]
+        field?: string[];
+        label?: string[];
     };
 
     /** If true, errors won't be rendered automatically. */
@@ -136,16 +136,16 @@ export interface Form {
     /** Inspects a request or object literal and binds any data to the correct fields. */
     handle: (
         req: {
-            method: string,
-            url: string
-            body: string
+            method: string;
+            url: string;
+            body: string;
         },
         callbacks: {
-            success?: FormHandleCallback
-            error?: FormHandleCallback
-            empty?: FormHandleCallback
-            other?: FormHandleCallback
-        }
+            success?: FormHandleCallback;
+            error?: FormHandleCallback;
+            empty?: FormHandleCallback;
+            other?: FormHandleCallback;
+        },
     ) => void;
 
     /** Binds data to correct fields, returning a new bound form object. */
@@ -171,10 +171,13 @@ export interface FormBound extends Form {
 }
 
 /** Converts a form definition (an object literal containing field objects) into a form object. */
-export function create(fields: FormFields, options?: {
-    /** If false, the first validation error will halt form validation, otherwise all fields will be validated. */
-    validatePastFirstError?: boolean
-}): Form;
+export function create(
+    fields: FormFields,
+    options?: {
+        /** If false, the first validation error will halt form validation, otherwise all fields will be validated. */
+        validatePastFirstError?: boolean;
+    },
+): Form;
 
 export namespace fields {
     function array(params?: FieldParameters): Field;
@@ -224,7 +227,7 @@ export namespace widgets {
     function select(params?: WidgetParameters): Widget;
     function tel(params?: WidgetParameters): Widget;
     function text(params?: WidgetParameters): Widget;
-    function textarea(params?: WidgetParameters & { rows?: number, cols?: number }): Widget;
+    function textarea(params?: WidgetParameters & { rows?: number; cols?: number }): Widget;
 }
 
 /** A function which accepts a name and field as arguments and returns a string containing a HTML representation of the field. */

@@ -85,7 +85,7 @@ export class QuerySet<M extends AnyModel = any, InstanceProps extends object = {
 
     orderBy(
         iteratees: QuerySet.SortIteratee<M> | ReadonlyArray<QuerySet.SortIteratee<M>>,
-        orders?: QuerySet.SortOrder | ReadonlyArray<QuerySet.SortOrder>
+        orders?: QuerySet.SortOrder | ReadonlyArray<QuerySet.SortOrder>,
     ): QuerySet<M, InstanceProps>;
 
     count(): number;
@@ -209,7 +209,7 @@ export namespace QuerySet {
          */
         orderBy(
             iteratees: SortIteratee<M> | ReadonlyArray<SortIteratee<M>>,
-            orders?: SortOrder | ReadonlyArray<SortOrder>
+            orders?: SortOrder | ReadonlyArray<SortOrder>,
         ): QuerySet<M, InstanceProps>;
 
         /**

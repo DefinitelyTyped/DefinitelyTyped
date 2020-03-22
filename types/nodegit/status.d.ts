@@ -18,7 +18,7 @@ export namespace Status {
         WT_RENAMED = 2048,
         WT_UNREADABLE = 4096,
         IGNORED = 16384,
-        CONFLICTED = 32768
+        CONFLICTED = 32768,
     }
 
     const enum OPT {
@@ -37,13 +37,13 @@ export namespace Status {
         NO_REFRESH = 4096,
         UPDATE_INDEX = 8192,
         INCLUDE_UNREADABLE = 16384,
-        INCLUDE_UNREADABLE_AS_UNTRACKED = 32768
+        INCLUDE_UNREADABLE_AS_UNTRACKED = 32768,
     }
 
     const enum SHOW {
         INDEX_AND_WORKDIR = 0,
         INDEX_ONLY = 1,
-        WORKDIR_ONLY = 2
+        WORKDIR_ONLY = 2,
     }
 }
 

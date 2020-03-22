@@ -59,7 +59,7 @@ if (player.isMuted()) {
 }
 player.setVolume(player.getVolume() / 2);
 
-player.on('stateChange', (event: CustomEvent<void> & {data: number}) => {
+player.on('stateChange', (event: CustomEvent<void> & { data: number }) => {
     switch (event.data) {
         case PlayerStates.PLAYING:
             console.log('playing');

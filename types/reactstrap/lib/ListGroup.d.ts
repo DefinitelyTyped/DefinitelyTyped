@@ -10,5 +10,5 @@ export interface ListGroupProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class ListGroup<T = {[key: string]: any}> extends React.Component<ListGroupProps> {}
+declare class ListGroup<T = { [key: string]: any }> extends React.Component<ListGroupProps> {}
 export default ListGroup;

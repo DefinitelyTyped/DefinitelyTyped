@@ -6,15 +6,13 @@ interface StateI {
 }
 
 class Example extends React.Component<{}, StateI> {
-    state = {tags: []};
+    state = { tags: [] };
 
     handleChange(tags: string[]) {
-        this.setState({tags});
+        this.setState({ tags });
     }
 
     render() {
-        return (
-            <TagsInput value={this.state.tags} onChange={this.handleChange} />
-        );
+        return <TagsInput value={this.state.tags} onChange={this.handleChange} />;
     }
 }

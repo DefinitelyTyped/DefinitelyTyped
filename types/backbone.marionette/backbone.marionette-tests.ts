@@ -7,16 +7,16 @@ class DestroyWarn extends Marionette.Behavior {
     // just like you can in your Backbone Models
     // they will be overriden if you pass in an option with the same key
     defaults = {
-        message: 'you are destroying!'
+        message: 'you are destroying!',
     };
 
     ui = {
-        destroy: '.foo'
+        destroy: '.foo',
     };
 
     // behaviors have events that are bound to the views DOM
     events = {
-        'click @ui.destroy': 'warnBeforeDestroy'
+        'click @ui.destroy': 'warnBeforeDestroy',
     };
 
     warnBeforeDestroy() {
@@ -28,8 +28,7 @@ class DestroyWarn extends Marionette.Behavior {
 }
 
 Marionette.Behaviors.getBehaviorClass = (options, key) => {
-    if (key === 'DestroyWarn')
-        return DestroyWarn;
+    if (key === 'DestroyWarn') return DestroyWarn;
 
     return undefined;
 };
@@ -37,12 +36,12 @@ Marionette.Behaviors.getBehaviorClass = (options, key) => {
 class MyRouter extends Marionette.AppRouter {
     // 'someMethod' must exist at controller.someMethod
     appRoutes = {
-        'some/route': 'someMethod'
+        'some/route': 'someMethod',
     };
 
     /* standard routes can be mixed with appRoutes/Controllers above */
     routes = {
-        'some/otherRoute': 'someOtherMethod'
+        'some/otherRoute': 'someOtherMethod',
     };
 
     someOtherMethod() {
@@ -65,7 +64,7 @@ class MyApplication extends Marionette.Application {
         this.layoutView.render();
         this.layoutView.showChildView('main', new MyView(new MyModel()));
         const view: Backbone.View<Backbone.Model> = this.layoutView.getChildView('main');
-        const regions: {[key: string]: Marionette.Region} = this.layoutView.getRegions();
+        const regions: { [key: string]: Marionette.Region } = this.layoutView.getRegions();
         const region: Marionette.Region = this.layoutView.removeRegion('main');
         const layout: Marionette.View<Backbone.Model> = this.layoutView.destroy();
 
@@ -108,7 +107,7 @@ class MyBaseView extends Marionette.View<MyModel> {
         super();
         this.getOption('foo');
         this.triggers = {
-            'click .foo': 'bar'
+            'click .foo': 'bar',
         };
     }
 }
@@ -116,15 +115,15 @@ class MyBaseView extends Marionette.View<MyModel> {
 class MyView extends Marionette.View<MyModel> {
     behaviors: any = {
         DestroyWarn: {
-            message: 'hello'
-        }
+            message: 'hello',
+        },
     };
 
     constructor(model: MyModel) {
         super({ model });
 
         this.ui = {
-            destroy: '.destroy'
+            destroy: '.destroy',
         };
     }
 
@@ -158,7 +157,7 @@ class MyObject extends Marionette.Object {
         this.name = 'Adam';
 
         this.options = {
-            name: 'Foo'
+            name: 'Foo',
         };
 
         this.on('before:destroy', () => {
@@ -209,24 +208,23 @@ class MyCollectionView extends Marionette.CollectionView<MyModel, MyView | MyOth
         this.childViewEvents = {
             render() {
                 console.log('a childView has been rendered');
-            }
+            },
         };
 
         this.childViewOptions = (model: any, index: any): any => {
             // do some calculations based on the model
             return {
-                id: 'bar'
+                id: 'bar',
             };
         };
 
         this.childViewOptions = {
-            id: 'bar'
+            id: 'bar',
         };
 
         this.childViewEventPrefix = 'some:prefix';
 
-        this.on('some:prefix:render', () => {
-        });
+        this.on('some:prefix:render', () => {});
     }
 }
 
@@ -268,7 +266,7 @@ function RegionTests() {
     };
 
     myView = new Marionette.View<MyModel>({
-        el: $('#existing-view-stuff')
+        el: $('#existing-view-stuff'),
     });
 
     app.mainRegion.show(myView);
@@ -303,9 +301,9 @@ function CollectionViewTests() {
 }
 
 class MyController {
-    doFoo() { }
+    doFoo() {}
 
-    doBar() { }
+    doBar() {}
 }
 
 function AppRouterTests() {
@@ -316,6 +314,6 @@ function AppRouterTests() {
 
     router.processAppRoutes(myController, {
         foo: 'doFoo',
-        'bar/:id': 'doBar'
+        'bar/:id': 'doBar',
     });
 }

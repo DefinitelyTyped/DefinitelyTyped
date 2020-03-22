@@ -79,21 +79,21 @@ function registerDomPurifyInstance(domPurify: DOMPurify.DOMPurifyI) {}
 const config: DOMPurify.Config = {};
 
 //test the 'HookName' type is publicly accessible.
-const hookName: DOMPurify.HookName = "beforeSanitizeElements";
+const hookName: DOMPurify.HookName = 'beforeSanitizeElements';
 
 //test the 'HookEvent' type is publicly accessible.
 dompurify.addHook(hookName, (currentNode: Element, event: DOMPurify.HookEvent) => {});
 
 //test the 'SanitizeElementHookEvent' type is publicly accessible.
 dompurify.addHook('uponSanitizeElement', (currentNode: Element, event: DOMPurify.SanitizeElementHookEvent) => {
-  if (currentNode.nodeName && currentNode.nodeName.match(/^\w+-\w+$/) && !event.allowedTags[event.tagName]) {
-      event.allowedTags[event.tagName] = true;
-  }
+    if (currentNode.nodeName && currentNode.nodeName.match(/^\w+-\w+$/) && !event.allowedTags[event.tagName]) {
+        event.allowedTags[event.tagName] = true;
+    }
 });
 
 //test the 'SanitizeAttributeHookEvent' type is publicly accessible.
 dompurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {
-  if (event.attrName && event.attrName.match(/^\w+-\w+$/) && !event.allowedAttributes[event.attrName]) {
-      event.allowedAttributes[event.attrName] = true;
-  }
+    if (event.attrName && event.attrName.match(/^\w+-\w+$/) && !event.allowedAttributes[event.attrName]) {
+        event.allowedAttributes[event.attrName] = true;
+    }
 });

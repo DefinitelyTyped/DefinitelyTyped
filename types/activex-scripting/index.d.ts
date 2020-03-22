@@ -491,7 +491,12 @@ declare namespace Scripting {
 }
 
 interface ActiveXObject {
-    set<TKey = any, TValue = any>(obj: Scripting.Dictionary<TKey, TValue>, propertyName: 'Item', parameterTypes: [TKey], newValue: TValue): void;
+    set<TKey = any, TValue = any>(
+        obj: Scripting.Dictionary<TKey, TValue>,
+        propertyName: 'Item',
+        parameterTypes: [TKey],
+        newValue: TValue,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {

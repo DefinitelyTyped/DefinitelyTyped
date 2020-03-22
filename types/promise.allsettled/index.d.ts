@@ -17,9 +17,9 @@ import {
 } from './types';
 
 type ExportedImplementationType = typeof implementation & {
-    getPolyfill: typeof getPolyfill,
-    implementation: typeof implementation,
-    shim: typeof shim,
+    getPolyfill: typeof getPolyfill;
+    implementation: typeof implementation;
+    shim: typeof shim;
 };
 
 declare const exportedImplementation: ExportedImplementationType;

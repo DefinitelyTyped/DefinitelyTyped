@@ -7,7 +7,6 @@ interface GetThingQuery {
 }
 
 const handler: Hapi.RouteHandler = function (request, reply) {
-
     const query = request.query as GetThingQuery;
 
     return reply(`You asked for ${query.name}`);

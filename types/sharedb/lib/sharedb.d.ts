@@ -2,11 +2,11 @@ import { EventEmitter } from 'events';
 
 export type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
 export interface JSONObject {
-  [name: string]: JSONValue;
+    [name: string]: JSONValue;
 }
 export interface JSONArray extends Array<JSONValue> {}
 
-export type Path = ReadonlyArray<string|number>;
+export type Path = ReadonlyArray<string | number>;
 export interface Snapshot {
     id: string;
     v: number;
@@ -22,23 +22,70 @@ export interface SnapshotMeta {
     [key: string]: any;
 }
 
-export interface AddNumOp { p: Path; na: number; }
+export interface AddNumOp {
+    p: Path;
+    na: number;
+}
 
-export interface ListInsertOp  { p: Path; li: any; }
-export interface ListDeleteOp  { p: Path; ld: any; }
-export interface ListReplaceOp { p: Path; li: any; ld: any; }
-export interface ListMoveOp    { p: Path; lm: any; }
+export interface ListInsertOp {
+    p: Path;
+    li: any;
+}
+export interface ListDeleteOp {
+    p: Path;
+    ld: any;
+}
+export interface ListReplaceOp {
+    p: Path;
+    li: any;
+    ld: any;
+}
+export interface ListMoveOp {
+    p: Path;
+    lm: any;
+}
 
-export interface ObjectInsertOp  { p: Path; oi: any; }
-export interface ObjectDeleteOp  { p: Path; od: any; }
-export interface ObjectReplaceOp { p: Path; oi: any; od: any; }
+export interface ObjectInsertOp {
+    p: Path;
+    oi: any;
+}
+export interface ObjectDeleteOp {
+    p: Path;
+    od: any;
+}
+export interface ObjectReplaceOp {
+    p: Path;
+    oi: any;
+    od: any;
+}
 
-export interface StringInsertOp { p: Path; si: string; }
-export interface StringDeleteOp { p: Path; sd: string; }
+export interface StringInsertOp {
+    p: Path;
+    si: string;
+}
+export interface StringDeleteOp {
+    p: Path;
+    sd: string;
+}
 
-export interface SubtypeOp { p: Path; t: string; o: any; }
+export interface SubtypeOp {
+    p: Path;
+    t: string;
+    o: any;
+}
 
-export type Op = AddNumOp | ListInsertOp | ListDeleteOp | ListReplaceOp | ListMoveOp | ObjectInsertOp | ObjectDeleteOp | ObjectReplaceOp | StringInsertOp | StringDeleteOp | SubtypeOp;
+export type Op =
+    | AddNumOp
+    | ListInsertOp
+    | ListDeleteOp
+    | ListReplaceOp
+    | ListMoveOp
+    | ObjectInsertOp
+    | ObjectDeleteOp
+    | ObjectReplaceOp
+    | StringInsertOp
+    | StringDeleteOp
+    | SubtypeOp;
 
 export interface RawOp {
     src: string;
@@ -54,14 +101,24 @@ export interface Error {
     code: number;
     message: string;
 }
-export interface ShareDBSourceOptions { source?: boolean; }
+export interface ShareDBSourceOptions {
+    source?: boolean;
+}
 // interface ShareDBCreateOptions extends ShareDBSourceOptions {}
 // interface ShareDBDelOptions extends ShareDBSourceOptions {}
 // interface ShareDBSubmitOpOptions extends ShareDBSourceOptions {}
 
 export type Callback = (err: Error) => any;
 
-export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
+export type DocEvent =
+    | 'load'
+    | 'create'
+    | 'before op'
+    | 'op'
+    | 'del'
+    | 'error'
+    | 'no write pending'
+    | 'nothing pending';
 
 export class Doc extends EventEmitter {
     type: string;

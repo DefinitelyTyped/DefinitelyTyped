@@ -6,14 +6,14 @@ new HardSourceWebpackPlugin({
     info: {
         level: 'debug',
         mode: 'test',
-    }
+    },
 });
 
 new HardSourceWebpackPlugin.ExcludeModulePlugin([
     { test: /mini-css-extract-plugin[\\/]dist[\\/]loader/ },
     {
         test: 'mini-css-extract-plugin',
-        include: '/path/to/vendor'
+        include: '/path/to/vendor',
     },
 ]);
 
@@ -25,10 +25,11 @@ new HardSourceWebpackPlugin.SerializerCacachePlugin();
 new HardSourceWebpackPlugin.SerializerJsonPlugin();
 
 new HardSourceWebpackPlugin.ParallelModulePlugin({
-    fork: ((forkFn: (modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions) => ChildProcess,
-            compiler: webpack.Compiler,
-            webpackBin: string) => {
-    }),
+    fork: (
+        forkFn: (modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions) => ChildProcess,
+        compiler: webpack.Compiler,
+        webpackBin: string,
+    ) => {},
     numWorkers: () => 3,
     minModules: 10,
 });

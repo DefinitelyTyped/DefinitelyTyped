@@ -19,6 +19,6 @@ db.version;
 db.destroy('bigData', (error) => console.log(error));
 
 db.iterator();
-db.iterator({keyAsBuffer: false});
+db.iterator({ keyAsBuffer: false });
 
-db.createReadStream({gt: new Date('2019-01-01')});
+db.createReadStream({ gt: new Date('2019-01-01') });

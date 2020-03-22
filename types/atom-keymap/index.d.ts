@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Disposable } from "event-kit";
+import { Disposable } from 'event-kit';
 
 declare global {
     namespace AtomKeymap {
@@ -155,16 +155,13 @@ declare global {
              *  Invoke the given callback when one or more keystrokes completely match a
              *  key binding.
              */
-            onDidMatchBinding(callback: (event: Events.FullKeybindingMatch) => void):
-                Disposable;
+            onDidMatchBinding(callback: (event: Events.FullKeybindingMatch) => void): Disposable;
 
             /** Invoke the given callback when one or more keystrokes partially match a binding. */
-            onDidPartiallyMatchBindings(callback: (event: Events.PartialKeybindingMatch) =>
-                void): Disposable;
+            onDidPartiallyMatchBindings(callback: (event: Events.PartialKeybindingMatch) => void): Disposable;
 
             /** Invoke the given callback when one or more keystrokes fail to match any bindings. */
-            onDidFailToMatchBinding(callback: (event: Events.FailedKeybindingMatch) =>
-                void): Disposable;
+            onDidFailToMatchBinding(callback: (event: Events.FailedKeybindingMatch) => void): Disposable;
 
             /** Invoke the given callback when a keymap file is reloaded. */
             onDidReloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
@@ -173,17 +170,18 @@ declare global {
             onDidUnloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
 
             /** Invoke the given callback when a keymap file not able to be loaded. */
-            onDidFailToReadFile(callback: (error: Events.FailedKeymapFileRead) => void):
-                Disposable;
+            onDidFailToReadFile(callback: (error: Events.FailedKeymapFileRead) => void): Disposable;
 
             // Adding and Removing Bindings
             /** Construct KeyBindings from an object grouping them by CSS selector. */
-            build(source: string, bindings: { [key: string]: { [key: string]: string }},
-                priority?: number): KeyBinding[];
+            build(
+                source: string,
+                bindings: { [key: string]: { [key: string]: string } },
+                priority?: number,
+            ): KeyBinding[];
 
             /** Add sets of key bindings grouped by CSS selector. */
-            add(source: string, bindings: { [key: string]: { [key: string]: string }},
-                priority?: number): Disposable;
+            add(source: string, bindings: { [key: string]: { [key: string]: string } }, priority?: number): Disposable;
 
             // Accessing Bindings
             /** Get all current key bindings. */
@@ -191,15 +189,14 @@ declare global {
 
             /** Get the key bindings for a given command and optional target. */
             findKeyBindings(params?: {
-                keystrokes?: string, // e.g. 'ctrl-x ctrl-s'
-                command?: string, // e.g. 'editor:backspace'
-                target?: Element,
+                keystrokes?: string; // e.g. 'ctrl-x ctrl-s'
+                command?: string; // e.g. 'editor:backspace'
+                target?: Element;
             }): KeyBinding[];
 
             // Managing Keymap Files
             /** Load the key bindings from the given path. */
-            loadKeymap(bindingsPath: string, options?: { watch?: boolean, priority?: number }):
-                void;
+            loadKeymap(bindingsPath: string, options?: { watch?: boolean; priority?: number }): void;
 
             /**
              *  Cause the keymap to reload the key bindings file at the given path whenever
@@ -218,8 +215,7 @@ declare global {
             keystrokeForKeyboardEvent(event: KeyboardEvent): string;
 
             /** Customize translation of raw keyboard events to keystroke strings. */
-            addKeystrokeResolver(resolver: (event: Events.AddedKeystrokeResolver) => string):
-                Disposable;
+            addKeystrokeResolver(resolver: (event: Events.AddedKeystrokeResolver) => string): Disposable;
 
             /**
              *  Get the number of milliseconds allowed before pending states caused by

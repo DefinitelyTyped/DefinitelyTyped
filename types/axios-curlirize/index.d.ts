@@ -17,4 +17,4 @@ interface Callback {
 
 declare function AxiosCurlirize(instance: AxiosInstance, callback?: Callback): void;
 
-declare namespace AxiosCurlirize { }
+declare namespace AxiosCurlirize {}

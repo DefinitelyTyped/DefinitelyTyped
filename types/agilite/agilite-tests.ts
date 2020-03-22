@@ -1,9 +1,9 @@
 import Agilite from 'agilite';
 
 const agilite = new Agilite({
-  apiKey: '',
-  apiServerUrl: '',
-  teamId: ''
+    apiKey: '',
+    apiServerUrl: '',
+    teamId: '',
 });
 
 agilite.getConfig();
@@ -57,7 +57,18 @@ agilite.BPM.putData('recordId', {});
 agilite.BPM.deleteData('recordId');
 agilite.BPM.registerBPMRecord('processKey', 'user');
 agilite.BPM.execute('processKey', 'bpmRecordId', 'optionSelected', 'user', 'comments', {});
-agilite.BPM.getRecordState(['processKey'], ['recordId'], ['stepName'], ['user'], ['relevantUser'], true, true, true, null, null);
+agilite.BPM.getRecordState(
+    ['processKey'],
+    ['recordId'],
+    ['stepName'],
+    ['user'],
+    ['relevantUser'],
+    true,
+    true,
+    true,
+    null,
+    null,
+);
 agilite.BPM.clearHistoryData('profileKey');
 agilite.BPM.getActiveSteps('processKey');
 agilite.BPM.getActiveUsers('processKey');

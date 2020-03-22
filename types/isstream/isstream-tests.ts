@@ -4,14 +4,7 @@ import isStream = require('isstream');
 import { isDuplex, isReadable, isWritable } from 'isstream';
 import { Stream, Readable, Writable, Duplex } from 'stream';
 
-const objs = [
-    new Stream(),
-    new Readable(),
-    new Writable(),
-    new Duplex(),
-    'string',
-    10
-];
+const objs = [new Stream(), new Readable(), new Writable(), new Duplex(), 'string', 10];
 
 for (let i = 0; i < objs.length; i++) {
     let type = 'not a stream';

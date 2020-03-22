@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface VerticalTimelineProps {
     animate?: boolean;
@@ -27,5 +27,5 @@ export interface VerticalTimelineElementProps {
     contentArrowStyle?: React.CSSProperties;
 }
 
-export class VerticalTimeline extends React.Component<VerticalTimelineProps> { }
-export class VerticalTimelineElement extends React.Component<VerticalTimelineElementProps> { }
+export class VerticalTimeline extends React.Component<VerticalTimelineProps> {}
+export class VerticalTimelineElement extends React.Component<VerticalTimelineElementProps> {}

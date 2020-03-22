@@ -18,9 +18,9 @@ declare class CustomTemplatedPathPlugin extends Plugin {
                     filename?: string;
                     hash?: string;
                     query?: any;
-                }
+                },
             ) => string
-        >
+        >,
     );
 }
 

@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { RequestOptions as HttpsRequestOptions } from "https";
-import { RequestOptions as HttpRequestOptions } from "http";
+import { RequestOptions as HttpsRequestOptions } from 'https';
+import { RequestOptions as HttpRequestOptions } from 'http';
 
 /**
  * Shared options passed when initializing a new instance of CleanCSS that returns either a promise or output
@@ -16,18 +16,23 @@ interface OptionsBase {
      * Controls compatibility mode used; defaults to ie10+ using `'*'`.
      *  Compatibility hash exposes the following properties: `colors`, `properties`, `selectors`, and `units`
      */
-    compatibility?: "*" | "ie9" | "ie8" | "ie7" | CleanCSS.CompatibilityOptions;
+    compatibility?: '*' | 'ie9' | 'ie8' | 'ie7' | CleanCSS.CompatibilityOptions;
 
     /**
      * Controls a function for handling remote requests; Defaults to the build in `loadRemoteResource` function
      */
-    fetch?: (uri: string, inlineRequest: HttpRequestOptions | HttpsRequestOptions, inlineTimeout: number, done: (message: string | number, body: string) => void) => void;
+    fetch?: (
+        uri: string,
+        inlineRequest: HttpRequestOptions | HttpsRequestOptions,
+        inlineTimeout: number,
+        done: (message: string | number, body: string) => void,
+    ) => void;
 
     /**
      * Controls output CSS formatting; defaults to `false`.
      *  Format hash exposes the following properties: `breaks`, `breakWith`, `indentBy`, `indentWith`, `spaces`, and `wrapAt`.
      */
-    format?: "beautify" | "keep-breaks" | CleanCSS.FormatOptions | false;
+    format?: 'beautify' | 'keep-breaks' | CleanCSS.FormatOptions | false;
 
     /**
      * inline option whitelists which @import rules will be processed.  Defaults to `'local'`
@@ -165,7 +170,7 @@ declare namespace CleanCSS {
             /**
              * controls color optimizations; defaults to `true`
              */
-            colors?: boolean,
+            colors?: boolean;
 
             /**
              * Controls keeping IE bang hack; defaults to `false`
@@ -364,7 +369,7 @@ declare namespace CleanCSS {
         /**
          * Controls a character to indent with, can be `'space'` or `'tab'`; defaults to `'space'`
          */
-        indentWith?: "space" | "tab";
+        indentWith?: 'space' | 'tab';
 
         /**
          * Controls where to insert spaces
@@ -485,7 +490,7 @@ declare namespace CleanCSS {
              * denotes selector sorting method; can be `'natural'` or `'standard'`, `'none'`, or false (the last two
              * since 4.1.0); defaults to `'standard'`
              */
-            selectorsSortingMethod?: "standard" | "natural" | "none";
+            selectorsSortingMethod?: 'standard' | 'natural' | 'none';
 
             /**
              * denotes a number of /*! ... * / comments preserved; defaults to `all`
@@ -652,7 +657,7 @@ declare namespace CleanCSS {
         /**
          * If you prefer clean-css to return a Promise object then you need to explicitly ask for it; defaults to `false`
          */
-        returnPromise: true
+        returnPromise: true;
     };
 
     /**
@@ -662,7 +667,7 @@ declare namespace CleanCSS {
         /**
          * If you prefer clean-css to return a Promise object then you need to explicitly ask for it; defaults to `false`
          */
-        returnPromise?: false
+        returnPromise?: false;
     };
 
     /**
@@ -677,8 +682,8 @@ declare namespace CleanCSS {
      * Constructor interface for CleanCSS
      */
     interface Constructor {
-        new(options: OptionsPromise): MinifierPromise;
-        new(options?: OptionsOutput): MinifierOutput;
+        new (options: OptionsPromise): MinifierPromise;
+        new (options?: OptionsOutput): MinifierOutput;
     }
 }
 

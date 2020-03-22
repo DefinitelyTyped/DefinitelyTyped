@@ -1,2 +1,2 @@
-import { parseInt } from "./index";
+import { parseInt } from './index';
 export = parseInt;

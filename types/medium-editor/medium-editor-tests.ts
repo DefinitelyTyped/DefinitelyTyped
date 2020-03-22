@@ -23,20 +23,20 @@ const editor4 = new MediumEditor('.editable', {
     anchor: {
         placeholderText: 'Type a link',
         customClassOption: 'btn',
-        customClassOptionText: 'Create Button'
+        customClassOptionText: 'Create Button',
     },
     paste: {
         cleanPastedHTML: true,
         cleanAttrs: ['style', 'dir'],
         cleanTags: ['label', 'meta'],
-        unwrapTags: ['sub', 'sup']
+        unwrapTags: ['sub', 'sup'],
     },
     anchorPreview: {
-        hideDelay: 300
+        hideDelay: 300,
     },
     placeholder: {
-        text: 'Click to edit'
-    }
+        text: 'Click to edit',
+    },
 });
 
 // API Example

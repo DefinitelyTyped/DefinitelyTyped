@@ -36,8 +36,7 @@ export interface SwitchInputProps extends GeneralPropTypes, React.InputHTMLAttri
  * @returns {Object}
  */
 export declare const SwitchPaddle: React.StatelessComponent<SwitchPaddleProps>;
-export interface SwitchPaddleProps extends GeneralPropTypes, React.LabelHTMLAttributes<HTMLLabelElement> {
-}
+export interface SwitchPaddleProps extends GeneralPropTypes, React.LabelHTMLAttributes<HTMLLabelElement> {}
 /**
  * Switch active sub-component.
  *

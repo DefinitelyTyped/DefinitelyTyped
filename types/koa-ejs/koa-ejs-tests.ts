@@ -9,7 +9,7 @@ render(app, {
     cache: true,
     async: true,
     debug: true,
-    delimiter: ''
+    delimiter: '',
 });
 
 render.ejs;

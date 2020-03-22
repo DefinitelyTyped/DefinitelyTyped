@@ -5,15 +5,15 @@
 // TypeScript Version: 2.4
 
 export enum Direction {
-    North = "N",
-    South = "S",
-    East = "E",
-    West = "W"
+    North = 'N',
+    South = 'S',
+    East = 'E',
+    West = 'W',
 }
 
 export enum ElevationType {
-    floor = "floor",
-    heightincm = "heightincm"
+    floor = 'floor',
+    heightincm = 'heightincm',
 }
 
 export interface Neighbours {
@@ -52,28 +52,23 @@ export interface GeohashWithElevation {
     geohash: string;
 }
 
- /**
-  * Encodes latitude/longitude to geohash, either to specified precision or to automatically
-  * evaluated precision.
-  *
-  * @param   lat - Latitude in degrees.
-  * @param   lon - Longitude in degrees.
-  * @param   [precision] - Number of characters in resulting geohash.
-  * @param   [options] - Number of options. Including elevation
-  * @returns Geohash of supplied latitude/longitude.
-  * @throws  Invalid geohash.
-  *
-  * @example
-  *     var geohash = Geohash.encode(52.205, 0.119, 7); // => 'u120fxw'
-  *     var geohash = Geohash.encode(52.205, 0.119, 7, { elevation: 9, elevationType: 'floor'}); // => 'u120fxw@9'
-  */
+/**
+ * Encodes latitude/longitude to geohash, either to specified precision or to automatically
+ * evaluated precision.
+ *
+ * @param   lat - Latitude in degrees.
+ * @param   lon - Longitude in degrees.
+ * @param   [precision] - Number of characters in resulting geohash.
+ * @param   [options] - Number of options. Including elevation
+ * @returns Geohash of supplied latitude/longitude.
+ * @throws  Invalid geohash.
+ *
+ * @example
+ *     var geohash = Geohash.encode(52.205, 0.119, 7); // => 'u120fxw'
+ *     var geohash = Geohash.encode(52.205, 0.119, 7, { elevation: 9, elevationType: 'floor'}); // => 'u120fxw@9'
+ */
 
-export function encode(
-    latitude: number,
-    longitude: number,
-    precision?: number,
-    options?: EncodeOptions
-): string;
+export function encode(latitude: number, longitude: number, precision?: number, options?: EncodeOptions): string;
 
 /**
  * Decode geohash to latitude/longitude and elevation (location is approximate centre of geohash cell,
@@ -138,4 +133,8 @@ export function excludeElevation(geohashWithElevation: string): GeohashWithEleva
  * @returns
  * @throws  Invalid geohash.
  */
-export function appendElevation(geohashWithoutElevation: string, elevation: number, elevationType: ElevationType): string;
+export function appendElevation(
+    geohashWithoutElevation: string,
+    elevation: number,
+    elevationType: ElevationType,
+): string;

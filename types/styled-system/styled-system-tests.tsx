@@ -92,21 +92,12 @@ const Grid: React.ComponentType<GridProps> = styled(grid);
 
 interface ButtonProps extends SpaceProps, ButtonStyleProps, ColorProps {}
 
-const testButtonStyles = compose(
-    buttonStyle,
-    space,
-    styles.textColor,
-);
+const testButtonStyles = compose(buttonStyle, space, styles.textColor);
 const TestButton: React.ComponentType<ButtonProps> = styled(testButtonStyles);
 
 interface SpacerProps extends MarginProps, PaddingProps {}
 
-const Spacer: React.ComponentType<SpacerProps> = styled(
-    compose(
-        margin,
-        padding,
-    ),
-);
+const Spacer: React.ComponentType<SpacerProps> = styled(compose(margin, padding));
 
 const test = () => (
     <div>
@@ -515,15 +506,12 @@ const customFontStyles = system({
     letterSpacing: true,
 });
 
-const CustomFontGroup = compose(
-    customFontSize,
-    customFontSize,
-);
+const CustomFontGroup = compose(customFontSize, customFontSize);
 
 const centerWithGenerics = style<boolean>({
     prop: 'center',
     cssProperty: 'justify-content',
-    transformValue: shouldCenter => (shouldCenter ? 'center' : 'flex-start'),
+    transformValue: (shouldCenter) => (shouldCenter ? 'center' : 'flex-start'),
 });
 
 const buttonSizes = {

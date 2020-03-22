@@ -76,8 +76,7 @@ export interface ResponsiveNavigationProps extends FlexboxPropTypes, React.HTMLA
  * @returns {Object}
  */
 export declare const TitleBar: React.StatelessComponent<TitleBarProps>;
-export interface TitleBarProps extends GeneralPropTypes, React.HTMLAttributes<HTMLDivElement> {
-}
+export interface TitleBarProps extends GeneralPropTypes, React.HTMLAttributes<HTMLDivElement> {}
 /**
  * Title bar menu icon sub-component.
  *
@@ -85,8 +84,7 @@ export interface TitleBarProps extends GeneralPropTypes, React.HTMLAttributes<HT
  * @returns {Object}
  */
 export declare const MenuIcon: React.StatelessComponent<MenuIconProps>;
-export interface MenuIconProps extends GeneralPropTypes, React.ButtonHTMLAttributes<HTMLButtonElement> {
-}
+export interface MenuIconProps extends GeneralPropTypes, React.ButtonHTMLAttributes<HTMLButtonElement> {}
 /**
  * Title bar title sub-component.
  *
@@ -94,5 +92,4 @@ export interface MenuIconProps extends GeneralPropTypes, React.ButtonHTMLAttribu
  * @returns {Object}
  */
 export declare const TitleBarTitle: React.StatelessComponent<TitleBarTitleProps>;
-export interface TitleBarTitleProps extends GeneralPropTypes, React.HTMLAttributes<HTMLDivElement> {
-}
+export interface TitleBarTitleProps extends GeneralPropTypes, React.HTMLAttributes<HTMLDivElement> {}

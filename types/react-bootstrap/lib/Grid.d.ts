@@ -7,5 +7,5 @@ declare namespace Grid {
         bsClass?: string;
     }
 }
-declare class Grid extends React.Component<Grid.GridProps> { }
+declare class Grid extends React.Component<Grid.GridProps> {}
 export = Grid;

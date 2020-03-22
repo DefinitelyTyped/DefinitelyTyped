@@ -9,16 +9,18 @@ import { Plugin, Request, ResponseToolkit } from 'hapi';
 
 declare namespace Basic {
     interface ValidateCustomResponse {
-        response: any,
+        response: any;
     }
 
     interface ValidateResponse {
-        isValid: boolean,
-        credentials?: any,
+        isValid: boolean;
+        credentials?: any;
     }
 
     interface Validate {
-        (request: Request, username: string, password: string, h: ResponseToolkit): Promise<ValidateResponse | ValidateCustomResponse>;
+        (request: Request, username: string, password: string, h: ResponseToolkit): Promise<
+            ValidateResponse | ValidateCustomResponse
+        >;
     }
 }
 

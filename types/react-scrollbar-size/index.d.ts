@@ -7,14 +7,13 @@
 import * as React from 'react';
 
 export interface Measurement {
-  scrollbarWidth: number;
-  scrollbarHeight: number;
+    scrollbarWidth: number;
+    scrollbarHeight: number;
 }
 
 export interface ScrollbarSizeProps {
-  onLoad?: (measurement: Measurement) => void;
-  onChange?: (measurement: Measurement) => void;
+    onLoad?: (measurement: Measurement) => void;
+    onChange?: (measurement: Measurement) => void;
 }
 
-export default class ScrollbarSize extends React.Component<ScrollbarSizeProps> {
-}
+export default class ScrollbarSize extends React.Component<ScrollbarSizeProps> {}

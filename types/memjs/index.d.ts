@@ -107,10 +107,7 @@ export class Client {
      * @param callback
      */
     get(key: string): Promise<{ value: Buffer; flags: Buffer }>;
-    get(
-        key: string,
-        callback: (err: Error | null, value: Buffer | null, flags: Buffer | null) => void
-    ): void;
+    get(key: string, callback: (err: Error | null, value: Buffer | null, flags: Buffer | null) => void): void;
 
     /**
      * SET
@@ -134,7 +131,7 @@ export class Client {
         key: string,
         value: string | Buffer,
         options: { expires?: number },
-        callback: (err: Error | null, success: boolean | null) => void
+        callback: (err: Error | null, success: boolean | null) => void,
     ): void;
 
     /**
@@ -160,7 +157,7 @@ export class Client {
         key: string,
         value: string | Buffer,
         options: { expires?: number },
-        callback: (err: Error | null, success: boolean | null) => void
+        callback: (err: Error | null, success: boolean | null) => void,
     ): void;
 
     /**
@@ -186,7 +183,7 @@ export class Client {
         key: string,
         value: string | Buffer,
         options: { expires?: number },
-        callback: (err: Error | null, success: boolean | null) => void
+        callback: (err: Error | null, success: boolean | null) => void,
     ): void;
 
     /**
@@ -225,13 +222,13 @@ export class Client {
     increment(
         key: string,
         amount: number,
-        options: { initial?: number; expires?: number }
+        options: { initial?: number; expires?: number },
     ): Promise<{ success: boolean; value?: number | null }>;
     increment(
         key: string,
         amount: number,
         options: { initial?: number; expires?: number },
-        callback: (err: Error | null, success: boolean | null, value?: number | null) => void
+        callback: (err: Error | null, success: boolean | null, value?: number | null) => void,
     ): void;
 
     /**
@@ -255,13 +252,13 @@ export class Client {
     decrement(
         key: string,
         amount: number,
-        options: { initial?: number; expires?: number }
+        options: { initial?: number; expires?: number },
     ): Promise<{ success: boolean; value?: number | null }>;
     decrement(
         key: string,
         amount: number,
         options: { initial?: number; expires?: number },
-        callback: (err: Error | null, success: boolean | null, value?: number | null) => void
+        callback: (err: Error | null, success: boolean | null, value?: number | null) => void,
     ): void;
 
     /**
@@ -277,11 +274,7 @@ export class Client {
      * @param callback
      */
     append(key: string, value: string | Buffer): Promise<boolean>;
-    append(
-        key: string,
-        value: string | Buffer,
-        callback: (err: Error | null, success: boolean | null) => void
-    ): void;
+    append(key: string, value: string | Buffer, callback: (err: Error | null, success: boolean | null) => void): void;
 
     /**
      * PREPEND
@@ -296,11 +289,7 @@ export class Client {
      * @param callback
      */
     prepend(key: string, value: string | Buffer): Promise<boolean>;
-    prepend(
-        key: string,
-        value: string | Buffer,
-        callback: (err: Error | null, success: boolean | null) => void
-    ): void;
+    prepend(key: string, value: string | Buffer, callback: (err: Error | null, success: boolean | null) => void): void;
 
     /**
      * TOUCH
@@ -315,11 +304,7 @@ export class Client {
      * @param callback
      */
     touch(key: string, expires: number): Promise<boolean>;
-    touch(
-        key: string,
-        expires: number,
-        callback: (err: Error | null, success: boolean | null) => void
-    ): void;
+    touch(key: string, expires: number, callback: (err: Error | null, success: boolean | null) => void): void;
 
     /**
      * FLUSH
@@ -351,7 +336,7 @@ export class Client {
      */
     statsWithKey(
         key: string,
-        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void
+        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void,
     ): void;
 
     /**
@@ -366,9 +351,7 @@ export class Client {
      * dictionary mapping the stat name to the value of the statistic as a string.
      * @param callback
      */
-    stats(
-        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void
-    ): void;
+    stats(callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void): void;
 
     /**
      * RESET_STATS
@@ -384,9 +367,7 @@ export class Client {
      * _server_ is the `"hostname:port"` of the server.
      * @param callback
      */
-    resetStats(
-        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void
-    ): void;
+    resetStats(callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void): void;
 
     /**
      * QUIT
@@ -425,6 +406,6 @@ export class Client {
         request: Buffer,
         seq: number,
         callback?: (err: Error | null, ...args: any[]) => void,
-        retries?: number
+        retries?: number,
     ): void;
 }

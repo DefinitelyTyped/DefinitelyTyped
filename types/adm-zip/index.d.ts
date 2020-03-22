@@ -23,10 +23,7 @@ declare class AdmZip {
      * @param entry The full path of the entry or a `IZipEntry` object.
      * @param callback Called with a `Buffer` or `null` in case of error.
      */
-    readFileAsync(
-        entry: string | AdmZip.IZipEntry,
-        callback: (data: Buffer | null, err: string) => any
-    ): void;
+    readFileAsync(entry: string | AdmZip.IZipEntry, callback: (data: Buffer | null, err: string) => any): void;
     /**
      * Extracts the given entry from the archive and returns the content as
      * plain text in the given encoding.
@@ -40,11 +37,7 @@ declare class AdmZip {
      * @param callback Called with the resulting string.
      * @param encoding If no encoding is specified `"utf8"` is used.
      */
-    readAsTextAsync(
-        fileName: string | AdmZip.IZipEntry,
-        callback: (data: string) => any,
-        encoding?: string
-    ): void;
+    readAsTextAsync(fileName: string | AdmZip.IZipEntry, callback: (data: string) => any, encoding?: string): void;
     /**
      * Remove the entry from the file or the entry and all its nested directories
      * and files if the given entry is a directory.
@@ -97,11 +90,7 @@ declare class AdmZip {
      * @param zipPath Path to a folder in the archive. Default: `""`.
      * @param filter RegExp or Function if files match will be included.
      */
-    addLocalFolder(
-        localPath: string,
-        zipPath?: string,
-        filter?: RegExp | ((filename: string) => boolean)
-    ): void;
+    addLocalFolder(localPath: string, zipPath?: string, filter?: RegExp | ((filename: string) => boolean)): void;
     /**
      * Allows you to create a entry (file or directory) in the zip file.
      * If you want to create a directory the `entryName` must end in `"/"` and a `null`
@@ -140,7 +129,7 @@ declare class AdmZip {
         entryPath: string | AdmZip.IZipEntry,
         targetPath: string,
         maintainEntryPath?: boolean,
-        overwrite?: boolean
+        overwrite?: boolean,
     ): boolean;
     /**
      * Extracts the entire archive to the given location.
@@ -156,11 +145,7 @@ declare class AdmZip {
      *   will be overwriten if this is `true`. Default: `false`.
      * @param callback The callback function will be called after extraction.
      */
-    extractAllToAsync(
-        targetPath: string,
-        overwrite?: boolean,
-        callback?: (error: Error) => void
-    ): void;
+    extractAllToAsync(targetPath: string, overwrite?: boolean, callback?: (error: Error) => void): void;
     /**
      * Writes the newly created zip file to disk at the specified location or
      * if a zip was opened and no `targetFileName` is provided, it will

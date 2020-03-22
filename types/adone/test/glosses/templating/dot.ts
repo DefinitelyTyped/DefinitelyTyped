@@ -1,8 +1,6 @@
 namespace adoneTests.templating.dot {
     const {
-        templating: {
-            dot
-        }
+        templating: { dot },
     } = adone;
 
     let str: string;
@@ -25,7 +23,7 @@ namespace adoneTests.templating.dot {
     regexp = dot.templateSettings.useParams;
     str = dot.templateSettings.varname;
 
-    const r = dot.template("asd", {
+    const r = dot.template('asd', {
         append: true,
         define: /a/,
         encode: /a/,
@@ -38,33 +36,33 @@ namespace adoneTests.templating.dot {
         strip: false,
         use: /a/,
         useParams: /a/,
-        varname: "a"
+        varname: 'a',
     });
-    str = r("a");
+    str = r('a');
 
-    str = dot.compile("asd")();
-    str = dot.compile("asd", {})();
+    str = dot.compile('asd')();
+    str = dot.compile('asd', {})();
 
     const a = dot.process();
-    str = a["hello"]();
+    str = a['hello']();
 
     dot.process({
-        destination: "a"
+        destination: 'a',
     });
     dot.process({
-        global: "a"
+        global: 'a',
     });
     dot.process({
-        path: "a"
-    });
-    dot.process({
-        templateSettings: {
-            append: true
-        }
+        path: 'a',
     });
     dot.process({
         templateSettings: {
-            useParams: /a/
-        }
+            append: true,
+        },
+    });
+    dot.process({
+        templateSettings: {
+            useParams: /a/,
+        },
     });
 }

@@ -85,13 +85,19 @@ declare namespace microsoftTeams {
      * @param callback The callback to invoke when the {@link TabInstanceParameters} object is retrieved.
      * @param tabInstanceParameters OPTIONAL Flags that specify whether to scope call to favorite teams or channels.
      */
-    function getTabInstances(callback: (tabInfo: TabInformation) => void, tabInstanceParameters?: TabInstanceParameters): void;
+    function getTabInstances(
+        callback: (tabInfo: TabInformation) => void,
+        tabInstanceParameters?: TabInstanceParameters,
+    ): void;
     /**
      * Allows an app to retrieve the most recently used tabs for this user.
      * @param callback The callback to invoke when the {@link TabInformation} object is retrieved.
      * @param tabInstanceParameters OPTIONAL Ignored, kept for future use
      */
-    function getMruTabInstances(callback: (tabInfo: TabInformation) => void, tabInstanceParameters?: TabInstanceParameters): void;
+    function getMruTabInstances(
+        callback: (tabInfo: TabInformation) => void,
+        tabInstanceParameters?: TabInstanceParameters,
+    ): void;
     /**
      * Shares a deep link that a user can use to navigate back to a specific state in this page.
      * @param deepLinkParameters ID and label for the link and fallback URL.

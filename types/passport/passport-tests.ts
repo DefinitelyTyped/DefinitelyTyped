@@ -19,7 +19,7 @@ class TestStrategy extends passport.Strategy {
 
 const newFramework: passport.Framework = {
     initialize() {
-        return () => { };
+        return () => {};
     },
     authenticate(passport, name, options) {
         return () => {
@@ -30,7 +30,7 @@ const newFramework: passport.Framework = {
         return () => {
             return `authorize(): ${name} ${options}`;
         };
-    }
+    },
 };
 passport.use(new TestStrategy());
 passport.framework(newFramework);
@@ -61,30 +61,25 @@ passport.deserializeUser<TestUser, number>((id, done) => {
         .catch(done);
 });
 
-passport.use(new TestStrategy())
-    .unuse('test')
-    .use(new TestStrategy())
-    .framework(newFramework);
+passport.use(new TestStrategy()).unuse('test').use(new TestStrategy()).framework(newFramework);
 
 const app = express();
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.post('/login',
-    passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
-    (req, res) => {
-        res.redirect('/');
-    });
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), (req, res) => {
+    res.redirect('/');
+});
 
-app.post('/login',
-    passport.authorize('local', { failureRedirect: '/login', failureFlash: true }),
-    (req, res) => {
-        res.redirect('/');
-    });
+app.post('/login', passport.authorize('local', { failureRedirect: '/login', failureFlash: true }), (req, res) => {
+    res.redirect('/');
+});
 
 app.post('/login', (req, res, next) => {
-    passport.authenticate('local', (err: any, user: { username: string; }, info: { message: string; }) => {
-        if (err) { return next(err); }
+    passport.authenticate('local', (err: any, user: { username: string }, info: { message: string }) => {
+        if (err) {
+            return next(err);
+        }
         if (!user) {
             if (req.session) {
                 req.session['error'] = info.message;
@@ -92,7 +87,9 @@ app.post('/login', (req, res, next) => {
             return res.redirect('/login');
         }
         req.logIn(user, (err) => {
-            if (err) { return next(err); }
+            if (err) {
+                return next(err);
+            }
             return res.redirect('/users/' + user.username);
         });
     })(req, res, next);
@@ -114,27 +111,25 @@ function authSetting(): void {
         res.redirect('/');
     };
 
-    app.get('/auth/facebook',
-        passport.authenticate('facebook'));
-    app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', authOption), successCallback);
+    app.get('/auth/facebook', passport.authenticate('facebook'));
+    app.get('/auth/facebook/callback', passport.authenticate('facebook', authOption), successCallback);
 
-    app.get('/auth/twitter',
-        passport.authenticate('twitter'));
-    app.get('/auth/twitter/callback',
-        passport.authenticate('twitter', authOption));
+    app.get('/auth/twitter', passport.authenticate('twitter'));
+    app.get('/auth/twitter/callback', passport.authenticate('twitter', authOption));
 
-    app.get('/auth/google',
+    app.get(
+        '/auth/google',
         passport.authenticate('google', {
-            scope:
-                ['https://www.googleapis.com/auth/userinfo.profile']
-        }));
-    app.get('/auth/google/callback',
-        passport.authenticate('google', authOption), successCallback);
+            scope: ['https://www.googleapis.com/auth/userinfo.profile'],
+        }),
+    );
+    app.get('/auth/google/callback', passport.authenticate('google', authOption), successCallback);
 }
 
 function ensureAuthenticated(req: express.Request, res: express.Response, next: (err?: any) => void) {
-    if (req.isAuthenticated()) { return next(); }
+    if (req.isAuthenticated()) {
+        return next();
+    }
     if (req.isUnauthenticated()) {
         res.redirect('/login');
     }
@@ -158,10 +153,10 @@ declare global {
 app.use((req: express.Request, res: express.Response, next: (err?: any) => void) => {
     if (req.user) {
         if (req.user.username) {
-            req.user.username = "hello user";
+            req.user.username = 'hello user';
         }
         if (req.user.id) {
-            req.user.id = "123";
+            req.user.id = '123';
         }
     }
     next();

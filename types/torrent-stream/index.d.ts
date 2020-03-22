@@ -18,10 +18,10 @@ declare namespace TorrentStream {
         infoHash: string;
 
         // Events
-        on(event: "ready" | "torrent" | "idle", callback: Function): void;
-        on(event: "download", callback: (pieceIndex: number) => void): void;
-        on(event: "upload", callback: (pieceIndex: number, offset: number, length: number) => void): void;
-        on(event: string,callback: Function): void;
+        on(event: 'ready' | 'torrent' | 'idle', callback: Function): void;
+        on(event: 'download', callback: (pieceIndex: number) => void): void;
+        on(event: 'upload', callback: (pieceIndex: number, offset: number, length: number) => void): void;
+        on(event: string, callback: Function): void;
     }
     interface TorrentEngineOptions {
         connections?: number; // Max amount of peers to be connected to.
@@ -52,7 +52,7 @@ declare namespace TorrentStream {
     }
 }
 
-declare module "torrent-stream" {
+declare module 'torrent-stream' {
     function s(magnet: string | Buffer, options?: TorrentStream.TorrentEngineOptions): TorrentStream.TorrentEngine;
 
     namespace s {

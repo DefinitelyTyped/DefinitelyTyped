@@ -9,9 +9,9 @@ interface Action {
     payload: any;
 }
 
-const rootEpic: Epic<Action, {}> = action$ => {
+const rootEpic: Epic<Action, {}> = (action$) => {
     return action$
-        .do(action => {
+        .do((action) => {
             // Action dispatched
         })
         .ignoreElements();
@@ -22,5 +22,5 @@ const wrappedRootEpic = wrapRootEpic(rootEpic);
 renderToString(<div>Hello, world</div>, wrappedRootEpic).subscribe({
     next({ markup }) {
         // Done
-    }
+    },
 });

@@ -2,31 +2,31 @@ import * as React from 'react';
 import { Resolver, resolve, context } from 'react-resolver';
 
 interface OwnProps {
-  thing: number;
+    thing: number;
 }
 
 interface ResolvedProps {
-  data: string;
+    data: string;
 }
 
 class Page extends React.Component<OwnProps & ResolvedProps> {
-  render() {
-    return <div>Hello, {this.props.data}!</div>;
-  }
+    render() {
+        return <div>Hello, {this.props.data}!</div>;
+    }
 }
 
 const ResolvedPageWithSingleProp = resolve('data', async () => {
-  return new Promise<string>(resolve => {
-    setTimeout(() => resolve('World'), 500);
-  });
+    return new Promise<string>((resolve) => {
+        setTimeout(() => resolve('World'), 500);
+    });
 })(Page);
 
 const ResolvedPageWithPropMap = resolve({
-  data: async () => {
-    return new Promise<string>(resolve => {
-      setTimeout(() => resolve('World'), 500);
-    });
-  },
+    data: async () => {
+        return new Promise<string>((resolve) => {
+            setTimeout(() => resolve('World'), 500);
+        });
+    },
 })(Page);
 
 const PageWithContext = context('history')(Page);
@@ -37,7 +37,7 @@ const PageWithContext = context('history')(Page);
 // Resolver.render(() => <ResolvedPageWithPropMap />, document.getElementById('app'));
 
 Resolver.resolve(() => {
-  return <ResolvedPageWithPropMap />;
+    return <ResolvedPageWithPropMap />;
 }).then(({ data, Resolved }) => {
-  data === 'World';
+    data === 'World';
 });

@@ -25,7 +25,7 @@ html(
             return options;
         },
     },
-    cb
+    cb,
 );
 html(
     {
@@ -34,7 +34,7 @@ html(
             done(null, content);
         },
     },
-    cb
+    cb,
 );
 html(
     {
@@ -43,7 +43,7 @@ html(
             done(null, content);
         },
     },
-    cb
+    cb,
 );
 
 css({ fileContent }, cb);

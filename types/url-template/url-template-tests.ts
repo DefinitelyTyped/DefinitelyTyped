@@ -1,6 +1,3 @@
-
-
-
 import urlTemplate = require('url-template');
 
 var emailUrl = urlTemplate.parse('/{email}/{folder}/{id}');
@@ -9,5 +6,5 @@ var emailUrl = urlTemplate.parse('/{email}/{folder}/{id}');
 emailUrl.expand({
     email: 'user@domain',
     folder: 'test',
-    id: 42
+    id: 42,
 });

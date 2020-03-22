@@ -45,7 +45,7 @@ declare namespace bonjour {
         port: number;
         type: string;
         subtypes?: string[];
-        protocol?: 'udp'|'tcp';
+        protocol?: 'udp' | 'tcp';
         txt?: Object;
         probe?: boolean;
     }

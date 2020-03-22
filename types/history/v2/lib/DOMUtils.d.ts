@@ -1,5 +1,9 @@
 export function addEventListener(node: EventTarget, event: string, listener: EventListenerOrEventListenerObject): void;
-export function removeEventListener(node: EventTarget, event: string, listener: EventListenerOrEventListenerObject): void;
+export function removeEventListener(
+    node: EventTarget,
+    event: string,
+    listener: EventListenerOrEventListenerObject,
+): void;
 export function getHashPath(): string;
 export function replaceHashPath(path: string): void;
 export function getWindowPath(): string;

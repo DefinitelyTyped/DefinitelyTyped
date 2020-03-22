@@ -1,5 +1,12 @@
 /// <reference types="node" />
-import { Wire, WireConstructor, READY_STATE, ExistingConnectConfig, ConnectConfig, InternalConnectConfig } from './wire';
+import {
+    Wire,
+    WireConstructor,
+    READY_STATE,
+    ExistingConnectConfig,
+    ConnectConfig,
+    InternalConnectConfig,
+} from './wire';
 import { Identity } from '../identity';
 import { EventEmitter } from 'events';
 import { Environment } from '../environment/environment';
@@ -7,10 +14,13 @@ import { RuntimeEvent } from '../api/events/base';
 import { EventAggregator } from '../api/events/eventAggregator';
 export declare type MessageHandler = (data: any) => boolean;
 declare class Transport extends EventEmitter {
-    protected wireListeners: Map<number, {
-        resolve: Function;
-        reject: Function;
-    }>;
+    protected wireListeners: Map<
+        number,
+        {
+            resolve: Function;
+            reject: Function;
+        }
+    >;
     protected uncorrelatedListener: Function;
     me: Identity;
     protected wire: Wire;
@@ -32,7 +42,11 @@ declare class Transport extends EventEmitter {
 }
 export default Transport;
 interface Transport {
-    sendAction(action: 'request-external-authorization', payload: {}, uncorrelated: true): Promise<Message<AuthorizationPayload>>;
+    sendAction(
+        action: 'request-external-authorization',
+        payload: {},
+        uncorrelated: true,
+    ): Promise<Message<AuthorizationPayload>>;
     sendAction(action: string, payload: {}, uncorrelated: boolean): Promise<Message<Payload>>;
     topicRefMap: Map<string, number>;
 }

@@ -1,30 +1,49 @@
-import { BlankNode, DataFactory, Dataset, DatasetCore, DatasetCoreFactory, DatasetFactory, DefaultGraph, Literal,
-  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Graph } from "rdf-js";
-import { EventEmitter } from "events";
+import {
+    BlankNode,
+    DataFactory,
+    Dataset,
+    DatasetCore,
+    DatasetCoreFactory,
+    DatasetFactory,
+    DefaultGraph,
+    Literal,
+    NamedNode,
+    Quad,
+    BaseQuad,
+    Sink,
+    Source,
+    Store,
+    Stream,
+    Triple,
+    Term,
+    Variable,
+    Quad_Graph,
+} from 'rdf-js';
+import { EventEmitter } from 'events';
 
 function test_terms() {
     // Only types are checked in this tests,
     // so this does not have to be functional.
-    const someTerm: Term = <any> {};
+    const someTerm: Term = <any>{};
 
     if (someTerm.termType === 'Literal') {
-      console.log(someTerm.datatype);
+        console.log(someTerm.datatype);
     }
-    const namedNode: NamedNode = <any> {};
+    const namedNode: NamedNode = <any>{};
     const termType1: string = namedNode.termType;
     const value1: string = namedNode.value;
     let namedNodeEqual: boolean = namedNode.equals(someTerm);
     namedNodeEqual = namedNode.equals(null);
     namedNodeEqual = namedNode.equals(undefined);
 
-    const blankNode: BlankNode = <any> {};
+    const blankNode: BlankNode = <any>{};
     const termType2: string = blankNode.termType;
     const value2: string = blankNode.value;
     let blankNodeEqual: boolean = blankNode.equals(someTerm);
     blankNodeEqual = blankNode.equals(null);
     blankNodeEqual = blankNode.equals(undefined);
 
-    const literal: Literal = <any> {};
+    const literal: Literal = <any>{};
     const termType3: string = literal.termType;
     const value3: string = literal.value;
     const language3: string = literal.language;
@@ -33,14 +52,14 @@ function test_terms() {
     literalEqual = literal.equals(null);
     literalEqual = literal.equals(undefined);
 
-    const variable: Variable = <any> {};
+    const variable: Variable = <any>{};
     const termType4: string = variable.termType;
     const value4: string = variable.value;
     let variableEqual = variable.equals(someTerm);
     variableEqual = variable.equals(null);
     variableEqual = variable.equals(undefined);
 
-    const defaultGraph: DefaultGraph = <any> {};
+    const defaultGraph: DefaultGraph = <any>{};
     const termType5: string = defaultGraph.termType;
     const value5: string = defaultGraph.value;
     let defaultGraphEqual: boolean = defaultGraph.equals(someTerm);
@@ -49,7 +68,7 @@ function test_terms() {
 }
 
 function test_quads() {
-    const quad: Quad = <any> {};
+    const quad: Quad = <any>{};
     const s1: Term = quad.subject;
     const p1: Term = quad.predicate;
     const o1: Term = quad.object;
@@ -66,7 +85,7 @@ function test_quads() {
 }
 
 function test_datafactory() {
-    const dataFactory: DataFactory = <any> {};
+    const dataFactory: DataFactory = <any>{};
 
     const namedNode: NamedNode = dataFactory.namedNode('http://example.org');
 
@@ -77,28 +96,28 @@ function test_datafactory() {
     const literal2: Literal = dataFactory.literal('abc', 'en-us');
     const literal3: Literal = dataFactory.literal('abc', namedNode);
 
-    const variable: Variable = dataFactory.variable ? dataFactory.variable('v1') : <any> {};
+    const variable: Variable = dataFactory.variable ? dataFactory.variable('v1') : <any>{};
 
-    const term: NamedNode = <any> {};
+    const term: NamedNode = <any>{};
     const triple: Quad = dataFactory.triple(term, term, term);
     interface QuadBnode extends BaseQuad {
-      subject: Term;
-      predicate: Term;
-      object: Term;
-      graph: Term;
+        subject: Term;
+        predicate: Term;
+        object: Term;
+        graph: Term;
     }
 
-    const quadBnodeFactory: DataFactory<QuadBnode> = <any> {};
+    const quadBnodeFactory: DataFactory<QuadBnode> = <any>{};
     const quad = quadBnodeFactory.quad(literal1, blankNode1, term, term);
-    const hasBnode = quad.predicate.termType === "BlankNode";
+    const hasBnode = quad.predicate.termType === 'BlankNode';
 }
 
 function test_stream() {
-    const stream: Stream = <any> {};
+    const stream: Stream = <any>{};
     const quad: Quad = stream.read();
 
-    const term: Term = <any> {};
-    const source: Source = <any> {};
+    const term: Term = <any>{};
+    const source: Source = <any>{};
     const matchStream1: Stream = source.match();
     const matchStream2: Stream = source.match(term);
     const matchStream3: Stream = source.match(/.*/);
@@ -109,11 +128,11 @@ function test_stream() {
     const matchStream8: Stream = source.match(term, term, term, term);
     const matchStream9: Stream = source.match(term, term, term, /.*/);
 
-    const sink: Sink<Stream, EventEmitter> = <any> {};
-    const graph: Quad_Graph = <any> {};
+    const sink: Sink<Stream, EventEmitter> = <any>{};
+    const graph: Quad_Graph = <any>{};
     const eventEmitter1: EventEmitter = sink.import(stream);
 
-    const store: Store = <any> {};
+    const store: Store = <any>{};
     const storeSource: Source = store;
     const storeSink: Sink<Stream, EventEmitter> = store;
     const eventEmitter2: EventEmitter = store.remove(stream);
@@ -138,12 +157,12 @@ function test_datasetcore() {
         graph: Term;
     }
 
-    const quad: Quad = <any> {};
-    const quadBnode: QuadBnode = <any> {};
-    const term: Term = <any> {};
+    const quad: Quad = <any>{};
+    const quadBnode: QuadBnode = <any>{};
+    const term: Term = <any>{};
 
-    const datasetCoreFactory1: DatasetCoreFactory = <any> {};
-    const datasetCoreFactory2: DatasetCoreFactory<QuadBnode> = <any> {};
+    const datasetCoreFactory1: DatasetCoreFactory = <any>{};
+    const datasetCoreFactory2: DatasetCoreFactory<QuadBnode> = <any>{};
 
     const dataset1: DatasetCore = datasetCoreFactory1.dataset();
     const dataset2: DatasetCore = datasetCoreFactory1.dataset([quad, quad]);
@@ -184,21 +203,21 @@ function test_dataset() {
         graph: Term;
     }
 
-    const quad: Quad = <any> {};
-    const quadBnode: QuadBnode = <any> {};
-    const term: Term = <any> {};
+    const quad: Quad = <any>{};
+    const quadBnode: QuadBnode = <any>{};
+    const term: Term = <any>{};
 
-    const stream1: Stream = <any> {};
-    const stream2: Stream<QuadBnode> = <any> {};
+    const stream1: Stream = <any>{};
+    const stream2: Stream<QuadBnode> = <any>{};
 
-    const quadFilterIteratee: (quad: Quad, dataset: Dataset) => boolean = <any> {};
-    const quadMapIteratee: (quad: Quad, dataset: Dataset) => Quad = <any> {};
-    const quadReduceToStringIteratee: (reduced: string, quad: Quad) => string = <any> {};
-    const quadReduceToArrayIteratee: (arr: boolean[], quad: Quad, dataset: Dataset) => boolean[] = <any> {};
-    const quadForEachIteratee: (quad: Quad, dataset: Dataset) => void = <any> {};
+    const quadFilterIteratee: (quad: Quad, dataset: Dataset) => boolean = <any>{};
+    const quadMapIteratee: (quad: Quad, dataset: Dataset) => Quad = <any>{};
+    const quadReduceToStringIteratee: (reduced: string, quad: Quad) => string = <any>{};
+    const quadReduceToArrayIteratee: (arr: boolean[], quad: Quad, dataset: Dataset) => boolean[] = <any>{};
+    const quadForEachIteratee: (quad: Quad, dataset: Dataset) => void = <any>{};
 
-    const datasetFactory1: DatasetFactory = <any> {};
-    const datasetFactory2: DatasetFactory<QuadBnode> = <any> {};
+    const datasetFactory1: DatasetFactory = <any>{};
+    const datasetFactory2: DatasetFactory<QuadBnode> = <any>{};
 
     const dataset1: Dataset = datasetFactory1.dataset();
     const dataset2: Dataset = datasetFactory1.dataset([quad, quad]);
@@ -286,33 +305,33 @@ function test_dataset() {
 }
 
 function test_datasetCoreFactory_covariance() {
-    const quad: BaseQuad = <any> {};
-    const factory: DatasetCoreFactory<Quad, BaseQuad> = <any> {};
+    const quad: BaseQuad = <any>{};
+    const factory: DatasetCoreFactory<Quad, BaseQuad> = <any>{};
 
     const fromQuads = factory.dataset([quad, quad]);
 }
 
 function test_datasetFactory_covariance() {
-    const quad: BaseQuad = <any> {};
-    const dataset: Dataset = <any> {};
-    const factory: DatasetFactory<Quad, BaseQuad> = <any> {};
+    const quad: BaseQuad = <any>{};
+    const dataset: Dataset = <any>{};
+    const factory: DatasetFactory<Quad, BaseQuad> = <any>{};
 
     const fromQuads = factory.dataset([quad, quad]);
     const fromDataset = factory.dataset(dataset);
 }
 
 async function test_dataset_covariance(): Promise<Dataset> {
-    const quad: Quad = <any> {};
-    const dataset: Dataset = <any> {};
+    const quad: Quad = <any>{};
+    const dataset: Dataset = <any>{};
 
     // rdf-ext-like quad
     interface QuadExt extends Quad {
         toCanonical(): string;
     }
-    let datasetExt: Dataset<QuadExt, Quad> = <any> {};
+    let datasetExt: Dataset<QuadExt, Quad> = <any>{};
 
     // stream coming from a generic parser
-    const stream: Stream = <any> {};
+    const stream: Stream = <any>{};
 
     datasetExt = datasetExt.add(quad);
     datasetExt = datasetExt.delete(quad);

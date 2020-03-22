@@ -1,12 +1,12 @@
-import * as topojson from "topojson-simplify";
-import { UsAtlas, WorldAtlas } from "topojson";
+import * as topojson from 'topojson-simplify';
+import { UsAtlas, WorldAtlas } from 'topojson';
 
 declare let us: UsAtlas;
 declare let world: WorldAtlas;
 
 interface UsAtlasObjects extends TopoJSON.Objects {
-    counties: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
-    states: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+    counties: { type: 'GeometryCollection'; geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon> };
+    states: { type: 'GeometryCollection'; geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon> };
     nation: TopoJSON.GeometryCollection;
 }
 
@@ -69,10 +69,32 @@ geomCollection = topojson.filter(us, () => true).objects.nation as TopoJSON.Geom
 // Geometry
 
 let area: number;
-area = topojson.planarRingArea([[0, 0], [0, 1], [1, 1], [1, 0], [0, 0]]);
-area = topojson.planarTriangleArea([[0, 0], [0, 1], [1, 1]]);
-area = topojson.sphericalRingArea([[0, 0], [0, 90], [90, 180], [0, 0]], true);
-area = topojson.sphericalTriangleArea([[0, 0], [0, 90], [90, 180]]);
+area = topojson.planarRingArea([
+    [0, 0],
+    [0, 1],
+    [1, 1],
+    [1, 0],
+    [0, 0],
+]);
+area = topojson.planarTriangleArea([
+    [0, 0],
+    [0, 1],
+    [1, 1],
+]);
+area = topojson.sphericalRingArea(
+    [
+        [0, 0],
+        [0, 90],
+        [90, 180],
+        [0, 0],
+    ],
+    true,
+);
+area = topojson.sphericalTriangleArea([
+    [0, 0],
+    [0, 90],
+    [90, 180],
+]);
 
 // Fails
 
@@ -80,7 +102,7 @@ interface MyAtlas extends TopoJSON.Topology {
     objects: {
         obj: TopoJSON.GeometryCollection;
     };
-    more: "hello";
+    more: 'hello';
 }
 
 declare let myAtlas: MyAtlas;

@@ -1,37 +1,35 @@
-
-
 var treeNode: AngularUITree.ITreeNode = {
     id: 0,
     nodes: [],
-    title: "test"
+    title: 'test',
 };
 
 var treeNode2: AngularUITree.ITreeNode = {
-    id: "0",
+    id: '0',
     nodes: [treeNode],
-    title: "test2"
+    title: 'test2',
 };
 
 // fake jquery node here so that we can pull a pretend
 // angular scope element out of it
 var dummyJQueryNode: ng.IAugmentedJQuery;
-var fakeScope: (ng.IScope | AngularUITree.IParentTreeNodeScope) = dummyJQueryNode.scope();
+var fakeScope: ng.IScope | AngularUITree.IParentTreeNodeScope = dummyJQueryNode.scope();
 
-(<AngularUITree.ITreeNodeScope> fakeScope).node = treeNode;
+(<AngularUITree.ITreeNodeScope>fakeScope).node = treeNode;
 
-var treeNodeScope: AngularUITree.ITreeNodeScope = <AngularUITree.ITreeNodeScope> fakeScope;
+var treeNodeScope: AngularUITree.ITreeNodeScope = <AngularUITree.ITreeNodeScope>fakeScope;
 
-(<AngularUITree.IParentTreeNodeScope> fakeScope).isParent = (nodeScope: AngularUITree.ITreeNodeScope) => {
+(<AngularUITree.IParentTreeNodeScope>fakeScope).isParent = (nodeScope: AngularUITree.ITreeNodeScope) => {
     return true;
 };
 
-var parentTreeNodeScope: AngularUITree.IParentTreeNodeScope = <AngularUITree.IParentTreeNodeScope> fakeScope;
+var parentTreeNodeScope: AngularUITree.IParentTreeNodeScope = <AngularUITree.IParentTreeNodeScope>fakeScope;
 
 var eventSourceInfo: AngularUITree.IEventSourceInfo = {
     cloneModel: {},
     nodeScope: treeNodeScope,
     index: 0,
-    nodesScope: parentTreeNodeScope
+    nodesScope: parentTreeNodeScope,
 };
 
 var position: AngularUITree.IPosition = {
@@ -52,23 +50,24 @@ var position: AngularUITree.IPosition = {
     offsetX: 0,
     offsetY: 0,
     startX: 0,
-    startY: 0
-
+    startY: 0,
 };
 
 var eventInfo: AngularUITree.IEventInfo = {
     source: eventSourceInfo,
     dest: {
         index: 0,
-        nodesScope: parentTreeNodeScope
+        nodesScope: parentTreeNodeScope,
     },
     elements: {},
-    pos: position
+    pos: position,
 };
 
-var acceptCallback: AngularUITree.IAcceptCallback = (source: AngularUITree.ITreeNodeScope,
-                                                     destination: AngularUITree.ITreeNodeScope,
-                                                     destinationIndex: number) => {
+var acceptCallback: AngularUITree.IAcceptCallback = (
+    source: AngularUITree.ITreeNodeScope,
+    destination: AngularUITree.ITreeNodeScope,
+    destinationIndex: number,
+) => {
     return false;
 };
 
@@ -79,5 +78,5 @@ var droppedCallback: AngularUITree.IDroppedCallback = (eventInfo: AngularUITree.
 var callbacks: AngularUITree.ICallbacks = {
     accept: acceptCallback,
     dragStart: droppedCallback,
-    dropped: droppedCallback
+    dropped: droppedCallback,
 };

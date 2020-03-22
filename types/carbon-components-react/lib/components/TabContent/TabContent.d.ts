@@ -1,10 +1,10 @@
-import * as React from "react";
-import { ReactDivAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactDivAttr } from '../../../typings/shared';
 
-interface InheritedProps extends Omit<ReactDivAttr, "hidden"> { }
+interface InheritedProps extends Omit<ReactDivAttr, 'hidden'> {}
 
 export interface TabContentProps extends InheritedProps {
-    selected?: boolean,
+    selected?: boolean;
 }
 
 declare const TabContent: React.FC<TabContentProps>;

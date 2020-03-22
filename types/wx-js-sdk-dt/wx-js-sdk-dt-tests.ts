@@ -5,61 +5,57 @@ wx.config({
     timestamp: 123,
     nonceStr: '',
     signature: '',
-    jsApiList: ['']
+    jsApiList: [''],
 });
 
-wx.ready(() => {
-});
+wx.ready(() => {});
 
-wx.error((res: any) => {
-});
+wx.error((res: any) => {});
 
 wx.checkJsApi({
     jsApiList: [''],
-    success: res => {
+    success: (res) => {
         res.checkResult;
         if (res.errMsg) {
             res.errMsg.msg;
         }
     },
-    complete: () => {
-    }
+    complete: () => {},
 });
 
 wx.onMenuShareAppMessage({
     desc: '',
     title: '',
     link: '',
-    imgUrl: ''
+    imgUrl: '',
 });
 
 wx.onMenuShareTimeline({
     title: '',
-    link: ''
+    link: '',
 });
 
-wx.scanQRCode({
-});
+wx.scanQRCode({});
 
 wx.closeWindow();
 
 wx.downloadImage({
-    serverId: ''
+    serverId: '',
 });
 
 wx.addCard({
     cardList: [
         {
             cardId: '',
-            cardExt: ''
-        }
-    ]
+            cardExt: '',
+        },
+    ],
 });
 
 wx.chooseImage({
     success: (res) => {
         res.localIds;
-    }
+    },
 });
 
 wx.chooseWXPay({
@@ -69,7 +65,7 @@ wx.chooseWXPay({
     paySign: '',
     success: () => {},
     cancel: () => {},
-    fail: () => {}
+    fail: () => {},
 });
 
 wx.getLocation({
@@ -80,7 +76,7 @@ wx.getLocation({
             res.longitude;
             res.speed;
         }
-    }
+    },
 });
 
 wx.getNetworkType((res) => {
@@ -90,7 +86,7 @@ wx.getNetworkType((res) => {
 });
 
 wx.hideMenuItems({
-    menuList: []
+    menuList: [],
 });
 
 wx.hideAllNonBaseMenuItem();
@@ -98,18 +94,18 @@ wx.hideAllNonBaseMenuItem();
 wx.onMenuShareQQ({
     title: '',
     link: '',
-    desc: ''
+    desc: '',
 });
 
 wx.openLocation({
     name: '',
     latitude: 123.2,
-    longitude: -12.23
+    longitude: -12.23,
 });
 
 wx.openProductSpecificView({
     productId: '1',
-    viewType: 0
+    viewType: 0,
 });
 
 wx.chooseCard({
@@ -119,7 +115,7 @@ wx.chooseCard({
     cardSign: '',
     nonceStr: '',
     timestamp: 1,
-    signType: ''
+    signType: '',
 });
 
 wx.onVoiceRecordEnd((res) => {
@@ -131,7 +127,7 @@ wx.onVoicePlayEnd((res) => {
 });
 
 wx.openProductSpecificView({
-    productId: ''
+    productId: '',
 });
 
 wx.updateAppMessageShareData({
@@ -139,14 +135,13 @@ wx.updateAppMessageShareData({
     desc: '',
     link: '',
     imgUrl: '',
-    success: () => {
-    }
+    success: () => {},
 });
 
 wx.updateTimelineShareData({
     title: '',
     link: '',
-    imgUrl: ''
+    imgUrl: '',
 });
 
 wx.openAddress({

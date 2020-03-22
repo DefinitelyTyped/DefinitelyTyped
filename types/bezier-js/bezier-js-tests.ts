@@ -1,5 +1,4 @@
 function test() {
-
     var bezierjs: typeof BezierJs;
 
     var bezier = new bezierjs.Bezier([1, 2, 3, 4]);
@@ -8,7 +7,7 @@ function test() {
     var utils = bezier.getUtils();
     var line: BezierJs.Line = { p1: { x: 0, y: 0 }, p2: { x: 1, y: 1 } };
     var abc: BezierJs.ABC = { A: null, B: null, C: null };
-    var arc: BezierJs.Arc = { e: 0, s: 0, x: 0, y: 0, r: 1, interval:{ start: 0, end: 1 } };
+    var arc: BezierJs.Arc = { e: 0, s: 0, x: 0, y: 0, r: 1, interval: { start: 0, end: 1 } };
     var bbox: BezierJs.BBox = bezier.bbox();
     var closest: BezierJs.Closest = { mdist: 1, mpos: 0 };
     var inflection: BezierJs.Inflection = { values: null, x: [0], y: [0], z: [0] };
@@ -18,18 +17,40 @@ function test() {
     var poly: BezierJs.PolyBezier = bezier.outline(1);
     var projection: BezierJs.Projection = { x: 0, y: 0, t: 9, d: 4 };
     var shape: BezierJs.Shape = {
-        startcap: cap, endcap: cap, forward: bezier, back: bezier, bbox: bbox, intersections: function (shape) { return [[0]]; }
+        startcap: cap,
+        endcap: cap,
+        forward: bezier,
+        back: bezier,
+        bbox: bbox,
+        intersections: function (shape) {
+            return [[0]];
+        },
     };
     var split: BezierJs.Split = { left: bezier, right: bezier, span: [point] };
-    var quadratic: BezierJs.Bezier = BezierJs.Bezier.quadraticFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }, 0.5);
-    var quadratic: BezierJs.Bezier = BezierJs.Bezier.quadraticFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 });
-    var cubic: BezierJs.Bezier = BezierJs.Bezier.cubicFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }, 0.5, 2);
+    var quadratic: BezierJs.Bezier = BezierJs.Bezier.quadraticFromPoints(
+        { x: 0, y: 0 },
+        { x: 1, y: 1 },
+        { x: 2, y: 2 },
+        0.5,
+    );
+    var quadratic: BezierJs.Bezier = BezierJs.Bezier.quadraticFromPoints(
+        { x: 0, y: 0 },
+        { x: 1, y: 1 },
+        { x: 2, y: 2 },
+    );
+    var cubic: BezierJs.Bezier = BezierJs.Bezier.cubicFromPoints(
+        { x: 0, y: 0 },
+        { x: 1, y: 1 },
+        { x: 2, y: 2 },
+        0.5,
+        2,
+    );
     var cubic: BezierJs.Bezier = BezierJs.Bezier.cubicFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }, 0.5);
     var cubic: BezierJs.Bezier = BezierJs.Bezier.cubicFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 });
 
     bezier.arcs();
     bezier.clockwise;
-    bezier.compute(.5);
+    bezier.compute(0.5);
     bezier.computedirection();
     bezier.curveintersects([bezier], [bezier]);
     bezier.derivative(0);
@@ -71,8 +92,8 @@ function test() {
     utils.abcratio(0, 1);
     utils.align([point], line);
     utils.angle(point, point, point);
-    utils.approximately(5, 7, .001);
-    utils.arcfn(1, function () { });
+    utils.approximately(5, 7, 0.001);
+    utils.arcfn(1, function () {});
     utils.bboxoverlap(bbox, bbox);
     utils.between(0, 0, 1);
     utils.closest([point], point);
@@ -83,7 +104,7 @@ function test() {
     utils.findbbox([bezier]);
     utils.getccenter(point, point, point);
     utils.getminmax(bezier, 'x', [0]);
-    utils.length(function () { });
+    utils.length(function () {});
     utils.lerp(1, point, point);
     utils.lli(offset, offset);
     utils.lli4(point, point, point, point);
@@ -95,7 +116,6 @@ function test() {
     utils.pointsToString([point]);
     utils.projectionratio(0, 0);
     utils.roots([point], line);
-    utils.round(.999, .001);
+    utils.round(0.999, 0.001);
     utils.shapeintersections(shape, bbox, shape, bbox);
-
 }

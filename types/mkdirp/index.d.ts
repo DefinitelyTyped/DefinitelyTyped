@@ -28,7 +28,7 @@ import fs = require('fs');
  * `opts.stat` or `opts.mkdir`, or providing an fs option that only overrides one
  * of these.
  */
-declare function mkdirp(dir: string, opts?: mkdirp.Mode | mkdirp.Options): Promise<string|undefined>;
+declare function mkdirp(dir: string, opts?: mkdirp.Mode | mkdirp.Options): Promise<string | undefined>;
 
 declare namespace mkdirp {
     type Mode = number | string | undefined;
@@ -65,34 +65,34 @@ declare namespace mkdirp {
      * or providing an fs option that only overrides one of these.
      * @returns Returns the first directory that had to be created, or undefined if everything already exists.
      */
-    function sync(dir: string, opts?: Mode | Options): string|undefined;
+    function sync(dir: string, opts?: Mode | Options): string | undefined;
 
     /**
      * Use the manual implementation (not the native one). This is the default
      * when the native implementation is not available or the stat/mkdir
      * implementation is overridden.
      */
-    function manual(dir: string, opts?: Mode | Options): Promise<string|undefined>;
+    function manual(dir: string, opts?: Mode | Options): Promise<string | undefined>;
 
     /**
      * Use the manual implementation (not the native one). This is the default
      * when the native implementation is not available or the stat/mkdir
      * implementation is overridden.
      */
-    function manualSync(dir: string, opts?: Mode | Options): string|undefined;
+    function manualSync(dir: string, opts?: Mode | Options): string | undefined;
 
     /**
      * Use the native implementation (not the manual one). This is the default
      * when the native implementation is available and stat/mkdir are not
      * overridden.
      */
-    function native(dir: string, opts?: Mode | Options): Promise<string|undefined>;
+    function native(dir: string, opts?: Mode | Options): Promise<string | undefined>;
 
     /**
      * Use the native implementation (not the manual one). This is the default
      * when the native implementation is available and stat/mkdir are not
      * overridden.
      */
-    function nativeSync(dir: string, opts?: Mode | Options): string|undefined;
+    function nativeSync(dir: string, opts?: Mode | Options): string | undefined;
 }
 export = mkdirp;

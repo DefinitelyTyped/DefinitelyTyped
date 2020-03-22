@@ -8,10 +8,10 @@
 
 /// <reference types="ace" />
 
-import { Ajv } from "ajv";
+import { Ajv } from 'ajv';
 
 declare module 'jsoneditor' {
-    type JSONPath = (string|number)[];
+    type JSONPath = (string | number)[];
 
     export interface Node {
         field: string;
@@ -23,7 +23,7 @@ declare module 'jsoneditor' {
 
     export interface NodeName {
         path: ReadonlyArray<string>;
-        type: 'object'|'array';
+        type: 'object' | 'array';
         size: number;
     }
 
@@ -40,11 +40,14 @@ declare module 'jsoneditor' {
         value: any;
     }
 
-    export type AutoCompleteCompletion = null|string[]|{startFrom: number, options: string[]};
+    export type AutoCompleteCompletion = null | string[] | { startFrom: number; options: string[] };
 
     export type AutoCompleteOptionsGetter = (
-        text: string, path: JSONPath, input: string, editor: JSONEditor,
-    ) => AutoCompleteCompletion|Promise<AutoCompleteCompletion>;
+        text: string,
+        path: JSONPath,
+        input: string,
+        editor: JSONEditor,
+    ) => AutoCompleteCompletion | Promise<AutoCompleteCompletion>;
 
     export interface AutoCompleteOptions {
         /**
@@ -82,11 +85,11 @@ declare module 'jsoneditor' {
         onChange?: () => void;
         onChangeJSON?: (json: any) => void;
         onChangeText?: (jsonString: string) => void;
-        onEditable?: (node: Node) => boolean|{field: boolean, value: boolean};
+        onEditable?: (node: Node) => boolean | { field: boolean; value: boolean };
         onError?: (error: Error) => void;
         onModeChange?: (newMode: JSONEditorMode, oldMode: JSONEditorMode) => void;
-        onNodeName?: (nodeName: NodeName) => string|undefined;
-        onValidate?: (json: any) => ValidationError[]|Promise<ValidationError[]>;
+        onNodeName?: (nodeName: NodeName) => string | undefined;
+        onValidate?: (json: any) => ValidationError[] | Promise<ValidationError[]>;
         /**
          * @default false
          */
@@ -164,7 +167,6 @@ declare module 'jsoneditor' {
          * @default 100
          */
         maxVisibleChilds?: number;
-
     }
 
     export default class JSONEditor {
@@ -175,17 +177,17 @@ declare module 'jsoneditor' {
         focus(): void;
         get(): any;
         getMode(): JSONEditorMode;
-        getName(): string|undefined;
-        getNodesByRange(start: {path: JSONPath}, end: {path: JSONPath}): Array<SerializableNode>;
-        getSelection(): {start: SerializableNode, end: SerializableNode};
+        getName(): string | undefined;
+        getNodesByRange(start: { path: JSONPath }, end: { path: JSONPath }): Array<SerializableNode>;
+        getSelection(): { start: SerializableNode; end: SerializableNode };
         getText(): string;
-        getTextSelection(): {start: SelectionPosition, end: SelectionPosition, text: string};
+        getTextSelection(): { start: SelectionPosition; end: SelectionPosition; text: string };
         refresh(): void;
         set(json: any): void;
         setMode(mode: JSONEditorMode): void;
         setName(name?: string): void;
         setSchema(schema: object, schemaRefs?: object): void;
-        setSelection(start: {path: JSONPath}, end: {path: JSONPath}): void;
+        setSelection(start: { path: JSONPath }, end: { path: JSONPath }): void;
         setText(jsonString: string): void;
         setTextSelection(start: SelectionPosition, end: SelectionPosition): void;
         update(json: any): void;

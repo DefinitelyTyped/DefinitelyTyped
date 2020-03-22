@@ -1,7 +1,7 @@
-import _ = require("../index");
+import _ = require('../index');
 // tslint:disable-next-line:strict-export-declare-modifiers
 type GlobalFunction = Function;
-declare module "../index" {
+declare module '../index' {
     type FunctionBase = GlobalFunction;
     interface LoDashStatic {
         /**
@@ -114,7 +114,9 @@ declare module "../index" {
         /**
          * @see _.cloneWith
          */
-        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<TValue, TResult>): TResult;
+        cloneWith<TResult extends object | string | number | boolean | null>(
+            customizer: CloneWithCustomizer<TValue, TResult>,
+        ): TResult;
         /**
          * @see _.cloneWith
          */
@@ -144,7 +146,9 @@ declare module "../index" {
         /**
          * @see _.cloneWith
          */
-        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<TValue, TResult>): ExpChain<TResult>;
+        cloneWith<TResult extends object | string | number | boolean | null>(
+            customizer: CloneWithCustomizer<TValue, TResult>,
+        ): ExpChain<TResult>;
         /**
          * @see _.cloneWith
          */
@@ -164,7 +168,12 @@ declare module "../index" {
          */
         cloneDeep<T>(value: T): T;
     }
-    type CloneDeepWithCustomizer<TObject> = (value: any, key: number | string | undefined, object: TObject | undefined, stack: any) => any;
+    type CloneDeepWithCustomizer<TObject> = (
+        value: any,
+        key: number | string | undefined,
+        object: TObject | undefined,
+        stack: any,
+    ) => any;
     interface LoDashStatic {
         /**
          * This method is like _.cloneWith except that it recursively clones value.
@@ -179,7 +188,12 @@ declare module "../index" {
          */
         cloneDeepWith<T>(value: T): T;
     }
-    type CloneWithCustomizer<TValue, TResult> = (value: TValue, key: number | string | undefined, object: any, stack: any) => TResult;
+    type CloneWithCustomizer<TValue, TResult> = (
+        value: TValue,
+        key: number | string | undefined,
+        object: any,
+        stack: any,
+    ) => TResult;
     interface LoDashStatic {
         /**
          * This method is like _.clone except that it accepts customizer which is invoked to produce the cloned value.
@@ -189,7 +203,10 @@ declare module "../index" {
          * @param customizer The function to customize cloning.
          * @return Returns the cloned value.
          */
-        cloneWith<T, TResult extends object | string | number | boolean | null>(value: T, customizer: CloneWithCustomizer<T, TResult>): TResult;
+        cloneWith<T, TResult extends object | string | number | boolean | null>(
+            value: T,
+            customizer: CloneWithCustomizer<T, TResult>,
+        ): TResult;
         /**
          * @see _.cloneWith
          */
@@ -454,7 +471,9 @@ declare module "../index" {
         /**
          * @see _.isArrayLikeObject
          */
-        isArrayLikeObject(value: ((...args: any[]) => any) | FunctionBase | string | boolean | number | null | undefined): value is never;
+        isArrayLikeObject(
+            value: ((...args: any[]) => any) | FunctionBase | string | boolean | number | null | undefined,
+        ): value is never;
         /**
          * @see _.isArrayLikeObject
          */
@@ -625,7 +644,14 @@ declare module "../index" {
         isEqual(other: any): PrimitiveChain<boolean>;
     }
 
-    type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean | undefined;
+    type IsEqualCustomizer = (
+        value: any,
+        other: any,
+        indexOrKey: PropertyName | undefined,
+        parent: any,
+        otherParent: any,
+        stack: any,
+    ) => boolean | undefined;
     interface LoDashStatic {
         /**
          * This method is like `_.isEqual` except that it accepts `customizer` which is
@@ -875,7 +901,13 @@ declare module "../index" {
         isMatch(source: object): PrimitiveChain<boolean>;
     }
 
-    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean;
+    type isMatchWithCustomizer = (
+        value: any,
+        other: any,
+        indexOrKey: PropertyName,
+        object: object,
+        source: object,
+    ) => boolean;
     interface LoDashStatic {
         /**
          * This method is like `_.isMatch` except that it accepts `customizer` which
@@ -1407,7 +1439,7 @@ declare module "../index" {
          * @param value The value to convert.
          * @return Returns the converted array.
          */
-        toArray<T>(value:  Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
+        toArray<T>(value: Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
         /**
          * @see _.toArray
          */

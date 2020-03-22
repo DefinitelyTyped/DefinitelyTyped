@@ -20,8 +20,11 @@ declare namespace slocket {
     interface Slocket extends EventEmitter {
         then<TResult1 = Lock, TResult2 = never>(
             onfulfilled?: ((value: Lock) => TResult1 | PromiseLike<TResult1>) | null,
-            onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): Promise<TResult1 | TResult2>;
-        catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null): Promise<Lock | TResult>;
+            onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
+        ): Promise<TResult1 | TResult2>;
+        catch<TResult = never>(
+            onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
+        ): Promise<Lock | TResult>;
     }
 
     interface Lock {

@@ -19,9 +19,7 @@ const config: RouterGuardConfigProps[] = [
 
 const RouterGuardTest = () => (
     <>
-        <RouterGuard
-            config={config}
-        />
+        <RouterGuard config={config} />
     </>
 );
 

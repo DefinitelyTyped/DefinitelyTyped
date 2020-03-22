@@ -3,55 +3,49 @@ import * as angular from 'angular';
 var app = angular.module('testModule', ['ngDialog']);
 
 class DialogTestController {
+    constructor(ngDialog: angular.dialog.IDialogService) {
+        ngDialog.close('login-popup', 'bye');
+        ngDialog.closeAll('bye');
 
-	constructor(ngDialog: angular.dialog.IDialogService) {
+        var defaults = ngDialog.getDefaults();
 
-		ngDialog.close("login-popup", "bye");
-		ngDialog.closeAll("bye");
+        var dialogs = ngDialog.getOpenDialogs();
 
-		var defaults = ngDialog.getDefaults();
+        ngDialog.isOpen('bye');
 
-		var dialogs = ngDialog.getOpenDialogs();
+        var loginDialog = ngDialog.open({
+            template: 'login.html',
+            className: 'default flat-ui',
+            closeByEscape: false,
+            data: 'string',
+            disableAnimation: false,
+            name: 'login-popup',
+        });
 
-		ngDialog.isOpen("bye");
+        loginDialog.closePromise.then((result) => {
+            var val: any = result.value;
+        });
 
-		var loginDialog = ngDialog.open({
-			template: "login.html",
-			className: "default flat-ui",
-			closeByEscape: false,
-			data: "string",
-			disableAnimation: false,
-			name: "login-popup"
-		});
+        if (loginDialog.id === 'login-popup') {
+            loginDialog.close('closing');
+        }
 
-		loginDialog.closePromise.then((result) => {
-			var val: any = result.value;
-		});
-
-		if (loginDialog.id === "login-popup") {
-			loginDialog.close("closing");
-		}
-
-		var deleteConfirm = ngDialog.openConfirm({
-			template: "confirm.html"
-		});
-	}
+        var deleteConfirm = ngDialog.openConfirm({
+            template: 'confirm.html',
+        });
+    }
 }
 
 class LoginDialogController {
-
-	constructor($scope:angular.dialog.IDialogScope) {
-
-		$scope.closeThisDialog("bye");
-	}
+    constructor($scope: angular.dialog.IDialogScope) {
+        $scope.closeThisDialog('bye');
+    }
 }
 
 app.controller('TestController', DialogTestController);
 
 app.config((ngDialogProvider: angular.dialog.IDialogProvider) => {
-
-	ngDialogProvider.setDefaults({
-		className: "flat-ui"
-	})
-
+    ngDialogProvider.setDefaults({
+        className: 'flat-ui',
+    });
 });

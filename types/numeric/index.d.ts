@@ -146,10 +146,7 @@ interface Numeric {
     rep<T>(scale: Vector, value: T, key?: number): MultidimensionalArray<T>;
 
     // 	Matrix-Matrix, Matrix-Vector, Vector-Matrix and Vector-Vector product
-    dot(
-        x: Vector | Matrix | Scalar,
-        y: Vector | Matrix | Scalar
-    ): Vector | Matrix | Scalar;
+    dot(x: Vector | Matrix | Scalar, y: Vector | Matrix | Scalar): Vector | Matrix | Scalar;
     dotMMsmall(x: Matrix, y: Matrix): Matrix;
     dotMMbig(x: Matrix, y: Matrix): Matrix;
     dotMV(x: Matrix, y: Vector): Vector;
@@ -266,15 +263,11 @@ interface Numeric {
     // Pointwise logical negation !x
     not(x: NonNullPrimitive): boolean;
     not(x: NonNullPrimitive[]): VectorBoolean;
-    not(
-        x: MultidimensionalArray<NonNullPrimitive>
-    ): MultidimensionalArray<boolean>;
+    not(x: MultidimensionalArray<NonNullPrimitive>): MultidimensionalArray<boolean>;
     notV(x: NonNullPrimitive[]): VectorBoolean;
     noteq(x: NonNullPrimitive): boolean;
     noteq(x: NonNullPrimitive[]): VectorBoolean;
-    noteq(
-        x: MultidimensionalArray<NonNullPrimitive>
-    ): MultidimensionalArray<boolean>;
+    noteq(x: MultidimensionalArray<NonNullPrimitive>): MultidimensionalArray<boolean>;
     noteqV(x: NonNullPrimitive[]): VectorBoolean;
 
     // Pointwise binary negation ~x
@@ -284,43 +277,19 @@ interface Numeric {
     bnoteqV(x: Vector): Vector;
 
     // Deep copy of Array
-    clone<
-        T extends NonNullPrimitive[] | MultidimensionalArray<NonNullPrimitive>
-        >(
-        x: T
-    ): T;
+    clone<T extends NonNullPrimitive[] | MultidimensionalArray<NonNullPrimitive>>(x: T): T;
     cloneV(x: NonNullPrimitive[]): NonNullPrimitive[];
     cloneeq(x: NonNullPrimitive[]): NonNullPrimitive[];
-    cloneeq<
-        T extends NonNullPrimitive[] | MultidimensionalArray<NonNullPrimitive>
-        >(
-        x: T
-    ): T;
+    cloneeq<T extends NonNullPrimitive[] | MultidimensionalArray<NonNullPrimitive>>(x: T): T;
     cloneeqV(x: NonNullPrimitive[]): NonNullPrimitive[];
 
     // Pointwise sum x+y
     add(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    add(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    add<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<T | Scalar>
-    ): T;
-    "+"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "+"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "+"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    add(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    add<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<T | Scalar>): T;
+    '+'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '+'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '+'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     addVV(x: Vector, y: Vector): Vector;
     addSV(x: Scalar, y: Vector): Vector;
     addVS(x: Vector, y: Scalar): Vector;
@@ -330,27 +299,11 @@ interface Numeric {
 
     // Pointwise x-y
     sub(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    sub(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    sub<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
-    "-"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "-"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "-"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    sub(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    sub<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
+    '-'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '-'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '-'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     subVV(x: Vector, y: Vector): Vector;
     subSV(x: Scalar, y: Vector): Vector;
     subVS(x: Vector, y: Scalar): Vector;
@@ -360,27 +313,11 @@ interface Numeric {
 
     // Pointwise x*y
     mul(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    mul(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    mul<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
-    "*"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "*"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "*"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    mul(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    mul<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
+    '*'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '*'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '*'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     mulVV(x: Vector, y: Vector): Vector;
     mulSV(x: Scalar, y: Vector): Vector;
     mulVS(x: Vector, y: Scalar): Vector;
@@ -390,27 +327,11 @@ interface Numeric {
 
     // Pointwise x/y
     div(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    div(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    div<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
-    "/"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "/"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "/"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    div(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    div<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
+    '/'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '/'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '/'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     divVV(x: Vector, y: Vector): Vector;
     divSV(x: Scalar, y: Vector): Vector;
     divVS(x: Vector, y: Scalar): Vector;
@@ -420,27 +341,11 @@ interface Numeric {
 
     // Pointwise x%y
     mod(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    mod(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    mod<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
-    "%"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "%"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "%"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    mod(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    mod<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
+    '%'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '%'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '%'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     modVV(x: Vector, y: Vector): Vector;
     modSV(x: Scalar, y: Vector): Vector;
     modVS(x: Vector, y: Scalar): Vector;
@@ -450,27 +355,11 @@ interface Numeric {
 
     // Pointwise x && y
     and(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    and(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    and<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
-    "&&"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "&&"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "&&"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    and(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    and<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
+    '&&'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '&&'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '&&'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     andVV(x: Vector, y: Vector): Vector;
     andSV(x: Scalar, y: Vector): Vector;
     andVS(x: Vector, y: Scalar): Vector;
@@ -480,27 +369,11 @@ interface Numeric {
 
     // 	Pointwise logical or x||y
     or(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    or(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    or<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
-    "||"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "||"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "||"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    or(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    or<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
+    '||'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '||'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '||'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     orVV(x: Vector, y: Vector): Vector;
     orSV(x: Scalar, y: Vector): Vector;
     orVS(x: Vector, y: Scalar): Vector;
@@ -511,16 +384,10 @@ interface Numeric {
     // Pointwise comparison x === y
     eq(x: Scalar, y: Scalar): boolean;
     eq(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    eq(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
-    "==="(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
-    "==="(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    "==="(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
+    eq(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
+    '==='(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
+    '==='(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
+    '==='(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
     eqVV(x: Vector, y: Vector): VectorBoolean;
     eqSV(x: Scalar, y: Vector): VectorBoolean;
     eqVS(x: Vector, y: Scalar): VectorBoolean;
@@ -531,16 +398,10 @@ interface Numeric {
     // Pointwise x!==y
     neq(x: Scalar, y: Scalar): boolean;
     neq(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    neq(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
-    "!=="(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
-    "!=="(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    "!=="(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
+    neq(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
+    '!=='(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
+    '!=='(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
+    '!=='(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
     neqVV(x: Vector, y: Vector): VectorBoolean;
     neqSV(x: Scalar, y: Vector): VectorBoolean;
     neqVS(x: Vector, y: Scalar): VectorBoolean;
@@ -551,16 +412,10 @@ interface Numeric {
     // Pointwise x<y
     lt(x: Scalar, y: Scalar): boolean;
     lt(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    lt(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
-    "<"(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
-    "<"(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    "<"(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
+    lt(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
+    '<'(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
+    '<'(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
+    '<'(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
     ltVV(x: Vector, y: Vector): VectorBoolean;
     ltSV(x: Scalar, y: Vector): VectorBoolean;
     ltVS(x: Vector, y: Scalar): VectorBoolean;
@@ -571,16 +426,10 @@ interface Numeric {
     // Pointwise x>y
     gt(x: Scalar, y: Scalar): boolean;
     gt(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    gt(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
-    ">"(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
-    ">"(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    ">"(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
+    gt(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
+    '>'(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
+    '>'(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
+    '>'(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
     gtVV(x: Vector, y: Vector): VectorBoolean;
     gtSV(x: Scalar, y: Vector): VectorBoolean;
     gtVS(x: Vector, y: Scalar): VectorBoolean;
@@ -591,16 +440,10 @@ interface Numeric {
     // Pointwise x<=y
     leq(x: Scalar, y: Scalar): boolean;
     leq(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    leq(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
-    "<="(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
-    "<="(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    "<="(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
+    leq(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
+    '<='(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
+    '<='(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
+    '<='(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
     leqVV(x: Vector, y: Vector): VectorBoolean;
     leqSV(x: Scalar, y: Vector): VectorBoolean;
     leqVS(x: Vector, y: Scalar): VectorBoolean;
@@ -611,16 +454,10 @@ interface Numeric {
     // Pointwise x>=y
     geq(x: Scalar, y: Scalar): boolean;
     geq(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    geq(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
-    ">="(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
-    ">="(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
-    ">="(
-        x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
-    ): MultidimensionalArray<boolean>;
+    geq(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
+    '>='(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
+    '>='(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
+    '>='(x: MultidimensionalMatrix, y: MultidimensionalMatrix): MultidimensionalArray<boolean>;
     geqVV(x: Vector, y: Vector): VectorBoolean;
     geqSV(x: Scalar, y: Vector): VectorBoolean;
     geqVS(x: Vector, y: Scalar): VectorBoolean;
@@ -630,27 +467,11 @@ interface Numeric {
 
     // Pointwise x & y
     band(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    band(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    band<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
-    "&"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "&"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "&"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    band(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    band<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
+    '&'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '&'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '&'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     bandVV(x: Vector, y: Vector): Vector;
     bandSV(x: Scalar, y: Vector): Vector;
     bandVS(x: Vector, y: Scalar): Vector;
@@ -660,27 +481,11 @@ interface Numeric {
 
     // Pointwise binary or x|y
     bor(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    bor(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    bor<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
-    "|"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "|"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "|"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    bor(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    bor<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
+    '|'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '|'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '|'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     borVV(x: Vector, y: Vector): Vector;
     borSV(x: Scalar, y: Vector): Vector;
     borVS(x: Vector, y: Scalar): Vector;
@@ -690,27 +495,11 @@ interface Numeric {
 
     // Pointwise binary xor x^y
     bxor(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    bxor(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    bxor<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
-    "^"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "^"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "^"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    bxor(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    bxor<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
+    '^'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '^'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '^'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     bxorVV(x: Vector, y: Vector): Vector;
     bxorSV(x: Scalar, y: Vector): Vector;
     bxorVS(x: Vector, y: Scalar): Vector;
@@ -720,27 +509,11 @@ interface Numeric {
 
     // Pointwise x<<y
     lshift(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    lshift(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    lshift<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<T | Scalar>
-    ): T;
-    "<<"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    "<<"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    "<<"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    lshift(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    lshift<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<T | Scalar>): T;
+    '<<'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '<<'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '<<'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     lshiftVV(x: Vector, y: Vector): Vector;
     lshiftSV(x: Scalar, y: Vector): Vector;
     lshiftVS(x: Vector, y: Scalar): Vector;
@@ -750,27 +523,11 @@ interface Numeric {
 
     // Pointwise x>>y
     rshift(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    rshift(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    rshift<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<T | Scalar>
-    ): T;
-    ">>"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    ">>"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    ">>"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    rshift(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    rshift<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<T | Scalar>): T;
+    '>>'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '>>'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '>>'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     rshiftVV(x: Vector, y: Vector): Vector;
     rshiftSV(x: Scalar, y: Vector): Vector;
     rshiftVS(x: Vector, y: Scalar): Vector;
@@ -780,27 +537,11 @@ interface Numeric {
 
     // Pointwise x>>>y
     rrshift(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    rrshift(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    rrshift<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<T | Scalar>
-    ): T;
-    ">>>"(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    ">>>"(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    ">>>"<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<T | Scalar>
-    ): T;
+    rrshift(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    rrshift<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<T | Scalar>): T;
+    '>>>'(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
+    '>>>'(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    '>>>'<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<T | Scalar>): T;
     rrshiftVV(x: Vector, y: Vector): Vector;
     rrshiftSV(x: Scalar, y: Vector): Vector;
     rrshiftVS(x: Vector, y: Scalar): Vector;
@@ -810,16 +551,8 @@ interface Numeric {
 
     // Pointwise	arc-tangent (two parameters)
     atan2(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    atan2(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    atan2<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<T | Scalar>
-    ): T;
+    atan2(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    atan2<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<T | Scalar>): T;
     atan2VV(x: Vector, y: Vector): Vector;
     atan2SV(x: Scalar, y: Vector): Vector;
     atan2VS(x: Vector, y: Scalar): Vector;
@@ -829,16 +562,8 @@ interface Numeric {
 
     // Pointwise x**y
     pow(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    pow(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    pow<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    pow(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    pow<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     powVV(x: Vector, y: Vector): Vector;
     powSV(x: Scalar, y: Vector): Vector;
     powVS(x: Vector, y: Scalar): Vector;
@@ -848,16 +573,8 @@ interface Numeric {
 
     // Pointwise max(x,y)
     max(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    max(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    max<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    max(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    max<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     maxVV(x: Vector, y: Vector): Vector;
     maxSV(x: Scalar, y: Vector): Vector;
     maxVS(x: Vector, y: Scalar): Vector;
@@ -867,16 +584,8 @@ interface Numeric {
 
     // Pointwise min(x,y)
     min(x: Scalar, y: Scalar, ...args: Scalar[]): Scalar;
-    min(
-        x: Scalar | Vector,
-        y: Scalar | Vector,
-        ...args: Array<Scalar | Vector>
-    ): Vector;
-    min<T extends MultidimensionalMatrix>(
-        x: T,
-        y: T | Scalar,
-        ...args: Array<Scalar | T>
-    ): T;
+    min(x: Scalar | Vector, y: Scalar | Vector, ...args: Array<Scalar | Vector>): Vector;
+    min<T extends MultidimensionalMatrix>(x: T, y: T | Scalar, ...args: Array<Scalar | T>): T;
     minVV(x: Vector, y: Vector): Vector;
     minSV(x: Scalar, y: Vector): Vector;
     minVS(x: Vector, y: Scalar): Vector;
@@ -941,18 +650,9 @@ interface Numeric {
     // Generate evenly spaced values
     linspace(from: number, to: number, numberOfValues?: number): Vector;
     // Extract a block from a matrix
-    getBlock<T extends MultidimensionalMatrix>(
-        x: T,
-        from: Vector,
-        to: Vector
-    ): T;
+    getBlock<T extends MultidimensionalMatrix>(x: T, from: Vector, to: Vector): T;
     // Set a block of a matrix
-    setBlock<T extends MultidimensionalMatrix>(
-        x: T,
-        from: Vector,
-        to: Vector,
-        b: T
-    ): T;
+    setBlock<T extends MultidimensionalMatrix>(x: T, from: Vector, to: Vector, b: T): T;
     // create two-dimensional matrix
     blockMatrix(x: Scalar | Vector | MultidimensionalMatrix): Matrix;
     // x * y
@@ -972,21 +672,11 @@ interface Numeric {
     // Compressed Column Storage matrices
     ccsSparse(matrix: Matrix): SparseMatrix;
     ccsFull(matrix: SparseMatrix): Matrix;
-    ccsTSolve(
-        matrix: SparseMatrix,
-        b: Vector,
-        x?: Vector,
-        bj?: Vector,
-        xj?: Vector
-    ): Vector;
+    ccsTSolve(matrix: SparseMatrix, b: Vector, x?: Vector, bj?: Vector, xj?: Vector): Vector;
     ccsDot(A: SparseMatrix, B: SparseMatrix): SparseMatrix;
     ccsLUP(matrix: SparseMatrix, threshold?: number): LUPP;
     ccsDim(matrix: SparseMatrix): Vector;
-    ccsGetBlock(
-        matrix: SparseMatrix,
-        i?: Vector | Scalar,
-        j?: Vector | Scalar
-    ): SparseMatrix;
+    ccsGetBlock(matrix: SparseMatrix, i?: Vector | Scalar, j?: Vector | Scalar): SparseMatrix;
     ccsLUPSolve(lup: LUPP, B: SparseMatrix): Vector;
     ccsScatter(matrix: SparseMatrix): SparseMatrix;
     ccsGather(matrix: SparseMatrix): SparseMatrix;
@@ -1078,26 +768,17 @@ interface Numeric {
     /** @deprecated */
     stranspose(matrix: DeprecatedSparseMatrix): DeprecatedSparseMatrix;
     /** @deprecated */
-    sdotMM(
-        a: DeprecatedSparseMatrix,
-        b: DeprecatedSparseMatrix
-    ): DeprecatedSparseMatrix;
+    sdotMM(a: DeprecatedSparseMatrix, b: DeprecatedSparseMatrix): DeprecatedSparseMatrix;
     /** @deprecated */
-    sdotMV(
-        matrix: DeprecatedSparseMatrix,
-        vector: DeprecatedSparseVector
-    ): DeprecatedSparseVector;
+    sdotMV(matrix: DeprecatedSparseMatrix, vector: DeprecatedSparseVector): DeprecatedSparseVector;
     /** @deprecated */
-    sdotVM(
-        vector: DeprecatedSparseVector,
-        matrix: DeprecatedSparseMatrix
-    ): DeprecatedSparseMatrix;
+    sdotVM(vector: DeprecatedSparseVector, matrix: DeprecatedSparseMatrix): DeprecatedSparseMatrix;
     /** @deprecated */
     sdotVV(x: DeprecatedSparseVector, y: DeprecatedSparseVector): number;
     /** @deprecated */
     sdot(
         x: Scalar | DeprecatedSparseVector | DeprecatedSparseMatrix,
-        y: Scalar | DeprecatedSparseVector | DeprecatedSparseMatrix
+        y: Scalar | DeprecatedSparseVector | DeprecatedSparseMatrix,
     ): Scalar | DeprecatedSparseVector | DeprecatedSparseMatrix;
     /** @deprecated */
     sscatter(matrix: DeprecatedSparseMatrix): DeprecatedSparseMatrix;
@@ -1105,23 +786,18 @@ interface Numeric {
     sgather(
         matrix: DeprecatedSparseMatrix,
         ret?: DeprecatedSparseVector,
-        k?: DeprecatedSparseVector
+        k?: DeprecatedSparseVector,
     ): DeprecatedSparseMatrix;
 
     // Coordinate matrices
     cLU(matrix: Matrix): LU;
     cLUSolve(lu: LU, b: Vector): Vector;
-    cgrid(n: number | [number, number], shape?: "L" | ShapeFunction): Matrix;
+    cgrid(n: number | [number, number], shape?: 'L' | ShapeFunction): Matrix;
     cdelsq(g: Matrix): Matrix;
     cdotmv(matrix: Matrix, x: Vector): Vector;
 
     // Splines
-    spline(
-        x: Vector,
-        y: Vector | Matrix,
-        k1?: "periodic" | Scalar,
-        kn?: "periodic" | Scalar
-    ): Spline;
+    spline(x: Vector, y: Vector | Matrix, k1?: 'periodic' | Scalar, kn?: 'periodic' | Scalar): Spline;
 
     // Unconstrained optimisations
     uncmin(
@@ -1130,14 +806,8 @@ interface Numeric {
         tol?: number,
         gradient?: any,
         maxit?: number,
-        callback?: (
-            it: number,
-            x0: Vector,
-            f0: Scalar,
-            g0: Vector,
-            h1: Matrix
-        ) => any,
-        options?: { Hinv: Matrix }
+        callback?: (it: number, x0: Vector, f0: Scalar, g0: Vector, h1: Matrix) => any,
+        options?: { Hinv: Matrix },
     ): {
         solution: Vector;
         f: Scalar;
@@ -1156,7 +826,7 @@ interface Numeric {
         f: (x: Vector | Scalar, y: Vector | Scalar) => Vector | Scalar,
         tol?: number,
         maxit?: number,
-        event?: (x: Vector | Scalar, y: Vector | Scalar) => Vector | Scalar
+        event?: (x: Vector | Scalar, y: Vector | Scalar) => Vector | Scalar,
     ): Dopri;
 
     // Solving the linear problem Ax=b
@@ -1173,7 +843,7 @@ interface Numeric {
         Aeq?: Matrix,
         beq?: Matrix,
         tol?: number,
-        maxit?: number
+        maxit?: number,
     ): { solution: Scalar | Vector; message: string; iterations: number };
 
     solveQP(
@@ -1182,7 +852,7 @@ interface Numeric {
         Amat: Matrix,
         bvec: Vector,
         meq?: number,
-        factorized?: any
+        factorized?: any,
     ): {
         solution: Vector;
         value: Vector;

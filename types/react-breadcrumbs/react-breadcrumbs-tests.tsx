@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Breadcrumbs, Breadcrumb } from "react-breadcrumbs";
+import * as React from 'react';
+import { Breadcrumbs, Breadcrumb } from 'react-breadcrumbs';
 
 class Wrapper extends React.Component {
     render() {
@@ -19,18 +19,15 @@ class MyComponent extends React.Component {
                     className="demo__crumbs"
                     hidden
                     separator="|"
-                    setCrumbs={crumbs => null}
+                    setCrumbs={(crumbs) => null}
                     wrapper={Wrapper}
                 />
 
-                <Breadcrumbs
-                    className="demo__crumbs"
-                    wrapper={FunctionWrapper}
-                />
+                <Breadcrumbs className="demo__crumbs" wrapper={FunctionWrapper} />
 
-                <Breadcrumb data={{ title: "Dashboard", pathname: "/" }} />
+                <Breadcrumb data={{ title: 'Dashboard', pathname: '/' }} />
 
-                <Breadcrumb data={{ pathname: "/dashboard" }} hidden />
+                <Breadcrumb data={{ pathname: '/dashboard' }} hidden />
             </div>
         );
     }

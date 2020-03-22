@@ -7,7 +7,7 @@ import {
     LoggerOptions as PinoLoggerOptions,
     Logger as PinoLogger,
     Level as PinoLevel,
-    stdSerializers as pinoStdSerializers
+    stdSerializers as pinoStdSerializers,
 } from 'pino';
 import stream = require('stream');
 

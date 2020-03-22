@@ -1,4 +1,4 @@
-var el = document.createElement("div");
+var el = document.createElement('div');
 var player = new PlayerFramework.MediaPlayer(el);
 
 // Getters
@@ -146,11 +146,10 @@ player.testForMediaPack = false;
 player.volume = 50;
 player.width = '100px';
 
-
 // Methods
 player.addClass('className');
-player.addEventListener('eventName', () => { });
-player.addEventListener('eventName', () => { }, false);
+player.addEventListener('eventName', () => {});
+player.addEventListener('eventName', () => {}, false);
 player.addTextTrack('kind');
 player.addTextTrack('kind', 'label');
 player.addTextTrack('kind', 'label', 'language');
@@ -164,9 +163,8 @@ player.pause();
 player.play();
 player.playResume();
 player.removeClass('className');
-player.removeEventListener('eventName', () => { });
+player.removeEventListener('eventName', () => {});
 player.replay();
 player.retry();
 player.stop();
 player.update({});
-

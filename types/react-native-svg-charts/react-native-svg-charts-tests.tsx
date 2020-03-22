@@ -18,7 +18,7 @@ interface Props {
 }
 
 class Example extends React.Component<Props> {
-    renderStackedAreaChart = ({data, width}: Props) => (
+    renderStackedAreaChart = ({ data, width }: Props) => (
         <StackedAreaChart
             style={{ height: 200 }}
             data={data}
@@ -48,7 +48,7 @@ class Example extends React.Component<Props> {
                 scale={scaleTime}
                 contentInset={{ left: 10, right: 10 }}
                 svg={{
-                    fillOpacity: .2,
+                    fillOpacity: 0.2,
                     fill: '#fff',
                     fontFamily: 'Regular',
                     fontSize: 10,
@@ -58,39 +58,39 @@ class Example extends React.Component<Props> {
             <Grid
                 direction="BOTH"
                 ticks={[20, 40, 60, 80]}
-                x={x => x * width}
-                y={y => y * width}
+                x={(x) => x * width}
+                y={(y) => y * width}
                 svg={{
                     stroke: '#fff',
-                    strokeOpacity: .2,
+                    strokeOpacity: 0.2,
                 }}
                 belowChart={true}
             />
             <Decorators.Tooltip text="Test" />
             <Decorators.Point />
         </StackedAreaChart>
-    )
+    );
 
-    renderStackedBarChart = ({data, width}: Props) => (
+    renderStackedBarChart = ({ data, width }: Props) => (
         <StackedBarChart
-          animate={true}
-          animationDuration={250}
-          style={{ height: 100 }}
-          keys={['totalMemoryConsumption', 'privateMemoryConsumption']}
-          colors={['green', 'red']}
-          data={data}
-          horizontal={true}
-          contentInset={{ top: 10, bottom: 20 }}
+            animate={true}
+            animationDuration={250}
+            style={{ height: 100 }}
+            keys={['totalMemoryConsumption', 'privateMemoryConsumption']}
+            colors={['green', 'red']}
+            data={data}
+            horizontal={true}
+            contentInset={{ top: 10, bottom: 20 }}
         />
-    )
+    );
 
-	render() {
+    render() {
         const { data, width } = this.props;
-		return (
+        return (
             <View>
                 {this.renderStackedAreaChart(this.props)}
                 {this.renderStackedBarChart(this.props)}
             </View>
-		);
-	}
+        );
+    }
 }

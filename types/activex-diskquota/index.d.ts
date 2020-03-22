@@ -136,8 +136,14 @@ declare namespace DiskQuotaTypeLibrary {
 
 interface ActiveXObject {
     on(
-        obj: DiskQuotaTypeLibrary.DiskQuotaControl, event: 'OnUserNameChanged', argNames: ['pUser'], handler: (
-            this: DiskQuotaTypeLibrary.DiskQuotaControl, parameter: {readonly pUser: DiskQuotaTypeLibrary.DIDiskQuotaUser}) => void): void;
+        obj: DiskQuotaTypeLibrary.DiskQuotaControl,
+        event: 'OnUserNameChanged',
+        argNames: ['pUser'],
+        handler: (
+            this: DiskQuotaTypeLibrary.DiskQuotaControl,
+            parameter: { readonly pUser: DiskQuotaTypeLibrary.DIDiskQuotaUser },
+        ) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
@@ -145,5 +151,5 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: DiskQuotaTypeLibrary.DiskQuotaControl): Enumerator<DiskQuotaTypeLibrary.DIDiskQuotaUser>;
+    new (col: DiskQuotaTypeLibrary.DiskQuotaControl): Enumerator<DiskQuotaTypeLibrary.DIDiskQuotaUser>;
 }

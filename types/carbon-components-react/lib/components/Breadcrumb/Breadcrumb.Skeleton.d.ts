@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
-export interface BreadcrumbSkeletonProps { }
+export interface BreadcrumbSkeletonProps {}
 
-declare class BreadcrumbSkeleton extends React.Component<BreadcrumbSkeletonProps> { }
+declare class BreadcrumbSkeleton extends React.Component<BreadcrumbSkeletonProps> {}
 
 export default BreadcrumbSkeleton;

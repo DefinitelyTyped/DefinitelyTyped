@@ -1,4 +1,4 @@
-declare module "punycode" {
+declare module 'punycode' {
     function decode(string: string): string;
     function encode(string: string): string;
     function toUnicode(domain: string): string;

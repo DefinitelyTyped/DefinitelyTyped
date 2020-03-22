@@ -132,10 +132,7 @@ export class Line {
      */
     hasContent(): boolean;
 
-    addChordLyricsPair(
-        chords: ChordLyricsPair | string,
-        lyrics: string
-    ): ChordLyricsPair;
+    addChordLyricsPair(chords: ChordLyricsPair | string, lyrics: string): ChordLyricsPair;
     ensureChordLyricsPair(): void;
     chords(chr: string): void;
     lyrics(chr: string): void;
@@ -209,9 +206,7 @@ export class Song {
     metaData: object;
     optimizedMetaData: object;
     getOptimizedMetaData(): object;
-    optimizeMetaDataValue(
-        valueSet: string[] | undefined
-    ): string | string[] | null;
+    optimizeMetaDataValue(valueSet: string[] | undefined): string | string[] | null;
     getMetaData(name: string): string | null;
 }
 
@@ -320,10 +315,7 @@ export class TextFormatter {
     chordLyricsPairLength(chordLyricsPair: ChordLyricsPair): number;
     formatItemTop(item: Tag | ChordLyricsPair | Line): string;
     formatLineBottom(line: Line): string;
-    formatLineWithFormatter(
-        line: Line,
-        formatter: (x: string) => string
-    ): string;
+    formatLineWithFormatter(line: Line, formatter: (x: string) => string): string;
     formatItemBottom(item: Tag | ChordLyricsPair | Line): string;
 }
 

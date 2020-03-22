@@ -101,7 +101,7 @@ declare module 'leaflet' {
         class OSRMv1 implements IRouter {
             constructor(options?: OSRMOptions);
 
-            route(waypoints: Waypoint[], callback: (args?: any) => void, context?: {}, options?: RoutingOptions): void ;
+            route(waypoints: Waypoint[], callback: (args?: any) => void, context?: {}, options?: RoutingOptions): void;
             buildRouteUrl(waypoints: Waypoint[], options: RoutingOptions): string;
         }
 
@@ -196,7 +196,12 @@ declare module 'leaflet' {
 
         // tslint:disable-next-line interface-name
         interface IRouter {
-            route(waypoints: Waypoint[], callback: (error?: IError, routes?: IRoute[]) => any, context?: {}, options?: RoutingOptions): void;
+            route(
+                waypoints: Waypoint[],
+                callback: (error?: IError, routes?: IRoute[]) => any,
+                context?: {},
+                options?: RoutingOptions,
+            ): void;
         }
 
         // tslint:disable-next-line interface-name
@@ -219,8 +224,21 @@ declare module 'leaflet' {
             distance: number;
             time: number;
             text?: number;
-            type?: 'Straight' | 'SlightRight' | 'Right' | 'SharpRight' | 'TurnAround' | 'SharpLeft' | 'Left' | 'SlightLeft' | 'WaypointReached' |
-                'Roundabout' | 'StartAt' | 'DestinationReached' | 'EnterAgainstAllowedDirection' | 'LeaveAgainstAllowedDirection';
+            type?:
+                | 'Straight'
+                | 'SlightRight'
+                | 'Right'
+                | 'SharpRight'
+                | 'TurnAround'
+                | 'SharpLeft'
+                | 'Left'
+                | 'SlightLeft'
+                | 'WaypointReached'
+                | 'Roundabout'
+                | 'StartAt'
+                | 'DestinationReached'
+                | 'EnterAgainstAllowedDirection'
+                | 'LeaveAgainstAllowedDirection';
             road?: string;
             direction?: string;
             exit?: number;

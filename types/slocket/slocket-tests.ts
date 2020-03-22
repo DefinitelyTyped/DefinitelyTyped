@@ -14,12 +14,11 @@ function someMutexedThing() {
 }
 
 slocket('/path/to/filename.lock')
-    .then(lock => {
+    .then((lock) => {
         lock; // $ExpectType Lock
         lock.release();
     })
-    .catch(er => {
-    });
+    .catch((er) => {});
 
 async function fooSingleFile() {
     const lock = await slocket('foo');

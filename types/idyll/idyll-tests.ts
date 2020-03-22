@@ -1,7 +1,7 @@
-import idyll = require("idyll");
+import idyll = require('idyll');
 
 // $ExpectType IdyllInstance
 idyll({
     watch: true,
-    datasets: "."
+    datasets: '.',
 });

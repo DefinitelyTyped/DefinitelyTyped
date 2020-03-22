@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Plugin } from "postcss";
+import { Plugin } from 'postcss';
 
 declare const values: Plugin<void>;
 export = values;

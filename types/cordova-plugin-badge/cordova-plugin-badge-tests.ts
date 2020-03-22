@@ -12,5 +12,5 @@ window.cordova.plugins.notification.badge.hasPermission(callback);
 window.cordova.plugins.notification.badge.requestPermission(callback);
 window.cordova.plugins.notification.badge.get(callback);
 window.cordova.plugins.notification.badge.configure({
-    autoClear: true
+    autoClear: true,
 });

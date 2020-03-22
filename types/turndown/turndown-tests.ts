@@ -1,19 +1,22 @@
 import TurndownService = require('turndown');
 
-const replacementFunction: TurndownService.ReplacementFunction =
-    (content: string, node: TurndownService.Node, options: TurndownService.Options) => content;
+const replacementFunction: TurndownService.ReplacementFunction = (
+    content: string,
+    node: TurndownService.Node,
+    options: TurndownService.Options,
+) => content;
 
 const options: TurndownService.Options = {
-    headingStyle: "setext",
+    headingStyle: 'setext',
     hr: '',
     br: '',
-    bulletListMarker: "-",
-    codeBlockStyle: "indented",
-    emDelimiter: "_",
-    fence: "```",
-    strongDelimiter: "__",
-    linkStyle: "inlined",
-    linkReferenceStyle: "full",
+    bulletListMarker: '-',
+    codeBlockStyle: 'indented',
+    emDelimiter: '_',
+    fence: '```',
+    strongDelimiter: '__',
+    linkStyle: 'inlined',
+    linkReferenceStyle: 'full',
 
     keepReplacement: replacementFunction,
     blankReplacement: replacementFunction,

@@ -1,9 +1,9 @@
 window.onload = () => {
-    const canvas: HTMLCanvasElement = document.createElement("canvas");
-    const gl: WebGL2RenderingContext | null = canvas.getContext("webgl2", { antialias: false});
+    const canvas: HTMLCanvasElement = document.createElement('canvas');
+    const gl: WebGL2RenderingContext | null = canvas.getContext('webgl2', { antialias: false });
 
     if (gl === null) {
-        console.log("WebGL2 not available");
+        console.log('WebGL2 not available');
         return;
     }
 
@@ -17,9 +17,9 @@ window.onload = () => {
     gl.texImage3D(gl.TEXTURE_3D, 0, gl.R32F, maxsize, 13, 5, 0, gl.RED, gl.FLOAT, null);
 
     if (gl.getError() !== gl.NO_ERROR) {
-        console.log("Oh noes!");
+        console.log('Oh noes!');
     } else {
-        console.log("Success!");
+        console.log('Success!');
     }
 
     gl.deleteTexture(texture);

@@ -512,7 +512,12 @@ declare namespace Handsontable {
         /**
          * Callback fired if copyRowsLimit or copyColumnsLimit was reached.
          */
-        afterCopyLimit?: (selectedRowsCount: number, selectedColsCount: number, copyRowsLimit: number, copyColsLimit: number) => void;
+        afterCopyLimit?: (
+            selectedRowsCount: number,
+            selectedColsCount: number,
+            copyRowsLimit: number,
+            copyColsLimit: number,
+        ) => void;
 
         /**
          * A plugin hook executed after validator function, only if validator function is defined. Validation result is the first parameter. This can be used to determinate if validation passed successfully or not. You can cancel current change by returning false.
@@ -527,7 +532,14 @@ declare namespace Handsontable {
 
         afterUpdateSettings?: Function;
 
-        afterRenderer?: (TD: HTMLTableDataCellElement, row: number, col: number, prop: string, value: string, cellProperties: Object) => void;
+        afterRenderer?: (
+            TD: HTMLTableDataCellElement,
+            row: number,
+            col: number,
+            prop: string,
+            value: string,
+            cellProperties: Object,
+        ) => void;
 
         /**
          * Callback fired after clicking on a cell or row/column header.
@@ -610,7 +622,12 @@ declare namespace Handsontable {
         /**
          * Deprecated! Now event is called afterCopyLimit.
          */
-        onCopyLimit?: (selectedRowsCount: number, selectedColsCount: number, copyRowsLimit: number, copyColsLimit: number) => void;
+        onCopyLimit?: (
+            selectedRowsCount: number,
+            selectedColsCount: number,
+            copyRowsLimit: number,
+            copyColsLimit: number,
+        ) => void;
     }
 
     interface Context {
@@ -745,7 +762,15 @@ declare namespace Handsontable {
          * @param source (default value "populateFromArray") is used to identify this call in the resulting events (beforeChange, afterChange).
          * @param populateMethod (default value "overwrite", possible values "shift_down" and "shift_right") has the same effect as pasteMethod option (see Options page).
          */
-        populateFromArray(row: number, col: number, input: any[], endRow: number, endCol: number, source?: string, populateMethod?: string): void;
+        populateFromArray(
+            row: number,
+            col: number,
+            input: any[],
+            endRow: number,
+            endCol: number,
+            source?: string,
+            populateMethod?: string,
+        ): void;
 
         /**
          * Adds/removes data from the column. This function works is modelled after Array.splice. Parameter col is the index of column in which do you want to do splice. Parameter index is the row index at which to start changing the array. If negative, will begin that many elements from the end. Parameter amount, is the number of old array elements to remove. If the amount is 0, no elements are removed. Fourth and further parameters are the elements to add to the array. If you don't specify any elements, spliceCol simply removes elements from the array.

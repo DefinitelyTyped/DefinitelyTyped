@@ -5,11 +5,11 @@ declare const store: DS.Store;
 
 const Person = DS.Model.extend({
     children: DS.hasMany('folder', { inverse: 'parent' }),
-    parent: DS.belongsTo('folder', { inverse: 'children' })
+    parent: DS.belongsTo('folder', { inverse: 'children' }),
 });
 
 const Polymorphic = DS.Model.extend({
-    paymentMethods: DS.hasMany('payment-method', { polymorphic: true })
+    paymentMethods: DS.hasMany('payment-method', { polymorphic: true }),
 });
 
 Polymorphic.eachRelationship(() => '');

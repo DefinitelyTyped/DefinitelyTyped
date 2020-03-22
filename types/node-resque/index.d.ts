@@ -66,16 +66,16 @@ export class Queue extends EventEmitter {
     delDelayed(queue: string, jobName: string, args?: ReadonlyArray<any>, count?: number): Promise<number[]>;
     scheduledAt(queue: string, jobName: string, args?: ReadonlyArray<any>): Promise<number[]>;
     timestamps(): Promise<number[]>;
-    delayedAt(timestamp: number): Promise<{ tasks: Array<Job<any>>, rTimestamp: number }>;
+    delayedAt(timestamp: number): Promise<{ tasks: Array<Job<any>>; rTimestamp: number }>;
     queued(queue: string, start: number, stop: number): Promise<Array<Job<any>>>;
     allDelayed(): Promise<number[]>;
     locks(): Promise<{ [lockName: string]: string }>;
     delLock(lockName: string): Promise<number>;
     workers(): Promise<{ [hash: string]: string }>;
     workingOn(workerName: string, queues: string[]): Promise<WorkerStatus>;
-    allWorkingOn(): Promise<{[hashName: string]: WorkerStatus }>;
+    allWorkingOn(): Promise<{ [hashName: string]: WorkerStatus }>;
     forceCleanWorker(workerName: string): Promise<ErrorPayload[]> | Promise<void>;
-    cleanOldWorkers(age: number): Promise<{[workerName: string]: ErrorPayload} | {}>;
+    cleanOldWorkers(age: number): Promise<{ [workerName: string]: ErrorPayload } | {}>;
     failedCount(): Promise<number>;
     failed(start: number, stop: number): Promise<ErrorPayload[]>;
     removeFailed(failedJob: ErrorPayload): Promise<void>;
@@ -93,7 +93,18 @@ export interface WorkerOptions {
     looping?: boolean;
 }
 
-export type WorkerEvent = 'start' | 'end' | 'cleaning_worker' | 'poll' | 'ping' | 'job' | 'reEnqueue' | 'success' | 'failure' | 'error' | 'pause';
+export type WorkerEvent =
+    | 'start'
+    | 'end'
+    | 'cleaning_worker'
+    | 'poll'
+    | 'ping'
+    | 'job'
+    | 'reEnqueue'
+    | 'success'
+    | 'failure'
+    | 'error'
+    | 'pause';
 
 export class Worker extends EventEmitter {
     constructor(options: WorkerOptions, jobs?: JobsHash);
@@ -133,7 +144,15 @@ export interface SchedulerOptions {
     masterLockTimeout?: number;
 }
 
-export type SchedulerEvent = 'start' | 'end' | 'poll' | 'master' | 'cleanStuckWorker' | 'error' | 'workingTimestamp' | 'transferredJob';
+export type SchedulerEvent =
+    | 'start'
+    | 'end'
+    | 'poll'
+    | 'master'
+    | 'cleanStuckWorker'
+    | 'error'
+    | 'workingTimestamp'
+    | 'transferredJob';
 
 export class Scheduler extends EventEmitter {
     constructor(options: SchedulerOptions, jobs?: JobsHash);

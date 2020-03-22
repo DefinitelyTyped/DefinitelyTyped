@@ -1,13 +1,4 @@
-import {
-    rem,
-    em,
-    px,
-    breakpoint,
-    breakpoints,
-    breakpointDown,
-    breakpointUp,
-    baseFontSize
-} from "@carbon/layout";
+import { rem, em, px, breakpoint, breakpoints, breakpointDown, breakpointUp, baseFontSize } from '@carbon/layout';
 
 const firstBreakpoint = Object.keys(breakpoints)[0];
 

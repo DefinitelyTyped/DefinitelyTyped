@@ -1,2 +1,2 @@
-import { unapply } from "../fp";
+import { unapply } from '../fp';
 export = unapply;

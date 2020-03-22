@@ -3,7 +3,7 @@ import * as Parser from 'stream-csv-as-json/Parser';
 import * as Stringer from 'stream-csv-as-json/Stringer';
 import * as AsObjects from 'stream-csv-as-json/AsObjects';
 
-const used = (array: any[]) => array.forEach(value => console.log(!!value));
+const used = (array: any[]) => array.forEach((value) => console.log(!!value));
 
 {
     // creating parser with the main module

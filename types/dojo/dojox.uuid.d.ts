@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/uuid.html
      *
@@ -12,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface uuid {
-    }
+    interface uuid {}
     namespace uuid {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/uuid/generateRandomUuid.html
@@ -39,7 +37,9 @@ declare namespace dojox {
          * of randomness, which may or may not provide much randomness.
          *
          */
-        interface generateRandomUuid { (): void }
+        interface generateRandomUuid {
+            (): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/uuid/generateTimeBasedUuid.html
          *
@@ -53,24 +53,32 @@ declare namespace dojox {
          *
          * @param node       OptionalA 12-character hex string representing either a pseudo-node orhardware-node (an IEEE 802.3 network node).  A hardware-nodewill be something like "017bf397618a", always with the first bitbeing 0.  A pseudo-node will be something like "f17bf397618a",always with the first bit being 1.
          */
-        interface generateTimeBasedUuid { (node?: String): void }
+        interface generateTimeBasedUuid {
+            (node?: String): void;
+        }
         namespace generateTimeBasedUuid {
             /**
              * Returns the 'node' value that will be included in generated UUIDs.
              *
              */
-            interface getNode { (): void }
+            interface getNode {
+                (): void;
+            }
             /**
              *
              * @param node               Optional
              */
-            interface isValidNode { (node: String): void }
+            interface isValidNode {
+                (node: String): void;
+            }
             /**
              * Sets the 'node' value that will be included in generated UUIDs.
              *
              * @param node               Optional
              */
-            interface setNode { (node: String): void }
+            interface setNode {
+                (node: String): void;
+            }
         }
 
         /**
@@ -81,7 +89,9 @@ declare namespace dojox {
          *
          * @param input       Optional
          */
-        interface Uuid { (input?: String): void }
+        interface Uuid {
+            (input?: String): void;
+        }
         namespace Uuid {
             /**
              * Compares this UUID to another UUID, and returns 0, 1, or -1.
@@ -90,7 +100,9 @@ declare namespace dojox {
              *
              * @param otherUuid
              */
-            interface compare { (otherUuid: dojox.uuid.Uuid): void }
+            interface compare {
+                (otherUuid: dojox.uuid.Uuid): void;
+            }
             /**
              * Given two UUIDs to compare, this method returns 0, 1, or -1.
              * This method is designed to be used by sorting routines, like the
@@ -101,19 +113,25 @@ declare namespace dojox {
              * @param uuidOne
              * @param uuidTwo
              */
-            interface compare { (uuidOne: dojox.uuid.Uuid, uuidTwo: dojox.uuid.Uuid): void }
+            interface compare {
+                (uuidOne: dojox.uuid.Uuid, uuidTwo: dojox.uuid.Uuid): void;
+            }
             /**
              * Returns the default generator.  See setGenerator().
              *
              */
-            interface getGenerator { (): void }
+            interface getGenerator {
+                (): void;
+            }
             /**
              * If this is a version 1 UUID (a time-based UUID), getNode() returns a
              * 12-character string with the "node" or "pseudonode" portion of the UUID,
              * which is the rightmost 12 characters.
              *
              */
-            interface getNode { (): void }
+            interface getNode {
+                (): void;
+            }
             /**
              * If this is a version 1 UUID (a time-based UUID), this method returns
              * the timestamp value encoded in the UUID.  The caller can ask for the
@@ -122,30 +140,40 @@ declare namespace dojox {
              *
              * @param returnType               Optional
              */
-            interface getTimestamp { (returnType: String): any }
+            interface getTimestamp {
+                (returnType: String): any;
+            }
             /**
              * Returns a variant code that indicates what type of UUID this is.
              * Returns one of the enumerated dojox.uuid.variant values.
              *
              */
-            interface getVariant { (): void }
+            interface getVariant {
+                (): void;
+            }
             /**
              * Returns a version number that indicates what type of UUID this is.
              * Returns one of the enumerated dojox.uuid.version values.
              *
              */
-            interface getVersion { (): void }
+            interface getVersion {
+                (): void;
+            }
             /**
              * Returns true if this UUID is equal to the otherUuid, or false otherwise.
              *
              * @param otherUuid
              */
-            interface isEqual { (otherUuid: dojox.uuid.Uuid): void }
+            interface isEqual {
+                (otherUuid: dojox.uuid.Uuid): void;
+            }
             /**
              * Returns true if the UUID was initialized with a valid value.
              *
              */
-            interface isValid { (): void }
+            interface isValid {
+                (): void;
+            }
             /**
              * Sets the default generator, which will be used by the
              * "new dojox.uuid.Uuid()" constructor if no parameters
@@ -153,13 +181,17 @@ declare namespace dojox {
              *
              * @param generator               Optional
              */
-            interface setGenerator { (generator: Function): void }
+            interface setGenerator {
+                (generator: Function): void;
+            }
             /**
              * This method returns a standard 36-character string representing
              * the UUID, such as "3b12f1df-5232-4804-897e-917bf397618a".
              *
              */
-            interface toString { (): void }
+            interface toString {
+                (): void;
+            }
         }
 
         module _base {
@@ -218,32 +250,30 @@ declare namespace dojox {
                 UNKNOWN: number;
             }
         }
-
     }
-
 }
 
-declare module "dojox/uuid" {
-    var exp: dojox.uuid
-    export=exp;
+declare module 'dojox/uuid' {
+    var exp: dojox.uuid;
+    export = exp;
 }
-declare module "dojox/uuid/generateRandomUuid" {
-    var exp: dojox.uuid.generateRandomUuid
-    export=exp;
+declare module 'dojox/uuid/generateRandomUuid' {
+    var exp: dojox.uuid.generateRandomUuid;
+    export = exp;
 }
-declare module "dojox/uuid/generateTimeBasedUuid" {
-    var exp: dojox.uuid.generateTimeBasedUuid
-    export=exp;
+declare module 'dojox/uuid/generateTimeBasedUuid' {
+    var exp: dojox.uuid.generateTimeBasedUuid;
+    export = exp;
 }
-declare module "dojox/uuid/Uuid" {
-    var exp: dojox.uuid.Uuid
-    export=exp;
+declare module 'dojox/uuid/Uuid' {
+    var exp: dojox.uuid.Uuid;
+    export = exp;
 }
-declare module "dojox/uuid/_base.variant" {
-    var exp: dojox.uuid._base.variant
-    export=exp;
+declare module 'dojox/uuid/_base.variant' {
+    var exp: dojox.uuid._base.variant;
+    export = exp;
 }
-declare module "dojox/uuid/_base.version" {
-    var exp: dojox.uuid._base.version
-    export=exp;
+declare module 'dojox/uuid/_base.version' {
+    var exp: dojox.uuid._base.version;
+    export = exp;
 }

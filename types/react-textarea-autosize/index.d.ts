@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-declare module "react-textarea-autosize" {
-    import * as React from "react";
+declare module 'react-textarea-autosize' {
+    import * as React from 'react';
 
     /**
      * <TextareaAutosize/> properties
@@ -57,6 +57,5 @@ declare module "react-textarea-autosize" {
     /**
      * <TextareaAutosize/>
      */
-    export default class TextareaAutosize extends React.Component<TextareaAutosizeProps> { }
-
+    export default class TextareaAutosize extends React.Component<TextareaAutosizeProps> {}
 }

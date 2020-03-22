@@ -85,7 +85,7 @@ export interface MatchProps<TParams> {
 export type MatchRenderFn<TParams> = (props: MatchRenderProps<TParams>) => React.ReactNode;
 
 export interface MatchRenderProps<TParams> {
-    match: null | { uri: string; path: string } & TParams;
+    match: null | ({ uri: string; path: string } & TParams);
     location: WindowLocation;
     navigate: NavigateFn;
 }

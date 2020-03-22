@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { Readable, Transform } from "stream";
+import { Readable, Transform } from 'stream';
 
 /** Given a readable stream, parse it as it feeds us data. Return a promise of the resulting object. */
 declare function parseStream(readable: Readable): Promise<Record<string, any>>;

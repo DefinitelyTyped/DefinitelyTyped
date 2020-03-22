@@ -34,7 +34,7 @@ declare namespace Postmate {
         /**
          * An element to append the iFrame to. Default: document.body
          */
-        container?: HTMLElement|null;
+        container?: HTMLElement | null;
 
         /**
          * An object literal to represent the default values of the child's model

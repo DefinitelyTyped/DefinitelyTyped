@@ -10,17 +10,18 @@ class Readme {
             name: 'Random Requester',
             namespace: 'rnd',
             key: 'a certain key',
-            requests: ['randomRequest']
+            requests: ['randomRequest'],
         });
 
         const req = {
             type: 'randomRequest',
             payload: {
-                val: Math.floor(Math.random() * 10)
-            }
+                val: Math.floor(Math.random() * 10),
+            },
         };
 
-        randomRequester.send(req)
+        randomRequester
+            .send(req)
             .then(console.log)
             .catch(console.log)
             .then(() => process.exit());
@@ -31,18 +32,18 @@ class Readme {
             name: 'Random Requester',
             namespace: 'rnd',
             key: 'a certain key',
-            requests: ['randomRequest']
+            requests: ['randomRequest'],
         });
 
         const req = {
             __subset: 'subset',
             type: 'randomRequest',
             payload: {
-                val: Math.floor(Math.random() * 10)
-            }
+                val: Math.floor(Math.random() * 10),
+            },
         };
 
-        randomRequester.send(req, res => {
+        randomRequester.send(req, (res) => {
             console.log(res);
             process.exit();
         });
@@ -54,7 +55,7 @@ class Readme {
             namespace: 'rnd',
             key: 'a certain key',
             respondsTo: ['randomRequest'],
-            subset: 'subset'
+            subset: 'subset',
         });
 
         interface RandomRequest {
@@ -74,7 +75,7 @@ class Readme {
             name: 'Random Responder',
             namespace: 'rnd',
             key: 'a certain key',
-            respondsTo: ['randomRequest']
+            respondsTo: ['randomRequest'],
         });
 
         interface RandomRequest {
@@ -107,7 +108,7 @@ class Readme {
 
         userRequester
             .send({ type: 'find', payload: { username: 'foo' } })
-            .then(user => console.log(user))
+            .then((user) => console.log(user))
             .then(() => process.exit());
     }
 
@@ -116,15 +117,15 @@ class Readme {
             name: 'Random Publisher',
             namespace: 'rnd',
             key: 'a certain key',
-            broadcasts: ['randomUpdate']
+            broadcasts: ['randomUpdate'],
         });
 
         setInterval(() => {
             const event = {
                 type: 'randomUpdate',
                 payload: {
-                    val: Math.floor(Math.random() * 1000)
-                }
+                    val: Math.floor(Math.random() * 1000),
+                },
             };
 
             console.log('emitting', event);
@@ -138,7 +139,7 @@ class Readme {
             name: 'Random Subscriber',
             namespace: 'rnd',
             key: 'a certain key',
-            subscribesTo: ['randomUpdate']
+            subscribesTo: ['randomUpdate'],
         });
 
         randomSubscriber.on('randomUpdate', (req) => {
@@ -167,31 +168,31 @@ class Readme {
 
         const sockend = new cote.Sockend(io, {
             name: 'Sockend',
-            key: 'a certain key'
+            key: 'a certain key',
         });
     }
 
     keys() {
         const purchaseRequester = new cote.Requester({
             name: 'Purchase Requester',
-            key: 'purchase'
+            key: 'purchase',
         });
 
         const inventoryRequester = new cote.Requester({
             name: 'Inventory Requester',
-            key: 'inventory'
+            key: 'inventory',
         });
     }
 
     namespacesFront() {
         const responder = new cote.Responder({
             name: 'Conversion Sockend Responder',
-            namespace: 'conversion'
+            namespace: 'conversion',
         });
 
         const conversionRequester = new cote.Requester({
             name: 'Conversion Requester',
-            key: 'conversion backend'
+            key: 'conversion backend',
         });
 
         responder.on('convert', (req: any) => {
@@ -202,20 +203,20 @@ class Readme {
     namespacesBack() {
         const responder = new cote.Responder({
             name: 'Conversion Responder',
-            key: 'conversion backend'
+            key: 'conversion backend',
         });
 
         const rates: { [key: string]: number } = {
             usd_eur: 0.91,
-            eur_usd: 1.10
+            eur_usd: 1.1,
         };
 
         interface Convert {
             type: 'convert';
             payload: {
-                amount: number,
-                from: string,
-                to: string
+                amount: number;
+                from: string;
+                to: string;
             };
         }
 
@@ -264,7 +265,7 @@ class InitialObservations {
         techno.removeAllListeners();
 
         const village = new cote.Subscriber({ name: 'Village' });
-        const doHelp = () => { };
+        const doHelp = () => {};
         village.many('wolf', 2, doHelp);
         village.emit('wolf');
         village.emit('wolf');
@@ -282,7 +283,7 @@ class InitialObservations {
 
         const monitor = new cote.Monitor({
             name: 'Monitor',
-            port: 8025
+            port: 8025,
         });
         monitor.setMaxListeners(1);
         monitor.once('foobar', () => {
@@ -299,19 +300,16 @@ class InitialObservations {
         //     name: 'Requester',
         //     respondsTo: ['foo']
         // })
-
         // Incorrect:
         // const responder = new cote.Responder({
         //     name: 'Responder',
         //     subscribesTo: ['bar']
         // })
-
         // Incorrect:
         // const publisher = new cote.Publisher({
         //     name: 'Publisher',
         //     requests: ['baz']
         // })
-
         // Incorrect:
         // const subscriber = new cote.Subscriber({
         //     name: 'Subscriber',
@@ -324,23 +322,32 @@ class InitialObservations {
 
         new cote.Publisher({ name: 'PassionateGreeter' }, { helloInterval: 100 });
 
-        new cote.Requester({ name: 'Optimist' }, {
-            checkInterval: 1e5,
-            nodeTimeout: 1e6
-        });
+        new cote.Requester(
+            { name: 'Optimist' },
+            {
+                checkInterval: 1e5,
+                nodeTimeout: 1e6,
+            },
+        );
 
         new cote.Subscriber({ name: 'Hachiko' }, { masterTimeout: 9 * 365 * 24 * 60 * 60 * 1000 });
 
-        new cote.Monitor({ name: 'HelloService', port: 2345 }, {
-            monitor: false,
-            statusLogsEnabled: false
-        });
+        new cote.Monitor(
+            { name: 'HelloService', port: 2345 },
+            {
+                monitor: false,
+                statusLogsEnabled: false,
+            },
+        );
 
-        new cote.Monitor({ name: 'OfflineLogger', port: 2346 }, {
-            disableScreen: true,
-            helloLogsEnabled: false,
-            log: true
-        });
+        new cote.Monitor(
+            { name: 'OfflineLogger', port: 2346 },
+            {
+                disableScreen: true,
+                helloLogsEnabled: false,
+                log: true,
+            },
+        );
 
         new cote.Responder({ name: 'HearsNoneAbove' }, { ignoreProcess: true });
 
@@ -356,17 +363,18 @@ class InitialObservations {
             name: 'Random Requester',
             namespace: 'rnd',
             key: 'a certain key',
-            requests: ['randomRequest']
+            requests: ['randomRequest'],
         });
 
         const req = {
             type: 'randomRequest',
             payload: {
-                val: Math.floor(Math.random() * 10)
-            }
+                val: Math.floor(Math.random() * 10),
+            },
         };
 
-        randomRequester.send(req)
+        randomRequester
+            .send(req)
             .then(console.log)
             .catch(console.log)
             .then(() => process.exit());
@@ -377,17 +385,18 @@ class InitialObservations {
             name: 'Random Requester',
             namespace: 'rnd',
             key: 'a certain key',
-            requests: ['randomRequest']
+            requests: ['randomRequest'],
         });
 
         const req = {
             type: 'randomRequest',
             payload: {
-                val: Math.floor(Math.random() * 10)
-            }
+                val: Math.floor(Math.random() * 10),
+            },
         };
 
-        randomRequester.send(req)
+        randomRequester
+            .send(req)
             .then(console.log)
             .catch(console.log)
             .then(() => process.exit());
@@ -398,12 +407,12 @@ class InitialObservations {
 
         const requester = new cote.Requester({
             name: `${key} requester`,
-            key
+            key,
         });
 
         const responder = new cote.Responder({
             name: `${key} responder`,
-            key
+            key,
         });
 
         responder.on('cote:added', ({ advertisement, type }) => {
@@ -415,9 +424,9 @@ class InitialObservations {
                     namespace: advertisement.namespace,
                     requests: advertisement.requests,
                     respondsTo: advertisement.respondsTo,
-                    subscribesTo: advertisement.subscribesTo
+                    subscribesTo: advertisement.subscribesTo,
                 },
-                type
+                type,
             });
 
             requester.close();
@@ -434,9 +443,9 @@ class InitialObservations {
                     namespace: advertisement.namespace,
                     requests: advertisement.requests,
                     respondsTo: advertisement.respondsTo,
-                    subscribesTo: advertisement.subscribesTo
+                    subscribesTo: advertisement.subscribesTo,
                 },
-                type
+                type,
             });
 
             responder.close();

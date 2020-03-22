@@ -29,15 +29,17 @@ morgan.token('id', tokenCallback);
 const stream: morgan.StreamOptions = {
     write: (str: string) => {
         console.log(str);
-    }
+    },
 };
 
-app.use(morgan('combined', {
-    buffer: true,
-    immediate: true,
-    skip: (req: IncomingMessage, res: ServerResponse) => res.statusCode < 400,
-    stream
-}));
+app.use(
+    morgan('combined', {
+        buffer: true,
+        immediate: true,
+        skip: (req: IncomingMessage, res: ServerResponse) => res.statusCode < 400,
+        stream,
+    }),
+);
 
 // test interface definition for morgan
 
@@ -59,19 +61,24 @@ interface ExtendedFormatFn extends morgan.FormatFn {
 
 const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMessage, res: ServerResponse): string => {
     // get the status code if response written
-    const status = res.statusCode
-        ? res.statusCode
-        : undefined;
+    const status = res.statusCode ? res.statusCode : undefined;
 
     // get status color
-    const color = status && status >= 500 ? 31 // red
-        : status && status >= 400 ? 33 // yellow
-        : status && status >= 300 ? 36 // cyan
-        : status && status >= 200 ? 32 // green
-        : 0; // no color
+    const color =
+        status && status >= 500
+            ? 31 // red
+            : status && status >= 400
+            ? 33 // yellow
+            : status && status >= 300
+            ? 36 // cyan
+            : status && status >= 200
+            ? 32 // green
+            : 0; // no color
 
     // get colored format function, if previously memoized, otherwise undefined
-    let fn: morgan.FormatFn|undefined = developmentExtendedFormatLine.memoizer ? developmentExtendedFormatLine.memoizer[color] : undefined;
+    let fn: morgan.FormatFn | undefined = developmentExtendedFormatLine.memoizer
+        ? developmentExtendedFormatLine.memoizer[color]
+        : undefined;
 
     if (!fn) {
         if (!developmentExtendedFormatLine.memoizer) {
@@ -79,7 +86,8 @@ const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMe
         }
 
         fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile(
-            `\x1b[0m:method :url \x1b[${color}m:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent`);
+            `\x1b[0m:method :url \x1b[${color}m:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent`,
+        );
     }
 
     return fn(tokens, req, res);

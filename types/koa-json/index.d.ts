@@ -14,24 +14,23 @@
 
  =============================================== */
 
-import * as Koa from "koa";
+import * as Koa from 'koa';
 
 declare function json(opts?: {
-
     /**
      * default to pretty response [true]
-    */
-    pretty?: boolean,
+     */
+    pretty?: boolean;
 
     /**
      * optional query-string param for pretty responses [none]
      */
-    param?: string,
+    param?: string;
 
     /**
      * JSON spaces [2]
      */
-    spaces?: number
+    spaces?: number;
 }): Koa.Middleware;
-declare namespace json { }
+declare namespace json {}
 export = json;

@@ -4,11 +4,11 @@
 // Definitions: https://github.com/huan086/postcss-plugins-typings
 // TypeScript Version: 2.2
 
-import { Plugin } from "postcss";
+import { Plugin } from 'postcss';
 
 declare namespace localByDefault {
     interface Options {
-        mode?: "global" | "local" | "pure";
+        mode?: 'global' | 'local' | 'pure';
         rewriteUrl?: (global: boolean, url: string) => string;
     }
 

@@ -12,7 +12,13 @@ import { RVMInfo } from './rvm';
 import { RuntimeInfo } from './runtime-info';
 import { Entity, EntityInfo } from './entity';
 import { HostSpecs } from './host-specs';
-import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo, ServiceConfiguration } from './external-process';
+import {
+    ExternalProcessRequestType,
+    TerminateExternalRequestType,
+    ExternalConnection,
+    ExternalProcessInfo,
+    ServiceConfiguration,
+} from './external-process';
 import Transport from '../../transport/transport';
 import { CookieInfo, CookieOption } from './cookie';
 import { RegistryInfo } from './registry-info';
@@ -73,12 +79,12 @@ import { SystemEvents } from '../events/system';
  * @property { Time } times The numbers of milliseconds the CPU has spent in different modes.
  */
 /**
-* CrashReporterOption interface
-* @typedef { object } CrashReporterOption
-* @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
-*  the OpenFin reporting service on runtime shutdown
-* @property { boolean } isRunning check if it's running
-*/
+ * CrashReporterOption interface
+ * @typedef { object } CrashReporterOption
+ * @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
+ *  the OpenFin reporting service on runtime shutdown
+ * @property { boolean } isRunning check if it's running
+ */
 /**
  * DipRect interface
  * @typedef { object } DipRect
@@ -175,11 +181,11 @@ import { SystemEvents } from '../events/system';
  * @property { string } uuid The uuid of the application
  */
 /**
-* InstalledRuntimes interface
-* @typedef { object } InstalledRuntimes
-* @property { string } action The name of action: "get-installed-runtimes"
-* @property { Array<string> } runtimes The version numbers of each installed runtime
-*/
+ * InstalledRuntimes interface
+ * @typedef { object } InstalledRuntimes
+ * @property { string } action The name of action: "get-installed-runtimes"
+ * @property { Array<string> } runtimes The version numbers of each installed runtime
+ */
 /**
  * LogInfo interface
  * @typedef { object } LogInfo
@@ -378,10 +384,10 @@ import { SystemEvents } from '../events/system';
  * @property { string } uuid The uuid of the application
  */
 /**
-* Service identifier
-* @typedef { object } ServiceIdentifier
-* @property { string } name The name of the service
-*/
+ * Service identifier
+ * @typedef { object } ServiceIdentifier
+ * @property { string } name The name of the service
+ */
 interface ServiceIdentifier {
     name: string;
 }
@@ -723,19 +729,22 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     downloadAsset(appAsset: AppAssetInfo, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
     /**
-    * Downloads a version of the runtime.
-    * @param { RuntimeDownloadOptions } options - Download options.
-    * @param {Function} [progressListener] - called as the runtime is downloaded with progress information.
-    * @return {Promise.<void>}
-    * @tutorial System.downloadRuntime
-    */
-    downloadRuntime(options: RuntimeDownloadOptions, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
+     * Downloads a version of the runtime.
+     * @param { RuntimeDownloadOptions } options - Download options.
+     * @param {Function} [progressListener] - called as the runtime is downloaded with progress information.
+     * @return {Promise.<void>}
+     * @tutorial System.downloadRuntime
+     */
+    downloadRuntime(
+        options: RuntimeDownloadOptions,
+        progressListener: (progress: RuntimeDownloadProgress) => void,
+    ): Promise<void>;
     /**
-    * Download preload scripts from given URLs
-    * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.
-    * @return {Promise.Array<DownloadPreloadInfo>}
-    * @tutorial System.downloadPreloadScripts
-    */
+     * Download preload scripts from given URLs
+     * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.
+     * @return {Promise.Array<DownloadPreloadInfo>}
+     * @tutorial System.downloadPreloadScripts
+     */
     downloadPreloadScripts(scripts: Array<DownloadPreloadOption>): Promise<Array<DownloadPreloadInfo>>;
     /**
      * Retrieves an array of data (name, ids, bounds) for all application windows.

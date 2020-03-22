@@ -1,2 +1,2 @@
-import { propEq } from "../fp";
+import { propEq } from '../fp';
 export = propEq;

@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type IconSize = "s" | "m" | "l" | "xl";
+export type IconSize = 's' | 'm' | 'l' | 'xl';
 
 export type IconGlyph =
     | 'accelerated'

@@ -8,32 +8,32 @@ import { SSM } from 'aws-sdk';
 
 export function getParameter(
     name: SSM.Types.PSParameterName,
-    options?: SSM.Types.ClientConfiguration
+    options?: SSM.Types.ClientConfiguration,
 ): Promise<SSM.Types.Parameter>;
 
 export function getParameterSync(
     name: SSM.Types.PSParameterName,
-    options?: SSM.Types.ClientConfiguration
+    options?: SSM.Types.ClientConfiguration,
 ): SSM.Types.Parameter;
 
 export function getParameters(
     names: SSM.Types.ParameterNameList,
-    options?: SSM.Types.ClientConfiguration
+    options?: SSM.Types.ClientConfiguration,
 ): Promise<SSM.Types.GetParametersResult>;
 
 export function getParametersSync(
     names: SSM.Types.ParameterNameList,
-    options?: SSM.Types.ClientConfiguration
+    options?: SSM.Types.ClientConfiguration,
 ): SSM.Types.GetParametersResult;
 
 export function getParametersByPath(
     path: SSM.Types.PSParameterName,
-    options?: SSM.Types.ClientConfiguration
+    options?: SSM.Types.ClientConfiguration,
 ): Promise<SSM.Types.ParameterList>;
 
 export function getParametersByPathSync(
     path: SSM.Types.PSParameterName,
-    options?: SSM.Types.ClientConfiguration
+    options?: SSM.Types.ClientConfiguration,
 ): SSM.Types.ParameterList;
 
 export interface ParameterQuery {

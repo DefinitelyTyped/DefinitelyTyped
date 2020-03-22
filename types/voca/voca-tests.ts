@@ -33,30 +33,13 @@ str = v.titleCase('another brick in the wall', ['in', 'the']);
 str = v.upperCase('school');
 
 // Chain
-strAry = v('Back to School')
-    .lowerCase()
-    .words();
-str = v(" Back to School ")
-    .trim()
-    .truncate(7)
-    .value();
+strAry = v('Back to School').lowerCase().words();
+str = v(' Back to School ').trim().truncate(7).value();
 
-strAry = v
-    .chain('Back to School')
-    .lowerCase()
-    .words()
-    .value();
+strAry = v.chain('Back to School').lowerCase().words().value();
 
-strAry = v('Back to School')
-     .chain()
-     .lowerCase()
-     .words()
-     .value();
-str = v(" Back to School ")
-    .chain()
-    .trim()
-    .truncate(7)
-    .value();
+strAry = v('Back to School').chain().lowerCase().words().value();
+str = v(' Back to School ').chain().trim().truncate(7).value();
 
 str = v
     .chain('sun is shining')
@@ -66,16 +49,8 @@ str = v
     })
     .value();
 
-str = v
-    .chain('Hello world')
-    .replace('Hello', 'Hi')
-    .lowerCase()
-    .slugify()
-    .value();
-str = v(' Space travel ')
-    .trim()
-    .truncate(8)
-    .value();
+str = v.chain('Hello world').replace('Hello', 'Hi').lowerCase().slugify().value();
+str = v(' Space travel ').trim().truncate(8).value();
 
 // Chop
 str = v.charAt('helicopter', 0);
@@ -136,7 +111,7 @@ str = v.sprintf('%s costs $%d', 'coffee', 2);
 str = v.sprintf('%1$s %2$s %1$s %2$s, watcha gonna %3$s', 'bad', 'boys', 'do');
 str = v.sprintf('% 6s', 'bird');
 str = v.sprintf('%d %i %+d', 15, -2, 25);
-str = v.sprintf("%06d", 15);
+str = v.sprintf('%06d', 15);
 str = v.sprintf('%.2e %g', 100.5, 0.455);
 str = v('%s, %s!').sprintf('Hello', 'World').value();
 str = v.chain('%s, %s!').sprintf('Hello', 'World').value();
@@ -161,7 +136,7 @@ num = v('morning').lastIndexOf('n');
 num = v.chain('morning').lastIndexOf('n').value();
 
 num = v.search('morning', /rn/);
-num = v.search('evening', '/\d/');
+num = v.search('evening', '/d/');
 
 // Manipulate
 str = v.insert();
@@ -223,18 +198,23 @@ str = v.tr();
 str = v.tr('hello', 'el', 'ip');
 str = v.tr('Yes. The fire rises.', {
     Yes: 'Awesome',
-    fire: 'flame'
+    fire: 'flame',
 });
 str = v('hello').tr('el', 'ip').value();
-str = v('Yes. The fire rises.').tr({
-    Yes: 'Awesome',
-    fire: 'flame'
-}).value();
+str = v('Yes. The fire rises.')
+    .tr({
+        Yes: 'Awesome',
+        fire: 'flame',
+    })
+    .value();
 str = v.chain('hello').tr('el', 'ip').value();
-str = v.chain('Yes. The fire rises.').tr({
-    Yes: 'Awesome',
-    fire: 'flame'
-}).value();
+str = v
+    .chain('Yes. The fire rises.')
+    .tr({
+        Yes: 'Awesome',
+        fire: 'flame',
+    })
+    .value();
 
 str = v.trim();
 str = v.trim(' Mother nature ');
@@ -251,16 +231,16 @@ str = v.trimRight('do you feel in charge?!!!', '!');
 str = v.wordWrap();
 str = v.wordWrap('Hello world');
 str = v.wordWrap('Hello world', {
-    width: 5
+    width: 5,
 });
 str = v.wordWrap('Hello world', {
     width: 5,
     newLine: '<br/>',
-    indent: '__'
+    indent: '__',
 });
 str = v.wordWrap('Wonderful world', {
     width: 5,
-    cut: true
+    cut: true,
 });
 
 // Query

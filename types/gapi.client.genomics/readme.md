@@ -1,10 +1,12 @@
 # TypeScript typings for Genomics API v1
+
 Upload, process, query, and search Genomics data in the cloud.
 For detailed description please check [documentation](https://cloud.google.com/genomics).
 
 ## Installing
 
 Install typings for Genomics API:
+
 ```
 npm install @types/gapi.client.genomics@v1 --save-dev
 ```
@@ -12,58 +14,59 @@ npm install @types/gapi.client.genomics@v1 --save-dev
 ## Usage
 
 You need to initialize Google API client in your code:
+
 ```typescript
-gapi.load("client", () => { 
+gapi.load('client', () => {
     // now we can use gapi.client
-    // ... 
+    // ...
 });
 ```
 
 Then load api client wrapper:
+
 ```typescript
 gapi.client.load('genomics', 'v1', () => {
     // now we can use gapi.client.genomics
-    // ... 
+    // ...
 });
 ```
 
 Don't forget to authenticate your client before sending any request to resources:
-```typescript
 
+```typescript
 // declare client_id registered in Google Developers Console
 var client_id = '',
-    scope = [     
+    scope = [
         // View and manage your data in Google BigQuery
         'https://www.googleapis.com/auth/bigquery',
-    
+
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
-    
+
         // Manage your data in Google Cloud Storage
         'https://www.googleapis.com/auth/devstorage.read_write',
-    
+
         // View and manage Genomics data
         'https://www.googleapis.com/auth/genomics',
-    
+
         // View Genomics data
         'https://www.googleapis.com/auth/genomics.readonly',
     ],
     immediate = true;
 // ...
 
-gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
+gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, (authResult) => {
     if (authResult && !authResult.error) {
         /* handle succesfull authorization */
     } else {
         /* handle authorization error */
     }
-});            
+});
 ```
 
 After that you can use Genomics API resources:
 
-```typescript 
-    
+```typescript
 /* 
 Creates one or more new annotations atomically. All annotations must
 belong to the same annotation set. Caller must have WRITE
@@ -80,8 +83,8 @@ For details on the requirements for each individual annotation resource,
 see
 CreateAnnotation.  
 */
-await gapi.client.annotations.batchCreate({  }); 
-    
+await gapi.client.annotations.batchCreate({});
+
 /* 
 Creates a new annotation. Caller must have WRITE permission
 for the associated annotation set.
@@ -106,20 +109,20 @@ range must be no longer than 100Mbp (mega base pairs). See the
 Annotation resource
 for additional restrictions on each field.  
 */
-await gapi.client.annotations.create({  }); 
-    
+await gapi.client.annotations.create({});
+
 /* 
 Deletes an annotation. Caller must have WRITE permission for
 the associated annotation set.  
 */
-await gapi.client.annotations.delete({ annotationId: "annotationId",  }); 
-    
+await gapi.client.annotations.delete({ annotationId: 'annotationId' });
+
 /* 
 Gets an annotation. Caller must have READ permission
 for the associated annotation set.  
 */
-await gapi.client.annotations.get({ annotationId: "annotationId",  }); 
-    
+await gapi.client.annotations.get({ annotationId: 'annotationId' });
+
 /* 
 Searches for annotations that match the given criteria. Results are
 ordered by genomic coordinate (by reference sequence, then position).
@@ -129,14 +132,14 @@ same content (regardless of page size) yield annotations in the same order
 across their respective streams of paginated responses. Caller must have
 READ permission for the queried annotation sets.  
 */
-await gapi.client.annotations.search({  }); 
-    
+await gapi.client.annotations.search({});
+
 /* 
 Updates an annotation. Caller must have
 WRITE permission for the associated dataset.  
 */
-await gapi.client.annotations.update({ annotationId: "annotationId",  }); 
-    
+await gapi.client.annotations.update({ annotationId: 'annotationId' });
+
 /* 
 Creates a new annotation set. Caller must have WRITE permission for the
 associated dataset.
@@ -149,20 +152,20 @@ The following fields are required:
 All other fields may be optionally specified, unless documented as being
 server-generated (for example, the `id` field).  
 */
-await gapi.client.annotationsets.create({  }); 
-    
+await gapi.client.annotationsets.create({});
+
 /* 
 Deletes an annotation set. Caller must have WRITE permission
 for the associated annotation set.  
 */
-await gapi.client.annotationsets.delete({ annotationSetId: "annotationSetId",  }); 
-    
+await gapi.client.annotationsets.delete({ annotationSetId: 'annotationSetId' });
+
 /* 
 Gets an annotation set. Caller must have READ permission for
 the associated dataset.  
 */
-await gapi.client.annotationsets.get({ annotationSetId: "annotationSetId",  }); 
-    
+await gapi.client.annotationsets.get({ annotationSetId: 'annotationSetId' });
+
 /* 
 Searches for annotation sets that match the given criteria. Annotation sets
 are returned in an unspecified order. This order is consistent, such that
@@ -170,15 +173,15 @@ two queries for the same content (regardless of page size) yield annotation
 sets in the same order across their respective streams of paginated
 responses. Caller must have READ permission for the queried datasets.  
 */
-await gapi.client.annotationsets.search({  }); 
-    
+await gapi.client.annotationsets.search({});
+
 /* 
 Updates an annotation set. The update must respect all mutability
 restrictions and other invariants described on the annotation set resource.
 Caller must have WRITE permission for the associated dataset.  
 */
-await gapi.client.annotationsets.update({ annotationSetId: "annotationSetId",  }); 
-    
+await gapi.client.annotationsets.update({ annotationSetId: 'annotationSetId' });
+
 /* 
 Creates a new call set.
 
@@ -186,8 +189,8 @@ For the definitions of call sets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.callsets.create({  }); 
-    
+await gapi.client.callsets.create({});
+
 /* 
 Deletes a call set.
 
@@ -195,8 +198,8 @@ For the definitions of call sets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.callsets.delete({ callSetId: "callSetId",  }); 
-    
+await gapi.client.callsets.delete({ callSetId: 'callSetId' });
+
 /* 
 Gets a call set by ID.
 
@@ -204,8 +207,8 @@ For the definitions of call sets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.callsets.get({ callSetId: "callSetId",  }); 
-    
+await gapi.client.callsets.get({ callSetId: 'callSetId' });
+
 /* 
 Updates a call set.
 
@@ -215,8 +218,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 
 This method supports patch semantics.  
 */
-await gapi.client.callsets.patch({ callSetId: "callSetId",  }); 
-    
+await gapi.client.callsets.patch({ callSetId: 'callSetId' });
+
 /* 
 Gets a list of call sets matching the criteria.
 
@@ -227,8 +230,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 Implements
 [GlobalAllianceApi.searchCallSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L178).  
 */
-await gapi.client.callsets.search({  }); 
-    
+await gapi.client.callsets.search({});
+
 /* 
 Creates a new dataset.
 
@@ -236,8 +239,8 @@ For the definitions of datasets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.datasets.create({  }); 
-    
+await gapi.client.datasets.create({});
+
 /* 
 Deletes a dataset and all of its contents (all read group sets,
 reference sets, variant sets, call sets, annotation sets, etc.)
@@ -250,8 +253,8 @@ For the definitions of datasets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.datasets.delete({ datasetId: "datasetId",  }); 
-    
+await gapi.client.datasets.delete({ datasetId: 'datasetId' });
+
 /* 
 Gets a dataset by ID.
 
@@ -259,8 +262,8 @@ For the definitions of datasets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.datasets.get({ datasetId: "datasetId",  }); 
-    
+await gapi.client.datasets.get({ datasetId: 'datasetId' });
+
 /* 
 Gets the access control policy for the dataset. This is empty if the
 policy or resource does not exist.
@@ -272,8 +275,8 @@ For the definitions of datasets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.datasets.getIamPolicy({ resource: "resource",  }); 
-    
+await gapi.client.datasets.getIamPolicy({ resource: 'resource' });
+
 /* 
 Lists datasets within a project.
 
@@ -281,8 +284,8 @@ For the definitions of datasets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.datasets.list({  }); 
-    
+await gapi.client.datasets.list({});
+
 /* 
 Updates a dataset.
 
@@ -292,8 +295,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 
 This method supports patch semantics.  
 */
-await gapi.client.datasets.patch({ datasetId: "datasetId",  }); 
-    
+await gapi.client.datasets.patch({ datasetId: 'datasetId' });
+
 /* 
 Sets the access control policy on the specified dataset. Replaces any
 existing policy.
@@ -305,8 +308,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 See <a href="/iam/docs/managing-policies#setting_a_policy">Setting a
 Policy</a> for more information.  
 */
-await gapi.client.datasets.setIamPolicy({ resource: "resource",  }); 
-    
+await gapi.client.datasets.setIamPolicy({ resource: 'resource' });
+
 /* 
 Returns permissions that a caller has on the specified resource.
 See <a href="/iam/docs/managing-policies#testing_permissions">Testing
@@ -316,8 +319,8 @@ For the definitions of datasets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.datasets.testIamPermissions({ resource: "resource",  }); 
-    
+await gapi.client.datasets.testIamPermissions({ resource: 'resource' });
+
 /* 
 Undeletes a dataset by restoring a dataset which was deleted via this API.
 
@@ -327,25 +330,25 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 
 This operation is only possible for a week after the deletion occurred.  
 */
-await gapi.client.datasets.undelete({ datasetId: "datasetId",  }); 
-    
+await gapi.client.datasets.undelete({ datasetId: 'datasetId' });
+
 /* 
 Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation.  
 */
-await gapi.client.operations.cancel({ name: "name",  }); 
-    
+await gapi.client.operations.cancel({ name: 'name' });
+
 /* 
 Gets the latest state of a long-running operation.  Clients can use this
 method to poll the operation result at intervals as recommended by the API
 service.  
 */
-await gapi.client.operations.get({ name: "name",  }); 
-    
+await gapi.client.operations.get({ name: 'name' });
+
 /* 
 Lists operations that match the specified filter in the request.  
 */
-await gapi.client.operations.list({ name: "name",  }); 
-    
+await gapi.client.operations.list({ name: 'name' });
+
 /* 
 Deletes a read group set.
 
@@ -353,8 +356,8 @@ For the definitions of read group sets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.readgroupsets.delete({ readGroupSetId: "readGroupSetId",  }); 
-    
+await gapi.client.readgroupsets.delete({ readGroupSetId: 'readGroupSetId' });
+
 /* 
 Exports a read group set to a BAM file in Google Cloud Storage.
 
@@ -367,8 +370,8 @@ files and the original BAM file at the time of import. See
 ImportReadGroupSets
 for caveats.  
 */
-await gapi.client.readgroupsets.export({ readGroupSetId: "readGroupSetId",  }); 
-    
+await gapi.client.readgroupsets.export({ readGroupSetId: 'readGroupSetId' });
+
 /* 
 Gets a read group set by ID.
 
@@ -376,8 +379,8 @@ For the definitions of read group sets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.readgroupsets.get({ readGroupSetId: "readGroupSetId",  }); 
-    
+await gapi.client.readgroupsets.get({ readGroupSetId: 'readGroupSetId' });
+
 /* 
 Creates read group sets by asynchronously importing the provided
 information.
@@ -398,8 +401,8 @@ their qualities (also the "BQ" and "OQ" tags, if any) will be reversed
 - Unmapped reads will be stripped of positional information (reference name
 and position)  
 */
-await gapi.client.readgroupsets.import({  }); 
-    
+await gapi.client.readgroupsets.import({});
+
 /* 
 Updates a read group set.
 
@@ -409,8 +412,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 
 This method supports patch semantics.  
 */
-await gapi.client.readgroupsets.patch({ readGroupSetId: "readGroupSetId",  }); 
-    
+await gapi.client.readgroupsets.patch({ readGroupSetId: 'readGroupSetId' });
+
 /* 
 Searches for read group sets matching the criteria.
 
@@ -421,8 +424,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 Implements
 [GlobalAllianceApi.searchReadGroupSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/readmethods.avdl#L135).  
 */
-await gapi.client.readgroupsets.search({  }); 
-    
+await gapi.client.readgroupsets.search({});
+
 /* 
 Gets a list of reads for one or more read group sets.
 
@@ -449,8 +452,8 @@ of paginated responses.
 Implements
 [GlobalAllianceApi.searchReads](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/readmethods.avdl#L85).  
 */
-await gapi.client.reads.search({  }); 
-    
+await gapi.client.reads.search({});
+
 /* 
 Gets a reference.
 
@@ -461,8 +464,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 Implements
 [GlobalAllianceApi.getReference](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L158).  
 */
-await gapi.client.references.get({ referenceId: "referenceId",  }); 
-    
+await gapi.client.references.get({ referenceId: 'referenceId' });
+
 /* 
 Searches for references which match the given criteria.
 
@@ -473,8 +476,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 Implements
 [GlobalAllianceApi.searchReferences](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L146).  
 */
-await gapi.client.references.search({  }); 
-    
+await gapi.client.references.search({});
+
 /* 
 Gets a reference set.
 
@@ -485,8 +488,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 Implements
 [GlobalAllianceApi.getReferenceSet](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L83).  
 */
-await gapi.client.referencesets.get({ referenceSetId: "referenceSetId",  }); 
-    
+await gapi.client.referencesets.get({ referenceSetId: 'referenceSetId' });
+
 /* 
 Searches for reference sets which match the given criteria.
 
@@ -497,8 +500,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 Implements
 [GlobalAllianceApi.searchReferenceSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L71)  
 */
-await gapi.client.referencesets.search({  }); 
-    
+await gapi.client.referencesets.search({});
+
 /* 
 Creates a new variant.
 
@@ -506,8 +509,8 @@ For the definitions of variants and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.variants.create({  }); 
-    
+await gapi.client.variants.create({});
+
 /* 
 Deletes a variant.
 
@@ -515,8 +518,8 @@ For the definitions of variants and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.variants.delete({ variantId: "variantId",  }); 
-    
+await gapi.client.variants.delete({ variantId: 'variantId' });
+
 /* 
 Gets a variant by ID.
 
@@ -524,8 +527,8 @@ For the definitions of variants and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.variants.get({ variantId: "variantId",  }); 
-    
+await gapi.client.variants.get({ variantId: 'variantId' });
+
 /* 
 Creates variant data by asynchronously importing the provided information.
 
@@ -546,8 +549,8 @@ be moved to the call level; these are sometimes interpreted in a
 call-specific context.
 Imported VCF headers are appended to the metadata already in a variant set.  
 */
-await gapi.client.variants.import({  }); 
-    
+await gapi.client.variants.import({});
+
 /* 
 Merges the given variants with existing variants.
 
@@ -641,8 +644,8 @@ from the new variant:
 This may be the desired outcome, but it is up to the user to determine if
 if that is indeed the case.  
 */
-await gapi.client.variants.merge({  }); 
-    
+await gapi.client.variants.merge({});
+
 /* 
 Updates a variant.
 
@@ -653,8 +656,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 This method supports patch semantics. Returns the modified variant without
 its calls.  
 */
-await gapi.client.variants.patch({ variantId: "variantId",  }); 
-    
+await gapi.client.variants.patch({ variantId: 'variantId' });
+
 /* 
 Gets a list of variants matching the criteria.
 
@@ -665,8 +668,8 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 Implements
 [GlobalAllianceApi.searchVariants](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L126).  
 */
-await gapi.client.variants.search({  }); 
-    
+await gapi.client.variants.search({});
+
 /* 
 Creates a new variant set.
 
@@ -678,8 +681,8 @@ The provided variant set must have a valid `datasetId` set - all other
 fields are optional. Note that the `id` field will be ignored, as this is
 assigned by the server.  
 */
-await gapi.client.variantsets.create({  }); 
-    
+await gapi.client.variantsets.create({});
+
 /* 
 Deletes a variant set including all variants, call sets, and calls within.
 This is not reversible.
@@ -688,8 +691,8 @@ For the definitions of variant sets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.variantsets.delete({ variantSetId: "variantSetId",  }); 
-    
+await gapi.client.variantsets.delete({ variantSetId: 'variantSetId' });
+
 /* 
 Exports variant set data to an external destination.
 
@@ -697,8 +700,8 @@ For the definitions of variant sets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.variantsets.export({ variantSetId: "variantSetId",  }); 
-    
+await gapi.client.variantsets.export({ variantSetId: 'variantSetId' });
+
 /* 
 Gets a variant set by ID.
 
@@ -706,8 +709,8 @@ For the definitions of variant sets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.variantsets.get({ variantSetId: "variantSetId",  }); 
-    
+await gapi.client.variantsets.get({ variantSetId: 'variantSetId' });
+
 /* 
 Updates a variant set using patch semantics.
 
@@ -715,8 +718,8 @@ For the definitions of variant sets and other genomics resources, see
 [Fundamentals of Google
 Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)  
 */
-await gapi.client.variantsets.patch({ variantSetId: "variantSetId",  }); 
-    
+await gapi.client.variantsets.patch({ variantSetId: 'variantSetId' });
+
 /* 
 Returns a list of all variant sets matching search criteria.
 
@@ -727,5 +730,5 @@ Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
 Implements
 [GlobalAllianceApi.searchVariantSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L49).  
 */
-await gapi.client.variantsets.search({  });
+await gapi.client.variantsets.search({});
 ```

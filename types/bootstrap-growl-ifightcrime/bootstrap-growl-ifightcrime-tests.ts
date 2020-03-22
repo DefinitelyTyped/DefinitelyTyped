@@ -6,7 +6,7 @@ $(document).ready(() => {
 // with options example
 let offsetOptions: BootstrapGrowlIfightcrime.OffsetOption = {
     from: 'top',
-    amount: 20
+    amount: 20,
 };
 
 let options: BootstrapGrowlIfightcrime.Options = {
@@ -16,21 +16,21 @@ let options: BootstrapGrowlIfightcrime.Options = {
     align: 'right',
     delay: 4000,
     allow_dismiss: true,
-    stackup_spacing: 10
+    stackup_spacing: 10,
 };
 
 $(document).ready(() => {
     $.bootstrapGrowl('Alert with options', options);
 
-    const optionsWidthAuto: BootstrapGrowlIfightcrime.Options  = {
+    const optionsWidthAuto: BootstrapGrowlIfightcrime.Options = {
         ...options,
-        width: 'auto'
+        width: 'auto',
     };
     $.bootstrapGrowl('Alert with options, width=auto', optionsWidthAuto);
 
     const optionsWidthAsNumber = {
         ...options,
-        width: 120
+        width: 120,
     };
     $.bootstrapGrowl('Alert with options, width=120', optionsWidthAsNumber);
 });

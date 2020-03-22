@@ -6,11 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Plugin,
-    Request,
-    ResponseObject,
-} from 'hapi';
+import { Plugin, Request, ResponseObject } from 'hapi';
 
 declare namespace vision {
     interface EnginesConfiguration {
@@ -18,7 +14,7 @@ declare namespace vision {
          * Required object where each key is a file extension (e.g. 'html', 'hbr'), mapped to the npm module used for rendering the templates.
          * Alternatively, the extension can be mapped to an object
          */
-        engines: {[fileExtension: string]: NpmModule} | ServerViewsEnginesOptions;
+        engines: { [fileExtension: string]: NpmModule } | ServerViewsEnginesOptions;
         /** defines the default filename extension to append to template names when multiple engines are configured and no explicit extension is provided for a given template. No default value. */
         defaultExtension?: string;
     }
@@ -126,12 +122,15 @@ declare namespace vision {
      * compiled is a function with signature function(context, options, callback) (the compiled async template)
      * and callback has the signature function(err, rendered).
      */
-    type ServerViewCompileSync  = (template: string, options: any) => (context: any, options: any) => void;
+    type ServerViewCompileSync = (template: string, options: any) => (context: any, options: any) => void;
     type ServerViewCompileAsync = (template: string, options: any, next: ServerViewCompileNext) => void;
 
     type ServerViewCompile = ServerViewCompileSync | ServerViewCompileAsync;
 
-    type ServerViewCompileNext = (err: Error | null, compiled: (context: any, options: any, callback: (err: null | Error, rendered: string | null) => void) => void) => void;
+    type ServerViewCompileNext = (
+        err: Error | null,
+        compiled: (context: any, options: any, callback: (err: null | Error, rendered: string | null) => void) => void,
+    ) => void;
 
     /**
      * The npm module used for rendering the templates. The module object must contain the compile() function
@@ -252,17 +251,19 @@ declare module 'hapi' {
          * (these can be overriden by values explicitly set via the options).
          * @see {@link https://github.com/hapijs/vision/blob/master/API.md#the-view-handler}
          */
-        view?: string | {
-            /** the template filename and path, relative to the templates path configured via the server views manager. */
-            template: string;
-            /** optional object used by the template to render context-specific result. Defaults to no context {}. */
-            context?: object;
-            /**
-             * optional object used to override the server's views manager configuration for this response.
-             * Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.
-             * TODO check if it can have `defaultExtension`.
-             */
-            options?: vision.ViewHandlerOrReplyOptions;
-        };
+        view?:
+            | string
+            | {
+                  /** the template filename and path, relative to the templates path configured via the server views manager. */
+                  template: string;
+                  /** optional object used by the template to render context-specific result. Defaults to no context {}. */
+                  context?: object;
+                  /**
+                   * optional object used to override the server's views manager configuration for this response.
+                   * Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.
+                   * TODO check if it can have `defaultExtension`.
+                   */
+                  options?: vision.ViewHandlerOrReplyOptions;
+              };
     }
 }

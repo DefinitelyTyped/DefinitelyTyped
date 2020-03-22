@@ -10,7 +10,7 @@ new AMap.OverView({});
 const overview = new AMap.OverView({
     tileLayer,
     isOpen: true,
-    visible: true
+    visible: true,
 });
 
 // $ExpectType void

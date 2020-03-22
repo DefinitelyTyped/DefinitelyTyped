@@ -1,6 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import FacebookLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo, ReactFacebookLoginProps } from 'react-facebook-login';
+import FacebookLogin, {
+    ReactFacebookFailureResponse,
+    ReactFacebookLoginInfo,
+    ReactFacebookLoginProps,
+} from 'react-facebook-login';
 
 const responseFacebook = (response: ReactFacebookLoginInfo) => {
     console.log(response);
@@ -11,7 +15,7 @@ const failureResponseFacebook = (response: ReactFacebookFailureResponse) => {
 };
 
 const componentClicked = () => {
-    console.log("component clicked");
+    console.log('component clicked');
 };
 
 ReactDOM.render(
@@ -20,8 +24,9 @@ ReactDOM.render(
         autoLoad={true}
         fields="name,email,picture"
         onClick={componentClicked}
-        callback={responseFacebook} />,
-    document.getElementById('demo')
+        callback={responseFacebook}
+    />,
+    document.getElementById('demo'),
 );
 
 ReactDOM.render(
@@ -31,8 +36,9 @@ ReactDOM.render(
         fields="name,email,picture"
         onClick={componentClicked}
         callback={responseFacebook}
-        onFailure={failureResponseFacebook} />,
-    document.getElementById('demo')
+        onFailure={failureResponseFacebook}
+    />,
+    document.getElementById('demo'),
 );
 
 ReactDOM.render(
@@ -43,8 +49,8 @@ ReactDOM.render(
         callback={responseFacebook}
         cssClass="my-facebook-button-class"
         icon="fa-facebook"
-        />,
-    document.getElementById('demo')
+    />,
+    document.getElementById('demo'),
 );
 
 ReactDOM.render(
@@ -55,8 +61,8 @@ ReactDOM.render(
         callback={responseFacebook}
         cssClass="my-facebook-button-class"
         icon={<div className="myIcon" />}
-        />,
-    document.getElementById('demo')
+    />,
+    document.getElementById('demo'),
 );
 
 ReactDOM.render(
@@ -67,8 +73,8 @@ ReactDOM.render(
         callback={responseFacebook}
         cssClass="my-facebook-button-class"
         icon={<div className="myIcon" />}
-        />,
-    document.getElementById('demo')
+    />,
+    document.getElementById('demo'),
 );
 
 class MyComponent extends React.Component {
@@ -84,7 +90,7 @@ class MyComponent extends React.Component {
                 fields="name,email,picture"
                 scope="public_profile,user_friends,user_actions.books"
                 callback={responseFacebook}
-                />
+            />
         );
     }
 }
@@ -101,7 +107,7 @@ class MyComponent2 extends React.Component {
                 autoLoad={true}
                 fields="name,email,picture"
                 callback={responseFacebook}
-                />
+            />
         );
     }
 }

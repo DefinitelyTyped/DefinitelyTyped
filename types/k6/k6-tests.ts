@@ -24,15 +24,15 @@ export default function test2() {
 function test3() {
     const res = http.get('http://httpbin.org', { responseType: 'text' });
     check(res, {
-        'response code was 200': res => res.status === 200,
-        'body size was 1234 bytes': res => res.body.length === 1234,
+        'response code was 200': (res) => res.status === 200,
+        'body size was 1234 bytes': (res) => res.body.length === 1234,
     });
 }
 
 function test4() {
     const res = http.get('https://loadimpact.com');
     check(res, {
-        'status code MUST be 200': res => res.status === 200,
+        'status code MUST be 200': (res) => res.status === 200,
     }) || fail('status code was *not* 200');
 }
 
@@ -41,18 +41,14 @@ function test5() {
         group('front page', () => {
             const res = http.get('https://loadimpact.com');
             check(res, {
-                'status code is 200': res => res.status === 200,
+                'status code is 200': (res) => res.status === 200,
             });
         });
         group('features page', () => {
             const res = http.get('https://loadimpact.com/features');
             check(res, {
-                'status code is 200': res => res.status === 200,
-                'h1 message is correct': res =>
-                    res
-                        .html('h1')
-                        .text()
-                        .startsWith('Simple yet realistic load testing'),
+                'status code is 200': (res) => res.status === 200,
+                'h1 message is correct': (res) => res.html('h1').text().startsWith('Simple yet realistic load testing'),
             });
         });
     });
@@ -71,7 +67,7 @@ function httpTest1() {
         'http://test.loadimpact.com/images/logo.png',
     ]);
     check(responses[0], {
-        'main page status was 200': res => res.status === 200,
+        'main page status was 200': (res) => res.status === 200,
     });
 }
 
@@ -99,7 +95,7 @@ function httpTest2() {
     // httpbin.org should return our POST data in the response body, so
     // we check the third response object to see that the POST worked.
     check(responses[3], {
-        'form data OK': res => JSON.parse(res.body)['form']['hello'] === 'world!',
+        'form data OK': (res) => JSON.parse(res.body)['form']['hello'] === 'world!',
     });
 }
 
@@ -141,7 +137,7 @@ function httpTest5() {
     const res2 = http.post(baseURL + '/user/login', formdata, { headers });
     // Verify that we ended up on the user page
     check(res2, {
-        'login succeeded': res2 => res2.url === `${baseURL}/users/testuser1`,
+        'login succeeded': (res2) => res2.url === `${baseURL}/users/testuser1`,
     }) || fail('login failed');
 }
 
@@ -164,7 +160,10 @@ function httpTest7() {
         Authorization: 'Token ' + apiToken,
     };
 
-    http.batch([{ method: 'GET', url: url1, params: { headers: requestHeaders } }, { method: 'GET', url: url2 }]);
+    http.batch([
+        { method: 'GET', url: url1, params: { headers: requestHeaders } },
+        { method: 'GET', url: url2 },
+    ]);
 }
 
 function jsonObject(value: JSONValue | undefined): value is JSONObject {
@@ -177,12 +176,12 @@ function httpTest8() {
 
     // Verify response
     check(res, {
-        'status is 200': r => r.status === 200,
-        'is authenticated': r => {
+        'status is 200': (r) => r.status === 200,
+        'is authenticated': (r) => {
             const json = r.json();
             return jsonObject(json) && !!json.authenticated;
         },
-        'is correct user': r => {
+        'is correct user': (r) => {
             const json = r.json();
             return jsonObject(json) && json.user === 'user';
         },
@@ -197,8 +196,8 @@ function httpTest9() {
         }
     }
     check(res, {
-        'status is 200': r => r.status === 200,
-        'caption is correct': r => r.html('h1').text() === 'Example Domain',
+        'status is 200': (r) => r.status === 200,
+        'caption is correct': (r) => r.html('h1').text() === 'Example Domain',
     });
 }
 

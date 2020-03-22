@@ -33,7 +33,7 @@ import {
 // Modern Environment
 // ~~~~~~~~~~~~~~~~~~~~~
 function fetchQuery(operation: any, variables: any, cacheConfig: {}) {
-    return fetch('/graphql').then(response => response.json());
+    return fetch('/graphql').then((response) => response.json());
 }
 const network = Network.create(fetchQuery);
 const source = new RecordSource();
@@ -191,7 +191,7 @@ const Story = (() => {
             this.props.relay.refetch(
                 { id: this.props.story.id },
                 {},
-                error => {
+                (error) => {
                     this.setState({ isLoading: false });
                 },
                 { force: true },
@@ -279,7 +279,7 @@ const Story = (() => {
     function canTakeComponentRef() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
         const story: _FragmentRefs<'Story_story'> = {} as any;
-        <StoryRefetchContainer story={story} onLike={onLike} componentRef={ref => console.log(ref)} />;
+        <StoryRefetchContainer story={story} onLike={onLike} componentRef={(ref) => console.log(ref)} />;
     }
 
     return StoryRefetchContainer;
@@ -329,7 +329,7 @@ const Feed = (() => {
         // TODO: Getting env here for no good reason other than needing to test it works.
         //       If you have a good relavant example, please update!
         relay.environment;
-        const stories = feed.edges.map(edge => {
+        const stories = feed.edges.map((edge) => {
             return <Story story={edge.node} key={edge.node.id} onLike={onStoryLike} />;
         });
         return (
@@ -396,7 +396,7 @@ const Feed = (() => {
     function canTakeComponentRef() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
         const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
-        <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} componentRef={ref => console.log(ref)} />;
+        <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} componentRef={(ref) => console.log(ref)} />;
     }
 
     return FeedFragmentContainer;
@@ -443,7 +443,7 @@ type UserFeed_user = {
 
             this.props.relay.loadMore(
                 10, // Fetch the next 10 feed items
-                e => {
+                (e) => {
                     console.log(e);
                 },
             );
@@ -545,7 +545,7 @@ type UserFeed_user = {
 
     function canTakeComponentRef() {
         const user: _FragmentRefs<'UserFeed_user'> = {} as any;
-        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} componentRef={ref => console.log(ref)} />;
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} componentRef={(ref) => console.log(ref)} />;
     }
 };
 
@@ -632,12 +632,12 @@ function markNotificationAsRead(source: string, storyID: string) {
         },
         onCompleted: (response, errors) => {
             if (errors) {
-                console.log(`Errors received from server: ${errors.map(error => error.message).join(', ')}`);
+                console.log(`Errors received from server: ${errors.map((error) => error.message).join(', ')}`);
             } else {
                 console.log(`Response received from server: ${response.markReadNotification.notification.seenState}`);
             }
         },
-        onError: err => console.error(err),
+        onError: (err) => console.error(err),
         updater: (store, data) => {
             const story = store.get(storyID);
             if (story) {
@@ -688,9 +688,9 @@ requestSubscription(
         variables,
         // optional but recommended:
         onCompleted: () => {},
-        onError: error => console.error(error),
+        onError: (error) => console.error(error),
         // example of a custom updater
-        updater: store => {
+        updater: (store) => {
             // Get the notification
             const rootField = store.getRootField('markReadNotification');
             const notification = !!rootField ? rootField.getLinkedRecord('notification') : null;
@@ -715,12 +715,13 @@ requestSubscription(
 ReactRelayContext.Consumer.prototype;
 ReactRelayContext.Provider.prototype;
 
-const MyRelayContextProvider: React.FunctionComponent = children => {
+const MyRelayContextProvider: React.FunctionComponent = (children) => {
     return (
         <ReactRelayContext.Provider
             value={{
                 environment: modernEnvironment,
-            }}>
+            }}
+        >
             {children}
         </ReactRelayContext.Provider>
     );

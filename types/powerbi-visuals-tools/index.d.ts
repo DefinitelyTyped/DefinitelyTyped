@@ -190,7 +190,8 @@ declare namespace powerbi {
     /**
      * Represents an operation, to be completed (resolve/rejected) in the future.
      */
-    interface IPromise<T> extends IPromise2<T, T> {// eslint-disable-line interface-name
+    interface IPromise<T> extends IPromise2<T, T> {
+        // eslint-disable-line interface-name
     }
 
     /**
@@ -209,13 +210,15 @@ declare namespace powerbi {
          */
         then<TSuccessResult, TErrorResult>(
             successCallback: (promiseValue: TSuccess) => TSuccessResult | IPromise2<TSuccessResult, TErrorResult>,
-            errorCallback?: (reason: TError) => TErrorResult):
-        IPromise2<TSuccessResult, TErrorResult>;
+            errorCallback?: (reason: TError) => TErrorResult,
+        ): IPromise2<TSuccessResult, TErrorResult>;
 
         /**
          * Shorthand for promise.then(null, errorCallback).
          */
-        catch<TErrorResult>(onRejected: (reason: any) => IPromise2<TSuccess, TErrorResult>): IPromise2<TSuccess, TErrorResult>;
+        catch<TErrorResult>(
+            onRejected: (reason: any) => IPromise2<TSuccess, TErrorResult>,
+        ): IPromise2<TSuccess, TErrorResult>;
 
         /**
          * Shorthand for promise.then(null, errorCallback).
@@ -236,8 +239,7 @@ declare namespace powerbi {
         finally<T, U>(finallyCallback: () => any): IPromise2<T, U>;
     }
 
-    interface IDeferred<T> extends IDeferred2<T, T> {
-    }
+    interface IDeferred<T> extends IDeferred2<T, T> {}
 
     interface IDeferred2<TSuccess, TError> {
         resolve(value: TSuccess): void;
@@ -252,8 +254,7 @@ declare namespace powerbi {
         pending(): boolean;
     }
 
-    interface RejectablePromise<T> extends RejectablePromise2<T, T> {
-    }
+    interface RejectablePromise<T> extends RejectablePromise2<T, T> {}
 
     interface IResultCallback<T> {
         // tslint:disable-next-line
@@ -268,11 +269,14 @@ declare namespace powerbi {
 
 declare namespace powerbi.visuals {
     import Selector = data.Selector;
-	import SelectorsByColumn = data.SelectorsByColumn;
+    import SelectorsByColumn = data.SelectorsByColumn;
 
     interface ISelectionIdBuilder {
         withCategory(categoryColumn: DataViewCategoryColumn, index: number): this;
-        withSeries(seriesColumn: DataViewValueColumns, valueColumn: DataViewValueColumn | DataViewValueColumnGroup): this;
+        withSeries(
+            seriesColumn: DataViewValueColumns,
+            valueColumn: DataViewValueColumn | DataViewValueColumnGroup,
+        ): this;
         withMeasure(measureId: string): this;
         createSelectionId(): ISelectionId;
     }
@@ -549,11 +553,11 @@ declare namespace powerbi {
         children?: DataViewMatrixNode[];
 
         /* If this DataViewMatrixNode represents the  inner-most dimension of row groups (i.e. a leaf node), then this property will contain the values at the
-        * matrix intersection under the group. The valueSourceIndex property will contain the position of the column in the select statement to which the
-        * value belongs.
-        *
-        * When this DataViewMatrixNode is used under the context of DataView.matrix.columns, this property is not used.
-        */
+         * matrix intersection under the group. The valueSourceIndex property will contain the position of the column in the select statement to which the
+         * value belongs.
+         *
+         * When this DataViewMatrixNode is used under the context of DataView.matrix.columns, this property is not used.
+         */
         values?: { [id: number]: DataViewMatrixNodeValue };
 
         /**
@@ -731,12 +735,12 @@ declare namespace powerbi.data {
     }
 
     type DataRepetitionSelector =
-        DataViewScopeIdentity |
-        DataViewScopeWildcard |
-        DataViewRoleWildcard |
-        DataViewScopeTotal;
+        | DataViewScopeIdentity
+        | DataViewScopeWildcard
+        | DataViewRoleWildcard
+        | DataViewScopeTotal;
 
-	interface SelectorsByColumn {
+    interface SelectorsByColumn {
         key?: string;
     }
 }
@@ -777,7 +781,7 @@ declare namespace powerbi.data {
         /* The exprs defining the scope that this Total has been evaluated for
          * It's an array to support expressing Total across a composite group
          * Example: If this represents Total sales of USA across States, the Exprs wil refer to "States"
-        */
+         */
         exprs: ISQExpr[];
 
         key: string;
@@ -850,8 +854,7 @@ declare namespace powerbi {
 }
 
 declare namespace powerbi {
-    interface FillRule extends FillRuleGeneric<string, number, string> {
-    }
+    interface FillRule extends FillRuleGeneric<string, number, string> {}
 
     interface FillRuleGeneric<TColor, TValue, TStrategy> {
         linearGradient2?: LinearGradient2Generic<TColor, TValue, TStrategy>;
@@ -945,14 +948,14 @@ declare namespace powerbi {
 
     /** Defines instances of structural types. */
     type StructuralObjectValue =
-        Fill |
-        FillRule |
-        SemanticFilter |
-        DefaultValueDefinition |
-        ImageValue |
-        Paragraphs |
-        GeoJson |
-        DataBars;
+        | Fill
+        | FillRule
+        | SemanticFilter
+        | DefaultValueDefinition
+        | ImageValue
+        | Paragraphs
+        | GeoJson
+        | DataBars;
 
     /** Describes a structural type in the client type system. Leaf properties should use ValueType. */
     interface StructuralTypeDescriptor {
@@ -1209,7 +1212,10 @@ declare namespace powerbi {
 
 declare namespace powerbi.extensibility {
     interface ISelectionManager {
-        select(selectionId: visuals.ISelectionId | visuals.ISelectionId[], multiSelect?: boolean): IPromise<visuals.ISelectionId[]>;
+        select(
+            selectionId: visuals.ISelectionId | visuals.ISelectionId[],
+            multiSelect?: boolean,
+        ): IPromise<visuals.ISelectionId[]>;
         hasSelection(): boolean;
         clear(): IPromise<{}>;
         getSelectionIds(): visuals.ISelectionId[];
@@ -1221,7 +1227,10 @@ declare namespace powerbi.extensibility {
 declare namespace powerbi.extensibility {
     interface ISelectionIdBuilder {
         withCategory(categoryColumn: DataViewCategoryColumn, index: number): this;
-        withSeries(seriesColumn: DataViewValueColumns, valueColumn: DataViewValueColumn | DataViewValueColumnGroup): this;
+        withSeries(
+            seriesColumn: DataViewValueColumns,
+            valueColumn: DataViewValueColumn | DataViewValueColumnGroup,
+        ): this;
         withMeasure(measureId: string): this;
         createSelectionId(): visuals.ISelectionId;
     }

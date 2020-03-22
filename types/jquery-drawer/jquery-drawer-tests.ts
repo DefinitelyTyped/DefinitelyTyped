@@ -9,7 +9,7 @@ elem.drawer({
         overlay: 'drawer-overlay',
         open: 'drawer-open',
         close: 'drawer-close',
-        dropdown: 'drawer-dropdown'
+        dropdown: 'drawer-dropdown',
     },
     iscroll: {
         mouseWheel: true,
@@ -25,7 +25,7 @@ elem.drawer({
         overlay: 'drawer-overlay',
         open: 'drawer-open',
         close: 'drawer-close',
-        dropdown: 'drawer-dropdown'
+        dropdown: 'drawer-dropdown',
     },
 });
 elem.drawer({ iscroll: {} });

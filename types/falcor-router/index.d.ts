@@ -13,7 +13,6 @@ import DataSource = FalcorModel.DataSource;
 import { Observable } from 'rx';
 
 declare class FalcorRouter extends DataSource {
-
     constructor(routes: Array<FalcorRouter.RouteDefinition>, options?: FalcorRouter.RouterOptions);
 
     /**
@@ -26,7 +25,6 @@ declare class FalcorRouter extends DataSource {
 }
 
 declare namespace FalcorRouter {
-
     class CreatedRouter extends FalcorRouter {
         constructor(options?: RouterOptions);
     }
@@ -38,7 +36,10 @@ declare namespace FalcorRouter {
     type RoutePathSet = FalcorJsonGraph.PathSet;
 
     interface CallRoute extends Route {
-        call(callPath: RoutePathSet, args: Array<any>): CallRouteResult | Promise<CallRouteResult> | Observable<CallRouteResult>;
+        call(
+            callPath: RoutePathSet,
+            args: Array<any>,
+        ): CallRouteResult | Promise<CallRouteResult> | Observable<CallRouteResult>;
     }
 
     interface GetRoute extends Route {
@@ -51,7 +52,11 @@ declare namespace FalcorRouter {
 
     type RouteDefinition = GetRoute | SetRoute | CallRoute;
     type RouteResult = FalcorJsonGraph.PathValue | Array<FalcorJsonGraph.PathValue> | FalcorJsonGraph.JSONEnvelope<any>;
-    type CallRouteResult = FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath | Array<FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath> | FalcorJsonGraph.JSONGraphEnvelope;
+    type CallRouteResult =
+        | FalcorJsonGraph.PathValue
+        | FalcorJsonGraph.InvalidPath
+        | Array<FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath>
+        | FalcorJsonGraph.JSONGraphEnvelope;
 
     interface RouterOptions {
         debug?: boolean;
@@ -61,4 +66,3 @@ declare namespace FalcorRouter {
 }
 
 export = FalcorRouter;
-

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Stackdriver Trace API v2 */
-    function load(name: "cloudtrace", version: "v2"): PromiseLike<void>;
-    function load(name: "cloudtrace", version: "v2", callback: () => any): void;
+    function load(name: 'cloudtrace', version: 'v2'): PromiseLike<void>;
+    function load(name: 'cloudtrace', version: 'v2', callback: () => any): void;
 
     const projects: cloudtrace.ProjectsResource;
 
@@ -293,7 +293,7 @@ declare namespace gapi.client {
             /** Creates a new Span. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -338,7 +338,7 @@ declare namespace gapi.client {
              */
             batchWrite(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

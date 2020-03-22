@@ -1,7 +1,7 @@
-import { Transform, TransformOptions, Writable, Readable } from "stream";
+import { Transform, TransformOptions, Writable, Readable } from 'stream';
 
-import JSON2CSVBase, { json2csv } from "./JSON2CSVBase";
-import JSON2CSVTransform from "./JSON2CSVTransform";
+import JSON2CSVBase, { json2csv } from './JSON2CSVBase';
+import JSON2CSVTransform from './JSON2CSVTransform';
 
 declare class JSON2CSVAsyncParser<T> extends JSON2CSVBase<T> {
     public input: Transform;

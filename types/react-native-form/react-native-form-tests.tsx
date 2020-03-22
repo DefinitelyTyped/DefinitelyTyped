@@ -10,7 +10,7 @@ const customFields = {
         controlled: true,
         valueProp: 'selectedOption',
         callbackProp: 'onSelection',
-    }
+    },
 };
 
 function FormViewWithCustomField() {

@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 export type Context = {
-    [key: string]: any
+    [key: string]: any;
 };
 
 export type Func<T> = (...args: any[]) => T;

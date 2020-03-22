@@ -13,12 +13,12 @@
 // TypeScript Version: 2.4
 
 export enum Status {
-    AMBIGUOUS = "ambiguous",
-    FAILED = "failed",
-    PASSED = "passed",
-    PENDING = "pending",
-    SKIPPED = "skipped",
-    UNDEFINED = "undefined"
+    AMBIGUOUS = 'ambiguous',
+    FAILED = 'failed',
+    PASSED = 'passed',
+    PENDING = 'pending',
+    SKIPPED = 'skipped',
+    UNDEFINED = 'undefined',
 }
 
 export interface World {
@@ -48,7 +48,7 @@ export type StepDefinitionCode = (this: World, ...stepArgs: any[]) => any;
 
 export interface StepDefinitionOptions {
     timeout?: number;
-    wrapperOptions?: {[key: string]: any};
+    wrapperOptions?: { [key: string]: any };
 }
 
 export interface StepDefinitions {
@@ -77,9 +77,15 @@ export function defineStep(pattern: RegExp | string, options: StepDefinitionOpti
 export function Given(pattern: RegExp | string, code: StepDefinitionCode): void;
 export function Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
 export function setDefaultTimeout(time: number): void;
-export function setDefinitionFunctionWrapper(fn: ((fn: () => void) => (...args: any[]) => any) | ((fn: () => void, options?: {[key: string]: any}) => (...args: any[]) => any)): void;
+export function setDefinitionFunctionWrapper(
+    fn:
+        | ((fn: () => void) => (...args: any[]) => any)
+        | ((fn: () => void, options?: { [key: string]: any }) => (...args: any[]) => any),
+): void;
 // tslint:disable-next-line ban-types
-export function setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
+export function setWorldConstructor(
+    world: ((this: World, init: { attach: Function; parameters: { [key: string]: any } }) => void) | {},
+): void;
 export function Then(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
 export function Then(pattern: RegExp | string, code: StepDefinitionCode): void;
 export function When(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
@@ -165,7 +171,9 @@ export interface Hooks {
     AfterAll(options: HookOptions | string, code: GlobalHookCode): void;
     setDefaultTimeout(time: number): void;
     // tslint:disable-next-line ban-types
-    setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
+    setWorldConstructor(
+        world: ((this: World, init: { attach: Function; parameters: { [key: string]: any } }) => void) | {},
+    ): void;
     defineParameterType(transform: Transform): void;
 }
 
@@ -187,11 +195,10 @@ export namespace events {
     }
 
     // tslint:disable-next-line no-empty-interface
-    interface EventPayload {
-    }
+    interface EventPayload {}
 
     interface FeaturesPayload extends EventPayload {
-        getFeatures(): any[];                   // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/runtime.js#L34
+        getFeatures(): any[]; // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/runtime.js#L34
     }
 
     interface FeaturesResultPayload extends EventPayload {
@@ -332,20 +339,14 @@ export class PrettyFormatter extends SummaryFormatter {
     logStepResult(stepResult: any): void;
 }
 
-export class ProgressFormatter extends SummaryFormatter {
-}
+export class ProgressFormatter extends SummaryFormatter {}
 
-export class RerunFormatter extends Formatter {
-}
+export class RerunFormatter extends Formatter {}
 
-export class SnippetsFormatter extends Formatter {
-}
+export class SnippetsFormatter extends Formatter {}
 
-export class UsageFormatter extends Formatter {
-}
+export class UsageFormatter extends Formatter {}
 
-export class UsageJsonFormatter extends Formatter {
-}
+export class UsageJsonFormatter extends Formatter {}
 
-export class JsonFormatter extends Formatter {
-}
+export class JsonFormatter extends Formatter {}

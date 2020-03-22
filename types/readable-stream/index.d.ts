@@ -6,10 +6,10 @@
 
 /// <reference types="node" />
 
-import * as events from "events";
-import * as stream from "stream";
-import * as SafeBuffer from "safe-buffer";
-import { StringDecoder } from "string_decoder";
+import * as events from 'events';
+import * as stream from 'stream';
+import * as SafeBuffer from 'safe-buffer';
+import { StringDecoder } from 'string_decoder';
 
 declare class _Readable extends stream.Readable {
     // static ReadableState: _Readable.ReadableState;
@@ -44,23 +44,32 @@ declare namespace _Readable {
 
     // ==== destroy ====
     interface Destroy {
-        destroy(this: Readable | Writable, error: Error | null, callback?: (error: Error | null) => void): Readable | Writable;
+        destroy(
+            this: Readable | Writable,
+            error: Error | null,
+            callback?: (error: Error | null) => void,
+        ): Readable | Writable;
         undestroy(this: Readable | Writable): void;
     }
 
     // ==== _stream_duplex ====
-    type DuplexOptions = ReadableOptions & WritableOptions & {
-        allowHalfOpen?: boolean;
-        readable?: boolean;
-        writable?: boolean;
-        read?(this: Duplex, size: number): void;
-        write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-        writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
-        final?(this: Duplex, callback: (error?: Error | null) => void): void;
-        destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
-    };
+    type DuplexOptions = ReadableOptions &
+        WritableOptions & {
+            allowHalfOpen?: boolean;
+            readable?: boolean;
+            writable?: boolean;
+            read?(this: Duplex, size: number): void;
+            write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            writev?(
+                this: Duplex,
+                chunks: Array<{ chunk: any; encoding: string }>,
+                callback: (error?: Error | null) => void,
+            ): void;
+            final?(this: Duplex, callback: (error?: Error | null) => void): void;
+            destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
+        };
 
-    class Duplex extends Writable implements /*extends*/_Readable, stream.Duplex {
+    class Duplex extends Writable implements /*extends*/ _Readable, stream.Duplex {
         /**
          * This is a dummy function required to retain type compatibility to node.
          * @deprecated DO NOT USE
@@ -154,7 +163,11 @@ declare namespace _Readable {
     type TransformOptions = DuplexOptions & {
         read?(this: Transform, size: number): void;
         write?(this: Transform, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-        writev?(this: Transform, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+        writev?(
+            this: Transform,
+            chunks: Array<{ chunk: any; encoding: string }>,
+            callback: (error?: Error | null) => void,
+        ): void;
         final?(this: Transform, callback: (error?: Error | null) => void): void;
         destroy?(this: Transform, error: Error | null, callback: (error: Error | null) => void): void;
         transform?(this: Transform, chunk: any, encoding: string, callback: (error?: Error, data?: any) => void): void;
@@ -236,7 +249,11 @@ declare namespace _Readable {
 
     type WritableOptions = WritableStateOptions & {
         write?(this: Writable, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-        writev?(this: Writable, chunk: ArrayLike<{ chunk: any; encoding: string }>, callback: (error?: Error | null) => void): void;
+        writev?(
+            this: Writable,
+            chunk: ArrayLike<{ chunk: any; encoding: string }>,
+            callback: (error?: Error | null) => void,
+        ): void;
         destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
         final?(this: Writable, callback: (error?: Error | null) => void): void;
     };

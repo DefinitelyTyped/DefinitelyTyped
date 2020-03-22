@@ -1,4 +1,4 @@
-const headertmpl = "<h1>{{=it.title}}</h1>";
+const headertmpl = '<h1>{{=it.title}}</h1>';
 
 const pagetmpl = `<h2>Here is the page using a header template< / h2 >
 {{#def.header}}
@@ -15,12 +15,12 @@ const pagetmplwithcustomizableheader = `<h2>Here is the page with customized hea
 {{=it.name}}`;
 
 const def = {
-	header: headertmpl,
-	customheader: customizableheadertmpl
+    header: headertmpl,
+    customheader: customizableheadertmpl,
 };
 const data = {
-	title: "My title",
-	name: "My name"
+    title: 'My title',
+    name: 'My name',
 };
 
 doT.templateSettings.varname = 'test';

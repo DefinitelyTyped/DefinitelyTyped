@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     interface LoDashStatic {
         /**
          * Creates an array of elements split into groups the length of size. If collection can’t be split evenly, the
@@ -31,10 +31,10 @@ declare module "../index" {
          * @param array The array to compact.
          * @return Returns the new array of filtered values.
          */
-        compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
+        compact<T>(array: List<T | null | undefined | false | '' | 0> | null | undefined): T[];
     }
 
-    type Truthy<T> = T extends null | undefined | false | "" | 0 ? never : T;
+    type Truthy<T> = T extends null | undefined | false | '' | 0 ? never : T;
     interface Collection<T> {
         /**
          * @see _.compact
@@ -67,7 +67,7 @@ declare module "../index" {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
+        concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
     }
     interface Primitive<T> {
         /**
@@ -139,27 +139,65 @@ declare module "../index" {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        differenceBy<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1[];
+        differenceBy<T1, T2>(
+            array: List<T1> | null | undefined,
+            values: List<T2>,
+            iteratee: ValueIteratee<T1 | T2>,
+        ): T1[];
         /**
          * @see _.differenceBy
          */
-        differenceBy<T1, T2, T3>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, iteratee: ValueIteratee<T1 | T2 | T3>): T1[];
+        differenceBy<T1, T2, T3>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee: ValueIteratee<T1 | T2 | T3>,
+        ): T1[];
         /**
          * @see _.differenceBy
          */
-        differenceBy<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, values3: List<T4>, iteratee: ValueIteratee<T1 | T2 | T3 | T4>): T1[];
+        differenceBy<T1, T2, T3, T4>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4>,
+        ): T1[];
         /**
          * @see _.differenceBy
          */
-        differenceBy<T1, T2, T3, T4, T5>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>): T1[];
+        differenceBy<T1, T2, T3, T4, T5>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>,
+        ): T1[];
         /**
          * @see _.differenceBy
          */
-        differenceBy<T1, T2, T3, T4, T5, T6>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, values5: List<T6>, iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>): T1[];
+        differenceBy<T1, T2, T3, T4, T5, T6>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>,
+        ): T1[];
         /**
          * @see _.differenceBy
          */
-        differenceBy<T1, T2, T3, T4, T5, T6, T7>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, values5: List<T6>, ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>>): T1[];
+        differenceBy<T1, T2, T3, T4, T5, T6, T7>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>>
+        ): T1[];
         /**
          * @see _.differenceBy
          */
@@ -202,15 +240,29 @@ declare module "../index" {
          * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }]
          */
-        differenceWith<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
+        differenceWith<T1, T2>(
+            array: List<T1> | null | undefined,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>,
+        ): T1[];
         /**
          * @see _.differenceWith
          */
-        differenceWith<T1, T2, T3>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T2 | T3>): T1[];
+        differenceWith<T1, T2, T3>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            comparator: Comparator2<T1, T2 | T3>,
+        ): T1[];
         /**
          * @see _.differenceWith
          */
-        differenceWith<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>): T1[];
+        differenceWith<T1, T2, T3, T4>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
+        ): T1[];
         /**
          * @see _.differenceWith
          */
@@ -230,11 +282,11 @@ declare module "../index" {
         /**
          * @see _.differenceWith
          */
-        differenceWith< T2>(values: List<T2>, comparator: Comparator2<T, T2>): CollectionChain<T>;
+        differenceWith<T2>(values: List<T2>, comparator: Comparator2<T, T2>): CollectionChain<T>;
         /**
          * @see _.differenceWith
          */
-        differenceWith< T2, T3, T4>(...values: Array<List<unknown> | Comparator2<T, never>>): CollectionChain<T>;
+        differenceWith<T2, T3, T4>(...values: Array<List<unknown> | Comparator2<T, never>>): CollectionChain<T>;
     }
     interface LoDashStatic {
         /**
@@ -374,7 +426,11 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        findIndex<T>(array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
+        findIndex<T>(
+            array: List<T> | null | undefined,
+            predicate?: ListIterateeCustom<T, boolean>,
+            fromIndex?: number,
+        ): number;
     }
     interface Collection<T> {
         /**
@@ -397,7 +453,11 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        findLastIndex<T>(array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
+        findLastIndex<T>(
+            array: List<T> | null | undefined,
+            predicate?: ListIterateeCustom<T, boolean>,
+            fromIndex?: number,
+        ): number;
     }
     interface Collection<T> {
         /**
@@ -415,7 +475,7 @@ declare module "../index" {
         /**
          * @see _.head
          */
-        first: LoDashStatic["head"];
+        first: LoDashStatic['head'];
     }
     interface String {
         /**
@@ -447,8 +507,8 @@ declare module "../index" {
          */
         first(): ExpChain<T | undefined>;
     }
-    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
-    interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
+    interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
+    interface ListOfRecursiveArraysOrValues<T> extends List<T | RecursiveArray<T>> {}
     interface LoDashStatic {
         /**
          * Flattens `array` a single level deep.
@@ -489,7 +549,7 @@ declare module "../index" {
         flatten(): T extends Many<infer U> ? CollectionChain<U> : CollectionChain<T>;
     }
 
-    type Flat<T> = T extends string ? T : (T extends List<any> ? never : T);
+    type Flat<T> = T extends string ? T : T extends List<any> ? never : T;
 
     interface LoDashStatic {
         /**
@@ -707,11 +767,21 @@ declare module "../index" {
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T1, T2, T3>(array: List<T1> | null, values1: List<T2>, values2: List<T3>, iteratee: ValueIteratee<T1 | T2 | T3>): T1[];
+        intersectionBy<T1, T2, T3>(
+            array: List<T1> | null,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee: ValueIteratee<T1 | T2 | T3>,
+        ): T1[];
         /**
          * @see _.intersectionBy
          */
-        intersectionBy<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>>): T1[];
+        intersectionBy<T1, T2, T3, T4>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>>
+        ): T1[];
         /**
          * @see _.intersectionBy
          */
@@ -759,15 +829,29 @@ declare module "../index" {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        intersectionWith<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
+        intersectionWith<T1, T2>(
+            array: List<T1> | null | undefined,
+            values: List<T2>,
+            comparator: Comparator2<T1, T2>,
+        ): T1[];
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T1, T2, T3>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T2 | T3>): T1[];
+        intersectionWith<T1, T2, T3>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            comparator: Comparator2<T1, T2 | T3>,
+        ): T1[];
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>): T1[];
+        intersectionWith<T1, T2, T3, T4>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
+        ): T1[];
         /**
          * @see _.intersectionWith
          */
@@ -781,7 +865,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith(...values: Array<List<unknown> | Comparator2<T,  never>>): Collection<T>;
+        intersectionWith(...values: Array<List<unknown> | Comparator2<T, never>>): Collection<T>;
     }
     interface CollectionChain<T> {
         /**
@@ -791,7 +875,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith(...values: Array<List<unknown> | Comparator2<T,  never>>): CollectionChain<T>;
+        intersectionWith(...values: Array<List<unknown> | Comparator2<T, never>>): CollectionChain<T>;
     }
     interface LoDashStatic {
         /**
@@ -881,19 +965,19 @@ declare module "../index" {
          * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
          * @return Returns the index of the matched value, else -1.
          */
-        lastIndexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: true|number): number;
+        lastIndexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: true | number): number;
     }
     interface Collection<T> {
         /**
          * @see _.lastIndexOf
          */
-        lastIndexOf(value: T, fromIndex?: true|number): number;
+        lastIndexOf(value: T, fromIndex?: true | number): number;
     }
     interface CollectionChain<T> {
         /**
          * @see _.lastIndexOf
          */
-        lastIndexOf(value: T, fromIndex?: true|number): PrimitiveChain<number>;
+        lastIndexOf(value: T, fromIndex?: true | number): PrimitiveChain<number>;
     }
     interface LoDashStatic {
         /**
@@ -1590,19 +1674,41 @@ declare module "../index" {
         /**
          * @see _.unionBy
          */
-        unionBy<T>(arrays1: List<T> | null | undefined, arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
+        unionBy<T>(
+            arrays1: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            iteratee?: ValueIteratee<T>,
+        ): T[];
         /**
          * @see _.unionBy
          */
-        unionBy<T>(arrays1: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
+        unionBy<T>(
+            arrays1: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            arrays3: List<T> | null | undefined,
+            iteratee?: ValueIteratee<T>,
+        ): T[];
         /**
          * @see _.unionBy
          */
-        unionBy<T>(arrays1: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, arrays4: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
+        unionBy<T>(
+            arrays1: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            arrays3: List<T> | null | undefined,
+            arrays4: List<T> | null | undefined,
+            iteratee?: ValueIteratee<T>,
+        ): T[];
         /**
          * @see _.unionBy
          */
-        unionBy<T>(arrays1: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, arrays4: List<T> | null | undefined, arrays5: List<T> | null | undefined, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>): T[];
+        unionBy<T>(
+            arrays1: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            arrays3: List<T> | null | undefined,
+            arrays4: List<T> | null | undefined,
+            arrays5: List<T> | null | undefined,
+            ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>
+        ): T[];
     }
     interface Collection<T> {
         /**
@@ -1646,11 +1752,20 @@ declare module "../index" {
         /**
          * @see _.unionWith
          */
-        unionWith<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, comparator?: Comparator<T>): T[];
+        unionWith<T>(
+            arrays: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            comparator?: Comparator<T>,
+        ): T[];
         /**
          * @see _.unionWith
          */
-        unionWith<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined>): T[];
+        unionWith<T>(
+            arrays: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            arrays3: List<T> | null | undefined,
+            ...comparator: Array<Comparator<T> | List<T> | null | undefined>
+        ): T[];
     }
     interface Collection<T> {
         /**
@@ -1796,7 +1911,10 @@ declare module "../index" {
          * @param iteratee The function to combine regrouped values.
          * @return Returns the new array of regrouped elements.
          */
-        unzipWith<T, TResult>(array: List<List<T>> | null | undefined, iteratee: (...values: T[]) => TResult): TResult[];
+        unzipWith<T, TResult>(
+            array: List<List<T>> | null | undefined,
+            iteratee: (...values: T[]) => TResult,
+        ): TResult[];
         /**
          * @see _.unzipWith
          */
@@ -1806,7 +1924,9 @@ declare module "../index" {
         /**
          * @see _.unzipWith
          */
-        unzipWith<TResult>(iteratee: (...values: Array<T extends List<infer U> ? U : unknown>) => TResult): Collection<TResult>;
+        unzipWith<TResult>(
+            iteratee: (...values: Array<T extends List<infer U> ? U : unknown>) => TResult,
+        ): Collection<TResult>;
         /**
          * @see _.unzipWith
          */
@@ -1816,7 +1936,9 @@ declare module "../index" {
         /**
          * @see _.unzipWith
          */
-        unzipWith<TResult>(iteratee: (...values: Array<T extends List<infer U> ? U : unknown>) => TResult): CollectionChain<TResult>;
+        unzipWith<TResult>(
+            iteratee: (...values: Array<T extends List<infer U> ? U : unknown>) => TResult,
+        ): CollectionChain<TResult>;
         /**
          * @see _.unzipWith
          */
@@ -1888,11 +2010,20 @@ declare module "../index" {
         /**
          * @see _.xorBy
          */
-        xorBy<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
+        xorBy<T>(
+            arrays: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            iteratee?: ValueIteratee<T>,
+        ): T[];
         /**
          * @see _.xorBy
          */
-        xorBy<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>): T[];
+        xorBy<T>(
+            arrays: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            arrays3: List<T> | null | undefined,
+            ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>
+        ): T[];
     }
     interface Collection<T> {
         /**
@@ -1936,11 +2067,20 @@ declare module "../index" {
         /**
          * @see _.xorWith
          */
-        xorWith<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, comparator?: Comparator<T>): T[];
+        xorWith<T>(
+            arrays: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            comparator?: Comparator<T>,
+        ): T[];
         /**
          * @see _.xorWith
          */
-        xorWith<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined>): T[];
+        xorWith<T>(
+            arrays: List<T> | null | undefined,
+            arrays2: List<T> | null | undefined,
+            arrays3: List<T> | null | undefined,
+            ...comparator: Array<Comparator<T> | List<T> | null | undefined>
+        ): T[];
     }
     interface Collection<T> {
         /**
@@ -1974,15 +2114,30 @@ declare module "../index" {
         /**
          * @see _.zip
          */
-        zip<T1, T2, T3>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>): Array<[T1 | undefined, T2 | undefined, T3 | undefined]>;
+        zip<T1, T2, T3>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+        ): Array<[T1 | undefined, T2 | undefined, T3 | undefined]>;
         /**
          * @see _.zip
          */
-        zip<T1, T2, T3, T4>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>;
+        zip<T1, T2, T3, T4>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+            arrays4: List<T4>,
+        ): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>;
         /**
          * @see _.zip
          */
-        zip<T1, T2, T3, T4, T5>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, arrays5: List<T5>): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>;
+        zip<T1, T2, T3, T4, T5>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+            arrays4: List<T4>,
+            arrays5: List<T5>,
+        ): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>;
         /**
          * @see _.zip
          */
@@ -2078,19 +2233,41 @@ declare module "../index" {
         /**
          * @see _.zipWith
          */
-        zipWith<T1, T2, TResult>(arrays1: List<T1>, arrays2: List<T2>, iteratee: (value1: T1, value2: T2) => TResult): TResult[];
+        zipWith<T1, T2, TResult>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            iteratee: (value1: T1, value2: T2) => TResult,
+        ): TResult[];
         /**
          * @see _.zipWith
          */
-        zipWith<T1, T2, T3, TResult>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>, iteratee: (value1: T1, value2: T2, value3: T3) => TResult): TResult[];
+        zipWith<T1, T2, T3, TResult>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+            iteratee: (value1: T1, value2: T2, value3: T3) => TResult,
+        ): TResult[];
         /**
          * @see _.zipWith
          */
-        zipWith<T1, T2, T3, T4, TResult>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult): TResult[];
+        zipWith<T1, T2, T3, T4, TResult>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+            arrays4: List<T4>,
+            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult,
+        ): TResult[];
         /**
          * @see _.zipWith
          */
-        zipWith<T1, T2, T3, T4, T5, TResult>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, arrays5: List<T5>, iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult): TResult[];
+        zipWith<T1, T2, T3, T4, T5, TResult>(
+            arrays1: List<T1>,
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+            arrays4: List<T4>,
+            arrays5: List<T5>,
+            iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult,
+        ): TResult[];
         /**
          * @see _.zipWith
          */
@@ -2104,11 +2281,17 @@ declare module "../index" {
         /**
          * @see _.zipWith
          */
-        zipWith<T2, T3, TResult>(arrays2: List<T2>, arrays3: List<T3>, iteratee: (value1: T, value2: T2, value3: T3) => TResult): Collection<TResult>;
+        zipWith<T2, T3, TResult>(
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+            iteratee: (value1: T, value2: T2, value3: T3) => TResult,
+        ): Collection<TResult>;
         /**
          * @see _.zipWith
          */
-        zipWith<TResult>(...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined>): Collection<TResult>;
+        zipWith<TResult>(
+            ...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined>
+        ): Collection<TResult>;
     }
     interface CollectionChain<T> {
         /**
@@ -2118,10 +2301,16 @@ declare module "../index" {
         /**
          * @see _.zipWith
          */
-        zipWith<T2, T3, TResult>(arrays2: List<T2>, arrays3: List<T3>, iteratee: (value1: T, value2: T2, value3: T3) => TResult): CollectionChain<TResult>;
+        zipWith<T2, T3, TResult>(
+            arrays2: List<T2>,
+            arrays3: List<T3>,
+            iteratee: (value1: T, value2: T2, value3: T3) => TResult,
+        ): CollectionChain<TResult>;
         /**
          * @see _.zipWith
          */
-        zipWith<TResult>(...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined>): CollectionChain<TResult>;
+        zipWith<TResult>(
+            ...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined>
+        ): CollectionChain<TResult>;
     }
 }

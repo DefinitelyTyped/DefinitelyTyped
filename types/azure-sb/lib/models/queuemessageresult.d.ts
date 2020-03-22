@@ -21,7 +21,7 @@ import Dictionary = Az.ServiceBus.Dictionary;
 export namespace Azure.ServiceBus.Results {
     export interface QueueResponse {
         body: any;
-        headers: Dictionary<string>
+        headers: Dictionary<string>;
     }
 
     export interface QueueMessageResponse {

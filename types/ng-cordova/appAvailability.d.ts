@@ -6,9 +6,7 @@
 /// <reference types="angular" />
 
 declare namespace ngCordova {
-
-  export interface IAppAvailabilityService {
-    check(urlScheme: string): ng.IPromise<any>;
-  }
-
+    export interface IAppAvailabilityService {
+        check(urlScheme: string): ng.IPromise<any>;
+    }
 }

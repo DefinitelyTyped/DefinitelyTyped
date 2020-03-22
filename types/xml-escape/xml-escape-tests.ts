@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import xmlEscape = require("xml-escape");
+import xmlEscape = require('xml-escape');
 
 const xml = `
 <message>
@@ -12,9 +12,9 @@ const xml = `
 `;
 
 const fullEscaped = xmlEscape(xml); // $ExpectType string
-const preservingApostrophe = xmlEscape(xml, "&"); // $ExpectType string
+const preservingApostrophe = xmlEscape(xml, '&'); // $ExpectType string
 
 console.info({
     fullEscaped,
-    preservingApostrophe
+    preservingApostrophe,
 });

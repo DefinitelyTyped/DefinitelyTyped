@@ -1,7 +1,7 @@
-import Navigo = require("navigo");
+import Navigo = require('navigo');
 
 type Keys = string;
-type State = {[k in Keys]: any};
+type State = { [k in Keys]: any };
 type Params = State;
 
 const root = null;
@@ -15,7 +15,7 @@ const after = (params: Params) => params;
 
 router.hooks({
     before,
-    after
+    after,
 });
 
 router
@@ -37,7 +37,7 @@ router
         },
         '/products': () => {
             // do something
-        }
+        },
     })
     .resolve();
 
@@ -51,7 +51,7 @@ router
         },
         '*': () => {
             // do something
-        }
+        },
     })
     .resolve();
 
@@ -107,11 +107,11 @@ const handler = () => {
 router.on({
     '/trip/:tripId/edit': { as: 'trip.edit', uses: handler },
     '/trip/save': { as: 'trip.save', uses: handler },
-    '/trip/:action/:tripId': { as: 'trip.action', uses: handler }
+    '/trip/:action/:tripId': { as: 'trip.action', uses: handler },
 });
-let a: string = (router.generate('trip.edit', { tripId: 42 })); // --> /trip/42/edit
-a = (router.generate('trip.action', { tripId: 42, action: 'save' })); // --> /trip/save/42
-a = (router.generate('trip.save')); // --> /trip/save
+let a: string = router.generate('trip.edit', { tripId: 42 }); // --> /trip/42/edit
+a = router.generate('trip.action', { tripId: 42, action: 'save' }); // --> /trip/save/42
+a = router.generate('trip.save'); // --> /trip/save
 
 router.pause();
 router.navigate('/en/products');
@@ -120,7 +120,7 @@ router.resume(); // or .pause(false)
 router.pause();
 router.historyAPIUpdateMethod('replaceState');
 router.disableIfAPINotAvailable();
-router.off('/trip/:number', { as: 'trip', uses: (params, query) => {}});
+router.off('/trip/:number', { as: 'trip', uses: (params, query) => {} });
 router.resume();
 
 router.on(
@@ -136,6 +136,6 @@ router.on(
         },
         after: () => {
             // do something
-        }
-    }
+        },
+    },
 );

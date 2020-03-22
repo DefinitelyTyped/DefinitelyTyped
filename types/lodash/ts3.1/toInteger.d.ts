@@ -1,2 +1,2 @@
-import { toInteger } from "./index";
+import { toInteger } from './index';
 export = toInteger;

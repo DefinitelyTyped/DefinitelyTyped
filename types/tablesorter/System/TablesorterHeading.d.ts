@@ -1,8 +1,8 @@
-import { ColumnFilter } from "../Filtering/ColumnFilter";
-import { EmptySorting } from "../Sorting/EmptySorting";
-import { SortOrder } from "../Sorting/SortOrder";
-import { StringSorting } from "../Sorting/StringSorting";
-import { TablesorterConfigBase } from "../System/TablesorterConfigBase";
+import { ColumnFilter } from '../Filtering/ColumnFilter';
+import { EmptySorting } from '../Sorting/EmptySorting';
+import { SortOrder } from '../Sorting/SortOrder';
+import { StringSorting } from '../Sorting/StringSorting';
+import { TablesorterConfigBase } from '../System/TablesorterConfigBase';
 
 /**
  * Represents settings for a table header generated using `tablesorter`.

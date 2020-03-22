@@ -338,5 +338,5 @@ export {
     TooltipProps,
     Well,
     WellProps,
-    utils
-}
+    utils,
+};

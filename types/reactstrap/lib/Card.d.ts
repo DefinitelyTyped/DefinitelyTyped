@@ -13,5 +13,5 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
     style?: React.CSSProperties;
 }
 
-declare class Card<T = {[key: string]: any}> extends React.Component<CardProps> {}
+declare class Card<T = { [key: string]: any }> extends React.Component<CardProps> {}
 export default Card;

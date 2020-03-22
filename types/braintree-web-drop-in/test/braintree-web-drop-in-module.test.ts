@@ -1,6 +1,6 @@
-import * as dropin from "braintree-web-drop-in";
+import * as dropin from 'braintree-web-drop-in';
 
-dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
+dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
     if (error) {
         return;
     }
@@ -11,72 +11,72 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
 
 (async () => {
     const myOptions: dropin.Options = {
-        authorization: "",
-        container: "my-div",
-        locale: "en-US",
+        authorization: '',
+        container: 'my-div',
+        locale: 'en-US',
         translations: {},
-        paymentOptionPriority: ["card", "paypal", "paypalCredit", "venmo", "applePay"],
+        paymentOptionPriority: ['card', 'paypal', 'paypalCredit', 'venmo', 'applePay'],
         card: {
             cardholderName: {
-                required: false
+                required: false,
             },
             overrides: {
                 fields: {},
-                styles: {}
+                styles: {},
             },
             clearFieldsAfterTokenization: false,
             vault: {
                 allowVaultCardOverride: false,
-                vaultCard: false
-            }
+                vaultCard: false,
+            },
         },
         paypal: {
-            flow: "checkout",
+            flow: 'checkout',
             amount: 1,
-            currency: "USD",
-            buttonStyle: "red",
-            commit: false
+            currency: 'USD',
+            buttonStyle: 'red',
+            commit: false,
         },
         paypalCredit: undefined,
         venmo: {
-            allowNewBrowserTab: false
+            allowNewBrowserTab: false,
         },
         applePay: {
-            buttonStyle: "red",
-            displayName: "name",
+            buttonStyle: 'red',
+            displayName: 'name',
             applePaySessionVersion: 1,
-            paymentRequest: {}
+            paymentRequest: {},
         },
         googlePay: {
-            merchantId: "",
-            googlePayVersion: "",
+            merchantId: '',
+            googlePayVersion: '',
             transactionInfo: {},
-            button: {}
+            button: {},
         },
         dataCollector: {
             kount: false,
-            paypal: false
+            paypal: false,
         },
         threeDSecure: {
-            amount: "1"
+            amount: '1',
         },
         vaultManager: false,
-        preselectVaultedPaymentMethod: false
+        preselectVaultedPaymentMethod: false,
     };
     const myDropin = await dropin.create(myOptions);
 
     myDropin.clearSelectedPaymentMethod();
     const myBool: boolean = myDropin.isPaymentMethodRequestable();
 
-    myDropin.on("noPaymentMethodRequestable", () => {
+    myDropin.on('noPaymentMethodRequestable', () => {
         return;
     });
-    myDropin.on("paymentMethodRequestable", ({ type, paymentMethodIsSelected }) => {
-        const myType: "CreditCard" | "PayPalAccount" = type;
+    myDropin.on('paymentMethodRequestable', ({ type, paymentMethodIsSelected }) => {
+        const myType: 'CreditCard' | 'PayPalAccount' = type;
         const myBool: boolean = paymentMethodIsSelected;
     });
-    myDropin.on("paymentOptionSelected", ({ paymentOption }) => {
-        const myPaymentOption: "card" | "paypal" | "paypalCredit" = paymentOption;
+    myDropin.on('paymentOptionSelected', ({ paymentOption }) => {
+        const myPaymentOption: 'card' | 'paypal' | 'paypalCredit' = paymentOption;
     });
 
     myDropin.requestPaymentMethod((error, payload) => {
@@ -89,10 +89,10 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
     const details: object = myPayload.details;
     const deviceData: string | null = myPayload.deviceData;
     const nonce: string = myPayload.nonce;
-    const type: "CreditCard" | "PayPalAccount" | "VenmoAccount" | "AndroidPayCard" | "ApplePayCard" = myPayload.type;
+    const type: 'CreditCard' | 'PayPalAccount' | 'VenmoAccount' | 'AndroidPayCard' | 'ApplePayCard' = myPayload.type;
     const countryOfIssuance: string = myPayload.binData.countryOfIssuance;
 
-    myDropin.teardown(error => {
+    myDropin.teardown((error) => {
         if (error) {
             return;
         }

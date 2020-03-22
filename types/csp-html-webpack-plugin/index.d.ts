@@ -16,10 +16,7 @@ declare class CspHtmlWebpackPlugin {
      * @param policy - the policy object
      * @param additionalOpts - additional config options
      */
-    constructor(
-        policy?: CspHtmlWebpackPlugin.Policy,
-        additionalOpts?: CspHtmlWebpackPlugin.AdditionalOptions
-    );
+    constructor(policy?: CspHtmlWebpackPlugin.Policy, additionalOpts?: CspHtmlWebpackPlugin.AdditionalOptions);
 
     apply(compiler: WebpackCompiler): void;
 }
@@ -46,9 +43,10 @@ declare namespace CspHtmlWebpackPlugin {
 
     // HtmlWebpackPlugin v3 and v4 use different hook interfaces. Figure out
     // which we're using and infer the generic type variable inside.
-    type HtmlPluginData
-        = HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV3<infer T> ? T
-        : HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV4<infer U> ? U
+    type HtmlPluginData = HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV3<infer T>
+        ? T
+        : HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV4<infer U>
+        ? U
         : any; // Fallback when nothing works.
 
     /**
@@ -101,7 +99,7 @@ declare namespace CspHtmlWebpackPlugin {
 declare module 'html-webpack-plugin' {
     interface Options {
         cspPlugin?: CspHtmlWebpackPlugin.AdditionalOptions & {
-            policy?: CspHtmlWebpackPlugin.Policy
+            policy?: CspHtmlWebpackPlugin.Policy;
         };
     }
 }

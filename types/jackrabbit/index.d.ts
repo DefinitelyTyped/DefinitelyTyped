@@ -56,7 +56,7 @@ declare namespace jackrabbit {
         connect(con: Connection): void;
         consume: (
             callback: (data: any, ack: AckCallback, nack: () => void, msg: Message) => void,
-            options?: Options.Consume
+            options?: Options.Consume,
         ) => void;
         cancel(done: any): void;
         purge(done: any): void;

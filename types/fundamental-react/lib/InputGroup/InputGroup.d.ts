@@ -1,8 +1,8 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type InputGroupAddonPosition = "before" | "after";
+export type InputGroupAddonPosition = 'before' | 'after';
 
-export type InputGroupTypes = "text" | "number" | "search";
+export type InputGroupTypes = 'text' | 'number' | 'search';
 
 export interface InputGroupAddonProps {
     className?: string;
@@ -23,8 +23,8 @@ export type InputGroupProps = {
 } & { [x: string]: any };
 
 declare class InputGroup extends React.Component<InputGroupProps> {
-    static displayName: "InputGroup";
-    static Addon: React.FunctionComponent<InputGroupAddonProps> & {displayName: "InputGroup.Addon"};
+    static displayName: 'InputGroup';
+    static Addon: React.FunctionComponent<InputGroupAddonProps> & { displayName: 'InputGroup.Addon' };
 }
 
 export default InputGroup;

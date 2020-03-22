@@ -292,9 +292,13 @@ export interface NxInlineDimensionDef {
 }
 
 export interface OtherTotalSpecProp {
-    qOtherMode: 'OTHER_OFF' | 'OTHER_COUNTED'
-    | 'OTHER_ABS_LIMITED' | 'OTHER_ABS_ACC_TARGET'
-    | 'OTHER_REL_LIMITED' | 'OTHER_REL_ACC_TARGET';
+    qOtherMode:
+        | 'OTHER_OFF'
+        | 'OTHER_COUNTED'
+        | 'OTHER_ABS_LIMITED'
+        | 'OTHER_ABS_ACC_TARGET'
+        | 'OTHER_REL_LIMITED'
+        | 'OTHER_REL_ACC_TARGET';
     qOtherCounted: ValueExpr;
     qOtherLimit: ValueExpr;
     qOtherLimitMode: 'OTHER_GE_LIMIT' | 'OTHER_LE_LIMIT' | 'OTHER_GT_LIMIT' | 'OTHER_LT_LIMIT';
@@ -430,7 +434,7 @@ export type Paint = (
     measures?: NxCell[],
     qSize?: Size,
     qId?: string,
-    qSelectionInfo?: Selectionobject
+    qSelectionInfo?: Selectionobject,
 ) => void;
 
 export interface VisualizationCommon {
@@ -445,8 +449,7 @@ export interface VisualizationCommon {
 export type VisualizationOptions = VisualizationCommon;
 
 // TODO: Figure out other types
-export type ShowFunction = (layout: Layout, cls: any, obj: any) => boolean
-    | ((measure: NxMeasure) => boolean);
+export type ShowFunction = (layout: Layout, cls: any, obj: any) => boolean | ((measure: NxMeasure) => boolean);
 
 export interface CustomPropertyCommon {
     type?: 'string' | 'integer' | 'number' | 'array' | 'boolean' | 'items';
@@ -601,12 +604,25 @@ export interface CustomPropertyItems extends CustomPropertyCommon {
     };
 }
 
-export type CustomProperty = CustomPropertyString | CustomPropertyInteger | CustomPropertyNumber
-    | CustomPropertyArray | CustomPropertyButton | CustomPropertyButtonGroup
-    | CustomPropertyCheckbox | CustomPropertyColorPicker | CustomPropertyDropdown
-    | CustomPropertyLink | CustomProperyMedia | CustomPropertyRadio
-    | CustomPropertySlider | CustomPropertyRangeSlider | CustomPropertySwitch
-    | CustomPropertyText | CustomPropertyTextArea | CustomPropertyExpression
+export type CustomProperty =
+    | CustomPropertyString
+    | CustomPropertyInteger
+    | CustomPropertyNumber
+    | CustomPropertyArray
+    | CustomPropertyButton
+    | CustomPropertyButtonGroup
+    | CustomPropertyCheckbox
+    | CustomPropertyColorPicker
+    | CustomPropertyDropdown
+    | CustomPropertyLink
+    | CustomProperyMedia
+    | CustomPropertyRadio
+    | CustomPropertySlider
+    | CustomPropertyRangeSlider
+    | CustomPropertySwitch
+    | CustomPropertyText
+    | CustomPropertyTextArea
+    | CustomPropertyExpression
     | CustomPropertyItems;
 
 export interface Definition {
@@ -623,7 +639,7 @@ export interface Definition {
             max?: number;
             items?: {
                 [key: string]: CustomProperty;
-            }
+            };
         };
         measures?: {
             uses: 'measures';
@@ -632,19 +648,19 @@ export interface Definition {
             max?: number;
             items?: {
                 [key: string]: CustomProperty;
-            }
+            };
         };
         sorting?: {
             uses: 'sorting';
             items?: {
                 [key: string]: CustomProperty;
-            }
+            };
         };
         settings?: {
             uses: 'settings';
             items?: {
                 [key: string]: CustomProperty;
-            }
+            };
         };
     };
 }
@@ -794,7 +810,7 @@ export interface GetDataOptions {
 export interface QField {
     rows?: QFieldValue[];
     rowCount?: number;
-    qStateCounts?: { [state: string]: number; };
+    qStateCounts?: { [state: string]: number };
 
     clear(): Promise<any>;
     clearOther(softlock: boolean): Promise<any>;
@@ -812,9 +828,18 @@ export interface QField {
     unlock(): Promise<any>;
 }
 
-export type ListTypes = 'FieldList' | 'MeasureList' | 'DimensionList' | 'BookmarkList'
-    | 'Selectionobject' | 'SnapshotList' | 'MediaList' | 'sheet'
-    | 'Materobject' | 'VariableList' | 'story';
+export type ListTypes =
+    | 'FieldList'
+    | 'MeasureList'
+    | 'DimensionList'
+    | 'BookmarkList'
+    | 'Selectionobject'
+    | 'SnapshotList'
+    | 'MediaList'
+    | 'sheet'
+    | 'Materobject'
+    | 'VariableList'
+    | 'story';
 
 export interface App {
     addAlternateState(qStateName: string): Promise<any>;
@@ -834,7 +859,11 @@ export interface App {
     // getAppobjectList(type: 'sheet' | 'masterobject', callback: (list: ))
     getFullPropertyTree(id: string): Promise<any>;
     // getList(type: ListTypes, callback): Promise<any>;
-    getobject(elem?: HTMLElement | string, id?: string | 'CurrentSelections', options?: { noInteraction?: boolean, noSelections?: boolean }): Promise<any>;
+    getobject(
+        elem?: HTMLElement | string,
+        id?: string | 'CurrentSelections',
+        options?: { noInteraction?: boolean; noSelections?: boolean },
+    ): Promise<any>;
     getobjectProperties(id: string): Promise<any>;
     getSnapshot(elem?: HTMLElement | string, id?: string): Promise<any>;
     lockAll(state?: string): Promise<any>;
@@ -900,9 +929,22 @@ export namespace LanguageCodes {
     type SimplifiedChinese = 'zh-CN';
     type TraditionalChinese = 'zh-TW';
 
-    type ALL = German | English | Spanish | French | Italian | Japanese
-        | Korean | Dutch | Polish | BrazilianPortuguese | Russian
-        | Swedish | Turkish | SimplifiedChinese | TraditionalChinese;
+    type ALL =
+        | German
+        | English
+        | Spanish
+        | French
+        | Italian
+        | Japanese
+        | Korean
+        | Dutch
+        | Polish
+        | BrazilianPortuguese
+        | Russian
+        | Swedish
+        | Turkish
+        | SimplifiedChinese
+        | TraditionalChinese;
 }
 export function setLanguage(lang: LanguageCodes.ALL): void;
 

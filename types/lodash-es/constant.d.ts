@@ -1,2 +1,2 @@
-import { constant } from "lodash";
+import { constant } from 'lodash';
 export default constant;

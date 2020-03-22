@@ -7,5 +7,5 @@ declare namespace Thumbnail {
         bsStyle?: string;
     }
 }
-declare class Thumbnail extends React.Component<Thumbnail.ThumbnailProps> { }
+declare class Thumbnail extends React.Component<Thumbnail.ThumbnailProps> {}
 export = Thumbnail;

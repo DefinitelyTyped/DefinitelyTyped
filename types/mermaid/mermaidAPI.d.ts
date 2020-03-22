@@ -1,12 +1,12 @@
 declare namespace mermaidAPI {
-    type Theme = "default" | "forest" | "dark" | "neutral";
+    type Theme = 'default' | 'forest' | 'dark' | 'neutral';
 
     enum LogLevel {
         Debug = 1,
         Info,
         Warn,
         Error,
-        Fatal
+        Fatal,
     }
 
     interface FlowChartConfig {
@@ -241,11 +241,8 @@ declare namespace mermaidAPI {
     function render(
         id: string,
         txt: string,
-        cb: (
-            svgCode: string,
-            bindFunctions: (element: Element) => void
-        ) => void,
-        container?: string
+        cb: (svgCode: string, bindFunctions: (element: Element) => void) => void,
+        container?: string,
     ): string;
 
     function parse(text: string): any;

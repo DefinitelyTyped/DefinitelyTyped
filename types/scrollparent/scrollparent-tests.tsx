@@ -1,6 +1,6 @@
-import scrollparent = require("scrollparent");
+import scrollparent = require('scrollparent');
 
-const elem = document.getElementById("content");
+const elem = document.getElementById('content');
 if (elem) {
     scrollparent(elem);
 }

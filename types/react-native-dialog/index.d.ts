@@ -7,14 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Ref, PureComponent, ReactNode } from "react";
-import {
-    ViewProps,
-    TextProps,
-    StyleProp,
-    TextInputProps,
-    ViewStyle
-} from "react-native";
+import { Ref, PureComponent, ReactNode } from 'react';
+import { ViewProps, TextProps, StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import * as reactNativeModal from 'react-native-modal';
 
 interface ButtonProps {
@@ -61,22 +55,16 @@ interface DescriptionProps {
     children: string;
 }
 
-type reactNativeModalContainerProps = Partial<Pick<reactNativeModal.ModalProps, Exclude<keyof reactNativeModal.ModalProps, "isVisible">>>;
+type reactNativeModalContainerProps = Partial<
+    Pick<reactNativeModal.ModalProps, Exclude<keyof reactNativeModal.ModalProps, 'isVisible'>>
+>;
 
 export namespace Dialog {
-    class Button extends PureComponent<
-        ButtonProps & ViewProps & TextProps
-    > {}
+    class Button extends PureComponent<ButtonProps & ViewProps & TextProps> {}
     class Container extends PureComponent<ContainerProps & ViewProps & reactNativeModalContainerProps> {}
-    class Title extends PureComponent<
-        TitleProps & ViewProps & TextProps
-    > {}
-    class Input<T> extends PureComponent<
-        InputProps<T> & ViewProps & TextInputProps
-    > {}
-    class Description extends PureComponent<
-        DescriptionProps & ViewProps & TextProps
-    > {}
+    class Title extends PureComponent<TitleProps & ViewProps & TextProps> {}
+    class Input<T> extends PureComponent<InputProps<T> & ViewProps & TextInputProps> {}
+    class Description extends PureComponent<DescriptionProps & ViewProps & TextProps> {}
 }
 
 export default Dialog;

@@ -4,10 +4,10 @@
 //                 Labat Robin <https://github.com/roblabat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter2 } from "eventemitter2";
-import * as SocketIO from "socket.io";
-import { Stream } from "stream";
-import { Server } from "http";
+import { EventEmitter2 } from 'eventemitter2';
+import * as SocketIO from 'socket.io';
+import { Stream } from 'stream';
+import { Server } from 'http';
 
 export abstract class Component extends EventEmitter2 {
     constructor(
@@ -19,7 +19,7 @@ export abstract class Component extends EventEmitter2 {
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -38,7 +38,7 @@ export class Requester extends Component {
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -79,7 +79,7 @@ export class Responder extends Component {
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -87,10 +87,7 @@ export class Responder extends Component {
      *
      * @param listener Callback.
      */
-    on(
-        type: 'cote:added' | 'cote:removed',
-        listener: (event: Status) => void
-    ): this;
+    on(type: 'cote:added' | 'cote:removed', listener: (event: Status) => void): this;
 
     /**
      * Responds to certain requests from a Requester.
@@ -100,10 +97,7 @@ export class Responder extends Component {
      */
     on<T extends Event>(
         type: string | string[],
-        listener: (
-            ((event: T, callback: (error: any, result: any) => void) => void) |
-            ((event: T) => Promise<any>)
-        )
+        listener: ((event: T, callback: (error: any, result: any) => void) => void) | ((event: T) => Promise<any>),
     ): this;
 }
 
@@ -132,7 +126,7 @@ export class Publisher extends Component {
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -142,10 +136,7 @@ export class Publisher extends Component {
      * @param type EventEmitter-compatible type.
      * @param event Request.
      */
-    publish<T extends Event>(
-        type: string,
-        event: T
-    ): void;
+    publish<T extends Event>(type: string, event: T): void;
 }
 
 /**
@@ -168,7 +159,7 @@ export class Subscriber extends Component {
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -177,10 +168,7 @@ export class Subscriber extends Component {
      * @param type Type. May be wildcarded or namespaced like in EventEmitter2.
      * @param listener Callback. Returns nothing.
      */
-    on<T extends Event>(
-        type: string | string[],
-        listener: (event: T) => void
-    ): this;
+    on<T extends Event>(type: string | string[], listener: (event: T) => void): this;
 }
 
 /**
@@ -208,14 +196,14 @@ export class Sockend extends Component {
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 }
 
 /**
  * Configuration which controls the data being advertised for auto-discovery.
  */
-export interface SockendAdvertisement extends ResponderAdvertisement, PublisherAdvertisement { }
+export interface SockendAdvertisement extends ResponderAdvertisement, PublisherAdvertisement {}
 
 export class Monitor extends Component {
     constructor(
@@ -229,8 +217,8 @@ export class Monitor extends Component {
          */
         discoveryOptions?: DiscoveryOptions,
 
-        stream?: Stream
-    )
+        stream?: Stream,
+    );
 }
 
 /**
@@ -248,9 +236,11 @@ export interface MonitorAdvertisement extends Advertisement {
  *
  * @param port Open in browser to see network graph in action.
  */
-export function MonitoringTool(port: number): {
-    monitor: Monitor,
-    server: Server
+export function MonitoringTool(
+    port: number,
+): {
+    monitor: Monitor;
+    server: Server;
 };
 
 /**
@@ -281,7 +271,7 @@ export class TimeBalancedRequester extends Requester {
  * Keeps track of open, pending requests for each known Responder. Each new
  * request goes to the Responder with the minimum open requests.
  */
-export class PendingBalancedRequester extends Requester { }
+export class PendingBalancedRequester extends Requester {}
 
 /**
  * Event is nothing but object with `type`.
@@ -300,11 +290,11 @@ export interface Status extends Event {
 /**
  * Advertisement in internal `cote:added` and `cote:removed` events.
  */
-export interface StatusAdvertisement extends
-    RequesterAdvertisement,
-    ResponderAdvertisement,
-    PublisherAdvertisement,
-    SubscriberAdvertisement { }
+export interface StatusAdvertisement
+    extends RequesterAdvertisement,
+        ResponderAdvertisement,
+        PublisherAdvertisement,
+        SubscriberAdvertisement {}
 
 /**
  * Configuration which controls the data being advertised for auto-discovery.

@@ -52,11 +52,7 @@ export interface SkewAnimation {
     skewY(ay: number): Animation;
 }
 
-export interface Animation
-    extends RotateAnimation,
-        ScaleAnimation,
-        SkewAnimation,
-        TranslateAnimation {
+export interface Animation extends RotateAnimation, ScaleAnimation, SkewAnimation, TranslateAnimation {
     opacity(x: number): Animation;
     backgroundColor(x: string): Animation;
     width(x: number): Animation;
@@ -72,13 +68,11 @@ export interface LagLng {
     longitude: number;
 }
 
-export type CallbackFunction<T> = (
-    callbacks: {
-        success: (res: T) => void;
-        fail: () => void;
-        complete: () => void;
-    }
-) => void;
+export type CallbackFunction<T> = (callbacks: {
+    success: (res: T) => void;
+    fail: () => void;
+    complete: () => void;
+}) => void;
 
 export interface MapContext {
     getCenterLocation: CallbackFunction<LagLng>;
@@ -117,17 +111,9 @@ export interface UrlParam {
 export interface RequestParam extends UrlParam {
     data?: object | string | ArrayBuffer;
     header?: object;
-    method?:
-        | "GET"
-        | "OPTIONS"
-        | "HEAD"
-        | "POST"
-        | "PUT"
-        | "DELETE"
-        | "TRACE"
-        | "CONNECT";
-    dataType?: "json" | "text";
-    responseType?: "text" | "arraybuffer";
+    method?: 'GET' | 'OPTIONS' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT';
+    dataType?: 'json' | 'text';
+    responseType?: 'text' | 'arraybuffer';
 }
 
 export interface FilePathParam {
@@ -150,7 +136,7 @@ export interface WxEnhances {
             width: number;
             height: number;
         },
-        context: any
+        context: any,
     ): Promise<{
         width: number;
         height: number;
@@ -166,7 +152,7 @@ export interface WxEnhances {
             height?: number;
             wdith: number;
         },
-        context: any
+        context: any,
     ): Promise<void>;
 
     canvasToTempFilePath(
@@ -179,11 +165,11 @@ export interface WxEnhances {
             destHeight: number;
             canvasId: string;
         },
-        context: any
+        context: any,
     ): Promise<{ tempFilePath: string }>;
 
     checkIsSoterEnrolledInDevice(params: {
-        checkAuthMode: "fingerPrint" | "facial" | "speech";
+        checkAuthMode: 'fingerPrint' | 'facial' | 'speech';
     }): Promise<{
         isEnrolled: boolean;
         errMsg: string;
@@ -196,7 +182,7 @@ export interface WxEnhances {
     checkSession(): Promise<void>;
 
     chooseInvoiceTitle(): Promise<{
-        type: "0" | "1";
+        type: '0' | '1';
         title: string;
         taxNumber: string;
         companyAddress: string;
@@ -256,7 +242,7 @@ export interface WxEnhances {
     getNetworkType(): Promise<{ networkType: string }>;
 
     getSavedFileInfo(
-        params: FilePathParam
+        params: FilePathParam,
     ): Promise<{
         errMsg: string;
         size: number;
@@ -270,14 +256,14 @@ export interface WxEnhances {
 
     getSetting(): Promise<{
         authSetting: {
-            "scope.userInfo": boolean;
-            "scope.userLocation": boolean;
-            "scope.address": boolean;
-            "scope.invoiceTitle": boolean;
-            "scope.werun": boolean;
-            "scope.record": boolean;
-            "scope.writePhotosAlbum": boolean;
-            "scope.camera": boolean;
+            'scope.userInfo': boolean;
+            'scope.userLocation': boolean;
+            'scope.address': boolean;
+            'scope.invoiceTitle': boolean;
+            'scope.werun': boolean;
+            'scope.record': boolean;
+            'scope.writePhotosAlbum': boolean;
+            'scope.camera': boolean;
         };
     }>;
 
@@ -337,10 +323,7 @@ export interface WxEnhances {
         address?: string;
     }): Promise<void>;
 
-    pageScrollTo(params: {
-        scrollTop: number;
-        duration: number;
-    }): Promise<void>;
+    pageScrollTo(params: { scrollTop: number; duration: number }): Promise<void>;
 
     redirectTo(params: UrlParam): Promise<void>;
 
@@ -376,10 +359,7 @@ export interface WxEnhances {
 
     setStorage(params: { key: string; data: string | object }): Promise<void>;
 
-    showActionSheet(params: {
-        itemList: string[];
-        itemColor: string;
-    }): Promise<void>;
+    showActionSheet(params: { itemList: string[]; itemColor: string }): Promise<void>;
 
     showLoading(params: { title: string }): Promise<void>;
 
@@ -397,7 +377,7 @@ export interface WxEnhances {
 
     showToast(params: {
         title: string;
-        icon?: "success" | "loading" | "none";
+        icon?: 'success' | 'loading' | 'none';
         image?: string;
         duration?: number;
         mask?: boolean;

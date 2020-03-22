@@ -165,7 +165,10 @@ export interface Request {
     /**
      * Equivalent to `request.send` with the POST method: `request.send("POST", data, callback)`.
      */
-    post<RequestData, ResponseData>(data: RequestData, callback: (this: this, error: any, d: ResponseData) => void): this;
+    post<RequestData, ResponseData>(
+        data: RequestData,
+        callback: (this: this, error: any, d: ResponseData) => void,
+    ): this;
 
     /**
      * Sets the response value function to the specified function and returns this request instance.
@@ -208,7 +211,11 @@ export interface Request {
      * The callback is invoked with two arguments: the error, if any, and the response value.
      * The response value is undefined if an error occurs.
      */
-    send<RequestData, ResponseData>(method: string, data: RequestData, callback: (this: this, error: any | null, d: ResponseData | null) => void): this;
+    send<RequestData, ResponseData>(
+        method: string,
+        data: RequestData,
+        callback: (this: this, error: any | null, d: ResponseData | null) => void,
+    ): this;
 
     /**
      * Returns the current response timeout, which defaults to 0.
@@ -230,7 +237,9 @@ export interface Request {
 }
 
 export interface DsvRequest extends Request {
-    row<ParsedRow extends object>(value: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow): DsvRequest;
+    row<ParsedRow extends object>(
+        value: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow,
+    ): DsvRequest;
 }
 
 /**
@@ -241,7 +250,10 @@ export function csv(url: string): DsvRequest;
  * Returns a new request for the CSV file at the specified url with the default mime type `text/csv`.
  * And send a GET request.
  */
-export function csv(url: string, callback: (this: DsvRequest, error: any, d: DSVParsedArray<DSVRowString>) => void): DsvRequest;
+export function csv(
+    url: string,
+    callback: (this: DsvRequest, error: any, d: DSVParsedArray<DSVRowString>) => void,
+): DsvRequest;
 /**
  * Returns a new request for the CSV file at the specified url with the default mime type `text/csv`.
  * And send a GET request.
@@ -250,7 +262,7 @@ export function csv(url: string, callback: (this: DsvRequest, error: any, d: DSV
 export function csv<ParsedRow extends object>(
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow,
-    callback: (this: DsvRequest, error: any, d: DSVParsedArray<ParsedRow>) => void
+    callback: (this: DsvRequest, error: any, d: DSVParsedArray<ParsedRow>) => void,
 ): DsvRequest;
 
 /**
@@ -271,7 +283,10 @@ export function json(url: string): Request;
  * Returns a new request to get the JSON file at the specified url with the default mime type `application/json`.
  * And send a GET request.
  */
-export function json<ParsedObject extends { [key: string]: any }>(url: string, callback: (this: Request, error: any, d: ParsedObject) => void): Request;
+export function json<ParsedObject extends { [key: string]: any }>(
+    url: string,
+    callback: (this: Request, error: any, d: ParsedObject) => void,
+): Request;
 
 /**
  * Returns a new request for specified url. The returned request is not yet sent and can be further configured.
@@ -308,7 +323,10 @@ export function tsv(url: string): DsvRequest;
  * Returns a new request for a TSV file at the specified url with the default mime type `text/tab-separated-values`.
  * And send a GET request.
  */
-export function tsv(url: string, callback: (this: DsvRequest, error: any, d: DSVParsedArray<DSVRowString>) => void): DsvRequest;
+export function tsv(
+    url: string,
+    callback: (this: DsvRequest, error: any, d: DSVParsedArray<DSVRowString>) => void,
+): DsvRequest;
 /**
  * Returns a new request for a TSV file at the specified url with the default mime type `text/tab-separated-values`.
  * And send a GET request.
@@ -317,7 +335,7 @@ export function tsv(url: string, callback: (this: DsvRequest, error: any, d: DSV
 export function tsv<ParsedRow extends object>(
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow,
-    callback: (this: DsvRequest, error: any, d: DSVParsedArray<ParsedRow>) => void
+    callback: (this: DsvRequest, error: any, d: DSVParsedArray<ParsedRow>) => void,
 ): DsvRequest;
 
 /**

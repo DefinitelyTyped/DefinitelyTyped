@@ -13,7 +13,7 @@ const emoji_string2: string = emoji.emojify('I :unknown_emoji: :star: :another_o
 const emoji_direct: string = emoji.emoji.coffee;
 
 const emoji_search = emoji.search('cof');
-const emojis_from_search: string[] = emoji_search.map(emoji => emoji.emoji);
+const emojis_from_search: string[] = emoji_search.map((emoji) => emoji.emoji);
 
 const unemojified_string: string = emoji.unemojify('I ❤️ 🍕');
 

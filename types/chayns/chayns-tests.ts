@@ -2,13 +2,15 @@
 
 chayns.register({
     strictMode: false,
-    appName: 'chayns-typings-test'
+    appName: 'chayns-typings-test',
 });
 
-chayns.ready.then(data => {
-    return data;
-}).catch(err => {
-    return err;
-});
+chayns.ready
+    .then((data) => {
+        return data;
+    })
+    .catch((err) => {
+        return err;
+    });
 
 chayns.dialog.alert('chayns-typings', 'Test chayns-typings!');

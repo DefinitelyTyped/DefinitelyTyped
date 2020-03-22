@@ -5,7 +5,7 @@ let fn: FileLoader.BuildResourcePathFn;
 fn = () => {}; // $ExpectError
 fn = () => 1; // $ExpectError
 fn = () => ''; // $ExpectType () => string
-fn = url => ''; // $ExpectType (url: string) => string
+fn = (url) => ''; // $ExpectType (url: string) => string
 fn = (url, resourcePath, context, forth) => ''; // $ExpectError
 
 let options: FileLoader.Options;

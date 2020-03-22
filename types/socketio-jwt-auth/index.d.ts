@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import SocketIO = require("socket.io");
+import SocketIO = require('socket.io');
 
 /**
  * This function returns a middleware function for use with Socket.IO that authenticates a new connection.
@@ -12,7 +12,10 @@ import SocketIO = require("socket.io");
  * @param options is an object literal that contains options.
  * @param verify is a function with two args payload, and done.
  */
-export function authenticate(options: authOptions, verify: verifyFunc): (socket: SocketIO.Socket, fn: (err?: any) => void) => void;
+export function authenticate(
+    options: authOptions,
+    verify: verifyFunc,
+): (socket: SocketIO.Socket, fn: (err?: any) => void) => void;
 
 /**
  * This is an object literal that contains options.

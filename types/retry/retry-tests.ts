@@ -52,11 +52,11 @@ const operation = retry.operation(operationOptions);
 
 operation.errors(); // $ExpectType Error[]
 operation.mainError(); // $ExpectType Error | null
-operation.attempt(current => {
+operation.attempt((current) => {
     current; // $ExpectType number
 });
-operation.attempt(current => {}, { timeout: 10 });
-operation.attempt(current => {}, { callback: () => {} });
+operation.attempt((current) => {}, { timeout: 10 });
+operation.attempt((current) => {}, { callback: () => {} });
 operation.retry(); // $ExpectType boolean
 operation.retry(new Error()); // $ExpectType boolean
 operation.stop();

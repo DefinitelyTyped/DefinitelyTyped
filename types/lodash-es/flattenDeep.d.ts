@@ -1,2 +1,2 @@
-import { flattenDeep } from "lodash";
+import { flattenDeep } from 'lodash';
 export default flattenDeep;

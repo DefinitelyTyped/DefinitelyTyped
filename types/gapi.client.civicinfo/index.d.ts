@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Civic Information API v2 */
-    function load(name: "civicinfo", version: "v2"): PromiseLike<void>;
-    function load(name: "civicinfo", version: "v2", callback: () => any): void;
+    function load(name: 'civicinfo', version: 'v2'): PromiseLike<void>;
+    function load(name: 'civicinfo', version: 'v2', callback: () => any): void;
 
     const divisions: civicinfo.DivisionsResource;
 

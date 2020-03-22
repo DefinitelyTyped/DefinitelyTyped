@@ -1,5 +1,5 @@
-import MarkdownIt = require("markdown-it");
-import lazyHeaders = require("markdown-it-lazy-headers");
+import MarkdownIt = require('markdown-it');
+import lazyHeaders = require('markdown-it-lazy-headers');
 
 const md = new MarkdownIt();
 

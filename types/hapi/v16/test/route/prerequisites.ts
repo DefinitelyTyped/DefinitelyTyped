@@ -1,4 +1,3 @@
-
 // From https://hapijs.com/api/16.1.1#route-prerequisites
 
 import * as Hapi from 'hapi';
@@ -6,12 +5,10 @@ const server = new Hapi.Server();
 server.connection({ port: 80 });
 
 const pre1: Hapi.RoutePrerequisiteRequestHandler = function (request, reply) {
-
     return reply('Hello');
 };
 
 const pre2: Hapi.RoutePrerequisiteRequestHandler = function (request, reply) {
-
     return reply('World');
 };
 
@@ -28,15 +25,15 @@ server.route({
             [
                 // m1 and m2 executed in parallel
                 { method: pre1, assign: 'm1' },
-                { method: pre2, assign: 'm2' }
+                { method: pre2, assign: 'm2' },
             ],
             { method: pre3, assign: 'm3' },
         ],
         handler: function (request, reply) {
             const pre = request.pre as Pre2;
             return reply(pre.m3 + '\n');
-        }
-    }
+        },
+    },
 });
 interface Pre1 {
     m1: string;

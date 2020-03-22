@@ -192,11 +192,7 @@ declare namespace sn_ws {
          *   }
          * })();
          */
-        saveResponseBodyAsAttachment(
-            tableName: string,
-            recordSysId: string,
-            fileName: string
-        ): void;
+        saveResponseBodyAsAttachment(tableName: string, recordSysId: string, fileName: string): void;
 
         /**
          * Configure the REST message to save the returned response body as an encrypted
@@ -223,7 +219,7 @@ declare namespace sn_ws {
             tableName: string,
             recordSysId: string,
             fileName: string,
-            encryptContext: string
+            encryptContext: string,
         ): void;
 
         /**
@@ -571,13 +567,5 @@ declare namespace sn_ws {
         setStringParameterNoEscape(name: string, value: string): void;
     }
 
-    type RestHTTPMethods =
-        | 'get'
-        | 'post'
-        | 'delete'
-        | 'patch'
-        | 'put'
-        | 'head'
-        | 'delete'
-        | 'options';
+    type RestHTTPMethods = 'get' | 'post' | 'delete' | 'patch' | 'put' | 'head' | 'delete' | 'options';
 }

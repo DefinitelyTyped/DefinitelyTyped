@@ -18,5 +18,5 @@ export function around(
     latitude: number,
     maxResults?: number,
     maxDistance?: number,
-    filter?: (index: number) => boolean
+    filter?: (index: number) => boolean,
 ): number[];

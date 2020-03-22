@@ -2,12 +2,11 @@ import * as chai from 'chai';
 import * as spies from 'chai-spies';
 
 function original(): void {
-  // do something cool
+    // do something cool
 }
 
 let ee = {
-    on(name: string, fn: () => void) {
-    }
+    on(name: string, fn: () => void) {},
 };
 
 let spiedFn = chai.spy(original);
@@ -20,14 +19,14 @@ let spy_again = chai.spy();
 ee.on('some other event', spy_again);
 
 // or you can track an object's method
-let array = [ 1, 2, 3 ];
+let array = [1, 2, 3];
 chai.spy.on(array, 'push');
 
 // or you can track multiple object's methods
 chai.spy.on(array, ['push', 'pop']);
 
 // or you can track multiple object's methods
-chai.spy.on(array, 'push', function(item) {
+chai.spy.on(array, 'push', function (item) {
     array.push(item);
 });
 
@@ -37,7 +36,7 @@ array.push(5);
 // array.push.reset();
 
 // or you can create spy object
-let object = chai.spy.object([ 'push', 'pop' ]);
+let object = chai.spy.object(['push', 'pop']);
 object.push(5);
 
 // or you create spy which returns static value
@@ -45,9 +44,8 @@ spiedFn = chai.spy.returns(true);
 
 spiedFn(); // true
 
-
-let should = chai.should()
-  , expect = chai.expect;
+let should = chai.should(),
+    expect = chai.expect;
 
 const spy = chai.spy();
 
@@ -161,7 +159,7 @@ let sb = chai.spy.sandbox();
 
 sb.on(array, 'pop', () => {
     return 1;
-})
+});
 
 let one = array.pop();
 expect(one).to.equal(1);

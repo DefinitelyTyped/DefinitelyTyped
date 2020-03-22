@@ -30,13 +30,13 @@ import {
     OutgoingHttpHeaders,
     createServer,
     constants,
-    ServerOptions
-} from "http2";
-import { EventEmitter } from "events";
-import { Stats } from "fs";
-import { Socket, Server } from "net";
-import { TLSSocket } from "tls";
-import { Duplex, Readable } from "stream";
+    ServerOptions,
+} from 'http2';
+import { EventEmitter } from 'events';
+import { Stats } from 'fs';
+import { Socket, Server } from 'net';
+import { TLSSocket } from 'tls';
+import { Duplex, Readable } from 'stream';
 import { URL } from 'url';
 
 // Headers & Settings
@@ -45,7 +45,7 @@ import { URL } from 'url';
         ':status': 200,
         'content-type': 'text-plain',
         ABC: ['has', 'more', 'than', 'one', 'value'],
-        undef: undefined
+        undef: undefined,
     };
 
     const settings: Settings = {
@@ -54,7 +54,7 @@ import { URL } from 'url';
         initialWindowSize: 0,
         maxFrameSize: 0,
         maxConcurrentStreams: 0,
-        maxHeaderListSize: 0
+        maxHeaderListSize: 0,
     };
 }
 
@@ -95,7 +95,7 @@ import { URL } from 'url';
         exclusive: true,
         parent: 0,
         weight: 0,
-        waitForTrailers: true
+        waitForTrailers: true,
     };
     (http2Session as ClientHttp2Session).request();
     (http2Session as ClientHttp2Session).request(headers);
@@ -116,14 +116,17 @@ import { URL } from 'url';
         remoteWindowSize: 0,
         outboundQueueSize: 0,
         deflateDynamicTableSize: 0,
-        inflateDynamicTableSize: 0
+        inflateDynamicTableSize: 0,
     };
 
     http2Session.settings(settings);
 
     http2Session.ping((err: Error | null, duration: number, payload: Buffer) => {});
     http2Session.ping(Buffer.from(''), (err: Error | null, duration: number, payload: Buffer) => {});
-    http2Session.ping(new DataView(new Int8Array(1).buffer), (err: Error | null, duration: number, payload: Buffer) => {});
+    http2Session.ping(
+        new DataView(new Int8Array(1).buffer),
+        (err: Error | null, duration: number, payload: Buffer) => {},
+    );
 }
 
 // Http2Stream
@@ -150,7 +153,7 @@ import { URL } from 'url';
         exclusive: true,
         parent: 0,
         weight: 0,
-        silent: true
+        silent: true,
     });
 
     const sesh: Http2Session = http2Stream.session;
@@ -166,7 +169,7 @@ import { URL } from 'url';
         localClose: 0,
         remoteClose: 0,
         sumDependencyWeight: 0,
-        weight: 0
+        weight: 0,
     };
 
     http2Stream.close();
@@ -189,7 +192,10 @@ import { URL } from 'url';
     serverHttp2Stream.additionalHeaders(headers);
     const headerSent: boolean = serverHttp2Stream.headersSent;
     const pushAllowed: boolean = serverHttp2Stream.pushAllowed;
-    serverHttp2Stream.pushStream(headers, (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => {});
+    serverHttp2Stream.pushStream(
+        headers,
+        (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => {},
+    );
 
     const options: ServerStreamResponseOptions = {
         endStream: true,
@@ -203,23 +209,23 @@ import { URL } from 'url';
         statCheck: (stats: Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => {},
         waitForTrailers: true,
         offset: 0,
-        length: 0
+        length: 0,
     };
     serverHttp2Stream.respondWithFD(0);
     serverHttp2Stream.respondWithFD(0, headers);
     serverHttp2Stream.respondWithFD(0, headers, options2);
-    serverHttp2Stream.respondWithFD(0, headers, {statCheck: () => false});
+    serverHttp2Stream.respondWithFD(0, headers, { statCheck: () => false });
     const options3: ServerStreamFileResponseOptionsWithError = {
         onError: (err: NodeJS.ErrnoException) => {},
         statCheck: (stats: Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => {},
         waitForTrailers: true,
         offset: 0,
-        length: 0
+        length: 0,
     };
     serverHttp2Stream.respondWithFile('');
     serverHttp2Stream.respondWithFile('', headers);
     serverHttp2Stream.respondWithFile('', headers, options3);
-    serverHttp2Stream.respondWithFile('', headers, {statCheck: () => false});
+    serverHttp2Stream.respondWithFile('', headers, { statCheck: () => false });
 }
 
 // Http2Server / Http2SecureServer
@@ -235,7 +241,10 @@ import { URL } from 'url';
         server.on('stream', (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => {});
         server.on('request', (request: Http2ServerRequest, response: Http2ServerResponse) => {});
         server.on('timeout', () => {});
-        server.setTimeout().setTimeout(5).setTimeout(5, () => {});
+        server
+            .setTimeout()
+            .setTimeout(5)
+            .setTimeout(5, () => {});
     });
 
     http2SecureServer.on('unknownProtocol', (socket: TLSSocket) => {});
@@ -243,15 +252,14 @@ import { URL } from 'url';
 
 // Public API (except constants)
 {
-    let settings: Settings = {
-    };
+    let settings: Settings = {};
     const serverOptions: ServerOptions = {
         maxDeflateDynamicTableSize: 0,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-        settings
+        settings,
     };
     // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
     const secureServerOptions: SecureServerOptions = Object.assign({}, serverOptions);
@@ -278,8 +286,7 @@ import { URL } from 'url';
 
         // Http2ServerResponse
 
-        let outgoingHeaders: OutgoingHttpHeaders = {
-        };
+        let outgoingHeaders: OutgoingHttpHeaders = {};
         response.addTrailers(outgoingHeaders);
         socket = response.connection;
         const finished: boolean = response.finished;
@@ -352,7 +359,7 @@ import { URL } from 'url';
         peerMaxConcurrentStreams: 0,
         protocol: 'https:',
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-        settings
+        settings,
     };
     // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
     const secureClientSessionOptions: SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
@@ -401,24 +408,30 @@ import { URL } from 'url';
 
     server = createServer({
         Http2ServerRequest: MyHttp2ServerRequest,
-        Http2ServerResponse: MyHttp2ServerResponse
+        Http2ServerResponse: MyHttp2ServerResponse,
     });
-    server = createServer({
-        Http2ServerRequest: MyHttp2ServerRequest,
-        Http2ServerResponse: MyHttp2ServerResponse
-    }, reqListener);
+    server = createServer(
+        {
+            Http2ServerRequest: MyHttp2ServerRequest,
+            Http2ServerResponse: MyHttp2ServerResponse,
+        },
+        reqListener,
+    );
 
     server = createServer({ Http2ServerRequest: MyHttp2ServerRequest });
     server = createServer({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener);
 
     server = createSecureServer({
         Http2ServerRequest: MyHttp2ServerRequest,
-        Http2ServerResponse: MyHttp2ServerResponse
+        Http2ServerResponse: MyHttp2ServerResponse,
     });
-    server = createSecureServer({
-        Http2ServerRequest: MyHttp2ServerRequest,
-        Http2ServerResponse: MyHttp2ServerResponse
-    }, reqListener);
+    server = createSecureServer(
+        {
+            Http2ServerRequest: MyHttp2ServerRequest,
+            Http2ServerResponse: MyHttp2ServerResponse,
+        },
+        reqListener,
+    );
     server = createSecureServer({ Http2ServerRequest: MyHttp2ServerRequest });
     server = createSecureServer({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener);
 }

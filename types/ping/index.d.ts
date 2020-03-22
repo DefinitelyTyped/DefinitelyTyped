@@ -29,9 +29,9 @@ export interface PingConfig {
      * Additional arguments. Default `[]`
      */
     extra?: string[];
-  }
+}
 
-  export interface PingResponse {
+export interface PingResponse {
     /**
      * The input IP address or host. `unknown` if ping fails.
      */
@@ -68,9 +68,9 @@ export interface PingConfig {
      * Standard deviation time for collected records. `unknown` if ping fails.
      */
     stddev: string;
-  }
+}
 
-  export const sys: {
+export const sys: {
     /**
      * Performs a system ping utility.
      *
@@ -81,9 +81,9 @@ export interface PingConfig {
      * @param config Optional configuration
      */
     probe(addr: string, cb: (isAlive: boolean, error: any) => void, config?: PingConfig): void;
-  };
+};
 
-  export const promise: {
+export const promise: {
     /**
      * Performs a system ping utility.
      *
@@ -91,4 +91,4 @@ export interface PingConfig {
      * @param config Optional configuration
      */
     probe(addr: string, config?: PingConfig): Promise<PingResponse>;
-  };
+};

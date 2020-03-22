@@ -1,6 +1,6 @@
-import deline = require("deline");
+import deline = require('deline');
 
-const moduleName = "deline";
+const moduleName = 'deline';
 
 deline(`deline`); // $ExpectType string
 deline(`module name: ${moduleName}`); // $ExpectType string

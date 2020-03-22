@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Action, AnyAction, Dispatch } from "redux";
+import { Action, AnyAction, Dispatch } from 'redux';
 
 export interface AsyncQueueAction<T extends Action = AnyAction> {
     queue: string;

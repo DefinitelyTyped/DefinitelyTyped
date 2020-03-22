@@ -28,7 +28,7 @@ declare namespace Page {
          * - `button`：页面内转发按钮；
          * - `menu`：右上角转发菜单。
          */
-        from: "button" | "menu";
+        from: 'button' | 'menu';
         /**
          * 如果 `from` 值是 `button`，则 `target` 是触发这次转发事件的 `button`，否则为 `undefined`
          */
@@ -178,9 +178,7 @@ declare namespace Page {
         onNavigationBarSearchInputClicked?(): void;
     }
 
-    type PageConstructor = <T extends AnyObject & PageInstance>(
-        options: PageInstance<AnyObject, T> & T,
-    ) => void;
+    type PageConstructor = <T extends AnyObject & PageInstance>(options: PageInstance<AnyObject, T> & T) => void;
 
     type GetCurrentPages = <T extends AnyObject = {}>() => Array<PageInstance<AnyObject, T> & T>;
 }

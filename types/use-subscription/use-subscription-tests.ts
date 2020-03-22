@@ -6,7 +6,7 @@ function EventDispatcherExample({ input }: { input: HTMLInputElement }) {
     const subscription = useMemo(
         (): Subscription<string> => ({
             getCurrentValue: () => input.value,
-            subscribe: callback => {
+            subscribe: (callback) => {
                 input.addEventListener('change', callback);
                 return () => input.removeEventListener('change', callback);
             },

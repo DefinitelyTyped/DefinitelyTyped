@@ -26,7 +26,7 @@ declare namespace GeometryDom {
          * Post-multiply point with matrix.
          * @param matrix
          */
-        matrixTransform(matrix:DOMMatrixReadOnly): DOMPoint;
+        matrixTransform(matrix: DOMMatrixReadOnly): DOMPoint;
     }
 
     interface DOMPoint extends DOMPointReadOnly {
@@ -172,7 +172,15 @@ declare namespace GeometryDom {
         translate(tx: number, ty: number, tz?: number): DOMMatrix;
         scale(scale: number, originX?: number, originY?: number): DOMMatrix;
         scale3d(scale: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
-        scaleNonUniform(scale: number, scaleX: number, scaleY: number, scaleZ: number, originX: number, originY: number, originZ: number): DOMMatrix;
+        scaleNonUniform(
+            scale: number,
+            scaleX: number,
+            scaleY: number,
+            scaleZ: number,
+            originX: number,
+            originY: number,
+            originZ: number,
+        ): DOMMatrix;
         rotate(angle: number, originX?: number, originY?: number): DOMMatrix;
         rotateFromVector(x: number, y: number): DOMMatrix;
         rotateAxisAngle(x: number, y: number, z: number, angle: number): DOMMatrix;
@@ -215,13 +223,19 @@ declare namespace GeometryDom {
         m43: number;
         m44: number;
 
-
         multiplySelf(other: DOMMatrix): DOMMatrix;
         preMultiplySelf(other: DOMMatrix): DOMMatrix;
         translateSelf(tx: number, ty: number, tz?: number): DOMMatrix;
         scaleSelf(scale: number, originX?: number, originY?: number): DOMMatrix;
         scale3dSelf(scale: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
-        scaleNonUniformSelf(scaleX: number, scaleY?: number, scaleZ?: number, originX?: number, originY?: number, originZ?: number): DOMMatrix;
+        scaleNonUniformSelf(
+            scaleX: number,
+            scaleY?: number,
+            scaleZ?: number,
+            originX?: number,
+            originY?: number,
+            originZ?: number,
+        ): DOMMatrix;
         rotateSelf(angle: number, originX?: number, originY?: number): DOMMatrix;
         rotateFromVectorSelf(x: number, y: number): DOMMatrix;
         rotateAxisAngleSelf(x: number, y: number, z: number, angle: number): DOMMatrix;
@@ -240,7 +254,7 @@ declare var DOMPointReadOnly: {
 
 declare var DOMPoint: {
     prototype: GeometryDom.DOMPoint;
-    new (x?:number, y?:number, z?:number, w?:number): GeometryDom.DOMPoint;
+    new (x?: number, y?: number, z?: number, w?: number): GeometryDom.DOMPoint;
 };
 
 interface DOMPointInit {
@@ -323,4 +337,3 @@ declare var DOMMatrix: {
     new (array: Array<number>): GeometryDom.DOMMatrix;
     new (a: number, b: number, c: number, d: number, e: number, f: number): GeometryDom.DOMMatrix;
 };
-

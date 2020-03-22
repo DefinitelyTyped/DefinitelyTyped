@@ -8,7 +8,11 @@ declare module 'lowlight' {
 }
 
 declare module 'lowlight/lib/core' {
-    export function highlight(language: string, value: string, options?: lowlight.HighlightOptions): lowlight.HighlightResult;
+    export function highlight(
+        language: string,
+        value: string,
+        options?: lowlight.HighlightOptions,
+    ): lowlight.HighlightResult;
     export function highlightAuto(value: string, options?: lowlight.HighlightAutoOptions): lowlight.HighlightAutoResult;
     export function registerLanguage(name: string, syntax: Function): void;
 }
@@ -69,7 +73,7 @@ declare namespace lowlight {
         }
 
         export interface Comment extends Unist.Text {
-                type: 'comment';
+            type: 'comment';
         }
 
         export interface Text extends Unist.Text {
@@ -80,7 +84,7 @@ declare namespace lowlight {
     type HastNode = AST.Root | AST.Element | AST.Doctype | AST.Comment | AST.Text;
 
     interface HighlightOptions {
-            prefix?: string;
+        prefix?: string;
     }
 
     interface HighlightAutoOptions extends HighlightOptions {

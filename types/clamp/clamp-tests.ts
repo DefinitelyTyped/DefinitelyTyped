@@ -1,4 +1,4 @@
-import clamp = require("clamp");
+import clamp = require('clamp');
 
 clamp(0, -100, 100);
 clamp(0, 100, -100);

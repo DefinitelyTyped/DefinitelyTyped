@@ -1,13 +1,16 @@
-import { Axis, AxisManager } from "./AxisManager";
-import { InterruptManager } from "./InterruptManager";
-import { EventManager } from "./EventManager";
-import { AxesOption } from "./Axes";
+import { Axis, AxisManager } from './AxisManager';
+import { InterruptManager } from './InterruptManager';
+import { EventManager } from './EventManager';
+import { AxesOption } from './Axes';
 export interface AnimationParam {
     depaPos: Axis;
     destPos: Axis;
     duration: number;
     delta: Axis;
-    setTo?: (destPos?: Axis, duration?: number) => {
+    setTo?: (
+        destPos?: Axis,
+        duration?: number,
+    ) => {
         destPos: Axis;
         duration: number;
     };
@@ -30,7 +33,9 @@ export declare class AnimationManager {
     restore(inputEvent?: any): void;
     animationEnd(): void;
     private animateLoop(param, complete);
-    getUserControll(param: AnimationParam): {
+    getUserControll(
+        param: AnimationParam,
+    ): {
         destPos: Axis;
         duration: number;
     };

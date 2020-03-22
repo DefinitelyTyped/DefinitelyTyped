@@ -5,7 +5,7 @@ hello.init({
             version: 2,
             auth: '',
             grant: '',
-            response_type: 'id_token token'
+            response_type: 'id_token token',
         },
         refresh: true,
         scope_delim: ' ',
@@ -25,11 +25,11 @@ hello.init({
             switch (p.method) {
                 case 'post':
                 case 'put':
-                    if (typeof (p.data) === 'object') {
+                    if (typeof p.data === 'object') {
                         try {
                             p.data = JSON.stringify(p.data);
                             p.headers['content-type'] = 'application/json';
-                        } catch (e) { }
+                        } catch (e) {}
                     }
                     break;
                 case 'patch':
@@ -39,8 +39,8 @@ hello.init({
             }
             return true;
         },
-        form: false
-    }
+        form: false,
+    },
 });
 
 // Test code copied from hello.js built-in modules at
@@ -51,7 +51,7 @@ hello.init({
         oauth: {
             version: 2,
             auth: '',
-            grant: ''
+            grant: '',
         },
         refresh: false,
         scope: {
@@ -67,7 +67,7 @@ hello.init({
             publish_files: '',
             files: '',
             videos: '',
-            offline_access: ''
+            offline_access: '',
         },
         scope_delim: ' ',
         login: (p) => {
@@ -78,7 +78,7 @@ hello.init({
         get: {
             me: 'user',
             meetings: 'meetings',
-            'meetings/info': 'meetings/@{id}'
+            'meetings/info': 'meetings/@{id}',
         },
         post: {
             'meetings/start/adhoc': (p, callback) => {
@@ -88,10 +88,10 @@ hello.init({
         patch: {
             'meetings/update': (p, callback) => {
                 callback('meetings/' + p.data.meetingId);
-            }
+            },
         },
         del: {
-            'meetings/delete': 'meetings/@{id}'
+            'meetings/delete': 'meetings/@{id}',
         },
         wrap: {
             me: (o, headers) => {
@@ -108,37 +108,42 @@ hello.init({
             },
             default: (o, headers) => {
                 return o;
-            }
+            },
         },
         xhr: (p, qs) => {
             const token = qs.access_token;
             delete qs.access_token;
             p.headers.Authorization = 'Bearer ' + token;
-        }
-    }
+        },
+    },
 });
 
-hello.init({
-    facebook: '<app key>',
-}, {
-    redirect_uri: 'hello.html',
-    display: 'page',
-});
+hello.init(
+    {
+        facebook: '<app key>',
+    },
+    {
+        redirect_uri: 'hello.html',
+        display: 'page',
+    },
+);
 
 hello.init({
     facebook: '359288236870',
-    windows: '000000004403AD10'
+    windows: '000000004403AD10',
 });
 
 hello('facebook').login();
 
 hello('facebook').logout();
 
-hello.on('auth.login', auth => {
-    alert('log to ' + auth.network);
-}).on('auth.logout', auth => {
-    alert('unlog from ' + auth.network);
-});
+hello
+    .on('auth.login', (auth) => {
+        alert('log to ' + auth.network);
+    })
+    .on('auth.logout', (auth) => {
+        alert('unlog from ' + auth.network);
+    });
 
 hello.getAuthResponse('facebook');
 
@@ -148,17 +153,22 @@ hello.login('facebook', null, () => {
 
 hello.logout('facebook');
 
-hello("facebook").api("me").then((json) => {
-    alert("Your name is " + json.name);
-}, () => {
-    alert("Whoops!");
-});
+hello('facebook')
+    .api('me')
+    .then(
+        (json) => {
+            alert('Your name is ' + json.name);
+        },
+        () => {
+            alert('Whoops!');
+        },
+    );
 
 const sessionstart = () => {
-    alert("Session has started");
+    alert('Session has started');
 };
-hello.on("auth.login", sessionstart);
+hello.on('auth.login', sessionstart);
 
-hello.off("auth.login", sessionstart);
+hello.off('auth.login', sessionstart);
 
-hello("facebook").login({ scope: "friends,photos,publish" });
+hello('facebook').login({ scope: 'friends,photos,publish' });

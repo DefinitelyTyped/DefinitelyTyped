@@ -2,7 +2,7 @@ import PushNotification from 'react-native-push-notification';
 
 PushNotification.configure({
     onNotification: (notification) => {
-        notification.finish("UIBackgroundFetchResultNoData");
+        notification.finish('UIBackgroundFetchResultNoData');
     },
     onRegister: (token) => {},
     senderID: 'XXX',
@@ -15,7 +15,7 @@ PushNotification.unregister();
 PushNotification.localNotification = (details) => {};
 PushNotification.localNotificationSchedule = (details) => {};
 PushNotification.requestPermissions();
-PushNotification.subscribeToTopic("topic");
+PushNotification.subscribeToTopic('topic');
 PushNotification.presentLocalNotification = (details) => {};
 PushNotification.scheduleLocalNotification = (details) => {};
 PushNotification.cancelLocalNotifications = (details) => {};

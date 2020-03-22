@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
-import * as gm from "gm";
-import { ParsedPath, Options as RenameOptions } from "gulp-rename";
+import * as stream from 'stream';
+import * as gm from 'gm';
+import { ParsedPath, Options as RenameOptions } from 'gulp-rename';
 
 export = GulpResponsiveImage;
 
@@ -16,9 +16,7 @@ declare function GulpResponsiveImage(configs: GulpResponsiveImage.Matchers): str
 declare namespace GulpResponsiveImage {
     type SamplingFactor = [number, number];
 
-    type Rename = string
-        | ((path: ParsedPath) => any)
-        | RenameOptions;
+    type Rename = string | ((path: ParsedPath) => any) | RenameOptions;
 
     interface Settings {
         crop?: boolean;

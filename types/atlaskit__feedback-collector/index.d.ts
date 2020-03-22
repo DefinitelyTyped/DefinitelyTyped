@@ -3,24 +3,15 @@
 // Definitions by: Lee Swanson <https://github.com/leedrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component,
-    ReactNode,
-    ReactElement,
-    ComponentClass,
-    MouseEventHandler } from "react";
+import { Component, ReactNode, ReactElement, ComponentClass, MouseEventHandler } from 'react';
 
-export type SelectValue =
-  | 'bug'
-  | 'comment'
-  | 'suggestion'
-  | 'question'
-  | 'empty';
+export type SelectValue = 'bug' | 'comment' | 'suggestion' | 'question' | 'empty';
 
 export interface FormFields {
-  type: SelectValue;
-  description: string;
-  canBeContacted: boolean;
-  enrollInResearchGroup: boolean;
+    type: SelectValue;
+    description: string;
+    canBeContacted: boolean;
+    enrollInResearchGroup: boolean;
 }
 
 export type FieldValueType = string | object | object[];
@@ -95,17 +86,17 @@ export interface FeedbackCollectorProps {
 declare class FeedbackCollector extends Component<FeedbackCollectorProps> {}
 
 export interface FeedbackFlagProps {
-  isDismissAllowed?: boolean;
-  onDismissed?: (...args: any[]) => any;
+    isDismissAllowed?: boolean;
+    onDismissed?: (...args: any[]) => any;
 }
 
 export class FeedbackFlag extends Component<FeedbackFlagProps> {}
 
 export interface FeedbackFormProps {
-  /** Function that will be called to initiate the exit transition. */
-  onClose: () => void;
-  /** Function that will be called immediately after the submit action  */
-  onSubmit: (formValues: FormFields) => void;
+    /** Function that will be called to initiate the exit transition. */
+    onClose: () => void;
+    /** Function that will be called immediately after the submit action  */
+    onSubmit: (formValues: FormFields) => void;
 }
 
 export class FeedbackForm extends Component<FeedbackFormProps, FormFields> {}

@@ -481,9 +481,13 @@ export class CognitoAuth {
      * @param onSuccess callback
      * @param onFailure callback
      */
-    makePOSTRequest(header: object, body: object, url: string,
+    makePOSTRequest(
+        header: object,
+        body: object,
+        url: string,
         onSuccess: (responseText: string) => void,
-        onFailure: (responseText: string) => void): void;
+        onFailure: (responseText: string) => void,
+    ): void;
 
     /**
      * Create the XHR object

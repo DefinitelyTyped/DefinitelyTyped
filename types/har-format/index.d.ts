@@ -10,7 +10,7 @@
  */
 export interface Har {
     /** This object represents the root of exported data. */
-    "log": Log;
+    log: Log;
 }
 /**
  * This object (`log`) represents the root of exported data.
@@ -232,7 +232,7 @@ export interface Page {
     /** _non-standard_  */
     _score_gzip?: number | null;
     /** _non-standard_  */
-    "_score_keep-alive"?: number | null;
+    '_score_keep-alive'?: number | null;
     /** _non-standard_  */
     _score_minify?: number | null;
     /** _non-standard_  */
@@ -465,7 +465,7 @@ export interface Entry {
     /** _non-standard_  */
     _score_gzip?: number | string | null;
     /** _non-standard_  */
-    "_score_keep-alive"?: number | string | null;
+    '_score_keep-alive'?: number | string | null;
     /** _non-standard_  */
     _score_minify?: number | string | null;
     /** _non-standard_  */

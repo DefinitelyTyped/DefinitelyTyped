@@ -1,2 +1,2 @@
-import { findFrom } from "../fp";
+import { findFrom } from '../fp';
 export = findFrom;

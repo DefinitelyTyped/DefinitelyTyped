@@ -9,34 +9,37 @@ declare namespace adone {
         namespace json {
             namespace I {
                 type Replacer = ((key: string, value: any) => any) | string[];
-                interface CompareValue  {
+                interface CompareValue {
                     key: string;
                     value: any;
                 }
-                type CompareFunction  = (a: CompareValue, b: CompareValue) => number;
+                type CompareFunction = (a: CompareValue, b: CompareValue) => number;
             }
 
             /**
              * Actually, the same as JSON.stringify, but returns a buffer
              */
-            function encode(obj: any, options?: {
-                /**
-                 * A String or Number object that's used to insert white space into the output JSON string for readability purposes
-                 */
-                space?: string,
+            function encode(
+                obj: any,
+                options?: {
+                    /**
+                     * A String or Number object that's used to insert white space into the output JSON string for readability purposes
+                     */
+                    space?: string;
 
-                /**
-                 * A function that alters the behavior of the stringification process,
-                 * or an array of String and Number objects that serve as a whitelist
-                 * for selecting/filtering the properties of the value object to be included in the JSON string
-                 */
-                replacer?: I.Replacer,
+                    /**
+                     * A function that alters the behavior of the stringification process,
+                     * or an array of String and Number objects that serve as a whitelist
+                     * for selecting/filtering the properties of the value object to be included in the JSON string
+                     */
+                    replacer?: I.Replacer;
 
-                /**
-                 * Wheter to append a newline
-                 */
-                newline?: boolean
-            }): Buffer;
+                    /**
+                     * Wheter to append a newline
+                     */
+                    newline?: boolean;
+                },
+            ): Buffer;
 
             /**
              * Decodes JSON string or buffer
@@ -46,29 +49,32 @@ declare namespace adone {
             /**
              * Deterministic version of JSON.stringify() so you can get a consistent hash from stringified results
              */
-            function encodeStable(obj: any, options?: {
-                /**
-                 * Indent spaces for pretty-printing
-                 */
-                space?: string,
+            function encodeStable(
+                obj: any,
+                options?: {
+                    /**
+                     * Indent spaces for pretty-printing
+                     */
+                    space?: string;
 
-                /**
-                 * Whether to allow circular JSON structure
-                 */
-                cycles?: boolean,
+                    /**
+                     * Whether to allow circular JSON structure
+                     */
+                    cycles?: boolean;
 
-                /**
-                 * A function that alters the behavior of the stringification process,
-                 * or an array of String and Number objects that serve as a whitelist
-                 * for selecting/filtering the properties of the value object to be included in the JSON string
-                 */
-                replacer?: I.Replacer,
+                    /**
+                     * A function that alters the behavior of the stringification process,
+                     * or an array of String and Number objects that serve as a whitelist
+                     * for selecting/filtering the properties of the value object to be included in the JSON string
+                     */
+                    replacer?: I.Replacer;
 
-                /**
-                 * Custom comparison function for object keys
-                 */
-                cmp?: I.CompareFunction
-            }): string;
+                    /**
+                     * Custom comparison function for object keys
+                     */
+                    cmp?: I.CompareFunction;
+                },
+            ): string;
 
             function encodeSafe(obj: any): string;
 
@@ -201,7 +207,7 @@ declare namespace adone {
                     type: I.Type,
                     constructor: { new (...args: any[]): T },
                     encode: (x: T, buf: collection.ByteArray) => void,
-                    decode: (buf: collection.ByteArray) => T
+                    decode: (buf: collection.ByteArray) => T,
                 ): this;
 
                 /**
@@ -231,19 +237,22 @@ declare namespace adone {
             /**
              * Encodes the given value
              */
-            function encode(obj: any, options?: {
-                /**
-                 * Indent spaces for pretty-printing
-                 */
-                space?: string,
+            function encode(
+                obj: any,
+                options?: {
+                    /**
+                     * Indent spaces for pretty-printing
+                     */
+                    space?: string;
 
-                /**
-                 * A function that alters the behavior of the stringification process,
-                 * or an array of String and Number objects that serve as a whitelist
-                 * for selecting/filtering the properties of the value object to be included in the JSON string
-                 */
-                replacer?: ((key: string, value: any) => any) | string[]
-            }): Buffer;
+                    /**
+                     * A function that alters the behavior of the stringification process,
+                     * or an array of String and Number objects that serve as a whitelist
+                     * for selecting/filtering the properties of the value object to be included in the JSON string
+                     */
+                    replacer?: ((key: string, value: any) => any) | string[];
+                },
+            ): Buffer;
 
             /**
              * Decodes the given string/buffer
@@ -284,7 +293,7 @@ declare namespace adone {
 
             function encodeVLQ(value: number): string;
 
-            function decodeVLQ(value: string, index: number | undefined, rest: true): { value: number, index: number };
+            function decodeVLQ(value: string, index: number | undefined, rest: true): { value: number; index: number };
             function decodeVLQ(value: string, index?: number, rest?: boolean): number;
 
             /**
@@ -438,7 +447,7 @@ declare namespace adone {
              */
             namespace type {
                 namespace I {
-                    type Kind = "scalar" | "sequence" | "mapping";
+                    type Kind = 'scalar' | 'sequence' | 'mapping';
 
                     interface TypeOptions<T> {
                         kind: Kind;
@@ -446,7 +455,9 @@ declare namespace adone {
                         construct?(data: string): T;
                         instanceOf?: object;
                         predicate?(obj: any): boolean;
-                        represent?: ((obj: any, style: string) => string) | { [key: string]: (obj: any, style: string) => string };
+                        represent?:
+                            | ((obj: any, style: string) => string)
+                            | { [key: string]: (obj: any, style: string) => string };
                         defaultStyle?: string;
                         styleAliases?: object;
                     }
@@ -458,7 +469,10 @@ declare namespace adone {
                     construct(data: string): T;
                     instanceOf?: object;
                     predicate?(obj: any): boolean;
-                    represent?: (obj: any, style: string) => string | { [key: string]: (obj: any, style: string) => string };
+                    represent?: (
+                        obj: any,
+                        style: string,
+                    ) => string | { [key: string]: (obj: any, style: string) => string };
                     defaultStyle?: string;
                     styleAliases?: object;
 
@@ -467,15 +481,15 @@ declare namespace adone {
 
                 namespace I {
                     interface Scalar<T = any> extends Type<T> {
-                        kind: "scalar";
+                        kind: 'scalar';
                     }
 
                     interface Mapping extends Type<object> {
-                        kind: "mapping";
+                        kind: 'mapping';
                     }
 
                     interface Sequence<T = any> extends Type<T[]> {
-                        kind: "sequence";
+                        kind: 'sequence';
                     }
                 }
 
@@ -525,13 +539,13 @@ declare namespace adone {
                     compiledImplicit: type.Type[];
                     compiledExplicit: type.Type[];
                     compiledTypeMap: {
-                        scalar: { [key: string]: type.Type },
-                        sequence: { [key: string]: type.Type },
-                        mapping: { [key: string]: type.Type },
-                        fallback: { [key: string]: type.Type }
+                        scalar: { [key: string]: type.Type };
+                        sequence: { [key: string]: type.Type };
+                        mapping: { [key: string]: type.Type };
+                        fallback: { [key: string]: type.Type };
                     };
 
-                    constructor(_?: { include?: Schema[], implicit?: type.Type[], explicit?: type.Type[] });
+                    constructor(_?: { include?: Schema[]; implicit?: type.Type[]; explicit?: type.Type[] });
                 }
 
                 function create(schemas: Schema | Schema[], types: type.Type | type.Type[]): Schema;
@@ -649,7 +663,7 @@ declare namespace adone {
              * Represents a BSON Binary type
              */
             class Binary implements I.Type {
-                _bsontype: "binary";
+                _bsontype: 'binary';
 
                 constructor(buffer: number | Buffer, subType?: number);
 
@@ -697,7 +711,7 @@ declare namespace adone {
              * Represents BSON Code type
              */
             class Code implements I.Type {
-                _bsontype: "Code";
+                _bsontype: 'Code';
 
                 /**
                  * @param code a string or function
@@ -705,14 +719,14 @@ declare namespace adone {
                  */
                 constructor(code: string | ((...args: any[]) => void), scope?: object);
 
-                toJSON(): { scope: object, code: string };
+                toJSON(): { scope: object; code: string };
             }
 
             /**
              * Represents BSON DBRef type
              */
             class DBRef implements I.Type {
-                _bsontype: "DBRef";
+                _bsontype: 'DBRef';
 
                 /**
                  * @param namespace the collection name
@@ -721,14 +735,14 @@ declare namespace adone {
                  */
                 constructor(namespace: string, oid: ObjectId, db?: string);
 
-                toJSON(): { $ref: string, $id: ObjectId, $db: string };
+                toJSON(): { $ref: string; $id: ObjectId; $db: string };
             }
 
             /**
              * Represents BSON Decimal128 type
              */
             class Decimal128 implements I.Type {
-                _bsontype: "Decimal128";
+                _bsontype: 'Decimal128';
 
                 /**
                  * @param bytes a buffer containing the raw Decimal128 bytes
@@ -751,7 +765,7 @@ declare namespace adone {
              * Represents BSON Double type
              */
             class Double implements I.Type {
-                _bsontype: "Double";
+                _bsontype: 'Double';
 
                 constructor(value: number);
 
@@ -765,7 +779,7 @@ declare namespace adone {
              * Represents BSON Int32 type
              */
             class Int32 implements I.Type {
-                _bsontype: "Int32";
+                _bsontype: 'Int32';
 
                 constructor(value: number);
 
@@ -778,7 +792,7 @@ declare namespace adone {
              * Represents BSON Long type
              */
             class Long extends math.Long implements I.Type {
-                _bsontype: "Long";
+                _bsontype: 'Long';
 
                 static MIN_VALUE: Long;
                 static MAX_VALUE: Long;
@@ -795,25 +809,27 @@ declare namespace adone {
              * Represents BSON MaxKey type
              */
             class MaxKey implements I.Type {
-                _bsontype: "MaxKey";
+                _bsontype: 'MaxKey';
             }
 
             /**
              * Represents BSON MinKey type
              */
             class MinKey implements I.Type {
-                _bsontype: "MinKey";
+                _bsontype: 'MinKey';
             }
 
             /**
              * Represents BSON ObjectId type
              */
             class ObjectId implements I.Type {
-                _bsontype: "ObjectId";
+                _bsontype: 'ObjectId';
 
                 generationTime: number;
 
-                constructor(id?: string | Buffer | ObjectId | { toHexString(): string, id: string | Buffer | ObjectId });
+                constructor(
+                    id?: string | Buffer | ObjectId | { toHexString(): string; id: string | Buffer | ObjectId },
+                );
 
                 /**
                  * Return the ObjectId id as a 24 byte hex string representation
@@ -871,7 +887,7 @@ declare namespace adone {
              * Represents BSON RegExp type
              */
             class BSONRegExp implements I.Type {
-                _bsontype: "BSONRegExp";
+                _bsontype: 'BSONRegExp';
 
                 constructor(pattern: string, options?: string);
             }
@@ -880,7 +896,7 @@ declare namespace adone {
              * Represents BSON Symbol type
              */
             class Symbol implements I.Type {
-                _bsontype: "Symbol";
+                _bsontype: 'Symbol';
 
                 constructor(value: string);
 
@@ -897,7 +913,7 @@ declare namespace adone {
              * This type is for INTERNAL use in MongoDB only and should not be used in applications
              */
             class Timestamp extends math.Long implements I.Type {
-                _bsontype: "Timestamp";
+                _bsontype: 'Timestamp';
 
                 static MIN_VALUE: Timestamp;
                 static MAX_VALUE: Timestamp;
@@ -993,27 +1009,34 @@ declare namespace adone {
                  * Takes an object, a target buffer instance and an optional options object and returns the end serialization index
                  * in the final buffer
                  */
-                serializeWithBufferAndIndex(object: object, buffer: Buffer, options?: I.SerializeOptions & {
-                    /**
-                     * The index in the buffer where we wish to start serializing into
-                     */
-                    index?: number
-                }): number;
+                serializeWithBufferAndIndex(
+                    object: object,
+                    buffer: Buffer,
+                    options?: I.SerializeOptions & {
+                        /**
+                         * The index in the buffer where we wish to start serializing into
+                         */
+                        index?: number;
+                    },
+                ): number;
 
                 /**
                  * Calculates the size BSON object for the given object
                  */
-                calculateObjectSize(object: object, options?: {
-                    /**
-                     * Whether to serialize javascript functions. Default: false
-                     */
-                    serializeFunctions?: boolean,
+                calculateObjectSize(
+                    object: object,
+                    options?: {
+                        /**
+                         * Whether to serialize javascript functions. Default: false
+                         */
+                        serializeFunctions?: boolean;
 
-                    /**
-                     * Whether to ignore undefined values. Default: true
-                     */
-                    ignoreUndefined?: boolean
-                }): number;
+                        /**
+                         * Whether to ignore undefined values. Default: true
+                         */
+                        ignoreUndefined?: boolean;
+                    },
+                ): number;
 
                 /**
                  * Deserializes the given buffer into an object
@@ -1023,7 +1046,14 @@ declare namespace adone {
                 /**
                  * Takes a node.js Buffer, startIndex and allow more control over deserialization of a Buffer containing concatenated BSON documents
                  */
-                deserializeStream(buf: Buffer, startIndex: number, numberOfDocuments: number, documents: any[], docStartIndex: number, options?: I.DeserializeOptions): number;
+                deserializeStream(
+                    buf: Buffer,
+                    startIndex: number,
+                    numberOfDocuments: number,
+                    documents: any[],
+                    docStartIndex: number,
+                    options?: I.DeserializeOptions,
+                ): number;
             }
 
             namespace c {
@@ -1086,8 +1116,8 @@ declare namespace adone {
                         messages: Message[];
                         fields: Field[];
                         extensions: {
-                            from: number,
-                            to: number
+                            from: number;
+                            to: number;
                         } | null;
                     }
 
@@ -1146,12 +1176,12 @@ declare namespace adone {
 
             namespace I {
                 interface DecoderOptions {
-                    type: "rfc4648" | "crockford" | "base32hex";
+                    type: 'rfc4648' | 'crockford' | 'base32hex';
                     charmap?: object;
                 }
 
                 interface EncoderOptions {
-                    type: "rfc4648" | "crockford" | "base32hex";
+                    type: 'rfc4648' | 'crockford' | 'base32hex';
                     alphabet?: string;
                 }
             }

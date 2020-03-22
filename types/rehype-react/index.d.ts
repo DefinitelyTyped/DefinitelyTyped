@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 interface Options {
     createElement: typeof React.createElement;
@@ -16,7 +16,7 @@ interface Options {
 }
 
 declare class RehypeReact {
-    constructor(options: Options)
+    constructor(options: Options);
     Compiler: (node: any) => any;
 }
 

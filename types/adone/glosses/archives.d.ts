@@ -17,7 +17,15 @@ declare namespace adone {
                     /**
                      * Type of entry, file by default
                      */
-                    type: "file" | "directory" | "link" | "symlink" | "block-device" | "character-device" | "fifo" | "contiguous-file";
+                    type:
+                        | 'file'
+                        | 'directory'
+                        | 'link'
+                        | 'symlink'
+                        | 'block-device'
+                        | 'character-device'
+                        | 'fifo'
+                        | 'contiguous-file';
 
                     /**
                      * Entry mode, 0755 for dirs and 0644 by default
@@ -198,8 +206,11 @@ declare namespace adone {
              */
             class RawPackStream extends nodestd.stream.Readable {
                 entry(header: I.OptionalHeader, buffer: Buffer, callback?: (err: any) => void): I.Writable;
-                entry(header: I.OptionalHeader & { type: "symblink", linkname: string }, callback?: (err: any) => void): I.Writable;
-                entry(header: I.OptionalHeader & { type: "symlink" }, callback?: (err: any) => void): I.LinkSink;
+                entry(
+                    header: I.OptionalHeader & { type: 'symblink'; linkname: string },
+                    callback?: (err: any) => void,
+                ): I.Writable;
+                entry(header: I.OptionalHeader & { type: 'symlink' }, callback?: (err: any) => void): I.LinkSink;
                 entry(header: I.OptionalHeader, callback?: (err: any) => void): I.Writable;
 
                 finalize(): void;
@@ -212,22 +223,28 @@ declare namespace adone {
              */
             class RawUnpackStream extends nodestd.stream.Writable {
                 on(event: string, listener: (...args: any[]) => void): this;
-                on(event: "entry", listener: (header: I.Header, stream: I.UnpackSourceStream, next: (err?: any) => void) => void): this;
-                on(event: "close", listener: () => void): this;
-                on(event: "drain", listener: () => void): this;
-                on(event: "error", listener: (err: Error) => void): this;
-                on(event: "finish", listener: () => void): this;
-                on(event: "pipe", listener: (src: nodestd.stream.Readable) => void): this;
-                on(event: "unpipe", listener: (src: nodestd.stream.Readable) => void): this;
+                on(
+                    event: 'entry',
+                    listener: (header: I.Header, stream: I.UnpackSourceStream, next: (err?: any) => void) => void,
+                ): this;
+                on(event: 'close', listener: () => void): this;
+                on(event: 'drain', listener: () => void): this;
+                on(event: 'error', listener: (err: Error) => void): this;
+                on(event: 'finish', listener: () => void): this;
+                on(event: 'pipe', listener: (src: nodestd.stream.Readable) => void): this;
+                on(event: 'unpipe', listener: (src: nodestd.stream.Readable) => void): this;
 
                 once(event: string, listener: (...args: any[]) => void): this;
-                once(event: "entry", listener: (header: I.Header, stream: I.UnpackSourceStream, next: (err?: any) => void) => void): this;
-                once(event: "close", listener: () => void): this;
-                once(event: "drain", listener: () => void): this;
-                once(event: "error", listener: (err: Error) => void): this;
-                once(event: "finish", listener: () => void): this;
-                once(event: "pipe", listener: (src: nodestd.stream.Readable) => void): this;
-                once(event: "unpipe", listener: (src: nodestd.stream.Readable) => void): this;
+                once(
+                    event: 'entry',
+                    listener: (header: I.Header, stream: I.UnpackSourceStream, next: (err?: any) => void) => void,
+                ): this;
+                once(event: 'close', listener: () => void): this;
+                once(event: 'drain', listener: () => void): this;
+                once(event: 'error', listener: (err: Error) => void): this;
+                once(event: 'finish', listener: () => void): this;
+                once(event: 'pipe', listener: (src: nodestd.stream.Readable) => void): this;
+                once(event: 'unpipe', listener: (src: nodestd.stream.Readable) => void): this;
             }
 
             /**
@@ -265,31 +282,35 @@ declare namespace adone {
                      * @param path path to the file
                      * @param metadataPath path to the file inside the archive
                      */
-                    addFile(path: string, metadataPath: string, options?: {
-                        /**
-                         * Overrides the value that will be obtained from stat
-                         */
-                        mtime?: number,
+                    addFile(
+                        path: string,
+                        metadataPath: string,
+                        options?: {
+                            /**
+                             * Overrides the value that will be obtained from stat
+                             */
+                            mtime?: number;
 
-                        /**
-                         * Overrides the value that will be obtained from stat
-                         */
-                        mode?: number,
+                            /**
+                             * Overrides the value that will be obtained from stat
+                             */
+                            mode?: number;
 
-                        /**
-                         * If true, the file data will be deflated (compression method 8).
-                         *
-                         * If false, the file data will be stored (compression method 0)
-                         */
-                        compress?: boolean,
+                            /**
+                             * If true, the file data will be deflated (compression method 8).
+                             *
+                             * If false, the file data will be stored (compression method 0)
+                             */
+                            compress?: boolean;
 
-                        /**
-                         * Use ZIP64 format in this entry's Data Descriptor and Central Directory Record
-                         * regardless of if it's required or not (this may be useful for testing.).
-                         * Otherwise, packer will use ZIP64 format where necessary.
-                         */
-                        forceZip64Format?: boolean
-                    }): this;
+                            /**
+                             * Use ZIP64 format in this entry's Data Descriptor and Central Directory Record
+                             * regardless of if it's required or not (this may be useful for testing.).
+                             * Otherwise, packer will use ZIP64 format where necessary.
+                             */
+                            forceZip64Format?: boolean;
+                        },
+                    ): this;
 
                     /**
                      * Adds a file to the zip file whose content is read from readStream
@@ -297,37 +318,41 @@ declare namespace adone {
                      * @param stream a readable stream for the file
                      * @param metadataPath path to the file inside the archive
                      */
-                    addReadStream(stream: nodestd.stream.Readable, metadataPath: string, options?: {
-                        /**
-                         * Defines modified date, now by default
-                         */
-                        mtime?: number,
+                    addReadStream(
+                        stream: nodestd.stream.Readable,
+                        metadataPath: string,
+                        options?: {
+                            /**
+                             * Defines modified date, now by default
+                             */
+                            mtime?: number;
 
-                        /**
-                         * Defines file mode, 0o100664 by default
-                         */
-                        mode?: number,
+                            /**
+                             * Defines file mode, 0o100664 by default
+                             */
+                            mode?: number;
 
-                        /**
-                         * If true, the file data will be deflated (compression method 8).
-                         *
-                         * If false, the file data will be stored (compression method 0)
-                         */
-                        compress?: boolean,
+                            /**
+                             * If true, the file data will be deflated (compression method 8).
+                             *
+                             * If false, the file data will be stored (compression method 0)
+                             */
+                            compress?: boolean;
 
-                        /**
-                         * Use ZIP64 format in this entry's Data Descriptor and Central Directory Record
-                         * regardless of if it's required or not (this may be useful for testing.).
-                         * Otherwise, packer will use ZIP64 format where necessary.
-                         */
-                        forceZip64Format?: boolean,
+                            /**
+                             * Use ZIP64 format in this entry's Data Descriptor and Central Directory Record
+                             * regardless of if it's required or not (this may be useful for testing.).
+                             * Otherwise, packer will use ZIP64 format where necessary.
+                             */
+                            forceZip64Format?: boolean;
 
-                        /**
-                         * If given, it will be checked against the actual number of bytes in the readStream,
-                         * and an error will be emitted if there is a mismatch
-                         */
-                        size?: number
-                    }): this;
+                            /**
+                             * If given, it will be checked against the actual number of bytes in the readStream,
+                             * and an error will be emitted if there is a mismatch
+                             */
+                            size?: number;
+                        },
+                    ): this;
 
                     /**
                      * Adds a file to the zip file whose content is buffer
@@ -335,47 +360,54 @@ declare namespace adone {
                      * @param buffer the file's contents, must be at most 0x3fffffff bytes long
                      * @param metadataPath path to the file inside the archive
                      */
-                    addBuffer(buffer: Buffer, metadataPath: string, options?: {
-                        /**
-                         * Defines modified date, now by default
-                         */
-                        mtime?: number,
+                    addBuffer(
+                        buffer: Buffer,
+                        metadataPath: string,
+                        options?: {
+                            /**
+                             * Defines modified date, now by default
+                             */
+                            mtime?: number;
 
-                        /**
-                         * Defines file mode, 0o100664 by default
-                         */
-                        mode?: number,
+                            /**
+                             * Defines file mode, 0o100664 by default
+                             */
+                            mode?: number;
 
-                        /**
-                         * If true, the file data will be deflated (compression method 8).
-                         *
-                         * If false, the file data will be stored (compression method 0)
-                         */
-                        compress?: boolean,
+                            /**
+                             * If true, the file data will be deflated (compression method 8).
+                             *
+                             * If false, the file data will be stored (compression method 0)
+                             */
+                            compress?: boolean;
 
-                        /**
-                         * Use ZIP64 format in this entry's Data Descriptor and Central Directory Record
-                         * regardless of if it's required or not (this may be useful for testing.).
-                         * Otherwise, packer will use ZIP64 format where necessary.
-                         */
-                        forceZip64Format?: boolean
-                    }): this;
+                            /**
+                             * Use ZIP64 format in this entry's Data Descriptor and Central Directory Record
+                             * regardless of if it's required or not (this may be useful for testing.).
+                             * Otherwise, packer will use ZIP64 format where necessary.
+                             */
+                            forceZip64Format?: boolean;
+                        },
+                    ): this;
 
                     /**
                      * Adds an entry to the zip file that indicates a directory should be created,
                      * even if no other items in the zip file are contained in the directory
                      */
-                    addEmptyDirectory(metadataPath: string, options?: {
-                        /**
-                         * Defines modified date, now by default
-                         */
-                        mtime?: number,
+                    addEmptyDirectory(
+                        metadataPath: string,
+                        options?: {
+                            /**
+                             * Defines modified date, now by default
+                             */
+                            mtime?: number;
 
-                        /**
-                         * Defines file mode, 0o40775 by default
-                         */
-                        mode?: number
-                    }): this;
+                            /**
+                             * Defines file mode, 0o40775 by default
+                             */
+                            mode?: number;
+                        },
+                    ): this;
 
                     /**
                      * Indicates that no more files will be added via addFile(), addReadStream(), or addBuffer().
@@ -390,7 +422,7 @@ declare namespace adone {
                          * regardless of whether or not they are required (this may be useful for testing.).
                          * Otherwise, packer will include these structures if necessary
                          */
-                        forceZip64Format?: boolean
+                        forceZip64Format?: boolean;
                     }): Promise<number>;
                 }
             }
@@ -475,56 +507,34 @@ declare namespace adone {
                         /**
                          * Opens a read stream for the given entry
                          */
-                        openReadStream(entry: Entry<StringType>, options?: {
-                            /**
-                             * The option must be omitted when the entry is not compressed (see isCompressed()),
-                             * and either true (or omitted) or false when the entry is compressed.
-                             * Specifying decompress: false for a compressed entry causes the read stream
-                             * to provide the raw compressed file data without going through a zlib inflate transform
-                             */
-                            decompress?: boolean,
+                        openReadStream(
+                            entry: Entry<StringType>,
+                            options?: {
+                                /**
+                                 * The option must be omitted when the entry is not compressed (see isCompressed()),
+                                 * and either true (or omitted) or false when the entry is compressed.
+                                 * Specifying decompress: false for a compressed entry causes the read stream
+                                 * to provide the raw compressed file data without going through a zlib inflate transform
+                                 */
+                                decompress?: boolean;
 
-                            /**
-                             * The option must be null (or omitted) for non-encrypted entries,
-                             * and false for encrypted entries. Omitting the option for an encrypted entry will result in an err.
-                             */
-                            decrypt?: boolean,
+                                /**
+                                 * The option must be null (or omitted) for non-encrypted entries,
+                                 * and false for encrypted entries. Omitting the option for an encrypted entry will result in an err.
+                                 */
+                                decrypt?: boolean;
 
-                            /**
-                             * The start byte offset (inclusive) into this entry's file data
-                             */
-                            start?: number,
+                                /**
+                                 * The start byte offset (inclusive) into this entry's file data
+                                 */
+                                start?: number;
 
-                            /**
-                             * The end byte offset (exclusive) into this entry's file data
-                             */
-                            end?: number,
-                        }): Promise<nodestd.stream.Readable>;
-
-                        /**
-                         * Emitted for each entry.
-                         *
-                         * If decodeStrings is true, entries emitted via this event have already passed file name validation
-                         *
-                         * If validateEntrySizes is true and this entry's compressionMethod is 0 (stored without compression),
-                         * this entry has already passed entry size validation
-                         */
-                        on(event: "entry", listener: (entry: Entry<StringType>) => void): this;
-
-                        /**
-                         * Emitted after the last entry event has been emitted
-                         */
-                        on(event: "end", listener: () => void): this;
-
-                        /**
-                         * Emitted after the fd is actually closed
-                         */
-                        on(event: "close", listener: () => void): this;
-
-                        /**
-                         * Emitted in the case of errors with reading the zip file
-                         */
-                        on(event: "error", listener: (err: any) => void): this;
+                                /**
+                                 * The end byte offset (exclusive) into this entry's file data
+                                 */
+                                end?: number;
+                            },
+                        ): Promise<nodestd.stream.Readable>;
 
                         /**
                          * Emitted for each entry.
@@ -534,22 +544,47 @@ declare namespace adone {
                          * If validateEntrySizes is true and this entry's compressionMethod is 0 (stored without compression),
                          * this entry has already passed entry size validation
                          */
-                        once(event: "entry", listener: (entry: Entry<StringType>) => void): this;
+                        on(event: 'entry', listener: (entry: Entry<StringType>) => void): this;
 
                         /**
                          * Emitted after the last entry event has been emitted
                          */
-                        once(event: "end", listener: () => void): this;
+                        on(event: 'end', listener: () => void): this;
 
                         /**
                          * Emitted after the fd is actually closed
                          */
-                        once(event: "close", listener: () => void): this;
+                        on(event: 'close', listener: () => void): this;
 
                         /**
                          * Emitted in the case of errors with reading the zip file
                          */
-                        once(event: "error", listener: (err: any) => void): this;
+                        on(event: 'error', listener: (err: any) => void): this;
+
+                        /**
+                         * Emitted for each entry.
+                         *
+                         * If decodeStrings is true, entries emitted via this event have already passed file name validation
+                         *
+                         * If validateEntrySizes is true and this entry's compressionMethod is 0 (stored without compression),
+                         * this entry has already passed entry size validation
+                         */
+                        once(event: 'entry', listener: (entry: Entry<StringType>) => void): this;
+
+                        /**
+                         * Emitted after the last entry event has been emitted
+                         */
+                        once(event: 'end', listener: () => void): this;
+
+                        /**
+                         * Emitted after the fd is actually closed
+                         */
+                        once(event: 'close', listener: () => void): this;
+
+                        /**
+                         * Emitted in the case of errors with reading the zip file
+                         */
+                        once(event: 'error', listener: (err: any) => void): this;
                     }
 
                     interface CommonOptions {
@@ -629,7 +664,10 @@ declare namespace adone {
                 /**
                  * Creates a zipfile unpacker for the given buffer
                  */
-                function fromBuffer(buffer: Buffer, options: I.BufferOptions & { decodeStrings: false }): I.ZipFile<Buffer>;
+                function fromBuffer(
+                    buffer: Buffer,
+                    options: I.BufferOptions & { decodeStrings: false },
+                ): I.ZipFile<Buffer>;
 
                 /**
                  * Creates a zipfile unpacker for the given buffer
@@ -645,7 +683,7 @@ declare namespace adone {
                 function fromRandomAccessReader(
                     reader: fs.AbstractRandomAccessReader,
                     totalSize: number,
-                    options: I.RandomAccessReaderOptions & { decodeStrings: false }
+                    options: I.RandomAccessReaderOptions & { decodeStrings: false },
                 ): I.ZipFile<Buffer>;
 
                 /**
@@ -657,7 +695,7 @@ declare namespace adone {
                 function fromRandomAccessReader(
                     reader: fs.AbstractRandomAccessReader,
                     totalSize: number,
-                    options?: I.RandomAccessReaderOptions
+                    options?: I.RandomAccessReaderOptions,
                 ): I.ZipFile<string>;
 
                 /**

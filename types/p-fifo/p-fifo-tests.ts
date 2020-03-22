@@ -1,16 +1,16 @@
-import Fifo = require("p-fifo");
+import Fifo = require('p-fifo');
 
 const fifo = new Fifo<string>();
 
 (async () => {
-  // $ExpectType void
-  await fifo.push("a");
+    // $ExpectType void
+    await fifo.push('a');
 
-  // $ExpectError
-  fifo.push(true);
+    // $ExpectError
+    fifo.push(true);
 
-  // $ExpectType string
-  await fifo.shift();
+    // $ExpectType string
+    await fifo.shift();
 })();
 
 // $ExpectType boolean

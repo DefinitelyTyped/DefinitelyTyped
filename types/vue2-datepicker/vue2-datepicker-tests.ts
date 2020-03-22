@@ -3,16 +3,18 @@ import DatePicker from 'vue2-datepicker';
 
 // excerpt from vue-class-component/src/declarations.ts
 type VueClass<V> = {
-    new(...args: any[]): V & Vue;
+    new (...args: any[]): V & Vue;
 } & typeof Vue;
 
 // excerpt from vue-class-component/src/index.ts
-declare function Component<V extends Vue>(options: ComponentOptions<V> & ThisType<V>): <VC extends VueClass<V>>(target: VC) => VC;
+declare function Component<V extends Vue>(
+    options: ComponentOptions<V> & ThisType<V>,
+): <VC extends VueClass<V>>(target: VC) => VC;
 
 new Vue({
     el: '#app',
     components: {
-        DatePicker
+        DatePicker,
     },
     template: `
         <date-picker
@@ -26,25 +28,21 @@ new Vue({
         </date-picker>
     `,
     data() {
-        return {dateOfBirth: new Date()};
-    }
+        return { dateOfBirth: new Date() };
+    },
 });
 
 @Component({
     components: {
-        DatePicker
+        DatePicker,
     },
     template: `
-        <date-picker
-            :placeholder="placeholder"
-            v-model="dateOfBirth"
-            format="YYYY-MM-DD"
-            lang="en">
+        <date-picker :placeholder="placeholder" v-model="dateOfBirth" format="YYYY-MM-DD" lang="en">
             <template slot="calendar-icon">
                 <span class="input-datepicker__icon"></span>
             </template>
         </date-picker>
-    `
+    `,
 })
 class App extends Vue {
     dateOfBirth = new Date();

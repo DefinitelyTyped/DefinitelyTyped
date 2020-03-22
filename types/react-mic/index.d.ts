@@ -18,11 +18,11 @@ export interface ReactMicStopEvent {
     startTime: number;
     stopTime: number;
     option: {
-      audioBitsPerSecond: number;
-      mimeType: string;
+        audioBitsPerSecond: number;
+        mimeType: string;
     };
     blobURL: string;
-  }
+}
 
 export interface ReactMicProps {
     /** Set to true to begin recording */

@@ -4,11 +4,11 @@ import loadable, { lazy, loadableReady } from '@loadable/component';
 const TestComponent: React.SFC<{ foo: string }> = () => <>test</>;
 
 function defaultImportComponentLoader() {
-    return new Promise<{ default: typeof TestComponent }>(resolve => resolve({ default: TestComponent }));
+    return new Promise<{ default: typeof TestComponent }>((resolve) => resolve({ default: TestComponent }));
 }
 
 function importComponentLoader() {
-    return new Promise<typeof TestComponent>(resolve => resolve(TestComponent));
+    return new Promise<typeof TestComponent>((resolve) => resolve(TestComponent));
 }
 
 const lib = {
@@ -16,11 +16,11 @@ const lib = {
 };
 
 function defaultImportLibLoader() {
-    return new Promise<{ default: typeof lib }>(resolve => resolve({ default: lib }));
+    return new Promise<{ default: typeof lib }>((resolve) => resolve({ default: lib }));
 }
 
 function importLibLoader() {
-    return new Promise<typeof lib>(resolve => resolve(lib));
+    return new Promise<typeof lib>((resolve) => resolve(lib));
 }
 
 // loadable
@@ -40,7 +40,7 @@ function importLibLoader() {
     loadable(defaultImportComponentLoader, { ssr: true });
 
     // Should allow passing function to `cacheKey` in options
-    loadable(defaultImportComponentLoader, { cacheKey: props => props.foo });
+    loadable(defaultImportComponentLoader, { cacheKey: (props) => props.foo });
 
     // Should allow passing `fallback` prop to loadable component
     <LoadableComponent foo="test" fallback={<div>loading...</div>} />;
@@ -49,7 +49,7 @@ function importLibLoader() {
     LoadableComponent.preload();
 
     // Should allow force loading
-    LoadableComponent.load().then(Component => {
+    LoadableComponent.load().then((Component) => {
         <Component foo="test" />;
     });
 }
@@ -71,7 +71,7 @@ function importLibLoader() {
     LazyComponent.preload();
 
     // Should allow force loading
-    LazyComponent.load().then(Component => {
+    LazyComponent.load().then((Component) => {
         <Component foo="test" />;
     });
 }
@@ -93,7 +93,7 @@ function importLibLoader() {
     loadable.lib(defaultImportComponentLoader, { ssr: true });
 
     // Should allow passing function to `cacheKey` in options
-    loadable.lib(defaultImportComponentLoader, { cacheKey: props => props.foo });
+    loadable.lib(defaultImportComponentLoader, { cacheKey: (props) => props.foo });
 
     // Should allow passing fallback prop
     <LoadableLibrary fallback={<div>Loading library...</div>}>{({ getTestObj }) => getTestObj().foo}</LoadableLibrary>;
@@ -107,7 +107,7 @@ function importLibLoader() {
     LoadableLibrary.preload();
 
     // Should allow force loading
-    LoadableLibrary.load().then(Component => {
+    LoadableLibrary.load().then((Component) => {
         <Component />;
     });
 }
@@ -134,7 +134,7 @@ function importLibLoader() {
     LazyDefaultLibrary.preload();
 
     // Should allow force loading
-    LazyDefaultLibrary.load().then(Component => {
+    LazyDefaultLibrary.load().then((Component) => {
         <Component />;
     });
 }

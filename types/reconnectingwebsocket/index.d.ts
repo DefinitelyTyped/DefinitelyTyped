@@ -83,11 +83,11 @@ declare namespace ReconnectingWebSocket {
     }
 
     interface EventMap {
-        'open': OpenEvent;
-        'close': CloseEvent;
-        'connecting': ConnectingEvent;
-        'message': MessageEvent;
-        'error': ErrorEvent;
+        open: OpenEvent;
+        close: CloseEvent;
+        connecting: ConnectingEvent;
+        message: MessageEvent;
+        error: ErrorEvent;
     }
 }
 
@@ -160,13 +160,21 @@ declare class ReconnectingWebSocket extends EventTarget {
         listener: (this: ReconnectingWebSocket, event: ReconnectingWebSocket.EventMap[K]) => any,
         options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
     removeEventListener<K extends keyof ReconnectingWebSocket.EventMap>(
         type: K,
         listener: (this: ReconnectingWebSocket, event: ReconnectingWebSocket.EventMap[K]) => any,
         options?: boolean | EventListenerOptions,
     ): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 
     /**
      * Closes the WebSocket connection or connection attempt, if any.

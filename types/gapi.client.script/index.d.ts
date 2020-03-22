@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Apps Script Execution API v1 */
-    function load(name: "script", version: "v1"): PromiseLike<void>;
-    function load(name: "script", version: "v1", callback: () => any): void;
+    function load(name: 'script', version: 'v1'): PromiseLike<void>;
+    function load(name: 'script', version: 'v1', callback: () => any): void;
 
     const scripts: script.ScriptsResource;
 
@@ -130,7 +130,7 @@ declare namespace gapi.client {
              */
             run(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

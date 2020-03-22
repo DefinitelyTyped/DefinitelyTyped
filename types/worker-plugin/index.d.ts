@@ -9,12 +9,12 @@ import * as webpack from 'webpack';
 export = WorkerPlugin;
 
 declare class WorkerPlugin extends webpack.Plugin {
-  constructor(options?: WorkerPlugin.Options);
+    constructor(options?: WorkerPlugin.Options);
 }
 
 declare namespace WorkerPlugin {
-  interface Options {
-    globalObject?: boolean | string;
-    plugins?: Array<string | webpack.Plugin>;
-  }
+    interface Options {
+        globalObject?: boolean | string;
+        plugins?: Array<string | webpack.Plugin>;
+    }
 }

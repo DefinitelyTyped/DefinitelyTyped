@@ -9,7 +9,7 @@ import express = require('express');
 declare function actuator(options?: actuator.Options): express.RequestHandler;
 
 declare namespace actuator {
-    type InfoGitMode = "simple" | "full";
+    type InfoGitMode = 'simple' | 'full';
 
     /**
      * @summary Options for {@link Actuator} function.

@@ -9,8 +9,7 @@
  *     globalCompositeOperation不支持以下值：source-in source-out destination-atop lighter copy
  *     isPointInPath 不支持
  */
-declare class WxRenderingContext extends CanvasRenderingContext2D {
-}
+declare class WxRenderingContext extends CanvasRenderingContext2D {}
 
 /**
  * IOS及安卓不支持：
@@ -60,7 +59,10 @@ declare class Canvas {
      * @param contextType 上下文类型
      * @param contextAttributes webgl 上下文属性，仅当 contextType 为 webgl 时有效
      */
-    getContext(contextType: "2d" | "webgl", contextAttributes?: wx.types.RenderingContextConfig): WxRenderingContext | WxWebGLRenderingContext;
+    getContext(
+        contextType: '2d' | 'webgl',
+        contextAttributes?: wx.types.RenderingContextConfig,
+    ): WxRenderingContext | WxWebGLRenderingContext;
     /**
      * 把画布上的绘制内容以一个 data URI 的格式返回
      */
@@ -107,25 +109,25 @@ declare class LogManager {
      * 写debug日志
      * @param args 要记录的日志内容
      */
-    debug(... args: unknown[]): void;
+    debug(...args: unknown[]): void;
 
     /**
      * 写info日志
      * @param args 要记录的日志内容
      */
-    info(... args: unknown[]): void;
+    info(...args: unknown[]): void;
 
     /**
      * 写log日志
      * @param args 要记录的日志内容
      */
-    log(... args: unknown[]): void;
+    log(...args: unknown[]): void;
 
     /**
      * 写warn日志
      * @param args 要记录的日志内容
      */
-    warn(... args: unknown[]): void;
+    warn(...args: unknown[]): void;
 }
 
 declare class FileSystemManager {
@@ -337,7 +339,9 @@ declare class DownloadTask {
      * @param res.totalBytesWritten 已经下载的数据长度，单位 Bytes
      * @param res.totalBytesExpectedToWrite 预期需要下载的数据总长度，单位 Bytes
      */
-    onProgressUpdate(callback: (res: { progress: number, totalBytesWritten: number, totalBytesExpectedToWrite: number }) => void): void;
+    onProgressUpdate(
+        callback: (res: { progress: number; totalBytesWritten: number; totalBytesExpectedToWrite: number }) => void,
+    ): void;
 }
 
 declare class RequestTask {
@@ -419,23 +423,27 @@ declare class UDPSocket {
      * 监听错误事件
      * @param callback 错误回调函数
      */
-    onError(callback: (res: {
-        /**
-         * 错误信息
-         */
-        errMsg: string;
-    }) => void): void;
+    onError(
+        callback: (res: {
+            /**
+             * 错误信息
+             */
+            errMsg: string;
+        }) => void,
+    ): void;
 
     /**
      * 取消监听错误事件
      * @param callback 之前设置的错误回调函数
      */
-    offError(callback: (res: {
-        /**
-         * 错误信息
-         */
-        errMsg: string;
-    }) => void): void;
+    offError(
+        callback: (res: {
+            /**
+             * 错误信息
+             */
+            errMsg: string;
+        }) => void,
+    ): void;
 
     /**
      * 监听开始监听数据包消息的事件
@@ -473,7 +481,9 @@ declare class UploadTask {
      * @param callback.res.totalBytesSent 已经上传的数据长度，单位 Bytes
      * @param callback.res.totalBytesExpectedToSend 预期需要上传的数据总长度，单位 Bytes
      */
-    onProgressUpdate(callback: (res: { progress: number, totalBytesSent: number, totalBytesExpectedToSend: number }) => void): void;
+    onProgressUpdate(
+        callback: (res: { progress: number; totalBytesSent: number; totalBytesExpectedToSend: number }) => void,
+    ): void;
 }
 
 declare class KVData {
@@ -507,34 +517,36 @@ declare class CreatedButton {
     style: wx.types.ButtonStyle;
     show(): void;
     hide(): void;
-    onTap(callback: (res?: any) => void): void;   // res参数会被具体按钮的API定义覆盖为具体信息
+    onTap(callback: (res?: any) => void): void; // res参数会被具体按钮的API定义覆盖为具体信息
     offTap(callback: (res?: any) => void): void;
     destroy(): void;
 }
 declare class UserInfoButton extends CreatedButton {
-    onTap(callback: (res: {
-        /**
-         * 用户信息对象，不包含 openid 等敏感信息
-         */
-        userInfo: wx.types.UserInfo,
-        /**
-         * 不包括敏感信息的原始数据字符串，用于计算签名
-         */
-        rawData: string,
-        /**
-         * 使用 sha1( rawData + sessionkey ) 得到字符串，用于校验用户信息，参考文档signature(https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/open-ability/http-signature.html?t=201822)
-         */
-        signature: string,
-        /**
-         * 包括敏感数据在内的完整用户信息的加密数据，详见加密数据解密算法(https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/open-ability/signature.html?t=201822)
-         */
-        encryptedData: string,
-        /**
-         * 加密算法的初始向量，详见加密数据解密算法(https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/open-ability/signature.html?t=201822)
-         */
-        iv: string,
-        errMsg: string
-    }) => void): void;
+    onTap(
+        callback: (res: {
+            /**
+             * 用户信息对象，不包含 openid 等敏感信息
+             */
+            userInfo: wx.types.UserInfo;
+            /**
+             * 不包括敏感信息的原始数据字符串，用于计算签名
+             */
+            rawData: string;
+            /**
+             * 使用 sha1( rawData + sessionkey ) 得到字符串，用于校验用户信息，参考文档signature(https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/open-ability/http-signature.html?t=201822)
+             */
+            signature: string;
+            /**
+             * 包括敏感数据在内的完整用户信息的加密数据，详见加密数据解密算法(https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/open-ability/signature.html?t=201822)
+             */
+            encryptedData: string;
+            /**
+             * 加密算法的初始向量，详见加密数据解密算法(https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/open-ability/signature.html?t=201822)
+             */
+            iv: string;
+            errMsg: string;
+        }) => void,
+    ): void;
 }
 declare class OpenSettingButton extends CreatedButton {
     onTap(callback: () => void): void;
@@ -542,14 +554,10 @@ declare class OpenSettingButton extends CreatedButton {
 }
 declare class GameClubButton extends CreatedButton {
     icon: wx.types.GameClubButtonIcon;
-    onTap(callback: (res: {
-        errMsg: string;
-    }) => void): void;
+    onTap(callback: (res: { errMsg: string }) => void): void;
 }
 declare class FeedbackButton extends CreatedButton {
-    onTap(callback: (res: {
-        errMsg: string;
-    }) => void): void;
+    onTap(callback: (res: { errMsg: string }) => void): void;
 }
 
 declare class OpenDataContext {
@@ -571,7 +579,9 @@ declare class LoadSubpackageTask {
      * @param callback.res.totalBytesWritten 已经下载的数据长度，单位 Bytes
      * @param callback.res.totalBytesExpectedToWrite 预期需要下载的数据总长度，单位 Bytes
      */
-    onProgressUpdate(callback: (res: { progress: number, totalBytesWritten: number, totalBytesExpectedToWrite: number }) => void): void;
+    onProgressUpdate(
+        callback: (res: { progress: number; totalBytesWritten: number; totalBytesExpectedToWrite: number }) => void,
+    ): void;
 }
 
 declare class UpdateManager {
@@ -762,31 +772,31 @@ declare class RecorderManager {
         /**
          * 录音的时长，单位 ms，最大值 600000（10 分钟），默认值60000（1 分钟）
          */
-        duration?: number,
+        duration?: number;
         /**
          * 采样率
          */
-        sampleRate: 8000 | 11025 | 12000 | 16000 | 22050 | 24000 | 32000 | 44100 | 48000,
+        sampleRate: 8000 | 11025 | 12000 | 16000 | 22050 | 24000 | 32000 | 44100 | 48000;
         /**
          * 录音通道数
          */
-        numberOfChannels: 1 | 2,
+        numberOfChannels: 1 | 2;
         /**
          * 编码码率
          */
-        encodeBitRate: number,
+        encodeBitRate: number;
         /**
          * 音频格式
          */
-        format: "mp3" | "aac",
+        format: 'mp3' | 'aac';
         /**
          * 指定帧大小，单位 KB。传入 frameSize 后，每录制指定帧大小的内容后，会回调录制的文件内容，不指定则不会回调
          */
-        frameSize: number,
+        frameSize: number;
         /**
          * 指定录音的音频源，可通过 wx.getAvailableAudioSources() 获取当前可用的音频源，默认值auto
          */
-        audioSource?: wx.types.AudioSourceType
+        audioSource?: wx.types.AudioSourceType;
     }): void;
     /**
      * 暂停录音
@@ -822,7 +832,7 @@ declare class RecorderManager {
      * @param callback.res.frameBuffer 录音分片数据
      * @param callback.res.isLastFrame 当前帧是否正常录音结束前的最后一帧
      */
-    onFrameRecorded(callback: (res: { frameBuffer: ArrayBuffer, isLastFrame: boolean }) => void): void;
+    onFrameRecorded(callback: (res: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void): void;
     /**
      * 监听录音错误事件
      */
@@ -883,7 +893,7 @@ declare class Video {
      * contain - 包含，保持原有长宽比例。保证视频尺寸一定可以在容器里面放得下。因此，可能会有部分空白
      * cover - 覆盖，保持原有长宽比例。保证视频尺寸一定大于容器尺寸，宽度和高度至少有一个和容器一致。因此，视频有部分会看不见
      */
-    objectFit: "contain" | "cover" | "fill";
+    objectFit: 'contain' | 'cover' | 'fill';
     /**
      * 视频是否显示控件，默认true
      */
@@ -968,11 +978,11 @@ declare class Video {
      * @param callback.res.position 当前的播放位置，单位为秒
      * @param callback.res.duration 视频的总时长，单位为秒
      */
-    onTimeUpdate(callback: (res: { position: number, duration: number }) => void): void;
+    onTimeUpdate(callback: (res: { position: number; duration: number }) => void): void;
     /**
      * 取消监听视频播放进度更新事件
      */
-    offTimeUpdate(callback: (res: { position: number, duration: number }) => void): void;
+    offTimeUpdate(callback: (res: { position: number; duration: number }) => void): void;
     /**
      * 监听视频错误事件
      * @param callback.res.errMsg 错误信息，有如下值
@@ -1042,35 +1052,37 @@ declare class Camera {
     /**
      * 摄像头朝向
      */
-    devicePosition: "front" | "back";
+    devicePosition: 'front' | 'back';
 
     /**
      * 闪光灯状态
      */
-    flash: "auto" | "on" | "off";
+    flash: 'auto' | 'on' | 'off';
 
     /**
      * 帧数据图像尺寸
      */
-    size: "small" | "medium" | "large";
+    size: 'small' | 'medium' | 'large';
 
     /**
      * 拍照，可指定质量，成功则返回图片
      * @param quality 图片质量
      */
-    takePhoto(quality?: "high" | "normal" | "low"): Promise<{
+    takePhoto(
+        quality?: 'high' | 'normal' | 'low',
+    ): Promise<{
         /**
          * 临时图片路径
          */
-        tempImagePath: string,
+        tempImagePath: string;
         /**
          * 图片宽度
          */
-        width: string,
+        width: string;
         /**
          * 图片高度
          */
-        height: string
+        height: string;
     }>;
 
     /**
@@ -1082,15 +1094,17 @@ declare class Camera {
      * 结束录像，成功则返回封面与视频
      * @param compressed 是否压缩录制视频
      */
-    stopRecord(compressed: boolean): Promise<{
+    stopRecord(
+        compressed: boolean,
+    ): Promise<{
         /**
          * 临时视频路径
          */
-        tempThumbPath: string,
+        tempThumbPath: string;
         /**
          * 临时封面路径
          */
-        tempVideoPath: string
+        tempVideoPath: string;
     }>;
 
     /**
@@ -1108,20 +1122,22 @@ declare class Camera {
     /**
      * 监听摄像头实时帧数据
      */
-    onCameraFrame(callback: (res: {
-        /**
-         * 图像数据矩形的宽度
-         */
-        width: number,
-        /**
-         * 图像数据矩形的高度
-         */
-        height: number,
-        /**
-         * 图像像素点数据，一维数组，每四项表示一个像素点的 rgba
-         */
-        data: ArrayBuffer
-    }) => void): void;
+    onCameraFrame(
+        callback: (res: {
+            /**
+             * 图像数据矩形的宽度
+             */
+            width: number;
+            /**
+             * 图像数据矩形的高度
+             */
+            height: number;
+            /**
+             * 图像像素点数据，一维数组，每四项表示一个像素点的 rgba
+             */
+            data: ArrayBuffer;
+        }) => void,
+    ): void;
 
     /**
      * 开启监听帧数据
@@ -1167,11 +1183,11 @@ declare class BannerAd {
     /**
      * 监听 banner 广告缩放
      */
-    onResize(callback: (res: { width: number, height: number }) => void): void;
+    onResize(callback: (res: { width: number; height: number }) => void): void;
     /**
      * 取消监听隐藏 banner 广告缩放
      */
-    offResize(callback: (res: { width: number, height: number }) => void): void;
+    offResize(callback: (res: { width: number; height: number }) => void): void;
     /**
      * 监听banner 广告加载事件
      */
@@ -1205,8 +1221,7 @@ declare class InterstitialAd extends BannerAd {
     offClose(callback: (res: { isEnded: boolean }) => void): void;
 }
 
-declare class RewardedVideoAd extends InterstitialAd {
-}
+declare class RewardedVideoAd extends InterstitialAd {}
 
 // --定时器
 declare function clearTimeout(timeoutID: number): void;
@@ -1281,7 +1296,7 @@ declare namespace wx {
             /**
              * 目标文件的类型
              */
-            fileType?: "jpg" | "png";
+            fileType?: 'jpg' | 'png';
             /**
              * jpg图片的质量，仅当 fileType 为 jpg 时有效。取值范围为 0.0（最低）- 1.0（最高），不含 0。不在范围内时当作 1.0
              */
@@ -1325,7 +1340,18 @@ declare namespace wx {
             complete?: () => void;
         }
 
-        type FileContentEncoding = "ascii" | "base64" | "binary" | "hex" | "ucs2" | "ucs-2" | "utf16le" | "utf-16le" | "utf-8" | "utf8" | "latin1";
+        type FileContentEncoding =
+            | 'ascii'
+            | 'base64'
+            | 'binary'
+            | 'hex'
+            | 'ucs2'
+            | 'ucs-2'
+            | 'utf16le'
+            | 'utf-16le'
+            | 'utf-8'
+            | 'utf8'
+            | 'latin1';
 
         interface ReadfileParams {
             filePath: string;
@@ -1391,7 +1417,7 @@ declare namespace wx {
 
         interface FileinfoParams {
             filePath: string;
-            success?: (res: { size: number, digest: string }) => void;
+            success?: (res: { size: number; digest: string }) => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
@@ -1421,8 +1447,8 @@ declare namespace wx {
         }
 
         interface LineHeightParams {
-            fontStyle?: "normal" | "italic";
-            fontWeight?: "normal" | "bold";
+            fontStyle?: 'normal' | 'italic';
+            fontWeight?: 'normal' | 'bold';
             fontSize?: number;
             fontFamily: string;
             text: string;
@@ -1698,14 +1724,14 @@ declare namespace wx {
              * res.tempFilePath 临时文件路径。如果没传入 filePath 指定文件存储路径，则下载后的文件会存储到一个临时文件
              * res.statusCode 开发者服务器返回的 HTTP 状态码
              */
-            success?: (res: { tempFilePath?: string, statusCode: number }) => void;
+            success?: (res: { tempFilePath?: string; statusCode: number }) => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
 
-        type NetworkType = "wifi" | "2g" | "3g" | "4g" | "unknown" | "none";
+        type NetworkType = 'wifi' | '2g' | '3g' | '4g' | 'unknown' | 'none';
 
-        type RequestMethod = "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "TRACE" | "CONNECT";
+        type RequestMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT';
 
         interface RequestParams {
             /**
@@ -1727,11 +1753,11 @@ declare namespace wx {
             /**
              * 返回的数据格式
              */
-            dataType?: "json" | "arraybuffer";
+            dataType?: 'json' | 'arraybuffer';
             /**
              * res.data usually can be string or ArrayBuffer
              */
-            success?: (res: { data: any, statusCode: number, header?: { [key: string]: string } }) => void;
+            success?: (res: { data: any; statusCode: number; header?: { [key: string]: string } }) => void;
             fail?: () => void;
             complete?: () => void;
         }
@@ -1830,29 +1856,29 @@ declare namespace wx {
             /**
              * 显示用户信息的语言
              */
-            lang?: "en" | "zh_CN" | "zh_TW";
+            lang?: 'en' | 'zh_CN' | 'zh_TW';
             success?: (res: {
                 /**
                  * 用户信息对象，不包含 openid 等敏感信息
                  */
-                userInfo: UserInfo,
+                userInfo: UserInfo;
                 /**
                  * 不包括敏感信息的原始数据字符串，用于计算签名
                  */
-                rawData: string,
+                rawData: string;
                 /**
                  * 使用 sha1( rawData + sessionkey ) 得到字符串，用于校验用户信息，参考文档signature(https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/open-ability/http-signature.html?t=201822)
                  */
-                signature: string,
+                signature: string;
                 /**
                  * 包括敏感数据在内的完整用户信息的加密数据，详见加密数据解密算法(https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/open-ability/signature.html?t=201822)
                  */
-                encryptedData: string,
+                encryptedData: string;
                 /**
                  * 加密算法的初始向量，详见加密数据解密算法(https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/open-ability/signature.html?t=201822)
                  */
-                iv: string,
-                errMsg: string
+                iv: string;
+                errMsg: string;
             }) => void;
             fail?: () => void;
             complete?: () => void;
@@ -1869,7 +1895,7 @@ declare namespace wx {
             /**
              * 显示用户信息的语言
              */
-            lang?: "en" | "zh_CN" | "zh_TW";
+            lang?: 'en' | 'zh_CN' | 'zh_TW';
             success?: (res: { data: ReadonlyArray<UserInfo> }) => void;
             fail?: () => void;
             complete?: () => void;
@@ -1888,7 +1914,7 @@ declare namespace wx {
             city: string;
         }
 
-        type ButtonType = "text" | "image";
+        type ButtonType = 'text' | 'image';
         interface ButtonStyle {
             left?: number;
             top?: number;
@@ -1904,47 +1930,47 @@ declare namespace wx {
             borderColor?: string;
             borderWidth?: number;
             borderRadius?: number;
-            textAlign?: "left" | "center" | "right";
+            textAlign?: 'left' | 'center' | 'right';
             fontSize?: number;
             lineHeight?: number;
         }
 
-        type GameClubButtonIcon = "green" | "white" | "dark" | "light";
+        type GameClubButtonIcon = 'green' | 'white' | 'dark' | 'light';
 
         // --设置
         interface AuthSetting {
             /**
              * 用户信息，对应接口 wx.getUserInfo
              */
-            "scope.userInfo"?: boolean;
+            'scope.userInfo'?: boolean;
             /**
              * 地理位置，对应接口 wx.getLocation wx.chooseLocation
              */
-            "scope.userLocation"?: boolean;
+            'scope.userLocation'?: boolean;
             /**
              * 通讯地址，对应接口 wx.chooseAddress
              */
-            "scope.address"?: boolean;
+            'scope.address'?: boolean;
             /**
              * 发票抬头，对应接口 wx.chooseInvoiceTitle
              */
-            "scope.invoiceTitle"?: boolean;
+            'scope.invoiceTitle'?: boolean;
             /**
              * 微信运动步数，对应接口 wx.getWeRunData
              */
-            "scope.werun"?: boolean;
+            'scope.werun'?: boolean;
             /**
              * 录音功能，对应接口 wx.startRecord
              */
-            "scope.record"?: boolean;
+            'scope.record'?: boolean;
             /**
              * 保存到相册 wx.saveImageToPhotosAlbum, wx.saveVideoToPhotosAlbum
              */
-            "scope.writePhotosAlbum"?: boolean;
+            'scope.writePhotosAlbum'?: boolean;
             /**
              * 摄像头 wx.camera
              */
-            "scope.camera"?: boolean;
+            'scope.camera'?: boolean;
         }
 
         interface SetStorageParams {
@@ -1998,13 +2024,13 @@ declare namespace wx {
         }
 
         interface AccelerometerParams {
-            interval: "game" | "ui" | "normal";
+            interval: 'game' | 'ui' | 'normal';
             success?: () => void;
             fail?: () => void;
             complete?: () => void;
         }
 
-        type AudioSourceType = "auto" | "buildInMic" | "headsetMic" | "mic" | "camcorder";
+        type AudioSourceType = 'auto' | 'buildInMic' | 'headsetMic' | 'mic' | 'camcorder';
 
         interface AdStyle {
             /**
@@ -2072,8 +2098,8 @@ declare namespace wx {
     function getLaunchOptionsSync(): types.LaunchOption;
     function onHide(cb: () => void): void;
     function offHide(cb: () => void): void;
-    function onShow(cb: (res: { scene: string, query: any, shareTicket: string }) => void): void;
-    function offShow(cb: (res: { scene: string, query: any, shareTicket: string }) => void): void;
+    function onShow(cb: (res: { scene: string; query: any; shareTicket: string }) => void): void;
+    function offShow(cb: (res: { scene: string; query: any; shareTicket: string }) => void): void;
 
     // --系统信息
     function getSystemInfo(cb: types.CallbacksWithType<types.SystemInfo>): void;
@@ -2098,8 +2124,8 @@ declare namespace wx {
     /**
      * 监听全局错误事件
      */
-    function onError(cb: (res: { message: string, stack: string }) => void): void;
-    function offError(cb: (res: { message: string, stack: string }) => void): void;
+    function onError(cb: (res: { message: string; stack: string }) => void): void;
+    function offError(cb: (res: { message: string; stack: string }) => void): void;
 
     // --触摸事件
     /**
@@ -2127,7 +2153,7 @@ declare namespace wx {
     /**
      * 监听加速度数据，频率：5次/秒，接口调用后会自动开始监听，可使用 wx.stopAccelerometer 停止监听。
      */
-    function onAccelerometerChange(cb: (res: { x: number, y: number, z: number }) => void): void;
+    function onAccelerometerChange(cb: (res: { x: number; y: number; z: number }) => void): void;
     /**
      * 开始监听加速度数据。
      */
@@ -2176,20 +2202,24 @@ declare namespace wx {
     /**
      * 获取网络类型
      */
-    function getNetworkType(cb: types.CallbacksWithType<{ isConnected: boolean, networkType: types.NetworkType }>): void;
+    function getNetworkType(
+        cb: types.CallbacksWithType<{ isConnected: boolean; networkType: types.NetworkType }>,
+    ): void;
     /**
      * 监听网络状态变化事件
      */
-    function onNetworkStatusChange(cb: (res: {
-        /**
-         * 当前是否有网络链接
-         */
-        isConnected: boolean,
-        /**
-         * none - 无网络, unknown - Android 下不常见的网络类型
-         */
-        networkType: types.NetworkType
-    }) => void): void;
+    function onNetworkStatusChange(
+        cb: (res: {
+            /**
+             * 当前是否有网络链接
+             */
+            isConnected: boolean;
+            /**
+             * none - 无网络, unknown - Android 下不常见的网络类型
+             */
+            networkType: types.NetworkType;
+        }) => void,
+    ): void;
 
     // --屏幕
     /**
@@ -2223,32 +2253,36 @@ declare namespace wx {
     /**
      * 开始监听设备方向的变化
      */
-    function startDeviceMotionListening(param: {
-        /**
-         * 开始监听设备方向的变化。默认值normal，
-         * game - 适用于更新游戏的回调频率，在 20ms/次 左右
-         * ui - 适用于更新 UI 的回调频率，在 60ms/次 左右
-         * normal - 普通的回调频率，在 200ms/次 左右
-         */
-        interval: "game" | "ui" | "normal"
-    } & types.Callbacks): void;
+    function startDeviceMotionListening(
+        param: {
+            /**
+             * 开始监听设备方向的变化。默认值normal，
+             * game - 适用于更新游戏的回调频率，在 20ms/次 左右
+             * ui - 适用于更新 UI 的回调频率，在 60ms/次 左右
+             * normal - 普通的回调频率，在 200ms/次 左右
+             */
+            interval: 'game' | 'ui' | 'normal';
+        } & types.Callbacks,
+    ): void;
     /**
      * 监听设备方向变化事件。频率根据 wx.startDeviceMotionListening() 的 interval 参数。可以使用 wx.stopDeviceMotionListening() 停止监听。
      */
-    function onDeviceMotionChange(callback: (res: {
-        /**
-         * 当 手机坐标 X/Y 和 地球 X/Y 重合时，绕着 Z 轴转动的夹角为 alpha，范围值为 [0, 2*PI)。逆时针转动为正。
-         */
-        alpha: number,
-        /**
-         * 当手机坐标 Y/Z 和地球 Y/Z 重合时，绕着 X 轴转动的夹角为 beta。范围值为 [-1*PI, PI) 。顶部朝着地球表面转动为正。也有可能朝着用户为正。
-         */
-        beta: number,
-        /**
-         * 当手机 X/Z 和地球 X/Z 重合时，绕着 Y 轴转动的夹角为 gamma。范围值为 [-1*PI/2, PI/2)。右边朝着地球表面转动为正。
-         */
-        gamma: number
-    }) => void): void;
+    function onDeviceMotionChange(
+        callback: (res: {
+            /**
+             * 当 手机坐标 X/Y 和 地球 X/Y 重合时，绕着 Z 轴转动的夹角为 alpha，范围值为 [0, 2*PI)。逆时针转动为正。
+             */
+            alpha: number;
+            /**
+             * 当手机坐标 Y/Z 和地球 Y/Z 重合时，绕着 X 轴转动的夹角为 beta。范围值为 [-1*PI, PI) 。顶部朝着地球表面转动为正。也有可能朝着用户为正。
+             */
+            beta: number;
+            /**
+             * 当手机 X/Z 和地球 X/Z 重合时，绕着 Y 轴转动的夹角为 gamma。范围值为 [-1*PI/2, PI/2)。右边朝着地球表面转动为正。
+             */
+            gamma: number;
+        }) => void,
+    ): void;
     /**
      * 取消监听设备方向变化事件，参数为空，则取消所有的事件监听。
      * @param callback 之前添加过的监听回调函数，如果不指定，则清空所有
@@ -2263,33 +2297,37 @@ declare namespace wx {
     /**
      * 开始监听陀螺仪数据。
      */
-    function startGyroscope(param: {
-        /**
-         * 开始监听设备方向的变化。默认值normal，
-         * game - 适用于更新游戏的回调频率，在 20ms/次 左右
-         * ui - 适用于更新 UI 的回调频率，在 60ms/次 左右
-         * normal - 普通的回调频率，在 200ms/次 左右
-         */
-        interval: "game" | "ui" | "normal"
-    } & types.Callbacks): void;
+    function startGyroscope(
+        param: {
+            /**
+             * 开始监听设备方向的变化。默认值normal，
+             * game - 适用于更新游戏的回调频率，在 20ms/次 左右
+             * ui - 适用于更新 UI 的回调频率，在 60ms/次 左右
+             * normal - 普通的回调频率，在 200ms/次 左右
+             */
+            interval: 'game' | 'ui' | 'normal';
+        } & types.Callbacks,
+    ): void;
     /**
      * 监听陀螺仪数据变化事件。频率根据 wx.startGyroscope() 的 interval 参数。可以使用 wx.stopGyroscope() 停止监听。
      * @param callback 监听函数
      */
-    function onGyroscopeChange(callback: (res: {
-        /**
-         * x 轴的角速度
-         */
-        x: number,
-        /**
-         * y 轴的角速度
-         */
-        y: number,
-        /**
-         * z 轴的角速度
-         */
-        z: number
-    }) => void): void;
+    function onGyroscopeChange(
+        callback: (res: {
+            /**
+             * x 轴的角速度
+             */
+            x: number;
+            /**
+             * y 轴的角速度
+             */
+            y: number;
+            /**
+             * z 轴的角速度
+             */
+            z: number;
+        }) => void,
+    ): void;
     /**
      * 取消监听陀螺仪数据变化事件。
      * @param callback 之前监听的回调函数
@@ -2317,8 +2355,8 @@ declare namespace wx {
         /**
          * 推荐单元 id
          */
-        adUnitId: string
-    }): unknown /* GamePortal */;  // TODO: GamePortal
+        adUnitId: string;
+    }): unknown; /* GamePortal */ // TODO: GamePortal
     /**
      * 创建小游戏推荐icon组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.8.2 后再使用该 API。每次调用该方法都会返回一个全新的实例。
      */
@@ -2326,11 +2364,11 @@ declare namespace wx {
         /**
          * 推荐单元 id
          */
-        adUnitId: string,
+        adUnitId: string;
         /**
          * 游戏icon的数量，请注意，正式版下面渲染出来的icon数量会小于等于count，请注册做好样式兼容
          */
-        count: number,
+        count: number;
         /**
          * 数组的每一项可以针对对应的icon设置位置和样式等信息，style的每一项称为styleItem
          */
@@ -2338,33 +2376,33 @@ declare namespace wx {
             /**
              * 游戏名称是否隐藏
              */
-            appNameHidden: boolean,
+            appNameHidden: boolean;
             /**
              * 游戏名称的颜色色值
              */
-            color: string,
+            color: string;
             /**
              * 游戏icon的宽高值
              */
-            size: number,
+            size: number;
             /**
              * 游戏icon的border尺寸
              */
-            borderWidth: number,
+            borderWidth: number;
             /**
              * 游戏icon的border颜色色值
              */
-            borderColor: string,
+            borderColor: string;
             /**
              * 游戏icon的X轴坐标
              */
-            left: number,
+            left: number;
             /**
              * 游戏icon的Y轴坐标
              */
-            top: number
-        }>
-    }): unknown /* GameIcon */;  // TODO: GameIcon
+            top: number;
+        }>;
+    }): unknown; /* GameIcon */ // TODO: GameIcon
     /**
      * 创建小游戏推荐banner组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.7.5 后再使用该 API。每次调用该方法都会返回一个全新的实例。
      */
@@ -2372,7 +2410,7 @@ declare namespace wx {
         /**
          * 推荐单元 id
          */
-        adUnitId: string,
+        adUnitId: string;
         /**
          * 小游戏推荐banner组件样式
          */
@@ -2380,23 +2418,23 @@ declare namespace wx {
             /**
              * 小游戏推荐banner组件左上角横坐标
              */
-            left: number,
+            left: number;
             /**
              * 小游戏推荐banner组件左上角纵坐标
              */
-            top: number
-        }
-    }): unknown /* GameBanner */; // TODO: GameBanner
+            top: number;
+        };
+    }): unknown; /* GameBanner */ // TODO: GameBanner
 
     // --游戏对局回放
     /**
      * 获取全局唯一的游戏画面录制对象
      */
-    function getGameRecorder(): unknown /* GameRecorder */;  // TODO: GameRecorder
+    function getGameRecorder(): unknown; /* GameRecorder */ // TODO: GameRecorder
     /**
      * 创建游戏对局回放分享按钮，返回一个单例对象。按钮在被用户点击后会发起对最近一次录制完成的游戏对局回放的分享。
      */
-    function createGameRecorderShareButton(): unknown /* GameRecorderShareButton */;  // TODO: GameRecorderShareButton
+    function createGameRecorderShareButton(): unknown; /* GameRecorderShareButton */ // TODO: GameRecorderShareButton
 
     // --第三方平台
     /**
@@ -2410,12 +2448,14 @@ declare namespace wx {
      *         })
      *       }
      */
-    function getExtConfig(callbacks: types.CallbacksWithType<{
-        /**
-         * 第三方平台自定义的数据
-         */
-        extConfig: unknown
-    }>): void;
+    function getExtConfig(
+        callbacks: types.CallbacksWithType<{
+            /**
+             * 第三方平台自定义的数据
+             */
+            extConfig: unknown;
+        }>,
+    ): void;
     /**
      * wx.getExtConfig 的同步版本。
      */
@@ -2428,7 +2468,7 @@ declare namespace wx {
         /**
          * 用户下载数据根目录
          */
-        USER_DATA_PATH: string
+        USER_DATA_PATH: string;
     };
 
     // --位置
@@ -2439,43 +2479,43 @@ declare namespace wx {
         /**
          * wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
          */
-        type?: "wgs84" | "gcj02",
+        type?: 'wgs84' | 'gcj02';
         /**
          * 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度	>= 1.6.0
          */
-        altitude?: boolean,
+        altitude?: boolean;
         success?: (res: {
             /**
              * 纬度，范围为 -90~90，负数表示南纬
              */
-            latitude: number,
+            latitude: number;
             /**
              * 经度，范围为 -180~180，负数表示西经
              */
-            longitude: number,
+            longitude: number;
             /**
              * 速度，单位 m/s
              */
-            speed: number,
+            speed: number;
             /**
              * 位置的精确度
              */
-            accuracy: number,
+            accuracy: number;
             /**
              * 高度，单位 m
              */
-            altitude: number,
+            altitude: number;
             /**
              * 垂直精度，单位 m（Android 无法获取，返回 0）
              */
-            verticalAccuracy: number,
+            verticalAccuracy: number;
             /**
              * 水平精度，单位 m
              */
-            horizontalAccuracy: number
-        }) => void,
-        fail?: () => void,
-        complete?: () => void
+            horizontalAccuracy: number;
+        }) => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --网络
@@ -2528,26 +2568,26 @@ declare namespace wx {
         /**
          * 开发者服务器地址
          */
-        url: string,
+        url: string;
         /**
          * 要上传文件资源的路径
          */
-        filePath: string,
+        filePath: string;
         /**
          * 文件对应的 key，开发者在服务端可以通过这个 key 获取文件的二进制内容
          */
-        name: string,
+        name: string;
         /**
          * HTTP 请求 Header，Header 中不能设置 Referer
          */
-        header?: { [key: string]: string },
+        header?: { [key: string]: string };
         /**
          * HTTP 请求中其他额外的 form data
          */
-        formData?: { [key: string]: any },
-        success?: (res: { data: string, statusCode: number }) => void,
-        fail?: () => void,
-        complete?: () => void
+        formData?: { [key: string]: any };
+        success?: (res: { data: string; statusCode: number }) => void;
+        fail?: () => void;
+        complete?: () => void;
     }): UploadTask;
 
     // --开放数据
@@ -2558,10 +2598,10 @@ declare namespace wx {
         /**
          * 要拉取的 key 列表
          */
-        keyList: string[],
-        success?: (res: { data: ReadonlyArray<UserGameData> }) => void,
-        fail?: () => void,
-        complete?: () => void
+        keyList: string[];
+        success?: (res: { data: ReadonlyArray<UserGameData> }) => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 获取当前用户托管数据当中对应 key 的数据。该接口只可在开放数据域下使用
@@ -2570,10 +2610,10 @@ declare namespace wx {
         /**
          * 要拉取的 key 列表
          */
-        keyList: string[],
-        success?: (res: { KVDataList: ReadonlyArray<KVData> }) => void,
-        fail?: () => void,
-        complete?: () => void
+        keyList: string[];
+        success?: (res: { KVDataList: ReadonlyArray<KVData> }) => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     /**
@@ -2589,14 +2629,14 @@ declare namespace wx {
         /**
          * 群分享对应的 shareTicket
          */
-        shareTicket: string,
+        shareTicket: string;
         /**
          * 要拉取的 key 列表
          */
-        keyList: string[],
-        success?: (res: { data: ReadonlyArray<UserGameData> }) => void,
-        fail?: () => void,
-        complete?: () => void
+        keyList: string[];
+        success?: (res: { data: ReadonlyArray<UserGameData> }) => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 删除用户托管数据当中对应 key 的数据。
@@ -2605,10 +2645,10 @@ declare namespace wx {
         /**
          * 要删除掉 key 列表
          */
-        keyList: string[],
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        keyList: string[];
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 对用户托管数据进行写数据操作，允许同时写多组 KV 数据。
@@ -2621,10 +2661,10 @@ declare namespace wx {
         /**
          * 要修改的 KV 数据列表
          */
-        KVDataList: ReadonlyArray<KVData>,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        KVDataList: ReadonlyArray<KVData>;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 监听成功修改好友的互动型托管数据事件，该接口在游戏主域使用
@@ -2671,42 +2711,42 @@ declare namespace wx {
         /**
          * 需要修改的数据的 key，目前可以为 '1' - '50'
          */
-        key: string,
+        key: string;
         /**
          * 需要修改的数值，目前只能为 1
          */
-        opNum: number,
+        opNum: number;
         /**
          * 修改类型
          */
-        operation: "add",
+        operation: 'add';
         /**
          * 目标好友的 openId
          */
-        toUser?: string
+        toUser?: string;
         /**
          * 分享标题，如果设置了这个值，则在交互成功后自动询问用户是否分享给好友（需要配置模板规则）
          */
-        title?: string
+        title?: string;
         /**
          * 分享图片地址，详见 wx.shareMessageToFriend 同名参数（需要配置模板规则）
          */
-        imageUrl?: string,
+        imageUrl?: string;
         /**
          * 分享图片 ID，详见 wx.shareMessageToFriend 同名参数（需要配置模板规则）
          */
-        imageUrlId?: string,
+        imageUrlId?: string;
         /**
          * 是否静默修改（不弹框），静默修改需要用户通过快捷分享消息卡片进入才有效，代表分享反馈操作，无需填写 toUser，直接修改分享者与被分享者交互数据
          * 默认值false
          */
-        quiet?: boolean,
+        quiet?: boolean;
         success?: () => void;
         fail?: (res: {
             /**
              * 错误信息
              */
-            errMsg: string,
+            errMsg: string;
             /**
              * 错误码
              *     -17006	非好友关系
@@ -2716,60 +2756,67 @@ declare namespace wx {
              *     -17010	非法的操作数
              *     -17011	JSServer 校验写操作失败
              */
-            errCode: number
+            errCode: number;
         }) => void;
         complete?: () => void;
     }): void;
     /**
      * 获取当前用户互动型托管数据对应 key 的数据
      */
-    function getUserInteractiveStorage(param: {
-        /**
-         * 要获取的 key 列表
-         */
-        keyList: string[]
-    } & types.CallbacksWithType2<{
-        /**
-         * 加密数据，包含互动型托管数据的值。解密后的结果为一个 KVDataList，每一项为一个 KVData。 用户数据的签名验证和加解密
-         */
-        encryptedData: string,
-        /**
-         * 敏感数据对应的云 ID，开通云开发的小程序才会返回，可通过云调用直接获取开放数据，详细见云调用直接获取开放数据
-         */
-        cloudID: string
-    }, {
-        /**
-         * 错误信息
-         */
-        errMsg: string,
-        /**
-         * 错误码
-         *     -17008 非法的 key
-         */
-        errCode: number
-    }>): void;
+    function getUserInteractiveStorage(
+        param: {
+            /**
+             * 要获取的 key 列表
+             */
+            keyList: string[];
+        } & types.CallbacksWithType2<
+            {
+                /**
+                 * 加密数据，包含互动型托管数据的值。解密后的结果为一个 KVDataList，每一项为一个 KVData。 用户数据的签名验证和加解密
+                 */
+                encryptedData: string;
+                /**
+                 * 敏感数据对应的云 ID，开通云开发的小程序才会返回，可通过云调用直接获取开放数据，详细见云调用直接获取开放数据
+                 */
+                cloudID: string;
+            },
+            {
+                /**
+                 * 错误信息
+                 */
+                errMsg: string;
+                /**
+                 * 错误码
+                 *     -17008 非法的 key
+                 */
+                errCode: number;
+            }
+        >,
+    ): void;
     /**
      * 获取可能对游戏感兴趣的未注册的好友名单。每次调用最多可获得 5 个好友，此接口只能在开放数据域中使用
      */
-    function getPotentialFriendList(callback: types.CallbacksWithType<{
-        /**
-         * 可能对游戏感兴趣的未注册好友名单
-         */
-        list: ReadonlyArray<{
+    function getPotentialFriendList(
+        callback: types.CallbacksWithType<{
             /**
-             * 用户的微信头像 url
+             * 可能对游戏感兴趣的未注册好友名单
              */
-            avatarUrl: string,
-            /**
-             * 用户的微信昵称
-             */
-            nickname: string,
-            /**
-             * 用户 openid
-             */
-            openid: string
-        }>
-    }>): void;
+            list: ReadonlyArray<{
+                /**
+                 * 用户的微信头像 url
+                 */
+                avatarUrl: string;
+                /**
+                 * 用户的微信昵称
+                 */
+                nickname: string;
+                /**
+                 * 用户 openid
+                 */
+                openid: string;
+            }>;
+        }>,
+    ): void;
 
     // --登录
     /**
@@ -2779,12 +2826,14 @@ declare namespace wx {
     /**
      * 调用接口获取登录凭证（code）进而换取用户登录态信息，包括用户的唯一标识（openid） 及本次登录的 会话密钥（session_key）等。用户数据的加解密通讯需要依赖会话密钥完成。
      */
-    function login(cb: types.CallbacksWithType<{
-        /**
-         * 用户登录凭证（有效期五分钟）。开发者需要在开发者服务器后台调用 code2accessToken，使用 code 换取 openid 和 session_key 等信息
-         */
-        code: string
-    }>): void;
+    function login(
+        cb: types.CallbacksWithType<{
+            /**
+             * 用户登录凭证（有效期五分钟）。开发者需要在开发者服务器后台调用 code2accessToken，使用 code 换取 openid 和 session_key 等信息
+             */
+            code: string;
+        }>,
+    ): void;
 
     // --防沉迷
     /**
@@ -2794,15 +2843,15 @@ declare namespace wx {
         /**
          * 今天已经玩游戏的时间，单位：秒
          */
-        todayPlayedTime: number,
+        todayPlayedTime: number;
         success?: (res: {
             /**
              * 是否建议用户休息
              */
-            result: boolean
-        }) => void,
-        fail?: () => void,
-        complete?: () => void
+            result: boolean;
+        }) => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --小程序跳转
@@ -2810,53 +2859,55 @@ declare namespace wx {
      * 打开另一个小程序
      * @param param 跳转参数
      */
-    function navigateToMiniProgram(param: {
-        /**
-         * 要打开的小程序 appId
-         */
-        appId: string,
-        /**
-         * 打开的页面路径，如果为空则打开首页。path 中 ? 后面的部分会成为 query，在小程序的 App.onLaunch、App.onShow
-         * 和 Page.onLoad 的回调函数或小游戏的 wx.onShow 回调函数、wx.getLaunchOptionsSync 中可以获取到 query 数据。
-         * 对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
-         */
-        path?: string,
-        /**
-         * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch，App.onShow 中获取到这份数据。如果跳转的是小游戏，可以在 wx.onShow、wx.getLaunchOptionsSync 中可以获取到这份数据数据。
-         */
-        extraData?: unknown,
-        /**
-         * 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。默认值release
-         * develop	开发版
-         * trial	体验版
-         * release	正式版
-         */
-        envVersion?: "develop" | "trial" | "release"
-    } & types.Callbacks): void;
+    function navigateToMiniProgram(
+        param: {
+            /**
+             * 要打开的小程序 appId
+             */
+            appId: string;
+            /**
+             * 打开的页面路径，如果为空则打开首页。path 中 ? 后面的部分会成为 query，在小程序的 App.onLaunch、App.onShow
+             * 和 Page.onLoad 的回调函数或小游戏的 wx.onShow 回调函数、wx.getLaunchOptionsSync 中可以获取到 query 数据。
+             * 对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
+             */
+            path?: string;
+            /**
+             * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch，App.onShow 中获取到这份数据。如果跳转的是小游戏，可以在 wx.onShow、wx.getLaunchOptionsSync 中可以获取到这份数据数据。
+             */
+            extraData?: unknown;
+            /**
+             * 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。默认值release
+             * develop	开发版
+             * trial	体验版
+             * release	正式版
+             */
+            envVersion?: 'develop' | 'trial' | 'release';
+        } & types.Callbacks,
+    ): void;
 
     // --用户信息
     function createUserInfoButton(param: {
         /**
          * 按钮类型
          */
-        type: types.ButtonType,
+        type: types.ButtonType;
         /**
          * 按钮上的文本，仅当 type 为 text 时有效
          */
-        text?: string,
+        text?: string;
         /**
          * 按钮的背景图片，仅当 type 为 image 时有效
          */
-        image?: string,
+        image?: string;
         /**
          * 按钮的样式
          */
-        style?: types.ButtonStyle,
+        style?: types.ButtonStyle;
         /**
          * 是否带上登录态信息。当 withCredentials 为 true 时，要求此前有调用过 wx.login 且登录态尚未过期，此时返回的数据会包含 encryptedData, iv 等敏感信息；当 withCredentials 为 false 时，不要求有登录态，返回的数据不包含 encryptedData, iv 等敏感信息。
          */
-        withCredentials?: boolean,
-        lang?: "en" | "zh_CN" | "zh_TW"
+        withCredentials?: boolean;
+        lang?: 'en' | 'zh_CN' | 'zh_TW';
     }): UserInfoButton;
 
     // --设置
@@ -2867,19 +2918,19 @@ declare namespace wx {
         /**
          * 按钮类型
          */
-        type: types.ButtonType,
+        type: types.ButtonType;
         /**
          * 按钮上的文本，仅当 type 为 text 时有效
          */
-        text?: string,
+        text?: string;
         /**
          * 按钮的背景图片，仅当 type 为 image 时有效
          */
-        image?: string,
+        image?: string;
         /**
          * 按钮的样式
          */
-        style?: types.ButtonStyle
+        style?: types.ButtonStyle;
     }): OpenSettingButton;
     /**
      * 获取用户的当前设置。返回值中只会出现小程序已经向用户请求过的权限。
@@ -2895,76 +2946,82 @@ declare namespace wx {
     /**
      * 获取用户过去三十天微信运动步数，需要先调用 wx.login 接口。需要用户授权 scope.werun。
      */
-    function getWeRunData(p: types.CallbacksWithType<{
-        /**
-         * 包括敏感数据在内的完整用户信息的加密数据，详细见加密数据解密算法
-         */
-        encryptedData: string,
-        /**
-         * 加密算法的初始向量
-         */
-        iv: string
-    }>): void;
+    function getWeRunData(
+        p: types.CallbacksWithType<{
+            /**
+             * 包括敏感数据在内的完整用户信息的加密数据，详细见加密数据解密算法
+             */
+            encryptedData: string;
+            /**
+             * 加密算法的初始向量
+             */
+            iv: string;
+        }>,
+    ): void;
 
     // --卡券
     /**
      * 查看微信卡包中的卡券。只有通过 认证 的小程序或文化互动类目的小游戏才能使用。更多文档请参考：微信卡券接口文档（https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1490190158&version=1&lang=zh_CN&platform=2）
      */
-    function openCard(param: {
-        /**
-         * 需要打开的卡券列表
-         */
-        cardList: ReadonlyArray<{
+    function openCard(
+        param: {
             /**
-             * 卡券 ID
+             * 需要打开的卡券列表
              */
-            cardId: string,
-            /**
-             * 由 wx.addCard 的返回对象中的加密 code 通过解密后得到，解密请参照：code 解码接口（https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Coupons-Mini_Program_Start_Up.html）
-             */
-            code: string
-        }>
-    } & types.CallbacksWithType<unknown>): void;  // TODO: success回调里的res的结构官方文档没写
+            cardList: ReadonlyArray<{
+                /**
+                 * 卡券 ID
+                 */
+                cardId: string;
+                /**
+                 * 由 wx.addCard 的返回对象中的加密 code 通过解密后得到，解密请参照：code 解码接口（https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Coupons-Mini_Program_Start_Up.html）
+                 */
+                code: string;
+            }>;
+        } & types.CallbacksWithType<unknown>,
+    ): void; // TODO: success回调里的res的结构官方文档没写
     /**
      * 批量添加卡券。只有通过 认证 的小程序或文化互动类目的小游戏才能使用。更多文档请参考 微信卡券接口文档（https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=1490190158&version=1&lang=zh_CN&platform=2）。
      */
-    function addCard(param: {
-        /**
-         * 需要添加的卡券列表
-         */
-        cardList: ReadonlyArray<{
+    function addCard(
+        param: {
             /**
-             * 卡券 ID
+             * 需要添加的卡券列表
              */
-            cardId: string,
+            cardList: ReadonlyArray<{
+                /**
+                 * 卡券 ID
+                 */
+                cardId: string;
+                /**
+                 * 卡券的扩展参数。需将 CardExt 对象 JSON 序列化为字符串传入
+                 */
+                cardExt: string;
+            }>;
+        } & types.CallbacksWithType<{
             /**
-             * 卡券的扩展参数。需将 CardExt 对象 JSON 序列化为字符串传入
+             * 卡券添加结果列表
              */
-            cardExt: string
-        }>
-    } & types.CallbacksWithType<{
-        /**
-         * 卡券添加结果列表
-         */
-        cardList: ReadonlyArray<{
-            /**
-             * 加密 code，为用户领取到卡券的code加密后的字符串，解密请参照：code 解码接口
-             */
-            code: string,
-            /**
-             * 用户领取到卡券的 ID
-             */
-            cardId: string,
-            /**
-             * 卡券的扩展参数，值为一个 JSON 字符串
-             */
-            cardExt: string,
-            /**
-             * 是否成功
-             */
-            isSuccess: boolean
-        }>
-    }>): void;
+            cardList: ReadonlyArray<{
+                /**
+                 * 加密 code，为用户领取到卡券的code加密后的字符串，解密请参照：code 解码接口
+                 */
+                code: string;
+                /**
+                 * 用户领取到卡券的 ID
+                 */
+                cardId: string;
+                /**
+                 * 卡券的扩展参数，值为一个 JSON 字符串
+                 */
+                cardExt: string;
+                /**
+                 * 是否成功
+                 */
+                isSuccess: boolean;
+            }>;
+        }>,
+    ): void;
 
     // --授权
     /**
@@ -2974,10 +3031,10 @@ declare namespace wx {
         /**
          * 需要获取权限的 scope
          */
-        scope: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        scope: string;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --游戏圈
@@ -2985,14 +3042,14 @@ declare namespace wx {
      * 创建游戏圈按钮。游戏圈按钮被点击后会跳转到小游戏的游戏圈。更多关于游戏圈的信息见 游戏圈使用指南
      */
     function createGameClubButton(param: {
-        type: types.ButtonType,
-        text?: string,
-        image?: string,
-        style?: types.ButtonStyle,
+        type: types.ButtonType;
+        text?: string;
+        image?: string;
+        style?: types.ButtonStyle;
         /**
          * 游戏圈按钮的图标，仅当 object.type 参数为 image 时有效
          */
-        icon?: types.GameClubButtonIcon
+        icon?: types.GameClubButtonIcon;
     }): GameClubButton;
 
     // --意见反馈
@@ -3000,10 +3057,10 @@ declare namespace wx {
      * 用户点击后打开意见反馈页面的按钮
      */
     function createFeedbackButton(param: {
-        type: types.ButtonType,
-        text?: string,
-        image?: string,
-        style?: types.ButtonStyle
+        type: types.ButtonType;
+        text?: string;
+        image?: string;
+        style?: types.ButtonStyle;
     }): FeedbackButton;
 
     // --客服消息
@@ -3014,26 +3071,26 @@ declare namespace wx {
         /**
          * 会话来源
          */
-        sessionFrom?: string,
+        sessionFrom?: string;
         /**
          * 是否显示会话内消息卡片，设置此参数为 true，用户进入客服会话之后会收到一个消息卡片，通过以下三个参数设置卡片的内容
          */
-        showMessageCard?: boolean,
+        showMessageCard?: boolean;
         /**
          * 会话内消息卡片标题
          */
-        sendMessageTitle?: string,
+        sendMessageTitle?: string;
         /**
          * 会话内消息卡片路径
          */
-        sendMessagePath?: string,
+        sendMessagePath?: string;
         /**
          * 会话内消息卡片图片路径
          */
-        sendMessageImg?: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        sendMessageImg?: string;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --开放数据域
@@ -3051,23 +3108,23 @@ declare namespace wx {
      * 获取转发详细信息
      */
     function getShareInfo(param: {
-        shareTicket: string,
+        shareTicket: string;
         success?: (res: {
             /**
              * 错误信息
              */
-            errMsg: string,
+            errMsg: string;
             /**
              * 包括敏感数据在内的完整转发信息的加密数据
              */
-            encryptedData: string,
+            encryptedData: string;
             /**
              * 加密算法的初始向量
              */
-            iv: string
-        }) => void,
-        fail?: () => void,
-        complete?: () => void
+            iv: string;
+        }) => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 隐藏转发按钮
@@ -3088,10 +3145,10 @@ declare namespace wx {
         /**
          * 是否使用带 shareTicket 的转发
          */
-        withShareTicket: boolean,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        withShareTicket: boolean;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 主动拉起转发，进入选择通讯录界面。
@@ -3117,20 +3174,20 @@ declare namespace wx {
         /**
          * 发送对象的 openId
          */
-        openId: string,
+        openId: string;
         /**
          * 转发标题，不传则默认使用当前小游戏的昵称。
          */
-        title?: string,
+        title?: string;
         /**
          * 转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。显示图片长宽比是 5:4
          */
-        imageUrl?: string
+        imageUrl?: string;
         /**
          * 审核通过的图片 ID，详见 使用审核通过的转发图片（https://developers.weixin.qq.com/minigame/dev/guide/open-ability/sh
          * are/share.html#%E4%BD%BF%E7%94%A8%E5%AE%A1%E6%A0%B8%E9%80%9A%E8%BF%87%E7%9A%84%E8%BD%AC%E5%8F%91%E5%9B%BE%E7%89%87）
          */
-        imageUrlId?: string
+        imageUrlId?: string;
     }): void;
     /**
      * 更新转发属性
@@ -3139,10 +3196,10 @@ declare namespace wx {
         /**
          * 是否使用带 shareTicket 的转发详情
          */
-        withShareTicket: boolean,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        withShareTicket: boolean;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --性能
@@ -3170,10 +3227,10 @@ declare namespace wx {
 
     // --调试
     function setEnableDebug(p: {
-        enableDebug: boolean,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        enableDebug: boolean;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     /**
@@ -3185,7 +3242,7 @@ declare namespace wx {
          * 取值为0或1，取值为0时会把 App、Page 的生命周期函数和 wx 命名空间下的函数调用写入日志，取值为1则不会。
          * 默认值是 0
          */
-        level?: 0 | 1
+        level?: 0 | 1;
     }): LogManager;
 
     // --数据上报
@@ -3201,32 +3258,37 @@ declare namespace wx {
     /**
      * 调起小游戏订阅消息界面，返回用户订阅消息的操作结果。（需要在 touchend 事件的回调中调用）
      */
-    function requestSubscribeMessage(param: {
-        /**
-         * 需要订阅的消息模板的id的集合（注意：iOS客户端7.0.6版本、Android客户端7.0.7版本之后的一次订阅才支持多个模板消息，iOS客户端7.0.5版本、Android客户端7.0.6版本之前的一次订阅
-         * 只支持一个模板消息）消息模板id在[微信公众平台(mp.weixin.qq.com)-功能-订阅消息]中配置
-         */
-        tmplIds: ReadonlyArray<string>;
-    } & types.CallbacksWithType2<{
-        /**
-         * 接口调用成功时errMsg值为'requestSubscribeMessage:ok'
-         */
-        errMsg: string;
-        /**
-         * [TEMPLATE_ID]是动态的键，即模板id，值包括'accept'、'reject'、'ban'。'accept'表示用户同意订阅该条id对应的模板消息，'reject'表示用户拒绝订阅该条id对应的模板消息，'ban'表示
-         * 已被后台封禁。例如 { errMsg: "requestSubscribeMessage:ok", zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE: "accept"} 表示用户同意订阅zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE这条消息
-         */
-        [TEMPLATE_ID: string]: 'accept' | 'reject' | 'ban' | string;
-    }, {
-        /**
-         * 接口调用失败错误信息
-         */
-        errMsg: string;
-        /**
-         * 接口调用失败错误码
-         */
-        errCode: number;
-    }>): void;
+    function requestSubscribeMessage(
+        param: {
+            /**
+             * 需要订阅的消息模板的id的集合（注意：iOS客户端7.0.6版本、Android客户端7.0.7版本之后的一次订阅才支持多个模板消息，iOS客户端7.0.5版本、Android客户端7.0.6版本之前的一次订阅
+             * 只支持一个模板消息）消息模板id在[微信公众平台(mp.weixin.qq.com)-功能-订阅消息]中配置
+             */
+            tmplIds: ReadonlyArray<string>;
+        } & types.CallbacksWithType2<
+            {
+                /**
+                 * 接口调用成功时errMsg值为'requestSubscribeMessage:ok'
+                 */
+                errMsg: string;
+                /**
+                 * [TEMPLATE_ID]是动态的键，即模板id，值包括'accept'、'reject'、'ban'。'accept'表示用户同意订阅该条id对应的模板消息，'reject'表示用户拒绝订阅该条id对应的模板消息，'ban'表示
+                 * 已被后台封禁。例如 { errMsg: "requestSubscribeMessage:ok", zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE: "accept"} 表示用户同意订阅zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE这条消息
+                 */
+                [TEMPLATE_ID: string]: 'accept' | 'reject' | 'ban' | string;
+            },
+            {
+                /**
+                 * 接口调用失败错误信息
+                 */
+                errMsg: string;
+                /**
+                 * 接口调用失败错误码
+                 */
+                errCode: number;
+            }
+        >,
+    ): void;
 
     // --数据缓存
     /**
@@ -3281,10 +3343,10 @@ declare namespace wx {
         /**
          * 分包的名字，可以填 name 或者 root
          */
-        name: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        name: string;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): LoadSubpackageTask;
 
     // --菜单
@@ -3295,36 +3357,36 @@ declare namespace wx {
         /**
          * 宽度
          */
-        width: number,
+        width: number;
         /**
          * 高度
          */
-        height: number,
+        height: number;
         /**
          * 上边界坐标
          */
-        top: number,
+        top: number;
         /**
          * 右边界坐标
          */
-        right: number,
+        right: number;
         /**
          * 下边界坐标
          */
-        bottom: number,
+        bottom: number;
         /**
          * 左边界坐标
          */
-        left: number
+        left: number;
     };
     function setMenuStyle(param: {
         /**
          * 样式风格
          */
-        style: "light" | "dark",
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        style: 'light' | 'dark';
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --交互
@@ -3335,22 +3397,22 @@ declare namespace wx {
         /**
          * 提示的内容
          */
-        title?: string,
+        title?: string;
         /**
          * 图标
          */
-        icon?: "success" | "loading",
+        icon?: 'success' | 'loading';
         /**
          * 自定义图标的本地路径，image 的优先级高于 icon
          */
-        image?: string,
+        image?: string;
         /**
          * 提示的延迟时间
          */
-        duration?: number,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        duration?: number;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 隐藏消息提示框
@@ -3363,34 +3425,34 @@ declare namespace wx {
         /**
          * 提示的标题
          */
-        title?: string,
+        title?: string;
         /**
          * 提示的内容
          */
-        content?: string,
+        content?: string;
         /**
          * 是否显示取消按钮，默认true
          */
-        showCancel?: boolean,
+        showCancel?: boolean;
         /**
          * 取消按钮的文字，最多 4 个字符串
          */
-        cancelText?: string,
+        cancelText?: string;
         /**
          * 取消按钮的文字颜色，必须是 16 进制格式的颜色字符串，默认值#000000
          */
-        cancelColor?: string,
+        cancelColor?: string;
         /**
          * 确认按钮的文字，最多 4 个字符串
          */
-        confirmText?: string,
+        confirmText?: string;
         /**
          * 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串，默认值#3cc51f
          */
-        confirmColor?: string,
-        success?: (res: { confirm?: boolean, cancel?: boolean }) => void,
-        fail?: () => void,
-        complete?: () => void
+        confirmColor?: string;
+        success?: (res: { confirm?: boolean; cancel?: boolean }) => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 显示 loading 提示框, 需主动调用 wx.hideLoading 才能关闭提示框
@@ -3399,14 +3461,14 @@ declare namespace wx {
         /**
          * 提示的内容
          */
-        title?: string,
+        title?: string;
         /**
          * 是否显示透明蒙层
          */
-        mask?: boolean,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        mask?: boolean;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 隐藏 loading 提示框
@@ -3419,14 +3481,14 @@ declare namespace wx {
         /**
          * 按钮的文字数组，数组长度最大为 6
          */
-        itemList: string[],
+        itemList: string[];
         /**
          * 按钮的文字颜色，默认值#000000
          */
-        itemColor?: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        itemColor?: string;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --键盘
@@ -3465,23 +3527,23 @@ declare namespace wx {
         /**
          * 键盘输入框显示的默认值
          */
-        defaultValue: string,
+        defaultValue: string;
         /**
          * 键盘中文本的最大长度
          */
-        maxLength?: number,
+        maxLength?: number;
         /**
          * 是否为多行输入
          */
-        multiple?: boolean,
+        multiple?: boolean;
         /**
          * 当点击完成时键盘是否收起
          */
-        confirmHold?: boolean,
+        confirmHold?: boolean;
         /**
          * 键盘右下角 confirm 按钮的类型，只影响按钮的文本内容
          */
-        confirmType?: "done" | "next" | "search" | "go" | "send"
+        confirmType?: 'done' | 'next' | 'search' | 'go' | 'send';
     }): void;
     /**
      * 更新键盘，只有当键盘处于拉起状态时才会产生效果
@@ -3490,10 +3552,10 @@ declare namespace wx {
         /**
          * 键盘输入框的当前值
          */
-        value: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        value: string;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --状态栏
@@ -3501,21 +3563,21 @@ declare namespace wx {
      * 当在配置中设置 showStatusBarStyle 时，屏幕顶部会显示状态栏。此接口可以修改状态栏的样式。
      */
     function setStatusBarStyle(param: {
-        style: "white" | "black",
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        style: 'white' | 'black';
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --窗口
     /**
      * 监听窗口尺寸变化事件
      */
-    function onWindowResize(cb: (res: { windowWidth: number, windowHeight: number }) => void): void;
+    function onWindowResize(cb: (res: { windowWidth: number; windowHeight: number }) => void): void;
     /**
      * 取消监听窗口尺寸变化事件
      */
-    function offWindowResize(cb: (res: { windowWidth: number, windowHeight: number }) => void): void;
+    function offWindowResize(cb: (res: { windowWidth: number; windowHeight: number }) => void): void;
 
     // --更新
     function getUpdateManager(): UpdateManager;
@@ -3534,12 +3596,14 @@ declare namespace wx {
     /**
      * 获取当前支持的音频输入源
      */
-    function getAvailableAudioSources(param: types.CallbacksWithType<{
-        /**
-         * 音频输入源，每一项对应一种音频输入源
-         */
-        audioSources: ReadonlyArray<types.AudioSourceType>
-    }>): void;
+    function getAvailableAudioSources(
+        param: types.CallbacksWithType<{
+            /**
+             * 音频输入源，每一项对应一种音频输入源
+             */
+            audioSources: ReadonlyArray<types.AudioSourceType>;
+        }>,
+    ): void;
 
     // --录音
     function getRecorderManager(): RecorderManager;
@@ -3549,18 +3613,18 @@ declare namespace wx {
      * 从本地相册选择图片或使用相机拍照。
      */
     function chooseImage(param: {
-        count: number,
+        count: number;
         /**
          * 所选的图片的尺寸
          */
-        sizeType: ['original'] | ['compressed'] | ['original', 'compressed'],
+        sizeType: ['original'] | ['compressed'] | ['original', 'compressed'];
         /**
          * 选择图片的来源
          */
-        sourceType: ['album'] | ['camera'] | ['album', 'camera'],
-        success?: (res: { tempFilePaths: ReadonlyArray<string>, tempFiles: ReadonlyArray<ImageFile> }) => void,
-        fail?: () => void,
-        complete?: () => void
+        sourceType: ['album'] | ['camera'] | ['album', 'camera'];
+        success?: (res: { tempFilePaths: ReadonlyArray<string>; tempFiles: ReadonlyArray<ImageFile> }) => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 预览图片，调用之后会在新打开的页面中全屏预览传入的图片，预览的过程中用户可以进行保存图片、发送给朋友等操作
@@ -3569,14 +3633,14 @@ declare namespace wx {
         /**
          * 需要预览的图片链接列表
          */
-        urls: string[],
+        urls: string[];
         /**
          * 当前显示图片的链接，默认为urls的第一张
          */
-        current?: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        current?: string;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
     /**
      * 保存图片到系统相册。需要用户授权 scope.writePhotosAlbum
@@ -3585,10 +3649,10 @@ declare namespace wx {
         /**
          * 图片文件路径，可以是临时文件路径也可以是永久文件路径，不支持网络图片路径
          */
-        filePath: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        filePath: string;
+        success?: () => void;
+        fail?: () => void;
+        complete?: () => void;
     }): void;
 
     // --视频
@@ -3596,62 +3660,62 @@ declare namespace wx {
         /**
          * 视频的左上角横坐标
          */
-        x?: number,
+        x?: number;
         /**
          * 视频的左上角纵坐标
          */
-        y?: number,
+        y?: number;
         /**
          * 视频的宽度，默认值300
          */
-        width?: number,
+        width?: number;
         /**
          * 默认值150
          */
-        height?: number,
+        height?: number;
         /**
          * 视频的资源地址
          */
-        src: string,
+        src: string;
         /**
          * 视频的封面
          */
-        poster?: string,
+        poster?: string;
         /**
          * 视频的初始播放位置，单位为 s 秒，默认值0
          */
-        initialTime?: number,
+        initialTime?: number;
         /**
          * 视频的播放速率，有效值有 0.5、0.8、1.0、1.25、1.5默认值1.0
          */
-        playbackRate?: number,
+        playbackRate?: number;
         /**
          * 视频是否为直播，默认值0
          */
-        live?: number,
+        live?: number;
         /**
          * 视频的缩放模式
          * fill - 填充，视频拉伸填满整个容器，不保证保持原有长宽比例
          * contain - 包含，保持原有长宽比例。保证视频尺寸一定可以在容器里面放得下。因此，可能会有部分空白
          * cover - 覆盖，保持原有长宽比例。保证视频尺寸一定大于容器尺寸，宽度和高度至少有一个和容器一致。因此，视频有部分会看不见
          */
-        objectFit?: "contain" | "cover" | "fill",
+        objectFit?: 'contain' | 'cover' | 'fill';
         /**
          * 视频是否显示控件，默认true
          */
-        controls?: boolean,
+        controls?: boolean;
         /**
          * 视频是否自动播放，默认false
          */
-        autoplay?: boolean,
+        autoplay?: boolean;
         /**
          * 视频是否是否循环播放，默认值false
          */
-        loop?: boolean,
+        loop?: boolean;
         /**
          * 视频是否禁音播放，默认值false
          */
-        muted?: boolean
+        muted?: boolean;
     }): Video;
 
     // --相机
@@ -3659,75 +3723,81 @@ declare namespace wx {
      * 创建相机
      * @param param 创建相机所需的初始化信息
      */
-    function createCamera(param?: types.Callbacks & {
-        /**
-         * 相机的左上角横坐标，默认值0
-         */
-        x?: number;
-        /**
-         * 相机的左上角纵坐标，默认值0
-         */
-        y?: number;
-        /**
-         * 相机的宽度，默认值300
-         */
-        width?: number;
-        /**
-         * 相机的高度，默认值150
-         */
-        height?: number;
-        /**
-         * 摄像头朝向，值为 front, back，默认值back
-         */
-        devicePosition?: "front" | "back";
-        /**
-         * 闪光灯，值为 auto, on, off，默认值auto
-         */
-        flash?: "auto" | "on" | "off";
-        /**
-         * 帧数据图像尺寸，值为 small, medium, large，默认值small
-         */
-        size?: "small" | "medium" | "large";
-    }): Camera;
+    function createCamera(
+        param?: types.Callbacks & {
+            /**
+             * 相机的左上角横坐标，默认值0
+             */
+            x?: number;
+            /**
+             * 相机的左上角纵坐标，默认值0
+             */
+            y?: number;
+            /**
+             * 相机的宽度，默认值300
+             */
+            width?: number;
+            /**
+             * 相机的高度，默认值150
+             */
+            height?: number;
+            /**
+             * 摄像头朝向，值为 front, back，默认值back
+             */
+            devicePosition?: 'front' | 'back';
+            /**
+             * 闪光灯，值为 auto, on, off，默认值auto
+             */
+            flash?: 'auto' | 'on' | 'off';
+            /**
+             * 帧数据图像尺寸，值为 small, medium, large，默认值small
+             */
+            size?: 'small' | 'medium' | 'large';
+        },
+    ): Camera;
 
     // -- VoIP
     /**
      * 更新实时语音静音设置
      * @param param 静音设置
      */
-    function updateVoIPChatMuteConfig(param: types.Callbacks & {
-        /**
-         * 静音设置
-         */
-        muteConfig: {
+    function updateVoIPChatMuteConfig(
+        param: types.Callbacks & {
             /**
-             * 是否静音麦克风，默认值false
+             * 静音设置
              */
-            muteMicrophone?: boolean,
-            /**
-             * 是否静音耳机，默认值false
-             */
-            muteEarphone?: boolean
-        }
-    }): void;
+            muteConfig: {
+                /**
+                 * 是否静音麦克风，默认值false
+                 */
+                muteMicrophone?: boolean;
+                /**
+                 * 是否静音耳机，默认值false
+                 */
+                muteEarphone?: boolean;
+            };
+        },
+    ): void;
     /**
      * 监听实时语音通话成员通话状态变化事件。有成员开始/停止说话时触发回调
      * @param callback 实时语音通话成员通话状态变化事件的回调函数
      */
-    function onVoIPChatSpeakersChanged(callback: (res: {
-        /**
-         * 还在实时语音通话中的成员 openId 名单
-         */
-        openIdList: ReadonlyArray<string>,
-        /**
-         * 错误码
-         */
-        errCode: number,
-        /**
-         * 调用结果（错误原因）
-         */
-        errMsg: string
-    }) => void): void;
+    function onVoIPChatSpeakersChanged(
+        callback: (res: {
+            /**
+             * 还在实时语音通话中的成员 openId 名单
+             */
+            openIdList: ReadonlyArray<string>;
+            /**
+             * 错误码
+             */
+            errCode: number;
+            /**
+             * 调用结果（错误原因）
+             */
+            errMsg: string;
+        }) => void,
+    ): void;
     /**
      * 取消监听实时语音通话成员通话状态变化事件。
      * @param callback 之前监听的回调函数
@@ -3737,20 +3807,22 @@ declare namespace wx {
      * 监听实时语音通话成员在线状态变化事件。有成员加入/退出通话时触发回调
      * @param callback 实时语音通话成员在线状态变化事件的回调函数
      */
-    function onVoIPChatMembersChanged(callback: (res: {
-        /**
-         * 还在实时语音通话中的成员 openId 名单
-         */
-        openIdList: ReadonlyArray<string>,
-        /**
-         * 错误码
-         */
-        errCode: number,
-        /**
-         * 调用结果（错误原因）
-         */
-        errMsg: string
-    }) => void): void;
+    function onVoIPChatMembersChanged(
+        callback: (res: {
+            /**
+             * 还在实时语音通话中的成员 openId 名单
+             */
+            openIdList: ReadonlyArray<string>;
+            /**
+             * 错误码
+             */
+            errCode: number;
+            /**
+             * 调用结果（错误原因）
+             */
+            errMsg: string;
+        }) => void,
+    ): void;
     /**
      * 取消监听实时语音通话成员在线状态变化事件。
      * @param callback 之前监听的回调函数
@@ -3760,16 +3832,18 @@ declare namespace wx {
      * 监听被动断开实时语音通话事件。包括小游戏切入后端时断开
      * @param callback 被动断开实时语音通话事件的回调函数
      */
-    function onVoIPChatInterrupted(callback: (res: {
-        /**
-         * 错误码
-         */
-        errCode: number,
-        /**
-         * 调用结果（错误原因）
-         */
-        errMsg: string
-    }) => void): void;
+    function onVoIPChatInterrupted(
+        callback: (res: {
+            /**
+             * 错误码
+             */
+            errCode: number;
+            /**
+             * 调用结果（错误原因）
+             */
+            errMsg: string;
+        }) => void,
+    ): void;
     /**
      * 取消监听被动断开实时语音通话事件。
      * @param callback 之前监听的回调函数
@@ -3784,50 +3858,52 @@ declare namespace wx {
      *    -1000 系统错误
      * @param param 加入语音聊天时的初始化参数
      */
-    function joinVoIPChat(param: types.CallbacksWithType<{
-        /**
-         * 在此通话中的成员 openId 名单
-         */
-        openIdList: ReadonlyArray<string>,
-        /**
-         * 错误码
-         */
-        errCode: number,
-        /**
-         * 调用结果
-         */
-        errMsg: string
-    }> & {
-        /**
-         * 签名，用于验证小游戏的身份
-         */
-        signature: string,
-        /**
-         * 验证所需的随机字符串
-         */
-        nonceStr: string,
-        /**
-         * 验证所需的时间戳
-         */
-        timeStamp: number,
-        /**
-         * 小游戏内此房间/群聊的 ID。同一时刻传入相同 groupId 的用户会进入到同个实时语音房间。
-         */
-        groupId: string,
-        /**
-         * 静音设置
-         */
-        muteConfig?: {
+    function joinVoIPChat(
+        param: types.CallbacksWithType<{
             /**
-             * 是否静音麦克风，默认值false
+             * 在此通话中的成员 openId 名单
              */
-            muteMicrophone?: boolean,
+            openIdList: ReadonlyArray<string>;
             /**
-             * 是否静音耳机，默认值false
+             * 错误码
              */
-            muteEarphone?: boolean
-        }
-    }): void;
+            errCode: number;
+            /**
+             * 调用结果
+             */
+            errMsg: string;
+        }> & {
+            /**
+             * 签名，用于验证小游戏的身份
+             */
+            signature: string;
+            /**
+             * 验证所需的随机字符串
+             */
+            nonceStr: string;
+            /**
+             * 验证所需的时间戳
+             */
+            timeStamp: number;
+            /**
+             * 小游戏内此房间/群聊的 ID。同一时刻传入相同 groupId 的用户会进入到同个实时语音房间。
+             */
+            groupId: string;
+            /**
+             * 静音设置
+             */
+            muteConfig?: {
+                /**
+                 * 是否静音麦克风，默认值false
+                 */
+                muteMicrophone?: boolean;
+                /**
+                 * 是否静音耳机，默认值false
+                 */
+                muteEarphone?: boolean;
+            };
+        },
+    ): void;
     /**
      * 退出（销毁）实时语音通话
      */
@@ -3841,11 +3917,11 @@ declare namespace wx {
         /**
          * 广告单元 id
          */
-        adUnitId: string,
+        adUnitId: string;
         /**
          * banner 广告组件的样式
          */
-        style: types.AdStyle
+        style: types.AdStyle;
     }): BannerAd;
     /**
      * 创建激励视频广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。同时，开发者工具上暂不支持调试该 API，请直接在真机上进行调试。
@@ -3854,7 +3930,7 @@ declare namespace wx {
         /**
          * 广告单元 id
          */
-        adUnitId: string
+        adUnitId: string;
     }): RewardedVideoAd;
     /**
      * 创建插屏广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号后再使用该 API。每次调用该方法创建插屏广告都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用）。
@@ -3863,7 +3939,7 @@ declare namespace wx {
         /**
          * 广告单元 id
          */
-        adUnitId: string
+        adUnitId: string;
     }): InterstitialAd;
 
     // --虚拟支付
@@ -3875,25 +3951,25 @@ declare namespace wx {
          * 支付的类型，不同的支付类型有各自额外要传的附加参数。
          *   game - 购买游戏币
          */
-        mode: "game",
+        mode: 'game';
         /**
          * 环境配置，默认值0
          *   0 - 米大师正式环境
          *   1 - 米大师沙箱环境
          */
-        env?: 0 | 1,
+        env?: 0 | 1;
         /**
          * 在米大师侧申请的应用 id
          */
-        offerId: string,
+        offerId: string;
         /**
          * 币种
          */
-        currencyType: "CNY",
+        currencyType: 'CNY';
         /**
          * 申请接入时的平台，platform 与应用id有关。
          */
-        platform?: "android",
+        platform?: 'android';
         /**
          * 购买数量。mode=game 时必填。购买数量。详见 buyQuantity 限制说明。
          * mode为game（购买游戏币）时，buyQuantity不可任意填写。需满足 buyQuantity * 游戏币单价 = 限定的价格等级。如：游戏币单价为 0.1 元，一次购买最少数量是 10。
@@ -3926,12 +4002,12 @@ declare namespace wx {
          *       328
          *       648
          */
-        buyQuantity?: number,
+        buyQuantity?: number;
         /**
          * 分区 ID
          */
-        zoneId?: string,
-        success?: () => void,
+        zoneId?: string;
+        success?: () => void;
         /**
          * @param res.errCode 有如下值：
          *      -1	系统失败
@@ -3952,7 +4028,7 @@ declare namespace wx {
          *       1000	参数错误
          *       1003	米大师 Portal 错误
          */
-        fail?: (res: { errMsg: string, errCode: number }) => void,
-        complete?: () => void
+        fail?: (res: { errMsg: string; errCode: number }) => void;
+        complete?: () => void;
     }): void;
 }

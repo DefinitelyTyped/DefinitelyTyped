@@ -8,7 +8,7 @@ import * as React from 'react';
 import { FluxibleContext } from 'fluxible';
 import BaseStore = require('fluxible/addons/BaseStore');
 
-export class NavLink extends React.Component<NavLinkProps, any> { }
+export class NavLink extends React.Component<NavLinkProps, any> {}
 
 export class RouteStore extends BaseStore {
     dehydrate(context?: FluxibleContext): any;

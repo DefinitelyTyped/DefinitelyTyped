@@ -15,7 +15,7 @@ const cdata = (content: string) => {};
 const xmlProlog = () => {};
 const text = (value: string) => {};
 const emptyRegExpOptions: RegExpOptions = {};
-const filledRegExpOptions: RegExpOptions = {attribute: new RegExp(''), name: new RegExp('')};
+const filledRegExpOptions: RegExpOptions = { attribute: new RegExp(''), name: new RegExp('') };
 const emptyCallbackOptions: CallbacksOption = {};
 const filled: CallbacksOption = {
     attribute,
@@ -26,7 +26,7 @@ const filled: CallbacksOption = {
     docType,
     cdata,
     xmlProlog,
-    text
+    text,
 };
 
 // parse tests:
@@ -40,5 +40,5 @@ parseFile('', '', filled, attributes);
 
 // sanitize tests:
 sanitize('');
-sanitize('', {attributes: [ 'hello' ], elements: [ 'hi' ], comments: true, docTypes: false});
-sanitize('', {attributes, elements, comments, docTypes });
+sanitize('', { attributes: ['hello'], elements: ['hi'], comments: true, docTypes: false });
+sanitize('', { attributes, elements, comments, docTypes });

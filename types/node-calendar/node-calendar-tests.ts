@@ -1,4 +1,3 @@
-
 import node_calendar = require('node-calendar');
 
 var cal = new node_calendar.Calendar(node_calendar.SUNDAY);
@@ -92,7 +91,7 @@ node_calendar.setlocale('en_US');
 assertIsError(new node_calendar.IllegalDayError());
 assertIsError(new node_calendar.IllegalLocaleError());
 assertIsError(new node_calendar.IllegalMonthError());
-assertIsError(new node_calendar.IllegalTimeError);
+assertIsError(new node_calendar.IllegalTimeError());
 assertIsError(new node_calendar.IllegalWeekdayError());
 
 assertIsBoolean(node_calendar.isleap(2000));
@@ -101,52 +100,51 @@ assertIsNumber(node_calendar.leapdays(2000, 2010));
 
 node_calendar.monthrange(2015, node_calendar.JANUARY).forEach(assertIsNumber);
 
-var timegmt:[number,number,number,number,number,number] = [2014, node_calendar.JULY, 7, 12, 41, 59];
+var timegmt: [number, number, number, number, number, number] = [2014, node_calendar.JULY, 7, 12, 41, 59];
 assertIsNumber(node_calendar.timegm(timegmt));
-
 
 // FUNCTIONS ------------------------------------------------------------------
 function assertIsDate(d: Date) {
-	assert(d instanceof Date, 'Should be a date');
+    assert(d instanceof Date, 'Should be a date');
 }
 
 function assertIsNumber(n: number) {
-	assert(typeof n == 'number', 'Should be a number');
+    assert(typeof n == 'number', 'Should be a number');
 }
 
 function assertIsBoolean(b: boolean) {
-	assert(typeof b == 'boolean', 'Should be a boolean');
+    assert(typeof b == 'boolean', 'Should be a boolean');
 }
 
 function assertDayOfWeekMonth(d: [number, number]) {
-	assert(d instanceof Array, 'Day of weak/month should be an array');
-	assert(d.length == 2, 'Day of weak/month array should contain 2 items');
-	assert(typeof d[0] == 'number', 'Day of month should be a number');
-	assert(typeof d[1] == 'number', 'Day of week should be a number');
+    assert(d instanceof Array, 'Day of weak/month should be an array');
+    assert(d.length == 2, 'Day of weak/month array should contain 2 items');
+    assert(typeof d[0] == 'number', 'Day of month should be a number');
+    assert(typeof d[1] == 'number', 'Day of week should be a number');
 }
 
 function assertWeekRow<T>(row: IWeekRow<T>, assertItemType: (item: T) => void) {
-	row.forEach(assertItemType);
+    row.forEach(assertItemType);
 }
 
 function assertMonthGrid<T>(grid: IMonthGrid<T>, assertItemType: (item: T) => void) {
-	grid.forEach(wr => assertWeekRow(wr, assertItemType));
+    grid.forEach((wr) => assertWeekRow(wr, assertItemType));
 }
 
 function assertMonthRow<T>(row: IMonthRow<T>, assertItemType: (item: T) => void) {
-	row.forEach(mg => assertMonthGrid(mg, assertItemType));
+    row.forEach((mg) => assertMonthGrid(mg, assertItemType));
 }
 
 function assertYearGrid<T>(grid: IYearGrid<T>, assertItemType: (item: T) => void) {
-	grid.forEach(mr => assertMonthRow(mr, assertItemType));
+    grid.forEach((mr) => assertMonthRow(mr, assertItemType));
 }
 
 function assert(condition: boolean, msg?: string): void {
-	if (condition) return;
-	throw new Error(msg);
+    if (condition) return;
+    throw new Error(msg);
 }
 
 function assertIsError(error: Error) {
-	assert(typeof error.name == 'string', 'Error name should exist and be a string');
-	assert(typeof error.message == 'string', 'Error message should exist and be a string');
+    assert(typeof error.name == 'string', 'Error name should exist and be a string');
+    assert(typeof error.message == 'string', 'Error message should exist and be a string');
 }

@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface StepInputProps {
     className?: string;
@@ -15,7 +15,7 @@ export interface StepInputProps {
 }
 
 declare const StepInput: React.FunctionComponent<StepInputProps> & {
-    displayName: "StepInput";
+    displayName: 'StepInput';
 };
 
 export default StepInput;

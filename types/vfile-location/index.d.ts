@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import * as VFile from "vfile";
+import * as VFile from 'vfile';
 
 declare function vfileLocation(vfile: string | VFile.VFile): vfileLocation.Location;
 

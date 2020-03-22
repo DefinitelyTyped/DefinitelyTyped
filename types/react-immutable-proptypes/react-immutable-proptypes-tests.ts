@@ -37,35 +37,15 @@ const propTypes: PropTypes.ValidationMap<Props> = {
     seq: ImmutablePropTypes.seq.isRequired,
     record: ImmutablePropTypes.record.isRequired,
     iterable: ImmutablePropTypes.iterable.isRequired,
-    listOf: ImmutablePropTypes.listOf(
-        PropTypes.string.isRequired
-    ).isRequired,
-    mapOf: ImmutablePropTypes.mapOf(
-        PropTypes.number.isRequired,
-        PropTypes.string.isRequired
-    ).isRequired,
-    mapOfNoKey: ImmutablePropTypes.mapOf(
-        PropTypes.number.isRequired
-    ).isRequired,
-    orderedMapOf: ImmutablePropTypes.orderedMapOf(
-        PropTypes.number.isRequired,
-        PropTypes.string.isRequired
-    ).isRequired,
-    orderedMapOfNoKey: ImmutablePropTypes.orderedMapOf(
-        PropTypes.number.isRequired
-    ).isRequired,
-    setOf: ImmutablePropTypes.setOf(
-        PropTypes.string.isRequired
-    ).isRequired,
-    orderedSetOf: ImmutablePropTypes.orderedSetOf(
-        PropTypes.string.isRequired
-    ).isRequired,
-    stackOf: ImmutablePropTypes.stackOf(
-        PropTypes.string.isRequired
-    ).isRequired,
-    iterableOf: ImmutablePropTypes.iterableOf(
-        PropTypes.string.isRequired
-    ).isRequired,
+    listOf: ImmutablePropTypes.listOf(PropTypes.string.isRequired).isRequired,
+    mapOf: ImmutablePropTypes.mapOf(PropTypes.number.isRequired, PropTypes.string.isRequired).isRequired,
+    mapOfNoKey: ImmutablePropTypes.mapOf(PropTypes.number.isRequired).isRequired,
+    orderedMapOf: ImmutablePropTypes.orderedMapOf(PropTypes.number.isRequired, PropTypes.string.isRequired).isRequired,
+    orderedMapOfNoKey: ImmutablePropTypes.orderedMapOf(PropTypes.number.isRequired).isRequired,
+    setOf: ImmutablePropTypes.setOf(PropTypes.string.isRequired).isRequired,
+    orderedSetOf: ImmutablePropTypes.orderedSetOf(PropTypes.string.isRequired).isRequired,
+    stackOf: ImmutablePropTypes.stackOf(PropTypes.string.isRequired).isRequired,
+    iterableOf: ImmutablePropTypes.iterableOf(PropTypes.string.isRequired).isRequired,
     recordOf: ImmutablePropTypes.recordOf({
         foo: PropTypes.string.isRequired,
     }).isRequired,

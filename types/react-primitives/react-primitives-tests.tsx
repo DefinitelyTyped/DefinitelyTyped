@@ -9,7 +9,7 @@ import {
     Text,
     Touchable,
     View,
-    StyleSheet
+    StyleSheet,
 } from 'react-primitives';
 
 const { Image: AnimatedImage } = Animated;
@@ -19,19 +19,19 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
     container: {
-        height: screenHeight
+        height: screenHeight,
     },
     nav: {
         width: screenWidth,
-        height: 20
+        height: 20,
     },
     image: {
         width,
-        height: 100
+        height: 100,
     },
     text: {
-        fontSize: 14 * PixelRatio.get()
-    }
+        fontSize: 14 * PixelRatio.get(),
+    },
 });
 
 interface State {
@@ -40,14 +40,14 @@ interface State {
 
 export default class Component extends React.Component<{}, State> {
     state: State = {
-        opacity: new Animated.Value(0)
+        opacity: new Animated.Value(0),
     };
 
     componentDidMount() {
         Animated.timing(this.state.opacity, {
             toValue: 1,
             duration: 10000,
-            easing: Easing.cubic
+            easing: Easing.cubic,
         }).start();
         if (Platform.OS === 'sketch') {
             console.log('The Platform is sketch');
@@ -56,7 +56,7 @@ export default class Component extends React.Component<{}, State> {
 
     render() {
         const {
-            state: { opacity }
+            state: { opacity },
         } = this;
 
         return (
@@ -64,10 +64,7 @@ export default class Component extends React.Component<{}, State> {
                 <View style={styles.nav}>
                     <Text>My Awesome App!</Text>
                 </View>
-                <AnimatedImage
-                    style={[styles.image, { opacity }]}
-                    source={{ uri: 'source' }}
-                />
+                <AnimatedImage style={[styles.image, { opacity }]} source={{ uri: 'source' }} />
                 <Image style={styles.image} source={{ uri: 'source' }} />
                 <Text style={styles.text}>Hii</Text>
                 {Platform.OS === 'ios' && (

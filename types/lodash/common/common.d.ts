@@ -1,120 +1,120 @@
-import _ = require("../index");
+import _ = require('../index');
 // tslint:disable-next-line:strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
-declare module "../index" {
+declare module '../index' {
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
     interface LoDashStatic {
         /**
-        * Creates a lodash object which wraps value to enable implicit method chain sequences.
-        * Methods that operate on and return arrays, collections, and functions can be chained together.
-        * Methods that retrieve a single value or may return a primitive value will automatically end the
-        * chain sequence and return the unwrapped value. Otherwise, the value must be unwrapped with value().
-        *
-        * Explicit chain sequences, which must be unwrapped with value(), may be enabled using _.chain.
-        *
-        * The execution of chained methods is lazy, that is, it's deferred until value() is
-        * implicitly or explicitly called.
-        *
-        * Lazy evaluation allows several methods to support shortcut fusion. Shortcut fusion
-        * is an optimization to merge iteratee calls; this avoids the creation of intermediate
-        * arrays and can greatly reduce the number of iteratee executions. Sections of a chain
-        * sequence qualify for shortcut fusion if the section is applied to an array and iteratees
-        * accept only one argument. The heuristic for whether a section qualifies for shortcut
-        * fusion is subject to change.
-        *
-        * Chaining is supported in custom builds as long as the value() method is directly or
-        * indirectly included in the build.
-        *
-        * In addition to lodash methods, wrappers have Array and String methods.
-        * The wrapper Array methods are:
-        * concat, join, pop, push, shift, sort, splice, and unshift.
-        * The wrapper String methods are:
-        * replace and split.
-        *
-        * The wrapper methods that support shortcut fusion are:
-        * at, compact, drop, dropRight, dropWhile, filter, find, findLast, head, initial, last,
-        * map, reject, reverse, slice, tail, take, takeRight, takeRightWhile, takeWhile, and toArray
-        *
-        * The chainable wrapper methods are:
-        * after, ary, assign, assignIn, assignInWith, assignWith, at, before, bind, bindAll, bindKey,
-        * castArray, chain, chunk, commit, compact, concat, conforms, constant, countBy, create,
-        * curry, debounce, defaults, defaultsDeep, defer, delay, difference, differenceBy, differenceWith,
-        * drop, dropRight, dropRightWhile, dropWhile, extend, extendWith, fill, filter, flatMap,
-        * flatMapDeep, flatMapDepth, flatten, flattenDeep, flattenDepth, flip, flow, flowRight,
-        * fromPairs, functions, functionsIn, groupBy, initial, intersection, intersectionBy, intersectionWith,
-        * invert, invertBy, invokeMap, iteratee, keyBy, keys, keysIn, map, mapKeys, mapValues,
-        * matches, matchesProperty, memoize, merge, mergeWith, method, methodOf, mixin, negate,
-        * nthArg, omit, omitBy, once, orderBy, over, overArgs, overEvery, overSome, partial, partialRight,
-        * partition, pick, pickBy, plant, property, propertyOf, pull, pullAll, pullAllBy, pullAllWith, pullAt,
-        * push, range, rangeRight, rearg, reject, remove, rest, reverse, sampleSize, set, setWith,
-        * shuffle, slice, sort, sortBy, sortedUniq, sortedUniqBy, splice, spread, tail, take,
-        * takeRight, takeRightWhile, takeWhile, tap, throttle, thru, toArray, toPairs, toPairsIn,
-        * toPath, toPlainObject, transform, unary, union, unionBy, unionWith, uniq, uniqBy, uniqWith,
-        * unset, unshift, unzip, unzipWith, update, updateWith, values, valuesIn, without, wrap,
-        * xor, xorBy, xorWith, zip, zipObject, zipObjectDeep, and zipWith.
-        *
-        * The wrapper methods that are not chainable by default are:
-        * add, attempt, camelCase, capitalize, ceil, clamp, clone, cloneDeep, cloneDeepWith, cloneWith,
-        * conformsTo, deburr, defaultTo, divide, each, eachRight, endsWith, eq, escape, escapeRegExp,
-        * every, find, findIndex, findKey, findLast, findLastIndex, findLastKey, first, floor, forEach,
-        * forEachRight, forIn, forInRight, forOwn, forOwnRight, get, gt, gte, has, hasIn, head,
-        * identity, includes, indexOf, inRange, invoke, isArguments, isArray, isArrayBuffer,
-        * isArrayLike, isArrayLikeObject, isBoolean, isBuffer, isDate, isElement, isEmpty, isEqual, isEqualWith,
-        * isError, isFinite, isFunction, isInteger, isLength, isMap, isMatch, isMatchWith, isNaN,
-        * isNative, isNil, isNull, isNumber, isObject, isObjectLike, isPlainObject, isRegExp,
-        * isSafeInteger, isSet, isString, isUndefined, isTypedArray, isWeakMap, isWeakSet, join,
-        * kebabCase, last, lastIndexOf, lowerCase, lowerFirst, lt, lte, max, maxBy, mean, meanBy,
-        * min, minBy, multiply, noConflict, noop, now, nth, pad, padEnd, padStart, parseInt, pop,
-        * random, reduce, reduceRight, repeat, result, round, runInContext, sample, shift, size,
-        * snakeCase, some, sortedIndex, sortedIndexBy, sortedLastIndex, sortedLastIndexBy, startCase,
-        * startsWith, stubArray, stubFalse, stubObject, stubString, stubTrue, subtract, sum, sumBy,
-        * template, times, toFinite, toInteger, toJSON, toLength, toLower, toNumber, toSafeInteger,
-        * toString, toUpper, trim, trimEnd, trimStart, truncate, unescape, uniqueId, upperCase,
-        * upperFirst, value, and words.
-        **/
+         * Creates a lodash object which wraps value to enable implicit method chain sequences.
+         * Methods that operate on and return arrays, collections, and functions can be chained together.
+         * Methods that retrieve a single value or may return a primitive value will automatically end the
+         * chain sequence and return the unwrapped value. Otherwise, the value must be unwrapped with value().
+         *
+         * Explicit chain sequences, which must be unwrapped with value(), may be enabled using _.chain.
+         *
+         * The execution of chained methods is lazy, that is, it's deferred until value() is
+         * implicitly or explicitly called.
+         *
+         * Lazy evaluation allows several methods to support shortcut fusion. Shortcut fusion
+         * is an optimization to merge iteratee calls; this avoids the creation of intermediate
+         * arrays and can greatly reduce the number of iteratee executions. Sections of a chain
+         * sequence qualify for shortcut fusion if the section is applied to an array and iteratees
+         * accept only one argument. The heuristic for whether a section qualifies for shortcut
+         * fusion is subject to change.
+         *
+         * Chaining is supported in custom builds as long as the value() method is directly or
+         * indirectly included in the build.
+         *
+         * In addition to lodash methods, wrappers have Array and String methods.
+         * The wrapper Array methods are:
+         * concat, join, pop, push, shift, sort, splice, and unshift.
+         * The wrapper String methods are:
+         * replace and split.
+         *
+         * The wrapper methods that support shortcut fusion are:
+         * at, compact, drop, dropRight, dropWhile, filter, find, findLast, head, initial, last,
+         * map, reject, reverse, slice, tail, take, takeRight, takeRightWhile, takeWhile, and toArray
+         *
+         * The chainable wrapper methods are:
+         * after, ary, assign, assignIn, assignInWith, assignWith, at, before, bind, bindAll, bindKey,
+         * castArray, chain, chunk, commit, compact, concat, conforms, constant, countBy, create,
+         * curry, debounce, defaults, defaultsDeep, defer, delay, difference, differenceBy, differenceWith,
+         * drop, dropRight, dropRightWhile, dropWhile, extend, extendWith, fill, filter, flatMap,
+         * flatMapDeep, flatMapDepth, flatten, flattenDeep, flattenDepth, flip, flow, flowRight,
+         * fromPairs, functions, functionsIn, groupBy, initial, intersection, intersectionBy, intersectionWith,
+         * invert, invertBy, invokeMap, iteratee, keyBy, keys, keysIn, map, mapKeys, mapValues,
+         * matches, matchesProperty, memoize, merge, mergeWith, method, methodOf, mixin, negate,
+         * nthArg, omit, omitBy, once, orderBy, over, overArgs, overEvery, overSome, partial, partialRight,
+         * partition, pick, pickBy, plant, property, propertyOf, pull, pullAll, pullAllBy, pullAllWith, pullAt,
+         * push, range, rangeRight, rearg, reject, remove, rest, reverse, sampleSize, set, setWith,
+         * shuffle, slice, sort, sortBy, sortedUniq, sortedUniqBy, splice, spread, tail, take,
+         * takeRight, takeRightWhile, takeWhile, tap, throttle, thru, toArray, toPairs, toPairsIn,
+         * toPath, toPlainObject, transform, unary, union, unionBy, unionWith, uniq, uniqBy, uniqWith,
+         * unset, unshift, unzip, unzipWith, update, updateWith, values, valuesIn, without, wrap,
+         * xor, xorBy, xorWith, zip, zipObject, zipObjectDeep, and zipWith.
+         *
+         * The wrapper methods that are not chainable by default are:
+         * add, attempt, camelCase, capitalize, ceil, clamp, clone, cloneDeep, cloneDeepWith, cloneWith,
+         * conformsTo, deburr, defaultTo, divide, each, eachRight, endsWith, eq, escape, escapeRegExp,
+         * every, find, findIndex, findKey, findLast, findLastIndex, findLastKey, first, floor, forEach,
+         * forEachRight, forIn, forInRight, forOwn, forOwnRight, get, gt, gte, has, hasIn, head,
+         * identity, includes, indexOf, inRange, invoke, isArguments, isArray, isArrayBuffer,
+         * isArrayLike, isArrayLikeObject, isBoolean, isBuffer, isDate, isElement, isEmpty, isEqual, isEqualWith,
+         * isError, isFinite, isFunction, isInteger, isLength, isMap, isMatch, isMatchWith, isNaN,
+         * isNative, isNil, isNull, isNumber, isObject, isObjectLike, isPlainObject, isRegExp,
+         * isSafeInteger, isSet, isString, isUndefined, isTypedArray, isWeakMap, isWeakSet, join,
+         * kebabCase, last, lastIndexOf, lowerCase, lowerFirst, lt, lte, max, maxBy, mean, meanBy,
+         * min, minBy, multiply, noConflict, noop, now, nth, pad, padEnd, padStart, parseInt, pop,
+         * random, reduce, reduceRight, repeat, result, round, runInContext, sample, shift, size,
+         * snakeCase, some, sortedIndex, sortedIndexBy, sortedLastIndex, sortedLastIndexBy, startCase,
+         * startsWith, stubArray, stubFalse, stubObject, stubString, stubTrue, subtract, sum, sumBy,
+         * template, times, toFinite, toInteger, toJSON, toLength, toLower, toNumber, toSafeInteger,
+         * toString, toUpper, trim, trimEnd, trimStart, truncate, unescape, uniqueId, upperCase,
+         * upperFirst, value, and words.
+         **/
         <T>(value: T): LoDashImplicitWrapper<T>;
 
         /**
-        * The semantic version number.
-        **/
+         * The semantic version number.
+         **/
         VERSION: string;
 
         /**
-        * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby
-        * (ERB). Change the following template settings to use alternative delimiters.
-        **/
+         * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby
+         * (ERB). Change the following template settings to use alternative delimiters.
+         **/
         templateSettings: TemplateSettings;
     }
 
     /**
-    * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby
-    * (ERB). Change the following template settings to use alternative delimiters.
-    **/
+     * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby
+     * (ERB). Change the following template settings to use alternative delimiters.
+     **/
     interface TemplateSettings {
         /**
-        * The "escape" delimiter.
-        **/
+         * The "escape" delimiter.
+         **/
         escape?: RegExp;
 
         /**
-        * The "evaluate" delimiter.
-        **/
+         * The "evaluate" delimiter.
+         **/
         evaluate?: RegExp;
 
         /**
-        * An object to import into the template as local variables.
-        **/
+         * An object to import into the template as local variables.
+         **/
         imports?: Dictionary<any>;
 
         /**
-        * The "interpolate" delimiter.
-        **/
+         * The "interpolate" delimiter.
+         **/
         interpolate?: RegExp;
 
         /**
-        * Used to reference the data object in the template text.
-        **/
+         * Used to reference the data object in the template text.
+         **/
         variable?: string;
     }
 
@@ -165,7 +165,12 @@ declare module "../index" {
         push<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
         shift<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
         sort<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, compareFn?: (a: T, b: T) => number): this;
-        splice<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
+        splice<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            start: number,
+            deleteCount?: number,
+            ...items: T[]
+        ): this;
         unshift<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
     }
 
@@ -174,7 +179,12 @@ declare module "../index" {
         push<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
         shift<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
         sort<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, compareFn?: (a: T, b: T) => number): this;
-        splice<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
+        splice<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            start: number,
+            deleteCount?: number,
+            ...items: T[]
+        ): this;
         unshift<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
     }
 
@@ -187,10 +197,20 @@ declare module "../index" {
     type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
 
     // Note: key should be string, not keyof T, because the actual object may contain extra properties that were not specified in the type.
-    type ObjectIterator<TObject, TResult> = (value: TObject[keyof TObject], key: string, collection: TObject) => TResult;
+    type ObjectIterator<TObject, TResult> = (
+        value: TObject[keyof TObject],
+        key: string,
+        collection: TObject,
+    ) => TResult;
     type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | IterateeShorthand<TObject[keyof TObject]>;
-    type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | IterateeShorthand<TObject[keyof TObject]>;
-    type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (value: TObject[keyof TObject], key: string, collection: TObject) => value is S;
+    type ObjectIterateeCustom<TObject, TResult> =
+        | ObjectIterator<TObject, TResult>
+        | IterateeShorthand<TObject[keyof TObject]>;
+    type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (
+        value: TObject[keyof TObject],
+        key: string,
+        collection: TObject,
+    ) => value is S;
 
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 
@@ -219,7 +239,10 @@ declare module "../index" {
     type PropertyName = string | number | symbol;
     type PropertyPath = Many<PropertyName>;
 
-    type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never })[keyof T]>;
+    type Omit<T, K extends keyof T> = Pick<
+        T,
+        ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never })[keyof T]
+    >;
 
     /** Common interface between Arrays and jQuery objects */
     type List<T> = ArrayLike<T>;
@@ -233,9 +256,7 @@ declare module "../index" {
     }
 
     // Crazy typedef needed get _.omit to work properly with Dictionary and NumericDictionary
-    type AnyKindOfDictionary =
-        | Dictionary<{} | null | undefined>
-        | NumericDictionary<{} | null | undefined>;
+    type AnyKindOfDictionary = Dictionary<{} | null | undefined> | NumericDictionary<{} | null | undefined>;
 
     interface Cancelable {
         cancel(): void;

@@ -40,7 +40,7 @@ declare function lib<T>(loadFn: (props: object) => Promise<T>, options?: Options
 
 declare function loadableFunc<T>(
     loadFn: (props: T) => Promise<DefaultComponent<T>>,
-    options?: Options<T>
+    options?: Options<T>,
 ): LoadableComponent<T>;
 
 declare const loadable: typeof loadableFunc & { lib: typeof lib };

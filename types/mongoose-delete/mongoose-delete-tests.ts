@@ -2,10 +2,10 @@ import mongoose = require('mongoose');
 import mongoose_delete = require('mongoose-delete');
 
 interface PetDocument extends mongoose_delete.SoftDeleteDocument {
-  name: string;
+    name: string;
 }
 const PetSchema = new mongoose.Schema<PetDocument>({
-  name: String,
+    name: String,
 });
 // Override all methods
 PetSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
@@ -14,11 +14,11 @@ PetSchema.plugin(mongoose_delete, { overrideMethods: true });
 
 // Overide only specific methods
 PetSchema.plugin(mongoose_delete, {
-  overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'],
+    overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'],
 });
 // or
 PetSchema.plugin(mongoose_delete, {
-  overrideMethods: ['count', 'countDocuments', 'find'],
+    overrideMethods: ['count', 'countDocuments', 'find'],
 });
 // or (unrecognized method names will be ignored)
 PetSchema.plugin(mongoose_delete, { overrideMethods: ['count', 'find', 'errorXyz'] }); // $ExpectError
@@ -26,21 +26,15 @@ PetSchema.plugin(mongoose_delete, { overrideMethods: ['count', 'find', 'errorXyz
 PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedAt: true });
 PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true });
 PetSchema.plugin(mongoose_delete, {
-  overrideMethods: 'all',
-  deletedByType: String,
+    overrideMethods: 'all',
+    deletedByType: String,
 });
 
 const idUser = mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
 
-const Pet = mongoose.model<
-  PetDocument,
-  mongoose_delete.SoftDeleteModel<PetDocument>
->('Pet', PetSchema);
+const Pet = mongoose.model<PetDocument, mongoose_delete.SoftDeleteModel<PetDocument>>('Pet', PetSchema);
 
-const Pet2 = mongoose.model(
-  'Pet',
-  PetSchema,
-) as mongoose_delete.SoftDeleteModel<PetDocument>;
+const Pet2 = mongoose.model('Pet', PetSchema) as mongoose_delete.SoftDeleteModel<PetDocument>;
 
 const fluffy = new Pet({ name: 'Fluffy' });
 
@@ -56,7 +50,7 @@ fluffy.restore(() => {});
 
 // INFO: Example usage of deleteById static method
 Pet.deleteById(idUser, (err, petDocument) => {
-  // mongodb: { deleted: true, name: 'Fluffy', _id: '53da93b1...' }
+    // mongodb: { deleted: true, name: 'Fluffy', _id: '53da93b1...' }
 });
 
 // Delete multiple object, callback

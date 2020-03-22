@@ -19,9 +19,9 @@ export type RenderResult<Q extends Queries = typeof queries> = {
     container: HTMLElement;
     baseElement: HTMLElement;
     debug: (
-      baseElement?: HTMLElement | DocumentFragment | Array<HTMLElement | DocumentFragment>,
-      maxLength?: number,
-      options?: PrettyFormatOptions
+        baseElement?: HTMLElement | DocumentFragment | Array<HTMLElement | DocumentFragment>,
+        maxLength?: number,
+        options?: PrettyFormatOptions,
     ) => void;
     rerender: (ui: React.ReactElement) => void;
     unmount: () => boolean;

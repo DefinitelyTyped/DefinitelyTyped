@@ -1,5 +1,5 @@
-declare module "tty" {
-    import * as net from "net";
+declare module 'tty' {
+    import * as net from 'net';
 
     function isatty(fd: number): boolean;
     class ReadStream extends net.Socket {
@@ -17,22 +17,22 @@ declare module "tty" {
     class WriteStream extends net.Socket {
         constructor(fd: number);
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "resize", listener: () => void): this;
+        addListener(event: 'resize', listener: () => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "resize"): boolean;
+        emit(event: 'resize'): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "resize", listener: () => void): this;
+        on(event: 'resize', listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "resize", listener: () => void): this;
+        once(event: 'resize', listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "resize", listener: () => void): this;
+        prependListener(event: 'resize', listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "resize", listener: () => void): this;
+        prependOnceListener(event: 'resize', listener: () => void): this;
 
         clearLine(dir: Direction): void;
         clearScreenDown(): void;

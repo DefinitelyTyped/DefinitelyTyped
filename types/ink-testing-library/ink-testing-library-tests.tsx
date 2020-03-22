@@ -1,6 +1,6 @@
 /** @jsx h */
-import { render, RenderResponse, cleanup } from "ink-testing-library";
-import { Component, h } from "ink";
+import { render, RenderResponse, cleanup } from 'ink-testing-library';
+import { Component, h } from 'ink';
 
 const renderResponse = render(<Component<{}, {}, {}> />); // $ExpectType RenderResponse
 
@@ -13,7 +13,7 @@ const unmount = renderResponse.unmount; // $ExpectType () => void
 unmount(); // $ExpectType void
 
 const stdin = renderResponse.stdin; // $ExpectType { write: (data: any) => boolean; }
-stdin.write(""); // $ExpectType boolean
+stdin.write(''); // $ExpectType boolean
 stdin.write([]); // $ExpectType boolean
 stdin.write({}); // $ExpectType boolean
 

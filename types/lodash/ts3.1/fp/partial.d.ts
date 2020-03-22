@@ -1,2 +1,2 @@
-import { partial } from "../fp";
+import { partial } from '../fp';
 export = partial;

@@ -1,2 +1,2 @@
-import { set } from "../fp";
+import { set } from '../fp';
 export = set;

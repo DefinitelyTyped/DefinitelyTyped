@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -13,7 +13,7 @@ const els = M.FloatingActionButton.init(document.querySelectorAll('.whatever'));
 new materialize.FloatingActionButton(elem);
 // $ExpectType FloatingActionButton
 const fab = new materialize.FloatingActionButton(elem, {
-    direction: 'left'
+    direction: 'left',
 });
 // $ExpectType void
 fab.open();
@@ -26,7 +26,7 @@ fab.el;
 // $ExpectType boolean
 fab.isOpen;
 
-$(".whatever").floatingActionButton();
-$(".whatever").floatingActionButton({ direction: "left" });
-$(".whatever").floatingActionButton("open");
-$(".whatever").floatingActionButton("destroy");
+$('.whatever').floatingActionButton();
+$('.whatever').floatingActionButton({ direction: 'left' });
+$('.whatever').floatingActionButton('open');
+$('.whatever').floatingActionButton('destroy');

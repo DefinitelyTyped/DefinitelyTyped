@@ -3,7 +3,7 @@ import Notification, { notify } from 'react-notify-toast';
 
 export class NotificationTest extends React.Component {
     render() {
-        return(<Notification options={{zIndex: 200, top: '15px'}} />);
+        return <Notification options={{ zIndex: 200, top: '15px' }} />;
     }
 }
 

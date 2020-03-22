@@ -14,20 +14,19 @@ interface KeymasterEvent {
 }
 
 interface KeyHandler {
-    (keyboardEvent: KeyboardEvent, keymasterEvent: KeymasterEvent) : void;
+    (keyboardEvent: KeyboardEvent, keymasterEvent: KeymasterEvent): void;
 }
 
 interface FilterEvent {
     target?: {
         tagName?: string;
-    }
+    };
     srcElement?: {
         tagName?: string;
-    }
+    };
 }
 
 interface Keymaster {
-
     (key: string, callback: KeyHandler): void;
     (key: string, scope: string, callback: KeyHandler): void;
 
@@ -39,7 +38,7 @@ interface Keymaster {
     command: boolean;
 
     setScope(scopeName: string): void;
-    getScope():string;
+    getScope(): string;
     deleteScope(scopeName: string): void;
 
     noConflict(): void;
@@ -55,6 +54,6 @@ interface Keymaster {
 
 declare var key: Keymaster;
 
-declare module "keymaster" {
-export = key;
+declare module 'keymaster' {
+    export = key;
 }

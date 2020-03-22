@@ -55,7 +55,7 @@ declare namespace feathers {
     }
 
     // tslint:disable-next-line void-return
-    type Hook = (hook: HookContext) => (Promise<HookContext | SkipSymbol | void> | HookContext | SkipSymbol | void);
+    type Hook = (hook: HookContext) => Promise<HookContext | SkipSymbol | void> | HookContext | SkipSymbol | void;
 
     type SkipSymbol = symbol | '__feathersSkipHooks';
 
@@ -124,7 +124,7 @@ declare namespace feathers {
         /**
          * A read only property with the hook type (one of before, after or error).
          */
-        readonly type: "before" | "after" | "error";
+        readonly type: 'before' | 'after' | 'error';
     }
 
     interface HookMap {

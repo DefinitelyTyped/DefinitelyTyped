@@ -1,4 +1,4 @@
-import parseInfo = require("infobox-parser");
+import parseInfo = require('infobox-parser');
 
 interface Hero {
     name: string;

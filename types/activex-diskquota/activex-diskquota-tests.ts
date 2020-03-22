@@ -1,4 +1,5 @@
-const collectionToArray = <T>(col: any) => { // tslint:disable-line no-unnecessary-generics
+const collectionToArray = <T>(col: any) => {
+    // tslint:disable-line no-unnecessary-generics
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -14,7 +15,7 @@ const collectionToArray = <T>(col: any) => { // tslint:disable-line no-unnecessa
     const enumUsers = (label: string) => {
         const volume = new ActiveXObject('Microsoft.DiskQuota');
         volume.Initialize(label, true);
-        collectionToArray<DiskQuotaTypeLibrary.DIDiskQuotaUser>(volume).forEach(x => {
+        collectionToArray<DiskQuotaTypeLibrary.DIDiskQuotaUser>(volume).forEach((x) => {
             // Use the QuotaUser object to retrieve or set one or more of the user's disk quota properties
         });
     };
@@ -24,7 +25,7 @@ const collectionToArray = <T>(col: any) => { // tslint:disable-line no-unnecessa
 (() => {
     const volume = new ActiveXObject('Microsoft.DiskQuota');
     volume.Initialize('MYDISK', true);
-    ActiveXObject.on(volume, 'OnUserNameChanged', ['pUser'], p => {
+    ActiveXObject.on(volume, 'OnUserNameChanged', ['pUser'], (p) => {
         // Code to handle the event.
     });
 })();
@@ -36,9 +37,9 @@ const collectionToArray = <T>(col: any) => { // tslint:disable-line no-unnecessa
     const findName = (name: string) => {
         try {
             return dqc.FindUser(name);
-        } catch { }
+        } catch {}
         try {
             return dqc.FindUser(dqc.TranslateLogonNameToSID(name));
-        } catch { }
+        } catch {}
     };
 })();

@@ -2,7 +2,7 @@ import { Server, createServer } from 'http';
 import serveHandler from 'serve-handler';
 
 const serveDirectory = (path: string, port: number) =>
-    new Promise<Server>(resolve => {
+    new Promise<Server>((resolve) => {
         const server = createServer((req, res) =>
             serveHandler(req, res, {
                 public: path,

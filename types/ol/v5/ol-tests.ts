@@ -1,7 +1,16 @@
 import { Collection, Map, MapBrowserEvent, Overlay, PluggableMap, View } from 'ol';
 import { unByKey } from 'ol/Observable';
 import { stableSort } from 'ol/array';
-import { Control, FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent, defaults as defaultControls } from 'ol/control';
+import {
+    Control,
+    FullScreen,
+    MousePosition,
+    OverviewMap,
+    ScaleLine,
+    ZoomSlider,
+    ZoomToExtent,
+    defaults as defaultControls,
+} from 'ol/control';
 import { Options as ControlOptions } from 'ol/control/Control';
 import { toStringXY } from 'ol/coordinate';
 import { EventsKey } from 'ol/events';
@@ -94,7 +103,7 @@ const styles: { [key: string]: Style } = {
     }),
 };
 
-const styleFunction: StyleFunction = feature => styles[feature.getGeometry()!.getType()];
+const styleFunction: StyleFunction = (feature) => styles[feature.getGeometry()!.getType()];
 
 /**
  * ==================================================
@@ -109,24 +118,59 @@ const geojsonObj = {
         { type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } },
         {
             type: 'Feature',
-            geometry: { type: 'LineString', coordinates: [[4000000, -2000000], [8000000, 2000000]] },
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [4000000, -2000000],
+                    [8000000, 2000000],
+                ],
+            },
         },
         {
             type: 'Feature',
-            geometry: { type: 'LineString', coordinates: [[4000000, 2000000], [8000000, -2000000]] },
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [4000000, 2000000],
+                    [8000000, -2000000],
+                ],
+            },
         },
         {
             type: 'Feature',
             geometry: {
                 type: 'Polygon',
-                coordinates: [[[-5000000, -1000000], [-4000000, 1000000], [-3000000, -1000000]]],
+                coordinates: [
+                    [
+                        [-5000000, -1000000],
+                        [-4000000, 1000000],
+                        [-3000000, -1000000],
+                    ],
+                ],
             },
         },
         {
             type: 'Feature',
             geometry: {
                 type: 'MultiLineString',
-                coordinates: [[[-1000000, -750000], [-1000000, 750000]], [[1000000, -750000], [1000000, 750000]], [[-750000, -1000000], [750000, -1000000]], [[-750000, 1000000], [750000, 1000000]]],
+                coordinates: [
+                    [
+                        [-1000000, -750000],
+                        [-1000000, 750000],
+                    ],
+                    [
+                        [1000000, -750000],
+                        [1000000, 750000],
+                    ],
+                    [
+                        [-750000, -1000000],
+                        [750000, -1000000],
+                    ],
+                    [
+                        [-750000, 1000000],
+                        [750000, 1000000],
+                    ],
+                ],
             },
         },
         {
@@ -134,9 +178,30 @@ const geojsonObj = {
             geometry: {
                 type: 'MultiPolygon',
                 coordinates: [
-                    [[[-5000000, 6000000], [-5000000, 8000000], [-3000000, 8000000], [-3000000, 6000000]]],
-                    [[[-2000000, 6000000], [-2000000, 8000000], [0, 8000000], [0, 6000000]]],
-                    [[[1000000, 6000000], [1000000, 8000000], [3000000, 8000000], [3000000, 6000000]]],
+                    [
+                        [
+                            [-5000000, 6000000],
+                            [-5000000, 8000000],
+                            [-3000000, 8000000],
+                            [-3000000, 6000000],
+                        ],
+                    ],
+                    [
+                        [
+                            [-2000000, 6000000],
+                            [-2000000, 8000000],
+                            [0, 8000000],
+                            [0, 6000000],
+                        ],
+                    ],
+                    [
+                        [
+                            [1000000, 6000000],
+                            [1000000, 8000000],
+                            [3000000, 8000000],
+                            [3000000, 6000000],
+                        ],
+                    ],
                 ],
             },
         },
@@ -145,9 +210,24 @@ const geojsonObj = {
             geometry: {
                 type: 'GeometryCollection',
                 geometries: [
-                    { type: 'LineString', coordinates: [[-5000000, -5000000], [0, -5000000]] },
+                    {
+                        type: 'LineString',
+                        coordinates: [
+                            [-5000000, -5000000],
+                            [0, -5000000],
+                        ],
+                    },
                     { type: 'Point', coordinates: [4000000, -5000000] },
-                    { type: 'Polygon', coordinates: [[[1000000, -6000000], [2000000, -4000000], [3000000, -6000000]]] },
+                    {
+                        type: 'Polygon',
+                        coordinates: [
+                            [
+                                [1000000, -6000000],
+                                [2000000, -4000000],
+                                [3000000, -6000000],
+                            ],
+                        ],
+                    },
                 ],
             },
         },
@@ -201,7 +281,7 @@ const layers = [osmLayer, vectorLayer, vectorTileLayer];
 const controls = defaultControls().extend([
     new FullScreen(),
     new MousePosition({
-        coordinateFormat: coord => toStringXY(coord!, 8),
+        coordinateFormat: (coord) => toStringXY(coord!, 8),
         undefinedHTML: '',
     }),
     new OverviewMap({
@@ -222,7 +302,7 @@ const controls = defaultControls().extend([
  */
 
 const drawInteractions: Draw[] = [];
-(Object.keys(GeometryType) as (keyof typeof GeometryType)[]).forEach(type => {
+(Object.keys(GeometryType) as (keyof typeof GeometryType)[]).forEach((type) => {
     const draw = new Draw({
         type: GeometryType[type],
     });
@@ -329,9 +409,9 @@ class CustomControl extends Control {
         this.mapViewport.addEventListener('click', this._boundListener);
         const view = map.getView();
         this._eventKeys.push(
-            view.on('change:center', evt => {
+            view.on('change:center', (evt) => {
                 console.log(evt.oldValue, view.getCenter());
-            })
+            }),
         );
     }
 
@@ -356,7 +436,7 @@ const overlay = new Overlay({
 
 map.addOverlay(overlay);
 
-map.on('click', evt => {
+map.on('click', (evt) => {
     if (overlay.getPosition() === undefined) overlay.setPosition(evt.coordinate);
     else overlay.setPosition(undefined);
 });

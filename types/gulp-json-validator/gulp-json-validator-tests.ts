@@ -1,4 +1,4 @@
-import gulpJsonValidator = require("gulp-json-validator");
+import gulpJsonValidator = require('gulp-json-validator');
 
 gulpJsonValidator(); // $ExpectType ReadWriteStream
 gulpJsonValidator({}); // $ExpectType ReadWriteStream

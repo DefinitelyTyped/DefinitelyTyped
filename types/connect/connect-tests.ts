@@ -1,5 +1,5 @@
-import * as http from "http";
-import connect = require("connect");
+import * as http from 'http';
+import connect = require('connect');
 
 const app = connect();
 
@@ -11,7 +11,7 @@ app.use((req: connect.IncomingMessage, res: http.ServerResponse, next: connect.N
 
 // "Throw" an Error
 app.use((req: connect.IncomingMessage, res: http.ServerResponse, next: connect.NextFunction) => {
-    next(new Error("Something went wrong!"));
+    next(new Error('Something went wrong!'));
 });
 
 // "Throw" a number
@@ -35,13 +35,13 @@ app.use((req: connect.IncomingMessage, res: http.ServerResponse, next: Function)
 
 // respond to all requests
 app.use((req: connect.IncomingMessage, res: http.ServerResponse) => {
-    res.end("Hello from Connect!\n");
+    res.end('Hello from Connect!\n');
 });
 
 // Allow http.IncomingMessage as the type for req
 app.use((req: http.IncomingMessage, res: http.ServerResponse) => {
-  console.log(req, res);
-  res.end();
+    console.log(req, res);
+    res.end();
 });
 
 //create node.js http server and listen on port

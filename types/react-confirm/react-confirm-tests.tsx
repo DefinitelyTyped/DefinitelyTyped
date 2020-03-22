@@ -2,7 +2,7 @@ import * as React from 'react';
 import { confirmable, createConfirmation, ReactConfirmProps } from 'react-confirm';
 
 interface CustomModalProps {
-  title: string;
+    title: string;
 }
 
 class CustomModal extends React.Component<CustomModalProps & ReactConfirmProps> {
@@ -15,9 +15,7 @@ class CustomModal extends React.Component<CustomModalProps & ReactConfirmProps> 
             <div style={this.modalStyle()}>
                 <h1>{this.props.title}</h1>
 
-                <div>
-                    {this.props.confirmation}
-                </div>
+                <div>{this.props.confirmation}</div>
 
                 <div>
                     <button onClick={() => this.props.proceed()}>Yes</button>
@@ -36,26 +34,26 @@ const ConfirmModal = confirmable(CustomModal);
 const confirm = createConfirmation(ConfirmModal);
 
 const markup = (
-  <div>
-    <b>Are you sure you want to delete this item?</b>
-  </div>
+    <div>
+        <b>Are you sure you want to delete this item?</b>
+    </div>
 );
 
 // This is how you can detect what option ("Yes" or "No") the user has chosen.
 confirm({ confirmation: markup })
-  .then((result) => {
-    // User chose "Yes"
-  })
-  .catch((result) => {
-    // User chose "No"
-  });
+    .then((result) => {
+        // User chose "Yes"
+    })
+    .catch((result) => {
+        // User chose "No"
+    });
 
-const text = "Are you sure you want to buy this product?";
+const text = 'Are you sure you want to buy this product?';
 
 confirm({ confirmation: text })
-  .then((result) => {
-    // User chose "Yes"
-  })
-  .catch((result) => {
-    // User chose "No"
-  });
+    .then((result) => {
+        // User chose "Yes"
+    })
+    .catch((result) => {
+        // User chose "No"
+    });

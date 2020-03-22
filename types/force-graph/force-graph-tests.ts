@@ -3,12 +3,12 @@ import ForceGraph from 'force-graph';
 const graph = ForceGraph();
 graph(new HTMLElement());
 
-const node1: ForceGraph.GraphNode = {id: '1', name: 'node1', val: 123};
-const node2: ForceGraph.GraphNode = {id: '2', name: 'node2', val: 321};
-const link: ForceGraph.GraphLinkObject = {source: node1, target: node2, type: 'test', id: '3'};
+const node1: ForceGraph.GraphNode = { id: '1', name: 'node1', val: 123 };
+const node2: ForceGraph.GraphNode = { id: '2', name: 'node2', val: 321 };
+const link: ForceGraph.GraphLinkObject = { source: node1, target: node2, type: 'test', id: '3' };
 
 graph
-    .graphData({nodes: [], links: []})
+    .graphData({ nodes: [], links: [] })
     .nodeId('testNode')
     .linkSource('source')
     .linkTarget('target')

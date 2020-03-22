@@ -7,7 +7,8 @@
 export = promiseMemoize;
 
 declare function promiseMemoize<T extends (...args: any[]) => PromiseLike<any>>(
-    fn: T, options?: promiseMemoize.Options
+    fn: T,
+    options?: promiseMemoize.Options,
 ): T & {
     clear(): void;
 };

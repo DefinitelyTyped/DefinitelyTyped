@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -19,12 +19,12 @@ const tabs = new materialize.Tabs(elem, {
         this;
         // $ExpectType Element
         content;
-    }
+    },
 });
 // $ExpectType void
 tabs.destroy();
 // $ExpectType void
-tabs.select("id");
+tabs.select('id');
 // $ExpectType TabsOptions
 tabs.options;
 // $ExpectType Element
@@ -32,7 +32,7 @@ tabs.el;
 // $ExpectType number
 tabs.index;
 
-$(".whatever").tabs();
-$(".whatever").tabs({ duration: 200 });
-$(".whatever").tabs("destroy");
-$(".whatever").tabs("select", "id");
+$('.whatever').tabs();
+$('.whatever').tabs({ duration: 200 });
+$('.whatever').tabs('destroy');
+$('.whatever').tabs('select', 'id');

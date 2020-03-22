@@ -1,5 +1,5 @@
-import Language = require("../localisation/Language");
-import FeatureParser = require("./FeatureParser");
+import Language = require('../localisation/Language');
+import FeatureParser = require('./FeatureParser');
 
 declare namespace FeatureFileParser {
     interface Options extends FeatureParser.Options {}

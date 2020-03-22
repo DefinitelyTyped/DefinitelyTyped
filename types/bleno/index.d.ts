@@ -17,18 +17,12 @@ interface CharacteristicOptions {
     descriptors?: ReadonlyArray<Descriptor> | null;
     onIndicate?: (() => void) | null;
     onNotify?: (() => void) | null;
-    onReadRequest?: ((
-        offset: number,
-        callback: (result: number, data?: Buffer) => void
-    ) => void) | null;
+    onReadRequest?: ((offset: number, callback: (result: number, data?: Buffer) => void) => void) | null;
     onSubscribe?: ((maxValueSize: number, updateValueCallback: any) => void) | null;
     onUnsubscribe?: (() => void) | null;
-    onWriteRequest?: ((
-        data: Buffer,
-        offset: number,
-        withoutResponse: boolean,
-        callback: (result: number) => void
-    ) => void) | null;
+    onWriteRequest?:
+        | ((data: Buffer, offset: number, withoutResponse: boolean, callback: (result: number) => void) => void)
+        | null;
 }
 
 declare class Characteristic {
@@ -122,12 +116,26 @@ interface Bleno extends NodeJS.EventEmitter {
 
     setServices(services: ReadonlyArray<PrimaryService>, callback?: (arg: Error | undefined | null) => void): void;
 
-    startAdvertising(name: string, serviceUuids?: ReadonlyArray<string>, callback?: (arg: Error | undefined | null) => void): void;
+    startAdvertising(
+        name: string,
+        serviceUuids?: ReadonlyArray<string>,
+        callback?: (arg: Error | undefined | null) => void,
+    ): void;
 
-    startAdvertisingIBeacon(uuid: string, major: number, minor: number, measuredPower: number, callback?: (arg: Error | undefined | null) => void): void;
+    startAdvertisingIBeacon(
+        uuid: string,
+        major: number,
+        minor: number,
+        measuredPower: number,
+        callback?: (arg: Error | undefined | null) => void,
+    ): void;
 
     startAdvertisingWithEIRData(advertisementData: Buffer, callback?: (arg: Error | undefined | null) => void): void;
-    startAdvertisingWithEIRData(advertisementData: Buffer, scanData: Buffer, callback?: (arg: Error | undefined | null) => void): void;
+    startAdvertisingWithEIRData(
+        advertisementData: Buffer,
+        scanData: Buffer,
+        callback?: (arg: Error | undefined | null) => void,
+    ): void;
 
     stopAdvertising(callback?: () => void): void;
 

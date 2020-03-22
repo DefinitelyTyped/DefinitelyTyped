@@ -6,11 +6,11 @@
 
 /// <reference types="node" />
 
-import * as PromiseFtpCommon from "promise-ftp-common";
-import * as Promise from "bluebird";
-import * as ssh2 from "ssh2";
-import * as ssh2Streams from "ssh2-streams";
-import * as fs from "fs";
+import * as PromiseFtpCommon from 'promise-ftp-common';
+import * as Promise from 'bluebird';
+import * as ssh2 from 'ssh2';
+import * as ssh2Streams from 'ssh2-streams';
+import * as fs from 'fs';
 
 declare namespace PromiseSftp {
     enum ERROR_CODES {
@@ -45,7 +45,7 @@ declare namespace PromiseSftp {
         FILE_CORRUPT,
         OWNER_INVALID,
         GROUP_INVALID,
-        NO_MATCHING_BYTE_RANGE_LOCK
+        NO_MATCHING_BYTE_RANGE_LOCK,
     }
     // tslint:disable-next-line strict-export-declare-modifiers
     export import FtpConnectionError = PromiseFtpCommon.FtpConnectionError;
@@ -97,7 +97,7 @@ declare namespace PromiseSftp {
                 prompt: string;
                 /** Whether the user's input should be displayed on-screen */
                 echo: boolean;
-            }>
+            }>,
         ) => Array<string | Promise<string>> | Promise<string[]>;
 
         /** Alias for `username` */
@@ -116,7 +116,7 @@ declare namespace PromiseSftp {
     /** Output of `PromiseSftp#list()` */
     interface DirectoryListing {
         /** `d` for directory, `-` for file, and `l` for symlink only on *NIX. */
-        type: "d" | "-" | "l";
+        type: 'd' | '-' | 'l';
 
         /** The name of the entry. */
         name: string;
@@ -250,18 +250,12 @@ declare class PromiseSftp {
      * @param destPath - The file to store the data in. If string the path to a
      * local file.
      */
-    put(
-        input: NodeJS.ReadableStream | Buffer | string,
-        destPath: string
-    ): Promise<void>;
+    put(input: NodeJS.ReadableStream | Buffer | string, destPath: string): Promise<void>;
 
     /**
      * Same as `#append()`, but appends to `destPath` if it already exists.
      */
-    append(
-        input: NodeJS.ReadableStream | Buffer | string,
-        destPath: string
-    ): Promise<void>;
+    append(input: NodeJS.ReadableStream | Buffer | string, destPath: string): Promise<void>;
 
     /**
      * Renames/moves one file/directory to another on the server.
@@ -276,11 +270,7 @@ declare class PromiseSftp {
      * @param recursive - Enables a `mkdir -p` algorithm, defaults to false.
      * @param attributes - The attributes to use when creating directories.
      */
-    mkdir(
-        path: string,
-        recursive?: boolean,
-        attributes?: ssh2Streams.InputAttributes
-    ): Promise<void>;
+    mkdir(path: string, recursive?: boolean, attributes?: ssh2Streams.InputAttributes): Promise<void>;
     mkdir(path: string, attributes: ssh2Streams.InputAttributes): Promise<void>;
 
     /**
@@ -312,22 +302,14 @@ declare class PromiseSftp {
      * @param remotePath - The path to the remote file to read from.
      * @param localPath - The path to the local file to write to.
      */
-    fastGet(
-        remotePath: string,
-        localPath: string,
-        options?: PromiseSftp.FastOptions
-    ): Promise<void>;
+    fastGet(remotePath: string, localPath: string, options?: PromiseSftp.FastOptions): Promise<void>;
 
     /**
      * Upload a file to the server using parallel reads for faster throughput.
      * @param localPath - The path to the local file to read from.
      * @param remotePath - The path to the remote file to write to.
      */
-    fastPut(
-        localPath: string,
-        remotePath: string,
-        options?: PromiseSftp.FastOptions
-    ): Promise<void>;
+    fastPut(localPath: string, remotePath: string, options?: PromiseSftp.FastOptions): Promise<void>;
 
     /**
      * Creates a read stream from a file on the server.
@@ -347,7 +329,7 @@ declare class PromiseSftp {
                   start?: number;
                   end?: number;
                   highWaterMark?: number;
-              }
+              },
     ): Promise<NodeJS.ReadableStream>;
 
     /**
@@ -368,7 +350,7 @@ declare class PromiseSftp {
                   start?: number;
                   end?: number;
                   highWaterMark?: number;
-              }
+              },
     ): Promise<NodeJS.WritableStream>;
 
     /**
@@ -377,11 +359,7 @@ declare class PromiseSftp {
      * @param mode - Any of the modes supported by `fs.open()`.
      * @returns a promise that resolves to a `Buffer` containing a handle to the file.
      */
-    open(
-        filename: string,
-        mode: string | number,
-        attributes?: ssh2Streams.InputAttributes
-    ): Promise<Buffer>;
+    open(filename: string, mode: string | number, attributes?: ssh2Streams.InputAttributes): Promise<Buffer>;
 
     /**
      * Close a resource on the server.
@@ -402,7 +380,7 @@ declare class PromiseSftp {
         buffer: Buffer,
         offset: number,
         length: number,
-        position: number
+        position: number,
     ): Promise<{
         /** The number of bytes successfully read */
         bytesRead: number;
@@ -422,13 +400,7 @@ declare class PromiseSftp {
      * @param length - The number of bytes to read from the buffer.
      * @param position - The position of the file to begin writing to.
      */
-    read(
-        handle: Buffer,
-        buffer: Buffer,
-        offset: number,
-        length: number,
-        position: number
-    ): Promise<void>;
+    read(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number): Promise<void>;
 
     /**
      * Retrieves attributes from a resource on the server.
@@ -448,11 +420,7 @@ declare class PromiseSftp {
      * @param atime - A Date or unix timestamp representing the new access time for the resource
      * @param mtime - A Date or unix timestamp representing the new modify time for the resource
      */
-    futimes(
-        handle: Buffer,
-        atime: Date | number,
-        mtime: Date | number
-    ): Promise<void>;
+    futimes(handle: Buffer, atime: Date | number, mtime: Date | number): Promise<void>;
 
     /**
      * Set the ownership for a resource on the server.
@@ -481,7 +449,7 @@ declare class PromiseSftp {
      * @param location - The path of the directory to read or a handle returned from `#opendir()`.
      */
     readdir(
-        location: Buffer | string
+        location: Buffer | string,
     ): Promise<{
         filename: string;
         longname: string;
@@ -524,11 +492,7 @@ declare class PromiseSftp {
      * @param atime - A Date or unix timestamp representing the new access time for the resource
      * @param mtime - A Date or unix timestamp representing the new modify time for the resource
      */
-    utimes(
-        path: string,
-        atime: Date | number,
-        mtime: Date | number
-    ): Promise<void>;
+    utimes(path: string, atime: Date | number, mtime: Date | number): Promise<void>;
 
     /**
      * Set the ownership for a resource on the server.

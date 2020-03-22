@@ -8,7 +8,7 @@ declare module 'hapi' {
         coolPlugin: {
             optionA: string;
             optionB?: boolean;
-        }
+        };
     }
 }
 
@@ -16,23 +16,23 @@ declare module 'hapi' {
 const pluginsServerConfig: Hapi.ServerOptions = {
     plugins: {
         coolPlugin: {
-            optionA: "test",
-        }
-    }
+            optionA: 'test',
+        },
+    },
 };
 
 const pluginsConnectionConfig: Hapi.ConnectionConfigurationServerDefaults = {
     plugins: {
         coolPlugin: {
-            optionA: "test",
-        }
-    }
+            optionA: 'test',
+        },
+    },
 };
 
 const pluginsRouteConfig: Hapi.RouteAdditionalConfigurationOptions = {
     plugins: {
         coolPlugin: {
-            optionA: "test",
-        }
-    }
+            optionA: 'test',
+        },
+    },
 };

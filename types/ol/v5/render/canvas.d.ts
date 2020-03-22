@@ -60,7 +60,12 @@ export function drawImage(
     h: number,
     x: number,
     y: number,
-    scale: number
+    scale: number,
 ): void;
 export function measureTextWidth(font: string, text: string): number;
-export function rotateAtOffset(context: CanvasRenderingContext2D, rotation: number, offsetX: number, offsetY: number): void;
+export function rotateAtOffset(
+    context: CanvasRenderingContext2D,
+    rotation: number,
+    offsetX: number,
+    offsetY: number,
+): void;

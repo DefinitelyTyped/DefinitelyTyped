@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Cloud Video Intelligence API v1beta1 */
-    function load(name: "videointelligence", version: "v1beta1"): PromiseLike<void>;
-    function load(name: "videointelligence", version: "v1beta1", callback: () => any): void;
+    function load(name: 'videointelligence', version: 'v1beta1'): PromiseLike<void>;
+    function load(name: 'videointelligence', version: 'v1beta1', callback: () => any): void;
 
     const videos: videointelligence.VideosResource;
 
@@ -442,7 +442,7 @@ declare namespace gapi.client {
              */
             annotate(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

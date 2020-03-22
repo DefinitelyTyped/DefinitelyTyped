@@ -1,14 +1,14 @@
 import * as angular from 'angular';
 
-angular.module('main', ['ui-select']).config(function(uiSelectConfig: angular.ui.select.ISelectConfig) {
+angular.module('main', ['ui-select']).config(function (uiSelectConfig: angular.ui.select.ISelectConfig) {
     uiSelectConfig.appendToBody = true;
     uiSelectConfig.backspaceReset = true;
     uiSelectConfig.closeOnSelect = true;
     uiSelectConfig.dropdownPosition = 'auto';
-    uiSelectConfig.generateId = function() {
+    uiSelectConfig.generateId = function () {
         return 0;
     };
-    uiSelectConfig.paste = function(data: string) {
+    uiSelectConfig.paste = function (data: string) {
         console.log(`Pasted [${data}]`);
     };
     uiSelectConfig.paste = undefined;
@@ -24,10 +24,10 @@ angular.module('main', ['ui-select']).config(function(uiSelectConfig: angular.ui
     uiSelectConfig.theme = 'bootstrap';
 });
 
-angular.module('main', ['ui-select']).directive('myUiSelect', function() {
+angular.module('main', ['ui-select']).directive('myUiSelect', function () {
     return {
         require: 'uiSelect',
-        link: function(
+        link: function (
             $scope: angular.IScope,
             element: angular.IAugmentedJQuery,
             attrs: angular.IAttributes,

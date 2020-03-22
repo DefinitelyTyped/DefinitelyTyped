@@ -28,7 +28,7 @@ class SnapCarouselTest extends React.Component {
             <View>
                 <StringCarousel
                     data={this.data}
-                    renderItem={item => this.renderItem(item)}
+                    renderItem={(item) => this.renderItem(item)}
                     itemWidth={75}
                     sliderWidth={300}
                     containerCustomStyle={styles.container}
@@ -44,7 +44,7 @@ class SnapCarouselTest extends React.Component {
                 />
                 <StringCarousel
                     data={this.data}
-                    renderItem={item => this.renderItem(item)}
+                    renderItem={(item) => this.renderItem(item)}
                     itemHeight={75}
                     sliderHeight={300}
                     vertical={true}
@@ -55,19 +55,19 @@ class SnapCarouselTest extends React.Component {
 
     private readonly onBeforeSnapToItem = (index: number) => {
         console.log('Before snap to: ', index);
-    }
+    };
 
     private readonly onSnapToItem = (index: number) => {
         console.log('Snapped to: ', index);
-    }
+    };
 
     private readonly onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log('Scrolled: ', event);
-    }
+    };
 
     private readonly onLayout = (event: LayoutChangeEvent) => {
         console.log('Layout: ', event);
-    }
+    };
 }
 
 class SnapCarouselWithPaginationTest extends React.Component<{}, { activeSlide: number }> {
@@ -86,11 +86,11 @@ class SnapCarouselWithPaginationTest extends React.Component<{}, { activeSlide: 
             <View>
                 <StringCarousel
                     data={['Item #1', 'Item #2']}
-                    renderItem={item => this.renderItem(item)}
+                    renderItem={(item) => this.renderItem(item)}
                     itemWidth={75}
                     sliderWidth={300}
                     keyboardDismissMode="interactive"
-                    onSnapToItem={index => this.setState({ activeSlide: index })}
+                    onSnapToItem={(index) => this.setState({ activeSlide: index })}
                 />
                 <Pagination
                     dotsLength={2}
@@ -147,13 +147,13 @@ class SnapCarouselWithParallaxTest extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     } as ViewStyle,
     item: {
-        width: 75
+        width: 75,
     } as ViewStyle,
     parallaxItem: {
         height: 350,
-        width: 350
-    }
+        width: 350,
+    },
 });

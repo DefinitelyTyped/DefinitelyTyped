@@ -7,12 +7,12 @@ class Test extends React.Component<AutosizeInputProps> {
 
     inputRef = (ref: HTMLInputElement | null) => {
         this.input = ref;
-    }
+    };
 
-    onChange: React.ChangeEventHandler<HTMLInputElement> = _event => {
+    onChange: React.ChangeEventHandler<HTMLInputElement> = (_event) => {
         const input = this.auto.getInput();
         input.blur();
-    }
+    };
 
     render() {
         return (

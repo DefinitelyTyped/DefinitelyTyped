@@ -9,13 +9,13 @@ const config: vaultAuthAws.Config = {
     vaultAppName: '',
     followAllRedirects: true,
     certFilePath: undefined,
-    sslRejectUnAuthorized: true
+    sslRejectUnAuthorized: true,
 };
 
 const creds: vaultAuthAws.Creds = {
     accessKeyId: '',
     secretAccessKey: '',
-    sessionToken: ''
+    sessionToken: '',
 };
 
 const vault = new vaultAuthAws(config);

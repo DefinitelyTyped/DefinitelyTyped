@@ -59,12 +59,7 @@ export function readFile(file: Path, options?: JFReadOptions): Promise<any>;
 
 export function readFileSync(file: Path, options?: JFReadOptions): any;
 
-export function writeFile(
-    file: Path,
-    obj: any,
-    options: JFWriteOptions,
-    callback: WriteCallback
-): void;
+export function writeFile(file: Path, obj: any, options: JFWriteOptions, callback: WriteCallback): void;
 export function writeFile(file: Path, obj: any, callback: WriteCallback): void;
 export function writeFile(file: Path, obj: any, options?: JFWriteOptions): Promise<void>;
 

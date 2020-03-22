@@ -5,148 +5,160 @@
 
 declare namespace CanvasGauges {
     export type FontStyle = 'normal' | 'italic' | 'oblique';
-    export type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter' |
-        '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
+    export type FontWeight =
+        | 'normal'
+        | 'bold'
+        | 'bolder'
+        | 'lighter'
+        | '100'
+        | '200'
+        | '300'
+        | '400'
+        | '500'
+        | '600'
+        | '700'
+        | '800'
+        | '900';
 
-    export type RenderTarget = string|HTMLElement;
+    export type RenderTarget = string | HTMLElement;
 
     export interface AnimationRule {
         (percent: number): number;
     }
 
     export interface Highlight {
-        from: number,
-        to: number,
-        color: string
+        from: number;
+        to: number;
+        color: string;
     }
 
     export interface EventListeners {
-        [key: string]: Function|[Function]
+        [key: string]: Function | [Function];
     }
 
-    export type MajorTicks = string[]|number[];
+    export type MajorTicks = string[] | number[];
 
     export interface GenericOptions {
-        renderTo: RenderTarget,
-        width?: number,
-        height?: number,
-        minValue?: number,
-        maxValue?: number,
-        value?: number,
-        units?: string|boolean,
-        exactTicks?: boolean,
-        majorTicks?: MajorTicks,
-        minorTicks?: number,
-        strokeTicks?: boolean,
-        animatedValue?: boolean,
-        animateOnInit?: boolean,
-        title?: string|boolean,
-        borders?: boolean,
-        numbersMargin?: number,
-        listeners?: EventListeners,
-        valueInt?: number,
-        valueDec?: number,
-        majorTicksInt?: number,
-        majorTicksDec?: number,
-        animation?: boolean,
-        animationDuration?: number,
-        animationRule?: string|AnimationRule,
-        colorPlate?: string,
-        colorPlateEnd?: string,
-        colorMajorTicks?: string,
-        colorMinorTicks?: string,
-        colorTitle?: string,
-        colorUnits?: string,
-        colorNumbers?: string,
-        colorNeedle?: string,
-        colorNeedleEnd?: string,
-        colorValueText?: string,
-        colorValueTextShadow?: string,
-        colorBorderShadow?: string,
-        colorBorderOuter?: string,
-        colorBorderOuterEnd?: string,
-        colorBorderMiddle?: string,
-        colorBorderMiddleEnd?: string,
-        colorBorderInner?: string,
-        colorBorderInnerEnd?: string,
-        colorValueBoxRect?: string,
-        colorValueBoxRectEnd?: string,
-        colorValueBoxBackground?: string,
-        colorValueBoxShadow?: string,
-        colorNeedleShadowUp?: string,
-        colorNeedleShadowDown?: string,
-        colorBarStroke?: string,
-        colorBar?: string,
-        colorBarProgress?: string,
-        colorBarShadow?: string,
-        fontNumbers?: string,
-        fontTitle?: string,
-        fontUnits?: string,
-        fontValue?: string,
-        fontTitleSize?: number,
-        fontValueSize?: number,
-        fontUnitsSize?: number,
-        fontNumbersSize?: number,
-        fontTitleStyle?: FontStyle,
-        fontValueStyle?: FontStyle,
-        fontUnitsStyle?: FontStyle,
-        fontNumbersStyle?: FontStyle,
-        fontTitleWeight?: FontWeight,
-        fontValueWeight?: FontWeight,
-        fontUnitsWeight?: FontWeight,
-        fontNumbersWeight?: FontWeight,
-        needle?: boolean,
-        needleShadow?: boolean,
-        needleType?: string,
-        needleStart?: number,
-        needleEnd?: number,
-        needleWidth?: number,
-        borderOuterWidth?: number,
-        borderMiddleWidth?: number,
-        borderInnerWidth?: number,
-        borderShadowWidth?: number,
-        valueBox?: boolean,
-        valueBoxWidth?: number,
-        valueBoxStroke?: number,
-        valueText?: string,
-        valueTextShadow?: boolean,
-        valueBoxBorderRadius?: number,
-        highlights?: Highlight[],
-        highlightsWidth?: number,
-        barWidth?: number,
-        barStrokeWidth?: number,
-        barProgress?: boolean,
-        barShadow?: number
+        renderTo: RenderTarget;
+        width?: number;
+        height?: number;
+        minValue?: number;
+        maxValue?: number;
+        value?: number;
+        units?: string | boolean;
+        exactTicks?: boolean;
+        majorTicks?: MajorTicks;
+        minorTicks?: number;
+        strokeTicks?: boolean;
+        animatedValue?: boolean;
+        animateOnInit?: boolean;
+        title?: string | boolean;
+        borders?: boolean;
+        numbersMargin?: number;
+        listeners?: EventListeners;
+        valueInt?: number;
+        valueDec?: number;
+        majorTicksInt?: number;
+        majorTicksDec?: number;
+        animation?: boolean;
+        animationDuration?: number;
+        animationRule?: string | AnimationRule;
+        colorPlate?: string;
+        colorPlateEnd?: string;
+        colorMajorTicks?: string;
+        colorMinorTicks?: string;
+        colorTitle?: string;
+        colorUnits?: string;
+        colorNumbers?: string;
+        colorNeedle?: string;
+        colorNeedleEnd?: string;
+        colorValueText?: string;
+        colorValueTextShadow?: string;
+        colorBorderShadow?: string;
+        colorBorderOuter?: string;
+        colorBorderOuterEnd?: string;
+        colorBorderMiddle?: string;
+        colorBorderMiddleEnd?: string;
+        colorBorderInner?: string;
+        colorBorderInnerEnd?: string;
+        colorValueBoxRect?: string;
+        colorValueBoxRectEnd?: string;
+        colorValueBoxBackground?: string;
+        colorValueBoxShadow?: string;
+        colorNeedleShadowUp?: string;
+        colorNeedleShadowDown?: string;
+        colorBarStroke?: string;
+        colorBar?: string;
+        colorBarProgress?: string;
+        colorBarShadow?: string;
+        fontNumbers?: string;
+        fontTitle?: string;
+        fontUnits?: string;
+        fontValue?: string;
+        fontTitleSize?: number;
+        fontValueSize?: number;
+        fontUnitsSize?: number;
+        fontNumbersSize?: number;
+        fontTitleStyle?: FontStyle;
+        fontValueStyle?: FontStyle;
+        fontUnitsStyle?: FontStyle;
+        fontNumbersStyle?: FontStyle;
+        fontTitleWeight?: FontWeight;
+        fontValueWeight?: FontWeight;
+        fontUnitsWeight?: FontWeight;
+        fontNumbersWeight?: FontWeight;
+        needle?: boolean;
+        needleShadow?: boolean;
+        needleType?: string;
+        needleStart?: number;
+        needleEnd?: number;
+        needleWidth?: number;
+        borderOuterWidth?: number;
+        borderMiddleWidth?: number;
+        borderInnerWidth?: number;
+        borderShadowWidth?: number;
+        valueBox?: boolean;
+        valueBoxWidth?: number;
+        valueBoxStroke?: number;
+        valueText?: string;
+        valueTextShadow?: boolean;
+        valueBoxBorderRadius?: number;
+        highlights?: Highlight[];
+        highlightsWidth?: number;
+        barWidth?: number;
+        barStrokeWidth?: number;
+        barProgress?: boolean;
+        barShadow?: number;
     }
 
     export const GenericOptions: GenericOptions;
 
     export interface RadialGaugeOptions extends GenericOptions {
-        ticksAngle?: number,
-        startAngle?: number,
-        colorNeedleCircleOuter?: string,
-        colorNeedleCircleOuterEnd?: string,
-        colorNeedleCircleInner?: string,
-        colorNeedleCircleInnerEnd?: string,
-        needleCircleSize?: number,
-        needleCircleInner?: boolean,
-        needleCircleOuter?: boolean,
-        animationTarget?: string,
-        useMinPath?: boolean
+        ticksAngle?: number;
+        startAngle?: number;
+        colorNeedleCircleOuter?: string;
+        colorNeedleCircleOuterEnd?: string;
+        colorNeedleCircleInner?: string;
+        colorNeedleCircleInnerEnd?: string;
+        needleCircleSize?: number;
+        needleCircleInner?: boolean;
+        needleCircleOuter?: boolean;
+        animationTarget?: string;
+        useMinPath?: boolean;
     }
 
     export interface LinearGaugeOptions extends GenericOptions {
-        borderRadius?: number,
-        barBeginCircle?: number,
-        colorBarEnd?: string,
-        colorBarProgressEnd?: string,
-        tickSide?: string,
-        needleSide?: string,
-        numberSide?: string,
-        ticksWidth?: number,
-        ticksWidthMinor?: number,
-        ticksPadding?: number,
-        barLength?: number
+        borderRadius?: number;
+        barBeginCircle?: number;
+        colorBarEnd?: string;
+        colorBarProgressEnd?: string;
+        tickSide?: string;
+        needleSide?: string;
+        numberSide?: string;
+        ticksWidth?: number;
+        ticksWidthMinor?: number;
+        ticksPadding?: number;
+        barLength?: number;
     }
 
     export interface DrawEventCallback {
@@ -158,29 +170,28 @@ declare namespace CanvasGauges {
     }
 
     export interface rules {
-        linear: AnimationRule,
-        quad: AnimationRule,
-        dequad: AnimationRule,
-        quint: AnimationRule,
-        dequint: AnimationRule,
-        cycle: AnimationRule,
-        decycle: AnimationRule,
-        bounce: AnimationRule,
-        debounce: AnimationRule,
-        elastic: AnimationRule,
-        delastic: AnimationRule
+        linear: AnimationRule;
+        quad: AnimationRule;
+        dequad: AnimationRule;
+        quint: AnimationRule;
+        dequint: AnimationRule;
+        cycle: AnimationRule;
+        decycle: AnimationRule;
+        bounce: AnimationRule;
+        debounce: AnimationRule;
+        elastic: AnimationRule;
+        delastic: AnimationRule;
     }
 
     export class Animation {
         public duration: number;
-        public rule: string|AnimationRule;
+        public rule: string | AnimationRule;
         public draw: DrawEventCallback;
         public end: EndEventCallback;
 
         public static rules: rules;
 
-        constructor(rule?: string|AnimationRule, duration?: number,
-                    draw?: DrawEventCallback, end?: EndEventCallback);
+        constructor(rule?: string | AnimationRule, duration?: number, draw?: DrawEventCallback, end?: EndEventCallback);
 
         public animate(draw?: DrawEventCallback, end?: EndEventCallback): any;
         public destroy(): any;
@@ -199,9 +210,7 @@ declare namespace CanvasGauges {
         public width: number;
         public height: number;
 
-        constructor(element: HTMLCanvasElement,
-                    width?: number,
-                    height?: number);
+        constructor(element: HTMLCanvasElement, width?: number, height?: number);
 
         public init(): any;
         public onRedraw(): any;
@@ -222,14 +231,12 @@ declare namespace CanvasGauges {
         public element: string;
         public type: string;
 
-        constructor(options: GenericOptions,
-                    element: string,
-                    type: string);
+        constructor(options: GenericOptions, element: string, type: string);
 
-        public isValidNode(node: Node|HTMLElement): boolean;
+        public isValidNode(node: Node | HTMLElement): boolean;
         public traverse(): any;
         public observe(records: MutationRecord[]): any;
-        public process(node: Node|HTMLElement): BaseGauge;
+        public process(node: Node | HTMLElement): BaseGauge;
 
         public static parse(value: any): any;
         public static toDashed(camelCase: string): string;

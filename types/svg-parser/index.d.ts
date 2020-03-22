@@ -13,7 +13,7 @@ export interface TextNode {
 export interface ElementNode {
     type: 'element';
     tagName?: string;
-    properties?: Record<string, string|number>;
+    properties?: Record<string, string | number>;
     children: Array<Node | string>;
     value?: string;
     metadata?: string;

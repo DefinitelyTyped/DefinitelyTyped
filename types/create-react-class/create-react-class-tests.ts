@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import * as DOM from "react-dom-factories";
-import createReactClass = require("create-react-class");
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as DOM from 'react-dom-factories';
+import createReactClass = require('create-react-class');
 
 interface Props {
     foo: string;
@@ -12,10 +12,10 @@ interface State {
 }
 
 const props: Props = {
-    foo: "foo"
+    foo: 'foo',
 };
 
-const container: Element = document.createElement("div");
+const container: Element = document.createElement('div');
 
 //
 // Top-Level API
@@ -44,9 +44,9 @@ const ClassicComponent: React.ClassicComponentClass<Props> = createReactClass<Pr
         const bar: number = state.bar;
     },
     contextTypes: {},
-    displayName: "Test",
+    displayName: 'Test',
     getDefaultProps() {
-        return { foo: "f" };
+        return { foo: 'f' };
     },
     getInitialState() {
         return { bar: 1 };
@@ -59,45 +59,44 @@ const ClassicComponent: React.ClassicComponentClass<Props> = createReactClass<Pr
         return newFoo !== this.props.foo && newBar !== this.state.bar;
     },
     statics: {
-        test: 1
+        test: 1,
     },
     reset() {
         this.replaceState(this.getInitialState!());
     },
     render() {
-        return DOM.div(null,
+        return DOM.div(
+            null,
             DOM.input({
-                ref: input => this._input = input,
-                value: this.state.bar
-            }));
-    }
+                ref: (input) => (this._input = input),
+                value: this.state.bar,
+            }),
+        );
+    },
 });
 
 const ClassicComponentNoProps: React.ClassicComponentClass = createReactClass({
     render() {
         return DOM.div();
-    }
+    },
 });
 
 const ClassicComponentNoState: React.ClassicComponentClass<{ text: string }> = createReactClass<{ text: string }>({
     render() {
         return DOM.div(this.props.text);
-    }
+    },
 });
 
 // React.createFactory
-const classicFactory: React.ClassicFactory<Props> =
-    React.createFactory(ClassicComponent);
-const classicFactoryElement: React.ClassicElement<Props> =
-    classicFactory(props);
+const classicFactory: React.ClassicFactory<Props> = React.createFactory(ClassicComponent);
+const classicFactoryElement: React.ClassicElement<Props> = classicFactory(props);
 
 // React.createElement
 const classicElement: React.ClassicElement<Props> = React.createElement(ClassicComponent, props);
 const classicElementNullProps: React.ClassicElement<{}> = React.createElement(ClassicComponentNoProps, null);
 
 // React.cloneElement
-const clonedClassicElement: React.ClassicElement<Props> =
-    React.cloneElement(classicElement, props);
+const clonedClassicElement: React.ClassicElement<Props> = React.cloneElement(classicElement, props);
 
 // ReactDOM.render
 const classicComponent: React.ClassicComponent<Props> = ReactDOM.render(classicElement, container);
@@ -107,7 +106,7 @@ const classicComponent: React.ClassicComponent<Props> = ReactDOM.render(classicE
 // --------------------------------------------------------------------------
 
 const displayName: string | undefined = ClassicComponent.displayName;
-const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {} as Props;
+const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : ({} as Props);
 const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
 
 //
@@ -116,4 +115,4 @@ const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propT
 
 // classic
 const isMounted: boolean = classicComponent.isMounted();
-classicComponent.replaceState({ inputValue: "???", seconds: 60 });
+classicComponent.replaceState({ inputValue: '???', seconds: 60 });

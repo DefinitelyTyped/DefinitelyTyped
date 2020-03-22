@@ -1,18 +1,18 @@
-import "./Settings";
-import "./Methods";
-import "./Triggers";
-import "./Events";
-import "./Variables";
+import './Settings';
+import './Methods';
+import './Triggers';
+import './Events';
+import './Variables';
 
 /**
  * Basic usage
  */
-$("#").tablesorter();
-$("#").tablesorter({
+$('#').tablesorter();
+$('#').tablesorter({
     sortList: [
         [0, 0],
         [1, 1],
         [2, 2],
-        [3, 0]
-    ]
+        [3, 0],
+    ],
 });

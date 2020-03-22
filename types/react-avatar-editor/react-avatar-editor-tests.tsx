@@ -1,22 +1,18 @@
-import * as React from "react";
-import AvatarEditor, {
-    ImageState,
-    CroppedRect,
-    Position
-} from "react-avatar-editor";
+import * as React from 'react';
+import AvatarEditor, { ImageState, CroppedRect, Position } from 'react-avatar-editor';
 
-const file: File = new File(["str"], "image.jpg");
+const file: File = new File(['str'], 'image.jpg');
 const image: ImageData = new ImageData(1, 2);
 const position: Position = {
     x: 1,
-    y: 1
+    y: 1,
 };
 const imageState: ImageState = {
     height: 1,
     width: 1,
     x: 1,
     y: 1,
-    resource: image
+    resource: image,
 };
 
 class AvatarEditorTest extends React.Component {
@@ -47,17 +43,17 @@ class AvatarEditorTest extends React.Component {
                 <AvatarEditor image="" crossOrigin="" />
                 <AvatarEditor image="" disableBoundaryChecks={true} />
                 <AvatarEditor image="" disableDrop={true} />
-                <AvatarEditor image="" onDropFile={event => {}} />
-                <AvatarEditor image="" onLoadFailure={event => {}} />
-                <AvatarEditor image="" onLoadSuccess={imageState => {}} />
-                <AvatarEditor image="" onImageReady={event => {}} />
+                <AvatarEditor image="" onDropFile={(event) => {}} />
+                <AvatarEditor image="" onLoadFailure={(event) => {}} />
+                <AvatarEditor image="" onLoadSuccess={(imageState) => {}} />
+                <AvatarEditor image="" onImageReady={(event) => {}} />
                 <AvatarEditor image="" onMouseUp={() => {}} />
-                <AvatarEditor image="" onMouseMove={event => {}} />
+                <AvatarEditor image="" onMouseMove={(event) => {}} />
                 <AvatarEditor image="" onImageChange={() => {}} />
-                <AvatarEditor image="" onPositionChange={position => {}} />
+                <AvatarEditor image="" onPositionChange={(position) => {}} />
                 <AvatarEditor
                     image=""
-                    ref={ref => {
+                    ref={(ref) => {
                         this.avatar = ref!;
                     }}
                 />

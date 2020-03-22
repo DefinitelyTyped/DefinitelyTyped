@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {
-  BrowserRouter as Router,
-  RouteComponentProps,
-  RouteProps,
-  Route,
-  Link,
-  Redirect,
-  withRouter
+    BrowserRouter as Router,
+    RouteComponentProps,
+    RouteProps,
+    Route,
+    Link,
+    Redirect,
+    withRouter,
 } from 'react-router-dom';
 import { StaticContext } from 'react-router';
 
@@ -17,88 +17,102 @@ import { StaticContext } from 'react-router';
 // 4. Click the back button, note the URL each time
 
 const AuthExample = () => (
-  <Router>
-    <div>
-      <AuthButton/>
-      <ul>
-        <li><Link to="/public">Public Page</Link></li>
-        <li><Link to="/protected">Protected Page</Link></li>
-      </ul>
-      <Route path="/public" component={Public}/>
-      <Route path="/login" component={Login}/>
-      <PrivateRoute path="/protected" component={Protected}/>
-    </div>
-  </Router>
+    <Router>
+        <div>
+            <AuthButton />
+            <ul>
+                <li>
+                    <Link to="/public">Public Page</Link>
+                </li>
+                <li>
+                    <Link to="/protected">Protected Page</Link>
+                </li>
+            </ul>
+            <Route path="/public" component={Public} />
+            <Route path="/login" component={Login} />
+            <PrivateRoute path="/protected" component={Protected} />
+        </div>
+    </Router>
 );
 
 const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(this: any, cb: () => void) {
-    this.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(this: any, cb: () => void) {
-    this.isAuthenticated = false;
-    setTimeout(cb, 100);
-  }
+    isAuthenticated: false,
+    authenticate(this: any, cb: () => void) {
+        this.isAuthenticated = true;
+        setTimeout(cb, 100); // fake async
+    },
+    signout(this: any, cb: () => void) {
+        this.isAuthenticated = false;
+        setTimeout(cb, 100);
+    },
 };
 
-const AuthButton = withRouter(({ history }) => (
-  fakeAuth.isAuthenticated ? (
-    <p>
-      Welcome! <button onClick={() => {
-        fakeAuth.signout(() => history.push('/'));
-      }}>Sign out</button>
-    </p>
-  ) : (
-    <p>You are not logged in.</p>
-  )
-));
+const AuthButton = withRouter(({ history }) =>
+    fakeAuth.isAuthenticated ? (
+        <p>
+            Welcome!{' '}
+            <button
+                onClick={() => {
+                    fakeAuth.signout(() => history.push('/'));
+                }}
+            >
+                Sign out
+            </button>
+        </p>
+    ) : (
+        <p>You are not logged in.</p>
+    ),
+);
 
 const PrivateRoute: React.SFC<RouteProps> = ({ component, ...rest }) => (
-  <Route {...rest} render={props => (
-    fakeAuth.isAuthenticated ? React.createElement(component! as React.SFC<any>, props) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }}/>
-    )
-  )}/>
+    <Route
+        {...rest}
+        render={(props) =>
+            fakeAuth.isAuthenticated ? (
+                React.createElement(component! as React.SFC<any>, props)
+            ) : (
+                <Redirect
+                    to={{
+                        pathname: '/login',
+                        state: { from: props.location },
+                    }}
+                />
+            )
+        }
+    />
 );
 
 const Public: React.SFC<RouteComponentProps> = () => <h3>Public</h3>;
 const Protected: React.SFC<RouteComponentProps> = () => <h3>Protected</h3>;
 
-type Props = RouteComponentProps<{}, StaticContext, { from: { pathname: string; }; }>;
+type Props = RouteComponentProps<{}, StaticContext, { from: { pathname: string } }>;
 
-class Login extends React.Component<Props, {redirectToReferrer: boolean}> {
-  state = {
-    redirectToReferrer: false
-  };
+class Login extends React.Component<Props, { redirectToReferrer: boolean }> {
+    state = {
+        redirectToReferrer: false,
+    };
 
-  login = () => {
-    fakeAuth.authenticate(() => {
-      this.setState({ redirectToReferrer: true });
-    });
-  }
+    login = () => {
+        fakeAuth.authenticate(() => {
+            this.setState({ redirectToReferrer: true });
+        });
+    };
 
-  render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const { redirectToReferrer } = this.state;
+    render() {
+        const { from } = this.props.location.state || { from: { pathname: '/' } };
+        const { redirectToReferrer } = this.state;
 
-    if (redirectToReferrer) {
-      return (
-        <Redirect to={from}/>
-      );
+        if (redirectToReferrer) {
+            return <Redirect to={from} />;
+        }
+
+        return (
+            <div>
+                <p>You must log in to view the page at {from.pathname}</p>
+                <button onClick={this.login}>Log in</button>
+            </div>
+        );
     }
-
-    return (
-      <div>
-        <p>You must log in to view the page at {from.pathname}</p>
-        <button onClick={this.login}>Log in</button>
-      </div>
-    );
-  }
 }
 
 export default AuthExample;

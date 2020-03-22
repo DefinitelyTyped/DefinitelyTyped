@@ -40,7 +40,9 @@ interface CustomSubject {
 
 const svg: SVGSVGElement = select<SVGSVGElement, any>('svg').node()!; // mock
 
-const circles: Selection<SVGCircleElement, CircleDatum, SVGSVGElement, any> = select<SVGSVGElement, any>('svg').selectAll<SVGCircleElement, CircleDatum>('circle'); // mock
+const circles: Selection<SVGCircleElement, CircleDatum, SVGSVGElement, any> = select<SVGSVGElement, any>(
+    'svg',
+).selectAll<SVGCircleElement, CircleDatum>('circle'); // mock
 
 // -----------------------------------------------------------------------------
 // Test Define DragBehavior
@@ -62,9 +64,14 @@ circleCustomDrag = d3Drag.drag<SVGCircleElement, CircleDatum, CustomSubject | d3
 
 // set and get container element/accessor ----------------------------
 
-let containerAccessor: (this: SVGCircleElement, d: CircleDatum, i: number, group: SVGCircleElement[] | ArrayLike<SVGCircleElement>) => d3Drag.DragContainerElement;
+let containerAccessor: (
+    this: SVGCircleElement,
+    d: CircleDatum,
+    i: number,
+    group: SVGCircleElement[] | ArrayLike<SVGCircleElement>,
+) => d3Drag.DragContainerElement;
 
-containerAccessor = function(d, i, group) {
+containerAccessor = function (d, i, group) {
     console.log('Node Id of circle: ', d.nodeId);
     // console.log(this.a); // fails, a is not a property of SVGCircleElement
     /* tslint:disable-next-line:no-unnecessary-type-assertion */
@@ -72,21 +79,19 @@ containerAccessor = function(d, i, group) {
 };
 
 // Test chainability
-circleDrag = circleDrag
-    .container(function(d, i, group) { // container accessor function setter
-        console.log('Node Id of circle: ', d.nodeId); // CircleDatum type
-        // console.log(this.a); // fails, a is not a property of SVGCircleElement
-        /* tslint:disable-next-line:no-unnecessary-type-assertion */
-        return this.ownerSVGElement!; // this-type is SVGCircleElement
-    });
+circleDrag = circleDrag.container(function (d, i, group) {
+    // container accessor function setter
+    console.log('Node Id of circle: ', d.nodeId); // CircleDatum type
+    // console.log(this.a); // fails, a is not a property of SVGCircleElement
+    /* tslint:disable-next-line:no-unnecessary-type-assertion */
+    return this.ownerSVGElement!; // this-type is SVGCircleElement
+});
 
 // Test chainability
-circleDrag = circleDrag
-    .container(containerAccessor);
+circleDrag = circleDrag.container(containerAccessor);
 
 // Test chainability
-circleDrag = circleDrag
-    .container(svg); // fixed container element
+circleDrag = circleDrag.container(svg); // fixed container element
 
 containerAccessor = circleDrag.container();
 
@@ -94,19 +99,24 @@ containerAccessor = circleDrag.container();
 
 circleDrag = circleDrag.clickDistance(5);
 
-const distance: number  = circleDrag.clickDistance();
+const distance: number = circleDrag.clickDistance();
 
 // set and get filter ---------------------------------------------------------
 
-let filterFn: (this: SVGCircleElement, datum: CircleDatum, index: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => boolean;
+let filterFn: (
+    this: SVGCircleElement,
+    datum: CircleDatum,
+    index: number,
+    group: SVGCircleElement[] | NodeListOf<SVGCircleElement>,
+) => boolean;
 
-filterFn = function(d) {
-    return (d.color !== 'green' && this.r.baseVal.value < 10) ? !event.button : true; // 'this' is SVGCircleElement and d is CircleDatum
+filterFn = function (d) {
+    return d.color !== 'green' && this.r.baseVal.value < 10 ? !event.button : true; // 'this' is SVGCircleElement and d is CircleDatum
 };
 
 // chainable
-circleDrag = circleDrag.filter(function(d, i, group) {
-    return (d.color !== 'green' && this.r.baseVal.value < 10) ? !event.button : true; // 'this' is SVGCircleElement and d is CircleDatum
+circleDrag = circleDrag.filter(function (d, i, group) {
+    return d.color !== 'green' && this.r.baseVal.value < 10 ? !event.button : true; // 'this' is SVGCircleElement and d is CircleDatum
 });
 
 // getter
@@ -114,17 +124,22 @@ filterFn = circleDrag.filter();
 
 // set and get touchable ---------------------------------------------------------
 
-let touchableFn: (this: SVGCircleElement, datum: CircleDatum, index: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => boolean;
+let touchableFn: (
+    this: SVGCircleElement,
+    datum: CircleDatum,
+    index: number,
+    group: SVGCircleElement[] | NodeListOf<SVGCircleElement>,
+) => boolean;
 
 // chainable
 
 circleDrag = circleDrag.touchable(true);
 
-circleDrag = circleDrag.touchable(function(d, i, group) {
+circleDrag = circleDrag.touchable(function (d, i, group) {
     const that: SVGCircleElement = this;
     const datum: CircleDatum = d;
     const g: SVGCircleElement[] | ArrayLike<SVGCircleElement> = group;
-    return "ontouchstart" in this && datum.color === 'green';
+    return 'ontouchstart' in this && datum.color === 'green';
 });
 
 // getter
@@ -132,7 +147,7 @@ touchableFn = circleDrag.touchable();
 
 // set and get subject ---------------------------------------------------------
 
-circleCustomDrag.subject(function(d, i, g) {
+circleCustomDrag.subject(function (d, i, g) {
     // Cast event type for completeness, otherwise event is of type any.
     const e = event as d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CustomSubject | d3Drag.SubjectPosition>;
     const that: SVGCircleElement = this;
@@ -149,13 +164,18 @@ circleCustomDrag.subject(function(d, i, g) {
             name: d.name,
             cx: d.x,
             cy: d.y,
-            r: d.r
+            r: d.r,
         };
     }
 });
 
 // test getter
-let subjectAccessor: (this: SVGCircleElement, datum: CircleDatum, index: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => CustomSubject | d3Drag.SubjectPosition;
+let subjectAccessor: (
+    this: SVGCircleElement,
+    datum: CircleDatum,
+    index: number,
+    group: SVGCircleElement[] | NodeListOf<SVGCircleElement>,
+) => CustomSubject | d3Drag.SubjectPosition;
 
 subjectAccessor = circleCustomDrag.subject();
 
@@ -171,7 +191,9 @@ function dragstarted(this: SVGCircleElement, d: CircleDatum) {
 function dragged(this: SVGCircleElement, d: CircleDatum) {
     // cast d3 event to drag event. Otherwise, d3 event is currently defined as type 'any'
     const e = event as d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition>;
-    select(this).attr('cx', d.x = e.x).attr('cy', d.y = e.y);
+    select(this)
+        .attr('cx', (d.x = e.x))
+        .attr('cy', (d.y = e.y));
 }
 
 function dragended(this: SVGCircleElement, d: CircleDatum) {
@@ -197,7 +219,14 @@ circleDrag = circleDrag
 // remove event listeners for a drag event type
 circleDrag.on('start.tmp', null);
 
-let handler: ((this: SVGCircleElement, d: CircleDatum, i: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => void) | undefined = circleDrag.on('start');
+let handler:
+    | ((
+          this: SVGCircleElement,
+          d: CircleDatum,
+          i: number,
+          group: SVGCircleElement[] | NodeListOf<SVGCircleElement>,
+      ) => void)
+    | undefined = circleDrag.on('start');
 // fails, wrong dragged DOM event
 // let wrongHandler1: ((this:SVGRectElement, d:CircleDatum, i: number, group: SVGRectElement[] | NodeListOf<SVGRectElement>)=> void) | undefined = circleDrag.on('start');
 // fails, handler with wrong datum type

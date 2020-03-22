@@ -1,6 +1,6 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
 import {
     CacheFirst,
@@ -14,7 +14,7 @@ import {
     NetworkOnlyOptions,
     StaleWhileRevalidate,
     StaleWhileRevalidateOptions,
-} from "workbox-strategies";
+} from 'workbox-strategies';
 
 //==============================================================================
 // WorkboxStrategies.CacheFirst

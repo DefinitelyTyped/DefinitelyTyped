@@ -5,5 +5,5 @@ declare namespace HelpBlock {
         bsClass?: string;
     }
 }
-declare class HelpBlock extends React.Component<HelpBlock.HelpBlockProps> { }
+declare class HelpBlock extends React.Component<HelpBlock.HelpBlockProps> {}
 export = HelpBlock;

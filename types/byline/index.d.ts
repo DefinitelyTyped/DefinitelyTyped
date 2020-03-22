@@ -5,22 +5,19 @@
 
 /// <reference types="node" />
 
-
-import stream = require("stream");
+import stream = require('stream');
 declare function bl(): bl.LineStream;
 declare function bl(stream: NodeJS.ReadableStream, options?: bl.LineStreamOptions): bl.LineStream;
 
 declare namespace bl {
-
     export interface LineStreamOptions extends stream.TransformOptions {
         keepEmptyLines?: boolean;
     }
 
-    export interface LineStream extends stream.Transform {
-    }
+    export interface LineStream extends stream.Transform {}
 
     export interface LineStreamCreatable extends LineStream {
-        new (options?: LineStreamOptions): LineStream
+        new (options?: LineStreamOptions): LineStream;
     }
 
     //TODO is it possible to declare static factory functions without name (directly on the module)

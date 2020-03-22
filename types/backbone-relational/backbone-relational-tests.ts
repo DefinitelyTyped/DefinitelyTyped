@@ -13,41 +13,37 @@ class House extends BackboneRel.Model {
             includeInJSON: true,
             collectionType: 'PersonCollection',
             reverseRelation: {
-                key: 'livesIn'
-            }
-        }
+                key: 'livesIn',
+            },
+        },
     ];
-
 }
 
 class Person extends BackboneRel.Model {
     relations = [
-        { // Create a (recursive) one-to-one relationship
+        {
+            // Create a (recursive) one-to-one relationship
             type: BackboneRel.HasOne,
             key: 'user',
             relatedModel: 'User',
             reverseRelation: {
                 type: BackboneRel.HasOne,
-                key: 'person'
-            }
-        }
+                key: 'person',
+            },
+        },
     ];
 
-    initialize()
-    {
+    initialize() {
         // do whatever you want :)
     }
 }
 
-class User extends BackboneRel.Model {
-
-}
-
+class User extends BackboneRel.Model {}
 
 var paul = new Person({
     id: 'person-1',
     name: 'Paul',
-    user: { id: 'user-1', login: 'dude', email: 'me@gmail.com' }
+    user: { id: 'user-1', login: 'dude', email: 'me@gmail.com' },
 });
 
 // A User object is automatically created from the JSON; so 'login' returns 'dude'.
@@ -56,7 +52,7 @@ paul.get('user').get('login');
 var ourHouse = new House({
     id: 'house-1',
     location: 'in the middle of the street',
-    occupants: ['person-1', 'person-2', 'person-5']
+    occupants: ['person-1', 'person-2', 'person-5'],
 });
 
 // 'ourHouse.occupants' is turned into a Backbone.Collection of Persons.
@@ -81,20 +77,17 @@ ourHouse.fetchRelated('occupants');
 // Use the `add` and `remove` events to listen for additions/removals on a HasMany relation.
 // Here, we listen for changes to `ourHouse.occupants`.
 ourHouse
-    .on('add:occupants', function (model, coll)
-    {
+    .on('add:occupants', function (model, coll) {
         console.log('add %o', model);
         // Do something. Create a View?
     })
-    .on('remove:occupants', function (model, coll)
-    {
+    .on('remove:occupants', function (model, coll) {
         console.log('remove %o', model);
         // Do somehting. Destroy a View?
     });
 
 // Use the 'update' event to listen for changes on a HasOne relation (like 'Person.livesIn').
-paul.on('change:livesIn', function (model, attr)
-{
+paul.on('change:livesIn', function (model, attr) {
     console.log('change `livesIn` to %o', attr);
 });
 
@@ -107,7 +100,7 @@ alert('paul.livesIn=' + paul.get('livesIn'));
 // Move into `theirHouse`; triggers 'add:occupants' on ourHouse, and 'change:livesIn' on paul
 
 var theirHouse = new House({ id: 'house-2' });
-paul.set({ 'livesIn': theirHouse });
+paul.set({ livesIn: theirHouse });
 
 alert('theirHouse.occupants=' + theirHouse.get('occupants').pluck('name'));
 

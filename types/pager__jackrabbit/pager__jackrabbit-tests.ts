@@ -52,7 +52,7 @@ exchange.publish(
     {
         key: 'rpc_queue',
         reply: onReply,
-    }
+    },
 );
 
 function onReply(data: any) {}

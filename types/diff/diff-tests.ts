@@ -20,7 +20,7 @@ diff.diffChars(one, other, (err, value) => {
 });
 
 const diffArraysResult = diff.diffArrays(['a', 'b', 'c'], ['a', 'c', 'd']);
-diffArraysResult.forEach(result => {
+diffArraysResult.forEach((result) => {
     result.added; // $ExpectType boolean | undefined
     result.removed; // $ExpectType boolean | undefined
     result.value; // $ExpectType string[]
@@ -40,7 +40,7 @@ const arrayOptions: diff.ArrayOptions<DiffObj, DiffObj> = {
     },
 };
 const arrayChanges = diff.diffArrays([a, b, c], [a, b, d], arrayOptions);
-arrayChanges.forEach(result => {
+arrayChanges.forEach((result) => {
     result.added; // $ExpectType boolean | undefined
     result.removed; // $ExpectType boolean | undefined
     result.value; // $ExpectType DiffObj[]
@@ -64,7 +64,7 @@ changes = obj.diff(one, other);
 examineChanges(changes);
 
 function examineChanges(diff: diff.Change[]) {
-    diff.forEach(part => {
+    diff.forEach((part) => {
         part.added; // $ExpectType boolean | undefined
         part.removed; // $ExpectType boolean | undefined
         part.value; // $ExpectType string
@@ -76,7 +76,7 @@ function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: diff.Parsed
     const verifyPatch = diff.parsePatch(
         diff.createTwoFilesPatch('oldFile.ts', 'newFile.ts', oldStr, newStr, 'old', 'new', {
             context: 1,
-        })
+        }),
     );
 
     if (
@@ -103,7 +103,7 @@ function verifyApplyMethods(oldStr: string, newStr: string, uniDiffStr: string) 
                 throw err;
             }
 
-            verifyApply.forEach(result => {
+            verifyApply.forEach((result) => {
                 if (result !== newStr) {
                     throw new Error('Result did not match newStr');
                 }
@@ -115,7 +115,7 @@ function verifyApplyMethods(oldStr: string, newStr: string, uniDiffStr: string) 
             }
             return line === patchContent;
         },
-        fuzzFactor: 0
+        fuzzFactor: 0,
     };
     diff.applyPatches([uniDiff], options);
     diff.applyPatches(uniDiffStr, options);

@@ -1,4 +1,4 @@
-import { Emitter } from ".";
+import { Emitter } from '.';
 
 declare namespace pipe {
     interface EmitterPipe {

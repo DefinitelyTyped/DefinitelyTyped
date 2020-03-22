@@ -1,11 +1,11 @@
 import CodeFlask from 'codeflask';
 
 const flask = new CodeFlask(new HTMLElement(), {
-  language: 'js',
-  defaultTheme: false
+    language: 'js',
+    defaultTheme: false,
 });
 
-flask.onUpdate((code) => { });
+flask.onUpdate((code) => {});
 
 flask.updateCode('Test');
 

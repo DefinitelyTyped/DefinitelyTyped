@@ -10,15 +10,15 @@ server.register({
 const options: auth.Options = {
     cookie: {
         clearInvalid: true,
-        name:         'session',
-        domain:       '.typescript.org',
-        password:     'abcdef',
-        isSecure:     true,
-        ttl:          259200000,
+        name: 'session',
+        domain: '.typescript.org',
+        password: 'abcdef',
+        isSecure: true,
+        ttl: 259200000,
     },
-    keepAlive:    true,
-    redirectTo:   '/login',
-    appendNext:   false,
+    keepAlive: true,
+    redirectTo: '/login',
+    appendNext: false,
     validateFunc: async () => {
         return { valid: true };
     },
@@ -26,10 +26,14 @@ const options: auth.Options = {
 
 server.auth.strategy('session', 'cookie', options);
 
-server.route({ method: 'get', path: '/', handler: async (request) => {
-    request.cookieAuth.set('key', 'value');
-    request.cookieAuth.set({ user: request.params.user });
-    request.cookieAuth.clear();
-    request.cookieAuth.clear('key');
-    request.cookieAuth.ttl(1000);
-}});
+server.route({
+    method: 'get',
+    path: '/',
+    handler: async (request) => {
+        request.cookieAuth.set('key', 'value');
+        request.cookieAuth.set({ user: request.params.user });
+        request.cookieAuth.clear();
+        request.cookieAuth.clear('key');
+        request.cookieAuth.ttl(1000);
+    },
+});

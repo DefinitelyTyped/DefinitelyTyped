@@ -9,9 +9,11 @@
 
 export = install;
 
-declare function install(cleanupHandler?: ((exitCode: number | null, signal: string | null) => boolean | undefined | void),
-                         stderrMessages?: { ctrl_C: string; uncaughtException: string }): void;
+declare function install(
+    cleanupHandler?: (exitCode: number | null, signal: string | null) => boolean | undefined | void,
+    stderrMessages?: { ctrl_C: string; uncaughtException: string },
+): void;
 
 declare namespace install {
-  function uninstall(): void;
+    function uninstall(): void;
 }

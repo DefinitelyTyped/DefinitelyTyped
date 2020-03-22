@@ -6,5 +6,5 @@ declare namespace PaginationLast {
         disabled?: boolean;
     }
 }
-declare class PaginationLast extends React.Component<PaginationLast.PaginationLastProps> { }
+declare class PaginationLast extends React.Component<PaginationLast.PaginationLastProps> {}
 export = PaginationLast;

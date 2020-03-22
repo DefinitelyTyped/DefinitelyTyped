@@ -8,7 +8,7 @@ import prefetch = require('pacote/prefetch');
 import tarball = require('pacote/tarball');
 
 const opts: pacote.Options = {
-    dirPacker: _dir => new Readable(),
+    dirPacker: (_dir) => new Readable(),
     'enjoy-by': new Date(1970, 1),
     'include-deprecated': false,
     'full-metadata': false,

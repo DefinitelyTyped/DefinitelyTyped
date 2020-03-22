@@ -10,12 +10,12 @@ const viewer = new Cesium.Viewer('#cesium', {
 // Mapbox tile provider
 const mapboxImagery = new Cesium.MapboxImageryProvider({
     mapId: 'mapbox.streets',
-    accessToken: 'thisIsMyAccessToken'
+    accessToken: 'thisIsMyAccessToken',
 });
 // Mapbox style provider
 const mapboxStyle = new Cesium.MapboxStyleImageryProvider({
     styleId: 'streets-v11',
-    accessToken: 'thisIsMyAccessToken'
+    accessToken: 'thisIsMyAccessToken',
 });
 
 const midnight = Cesium.JulianDate.fromDate(new Date(2018, 5, 14));
@@ -24,13 +24,15 @@ const prop = new Cesium.SampledPositionProperty();
 const pos = Cesium.Cartesian3.fromDegrees(1, 2, 3);
 const time = Cesium.JulianDate.addSeconds(midnight, 12345, new Cesium.JulianDate());
 prop.addSample(time, pos);
-viewer.entities.add(new Cesium.Entity({
-    position: pos,
-    point: new Cesium.PointGraphics({
-        color: Cesium.Color.fromCssColorString('#123123'),
-        pixelSize: 2
-    })
-}));
+viewer.entities.add(
+    new Cesium.Entity({
+        position: pos,
+        point: new Cesium.PointGraphics({
+            color: Cesium.Color.fromCssColorString('#123123'),
+            pixelSize: 2,
+        }),
+    }),
+);
 
 const objStart = Cesium.JulianDate.addSeconds(midnight, 12340, new Cesium.JulianDate());
 const objStop = Cesium.JulianDate.addSeconds(midnight, 12350, new Cesium.JulianDate());
@@ -40,8 +42,8 @@ const entity = new Cesium.Entity({
     availability: new Cesium.TimeIntervalCollection([
         new Cesium.TimeInterval({
             start: objStart,
-            stop: objStop
-        })
+            stop: objStop,
+        }),
     ]),
     position: prop,
     orientation: new Cesium.VelocityOrientationProperty(prop),
@@ -49,12 +51,12 @@ const entity = new Cesium.Entity({
         resolution: 5,
         width: 3,
         material: new Cesium.ColorMaterialProperty(Cesium.Color.fromCssColorString('#223344')),
-        leadTime: 0
+        leadTime: 0,
     }),
     model: new Cesium.ModelGraphics({
         uri: 'http://assets.agi.com/models/rv1.gltf',
-        minimumPixelSize: 48
-    })
+        minimumPixelSize: 48,
+    }),
 });
 viewer.entities.add(entity);
 

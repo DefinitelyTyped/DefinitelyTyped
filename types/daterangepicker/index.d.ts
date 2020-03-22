@@ -13,7 +13,7 @@ declare global {
     interface JQuery {
         daterangepicker: ((
             options?: daterangepicker.Options,
-            callback?: daterangepicker.DataRangePickerCallback
+            callback?: daterangepicker.DataRangePickerCallback,
         ) => JQuery) & { defaultOptions?: daterangepicker.Options };
         data(key: 'daterangepicker'): daterangepicker | undefined;
     }
@@ -23,7 +23,7 @@ declare class daterangepicker {
     constructor(
         element: HTMLElement,
         options?: daterangepicker.Options,
-        callback?: daterangepicker.DataRangePickerCallback
+        callback?: daterangepicker.DataRangePickerCallback,
     );
 
     startDate: moment.Moment;
@@ -36,11 +36,7 @@ declare class daterangepicker {
 }
 
 declare namespace daterangepicker {
-    type DataRangePickerCallback = (
-        start: moment.Moment,
-        end: moment.Moment,
-        label: string | null
-    ) => void;
+    type DataRangePickerCallback = (start: moment.Moment, end: moment.Moment, label: string | null) => void;
 
     type DateOrString = string | moment.Moment | Date;
 

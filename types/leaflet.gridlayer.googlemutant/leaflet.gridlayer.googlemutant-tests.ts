@@ -19,6 +19,6 @@ const styled = L.gridLayer
     })
     .addTo(map);
 
-styled.addGoogleLayer('TrafficLayer').then(nativeTrafficLayer => {
+styled.addGoogleLayer('TrafficLayer').then((nativeTrafficLayer) => {
     styled.removeGoogleLayer('TrafficLayer');
 });

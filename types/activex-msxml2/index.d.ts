@@ -426,7 +426,19 @@ declare namespace MSXML2 {
         createEntityReference(name: string): IXMLDOMEntityReference;
 
         /** create a node of the specified node type and name */
-        createNode(type: DOMNodeType.NODE_ATTRIBUTE | DOMNodeType.NODE_CDATA_SECTION | DOMNodeType.NODE_COMMENT | DOMNodeType.NODE_DOCUMENT_FRAGMENT | DOMNodeType.NODE_TEXT | DOMNodeType.NODE_ELEMENT | DOMNodeType.NODE_ENTITY_REFERENCE | DOMNodeType.NODE_PROCESSING_INSTRUCTION, name: string, namespaceURI: string): IXMLDOMNode;
+        createNode(
+            type:
+                | DOMNodeType.NODE_ATTRIBUTE
+                | DOMNodeType.NODE_CDATA_SECTION
+                | DOMNodeType.NODE_COMMENT
+                | DOMNodeType.NODE_DOCUMENT_FRAGMENT
+                | DOMNodeType.NODE_TEXT
+                | DOMNodeType.NODE_ELEMENT
+                | DOMNodeType.NODE_ENTITY_REFERENCE
+                | DOMNodeType.NODE_PROCESSING_INSTRUCTION,
+            name: string,
+            namespaceURI: string,
+        ): IXMLDOMNode;
 
         /** create a processing instruction node */
         createProcessingInstruction(target: string, data: string): IXMLDOMProcessingInstruction;
@@ -795,9 +807,23 @@ declare namespace MSXML2 {
         private constructor();
         abort(): void;
         getAllResponseHeaders(ppwszHeaders: string): void;
-        GetCookie(pwszUrl: string, pwszName: string, dwFlags: number, pcCookies: number, ppCookies: tagXHR_COOKIE): void;
+        GetCookie(
+            pwszUrl: string,
+            pwszName: string,
+            dwFlags: number,
+            pcCookies: number,
+            ppCookies: tagXHR_COOKIE,
+        ): void;
         getResponseHeader(pwszHeader: string, ppwszValue: string): void;
-        open(pwszMethod: string, pwszUrl: string, pStatusCallback: IXMLHTTPRequest2Callback, pwszUserName: string, pwszPassword: string, pwszProxyUserName: string, pwszProxyPassword: string): void;
+        open(
+            pwszMethod: string,
+            pwszUrl: string,
+            pStatusCallback: IXMLHTTPRequest2Callback,
+            pwszUserName: string,
+            pwszPassword: string,
+            pwszProxyUserName: string,
+            pwszProxyPassword: string,
+        ): void;
         send(pBody: ISequentialStream, cbBody: number): void;
         SetCookie(pCookie: tagXHR_COOKIE, pdwCookieState: number): void;
         SetCustomResponseStream(pSequentialStream: ISequentialStream): void;
@@ -948,7 +974,12 @@ declare namespace MSXML2 {
         startDocument(): void;
 
         /** Receive notification of the beginning of an element. */
-        startElement(strNamespaceURI: string, strLocalName: string, strQName: string, oAttributes: IVBSAXAttributes): void;
+        startElement(
+            strNamespaceURI: string,
+            strLocalName: string,
+            strQName: string,
+            oAttributes: IVBSAXAttributes,
+        ): void;
 
         /** Begin the scope of a prefix-URI Namespace mapping. */
         startPrefixMapping(strPrefix: string, strURI: string): void;
@@ -2547,7 +2578,14 @@ declare namespace MSXML2 {
         removeAttribute(nIndex: number): void;
 
         /** Set an attribute in the list. */
-        setAttribute(nIndex: number, strURI: string, strLocalName: string, strQName: string, strType: string, strValue: string): void;
+        setAttribute(
+            nIndex: number,
+            strURI: string,
+            strLocalName: string,
+            strQName: string,
+            strType: string,
+            strValue: string,
+        ): void;
 
         /** Copy an entire Attributes object. */
         setAttributes(varAtts: any): void;
@@ -2775,8 +2813,16 @@ declare namespace MSXML2 {
 }
 
 interface ActiveXObject {
-    on(obj: MSXML2.DOMDocument60, event: 'ondataavailable' | 'onreadystatechange', handler: (this: MSXML2.DOMDocument60, parameter: {}) => void): void;
-    on(obj: MSXML2.FreeThreadedDOMDocument60, event: 'ondataavailable' | 'onreadystatechange', handler: (this: MSXML2.FreeThreadedDOMDocument60, parameter: {}) => void): void;
+    on(
+        obj: MSXML2.DOMDocument60,
+        event: 'ondataavailable' | 'onreadystatechange',
+        handler: (this: MSXML2.DOMDocument60, parameter: {}) => void,
+    ): void;
+    on(
+        obj: MSXML2.FreeThreadedDOMDocument60,
+        event: 'ondataavailable' | 'onreadystatechange',
+        handler: (this: MSXML2.FreeThreadedDOMDocument60, parameter: {}) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {

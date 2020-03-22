@@ -33,7 +33,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-sankey
          */
         interface SeriesSankey {
-
             /**
              * @default
              * "sankey"
@@ -259,7 +258,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -721,12 +719,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-sankey.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1058,7 +1054,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -1170,7 +1165,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * The color of the edge in sankey graphs.
                  *
@@ -1244,12 +1238,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1709,12 +1701,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2045,7 +2035,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2146,7 +2135,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * The color of the edge in sankey graphs.
                      *
@@ -2252,10 +2240,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-sankey.data
              */
-            data?: (
-                (number | SeriesSankey.DataObject)[]
-                | (number | SeriesSankey.DataObject)[][]
-            );
+            data?: (number | SeriesSankey.DataObject)[] | (number | SeriesSankey.DataObject)[][];
 
             /**
              * Equals to
@@ -2278,7 +2263,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.links
              */
             links?: {
-
                 /**
                  * The
                  * [name of source node](https://echarts.apache.org/en/option.html#series-graph.data.name)
@@ -2314,7 +2298,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.links.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * The color of the edge in sankey graphs.
                      *
@@ -2388,12 +2371,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-sankey.links.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * The color of the edge in sankey graphs.
                          *
@@ -2596,7 +2577,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-sankey.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -2851,7 +2831,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -3048,7 +3027,6 @@ declare namespace echarts {
 
         namespace SeriesSankey {
             interface DataObject {
-
                 /**
                  * The name of data item.
                  *
@@ -3072,7 +3050,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -3178,7 +3155,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -3593,12 +3569,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3929,12 +3903,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4037,7 +4009,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -4456,12 +4427,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-sankey.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4808,7 +4777,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-sankey.data.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
@@ -5058,7 +5026,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-sankey.data.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *

@@ -1,5 +1,5 @@
-import * as React from "react";
-import Spinner from "react-native-loading-spinner-overlay";
+import * as React from 'react';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 () => {
     <Spinner />;

@@ -1,4 +1,4 @@
-import lolex = require("lolex");
+import lolex = require('lolex');
 
 const global: lolex.LolexWithContext = lolex.withGlobal({});
 const timers: lolex.GlobalTimers<lolex.TimerId> = lolex.timers;
@@ -29,21 +29,21 @@ lolex.createClock<lolex.NodeClock>(7, 9001);
 lolex.createClock<lolex.NodeClock>(new Date(), 9001);
 
 const browserInstalledClock = lolex.install<lolex.BrowserClock>({
-	advanceTimeDelta: 20,
-	loopLimit: 10,
-	now: 0,
-	shouldAdvanceTime: true,
-	target: {},
-	toFake: ["setTimeout", "nextTick", "hrtime"]
+    advanceTimeDelta: 20,
+    loopLimit: 10,
+    now: 0,
+    shouldAdvanceTime: true,
+    target: {},
+    toFake: ['setTimeout', 'nextTick', 'hrtime'],
 });
 
 const nodeInstalledClock = lolex.install<lolex.NodeClock>({
-	advanceTimeDelta: 20,
-	loopLimit: 10,
-	now: new Date(0),
-	shouldAdvanceTime: true,
-	target: {},
-	toFake: ["setTimeout", "nextTick", "hrtime"]
+    advanceTimeDelta: 20,
+    loopLimit: 10,
+    now: new Date(0),
+    shouldAdvanceTime: true,
+    target: {},
+    toFake: ['setTimeout', 'nextTick', 'hrtime'],
 });
 
 const browserNow: number = browserClock.now;
@@ -86,16 +86,16 @@ nodeClock.cancelIdleCallback(nodeIdleCallback);
 nodeClock.cancelIdleCallback(nodeIdleCallbackWithTimeout);
 
 browserClock.tick(7);
-browserClock.tick("08");
+browserClock.tick('08');
 
 nodeClock.tick(7);
-nodeClock.tick("08:03");
+nodeClock.tick('08:03');
 
 browserClock.tickAsync(7).then(() => {});
-browserClock.tickAsync("08").then(() => {});
+browserClock.tickAsync('08').then(() => {});
 
 nodeClock.tickAsync(7).then(() => {});
-nodeClock.tickAsync("08:03").then(() => {});
+nodeClock.tickAsync('08:03').then(() => {});
 
 browserClock.next();
 nodeClock.next();

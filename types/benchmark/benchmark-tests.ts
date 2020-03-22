@@ -1,26 +1,27 @@
-import Benchmark = require("benchmark");
+import Benchmark = require('benchmark');
 
-var suite = new Benchmark.Suite;
+var suite = new Benchmark.Suite();
 
 // add tests
-suite.add('RegExp#test', function() {
-  /o/.test('Hello World!');
-})
-.add('String#indexOf', function() {
-  'Hello World!'.indexOf('o') > -1;
-})
-.add('String#match', function() {
-  !!'Hello World!'.match(/o/);
-})
-// add listeners
-.on('cycle', function(event: {target: any}) {
-  console.log(String(event.target));
-})
-.on('complete', function() {
-  console.log('Fastest is ' + this.filter('fastest').pluck('name'));
-})
-// run async
-.run({ 'async': true });
+suite
+    .add('RegExp#test', function () {
+        /o/.test('Hello World!');
+    })
+    .add('String#indexOf', function () {
+        'Hello World!'.indexOf('o') > -1;
+    })
+    .add('String#match', function () {
+        !!'Hello World!'.match(/o/);
+    })
+    // add listeners
+    .on('cycle', function (event: { target: any }) {
+        console.log(String(event.target));
+    })
+    .on('complete', function () {
+        console.log('Fastest is ' + this.filter('fastest').pluck('name'));
+    })
+    // run async
+    .run({ async: true });
 
 var fn: Function;
 var onStart: Function;
@@ -43,66 +44,63 @@ var bench = new Benchmark('foo', fn);
 
 // or with options
 var bench = new Benchmark('foo', fn, {
+    // displayed by Benchmark#toString if `name` is not available
+    id: 'xyz',
 
-  // displayed by Benchmark#toString if `name` is not available
-  'id': 'xyz',
+    // called when the benchmark starts running
+    onStart: onStart,
 
-  // called when the benchmark starts running
-  'onStart': onStart,
+    // called after each run cycle
+    onCycle: onCycle,
 
-  // called after each run cycle
-  'onCycle': onCycle,
+    // called when aborted
+    onAbort: onAbort,
 
-  // called when aborted
-  'onAbort': onAbort,
+    // called when a test errors
+    onError: onError,
 
-  // called when a test errors
-  'onError': onError,
+    // called when reset
+    onReset: onReset,
 
-  // called when reset
-  'onReset': onReset,
+    // called when the benchmark completes running
+    onComplete: onComplete,
 
-  // called when the benchmark completes running
-  'onComplete': onComplete,
+    // compiled/called before the test loop
+    setup: setup,
 
-  // compiled/called before the test loop
-  'setup': setup,
-
-  // compiled/called after the test loop
-  'teardown': teardown
+    // compiled/called after the test loop
+    teardown: teardown,
 });
 
 // or name and options
 var bench = new Benchmark('foo', {
+    // a flag to indicate the benchmark is deferred
+    defer: true,
 
-  // a flag to indicate the benchmark is deferred
-  'defer': true,
-
-  // benchmark test function
-  'fn': function(deferred: {resolve(): void}) {
-    // call resolve() when the deferred test is finished
-    deferred.resolve();
-  }
+    // benchmark test function
+    fn: function (deferred: { resolve(): void }) {
+        // call resolve() when the deferred test is finished
+        deferred.resolve();
+    },
 });
 
 // or options only
 var bench = new Benchmark({
+    // benchmark name
+    name: 'foo',
 
-  // benchmark name
-  'name': 'foo',
-
-  // benchmark test as a string
-  'fn': '[1,2,3,4].sort()'
+    // benchmark test as a string
+    fn: '[1,2,3,4].sort()',
 });
 
 // a test’s `this` binding is set to the benchmark instance
-var bench = new Benchmark('foo', function() {
-  'My name is '.concat(this.name); // My name is foo
+var bench = new Benchmark('foo', function () {
+    'My name is '.concat(this.name); // My name is foo
 });
 
 // get odd numbers
-Benchmark.filter([1, 2, 3, 4, 5], function(n) {
-  return n % 2;
+Benchmark.filter([1, 2, 3, 4, 5], function (n) {
+    return n % 2;
 }); // -> [1, 3, 5];
 
 // get fastest benchmarks
@@ -122,57 +120,56 @@ Benchmark.invoke(benches, 'emit', 'complete', listener);
 
 // invoke `run(true)`, treat benchmarks as a queue, and register invoke callbacks
 Benchmark.invoke(benches, {
+    // invoke the `run` method
+    name: 'run',
 
-  // invoke the `run` method
-  'name': 'run',
+    // pass a single argument
+    args: true,
 
-  // pass a single argument
-  'args': true,
+    // treat as queue, removing benchmarks from front of `benches` until empty
+    queued: true,
 
-  // treat as queue, removing benchmarks from front of `benches` until empty
-  'queued': true,
+    // called before any benchmarks have been invoked.
+    onStart: onStart,
 
-  // called before any benchmarks have been invoked.
-  'onStart': onStart,
+    // called between invoking benchmarks
+    onCycle: onCycle,
 
-  // called between invoking benchmarks
-  'onCycle': onCycle,
-
-  // called after all benchmarks have been invoked.
-  'onComplete': onComplete
+    // called after all benchmarks have been invoked.
+    onComplete: onComplete,
 });
 
 var element: HTMLElement;
 // basic usage
 var bench = new Benchmark({
-  'setup': function() {
-    var c = this.count,
-      element = document.getElementById('container');
-    while (c--) {
-      element.appendChild(document.createElement('div'));
-    }
-  },
-  'fn': function() {
-    element.removeChild(element.lastChild);
-  }
+    setup: function () {
+        var c = this.count,
+            element = document.getElementById('container');
+        while (c--) {
+            element.appendChild(document.createElement('div'));
+        }
+    },
+    fn: function () {
+        element.removeChild(element.lastChild);
+    },
 });
 
 // or using strings
 var bench = new Benchmark({
-  'setup': '\
+    setup: '\
     var a = 0;\n\
     (function() {\n\
       (function() {\n\
         (function() {',
-  'fn': 'a += 1;',
-  'teardown': '\
+    fn: 'a += 1;',
+    teardown: '\
          }())\n\
        }())\n\
-     }())'
+     }())',
 });
 
 var bizarro = bench.clone({
-  'name': 'doppelganger'
+    name: 'doppelganger',
 });
 
 // unregister a listener for an event type
@@ -200,7 +197,7 @@ bench.on('start cycle', listener);
 bench.run();
 
 // or with options
-bench.run({ 'async': true });
+bench.run({ async: true });
 
 // basic usage
 suite.add(fn);
@@ -210,23 +207,23 @@ suite.add('foo', fn);
 
 // or with options
 suite.add('foo', fn, {
-  'onCycle': onCycle,
-  'onComplete': onComplete
+    onCycle: onCycle,
+    onComplete: onComplete,
 });
 
 // or name and options
 suite.add('foo', {
-  'fn': fn,
-  'onCycle': onCycle,
-  'onComplete': onComplete
+    fn: fn,
+    onCycle: onCycle,
+    onComplete: onComplete,
 });
 
 // or options only
 suite.add({
-  'name': 'foo',
-  'fn': fn,
-  'onCycle': onCycle,
-  'onComplete': onComplete
+    name: 'foo',
+    fn: fn,
+    onCycle: onCycle,
+    onComplete: onComplete,
 });
 
 // unregister a listener for an event type
@@ -254,4 +251,4 @@ suite.on('start cycle', listener) as Benchmark.Suite;
 suite.run();
 
 // or with options
-suite.run({ 'async': true, 'queued': true });
+suite.run({ async: true, queued: true });

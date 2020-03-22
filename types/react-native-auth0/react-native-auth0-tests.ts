@@ -37,7 +37,7 @@ auth0.auth
         realm: 'realm',
         audience: 'user-info',
     })
-    .then(res => {
+    .then((res) => {
         if (res.refreshToken) {
             return res.refreshToken;
         }

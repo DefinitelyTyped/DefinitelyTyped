@@ -10,12 +10,12 @@ function test_search_static() {
 
 function test_search() {
     const selector = '.ui.search';
-    $(selector).search('query', () => { }); // $ExpectType JQuery<HTMLElement>
+    $(selector).search('query', () => {}); // $ExpectType JQuery<HTMLElement>
     $(selector).search('display message', 'text', 'type'); // $ExpectType JQuery<HTMLElement>
     $(selector).search('cancel query'); // $ExpectType JQuery<HTMLElement>
     $(selector).search('search local', 'query'); // $ExpectType JQuery<HTMLElement>
     $(selector).search('has minimum characters'); // $ExpectType boolean
-    $(selector).search('search remote', 'query', () => { }); // $ExpectType JQuery<HTMLElement>
+    $(selector).search('search remote', 'query', () => {}); // $ExpectType JQuery<HTMLElement>
     $(selector).search('search object', 'query', {}, ['searchField']); // $ExpectType any
     $(selector).search('cancel query'); // $ExpectType JQuery<HTMLElement>
     $(selector).search('is focused'); // $ExpectType boolean
@@ -28,8 +28,8 @@ function test_search() {
     $(selector).search('clear cache', 'query'); // $ExpectType JQuery<HTMLElement>
     $(selector).search('write cache', 'query'); // $ExpectType JQuery<HTMLElement>
     $(selector).search('add results', 'html'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('show results', () => { }); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('hide results', () => { }); // $ExpectType JQuery<HTMLElement>
+    $(selector).search('show results', () => {}); // $ExpectType JQuery<HTMLElement>
+    $(selector).search('hide results', () => {}); // $ExpectType JQuery<HTMLElement>
     $(selector).search('generate results', {}); // $ExpectType JQuery<HTMLElement>
     $(selector).search('destroy'); // $ExpectType JQuery<HTMLElement>
     $(selector).search('setting', 'debug', undefined); // $ExpectType boolean
@@ -42,7 +42,7 @@ function test_search() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).search({
@@ -120,19 +120,19 @@ function test_search() {
             },
             regExp: {
                 required: /{\$*[A-z0-9]+}/g,
-                optional: /{\/\$*[A-z0-9]+}/g
+                optional: /{\/\$*[A-z0-9]+}/g,
             },
             selector: {
                 disabled: '.disabled',
-                form: 'form'
+                form: 'form',
             },
             className: {
                 loading: 'loading',
-                error: 'error'
+                error: 'error',
             },
             metadata: {
                 action: 'action',
-                url: 'url'
+                url: 'url',
             },
             error: {
                 beforeSend: 'beforeSend',
@@ -147,8 +147,8 @@ function test_search() {
                 parseError: 'parseError',
                 requiredParameter: 'requiredParameter',
                 statusMessage: 'statusMessage',
-                timeout: 'timeout'
-            }
+                timeout: 'timeout',
+            },
         },
         minCharacters: 10,
         transition: 'fade',
@@ -170,12 +170,9 @@ function test_search() {
             title: 'title',
             action: 'action',
             actionText: 'actionText',
-            actionURL: 'actionURL'
+            actionURL: 'actionURL',
         },
-        searchFields: [
-            'field1',
-            'field2'
-        ],
+        searchFields: ['field1', 'field2'],
         hideDelay: 20,
         searchDelay: 10,
         easing: 'easeOutExpo',
@@ -227,29 +224,29 @@ function test_search() {
                 response; // $ExpectType any
 
                 return 'standard';
-            }
+            },
         },
         regExp: {
             escape: /[\-\[\]\/{}()*+?.\\^$|]/g,
-            beginsWith: '(?:\s|^)'
+            beginsWith: '(?:s|^)',
         },
         selector: {
             prompt: 'prompt',
             searchButton: 'searchButton',
             results: 'results',
             category: 'category',
-            result: 'result'
+            result: 'result',
         },
         metadata: {
             cache: 'cache',
-            results: 'results'
+            results: 'results',
         },
         className: {
             active: 'active',
             empty: 'empty',
             focus: 'focus',
             loading: 'loading',
-            pressed: 'pressed'
+            pressed: 'pressed',
         },
         error: {
             source: 'source',
@@ -258,8 +255,8 @@ function test_search() {
             noTemplate: 'noTemplate',
             serverError: 'serverError',
             maxResults: 'maxResults',
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).search(); // $ExpectType JQuery<HTMLElement>
 

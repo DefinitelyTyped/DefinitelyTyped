@@ -1,26 +1,11 @@
 declare namespace adone {
     namespace semver {
-        const SEMVER_SPEC_VERSION: "2.0.0";
+        const SEMVER_SPEC_VERSION: '2.0.0';
 
         namespace I {
-            type ReleaseType = "major"
-                | "premajor"
-                | "minor"
-                | "preminor"
-                | "patch"
-                | "prepatch"
-                | "prerelease";
+            type ReleaseType = 'major' | 'premajor' | 'minor' | 'preminor' | 'patch' | 'prepatch' | 'prerelease';
 
-            type Operator = '==='
-                | "!=="
-                | ""
-                | "="
-                | "=="
-                | "!="
-                | ">"
-                | ">="
-                | "<"
-                | "<=";
+            type Operator = '===' | '!==' | '' | '=' | '==' | '!=' | '>' | '>=' | '<' | '<=';
         }
 
         /**

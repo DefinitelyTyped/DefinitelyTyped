@@ -133,7 +133,7 @@ declare namespace self {
          *
          * @returns {any} The cldr member.
          */
-        get(path: string) : any;
+        get(path: string): any;
 
         /**
          * @name get
@@ -253,19 +253,18 @@ declare namespace self {
          * According to http://www.unicode.org/reports/tr35/#Unicode_language_identifier, both "-" and "_" are valid locale separators (eg. "en_GB", "en-GB").
          * According to http://unicode.org/cldr/trac/ticket/6786 its usage must be consistent throughout the data set.
          */
-        localeSep: "-" | "_";
+        localeSep: '-' | '_';
     }
 
     interface CldrStatic {
-        on(event:string, listener:(path:string, value:any) => void): void;
-        once(event:string, listener:(path:string, value:any) => void): void;
-        off(event:string, listener:(path:string, value:any) => void): void;
+        on(event: string, listener: (path: string, value: any) => void): void;
+        once(event: string, listener: (path: string, value: any) => void): void;
+        off(event: string, listener: (path: string, value: any) => void): void;
     }
 
     interface CldrFactory {
-        on(event:string, listener:(path:string, value:any) => void): void;
-        once(event:string, listener:(path:string, value:any) => void): void;
-        off(event:string, listener:(path:string, value:any) => void): void;
+        on(event: string, listener: (path: string, value: any) => void): void;
+        once(event: string, listener: (path: string, value: any) => void): void;
+        off(event: string, listener: (path: string, value: any) => void): void;
     }
-
 }

@@ -18,8 +18,8 @@ export = Blocked;
 declare function Blocked(callback: (ms: number) => void, options?: Blocked.Options): NodeJS.Timer;
 
 declare namespace Blocked {
-  interface Options {
-    threshold?: number;  // in milliseconds
-    interval?: number; // in milliseconds
-  }
+    interface Options {
+        threshold?: number; // in milliseconds
+        interval?: number; // in milliseconds
+    }
 }

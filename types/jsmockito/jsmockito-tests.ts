@@ -1,20 +1,23 @@
-
-
 function test_version() {
     var version: string = JsMockito.version;
 }
 
 // JsMockito.JsMockitoStubBuilder
 
-
 function test_then() {
     new JsMockito.JsMockitoStubBuilder().then(function () {});
-    new JsMockito.JsMockitoStubBuilder().then(function () {}, function () {}, function () {});
+    new JsMockito.JsMockitoStubBuilder().then(
+        function () {},
+        function () {},
+        function () {},
+    );
 }
 
 function test_thenReturn() {
     new JsMockito.JsMockitoStubBuilder().thenReturn(1);
-    new JsMockito.JsMockitoStubBuilder().thenReturn("two", [3, 4], {5: 6}, function (seven: number) {return seven;});
+    new JsMockito.JsMockitoStubBuilder().thenReturn('two', [3, 4], { 5: 6 }, function (seven: number) {
+        return seven;
+    });
 }
 
 function test_thenThrow() {
@@ -54,13 +57,13 @@ function test_JsMockito_spy() {
 
 function test_JsMockito_mockFunction() {
     JsMockito.mockFunction()();
-    JsMockito.mockFunction("name")();
-    JsMockito.mockFunction("name", function() {})();
+    JsMockito.mockFunction('name')();
+    JsMockito.mockFunction('name', function () {})();
 }
 
 function test_JsMockito_mock() {
     JsMockito.mock(TestClass).test();
-    JsMockito.mock(Array).push("one");
+    JsMockito.mock(Array).push('one');
 }
 
 // JsMockito.Verifiers
@@ -149,13 +152,13 @@ function test_spy() {
     testClass.test();
 
     var array = spy([]);
-    array.push("one");
+    array.push('one');
 }
 
 function test_mockFunction() {
     mockFunction()();
-    mockFunction("name")();
-    mockFunction("name", function() {})();
+    mockFunction('name')();
+    mockFunction('name', function () {})();
 }
 
 function test_mock() {
@@ -163,7 +166,7 @@ function test_mock() {
     testClass.test();
 
     var array = mock(Array);
-    array.push("one");
+    array.push('one');
 }
 
 function test_never() {
@@ -192,6 +195,4 @@ declare class TestClass {
     test(): any;
 }
 
-declare class TestVerifier implements JsMockito.Verifier {
-
-}
+declare class TestVerifier implements JsMockito.Verifier {}

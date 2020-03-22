@@ -1,2 +1,2 @@
-import { padEnd } from "./index";
+import { padEnd } from './index';
 export = padEnd;

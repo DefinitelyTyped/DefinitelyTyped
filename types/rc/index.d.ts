@@ -18,7 +18,7 @@ declare function rc(
      * This function will be passed the string contents of each
      * discovered configuration file should return a parsed object dictionary.
      */
-    parse?: ((content: string) => { [key: string]: any }) | null
+    parse?: ((content: string) => { [key: string]: any }) | null,
 ): { [key: string]: any };
 
 export = rc;

@@ -1,1 +1,1 @@
-export type SalesforceId = string
+export type SalesforceId = string;

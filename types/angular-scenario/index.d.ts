@@ -13,7 +13,6 @@ declare namespace ng {
 }
 
 declare namespace angularScenario {
-
     export interface RunFunction {
         (functionToRun: any): any;
     }
@@ -29,8 +28,7 @@ declare namespace angularScenario {
         (seconds: number): any;
     }
 
-    export interface Future {
-    }
+    export interface Future {}
 
     export interface testWindow {
         href(): Future;
@@ -67,8 +65,7 @@ declare namespace angularScenario {
         toBeGreaterThan(value: any): void;
     }
 
-    export interface CustomMatchers extends Matchers {
-    }
+    export interface CustomMatchers extends Matchers {}
 
     export interface Expect extends CustomMatchers {
         not(): angularScenario.CustomMatchers;
@@ -107,7 +104,9 @@ declare namespace angularScenario {
         mouseover(): any;
         mousedown(): any;
         mouseup(): any;
-        query(callback: (selectedDOMElements: JQuery, callbackWhenDone: (objNull: any, futureValue: any) => any) => any): any;
+        query(
+            callback: (selectedDOMElements: JQuery, callbackWhenDone: (objNull: any, futureValue: any) => any) => any,
+        ): any;
         val(): Future;
         text(): Future;
         html(): Future;

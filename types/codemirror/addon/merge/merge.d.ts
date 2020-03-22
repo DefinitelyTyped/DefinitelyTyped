@@ -5,9 +5,9 @@
 
 // See docs https://github.com/codemirror/CodeMirror/blob/master/addon/merge/merge.js
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface CommandActions {
         /** Move cursor to the next diff */
         goNextDiff(cm: CodeMirror.Editor): void;

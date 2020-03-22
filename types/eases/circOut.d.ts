@@ -1,2 +1,2 @@
-import { circOut } from "./index";
+import { circOut } from './index';
 export = circOut;

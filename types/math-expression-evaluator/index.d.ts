@@ -6,7 +6,7 @@
 interface Token {
     token: string;
     type: number;
-    value?: string|((a: number, b?: number) => number);
+    value?: string | ((a: number, b?: number) => number);
     show: string;
     preced?: number;
 }
@@ -15,7 +15,7 @@ declare class Mexp {
     static lex(inp: string, tokens?: Token[]): Mexp;
     formulaEval(): Mexp;
     toPostfix(): Mexp;
-    postfixEval(pair?: object): number|string;
+    postfixEval(pair?: object): number | string;
     static eval(exp: string, tokens?: Token[], pair?: object): string;
     static eval(exp: string, mexp?: object): string;
     static addToken(tokens: Token[]): void;

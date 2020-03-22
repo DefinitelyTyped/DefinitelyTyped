@@ -14,7 +14,11 @@ declare module 'express' {
     function Router(options?: RouterOptions): expressWs.Router;
 }
 
-declare function expressWs(app: express.Application, server?: http.Server | https.Server, options?: expressWs.Options): expressWs.Instance;
+declare function expressWs(
+    app: express.Application,
+    server?: http.Server | https.Server,
+    options?: expressWs.Options,
+): expressWs.Instance;
 declare namespace expressWs {
     type Application = express.Application & WithWebsocketMethod;
     type Router = express.Router & WithWebsocketMethod;

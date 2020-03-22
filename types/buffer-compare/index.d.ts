@@ -3,10 +3,9 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 interface List {
     [index: number]: any;
-    length: number
+    length: number;
 }
 
 declare function compare(cmp: List, to: List): number;

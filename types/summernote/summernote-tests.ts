@@ -1,7 +1,7 @@
 import 'summernote';
 
 $('#testElement').summernote({
-  airMode: true
+    airMode: true,
 });
 
 const config: Summernote.Options = {

@@ -18,9 +18,7 @@ declare const qs: {
     stringify: <T>(
         obj: {
             /* tslint:disable-next-line ban-types */
-            [key: string]: T extends Function
-                ? never
-                : T extends string | number | boolean | object | null ? T : never;
+            [key: string]: T extends Function ? never : T extends string | number | boolean | object | null ? T : never;
         },
         delimeter?: string,
         eq?: string,

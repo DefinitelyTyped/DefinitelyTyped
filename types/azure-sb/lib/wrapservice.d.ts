@@ -10,12 +10,9 @@ declare class WrapService {
     };
     public strictSSL: boolean;
 
-    public wrapAccessToken(uri: string,
-                           callback: Azure.ServiceBus.ResponseCallback): void;
+    public wrapAccessToken(uri: string, callback: Azure.ServiceBus.ResponseCallback): void;
 
-    public wrapAccessToken(uri: string,
-                           options: object,
-                           callback: Azure.ServiceBus.ResponseCallback): void;
+    public wrapAccessToken(uri: string, options: object, callback: Azure.ServiceBus.ResponseCallback): void;
 }
 
 export = WrapService;

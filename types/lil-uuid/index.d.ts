@@ -16,4 +16,4 @@ export function uuid(): string;
  * @param uuid UUID string.
  * @returns True if string is valid UUID, false otherwise.
  */
-export function  isUUID(uuid: string): boolean;
+export function isUUID(uuid: string): boolean;

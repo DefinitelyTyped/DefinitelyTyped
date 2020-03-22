@@ -1,6 +1,6 @@
 import depd = require('depd');
 
-const deprecate = depd("depd-tests");
+const deprecate = depd('depd-tests');
 
 deprecate('message');
 
@@ -12,7 +12,7 @@ interface TestDeprecatedFunction {
     func1?(): void;
     func2?(arg: string): boolean;
 }
-const obj2 = <TestDeprecatedFunction> {};
+const obj2 = <TestDeprecatedFunction>{};
 
 obj2.func1 = deprecate.function(() => {
     console.log('all calls to [func1] are deprecated ');
@@ -31,7 +31,7 @@ obj2.func2 = deprecate.function((arg: string) => {
 obj2.func1();
 obj2.func2('');
 
-process.on('deprecation', error => {
+process.on('deprecation', (error) => {
     const err: depd.DeprecationError = error;
     error; // $ExpectType DeprecationError
 

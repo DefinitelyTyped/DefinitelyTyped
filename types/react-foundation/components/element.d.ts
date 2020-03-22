@@ -8,8 +8,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Block: React.StatelessComponent<BlockProps>;
-export interface BlockProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-}
+export interface BlockProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {}
 /**
  * Span component.
  *
@@ -17,5 +16,4 @@ export interface BlockProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLD
  * @returns {Object}
  */
 export declare const Inline: React.StatelessComponent<InlineProps>;
-export interface InlineProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLSpanElement> {
-}
+export interface InlineProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLSpanElement> {}

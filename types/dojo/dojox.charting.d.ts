@@ -4,12 +4,8 @@
 //                 Don Waldo <https://github.com/dgwaldo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
 declare namespace dojox {
-
-        namespace charting {
+    namespace charting {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/charting/Chart.html
          *
@@ -703,69 +699,69 @@ declare namespace dojox {
              * The theme to style the chart. Defaults to PlotKit.blue.
              *
              */
-            "chartTheme": Object;
+            'chartTheme': Object;
             /**
              * If false, all items are each their own series.
              * If true, the items are combined into one series
              * so that their charted properties can be compared.
              *
              */
-            "comparative": boolean;
+            'comparative': boolean;
             /**
              * The number of major ticks to show on the xaxis
              *
              */
-            "displayRange": number;
+            'displayRange': number;
             /**
              * The field in the store item that is getting charted
              *
              */
-            "fieldName": string;
+            'fieldName': string;
             /**
              * The name field of the store item
              * DO NOT SET: Set from store.labelAttribute
              *
              */
-            "label": string;
+            'label': string;
             /**
              * The the smallest the chart height can be
              *
              */
-            "minHeight": number;
+            'minHeight': number;
             /**
              * The the smallest the chart width can be
              *
              */
-            "minWidth": number;
+            'minWidth': number;
             /**
              * Used for fetching items. Will vary depending upon store.
              *
              */
-            "query": string;
+            'query': string;
             /**
              * Option used for fetching items
              *
              */
-            "queryOptions": string;
+            'queryOptions': string;
             /**
              * Whether live data updates and changes display, like columns moving
              * up and down, or whether it scrolls to the left as data is added
              *
              */
-            "scroll": boolean;
+            'scroll': boolean;
             /**
              * Whether the chart is showing (default) on
              * initialization or hidden.
              *
              */
-            "showing": boolean;
+            'showing': boolean;
             /**
              * If true, chart is sized to data. If false, chart is a
              * fixed size. Note, is overridden by displayRange.
              * TODO: Stretch for the y-axis?
              *
              */
-            "stretchToFit": boolean;
+            'stretchToFit': boolean;
             /**
              * Add an axis to the chart, for rendering.
              *
@@ -1190,26 +1186,26 @@ declare namespace dojox {
              * The parent chart for this element.
              *
              */
-            "chart": Object;
+            'chart': Object;
             /**
              * A flag indicating whether or not this element needs to be rendered.
              *
              */
-            "dirty": boolean;
+            'dirty': boolean;
             /**
              * The visual GFX group representing this element.
              *
              */
-            "group": Object;
+            'group': Object;
             /**
              * Any DOMNodes used as a part of this element (such as HTML-based labels).
              *
              */
-            "htmlElement": any[];
+            'htmlElement': any[];
             /**
              *
              */
-            "htmlElements": Object;
+            'htmlElements': Object;
             /**
              * Clean any elements (HTML or GFX-based) out of our group, and create a new one.
              *
@@ -1275,26 +1271,26 @@ declare namespace dojox {
              * The parent chart for this element.
              *
              */
-            "chart": Object;
+            'chart': Object;
             /**
              * A flag indicating whether or not this element needs to be rendered.
              *
              */
-            "dirty": boolean;
+            'dirty': boolean;
             /**
              * The visual GFX group representing this element.
              *
              */
-            "group": Object;
+            'group': Object;
             /**
              * Any DOMNodes used as a part of this element (such as HTML-based labels).
              *
              */
-            "htmlElement": any[];
+            'htmlElement': any[];
             /**
              *
              */
-            "htmlElements": Object;
+            'htmlElements': Object;
             /**
              * Clean any elements (HTML or GFX-based) out of our group, and create a new one.
              *
@@ -1407,19 +1403,19 @@ declare namespace dojox {
             /**
              *
              */
-            "defaultColors": any[];
+            'defaultColors': any[];
             /**
              *
              */
-            "defaultMarkers": Object;
+            'defaultMarkers': Object;
             /**
              *
              */
-            "defaultTheme": Object;
+            'defaultTheme': Object;
             /**
              *
              */
-            "shapeSpaces": Object;
+            'shapeSpaces': Object;
             /**
              * Add a custom marker to this theme.
              *
@@ -1609,19 +1605,19 @@ declare namespace dojox {
             /**
              *
              */
-            "defaultColors": any[];
+            'defaultColors': any[];
             /**
              *
              */
-            "defaultMarkers": Object;
+            'defaultMarkers': Object;
             /**
              *
              */
-            "defaultTheme": Object;
+            'defaultTheme': Object;
             /**
              *
              */
-            "shapeSpaces": Object;
+            'shapeSpaces': Object;
             /**
              * Add a custom marker to this theme.
              *
@@ -1812,39 +1808,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  *
                  * @param run
@@ -2132,15 +2128,15 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  *
                  */
-                "overOutEvents": Object;
+                'overOutEvents': Object;
                 /**
                  * Connect this action to the given plot.
                  *
@@ -2194,15 +2190,15 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  *
                  */
-                "overOutEvents": Object;
+                'overOutEvents': Object;
                 /**
                  * Connect this action to the given plot.
                  *
@@ -2256,11 +2252,11 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Connect this action to the chart. This adds a indicator plot
                  * to the chart that's why Chart.render() must be called after connect.
@@ -2330,11 +2326,11 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Connect this action to the chart.
                  *
@@ -2413,15 +2409,15 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  *
                  */
-                "overOutEvents": Object;
+                'overOutEvents': Object;
                 /**
                  * Connect this action to the given plot.
                  *
@@ -2474,7 +2470,7 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "overOutEvents": Object;
+                'overOutEvents': Object;
                 /**
                  * Connect this action to the given plot.
                  *
@@ -2522,15 +2518,15 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  *
                  */
-                "overOutEvents": Object;
+                'overOutEvents': Object;
                 /**
                  * Connect this action to the given plot.
                  *
@@ -2584,15 +2580,15 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  *
                  */
-                "overOutEvents": Object;
+                'overOutEvents': Object;
                 /**
                  * Connect this action to the given plot.
                  *
@@ -2650,11 +2646,11 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Connect this action to the chart. This adds a indicator plot
                  * to the chart that's why Chart.render() must be called after connect.
@@ -2725,11 +2721,11 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Connect this action to the chart. On iOS this adds a new glass view plot
                  * to the chart that's why Chart.render() must be called after connect.
@@ -2802,26 +2798,26 @@ declare namespace dojox {
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * Stub function to run the calcuations needed for drawing this axis.
                  *
@@ -2926,54 +2922,54 @@ declare namespace dojox {
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "offset": number;
+                'offset': number;
                 /**
                  * The actual options used to define this axis, created at initialization.
                  *
                  */
-                "opt": Object;
+                'opt': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  *
                  */
-                "scale": number;
+                'scale': number;
                 /**
                  *
                  */
-                "scaler": Object;
+                'scaler': Object;
                 /**
                  *
                  */
-                "ticks": Object;
+                'ticks': Object;
                 /**
                  *
                  * @param min
@@ -3009,7 +3005,17 @@ declare namespace dojox {
                  * @param fontColor
                  * @param labelWidth
                  */
-                createText(labelType: any, creator: any, x: any, y: any, align: any, textContent: any, font: any, fontColor: any, labelWidth: any): any;
+                createText(
+                    labelType: any,
+                    creator: any,
+                    x: any,
+                    y: any,
+                    align: any,
+                    textContent: any,
+                    font: any,
+                    fontColor: any,
+                    labelWidth: any,
+                ): any;
                 /**
                  * Find out whether or not the axis options depend on the data in the axis.
                  *
@@ -3129,36 +3135,36 @@ declare namespace dojox {
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * The default parameters used to define any axis.
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * Any optional parameters needed to define an axis.
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Perform all calculations needed to render this axis.
                  *
@@ -3301,7 +3307,16 @@ declare namespace dojox {
                      * @param font The font definition, a la CSS "font".
                      * @param fontColor The color of the resultant text.
                      */
-                    gfx(chart: dojox.charting.Chart, creator: Object, x: number, y: number, align: String, text: String, font: String, fontColor: String): dojox.gfx.Text;
+                    gfx(
+                        chart: dojox.charting.Chart,
+                        creator: Object,
+                        x: number,
+                        y: number,
+                        align: String,
+                        text: String,
+                        font: String,
+                        fontColor: String,
+                    ): dojox.gfx.Text;
                     /**
                      * Use dojox.gfx to create any text.
                      *
@@ -3314,7 +3329,16 @@ declare namespace dojox {
                      * @param font The font definition, a la CSS "font".
                      * @param fontColor The color of the resultant text.
                      */
-                    gfx(chart: dojox.charting.Chart, creator: Object, x: number, y: number, align: String, text: String, font: String, fontColor:  dojo._base.Color): dojox.gfx.Text;
+                    gfx(
+                        chart: dojox.charting.Chart,
+                        creator: Object,
+                        x: number,
+                        y: number,
+                        align: String,
+                        text: String,
+                        font: String,
+                        fontColor: dojo._base.Color,
+                    ): dojox.gfx.Text;
                     /**
                      * Use the HTML DOM to create any text.
                      *
@@ -3328,7 +3352,17 @@ declare namespace dojox {
                      * @param fontColor The color of the resultant text.
                      * @param labelWidth               OptionalThe maximum width of the resultant DOM node.
                      */
-                    html(chart: dojox.charting.Chart, creator: Object, x: number, y: number, align: String, text: String, font: String, fontColor: String, labelWidth: number): HTMLElement;
+                    html(
+                        chart: dojox.charting.Chart,
+                        creator: Object,
+                        x: number,
+                        y: number,
+                        align: String,
+                        text: String,
+                        font: String,
+                        fontColor: String,
+                        labelWidth: number,
+                    ): HTMLElement;
                     /**
                      * Use the HTML DOM to create any text.
                      *
@@ -3342,10 +3376,19 @@ declare namespace dojox {
                      * @param fontColor The color of the resultant text.
                      * @param labelWidth               OptionalThe maximum width of the resultant DOM node.
                      */
-                    html(chart: dojox.charting.Chart, creator: Object, x: number, y: number, align: String, text: String, font: String, fontColor:  dojo._base.Color, labelWidth: number): HTMLElement;
+                    html(
+                        chart: dojox.charting.Chart,
+                        creator: Object,
+                        x: number,
+                        y: number,
+                        align: String,
+                        text: String,
+                        font: String,
+                        fontColor: dojo._base.Color,
+                        labelWidth: number,
+                    ): HTMLElement;
                 }
             }
-
         }
 
         namespace bidi {
@@ -3366,11 +3409,11 @@ declare namespace dojox {
                  * By default is ltr.
                  *
                  */
-                "dir": string;
+                'dir': string;
                 /**
                  *
                  */
-                "isMirrored": boolean;
+                'isMirrored': boolean;
                 /**
                  * Bi-directional support, the main variable which is responsible for the direction of the text.
                  * The text direction can be different than the GUI direction by using this parameter.
@@ -3382,7 +3425,7 @@ declare namespace dojox {
                  * By default is as the page direction.
                  *
                  */
-                "textDir": string;
+                'textDir': string;
                 /**
                  * apply the mirroring operation to the current chart plots.
                  *
@@ -3453,11 +3496,11 @@ declare namespace dojox {
                  * By default is ltr.
                  *
                  */
-                "direction": string;
+                'direction': string;
                 /**
                  *
                  */
-                "isMirrored": boolean;
+                'isMirrored': boolean;
                 /**
                  * apply the mirroring operation to the current chart plots.
                  *
@@ -3532,7 +3575,14 @@ declare namespace dojox {
                      * @param font
                      * @param elemType
                      */
-                    labelTooltip(elem: any, chart: any, label: any, truncatedLabel: any, font: any, elemType: any): void;
+                    labelTooltip(
+                        elem: any,
+                        chart: any,
+                        label: any,
+                        truncatedLabel: any,
+                        font: any,
+                        elemType: any,
+                    ): void;
                 }
             }
 
@@ -3576,11 +3626,9 @@ declare namespace dojox {
             }
         }
 
-        namespace BidiSupport {
-        }
+        namespace BidiSupport {}
 
-        namespace BidiSupport3D {
-        }
+        namespace BidiSupport3D {}
 
         namespace plot2d {
             /**
@@ -3653,41 +3701,41 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * The default parameters of this plot.
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * The optional parameters of this plot.
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -3911,39 +3959,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -4174,26 +4222,26 @@ declare namespace dojox {
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -4326,39 +4374,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -4568,44 +4616,45 @@ declare namespace dojox {
              * @param chart The chart this plot belongs to.
              * @param kwArgs       OptionalAn optional keyword arguments object to help define the plot.
              */
-            class Candlesticks extends dojox.charting.plot2d.CartesianBase implements dojox.charting.plot2d._PlotEvents {
+            class Candlesticks extends dojox.charting.plot2d.CartesianBase
+                implements dojox.charting.plot2d._PlotEvents {
                 constructor(chart: dojox.charting.Chart, kwArgs?: Object);
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -4828,31 +4877,31 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -5017,39 +5066,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -5279,39 +5328,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -5541,39 +5590,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -5802,41 +5851,41 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * The default parameters of this plot.
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * The optional parameters of this plot.
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -6061,39 +6110,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Ignored but included as a dummy method.
                  *
@@ -6269,39 +6318,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  *
                  * @param run
@@ -6507,41 +6556,41 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * The default parameters of this plot.
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * The optional parameters of this plot.
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -6763,41 +6812,41 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * The default parameters of this plot.
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * The optional parameters of this plot.
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -7019,41 +7068,41 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * The default parameters of this plot.
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * The optional parameters of this plot.
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -7281,39 +7330,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -7533,34 +7582,34 @@ declare namespace dojox {
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a series of data to this plot.
                  *
@@ -7738,39 +7787,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -7982,34 +8031,34 @@ declare namespace dojox {
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -8194,41 +8243,41 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * The default parameters of this plot.
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * The optional parameters of this plot.
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -8450,41 +8499,41 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * The default parameters of this plot.
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * The optional parameters of this plot.
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -8708,39 +8757,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -8970,39 +9019,39 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -9230,41 +9279,41 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "baseParams": Object;
+                'baseParams': Object;
                 /**
                  * The parent chart for this element.
                  *
                  */
-                "chart": Object;
+                'chart': Object;
                 /**
                  * The default parameters of this plot.
                  *
                  */
-                "defaultParams": Object;
+                'defaultParams': Object;
                 /**
                  * A flag indicating whether or not this element needs to be rendered.
                  *
                  */
-                "dirty": boolean;
+                'dirty': boolean;
                 /**
                  * The visual GFX group representing this element.
                  *
                  */
-                "group": Object;
+                'group': Object;
                 /**
                  * Any DOMNodes used as a part of this element (such as HTML-based labels).
                  *
                  */
-                "htmlElement": any[];
+                'htmlElement': any[];
                 /**
                  *
                  */
-                "htmlElements": Object;
+                'htmlElements': Object;
                 /**
                  * The optional parameters of this plot.
                  *
                  */
-                "optionalParams": Object;
+                'optionalParams': Object;
                 /**
                  * Add a data series to this plot.
                  *
@@ -9724,7 +9773,14 @@ declare namespace dojox {
                  * @param delta               Optional
                  * @param minorDelta               Optional
                  */
-                buildScaler(min: number, max: number, span: number, kwArgs: Object, delta: number, minorDelta: number): any;
+                buildScaler(
+                    min: number,
+                    max: number,
+                    span: number,
+                    kwArgs: Object,
+                    delta: number,
+                    minorDelta: number,
+                ): any;
                 /**
                  *
                  * @param scaler
@@ -9777,23 +9833,17 @@ declare namespace dojox {
 
         namespace themes {
             namespace PlotKit {
-                namespace blue {
-                }
+                namespace blue {}
 
-                namespace cyan {
-                }
+                namespace cyan {}
 
-                namespace green {
-                }
+                namespace green {}
 
-                namespace orange {
-                }
+                namespace orange {}
 
-                namespace purple {
-                }
+                namespace purple {}
 
-                namespace red {
-                }
+                namespace red {}
 
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/charting/themes/PlotKit/base.html
@@ -9982,7 +10032,13 @@ declare namespace dojox {
                      * @param lumTo Final luminance value (0-100).
                      * @param lumStroke Stroke luminance value (0-100).
                      */
-                    generateMiniTheme(colors: any[], fillPattern: Object, lumFrom: number, lumTo: number, lumStroke: number): void;
+                    generateMiniTheme(
+                        colors: any[],
+                        fillPattern: Object,
+                        lumFrom: number,
+                        lumTo: number,
+                        lumStroke: number,
+                    ): void;
                     /**
                      * transforms solid color fills into 2-color gradients using a fill pattern, and two luminance values
                      *
@@ -9995,8 +10051,7 @@ declare namespace dojox {
                 }
             }
 
-            namespace ThreeD {
-            }
+            namespace ThreeD {}
 
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/charting/themes/common.html
@@ -10185,7 +10240,13 @@ declare namespace dojox {
                  * @param lumTo Final luminance value (0-100).
                  * @param lumStroke Stroke luminance value (0-100).
                  */
-                generateMiniTheme(colors: any[], fillPattern: Object, lumFrom: number, lumTo: number, lumStroke: number): void;
+                generateMiniTheme(
+                    colors: any[],
+                    fillPattern: Object,
+                    lumFrom: number,
+                    lumTo: number,
+                    lumStroke: number,
+                ): void;
                 /**
                  * transforms solid color fills into 2-color gradients using a fill pattern, and two luminance values
                  *
@@ -10383,7 +10444,13 @@ declare namespace dojox {
                  * @param lumTo Final luminance value (0-100).
                  * @param lumStroke Stroke luminance value (0-100).
                  */
-                generateMiniTheme(colors: any[], fillPattern: Object, lumFrom: number, lumTo: number, lumStroke: number): void;
+                generateMiniTheme(
+                    colors: any[],
+                    fillPattern: Object,
+                    lumFrom: number,
+                    lumTo: number,
+                    lumStroke: number,
+                ): void;
                 /**
                  * transforms solid color fills into 2-color gradients using a fill pattern, and two luminance values
                  *
@@ -10449,26 +10516,35 @@ declare namespace dojox {
                  * "" --> { node: "domNode", type: "attribute" }
                  *
                  */
-                "attributeMap": Object;
-                set(property:"attributeMap", value: Object): void;
-                get(property:"attributeMap"): Object;
-                watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attributeMap': Object;
+                set(property: 'attributeMap', value: Object): void;
+                get(property: 'attributeMap'): Object;
+                watch(
+                    property: 'attributeMap',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                  * widget state.
                  *
                  */
-                "baseClass": string;
-                set(property:"baseClass", value: string): void;
-                get(property:"baseClass"): string;
-                watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'baseClass': string;
+                set(property: 'baseClass', value: string): void;
+                get(property: 'baseClass'): string;
+                watch(
+                    property: 'baseClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "class": string;
-                set(property:"class", value: string): void;
-                get(property:"class"): string;
-                watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'class': string;
+                set(property: 'class', value: string): void;
+                get(property: 'class'): string;
+                watch(
+                    property: 'class',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Designates where children of the source DOM node will be placed.
                  * "Children" in this case refers to both DOM nodes and widgets.
@@ -10492,20 +10568,26 @@ declare namespace dojox {
                  * is null for widgets that don't, like TextBox.
                  *
                  */
-                "containerNode": HTMLElement;
-                set(property:"containerNode", value: HTMLElement): void;
-                get(property:"containerNode"): HTMLElement;
-                watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'containerNode': HTMLElement;
+                set(property: 'containerNode', value: HTMLElement): void;
+                get(property: 'containerNode'): HTMLElement;
+                watch(
+                    property: 'containerNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * Bi-directional support, as defined by the HTML DIR
                  * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                  * default direction.
                  *
                  */
-                "dir": string;
-                set(property:"dir", value: string): void;
-                get(property:"dir"): string;
-                watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'dir': string;
+                set(property: 'dir', value: string): void;
+                get(property: 'dir'): string;
+                watch(
+                    property: 'dir',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This is our visible representation of the widget! Other DOM
                  * Nodes may by assigned to other properties, usually through the
@@ -10513,19 +10595,25 @@ declare namespace dojox {
                  * property is the canonical "top level" node in widget UI.
                  *
                  */
-                "domNode": HTMLElement;
-                set(property:"domNode", value: HTMLElement): void;
-                get(property:"domNode"): HTMLElement;
-                watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'domNode': HTMLElement;
+                set(property: 'domNode', value: HTMLElement): void;
+                get(property: 'domNode'): HTMLElement;
+                watch(
+                    property: 'domNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * This widget or a widget it contains has focus, or is "active" because
                  * it was recently clicked.
                  *
                  */
-                "focused": boolean;
-                set(property:"focused", value: boolean): void;
-                get(property:"focused"): boolean;
-                watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'focused': boolean;
+                set(property: 'focused', value: boolean): void;
+                get(property: 'focused'): boolean;
+                watch(
+                    property: 'focused',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * A unique, opaque ID string that can be assigned by users or by the
                  * system. If the developer passes an ID which is known not to be
@@ -10533,10 +10621,13 @@ declare namespace dojox {
                  * used instead.
                  *
                  */
-                "id": string;
-                set(property:"id", value: string): void;
-                get(property:"id"): string;
-                watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'id': string;
+                set(property: 'id', value: string): void;
+                get(property: 'id'): string;
+                watch(
+                    property: 'id',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Rarely used.  Overrides the default Dojo locale used to render this widget,
                  * as defined by the HTML LANG attribute.
@@ -10544,51 +10635,69 @@ declare namespace dojox {
                  * formatted according to RFC 3066 (like en-us).
                  *
                  */
-                "lang": string;
-                set(property:"lang", value: string): void;
-                get(property:"lang"): string;
-                watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'lang': string;
+                set(property: 'lang', value: string): void;
+                get(property: 'lang'): string;
+                watch(
+                    property: 'lang',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * The margins around the chart. Default is { l:10, t:10, r:10, b:10 }.
                  *
                  */
-                "margins": Object;
-                set(property:"margins", value: Object): void;
-                get(property:"margins"): Object;
-                watch(property:"margins", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'margins': Object;
+                set(property: 'margins', value: Object): void;
+                get(property: 'margins'): Object;
+                watch(
+                    property: 'margins',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * The document this widget belongs to.  If not specified to constructor, will default to
                  * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                  *
                  */
-                "ownerDocument": Object;
-                set(property:"ownerDocument", value: Object): void;
-                get(property:"ownerDocument"): Object;
-                watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'ownerDocument': Object;
+                set(property: 'ownerDocument', value: Object): void;
+                get(property: 'ownerDocument'): Object;
+                watch(
+                    property: 'ownerDocument',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * pointer to original DOM node
                  *
                  */
-                "srcNodeRef": HTMLElement;
-                set(property:"srcNodeRef", value: HTMLElement): void;
-                get(property:"srcNodeRef"): HTMLElement;
-                watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'srcNodeRef': HTMLElement;
+                set(property: 'srcNodeRef', value: HTMLElement): void;
+                get(property: 'srcNodeRef'): HTMLElement;
+                watch(
+                    property: 'srcNodeRef',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * HTML style attributes as cssText string or name/value hash
                  *
                  */
-                "style": string;
-                set(property:"style", value: string): void;
-                get(property:"style"): string;
-                watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'style': string;
+                set(property: 'style', value: string): void;
+                get(property: 'style'): string;
+                watch(
+                    property: 'style',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * An optional theme to use for styling the chart.
                  *
                  */
-                "theme": Object;
-                set(property:"theme", value: Object): void;
-                get(property:"theme"): Object;
-                watch(property:"theme", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'theme': Object;
+                set(property: 'theme', value: Object): void;
+                get(property: 'theme'): Object;
+                watch(
+                    property: 'theme',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * HTML title attribute.
                  *
@@ -10600,19 +10709,25 @@ declare namespace dojox {
                  * interpreted as HTML.
                  *
                  */
-                "title": string;
-                set(property:"title", value: string): void;
-                get(property:"title"): string;
-                watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'title': string;
+                set(property: 'title', value: string): void;
+                get(property: 'title'): string;
+                watch(
+                    property: 'title',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                  * this specifies the tooltip to appear when the mouse is hovered over that text.
                  *
                  */
-                "tooltip": string;
-                set(property:"tooltip", value: string): void;
-                get(property:"tooltip"): string;
-                watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tooltip': string;
+                set(property: 'tooltip', value: string): void;
+                get(property: 'tooltip'): string;
+                watch(
+                    property: 'tooltip',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
@@ -11060,7 +11175,10 @@ declare namespace dojox {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(
+                    property: string,
+                    callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                ): { unwatch(): void };
                 /**
                  * Called when the widget stops being "active" because
                  * focus moved to something outside of it, or the user
@@ -11129,26 +11247,35 @@ declare namespace dojox {
                  * "" --> { node: "domNode", type: "attribute" }
                  *
                  */
-                "attributeMap": Object;
-                set(property:"attributeMap", value: Object): void;
-                get(property:"attributeMap"): Object;
-                watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attributeMap': Object;
+                set(property: 'attributeMap', value: Object): void;
+                get(property: 'attributeMap'): Object;
+                watch(
+                    property: 'attributeMap',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                  * widget state.
                  *
                  */
-                "baseClass": string;
-                set(property:"baseClass", value: string): void;
-                get(property:"baseClass"): string;
-                watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'baseClass': string;
+                set(property: 'baseClass', value: string): void;
+                get(property: 'baseClass'): string;
+                watch(
+                    property: 'baseClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "class": string;
-                set(property:"class", value: string): void;
-                get(property:"class"): string;
-                watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'class': string;
+                set(property: 'class', value: string): void;
+                get(property: 'class'): string;
+                watch(
+                    property: 'class',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Designates where children of the source DOM node will be placed.
                  * "Children" in this case refers to both DOM nodes and widgets.
@@ -11172,20 +11299,26 @@ declare namespace dojox {
                  * is null for widgets that don't, like TextBox.
                  *
                  */
-                "containerNode": HTMLElement;
-                set(property:"containerNode", value: HTMLElement): void;
-                get(property:"containerNode"): HTMLElement;
-                watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'containerNode': HTMLElement;
+                set(property: 'containerNode', value: HTMLElement): void;
+                get(property: 'containerNode'): HTMLElement;
+                watch(
+                    property: 'containerNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * Bi-directional support, as defined by the HTML DIR
                  * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                  * default direction.
                  *
                  */
-                "dir": string;
-                set(property:"dir", value: string): void;
-                get(property:"dir"): string;
-                watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'dir': string;
+                set(property: 'dir', value: string): void;
+                get(property: 'dir'): string;
+                watch(
+                    property: 'dir',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This is our visible representation of the widget! Other DOM
                  * Nodes may by assigned to other properties, usually through the
@@ -11193,19 +11326,25 @@ declare namespace dojox {
                  * property is the canonical "top level" node in widget UI.
                  *
                  */
-                "domNode": HTMLElement;
-                set(property:"domNode", value: HTMLElement): void;
-                get(property:"domNode"): HTMLElement;
-                watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'domNode': HTMLElement;
+                set(property: 'domNode', value: HTMLElement): void;
+                get(property: 'domNode'): HTMLElement;
+                watch(
+                    property: 'domNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * This widget or a widget it contains has focus, or is "active" because
                  * it was recently clicked.
                  *
                  */
-                "focused": boolean;
-                set(property:"focused", value: boolean): void;
-                get(property:"focused"): boolean;
-                watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'focused': boolean;
+                set(property: 'focused', value: boolean): void;
+                get(property: 'focused'): boolean;
+                watch(
+                    property: 'focused',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * A unique, opaque ID string that can be assigned by users or by the
                  * system. If the developer passes an ID which is known not to be
@@ -11213,10 +11352,13 @@ declare namespace dojox {
                  * used instead.
                  *
                  */
-                "id": string;
-                set(property:"id", value: string): void;
-                get(property:"id"): string;
-                watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'id': string;
+                set(property: 'id', value: string): void;
+                get(property: 'id'): string;
+                watch(
+                    property: 'id',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Rarely used.  Overrides the default Dojo locale used to render this widget,
                  * as defined by the HTML LANG attribute.
@@ -11224,51 +11366,69 @@ declare namespace dojox {
                  * formatted according to RFC 3066 (like en-us).
                  *
                  */
-                "lang": string;
-                set(property:"lang", value: string): void;
-                get(property:"lang"): string;
-                watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'lang': string;
+                set(property: 'lang', value: string): void;
+                get(property: 'lang'): string;
+                watch(
+                    property: 'lang',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * The margins around the chart. Default is { l:10, t:10, r:10, b:10 }.
                  *
                  */
-                "margins": Object;
-                set(property:"margins", value: Object): void;
-                get(property:"margins"): Object;
-                watch(property:"margins", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'margins': Object;
+                set(property: 'margins', value: Object): void;
+                get(property: 'margins'): Object;
+                watch(
+                    property: 'margins',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * The document this widget belongs to.  If not specified to constructor, will default to
                  * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                  *
                  */
-                "ownerDocument": Object;
-                set(property:"ownerDocument", value: Object): void;
-                get(property:"ownerDocument"): Object;
-                watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'ownerDocument': Object;
+                set(property: 'ownerDocument', value: Object): void;
+                get(property: 'ownerDocument'): Object;
+                watch(
+                    property: 'ownerDocument',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * pointer to original DOM node
                  *
                  */
-                "srcNodeRef": HTMLElement;
-                set(property:"srcNodeRef", value: HTMLElement): void;
-                get(property:"srcNodeRef"): HTMLElement;
-                watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'srcNodeRef': HTMLElement;
+                set(property: 'srcNodeRef', value: HTMLElement): void;
+                get(property: 'srcNodeRef'): HTMLElement;
+                watch(
+                    property: 'srcNodeRef',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * HTML style attributes as cssText string or name/value hash
                  *
                  */
-                "style": string;
-                set(property:"style", value: string): void;
-                get(property:"style"): string;
-                watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'style': string;
+                set(property: 'style', value: string): void;
+                get(property: 'style'): string;
+                watch(
+                    property: 'style',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * An optional theme to use for styling the chart.
                  *
                  */
-                "theme": Object;
-                set(property:"theme", value: Object): void;
-                get(property:"theme"): Object;
-                watch(property:"theme", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'theme': Object;
+                set(property: 'theme', value: Object): void;
+                get(property: 'theme'): Object;
+                watch(
+                    property: 'theme',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * HTML title attribute.
                  *
@@ -11280,19 +11440,25 @@ declare namespace dojox {
                  * interpreted as HTML.
                  *
                  */
-                "title": string;
-                set(property:"title", value: string): void;
-                get(property:"title"): string;
-                watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'title': string;
+                set(property: 'title', value: string): void;
+                get(property: 'title'): string;
+                watch(
+                    property: 'title',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                  * this specifies the tooltip to appear when the mouse is hovered over that text.
                  *
                  */
-                "tooltip": string;
-                set(property:"tooltip", value: string): void;
-                get(property:"tooltip"): string;
-                watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tooltip': string;
+                set(property: 'tooltip', value: string): void;
+                get(property: 'tooltip'): string;
+                watch(
+                    property: 'tooltip',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
@@ -11740,7 +11906,10 @@ declare namespace dojox {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(
+                    property: string,
+                    callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                ): { unwatch(): void };
                 /**
                  * Called when the widget stops being "active" because
                  * focus moved to something outside of it, or the user
@@ -11820,33 +11989,45 @@ declare namespace dojox {
                  * "" --> { node: "domNode", type: "attribute" }
                  *
                  */
-                "attributeMap": Object;
-                set(property:"attributeMap", value: Object): void;
-                get(property:"attributeMap"): Object;
-                watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attributeMap': Object;
+                set(property: 'attributeMap', value: Object): void;
+                get(property: 'attributeMap'): Object;
+                watch(
+                    property: 'attributeMap',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                  * widget state.
                  *
                  */
-                "baseClass": string;
-                set(property:"baseClass", value: string): void;
-                get(property:"baseClass"): string;
-                watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'baseClass': string;
+                set(property: 'baseClass', value: string): void;
+                get(property: 'baseClass'): string;
+                watch(
+                    property: 'baseClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "chartRef": string;
-                set(property:"chartRef", value: string): void;
-                get(property:"chartRef"): string;
-                watch(property:"chartRef", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'chartRef': string;
+                set(property: 'chartRef', value: string): void;
+                get(property: 'chartRef'): string;
+                watch(
+                    property: 'chartRef',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "class": string;
-                set(property:"class", value: string): void;
-                get(property:"class"): string;
-                watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'class': string;
+                set(property: 'class', value: string): void;
+                get(property: 'class'): string;
+                watch(
+                    property: 'class',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Designates where children of the source DOM node will be placed.
                  * "Children" in this case refers to both DOM nodes and widgets.
@@ -11870,20 +12051,26 @@ declare namespace dojox {
                  * is null for widgets that don't, like TextBox.
                  *
                  */
-                "containerNode": HTMLElement;
-                set(property:"containerNode", value: HTMLElement): void;
-                get(property:"containerNode"): HTMLElement;
-                watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'containerNode': HTMLElement;
+                set(property: 'containerNode', value: HTMLElement): void;
+                get(property: 'containerNode'): HTMLElement;
+                watch(
+                    property: 'containerNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * Bi-directional support, as defined by the HTML DIR
                  * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                  * default direction.
                  *
                  */
-                "dir": string;
-                set(property:"dir", value: string): void;
-                get(property:"dir"): string;
-                watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'dir': string;
+                set(property: 'dir', value: string): void;
+                get(property: 'dir'): string;
+                watch(
+                    property: 'dir',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This is our visible representation of the widget! Other DOM
                  * Nodes may by assigned to other properties, usually through the
@@ -11891,26 +12078,35 @@ declare namespace dojox {
                  * property is the canonical "top level" node in widget UI.
                  *
                  */
-                "domNode": HTMLElement;
-                set(property:"domNode", value: HTMLElement): void;
-                get(property:"domNode"): HTMLElement;
-                watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'domNode': HTMLElement;
+                set(property: 'domNode', value: HTMLElement): void;
+                get(property: 'domNode'): HTMLElement;
+                watch(
+                    property: 'domNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * This widget or a widget it contains has focus, or is "active" because
                  * it was recently clicked.
                  *
                  */
-                "focused": boolean;
-                set(property:"focused", value: boolean): void;
-                get(property:"focused"): boolean;
-                watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'focused': boolean;
+                set(property: 'focused', value: boolean): void;
+                get(property: 'focused'): boolean;
+                watch(
+                    property: 'focused',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "horizontal": boolean;
-                set(property:"horizontal", value: boolean): void;
-                get(property:"horizontal"): boolean;
-                watch(property:"horizontal", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'horizontal': boolean;
+                set(property: 'horizontal', value: boolean): void;
+                get(property: 'horizontal'): boolean;
+                watch(
+                    property: 'horizontal',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * A unique, opaque ID string that can be assigned by users or by the
                  * system. If the developer passes an ID which is known not to be
@@ -11918,10 +12114,13 @@ declare namespace dojox {
                  * used instead.
                  *
                  */
-                "id": string;
-                set(property:"id", value: string): void;
-                get(property:"id"): string;
-                watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'id': string;
+                set(property: 'id', value: string): void;
+                get(property: 'id'): string;
+                watch(
+                    property: 'id',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Rarely used.  Overrides the default Dojo locale used to render this widget,
                  * as defined by the HTML LANG attribute.
@@ -11929,49 +12128,67 @@ declare namespace dojox {
                  * formatted according to RFC 3066 (like en-us).
                  *
                  */
-                "lang": string;
-                set(property:"lang", value: string): void;
-                get(property:"lang"): string;
-                watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'lang': string;
+                set(property: 'lang', value: string): void;
+                get(property: 'lang'): string;
+                watch(
+                    property: 'lang',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "legendBody": Object;
-                set(property:"legendBody", value: Object): void;
-                get(property:"legendBody"): Object;
-                watch(property:"legendBody", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'legendBody': Object;
+                set(property: 'legendBody', value: Object): void;
+                get(property: 'legendBody'): Object;
+                watch(
+                    property: 'legendBody',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * The document this widget belongs to.  If not specified to constructor, will default to
                  * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                  *
                  */
-                "ownerDocument": Object;
-                set(property:"ownerDocument", value: Object): void;
-                get(property:"ownerDocument"): Object;
-                watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'ownerDocument': Object;
+                set(property: 'ownerDocument', value: Object): void;
+                get(property: 'ownerDocument'): Object;
+                watch(
+                    property: 'ownerDocument',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * pointer to original DOM node
                  *
                  */
-                "srcNodeRef": HTMLElement;
-                set(property:"srcNodeRef", value: HTMLElement): void;
-                get(property:"srcNodeRef"): HTMLElement;
-                watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'srcNodeRef': HTMLElement;
+                set(property: 'srcNodeRef', value: HTMLElement): void;
+                get(property: 'srcNodeRef'): HTMLElement;
+                watch(
+                    property: 'srcNodeRef',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * HTML style attributes as cssText string or name/value hash
                  *
                  */
-                "style": string;
-                set(property:"style", value: string): void;
-                get(property:"style"): string;
-                watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'style': string;
+                set(property: 'style', value: string): void;
+                get(property: 'style'): string;
+                watch(
+                    property: 'style',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "swatchSize": number;
-                set(property:"swatchSize", value: number): void;
-                get(property:"swatchSize"): number;
-                watch(property:"swatchSize", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                'swatchSize': number;
+                set(property: 'swatchSize', value: number): void;
+                get(property: 'swatchSize'): number;
+                watch(
+                    property: 'swatchSize',
+                    callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                ): { unwatch(): void };
                 /**
                  * HTML title attribute.
                  *
@@ -11983,19 +12200,25 @@ declare namespace dojox {
                  * interpreted as HTML.
                  *
                  */
-                "title": string;
-                set(property:"title", value: string): void;
-                get(property:"title"): string;
-                watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'title': string;
+                set(property: 'title', value: string): void;
+                get(property: 'title'): string;
+                watch(
+                    property: 'title',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                  * this specifies the tooltip to appear when the mouse is hovered over that text.
                  *
                  */
-                "tooltip": string;
-                set(property:"tooltip", value: string): void;
-                get(property:"tooltip"): string;
-                watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tooltip': string;
+                set(property: 'tooltip', value: string): void;
+                get(property: 'tooltip'): string;
+                watch(
+                    property: 'tooltip',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
@@ -12417,7 +12640,10 @@ declare namespace dojox {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(
+                    property: string,
+                    callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                ): { unwatch(): void };
                 /**
                  * Called when the widget stops being "active" because
                  * focus moved to something outside of it, or the user
@@ -12486,33 +12712,45 @@ declare namespace dojox {
                  * "" --> { node: "domNode", type: "attribute" }
                  *
                  */
-                "attributeMap": Object;
-                set(property:"attributeMap", value: Object): void;
-                get(property:"attributeMap"): Object;
-                watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attributeMap': Object;
+                set(property: 'attributeMap', value: Object): void;
+                get(property: 'attributeMap'): Object;
+                watch(
+                    property: 'attributeMap',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                  * widget state.
                  *
                  */
-                "baseClass": string;
-                set(property:"baseClass", value: string): void;
-                get(property:"baseClass"): string;
-                watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'baseClass': string;
+                set(property: 'baseClass', value: string): void;
+                get(property: 'baseClass'): string;
+                watch(
+                    property: 'baseClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "chartRef": string;
-                set(property:"chartRef", value: string): void;
-                get(property:"chartRef"): string;
-                watch(property:"chartRef", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'chartRef': string;
+                set(property: 'chartRef', value: string): void;
+                get(property: 'chartRef'): string;
+                watch(
+                    property: 'chartRef',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "class": string;
-                set(property:"class", value: string): void;
-                get(property:"class"): string;
-                watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'class': string;
+                set(property: 'class', value: string): void;
+                get(property: 'class'): string;
+                watch(
+                    property: 'class',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Designates where children of the source DOM node will be placed.
                  * "Children" in this case refers to both DOM nodes and widgets.
@@ -12536,20 +12774,26 @@ declare namespace dojox {
                  * is null for widgets that don't, like TextBox.
                  *
                  */
-                "containerNode": HTMLElement;
-                set(property:"containerNode", value: HTMLElement): void;
-                get(property:"containerNode"): HTMLElement;
-                watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'containerNode': HTMLElement;
+                set(property: 'containerNode', value: HTMLElement): void;
+                get(property: 'containerNode'): HTMLElement;
+                watch(
+                    property: 'containerNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * Bi-directional support, as defined by the HTML DIR
                  * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                  * default direction.
                  *
                  */
-                "dir": string;
-                set(property:"dir", value: string): void;
-                get(property:"dir"): string;
-                watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'dir': string;
+                set(property: 'dir', value: string): void;
+                get(property: 'dir'): string;
+                watch(
+                    property: 'dir',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This is our visible representation of the widget! Other DOM
                  * Nodes may by assigned to other properties, usually through the
@@ -12557,26 +12801,35 @@ declare namespace dojox {
                  * property is the canonical "top level" node in widget UI.
                  *
                  */
-                "domNode": HTMLElement;
-                set(property:"domNode", value: HTMLElement): void;
-                get(property:"domNode"): HTMLElement;
-                watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'domNode': HTMLElement;
+                set(property: 'domNode', value: HTMLElement): void;
+                get(property: 'domNode'): HTMLElement;
+                watch(
+                    property: 'domNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * This widget or a widget it contains has focus, or is "active" because
                  * it was recently clicked.
                  *
                  */
-                "focused": boolean;
-                set(property:"focused", value: boolean): void;
-                get(property:"focused"): boolean;
-                watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'focused': boolean;
+                set(property: 'focused', value: boolean): void;
+                get(property: 'focused'): boolean;
+                watch(
+                    property: 'focused',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "horizontal": boolean;
-                set(property:"horizontal", value: boolean): void;
-                get(property:"horizontal"): boolean;
-                watch(property:"horizontal", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'horizontal': boolean;
+                set(property: 'horizontal', value: boolean): void;
+                get(property: 'horizontal'): boolean;
+                watch(
+                    property: 'horizontal',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * A unique, opaque ID string that can be assigned by users or by the
                  * system. If the developer passes an ID which is known not to be
@@ -12584,10 +12837,13 @@ declare namespace dojox {
                  * used instead.
                  *
                  */
-                "id": string;
-                set(property:"id", value: string): void;
-                get(property:"id"): string;
-                watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'id': string;
+                set(property: 'id', value: string): void;
+                get(property: 'id'): string;
+                watch(
+                    property: 'id',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Rarely used.  Overrides the default Dojo locale used to render this widget,
                  * as defined by the HTML LANG attribute.
@@ -12595,56 +12851,77 @@ declare namespace dojox {
                  * formatted according to RFC 3066 (like en-us).
                  *
                  */
-                "lang": string;
-                set(property:"lang", value: string): void;
-                get(property:"lang"): string;
-                watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'lang': string;
+                set(property: 'lang', value: string): void;
+                get(property: 'lang'): string;
+                watch(
+                    property: 'lang',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "legendBody": Object;
-                set(property:"legendBody", value: Object): void;
-                get(property:"legendBody"): Object;
-                watch(property:"legendBody", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'legendBody': Object;
+                set(property: 'legendBody', value: Object): void;
+                get(property: 'legendBody'): Object;
+                watch(
+                    property: 'legendBody',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "outline": boolean;
-                set(property:"outline", value: boolean): void;
-                get(property:"outline"): boolean;
-                watch(property:"outline", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'outline': boolean;
+                set(property: 'outline', value: boolean): void;
+                get(property: 'outline'): boolean;
+                watch(
+                    property: 'outline',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * The document this widget belongs to.  If not specified to constructor, will default to
                  * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                  *
                  */
-                "ownerDocument": Object;
-                set(property:"ownerDocument", value: Object): void;
-                get(property:"ownerDocument"): Object;
-                watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'ownerDocument': Object;
+                set(property: 'ownerDocument', value: Object): void;
+                get(property: 'ownerDocument'): Object;
+                watch(
+                    property: 'ownerDocument',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * pointer to original DOM node
                  *
                  */
-                "srcNodeRef": HTMLElement;
-                set(property:"srcNodeRef", value: HTMLElement): void;
-                get(property:"srcNodeRef"): HTMLElement;
-                watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'srcNodeRef': HTMLElement;
+                set(property: 'srcNodeRef', value: HTMLElement): void;
+                get(property: 'srcNodeRef'): HTMLElement;
+                watch(
+                    property: 'srcNodeRef',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * HTML style attributes as cssText string or name/value hash
                  *
                  */
-                "style": string;
-                set(property:"style", value: string): void;
-                get(property:"style"): string;
-                watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'style': string;
+                set(property: 'style', value: string): void;
+                get(property: 'style'): string;
+                watch(
+                    property: 'style',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "swatchSize": number;
-                set(property:"swatchSize", value: number): void;
-                get(property:"swatchSize"): number;
-                watch(property:"swatchSize", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                'swatchSize': number;
+                set(property: 'swatchSize', value: number): void;
+                get(property: 'swatchSize'): number;
+                watch(
+                    property: 'swatchSize',
+                    callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                ): { unwatch(): void };
                 /**
                  * HTML title attribute.
                  *
@@ -12656,33 +12933,45 @@ declare namespace dojox {
                  * interpreted as HTML.
                  *
                  */
-                "title": string;
-                set(property:"title", value: string): void;
-                get(property:"title"): string;
-                watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'title': string;
+                set(property: 'title', value: string): void;
+                get(property: 'title'): string;
+                watch(
+                    property: 'title',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                  * this specifies the tooltip to appear when the mouse is hovered over that text.
                  *
                  */
-                "tooltip": string;
-                set(property:"tooltip", value: string): void;
-                get(property:"tooltip"): string;
-                watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tooltip': string;
+                set(property: 'tooltip', value: string): void;
+                get(property: 'tooltip'): string;
+                watch(
+                    property: 'tooltip',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "transitionFill": Object;
-                set(property:"transitionFill", value: Object): void;
-                get(property:"transitionFill"): Object;
-                watch(property:"transitionFill", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'transitionFill': Object;
+                set(property: 'transitionFill', value: Object): void;
+                get(property: 'transitionFill'): Object;
+                watch(
+                    property: 'transitionFill',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "transitionStroke": Object;
-                set(property:"transitionStroke", value: Object): void;
-                get(property:"transitionStroke"): Object;
-                watch(property:"transitionStroke", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'transitionStroke': Object;
+                set(property: 'transitionStroke', value: Object): void;
+                get(property: 'transitionStroke'): Object;
+                watch(
+                    property: 'transitionStroke',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
@@ -13103,7 +13392,10 @@ declare namespace dojox {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(
+                    property: string,
+                    callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                ): { unwatch(): void };
                 /**
                  * Called when the widget stops being "active" because
                  * focus moved to something outside of it, or the user
@@ -13120,339 +13412,334 @@ declare namespace dojox {
                  */
                 onFocus(): void;
             }
-            namespace BidiSupport {
-            }
+            namespace BidiSupport {}
 
-            namespace Sparkline {
-            }
-
+            namespace Sparkline {}
         }
-
     }
-
 }
 
-declare module "dojox/charting/Chart3D" {
-    import exp = dojox.charting.Chart3D
-    export=exp;
-}
-declare module "dojox/charting/Chart2D" {
-    import exp = dojox.charting.Chart2D
-    export=exp;
-}
-declare module "dojox/charting/DataSeries" {
-    import exp = dojox.charting.DataSeries
-    export=exp;
-}
-declare module "dojox/charting/Chart" {
-    import exp = dojox.charting.Chart
-    export=exp;
-}
-declare module "dojox/charting/DataChart" {
-    import exp = dojox.charting.DataChart
-    export=exp;
-}
-declare module "dojox/charting/Element" {
-    import exp = dojox.charting.Element
-    export=exp;
-}
-declare module "dojox/charting/Series" {
-    import exp = dojox.charting.Series
-    export=exp;
-}
-declare module "dojox/charting/StoreSeries" {
-    import exp = dojox.charting.StoreSeries
-    export=exp;
-}
-declare module "dojox/charting/SimpleTheme" {
-    import exp = dojox.charting.SimpleTheme
-    export=exp;
-}
-declare module "dojox/charting/SimpleTheme.defaultMarkers" {
-    import exp = dojox.charting.SimpleTheme.defaultMarkers
-    export=exp;
-}
-declare module "dojox/charting/SimpleTheme.defaultTheme" {
-    import exp = dojox.charting.SimpleTheme.defaultTheme
-    export=exp;
-}
-declare module "dojox/charting/Theme" {
-    import exp = dojox.charting.Theme
-    export=exp;
-}
-declare module "dojox/charting/Theme.defaultMarkers" {
-    import exp = dojox.charting.Theme.defaultMarkers
-    export=exp;
-}
-declare module "dojox/charting/Theme.defaultTheme" {
-    import exp = dojox.charting.Theme.defaultTheme
-    export=exp;
-}
-declare module "dojox/charting/action2d/Base" {
-    import exp = dojox.charting.action2d.Base
-    export=exp;
-}
-declare module "dojox/charting/action2d/ChartAction" {
-    import exp = dojox.charting.action2d.ChartAction
-    export=exp;
-}
-declare module "dojox/charting/action2d/_IndicatorElement" {
-    import exp = dojox.charting.action2d._IndicatorElement
-    export=exp;
-}
-declare module "dojox/charting/action2d/Highlight" {
-    import exp = dojox.charting.action2d.Highlight
-    export=exp;
-}
-declare module "dojox/charting/action2d/Magnify" {
-    import exp = dojox.charting.action2d.Magnify
-    export=exp;
-}
-declare module "dojox/charting/action2d/MouseZoomAndPan" {
-    import exp = dojox.charting.action2d.MouseZoomAndPan
-    export=exp;
-}
-declare module "dojox/charting/action2d/MouseIndicator" {
-    import exp = dojox.charting.action2d.MouseIndicator
-    export=exp;
-}
-declare module "dojox/charting/action2d/MoveSlice" {
-    import exp = dojox.charting.action2d.MoveSlice
-    export=exp;
-}
-declare module "dojox/charting/action2d/PlotAction" {
-    import exp = dojox.charting.action2d.PlotAction
-    export=exp;
-}
-declare module "dojox/charting/action2d/Tooltip" {
-    import exp = dojox.charting.action2d.Tooltip
-    export=exp;
-}
-declare module "dojox/charting/action2d/Shake" {
-    import exp = dojox.charting.action2d.Shake
-    export=exp;
-}
-declare module "dojox/charting/action2d/TouchZoomAndPan" {
-    import exp = dojox.charting.action2d.TouchZoomAndPan
-    export=exp;
-}
-declare module "dojox/charting/action2d/TouchIndicator" {
-    import exp = dojox.charting.action2d.TouchIndicator
-    export=exp;
-}
-declare module "dojox/charting/axis2d/common" {
-    import exp = dojox.charting.axis2d.common
-    export=exp;
-}
-declare module "dojox/charting/axis2d/common.createText" {
-    import exp = dojox.charting.axis2d.common.createText
-    export=exp;
-}
-declare module "dojox/charting/axis2d/Base" {
-    import exp = dojox.charting.axis2d.Base
-    export=exp;
-}
-declare module "dojox/charting/axis2d/Invisible" {
-    import exp = dojox.charting.axis2d.Invisible
-    export=exp;
-}
-declare module "dojox/charting/axis2d/Default" {
-    import exp = dojox.charting.axis2d.Default
-    export=exp;
-}
-declare module "dojox/charting/bidi/_bidiutils" {
-    import exp = dojox.charting.bidi._bidiutils
-    export=exp;
-}
-declare module "dojox/charting/bidi/Chart" {
-    import exp = dojox.charting.bidi.Chart
-    export=exp;
-}
-declare module "dojox/charting/bidi/Chart3D" {
-    import exp = dojox.charting.bidi.Chart3D
-    export=exp;
-}
-declare module "dojox/charting/bidi/action2d/Tooltip" {
-    import exp = dojox.charting.bidi.action2d.Tooltip
-    export=exp;
-}
-declare module "dojox/charting/bidi/action2d/ZoomAndPan" {
-    import exp = dojox.charting.bidi.action2d.ZoomAndPan
-    export=exp;
-}
-declare module "dojox/charting/bidi/axis2d/Default" {
-    import exp = dojox.charting.bidi.axis2d.Default
-    export=exp;
-}
-declare module "dojox/charting/bidi/widget/Chart" {
-    import exp = dojox.charting.bidi.widget.Chart
-    export=exp;
-}
-declare module "dojox/charting/bidi/widget/Legend" {
-    import exp = dojox.charting.bidi.widget.Legend
-    export=exp;
-}
-declare module "dojox/charting/plot2d/common" {
-    import exp = dojox.charting.plot2d.common
-    export=exp;
-}
-declare module "dojox/charting/plot2d/common.defaultStats" {
-    import exp = dojox.charting.plot2d.common.defaultStats
-    export=exp;
-}
-declare module "dojox/charting/plot2d/commonStacked" {
-    import exp = dojox.charting.plot2d.commonStacked
-    export=exp;
-}
-declare module "dojox/charting/plot2d/_PlotEvents" {
-    import exp = dojox.charting.plot2d._PlotEvents
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Areas" {
-    import exp = dojox.charting.plot2d.Areas
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Bars" {
-    import exp = dojox.charting.plot2d.Bars
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Base" {
-    import exp = dojox.charting.plot2d.Base
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Bubble" {
-    import exp = dojox.charting.plot2d.Bubble
-    export=exp;
-}
-declare module "dojox/charting/plot2d/CartesianBase" {
-    import exp = dojox.charting.plot2d.CartesianBase
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Candlesticks" {
-    import exp = dojox.charting.plot2d.Candlesticks
-    export=exp;
-}
-declare module "dojox/charting/plot2d/ClusteredBars" {
-    import exp = dojox.charting.plot2d.ClusteredBars
-    export=exp;
-}
-declare module "dojox/charting/plot2d/ClusteredColumns" {
-    import exp = dojox.charting.plot2d.ClusteredColumns
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Columns" {
-    import exp = dojox.charting.plot2d.Columns
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Grid" {
-    import exp = dojox.charting.plot2d.Grid
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Default" {
-    import exp = dojox.charting.plot2d.Default
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Indicator" {
-    import exp = dojox.charting.plot2d.Indicator
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Lines" {
-    import exp = dojox.charting.plot2d.Lines
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Markers" {
-    import exp = dojox.charting.plot2d.Markers
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Pie" {
-    import exp = dojox.charting.plot2d.Pie
-    export=exp;
-}
-declare module "dojox/charting/plot2d/MarkersOnly" {
-    import exp = dojox.charting.plot2d.MarkersOnly
-    export=exp;
-}
-declare module "dojox/charting/plot2d/OHLC" {
-    import exp = dojox.charting.plot2d.OHLC
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Scatter" {
-    import exp = dojox.charting.plot2d.Scatter
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Stacked" {
-    import exp = dojox.charting.plot2d.Stacked
-    export=exp;
-}
-declare module "dojox/charting/plot2d/Spider" {
-    import exp = dojox.charting.plot2d.Spider
-    export=exp;
-}
-declare module "dojox/charting/plot2d/StackedAreas" {
-    import exp = dojox.charting.plot2d.StackedAreas
-    export=exp;
-}
-declare module "dojox/charting/plot2d/StackedBars" {
-    import exp = dojox.charting.plot2d.StackedBars
-    export=exp;
-}
-declare module "dojox/charting/plot2d/StackedColumns" {
-    import exp = dojox.charting.plot2d.StackedColumns
-    export=exp;
-}
-declare module "dojox/charting/plot2d/StackedLines" {
-    import exp = dojox.charting.plot2d.StackedLines
-    export=exp;
-}
-declare module "dojox/charting/plot3d/Bars" {
-    import exp = dojox.charting.plot3d.Bars
-    export=exp;
-}
-declare module "dojox/charting/plot3d/Base" {
-    import exp = dojox.charting.plot3d.Base
-    export=exp;
-}
-declare module "dojox/charting/plot3d/Cylinders" {
-    import exp = dojox.charting.plot3d.Cylinders
-    export=exp;
-}
-declare module "dojox/charting/scaler/common" {
-    import exp = dojox.charting.scaler.common
-    export=exp;
-}
-declare module "dojox/charting/scaler/primitive" {
-    import exp = dojox.charting.scaler.primitive
-    export=exp;
-}
-declare module "dojox/charting/scaler/linear" {
-    import exp = dojox.charting.scaler.linear
-    export=exp;
-}
-declare module "dojox/charting/themes/common" {
-    import exp = dojox.charting.themes.common
-    export=exp;
-}
-declare module "dojox/charting/themes/gradientGenerator" {
-    import exp = dojox.charting.themes.gradientGenerator
-    export=exp;
-}
-declare module "dojox/charting/themes/PlotKit/base" {
-    import exp = dojox.charting.themes.PlotKit.base
-    export=exp;
-}
-declare module "dojox/charting/widget/Chart2D" {
-    import exp = dojox.charting.widget.Chart2D
-    export=exp;
-}
-declare module "dojox/charting/widget/Chart" {
-    import exp = dojox.charting.widget.Chart
-    export=exp;
-}
-declare module "dojox/charting/widget/Legend" {
-    import exp = dojox.charting.widget.Legend
-    export=exp;
-}
-declare module "dojox/charting/widget/SelectableLegend" {
-    import exp = dojox.charting.widget.SelectableLegend
-    export=exp;
+declare module 'dojox/charting/Chart3D' {
+    import exp = dojox.charting.Chart3D;
+    export = exp;
+}
+declare module 'dojox/charting/Chart2D' {
+    import exp = dojox.charting.Chart2D;
+    export = exp;
+}
+declare module 'dojox/charting/DataSeries' {
+    import exp = dojox.charting.DataSeries;
+    export = exp;
+}
+declare module 'dojox/charting/Chart' {
+    import exp = dojox.charting.Chart;
+    export = exp;
+}
+declare module 'dojox/charting/DataChart' {
+    import exp = dojox.charting.DataChart;
+    export = exp;
+}
+declare module 'dojox/charting/Element' {
+    import exp = dojox.charting.Element;
+    export = exp;
+}
+declare module 'dojox/charting/Series' {
+    import exp = dojox.charting.Series;
+    export = exp;
+}
+declare module 'dojox/charting/StoreSeries' {
+    import exp = dojox.charting.StoreSeries;
+    export = exp;
+}
+declare module 'dojox/charting/SimpleTheme' {
+    import exp = dojox.charting.SimpleTheme;
+    export = exp;
+}
+declare module 'dojox/charting/SimpleTheme.defaultMarkers' {
+    import exp = dojox.charting.SimpleTheme.defaultMarkers;
+    export = exp;
+}
+declare module 'dojox/charting/SimpleTheme.defaultTheme' {
+    import exp = dojox.charting.SimpleTheme.defaultTheme;
+    export = exp;
+}
+declare module 'dojox/charting/Theme' {
+    import exp = dojox.charting.Theme;
+    export = exp;
+}
+declare module 'dojox/charting/Theme.defaultMarkers' {
+    import exp = dojox.charting.Theme.defaultMarkers;
+    export = exp;
+}
+declare module 'dojox/charting/Theme.defaultTheme' {
+    import exp = dojox.charting.Theme.defaultTheme;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/Base' {
+    import exp = dojox.charting.action2d.Base;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/ChartAction' {
+    import exp = dojox.charting.action2d.ChartAction;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/_IndicatorElement' {
+    import exp = dojox.charting.action2d._IndicatorElement;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/Highlight' {
+    import exp = dojox.charting.action2d.Highlight;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/Magnify' {
+    import exp = dojox.charting.action2d.Magnify;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/MouseZoomAndPan' {
+    import exp = dojox.charting.action2d.MouseZoomAndPan;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/MouseIndicator' {
+    import exp = dojox.charting.action2d.MouseIndicator;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/MoveSlice' {
+    import exp = dojox.charting.action2d.MoveSlice;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/PlotAction' {
+    import exp = dojox.charting.action2d.PlotAction;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/Tooltip' {
+    import exp = dojox.charting.action2d.Tooltip;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/Shake' {
+    import exp = dojox.charting.action2d.Shake;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/TouchZoomAndPan' {
+    import exp = dojox.charting.action2d.TouchZoomAndPan;
+    export = exp;
+}
+declare module 'dojox/charting/action2d/TouchIndicator' {
+    import exp = dojox.charting.action2d.TouchIndicator;
+    export = exp;
+}
+declare module 'dojox/charting/axis2d/common' {
+    import exp = dojox.charting.axis2d.common;
+    export = exp;
+}
+declare module 'dojox/charting/axis2d/common.createText' {
+    import exp = dojox.charting.axis2d.common.createText;
+    export = exp;
+}
+declare module 'dojox/charting/axis2d/Base' {
+    import exp = dojox.charting.axis2d.Base;
+    export = exp;
+}
+declare module 'dojox/charting/axis2d/Invisible' {
+    import exp = dojox.charting.axis2d.Invisible;
+    export = exp;
+}
+declare module 'dojox/charting/axis2d/Default' {
+    import exp = dojox.charting.axis2d.Default;
+    export = exp;
+}
+declare module 'dojox/charting/bidi/_bidiutils' {
+    import exp = dojox.charting.bidi._bidiutils;
+    export = exp;
+}
+declare module 'dojox/charting/bidi/Chart' {
+    import exp = dojox.charting.bidi.Chart;
+    export = exp;
+}
+declare module 'dojox/charting/bidi/Chart3D' {
+    import exp = dojox.charting.bidi.Chart3D;
+    export = exp;
+}
+declare module 'dojox/charting/bidi/action2d/Tooltip' {
+    import exp = dojox.charting.bidi.action2d.Tooltip;
+    export = exp;
+}
+declare module 'dojox/charting/bidi/action2d/ZoomAndPan' {
+    import exp = dojox.charting.bidi.action2d.ZoomAndPan;
+    export = exp;
+}
+declare module 'dojox/charting/bidi/axis2d/Default' {
+    import exp = dojox.charting.bidi.axis2d.Default;
+    export = exp;
+}
+declare module 'dojox/charting/bidi/widget/Chart' {
+    import exp = dojox.charting.bidi.widget.Chart;
+    export = exp;
+}
+declare module 'dojox/charting/bidi/widget/Legend' {
+    import exp = dojox.charting.bidi.widget.Legend;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/common' {
+    import exp = dojox.charting.plot2d.common;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/common.defaultStats' {
+    import exp = dojox.charting.plot2d.common.defaultStats;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/commonStacked' {
+    import exp = dojox.charting.plot2d.commonStacked;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/_PlotEvents' {
+    import exp = dojox.charting.plot2d._PlotEvents;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Areas' {
+    import exp = dojox.charting.plot2d.Areas;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Bars' {
+    import exp = dojox.charting.plot2d.Bars;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Base' {
+    import exp = dojox.charting.plot2d.Base;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Bubble' {
+    import exp = dojox.charting.plot2d.Bubble;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/CartesianBase' {
+    import exp = dojox.charting.plot2d.CartesianBase;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Candlesticks' {
+    import exp = dojox.charting.plot2d.Candlesticks;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/ClusteredBars' {
+    import exp = dojox.charting.plot2d.ClusteredBars;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/ClusteredColumns' {
+    import exp = dojox.charting.plot2d.ClusteredColumns;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Columns' {
+    import exp = dojox.charting.plot2d.Columns;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Grid' {
+    import exp = dojox.charting.plot2d.Grid;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Default' {
+    import exp = dojox.charting.plot2d.Default;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Indicator' {
+    import exp = dojox.charting.plot2d.Indicator;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Lines' {
+    import exp = dojox.charting.plot2d.Lines;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Markers' {
+    import exp = dojox.charting.plot2d.Markers;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Pie' {
+    import exp = dojox.charting.plot2d.Pie;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/MarkersOnly' {
+    import exp = dojox.charting.plot2d.MarkersOnly;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/OHLC' {
+    import exp = dojox.charting.plot2d.OHLC;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Scatter' {
+    import exp = dojox.charting.plot2d.Scatter;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Stacked' {
+    import exp = dojox.charting.plot2d.Stacked;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/Spider' {
+    import exp = dojox.charting.plot2d.Spider;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/StackedAreas' {
+    import exp = dojox.charting.plot2d.StackedAreas;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/StackedBars' {
+    import exp = dojox.charting.plot2d.StackedBars;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/StackedColumns' {
+    import exp = dojox.charting.plot2d.StackedColumns;
+    export = exp;
+}
+declare module 'dojox/charting/plot2d/StackedLines' {
+    import exp = dojox.charting.plot2d.StackedLines;
+    export = exp;
+}
+declare module 'dojox/charting/plot3d/Bars' {
+    import exp = dojox.charting.plot3d.Bars;
+    export = exp;
+}
+declare module 'dojox/charting/plot3d/Base' {
+    import exp = dojox.charting.plot3d.Base;
+    export = exp;
+}
+declare module 'dojox/charting/plot3d/Cylinders' {
+    import exp = dojox.charting.plot3d.Cylinders;
+    export = exp;
+}
+declare module 'dojox/charting/scaler/common' {
+    import exp = dojox.charting.scaler.common;
+    export = exp;
+}
+declare module 'dojox/charting/scaler/primitive' {
+    import exp = dojox.charting.scaler.primitive;
+    export = exp;
+}
+declare module 'dojox/charting/scaler/linear' {
+    import exp = dojox.charting.scaler.linear;
+    export = exp;
+}
+declare module 'dojox/charting/themes/common' {
+    import exp = dojox.charting.themes.common;
+    export = exp;
+}
+declare module 'dojox/charting/themes/gradientGenerator' {
+    import exp = dojox.charting.themes.gradientGenerator;
+    export = exp;
+}
+declare module 'dojox/charting/themes/PlotKit/base' {
+    import exp = dojox.charting.themes.PlotKit.base;
+    export = exp;
+}
+declare module 'dojox/charting/widget/Chart2D' {
+    import exp = dojox.charting.widget.Chart2D;
+    export = exp;
+}
+declare module 'dojox/charting/widget/Chart' {
+    import exp = dojox.charting.widget.Chart;
+    export = exp;
+}
+declare module 'dojox/charting/widget/Legend' {
+    import exp = dojox.charting.widget.Legend;
+    export = exp;
+}
+declare module 'dojox/charting/widget/SelectableLegend' {
+    import exp = dojox.charting.widget.SelectableLegend;
+    export = exp;
 }

@@ -6,7 +6,6 @@
 
 /// <reference types="node"/>
 
-
 declare namespace autoPrefixer {
     interface Options {
         env?: string;
@@ -14,8 +13,8 @@ declare namespace autoPrefixer {
         add?: boolean;
         remove?: boolean;
         supports?: boolean;
-        flexbox?: boolean|"no-2009";
-        grid?: false|"autoplace"|"no-autoplace";
+        flexbox?: boolean | 'no-2009';
+        grid?: false | 'autoplace' | 'no-autoplace';
         stats?: object;
         browsers?: string[];
         ignoreUnknownVersions?: boolean;

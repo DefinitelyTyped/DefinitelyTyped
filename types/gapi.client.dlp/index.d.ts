@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load DLP API v2beta1 */
-    function load(name: "dlp", version: "v2beta1"): PromiseLike<void>;
-    function load(name: "dlp", version: "v2beta1", callback: () => any): void;
+    function load(name: 'dlp', version: 'v2beta1'): PromiseLike<void>;
+    function load(name: 'dlp', version: 'v2beta1', callback: () => any): void;
 
     const content: dlp.ContentResource;
 
@@ -1032,7 +1032,7 @@ declare namespace gapi.client {
              */
             deidentify(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1064,7 +1064,7 @@ declare namespace gapi.client {
              */
             inspect(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1096,7 +1096,7 @@ declare namespace gapi.client {
              */
             redact(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1130,7 +1130,7 @@ declare namespace gapi.client {
              */
             analyze(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1161,7 +1161,7 @@ declare namespace gapi.client {
             /** Cancels an operation. Use the `inspect.operations.get` to check whether the cancellation succeeded or the operation completed despite cancellation. */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1195,7 +1195,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1224,7 +1224,7 @@ declare namespace gapi.client {
             /** This method is not supported and the server returns `UNIMPLEMENTED`. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1259,7 +1259,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1290,7 +1290,7 @@ declare namespace gapi.client {
             /** Fetches the list of long running operations. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1329,7 +1329,7 @@ declare namespace gapi.client {
             /** Returns list of results for given inspect operation result set id. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1396,7 +1396,7 @@ declare namespace gapi.client {
             /** Cancels an operation. Use the `inspect.operations.get` to check whether the cancellation succeeded or the operation completed despite cancellation. */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1427,7 +1427,7 @@ declare namespace gapi.client {
             /** This method is not supported and the server returns `UNIMPLEMENTED`. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1462,7 +1462,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1493,7 +1493,7 @@ declare namespace gapi.client {
             /** Fetches the list of long running operations. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1535,7 +1535,7 @@ declare namespace gapi.client {
             /** Returns sensitive information types for given category. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1574,7 +1574,7 @@ declare namespace gapi.client {
             /** Returns the list of root categories of sensitive information. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

@@ -1,4 +1,4 @@
-import { FusionChartStatic } from ".";
+import { FusionChartStatic } from '.';
 
 declare function ssgrid(H: FusionChartStatic): FusionChartStatic;
 export = ssgrid;

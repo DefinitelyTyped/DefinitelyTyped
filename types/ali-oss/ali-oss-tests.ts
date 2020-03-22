@@ -4,7 +4,7 @@ const ossOptions: OSS.Options = {
     accessKeyId: 'your access key',
     accessKeySecret: 'your access secret',
     bucket: 'your bucket name',
-    region: 'oss-cn-hangzhou'
+    region: 'oss-cn-hangzhou',
 };
 
 const client = new OSS(ossOptions);
@@ -19,7 +19,7 @@ const imageOptions: OSS.ImageClientOptions = {
     imageHost: 'xxxx',
     accessKeyId: 'xxxx',
     accessKeySecret: 'xxxx',
-    bucket: 'xxxx'
+    bucket: 'xxxx',
 };
 
 const imageClient = new OSS.ImageClient(imageOptions);

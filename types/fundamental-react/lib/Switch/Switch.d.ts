@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface SwitchProps {
     checked?: boolean;
@@ -18,7 +18,7 @@ export interface SwitchProps {
 }
 
 declare const Switch: React.FunctionComponent<SwitchProps> & {
-    displayName: "Switch";
+    displayName: 'Switch';
 };
 
 export default Switch;

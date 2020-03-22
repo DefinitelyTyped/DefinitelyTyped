@@ -10,5 +10,5 @@ export interface FormTextProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class FormText<T = {[key: string]: any}> extends React.Component<FormTextProps> {}
+declare class FormText<T = { [key: string]: any }> extends React.Component<FormTextProps> {}
 export default FormText;

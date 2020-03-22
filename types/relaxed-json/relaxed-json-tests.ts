@@ -13,8 +13,8 @@ RJSON.transform(relaxedString);
 
 function revive(key: string, value: any): any {
     return typeof value === 'number'
-        ? value * 2  // return value * 2 for numbers
-        : value;     // return everything else unchanged
+        ? value * 2 // return value * 2 for numbers
+        : value; // return everything else unchanged
 }
 
 RJSON.parse(relaxedString, revive);

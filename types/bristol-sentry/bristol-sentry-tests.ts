@@ -3,18 +3,18 @@ import * as raven from 'raven';
 
 let target = bristolSentry({
     client: {
-        dsn: "wow.this.works"
-    }
+        dsn: 'wow.this.works',
+    },
 });
 
 const log = bristolSentry.formatter({}, 'error', new Date(), [
-    "hey",
-    "whaddup",
-    new Error("AHAHAHA"),
-    "cool.",
-    {message: "I'm a banana!"}]
-);
+    'hey',
+    'whaddup',
+    new Error('AHAHAHA'),
+    'cool.',
+    { message: "I'm a banana!" },
+]);
 
 target = bristolSentry({
-    client: new raven.Client("cool dsn")
+    client: new raven.Client('cool dsn'),
 });

@@ -5,7 +5,7 @@
 
 declare namespace Dropbox {
     interface Chooser {
-      choose(options: ChooserOptions): void;
+        choose(options: ChooserOptions): void;
     }
 
     interface ChooserOptions {

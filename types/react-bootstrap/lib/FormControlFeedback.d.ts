@@ -5,5 +5,5 @@ declare namespace FormControlFeedback {
         bsClass?: string;
     }
 }
-declare class FormControlFeedback extends React.Component<FormControlFeedback.FormControlFeedbackProps> { }
+declare class FormControlFeedback extends React.Component<FormControlFeedback.FormControlFeedbackProps> {}
 export = FormControlFeedback;

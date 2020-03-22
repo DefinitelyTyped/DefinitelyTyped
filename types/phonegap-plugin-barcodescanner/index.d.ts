@@ -21,11 +21,11 @@ declare namespace phonegapBarcode {
         showTorchButton?: boolean;
         torchOn?: boolean;
         saveHistory?: boolean;
-        resultDisplayDuration? :number;
+        resultDisplayDuration?: number;
         disableAnimations: boolean;
         prompt?: string;
         formats?: string;
-        orientation?: "landscape" | "portrait";
+        orientation?: 'landscape' | 'portrait';
         disableSuccessBeep?: boolean;
     }
 
@@ -37,8 +37,17 @@ declare namespace phonegapBarcode {
     }
 
     interface BarcodeScanner {
-        scan: (success: ((result: BarcodeScanResult) => any), failure?: ((err: any) => any), opts?: BarcodeScanOptions) => void;
-        encode: (encodingType: EncodingType, data: string, success: ((result: any) => any), failure?: ((err: any) => any)) => void;
+        scan: (
+            success: (result: BarcodeScanResult) => any,
+            failure?: (err: any) => any,
+            opts?: BarcodeScanOptions,
+        ) => void;
+        encode: (
+            encodingType: EncodingType,
+            data: string,
+            success: (result: any) => any,
+            failure?: (err: any) => any,
+        ) => void;
         Encode: EncodingType;
     }
 }

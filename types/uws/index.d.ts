@@ -51,10 +51,10 @@ declare class WebSocket extends events.EventEmitter {
 
     // HTML5 WebSocket events
     addEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
-    addEventListener(method: 'close', cb?: (event: {
-        wasClean: boolean; code: number;
-        reason: string; target: WebSocket
-    }) => void): void;
+    addEventListener(
+        method: 'close',
+        cb?: (event: { wasClean: boolean; code: number; reason: string; target: WebSocket }) => void,
+    ): void;
     addEventListener(method: 'error', cb?: (err: Error) => void): void;
     addEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
     addEventListener(method: string, listener?: (...args: any[]) => void): void;
@@ -78,10 +78,11 @@ declare class WebSocket extends events.EventEmitter {
 }
 
 declare namespace WebSocket {
-
     type VerifyClientCallbackSync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }) => boolean;
-    type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
-        , callback: (res: boolean) => void) => void;
+    type VerifyClientCallbackAsync = (
+        info: { origin: string; secure: boolean; req: http.IncomingMessage },
+        callback: (res: boolean) => void,
+    ) => void;
 
     export interface IClientOptions {
         protocol?: string;
@@ -136,8 +137,12 @@ declare namespace WebSocket {
         constructor(options?: IServerOptions, callback?: Function);
 
         close(cb?: (err?: any) => void): void;
-        handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
-            upgradeHead: ArrayBuffer, callback: (client: WebSocket) => void): void;
+        handleUpgrade(
+            request: http.IncomingMessage,
+            socket: net.Socket,
+            upgradeHead: ArrayBuffer,
+            callback: (client: WebSocket) => void,
+        ): void;
 
         // Events
         on(event: 'error', cb: (err: Error) => void): this;
@@ -152,7 +157,9 @@ declare namespace WebSocket {
     }
 
     export interface UwsHttp {
-        createServer(requestListener?: (request: http.IncomingMessage, response: http.ServerResponse) => void): http.Server;
+        createServer(
+            requestListener?: (request: http.IncomingMessage, response: http.ServerResponse) => void,
+        ): http.Server;
         // any to avoid express definitions
         getExpressApp(express: any): any;
         getResponsePrototype(): http.ServerResponse;
@@ -161,8 +168,7 @@ declare namespace WebSocket {
 
     export const http: UwsHttp;
 
-    export function createServer(options?: IServerOptions,
-        connectionListener?: (client: WebSocket) => void): Server;
+    export function createServer(options?: IServerOptions, connectionListener?: (client: WebSocket) => void): Server;
     export function connect(address: string, openListener?: Function): void;
     export function createConnection(address: string, openListener?: Function): void;
 }

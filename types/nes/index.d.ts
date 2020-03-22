@@ -49,7 +49,7 @@ declare module nes {
     }
 
     interface ServerBroadcastOptions {
-        user: any
+        user: any;
     }
 
     interface ServerSubscriptionOptionsFilterOptions {
@@ -74,7 +74,12 @@ declare module nes {
     export type ServerOnUnSubscribe = ServerOnUnSubscribeWithParams | ServerOnUnSubscribeWithoutParams;
 
     interface ServerSubscriptionOptions {
-        filter?: (path: string, message: any, options: ServerSubscriptionOptionsFilterOptions, next: (isMatch: boolean, override?: any) => void) => void;
+        filter?: (
+            path: string,
+            message: any,
+            options: ServerSubscriptionOptionsFilterOptions,
+            next: (isMatch: boolean, override?: any) => void,
+        ) => void;
         auth?: boolean | ServerSubscriptionOptionsAuthOptions;
         onSubscribe?: ServerOnSubscribe;
         onUnsubscribe?: ServerOnUnSubscribe;
@@ -127,7 +132,7 @@ declare module nes {
 
 interface NesClassExports {
     Client: {
-        new(url: string, options?: NesClient.ClientOptions): NesClient;
+        new (url: string, options?: NesClient.ClientOptions): NesClient;
     };
 }
 

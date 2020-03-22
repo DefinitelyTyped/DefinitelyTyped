@@ -3,14 +3,13 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace xmldom {
     var DOMParser: DOMParserStatic;
     var XMLSerializer: XMLSerializerStatic;
     var DOMImplementation: DOMImplementationStatic;
 
     interface DOMImplementationStatic {
-        new(): DOMImplementation;
+        new (): DOMImplementation;
     }
 
     interface DOMParserStatic {

@@ -1,2 +1,2 @@
-import { memoize } from "./index";
+import { memoize } from './index';
 export = memoize;

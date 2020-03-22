@@ -1,4 +1,3 @@
-
 import * as GoogleClosureCompiler from 'google-closure-compiler';
 
 // See
@@ -7,8 +6,8 @@ import * as GoogleClosureCompiler from 'google-closure-compiler';
 
 let ClosureCompiler = GoogleClosureCompiler.compiler;
 
-console.log(ClosureCompiler.COMPILER_PATH)
-console.log(ClosureCompiler.CONTRIB_PATH)
+console.log(ClosureCompiler.COMPILER_PATH);
+console.log(ClosureCompiler.CONTRIB_PATH);
 
 let options: GoogleClosureCompiler.CompileOptions = {
     js: 'file-one.js',
@@ -32,5 +31,5 @@ let optionsFormats: GoogleClosureCompiler.CompileOptions = {
     js: ['/file-one.js', '/file-two.js'],
     compilation_level: 'ADVANCED',
     js_output_file: 'out.js',
-    debug: true
+    debug: true,
 };

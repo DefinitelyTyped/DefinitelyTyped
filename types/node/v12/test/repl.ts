@@ -1,52 +1,51 @@
-import { start, Recoverable } from "repl";
-import { Context } from "vm";
+import { start, Recoverable } from 'repl';
+import { Context } from 'vm';
 
 {
     let server = start();
     let _boolean: boolean;
     const _ctx: Context = {};
 
-    server.setupHistory('hurr/durr', (err, repl) => {
-    });
+    server.setupHistory('hurr/durr', (err, repl) => {});
 
-    server = server.addListener("exit", () => { });
-    server = server.addListener("reset", () => { });
+    server = server.addListener('exit', () => {});
+    server = server.addListener('reset', () => {});
 
-    _boolean = server.emit("exit", () => { });
-    _boolean = server.emit("reset", _ctx);
+    _boolean = server.emit('exit', () => {});
+    _boolean = server.emit('reset', _ctx);
 
-    server = server.on("exit", () => { });
-    server = server.on("reset", () => { });
+    server = server.on('exit', () => {});
+    server = server.on('reset', () => {});
 
-    server = server.once("exit", () => { });
-    server = server.once("reset", () => { });
+    server = server.once('exit', () => {});
+    server = server.once('reset', () => {});
 
-    server = server.prependListener("exit", () => { });
-    server = server.prependListener("reset", () => { });
+    server = server.prependListener('exit', () => {});
+    server = server.prependListener('reset', () => {});
 
-    server = server.prependOnceListener("exit", () => { });
-    server = server.prependOnceListener("reset", () => { });
+    server = server.prependOnceListener('exit', () => {});
+    server = server.prependOnceListener('reset', () => {});
 
-    server.outputStream.write("test");
+    server.outputStream.write('test');
     const line = server.inputStream.read();
 
     server.clearBufferedCommand();
     server.displayPrompt();
     server.displayPrompt(true);
-    server.defineCommand("cmd", function(text) {
+    server.defineCommand('cmd', function (text) {
         // $ExpectType string
         text;
         // $ExpectType REPLServer
         this;
     });
-    server.defineCommand("cmd", {
-        help: "",
+    server.defineCommand('cmd', {
+        help: '',
         action(text) {
             // $ExpectType string
             text;
             // $ExpectType REPLServer
             this;
-        }
+        },
     });
 
     start({
@@ -57,16 +56,16 @@ import { Context } from "vm";
         writer() {
             // $ExpectType REPLServer
             this;
-            return "";
-        }
+            return '';
+        },
     });
 
     function test() {
-        throw new Recoverable(new Error("test"));
+        throw new Recoverable(new Error('test'));
     }
 
     server.context['key0'] = 1;
-    server.context['key1'] = "";
+    server.context['key1'] = '';
     server.context['key2'] = true;
     server.context['key3'] = [];
     server.context['key4'] = {};

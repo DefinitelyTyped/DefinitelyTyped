@@ -7,7 +7,7 @@
 
 /// <reference types="jquery" />
 
-type FancyBoxInteractionTypes = "close" | "next" | "nextOrClose" | "toggleControls" | "zoom" | false;
+type FancyBoxInteractionTypes = 'close' | 'next' | 'nextOrClose' | 'toggleControls' | 'zoom' | false;
 
 type FancyBoxInteractionMethod = (slide?: FancyBoxSlide, event?: JQuery.Event) => FancyBoxInteractionTypes;
 
@@ -26,7 +26,7 @@ interface FancyBoxGroupItemWithFilledProps extends FancyBoxGroupItem {
 
 interface FancyBoxGroupItem {
     src: string;
-    type?: "image" | "inline" | "ajax" | "iframe" | "html";
+    type?: 'image' | 'inline' | 'ajax' | 'iframe' | 'html';
     opts?: FancyBoxOptions;
 }
 
@@ -132,7 +132,7 @@ interface FancyThumbsOptions {
     /**
      * Vertical (y) or horizontal (x) scrolling
      */
-    axis?: "x" | "y";
+    axis?: 'x' | 'y';
 }
 
 interface FancyBoxInternationalizatioObject {
@@ -154,13 +154,13 @@ interface FancyBoxInternationalizationOptions {
 }
 
 interface FancyBoxButtonTypes {
-    "zoom": string;
-    "share": string;
-    "slideShow": string;
-    "fullScreen": string;
-    "download": string;
-    "thumbs": string;
-    "close": string;
+    zoom: string;
+    share: string;
+    slideShow: string;
+    fullScreen: string;
+    download: string;
+    thumbs: string;
+    close: string;
 }
 
 interface FancyBoxOptions {
@@ -198,13 +198,13 @@ interface FancyBoxOptions {
      * Can be true, false, "auto"
      * If "auto" - will be automatically enabled for "html", "inline" or "ajax" items
      */
-    smallBtn?: boolean | "auto";
+    smallBtn?: boolean | 'auto';
     /**
      * Should display toolbar (buttons at the top)
      * Can be true, false, "auto"
      * If "auto" - will be automatically hidden if "smallBtn" is enabled
      */
-    toolbar?: boolean | "auto";
+    toolbar?: boolean | 'auto';
     /**
      * What buttons should appear in the top right corner.
      * Buttons will be created using templates from `btnTpl` option
@@ -233,7 +233,7 @@ interface FancyBoxOptions {
     /**
      * Default content type if cannot be detected automatically
      */
-    defaultType?: "image" | "inline" | "ajax" | "iframe" | "html";
+    defaultType?: 'image' | 'inline' | 'ajax' | 'iframe' | 'html';
     /**
      * Open/close animation type
      * Possible values:
@@ -242,7 +242,7 @@ interface FancyBoxOptions {
      * "fade"
      * "zoom-in-out"
      */
-    animationEffect?: boolean | "zoom" | "fade" | "zoom-in-out";
+    animationEffect?: boolean | 'zoom' | 'fade' | 'zoom-in-out';
     /**
      * Duration in ms for open/close animation
      */
@@ -251,7 +251,7 @@ interface FancyBoxOptions {
      * Should image change opacity while zooming
      * If opacity is "auto", then opacity will be changed if image and thumbnail have different aspect ratios
      */
-    zoomOpacity?: "auto" | boolean;
+    zoomOpacity?: 'auto' | boolean;
     /**
      * Transition effect between slides
      * Possible values:
@@ -263,7 +263,7 @@ interface FancyBoxOptions {
      * "zoom-in-out"
      * "rotate"
      */
-    transitionEffect?: "fade" | "slide" | "circular" | "tube" | "zoom-in-out" | "rotate" | boolean;
+    transitionEffect?: 'fade' | 'slide' | 'circular' | 'tube' | 'zoom-in-out' | 'rotate' | boolean;
     /**
      * Duration in ms for transition animation
      */
@@ -334,13 +334,13 @@ interface FancyBoxOptions {
      * }
      */
     media?: FancyBoxPlainObject;
-    slideShow?: { autoStart?: boolean; speed?: number; };
+    slideShow?: { autoStart?: boolean; speed?: number };
     thumbs?: FancyThumbsOptions;
     /**
      * Use mousewheel to navigate gallery
      * If 'auto' - enabled for images only
      */
-    wheel?: "auto" | false;
+    wheel?: 'auto' | false;
     /**
      * When instance has been initialized
      */
@@ -433,7 +433,7 @@ interface FancyBoxGestures {
     instance: FancyBoxInstance;
     destroy(): void;
     endPanning(): void;
-    endSwiping(swiping: "x" | "y", scrolling: boolean): void;
+    endSwiping(swiping: 'x' | 'y', scrolling: boolean): void;
     endZooming(): void;
     limitMovement(): void;
     limitPosition(newOffsetX: number, newOffsetY: number, newWidth: number, newHeight: number): void;
@@ -770,15 +770,25 @@ interface FancyBoxGetFitPosResults {
 }
 
 interface FancyBoxJQueryMethods {
-    animate($el: JQuery, to: FancyBoxThumbPos, duration: number, callback: () => void, leaveAnimationName: boolean): void;
+    animate(
+        $el: JQuery,
+        to: FancyBoxThumbPos,
+        duration: number,
+        callback: () => void,
+        leaveAnimationName: boolean,
+    ): void;
     close(all?: boolean): void;
     defaults: FancyBoxOptions;
     destroy(): void;
     getInstance(command?: string | (() => void)): FancyBoxInstance;
     getTranslate($el: JQuery): void;
     isMobile: boolean;
-    open(items: JQuery | string | FancyBoxGroupItem[] | FancyBoxGroupItem, opts?: FancyBoxOptions, index?: number): FancyBoxInstance;
-    setTranslate($el: JQuery, props: { left?: number; top?: number; }): void;
+    open(
+        items: JQuery | string | FancyBoxGroupItem[] | FancyBoxGroupItem,
+        opts?: FancyBoxOptions,
+        index?: number,
+    ): FancyBoxInstance;
+    setTranslate($el: JQuery, props: { left?: number; top?: number }): void;
     stop($el: JQuery, callCallback: boolean): void;
     use3d: string;
     version: string;

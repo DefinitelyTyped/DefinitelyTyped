@@ -1,18 +1,32 @@
-import { DataProvider, SortCriterion, FetchByKeysParameters, ContainsKeysResults, FetchByKeysResults, FetchByOffsetParameters, FetchByOffsetResults, DataMapping, FetchListResult, FetchListParameters,
-   FetchAttribute } from '../ojdataprovider';
+import {
+    DataProvider,
+    SortCriterion,
+    FetchByKeysParameters,
+    ContainsKeysResults,
+    FetchByKeysResults,
+    FetchByOffsetParameters,
+    FetchByOffsetResults,
+    DataMapping,
+    FetchListResult,
+    FetchListParameters,
+    FetchAttribute,
+} from '../ojdataprovider';
 declare class ListDataProviderView<K, D, Kin, Din> implements DataProvider<K, D> {
     attributes: Array<string | FetchAttribute>;
     dataMapping: DataMapping<K, D, Kin, Din>;
     from: Kin;
     offset: number;
     sortCriteria: Array<SortCriterion<D>>;
-    constructor(dataProvider: DataProvider<K, D>, options?: {
-        from?: Kin;
-        offset?: number;
-        sortCriteria?: Array<SortCriterion<D>>;
-        dataMapping?: DataMapping<K, D, Kin, Din>;
-        attributes?: Array<string | FetchAttribute>;
-    });
+    constructor(
+        dataProvider: DataProvider<K, D>,
+        options?: {
+            from?: Kin;
+            offset?: number;
+            sortCriteria?: Array<SortCriterion<D>>;
+            dataMapping?: DataMapping<K, D, Kin, Din>;
+            attributes?: Array<string | FetchAttribute>;
+        },
+    );
     addEventListener(eventType: string, listener: EventListener): void;
     containsKeys(params: FetchByKeysParameters<K>): Promise<ContainsKeysResults<K>>;
     dispatchEvent(evt: Event): boolean;

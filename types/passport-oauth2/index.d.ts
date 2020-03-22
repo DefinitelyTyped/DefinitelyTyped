@@ -54,11 +54,18 @@ declare namespace OAuth2Strategy {
     type VerifyCallback = (err?: Error | null, user?: object, info?: object) => void;
 
     type VerifyFunction =
-        ((accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void) |
-        ((accessToken: string, refreshToken: string, results: any, profile: any, verified: VerifyCallback) => void);
+        | ((accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void)
+        | ((accessToken: string, refreshToken: string, results: any, profile: any, verified: VerifyCallback) => void);
     type VerifyFunctionWithRequest =
-        ((req: Request, accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void) |
-        ((req: Request, accessToken: string, refreshToken: string, results: any, profile: any, verified: VerifyCallback) => void);
+        | ((req: Request, accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void)
+        | ((
+              req: Request,
+              accessToken: string,
+              refreshToken: string,
+              results: any,
+              profile: any,
+              verified: VerifyCallback,
+          ) => void);
 
     interface _StrategyOptionsBase {
         authorizationURL: string;

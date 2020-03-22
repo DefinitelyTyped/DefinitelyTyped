@@ -11,17 +11,10 @@ const newDoc = new Recipe('new', 'test.pdf', {
 });
 
 // $ExpectType Recipe
-newDoc
-    .createPage(595, 842)
-    .text('Memento Mori', 100, 100)
-    .endPage()
-    .endPDF();
+newDoc.createPage(595, 842).text('Memento Mori', 100, 100).endPage().endPDF();
 
 // $ExpectError
-newDoc.createPage('A5')
-    .text('Memento Mori', 100, 100)
-    .endPage()
-    .endPDF();
+newDoc.createPage('A5').text('Memento Mori', 100, 100).endPage().endPDF();
 
 const inBuffer: Buffer = fs.readFileSync('test.pdf');
 

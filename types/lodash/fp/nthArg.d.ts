@@ -1,2 +1,2 @@
-import { nthArg } from "../fp";
+import { nthArg } from '../fp';
 export = nthArg;

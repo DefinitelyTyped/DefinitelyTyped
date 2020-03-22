@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Datastore API v1 */
-    function load(name: "datastore", version: "v1"): PromiseLike<void>;
-    function load(name: "datastore", version: "v1", callback: () => any): void;
+    function load(name: 'datastore', version: 'v1'): PromiseLike<void>;
+    function load(name: 'datastore', version: 'v1', callback: () => any): void;
 
     const projects: datastore.ProjectsResource;
 
@@ -680,7 +680,7 @@ declare namespace gapi.client {
              */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -716,7 +716,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -751,7 +751,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -793,7 +793,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -835,7 +835,7 @@ declare namespace gapi.client {
              */
             allocateIds(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -866,7 +866,7 @@ declare namespace gapi.client {
             /** Begins a new transaction. */
             beginTransaction(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -900,7 +900,7 @@ declare namespace gapi.client {
              */
             commit(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -931,7 +931,7 @@ declare namespace gapi.client {
             /** Looks up entities by key. */
             lookup(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -962,7 +962,7 @@ declare namespace gapi.client {
             /** Rolls back a transaction. */
             rollback(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -993,7 +993,7 @@ declare namespace gapi.client {
             /** Queries for entities. */
             runQuery(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

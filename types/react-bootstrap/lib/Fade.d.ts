@@ -10,5 +10,5 @@ declare namespace Fade {
         unmountOnExit?: boolean;
     }
 }
-declare class Fade extends React.Component<Fade.FadeProps> { }
+declare class Fade extends React.Component<Fade.FadeProps> {}
 export = Fade;

@@ -45,38 +45,38 @@ export { connectToggleRefinement } from 'react-instantsearch-core';
 
 // DOM
 interface CommonWidgetProps {
-  /**
-   * All static text rendered by widgets, such as “Load more”, “Show more” are translatable using the translations prop on relevant widgets.
-   * This prop is a mapping of keys to translation values. Translation values can be either a String or a (...args: any[]) => any, as some take parameters.
-   *
-   * https://community.algolia.com/react-instantsearch/guide/i18n.html
-   */
-  translations?: { [key: string]: string | ((...args: any[]) => any) };
+    /**
+     * All static text rendered by widgets, such as “Load more”, “Show more” are translatable using the translations prop on relevant widgets.
+     * This prop is a mapping of keys to translation values. Translation values can be either a String or a (...args: any[]) => any, as some take parameters.
+     *
+     * https://community.algolia.com/react-instantsearch/guide/i18n.html
+     */
+    translations?: { [key: string]: string | ((...args: any[]) => any) };
 }
 
 interface InstantSearchBaseProps {
-  indexName: string;
-  createURL?: (...args: any[]) => any;
-  searchState?: any;
-  refresh?: boolean;
-  onSearchStateChange?: (...args: any[]) => any;
-  onSearchParameters?: (...args: any[]) => any;
-  resultsState?: any;
-  stalledSearchDelay?: number;
-  root?: {
-    Root: string | ((...args: any[]) => any);
-    props?: object;
-  };
+    indexName: string;
+    createURL?: (...args: any[]) => any;
+    searchState?: any;
+    refresh?: boolean;
+    onSearchStateChange?: (...args: any[]) => any;
+    onSearchParameters?: (...args: any[]) => any;
+    resultsState?: any;
+    stalledSearchDelay?: number;
+    root?: {
+        Root: string | ((...args: any[]) => any);
+        props?: object;
+    };
 }
 
 export interface UsingSearchClientProps extends InstantSearchBaseProps {
-  searchClient: any;
+    searchClient: any;
 }
 
 export interface UsingManualInfoProps extends InstantSearchBaseProps {
-  apiKey: string;
-  appId: string;
-  algoliaClient?: any;
+    apiKey: string;
+    appId: string;
+    algoliaClient?: any;
 }
 
 export type InstantSearchProps = UsingSearchClientProps | UsingManualInfoProps;
@@ -95,7 +95,7 @@ export class HierarchicalMenu extends React.Component<any> {}
 export class Highlight extends React.Component<any> {}
 
 export interface HitsProps<T> {
-  hitComponent?: React.ComponentType<{ hit: Hit<T> }>;
+    hitComponent?: React.ComponentType<{ hit: Hit<T> }>;
 }
 /**
  * Displays a list of hits.
@@ -119,19 +119,19 @@ export class RefinementList extends React.Component<any> {}
 export class ScrollTo extends React.Component<any> {}
 
 export interface SearchBoxProps extends CommonWidgetProps {
-  focusShortcuts?: string[];
-  autoFocus?: boolean;
-  defaultRefinement?: string;
-  searchAsYouType?: boolean;
-  showLoadingIndicator?: boolean;
+    focusShortcuts?: string[];
+    autoFocus?: boolean;
+    defaultRefinement?: string;
+    searchAsYouType?: boolean;
+    showLoadingIndicator?: boolean;
 
-  submit?: JSX.Element;
-  reset?: JSX.Element;
-  loadingIndicator?: JSX.Element;
+    submit?: JSX.Element;
+    reset?: JSX.Element;
+    loadingIndicator?: JSX.Element;
 
-  onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-  onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-  onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+    onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
+    onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
+    onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
 }
 /**
  * The SearchBox component displays a search box that lets the user search for a specific query.
@@ -144,5 +144,5 @@ export class SortBy extends React.Component<any> {}
 /**
  * The Stats component displays the total number of matching hits and the time it took to get them (time spent in the Algolia server).
  */
-export class Stats extends React.Component<{translations?: { [key: string]: (n: number, ms: number) => string }}> {}
+export class Stats extends React.Component<{ translations?: { [key: string]: (n: number, ms: number) => string } }> {}
 export class ToggleRefinement extends React.Component<any> {}

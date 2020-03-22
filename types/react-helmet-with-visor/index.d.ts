@@ -89,5 +89,4 @@ export function renderStatic(): HelmetData;
 export const canUseDOM: boolean;
 export default Helmet;
 
-export class HelmetsOpenedVisor extends React.Component {
-}
+export class HelmetsOpenedVisor extends React.Component {}

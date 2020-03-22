@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import gitRawCommits from "git-raw-commits";
+import gitRawCommits from 'git-raw-commits';
 
 declare const execOptions: gitRawCommits.ExecOptions;
 declare const gitOptions: gitRawCommits.GitOptions;

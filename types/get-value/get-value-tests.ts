@@ -1,11 +1,11 @@
-import get = require("get-value");
-const obj = { a: { b: { c: { d: "foo" } } } };
+import get = require('get-value');
+const obj = { a: { b: { c: { d: 'foo' } } } };
 
 get(obj);
-get(obj, "a");
-get(obj, "a.b");
-get(obj, "a.b.c");
-get(obj, "a.b.c.d");
+get(obj, 'a');
+get(obj, 'a.b');
+get(obj, 'a.b.c');
+get(obj, 'a.b.c.d');
 get(obj, ['a']);
 get(obj, ['a', 'b', 'c']);
 get(obj, ['a', 'b', 'c', 'd']);
@@ -13,7 +13,7 @@ get(obj, ['a', 'b', 'c', 'd']);
 {
     const isEnumerable = Object.prototype.propertyIsEnumerable;
     const options: get.Options = {
-        isValid: (key, obj) => isEnumerable.call(obj, key) || typeof obj[key] === "string",
+        isValid: (key, obj) => isEnumerable.call(obj, key) || typeof obj[key] === 'string',
     };
 
     const obj = {};

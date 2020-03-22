@@ -1,12 +1,8 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
-import {
-    CacheableResponse,
-    CacheableResponseConfig,
-    Plugin,
-} from "workbox-cacheable-response";
+import { CacheableResponse, CacheableResponseConfig, Plugin } from 'workbox-cacheable-response';
 
 //==============================================================================
 // WorkboxCacheableResponse.CacheableResponse

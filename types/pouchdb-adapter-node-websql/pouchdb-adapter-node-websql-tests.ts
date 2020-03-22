@@ -1,9 +1,6 @@
-function isBoolean(someBoolean: boolean) {
-}
-function isNumber(someNumber: number) {
-}
-function isString(someString: string) {
-}
+function isBoolean(someBoolean: boolean) {}
+function isNumber(someNumber: number) {}
+function isString(someString: string) {}
 
 function testConstructor() {
     interface MyModel {

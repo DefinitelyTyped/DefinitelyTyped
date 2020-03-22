@@ -24,7 +24,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 declare namespace jasmine {
     interface Matchers<T> {
-
         //toBe
         toBeArray(): boolean;
         toBeCloseToOneOf(values: any[], isCloseToFunction: (actual: number, expected: number) => boolean): boolean;
@@ -39,31 +38,31 @@ declare namespace jasmine {
         toContainOnce(value: any): boolean;
 
         //toHave
-        toHaveBeenCalledXTimes(count:number): boolean;
-        toHaveLength(length:number): boolean;
-        toHaveOwnProperties(...names:string[]): boolean;
-        toHaveOwnPropertiesWithValues(obj:Object): boolean;
-        toHaveProperties(...names:string[]): boolean;
-        toHavePropertiesWithValues(obj:Object): boolean;
-        toExactlyHaveProperties(...names:string[]): boolean;
+        toHaveBeenCalledXTimes(count: number): boolean;
+        toHaveLength(length: number): boolean;
+        toHaveOwnProperties(...names: string[]): boolean;
+        toHaveOwnPropertiesWithValues(obj: Object): boolean;
+        toHaveProperties(...names: string[]): boolean;
+        toHavePropertiesWithValues(obj: Object): boolean;
+        toExactlyHaveProperties(...names: string[]): boolean;
 
         //toStartEndWith
-        toStartWith(value:any): boolean;
-        toStartWith(value:any[]): boolean;
+        toStartWith(value: any): boolean;
+        toStartWith(value: any[]): boolean;
 
-        toEndWith(value:any): boolean;
-        toEndWith(values:any[]): boolean;
+        toEndWith(value: any): boolean;
+        toEndWith(values: any[]): boolean;
 
-        toEachStartWith(searchString:string): boolean;
-        toSomeStartWith(searchString:string): boolean;
+        toEachStartWith(searchString: string): boolean;
+        toSomeStartWith(searchString: string): boolean;
 
-        toEachEndWith(searchString:string): boolean;
-        toSomeEndWith(searchString:string): boolean;
+        toEachEndWith(searchString: string): boolean;
+        toSomeEndWith(searchString: string): boolean;
 
-        toStartWithEither(...searchString:any[]): boolean;
+        toStartWithEither(...searchString: any[]): boolean;
 
         //toThrow
-        toThrowInstanceOf(klass:Function): boolean;
-        toThrowStartsWith(text:string): boolean;
+        toThrowInstanceOf(klass: Function): boolean;
+        toThrowStartsWith(text: string): boolean;
     }
 }

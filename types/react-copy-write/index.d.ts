@@ -42,11 +42,13 @@ interface ProviderProps<T> {
 
 declare class Provider<T> extends Component<ProviderProps<T>> {}
 
-declare function create<T extends object>(state: T): {
-    Provider: new() => Provider<T>,
-    Consumer: new() => Consumer<T>,
-    createSelector: SelectorFn<T>,
-    mutate: Mutator<T>,
+declare function create<T extends object>(
+    state: T,
+): {
+    Provider: new () => Provider<T>;
+    Consumer: new () => Consumer<T>;
+    createSelector: SelectorFn<T>;
+    mutate: Mutator<T>;
 };
 
 export default create;

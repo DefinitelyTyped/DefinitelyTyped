@@ -4,12 +4,14 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Editor } from 'react-draft-wysiwyg';
 
-const Basic = () => (<div>
-  <Editor
-      ref={(ref: Editor): void => {
-        console.log('hey ref', ref.focusEditor.toString());
-      }}
-  />
-</div>);
+const Basic = () => (
+    <div>
+        <Editor
+            ref={(ref: Editor): void => {
+                console.log('hey ref', ref.focusEditor.toString());
+            }}
+        />
+    </div>
+);
 
 ReactDOM.render(<Basic />, document.getElementById('target'));

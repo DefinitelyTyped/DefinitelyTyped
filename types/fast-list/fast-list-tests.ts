@@ -1,6 +1,6 @@
 import FastList = require('fast-list');
 
-const thisArg = {foo: 'bar'};
+const thisArg = { foo: 'bar' };
 
 const list = new FastList<string>();
 list; // $ExpectType List<string>
@@ -16,14 +16,16 @@ list.shift(); // $ExpectType string | undefined
 list.drop();
 list.item(2); // $ExpectType string | undefined
 
-list.map(function(value, index, list) { // $ExpectType List<string>
+list.map(function (value, index, list) {
+    // $ExpectType List<string>
     this; // $ExpectType List<string>
     value; // $ExpectType string
     index; // $ExpectType number
     list; // $ExpectType List<string>
     return value;
 });
-list.map(function(value, index, list) { // $ExpectType List<number>
+list.map(function (value, index, list) {
+    // $ExpectType List<number>
     this; // $ExpectType { foo: string; }
     value; // $ExpectType string
     index; // $ExpectType number
@@ -31,7 +33,8 @@ list.map(function(value, index, list) { // $ExpectType List<number>
     return 1;
 }, thisArg);
 
-list.reduce(function(prevVal, value, index, list) { // $ExpectType string
+list.reduce(function (prevVal, value, index, list) {
+    // $ExpectType string
     this; // $ExpectType List<string>
     prevVal; // $ExpectType string
     value; // $ExpectType string
@@ -39,7 +42,8 @@ list.reduce(function(prevVal, value, index, list) { // $ExpectType string
     list; // $ExpectType List<string>
     return prevVal;
 });
-list.reduce(function(prevVal, value, index, list) { // $ExpectType number
+list.reduce(function (prevVal, value, index, list) {
+    // $ExpectType number
     this; // $ExpectType List<string>
     prevVal; // $ExpectType number
     value; // $ExpectType string
@@ -47,36 +51,43 @@ list.reduce(function(prevVal, value, index, list) { // $ExpectType number
     list; // $ExpectType List<string>
     return prevVal;
 }, 1);
-list.reduce(function(prevVal, value, index, list) { // $ExpectType number
-    this; // $ExpectType { foo: string; }
-    prevVal; // $ExpectType number
-    value; // $ExpectType string
-    index; // $ExpectType number
-    list; // $ExpectType List<string>
-    return prevVal;
-}, 1, thisArg);
+list.reduce(
+    function (prevVal, value, index, list) {
+        // $ExpectType number
+        this; // $ExpectType { foo: string; }
+        prevVal; // $ExpectType number
+        value; // $ExpectType string
+        index; // $ExpectType number
+        list; // $ExpectType List<string>
+        return prevVal;
+    },
+    1,
+    thisArg,
+);
 
-list.forEach(function(value, index, list) {
+list.forEach(function (value, index, list) {
     this; // $ExpectType List<string>
     value; // $ExpectType string
     index; // $ExpectType number
     list; // $ExpectType List<string>
 });
-list.forEach(function(value, index, list) {
+list.forEach(function (value, index, list) {
     this; // $ExpectType { foo: string; }
     value; // $ExpectType string
     index; // $ExpectType number
     list; // $ExpectType List<string>
 }, thisArg);
 
-list.filter(function(value, index, list) { // $ExpectType List<string>
+list.filter(function (value, index, list) {
+    // $ExpectType List<string>
     this; // $ExpectType List<string>
     value; // $ExpectType string
     index; // $ExpectType number
     list; // $ExpectType List<string>
     return true;
 });
-list.filter(function(value, index, list) { // $ExpectType List<string>
+list.filter(function (value, index, list) {
+    // $ExpectType List<string>
     this; // $ExpectType { foo: string; }
     value; // $ExpectType string
     index; // $ExpectType number

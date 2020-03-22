@@ -37,11 +37,11 @@ testIanaZone.formatOffset(dt.toMillis(), 'short'); // $ExpectType string
 testIanaZone.formatOffset(dt.toMillis(), 'techie'); // $ExpectType string
 testIanaZone.formatOffset(dt.toMillis(), 'other_string'); // $ExpectError
 testIanaZone.offsetName(dt.toMillis()); // $ExpectError
-testIanaZone.offsetName(dt.toMillis(), { format: 'short'}); // $ExpectType string
-testIanaZone.offsetName(dt.toMillis(), { format: 'long'}); // $ExpectType string
-testIanaZone.offsetName(dt.toMillis(), { format: 'other_string'}); // $ExpectError
-testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-us'}); // $ExpectType string
-testIanaZone.offsetName(dt.toMillis(), { locale: 'en-gb'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'short' }); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'long' }); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'other_string' }); // $ExpectError
+testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-us' }); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { locale: 'en-gb' }); // $ExpectType string
 const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
@@ -160,7 +160,7 @@ dur.as('seconds'); // $ExpectType number
 dur.toObject();
 dur.toISO(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
-dur.mapUnits((x, u) => u === 'hours' ? x * 2 : x); // $ExpectType Duration
+dur.mapUnits((x, u) => (u === 'hours' ? x * 2 : x)); // $ExpectType Duration
 
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration
@@ -173,7 +173,7 @@ i.length(); // $ExpectType number
 i.length('years'); // $ExpectType number
 i.contains(DateTime.local(2019)); // $ExpectType boolean
 i.set({ end: DateTime.local(2020) }); // $ExpectType Interval
-i.mapEndpoints(d => d); // $ExpectType Interval
+i.mapEndpoints((d) => d); // $ExpectType Interval
 i.intersection(i); // $ExpectType Interval | null
 
 i.toISO(); // $ExpectType string
@@ -291,9 +291,7 @@ DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d yyyy').regex;
 
 /* Math */
 const d1: DateTime = DateTime.local(2017, 2, 13).plus({ days: 30 });
-const d2: DateTime = DateTime.fromISO('2017-04-30')
-    .plus({ days: 1 })
-    .plus({ months: 1 });
+const d2: DateTime = DateTime.fromISO('2017-04-30').plus({ days: 1 }).plus({ months: 1 });
 
 if (d1 < d2 || +d1 === +d2) {
     //

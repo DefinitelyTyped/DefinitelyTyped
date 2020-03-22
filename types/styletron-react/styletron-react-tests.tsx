@@ -124,8 +124,8 @@ const PrettyButton = styled('button', { background: 'green' });
 
 const { Consumer } = React.createContext(true);
 
-const WithWrapped = withWrapper(PrettyButton, Styled => props => (
-    <Consumer>{value => <Styled {...props} disabled={value} />}</Consumer>
+const WithWrapped = withWrapper(PrettyButton, (Styled) => (props) => (
+    <Consumer>{(value) => <Styled {...props} disabled={value} />}</Consumer>
 ));
 
 <WithWrapped />;

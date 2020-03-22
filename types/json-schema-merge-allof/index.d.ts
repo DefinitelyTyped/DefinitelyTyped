@@ -11,7 +11,10 @@ export = merger;
 type JSONSchema = JSONSchema4 | JSONSchema6 | JSONSchema7;
 type JSONSchema46 = JSONSchema4 | JSONSchema6;
 
-declare function merger<T extends JSONSchema>(rootSchema: T, options: merger.Options<T> & { ignoreAdditionalProperties: true }): T;
+declare function merger<T extends JSONSchema>(
+    rootSchema: T,
+    options: merger.Options<T> & { ignoreAdditionalProperties: true },
+): T;
 declare function merger(rootSchema: JSONSchema4, options?: merger.Options<JSONSchema4>): JSONSchema4;
 declare function merger(rootSchema: JSONSchema6, options?: merger.Options<JSONSchema6>): JSONSchema6;
 declare function merger(rootSchema: JSONSchema7, options?: merger.Options<JSONSchema7>): JSONSchema7;
@@ -92,43 +95,168 @@ declare namespace merger {
             mergeSchemas: MergeSchemas,
             options: Options<Schema>,
         ): NonNullable<Extract<Schema, { $id?: any }>['$id']>;
-        $ref(values: Array<Schema['$ref']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['$ref']>;
-        $schema(values: Array<Schema['$schema']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['$schema']>;
-        additionalItems(values: Array<Schema['additionalItems']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['additionalItems']>;
-        additionalProperties(values: Array<Schema['additionalProperties']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['additionalProperties']>;
-        anyOf(values: Array<Schema['anyOf']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['anyOf']>;
+        $ref(
+            values: Array<Schema['$ref']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['$ref']>;
+        $schema(
+            values: Array<Schema['$schema']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['$schema']>;
+        additionalItems(
+            values: Array<Schema['additionalItems']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['additionalItems']>;
+        additionalProperties(
+            values: Array<Schema['additionalProperties']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['additionalProperties']>;
+        anyOf(
+            values: Array<Schema['anyOf']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['anyOf']>;
         contains(
             values: Array<Extract<Schema, { contains?: any }>['contains']>,
             path: string[],
             mergeSchemas: MergeSchemas,
             options: Options<Schema>,
         ): NonNullable<Extract<Schema, { contains?: any }>['contains']>;
-        default(values: Array<Schema['default']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['default']>;
-        definitions(values: Array<Schema['definitions']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['definitions']>;
-        dependencies(values: Array<Schema['dependencies']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['dependencies']>;
-        description(values: Array<Schema['description']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['description']>;
-        enum(values: Array<Schema['enum']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['enum']>;
+        default(
+            values: Array<Schema['default']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['default']>;
+        definitions(
+            values: Array<Schema['definitions']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['definitions']>;
+        dependencies(
+            values: Array<Schema['dependencies']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['dependencies']>;
+        description(
+            values: Array<Schema['description']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['description']>;
+        enum(
+            values: Array<Schema['enum']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['enum']>;
         examples(
             values: Array<Extract<Schema, { examples?: any }>['examples']>,
             path: string[],
             mergeSchemas: MergeSchemas,
             options: Options<Schema>,
         ): NonNullable<Extract<Schema, { examples?: any }>['examples']>;
-        exclusiveMaximum(values: Array<Schema['exclusiveMaximum']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['exclusiveMaximum']>;
-        exclusiveMinimum(values: Array<Schema['exclusiveMinimum']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['exclusiveMinimum']>;
-        items(values: Array<Schema['items']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['items']>;
-        maxItems(values: Array<Schema['maxItems']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['maxItems']>;
-        maxLength(values: Array<Schema['maxLength']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['maxLength']>;
-        maxProperties(values: Array<Schema['maxProperties']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['maxProperties']>;
-        maximum(values: Array<Schema['maximum']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['maximum']>;
-        minItems(values: Array<Schema['minItems']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['minItems']>;
-        minLength(values: Array<Schema['minLength']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['minLength']>;
-        minProperties(values: Array<Schema['minProperties']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['minProperties']>;
-        minimum(values: Array<Schema['minimum']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['minimum']>;
-        multipleOf(values: Array<Schema['multipleOf']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['multipleOf']>;
-        not(values: Array<Schema['not']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['not']>;
-        oneOf(values: Array<Schema['oneOf']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['oneOf']>;
-        pattern(values: Array<Schema['pattern']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['pattern']>;
+        exclusiveMaximum(
+            values: Array<Schema['exclusiveMaximum']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['exclusiveMaximum']>;
+        exclusiveMinimum(
+            values: Array<Schema['exclusiveMinimum']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['exclusiveMinimum']>;
+        items(
+            values: Array<Schema['items']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['items']>;
+        maxItems(
+            values: Array<Schema['maxItems']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['maxItems']>;
+        maxLength(
+            values: Array<Schema['maxLength']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['maxLength']>;
+        maxProperties(
+            values: Array<Schema['maxProperties']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['maxProperties']>;
+        maximum(
+            values: Array<Schema['maximum']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['maximum']>;
+        minItems(
+            values: Array<Schema['minItems']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['minItems']>;
+        minLength(
+            values: Array<Schema['minLength']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['minLength']>;
+        minProperties(
+            values: Array<Schema['minProperties']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['minProperties']>;
+        minimum(
+            values: Array<Schema['minimum']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['minimum']>;
+        multipleOf(
+            values: Array<Schema['multipleOf']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['multipleOf']>;
+        not(
+            values: Array<Schema['not']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['not']>;
+        oneOf(
+            values: Array<Schema['oneOf']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['oneOf']>;
+        pattern(
+            values: Array<Schema['pattern']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['pattern']>;
         /**
          * ### Combined resolvers
          * No separate resolver is called for patternProperties and
@@ -188,9 +316,24 @@ declare namespace merger {
             mergeSchemas: MergeSchemas,
             options: Options<Schema>,
         ): NonNullable<Schema['required']>;
-        title(values: Array<Schema['title']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['title']>;
-        type(values: Array<Schema['type']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['type']>;
-        uniqueItems(values: Array<Schema['uniqueItems']>, path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): NonNullable<Schema['uniqueItems']>;
+        title(
+            values: Array<Schema['title']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['title']>;
+        type(
+            values: Array<Schema['type']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['type']>;
+        uniqueItems(
+            values: Array<Schema['uniqueItems']>,
+            path: string[],
+            mergeSchemas: MergeSchemas,
+            options: Options<Schema>,
+        ): NonNullable<Schema['uniqueItems']>;
     }
     const options: {
         resolvers: Resolvers;

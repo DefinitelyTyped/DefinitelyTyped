@@ -1,4 +1,3 @@
-
 declare let displayMethodStr: 'success' | 'info' | 'warning' | 'error';
 declare let undefinedVal: undefined;
 declare let booleanVal: boolean;
@@ -9,7 +8,7 @@ declare let toastrOptionsVal: ToastrOptions;
 declare let toastrOptionsOrUndefinedVal: ToastrOptions | undefined;
 declare let jQueryVal: JQuery;
 declare let jQueryOrUndefinedVal: JQuery | undefined;
-declare let clearOptionsVal: {force: boolean};
+declare let clearOptionsVal: { force: boolean };
 declare let clearOptionsOrUndefinedVal: typeof clearOptionsVal | undefined;
 
 function test_basic() {
@@ -26,10 +25,10 @@ function test_basic() {
     var title = 'Fireswamp Legends';
     var overrides = { timeOut: 250 };
     toastr.warning(msg, title, overrides);
-    toastr.options.onclick = function () { }
+    toastr.options.onclick = function () {};
 
     // Override global options
-    toastr.success('We do have the Kapua suite available.', 'Turtle Bay Resort', {timeOut: 5000})
+    toastr.success('We do have the Kapua suite available.', 'Turtle Bay Resort', { timeOut: 5000 });
 
     // Options from Readme
     // Escape HTML characters
@@ -43,10 +42,18 @@ function test_basic() {
     // Display Sequence
     toastr.options.newestOnTop = false;
     // Callbacks
-    toastr.options.onShown = function() { console.log('hello'); }
-    toastr.options.onHidden = function() { console.log('goodbye'); }
-    toastr.options.onclick = function() { console.log('clicked'); }
-    toastr.options.onCloseClick = function() { console.log('close button clicked'); }
+    toastr.options.onShown = function () {
+        console.log('hello');
+    };
+    toastr.options.onHidden = function () {
+        console.log('goodbye');
+    };
+    toastr.options.onclick = function () {
+        console.log('clicked');
+    };
+    toastr.options.onCloseClick = function () {
+        console.log('close button clicked');
+    };
     // Animation Options
     // Easings
     toastr.options.showEasing = 'swing';
@@ -74,12 +81,13 @@ function test_fromdemo() {
     var i = -1,
         $toastlast: JQuery,
         getMessage = function () {
-            var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+            var msgs = [
+                'My name is Inigo Montoya. You killed my father. Prepare to die!',
                 '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
                 'Are you the six fingered man?',
                 'Inconceivable!',
                 'I do not think that means what you think it means.',
-                'Have fun storming the castle!'
+                'Have fun storming the castle!',
             ];
             i++;
             if (i === msgs.length) {
@@ -89,44 +97,48 @@ function test_fromdemo() {
             return msgs[i];
         };
     $('#showtoast').click(function () {
-		var shortCutFunction = $("#toastTypeGroup input:radio:checked").val() as 'success' | 'info' | 'warning' | 'error',
-			msg = $('#message').val() as string,
-			title = $('#title').val() as  string || '',
-			$fadeIn = $('#fadeIn'),
-			$fadeOut = $('#fadeOut'),
-			$timeOut = $('#timeOut'),
-			$extendedTimeOut = $('#extendedTimeOut'),
-			toastIndex = 123;
-		toastr.options = {
-			debug: $('#debugInfo').prop('checked'),
-			tapToDismiss: $('#tapToDismiss').prop('checked'),
-			positionClass: $('#positionGroup input:radio:checked').val() as string || 'toast-top-right',
-			preventDuplicates: true,
-            progressBar: true
-		}
-        if ((<string> $fadeIn.val()).length) {
-			toastr.options.showDuration = +$fadeIn.val()!
+        var shortCutFunction = $('#toastTypeGroup input:radio:checked').val() as
+                | 'success'
+                | 'info'
+                | 'warning'
+                | 'error',
+            msg = $('#message').val() as string,
+            title = ($('#title').val() as string) || '',
+            $fadeIn = $('#fadeIn'),
+            $fadeOut = $('#fadeOut'),
+            $timeOut = $('#timeOut'),
+            $extendedTimeOut = $('#extendedTimeOut'),
+            toastIndex = 123;
+        toastr.options = {
+            debug: $('#debugInfo').prop('checked'),
+            tapToDismiss: $('#tapToDismiss').prop('checked'),
+            positionClass: ($('#positionGroup input:radio:checked').val() as string) || 'toast-top-right',
+            preventDuplicates: true,
+            progressBar: true,
+        };
+        if ((<string>$fadeIn.val()).length) {
+            toastr.options.showDuration = +$fadeIn.val()!;
         }
-        if ((<string> $fadeOut.val()).length) {
-			toastr.options.hideDuration = +$fadeOut.val()!
+        if ((<string>$fadeOut.val()).length) {
+            toastr.options.hideDuration = +$fadeOut.val()!;
         }
-        if ((<string> $timeOut.val()).length) {
-            toastr.options.timeOut = +$timeOut.val()!
+        if ((<string>$timeOut.val()).length) {
+            toastr.options.timeOut = +$timeOut.val()!;
         }
-        if ((<string> $extendedTimeOut.val()).length) {
-            toastr.options.extendedTimeOut = +$extendedTimeOut.val()!
+        if ((<string>$extendedTimeOut.val()).length) {
+            toastr.options.extendedTimeOut = +$extendedTimeOut.val()!;
         }
-        var $toast = toastr[shortCutFunction](msg, title)
+        var $toast = toastr[shortCutFunction](msg, title);
         if ($toast.find('#okBtn').length) {
             $toast.on('click', '#okBtn', function () {
-                alert('you clicked me. i was toast #' + toastIndex + '. goodbye!')
-                $toast.remove()
-            })
+                alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+                $toast.remove();
+            });
         }
         if ($toast.find('#surpriseBtn').length) {
             $toast.on('click', '#surpriseBtn', function () {
-                alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.')
-            })
+                alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+            });
         }
     });
     $('#clearlasttoast').click(function () {

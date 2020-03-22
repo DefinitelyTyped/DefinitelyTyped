@@ -8,11 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import {
-  ComponentClass,
-  StatelessComponent,
-  ReactElement
-} from "react";
+import { ComponentClass, StatelessComponent, ReactElement } from 'react';
 
 export type FieldValue = any;
 
@@ -23,7 +19,7 @@ export interface FieldState {
     error?: any;
 }
 
-export type FieldType = "Field" | "FieldArray";
+export type FieldType = 'Field' | 'FieldArray';
 
 export interface DataShape {
     [fieldName: string]: FieldValue;
@@ -49,13 +45,13 @@ export type FormMeta<FormData extends DataShape> = {
  */
 export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
 
-export * from "./lib/reduxForm";
-export * from "./lib/Field";
-export * from "./lib/Fields";
-export * from "./lib/FieldArray";
-export * from "./lib/Form";
-export * from "./lib/FormSection";
-export * from "./lib/actions";
-export * from "./lib/actionTypes";
-export * from "./lib/reducer";
-export * from "./lib/selectors";
+export * from './lib/reduxForm';
+export * from './lib/Field';
+export * from './lib/Fields';
+export * from './lib/FieldArray';
+export * from './lib/Form';
+export * from './lib/FormSection';
+export * from './lib/actions';
+export * from './lib/actionTypes';
+export * from './lib/reducer';
+export * from './lib/selectors';

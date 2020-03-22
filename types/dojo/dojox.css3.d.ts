@@ -3,10 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
-
     namespace css3 {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/css3/transit.html
@@ -22,7 +19,9 @@ declare namespace dojox {
          * @param to
          * @param options       OptionalThe argument to specify the transit effect and direction.The effect can be specified in options.transition. Thevalid values are 'slide', 'flip', 'fade', 'none'.The direction can be specified in options.reverse. If itis true, the transit effects will be conducted in thereverse direction to the default direction. Finally the durationof the transition can be overridden by setting the duration property.
          */
-        interface transit{(from: HTMLElement, to: HTMLElement, options?: Object): void}
+        interface transit {
+            (from: HTMLElement, to: HTMLElement, options?: Object): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/css3/transition.html
          *
@@ -31,137 +30,160 @@ declare namespace dojox {
          *
          * @param args       OptionalThe arguments which will be mixed into this transition object.
          */
-        interface transition{(args?: Object): void}
+        interface transition {
+            (args?: Object): void;
+        }
         namespace transition {
             /**
              *
              */
-            var autoClear: boolean
+            var autoClear: boolean;
             /**
              *
              */
-            var deferred: Object
+            var deferred: Object;
             /**
              *
              */
-            var direction: number
+            var direction: number;
             /**
              *
              */
-            var duration: number
+            var duration: number;
             /**
              *
              */
-            var endState: Object
+            var endState: Object;
             /**
              *
              */
-            var in_: boolean
+            var in_: boolean;
             /**
              *
              */
-            var node: Object
+            var node: Object;
             /**
              *
              */
-            var playing: Object
+            var playing: Object;
             /**
              *
              */
-            var startState: Object
+            var startState: Object;
             /**
              * The callback which will be called right after the end
              * of the transition effect and before the final state is
              * cleared.
              *
              */
-            interface beforeClear{(): void}
+            interface beforeClear {
+                (): void;
+            }
             /**
              * The callback which will be called right before the start
              * of the transition effect.
              *
              */
-            interface beforeStart{(): void}
+            interface beforeStart {
+                (): void;
+            }
             /**
              * The method which plays multiple transitions one by one.
              *
              * @param args The array of transition objects which will be played in a chain.
              */
-            interface chainedPlay{(args: any[]): void}
+            interface chainedPlay {
+                (args: any[]): void;
+            }
             /**
              * Method to clear the state after a transition.
              *
              */
-            interface clear{(): void}
+            interface clear {
+                (): void;
+            }
             /**
              * Method which is used to create the transition object of fade effect.
              *
              * @param node The node that the fade transition effect will be applied on.
              * @param config The cofig arguments which will be mixed into this transition object.
              */
-            interface fade{(node: any, config: any): void}
+            interface fade {
+                (node: any, config: any): void;
+            }
             /**
              * Method which is used to create the transition object of flip effect.
              *
              * @param node The node that the flip transition effect will be applied on.
              * @param config The cofig arguments which will be mixed into this transition object.
              */
-            interface flip{(node: any, config: any): void}
+            interface flip {
+                (node: any, config: any): void;
+            }
             /**
              *
              * @param nodes
              */
-            interface getWaitingList{(nodes: any[]): any}
+            interface getWaitingList {
+                (nodes: any[]): any;
+            }
             /**
              * The method which groups multiple transitions and plays
              * them together.
              *
              * @param args The array of transition objects which will be played together.
              */
-            interface groupedPlay{(args: any[]): any}
+            interface groupedPlay {
+                (args: any[]): any;
+            }
             /**
              * Method to initialize the state for a transition.
              *
              */
-            interface initState{(): void}
+            interface initState {
+                (): void;
+            }
             /**
              * Plays the transition effect defined by this transition object.
              *
              */
-            interface play{(): void}
+            interface play {
+                (): void;
+            }
             /**
              * Method which is used to create the transition object of a slide effect.
              *
              * @param node The node that the slide transition effect will be applied on.
              * @param config The cofig arguments which will be mixed into this transition object.
              */
-            interface slide{(node: any, config: any): void}
+            interface slide {
+                (node: any, config: any): void;
+            }
             /**
              * Method to start the transition.
              *
              */
-            interface start{(): void}
+            interface start {
+                (): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/css3/transition.endState.html
              *
              *
              */
-            interface endState {
-            }
+            interface endState {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/css3/transition.startState.html
              *
              *
              */
-            interface startState {
-            }
+            interface startState {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/css3/transition.playing.html
              *
              *
              */
-            interface playing {
-            }
+            interface playing {}
         }
 
         /**
@@ -217,30 +239,29 @@ declare namespace dojox {
             shrink(args: Object): any;
         }
     }
-
 }
 
-declare module "dojox/css3/transit" {
-    var exp: dojox.css3.transit
-    export=exp;
+declare module 'dojox/css3/transit' {
+    var exp: dojox.css3.transit;
+    export = exp;
 }
-declare module "dojox/css3/transition" {
-    var exp: dojox.css3.transition
-    export=exp;
+declare module 'dojox/css3/transition' {
+    var exp: dojox.css3.transition;
+    export = exp;
 }
-declare module "dojox/css3/transition.endState" {
-    var exp: dojox.css3.transition.endState
-    export=exp;
+declare module 'dojox/css3/transition.endState' {
+    var exp: dojox.css3.transition.endState;
+    export = exp;
 }
-declare module "dojox/css3/transition.playing" {
-    var exp: dojox.css3.transition.playing
-    export=exp;
+declare module 'dojox/css3/transition.playing' {
+    var exp: dojox.css3.transition.playing;
+    export = exp;
 }
-declare module "dojox/css3/transition.startState" {
-    var exp: dojox.css3.transition.startState
-    export=exp;
+declare module 'dojox/css3/transition.startState' {
+    var exp: dojox.css3.transition.startState;
+    export = exp;
 }
-declare module "dojox/css3/fx" {
-    var exp: dojox.css3.fx
-    export=exp;
+declare module 'dojox/css3/fx' {
+    var exp: dojox.css3.fx;
+    export = exp;
 }

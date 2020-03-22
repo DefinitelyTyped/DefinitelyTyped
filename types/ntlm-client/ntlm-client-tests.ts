@@ -1,21 +1,21 @@
 import ntlm = require('ntlm-client');
 
 const type2 = {
-  flags: 0,
-  encoding: '',
-  version: 3,
-  challenge: new Buffer(''),
-  targetName: '',
-  targetInfo: {
-    parsed: {
-      DOMAIN: '',
-      SERVER: '',
-      DNS: '',
-      FQDN: '',
-      PARENT_DNS: '',
+    flags: 0,
+    encoding: '',
+    version: 3,
+    challenge: new Buffer(''),
+    targetName: '',
+    targetInfo: {
+        parsed: {
+            DOMAIN: '',
+            SERVER: '',
+            DNS: '',
+            FQDN: '',
+            PARENT_DNS: '',
+        },
+        buffer: new Buffer(''),
     },
-    buffer: new Buffer(''),
-  }
 };
 
 // $ExpectType string

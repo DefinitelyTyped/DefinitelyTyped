@@ -1,8 +1,4 @@
-import {
-    Server,
-    Request,
-    ResponseToolkit,
-} from '@hapi/hapi';
+import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 
 import * as Vision from '@hapi/vision';
 import * as Handlebars from 'handlebars';
@@ -17,7 +13,7 @@ const provision = async () => {
         options: {
             engines: { hbs: Handlebars },
             path: __dirname + '/templates',
-        }
+        },
     });
 
     server.views({

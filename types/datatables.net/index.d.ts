@@ -225,7 +225,7 @@ declare namespace DataTables {
          * @param event Event name to remove.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        off(event: string, callback?: ((e: Event, ...args: any[]) => void)): Api;
+        off(event: string, callback?: (e: Event, ...args: any[]) => void): Api;
 
         /**
          * Table events listener.
@@ -233,7 +233,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        on(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
+        on(event: string, callback: (e: Event, ...args: any[]) => void): Api;
 
         /**
          * Listen for a table event once and then remove the listener.
@@ -241,7 +241,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
+        one(event: string, callback: (e: Event, ...args: any[]) => void): Api;
 
         /**
          * Page Methods / object
@@ -283,7 +283,7 @@ declare namespace DataTables {
          * @param callback Function which is executed when the data as been reloaded and the table fully redrawn.
          * @param resetPaging Reset (default action or true) or hold the current paging position (false).
          */
-        load(callback?: ((json: any) => void), resetPaging?: boolean): Api;
+        load(callback?: (json: any) => void, resetPaging?: boolean): Api;
     }
 
     interface AjaxMethodModel {
@@ -303,7 +303,7 @@ declare namespace DataTables {
          * @param callback Function which is executed when the data as been reloaded and the table fully redrawn.
          * @param resetPaging Reset (default action or true) or hold the current paging position (false).
          */
-        reload(callback?: ((json: any) => void), resetPaging?: boolean): Api;
+        reload(callback?: (json: any) => void, resetPaging?: boolean): Api;
 
         /**
          * Reload the table data from the Ajax data source
@@ -326,15 +326,15 @@ declare namespace DataTables {
         /**
          * Get the ordering applied to the table.
          */
-        (): Array<Array<(string | number)>>;
+        (): Array<Array<string | number>>;
 
         /**
          * Set the ordering applied to the table.
          *
          * @param order Order Model
          */
-        (order?: Array<(string | number)> | Array<Array<(string | number)>>): Api;
-        (order: Array<(string | number)>, ...args: any[]): Api;
+        (order?: Array<string | number> | Array<Array<string | number>>): Api;
+        (order: Array<string | number>, ...args: any[]): Api;
 
         /**
          * Get the fixed ordering that is applied to the table. If there is more than one table in the API's context,
@@ -353,7 +353,7 @@ declare namespace DataTables {
          * @param column Column index
          * @param callback Callback function
          */
-        listener(node: string | Node | JQuery, column: number, callback: (() => void)): Api;
+        listener(node: string | Node | JQuery, column: number, callback: () => void): Api;
     }
     //#endregion "order-methods"
 
@@ -431,7 +431,7 @@ declare namespace DataTables {
         time: number;
         start: number;
         length: number;
-        order: Array<Array<(string | number)>>;
+        order: Array<Array<string | number>>;
         search: SearchSettings;
         columns: StateReturnModelColumns[];
     }
@@ -471,7 +471,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters
          */
-        each(fn: ((value: any, index: number, dt: Api) => void)): Api;
+        each(fn: (value: any, index: number, dt: Api) => void): Api;
 
         /**
          * Reduce an Api instance to a single context and result set.
@@ -485,7 +485,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters.
          */
-        filter(fn: ((value: any, index: number, dt: Api) => boolean)): Api;
+        filter(fn: (value: any, index: number, dt: Api) => boolean): Api;
 
         /**
          * Flatten a 2D array structured API instance to a 1D array structure.
@@ -523,7 +523,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters.
          */
-        map(fn: ((value: any, index: number, dt: Api) => any)): Api;
+        map(fn: (value: any, index: number, dt: Api) => any): Api;
 
         /**
          * Iterate over the result set of an API instance, creating a new API instance from the values retrieved from the original elements.
@@ -550,7 +550,7 @@ declare namespace DataTables {
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with four parameters.
          * @param initialValue Value to use as the first argument of the first call to the fn callback.
          */
-        reduce(fn: ((current: number, value: any, index: number, dt: Api) => number), initialValue?: any): any;
+        reduce(fn: (current: number, value: any, index: number, dt: Api) => number, initialValue?: any): any;
 
         /**
          * Apply a callback function against and accumulator and each element in the Api's result set (right-to-left).
@@ -558,7 +558,7 @@ declare namespace DataTables {
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with four parameters.
          * @param initialValue Value to use as the first argument of the first call to the fn callback.
          */
-        reduceRight(fn: ((current: number, value: any, index: number, dt: Api) => number), initialValue?: any): any;
+        reduceRight(fn: (current: number, value: any, index: number, dt: Api) => number, initialValue?: any): any;
 
         /**
          * Reverse the result set of the API instance and return the original array.
@@ -575,7 +575,7 @@ declare namespace DataTables {
          *
          * @param fn This is a standard Javascript sort comparison function. It accepts two parameters.
          */
-        sort(fn?: ((value1: any, value2: any) => number)): Api;
+        sort(fn?: (value1: any, value2: any) => number): Api;
 
         /**
          * Modify the contents of an Api instance's result set, adding or removing items from it as required.
@@ -684,7 +684,15 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every cell selected.
          */
-        every(fn: (this: CellMethods, cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api;
+        every(
+            fn: (
+                this: CellMethods,
+                cellRowIdx: number,
+                cellColIdx: number,
+                tableLoop: number,
+                cellLoop: number,
+            ) => void,
+        ): Api;
 
         /**
          * Get index information about the selected cells
@@ -858,7 +866,7 @@ declare namespace DataTables {
          * @param data The data to be shown in the child row can be given in multiple different ways.
          * @param className Class name that is added to the td cell node(s) of the child row(s). As of 1.10.1 it is also added to the tr row node of the child row(s).
          */
-        (data: (string | Node | JQuery) | Array<(string | number | JQuery)>, className?: string): RowChildMethods;
+        (data: (string | Node | JQuery) | Array<string | number | JQuery>, className?: string): RowChildMethods;
 
         /**
          * Hide the child row(s) of a parent row
@@ -1175,7 +1183,13 @@ declare namespace DataTables {
          * @param prefix Prefix (optional).
          * @param postfix Postfix (/suffix) (optional).
          */
-        number(thousands: string, decimal: string, precision: number, prefix?: string, postfix?: string): ObjectColumnRender;
+        number(
+            thousands: string,
+            decimal: string,
+            precision: number,
+            prefix?: string,
+            postfix?: string,
+        ): ObjectColumnRender;
         /**
          * Escape HTML to help prevent XSS attacks. It has no optional parameters.
          */
@@ -1196,7 +1210,7 @@ declare namespace DataTables {
          * @param fn Function
          * @param period ms
          */
-        throttle(fn: FunctionThrottle, period?: number): (() => void);
+        throttle(fn: FunctionThrottle, period?: number): () => void;
     }
 
     type FunctionThrottle = (data: any) => void;
@@ -1336,7 +1350,7 @@ declare namespace DataTables {
         /**
          * Change the options in the page length select list. Since: 1.10
          */
-        lengthMenu?: Array<(number | string)> | Array<Array<(number | string)>>;
+        lengthMenu?: Array<number | string> | Array<Array<number | string>>;
 
         /**
          * Control which cell the order event handler will be applied to in a column. Since: 1.10
@@ -1351,12 +1365,12 @@ declare namespace DataTables {
         /**
          * Initial order (sort) to apply to the table. Since: 1.10
          */
-        order?: Array<(number | string)> | Array<Array<(number | string)>>;
+        order?: Array<number | string> | Array<Array<number | string>>;
 
         /**
          * Ordering to always be applied to the table. Since: 1.10
          */
-        orderFixed?: Array<(number | string)> | Array<Array<(number | string)>> | object;
+        orderFixed?: Array<number | string> | Array<Array<number | string>> | object;
 
         /**
          * Multiple column ordering ability control. Since: 1.10
@@ -1566,7 +1580,7 @@ declare namespace DataTables {
         dataSrc?: string | ((data: any) => any[]);
     }
 
-    type FunctionAjax = (data: object, callback: ((data: any) => void), settings: SettingsLegacy) => void;
+    type FunctionAjax = (data: object, callback: (data: any) => void, settings: SettingsLegacy) => void;
 
     type FunctionAjaxData = (data: object, settings: Settings) => string | object;
 
@@ -1671,7 +1685,7 @@ declare namespace DataTables {
     }
 
     interface ColumnDefsSettings extends ColumnSettings {
-        targets: string | number | Array<(number | string)>;
+        targets: string | number | Array<number | string>;
     }
 
     type FunctionColumnCreatedCell = (cell: Node, cellData: any, rowData: any, row: number, col: number) => void;
@@ -1755,7 +1769,14 @@ declare namespace DataTables {
 
     type FunctionHeaderCallback = (thead: Node, data: any[], start: number, end: number, display: any[]) => void;
 
-    type FunctionInfoCallback = (settings: SettingsLegacy, start: number, end: number, mnax: number, total: number, pre: string) => void;
+    type FunctionInfoCallback = (
+        settings: SettingsLegacy,
+        start: number,
+        end: number,
+        mnax: number,
+        total: number,
+        pre: string,
+    ) => void;
 
     type FunctionInitComplete = (settings: SettingsLegacy, json: object) => void;
 
@@ -1902,7 +1923,7 @@ declare namespace DataTables {
         iTabIndex: number;
         nScrollHead: Node;
         nScrollFoot: Node;
-        rowIdFn(mSource: string | number | (() => void)): (() => void);
+        rowIdFn(mSource: string | number | (() => void)): () => void;
     }
 
     interface BrowserLegacy {
@@ -2247,5 +2268,5 @@ declare namespace DataTables {
      * @param data Data from the column cell to be analysed.
      * @param DataTables settings object.
      */
-    type FunctionExtTypeSettingsDetect = (data: any, settings: Settings) => (string | null);
+    type FunctionExtTypeSettingsDetect = (data: any, settings: Settings) => string | null;
 }

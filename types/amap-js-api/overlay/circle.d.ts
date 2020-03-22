@@ -26,11 +26,14 @@ declare namespace AMap {
             unit?: 'meter' | 'px'; // 'might be typo'
         }
 
-        type GetOptionsResult<ExtraData = any> = Merge<Polygon.GetOptionsResult<ExtraData>, {
-            path: LngLat[];
-            center: LngLat;
-            radius: number;
-        }>;
+        type GetOptionsResult<ExtraData = any> = Merge<
+            Polygon.GetOptionsResult<ExtraData>,
+            {
+                path: LngLat[];
+                center: LngLat;
+                radius: number;
+            }
+        >;
     }
 
     class Circle<ExtraData = any> extends ShapeOverlay<ExtraData> {

@@ -3,9 +3,9 @@
 // Definitions by: Linkun Chen <https://github.com/lk-chen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as d3 from "d3";
+import * as d3 from 'd3';
 
-declare module "d3" {
+declare module 'd3' {
     export function box(): Box;
 
     interface Box {
@@ -28,4 +28,3 @@ declare module "d3" {
         quantiles(x: (d: any[]) => number[]): Box;
     }
 }
-

@@ -3,8 +3,8 @@
 // Definitions by: Toru Nagashima <https://github.com/mysticatea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-import * as eslint from "eslint";
-import * as estree from "estree";
+import * as eslint from 'eslint';
+import * as estree from 'estree';
 
 export const version: string;
 
@@ -16,7 +16,18 @@ export class ScopeManager implements eslint.Scope.ScopeManager {
 }
 
 export class Scope implements eslint.Scope.Scope {
-    type: "block" | "catch" | "class" | "for" | "function" | "function-expression-name" | "global" | "module" | "switch" | "with" | "TDZ";
+    type:
+        | 'block'
+        | 'catch'
+        | 'class'
+        | 'for'
+        | 'function'
+        | 'function-expression-name'
+        | 'global'
+        | 'module'
+        | 'switch'
+        | 'with'
+        | 'TDZ';
     isStrict: boolean;
     upper: Scope | null;
     childScopes: Scope[];
@@ -57,7 +68,7 @@ export interface AnalysisOptions {
     nodejsScope?: boolean;
     impliedStrict?: boolean;
     fallback?: string | ((node: {}) => string[]);
-    sourceType?: "script" | "module";
+    sourceType?: 'script' | 'module';
     ecmaVersion?: number;
 }
 

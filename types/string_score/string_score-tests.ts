@@ -1,5 +1,3 @@
-
-
 import string_score = require('string_score');
 
 var a = 'abc';

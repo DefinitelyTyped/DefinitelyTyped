@@ -4,9 +4,9 @@ import VueMarkdown from 'vue-markdown';
 new Vue({
     el: '#app',
     components: {
-        VueMarkdown
+        VueMarkdown,
     },
     template: `
         # Test
-    `
+    `,
 });

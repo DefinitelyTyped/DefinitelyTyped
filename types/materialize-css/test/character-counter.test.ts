@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -16,5 +16,5 @@ characterCounter.destroy();
 // $ExpectType Element
 characterCounter.el;
 
-$(".whatever").characterCounter();
-$(".whatever").characterCounter("destroy");
+$('.whatever').characterCounter();
+$('.whatever').characterCounter('destroy');

@@ -1,7 +1,5 @@
 namespace isTests {
-    const {
-        is
-    } = adone;
+    const { is } = adone;
     {
         const a: boolean = is.null({});
         const b: any = 2;
@@ -16,7 +14,9 @@ namespace isTests {
             const c: undefined = b;
         }
     }
-    { const a: boolean = is.exist({}); }
+    {
+        const a: boolean = is.exist({});
+    }
     {
         const a: boolean = is.nil({});
         const b: any = 2;
@@ -87,10 +87,18 @@ namespace isTests {
             b.charCodeAt(0);
         }
     }
-    { const a: boolean = is.substring("abc", "abcdef"); }
-    { const a: boolean = is.substring("abc", "abcdef", 0); }
-    { const a: boolean = is.prefix("abc", "abcdef"); }
-    { const a: boolean = is.suffix("def", "abbdef"); }
+    {
+        const a: boolean = is.substring('abc', 'abcdef');
+    }
+    {
+        const a: boolean = is.substring('abc', 'abcdef', 0);
+    }
+    {
+        const a: boolean = is.prefix('abc', 'abcdef');
+    }
+    {
+        const a: boolean = is.suffix('def', 'abbdef');
+    }
     {
         const a: boolean = is.boolean({});
         const b: any = 2;
@@ -98,7 +106,9 @@ namespace isTests {
             b === true;
         }
     }
-    { const a: boolean = is.json({}); }
+    {
+        const a: boolean = is.json({});
+    }
     {
         const a: boolean = is.object({});
         const b: any = 2;
@@ -113,12 +123,24 @@ namespace isTests {
             const c: object = b;
         }
     }
-    { const a: boolean = is.class({}); }
-    { const a: boolean = is.emptyObject({}); }
-    { const a: boolean = is.propertyOwned({}, "a"); }
-    { const a: boolean = is.propertyDefined({}, "a"); }
-    { const a: boolean = is.conforms({}, {}); }
-    { const a: boolean = is.conforms({}, {}, true); }
+    {
+        const a: boolean = is.class({});
+    }
+    {
+        const a: boolean = is.emptyObject({});
+    }
+    {
+        const a: boolean = is.propertyOwned({}, 'a');
+    }
+    {
+        const a: boolean = is.propertyDefined({}, 'a');
+    }
+    {
+        const a: boolean = is.conforms({}, {});
+    }
+    {
+        const a: boolean = is.conforms({}, {}, true);
+    }
     {
         const a: boolean = is.arrayLikeObject({});
         const b: any = {};
@@ -127,40 +149,76 @@ namespace isTests {
             b[0];
         }
     }
-    { const a: boolean = is.inArray(1, [1, 2, 3]); }
-    { const a: boolean = is.inArray(1, [1, 2, 3], 0); }
-    { const a: boolean = is.inArray(1, [1, 2, 3], 0, (a, b) => a === b); }
-    { const a: boolean = is.sameType({}, {}); }
-    { const a: boolean = is.primitive({}); }
-    { const a: boolean = is.equalArrays([], []); }
-    { const a: boolean = is.deepEqual({}, {}); }
-    { const a: boolean = is.shallowEqual({}, {}); }
-    { const a: boolean = is.stream({}); }
-    { const a: boolean = is.writableStream({}); }
-    { const a: boolean = is.readableStream({}); }
-    { const a: boolean = is.duplexStream({}); }
-    { const a: boolean = is.transformStream({}); }
-    { const a: boolean = is.utf8(Buffer.alloc(10)); }
-    { const a: boolean = is.win32PathAbsolute("abc"); }
-    { const a: boolean = is.posixPathAbsolute("abc"); }
-    { const a: boolean = is.pathAbsolute("abc"); }
     {
-        const a: boolean = is.glob("abc");
+        const a: boolean = is.inArray(1, [1, 2, 3]);
+    }
+    {
+        const a: boolean = is.inArray(1, [1, 2, 3], 0);
+    }
+    {
+        const a: boolean = is.inArray(1, [1, 2, 3], 0, (a, b) => a === b);
+    }
+    {
+        const a: boolean = is.sameType({}, {});
+    }
+    {
+        const a: boolean = is.primitive({});
+    }
+    {
+        const a: boolean = is.equalArrays([], []);
+    }
+    {
+        const a: boolean = is.deepEqual({}, {});
+    }
+    {
+        const a: boolean = is.shallowEqual({}, {});
+    }
+    {
+        const a: boolean = is.stream({});
+    }
+    {
+        const a: boolean = is.writableStream({});
+    }
+    {
+        const a: boolean = is.readableStream({});
+    }
+    {
+        const a: boolean = is.duplexStream({});
+    }
+    {
+        const a: boolean = is.transformStream({});
+    }
+    {
+        const a: boolean = is.utf8(Buffer.alloc(10));
+    }
+    {
+        const a: boolean = is.win32PathAbsolute('abc');
+    }
+    {
+        const a: boolean = is.posixPathAbsolute('abc');
+    }
+    {
+        const a: boolean = is.pathAbsolute('abc');
+    }
+    {
+        const a: boolean = is.glob('abc');
         const b: any = 2;
         if (is.glob(b)) {
             b.charCodeAt(0);
         }
     }
-    { const a: boolean = is.dotfile("abc"); }
     {
-        const a: boolean = is.function(() => { });
+        const a: boolean = is.dotfile('abc');
+    }
+    {
+        const a: boolean = is.function(() => {});
         const b: any = 2;
         if (is.function(b)) {
             b();
         }
     }
     {
-        const a: boolean = is.asyncFunction(async () => { });
+        const a: boolean = is.asyncFunction(async () => {});
         const b: any = 2;
         if (is.asyncFunction(b)) {
             b().then(() => {});
@@ -177,7 +235,9 @@ namespace isTests {
             c.then((x) => x.toFixed(2));
         }
     }
-    { const a: boolean = is.validDate("07.08.2017"); }
+    {
+        const a: boolean = is.validDate('07.08.2017');
+    }
     {
         const a: boolean = is.buffer({});
         const b: any = 2;
@@ -185,7 +245,9 @@ namespace isTests {
             b.writeDoubleBE(10, 10);
         }
     }
-    { const a: boolean = is.callback({}); }
+    {
+        const a: boolean = is.callback({});
+    }
     {
         const a: boolean = is.generator({});
         const b: any = 2;
@@ -193,7 +255,9 @@ namespace isTests {
             b().next();
         }
     }
-    { const a: boolean = is.nan({}); }
+    {
+        const a: boolean = is.nan({});
+    }
     {
         const a: boolean = is.finite({});
         const b: any = 2;
@@ -233,7 +297,9 @@ namespace isTests {
             b.copyWithin(1, 2);
         }
     }
-    { const a: boolean = is.configuration({}); }
+    {
+        const a: boolean = is.configuration({});
+    }
     {
         const a: boolean = is.long({});
         const b: any = 2;
@@ -259,10 +325,12 @@ namespace isTests {
         const a: boolean = is.datetime({});
         const b: any = 2;
         if (is.datetime(b)) {
-            b.add(2, "hours");
+            b.add(2, 'hours');
         }
     }
-    { const a: boolean = is.transform({}); }
+    {
+        const a: boolean = is.transform({});
+    }
     {
         const a: boolean = is.subsystem({});
         const b: any = 2;
@@ -274,10 +342,12 @@ namespace isTests {
         const a: boolean = is.application({});
         const b: any = 2;
         if (is.application(b)) {
-            b.exitOnSignal("SIGINT");
+            b.exitOnSignal('SIGINT');
         }
     }
-    { const a: boolean = is.logger({}); }
+    {
+        const a: boolean = is.logger({});
+    }
     {
         const a: boolean = is.coreStream({});
         const b: any = 2;
@@ -291,38 +361,68 @@ namespace isTests {
         const a: boolean = is.fastStream({});
         const b: any = 2;
         if (is.fastStream(b)) {
-            b.compress("deflate");
+            b.compress('deflate');
         }
     }
     {
         const a: boolean = is.fastLocalStream({});
         const b: any = 2;
         if (is.fastLocalStream(b)) {
-            b.compress("gz");
+            b.compress('gz');
         }
     }
     {
         const a: boolean = is.fastLocalMapStream({});
         const b: any = 2;
         if (is.fastLocalMapStream(b)) {
-            b.decompress("gz");
+            b.decompress('gz');
         }
     }
-    { const a: boolean = is.genesisNetron({}); }
-    { const a: boolean = is.genesisPeer({}); }
-    { const a: boolean = is.netronAdapter({}); }
-    { const a: boolean = is.netron({}); }
-    { const a: boolean = is.netronPeer({}); }
-    { const a: boolean = is.netronDefinition({}); }
-    { const a: boolean = is.netronDefinitions({}); }
-    { const a: boolean = is.netronReference({}); }
-    { const a: boolean = is.netronInterface({}); }
-    { const a: boolean = is.netronContext({}); }
-    { const a: boolean = is.netronIMethod({}, "hello"); }
-    { const a: boolean = is.netronIProperty({}, "hello"); }
-    { const a: boolean = is.netronStub({}); }
-    { const a: boolean = is.netronRemoteStub({}); }
-    { const a: boolean = is.netronStream({}); }
+    {
+        const a: boolean = is.genesisNetron({});
+    }
+    {
+        const a: boolean = is.genesisPeer({});
+    }
+    {
+        const a: boolean = is.netronAdapter({});
+    }
+    {
+        const a: boolean = is.netron({});
+    }
+    {
+        const a: boolean = is.netronPeer({});
+    }
+    {
+        const a: boolean = is.netronDefinition({});
+    }
+    {
+        const a: boolean = is.netronDefinitions({});
+    }
+    {
+        const a: boolean = is.netronReference({});
+    }
+    {
+        const a: boolean = is.netronInterface({});
+    }
+    {
+        const a: boolean = is.netronContext({});
+    }
+    {
+        const a: boolean = is.netronIMethod({}, 'hello');
+    }
+    {
+        const a: boolean = is.netronIProperty({}, 'hello');
+    }
+    {
+        const a: boolean = is.netronStub({});
+    }
+    {
+        const a: boolean = is.netronRemoteStub({});
+    }
+    {
+        const a: boolean = is.netronStream({});
+    }
     {
         const a: boolean = is.iterable({});
         const b: any = 2;
@@ -331,25 +431,63 @@ namespace isTests {
             it.next();
         }
     }
-    { const a: boolean = is.windows; }
-    { const a: boolean = is.linux; }
-    { const a: boolean = is.freebsd; }
-    { const a: boolean = is.darwin; }
-    { const a: boolean = is.sunos; }
-    { const a: boolean = is.openbsd; }
-    { const a: boolean = is.aix; }
-    { const a: boolean = is.uppercase("abc"); }
-    { const a: boolean = is.lowercase("abc"); }
-    { const a: boolean = is.digits("012"); }
-    { const a: boolean = is.identifier("someMethod"); }
-    { const a: boolean = is.binaryExtension("mp3"); }
-    { const a: boolean = is.binaryPath("a.mp3"); }
-    { const a: boolean = is.ip4("192.168.1.1"); }
-    { const a: boolean = is.ip4("192.168.1.1", { exact: true }); }
-    { const a: boolean = is.ip6("::192.168.1.1"); }
-    { const a: boolean = is.ip6("::192.168.1.1", { exact: true }); }
-    { const a: boolean = is.ip("::192.168.1.1"); }
-    { const a: boolean = is.ip("::192.168.1.1", { exact: true }); }
+    {
+        const a: boolean = is.windows;
+    }
+    {
+        const a: boolean = is.linux;
+    }
+    {
+        const a: boolean = is.freebsd;
+    }
+    {
+        const a: boolean = is.darwin;
+    }
+    {
+        const a: boolean = is.sunos;
+    }
+    {
+        const a: boolean = is.openbsd;
+    }
+    {
+        const a: boolean = is.aix;
+    }
+    {
+        const a: boolean = is.uppercase('abc');
+    }
+    {
+        const a: boolean = is.lowercase('abc');
+    }
+    {
+        const a: boolean = is.digits('012');
+    }
+    {
+        const a: boolean = is.identifier('someMethod');
+    }
+    {
+        const a: boolean = is.binaryExtension('mp3');
+    }
+    {
+        const a: boolean = is.binaryPath('a.mp3');
+    }
+    {
+        const a: boolean = is.ip4('192.168.1.1');
+    }
+    {
+        const a: boolean = is.ip4('192.168.1.1', { exact: true });
+    }
+    {
+        const a: boolean = is.ip6('::192.168.1.1');
+    }
+    {
+        const a: boolean = is.ip6('::192.168.1.1', { exact: true });
+    }
+    {
+        const a: boolean = is.ip('::192.168.1.1');
+    }
+    {
+        const a: boolean = is.ip('::192.168.1.1', { exact: true });
+    }
     {
         const a: boolean = is.arrayBuffer({});
         const b: any = 2;
@@ -371,34 +509,42 @@ namespace isTests {
             b.getMonth() + b.getDate();
         }
     }
-    { const a: boolean = is.error({}); }
+    {
+        const a: boolean = is.error({});
+    }
     {
         const a: boolean = is.map({});
         const b: any = 2;
         if (is.map(b)) {
-            b.has("asd");
+            b.has('asd');
             b.set(1, 2);
-            b.set("1", 2);
+            b.set('1', 2);
         }
     }
     {
         const a: boolean = is.regexp({});
         const b: any = 2;
         if (is.regexp(b)) {
-            b.test("hello");
+            b.test('hello');
         }
     }
     {
         const a: boolean = is.set({});
         const b: any = 2;
         if (is.set(b)) {
-            b.add("h");
+            b.add('h');
             b.has(1);
         }
     }
-    { const a: boolean = is.symbol({}); }
-    { const a: boolean = is.vaultValuable({}); }
-    { const a: boolean = is.task({}); }
+    {
+        const a: boolean = is.symbol({});
+    }
+    {
+        const a: boolean = is.vaultValuable({});
+    }
+    {
+        const a: boolean = is.task({});
+    }
     {
         const a: boolean = is.fqdn(1);
         const b: any = 2;
@@ -409,13 +555,13 @@ namespace isTests {
             b.charCodeAt(0);
         }
         is.fqdn(1, {
-            allowTrailingDot: false
+            allowTrailingDot: false,
         });
         is.fqdn(1, {
-            allowUnderscores: false
+            allowUnderscores: false,
         });
         is.fqdn(1, {
-            requireTld: true
+            requireTld: true,
         });
     }
     {
@@ -428,16 +574,16 @@ namespace isTests {
             b.charCodeAt(0);
         }
         is.email(1, {
-            allowDisplayName: false
+            allowDisplayName: false,
         });
         is.email(1, {
-            allowUtf8LocalPart: false
+            allowUtf8LocalPart: false,
         });
         is.email(1, {
-            requireDisplayName: false
+            requireDisplayName: false,
         });
         is.email(1, {
-            requireTld: false
+            requireTld: false,
         });
     }
     {
@@ -448,16 +594,16 @@ namespace isTests {
         }
     }
     {
-        const a: boolean = is.uuid(2, "all");
+        const a: boolean = is.uuid(2, 'all');
         const b: any = 2;
-        if (is.uuid(b, "all")) {
+        if (is.uuid(b, 'all')) {
             b.charCodeAt(0);
         }
     }
     {
-        const a: boolean = is.uuid(2, "all");
+        const a: boolean = is.uuid(2, 'all');
         const b: any = 2;
-        if (is.uuid(b, "all")) {
+        if (is.uuid(b, 'all')) {
             b.charCodeAt(0);
         }
     }

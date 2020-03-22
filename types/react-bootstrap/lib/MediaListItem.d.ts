@@ -5,5 +5,5 @@ declare namespace MediaListItem {
         componentClass?: React.ReactType;
     }
 }
-declare class MediaListItem extends React.Component<MediaListItem.MediaListItemProps> { }
+declare class MediaListItem extends React.Component<MediaListItem.MediaListItemProps> {}
 export = MediaListItem;

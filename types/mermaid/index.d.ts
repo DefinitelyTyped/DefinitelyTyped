@@ -3,7 +3,7 @@
 // Definitions by: Geoffrey Gilmore <https://github.com/ggilmore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import mermaidAPI from "./mermaidAPI";
+import mermaidAPI from './mermaidAPI';
 
 /**
  * ## init

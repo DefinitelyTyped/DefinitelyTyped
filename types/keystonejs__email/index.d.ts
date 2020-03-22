@@ -10,7 +10,7 @@
 // tslint:disable-next-line:no-single-declare-module
 declare module '@keystonejs/email' {
     type Sender = (
-        fileName: string
+        fileName: string,
     ) => {
         send: (rendererOpts: any, transportOptions: any) => any;
     };

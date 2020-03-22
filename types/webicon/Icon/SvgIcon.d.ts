@@ -1,5 +1,5 @@
-import { ImageIcon } from "./ImageIcon";
-import { Sizeable } from "./Sizeable";
+import { ImageIcon } from './ImageIcon';
+import { Sizeable } from './Sizeable';
 
 /**
  * Represents an svg-icon.

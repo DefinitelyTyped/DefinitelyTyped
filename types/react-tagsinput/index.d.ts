@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace ReactTagsInput;
 export = TagsInput;
@@ -22,7 +22,7 @@ declare class TagsInput extends React.Component<TagsInput.ReactTagsInputProps> {
 
 declare namespace TagsInput {
     interface InputProps {
-      readonly [prop: string]: any;
+        readonly [prop: string]: any;
     }
 
     interface RenderInputProps extends InputProps {

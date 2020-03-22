@@ -21,13 +21,13 @@ const nested = sub<string, number>(example, 'nested');
 
 example.open();
 example.close();
-example.open(error => {});
+example.open((error) => {});
 
-example.close(error => {});
+example.close((error) => {});
 
 example.put('key', {});
-example.put('key', {}, error => {});
-example.put('key', {}, { sync: true }, error => {});
+example.put('key', {}, (error) => {});
+example.put('key', {}, { sync: true }, (error) => {});
 
 example.put('hello', 'world', () => {
     nested.put('hi', 1, () => {
@@ -40,9 +40,9 @@ example.get('key', { fillCache: true }, (error, val) => {});
 example.get('key', (error, val) => {});
 
 example.del('key');
-example.del('key', error => {});
-example.del('key', { keyEncoding: 'json' }, error => {});
-example.del('key', { sync: true }, error => {});
+example.del('key', (error) => {});
+example.del('key', { keyEncoding: 'json' }, (error) => {});
+example.del('key', { sync: true }, (error) => {});
 
 example.batch(
     [

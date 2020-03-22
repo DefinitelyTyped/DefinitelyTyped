@@ -1,2 +1,2 @@
-import { stubArray } from "lodash";
+import { stubArray } from 'lodash';
 export default stubArray;

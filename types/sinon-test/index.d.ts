@@ -9,7 +9,7 @@ import * as Sinon from 'sinon';
 interface Configuration {
     injectIntoThis?: boolean;
     injectInto?: any;
-    properties?: Array<"spy" | "stub" | "mock" | "clock" | "server" | "requests">;
+    properties?: Array<'spy' | 'stub' | 'mock' | 'clock' | 'server' | 'requests'>;
     useFakeTimers?: boolean;
     useFakeServer?: boolean;
 }

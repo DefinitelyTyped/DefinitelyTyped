@@ -9,7 +9,7 @@ import { StoreEnhancer } from 'redux';
 
 export interface IDevTools {
     new (): JSX.ElementClass;
-    instrument(): StoreEnhancer
+    instrument(): StoreEnhancer;
 }
 
 export declare function createDevTools(el: React.ReactElement): IDevTools;

@@ -30,38 +30,31 @@ declare namespace passport_steam {
         function saveDiscoveredInformation(fn: any): any;
 
         namespace authenticate {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace loadAssociation {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace loadDiscoveredInfo {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace loadDiscoveredInformation {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace saveAssociation {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace saveDiscoveredInfo {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace saveDiscoveredInformation {
-            const prototype: {
-            };
+            const prototype: {};
         }
     }
 }

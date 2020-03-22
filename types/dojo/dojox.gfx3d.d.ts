@@ -3,11 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/gfx3d.html
      *
@@ -15,15 +11,14 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface gfx3d {
-    }
+    interface gfx3d {}
     namespace gfx3d {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/gfx3d/object.html
          *
          *
          */
-        const object: { new(): objectInstance };
+        const object: { new (): objectInstance };
         interface objectInstance {
             /**
              * multiplies the existing matrix with an argument on left side
@@ -186,7 +181,15 @@ declare namespace dojox {
              * @param to from position in radians
              * @param matrix the cumulative transformation matrix
              */
-            gradient(model: dojox.gfx3d.lighting.Model, material: Object, center: Object, radius: number, from: number, to: number, matrix: Object): Object;
+            gradient(
+                model: dojox.gfx3d.lighting.Model,
+                material: Object,
+                center: Object,
+                radius: number,
+                from: number,
+                to: number,
+                matrix: Object,
+            ): Object;
             /**
              * a 3D matrix object
              * Normalizes a 3D matrix-like object. If arrays is passed,
@@ -1253,7 +1256,7 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "nodeType": Object;
+                'nodeType': Object;
                 /**
                  * removes a shape from the list
                  *
@@ -2434,7 +2437,14 @@ declare namespace dojox {
                  * @param e y coordinate of second point
                  * @param f z coordinate of second point
                  */
-                crossProduct(a: dojox.geo.openlayers.Point, b: dojox.geo.openlayers.Point, c: number, d: number, e: number, f: number): any;
+                crossProduct(
+                    a: dojox.geo.openlayers.Point,
+                    b: dojox.geo.openlayers.Point,
+                    c: number,
+                    d: number,
+                    e: number,
+                    f: number,
+                ): any;
                 /**
                  * applies a matrix to a point
                  *
@@ -2478,7 +2488,14 @@ declare namespace dojox {
                  * @param e               Optionaly coordinate of second point
                  * @param f               Optionalz coordinate of second point
                  */
-                dotProduct(a: dojox.geo.openlayers.Point, b: dojox.geo.openlayers.Point, c: number, d: number, e: number, f: number): any;
+                dotProduct(
+                    a: dojox.geo.openlayers.Point,
+                    b: dojox.geo.openlayers.Point,
+                    c: number,
+                    d: number,
+                    e: number,
+                    f: number,
+                ): any;
                 /**
                  * find the normal of the implicit surface
                  *
@@ -2652,7 +2669,14 @@ declare namespace dojox {
              * @param e y coordinate of second point
              * @param f z coordinate of second point
              */
-            crossProduct(a: dojox.geo.openlayers.Point, b: dojox.geo.openlayers.Point, c: number, d: number, e: number, f: number): any;
+            crossProduct(
+                a: dojox.geo.openlayers.Point,
+                b: dojox.geo.openlayers.Point,
+                c: number,
+                d: number,
+                e: number,
+                f: number,
+            ): any;
             /**
              * applies a matrix to a point
              *
@@ -2696,7 +2720,14 @@ declare namespace dojox {
              * @param e               Optionaly coordinate of second point
              * @param f               Optionalz coordinate of second point
              */
-            dotProduct(a: dojox.geo.openlayers.Point, b: dojox.geo.openlayers.Point, c: number, d: number, e: number, f: number): any;
+            dotProduct(
+                a: dojox.geo.openlayers.Point,
+                b: dojox.geo.openlayers.Point,
+                c: number,
+                d: number,
+                e: number,
+                f: number,
+            ): any;
             /**
              * find the normal of the implicit surface
              *
@@ -3223,168 +3254,175 @@ declare namespace dojox {
          * @param to from position in radians
          * @param matrix the cumulative transformation matrix
          */
-        interface gradient { (model: dojox.gfx3d.lighting.Model, material: Object, center: Object, radius: number, from: number, to: number, matrix: Object): void }
+        interface gradient {
+            (
+                model: dojox.gfx3d.lighting.Model,
+                material: Object,
+                center: Object,
+                radius: number,
+                from: number,
+                to: number,
+                matrix: Object,
+            ): void;
+        }
         namespace gradient {
             /**
              * tolerable difference in colors between gradient steps
              *
              */
-            var tolerance: number
+            var tolerance: number;
         }
-
     }
-
 }
-declare module "dojox/gfx3d" {
-    var exp: dojox.gfx3d
-    export=exp;
+declare module 'dojox/gfx3d' {
+    var exp: dojox.gfx3d;
+    export = exp;
 }
-declare module "dojox/gfx3d/object" {
+declare module 'dojox/gfx3d/object' {
     var exp: dojox.gfx3d.objectInstance;
-    export=exp;
+    export = exp;
 }
-declare module "dojox/gfx3d/gradient" {
-    var exp: dojox.gfx3d.gradient
-    export=exp;
+declare module 'dojox/gfx3d/gradient' {
+    var exp: dojox.gfx3d.gradient;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base" {
-    var exp: dojox.gfx3d._base
-    export=exp;
+declare module 'dojox/gfx3d/_base' {
+    var exp: dojox.gfx3d._base;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Cube" {
-    var exp: dojox.gfx3d._base.Cube
-    export=exp;
+declare module 'dojox/gfx3d/_base.Cube' {
+    var exp: dojox.gfx3d._base.Cube;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Cylinder" {
-    var exp: dojox.gfx3d._base.Cylinder
-    export=exp;
+declare module 'dojox/gfx3d/_base.Cylinder' {
+    var exp: dojox.gfx3d._base.Cylinder;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Edges" {
-    var exp: dojox.gfx3d._base.Edges
-    export=exp;
+declare module 'dojox/gfx3d/_base.Edges' {
+    var exp: dojox.gfx3d._base.Edges;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Polygon" {
-    var exp: dojox.gfx3d._base.Polygon
-    export=exp;
+declare module 'dojox/gfx3d/_base.Polygon' {
+    var exp: dojox.gfx3d._base.Polygon;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Orbit" {
-    var exp: dojox.gfx3d._base.Orbit
-    export=exp;
+declare module 'dojox/gfx3d/_base.Orbit' {
+    var exp: dojox.gfx3d._base.Orbit;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Object" {
-    var exp: dojox.gfx3d._base.Object
-    export=exp;
+declare module 'dojox/gfx3d/_base.Object' {
+    var exp: dojox.gfx3d._base.Object;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Path3d" {
-    var exp: dojox.gfx3d._base.Path3d
-    export=exp;
+declare module 'dojox/gfx3d/_base.Path3d' {
+    var exp: dojox.gfx3d._base.Path3d;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Quads" {
-    var exp: dojox.gfx3d._base.Quads
-    export=exp;
+declare module 'dojox/gfx3d/_base.Quads' {
+    var exp: dojox.gfx3d._base.Quads;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Triangles" {
-    var exp: dojox.gfx3d._base.Triangles
-    export=exp;
+declare module 'dojox/gfx3d/_base.Triangles' {
+    var exp: dojox.gfx3d._base.Triangles;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Scene" {
-    var exp: dojox.gfx3d._base.Scene
-    export=exp;
+declare module 'dojox/gfx3d/_base.Scene' {
+    var exp: dojox.gfx3d._base.Scene;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.Viewport" {
-    var exp: dojox.gfx3d._base.Viewport
-    export=exp;
+declare module 'dojox/gfx3d/_base.Viewport' {
+    var exp: dojox.gfx3d._base.Viewport;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base._creators" {
-    var exp: dojox.gfx3d._base._creators
-    export=exp;
+declare module 'dojox/gfx3d/_base._creators' {
+    var exp: dojox.gfx3d._base._creators;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.defaultCube" {
-    var exp: dojox.gfx3d._base.defaultCube
-    export=exp;
+declare module 'dojox/gfx3d/_base.defaultCube' {
+    var exp: dojox.gfx3d._base.defaultCube;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.defaultEdges" {
-    var exp: dojox.gfx3d._base.defaultEdges
-    export=exp;
+declare module 'dojox/gfx3d/_base.defaultEdges' {
+    var exp: dojox.gfx3d._base.defaultEdges;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.defaultOrbit" {
-    var exp: dojox.gfx3d._base.defaultOrbit
-    export=exp;
+declare module 'dojox/gfx3d/_base.defaultOrbit' {
+    var exp: dojox.gfx3d._base.defaultOrbit;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.defaultCylinder" {
-    var exp: dojox.gfx3d._base.defaultCylinder
-    export=exp;
+declare module 'dojox/gfx3d/_base.defaultCylinder' {
+    var exp: dojox.gfx3d._base.defaultCylinder;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.defaultPath3d" {
-    var exp: dojox.gfx3d._base.defaultPath3d
-    export=exp;
+declare module 'dojox/gfx3d/_base.defaultPath3d' {
+    var exp: dojox.gfx3d._base.defaultPath3d;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.defaultPolygon" {
-    var exp: dojox.gfx3d._base.defaultPolygon
-    export=exp;
+declare module 'dojox/gfx3d/_base.defaultPolygon' {
+    var exp: dojox.gfx3d._base.defaultPolygon;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.defaultQuads" {
-    var exp: dojox.gfx3d._base.defaultQuads
-    export=exp;
+declare module 'dojox/gfx3d/_base.defaultQuads' {
+    var exp: dojox.gfx3d._base.defaultQuads;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.defaultTriangles" {
-    var exp: dojox.gfx3d._base.defaultTriangles
-    export=exp;
+declare module 'dojox/gfx3d/_base.defaultTriangles' {
+    var exp: dojox.gfx3d._base.defaultTriangles;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.drawer" {
-    var exp: dojox.gfx3d._base.drawer
-    export=exp;
+declare module 'dojox/gfx3d/_base.drawer' {
+    var exp: dojox.gfx3d._base.drawer;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.lighting" {
-    var exp: dojox.gfx3d._base.lighting
-    export=exp;
+declare module 'dojox/gfx3d/_base.lighting' {
+    var exp: dojox.gfx3d._base.lighting;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.scheduler" {
-    var exp: dojox.gfx3d._base.scheduler
-    export=exp;
+declare module 'dojox/gfx3d/_base.scheduler' {
+    var exp: dojox.gfx3d._base.scheduler;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.matrix" {
-    var exp: dojox.gfx3d._base.matrix
-    export=exp;
+declare module 'dojox/gfx3d/_base.matrix' {
+    var exp: dojox.gfx3d._base.matrix;
+    export = exp;
 }
-declare module "dojox/gfx3d/_base.vector" {
-    var exp: dojox.gfx3d._base.vector
-    export=exp;
+declare module 'dojox/gfx3d/_base.vector' {
+    var exp: dojox.gfx3d._base.vector;
+    export = exp;
 }
-declare module "dojox/gfx3d/scheduler" {
-    var exp: dojox.gfx3d.scheduler
-    export=exp;
+declare module 'dojox/gfx3d/scheduler' {
+    var exp: dojox.gfx3d.scheduler;
+    export = exp;
 }
-declare module "dojox/gfx3d/scheduler.BinarySearchTree" {
-    var exp: dojox.gfx3d.scheduler.BinarySearchTree
-    export=exp;
+declare module 'dojox/gfx3d/scheduler.BinarySearchTree' {
+    var exp: dojox.gfx3d.scheduler.BinarySearchTree;
+    export = exp;
 }
-declare module "dojox/gfx3d/scheduler.drawer" {
-    var exp: dojox.gfx3d.scheduler.drawer
-    export=exp;
+declare module 'dojox/gfx3d/scheduler.drawer' {
+    var exp: dojox.gfx3d.scheduler.drawer;
+    export = exp;
 }
-declare module "dojox/gfx3d/scheduler.scheduler" {
-    var exp: dojox.gfx3d.scheduler.scheduler
-    export=exp;
+declare module 'dojox/gfx3d/scheduler.scheduler' {
+    var exp: dojox.gfx3d.scheduler.scheduler;
+    export = exp;
 }
-declare module "dojox/gfx3d/lighting" {
-    var exp: dojox.gfx3d.lighting
-    export=exp;
+declare module 'dojox/gfx3d/lighting' {
+    var exp: dojox.gfx3d.lighting;
+    export = exp;
 }
-declare module "dojox/gfx3d/lighting.Model" {
-    var exp: dojox.gfx3d.lighting.Model
-    export=exp;
+declare module 'dojox/gfx3d/lighting.Model' {
+    var exp: dojox.gfx3d.lighting.Model;
+    export = exp;
 }
-declare module "dojox/gfx3d/lighting.finish" {
-    var exp: dojox.gfx3d.lighting.finish
-    export=exp;
+declare module 'dojox/gfx3d/lighting.finish' {
+    var exp: dojox.gfx3d.lighting.finish;
+    export = exp;
 }
-declare module "dojox/gfx3d/vector" {
-    var exp: dojox.gfx3d.vector
-    export=exp;
+declare module 'dojox/gfx3d/vector' {
+    var exp: dojox.gfx3d.vector;
+    export = exp;
 }
-declare module "dojox/gfx3d/matrix" {
-    var exp: dojox.gfx3d.matrix
-    export=exp;
+declare module 'dojox/gfx3d/matrix' {
+    var exp: dojox.gfx3d.matrix;
+    export = exp;
 }
-

@@ -38,7 +38,7 @@ osmosis
         date: 'time@datetime',
         latitude: '#map@data-latitude',
         longitude: '#map@data-longitude',
-        images: ['img@src']
+        images: ['img@src'],
     })
     .data((listing: any) => {
         // do something with listing data

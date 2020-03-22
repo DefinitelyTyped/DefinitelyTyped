@@ -28,7 +28,7 @@ class Server {
         this.app.start = async () => {
             // start the web server
             const models = this.app.models();
-            const model = models[0] as (typeof loopback.PersistedModel);
+            const model = models[0] as typeof loopback.PersistedModel;
 
             const data = await model.findOne<TestModel>();
 
@@ -43,12 +43,10 @@ class Server {
                 console.dir(instance.name);
             });
             model.remoteMethod('getStuff', {
-                description: "Get some stuff",
-                accepts: [
-                    {arg: 'aParam', type: "String", required: true, description: "A parameter to process"}
-                ],
-                http: {verb: "get", path: "/get-stuff"},
-                returns: {arg: "res", type: "Object"},
+                description: 'Get some stuff',
+                accepts: [{ arg: 'aParam', type: 'String', required: true, description: 'A parameter to process' }],
+                http: { verb: 'get', path: '/get-stuff' },
+                returns: { arg: 'res', type: 'Object' },
             });
         };
     }

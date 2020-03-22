@@ -114,7 +114,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-parallel
          */
         interface SeriesParallel {
-
             /**
              * @default
              * "parallel"
@@ -178,7 +177,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * Line color.
                  *
@@ -280,12 +278,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -487,10 +483,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.data
              */
-            data?: (
-                (number | string | SeriesParallel.DataObject)[]
-                | (number | string | SeriesParallel.DataObject)[][]
-            );
+            data?: (number | string | SeriesParallel.DataObject)[] | (number | string | SeriesParallel.DataObject)[][];
 
             /**
              * `zlevel` value of all graghical elements in parallel.
@@ -649,7 +642,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -904,7 +896,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -1101,7 +1092,6 @@ declare namespace echarts {
 
         namespace SeriesParallel {
             interface DataObject {
-
                 /**
                  * The name of a data item.
                  *
@@ -1226,12 +1216,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *

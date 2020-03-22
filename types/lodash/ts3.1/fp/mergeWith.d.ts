@@ -1,2 +1,2 @@
-import { mergeWith } from "../fp";
+import { mergeWith } from '../fp';
 export = mergeWith;

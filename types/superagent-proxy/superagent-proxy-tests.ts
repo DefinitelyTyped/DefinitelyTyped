@@ -8,7 +8,4 @@ const callback = (err: any, res: request.Response) => {};
 const proxyUrl = 'http://localhost:8888';
 
 // using proxy
-request
-    .get('/search')
-    .proxy(proxyUrl)
-    .end(callback);
+request.get('/search').proxy(proxyUrl).end(callback);

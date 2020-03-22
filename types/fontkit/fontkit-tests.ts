@@ -9,7 +9,7 @@ for (let i = 0; i < glyphs.length; i++) {
     const pos = positions[i];
     let x = `${glyph.id}`;
     if (pos.xOffset || pos.yOffset) {
-      x += `@${pos.xOffset},${pos.yOffset}`;
+        x += `@${pos.xOffset},${pos.yOffset}`;
     }
 
     x += `+${pos.xAdvance}`;

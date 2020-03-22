@@ -1,15 +1,22 @@
-
-
 StartTest(function (t: Siesta.Test.ExtJS) {
-    t.waitForComponentQuery('#myItemId', () => {
-        t.ajaxRequestAndThen('http://some/url', () => {
-            t.isBoolean(123, 'not a boolean');
-        }, null);
-    }, null, 2000);
+    t.waitForComponentQuery(
+        '#myItemId',
+        () => {
+            t.ajaxRequestAndThen(
+                'http://some/url',
+                () => {
+                    t.isBoolean(123, 'not a boolean');
+                },
+                null,
+            );
+        },
+        null,
+        2000,
+    );
 });
 
 startTest(function (t: Siesta.Test.Browser) {
-    t.waitForSelectors(['.class', '#id'], () => { });
+    t.waitForSelectors(['.class', '#id'], () => {});
 });
 
 describe(function (t: Siesta.Test.jQuery) {
@@ -31,11 +38,13 @@ Harness.start({
         'test-script02.js',
         {
             url: 'http://somesite.com/test-script03.js',
-            preload: [{
-                type: 'css',
-                url: 'http://somesite.com/test-script03.ashx'
-            }]
-        }
+            preload: [
+                {
+                    type: 'css',
+                    url: 'http://somesite.com/test-script03.ashx',
+                },
+            ],
+        },
     ],
-    option1: true
+    option1: true,
 });

@@ -25,8 +25,12 @@ declare class Sensor extends EventTarget {
     onactivate: (this: this, ev: Event) => any;
     onerror: (this: this, ev: SensorErrorEvent) => any;
 
-    addEventListener(type: "reading" | "activate", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "error", listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
+    addEventListener(
+        type: 'reading' | 'activate',
+        listener: (this: this, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
+    addEventListener(type: 'error', listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
 }
 
 interface SensorOptions {
@@ -36,10 +40,10 @@ interface SensorOptions {
 // Accelerometer: https://www.w3.org/TR/accelerometer/
 
 declare class Accelerometer extends Sensor {
-  constructor(options?: SensorOptions);
-  readonly x?: number;
-  readonly y?: number;
-  readonly z?: number;
+    constructor(options?: SensorOptions);
+    readonly x?: number;
+    readonly y?: number;
+    readonly z?: number;
 }
 
 declare class LinearAccelerationSensor extends Accelerometer {

@@ -1,5 +1,14 @@
 import { Collection } from '../ojmodel';
-import { DataProvider, FetchByKeysParameters, ContainsKeysResults, FetchByKeysResults, FetchByOffsetParameters, FetchByOffsetResults, FetchListResult, FetchListParameters } from '../ojdataprovider';
+import {
+    DataProvider,
+    FetchByKeysParameters,
+    ContainsKeysResults,
+    FetchByKeysResults,
+    FetchByOffsetParameters,
+    FetchByOffsetResults,
+    FetchListResult,
+    FetchListParameters,
+} from '../ojdataprovider';
 declare class CollectionDataProvider<K, D> implements DataProvider<K, D> {
     constructor(collection: Collection);
     addEventListener(eventType: string, listener: EventListener): void;

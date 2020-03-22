@@ -844,11 +844,11 @@ export namespace bunyan {
     }
 
     const serializers: Logger.Serializers & {
-        err: Logger.Serializer,
-        req: Logger.Serializer,
-        res: Logger.Serializer,
-        client_req: Logger.Serializer,
-        client_res: Logger.Serializer
+        err: Logger.Serializer;
+        req: Logger.Serializer;
+        res: Logger.Serializer;
+        client_req: Logger.Serializer;
+        client_res: Logger.Serializer;
     };
 
     /** create a bunyan logger */
@@ -1064,7 +1064,11 @@ export namespace plugins {
     /**
      * Parses JSON POST bodies
      */
-    function jsonBodyParser(options?: { mapParams?: boolean, reviver?: any, overrideParams?: boolean }): RequestHandler[];
+    function jsonBodyParser(options?: {
+        mapParams?: boolean;
+        reviver?: any;
+        overrideParams?: boolean;
+    }): RequestHandler[];
 
     /**
      * Parses JSONP callback

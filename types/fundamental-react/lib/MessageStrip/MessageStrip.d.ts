@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface MessageStripProps {
     buttonProps?: any;
@@ -15,7 +15,7 @@ export interface MessageStripProps {
 }
 
 declare const MessageStrip: React.FunctionComponent<MessageStripProps> & {
-    displayName: "MessageStrip";
+    displayName: 'MessageStrip';
 };
 
 export default MessageStrip;

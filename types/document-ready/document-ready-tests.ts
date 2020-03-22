@@ -1,4 +1,4 @@
-import ready = require("document-ready");
+import ready = require('document-ready');
 ready(() => {
     // on load
 });

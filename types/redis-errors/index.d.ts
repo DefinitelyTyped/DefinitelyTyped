@@ -3,8 +3,7 @@
 // Definitions by: James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class RedisError extends Error {
-}
+export class RedisError extends Error {}
 
 export class ParserError extends RedisError {
     buffer: string;

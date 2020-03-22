@@ -1,4 +1,4 @@
-import etw = require ('@microsoft/typescript-etw');
+import etw = require('@microsoft/typescript-etw');
 
 etw.logEvent('message');
 etw.logErrEvent('message');

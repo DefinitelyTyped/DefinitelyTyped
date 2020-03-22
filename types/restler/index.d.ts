@@ -5,8 +5,8 @@
 
 /// <reference types="node"/>
 
-declare module "restler" {
-    import * as http from "http";
+declare module 'restler' {
+    import * as http from 'http';
 
     /**
      * Interface for resler class.

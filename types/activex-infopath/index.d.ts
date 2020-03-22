@@ -419,7 +419,14 @@ declare namespace InfoPath {
          * @param number [lErrorCode=0]
          * @param string [bstrType='modeless']
          */
-        ReportError(varNode: any, bstrShortErrorMessage: string, fSiteIndependent: boolean, bstrDetailedErrorMessage?: string, lErrorCode?: number, bstrType?: string): ErrorObject;
+        ReportError(
+            varNode: any,
+            bstrShortErrorMessage: string,
+            fSiteIndependent: boolean,
+            bstrDetailedErrorMessage?: string,
+            lErrorCode?: number,
+            bstrType?: string,
+        ): ErrorObject;
         ReturnMessage: string;
         ReturnStatus: boolean;
         readonly Site: MSXML2.IXMLDOMNode;
@@ -533,7 +540,14 @@ declare namespace InfoPath {
          * @param number [lErrorCode=0]
          * @param string [bstrType='modeless']
          */
-        Add(varNode: any, bstrConditionName: string, bstrShortErrorMessage: string, bstrDetailedErrorMessage?: string, lErrorCode?: number, bstrType?: string): ADODB.Error;
+        Add(
+            varNode: any,
+            bstrConditionName: string,
+            bstrShortErrorMessage: string,
+            bstrDetailedErrorMessage?: string,
+            lErrorCode?: number,
+            bstrType?: string,
+        ): ADODB.Error;
         readonly Count: number;
         Delete(varNode: any, bstrConditionName: string): void;
         DeleteAll(): void;
@@ -726,7 +740,12 @@ declare namespace InfoPath {
         private 'InfoPath.SignatureLineObject_typekey': SignatureLineObject;
         private constructor();
         readonly Id: string;
-        Sign(bstrImageURL: string, bstrSuggestedSigner: string, bstrSuggestedSignerTitle: string, bstrSuggestedSignerEmailAddress: string): boolean;
+        Sign(
+            bstrImageURL: string,
+            bstrSuggestedSigner: string,
+            bstrSuggestedSignerTitle: string,
+            bstrSuggestedSignerEmailAddress: string,
+        ): boolean;
         readonly Signature: SignatureObject;
         readonly SignatureAppearanceType: XdSignatureAppearanceType;
         SuggestedSigner: string;
@@ -825,7 +844,14 @@ declare namespace InfoPath {
         private constructor();
         Alert(bstrAlertString: string): void;
         ShowMailItem(bstrTo: string, bstrCC: string, bstrBCC: string, bstrSubject: string, bstrBody: string): void;
-        ShowModalDialog(bstrName: string, varArguments?: any, varHeight?: any, varWidth?: any, varTop?: any, varLeft?: any): any;
+        ShowModalDialog(
+            bstrName: string,
+            varArguments?: any,
+            varHeight?: any,
+            varWidth?: any,
+            varTop?: any,
+            varLeft?: any,
+        ): any;
         ShowSignatureDialog(): void;
     }
 
@@ -837,7 +863,14 @@ declare namespace InfoPath {
         SetSaveAsDialogFileName(bstrFileName: string): void;
         SetSaveAsDialogLocation(bstrLocation: string): void;
         ShowMailItem(bstrTo: string, bstrCC: string, bstrBCC: string, bstrSubject: string, bstrBody: string): void;
-        ShowModalDialog(bstrName: string, varArguments?: any, varHeight?: any, varWidth?: any, varTop?: any, varLeft?: any): any;
+        ShowModalDialog(
+            bstrName: string,
+            varArguments?: any,
+            varHeight?: any,
+            varWidth?: any,
+            varTop?: any,
+            varLeft?: any,
+        ): any;
         ShowSignatureDialog(): void;
     }
 
@@ -1065,11 +1098,38 @@ declare namespace InfoPath {
     }
 
     namespace EventHelperTypes {
-        type Button_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type Button_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
-        type DataDOM_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type DataDOM_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
-        type XDocument_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type XDocument_Invoke_ArgNames = [
+            'dispidMember',
+            'riid',
+            'lcid',
+            'wFlags',
+            'pdispparams',
+            'pvarResult',
+            'pexcepinfo',
+            'puArgErr',
+        ];
 
         interface Button_Invoke_Parameter {
             readonly dispidMember: number;
@@ -1108,66 +1168,232 @@ declare namespace InfoPath {
 
 interface ActiveXObject {
     on(
-        obj: InfoPath.ApplicationEvents, event: 'NewXDocument' | 'XDocumentOpen', argNames: ['pDocument'], handler: (
-            this: InfoPath.ApplicationEvents, parameter: {readonly pDocument: InfoPath._XDocument}) => void): void;
+        obj: InfoPath.ApplicationEvents,
+        event: 'NewXDocument' | 'XDocumentOpen',
+        argNames: ['pDocument'],
+        handler: (this: InfoPath.ApplicationEvents, parameter: { readonly pDocument: InfoPath._XDocument }) => void,
+    ): void;
     on(
-        obj: InfoPath.ApplicationEvents, event: 'WindowActivate' | 'WindowDeactivate' | 'WindowSize', argNames: ['pDocument', 'pWindow'],
-        handler: (this: InfoPath.ApplicationEvents, parameter: {readonly pDocument: InfoPath._XDocument, readonly pWindow: InfoPath.Window}) => void): void;
+        obj: InfoPath.ApplicationEvents,
+        event: 'WindowActivate' | 'WindowDeactivate' | 'WindowSize',
+        argNames: ['pDocument', 'pWindow'],
+        handler: (
+            this: InfoPath.ApplicationEvents,
+            parameter: { readonly pDocument: InfoPath._XDocument; readonly pWindow: InfoPath.Window },
+        ) => void,
+    ): void;
     on(
-        obj: InfoPath.ApplicationEvents, event: 'XDocumentBeforeClose' | 'XDocumentBeforePrint' | 'XDocumentBeforeSave', argNames: ['pDocument', 'pfCancel'],
-        handler: (this: InfoPath.ApplicationEvents, parameter: {readonly pDocument: InfoPath._XDocument, pfCancel: boolean}) => void): void;
+        obj: InfoPath.ApplicationEvents,
+        event: 'XDocumentBeforeClose' | 'XDocumentBeforePrint' | 'XDocumentBeforeSave',
+        argNames: ['pDocument', 'pfCancel'],
+        handler: (
+            this: InfoPath.ApplicationEvents,
+            parameter: { readonly pDocument: InfoPath._XDocument; pfCancel: boolean },
+        ) => void,
+    ): void;
     on(
-        obj: InfoPath.Button, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: InfoPath.Button, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+        obj: InfoPath.Button,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: InfoPath.Button,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: InfoPath.Button, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: InfoPath.Button, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: InfoPath.Button, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: InfoPath.Button, parameter: {pctinfo: number}) => void): void;
+        obj: InfoPath.Button,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: InfoPath.Button,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
     on(
-        obj: InfoPath.Button, event: 'Invoke', argNames: InfoPath.EventHelperTypes.Button_Invoke_ArgNames, handler: (
-            this: InfoPath.Button, parameter: InfoPath.EventHelperTypes.Button_Invoke_Parameter) => void): void;
-    on(obj: InfoPath.Button, event: 'OnClick', argNames: ['pEvent'], handler: (this: InfoPath.Button, parameter: {readonly pEvent: InfoPath.DocActionEventObject}) => void): void;
-    on(obj: InfoPath.Button, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: InfoPath.Button, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
+        obj: InfoPath.Button,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: InfoPath.Button, parameter: { pctinfo: number }) => void,
+    ): void;
     on(
-        obj: InfoPath.DataDOM, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: InfoPath.DataDOM, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+        obj: InfoPath.Button,
+        event: 'Invoke',
+        argNames: InfoPath.EventHelperTypes.Button_Invoke_ArgNames,
+        handler: (this: InfoPath.Button, parameter: InfoPath.EventHelperTypes.Button_Invoke_Parameter) => void,
+    ): void;
     on(
-        obj: InfoPath.DataDOM, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: InfoPath.DataDOM, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: InfoPath.DataDOM, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: InfoPath.DataDOM, parameter: {pctinfo: number}) => void): void;
+        obj: InfoPath.Button,
+        event: 'OnClick',
+        argNames: ['pEvent'],
+        handler: (this: InfoPath.Button, parameter: { readonly pEvent: InfoPath.DocActionEventObject }) => void,
+    ): void;
     on(
-        obj: InfoPath.DataDOM, event: 'Invoke', argNames: InfoPath.EventHelperTypes.DataDOM_Invoke_ArgNames, handler: (
-            this: InfoPath.DataDOM, parameter: InfoPath.EventHelperTypes.DataDOM_Invoke_Parameter) => void): void;
+        obj: InfoPath.Button,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: InfoPath.Button, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
     on(
-        obj: InfoPath.DataDOM, event: 'OnAfterChange' | 'OnBeforeChange' | 'OnValidate', argNames: ['pDataDOMEvent'], handler: (
-            this: InfoPath.DataDOM, parameter: {readonly pDataDOMEvent: InfoPath.DataDOMEventObject}) => void): void;
-    on(obj: InfoPath.DataDOM, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: InfoPath.DataDOM, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
+        obj: InfoPath.DataDOM,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: InfoPath.DataDOM,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: InfoPath.XDocument, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: InfoPath.XDocument, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+        obj: InfoPath.DataDOM,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: InfoPath.DataDOM,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
     on(
-        obj: InfoPath.XDocument, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: InfoPath.XDocument, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: InfoPath.XDocument, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: InfoPath.XDocument, parameter: {pctinfo: number}) => void): void;
+        obj: InfoPath.DataDOM,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: InfoPath.DataDOM, parameter: { pctinfo: number }) => void,
+    ): void;
     on(
-        obj: InfoPath.XDocument, event: 'Invoke', argNames: InfoPath.EventHelperTypes.XDocument_Invoke_ArgNames, handler: (
-            this: InfoPath.XDocument, parameter: InfoPath.EventHelperTypes.XDocument_Invoke_Parameter) => void): void;
+        obj: InfoPath.DataDOM,
+        event: 'Invoke',
+        argNames: InfoPath.EventHelperTypes.DataDOM_Invoke_ArgNames,
+        handler: (this: InfoPath.DataDOM, parameter: InfoPath.EventHelperTypes.DataDOM_Invoke_Parameter) => void,
+    ): void;
     on(
-        obj: InfoPath.XDocument, event: 'OnAfterImport' | 'OnSwitchView', argNames: ['pEvent'], handler: (
-            this: InfoPath.XDocument, parameter: {readonly pEvent: InfoPath.DocEventObject}) => void): void;
-    on(obj: InfoPath.XDocument, event: 'OnContextChange', argNames: ['pEvent'], handler: (this: InfoPath.XDocument, parameter: {readonly pEvent: InfoPath.DocContextChangeEventObject}) => void): void;
+        obj: InfoPath.DataDOM,
+        event: 'OnAfterChange' | 'OnBeforeChange' | 'OnValidate',
+        argNames: ['pDataDOMEvent'],
+        handler: (this: InfoPath.DataDOM, parameter: { readonly pDataDOMEvent: InfoPath.DataDOMEventObject }) => void,
+    ): void;
     on(
-        obj: InfoPath.XDocument, event: 'OnLoad' | 'OnSubmitRequest', argNames: ['pEvent'], handler: (
-            this: InfoPath.XDocument, parameter: {readonly pEvent: InfoPath.DocReturnEventObject}) => void): void;
-    on(obj: InfoPath.XDocument, event: 'OnMergeRequest', argNames: ['pEvent'], handler: (this: InfoPath.XDocument, parameter: {readonly pEvent: InfoPath.MergeEventObject}) => void): void;
-    on(obj: InfoPath.XDocument, event: 'OnSaveRequest', argNames: ['pEvent'], handler: (this: InfoPath.XDocument, parameter: {readonly pEvent: InfoPath.SaveEventObject}) => void): void;
-    on(obj: InfoPath.XDocument, event: 'OnSign', argNames: ['pEvent'], handler: (this: InfoPath.XDocument, parameter: {readonly pEvent: InfoPath.SignEventObject}) => void): void;
-    on(obj: InfoPath.XDocument, event: 'OnVersionUpgrade', argNames: ['pEvent'], handler: (this: InfoPath.XDocument, parameter: {readonly pEvent: InfoPath.VersionUpgradeEventObject}) => void): void;
-    on(obj: InfoPath.XDocument, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: InfoPath.XDocument, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: InfoPath.ApplicationEvents, event: 'Quit' | 'XDocumentChange', handler: (this: InfoPath.ApplicationEvents, parameter: {}) => void): void;
-    on(obj: InfoPath.Button, event: 'AddRef' | 'Release', handler: (this: InfoPath.Button, parameter: {}) => void): void;
-    on(obj: InfoPath.DataDOM, event: 'AddRef' | 'Release', handler: (this: InfoPath.DataDOM, parameter: {}) => void): void;
-    on(obj: InfoPath.XDocument, event: 'AddRef' | 'Release', handler: (this: InfoPath.XDocument, parameter: {}) => void): void;
+        obj: InfoPath.DataDOM,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: InfoPath.DataDOM, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'GetIDsOfNames',
+        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        handler: (
+            this: InfoPath.XDocument,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'GetTypeInfo',
+        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        handler: (
+            this: InfoPath.XDocument,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'GetTypeInfoCount',
+        argNames: ['pctinfo'],
+        handler: (this: InfoPath.XDocument, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'Invoke',
+        argNames: InfoPath.EventHelperTypes.XDocument_Invoke_ArgNames,
+        handler: (this: InfoPath.XDocument, parameter: InfoPath.EventHelperTypes.XDocument_Invoke_Parameter) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'OnAfterImport' | 'OnSwitchView',
+        argNames: ['pEvent'],
+        handler: (this: InfoPath.XDocument, parameter: { readonly pEvent: InfoPath.DocEventObject }) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'OnContextChange',
+        argNames: ['pEvent'],
+        handler: (
+            this: InfoPath.XDocument,
+            parameter: { readonly pEvent: InfoPath.DocContextChangeEventObject },
+        ) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'OnLoad' | 'OnSubmitRequest',
+        argNames: ['pEvent'],
+        handler: (this: InfoPath.XDocument, parameter: { readonly pEvent: InfoPath.DocReturnEventObject }) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'OnMergeRequest',
+        argNames: ['pEvent'],
+        handler: (this: InfoPath.XDocument, parameter: { readonly pEvent: InfoPath.MergeEventObject }) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'OnSaveRequest',
+        argNames: ['pEvent'],
+        handler: (this: InfoPath.XDocument, parameter: { readonly pEvent: InfoPath.SaveEventObject }) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'OnSign',
+        argNames: ['pEvent'],
+        handler: (this: InfoPath.XDocument, parameter: { readonly pEvent: InfoPath.SignEventObject }) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'OnVersionUpgrade',
+        argNames: ['pEvent'],
+        handler: (this: InfoPath.XDocument, parameter: { readonly pEvent: InfoPath.VersionUpgradeEventObject }) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'QueryInterface',
+        argNames: ['riid', 'ppvObj'],
+        handler: (this: InfoPath.XDocument, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: InfoPath.ApplicationEvents,
+        event: 'Quit' | 'XDocumentChange',
+        handler: (this: InfoPath.ApplicationEvents, parameter: {}) => void,
+    ): void;
+    on(
+        obj: InfoPath.Button,
+        event: 'AddRef' | 'Release',
+        handler: (this: InfoPath.Button, parameter: {}) => void,
+    ): void;
+    on(
+        obj: InfoPath.DataDOM,
+        event: 'AddRef' | 'Release',
+        handler: (this: InfoPath.DataDOM, parameter: {}) => void,
+    ): void;
+    on(
+        obj: InfoPath.XDocument,
+        event: 'AddRef' | 'Release',
+        handler: (this: InfoPath.XDocument, parameter: {}) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
@@ -1177,19 +1403,19 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: InfoPath.DataAdaptersCollection): Enumerator<any>; // tslint:disable-line:use-default-type-parameter
-    new(col: InfoPath.DataObjectsCollection): Enumerator<InfoPath.DataSourceObject>;
-    new(col: InfoPath.ErrorsCollection): Enumerator<ADODB.Error>;
-    new(col: InfoPath.InputParameterCollection): Enumerator<InfoPath.InputParameterObject>;
-    new(col: InfoPath.PermissionObject): Enumerator<InfoPath.UserPermissionObject>;
-    new(col: InfoPath.SignatureLinesCollection): Enumerator<InfoPath.SignatureLineObject>;
-    new(col: InfoPath.SignaturesCollection): Enumerator<InfoPath.SignatureObject>;
-    new(col: InfoPath.SignedDataBlocksCollection): Enumerator<InfoPath.SignedDataBlockObject>;
-    new(col: InfoPath.TaskPanesCollection): Enumerator<InfoPath.TaskPaneObject>;
-    new(col: InfoPath.ViewInfosCollection): Enumerator<InfoPath.ViewInfoObject>;
-    new(col: InfoPath.WindowsCollection): Enumerator<InfoPath.Window>;
-    new(col: InfoPath.XDocuments | InfoPath.XDocumentsCollection): Enumerator<InfoPath._XDocument>;
-    new(col: InfoPath.XMLNodesCollection): Enumerator<MSXML2.IXMLDOMNode>;
+    new (col: InfoPath.DataAdaptersCollection): Enumerator<any>; // tslint:disable-line:use-default-type-parameter
+    new (col: InfoPath.DataObjectsCollection): Enumerator<InfoPath.DataSourceObject>;
+    new (col: InfoPath.ErrorsCollection): Enumerator<ADODB.Error>;
+    new (col: InfoPath.InputParameterCollection): Enumerator<InfoPath.InputParameterObject>;
+    new (col: InfoPath.PermissionObject): Enumerator<InfoPath.UserPermissionObject>;
+    new (col: InfoPath.SignatureLinesCollection): Enumerator<InfoPath.SignatureLineObject>;
+    new (col: InfoPath.SignaturesCollection): Enumerator<InfoPath.SignatureObject>;
+    new (col: InfoPath.SignedDataBlocksCollection): Enumerator<InfoPath.SignedDataBlockObject>;
+    new (col: InfoPath.TaskPanesCollection): Enumerator<InfoPath.TaskPaneObject>;
+    new (col: InfoPath.ViewInfosCollection): Enumerator<InfoPath.ViewInfoObject>;
+    new (col: InfoPath.WindowsCollection): Enumerator<InfoPath.Window>;
+    new (col: InfoPath.XDocuments | InfoPath.XDocumentsCollection): Enumerator<InfoPath._XDocument>;
+    new (col: InfoPath.XMLNodesCollection): Enumerator<MSXML2.IXMLDOMNode>;
 }
 
 interface SafeArray<T = any> {

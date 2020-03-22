@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Analytics API v3 */
-    function load(name: "analytics", version: "v3"): PromiseLike<void>;
-    function load(name: "analytics", version: "v3", callback: () => any): void;
+    function load(name: 'analytics', version: 'v3'): PromiseLike<void>;
+    function load(name: 'analytics', version: 'v3', callback: () => any): void;
 
     const data: analytics.DataResource;
 
@@ -850,13 +850,13 @@ declare namespace gapi.client {
                 /** List of analytics dimensions. */
                 dimensions?: string;
                 /** End date. */
-                "end-date"?: string;
+                'end-date'?: string;
                 /** Comma-separated list of dimension or metric filters. */
                 filters?: string;
                 /** Unique table ID. */
                 ids?: string;
                 /** Maximum results per page. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** List of analytics metrics. */
                 metrics?: string[];
                 /** Desired sampling level */
@@ -866,9 +866,9 @@ declare namespace gapi.client {
                 /** List of dimensions or metrics based on which Analytics data is sorted. */
                 sort?: string[];
                 /** Start date. */
-                "start-date"?: string;
+                'start-date'?: string;
                 /** Start index. */
-                "start-index"?: number;
+                'start-index'?: number;
             };
             /**
              * Analytics data rows, where each row contains a list of dimension values followed by the metric values. The order of dimensions and metrics is same as
@@ -1080,13 +1080,13 @@ declare namespace gapi.client {
                 /** List of analytics dimensions. */
                 dimensions?: string;
                 /** End date. */
-                "end-date"?: string;
+                'end-date'?: string;
                 /** Comma-separated list of dimension or metric filters. */
                 filters?: string;
                 /** Unique table ID. */
                 ids?: string;
                 /** Maximum results per page. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** List of analytics metrics. */
                 metrics?: string[];
                 /** Desired sampling level */
@@ -1096,25 +1096,27 @@ declare namespace gapi.client {
                 /** List of dimensions or metrics based on which Analytics data is sorted. */
                 sort?: string[];
                 /** Start date. */
-                "start-date"?: string;
+                'start-date'?: string;
                 /** Start index. */
-                "start-index"?: number;
+                'start-index'?: number;
             };
             /**
              * Analytics data rows, where each row contains a list of dimension values followed by the metric values. The order of dimensions and metrics is same as
              * specified in the request.
              */
-            rows?: Array<Array<{
-                /** A conversion path dimension value, containing a list of interactions with their attributes. */
-                conversionPathValue?: Array<{
-                    /** Type of an interaction on conversion path. Such as CLICK, IMPRESSION etc. */
-                    interactionType?: string;
-                    /** Node value of an interaction on conversion path. Such as source, medium etc. */
-                    nodeValue?: string;
-                }>;
-                /** A primitive dimension value. A primitive metric value. */
-                primitiveValue?: string;
-            }>>;
+            rows?: Array<
+                Array<{
+                    /** A conversion path dimension value, containing a list of interactions with their attributes. */
+                    conversionPathValue?: Array<{
+                        /** Type of an interaction on conversion path. Such as CLICK, IMPRESSION etc. */
+                        interactionType?: string;
+                        /** Node value of an interaction on conversion path. Such as source, medium etc. */
+                        nodeValue?: string;
+                    }>;
+                    /** A primitive dimension value. A primitive metric value. */
+                    primitiveValue?: string;
+                }>
+            >;
             /** The number of samples used to calculate the result. */
             sampleSize?: string;
             /** Total size of the sample space from which the samples were selected. */
@@ -1335,7 +1337,7 @@ declare namespace gapi.client {
                 /** Unique table ID. */
                 ids?: string;
                 /** Maximum results per page. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** List of real time metrics. */
                 metrics?: string[];
                 /** List of dimensions or metrics based on which real time data is sorted. */
@@ -1486,7 +1488,7 @@ declare namespace gapi.client {
                 documentId?: string;
             };
             /** The end date for the unsampled report. */
-            "end-date"?: string;
+            'end-date'?: string;
             /** The filters for the unsampled report. */
             filters?: string;
             /** Unsampled report ID. */
@@ -1502,7 +1504,7 @@ declare namespace gapi.client {
             /** Link for this unsampled report. */
             selfLink?: string;
             /** The start date for the unsampled report. */
-            "start-date"?: string;
+            'start-date'?: string;
             /** Status of this unsampled report. Possible values are PENDING, COMPLETED, or FAILED. */
             status?: string;
             /** Title of the unsampled report. */
@@ -1691,7 +1693,7 @@ declare namespace gapi.client {
                  * End date for fetching Analytics data. Request can should specify an end date formatted as YYYY-MM-DD, or as a relative date (e.g., today, yesterday, or
                  * 7daysAgo). The default value is yesterday.
                  */
-                "end-date": string;
+                'end-date': string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** A comma-separated list of dimension or metric filters to be applied to Analytics data. */
@@ -1699,11 +1701,11 @@ declare namespace gapi.client {
                 /** Unique table ID for retrieving Analytics data. Table ID is of the form ga:XXXX, where XXXX is the Analytics view (profile) ID. */
                 ids: string;
                 /** The response will include empty rows if this parameter is set to true, the default is true */
-                "include-empty-rows"?: boolean;
+                'include-empty-rows'?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of entries to include in this feed. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** A comma-separated list of Analytics metrics. E.g., 'ga:sessions,ga:pageviews'. At least one metric must be specified. */
                 metrics: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1727,9 +1729,9 @@ declare namespace gapi.client {
                  * Start date for fetching Analytics data. Requests can specify a start date formatted as YYYY-MM-DD, or as a relative date (e.g., today, yesterday, or
                  * 7daysAgo). The default value is 7daysAgo.
                  */
-                "start-date": string;
+                'start-date': string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<GaData>;
@@ -1745,7 +1747,7 @@ declare namespace gapi.client {
                  * End date for fetching Analytics data. Requests can specify a start date formatted as YYYY-MM-DD, or as a relative date (e.g., today, yesterday, or
                  * 7daysAgo). The default value is 7daysAgo.
                  */
-                "end-date": string;
+                'end-date': string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** A comma-separated list of dimension or metric filters to be applied to the Analytics data. */
@@ -1755,7 +1757,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of entries to include in this feed. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** A comma-separated list of Multi-Channel Funnels metrics. E.g., 'mcf:totalConversions,mcf:totalConversionValue'. At least one metric must be specified. */
                 metrics: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1775,9 +1777,9 @@ declare namespace gapi.client {
                  * Start date for fetching Analytics data. Requests can specify a start date formatted as YYYY-MM-DD, or as a relative date (e.g., today, yesterday, or
                  * 7daysAgo). The default value is 7daysAgo.
                  */
-                "start-date": string;
+                'start-date': string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<McfData>;
@@ -1798,7 +1800,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of entries to include in this feed. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** A comma-separated list of real time metrics. E.g., 'rt:activeUsers'. At least one metric must be specified. */
                 metrics: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1831,7 +1833,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of account summaries to include in this response, where the largest acceptable value is 1000. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1842,7 +1844,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<AccountSummaries>;
@@ -1905,7 +1907,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of account-user links to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1916,7 +1918,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first account-user link to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<EntityUserLinks>;
@@ -1955,7 +1957,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of accounts to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1966,7 +1968,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first account to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Accounts>;
@@ -1983,7 +1985,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of custom data sources to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1994,7 +1996,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** A 1-based index of the first custom data source to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Web property Id for the custom data sources to retrieve. */
@@ -2063,7 +2065,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of custom dimensions to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2074,7 +2076,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Web property ID for the custom dimensions to retrieve. */
@@ -2199,7 +2201,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of custom metrics to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2210,7 +2212,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Web property ID for the custom metrics to retrieve. */
@@ -2367,7 +2369,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of experiments to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2380,7 +2382,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first experiment to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Web property ID to retrieve experiments for. */
@@ -2525,7 +2527,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of filters to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2536,7 +2538,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Filters>;
@@ -2655,7 +2657,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of goals to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2671,7 +2673,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first goal to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /**
@@ -2831,7 +2833,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of profile filter links to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2844,7 +2846,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /**
@@ -2976,7 +2978,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of profile-user links to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2992,7 +2994,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first profile-user link to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /**
@@ -3121,7 +3123,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of views (profiles) to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3132,7 +3134,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /**
@@ -3282,7 +3284,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of remarketing audiences to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3293,7 +3295,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 type?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -3363,7 +3365,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of segments to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3374,7 +3376,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first segment to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Segments>;
@@ -3473,7 +3475,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of unsampled reports to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3486,7 +3488,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first unsampled report to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Web property ID to retrieve unsampled reports for. Must be a specific web property ID, ~all is not supported. */
@@ -3561,7 +3563,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of uploads to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3572,7 +3574,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** A 1-based index of the first upload to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Web property Id for the uploads to retrieve. */
@@ -3693,7 +3695,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of webProperty-AdWords links to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3704,7 +3706,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first webProperty-AdWords link to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Web property ID to retrieve the AdWords links for. */
@@ -3824,7 +3826,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of web properties to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3835,7 +3837,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Webproperties>;
@@ -3950,7 +3952,7 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of webProperty-user Links to include in this response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3961,7 +3963,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** An index of the first webProperty-user link to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /**

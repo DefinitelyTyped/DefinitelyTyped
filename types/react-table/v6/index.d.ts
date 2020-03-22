@@ -16,13 +16,38 @@ export type AccessorFunction<D = any> = (row: D) => any;
 export type Accessor<D = any> = string | string[] | AccessorFunction<D>;
 export type Aggregator = (values: any, rows: any) => any;
 export type TableCellRenderer = ((cellInfo: CellInfo, column: any) => React.ReactNode) | React.ReactNode;
-export type FilterRender = (params: { column: Column, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement;
+export type FilterRender = (params: {
+    column: Column;
+    filter: any;
+    onChange: ReactTableFunction;
+    key?: string;
+}) => React.ReactElement;
 export type PivotRenderer = ((cellInfo: CellInfo) => React.ReactNode) | (() => any) | string | React.ReactNode;
 
-export type ComponentPropsGetter0 = (finalState: any, rowInfo: undefined, column: undefined, instance?: any) => object | undefined;
-export type ComponentPropsGetterR = (finalState: any, rowInfo?: RowInfo, column?: undefined, instance?: any) => object | undefined;
-export type ComponentPropsGetterC = (finalState: any, rowInfo?: undefined, column?: Column, instance?: any) => object | undefined;
-export type ComponentPropsGetterRC = (finalState: any, rowInfo?: RowInfo, column?: Column, instance?: any) => object | undefined;
+export type ComponentPropsGetter0 = (
+    finalState: any,
+    rowInfo: undefined,
+    column: undefined,
+    instance?: any,
+) => object | undefined;
+export type ComponentPropsGetterR = (
+    finalState: any,
+    rowInfo?: RowInfo,
+    column?: undefined,
+    instance?: any,
+) => object | undefined;
+export type ComponentPropsGetterC = (
+    finalState: any,
+    rowInfo?: undefined,
+    column?: Column,
+    instance?: any,
+) => object | undefined;
+export type ComponentPropsGetterRC = (
+    finalState: any,
+    rowInfo?: RowInfo,
+    column?: Column,
+    instance?: any,
+) => object | undefined;
 
 export type DefaultFilterFunction = (filter: Filter, row: any, column: any) => boolean;
 export type FilterFunction = (filter: Filter, rows: any[], column: any) => any[];
@@ -50,13 +75,13 @@ export interface SortingRule {
     desc: boolean;
 }
 
-export interface TableProps<D = any, ResolvedData = D> extends
-    TextProps,
-    ComponentDecoratorProps,
-    ControlledStateCallbackProps,
-    PivotingProps,
-    ControlledStateOverrideProps,
-    ComponentProps {
+export interface TableProps<D = any, ResolvedData = D>
+    extends TextProps,
+        ComponentDecoratorProps,
+        ControlledStateCallbackProps,
+        PivotingProps,
+        ControlledStateOverrideProps,
+        ComponentProps {
     /** Default: [] */
     data: D[];
 
@@ -188,7 +213,7 @@ export interface TableProps<D = any, ResolvedData = D> extends
     children: (
         state: FinalState<ResolvedData>,
         makeTable: () => React.ReactElement,
-        instance: Instance<ResolvedData>
+        instance: Instance<ResolvedData>,
     ) => React.ReactNode;
 }
 
@@ -374,13 +399,12 @@ export interface TextProps {
     rowsText: string;
 }
 
-export interface GlobalColumn extends
-    Column.Basics,
-    Column.CellProps,
-    Column.FilterProps,
-    Column.FooterProps,
-    Column.HeaderProps {
-}
+export interface GlobalColumn
+    extends Column.Basics,
+        Column.CellProps,
+        Column.FilterProps,
+        Column.FooterProps,
+        Column.HeaderProps {}
 
 export namespace Column {
     /** Basic column props */
@@ -546,12 +570,12 @@ export interface PivotDefaults {
     render: TableCellRenderer;
 }
 
-export interface Column<D = any> extends
-    Partial<Column.Basics>,
-    Partial<Column.CellProps>,
-    Partial<Column.FilterProps>,
-    Partial<Column.FooterProps>,
-    Partial<Column.HeaderProps> {
+export interface Column<D = any>
+    extends Partial<Column.Basics>,
+        Partial<Column.CellProps>,
+        Partial<Column.FilterProps>,
+        Partial<Column.FooterProps>,
+        Partial<Column.HeaderProps> {
     /**
      * Property name as string or Accessor
      * @example: 'myProperty'
@@ -660,7 +684,7 @@ export interface RowInfo {
     original: any;
 }
 
-export interface CellInfo extends RowInfo, Pick<ControlledStateOverrideProps, "resized"> {
+export interface CellInfo extends RowInfo, Pick<ControlledStateOverrideProps, 'resized'> {
     /* true if this row is expanded */
     isExpanded: boolean;
 
@@ -718,7 +742,7 @@ export interface FinalState<D = any> extends TableProps<D> {
 }
 
 export const ReactTableDefaults: TableProps;
-export default class ReactTable<D> extends React.Component<Partial<TableProps<D>>> { }
+export default class ReactTable<D> extends React.Component<Partial<TableProps<D>>> {}
 
 export interface Instance<D = any> extends ReactTable<D> {
     context: any;

@@ -33,7 +33,7 @@ export interface Position {
     column: number;
 }
 
-export function wrapCallSite(frame: any /* StackFrame */): any /* StackFrame */;
+export function wrapCallSite(frame: any /* StackFrame */): any; /* StackFrame */
 export function getErrorSource(error: Error): string | null;
 export function mapSourcePosition(position: Position): Position;
 export function retrieveSourceMap(source: string): UrlAndMap | null;

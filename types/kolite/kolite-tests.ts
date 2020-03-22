@@ -2,15 +2,14 @@ function test_activityDefaults() {
     ko.bindingHandlers.activity.defaultOptions = {
         activityClass: 'fa fa-spinner fa-spin',
         container: 'i',
-        inactiveClass: ''
+        inactiveClass: '',
     };
 
     ko.bindingHandlers.activity.defaultOptions = {
-        activityClass: 'some Value'
+        activityClass: 'some Value',
     };
 
-    ko.bindingHandlers.activity.defaultOptions = {
-    };
+    ko.bindingHandlers.activity.defaultOptions = {};
 }
 function test_asyncCommand() {
     var saveCmd = ko.asyncCommand({
@@ -19,7 +18,7 @@ function test_asyncCommand() {
         },
         canExecute: function (isExecuting) {
             return !isExecuting;
-        }
+        },
     });
     this.saveCommand = ko.asyncCommand({
         execute: function (callback) {
@@ -30,13 +29,13 @@ function test_asyncCommand() {
                 url: '/save/',
 
                 success: function (result) {
-                    alert('Name saved:' + result)
-                }
-            })
+                    alert('Name saved:' + result);
+                },
+            });
         },
         canExecute: function (isExecuting) {
-            return !isExecuting && this.name()
-        }
+            return !isExecuting && this.name();
+        },
     });
 }
 
@@ -47,7 +46,7 @@ function test_asyncCommand_isExecuting() {
         },
         canExecute: (isExecuting) => {
             return !isExecuting;
-        }
+        },
     });
 
     var firstRun = true;
@@ -63,11 +62,8 @@ function test_dirtyFlag() {
     viewModel.dirtyFlag().reset();
 
     var self: any;
-    this.dirtyFlag = new ko.DirtyFlag(
-       self.firstName,
-       self.lastName);
-    var isDirty = ko.computed(function () {
-    });
+    this.dirtyFlag = new ko.DirtyFlag(self.firstName, self.lastName);
+    var isDirty = ko.computed(function () {});
 
     var Person = function () {
         var self = this;
@@ -84,8 +80,7 @@ function test_dirtyFlag() {
 function test_full() {
     (function (ko) {
         ko.command = function (options) {
-            var
-                self = ko.observable(),
+            var self = ko.observable(),
                 canExecuteDelegate = options.canExecute,
                 executeDelegate = options.execute;
             self.canExecute = ko.computed(function () {
@@ -99,8 +94,7 @@ function test_full() {
         };
 
         ko.asyncCommand = function (options) {
-            var
-                self = ko.observable(),
+            var self = ko.observable(),
                 canExecuteDelegate = options.canExecute,
                 executeDelegate = options.execute,
                 completeCallback = function () {
@@ -134,8 +128,7 @@ function test_full() {
         };
         ko.bindingHandlers.command = {
             init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-                var
-                    value = valueAccessor(),
+                var value = valueAccessor(),
                     commands = value.execute ? { click: value } : value,
                     isBindingHandler = function (handler) {
                         return ko.bindingHandlers[handler] !== undefined;
@@ -144,12 +137,12 @@ function test_full() {
                         for (var command in commands) {
                             if (!isBindingHandler(command)) {
                                 continue;
-                            };
+                            }
                             ko.bindingHandlers[command].init(
                                 element,
                                 ko.utils.wrapAccessor(commands[command].execute),
                                 allBindingsAccessor,
-                                viewModel
+                                viewModel,
                             );
                         }
                     },
@@ -164,7 +157,8 @@ function test_full() {
                             element,
                             ko.utils.wrapAccessor(events),
                             allBindingsAccessor,
-                            viewModel);
+                            viewModel,
+                        );
                     };
                 initBindingHandlers();
                 initEventHandlers();
@@ -184,25 +178,23 @@ function test_full() {
                     return;
                 }
                 ko.bindingHandlers.enable.update(element, canExecute, allBindingsAccessor, viewModel);
-            }
+            },
         };
     })(ko as any);
 
     var my: any = {};
     my.TwitterService = function () {
         var me = this,
-            twitterUrl = 'https://api.twitter.com/1/statuses/user_timeline/{name}.json?callback=?&count={count}'
-        me.getTweets = function (options) {
-        }
-    }
+            twitterUrl = 'https://api.twitter.com/1/statuses/user_timeline/{name}.json?callback=?&count={count}';
+        me.getTweets = function (options) {};
+    };
     my.TweetsViewModel = function () {
         var me = this,
-            service = new my.TwitterService()
+            service = new my.TwitterService();
         me.name = ko.observable('hfjallemark');
         me.tweets = ko.observableArray();
         me.showKeyCodeCommand = ko.command({
-            execute: function (data, e) {
-            }
+            execute: function (data, e) {},
         });
         me.loadTweetsCommand = ko.asyncCommand({
             execute: function (complete) {
@@ -213,11 +205,10 @@ function test_full() {
                     done: function (result) {
                         me.tweets(result);
                     },
-                    fail: function (options, status) {
-                    }
-                })
-            }
-        })
-    }
+                    fail: function (options, status) {},
+                });
+            },
+        });
+    };
     ko.applyBindings(new my.TweetsViewModel());
 }

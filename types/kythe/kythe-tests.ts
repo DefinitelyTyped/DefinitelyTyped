@@ -2,7 +2,7 @@ import { Edge, EdgeKind, Fact, FactName, JSONEdge, JSONFact, OrdinalEdge, VName 
 
 function makeOrdinal(edgeKind: EdgeKind, ordinal: number): OrdinalEdge {
     const edge = `${edgeKind}.${ordinal}`;
-    return <OrdinalEdge> edge;
+    return <OrdinalEdge>edge;
 }
 
 const vname: VName = {

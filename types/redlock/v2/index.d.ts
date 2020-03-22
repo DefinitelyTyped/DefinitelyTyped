@@ -55,5 +55,10 @@ declare class Redlock {
     unlock(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
 
     extend(lock: Redlock.Lock, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
-    _lock(resource: string, value: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
+    _lock(
+        resource: string,
+        value: string,
+        ttl: number,
+        callback?: Redlock.Callback<Redlock.Lock>,
+    ): Promise<Redlock.Lock>;
 }

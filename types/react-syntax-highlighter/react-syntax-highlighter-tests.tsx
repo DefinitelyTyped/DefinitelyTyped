@@ -1,11 +1,11 @@
-import * as React from "react";
-import SyntaxHighlighter, { Light as LightHighlighter, SyntaxHighlighterProps } from "react-syntax-highlighter";
-import PrismSyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism";
-import PrismLightHighlighter from "react-syntax-highlighter/dist/cjs/prism-light";
-import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
-import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import * as React from 'react';
+import SyntaxHighlighter, { Light as LightHighlighter, SyntaxHighlighterProps } from 'react-syntax-highlighter';
+import PrismSyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism';
+import PrismLightHighlighter from 'react-syntax-highlighter/dist/cjs/prism-light';
+import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
+import jsx from 'react-syntax-highlighter/dist/cjs/languages/prism/jsx';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 function hljsHighlighter(): JSX.Element {
     const codeString: string = `class CPP {
@@ -36,7 +36,7 @@ function hljsLightHighlighter(): JSX.Element {
     }
 }
 `;
-    LightHighlighter.registerLanguage("javascript", javascript);
+    LightHighlighter.registerLanguage('javascript', javascript);
 
     return (
         <LightHighlighter language="javascript" style={docco}>
@@ -74,7 +74,7 @@ function primsLightHighlighter(): JSX.Element {
     }
 }
 `;
-    PrismLightHighlighter.registerLanguage("jsx", jsx);
+    PrismLightHighlighter.registerLanguage('jsx', jsx);
 
     return (
         <PrismLightHighlighter language="jsx" style={atomDark}>
@@ -95,12 +95,12 @@ function codeTagProps() {
     }
     `;
 
-    const codeTagProps: SyntaxHighlighterProps["codeTagProps"] = {
-        className: "some-classname",
+    const codeTagProps: SyntaxHighlighterProps['codeTagProps'] = {
+        className: 'some-classname',
         style: {
-            opacity: 0
+            opacity: 0,
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo"
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => 'foo',
     };
 
     return <PrismLightHighlighter codeTagProps={codeTagProps} />;
@@ -118,12 +118,12 @@ function linePropsObject() {
     }
     `;
 
-    const lineProps: SyntaxHighlighterProps["lineProps"] = {
-        className: "some-classname",
+    const lineProps: SyntaxHighlighterProps['lineProps'] = {
+        className: 'some-classname',
         style: {
-            opacity: 0
+            opacity: 0,
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo"
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => 'foo',
     };
 
     return <PrismLightHighlighter lineProps={lineProps} />;
@@ -142,11 +142,11 @@ function lineTagPropsFunction() {
     `;
 
     const lineProps: lineTagPropsFunction = (lineNumber: number) => ({
-        className: "some-classname",
+        className: 'some-classname',
         style: {
-            opacity: 0
+            opacity: 0,
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => lineNumber * 5
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => lineNumber * 5,
     });
 
     return <PrismLightHighlighter lineProps={lineProps} />;

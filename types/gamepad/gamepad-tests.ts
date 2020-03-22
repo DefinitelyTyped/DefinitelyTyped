@@ -25,14 +25,14 @@ gamepad.on('attach', (deviceID, device) => {
             productID: device.productID,
             axisStates: device.axisStates,
             buttonStates: device.buttonStates,
-        }
+        },
     });
 });
 
 // Listen for new gamepads being removed
-gamepad.on('remove', deviceID => {
+gamepad.on('remove', (deviceID) => {
     console.log('remove', {
-        deviceID
+        deviceID,
     });
 });
 
@@ -41,7 +41,7 @@ gamepad.on('up', (deviceID, buttonID, timestamp) => {
     console.log('up', {
         deviceID,
         buttonID,
-        timestamp
+        timestamp,
     });
 });
 
@@ -50,7 +50,7 @@ gamepad.on('down', (deviceID, buttonID, timestamp) => {
     console.log('down', {
         deviceID,
         buttonID,
-        timestamp
+        timestamp,
     });
 });
 
@@ -61,7 +61,7 @@ gamepad.on('move', (deviceID, axisID, value, lastValue, timestamp) => {
         axisID,
         value,
         lastValue,
-        timestamp
+        timestamp,
     });
 });
 

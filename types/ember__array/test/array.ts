@@ -6,13 +6,10 @@ import MutableArray from '@ember/array/mutable';
 type Person = typeof Person.prototype;
 const Person = EmberObject.extend({
     name: '',
-    isHappy: false
+    isHappy: false,
 });
 
-const people = A([
-    Person.create({ name: 'Yehuda', isHappy: true }),
-    Person.create({ name: 'Majd', isHappy: false }),
-]);
+const people = A([Person.create({ name: 'Yehuda', isHappy: true }), Person.create({ name: 'Majd', isHappy: false })]);
 
 assertType<number>(people.get('length'));
 assertType<Person>(people.get('lastObject'));
@@ -33,7 +30,7 @@ assertType<Person>(people.get('[]').get('firstObject')); // $ExpectType any
 assertType<boolean[]>(people.mapBy('isHappy')); // $ExpectType boolean[]
 assertType<any[]>(people.mapBy('name.length'));
 
-const last = people.get('lastObject');  // $ExpectType ({ name: string; isHappy: boolean; } & EmberObject & { name: string; isHappy: boolean; }) | undefined
+const last = people.get('lastObject'); // $ExpectType ({ name: string; isHappy: boolean; } & EmberObject & { name: string; isHappy: boolean; }) | undefined
 if (last) {
     assertType<string>(last.get('name'));
 }
@@ -55,5 +52,9 @@ const filters = A(value.split(','));
 filters.push('4');
 filters.sort();
 
-const multiSortArr = A([{ k: 'a', v: 'z' }, { k: 'a', v: 'y' }, { k: 'b', v: 'c' }]);
+const multiSortArr = A([
+    { k: 'a', v: 'z' },
+    { k: 'a', v: 'y' },
+    { k: 'b', v: 'c' },
+]);
 multiSortArr.sortBy('k', 'v');

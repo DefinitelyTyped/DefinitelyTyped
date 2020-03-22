@@ -2,11 +2,11 @@ import Protocol = require('bittorrent-protocol');
 import * as net from 'net';
 
 class TestExtension implements Protocol.Extension {
-    constructor(protected wire: Protocol.Wire) { }
+    constructor(protected wire: Protocol.Wire) {}
     name = 'extname';
 }
 
-net.createServer(socket => {
+net.createServer((socket) => {
     const wire = new Protocol();
 
     wire.use(TestExtension);

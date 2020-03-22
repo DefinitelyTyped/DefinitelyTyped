@@ -17,41 +17,53 @@ function test_form() {
     $(selector).form('add rule', 'field', ['rule1', 'rule2']); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
     $(selector).form('add rule', 'field', {
-        rules: [{
-            type: 'type',
-            prompt: 'prompt'
-        }]
+        rules: [
+            {
+                type: 'type',
+                prompt: 'prompt',
+            },
+        ],
     });
     $(selector).form('add field', 'field', 'rule'); // $ExpectType JQuery<HTMLElement>
     $(selector).form('add field', 'field', ['rule1', 'rule2']); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
     $(selector).form('add field', 'field', {
-        rules: [{
-            type: 'type',
-            prompt: 'prompt'
-        }]
+        rules: [
+            {
+                type: 'type',
+                prompt: 'prompt',
+            },
+        ],
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).form('add fields', {
         field1: 'rule',
-        field2: ['rule1', 'rule2']
+        field2: ['rule1', 'rule2'],
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).form('remove rule', 'field', {
         type: 'type',
-        prompt: 'prompt'
+        prompt: 'prompt',
     });
     $(selector).form('remove field', 'field'); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
-    $(selector).form('remove rules', 'field', [{
-        type: 'type',
-        prompt: 'prompt'
-    }]);
+    $(selector).form('remove rules', 'field', [
+        {
+            type: 'type',
+            prompt: 'prompt',
+        },
+    ]);
     // $ExpectType JQuery<HTMLElement>
-    $(selector).form('remove rules', ['field1', 'field2'], [{
-        type: 'type',
-        prompt: 'prompt'
-    }]);
+    $(selector).form(
+        'remove rules',
+        ['field1', 'field2'],
+        [
+            {
+                type: 'type',
+                prompt: 'prompt',
+            },
+        ],
+    );
     $(selector).form('remove fields', ['field1', 'field2']); // $ExpectType JQuery<HTMLElement>
     $(selector).form('add prompt', 'identifier', 'error'); // $ExpectType JQuery<HTMLElement>
     $(selector).form('add prompt', 'identifier', ['error1', 'error2']); // $ExpectType JQuery<HTMLElement>
@@ -76,7 +88,7 @@ function test_form() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).form({
@@ -95,18 +107,18 @@ function test_form() {
                 rules: [
                     {
                         type: 'type',
-                        prompt: 'prompt'
+                        prompt: 'prompt',
                     },
                     {
                         type: 'type',
-                        prompt: 'prompt'
-                    }
-                ]
-            }
+                        prompt: 'prompt',
+                    },
+                ],
+            },
         },
         text: {
             unspecifiedRule: 'unspecifiedRule',
-            unspecifiedField: 'unspecifiedField'
+            unspecifiedField: 'unspecifiedField',
         },
         prompt: {
             empty: 'empty',
@@ -134,7 +146,7 @@ function test_form() {
             creditCard: 'creditCard',
             minCount: 'minCount',
             exactCount: 'exactCount',
-            maxCount: 'maxCount'
+            maxCount: 'maxCount',
         },
         onValid() {
             this; // $ExpectType JQuery<HTMLElement>
@@ -162,20 +174,20 @@ function test_form() {
                 errors; // $ExpectType string[]
 
                 return $();
-            }
+            },
         },
         rules: {
             empty(value) {
                 this; // $ExpectType HTMLElement
                 value; // $ExpectType any
 
-                return !(value === undefined || '' === value || $.isArray(value) && value.length === 0);
+                return !(value === undefined || '' === value || ($.isArray(value) && value.length === 0));
             },
             checked() {
                 this; // $ExpectType HTMLElement
 
-                return ($(this).filter(':checked').length > 0);
-            }
+                return $(this).filter(':checked').length > 0;
+            },
         },
         selector: {
             message: 'message',
@@ -183,20 +195,20 @@ function test_form() {
             group: 'group',
             input: 'input',
             prompt: 'prompt',
-            submit: 'submit'
+            submit: 'submit',
         },
         metadata: {
-            validate: 'validate'
+            validate: 'validate',
         },
         className: {
             active: 'active',
             placeholder: 'placeholder',
             disabled: 'disabled',
-            visible: 'visible'
+            visible: 'visible',
         },
         error: {
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).form(); // $ExpectType JQuery<HTMLElement>
 
@@ -207,36 +219,33 @@ function test_form() {
 function adding_rules_programmatically() {
     {
         // lets only validate username to start
-        $('.add.example .ui.form')
-            .form({
-                username: ['empty', 'minLength[5]']
-            });
+        $('.add.example .ui.form').form({
+            username: ['empty', 'minLength[5]'],
+        });
     }
     {
         // lets toggle some validation based on button
-        $('.add.example .ui.positive.button')
-            .on('click', () => {
-                $('.add.example .ui.form')
+        $('.add.example .ui.positive.button').on('click', () => {
+            $('.add.example .ui.form')
                 // adding longform
-                    .form('add rule', 'gender', {
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Entering your gender is necessary'
-                            }
-                        ]
-                    })
-                    // adding shorthand
-                    .form('add rule', 'password', ['empty', 'minLength[5]']);
-            });
+                .form('add rule', 'gender', {
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Entering your gender is necessary',
+                        },
+                    ],
+                })
+                // adding shorthand
+                .form('add rule', 'password', ['empty', 'minLength[5]']);
+        });
     }
     {
-        $('.add.example .ui.negative.button')
-            .on('click', () => {
-                $('.add.example .ui.form')
+        $('.add.example .ui.negative.button').on('click', () => {
+            $('.add.example .ui.form')
                 // removing multiple at once
-                    .form('remove fields', ['gender', 'password']);
-            });
+                .form('remove fields', ['gender', 'password']);
+        });
     }
 }
 
@@ -248,9 +257,9 @@ function setting_site_defaults() {
                 rules: [
                     {
                         type: 'email',
-                        prompt: 'Please enter a valid e-mail'
-                    }
-                ]
+                        prompt: 'Please enter a valid e-mail',
+                    },
+                ],
             },
             // this form doesn't have a cc email but it will not produce an error
             ccEmail: {
@@ -259,9 +268,9 @@ function setting_site_defaults() {
                 rules: [
                     {
                         type: 'email',
-                        prompt: 'Please enter a valid second e-mail'
-                    }
-                ]
+                        prompt: 'Please enter a valid second e-mail',
+                    },
+                ],
             },
         };
     }

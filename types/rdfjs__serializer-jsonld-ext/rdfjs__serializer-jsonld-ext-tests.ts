@@ -15,7 +15,7 @@ const serializer3 = new Serializer({
     flatten: true,
     frame: true,
     skipContext: true,
-    skipGraphProperty: true
+    skipGraphProperty: true,
 });
 const serializer4: Serializer = new Serializer({ encoding: 'object' });
 
@@ -30,6 +30,6 @@ const eventEmitter3: EventEmitter = serializer1.import(stream, {
     flatten: true,
     frame: true,
     skipContext: true,
-    skipGraphProperty: true
+    skipGraphProperty: true,
 });
 const eventEmitter4: EventEmitter = serializer1.import(stream, { encoding: 'object' });

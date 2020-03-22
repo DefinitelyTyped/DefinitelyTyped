@@ -40,7 +40,14 @@ type JSONEditorOptions<TValue> = {
     /**
      * The icon library to use for the editor.
      */
-    iconlib?: "bootstrap2" | "bootstrap3" | "foundation2" | "foundation3" | "jqueryui" | "fontawesome3" | "fontawesome4";
+    iconlib?:
+        | 'bootstrap2'
+        | 'bootstrap3'
+        | 'foundation2'
+        | 'foundation3'
+        | 'jqueryui'
+        | 'fontawesome3'
+        | 'fontawesome4';
     /**
      * If true, objects can only contain properties defined with the properties keyword.
      */
@@ -64,7 +71,7 @@ type JSONEditorOptions<TValue> = {
     /**
      * When to show validation errors in the UI. Valid values are interaction, change, always, and never.
      */
-    show_errors?: "interaction" | "change" | "always" | "never";
+    show_errors?: 'interaction' | 'change' | 'always' | 'never';
     /**
      * Seed the editor with an initial value. This should be valid against the editor's schema.
      */
@@ -76,17 +83,27 @@ type JSONEditorOptions<TValue> = {
     /**
      * The CSS theme to use.
      */
-    theme?: "barebones" | "html" | "bootstrap2" | "bootstrap3" | "bootstrap4" | "foundation3" | "foundation4" | "foundation5" | "foundation6" | "jqueryui";
+    theme?:
+        | 'barebones'
+        | 'html'
+        | 'bootstrap2'
+        | 'bootstrap3'
+        | 'bootstrap4'
+        | 'foundation3'
+        | 'foundation4'
+        | 'foundation5'
+        | 'foundation6'
+        | 'jqueryui';
     /**
      * If true, only required properties will be included by default.
      */
     display_required_only?: boolean;
-}
+};
 type JSONEditorError = {
     path: string;
     property: string;
     message: string;
-}
+};
 type JSONEditorObjectOptions = {
     /**
      * If set to true, the editor will start collapsed
@@ -104,7 +121,7 @@ type JSONEditorObjectOptions = {
      * If set to true, the Edit Properties button will be hidden
      */
     disable_properties?: boolean;
-}
+};
 type JSONEditorArrayOptions = {
     /**
      * If set to true, the editor will start collapsed
@@ -134,7 +151,7 @@ type JSONEditorArrayOptions = {
      * If set to true, the collapse button will be hidden
      */
     disable_collapse?: boolean;
-}
+};
 declare class JSONEditor<TValue> {
     public static defaults: {
         options: JSONEditorOptions<any>;
@@ -144,12 +161,12 @@ declare class JSONEditor<TValue> {
             };
             array: {
                 options: JSONEditorArrayOptions;
-            }
+            };
         };
         languages: any;
         language: string;
         resolvers: ((schema: any) => string)[];
-        custom_validators: (((schema: any, value: string, path: string) => JSONEditorError[]))[];
+        custom_validators: ((schema: any, value: string, path: string) => JSONEditorError[])[];
     };
     public static plugins: {
         sceditor: {
@@ -180,6 +197,6 @@ declare class JSONEditor<TValue> {
     public destroy(): void;
 }
 
-declare module "json-editor" {
+declare module 'json-editor' {
     export = JSONEditor;
 }

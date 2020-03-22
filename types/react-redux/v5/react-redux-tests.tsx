@@ -14,263 +14,287 @@ import objectAssign = require('object-assign');
 // output of `connect` to make sure the signature is what is expected
 
 namespace Empty {
-    interface OwnProps { foo: string, dispatch: Dispatch<any> }
+    interface OwnProps {
+        foo: string;
+        dispatch: Dispatch<any>;
+    }
 
     class TestComponent extends Component<OwnProps> {}
 
-    const Test = connect()(TestComponent)
+    const Test = connect()(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 namespace MapState {
-    interface OwnProps { foo: string }
-    interface StateProps { bar: number }
+    interface OwnProps {
+        foo: string;
+    }
+    interface StateProps {
+        bar: number;
+    }
 
     class TestComponent extends Component<OwnProps & StateProps> {}
 
     const mapStateToProps = (_: any) => ({
-        bar: 1
-    })
+        bar: 1,
+    });
 
-    const Test = connect(
-        mapStateToProps
-    )(TestComponent)
+    const Test = connect(mapStateToProps)(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 namespace MapStateWithDispatchProp {
-    interface OwnProps { foo: string }
-    interface StateProps { bar: number, dispatch: Dispatch<any> }
+    interface OwnProps {
+        foo: string;
+    }
+    interface StateProps {
+        bar: number;
+        dispatch: Dispatch<any>;
+    }
 
     class TestComponent extends Component<OwnProps & StateProps> {}
 
     const mapStateToProps = (_: any) => ({
-        bar: 1
-    })
+        bar: 1,
+    });
 
-    const Test = connect(
-        mapStateToProps
-    )(TestComponent)
+    const Test = connect(mapStateToProps)(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 namespace MapStateFactory {
-    interface OwnProps { foo: string }
-    interface StateProps { bar: number }
+    interface OwnProps {
+        foo: string;
+    }
+    interface StateProps {
+        bar: number;
+    }
 
     class TestComponent extends Component<OwnProps & StateProps> {}
 
     const mapStateToProps = () => () => ({
-        bar: 1
-    })
+        bar: 1,
+    });
 
-    const Test = connect(
-        mapStateToProps
-    )(TestComponent)
+    const Test = connect(mapStateToProps)(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 namespace MapDispatch {
-    interface OwnProps { foo: string }
-    interface DispatchProps { onClick: () => void }
+    interface OwnProps {
+        foo: string;
+    }
+    interface DispatchProps {
+        onClick: () => void;
+    }
 
     class TestComponent extends Component<OwnProps & DispatchProps> {}
 
     const mapDispatchToProps = () => ({
-        onClick: () => {}
-    })
+        onClick: () => {},
+    });
 
-    const TestNull = connect(
-        null,
-        mapDispatchToProps,
-    )(TestComponent)
+    const TestNull = connect(null, mapDispatchToProps)(TestComponent);
 
-    const verifyNull = <TestNull foo='bar' />
+    const verifyNull = <TestNull foo="bar" />;
 
-    const TestUndefined = connect(
-        undefined,
-        mapDispatchToProps,
-    )(TestComponent)
+    const TestUndefined = connect(undefined, mapDispatchToProps)(TestComponent);
 
-    const verifyUndefined = <TestUndefined foo='bar' />
+    const verifyUndefined = <TestUndefined foo="bar" />;
 }
 
 namespace MapStateAndDispatchObject {
-    interface ClickPayload { count: number }
+    interface ClickPayload {
+        count: number;
+    }
     const onClick: ActionCreator<ClickPayload> = () => ({ count: 1 });
     const dispatchToProps = {
         onClick,
     };
 
-    interface OwnProps { foo: string }
-    interface StateProps { bar: number }
-    interface DispatchProps { onClick: ActionCreator<ClickPayload> }
+    interface OwnProps {
+        foo: string;
+    }
+    interface StateProps {
+        bar: number;
+    }
+    interface DispatchProps {
+        onClick: ActionCreator<ClickPayload>;
+    }
 
     const mapStateToProps = (_: any, __: OwnProps): StateProps => ({
-        bar: 1
-    })
+        bar: 1,
+    });
 
     class TestComponent extends Component<OwnProps & StateProps & DispatchProps> {}
 
-    const Test = connect(
-        mapStateToProps,
-        dispatchToProps,
-    )(TestComponent)
+    const Test = connect(mapStateToProps, dispatchToProps)(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 namespace MapDispatchFactory {
-    interface OwnProps { foo: string }
-    interface DispatchProps { onClick: () => void }
+    interface OwnProps {
+        foo: string;
+    }
+    interface DispatchProps {
+        onClick: () => void;
+    }
 
     class TestComponent extends Component<OwnProps & DispatchProps> {}
 
     const mapDispatchToPropsFactory = () => () => ({
-        onClick: () => {}
-    })
+        onClick: () => {},
+    });
 
-    const TestNull = connect(
-        null,
-        mapDispatchToPropsFactory,
-    )(TestComponent)
+    const TestNull = connect(null, mapDispatchToPropsFactory)(TestComponent);
 
-    const verifyNull = <TestNull foo='bar' />
+    const verifyNull = <TestNull foo="bar" />;
 
-    const TestUndefined = connect(
-        undefined,
-        mapDispatchToPropsFactory,
-    )(TestComponent)
+    const TestUndefined = connect(undefined, mapDispatchToPropsFactory)(TestComponent);
 
-    const verifyUndefined = <TestUndefined foo='bar' />
+    const verifyUndefined = <TestUndefined foo="bar" />;
 }
 
 namespace MapStateAndDispatch {
-    interface OwnProps { foo: string }
-    interface StateProps { bar: number }
-    interface DispatchProps { onClick: () => void }
+    interface OwnProps {
+        foo: string;
+    }
+    interface StateProps {
+        bar: number;
+    }
+    interface DispatchProps {
+        onClick: () => void;
+    }
 
     class TestComponent extends Component<OwnProps & StateProps & DispatchProps> {}
 
     const mapStateToProps = () => ({
-        bar: 1
-    })
+        bar: 1,
+    });
 
     const mapDispatchToProps = () => ({
-        onClick: () => {}
-    })
+        onClick: () => {},
+    });
 
-    const Test = connect(
-        mapStateToProps,
-        mapDispatchToProps,
-    )(TestComponent)
+    const Test = connect(mapStateToProps, mapDispatchToProps)(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 namespace MapStateFactoryAndDispatch {
-    interface OwnProps { foo: string }
-    interface StateProps { bar: number }
-    interface DispatchProps { onClick: () => void }
+    interface OwnProps {
+        foo: string;
+    }
+    interface StateProps {
+        bar: number;
+    }
+    interface DispatchProps {
+        onClick: () => void;
+    }
 
-    const mapStateToPropsFactory = () => () =>({
-        bar: 1
-    })
+    const mapStateToPropsFactory = () => () => ({
+        bar: 1,
+    });
 
     const mapDispatchToProps = () => ({
-        onClick: () => {}
-    })
+        onClick: () => {},
+    });
 
     class TestComponent extends Component<OwnProps & StateProps & DispatchProps> {}
 
-    const Test = connect(
-        mapStateToPropsFactory,
-        mapDispatchToProps,
-    )(TestComponent)
+    const Test = connect(mapStateToPropsFactory, mapDispatchToProps)(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 namespace MapStateFactoryAndDispatchFactory {
-    interface OwnProps { foo: string }
-    interface StateProps { bar: number }
-    interface DispatchProps { onClick: () => void }
+    interface OwnProps {
+        foo: string;
+    }
+    interface StateProps {
+        bar: number;
+    }
+    interface DispatchProps {
+        onClick: () => void;
+    }
 
-    const mapStateToPropsFactory = () => () =>({
-        bar: 1
-    })
+    const mapStateToPropsFactory = () => () => ({
+        bar: 1,
+    });
 
     const mapDispatchToPropsFactory = () => () => ({
-        onClick: () => {}
-    })
+        onClick: () => {},
+    });
 
     class TestComponent extends Component<OwnProps & StateProps & DispatchProps> {}
 
-    const Test = connect(
-        mapStateToPropsFactory,
-        mapDispatchToPropsFactory,
-    )(TestComponent)
+    const Test = connect(mapStateToPropsFactory, mapDispatchToPropsFactory)(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 namespace MapStateAndDispatchAndMerge {
-    interface OwnProps { foo: string }
-    interface StateProps { bar: number }
-    interface DispatchProps { onClick: () => void }
+    interface OwnProps {
+        foo: string;
+    }
+    interface StateProps {
+        bar: number;
+    }
+    interface DispatchProps {
+        onClick: () => void;
+    }
 
     class TestComponent extends Component<OwnProps & StateProps & DispatchProps> {}
 
     const mapStateToProps = () => ({
-        bar: 1
-    })
+        bar: 1,
+    });
 
     const mapDispatchToProps = () => ({
-        onClick: () => {}
-    })
+        onClick: () => {},
+    });
 
-    const mergeProps = (stateProps: StateProps, dispatchProps: DispatchProps) => (
-        Object.assign({}, stateProps, dispatchProps)
-    )
+    const mergeProps = (stateProps: StateProps, dispatchProps: DispatchProps) =>
+        Object.assign({}, stateProps, dispatchProps);
 
-    const Test = connect(
-        mapStateToProps,
-        mapDispatchToProps,
-        mergeProps,
-    )(TestComponent)
+    const Test = connect(mapStateToProps, mapDispatchToProps, mergeProps)(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 namespace MapStateAndOptions {
-    interface State { state: string; }
-    interface OwnProps { foo: string }
-    interface StateProps { bar: number }
-    interface DispatchProps { dispatch: Dispatch<any> }
+    interface State {
+        state: string;
+    }
+    interface OwnProps {
+        foo: string;
+    }
+    interface StateProps {
+        bar: number;
+    }
+    interface DispatchProps {
+        dispatch: Dispatch<any>;
+    }
 
     class TestComponent extends Component<OwnProps & StateProps & DispatchProps> {}
 
     const mapStateToProps = (state: State) => ({
-        bar: 1
-    })
+        bar: 1,
+    });
 
     const areStatePropsEqual = (next: StateProps, current: StateProps) => true;
 
-    const Test = connect<StateProps, DispatchProps, OwnProps, State>(
-        mapStateToProps,
-        null,
-        null,
-        {
-            pure: true,
-            areStatePropsEqual,
-        }
-    )(TestComponent)
+    const Test = connect<StateProps, DispatchProps, OwnProps, State>(mapStateToProps, null, null, {
+        pure: true,
+        areStatePropsEqual,
+    })(TestComponent);
 
-    const verify = <Test foo='bar' />
+    const verify = <Test foo="bar" />;
 }
 
 interface CounterState {
@@ -280,73 +304,59 @@ declare var increment: Function;
 
 class Counter extends Component<any, any> {
     render() {
-        return (
-            <button onClick={this.props.onIncrement}>
-                {this.props.value}
-            </button>
-        );
+        return <button onClick={this.props.onIncrement}>{this.props.value}</button>;
     }
 }
 
 function mapStateToProps(state: CounterState) {
     return {
-        value: state.counter
+        value: state.counter,
     };
 }
 
 // Which action creators does it want to receive by props?
 function mapDispatchToProps(dispatch: Dispatch<CounterState>) {
     return {
-        onIncrement: () => dispatch(increment())
+        onIncrement: () => dispatch(increment()),
     };
 }
 
-connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Counter);
-
+connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 @connect(mapStateToProps)
-class CounterContainer extends Component<any, any> {
-
-}
+class CounterContainer extends Component<any, any> {}
 
 // Ensure connect's first two arguments can be replaced by wrapper functions
 interface ICounterStateProps {
-    value: number
+    value: number;
 }
 interface ICounterDispatchProps {
-    onIncrement: () => void
+    onIncrement: () => void;
 }
 // with higher order functions
 connect<ICounterStateProps, ICounterDispatchProps, {}, CounterState>(
     () => mapStateToProps,
-    () => mapDispatchToProps
+    () => mapDispatchToProps,
 )(Counter);
 // with higher order functions using parameters
 connect<ICounterStateProps, ICounterDispatchProps, {}, CounterState>(
     (initialState: CounterState, ownProps) => mapStateToProps,
-    (dispatch: Dispatch<CounterState>, ownProps) => mapDispatchToProps
+    (dispatch: Dispatch<CounterState>, ownProps) => mapDispatchToProps,
 )(Counter);
 // only first argument
-connect<ICounterStateProps, {}, {}, CounterState>(
-    () => mapStateToProps
-)(Counter);
+connect<ICounterStateProps, {}, {}, CounterState>(() => mapStateToProps)(Counter);
 // wrap only one argument
 connect<ICounterStateProps, ICounterDispatchProps, {}, CounterState>(
     mapStateToProps,
-    () => mapDispatchToProps
+    () => mapDispatchToProps,
 )(Counter);
 // with extra arguments
 connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICounterDispatchProps, CounterState>(
     () => mapStateToProps,
     () => mapDispatchToProps,
-    (s: ICounterStateProps, d: ICounterDispatchProps) =>
-        objectAssign({}, s, d),
-    { pure: true }
+    (s: ICounterStateProps, d: ICounterDispatchProps) => objectAssign({}, s, d),
+    { pure: true },
 )(Counter);
-
 
 class App extends Component<any, any> {
     render(): JSX.Element {
@@ -357,23 +367,17 @@ class App extends Component<any, any> {
 
 const targetEl = document.getElementById('root');
 
-ReactDOM.render((
-    <Provider store={store}>
-        {() => <App />}
-    </Provider>
-), targetEl);
+ReactDOM.render(<Provider store={store}>{() => <App />}</Provider>, targetEl);
 
 //
 // API
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
 //
 declare var store: Store<TodoState>;
-class MyRootComponent extends Component<any, any> {
-
-}
+class MyRootComponent extends Component<any, any> {}
 class TodoApp extends Component<any, any> {}
 interface TodoState {
-    todos: string[]|string;
+    todos: string[] | string;
 }
 interface TodoProps {
     userId: number;
@@ -384,18 +388,13 @@ interface DispatchProps {
 }
 declare var actionCreators: () => {
     action: Function;
-}
+};
 declare var dispatchActionCreators: () => DispatchProps;
-declare var addTodo: () => { type: string; };
-declare var todoActionCreators: { [type: string]: (...args: any[]) => any; };
-declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
+declare var addTodo: () => { type: string };
+declare var todoActionCreators: { [type: string]: (...args: any[]) => any };
+declare var counterActionCreators: { [type: string]: (...args: any[]) => any };
 
-ReactDOM.render(
-    <Provider store={store}>
-        {() => <MyRootComponent />}
-    </Provider>,
-    document.body
-);
+ReactDOM.render(<Provider store={store}>{() => <MyRootComponent />}</Provider>, document.body);
 
 //TODO: for React Router 0.13
 ////TODO: error TS2339: Property 'run' does not exist on type 'typeof "react-router"'.
@@ -415,10 +414,10 @@ ReactDOM.render(
 
 // Inject just dispatch and don't listen to store
 
-const AppWrap = (props: DispatchProp<any> & { children?: React.ReactNode }) => <div />
+const AppWrap = (props: DispatchProp<any> & { children?: React.ReactNode }) => <div />;
 const WrappedApp = connect()(AppWrap);
 
-<WrappedApp />
+<WrappedApp />;
 
 // Inject dispatch and every field in the global state
 
@@ -473,7 +472,7 @@ connect(mapStateToProps2, mapDispatchToProps3)(TodoApp);
 function mapDispatchToProps4(dispatch: Dispatch<TodoState>) {
     return {
         todoActions: bindActionCreators(todoActionCreators, dispatch),
-        counterActions: bindActionCreators(counterActionCreators, dispatch)
+        counterActions: bindActionCreators(counterActionCreators, dispatch),
     };
 }
 
@@ -487,7 +486,7 @@ connect(mapStateToProps2, mapDispatchToProps4)(TodoApp);
 
 function mapDispatchToProps5(dispatch: Dispatch<TodoState>) {
     return {
-        actions: bindActionCreators(objectAssign({}, todoActionCreators, counterActionCreators), dispatch)
+        actions: bindActionCreators(objectAssign({}, todoActionCreators, counterActionCreators), dispatch),
     };
 }
 
@@ -519,15 +518,18 @@ connect(mapStateToProps3)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProps: TodoProps): DispatchProps & TodoState & TodoProps {
+function mergeProps(
+    stateProps: TodoState,
+    dispatchProps: DispatchProps,
+    ownProps: TodoProps,
+): DispatchProps & TodoState & TodoProps {
     return objectAssign({}, ownProps, dispatchProps, {
         todos: stateProps.todos[ownProps.userId],
-        addTodo: (text: string) => dispatchProps.addTodo(ownProps.userId, text)
+        addTodo: (text: string) => dispatchProps.addTodo(ownProps.userId, text),
     });
 }
 
 connect(mapStateToProps2, dispatchActionCreators, mergeProps)(MyRootComponent);
-
 
 //https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14622#issuecomment-279820358
 //Allow for undefined mapStateToProps
@@ -541,7 +543,7 @@ interface TestState {
     isLoaded: boolean;
     state1: number;
 }
-class TestComponent extends Component<TestProp & DispatchProp<any>, TestState> { }
+class TestComponent extends Component<TestProp & DispatchProp<any>, TestState> {}
 const WrappedTestComponent = connect()(TestComponent);
 
 // return value of the connect()(TestComponent) is of the type TestComponent
@@ -559,12 +561,12 @@ class NonComponent {}
 
 // stateless functions
 interface HelloMessageProps {
-    dispatch: Dispatch<any>
+    dispatch: Dispatch<any>;
     name: string;
- }
+}
 const HelloMessage: React.StatelessComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
-}
+};
 let ConnectedHelloMessage = connect()(HelloMessage);
 ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById('content'));
 
@@ -581,7 +583,7 @@ namespace TestStatelessFunctionWithMapArguments {
 
     const mapStateToProps = (state: any, ownProps: GreetingProps) => {
         return {
-            name: 'Connected! ' + ownProps.name
+            name: 'Connected! ' + ownProps.name,
         };
     };
 
@@ -589,14 +591,11 @@ namespace TestStatelessFunctionWithMapArguments {
         return {
             onClick: () => {
                 dispatch({ type: 'GREETING', name: ownProps.name });
-            }
+            },
         };
     };
 
-    const ConnectedGreeting = connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(Greeting);
+    const ConnectedGreeting = connect(mapStateToProps, mapDispatchToProps)(Greeting);
 }
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/8787
@@ -611,7 +610,7 @@ namespace TestTOwnPropsInference {
 
     class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp<any>> {
         render() {
-            return <div/>;
+            return <div />;
         }
     }
 
@@ -625,7 +624,9 @@ namespace TestTOwnPropsInference {
 
     const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
-    const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
+    const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(
+        OwnPropsComponent,
+    );
 
     // This should not compile, which is good.
     // React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
@@ -643,24 +644,26 @@ namespace TestTOwnPropsInference {
     // React.createElement(ConnectedWithTypeHint, { anything: 'goes!' });
 
     interface AllProps {
-        own: string
-        state: string
+        own: string;
+        state: string;
     }
 
     class AllPropsComponent extends React.Component<AllProps & DispatchProp<any>> {
         render() {
-            return <div/>;
+            return <div />;
         }
     }
 
-    type PickedOwnProps = Pick<AllProps, "own">
-    type PickedStateProps = Pick<AllProps, "state">
+    type PickedOwnProps = Pick<AllProps, 'own'>;
+    type PickedStateProps = Pick<AllProps, 'state'>;
 
-    const mapStateToPropsForPicked: MapStateToProps<PickedStateProps, PickedOwnProps, {}> = (state: any): PickedStateProps => {
-        return { state: "string" }
-    }
+    const mapStateToPropsForPicked: MapStateToProps<PickedStateProps, PickedOwnProps, {}> = (
+        state: any,
+    ): PickedStateProps => {
+        return { state: 'string' };
+    };
     const ConnectedWithPickedOwnProps = connect(mapStateToPropsForPicked)(AllPropsComponent);
-    <ConnectedWithPickedOwnProps own="blah" />
+    <ConnectedWithPickedOwnProps own="blah" />;
 }
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16021
@@ -683,7 +686,7 @@ namespace TestMergedPropsInference {
 
     class MergedPropsComponent extends React.Component<MergedProps> {
         render() {
-            return <div/>;
+            return <div />;
         }
     }
 
@@ -699,23 +702,24 @@ namespace TestMergedPropsInference {
         mapStateToProps,
         undefined,
         (stateProps: StateProps) => ({
-            merged: "merged",
+            merged: 'merged',
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
-        undefined,
-        mapDispatchToProps,
-        (stateProps: undefined, dispatchProps: DispatchProps) => ({
-            merged: "merged",
-        }),
-    )(MergedPropsComponent);
+    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<
+        void,
+        DispatchProps,
+        OwnProps,
+        MergedProps
+    >(undefined, mapDispatchToProps, (stateProps: undefined, dispatchProps: DispatchProps) => ({
+        merged: 'merged',
+    }))(MergedPropsComponent);
 
     const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
         () => ({
-            merged: "merged",
+            merged: 'merged',
         }),
     )(MergedPropsComponent);
 }
@@ -733,24 +737,22 @@ namespace Issue16652 {
 
     const mapStateToProps = (state: any, ownProps: PassedProps): GeneratedStateProps => {
         return {
-            comments: ownProps.commentIds.map(id => ({ id })),
+            comments: ownProps.commentIds.map((id) => ({ id })),
         };
     };
 
-    const ConnectedCommentList = connect<GeneratedStateProps, {}, PassedProps>(mapStateToProps)(
-        CommentList
-    );
+    const ConnectedCommentList = connect<GeneratedStateProps, {}, PassedProps>(mapStateToProps)(CommentList);
 
-    <ConnectedCommentList commentIds={['a', 'b', 'c']} />
+    <ConnectedCommentList commentIds={['a', 'b', 'c']} />;
 }
 
 namespace Issue15463 {
-    interface ISpinnerProps{
+    interface ISpinnerProps {
         showGlobalSpinner: boolean;
     }
     class SpinnerClass extends React.Component<ISpinnerProps & DispatchProp<any>, undefined> {
         render() {
-            return (<div />);
+            return <div />;
         }
     }
 
@@ -758,7 +760,7 @@ namespace Issue15463 {
         return { showGlobalSpinner: true };
     })(SpinnerClass);
 
-    <Spinner />
+    <Spinner />;
 }
 
 namespace RemoveInjectedAndPassOnRest {
@@ -768,7 +770,7 @@ namespace RemoveInjectedAndPassOnRest {
     }
     class SpinnerClass extends React.Component<TProps & DispatchProp<any>, {}> {
         render() {
-            return (<div />);
+            return <div />;
         }
     }
 
@@ -776,11 +778,10 @@ namespace RemoveInjectedAndPassOnRest {
         return { showGlobalSpinner: true };
     })(SpinnerClass);
 
-    <Spinner foo='bar' />
+    <Spinner foo="bar" />;
 }
 
 namespace TestControlledComponentWithoutDispatchProp {
-
     interface MyState {
         count: number;
     }
@@ -797,7 +798,7 @@ namespace TestControlledComponentWithoutDispatchProp {
     function mapStateToProps(state: MyState) {
         return {
             label: `The count is ${state.count}`,
-        }
+        };
     }
 
     class MyComponent extends React.Component<MyProps> {
@@ -806,9 +807,7 @@ namespace TestControlledComponentWithoutDispatchProp {
         }
     }
 
-    const MyFuncComponent = (props: MyProps) => (
-        <span>{props.label}</span>
-    );
+    const MyFuncComponent = (props: MyProps) => <span>{props.label}</span>;
 
     const MyControlledComponent = connect(mapStateToProps)(MyComponent);
     const MyControlledFuncComponent = connect(mapStateToProps)(MyFuncComponent);
@@ -825,26 +824,26 @@ namespace TestDispatchToPropsAsObject {
         onClick,
     };
 
-    type Props = { title: string; } & typeof dispatchToProps;
+    type Props = { title: string } & typeof dispatchToProps;
     const HeaderComponent: React.StatelessComponent<Props> = (props) => {
         return <h1>{props.title}</h1>;
-    }
+    };
 
     const Header = connect(mapStateToProps, dispatchToProps)(HeaderComponent);
-    <Header />
+    <Header />;
 }
 
 namespace TestWrappedComponent {
     type InnerProps = {
-        name: string,
+        name: string;
     };
     const Inner: React.StatelessComponent<InnerProps> = (props) => {
         return <h1>{props.name}</h1>;
-    }
+    };
 
     const mapStateToProps = (state: any) => {
         return {
-            name: "Connected",
+            name: 'Connected',
         };
     };
     const Connected = connect(mapStateToProps)(Inner);
@@ -861,29 +860,28 @@ namespace TestCreateProvider {
 
     const MyStoreProvider = createProvider(STORE_KEY);
 
-    const myStoreConnect: Connect = function(
+    const myStoreConnect: Connect = function (
         mapStateToProps?: any,
         mapDispatchToProps?: any,
         mergeProps?: any,
         options: Options = {},
     ) {
         options.storeKey = STORE_KEY;
-        return connect(
-            mapStateToProps,
-            mapDispatchToProps,
-            mergeProps,
-            options,
-        );
+        return connect(mapStateToProps, mapDispatchToProps, mergeProps, options);
     };
 
-    interface State { a: number };
+    interface State {
+        a: number;
+    }
     const store = createStore<State>(() => ({ a: 1 }));
     const myStore = createStore<State>(() => ({ a: 2 }));
 
-    interface AProps { a: number };
-    const A = (props: AProps) => (<h1>A is {props.a}</h1>);
-    const A1 = connect<AProps, {}, {}, State>(state => state)(A);
-    const A2 = myStoreConnect<AProps, {}, {}, State>(state => state)(A);
+    interface AProps {
+        a: number;
+    }
+    const A = (props: AProps) => <h1>A is {props.a}</h1>;
+    const A1 = connect<AProps, {}, {}, State>((state) => state)(A);
+    const A2 = myStoreConnect<AProps, {}, {}, State>((state) => state)(A);
 
     const Combined = () => (
         <Provider store={store}>
@@ -901,23 +899,34 @@ namespace TestCreateProvider {
 }
 
 namespace TestTypeInference {
-    interface State { a: number };
+    interface State {
+        a: number;
+    }
 
-    const OnlyState = connect(
-        (state: {a: number}, props: {b: number}) => ({a: state.a, c: state.a + props.b})
-    )(props => <span>{props.a} + {props.b} = {props.c}</span>)
-    interface State { a: number };
+    const OnlyState = connect((state: { a: number }, props: { b: number }) => ({ a: state.a, c: state.a + props.b }))(
+        (props) => (
+            <span>
+                {props.a} + {props.b} = {props.c}
+            </span>
+        ),
+    );
+    interface State {
+        a: number;
+    }
     ReactDOM.render(<OnlyState b={1} />, document.body);
 
-    const OnlyDispatch = connect(
-        undefined,
-        (dispatch, props: {b: number}) => ({action: () => dispatch({type: 'action', b: props.b})})
-    )(props => <span onClick={props.action}>{props.b}</span>)
+    const OnlyDispatch = connect(undefined, (dispatch, props: { b: number }) => ({
+        action: () => dispatch({ type: 'action', b: props.b }),
+    }))((props) => <span onClick={props.action}>{props.b}</span>);
     ReactDOM.render(<OnlyDispatch b={1} />, document.body);
 
     const StateAndDispatch = connect(
-        (state: {a: number}, props: {b: number}) => ({a: state.a, c: state.a + props.b}),
-        (dispatch, props: {b: number}) => ({action: () => dispatch({type: 'action', b: props.b})})
-    )(props => <span>{props.a} + {props.b} = {props.c}</span>)
+        (state: { a: number }, props: { b: number }) => ({ a: state.a, c: state.a + props.b }),
+        (dispatch, props: { b: number }) => ({ action: () => dispatch({ type: 'action', b: props.b }) }),
+    )((props) => (
+        <span>
+            {props.a} + {props.b} = {props.c}
+        </span>
+    ));
     ReactDOM.render(<StateAndDispatch b={1} />, document.body);
 }

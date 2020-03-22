@@ -4,7 +4,7 @@ import jsdomGlobal from 'jsdom-global';
 jsdomGlobal();
 jsdomGlobal('hello', undefined);
 jsdomGlobal(undefined, {
-    url: 'https://localhost/'
+    url: 'https://localhost/',
 });
 jsdomGlobal('hello', {
     contentType: '1',

@@ -7,8 +7,38 @@ export function parseSVG(input: string): Command[];
 export function makeAbsolute(commands: Command[]): Command[];
 
 export interface Command {
-    code: 'm' | 'M' | 'l' | 'L' | 'h' | 'H' | 'v' | 'V' | 'c' | 'C' | 's' | 'S' | 'q' | 'Q' | 't' | 'T' | 'a' | 'A' | 'z' | 'Z';
-    command: 'moveto' | 'lineto' | 'horizontal lineto' | 'vertical lineto' | 'curveto' | 'smooth curveto' | 'quadratic curveto' | 'smooth quadratic curveto' | 'elliptical arc' | 'closepath';
+    code:
+        | 'm'
+        | 'M'
+        | 'l'
+        | 'L'
+        | 'h'
+        | 'H'
+        | 'v'
+        | 'V'
+        | 'c'
+        | 'C'
+        | 's'
+        | 'S'
+        | 'q'
+        | 'Q'
+        | 't'
+        | 'T'
+        | 'a'
+        | 'A'
+        | 'z'
+        | 'Z';
+    command:
+        | 'moveto'
+        | 'lineto'
+        | 'horizontal lineto'
+        | 'vertical lineto'
+        | 'curveto'
+        | 'smooth curveto'
+        | 'quadratic curveto'
+        | 'smooth quadratic curveto'
+        | 'elliptical arc'
+        | 'closepath';
     relative?: boolean;
 }
 

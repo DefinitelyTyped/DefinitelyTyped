@@ -1,2 +1,2 @@
-import { words } from "lodash";
+import { words } from 'lodash';
 export default words;

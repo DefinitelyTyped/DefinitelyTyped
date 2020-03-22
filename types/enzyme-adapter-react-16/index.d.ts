@@ -7,10 +7,8 @@
 
 import { EnzymeAdapter } from 'enzyme';
 
-declare class ReactSixteenAdapter extends EnzymeAdapter {
-}
+declare class ReactSixteenAdapter extends EnzymeAdapter {}
 
-declare namespace ReactSixteenAdapter {
-}
+declare namespace ReactSixteenAdapter {}
 
 export = ReactSixteenAdapter;

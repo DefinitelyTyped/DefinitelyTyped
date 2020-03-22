@@ -56,7 +56,7 @@ export interface Options {
     auth?: Auth;
     agent?: http.Agent | https.Agent;
     context?: {
-        [key: string]: any
+        [key: string]: any;
     };
 }
 

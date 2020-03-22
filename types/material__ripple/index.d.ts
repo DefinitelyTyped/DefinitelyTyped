@@ -29,7 +29,7 @@ import * as util from './util';
 export { MDCRippleAdapter, MDCRippleFoundation, util };
 
 export class MDCRipple extends MDCComponent<MDCRippleAdapter, MDCRippleFoundation> {
-    static attachTo(root: Element, options?: { isUnbounded?: boolean; }): MDCRipple;
+    static attachTo(root: Element, options?: { isUnbounded?: boolean }): MDCRipple;
 
     static createAdapter(instance: RippleCapableSurface): MDCRippleAdapter;
 

@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
-import { Socket as NetSocket } from "net";
+import { EventEmitter } from 'events';
+import { Socket as NetSocket } from 'net';
 
 export class Socket extends EventEmitter {
     set(name: string, val: any): Socket;
@@ -123,12 +123,23 @@ export class PullSocket extends Socket {
 }
 
 export type ConnectionPort =
-    number
+    | number
     | string
-    | { protocol?: string, hostname?: string, pathname: string, port: string | number };
+    | { protocol?: string; hostname?: string; pathname: string; port: string | number };
 
 export function socket(type: string, options?: any): Socket;
 
 export const types: {
-    [propName: string]: { new(): PubEmitterSocket | SubEmitterSocket | PushSocket | PullSocket | PubSocket | SubSocket | ReqSocket | RepSocket | Socket };
+    [propName: string]: {
+        new ():
+            | PubEmitterSocket
+            | SubEmitterSocket
+            | PushSocket
+            | PullSocket
+            | PubSocket
+            | SubSocket
+            | ReqSocket
+            | RepSocket
+            | Socket;
+    };
 };

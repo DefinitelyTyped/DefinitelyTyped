@@ -6,9 +6,9 @@
 
 /// <reference types="node" />
 
-import events = require("events");
+import events = require('events');
 import fs = require('fs');
-import minimatch = require("minimatch");
+import minimatch = require('minimatch');
 
 declare function G(pattern: string, cb: (err: Error | null, matches: string[]) => void): void;
 declare function G(pattern: string, options: G.IOptions, cb: (err: Error | null, matches: string[]) => void): void;
@@ -46,7 +46,7 @@ declare namespace G {
         nocase?: boolean;
         matchBase?: any;
         nodir?: boolean;
-        ignore?: any; /* string | string[] */
+        ignore?: any /* string | string[] */;
         follow?: boolean;
         realpath?: boolean;
         nonegate?: boolean;

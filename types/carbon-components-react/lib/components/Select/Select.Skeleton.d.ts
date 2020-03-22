@@ -1,12 +1,12 @@
-import * as React from "react";
-import { ReactLabelAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactLabelAttr } from '../../../typings/shared';
 
 interface InheritedProps {
-    id?: ReactLabelAttr["htmlFor"],
+    id?: ReactLabelAttr['htmlFor'];
 }
 
 export interface SelectSkeletonProps extends InheritedProps {
-    hideLabel?: boolean,
+    hideLabel?: boolean;
 }
 
 declare const SelectSkeleton: React.FC<SelectSkeletonProps>;

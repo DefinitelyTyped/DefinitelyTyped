@@ -12,14 +12,50 @@ import { OutgoingHttpHeaders } from 'http';
 import discord = Strategy;
 
 declare class Strategy extends oauth2.Strategy {
-    constructor(options: discord.StrategyOptions, verify: (accessToken: string, refreshToken: string, profile: discord.Profile, done: oauth2.VerifyCallback) => void);
+    constructor(
+        options: discord.StrategyOptions,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            profile: discord.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
     // NOTE: A union of function types prevents contextual typing of arguments.
     // tslint:disable-next-line:unified-signatures
-    constructor(options: discord.StrategyOptions, verify: (accessToken: string, refreshToken: string, params: any, profile: discord.Profile, done: oauth2.VerifyCallback) => void);
-    constructor(options: discord.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, refreshToken: string, profile: discord.Profile, done: oauth2.VerifyCallback) => void);
+    constructor(
+        options: discord.StrategyOptions,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            params: any,
+            profile: discord.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: discord.StrategyOptionsWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: discord.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
     // NOTE: A union of function types prevents contextual typing of arguments.
     // tslint:disable-next-line:unified-signatures max-line-length
-    constructor(options: discord.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, params: any, refreshToken: string, profile: discord.Profile, done: oauth2.VerifyCallback) => void);
+    constructor(
+        options: discord.StrategyOptionsWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            params: any,
+            refreshToken: string,
+            profile: discord.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
     checkScope(scope: string, accessToken: string, cb: (err?: Error | null, value?: any) => void): void;
 }
 
@@ -52,7 +88,7 @@ declare namespace Strategy {
     }
 
     interface Profile extends passport.Profile {
-        provider: "discord";
+        provider: 'discord';
         username: string;
         locale: string;
         mfa_enabled: boolean;

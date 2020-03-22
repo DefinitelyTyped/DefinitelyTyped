@@ -1,5 +1,3 @@
-
-
 import when = require('when');
 import rest = require('rest');
 
@@ -22,37 +20,38 @@ import xhr = require('rest/interceptor/ie/xhr');
 import interceptor = require('rest/interceptor');
 import registry = require('rest/mime/registry');
 
-rest('/').then(function(response) {
+rest('/').then(function (response) {
     console.log('response: ', response);
 });
-
 
 var client = rest.wrap(mime);
-client({ path: '/data.json' }).then(function(response) {
+client({ path: '/data.json' }).then(function (response) {
     console.log('response: ', response);
 });
 
-client = rest.wrap<mime.Config>(mime, { mime: 'application/json' }).wrap(errorCode, { code: 500 });
+client = rest
+    .wrap<mime.Config>(mime, { mime: 'application/json' })
+    .wrap(errorCode, { code: 500 });
 client({ path: '/data.json' }).then(
-    function(response) {
+    function (response) {
         console.log('response: ', response);
     },
-    function(response) {
+    function (response) {
         console.error('response error: ', response);
-    }
+    },
 );
 
 registry.register('application/vnd.com.example', {
-    read: function(str: string) {
+    read: function (str: string) {
         var obj: any;
         // do string to object conversions
         return obj;
     },
-    write: function(obj: any) {
+    write: function (obj: any) {
         var str: string;
         // do object to string conversions
         return str;
-    }
+    },
 });
 
 var noop = interceptor({
@@ -70,7 +69,7 @@ var noop = interceptor({
     },
     error: (response: rest.Response, config: any, meta: rest.Meta) => {
         return response;
-    }
+    },
 });
 
 var fail = interceptor({

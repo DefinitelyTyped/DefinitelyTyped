@@ -22,7 +22,7 @@ class SimpleTest extends React.Component<{}, TestState> {
             crop,
             percentCrop,
         });
-    }
+    };
 
     render() {
         return React.createElement(ReactCrop, {
@@ -42,7 +42,7 @@ class AspectRatioTest extends React.Component<{}, TestState> {
             crop,
             percentCrop,
         });
-    }
+    };
 
     onImageLoaded = (image: HTMLImageElement) => {
         this.setState({
@@ -55,10 +55,10 @@ class AspectRatioTest extends React.Component<{}, TestState> {
                     unit: 'px',
                 },
                 image.width,
-                image.height
+                image.height,
             ),
         });
-    }
+    };
 
     render() {
         return React.createElement(ReactCrop, {
@@ -79,7 +79,7 @@ class CompleteTest extends React.Component<{}, TestState> {
             crop,
             percentCrop,
         });
-    }
+    };
 
     onImageLoaded = (image: HTMLImageElement) => {
         this.setState({
@@ -92,14 +92,14 @@ class CompleteTest extends React.Component<{}, TestState> {
                     unit: 'px',
                 },
                 image.width,
-                image.height
+                image.height,
             ),
         });
-    }
+    };
 
     onImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
         console.warn('Error loading image');
-    }
+    };
 
     render() {
         return React.createElement(ReactCrop, {

@@ -54,7 +54,7 @@ CPK.create({
     networks: { 4447: networkConfigEntry },
 });
 
-CPK.create({ web3 }).then(async cpk => {
+CPK.create({ web3 }).then(async (cpk) => {
     // $ExpectType CPK
     cpk;
 

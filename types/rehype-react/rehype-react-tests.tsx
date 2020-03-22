@@ -1,9 +1,9 @@
-import React from "react";
-import RehypeReact from "rehype-react";
+import React from 'react';
+import RehypeReact from 'rehype-react';
 
 const htmlAst = {
-    type: "element",
-    tagName: "button"
+    type: 'element',
+    tagName: 'button',
 };
 
 const { Compiler: compile } = new RehypeReact({
@@ -12,8 +12,8 @@ const { Compiler: compile } = new RehypeReact({
     components: {
         button: () => {
             return <button />;
-        }
-    }
+        },
+    },
 });
 
 compile(htmlAst);

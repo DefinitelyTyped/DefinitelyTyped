@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as Logger from "bunyan";
+import * as Logger from 'bunyan';
 
 /**
  * Constructor.

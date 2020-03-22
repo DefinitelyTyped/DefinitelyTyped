@@ -1,8 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-declare class WaitForContainer extends React.Component<
-    WaitForContainer.WaitForContainerProps
-> {}
+declare class WaitForContainer extends React.Component<WaitForContainer.WaitForContainerProps> {}
 export = WaitForContainer;
 
 declare namespace WaitForContainer {

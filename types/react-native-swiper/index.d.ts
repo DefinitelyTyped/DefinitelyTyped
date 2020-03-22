@@ -7,132 +7,103 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import {
-  ViewStyle,
-  StyleProp,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-} from 'react-native';
+import { ViewStyle, StyleProp, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 
 export interface SwiperState {
-  autoplayEnd: boolean;
-  dir: 'x' | 'y';
-  height: number;
-  width: number;
-  index: number;
-  isScrolling: boolean;
-  loopJump: boolean;
-  offset: {
-    x: number;
-    y: number;
-  };
-  total: number;
+    autoplayEnd: boolean;
+    dir: 'x' | 'y';
+    height: number;
+    width: number;
+    index: number;
+    isScrolling: boolean;
+    loopJump: boolean;
+    offset: {
+        x: number;
+        y: number;
+    };
+    total: number;
 }
 
 export interface SwiperProperties extends React.Props<Swiper> {
-  horizontal?: boolean;
+    horizontal?: boolean;
 
-  style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
 
-  pagingEnabled?: boolean;
+    pagingEnabled?: boolean;
 
-  showsHorizontalScrollIndicator?: boolean;
+    showsHorizontalScrollIndicator?: boolean;
 
-  showsVerticalScrollIndicator?: boolean;
+    showsVerticalScrollIndicator?: boolean;
 
-  bounces?: boolean;
+    bounces?: boolean;
 
-  scrollsToTop?: boolean;
+    scrollsToTop?: boolean;
 
-  scrollEnabled?: boolean;
+    scrollEnabled?: boolean;
 
-  removeClippedSubviews?: boolean;
+    removeClippedSubviews?: boolean;
 
-  automaticallyAdjustContentInsets?: boolean;
+    automaticallyAdjustContentInsets?: boolean;
 
-  showsPagination?: boolean;
+    showsPagination?: boolean;
 
-  showsButtons?: boolean;
+    showsButtons?: boolean;
 
-  loadMinimal?: boolean;
+    loadMinimal?: boolean;
 
-  loadMinimalSize?: number;
+    loadMinimalSize?: number;
 
-  loadMinimalLoader?: JSX.Element;
+    loadMinimalLoader?: JSX.Element;
 
-  loop?: boolean;
+    loop?: boolean;
 
-  autoplay?: boolean;
+    autoplay?: boolean;
 
-  autoplayTimeout?: number;
+    autoplayTimeout?: number;
 
-  autoplayDirection?: boolean;
+    autoplayDirection?: boolean;
 
-  index?: number;
+    index?: number;
 
-  renderPagination?(index: number, total: number, thisObject: Swiper): JSX.Element;
+    renderPagination?(index: number, total: number, thisObject: Swiper): JSX.Element;
 
-  dotStyle?: StyleProp<ViewStyle>;
+    dotStyle?: StyleProp<ViewStyle>;
 
-  activeDotStyle?: StyleProp<ViewStyle>;
+    activeDotStyle?: StyleProp<ViewStyle>;
 
-  activeDot?: JSX.Element;
+    activeDot?: JSX.Element;
 
-  dot?: JSX.Element;
+    dot?: JSX.Element;
 
-  dotColor?: string;
+    dotColor?: string;
 
-  activeDotColor?: string;
+    activeDotColor?: string;
 
-  height?: number;
+    height?: number;
 
-  width?: number;
+    width?: number;
 
-  paginationStyle?: StyleProp<ViewStyle>;
+    paginationStyle?: StyleProp<ViewStyle>;
 
-  buttonWrapperStyle?: StyleProp<ViewStyle>;
+    buttonWrapperStyle?: StyleProp<ViewStyle>;
 
-  nextButton?: JSX.Element;
+    nextButton?: JSX.Element;
 
-  prevButton?: JSX.Element;
+    prevButton?: JSX.Element;
 
-  onScrollBeginDrag?(
-    event: NativeSyntheticEvent<NativeScrollEvent>,
-    state: SwiperState,
-    context: Swiper
-  ): void;
+    onScrollBeginDrag?(event: NativeSyntheticEvent<NativeScrollEvent>, state: SwiperState, context: Swiper): void;
 
-  onMomentumScrollEnd?(
-    event: NativeSyntheticEvent<NativeScrollEvent>,
-    state: SwiperState,
-    context: Swiper
-  ): void;
+    onMomentumScrollEnd?(event: NativeSyntheticEvent<NativeScrollEvent>, state: SwiperState, context: Swiper): void;
 
-  onTouchStartCapture?(
-    event: NativeSyntheticEvent<NativeScrollEvent>,
-    state: SwiperState,
-    context: Swiper
-  ): void;
+    onTouchStartCapture?(event: NativeSyntheticEvent<NativeScrollEvent>, state: SwiperState, context: Swiper): void;
 
-  onTouchStart?(
-    event: NativeSyntheticEvent<NativeScrollEvent>,
-    state: SwiperState,
-    context: Swiper
-  ): void;
+    onTouchStart?(event: NativeSyntheticEvent<NativeScrollEvent>, state: SwiperState, context: Swiper): void;
 
-  onTouchEnd?(
-    event: NativeSyntheticEvent<NativeScrollEvent>,
-    state: SwiperState,
-    context: Swiper
-  ): void;
+    onTouchEnd?(event: NativeSyntheticEvent<NativeScrollEvent>, state: SwiperState, context: Swiper): void;
 
-  onResponderRelease?(
-    event: NativeSyntheticEvent<NativeScrollEvent>,
-    state: SwiperState,
-    context: Swiper
-  ): void;
+    onResponderRelease?(event: NativeSyntheticEvent<NativeScrollEvent>, state: SwiperState, context: Swiper): void;
 }
 
 export default class Swiper extends React.Component<SwiperProperties, SwiperState> {
-  scrollBy(index: number, animated: boolean): void;
+    scrollBy(index: number, animated: boolean): void;
 }

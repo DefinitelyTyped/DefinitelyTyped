@@ -54,9 +54,7 @@ interface ConstructorOptions {
 interface FileConstructor {
     new (options: ConstructorOptions & { contents: null }): File.NullFile;
     new (options: ConstructorOptions & { contents: Buffer }): File.BufferFile;
-    new (
-        options: ConstructorOptions & { contents: NodeJS.ReadableStream }
-    ): File.StreamFile;
+    new (options: ConstructorOptions & { contents: NodeJS.ReadableStream }): File.StreamFile;
     new (options?: ConstructorOptions): File;
 
     /**
@@ -309,7 +307,7 @@ interface File {
      * If `file.contents` is a `Buffer` and `options.contents` is `false`, the `Buffer` reference
      * will be reused instead of copied.
      */
-    clone(opts?: { contents?: boolean, deep?: boolean } | boolean): this;
+    clone(opts?: { contents?: boolean; deep?: boolean } | boolean): this;
 
     /**
      * Returns a formatted-string interpretation of the Vinyl object.
@@ -330,7 +328,7 @@ interface File {
              * If false, the destination stream will not be ended (same as node core).
              */
             end?: boolean;
-        }
+        },
     ): T;
 }
 

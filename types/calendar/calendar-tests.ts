@@ -11,6 +11,6 @@ const month = now.getMonth();
 cal.monthDates(
     year,
     month,
-    date => date.getMonth() === month ? date.getDate().toString() : '&nbsp;',
-    week => week.join('</td><td>'),
+    (date) => (date.getMonth() === month ? date.getDate().toString() : '&nbsp;'),
+    (week) => week.join('</td><td>'),
 );

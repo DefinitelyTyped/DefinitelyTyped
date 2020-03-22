@@ -1,3 +1,3 @@
-import esm = require("esm");
+import esm = require('esm');
 
 esm(exports); // $ExpectType NodeRequire

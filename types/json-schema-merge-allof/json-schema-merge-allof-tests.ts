@@ -8,7 +8,7 @@ const schema: $RefParser_JSONSchema = { type: 'string' };
 mergeAllOf(schema);
 
 type JSONSchemaExtra = JSONSchema6 & {
-	[key: string]: any;
+    [key: string]: any;
 };
 
 const schemaExtra: JSONSchemaExtra = { type: 'string' };
@@ -17,12 +17,15 @@ const schemaExtra: JSONSchemaExtra = { type: 'string' };
 mergeAllOf(schemaExtra);
 
 // $ExpectType JSONSchemaExtra
-mergeAllOf(schemaExtra, { ignoreAdditionalProperties: true, resolvers: {
-    oneOf(values, path, mergeSchemas, options) {
-        // $ExpectType (JSONSchema6Definition[] | undefined)[]
-        values;
-        // $ExpectType Options<JSONSchemaExtra>
-        options;
-        return values.reduce((prev, next) => (prev || []).concat(next || []))!;
-    }
-} });
+mergeAllOf(schemaExtra, {
+    ignoreAdditionalProperties: true,
+    resolvers: {
+        oneOf(values, path, mergeSchemas, options) {
+            // $ExpectType (JSONSchema6Definition[] | undefined)[]
+            values;
+            // $ExpectType Options<JSONSchemaExtra>
+            options;
+            return values.reduce((prev, next) => (prev || []).concat(next || []))!;
+        },
+    },
+});

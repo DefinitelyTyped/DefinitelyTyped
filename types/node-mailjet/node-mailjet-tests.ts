@@ -255,10 +255,7 @@ smsActionResponsePromise
     });
 
 // get exported CSV
-const getResourceActionId: SMS.GetResourceActionId = smsConnection
-    .get('sms')
-    .action('export')
-    .id('160875105');
+const getResourceActionId: SMS.GetResourceActionId = smsConnection.get('sms').action('export').id('160875105');
 const exportResponseAction: Promise<SMS.ExportResponse> = getResourceActionId.request();
 exportResponseAction
     .then((res: SMS.ExportResponse) => {

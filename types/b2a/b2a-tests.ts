@@ -1,4 +1,4 @@
-import { btoa, atob } from "b2a";
+import { btoa, atob } from 'b2a';
 
-const b64 = btoa ("foo");
-const text = atob (b64);
+const b64 = btoa('foo');
+const text = atob(b64);

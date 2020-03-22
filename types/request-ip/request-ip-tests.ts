@@ -5,7 +5,7 @@ var app = express();
 
 app.use(requestIp.mw());
 
-var ipMiddleware = function(req:express.Request, res:express.Response, next:Function) {
+var ipMiddleware = function (req: express.Request, res: express.Response, next: Function) {
     var clientIp = requestIp.getClientIp(req);
     next();
 };

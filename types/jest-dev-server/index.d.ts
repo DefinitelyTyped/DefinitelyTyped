@@ -124,9 +124,7 @@ export const ERROR_TIMEOUT: 'ERROR_TIMEOUT';
 export const ERROR_PORT_USED: 'ERROR_PORT_USED';
 export const ERROR_NO_COMMAND: 'ERROR_NO_COMMAND';
 
-export function setup(
-    options: JestDevServerOptions | JestDevServerOptions[],
-): Promise<void>;
+export function setup(options: JestDevServerOptions | JestDevServerOptions[]): Promise<void>;
 export function teardown(): Promise<void>;
 export function getServers(): ChildProcess[];
 

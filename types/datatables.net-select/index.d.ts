@@ -44,42 +44,42 @@ declare namespace DataTables {
         /*
          * Set the selection style for end user interaction with the table
          */
-        style?: "api" | "single" | "multi" | "os" | "multi+shift";
+        style?: 'api' | 'single' | 'multi' | 'os' | 'multi+shift';
     }
 
     interface Api {
         select: {
-          /*
-          * Get the current selection style applied to the table
-          */
-          style(): string;
-          /*
-          * Set the table's selection style
-          */
-          style(s: "api" | "single" | "multi" | "os"): Api;
+            /*
+             * Get the current selection style applied to the table
+             */
+            style(): string;
+            /*
+             * Set the table's selection style
+             */
+            style(s: 'api' | 'single' | 'multi' | 'os'): Api;
         };
     }
 
     interface RowMethods {
-      /**
-       * Select a row
-       */
-      select(): Api;
-      /**
-       * Deselect a row
-       */
-      deselect(): Api;
+        /**
+         * Select a row
+         */
+        select(): Api;
+        /**
+         * Deselect a row
+         */
+        deselect(): Api;
     }
 
     interface RowsMethods {
-      /**
-       * Select multiple rows
-       */
-      select(): Api;
-      /**
-       * Deselect a row
-       */
-      deselect(): Api;
+        /**
+         * Select multiple rows
+         */
+        select(): Api;
+        /**
+         * Deselect a row
+         */
+        deselect(): Api;
     }
 
     interface CellMethods {

@@ -11,20 +11,18 @@ interface CompProps {
 }
 
 class ClassComponent extends React.Component<CompProps> {
-  render() {
-    return React.createElement('div');
-  }
+    render() {
+        return React.createElement('div');
+    }
 }
 
 const StatelessComponent = () => React.createElement('div');
 
 const ForwardRefComponent = React.forwardRef((props, ref) =>
-  React.createElement(ClassComponent, { forwardedRef: ref, ...props })
+    React.createElement(ClassComponent, { forwardedRef: ref, ...props }),
 );
 
-const LazyComponent = React.lazy(() =>
-  Promise.resolve({ default: ForwardRefComponent })
-);
+const LazyComponent = React.lazy(() => Promise.resolve({ default: ForwardRefComponent }));
 
 const MemoComponent = React.memo(StatelessComponent);
 
@@ -50,9 +48,9 @@ ReactIs.isValidElementType(MemoComponent);
 const ThemeContext = React.createContext('blue');
 
 ReactIs.isContextConsumer(<ThemeContext.Consumer children={StatelessComponent} />); // true
-ReactIs.isContextProvider(<ThemeContext.Provider children={StatelessComponent} value='black' />); // true
+ReactIs.isContextProvider(<ThemeContext.Provider children={StatelessComponent} value="black" />); // true
 ReactIs.typeOf(<ThemeContext.Consumer children={StatelessComponent} />) === ReactIs.ContextConsumer; // true
-ReactIs.typeOf(<ThemeContext.Provider children={StatelessComponent} value='black' />) === ReactIs.ContextProvider; // true
+ReactIs.typeOf(<ThemeContext.Provider children={StatelessComponent} value="black" />) === ReactIs.ContextProvider; // true
 
 // Element
 ReactIs.isElement(<div />); // true

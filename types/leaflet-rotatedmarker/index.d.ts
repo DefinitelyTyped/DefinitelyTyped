@@ -14,8 +14,8 @@ declare module 'leaflet' {
 
     interface Marker {
         /*
-        * Sets the rotation angle value.
-        */
+         * Sets the rotation angle value.
+         */
         setRotationAngle(newAngle: number): this;
 
         /**

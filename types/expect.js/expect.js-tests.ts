@@ -1,5 +1,3 @@
-
-
 function test_expect() {
     expect();
     expect(1);
@@ -71,7 +69,7 @@ function test_contain() {
 }
 
 function test_length() {
-    expect([1,2,3]).to.have.length(3);
+    expect([1, 2, 3]).to.have.length(3);
 }
 
 function test_empty() {

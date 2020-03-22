@@ -1,5 +1,5 @@
-import { UrlConfig } from "../../Web/UrlConfig";
-import { IconOptions } from "./IconOptions";
+import { UrlConfig } from '../../Web/UrlConfig';
+import { IconOptions } from './IconOptions';
 
 /**
  * Represents a downloadable object.
@@ -13,5 +13,5 @@ export interface Downloadable<TUriParam = never> extends IconOptions {
     /**
      * An alias of the `url`-property.
      */
-    uri?: this["url"];
+    uri?: this['url'];
 }

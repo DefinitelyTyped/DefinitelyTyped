@@ -6,5 +6,5 @@
 
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
-import { upperCase } from "lodash";
+import { upperCase } from 'lodash';
 export = upperCase;

@@ -30,18 +30,18 @@ app.controller('Ctrl', ($scope: ng.IScope, blockUI: angular.blockUI.BlockUIServi
     blockUI.start();
     blockUI.start('Hello');
     blockUI.start({});
-    blockUI.start({message: 'World'});
-    blockUI.start({delay: 100});
+    blockUI.start({ message: 'World' });
+    blockUI.start({ delay: 100 });
 
     blockUI.stop();
     blockUI.reset();
-    blockUI.message("Hello Types");
+    blockUI.message('Hello Types');
     blockUI.done(() => {
-        console.log("blockUI stopped");
+        console.log('blockUI stopped');
     });
     const b: boolean = blockUI.isBlocking();
 
-    const myBlockUI = blockUI.instances.get("myBlockUI");
+    const myBlockUI = blockUI.instances.get('myBlockUI');
     myBlockUI.start();
     myBlockUI.reset();
     myBlockUI.stop();

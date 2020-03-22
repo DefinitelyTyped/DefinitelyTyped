@@ -20,7 +20,7 @@ declare function weAccessMiddleware(
         appSecret: string;
         https?: boolean;
     },
-    errorHandler?: (e: any) => any
+    errorHandler?: (e: any) => any,
 ): WeMiddleware;
 
 declare namespace weAccessMiddleware {

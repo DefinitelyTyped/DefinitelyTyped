@@ -25,4 +25,4 @@ export interface Props {
     onLoadSuccess?: (outline: PDFTreeNode[]) => void;
 }
 
-export default class Outline extends React.Component<Props> { }
+export default class Outline extends React.Component<Props> {}

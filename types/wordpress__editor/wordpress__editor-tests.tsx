@@ -318,7 +318,7 @@ declare const BLOCK_INSTANCE: import('@wordpress/blocks').BlockInstance;
     Hello World
 </e.EditorProvider>;
 
-<e.AlignmentToolbar value="adf" onChange={t => t && console.log(t)} />;
+<e.AlignmentToolbar value="adf" onChange={(t) => t && console.log(t)} />;
 
 //
 // Store
@@ -396,4 +396,4 @@ select('core/editor').getPostEdits().foo;
 select('core/editor').getReferenceByDistinctEdits();
 
 // $ExpectType boolean
-select('core/editor').inSomeHistory(state => state.foo === true);
+select('core/editor').inSomeHistory((state) => state.foo === true);

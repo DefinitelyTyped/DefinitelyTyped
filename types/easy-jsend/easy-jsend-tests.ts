@@ -1,5 +1,3 @@
-
-
 // import mongoose = require('mongoose');
 import express = require('express');
 import jSend = require('easy-jsend');
@@ -11,7 +9,7 @@ import jSend = require('easy-jsend');
 // var Model = mongoose.model('model', schema);
 var Model = {};
 
-jSend.init({partial: true});
+jSend.init({ partial: true });
 
 var app = express();
 
@@ -32,7 +30,7 @@ app.get('/partial', function (req, res, next) {
         offset: 10,
         limit: 50,
         count: 100,
-        data: []
+        data: [],
     });
 });
 
@@ -42,8 +40,8 @@ app.get('/partial', function (req, res, next) {
         search: {},
         opts: {
             limit: 30,
-            skip: 10
+            skip: 10,
         },
-        result: []
+        result: [],
     });
 });

@@ -14,9 +14,9 @@ import { IOptions as GlobOptions } from 'glob';
 
 type ReplacerFunc = (key: string, value: any) => any;
 
-type Space = string|number;
+type Space = string | number;
 
-type Contents = string|Buffer;
+type Contents = string | Buffer;
 
 type Callback = (err: any) => any;
 
@@ -28,16 +28,28 @@ export interface CopyOptions {
 }
 
 export interface Editor {
-    read(filepath: string, options?: { raw?: boolean, defaults: string }): string;
+    read(filepath: string, options?: { raw?: boolean; defaults: string }): string;
     readJSON(filepath: string, defaults?: any): any;
     exists(filepath: string): boolean;
     write(filepath: string, contents: Contents): string;
     writeJSON(filepath: string, contents: any, replacer?: ReplacerFunc, space?: Space): string;
-    append(to: string, contents: Contents, options?: { trimEnd?: boolean, separator?: string }): string;
-    delete(paths: string|string[], options?: { globOptions?: GlobOptions }): void;
-    copy(from: string|string[], to: string, options?: CopyOptions, context?: TemplateData, templateOptions?: TemplateOptions): void;
-    copyTpl(from: string|string[], to: string, context?: TemplateData, templateOptions?: TemplateOptions, copyOptions?: CopyOptions): void;
-    move(from: string|string[], to: string, options?: { globOptions: GlobOptions }): void;
+    append(to: string, contents: Contents, options?: { trimEnd?: boolean; separator?: string }): string;
+    delete(paths: string | string[], options?: { globOptions?: GlobOptions }): void;
+    copy(
+        from: string | string[],
+        to: string,
+        options?: CopyOptions,
+        context?: TemplateData,
+        templateOptions?: TemplateOptions,
+    ): void;
+    copyTpl(
+        from: string | string[],
+        to: string,
+        context?: TemplateData,
+        templateOptions?: TemplateOptions,
+        copyOptions?: CopyOptions,
+    ): void;
+    move(from: string | string[], to: string, options?: { globOptions: GlobOptions }): void;
     commit(callback: Callback): void;
     commit(filters: ReadonlyArray<Transform>, callback: Callback): void;
 }

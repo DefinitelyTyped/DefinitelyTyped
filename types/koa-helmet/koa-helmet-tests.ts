@@ -11,18 +11,20 @@ function helmetTest() {
     app.use(helmet({}));
     app.use(helmet({ frameguard: false }));
     app.use(helmet({ frameguard: true }));
-    app.use(helmet({
-      frameguard: {
-        action: 'deny'
-      }
-    }));
+    app.use(
+        helmet({
+            frameguard: {
+                action: 'deny',
+            },
+        }),
+    );
 }
 
 /**
  * @summary Test for {@see helmet#contentSecurityPolicy} function.
  */
 function contentSecurityPolicyTest() {
-    const emptyArray: string[] =  [];
+    const emptyArray: string[] = [];
     const config = {
         directives: {
             baseUri: ['base.example.com'],
@@ -39,25 +41,30 @@ function contentSecurityPolicyTest() {
             pluginTypes: emptyArray,
             reportUri: '/some-url',
             sandbox: emptyArray,
-            scriptSrc: ['scripts.example.com', (ctx: Koa.Context) => {
-              return "'nonce-abc123'";
-            }],
-            styleSrc: ['css.example.com']
+            scriptSrc: [
+                'scripts.example.com',
+                (ctx: Koa.Context) => {
+                    return "'nonce-abc123'";
+                },
+            ],
+            styleSrc: ['css.example.com'],
         },
         reportOnly: false,
         setAllHeaders: false,
-        disableAndroid: false
+        disableAndroid: false,
     };
 
     app.use(helmet.contentSecurityPolicy());
     app.use(helmet.contentSecurityPolicy({}));
     app.use(helmet.contentSecurityPolicy(config));
-    app.use(helmet.contentSecurityPolicy({
-        directives: {
-            defaultSrc: ["'self'"]
-        },
-        setAllHeaders: true
-    }));
+    app.use(
+        helmet.contentSecurityPolicy({
+            directives: {
+                defaultSrc: ["'self'"],
+            },
+            setAllHeaders: true,
+        }),
+    );
 }
 
 /**
@@ -77,50 +84,64 @@ function frameguardTest() {
     app.use(helmet.frameguard({}));
     app.use(helmet.frameguard({ action: 'deny' }));
     app.use(helmet.frameguard({ action: 'sameorigin' }));
-    app.use(helmet.frameguard({
-      action: 'allow-from',
-      domain: 'http://example.com'
-    }));
+    app.use(
+        helmet.frameguard({
+            action: 'allow-from',
+            domain: 'http://example.com',
+        }),
+    );
 }
 
 /**
  * @summary Test for {@see helmet#hpkp} function.
  */
 function hpkpTest() {
-    app.use(helmet.hpkp({
-        maxAge: 7776000000,
-        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-    }));
+    app.use(
+        helmet.hpkp({
+            maxAge: 7776000000,
+            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        }),
+    );
 
-    app.use(helmet.hpkp({
-        maxAge: 7776000000,
-        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        includeSubDomains: false
-    }));
+    app.use(
+        helmet.hpkp({
+            maxAge: 7776000000,
+            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+            includeSubDomains: false,
+        }),
+    );
 
-    app.use(helmet.hpkp({
-        maxAge: 7776000000,
-        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        includeSubDomains: true
-    }));
+    app.use(
+        helmet.hpkp({
+            maxAge: 7776000000,
+            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+            includeSubDomains: true,
+        }),
+    );
 
-    app.use(helmet.hpkp({
-        maxAge: 7776000000,
-        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        reportUri: 'http://example.com'
-    }));
+    app.use(
+        helmet.hpkp({
+            maxAge: 7776000000,
+            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+            reportUri: 'http://example.com',
+        }),
+    );
 
-    app.use(helmet.hpkp({
-        maxAge: 7776000000,
-        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        reportOnly: true
-    }));
+    app.use(
+        helmet.hpkp({
+            maxAge: 7776000000,
+            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+            reportOnly: true,
+        }),
+    );
 
-    app.use(helmet.hpkp({
-        maxAge: 7776000000,
-        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        setIf: (req, res) => true
-    }));
+    app.use(
+        helmet.hpkp({
+            maxAge: 7776000000,
+            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+            setIf: (req, res) => true,
+        }),
+    );
 }
 
 /**
@@ -131,29 +152,39 @@ function hstsTest() {
 
     app.use(helmet.hsts({ maxAge: 7776000000 }));
 
-    app.use(helmet.hsts({
-      maxAge: 7776000000,
-    }));
+    app.use(
+        helmet.hsts({
+            maxAge: 7776000000,
+        }),
+    );
 
-    app.use(helmet.hsts({
-      maxAge: 7776000000,
-      includeSubDomains: true
-    }));
+    app.use(
+        helmet.hsts({
+            maxAge: 7776000000,
+            includeSubDomains: true,
+        }),
+    );
 
-    app.use(helmet.hsts({
-      maxAge: 7776000000,
-      preload: true
-    }));
+    app.use(
+        helmet.hsts({
+            maxAge: 7776000000,
+            preload: true,
+        }),
+    );
 
-    app.use(helmet.hsts({
-      maxAge: 7776000000,
-      force: true
-    }));
+    app.use(
+        helmet.hsts({
+            maxAge: 7776000000,
+            force: true,
+        }),
+    );
 
-    app.use(helmet.hsts({
-      maxAge: 7776000000,
-      setIf: (req, res) => true
-    }));
+    app.use(
+        helmet.hsts({
+            maxAge: 7776000000,
+            setIf: (req, res) => true,
+        }),
+    );
 }
 
 /**

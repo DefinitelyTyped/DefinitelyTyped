@@ -7,12 +7,12 @@
 /// <reference types="node" />
 
 export enum errors {
-    read_file = "read_file",
-    read_exif = "read_exif",
-    no_orientation = "no_orientation",
-    unknown_orientation = "unknown_orientation",
-    correct_orientation = "correct_orientation",
-    rotate_file = "rotate_file",
+    read_file = 'read_file',
+    read_exif = 'read_exif',
+    no_orientation = 'no_orientation',
+    unknown_orientation = 'unknown_orientation',
+    correct_orientation = 'correct_orientation',
+    rotate_file = 'rotate_file',
 }
 
 export interface CustomError extends Error {

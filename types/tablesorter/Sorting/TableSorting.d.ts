@@ -1,5 +1,5 @@
-import { SortDefinitionOrder } from "./SortDefinitionOrder";
-import { SortInitiator } from "./SortInitiator";
+import { SortDefinitionOrder } from './SortDefinitionOrder';
+import { SortInitiator } from './SortInitiator';
 
 /**
  * Represents a sorting for a table.

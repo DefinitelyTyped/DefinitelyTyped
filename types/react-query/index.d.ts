@@ -11,13 +11,13 @@ import { ComponentType } from 'react';
 export function useQuery<TResult, TVariables extends object>(
     queryKey: QueryKey<TVariables>,
     queryFn: QueryFunction<TResult, TVariables>,
-    options: QueryOptionsPaginated<TResult>
+    options: QueryOptionsPaginated<TResult>,
 ): QueryResultPaginated<TResult, TVariables>;
 
 export function useQuery<TResult, TVariables extends object>(
     queryKey: QueryKey<TVariables>,
     queryFn: QueryFunction<TResult, TVariables>,
-    options?: QueryOptions<TResult>
+    options?: QueryOptions<TResult>,
 ): QueryResult<TResult, TVariables>;
 
 export type QueryKey<TVariables> = string | [string, TVariables] | false | null | QueryKeyFunction<TVariables>;
@@ -52,7 +52,11 @@ export interface QueryResult<TResult, TVariables> {
     isFetching: boolean;
     isCached: boolean;
     failureCount: number;
-    refetch: (arg?: {variables?: TVariables, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<void>;
+    refetch: (arg?: {
+        variables?: TVariables;
+        merge?: (...args: any[]) => any;
+        disableThrow?: boolean;
+    }) => Promise<void>;
 }
 
 export interface QueryResultPaginated<TResult, TVariables> extends QueryResult<TResult[], TVariables> {
@@ -64,7 +68,7 @@ export interface QueryResultPaginated<TResult, TVariables> extends QueryResult<T
 export function prefetchQuery<TResult, TVariables extends object>(
     queryKey: QueryKey<TVariables>,
     queryFn: QueryFunction<TResult, TVariables>,
-    options?: PrefetchQueryOptions<TResult>
+    options?: PrefetchQueryOptions<TResult>,
 ): Promise<TResult>;
 
 export interface PrefetchQueryOptions<TResult> extends QueryOptions<TResult> {
@@ -73,12 +77,10 @@ export interface PrefetchQueryOptions<TResult> extends QueryOptions<TResult> {
 
 export function useMutation<TResults, TVariables extends object>(
     mutationFn: MutationFunction<TResults, TVariables>,
-    mutationOptions?: MutationOptions
+    mutationOptions?: MutationOptions,
 ): [MutateFunction<TResults, TVariables>, MutationResult<TResults>];
 
-export type MutationFunction<TResults, TVariables extends object> = (
-    variables: TVariables,
-) => Promise<TResults>;
+export type MutationFunction<TResults, TVariables extends object> = (variables: TVariables) => Promise<TResults>;
 
 export interface MutationOptions {
     refetchQueries?: Array<string | [string, object]>;
@@ -88,9 +90,9 @@ export interface MutationOptions {
 export type MutateFunction<TResults, TVariables extends object> = (
     variables?: TVariables,
     options?: {
-        updateQuery?: string | [string, object],
+        updateQuery?: string | [string, object];
         waitForRefetchQueries?: boolean;
-    }
+    },
 ) => Promise<TResults>;
 
 export interface MutationResult<TResults> {
@@ -105,28 +107,23 @@ export function setQueryData(
     queryKey: string | [string, object],
     data: any,
     options?: {
-        shouldRefetch?: boolean
-    }
+        shouldRefetch?: boolean;
+    },
 ): void | Promise<void>;
 
 export function refetchQuery(
     queryKey: string | [string, object] | [string, false],
     force?: {
-        force?: boolean
-    }
+        force?: boolean;
+    },
 ): Promise<void>;
 
-export function refetchAllQueries(
-    options?: {
-        force?: boolean,
-        includeInactive: boolean
-    }
-): Promise<void>;
+export function refetchAllQueries(options?: { force?: boolean; includeInactive: boolean }): Promise<void>;
 
 export function useIsFetching(): boolean;
 
 export const ReactQueryConfigProvider: React.ComponentType<{
-    config?: ReactQueryProviderConfig
+    config?: ReactQueryProviderConfig;
 }>;
 
 export interface ReactQueryProviderConfig {

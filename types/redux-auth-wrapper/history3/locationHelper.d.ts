@@ -1,4 +1,4 @@
-import { LocationDescriptorObject } from "history";
+import { LocationDescriptorObject } from 'history';
 
 export interface LocationHelperConfig<Props> {
     redirectQueryParamName?: string;

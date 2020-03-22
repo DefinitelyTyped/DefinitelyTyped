@@ -1,2 +1,2 @@
-import { toPlainObject } from "./index";
+import { toPlainObject } from './index';
 export = toPlainObject;

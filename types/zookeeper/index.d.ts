@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-type ACL = number | { perms: number, scheme: string, auth: string };
+type ACL = number | { perms: number; scheme: string; auth: string };
 
 interface Stat {
     czxid: number;

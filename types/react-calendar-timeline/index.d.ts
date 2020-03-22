@@ -232,12 +232,7 @@ declare module 'react-calendar-timeline' {
         onCanvasDoubleClick?(groupId: Id, time: number, e: React.SyntheticEvent): void;
         onCanvasContextMenu?(groupId: Id, time: number, e: React.SyntheticEvent): void;
         onZoom?(timelineContext: TimelineContext): void;
-        moveResizeValidator?(
-            action: 'move' | 'resize',
-            itemId: Id,
-            time: number,
-            resizeEdge: 'left' | 'right',
-        ): number;
+        moveResizeValidator?(action: 'move' | 'resize', itemId: Id, time: number, resizeEdge: 'left' | 'right'): number;
         onTimeChange?(
             visibleTimeStart: number,
             visibleTimeEnd: number,

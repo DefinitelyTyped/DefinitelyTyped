@@ -1,12 +1,12 @@
-import * as React from "react";
-import { View } from "react-native";
-import MultiSlider from "react-native-multi-slider";
+import * as React from 'react';
+import { View } from 'react-native';
+import MultiSlider from 'react-native-multi-slider';
 
 class SliderTest extends React.Component {
     getInitialState() {
         return {
             sliderOneChanging: false,
-            sliderOneValue: [ 5 ],
+            sliderOneValue: [5],
         };
     }
 
@@ -29,29 +29,29 @@ class SliderTest extends React.Component {
         return (
             <React.Fragment>
                 <MultiSlider
-                    values={[ 5 ]}
+                    values={[5]}
                     sliderLength={280}
                     onValuesChangeStart={this.SliderOneValuesChangeStart}
                     onValuesChange={this.SliderOneValuesChange}
                     onValuesChangeFinish={this.SliderOneValuesChangeFinish}
                 />
 
-                <MultiSlider values={[ 3, 7 ]} sliderLength={280} />
+                <MultiSlider values={[3, 7]} sliderLength={280} />
 
                 <MultiSlider
                     selectedStyle={{
-                        backgroundColor: "gold",
+                        backgroundColor: 'gold',
                     }}
                     unselectedStyle={{
-                        backgroundColor: "silver",
+                        backgroundColor: 'silver',
                     }}
-                    values={[ 5 ]}
+                    values={[5]}
                     containerStyle={{
                         height: 40,
                     }}
                     trackStyle={{
                         height: 10,
-                        backgroundColor: "red",
+                        backgroundColor: 'red',
                     }}
                     touchDimensions={{
                         height: 40,

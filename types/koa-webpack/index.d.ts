@@ -13,7 +13,7 @@ import webpackDevMiddleware = require('webpack-dev-middleware');
 import webpackHotClient = require('webpack-hot-client');
 
 declare function koaWebpack(
-    options?: koaWebpack.Options
+    options?: koaWebpack.Options,
 ): Promise<Koa.Middleware & koaWebpack.CombinedWebpackMiddleware>;
 
 declare namespace koaWebpack {

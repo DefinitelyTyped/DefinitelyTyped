@@ -103,12 +103,8 @@ export class LocalParticipant extends Participant {
     videoTracks: Map<Track.SID, LocalVideoTrackPublication>;
 
     publishTrack(track: LocalTrack): Promise<LocalTrackPublication>;
-    publishTrack(
-        mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions,
-    ): Promise<LocalTrackPublication>;
-    publishTracks(
-        tracks: Array<LocalTrack | MediaStreamTrack>,
-    ): Promise<LocalTrackPublication[]>;
+    publishTrack(mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions): Promise<LocalTrackPublication>;
+    publishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
     unpublishTrack(track: LocalTrack | MediaStreamTrack): LocalTrackPublication;
     unpublishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): LocalTrackPublication[];
@@ -171,7 +167,7 @@ export class MediaServerRemoteDescFailedError extends TwilioError {
     code: 53403;
     message: 'Server is unable to apply a remote media description';
 }
-export class NetworkQualityAudioStats extends NetworkQualityMediaStats { }
+export class NetworkQualityAudioStats extends NetworkQualityMediaStats {}
 export class NetworkQualityBandwidthStats {
     actual: number | null;
     available: number | null;
@@ -202,7 +198,7 @@ export class NetworkQualityStats {
     audio: NetworkQualityAudioStats | null; // nullable depending on verbosity config
     video: NetworkQualityVideoStats | null;
 }
-export class NetworkQualityVideoStats extends NetworkQualityMediaStats { }
+export class NetworkQualityVideoStats extends NetworkQualityMediaStats {}
 export namespace Participant {
     type Identity = string;
     type SID = string;

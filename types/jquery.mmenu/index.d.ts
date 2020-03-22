@@ -7,9 +7,7 @@
 /// <reference types="jquery"/>
 
 declare namespace JQueryMmenu {
-
     interface NavbarOptions {
-
         /**
          * Whether or not to add a navbar above the panels.
          * Default: true
@@ -28,11 +26,9 @@ declare namespace JQueryMmenu {
          * Default: "parent"
          */
         titleLink?: string;
-
     }
 
     interface OnclickOptions {
-
         /**
          * Whether or not the menu should close after clicking a link inside it.
          * The default value varies per link: true if the default behavior for
@@ -54,11 +50,9 @@ declare namespace JQueryMmenu {
          * Default: true
          */
         setSelected?: boolean | any;
-
     }
 
     interface Options {
-
         /**
          * A collection of extension names to enable for the menu.
          * You'll need this option when using the extensions.
@@ -83,11 +77,9 @@ declare namespace JQueryMmenu {
          * Default: true
          */
         slidingSubmenus?: boolean;
-
     }
 
     interface ClassnamesConfigurations {
-
         /**
          * The classname on a LI that should be displayed as a divider.
          * Default: "Divider"
@@ -119,11 +111,9 @@ declare namespace JQueryMmenu {
          * Default: "vertical"
          */
         vertical?: string;
-
     }
 
     interface Configurations {
-
         /**
          * the CSS class names object
          */
@@ -153,11 +143,9 @@ declare namespace JQueryMmenu {
          * Default: 400 (The value should match the associated CSS value.)
          */
         transitionDuration?: number;
-
     }
 
     interface API {
-
         /**
          * Trigger non-specialized signature method
          * @param methodName
@@ -170,7 +158,7 @@ declare namespace JQueryMmenu {
          */
         closeAllPanels(): JQuery;
         /** @see closeAllPanels() */
-        bind(methodName: "closeAllPanels", callback: () => void): JQuery;
+        bind(methodName: 'closeAllPanels', callback: () => void): JQuery;
 
         /**
          * Trigger this method to close a panel
@@ -179,14 +167,14 @@ declare namespace JQueryMmenu {
          */
         closePanel(panel: JQuery): void;
         /** @see closePanel() */
-        bind(methodName: "closePanel", callback: (panel: JQuery) => void): void;
+        bind(methodName: 'closePanel', callback: (panel: JQuery) => void): void;
 
         /**
          * Trigger this method to get the class instance for the menu.
          */
         getInstance(): void;
         /** @see getInstance() */
-        bind(methodName: "getInstance", callback: () => void): void;
+        bind(methodName: 'getInstance', callback: () => void): void;
 
         /**
          * Trigger this method to (re)initialize a newly added panel.
@@ -194,7 +182,7 @@ declare namespace JQueryMmenu {
          */
         init(panel: JQuery): void;
         /** @see init() */
-        bind(methodName: "init", callback: (panel: JQuery) => void): void;
+        bind(methodName: 'init', callback: (panel: JQuery) => void): void;
 
         /**
          * Trigger this method to open a panel.
@@ -202,7 +190,7 @@ declare namespace JQueryMmenu {
          */
         openPanel(panel: JQuery): void;
         /** @see openPanel() */
-        bind(methodName: "openPanel", callback: (panel: JQuery) => void): void;
+        bind(methodName: 'openPanel', callback: (panel: JQuery) => void): void;
 
         /**
          * Trigger this method to set or unset a list item as "selected".
@@ -211,22 +199,18 @@ declare namespace JQueryMmenu {
          */
         setSelected(li: JQuery, selected?: boolean): void;
         /** @see setSelected() */
-        bind(methodName: "setSelected", callback: (li: JQuery, selected?: boolean) => void): void;
+        bind(methodName: 'setSelected', callback: (li: JQuery, selected?: boolean) => void): void;
 
         /**
          * Trigger this method to update the appearance for the menu.
          */
         update(): void;
         /** @see update() */
-        bind(methodName: "update", callback: () => void): void;
-
+        bind(methodName: 'update', callback: () => void): void;
     }
-
 }
 
-
 interface JQuery {
-
     /**
      * Create mmenu component
      */
@@ -238,6 +222,5 @@ interface JQuery {
      * Return the mmenu object
      * @param element
      */
-    data(element: "mmenu"): JQueryMmenu.API;
-
+    data(element: 'mmenu'): JQueryMmenu.API;
 }

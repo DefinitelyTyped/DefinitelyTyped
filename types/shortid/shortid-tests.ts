@@ -1,4 +1,3 @@
-
 import shortid = require('shortid');
 
 var my_short_id: string = shortid.generate();

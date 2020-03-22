@@ -4,21 +4,19 @@ $(function () {
     $(selector).pagination({
         items: 100,
         itemsOnPage: 10,
-        cssStyle: 'light-theme'
+        cssStyle: 'light-theme',
     });
 });
 
 $(function () {
     $(selector).pagination({
-        onPageClick: (page) => {
-        }
+        onPageClick: (page) => {},
     });
 });
 
 $(function () {
     $(selector).pagination({
-        onPageClick: (page, event) => {
-        }
+        onPageClick: (page, event) => {},
     });
 });
 

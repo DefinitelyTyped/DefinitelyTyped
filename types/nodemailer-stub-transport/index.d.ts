@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as nodemailer from "nodemailer";
+import * as nodemailer from 'nodemailer';
 
 declare namespace StubTransportStatic {
     /**

@@ -1,8 +1,6 @@
 namespace adoneTests.text.unicode {
     const {
-        text: {
-            unicode
-        }
+        text: { unicode },
     } = adone;
 
     let str: string;
@@ -125,11 +123,11 @@ namespace adoneTests.text.unicode {
     str = unicode.symbolFallback.sevenEighths;
     str = unicode.symbolFallback.minus;
 
-    str = unicode.approx("asd");
-    num = unicode.length("ad");
-    str = unicode.toArray("asd")[0];
-    num = unicode.surrogatePair("a");
+    str = unicode.approx('asd');
+    num = unicode.length('ad');
+    str = unicode.toArray('asd')[0];
+    num = unicode.surrogatePair('a');
     bool = unicode.isFullWidthCodePoint(100);
-    bool = unicode.isFullWidth("a");
-    str = unicode.toFullWidth("asd");
+    bool = unicode.isFullWidth('a');
+    str = unicode.toFullWidth('asd');
 }

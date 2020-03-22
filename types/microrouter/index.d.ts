@@ -10,13 +10,10 @@ import { IncomingMessage, ServerResponse as HttpServerResponse, Server } from 'h
 import { RequestHandler } from 'micro';
 export type ServerResponse = HttpServerResponse;
 export type ServerRequest = IncomingMessage & {
-    params: { [key: string]: string },
-    query: { [key: string]: string }
+    params: { [key: string]: string };
+    query: { [key: string]: string };
 };
-export type AugmentedRequestHandler = (
-    req: ServerRequest,
-    res: ServerResponse
-) => any;
+export type AugmentedRequestHandler = (req: ServerRequest, res: ServerResponse) => any;
 
 export type RouteHandler = (path: string, handler: AugmentedRequestHandler) => RequestHandler;
 

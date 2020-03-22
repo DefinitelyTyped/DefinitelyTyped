@@ -3,20 +3,20 @@
 // Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import { Component } from "react";
-import { ViewStyle } from "react-native";
+import { Component } from 'react';
+import { ViewStyle } from 'react-native';
 
 export type RTCSignalingState =
-    | "stable"
-    | "have-local-offer"
-    | "have-remote-offer"
-    | "have-local-pranswer"
-    | "have-remote-pranswer"
-    | "closed";
+    | 'stable'
+    | 'have-local-offer'
+    | 'have-remote-offer'
+    | 'have-local-pranswer'
+    | 'have-remote-pranswer'
+    | 'closed';
 
-export type RTCIceGatheringState = "new" | "gathering" | "complete";
+export type RTCIceGatheringState = 'new' | 'gathering' | 'complete';
 
-export type MediaStreamTrackState = "live" | "ended";
+export type MediaStreamTrackState = 'live' | 'ended';
 
 export interface SourceInfo {
     id: string;
@@ -27,13 +27,13 @@ export interface SourceInfo {
 }
 
 export type RTCIceConnectionState =
-    | "new"
-    | "checking"
-    | "connected"
-    | "completed"
-    | "failed"
-    | "disconnected"
-    | "closed";
+    | 'new'
+    | 'checking'
+    | 'connected'
+    | 'completed'
+    | 'failed'
+    | 'disconnected'
+    | 'closed';
 
 export class MediaStreamTrack {
     private _enabled: boolean;
@@ -103,7 +103,7 @@ export interface ConfigurationParamWithUrl extends ConfigurationParam {
 
 export interface RTCPeerConnectionConfiguration {
     iceServers: ConfigurationParamWithUrls[] | ConfigurationParamWithUrl[];
-    iceTransportPolicy?: "all" | "public" | "relay";
+    iceTransportPolicy?: 'all' | 'public' | 'relay';
 }
 
 export interface EventOnCandidate {
@@ -131,9 +131,7 @@ export class RTCPeerConnection {
     onconnectionstatechange: () => void | undefined;
     onicecandidate: (event: EventOnCandidate) => void | undefined;
     onicecandidateerror: (error: Error) => void | undefined;
-    oniceconnectionstatechange: (
-        event: EventOnConnectionStateChange
-    ) => void | undefined;
+    oniceconnectionstatechange: (event: EventOnConnectionStateChange) => void | undefined;
     onicegatheringstatechange: () => void | undefined;
     onnegotiationneeded: () => void | undefined;
     onsignalingstatechange: () => void | undefined;
@@ -160,13 +158,9 @@ export class RTCPeerConnection {
 
     setConfiguration(configuration: RTCPeerConnectionConfiguration): void;
 
-    setLocalDescription(
-        sessionDescription: RTCSessionDescriptionType
-    ): Promise<void>;
+    setLocalDescription(sessionDescription: RTCSessionDescriptionType): Promise<void>;
 
-    setRemoteDescription(
-        sessionDescription: RTCSessionDescriptionType
-    ): Promise<void>;
+    setRemoteDescription(sessionDescription: RTCSessionDescriptionType): Promise<void>;
 
     addIceCandidate(candidate: RTCIceCandidateType): Promise<void>;
 
@@ -178,10 +172,7 @@ export class RTCPeerConnection {
 
     close(): void;
 
-    private _getTrack(
-        streamReactTag: string,
-        trackId: string
-    ): MediaStreamTrack;
+    private _getTrack(streamReactTag: string, trackId: string): MediaStreamTrack;
 
     private _unregisterEvents(): void;
 
@@ -224,7 +215,7 @@ export interface MediaSources {
 
 export interface MediaTrackConstraints {
     mandatory: MandatoryMedia;
-    facingMode: "user" | "environment";
+    facingMode: 'user' | 'environment';
     optional: MediaSources[];
 }
 
@@ -247,7 +238,7 @@ export interface RTCViewProps {
     streamURL: string;
     mirror?: boolean;
     zOrder?: number;
-    objectFit?: "contain" | "cover";
+    objectFit?: 'contain' | 'cover';
     style?: ViewStyle;
 }
 

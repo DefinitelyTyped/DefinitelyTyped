@@ -4,8 +4,14 @@ import { dispatch, select } from '@wordpress/data';
 
 declare const BLOCK_INSTANCE: BlockInstance;
 
-const COLORS = [{ name: 'Red', slug: 'red', color: '#ff0000' }, { name: 'Blue', slug: 'blue', color: '#0000ff' }];
-const FONT_SIZES = [{ name: 'Small', slug: 'small', size: 12 }, { name: 'Large', slug: 'large', size: 18 }];
+const COLORS = [
+    { name: 'Red', slug: 'red', color: '#ff0000' },
+    { name: 'Blue', slug: 'blue', color: '#0000ff' },
+];
+const FONT_SIZES = [
+    { name: 'Small', slug: 'small', size: 12 },
+    { name: 'Large', slug: 'large', size: 18 },
+];
 const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }', baseUrl: 'https://foo.bar' }];
 
 //
@@ -15,24 +21,24 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 // alignment-toolbar
 //
-<be.AlignmentToolbar value={undefined} onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
-<be.AlignmentToolbar value="left" onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
+<be.AlignmentToolbar value={undefined} onChange={(newValue) => newValue && console.log(newValue.toUpperCase())} />;
+<be.AlignmentToolbar value="left" onChange={(newValue) => newValue && console.log(newValue.toUpperCase())} />;
 <be.AlignmentToolbar
     alignmentControls={[{ align: 'center', icon: 'carrot', title: 'Center' }]}
     value="left"
-    onChange={newValue => newValue && console.log(newValue.toUpperCase())}
+    onChange={(newValue) => newValue && console.log(newValue.toUpperCase())}
 />;
 
 //
 // block-alignment-toolbar
 //
-<be.BlockAlignmentToolbar value={undefined} onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
-<be.BlockAlignmentToolbar value="left" onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
+<be.BlockAlignmentToolbar value={undefined} onChange={(newValue) => newValue && console.log(newValue.toUpperCase())} />;
+<be.BlockAlignmentToolbar value="left" onChange={(newValue) => newValue && console.log(newValue.toUpperCase())} />;
 <be.BlockAlignmentToolbar
     isCollapsed
     value="left"
     controls={['left', 'right']}
-    onChange={newValue => newValue && console.log(newValue.toUpperCase())}
+    onChange={(newValue) => newValue && console.log(newValue.toUpperCase())}
 />;
 
 //
@@ -113,7 +119,10 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 // block-vertical-alignment-toolbar
 //
-<be.BlockVerticalAlignmentToolbar value="top" onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
+<be.BlockVerticalAlignmentToolbar
+    value="top"
+    onChange={(newValue) => newValue && console.log(newValue.toUpperCase())}
+/>;
 
 //
 // button-block-appender
@@ -225,13 +234,13 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 // media-placeholder
 //
 <be.MediaPlaceholder
-    onSelect={item => console.log(item.id)}
+    onSelect={(item) => console.log(item.id)}
     allowedTypes={['image']}
     labels={{ title: 'The Image' }}
 />;
 <be.MediaPlaceholder
     multiple
-    onSelect={items => console.log(items.map(i => i.id).join())}
+    onSelect={(items) => console.log(items.map((i) => i.id).join())}
     allowedTypes={['image']}
     labels={{ title: 'The Image' }}
 />;
@@ -242,7 +251,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 //
 <be.MediaUploadCheck>
     <be.MediaUpload
-        onSelect={media => console.log('selected ' + media.id)}
+        onSelect={(media) => console.log('selected ' + media.id)}
         allowedTypes={['audio']}
         render={({ open }) => <button onClick={open}>Open Media Library</button>}
     />
@@ -250,7 +259,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 <be.MediaUploadCheck fallback={<div>Invalid permissions</div>}>
     <be.MediaUpload
         multiple
-        onSelect={media => console.log('selected ' + media.map(m => m.id).join())}
+        onSelect={(media) => console.log('selected ' + media.map((m) => m.id).join())}
         allowedTypes={['audio']}
         render={({ open }) => <button onClick={open}>Open Media Library</button>}
     />
@@ -307,7 +316,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 //
 // plain-text
 //
-<be.PlainText value="Hello World" onChange={v => console.log(v.toUpperCase())} />;
+<be.PlainText value="Hello World" onChange={(v) => console.log(v.toUpperCase())} />;
 
 //
 // rich-text
@@ -319,8 +328,8 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     style={{ color: 'red' }}
     tagName="p"
     value="Hello World"
-    onChange={nextContent => console.log(nextContent.toUpperCase())}
-    onReplace={blocks => blocks.forEach(b => console.log(b.clientId))}
+    onChange={(nextContent) => console.log(nextContent.toUpperCase())}
+    onReplace={(blocks) => blocks.forEach((b) => console.log(b.clientId))}
 />;
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: 'blue' }} className="foo" value="Hello World" dir="rtl" />;
@@ -342,7 +351,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     className="wp-block-button__inline-link-input"
     value="https://foo.bar"
     autoFocus={false}
-    onChange={value => console.log(value.toUpperCase())}
+    onChange={(value) => console.log(value.toUpperCase())}
     disableSuggestions
     isFullWidth
     hasBorder

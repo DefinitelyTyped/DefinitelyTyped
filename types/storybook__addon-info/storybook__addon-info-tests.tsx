@@ -14,7 +14,7 @@ const TableComponent: FunctionComponent<TableComponentOptionProps> = ({ propDefi
             </tr>
         </thead>
         <tbody>
-            {propDefinitions.map(row => (
+            {propDefinitions.map((row) => (
                 <tr key={row.property}>
                     <td>{row.property}</td>
                     <td>{row.required ? 'yes' : '-'}</td>
@@ -92,7 +92,10 @@ setDefaults({
 });
 
 storiesOf('Component', module)
-    .add('no info', withInfo()(() => <Component>Click the "?" mark at top-right to view the info.</Component>))
+    .add(
+        'no info',
+        withInfo()(() => <Component>Click the "?" mark at top-right to view the info.</Component>),
+    )
     .add(
         'simple info',
         withInfo('doc string about my component')(() => (

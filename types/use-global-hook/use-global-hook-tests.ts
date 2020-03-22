@@ -2,16 +2,18 @@ import useStore, { Store, InitializerFunction } from 'use-global-hook';
 import React = require('react');
 
 interface stateType {
-  value: string;
+    value: string;
 }
 
 type setFunc = (value: string) => void;
 
 interface associatedActionsType {
-  setValue: setFunc;
+    setValue: setFunc;
 }
 
-const initializer: InitializerFunction<stateType, associatedActionsType> = (store: Store<stateType, associatedActionsType>) => {
+const initializer: InitializerFunction<stateType, associatedActionsType> = (
+    store: Store<stateType, associatedActionsType>,
+) => {
     store.actions.setValue('');
     store.state.value;
     store.setState({ value: 'string' });
@@ -33,8 +35,14 @@ store(undefined, (action: associatedActionsType) => action.setValue); // $Expect
 store<setFunc>(undefined, (action: associatedActionsType) => action.setValue); // $ExpectType [stateType, setFunc]
 
 // works without passing expected type when using both state and action filters
-store((state: stateType) => state.value, (actions: associatedActionsType) => actions.setValue); // $ExpectType [string, setFunc]
-store<string, setFunc>((state: stateType) => state.value, (actions: associatedActionsType) => actions.setValue); // $ExpectType [string, setFunc]
+store(
+    (state: stateType) => state.value,
+    (actions: associatedActionsType) => actions.setValue,
+); // $ExpectType [string, setFunc]
+store<string, setFunc>(
+    (state: stateType) => state.value,
+    (actions: associatedActionsType) => actions.setValue,
+); // $ExpectType [string, setFunc]
 
 // without initializer
 useStore<stateType, associatedActionsType>(React, { value: '' }, {});

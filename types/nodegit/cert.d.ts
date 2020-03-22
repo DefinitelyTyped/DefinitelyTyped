@@ -3,12 +3,12 @@ export namespace Cert {
         NONE = 0,
         X509 = 1,
         HOSTKEY_LIBSSH2 = 2,
-        STRARRAY = 3
+        STRARRAY = 3,
     }
 
     const enum SSH {
         MD5 = 1,
-        SHA1 = 2
+        SHA1 = 2,
     }
 }
 

@@ -1,5 +1,5 @@
-import * as Globalize from "globalize";
-import "jquery";
+import * as Globalize from 'globalize';
+import 'jquery';
 import {
     ColumnFilter,
     CoreTheme,
@@ -12,8 +12,8 @@ import {
     StorageType,
     StringSorting,
     TablesorterConfiguration,
-    WidgetOptions
-} from "tablesorter";
+    WidgetOptions,
+} from 'tablesorter';
 
 /**
  * Provides tests for the settings.
@@ -32,51 +32,51 @@ export class TestSettings<T extends HTMLElement> {
          */
         settings = {
             cancelSelection: true,
-            cssAsc: "asc",
-            cssChildRow: "childRow",
-            cssDesc: "desc",
-            cssHeader: "header",
-            cssHeaderRow: "headerRow",
-            cssIcon: "icon",
-            cssIconAsc: "icon-asc",
-            cssIconDesc: "icon-desc",
-            cssIconDisabled: "icon-disabled",
-            cssIconNone: "icon-none",
-            cssIgnoreRow: "ignored",
-            cssInfoBlock: "row-info",
-            cssNone: "no-sort",
-            cssNoSort: "no-sort-control",
-            cssProcessing: "loading-circle",
-            dateFormat: "dd.mm.yyyy",
+            cssAsc: 'asc',
+            cssChildRow: 'childRow',
+            cssDesc: 'desc',
+            cssHeader: 'header',
+            cssHeaderRow: 'headerRow',
+            cssIcon: 'icon',
+            cssIconAsc: 'icon-asc',
+            cssIconDesc: 'icon-desc',
+            cssIconDisabled: 'icon-disabled',
+            cssIconNone: 'icon-none',
+            cssIgnoreRow: 'ignored',
+            cssInfoBlock: 'row-info',
+            cssNone: 'no-sort',
+            cssNoSort: 'no-sort-control',
+            cssProcessing: 'loading-circle',
+            dateFormat: 'dd.mm.yyyy',
             debug: true,
             delayInit: true,
             duplicateSpan: true,
-            emptyTo: "top",
+            emptyTo: 'top',
             headers: {
                 0: {
-                    dateFormat: "yyyy-mm-dd",
-                    empty: "emptyMax",
-                    filter: "parsed",
-                    lockedOrder: "asc",
-                    parser: "date",
+                    dateFormat: 'yyyy-mm-dd',
+                    empty: 'emptyMax',
+                    filter: 'parsed',
+                    lockedOrder: 'asc',
+                    parser: 'date',
                     resizable: true,
-                    sortInitialOrder: "asc",
-                    sorter: "date",
-                    string: "zero"
+                    sortInitialOrder: 'asc',
+                    sorter: 'date',
+                    string: 'zero',
                 },
                 3: {
-                    parser: "ipAddress",
-                    sorter: "ipAddress"
-                }
+                    parser: 'ipAddress',
+                    sorter: 'ipAddress',
+                },
             },
-            headerTemplate: "{content} {icon}",
+            headerTemplate: '{content} {icon}',
             ignoreCase: true,
             initialized(table) {
                 // $ExpectType T
                 table;
             },
             initWidgets: true,
-            namespace: "my-awesome-tablesorter-namespace",
+            namespace: 'my-awesome-tablesorter-namespace',
             numberSorter(x, y, ascending, maxValue) {
                 // $ExpectType number
                 x;
@@ -108,30 +108,39 @@ export class TestSettings<T extends HTMLElement> {
                 text;
                 return `Column #${index}`;
             },
-            pointerClick: "click",
-            pointerDown: "mousedown",
-            pointerUp: "mouseup",
+            pointerClick: 'click',
+            pointerDown: 'mousedown',
+            pointerUp: 'mouseup',
             resort: true,
-            selectorHeaders: "> thead th",
-            selectorRemove: ".remove-me",
-            selectorSort: "th, td",
+            selectorHeaders: '> thead th',
+            selectorRemove: '.remove-me',
+            selectorSort: 'th, td',
             serverSideSorting: true,
             showProcessing: true,
-            sortAppend: [[1, 0], [2, 1]],
-            sortForce: [[0, 1], [1, 1]],
-            sortInitialOrder: "asc",
-            sortList: [[0, 1], [1, 1]],
+            sortAppend: [
+                [1, 0],
+                [2, 1],
+            ],
+            sortForce: [
+                [0, 1],
+                [1, 1],
+            ],
+            sortInitialOrder: 'asc',
+            sortList: [
+                [0, 1],
+                [1, 1],
+            ],
             sortLocaleCompare: true,
-            sortMultiSortKey: "bubbles",
+            sortMultiSortKey: 'bubbles',
             sortReset: true,
-            sortResetKey: "shiftKey",
+            sortResetKey: 'shiftKey',
             sortRestart: true,
             sortStable: true,
-            stringTo: "top",
+            stringTo: 'top',
             tabIndex: true,
-            tableClass: "tablesorter-table",
-            textAttribute: "data-text",
-            textExtraction: "basic",
+            tableClass: 'tablesorter-table',
+            textAttribute: 'data-text',
+            textExtraction: 'basic',
             textSorter(x, y, direction, index, table) {
                 // $ExpectType string
                 x;
@@ -145,36 +154,36 @@ export class TestSettings<T extends HTMLElement> {
                 table;
                 return x.localeCompare(y);
             },
-            theme: "bootstrap",
+            theme: 'bootstrap',
             usNumberFormat: true,
-            widgetClass: "pleas-load-me-the-widget-named-{name}",
+            widgetClass: 'pleas-load-me-the-widget-named-{name}',
             widgetOptions,
-            widgets: ["zebra"],
+            widgets: ['zebra'],
             widthFixed: true,
-            checkboxClass: "checked",
+            checkboxClass: 'checked',
             cehckboxVisible: true,
             data: {},
             dateRange: 50,
             globalize: {
-                lang: "de",
-                Globalize: Globalize("de"),
-                raw: "dd.mm.yyyy"
+                lang: 'de',
+                Globalize: Globalize('de'),
+                raw: 'dd.mm.yyyy',
             },
             ignoreChildRow: true,
-            imgAttr: "alt"
+            imgAttr: 'alt',
         };
 
         /**
          * Debugging components
          */
-        settings.debug = "filter columnSelector";
+        settings.debug = 'filter columnSelector';
 
         /**
          * Sorting relatively
          */
         settings.sortAppend = {
-            0: [[1, "o"]],
-            1: [[2, "d"]]
+            0: [[1, 'o']],
+            1: [[2, 'd']],
         };
 
         /**
@@ -182,7 +191,7 @@ export class TestSettings<T extends HTMLElement> {
          * Root-level extraction
          * Basic extraction
          */
-        settings.textExtraction = "basic";
+        settings.textExtraction = 'basic';
 
         /**
          * Custom extraction
@@ -201,8 +210,8 @@ export class TestSettings<T extends HTMLElement> {
          * Root-level extraction
          */
         settings.textExtraction = {
-            0: "basic",
-            ".test"(node, table, index) {
+            0: 'basic',
+            '.test'(node, table, index) {
                 // $ExpectType Element
                 node;
                 // $ExpectType T
@@ -210,7 +219,7 @@ export class TestSettings<T extends HTMLElement> {
                 // $ExpectType number
                 index;
                 return $(node).text();
-            }
+            },
         };
 
         /**
@@ -218,9 +227,9 @@ export class TestSettings<T extends HTMLElement> {
          * Global settings
          */
         settings.globalize = {
-            lang: "de",
-            Globalize: Globalize("de"),
-            raw: "dd.mm.yyyy"
+            lang: 'de',
+            Globalize: Globalize('de'),
+            raw: 'dd.mm.yyyy',
         };
 
         /**
@@ -228,15 +237,15 @@ export class TestSettings<T extends HTMLElement> {
          */
         settings.globalize = {
             0: {
-                lang: "de",
-                Globalize: Globalize("de"),
-                raw: "dd.mm.yyyy"
+                lang: 'de',
+                Globalize: Globalize('de'),
+                raw: 'dd.mm.yyyy',
             },
             1: {
-                lang: "de",
-                Globalize: Globalize("de"),
-                raw: "dd.mm.yyyy"
-            }
+                lang: 'de',
+                Globalize: Globalize('de'),
+                raw: 'dd.mm.yyyy',
+            },
         };
 
         /**
@@ -244,27 +253,27 @@ export class TestSettings<T extends HTMLElement> {
          * General settings
          */
         widgetOptions = {
-            columns: ["pri", "sec", "ter"],
+            columns: ['pri', 'sec', 'ter'],
             columns_tfoot: true,
             columns_thead: true,
-            filter_cellFilter: "filter-control",
+            filter_cellFilter: 'filter-control',
             filter_childByColumn: true,
             filter_childRows: false,
             filter_childWithSibs: false,
             filter_columnAnyMatch: true,
             filter_columnFilters: true,
-            filter_cssFilter: "tablesorter-filter",
-            filter_defaultAttrib: "data-filter",
+            filter_cssFilter: 'tablesorter-filter',
+            filter_defaultAttrib: 'data-filter',
             filter_defaultFilter: {
-                0: "{q}=",
-                ".fuzzy": "~{q}"
+                0: '{q}=',
+                '.fuzzy': '~{q}',
             },
             filter_excludeFilter: {
-                ".text": "range",
-                2: "range, notMatch, exact"
+                '.text': 'range',
+                2: 'range, notMatch, exact',
             },
-            filter_external: ".external",
-            filter_filteredRow: "filtered",
+            filter_external: '.external',
+            filter_filteredRow: 'filtered',
             filter_filterLabel: 'Filter "{{label}}" column by...',
             filter_formatter: {},
             filter_functions: {},
@@ -273,25 +282,25 @@ export class TestSettings<T extends HTMLElement> {
             filter_ignoreCase: true,
             filter_liveSearch: true,
             filter_matchType: {
-                input: "exact",
-                select: "match"
+                input: 'exact',
+                select: 'match',
             },
-            filter_onlyAvail: "filter-onlyAvail",
+            filter_onlyAvail: 'filter-onlyAvail',
             filter_placeholder: {
-                from: "From",
-                to: "To",
-                search: "Type a text...",
-                select: "Select something"
+                from: 'From',
+                to: 'To',
+                search: 'Type a text...',
+                select: 'Select something',
             },
-            filter_reset: $("#reset"),
+            filter_reset: $('#reset'),
             filter_resetOnEsc: true,
             filter_saveFilters: true,
             filter_searchDelay: 300,
             filter_searchFiltered: true,
             filter_selectSource: {
-                ".model-number": ["1|Awesome 1.x", "2|Awesome 2.x", "3|Awesome 3.x"]
+                '.model-number': ['1|Awesome 1.x', '2|Awesome 2.x', '3|Awesome 3.x'],
             },
-            filter_selectSourceSeparator: "|",
+            filter_selectSourceSeparator: '|',
             filter_serversideFiltering: true,
             filter_startsWith: true,
             filter_useParsedData: true,
@@ -300,25 +309,25 @@ export class TestSettings<T extends HTMLElement> {
             resizable_includeFooter: true,
             resizable_targetLast: true,
             resizable_throttle: true,
-            resizable_widths: ["10%", "100%", "50px"],
+            resizable_widths: ['10%', '100%', '50px'],
             saveSort: true,
-            stickyHeaders: "tablesorter-sticky",
+            stickyHeaders: 'tablesorter-sticky',
             stickyHeaders_addResizeEvent: true,
-            stickyHeaders_appendTo: ".wrapper",
-            stickyHeaders_attachTo: ".wrapper",
-            stickyHeaders_cloneId: "-sticky",
+            stickyHeaders_appendTo: '.wrapper',
+            stickyHeaders_attachTo: '.wrapper',
+            stickyHeaders_cloneId: '-sticky',
             stickyHeaders_filteredToTop: true,
             stickyHeaders_includeCaption: true,
             stickyHeaders_offset: 10,
-            stickyHeaders_xScroll: ".wrapper",
-            stickyHeaders_yScroll: ".wrapper",
+            stickyHeaders_xScroll: '.wrapper',
+            stickyHeaders_yScroll: '.wrapper',
             stickyHeaders_zindex: 10,
-            storage_fixedUrl: "/this/is/my/awesome/table/url",
-            storage_group: "data-awesome-table-group",
-            storage_page: "data-awesome-table-page",
-            storage_storageType: "c",
-            storage_tableId: "myAwesomeTable",
-            zebra: ["even", "odd"]
+            storage_fixedUrl: '/this/is/my/awesome/table/url',
+            storage_group: 'data-awesome-table-group',
+            storage_page: 'data-awesome-table-page',
+            storage_storageType: 'c',
+            storage_tableId: 'myAwesomeTable',
+            zebra: ['even', 'odd'],
         };
 
         /**
@@ -326,91 +335,81 @@ export class TestSettings<T extends HTMLElement> {
          * Filter-cell classes
          * Global filter-cell classes
          */
-        widgetOptions.filter_cellFilter = "filter-control";
+        widgetOptions.filter_cellFilter = 'filter-control';
 
         /**
          * Per-row filter-cell classes
          */
-        widgetOptions.filter_cellFilter = ["hidden", "", "hidden", ""];
+        widgetOptions.filter_cellFilter = ['hidden', '', 'hidden', ''];
 
         /**
          * Filter-classes
          * Global filter-classes
          */
-        widgetOptions.filter_cssFilter = "tablesorter-filter";
+        widgetOptions.filter_cssFilter = 'tablesorter-filter';
 
         /**
          * Per-row filter-classes
          */
-        widgetOptions.filter_cssFilter = ["first-filter", "second-filter", "third-filter"];
+        widgetOptions.filter_cssFilter = ['first-filter', 'second-filter', 'third-filter'];
 
         /**
          * Filter-formaters
          * Creating filter-controls with all available options
          */
         widgetOptions.filter_formatter = {
-            "*": (cell, index) => {
+            '*': (cell, index) => {
                 // $ExpectType JQuery<HTMLElement>
                 cell;
                 // $ExpectType number
                 index;
-                return $.tablesorter.filterFormatter.html5Number(
-                    cell,
-                    index,
-                    {
-                        addToggle: true,
-                        cellText: "Age",
-                        compare: ["<", ">", "="],
-                        delayed: true,
-                        disabled: true,
-                        exactMatch: true,
-                        min: 100,
-                        max: 1000,
-                        skipTest: true,
-                        step: 10,
-                        value: 110
-                    });
+                return $.tablesorter.filterFormatter.html5Number(cell, index, {
+                    addToggle: true,
+                    cellText: 'Age',
+                    compare: ['<', '>', '='],
+                    delayed: true,
+                    disabled: true,
+                    exactMatch: true,
+                    min: 100,
+                    max: 1000,
+                    skipTest: true,
+                    step: 10,
+                    value: 110,
+                });
             },
             1: (cell, index) => {
                 // $ExpectType JQuery<HTMLElement>
                 cell;
                 // $ExpectType number
                 index;
-                return $.tablesorter.filterFormatter.html5Range(
-                    cell,
-                    index,
-                    {
-                        allText: "all",
-                        cellText: "Medals",
-                        compare: "<",
-                        delayed: false,
-                        exactMatch: false,
-                        min: 1,
-                        max: 200,
-                        skipTest: true,
-                        step: 1,
-                        value: 1,
-                        valueToHeader: false
-                    });
+                return $.tablesorter.filterFormatter.html5Range(cell, index, {
+                    allText: 'all',
+                    cellText: 'Medals',
+                    compare: '<',
+                    delayed: false,
+                    exactMatch: false,
+                    min: 1,
+                    max: 200,
+                    skipTest: true,
+                    step: 1,
+                    value: 1,
+                    valueToHeader: false,
+                });
             },
-            2: (cell, index) => $.tablesorter.filterFormatter.html5Color(
-                cell,
-                index,
-                {
+            2: (cell, index) =>
+                $.tablesorter.filterFormatter.html5Color(cell, index, {
                     addToggle: true,
                     disabled: true,
                     exactMatch: true,
                     skipTest: true,
-                    value: "#999999",
-                    valueToHeader: true
+                    value: '#999999',
+                    valueToHeader: true,
                 }),
-            3: (cell, index) => $.tablesorter.filterFormatter.uiSpinner(
-                cell,
-                index,
-                {
+            3: (cell, index) =>
+                $.tablesorter.filterFormatter.uiSpinner(cell, index, {
                     addToggle: true,
-                    cellText: "Level",
-                    compare: "=",
+                    cellText: 'Level',
+                    compare: '=',
                     delayed: true,
                     disabled: true,
                     exactMatch: true,
@@ -418,86 +417,76 @@ export class TestSettings<T extends HTMLElement> {
                     max: 100,
                     step: 1,
                     value: 1,
-                    culture: "de"
+                    culture: 'de',
                 }),
-            4: (cell, index) => $.tablesorter.filterFormatter.uiSlider(
-                cell,
-                index,
-                {
-                    allText: "all",
-                    cellText: "Height",
-                    compare: ["<", ">"],
+            4: (cell, index) =>
+                $.tablesorter.filterFormatter.uiSlider(cell, index, {
+                    allText: 'all',
+                    cellText: 'Height',
+                    compare: ['<', '>'],
                     delayed: true,
                     exactMatch: true,
                     min: 0,
                     max: 3,
                     step: 0.01,
-                    value: 1.60,
-                    valueToHeader: true
+                    value: 1.6,
+                    valueToHeader: true,
                 }),
-            5: (cell, index) => $.tablesorter.filterFormatter.uiRange(
-                cell,
-                index,
-                {
+            5: (cell, index) =>
+                $.tablesorter.filterFormatter.uiRange(cell, index, {
                     delayed: true,
                     min: 0,
                     max: 1000000,
-                    valueToHeader: false
+                    valueToHeader: false,
                 }),
-            6: (cell, index) => $.tablesorter.filterFormatter.uiDateCompare(
-                cell,
-                index,
-                {
-                    cellText: "Joindate",
-                    compare: ["<", ">"],
-                    endOfDay: true
+            6: (cell, index) =>
+                $.tablesorter.filterFormatter.uiDateCompare(cell, index, {
+                    cellText: 'Joindate',
+                    compare: ['<', '>'],
+                    endOfDay: true,
                 }),
-            7: (cell, index) => $.tablesorter.filterFormatter.uiDatepicker(
-                cell,
-                index,
-                {
+            7: (cell, index) =>
+                $.tablesorter.filterFormatter.uiDatepicker(cell, index, {
                     endOfDay: true,
                     from: new Date(),
                     to: new Date(),
-                    textFrom: "From",
-                    textTo: "To",
-                    maxDate: new Date(1989, 1, 1)
+                    textFrom: 'From',
+                    textTo: 'To',
+                    maxDate: new Date(1989, 1, 1),
                 }),
-            8: (cell, index) => $.tablesorter.filterFormatter.select2(
-                cell,
-                index,
-                {
-                    cellText: "Gender",
+            8: (cell, index) =>
+                $.tablesorter.filterFormatter.select2(cell, index, {
+                    cellText: 'Gender',
                     exactMatch: true,
-                    value: "other",
+                    value: 'other',
                     data: [
                         {
-                            id: "other",
-                            text: "Other"
-                        }
-                    ]
-                })
+                            id: 'other',
+                            text: 'Other',
+                        },
+                    ],
+                }),
         };
 
         /**
          * Creating filter-controls without options
          */
         widgetOptions.filter_formatter = {
-            "*": (cell, index) => $.tablesorter.filterFormatter.select2(cell, index)
+            '*': (cell, index) => $.tablesorter.filterFormatter.select2(cell, index),
         };
 
         /**
          * Creating custom filter-controls
          */
         widgetOptions.filter_formatter = {
-            "*": () => $("input")
+            '*': () => $('input'),
         };
 
         /**
          * Filter-functions
          */
         widgetOptions.filter_functions = {
-            "*": (o, n, f, i, r, c, d) => {
+            '*': (o, n, f, i, r, c, d) => {
                 // $ExpectType string
                 o;
                 // $ExpectType string
@@ -515,7 +504,7 @@ export class TestSettings<T extends HTMLElement> {
                 return false;
             },
             1: {
-                "A - D": (o, n, f, i, r, c, d) => {
+                'A - D': (o, n, f, i, r, c, d) => {
                     // $ExpectType string
                     o;
                     // $ExpectType string
@@ -532,8 +521,8 @@ export class TestSettings<T extends HTMLElement> {
                     d;
                     return /^[A-D]/.test(o);
                 },
-                "E - H": (e) => /^[E-H]/.test(e)
-            }
+                'E - H': (e) => /^[E-H]/.test(e),
+            },
         };
 
         /**
@@ -549,7 +538,7 @@ export class TestSettings<T extends HTMLElement> {
             // $ExpectType TablesorterConfigurationStore<T>
             config;
             const filters = $.tablesorter.getFilters(config.table);
-            return filters.join("") === "";
+            return filters.join('') === '';
         };
 
         /**
@@ -568,20 +557,20 @@ export class TestSettings<T extends HTMLElement> {
          */
         widgetOptions.filter_liveSearch = {
             0: false,
-            "*": true,
-            ".fullname": 5
+            '*': true,
+            '.fullname': 5,
         };
 
         /**
          * Reset-button
          * Setting the reset-button using a jQuery-object
          */
-        widgetOptions.filter_reset = $("#reset");
+        widgetOptions.filter_reset = $('#reset');
 
         /**
          * Setting the reset-button using a jQuery-selector
          */
-        widgetOptions.filter_reset = "#reset";
+        widgetOptions.filter_reset = '#reset';
 
         /**
          * Select-source
@@ -602,13 +591,13 @@ export class TestSettings<T extends HTMLElement> {
          * Setting per-column select-sources
          */
         widgetOptions.filter_selectSource = {
-            "*": ["1", "2", "3"],
+            '*': ['1', '2', '3'],
             0: [
                 {
-                    text: "JavaScript",
-                    value: "*.js",
-                    "data-class": "ui-icon-script"
-                }
+                    text: 'JavaScript',
+                    value: '*.js',
+                    'data-class': 'ui-icon-script',
+                },
             ],
             1: (table, column, onlyAvail) => {
                 // $ExpectType T
@@ -618,7 +607,7 @@ export class TestSettings<T extends HTMLElement> {
                 // $ExpectType boolean
                 onlyAvail;
                 return null;
-            }
+            },
         };
 
         /**
@@ -626,23 +615,23 @@ export class TestSettings<T extends HTMLElement> {
          * Appending the sticky header
          * Using a jQuery-object
          */
-        widgetOptions.stickyHeaders_appendTo = $(".wrapper");
+        widgetOptions.stickyHeaders_appendTo = $('.wrapper');
 
         /**
          * Using a jQuery-selector
          */
-        widgetOptions.stickyHeaders_appendTo = ".wrapper";
+        widgetOptions.stickyHeaders_appendTo = '.wrapper';
 
         /**
          * Appending the sticky header
          * Using a jQuery - object
          */
-        widgetOptions.stickyHeaders_appendTo = $(".wrapper");
+        widgetOptions.stickyHeaders_appendTo = $('.wrapper');
 
         /**
          * Using a jQuery-selector
          */
-        widgetOptions.stickyHeaders_appendTo = ".wrapper";
+        widgetOptions.stickyHeaders_appendTo = '.wrapper';
 
         /**
          * Setting an offset
@@ -653,25 +642,25 @@ export class TestSettings<T extends HTMLElement> {
         /**
          * Using a jQuery-selector
          */
-        widgetOptions.stickyHeaders_offset = ".navbar-fixed-top";
+        widgetOptions.stickyHeaders_offset = '.navbar-fixed-top';
 
         /**
          * Using a jQuery-object
          */
-        widgetOptions.stickyHeaders_offset = $(".navbar-fixed-top");
+        widgetOptions.stickyHeaders_offset = $('.navbar-fixed-top');
 
         /**
          * Setting scroll-elements
          * Using a jQuery-selector
          */
-        widgetOptions.stickyHeaders_xScroll = ".wrapper";
-        widgetOptions.stickyHeaders_yScroll = ".wrapper";
+        widgetOptions.stickyHeaders_xScroll = '.wrapper';
+        widgetOptions.stickyHeaders_yScroll = '.wrapper';
 
         /**
          * Using a jQuery-object
          */
-        widgetOptions.stickyHeaders_xScroll = $(".wrapper");
-        widgetOptions.stickyHeaders_yScroll = $(".wrapper");
+        widgetOptions.stickyHeaders_xScroll = $('.wrapper');
+        widgetOptions.stickyHeaders_yScroll = $('.wrapper');
 
         /**
          * Pager-settings
@@ -690,25 +679,25 @@ export class TestSettings<T extends HTMLElement> {
                 return "What do you think you're doing!?";
             },
             pager_ajaxObject: {
-                dataType: "json"
+                dataType: 'json',
             },
             pager_ajaxProcessing: () => ({ total: 0 }),
-            pager_ajaxUrl: "https://go.com/download/my/stuff/?p={page}",
+            pager_ajaxUrl: 'https://go.com/download/my/stuff/?p={page}',
             pager_selectors: {
-                container: $(".container"),
-                first: $(".first"),
-                gotoPage: $(".goto"),
-                last: $(".last"),
-                next: $(".next"),
-                pageDisplay: $(".display"),
-                pageSize: $(".size"),
-                prev: $(".prev")
+                container: $('.container'),
+                first: $('.first'),
+                gotoPage: $('.goto'),
+                last: $('.last'),
+                next: $('.next'),
+                pageDisplay: $('.display'),
+                pageSize: $('.size'),
+                prev: $('.prev'),
             },
             pager_countChildRows: true,
             pager_css: {
-                disabled: "disabled",
-                container: "container",
-                errorRow: "error"
+                disabled: 'disabled',
+                container: 'container',
+                errorRow: 'error',
             },
             pager_customAjaxUrl: (table, url) => {
                 // $ExpectType T
@@ -720,17 +709,17 @@ export class TestSettings<T extends HTMLElement> {
             pager_fixedHeight: true,
             pager_initialRows: {
                 total: 100,
-                filtered: 100
+                filtered: 100,
             },
-            pager_output: "{startRow} to {endRow} of {totalRows} rows",
+            pager_output: '{startRow} to {endRow} of {totalRows} rows',
             pager_startPage: 2,
             pager_pageReset: true,
             pager_processAjaxOnInit: true,
             pager_removeRows: true,
             pager_savePages: true,
-            pager_size: "all",
-            pager_storageKey: "tablesorter-pager",
-            pager_updateArrows: true
+            pager_size: 'all',
+            pager_storageKey: 'tablesorter-pager',
+            pager_updateArrows: true,
         };
 
         /**
@@ -738,24 +727,24 @@ export class TestSettings<T extends HTMLElement> {
          */
         let pagerSettings: PagerConfiguration<T> = {
             ajaxError: () => {
-                return "What are you even trying to do!?";
+                return 'What are you even trying to do!?';
             },
             ajaxObject: {
-                dataType: "csv"
+                dataType: 'csv',
             },
             ajaxProcessing: () => ({ total: 1337 }),
-            ajaxUrl: "https://go.com/download/my/stuff/?p={page}",
-            container: $(".container"),
+            ajaxUrl: 'https://go.com/download/my/stuff/?p={page}',
+            container: $('.container'),
             countChildRows: true,
-            cssDisabled: "disabled",
-            cssErrorRow: "error",
-            cssFirst: $(".first"),
-            cssGoto: $(".goto"),
-            cssLast: $(".last"),
-            cssNext: $(".next"),
-            cssPageDisplay: $(".display"),
-            cssPageSize: $(".size"),
-            cssPrev: $(".prev"),
+            cssDisabled: 'disabled',
+            cssErrorRow: 'error',
+            cssFirst: $('.first'),
+            cssGoto: $('.goto'),
+            cssLast: $('.last'),
+            cssNext: $('.next'),
+            cssPageDisplay: $('.display'),
+            cssPageSize: $('.size'),
+            cssPrev: $('.prev'),
             customAjaxUrl: (table, url) => {
                 // $ExpectType T
                 table;
@@ -766,17 +755,17 @@ export class TestSettings<T extends HTMLElement> {
             fixedHeight: true,
             initialRows: {
                 total: 100,
-                filtered: 100
+                filtered: 100,
             },
-            output: "{startRow} to {endRow} of {totalRows} rows",
+            output: '{startRow} to {endRow} of {totalRows} rows',
             page: 2,
             pageReset: true,
             processAjaxOnInit: true,
             removeRows: true,
             savePages: true,
-            size: "all",
-            storageKey: "tablesorter-pager",
-            updateArrows: true
+            size: 'all',
+            storageKey: 'tablesorter-pager',
+            updateArrows: true,
         };
 
         /**
@@ -784,51 +773,54 @@ export class TestSettings<T extends HTMLElement> {
          * Returning an object
          * With all available options
          */
-        pagerSettings.ajaxProcessing =
-            widgetOptions.pager_ajaxProcessing = (data, table, request) => {
-                // $ExpectType any
-                data;
-                // $ExpectType T
-                table;
-                // $ExpectType jqXHR<any>
-                request;
-                return ({ total: 1, filteredRows: 1, headers: ["ID"], output: "", rows: [["1"]] });
-            };
+        pagerSettings.ajaxProcessing = widgetOptions.pager_ajaxProcessing = (data, table, request) => {
+            // $ExpectType any
+            data;
+            // $ExpectType T
+            table;
+            // $ExpectType jqXHR<any>
+            request;
+            return { total: 1, filteredRows: 1, headers: ['ID'], output: '', rows: [['1']] };
+        };
 
         /**
          * With all required options
          */
-        pagerSettings.ajaxProcessing =
-            widgetOptions.pager_ajaxProcessing = () => {
-                return {
-                    total: 1
-                };
+        pagerSettings.ajaxProcessing = widgetOptions.pager_ajaxProcessing = () => {
+            return {
+                total: 1,
             };
+        };
 
         /**
          * Returning an array
          * With the total amount of rows only
          */
-        pagerSettings.ajaxProcessing =
-            widgetOptions.pager_ajaxProcessing = () => [1];
+        pagerSettings.ajaxProcessing = widgetOptions.pager_ajaxProcessing = () => [1];
 
         /**
          * With the rows as a jQuery-object
          */
-        pagerSettings.ajaxProcessing =
-            widgetOptions.pager_ajaxProcessing = (data) => [1, $(data.rows), ["ID", "Medals", "Exp"]];
+        pagerSettings.ajaxProcessing = widgetOptions.pager_ajaxProcessing = (data) => [
+            1,
+            $(data.rows),
+            ['ID', 'Medals', 'Exp'],
+        ];
 
         /**
          * With the records in an array
          */
-        pagerSettings.ajaxProcessing =
-            widgetOptions.pager_ajaxProcessing = () => [1, [[1, 1000, "John Doe"]], ["ID", "Medals", "Name"]];
+        pagerSettings.ajaxProcessing = widgetOptions.pager_ajaxProcessing = () => [
+            1,
+            [[1, 1000, 'John Doe']],
+            ['ID', 'Medals', 'Name'],
+        ];
 
         /**
          * Setting elements for the pager
          * Using jQuery-selectors
          */
-        const selector = ".container";
+        const selector = '.container';
         pagerSettings = {
             container: selector,
             cssFirst: selector,
@@ -837,7 +829,7 @@ export class TestSettings<T extends HTMLElement> {
             cssNext: selector,
             cssPageDisplay: selector,
             cssPageSize: selector,
-            cssPrev: selector
+            cssPrev: selector,
         };
 
         widgetOptions.pager_selectors = {
@@ -848,7 +840,7 @@ export class TestSettings<T extends HTMLElement> {
             next: selector,
             pageDisplay: selector,
             pageSize: selector,
-            prev: selector
+            prev: selector,
         };
 
         /**
@@ -863,7 +855,7 @@ export class TestSettings<T extends HTMLElement> {
             cssNext: object,
             cssPageDisplay: object,
             cssPageSize: object,
-            cssPrev: object
+            cssPrev: object,
         };
 
         widgetOptions.pager_selectors = {
@@ -874,37 +866,32 @@ export class TestSettings<T extends HTMLElement> {
             next: object,
             pageDisplay: object,
             pageSize: object,
-            prev: object
+            prev: object,
         };
 
         /**
          * Setting a page-reset
          * Using an exact number
          */
-        pagerSettings.pageReset =
-            widgetOptions.pager_pageReset = 3;
+        pagerSettings.pageReset = widgetOptions.pager_pageReset = 3;
 
         /**
          * Enabling/disabling page-reset
          */
-        pagerSettings.pageReset =
-            widgetOptions.pager_pageReset = true;
-        pagerSettings.pageReset =
-            widgetOptions.pager_pageReset = false;
+        pagerSettings.pageReset = widgetOptions.pager_pageReset = true;
+        pagerSettings.pageReset = widgetOptions.pager_pageReset = false;
 
         /**
          * Setting the initial page-size
          * Using an exact number
          */
-        pagerSettings.size =
-            widgetOptions.pager_size = 20;
+        pagerSettings.size = widgetOptions.pager_size = 20;
 
         /**
          * Using "all"
          */
-        pagerSettings.size =
-            widgetOptions.pager_size = "all";
+        pagerSettings.size = widgetOptions.pager_size = 'all';
 
-        $<T>("#myTable").tablesorter(settings).tablesorterPager(pagerSettings);
+        $<T>('#myTable').tablesorter(settings).tablesorterPager(pagerSettings);
     }
 }

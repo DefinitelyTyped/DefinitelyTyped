@@ -4,7 +4,7 @@ let lexer = moo.compile({
     lparen: '(',
     word: /[a-z]+/,
     rparen: ')',
-    keyword: ['while', 'if', 'else', 'moo', 'cows']
+    keyword: ['while', 'if', 'else', 'moo', 'cows'],
 });
 
 lexer = moo.compile({
@@ -22,20 +22,21 @@ lexer = moo.compile({
     IDEN: {
         match: /[a-zA-Z]+/,
         type: moo.keywords({
-            KW: ['while', 'if', 'else', 'moo', 'reloacows']
-        })
+            KW: ['while', 'if', 'else', 'moo', 'reloacows'],
+        }),
     },
-    SPACE: { match: /\s+/, lineBreaks: true }
+    SPACE: { match: /\s+/, lineBreaks: true },
 });
 
 lexer = moo.compile({
     name: {
-        match: /[a-zA-Z]+/, type: moo.keywords({
+        match: /[a-zA-Z]+/,
+        type: moo.keywords({
             'kw-class': 'class',
             'kw-def': 'def',
             'kw-if': 'if',
-        })
-    }
+        }),
+    },
 });
 
 lexer = moo.states({
@@ -56,11 +57,11 @@ lexer = moo.states({
 });
 
 moo.compile({
-    myError: moo.error
+    myError: moo.error,
 });
 
 moo.compile({
-    myError: { match: /[\$?`]/, error: true }
+    myError: { match: /[\$?`]/, error: true },
 });
 
 for (const here of lexer) {
@@ -82,9 +83,9 @@ Array.from(lexer.reset('lex this'));
 // Transform: https://github.com/no-context/moo#transform
 moo.compile({
     STRING: [
-        { match: /"""[^]*?"""/, lineBreaks: true, value: x => x.slice(3, -3) },
-        { match: /"(?:\\["\\rn]|[^"\\])*?"/, lineBreaks: true, value: x => x.slice(1, -1) },
-        { match: /'(?:\\['\\rn]|[^'\\])*?'/, lineBreaks: true, value: x => x.slice(1, -1) },
+        { match: /"""[^]*?"""/, lineBreaks: true, value: (x) => x.slice(3, -3) },
+        { match: /"(?:\\["\\rn]|[^"\\])*?"/, lineBreaks: true, value: (x) => x.slice(1, -1) },
+        { match: /'(?:\\['\\rn]|[^'\\])*?'/, lineBreaks: true, value: (x) => x.slice(1, -1) },
     ],
     // ...
 });

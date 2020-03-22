@@ -1,11 +1,11 @@
-
-
 var bi: BigInt.BigInt;
 var num: number;
 var str: string;
 var b: boolean;
 
-BigInt.setRandom(() => { return 0; });
+BigInt.setRandom(() => {
+    return 0;
+});
 
 bi = BigInt.add(bi, bi);
 bi = BigInt.addInt(bi, num);
@@ -76,6 +76,6 @@ BigInt.subShift_(bi, bi, num);
 
 function someRandomRealCode() {
     bi = BigInt.int2bigInt(22, 5);
-    bi = BigInt.str2bigInt("FFFFFFFFFFFFFFFFC90FDAA2", 16);
+    bi = BigInt.str2bigInt('FFFFFFFFFFFFFFFFC90FDAA2', 16);
     str = BigInt.bigInt2str(bi, 16);
 }

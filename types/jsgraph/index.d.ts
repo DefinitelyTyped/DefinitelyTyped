@@ -3,16 +3,14 @@
 // Definitions by: Joel Rosinbum <https://github.com/rosinbum>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace jsgraph {
-
     interface jsGraphStatic {
         directed: Directed;
     }
 
     export interface VertexRequest {
         u: string;
-        p: any
+        p: any;
     }
 
     export interface JsGraphResponse {
@@ -22,7 +20,7 @@ declare namespace jsgraph {
 
     export interface Edge {
         u: string;
-        v: string
+        v: string;
     }
 
     export interface EdgeRequest {
@@ -31,7 +29,7 @@ declare namespace jsgraph {
     }
 
     export interface DirectedGraph {
-        new(): DirectedGraph;
+        new (): DirectedGraph;
 
         setGraphName(name: string): JsGraphResponse;
 
@@ -64,7 +62,6 @@ declare namespace jsgraph {
         stringify(replacer: Function, space?: number): string;
 
         fromObject(graph: any): JsGraphResponse;
-
 
         //Vertex functions
         addVertex(vertex: VertexRequest): JsGraphResponse;
@@ -101,28 +98,26 @@ declare namespace jsgraph {
         hasEdgeProperty(edge: Edge): boolean;
 
         clearEdgeProperty(edge: Edge): boolean;
-
-
     }
 
     export interface Visitor {
-        initializeVertex(req: { u: string, g: DirectedGraph }): void;
+        initializeVertex(req: { u: string; g: DirectedGraph }): void;
 
-        startVertex(req: { u: string, g: DirectedGraph }): void;
+        startVertex(req: { u: string; g: DirectedGraph }): void;
 
-        discoverVertex(req: { u: string, g: DirectedGraph }): void;
+        discoverVertex(req: { u: string; g: DirectedGraph }): void;
 
-        examineVertex(req: { u: string, g: DirectedGraph }): void;
+        examineVertex(req: { u: string; g: DirectedGraph }): void;
 
-        examineEdge(req: { e: Edge, g: DirectedGraph }): void;
+        examineEdge(req: { e: Edge; g: DirectedGraph }): void;
 
-        nonTreeEdge(req: { e: Edge, g: DirectedGraph }): void;
+        nonTreeEdge(req: { e: Edge; g: DirectedGraph }): void;
 
-        grayTarget(req: { e: Edge, g: DirectedGraph }): void;
+        grayTarget(req: { e: Edge; g: DirectedGraph }): void;
 
-        blackTarget(req: { e: Edge, g: DirectedGraph }): void;
+        blackTarget(req: { e: Edge; g: DirectedGraph }): void;
 
-        finishVertex(req: { u: string, g: DirectedGraph }): void;
+        finishVertex(req: { u: string; g: DirectedGraph }): void;
     }
 
     export interface TraversalContext {
@@ -139,17 +134,17 @@ declare namespace jsgraph {
     }
 
     export interface TraversalParams {
-        digraph: DirectedGraph,
-        visitor: Visitor,
-        options?: TraversalOptions
+        digraph: DirectedGraph;
+        visitor: Visitor;
+        options?: TraversalOptions;
     }
 
     export interface TraversalResult {
         error?: any;
-        result?: TraversalContext
+        result?: TraversalContext;
     }
 
-    export type colors = { white: 0, gray: 1, black: 2 };
+    export type colors = { white: 0; gray: 1; black: 2 };
 
     export interface Directed {
         breadthFirstTraverse(params: TraversalParams): TraversalResult;
@@ -162,10 +157,9 @@ declare namespace jsgraph {
 
         depthFirstTraverse(params: TraversalParams): TraversalResult;
 
-        transpose(graph: DirectedGraph): { error?: any, result?: DirectedGraph };
+        transpose(graph: DirectedGraph): { error?: any; result?: DirectedGraph };
 
         directedGraph: DirectedGraph;
-
     }
 }
 

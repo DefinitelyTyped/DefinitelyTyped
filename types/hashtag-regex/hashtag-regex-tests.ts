@@ -1,3 +1,3 @@
-import hashtagRegex from "hashtag-regex";
+import hashtagRegex from 'hashtag-regex';
 
 hashtagRegex(); // $ExpectType RegExp

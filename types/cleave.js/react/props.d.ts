@@ -1,5 +1,5 @@
-import * as React from "react";
-import { CleaveOptions } from "../options";
+import * as React from 'react';
+import { CleaveOptions } from '../options';
 
 export type InitHandler = (owner: React.ReactInstance) => void;
 

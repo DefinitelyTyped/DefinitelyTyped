@@ -110,4 +110,4 @@ export interface Props {
     children?: React.ReactNode;
 }
 
-export default class Document extends React.Component<Props> { }
+export default class Document extends React.Component<Props> {}

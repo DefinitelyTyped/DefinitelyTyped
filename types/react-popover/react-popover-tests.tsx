@@ -9,7 +9,7 @@ class Test extends React.Component {
                 isOpen
                 preferPlace="above"
                 place="below"
-                onOuterAction={event => console.log(event)}
+                onOuterAction={(event) => console.log(event)}
                 refreshIntervalMs={10}
                 enterExitTransitionDurationMs={10}
                 tipSize={10}

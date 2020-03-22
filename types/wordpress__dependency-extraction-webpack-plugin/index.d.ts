@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { Plugin } from "webpack";
+import { Plugin } from 'webpack';
 
 interface Options {
     useDefaults?: boolean;

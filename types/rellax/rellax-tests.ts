@@ -1,6 +1,6 @@
-Rellax(".js-rellax");
+Rellax('.js-rellax');
 
-const elm = document.getElementById("#id");
+const elm = document.getElementById('#id');
 if (elm) {
     new Rellax(elm);
 }
@@ -11,13 +11,13 @@ const options: Rellax.RellaxOptions = {
     vertical: true,
     round: true,
     speed: 3000,
-    wrapper: "#wrap",
-    callback: pos => {}
+    wrapper: '#wrap',
+    callback: (pos) => {},
 };
 
-Rellax(".rellax", options);
+Rellax('.rellax', options);
 
-const instance = new Rellax(".rellax", options);
+const instance = new Rellax('.rellax', options);
 
 instance.destroy();
 instance.refresh();

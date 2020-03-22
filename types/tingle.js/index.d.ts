@@ -26,11 +26,7 @@ export class modal {
     setFooterContent(content: string): void;
     getFooterContent(): HTMLDivElement | undefined;
     setStickyFooter(sticky: boolean): void;
-    addFooterBtn(
-        label: string,
-        cssClass: string | undefined,
-        listener: HTMLElement['onclick'],
-    ): HTMLButtonElement;
+    addFooterBtn(label: string, cssClass: string | undefined, listener: HTMLElement['onclick']): HTMLButtonElement;
     isOverflow(): boolean;
     checkOverflow(): void;
 }

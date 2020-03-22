@@ -6,7 +6,7 @@
 
 ///<reference types="react" />
 
-declare module "react-file-input" {
+declare module 'react-file-input' {
     interface FileInputProps {
         name: string;
         className: string;
@@ -16,8 +16,7 @@ declare module "react-file-input" {
         onChange: (event: React.SyntheticEvent<any>) => void;
     }
 
-    class FileInput extends React.Component<FileInputProps> {
-    }
+    class FileInput extends React.Component<FileInputProps> {}
 
     export = FileInput;
 }

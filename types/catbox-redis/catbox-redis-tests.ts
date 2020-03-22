@@ -11,7 +11,11 @@ cache.get({
     id: 'test',
 });
 
-cache.set({
-    segment: 'test',
-    id: 'test',
-}, 'test', 123);
+cache.set(
+    {
+        segment: 'test',
+        id: 'test',
+    },
+    'test',
+    123,
+);

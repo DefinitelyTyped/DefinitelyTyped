@@ -1126,7 +1126,7 @@ import {
     EffectFade,
     EffectCube,
     EffectFlip,
-    EffectCoverflow
+    EffectCoverflow,
 } from './js/swiper.esm';
 
 /**

@@ -8,5 +8,5 @@ declare namespace ModalHeader {
         bsClass?: string;
     }
 }
-declare class ModalHeader extends React.Component<ModalHeader.ModalHeaderProps> { }
+declare class ModalHeader extends React.Component<ModalHeader.ModalHeaderProps> {}
 export = ModalHeader;

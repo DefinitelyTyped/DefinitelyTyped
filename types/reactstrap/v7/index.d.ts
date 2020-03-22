@@ -11,7 +11,7 @@
 // TypeScript Version: 2.9
 
 export interface CSSModule {
-  [className: string]: string;
+    [className: string]: string;
 }
 
 import { default as Alert_ } from './lib/Alert';
@@ -240,13 +240,13 @@ import { default as Tooltip_ } from './lib/Tooltip';
 export class Tooltip<T = {}> extends Tooltip_<T> {}
 export { TooltipProps } from './lib/Tooltip';
 import {
-  UncontrolledAlert as UncontrolledAlert_,
-  UncontrolledButtonDropdown as UncontrolledButtonDropdown_,
-  UncontrolledDropdown as UncontrolledDropdown_,
-  UncontrolledTooltip as UncontrolledTooltip_,
-  UncontrolledCollapse as UncontrolledCollapse_,
-  UncontrolledCarousel as UncontrolledCarousel_,
-  UncontrolledPopover as UncontrolledPopover_
+    UncontrolledAlert as UncontrolledAlert_,
+    UncontrolledButtonDropdown as UncontrolledButtonDropdown_,
+    UncontrolledDropdown as UncontrolledDropdown_,
+    UncontrolledTooltip as UncontrolledTooltip_,
+    UncontrolledCollapse as UncontrolledCollapse_,
+    UncontrolledCarousel as UncontrolledCarousel_,
+    UncontrolledPopover as UncontrolledPopover_,
 } from './lib/Uncontrolled';
 export class UncontrolledAlert<T = {}> extends UncontrolledAlert_<T> {}
 export class UncontrolledButtonDropdown<T = {}> extends UncontrolledButtonDropdown_<T> {}
@@ -256,11 +256,11 @@ export class UncontrolledCollapse<T = {}> extends UncontrolledCollapse_<T> {}
 export class UncontrolledCarousel<T = {}> extends UncontrolledCarousel_<T> {}
 export class UncontrolledPopover<T = {}> extends UncontrolledPopover_<T> {}
 export {
-  UncontrolledButtonDropdownProps,
-  UncontrolledAlertProps,
-  UncontrolledDropdownProps,
-  UncontrolledTooltipProps,
-  UncontrolledCollapseProps,
-  UncontrolledCarouselProps,
-  UncontrolledPopoverProps
+    UncontrolledButtonDropdownProps,
+    UncontrolledAlertProps,
+    UncontrolledDropdownProps,
+    UncontrolledTooltipProps,
+    UncontrolledCollapseProps,
+    UncontrolledCarouselProps,
+    UncontrolledPopoverProps,
 } from './lib/Uncontrolled';

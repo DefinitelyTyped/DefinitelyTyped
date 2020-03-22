@@ -148,7 +148,7 @@ declare namespace Stylus {
         /**
          * Return type of `node`.
          */
-        "type-of"(node: Nodes.Node): string;
+        'type-of'(node: Nodes.Node): string;
 
         /**
          * Return component `name` for the given `color`.
@@ -428,17 +428,17 @@ declare namespace Stylus {
          * Return a `Literal` `num` converted to the provided `base`, padded to `width`
          * with zeroes (default width is 2)
          */
-        "base-convert"(num: Nodes.Number, base: Nodes.Number, width: Nodes.Number): Nodes.Literal;
+        'base-convert'(num: Nodes.Number, base: Nodes.Number, width: Nodes.Number): Nodes.Literal;
 
         /**
          * Return the opposites of the given `positions`.
          */
-        "opposite-position"(positions: Nodes.Expression): Nodes.Expression;
+        'opposite-position'(positions: Nodes.Expression): Nodes.Expression;
 
         /**
          * Return the width and height of the given `img` path.
          */
-        "image-size"(img: Nodes.String, ignoreErr: Nodes.Boolean): Nodes.Expression;
+        'image-size'(img: Nodes.String, ignoreErr: Nodes.Boolean): Nodes.Expression;
 
         /**
          * Return the tangent of the given `angle`.
@@ -453,7 +453,7 @@ declare namespace Stylus {
         /**
          * Return the opposites of the given `positions`.
          */
-        "-math-prop"(prop: Nodes.String): Nodes.Unit;
+        '-math-prop'(prop: Nodes.String): Nodes.Unit;
 
         /**
          * Adjust HSL `color` `prop` by `amount`.
@@ -469,7 +469,7 @@ declare namespace Stylus {
         /**
          * Add property `name` with the given `expr` to the mixin-able block.
          */
-        "add-property"(name: Nodes.String, expr: Nodes.Expression): Nodes.Property;
+        'add-property'(name: Nodes.String, expr: Nodes.Expression): Nodes.Property;
 
         /**
          * Merge the object `dest` with the given args.
@@ -490,17 +490,17 @@ declare namespace Stylus {
         /**
          * Prefix css classes in a block
          */
-        "-prefix-classes"(prefix: Nodes.String, block: Nodes.Block): Nodes.Block;
+        '-prefix-classes'(prefix: Nodes.String, block: Nodes.Block): Nodes.Block;
 
         /**
          * Returns the @media string for the current block
          */
-        "current-media"(): Nodes.String;
+        'current-media'(): Nodes.String;
 
         /**
          * Return the separator of the given `list`.
          */
-        "list-separator"(list: Nodes.Expression): Nodes.String;
+        'list-separator'(list: Nodes.Expression): Nodes.String;
     }
 
     export interface Utils {
@@ -608,14 +608,14 @@ declare namespace Stylus {
         (options: UrlOptions): LiteralFunction;
 
         mimes: {
-            ".gif": string;
-            ".png": string;
-            ".jpg": string;
-            ".jpeg": string;
-            ".svg": string;
-            ".ttf": string;
-            ".eot": string;
-            ".woff": string;
+            '.gif': string;
+            '.png': string;
+            '.jpg': string;
+            '.jpeg': string;
+            '.svg': string;
+            '.ttf': string;
+            '.eot': string;
+            '.woff': string;
         };
     }
 
@@ -625,17 +625,13 @@ declare namespace Stylus {
 
     //#region Internal Classes
 
-    export class Visitor {
-    }
+    export class Visitor {}
 
-    export class Parser {
-    }
+    export class Parser {}
 
-    export class Evaluator {
-    }
+    export class Evaluator {}
 
-    export class Compiler {
-    }
+    export class Compiler {}
 
     export class Renderer extends EventEmitter {
         options: RenderOptions;
@@ -806,7 +802,7 @@ declare namespace Stylus {
             toJSON(): { val: string; quote: string; lineno: number; column: number; filename: string };
         }
 
-        export class Number extends Node { }
+        export class Number extends Node {}
 
         export class Boolean extends Node {
             val: boolean;
@@ -890,7 +886,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; name: string; val: Node; mixin: boolean; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                name: string;
+                val: Node;
+                mixin: boolean;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Literal extends Node {
@@ -903,7 +907,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; string: string; val: string; prefixed: boolean; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                string: string;
+                val: string;
+                prefixed: boolean;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Unit extends Node {
@@ -961,7 +973,16 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; r: number; g: number; b: number; a: number; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                r: number;
+                g: number;
+                b: number;
+                a: number;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class HSLA extends Node {
@@ -1002,7 +1023,16 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; h: number; s: number; l: number; a: number; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                h: number;
+                s: number;
+                l: number;
+                a: number;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Block extends Node {
@@ -1026,7 +1056,14 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; nodes: Node[]; scope: boolean; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                nodes: Node[];
+                scope: boolean;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Group extends Node {
@@ -1065,7 +1102,14 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; nodes: Node[]; isList: boolean; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                nodes: Node[];
+                isList: boolean;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Property extends Node {
@@ -1077,7 +1121,16 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; segments: Node[]; name: string; expr?: Expression; literal?: Literal; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                segments: Node[];
+                name: string;
+                expr?: Expression;
+                literal?: Literal;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Each extends Node {
@@ -1089,7 +1142,16 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; val: string; key: string; expr: Expression; block: Block; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                val: string;
+                key: string;
+                expr: Expression;
+                block: Block;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class If extends Node {
@@ -1104,7 +1166,16 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; cond: Expression; elses: Expression[]; block: Block; negate: boolean; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                cond: Expression;
+                elses: Expression[];
+                block: Block;
+                negate: boolean;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Call extends Node {
@@ -1116,7 +1187,14 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; name: string; args: Expression; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                name: string;
+                args: Expression;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class UnaryOp extends Node {
@@ -1128,7 +1206,14 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; op: string; expr: Expression; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                op: string;
+                expr: Expression;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class BinOp extends Node {
@@ -1141,7 +1226,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; op: string; left: Expression; right: Expression; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                op: string;
+                left: Expression;
+                right: Expression;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Ternary extends Node {
@@ -1154,7 +1247,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; op: string; trueExpr: Expression; falseExpr: Expression; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                op: string;
+                trueExpr: Expression;
+                falseExpr: Expression;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Return extends Node {
@@ -1223,7 +1324,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; nodes: QueryExpr[]; predicate: string; type: string; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                nodes: QueryExpr[];
+                predicate: string;
+                type: string;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class QueryExpr extends Node {
@@ -1264,7 +1373,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; str: string; suppress: boolean; inline: boolean; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                str: string;
+                suppress: boolean;
+                inline: boolean;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Keyframes extends Node {
@@ -1277,7 +1394,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; segments: Node[]; prefix: string; block: Block; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                segments: Node[];
+                prefix: string;
+                block: Block;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Member extends Node {
@@ -1289,7 +1414,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; left: Node; right: Node; val?: string; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                left: Node;
+                right: Node;
+                val?: string;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Charset extends Node {
@@ -1349,7 +1482,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; name: string; params: Params; body: Block; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                name: string;
+                params: Params;
+                body: Block;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Selector extends Node {
@@ -1361,7 +1502,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; segments: Node[]; inherits: boolean; val: string; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                segments: Node[];
+                inherits: boolean;
+                val: string;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Arguments extends Expression {
@@ -1372,7 +1521,16 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; map: Dictionary<Node>; isList: boolean; preserve: boolean; nodes: Node[]; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                map: Dictionary<Node>;
+                isList: boolean;
+                preserve: boolean;
+                nodes: Node[];
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
 
         export class Atblock extends Node {
@@ -1397,7 +1555,15 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; type: string; segments: Node[]; block?: Block; lineno: number; column: number; filename: string };
+            toJSON(): {
+                __type: string;
+                type: string;
+                segments: Node[];
+                block?: Block;
+                lineno: number;
+                column: number;
+                filename: string;
+            };
         }
     }
 

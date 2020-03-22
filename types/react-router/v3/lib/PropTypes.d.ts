@@ -1,4 +1,4 @@
-import { Requireable, Validator } from "react";
+import { Requireable, Validator } from 'react';
 
 export interface RouterShape extends Validator<any> {
     push: Requireable<any>;

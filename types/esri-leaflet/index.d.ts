@@ -30,7 +30,7 @@ declare module 'leaflet' {
         }
 
         type Basemaps =
-            'Streets'
+            | 'Streets'
             | 'Topographic'
             | 'NationalGeographic'
             | 'Oceans'
@@ -646,7 +646,7 @@ declare module 'leaflet' {
         /**
          * Options for MapService
          */
-        interface MapServiceOptions extends ServiceOptions { }
+        interface MapServiceOptions extends ServiceOptions {}
 
         /**
          * `L.esri.MapService` is an abstraction for interacting with Map Services running on ArcGIS Online and ArcGIS
@@ -679,7 +679,7 @@ declare module 'leaflet' {
         /**
          * Options for Task
          */
-        interface TaskOptions extends ServiceOptions { }
+        interface TaskOptions extends ServiceOptions {}
 
         /**
          * `L.esri.Task` is a generic class that provides the foundation for calling operations on ArcGIS Online and
@@ -735,7 +735,7 @@ declare module 'leaflet' {
         /**
          * Options for FeatureLayerService
          */
-        interface FeatureLayerServiceOptions extends ServiceOptions { }
+        interface FeatureLayerServiceOptions extends ServiceOptions {}
 
         /**
          * `L.esri.FeatureLayerService` is an abstraction for interacting with Feature Layers running on ArcGIS Online
@@ -804,7 +804,7 @@ declare module 'leaflet' {
         /**
          * Options for Query
          */
-        interface QueryOptions extends TaskOptions { }
+        interface QueryOptions extends TaskOptions {}
 
         /**
          * `L.esri.Query` is an abstraction for the query API included in Feature Layers and Image Services. It provides
@@ -960,7 +960,7 @@ declare module 'leaflet' {
         /**
          * Options for IdentifyFeatures
          */
-        interface IdentifyFeaturesOptions extends ServiceOptions { }
+        interface IdentifyFeaturesOptions extends ServiceOptions {}
 
         /**
          * `L.esri.IdentifyFeatures` is an abstraction for the Identify API found in Map Services. It provides a
@@ -1026,7 +1026,7 @@ declare module 'leaflet' {
         /**
          * Options for Find Task
          */
-        interface FindOptions extends ServiceOptions { }
+        interface FindOptions extends ServiceOptions {}
 
         /**
          * `L.esri.Find` is an abstraction for the find API included in Map Services. It provides a chainable API for

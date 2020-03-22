@@ -163,7 +163,7 @@ class Foo {}
     a = i.slice(a, 2, 1); // [1]
 }
 {
-    i.map(v => v * 2, [1, 2, 3]); // [2, 4, 6]
+    i.map((v) => v * 2, [1, 2, 3]); // [2, 4, 6]
 
     i.filter((v: number) => v % 2 === 0, [1, 2, 3]); // [1, 3]
 }
@@ -186,7 +186,7 @@ class Foo {}
         .chain(o)
         .assocIn(['a', 2], 4)
         .setIn(['a', 1], 5)
-        .updateIn(['d'], d => d * 2)
+        .updateIn(['d'], (d) => d * 2)
         .merge({ b: { c: 2, c2: 3 } })
         .assoc('e', 2)
         .set('f', 3)
@@ -210,8 +210,8 @@ class Foo {}
     result = i.shift(a);
     result = i.splice(a, 0, 0, 2);
     result = i.slice(a, 1, 1);
-    result = i.map(x => x, a);
-    result = i.filter(x => x > 1, a);
+    result = i.map((x) => x, a);
+    result = i.filter((x) => x > 1, a);
 }
 {
     // typescript@3.3

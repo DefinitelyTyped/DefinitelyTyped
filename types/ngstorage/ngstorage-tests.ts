@@ -1,16 +1,16 @@
-import * as angular from "angular";
-import { ngStorage } from "ngstorage";
+import * as angular from 'angular';
+import { ngStorage } from 'ngstorage';
 
 const app: angular.IModule = angular.module('at', ['ngStorage']);
 
 app.controller('LocalCtrl', ($localStorage: ngStorage.StorageService) => {
     if ($localStorage.$supported()) {
         const store: MyStore & ngStorage.StorageService = $localStorage.$default<MyStore>({
-            counter: 1
+            counter: 1,
         });
 
         store.$reset<MyStore>({
-            counter: 1
+            counter: 1,
         });
 
         store.$reset();
@@ -22,11 +22,11 @@ app.controller('LocalCtrl', ($localStorage: ngStorage.StorageService) => {
 app.controller('SessionCtrl', ($sessionStorage: ngStorage.StorageService) => {
     if ($sessionStorage.$supported()) {
         const store: MyStore & ngStorage.StorageService = $sessionStorage.$default<MyStore>({
-            counter: 1
+            counter: 1,
         });
 
         store.$reset<MyStore>({
-            counter: 1
+            counter: 1,
         });
 
         store.$reset();

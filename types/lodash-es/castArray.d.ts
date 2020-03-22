@@ -1,2 +1,2 @@
-import { castArray } from "lodash";
+import { castArray } from 'lodash';
 export default castArray;

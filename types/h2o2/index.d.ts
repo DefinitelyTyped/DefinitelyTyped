@@ -9,14 +9,7 @@
 import http = require('http');
 import Boom = require('boom');
 
-import {
-    Plugin,
-    Request,
-    ResponseObject,
-    ResponseToolkit,
-    Lifecycle,
-    RouteOptions,
-} from 'hapi';
+import { Plugin, Request, ResponseObject, ResponseToolkit, Lifecycle, RouteOptions } from 'hapi';
 
 declare namespace h2o2 {
     /** `mapURI` return value */
@@ -54,7 +47,7 @@ declare namespace h2o2 {
         timeout?: number;
         /** mapUri - a function used to map the request URI to the target `uri` and optional `headers` with which to make that request. Cannot be used together with `host`, `port`, `protocol`, or `uri`.
          * @param request - is the incoming request object.
-        */
+         */
         mapUri?: (this: ProxyHandlerOptions, request: Request) => Promise<ProxyTarget>;
         /**
          * onResponse - a custom function for processing the response from the upstream service before sending to the client. Useful for custom error handling of responses from the proxied endpoint or other payload manipulation.
@@ -65,13 +58,15 @@ declare namespace h2o2 {
          * @param settings - the proxy handler configuration.
          * @param ttl - the upstream TTL in milliseconds if proxy.ttl it set to 'upstream' and the upstream response included a valid 'Cache-Control' header with 'max-age'.
          */
-        onResponse?: (this: RouteOptions,
+        onResponse?: (
+            this: RouteOptions,
             err: null | Boom,
             res: http.IncomingMessage,
             req: Request,
             h: ResponseToolkit,
             settings: ProxyHandlerOptions,
-            ttl: number) => Lifecycle.ReturnValue;
+            ttl: number,
+        ) => Lifecycle.ReturnValue;
         /** ttl - if set to 'upstream', applies the upstream response caching policy to the response using the response.ttl() method (or passed as an argument to the onResponse method if provided). */
         ttl?: 'upstream';
         /** agent - a node http(s) agent to be used for connections to upstream server. @see {@link https://nodejs.org/api/http.html#http_class_http_agent} */

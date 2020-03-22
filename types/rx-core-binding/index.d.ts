@@ -10,8 +10,7 @@ declare namespace Rx {
         hasObservers(): boolean;
     }
 
-    interface Subject<T> extends ISubject<T> {
-    }
+    interface Subject<T> extends ISubject<T> {}
 
     interface SubjectStatic {
         new <T>(): Subject<T>;
@@ -20,8 +19,7 @@ declare namespace Rx {
 
     const Subject: SubjectStatic;
 
-    interface AsyncSubject<T> extends Subject<T> {
-    }
+    interface AsyncSubject<T> extends Subject<T> {}
 
     interface AsyncSubjectStatic {
         new <T>(): AsyncSubject<T>;
@@ -39,8 +37,7 @@ declare namespace Rx {
 
     const BehaviorSubject: BehaviorSubjectStatic;
 
-    interface ReplaySubject<T> extends Subject<T> {
-    }
+    interface ReplaySubject<T> extends Subject<T> {}
 
     interface ReplaySubjectStatic {
         new <T>(bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
@@ -61,7 +58,10 @@ declare namespace Rx {
 
     interface Observable<T> {
         multicast(subject: Observable<T>): ConnectableObservable<T>;
-        multicast<TResult>(subjectSelector: () => ISubject<T>, selector: (source: ConnectableObservable<T>) => Observable<T>): Observable<T>;
+        multicast<TResult>(
+            subjectSelector: () => ISubject<T>,
+            selector: (source: ConnectableObservable<T>) => Observable<T>,
+        ): Observable<T>;
         publish(): ConnectableObservable<T>;
         publish<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>): Observable<TResult>;
         /**
@@ -78,7 +78,10 @@ declare namespace Rx {
         publishLast(): ConnectableObservable<T>;
         publishLast<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>): Observable<TResult>;
         publishValue(initialValue: T): ConnectableObservable<T>;
-        publishValue<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>, initialValue: T): Observable<TResult>;
+        publishValue<TResult>(
+            selector: (source: ConnectableObservable<T>) => Observable<TResult>,
+            initialValue: T,
+        ): Observable<TResult>;
         /**
          * Returns an observable sequence that shares a single subscription to the underlying sequence and starts with an initialValue.
          * This operator is a specialization of publishValue which creates a subscription when the number of observers goes from zero to one,
@@ -91,12 +94,22 @@ declare namespace Rx {
          * @returns An observable sequence that contains the elements of a sequence produced by multicasting the source sequence.
          */
         shareValue(initialValue: T): Observable<T>;
-        replay(selector?: boolean, bufferSize?: number, window?: number, scheduler?: IScheduler): ConnectableObservable<T>;    // hack to catch first omitted parameter
-        replay(selector: (source: ConnectableObservable<T>) => Observable<T>, bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;
+        replay(
+            selector?: boolean,
+            bufferSize?: number,
+            window?: number,
+            scheduler?: IScheduler,
+        ): ConnectableObservable<T>; // hack to catch first omitted parameter
+        replay(
+            selector: (source: ConnectableObservable<T>) => Observable<T>,
+            bufferSize?: number,
+            window?: number,
+            scheduler?: IScheduler,
+        ): Observable<T>;
         shareReplay(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;
     }
 }
 
-declare module "rx-core-binding" {
+declare module 'rx-core-binding' {
     export = Rx;
 }

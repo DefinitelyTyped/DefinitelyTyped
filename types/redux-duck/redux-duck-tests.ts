@@ -83,11 +83,11 @@ const winnieExports = {
     WinnieActions,
     default: winnieBuilder.createReducer<WinnieState>(
         {
-            [WinnieActions.GO_TO_WORK]: state => ({
+            [WinnieActions.GO_TO_WORK]: (state) => ({
                 ...state,
                 home: false,
             }),
-            [WinnieActions.RETURN_HOME]: state => ({
+            [WinnieActions.RETURN_HOME]: (state) => ({
                 ...state,
                 home: true,
             }),
@@ -107,17 +107,17 @@ const alfredExports = {
                 ...state,
                 belly: [...state.belly, food],
             }),
-            [AlfredActions.SLEEP]: state => ({
+            [AlfredActions.SLEEP]: (state) => ({
                 ...state,
                 belly: [],
             }),
             // Winnie's action types are exported and
             // can therefore cause changes in Alfred.
-            [winnieExports.WinnieActions.GO_TO_WORK]: state => ({
+            [winnieExports.WinnieActions.GO_TO_WORK]: (state) => ({
                 ...state,
                 happy: false,
             }),
-            [winnieExports.WinnieActions.RETURN_HOME]: state => ({
+            [winnieExports.WinnieActions.RETURN_HOME]: (state) => ({
                 ...state,
                 happy: true,
             }),

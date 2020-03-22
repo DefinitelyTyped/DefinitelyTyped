@@ -7,10 +7,11 @@ function test_basic_connect() {
 }
 
 function test_connect_config() {
-    const port1 = new SerialPort('', {
-        }, (error: Error) => {});
+    const port1 = new SerialPort('', {}, (error: Error) => {});
 
-    const port4 = new SerialPort('', {
+    const port4 = new SerialPort(
+        '',
+        {
             autoOpen: false,
             lock: false,
             baudRate: 115200,
@@ -23,9 +24,11 @@ function test_connect_config() {
             highWaterMark: 1024,
             bindingOptions: {
                 vmin: 1,
-                vtime: 1
-            }
-        }, (error: Error) => {});
+                vtime: 1,
+            },
+        },
+        (error: Error) => {},
+    );
 }
 
 function test_open() {
@@ -35,7 +38,7 @@ function test_open() {
 
 function test_update() {
     const port = new SerialPort('');
-    port.update({baudRate: 57600});
+    port.update({ baudRate: 57600 });
 }
 
 function test_write() {
@@ -84,7 +87,7 @@ function test_drain() {
 function test_pause_resume() {
     const port = new SerialPort('');
 
-    const pauseItem: SerialPort =  port.pause();
+    const pauseItem: SerialPort = port.pause();
     const resumeItem: SerialPort = port.resume();
 }
 
@@ -103,12 +106,12 @@ function test_binding() {
 function test_parsers() {
     const port = new SerialPort('');
 
-    const ByteLengthParser = new SerialPort.parsers.ByteLength({length: 8});
+    const ByteLengthParser = new SerialPort.parsers.ByteLength({ length: 8 });
     const CCTalkParser = new SerialPort.parsers.CCTalk();
     const DelimiterParser = new SerialPort.parsers.Delimiter({ delimiter: Buffer.from('EOL') });
     const ReadlineParser = new SerialPort.parsers.Readline({ delimiter: '\r\n' });
     const ReadyParser = new SerialPort.parsers.Ready({ data: 'READY' });
-    const RegexParser = new SerialPort.parsers.Regex({regex: /.*/});
+    const RegexParser = new SerialPort.parsers.Regex({ regex: /.*/ });
 
     port.pipe(ByteLengthParser);
     port.pipe(CCTalkParser);

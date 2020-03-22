@@ -47,11 +47,7 @@ export {
     getRefetchableFragment,
     getRequest,
 } from './lib/query/RelayModernGraphQLTag';
-export {
-    isClientID,
-    generateClientID,
-    generateUniqueClientID,
-} from './lib/store/ClientID';
+export { isClientID, generateClientID, generateUniqueClientID } from './lib/store/ClientID';
 export {
     ConnectionEvent,
     ConnectionID,

@@ -9,5 +9,5 @@ render(
     <VisuallyHidden>
         <div>I should be hidden!</div>
     </VisuallyHidden>,
-    document.getElementById('app')
+    document.getElementById('app'),
 );

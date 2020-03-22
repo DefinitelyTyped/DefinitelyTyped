@@ -1,6 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverlistener
-import { Server } from "hapi";
-import * as SocketIO from "socket.io";
+import { Server } from 'hapi';
+import * as SocketIO from 'socket.io';
 
 const server = new Server({
     port: 8000,

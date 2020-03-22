@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { Component, ReactElement } from "react";
-import { MotionProps, PlainStyle, Style } from "react-motion";
+import { Component, ReactElement } from 'react';
+import { MotionProps, PlainStyle, Style } from 'react-motion';
 
 interface ReactMotionLoopProps extends Partial<MotionProps> {
     styleFrom: Style;

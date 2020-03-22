@@ -12,4 +12,42 @@ export interface ApplicationOption extends LegacyWinOptionsInAppOptions {
     webSecurity?: boolean;
     fdc3Api?: boolean;
 }
-export declare type LegacyWinOptionsInAppOptions = Pick<WindowOption, 'accelerator' | 'alwaysOnTop' | 'api' | 'aspectRatio' | 'autoShow' | 'backgroundColor' | 'contentNavigation' | 'contextMenu' | 'cornerRounding' | 'customData' | 'customRequestHeaders' | 'defaultCentered' | 'defaultHeight' | 'defaultLeft' | 'defaultTop' | 'defaultWidth' | 'frame' | 'hideOnClose' | 'icon' | 'maxHeight' | 'maximizable' | 'maxWidth' | 'minHeight' | 'minimizable' | 'minWidth' | 'opacity' | 'preloadScripts' | 'resizable' | 'resizeRegion' | 'saveWindowState' | 'shadow' | 'showTaskbarIcon' | 'smallWindow' | 'state' | 'taskbarIconGroup' | 'waitForPageLoad'>;
+export declare type LegacyWinOptionsInAppOptions = Pick<
+    WindowOption,
+    | 'accelerator'
+    | 'alwaysOnTop'
+    | 'api'
+    | 'aspectRatio'
+    | 'autoShow'
+    | 'backgroundColor'
+    | 'contentNavigation'
+    | 'contextMenu'
+    | 'cornerRounding'
+    | 'customData'
+    | 'customRequestHeaders'
+    | 'defaultCentered'
+    | 'defaultHeight'
+    | 'defaultLeft'
+    | 'defaultTop'
+    | 'defaultWidth'
+    | 'frame'
+    | 'hideOnClose'
+    | 'icon'
+    | 'maxHeight'
+    | 'maximizable'
+    | 'maxWidth'
+    | 'minHeight'
+    | 'minimizable'
+    | 'minWidth'
+    | 'opacity'
+    | 'preloadScripts'
+    | 'resizable'
+    | 'resizeRegion'
+    | 'saveWindowState'
+    | 'shadow'
+    | 'showTaskbarIcon'
+    | 'smallWindow'
+    | 'state'
+    | 'taskbarIconGroup'
+    | 'waitForPageLoad'
+>;

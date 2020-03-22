@@ -123,7 +123,7 @@ export function savePost(options?: Record<string, any>): IterableIterator<void>;
 export function setupEditor(
     post: Record<string, any>,
     edits?: Record<string, any>,
-    template?: TemplateArray
+    template?: TemplateArray,
 ): IterableIterator<void>;
 
 /**

@@ -26,7 +26,12 @@ export class AbstractDataClient extends EventEmitter {
 
     get(keyChain: KeyChain, callback: (err: Error | null, value: any) => void): void;
 
-    getRange(keyChain: KeyChain, fromIndex: number, toIndex: number, callback: (err: Error | null, value: any) => void): void;
+    getRange(
+        keyChain: KeyChain,
+        fromIndex: number,
+        toIndex: number,
+        callback: (err: Error | null, value: any) => void,
+    ): void;
     getRange(keyChain: KeyChain, fromIndex: number, callback: (err: Error | null, value: any) => void): void;
 
     getAll(callback: (err: Error | null, value: any[] | object) => void): void;
@@ -36,7 +41,13 @@ export class AbstractDataClient extends EventEmitter {
     remove(keyChain: KeyChain, getValue?: boolean, callback?: (err?: Error) => void): void;
     remove(keyChain: KeyChain, callback?: (err?: Error) => void): void;
 
-    removeRange(keyChain: KeyChain, fromIndex: number, toIndex?: number, getValue?: boolean, callback?: (err?: Error) => void): void;
+    removeRange(
+        keyChain: KeyChain,
+        fromIndex: number,
+        toIndex?: number,
+        getValue?: boolean,
+        callback?: (err?: Error) => void,
+    ): void;
     removeRange(keyChain: KeyChain, fromIndex: number, toIndex?: number, callback?: (err?: Error) => void): void;
     removeRange(keyChain: KeyChain, fromIndex: number, callback?: (err?: Error) => void): void;
 
@@ -53,7 +64,11 @@ export class AbstractDataClient extends EventEmitter {
 
     extractValues(keyChain: KeyChain): any[];
 
-    exec(query: (datamap: FlexiMap) => void, options?: QueryOptions, callback?: (err: Error | null, data: any) => void): void;
+    exec(
+        query: (datamap: FlexiMap) => void,
+        options?: QueryOptions,
+        callback?: (err: Error | null, data: any) => void,
+    ): void;
     exec(query: (datamap: FlexiMap) => void, callback: (err: Error | null, data: any) => void): void;
 }
 

@@ -101,7 +101,7 @@ export interface RSAACall<State = any, Payload = any, Meta = any> {
     types: [
         RSAARequestType<State, Payload, Meta>,
         RSAASuccessType<State, Payload, Meta>,
-        RSAAFailureType<State, Payload, Meta>
+        RSAAFailureType<State, Payload, Meta>,
     ];
     body?: TypeOrResolver<State, BodyInit | null>;
     headers?: TypeOrResolver<State, HeadersInit>;
@@ -116,12 +116,13 @@ export interface RSAAAction<State = any, Payload = any, Meta = any> {
     [RSAA]: RSAACall<State, Payload, Meta>;
 }
 
-type ValidAction<Payload = never, Meta = never> =
-    { type: string | symbol; error?: false }
-    // The `[Payload] extends [never]` is required to check if generic type is never.
-    // Can't do it with just `Payload extends never`.
-    & ([Payload] extends [never] ? {} : { payload: Payload })
-    & ([Meta] extends [never] ? {} : { meta: Meta });
+type ValidAction<Payload = never, Meta = never> = {
+    type: string | symbol;
+    error?: false;
+} & // The `[Payload] extends [never]` is required to check if generic type is never.
+// Can't do it with just `Payload extends never`.
+([Payload] extends [never] ? {} : { payload: Payload }) &
+    ([Meta] extends [never] ? {} : { meta: Meta });
 
 interface InvalidAction<Payload> {
     type: string | symbol;
@@ -162,4 +163,4 @@ declare module 'redux' {
     }
 }
 
-export { };
+export {};

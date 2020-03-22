@@ -5,5 +5,5 @@ declare namespace CarouselCaption {
         componentClass?: React.ReactType;
     }
 }
-declare class CarouselCaption extends React.Component<CarouselCaption.CarouselCaptionProps> { }
+declare class CarouselCaption extends React.Component<CarouselCaption.CarouselCaptionProps> {}
 export = CarouselCaption;

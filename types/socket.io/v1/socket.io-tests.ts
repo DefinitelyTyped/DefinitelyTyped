@@ -8,16 +8,15 @@ function testUsingWithNodeHTTPServer() {
     app.listen(80);
 
     function handler(req: any, res: any) {
-        fs.readFile(__dirname + '/index.html',
-            function (err: any, data: any) {
-                if (err) {
-                    res.writeHead(500);
-                    return res.end('Error loading index.html');
-                }
+        fs.readFile(__dirname + '/index.html', function (err: any, data: any) {
+            if (err) {
+                res.writeHead(500);
+                return res.end('Error loading index.html');
+            }
 
-                res.writeHead(200);
-                res.end(data);
-            });
+            res.writeHead(200);
+            res.end(data);
+        });
     }
 
     io.on('connection', function (socket) {
@@ -83,24 +82,20 @@ function testSendingAndReceivingEvents() {
 
 function testRestrictingYourselfToANamespace() {
     var io = socketIO.listen(80);
-    var chat = io
-        .of('/chat')
-        .on('connection', function (socket) {
-            socket.emit('a message', {
-                that: 'only'
-                , '/chat': 'will get'
-            });
-            chat.emit('a message', {
-                everyone: 'in'
-                , '/chat': 'will get'
-            });
+    var chat = io.of('/chat').on('connection', function (socket) {
+        socket.emit('a message', {
+            that: 'only',
+            '/chat': 'will get',
         });
+        chat.emit('a message', {
+            everyone: 'in',
+            '/chat': 'will get',
+        });
+    });
 
-    var news = io
-        .of('/news')
-        .on('connection', function (socket) {
-            socket.emit('item', { news: 'item' });
-        });
+    var news = io.of('/news').on('connection', function (socket) {
+        socket.emit('item', { news: 'item' });
+    });
 }
 
 function testSendingVolatileMessages() {
@@ -139,8 +134,8 @@ function testUsingItJustAsACrossBrowserWebSocket() {
     var io = socketIO.listen(80);
 
     io.sockets.on('connection', function (socket) {
-        socket.on('message', function () { });
-        socket.on('disconnect', function () { });
+        socket.on('message', function () {});
+        socket.on('disconnect', function () {});
     });
 }
 
@@ -148,22 +143,21 @@ function testSocketConnection() {
     var io = socketIO.listen(80);
 
     io.sockets.on('connection', function (socket) {
-		console.log(socket.client.conn === socket.conn);
-		console.log(socket.client.request.httpVersion);
-		console.log(socket.conn.id);
-		console.log(socket.conn.upgraded);
-		console.log(socket.conn.readyState);
+        console.log(socket.client.conn === socket.conn);
+        console.log(socket.client.request.httpVersion);
+        console.log(socket.conn.id);
+        console.log(socket.conn.upgraded);
+        console.log(socket.conn.readyState);
 
-		socket.on('packet', function(message :string, ping :string){
-			console.log(message, ping);
-		});;
+        socket.on('packet', function (message: string, ping: string) {
+            console.log(message, ping);
+        });
     });
 }
 
 function testClosingServerWithCallback() {
     var io = socketIO.listen(80);
-    io.close(function() {
-    });
+    io.close(function () {});
 }
 
 function testClosingServerWithoutCallback() {

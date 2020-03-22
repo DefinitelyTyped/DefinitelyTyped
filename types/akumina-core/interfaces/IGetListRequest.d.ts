@@ -1,4 +1,4 @@
-import ILanguageRequest from "./ILanguageRequest";
+import ILanguageRequest from './ILanguageRequest';
 
 // tslint:disable-next-line interface-name
 export default interface IGetListRequest {

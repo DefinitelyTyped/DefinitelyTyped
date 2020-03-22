@@ -16,8 +16,8 @@ function insert_custom_globals() {
     const vars: VarsOption = {
         process(file, basedir) {
             return {
-                id: "path/to/custom_process.js",
-                source: customProcessContent
+                id: 'path/to/custom_process.js',
+                source: customProcessContent,
             };
         },
         Buffer(file, basedir) {
@@ -27,7 +27,7 @@ function insert_custom_globals() {
                 // suffix is optional
                 // it's used to extract the value from the module.
                 // it becomes: require(...).Buffer in this case.
-                suffix: '.Buffer'
+                suffix: '.Buffer',
             };
         },
         Math() {
@@ -35,7 +35,7 @@ function insert_custom_globals() {
             // it's simply set as the value.
             return '{}';
             // ^ any attempt to use Math[x] will throw!
-        }
+        },
     };
 
     function inserter(file: string) {
@@ -55,6 +55,6 @@ function disable_select_globals() {
     });
 
     return insert('index.js', {
-        vars: insertGlobalVars
+        vars: insertGlobalVars,
     });
 }

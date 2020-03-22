@@ -34,7 +34,7 @@ declare namespace WebTorrent {
         getAnnounceOpts?(): void;
         maxWebConns?: number;
         path?: string;
-        store?(chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }): any;
+        store?(chunkLength: number, storeOpts: { length: number; files: File[]; torrent: Torrent }): any;
         name?: string;
     }
 
@@ -42,11 +42,40 @@ declare namespace WebTorrent {
         on(event: 'torrent', callback: (torrent: Torrent) => void): this;
         on(event: 'error', callback: (err: Error | string) => void): this;
 
-        add(torrent: string | Buffer | File | ParseTorrent, opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
+        add(
+            torrent: string | Buffer | File | ParseTorrent,
+            opts?: TorrentOptions,
+            cb?: (torrent: Torrent) => any,
+        ): Torrent;
         add(torrent: string | Buffer | File | ParseTorrent, cb?: (torrent: Torrent) => any): Torrent;
 
-        seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
-        seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], cb?: (torrent: Torrent) => any): Torrent;
+        seed(
+            input:
+                | string
+                | string[]
+                | File
+                | File[]
+                | FileList
+                | Buffer
+                | Buffer[]
+                | NodeJS.ReadableStream
+                | NodeJS.ReadableStream[],
+            opts?: TorrentOptions,
+            cb?: (torrent: Torrent) => any,
+        ): Torrent;
+        seed(
+            input:
+                | string
+                | string[]
+                | File
+                | File[]
+                | FileList
+                | Buffer
+                | Buffer[]
+                | NodeJS.ReadableStream
+                | NodeJS.ReadableStream[],
+            cb?: (torrent: Torrent) => any,
+        ): Torrent;
 
         remove(torrentId: Torrent | string | Buffer, callback?: (err: Error | string) => void): void;
 
@@ -164,21 +193,29 @@ declare namespace WebTorrent {
 
         deselect(): void;
 
-        createReadStream(opts?: { start: number, end: number, }): NodeJS.ReadableStream;
+        createReadStream(opts?: { start: number; end: number }): NodeJS.ReadableStream;
 
         getBuffer(callback: (err: string | Error | undefined, buffer?: Buffer) => void): void;
 
         appendTo(
             rootElement: HTMLElement | string,
-            opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number },
-            callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
-        appendTo(rootElement: HTMLElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
+            opts?: { autoplay?: boolean; controls?: boolean; maxBlobLength?: number },
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void,
+        ): void;
+        appendTo(
+            rootElement: HTMLElement | string,
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void,
+        ): void;
 
         renderTo(
             rootElement: HTMLMediaElement | string,
-            opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number },
-            callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
-        renderTo(rootElement: HTMLMediaElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
+            opts?: { autoplay?: boolean; controls?: boolean; maxBlobLength?: number },
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void,
+        ): void;
+        renderTo(
+            rootElement: HTMLMediaElement | string,
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void,
+        ): void;
 
         getBlob(callback: (err: string | Error | undefined, blob?: Blob) => void): void;
 

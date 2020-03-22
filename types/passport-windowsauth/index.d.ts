@@ -12,22 +12,24 @@ import { TlsOptions } from 'tls';
 declare namespace windowsauth {
     interface Options {
         ldap?: {
-            url?: string
-            maxConnections?: number
-            base?: string
-            bindDN?: string
-            bindCredentials?: string
+            url?: string;
+            maxConnections?: number;
+            base?: string;
+            bindDN?: string;
+            bindCredentials?: string;
             tlsOptions?: TlsOptions;
-            reconnect?: boolean | {
-                initialDelay?: number,
-                maxDelay?: number,
-                failAfter?: number
-            };
+            reconnect?:
+                | boolean
+                | {
+                      initialDelay?: number;
+                      maxDelay?: number;
+                      failAfter?: number;
+                  };
             timeout?: number;
             connectTimeout?: number;
             idleTimeout?: number;
-            binder?: ldapjs.Client
-            client?: ldapjs.Client
+            binder?: ldapjs.Client;
+            client?: ldapjs.Client;
         };
         integrated?: boolean;
         getUserNameFromHeader?(req: express.Request): string;
@@ -41,7 +43,7 @@ declare namespace windowsauth {
 }
 
 declare class windowsauth extends passport.Strategy {
-    constructor(options: windowsauth.Options & {passReqToCallback: true}, verify: windowsauth.VerifyWithReq);
+    constructor(options: windowsauth.Options & { passReqToCallback: true }, verify: windowsauth.VerifyWithReq);
     constructor(options: windowsauth.Options, verify: windowsauth.Verify);
     constructor(verify: windowsauth.Verify);
 }

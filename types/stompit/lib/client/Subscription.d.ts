@@ -1,7 +1,7 @@
-import { Ack, MessageCallback } from "../Client";
-import { Readable, Writable } from "stream";
+import { Ack, MessageCallback } from '../Client';
+import { Readable, Writable } from 'stream';
 
-import Client = require("../Client");
+import Client = require('../Client');
 
 declare class Subscription {
     constructor(id: number, ack: Ack, onMessageCallback: MessageCallback, client: Client);

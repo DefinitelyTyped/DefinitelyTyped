@@ -6,18 +6,9 @@
 
 /// <reference types="node" />
 
-import {
-    Handler as SwToolboxHanlder,
-    Options as SwToolboxOptions,
-} from 'sw-toolbox';
+import { Handler as SwToolboxHanlder, Options as SwToolboxOptions } from 'sw-toolbox';
 
-export type Handler =
-    | 'networkFirst'
-    | 'cacheFirst'
-    | 'fastest'
-    | 'cacheOnly'
-    | 'networkOnly'
-    | SwToolboxHanlder;
+export type Handler = 'networkFirst' | 'cacheFirst' | 'fastest' | 'cacheOnly' | 'networkOnly' | SwToolboxHanlder;
 
 export type Method = 'get' | 'post' | 'put' | 'delete' | 'head';
 
@@ -55,10 +46,7 @@ export interface Options {
 
 export type Generate = (
     options?: Options,
-    callback?: (
-        error: NodeJS.ErrnoException,
-        serviceWorkerString: string,
-    ) => void,
+    callback?: (error: NodeJS.ErrnoException, serviceWorkerString: string) => void,
 ) => Promise<string>;
 
 export type Write = (

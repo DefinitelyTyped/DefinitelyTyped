@@ -1,8 +1,8 @@
-import ParcelBundler, { ParcelOptions } from "parcel-bundler";
+import ParcelBundler, { ParcelOptions } from 'parcel-bundler';
 
 const parcelOption: ParcelOptions = { watch: false };
 
-const files = ["./index.d.ts"];
+const files = ['./index.d.ts'];
 
 const bundler = new ParcelBundler(files, parcelOption);
 
@@ -26,7 +26,7 @@ bundler.addPackager('md', 'markdown-packager');
 
 bundler.middleware();
 
-bundler.bundle().then(bundle => bundle.name);
+bundler.bundle().then((bundle) => bundle.name);
 
 bundler.serve(1234, false, 'localhost').then((server) => server.close());
 

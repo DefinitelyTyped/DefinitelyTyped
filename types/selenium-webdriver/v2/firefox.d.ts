@@ -19,7 +19,6 @@ export class Binary {
      */
     addArguments(...var_args: string[]): void;
 
-
     /**
      * Launches Firefox and eturns a promise that will be fulfilled when the process
      * terminates.
@@ -28,7 +27,6 @@ export class Binary {
      * @throws {Error} If this instance has already been started.
      */
     launch(profile: string): webdriver.promise.Promise<any>;
-
 
     /**
      * Kills the managed Firefox process.
@@ -58,7 +56,6 @@ export class Profile {
      */
     addExtension(extension: string): void;
 
-
     /**
      * Sets a desired preference for this profile.
      * @param {string} key The preference key.
@@ -68,7 +65,6 @@ export class Profile {
     setPreference(key: string, value: string): void;
     setPreference(key: string, value: number): void;
     setPreference(key: string, value: boolean): void;
-
 
     /**
      * Returns the currently configured value of a profile preference. This does
@@ -80,7 +76,6 @@ export class Profile {
      */
     getPreference(key: string): any;
 
-
     /**
      * @return {number} The port this profile is currently configured to use, or
      *     0 if the port will be selected at random when the profile is written
@@ -88,20 +83,17 @@ export class Profile {
      */
     getPort(): number;
 
-
     /**
      * Sets the port to use for the WebDriver extension loaded by this profile.
      * @param {number} port The desired port, or 0 to use any free port.
      */
     setPort(port: number): void;
 
-
     /**
      * @return {boolean} Whether the FirefoxDriver is configured to automatically
      *     accept untrusted SSL certificates.
      */
     acceptUntrustedCerts(): boolean;
-
 
     /**
      * Sets whether the FirefoxDriver should automatically accept untrusted SSL
@@ -110,13 +102,11 @@ export class Profile {
      */
     setAcceptUntrustedCerts(value: boolean): void;
 
-
     /**
      * Sets whether to assume untrusted certificates come from untrusted issuers.
      * @param {boolean} value .
      */
     setAssumeUntrustedCertIssuer(value: boolean): void;
-
 
     /**
      * @return {boolean} Whether to assume untrusted certs come from untrusted
@@ -124,20 +114,17 @@ export class Profile {
      */
     assumeUntrustedCertIssuer(): boolean;
 
-
     /**
      * Sets whether to use native events with this profile.
      * @param {boolean} enabled .
      */
     setNativeEventsEnabled(enabled: boolean): void;
 
-
     /**
      * Returns whether native events are enabled in this profile.
      * @return {boolean} .
      */
     nativeEventsEnabled(): boolean;
-
 
     /**
      * Writes this profile to disk.
@@ -149,7 +136,6 @@ export class Profile {
      *     profile directory.
      */
     writeToDisk(opt_excludeWebDriverExt?: boolean): webdriver.promise.Promise<string>;
-
 
     /**
      * Encodes this profile as a zipped, base64 encoded directory.

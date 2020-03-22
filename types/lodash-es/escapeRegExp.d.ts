@@ -1,2 +1,2 @@
-import { escapeRegExp } from "lodash";
+import { escapeRegExp } from 'lodash';
 export default escapeRegExp;

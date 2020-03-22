@@ -35,7 +35,7 @@ declare namespace ReactCodeMirror {
         /** (DEPRECATED), use `name` */
         path?: string;
         /** Preserve previous scroll position after updating value */
-        preserveScrollPosition?: boolean
+        preserveScrollPosition?: boolean;
         /** The editor value */
         value?: string;
     }
@@ -48,10 +48,10 @@ declare namespace ReactCodeMirror {
         getCodeMirror(): CodeMirror.Editor;
     }
 
-    interface ReactCodeMirrorClass extends React.ComponentClass<ReactCodeMirrorProps> { }
+    interface ReactCodeMirrorClass extends React.ComponentClass<ReactCodeMirrorProps> {}
 }
 
-declare module "react-codemirror" {
+declare module 'react-codemirror' {
     const RCM: ReactCodeMirror.ReactCodeMirrorClass;
     export = RCM;
 }

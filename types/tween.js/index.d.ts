@@ -126,6 +126,6 @@ interface Interpolation {
     };
 }
 
-declare module "@tweenjs/tween.js" {
+declare module '@tweenjs/tween.js' {
     export = TWEEN;
 }

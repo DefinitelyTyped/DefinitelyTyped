@@ -26,7 +26,11 @@ export declare function paths(obj: any, pathExpression: string, count?: number):
  * keys representing the location within `obj`, and a `value` pointing to the matched
  * element. Returns only first `count` nodes if specified.
  */
-export declare function nodes(obj: any, pathExpression: string, count?: number): { path: PathComponent[]; value: any; }[];
+export declare function nodes(
+    obj: any,
+    pathExpression: string,
+    count?: number,
+): { path: PathComponent[]; value: any }[];
 
 /**
  * Returns the value of the first element matching `pathExpression`. If `newValue` is
@@ -46,7 +50,11 @@ export declare function parent(obj: any, pathExpression: string): any;
  * value of the matching element as its only parameter. Returns matching nodes with
  * their updated values.
  */
-export declare function apply(obj: any, pathExpression: string, fn: (x: any) => any): { path: PathComponent[]; value: any; }[];
+export declare function apply(
+    obj: any,
+    pathExpression: string,
+    fn: (x: any) => any,
+): { path: PathComponent[]; value: any }[];
 
 /**
  * Parse the provided JSONPath expression into path components and their associated

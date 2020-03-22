@@ -1,11 +1,4 @@
-import {
-    check,
-    checkSync,
-    lock,
-    lockSync,
-    unlock,
-    unlockSync
-} from 'proper-lockfile';
+import { check, checkSync, lock, lockSync, unlock, unlockSync } from 'proper-lockfile';
 
 (async () => {
     const release = await lock('some/file'); // $ExpectType () => Promise<void>
@@ -17,30 +10,26 @@ import {
     await check('some/file'); // $ExpectType boolean
 })();
 
-lock('some/file')
-    .then((release) => {
-        // Do something while the file is locked
+lock('some/file').then((release) => {
+    // Do something while the file is locked
 
-        // Call the provided release function when you're done,
-        // which will also return a promise
-        return release();
-    });
+    // Call the provided release function when you're done,
+    // which will also return a promise
+    return release();
+});
 
-lock('some/file')
-    .then(() => {
-        // Do something while the file is locked
+lock('some/file').then(() => {
+    // Do something while the file is locked
 
-        // Later..
-        return unlock('some/file');
-    });
+    // Later..
+    return unlock('some/file');
+});
 
-check('some/file')
-    .then((isLocked) => {
-        // isLocked will be true if 'some/file' is locked, false otherwise
-    });
+check('some/file').then((isLocked) => {
+    // isLocked will be true if 'some/file' is locked, false otherwise
+});
 
-lock('', { lockfilePath: 'some/file-lock' })
-    .then((release) => release());
+lock('', { lockfilePath: 'some/file-lock' }).then((release) => release());
 
 const release = lockSync('some/file'); // $ExpectType () => void
 release(); // $ExpectType void

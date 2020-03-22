@@ -44,7 +44,7 @@ declare namespace auth {
         /**
          * The type of token
          */
-        type: 'Basic'|'Bearer';
+        type: 'Basic' | 'Bearer';
         /**
          * The username used in `Basic`
          */

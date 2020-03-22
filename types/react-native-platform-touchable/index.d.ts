@@ -5,8 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import { BackgroundPropType, RippleBackgroundPropType, ThemeAttributeBackgroundPropType, TouchableWithoutFeedbackProps } from "react-native";
+import * as React from 'react';
+import {
+    BackgroundPropType,
+    RippleBackgroundPropType,
+    ThemeAttributeBackgroundPropType,
+    TouchableWithoutFeedbackProps,
+} from 'react-native';
 
 export interface PlatformTouchableProps extends TouchableWithoutFeedbackProps {
     // TouchableOpacity (default iOS)

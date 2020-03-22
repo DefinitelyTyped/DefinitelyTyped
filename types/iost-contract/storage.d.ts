@@ -19,8 +19,7 @@ declare namespace IOSTContract {
         globalMapLen(contract: string, key: string): number;
         globalMapKeys(contract: string, key: string): string[];
     }
-    interface Storage extends LocalStorage, GlobalStorage {
-    }
+    interface Storage extends LocalStorage, GlobalStorage {}
 }
 
 declare const storage: IOSTContract.Storage;

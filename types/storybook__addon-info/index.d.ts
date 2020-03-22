@@ -34,7 +34,7 @@ export interface Options {
     propTablesExclude?: Array<ComponentType<any>>;
     styles?: object;
     components?: {
-        [key: string]: ComponentType<any>
+        [key: string]: ComponentType<any>;
     };
     /**
      * @deprecated "marksyConf" option has been renamed to "components"
@@ -48,10 +48,7 @@ export interface Options {
     excludedPropTypes?: string[];
 }
 
-export function withInfo<A = unknown>(
-    story: StoryFn<A>,
-    context: StoryContext
-): ReturnType<DecoratorFunction<A>>;
+export function withInfo<A = unknown>(story: StoryFn<A>, context: StoryContext): ReturnType<DecoratorFunction<A>>;
 
 // Legacy, but supported
 /**

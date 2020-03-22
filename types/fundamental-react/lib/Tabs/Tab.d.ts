@@ -1,5 +1,5 @@
-import * as React from "react";
-import { IconGlyph } from "../Icon/Icon";
+import * as React from 'react';
+import { IconGlyph } from '../Icon/Icon';
 
 export type TabProps = {
     className?: string;
@@ -15,7 +15,7 @@ export type TabProps = {
 } & { [x: string]: any };
 
 declare const Tab: React.FunctionComponent<TabProps> & {
-    displayName: "Tab";
+    displayName: 'Tab';
 };
 
 export default Tab;

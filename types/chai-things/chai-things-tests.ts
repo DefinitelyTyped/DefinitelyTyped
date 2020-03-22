@@ -1,5 +1,3 @@
-
-
 import * as chai from 'chai';
 import * as chaiThings from 'chai-things';
 chai.use(chaiThings);
@@ -26,10 +24,10 @@ function test_somethingSyntax() {
     chai.expect(array).not.to.include.something.with.property('b', 3);
 
     var array2 = [{ a: 'b' }, { a: 'b' }];
-    array2.should.include.something.that.have.property("a");
-    array2.should.include.something.that.have.property("a").not.equal("d");
-    chai.expect(array2).to.include.something.that.have.property("a");
-    chai.expect(array2).to.include.something.that.have.property("a").not.equal("d");
+    array2.should.include.something.that.have.property('a');
+    array2.should.include.something.that.have.property('a').not.equal('d');
+    chai.expect(array2).to.include.something.that.have.property('a');
+    chai.expect(array2).to.include.something.that.have.property('a').not.equal('d');
 }
 
 function test_somethingVariantsSyntax() {
@@ -73,6 +71,6 @@ function test_allSyntax() {
     array2.should.not.all.not.equal(2);
 
     var array3 = [{ a: 'b' }, { a: 'c' }];
-    array3.should.all.have.property("a");
-    array3.should.all.have.property("a").not.equal("d");
+    array3.should.all.have.property('a');
+    array3.should.all.have.property('a').not.equal('d');
 }

@@ -8,36 +8,34 @@ import { Component, CSSProperties } from 'react';
 import { TooltipHandler, Spec, View } from 'vega-typings';
 
 export interface VegaPropsWithoutSpec {
-  background?: string;
-  className?: string;
-  data?: Record<string, any[]>;
-  enableHover?: boolean;
-  height?: number;
-  logLevel?: number;
-  onNewView?: (view: View) => void;
-  onParseError?: (error: Error) => void;
-  padding?:
-    | number
-    | { left?: number; right?: number; top?: number; bottom?: number };
-  renderer?: string;
-  style?: CSSProperties;
-  tooltip?: TooltipHandler;
-  width?: number;
+    background?: string;
+    className?: string;
+    data?: Record<string, any[]>;
+    enableHover?: boolean;
+    height?: number;
+    logLevel?: number;
+    onNewView?: (view: View) => void;
+    onParseError?: (error: Error) => void;
+    padding?: number | { left?: number; right?: number; top?: number; bottom?: number };
+    renderer?: string;
+    style?: CSSProperties;
+    tooltip?: TooltipHandler;
+    width?: number;
 }
 
 export interface VegaPropsWithSpec extends VegaPropsWithoutSpec {
-  spec: Spec;
+    spec: Spec;
 }
 
 export class VegaWithSpec extends Component<VegaPropsWithoutSpec> {
-         static getSpec(): Spec;
-       }
+    static getSpec(): Spec;
+}
 
 export interface CreateClassFromSpec {
-  (spec: Spec): typeof VegaWithSpec;
-  (name: string, spec: Spec): typeof VegaWithSpec;
+    (spec: Spec): typeof VegaWithSpec;
+    (name: string, spec: Spec): typeof VegaWithSpec;
 }
 
 export default class Vega extends Component<VegaPropsWithSpec> {
-                 static createClassFromSpec: CreateClassFromSpec;
-               }
+    static createClassFromSpec: CreateClassFromSpec;
+}

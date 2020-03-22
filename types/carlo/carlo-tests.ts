@@ -2,7 +2,7 @@ import carlo = require('carlo');
 
 async function main() {
     const app = await carlo.launch({
-        title: 'Test'
+        title: 'Test',
     });
 
     app.browserForTest();
@@ -10,7 +10,7 @@ async function main() {
     const window = await app.createWindow({});
     window.setBounds({
         top: 10,
-        width: 30
+        width: 30,
     });
 }
 
@@ -25,7 +25,7 @@ async function main() {
     app.serveFolder(__dirname);
 
     // Expose 'env' function in the web environment.
-    await app.exposeFunction('env', _ => process.env);
+    await app.exposeFunction('env', (_) => process.env);
 
     // Navigate to the main page of your app.
     await app.load('example.html');

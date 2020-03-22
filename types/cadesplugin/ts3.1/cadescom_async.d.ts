@@ -19,14 +19,11 @@ declare namespace CAdESCOM {
         propset_ContentEncoding(contentEncoding: CADES_Common.ValuesOf<CADESCOM_CONTENT_ENCODING_TYPE>): Promise<void>;
     }
 
-    interface VersionAsync extends CADES_Common.Async<Version> {
-    }
+    interface VersionAsync extends CADES_Common.Async<Version> {}
 
-    interface AboutAsync extends CADES_Common.Async<About> {
-    }
+    interface AboutAsync extends CADES_Common.Async<About> {}
 
-    interface CPSignersAsync extends CADES_Common.Async<CPSigners> {
-    }
+    interface CPSignersAsync extends CADES_Common.Async<CPSigners> {}
 
     interface SignedXMLAsync extends CADES_Common.Async<SignedXML> {
         propset_Content(content: string): Promise<void>;
@@ -52,6 +49,5 @@ declare namespace CAdESCOM {
         propset_ValueEncoding(valueEncoding: CADES_Common.ValuesOf<CAPICOM.CAPICOM_ENCODING_TYPE>): Promise<void>;
     }
 
-    interface RawSignatureAsync extends CADES_Common.Async<RawSignature> {
-    }
+    interface RawSignatureAsync extends CADES_Common.Async<RawSignature> {}
 }

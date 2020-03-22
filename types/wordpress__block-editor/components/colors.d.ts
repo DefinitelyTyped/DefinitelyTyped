@@ -24,7 +24,7 @@ import { EditorColor } from '../';
  * ```
  */
 export function createCustomColorsHOC<T extends string[]>(
-    colorsArray: EditorColor[]
+    colorsArray: EditorColor[],
 ): (...colorNames: T) => (component: ComponentType<any>) => ComponentType<any>;
 
 /**
@@ -36,7 +36,7 @@ export function createCustomColorsHOC<T extends string[]>(
 export function getColorClassName(colorContextName: string, colorSlug: string): string;
 export function getColorClassName(
     colorContextName: string | undefined,
-    colorSlug: string | undefined
+    colorSlug: string | undefined,
 ): string | undefined;
 
 /**
@@ -55,7 +55,7 @@ export function getColorClassName(
 export function getColorObjectByAttributeValues(
     colors: EditorColor[],
     definedColor: string | undefined,
-    customColor: string
+    customColor: string,
 ): EditorColor | Pick<EditorColor, 'color'>;
 
 /**
@@ -65,7 +65,10 @@ export function getColorObjectByAttributeValues(
  * @param colors - Array of color objects as set by the theme or by the editor defaults.
  * @param colorValue - A string containing the color value.
  */
-export function getColorObjectByColorValue(colors: EditorColor[], colorValue: string | undefined): EditorColor | undefined;
+export function getColorObjectByColorValue(
+    colors: EditorColor[],
+    colorValue: string | undefined,
+): EditorColor | undefined;
 
 /**
  * A higher-order component, which handles color logic for class generation color value, retrieval and color attribute setting.

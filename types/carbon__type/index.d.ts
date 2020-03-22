@@ -61,17 +61,17 @@ export const code02: {
 };
 
 export const display01: {
-    "@media (min-width: 42rem)": {
+    '@media (min-width: 42rem)': {
         fontSize: string;
     };
-    "@media (min-width: 66rem)": {
+    '@media (min-width: 66rem)': {
         fontSize: string;
     };
-    "@media (min-width: 82rem)": {
+    '@media (min-width: 82rem)': {
         fontSize: string;
         lineHeight: string;
     };
-    "@media (min-width: 99rem)": {
+    '@media (min-width: 99rem)': {
         fontSize: string;
         lineHeight: string;
     };
@@ -83,17 +83,17 @@ export const display01: {
 };
 
 export const display02: {
-    "@media (min-width: 42rem)": {
+    '@media (min-width: 42rem)': {
         fontSize: string;
     };
-    "@media (min-width: 66rem)": {
+    '@media (min-width: 66rem)': {
         fontSize: string;
     };
-    "@media (min-width: 82rem)": {
+    '@media (min-width: 82rem)': {
         fontSize: string;
         lineHeight: string;
     };
-    "@media (min-width: 99rem)": {
+    '@media (min-width: 99rem)': {
         fontSize: string;
         lineHeight: string;
     };
@@ -105,20 +105,20 @@ export const display02: {
 };
 
 export const display03: {
-    "@media (min-width: 42rem)": {
+    '@media (min-width: 42rem)': {
         fontSize: string;
         lineHeight: string;
     };
-    "@media (min-width: 66rem)": {
+    '@media (min-width: 66rem)': {
         fontSize: string;
         letterSpacing: string;
         lineHeight: string;
     };
-    "@media (min-width: 82rem)": {
+    '@media (min-width: 82rem)': {
         fontSize: string;
         lineHeight: string;
     };
-    "@media (min-width: 99rem)": {
+    '@media (min-width: 99rem)': {
         fontSize: string;
         letterSpacing: string;
         lineHeight: string;
@@ -131,21 +131,21 @@ export const display03: {
 };
 
 export const display04: {
-    "@media (min-width: 42rem)": {
+    '@media (min-width: 42rem)': {
         fontSize: string;
         lineHeight: string;
     };
-    "@media (min-width: 66rem)": {
-        fontSize: string;
-        letterSpacing: string;
-        lineHeight: string;
-    };
-    "@media (min-width: 82rem)": {
+    '@media (min-width: 66rem)': {
         fontSize: string;
         letterSpacing: string;
         lineHeight: string;
     };
-    "@media (min-width: 99rem)": {
+    '@media (min-width: 82rem)': {
+        fontSize: string;
+        letterSpacing: string;
+        lineHeight: string;
+    };
+    '@media (min-width: 99rem)': {
         fontSize: string;
         letterSpacing: string;
         lineHeight: string;
@@ -158,11 +158,11 @@ export const display04: {
 };
 
 export const expressiveHeading04: {
-    "@media (min-width: 82rem)": {
+    '@media (min-width: 82rem)': {
         fontSize: string;
         lineHeight: string;
     };
-    "@media (min-width: 99rem)": {
+    '@media (min-width: 99rem)': {
         fontSize: string;
     };
     fontFamily: string;
@@ -173,28 +173,28 @@ export const expressiveHeading04: {
 };
 
 export const expressiveHeading05: {
-    "@media (min-width: 42rem)": {
+    '@media (min-width: 42rem)': {
         fontFamily: string;
         fontSize: string;
         fontWeight: number;
         letterSpacing: number;
         lineHeight: string;
     };
-    "@media (min-width: 66rem)": {
+    '@media (min-width: 66rem)': {
         fontFamily: string;
         fontSize: string;
         fontWeight: number;
         letterSpacing: number;
         lineHeight: string;
     };
-    "@media (min-width: 82rem)": {
+    '@media (min-width: 82rem)': {
         fontFamily: string;
         fontSize: string;
         fontWeight: number;
         letterSpacing: number;
         lineHeight: string;
     };
-    "@media (min-width: 99rem)": {
+    '@media (min-width: 99rem)': {
         fontFamily: string;
         fontSize: string;
         fontWeight: number;
@@ -295,27 +295,27 @@ export const productiveHeading05: {
 };
 
 export const quotation01: {
-    "@media (min-width: 42rem)": {
+    '@media (min-width: 42rem)': {
         fontFamily: string;
         fontSize: string;
         fontWeight: number;
         letterSpacing: number;
     };
-    "@media (min-width: 66rem)": {
-        fontFamily: string;
-        fontSize: string;
-        fontWeight: number;
-        letterSpacing: number;
-        lineHeight: string;
-    };
-    "@media (min-width: 82rem)": {
+    '@media (min-width: 66rem)': {
         fontFamily: string;
         fontSize: string;
         fontWeight: number;
         letterSpacing: number;
         lineHeight: string;
     };
-    "@media (min-width: 99rem)": {
+    '@media (min-width: 82rem)': {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        letterSpacing: number;
+        lineHeight: string;
+    };
+    '@media (min-width: 99rem)': {
         fontFamily: string;
         fontSize: string;
         fontWeight: number;
@@ -330,19 +330,19 @@ export const quotation01: {
 };
 
 export const quotation02: {
-    "@media (min-width: 42rem)": {
+    '@media (min-width: 42rem)': {
         fontSize: string;
         lineHeight: string;
     };
-    "@media (min-width: 66rem)": {
+    '@media (min-width: 66rem)': {
         fontSize: string;
         lineHeight: string;
     };
-    "@media (min-width: 82rem)": {
+    '@media (min-width: 82rem)': {
         fontSize: string;
         lineHeight: string;
     };
-    "@media (min-width: 99rem)": {
+    '@media (min-width: 99rem)': {
         fontSize: string;
     };
     fontFamily: string;
@@ -354,8 +354,8 @@ export const quotation02: {
 
 export const reset: {
     body: {
-        "-moz-osx-font-smoothing": string;
-        "-webkit-font-smoothing": string;
+        '-moz-osx-font-smoothing': string;
+        '-webkit-font-smoothing': string;
         fontFamily: string;
         fontWeight: number;
         textRendering: string;
@@ -430,17 +430,17 @@ export const styles: {
         lineHeight: string;
     };
     display01: {
-        "@media (min-width: 42rem)": {
+        '@media (min-width: 42rem)': {
             fontSize: string;
         };
-        "@media (min-width: 66rem)": {
+        '@media (min-width: 66rem)': {
             fontSize: string;
         };
-        "@media (min-width: 82rem)": {
+        '@media (min-width: 82rem)': {
             fontSize: string;
             lineHeight: string;
         };
-        "@media (min-width: 99rem)": {
+        '@media (min-width: 99rem)': {
             fontSize: string;
             lineHeight: string;
         };
@@ -451,17 +451,17 @@ export const styles: {
         lineHeight: string;
     };
     display02: {
-        "@media (min-width: 42rem)": {
+        '@media (min-width: 42rem)': {
             fontSize: string;
         };
-        "@media (min-width: 66rem)": {
+        '@media (min-width: 66rem)': {
             fontSize: string;
         };
-        "@media (min-width: 82rem)": {
+        '@media (min-width: 82rem)': {
             fontSize: string;
             lineHeight: string;
         };
-        "@media (min-width: 99rem)": {
+        '@media (min-width: 99rem)': {
             fontSize: string;
             lineHeight: string;
         };
@@ -472,20 +472,20 @@ export const styles: {
         lineHeight: string;
     };
     display03: {
-        "@media (min-width: 42rem)": {
+        '@media (min-width: 42rem)': {
             fontSize: string;
             lineHeight: string;
         };
-        "@media (min-width: 66rem)": {
+        '@media (min-width: 66rem)': {
             fontSize: string;
             letterSpacing: string;
             lineHeight: string;
         };
-        "@media (min-width: 82rem)": {
+        '@media (min-width: 82rem)': {
             fontSize: string;
             lineHeight: string;
         };
-        "@media (min-width: 99rem)": {
+        '@media (min-width: 99rem)': {
             fontSize: string;
             letterSpacing: string;
             lineHeight: string;
@@ -497,21 +497,21 @@ export const styles: {
         lineHeight: string;
     };
     display04: {
-        "@media (min-width: 42rem)": {
+        '@media (min-width: 42rem)': {
             fontSize: string;
             lineHeight: string;
         };
-        "@media (min-width: 66rem)": {
-            fontSize: string;
-            letterSpacing: string;
-            lineHeight: string;
-        };
-        "@media (min-width: 82rem)": {
+        '@media (min-width: 66rem)': {
             fontSize: string;
             letterSpacing: string;
             lineHeight: string;
         };
-        "@media (min-width: 99rem)": {
+        '@media (min-width: 82rem)': {
+            fontSize: string;
+            letterSpacing: string;
+            lineHeight: string;
+        };
+        '@media (min-width: 99rem)': {
             fontSize: string;
             letterSpacing: string;
             lineHeight: string;
@@ -523,11 +523,11 @@ export const styles: {
         lineHeight: string;
     };
     expressiveHeading04: {
-        "@media (min-width: 82rem)": {
+        '@media (min-width: 82rem)': {
             fontSize: string;
             lineHeight: string;
         };
-        "@media (min-width: 99rem)": {
+        '@media (min-width: 99rem)': {
             fontSize: string;
         };
         fontFamily: string;
@@ -537,28 +537,28 @@ export const styles: {
         lineHeight: string;
     };
     expressiveHeading05: {
-        "@media (min-width: 42rem)": {
+        '@media (min-width: 42rem)': {
             fontFamily: string;
             fontSize: string;
             fontWeight: number;
             letterSpacing: number;
             lineHeight: string;
         };
-        "@media (min-width: 66rem)": {
+        '@media (min-width: 66rem)': {
             fontFamily: string;
             fontSize: string;
             fontWeight: number;
             letterSpacing: number;
             lineHeight: string;
         };
-        "@media (min-width: 82rem)": {
+        '@media (min-width: 82rem)': {
             fontFamily: string;
             fontSize: string;
             fontWeight: number;
             letterSpacing: number;
             lineHeight: string;
         };
-        "@media (min-width: 99rem)": {
+        '@media (min-width: 99rem)': {
             fontFamily: string;
             fontSize: string;
             fontWeight: number;
@@ -636,27 +636,27 @@ export const styles: {
         lineHeight: string;
     };
     quotation01: {
-        "@media (min-width: 42rem)": {
+        '@media (min-width: 42rem)': {
             fontFamily: string;
             fontSize: string;
             fontWeight: number;
             letterSpacing: number;
         };
-        "@media (min-width: 66rem)": {
-            fontFamily: string;
-            fontSize: string;
-            fontWeight: number;
-            letterSpacing: number;
-            lineHeight: string;
-        };
-        "@media (min-width: 82rem)": {
+        '@media (min-width: 66rem)': {
             fontFamily: string;
             fontSize: string;
             fontWeight: number;
             letterSpacing: number;
             lineHeight: string;
         };
-        "@media (min-width: 99rem)": {
+        '@media (min-width: 82rem)': {
+            fontFamily: string;
+            fontSize: string;
+            fontWeight: number;
+            letterSpacing: number;
+            lineHeight: string;
+        };
+        '@media (min-width: 99rem)': {
             fontFamily: string;
             fontSize: string;
             fontWeight: number;
@@ -670,19 +670,19 @@ export const styles: {
         lineHeight: string;
     };
     quotation02: {
-        "@media (min-width: 42rem)": {
+        '@media (min-width: 42rem)': {
             fontSize: string;
             lineHeight: string;
         };
-        "@media (min-width: 66rem)": {
+        '@media (min-width: 66rem)': {
             fontSize: string;
             lineHeight: string;
         };
-        "@media (min-width: 82rem)": {
+        '@media (min-width: 82rem)': {
             fontSize: string;
             lineHeight: string;
         };
-        "@media (min-width: 99rem)": {
+        '@media (min-width: 99rem)': {
             fontSize: string;
         };
         fontFamily: string;
@@ -694,13 +694,13 @@ export const styles: {
 };
 
 export function fontFamily(
-    name: string
+    name: string,
 ): {
     fontFamily: string;
 };
 
 export function fontWeight(
-    weight: string
+    weight: string,
 ): {
     fontWeight: number;
 };

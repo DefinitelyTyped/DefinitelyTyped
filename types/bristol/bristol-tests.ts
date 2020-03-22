@@ -7,11 +7,11 @@ bristol.addTarget('console').withFormatter('human');
 bristol.debug('Hello, world', { code: 404 });
 
 const uhoh = {
-  code: 500,
-  error: {
-    message: 'Something broke',
-    reason: 'idk why though',
-  },
+    code: 500,
+    error: {
+        message: 'Something broke',
+        reason: 'idk why though',
+    },
 };
 
 bristol.error('Something went wrong', uhoh);

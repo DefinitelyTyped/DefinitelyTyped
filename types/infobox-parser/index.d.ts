@@ -13,9 +13,6 @@ interface ParseResult {
     tables: any[];
 }
 
-declare function infobox_parser(
-    source: string,
-    options?: ParseOptions
-): ParseResult;
+declare function infobox_parser(source: string, options?: ParseOptions): ParseResult;
 
 export = infobox_parser;

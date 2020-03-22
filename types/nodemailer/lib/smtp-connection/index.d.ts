@@ -210,9 +210,19 @@ declare class SMTPConnection extends EventEmitter {
     /** Closes the connection to the server */
     close(): void;
     /** Authenticate user */
-    login(auth: SMTPConnection.AuthenticationCredentials | SMTPConnection.AuthenticationOAuth2 | SMTPConnection.Credentials, callback: (err?: SMTPConnection.SMTPError) => void): void;
+    login(
+        auth:
+            | SMTPConnection.AuthenticationCredentials
+            | SMTPConnection.AuthenticationOAuth2
+            | SMTPConnection.Credentials,
+        callback: (err?: SMTPConnection.SMTPError) => void,
+    ): void;
     /** Sends a message */
-    send(envelope: SMTPConnection.Envelope, message: string | Buffer | Readable, callback: (err: SMTPConnection.SMTPError | null, info: SMTPConnection.SentMessageInfo) => void): void;
+    send(
+        envelope: SMTPConnection.Envelope,
+        message: string | Buffer | Readable,
+        callback: (err: SMTPConnection.SMTPError | null, info: SMTPConnection.SentMessageInfo) => void,
+    ): void;
     /** Resets connection state */
     reset(callback: (err?: SMTPConnection.SMTPError) => void): void;
 

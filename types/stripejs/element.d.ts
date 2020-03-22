@@ -1,4 +1,4 @@
-import { StripeError } from "./index";
+import { StripeError } from './index';
 
 export interface ElementFactory {
     /**
@@ -32,7 +32,7 @@ export interface ElementFactory {
      */
     create(
         type: ElementType,
-        options: CardElementOptions | IBANElementOptions | IdealBankOptions | PaymentButtonOptions
+        options: CardElementOptions | IBANElementOptions | IdealBankOptions | PaymentButtonOptions,
     ): StripeElement;
 }
 
@@ -289,10 +289,10 @@ export interface PaymentButtonOptions {
      * particular state.
      */
     classes?: {
-        base?: string; /** @default StripeElement */
-        complete?: string; /** @default StripeElement--complete */
-        focus: string; /** @default StripeElement--focus */
-        invalid: string; /** @default StripeElement--invalid */
+        base?: string /** @default StripeElement */;
+        complete?: string /** @default StripeElement--complete */;
+        focus: string /** @default StripeElement--focus */;
+        invalid: string /** @default StripeElement--invalid */;
     };
 
     style?: {
@@ -334,12 +334,12 @@ export interface BaseOptions {
      * particular state.
      */
     classes?: {
-        base?: string; /** @default StripeElement */
-        complete?: string; /** @default StripeElement--complete */
-        empty?: string; /** @default StripeElement--empty */
-        focus?: string; /** @default StripeElement--focus */
-        invalid?: string; /** @default StripeElement--invalid */
-        webkitAutofill?: string; /** @default StripeElement--webkit-autofill */
+        base?: string /** @default StripeElement */;
+        complete?: string /** @default StripeElement--complete */;
+        empty?: string /** @default StripeElement--empty */;
+        focus?: string /** @default StripeElement--focus */;
+        invalid?: string /** @default StripeElement--invalid */;
+        webkitAutofill?: string /** @default StripeElement--webkit-autofill */;
     };
 
     /**

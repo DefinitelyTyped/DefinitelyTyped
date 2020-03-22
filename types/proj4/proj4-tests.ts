@@ -51,7 +51,10 @@ proj4(firstProjection, secondProjection).inverse(pointObj);
 proj4.defs('WGS84');
 proj4.defs('WGS84', secondProjection);
 // $ExpectType undefined[]
-proj4.defs([['EPSG:4326', secondProjection], ['EPSG:4269', firstProjection]]);
+proj4.defs([
+    ['EPSG:4326', secondProjection],
+    ['EPSG:4269', firstProjection],
+]);
 proj4.defs('urn:x-ogc:def:crs:EPSG:4326', proj4.defs('EPSG:4326'));
 
 ///////////////////////////////////

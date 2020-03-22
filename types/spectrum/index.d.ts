@@ -8,29 +8,28 @@
 /// <reference types="tinycolor2"/>
 
 interface JQuery {
-
     /**
      * Shows the colorpicker.
      */
-    spectrum(methodName: "show"): JQuery;
+    spectrum(methodName: 'show'): JQuery;
 
     /**
      * Hides the colorpicker.
      */
-    spectrum(methodName: "hide"): JQuery;
+    spectrum(methodName: 'hide'): JQuery;
 
     /**
-    * Toggles the colorpicker.
-    *
-    * Warning: If you are calling toggle from a click handler,
-    *   make sure you return false to prevent the colorpicker from immediately hiding after it is toggled.
-    */
-    spectrum(methodName: "toggle"): JQuery;
+     * Toggles the colorpicker.
+     *
+     * Warning: If you are calling toggle from a click handler,
+     *   make sure you return false to prevent the colorpicker from immediately hiding after it is toggled.
+     */
+    spectrum(methodName: 'toggle'): JQuery;
 
     /**
      * Gets the current value from the colorpicker.
      */
-    spectrum(methodName: "get"): tinycolor.Instance;
+    spectrum(methodName: 'get'): tinycolor.Instance;
 
     /**
      * Sets the colorpickers value to update the original input.
@@ -39,45 +38,45 @@ interface JQuery {
      *
      * @param colorString- the new color for the colorpicker.
      */
-    spectrum(methodName: "set", colorString?: string): JQuery;
+    spectrum(methodName: 'set', colorString?: string): JQuery;
 
     /**
      * Retrieves the container element of the colorpicker,
      * in case you want to manaully position it or do other things.
      */
-    spectrum(methodName: "container"): JQuery;
+    spectrum(methodName: 'container'): JQuery;
 
     /**
      * Resets the positioning of the container element.
      * This could be used if the colorpicker was hidden when initialized,
      * or if the colorpicker is inside of a moving area.
      */
-    spectrum(methodName: "reflow"): JQuery;
+    spectrum(methodName: 'reflow'): JQuery;
 
     /**
      * Removes the colorpicker functionality and restores the element to its original state.
      */
-    spectrum(methodName: "destroy"): JQuery;
+    spectrum(methodName: 'destroy'): JQuery;
 
     /**
      * Allows selection of the colorpicker component. if it is already enabled, this method does nothing.
      * Additionally, this will cause the original (now hidden) input to be set as disabled.
      */
-    spectrum(methodName: "enable"): JQuery;
+    spectrum(methodName: 'enable'): JQuery;
 
     /**
      * Disables selection of the colorpicker component. adds the sp-disabled class onto the replacer element.
      * If it is already disabled, this method does nothing.
      * Additionally, this will remove the disabled property on the original (now hidden).
      */
-    spectrum(methodName: "disable"): JQuery;
+    spectrum(methodName: 'disable'): JQuery;
 
     /**
      * Retrieves the current value for the option name.
      *
      * @param optionName- the option to retrieve the value for.
      */
-    spectrum(methodName: "option", optionName?: string): JQuery;
+    spectrum(methodName: 'option', optionName?: string): JQuery;
 
     /**
      * Sets the value of the option name with the value passed in.
@@ -85,7 +84,7 @@ interface JQuery {
      * @param optionName- the option to set.
      * @param newOptionvalue- the new value for the option.
      */
-    spectrum(methodName: "option", optionName?: string, newOptionValue?: any): JQuery;
+    spectrum(methodName: 'option', optionName?: string, newOptionValue?: any): JQuery;
 
     /**
      * Calls the method.
@@ -101,18 +100,22 @@ interface JQuery {
     /**
      * Called at the beginning of a drag event on either hue slider, alpha slider, or main color picker areas.
      */
-    on(events: "dragstart.spectrum", handler: (eventObject: JQueryEventObject, color: tinycolor.Instance) => any): JQuery;
+    on(
+        events: 'dragstart.spectrum',
+        handler: (eventObject: JQueryEventObject, color: tinycolor.Instance) => any,
+    ): JQuery;
 
     /**
      * Called at the end of a drag event on either hue slider, alpha slider, or main color picker areas.
      */
-    on(events: "dragstop.spectrum", handler: (eventObject: JQueryEventObject, color: tinycolor.Instance) => any): JQuery;
+    on(
+        events: 'dragstop.spectrum',
+        handler: (eventObject: JQueryEventObject, color: tinycolor.Instance) => any,
+    ): JQuery;
 }
 
 declare namespace Spectrum {
-
     interface Options {
-
         /**
          * The initial color can be set with the color option.
          * if you don't pass in a color, Spectrum will use the value attribute on the input.
@@ -249,7 +252,7 @@ declare namespace Spectrum {
          * Changing this can help resolve issues with opening the colorpicker in a modal dialog
          * or fixed position container, for instance.
          */
-        appendTo?: any //same as JQuery appendTo : JQuery| any[] | Element| string
+        appendTo?: any; //same as JQuery appendTo : JQuery| any[] | Element| string
 
         /**
          * Sets the max size for the palette.

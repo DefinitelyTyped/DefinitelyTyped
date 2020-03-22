@@ -15,7 +15,7 @@ declare const hello: hello.HelloJSStatic;
 declare namespace hello {
     interface HelloJSUtils {
         extend(r: object, ...a: any[]): any;
-        error(code: number, message: string): { code: number, message: string };
+        error(code: number, message: string): { code: number; message: string };
         qs(url: string, params?: object, formatFunction?: (param: any) => string): string;
         param(o: object, formatFunction?: (param: any) => string): string;
         param(s: string, formatFunction?: (param: string) => any): any;
@@ -44,7 +44,14 @@ declare namespace hello {
         clone<T>(obj: T): T;
         xhr(method: string, url: string, headers: object, data: any, callback: HelloJSResponseCallback): XMLHttpRequest;
         jsonp(url: string, callback: () => void, callbackID?: string, timeout?: number): void;
-        post(url: string, data: any, options: object, callback: HelloJSResponseCallback, callbackID?: string, timeout?: number): void;
+        post(
+            url: string,
+            data: any,
+            options: object,
+            callback: HelloJSResponseCallback,
+            callbackID?: string,
+            timeout?: number,
+        ): void;
         hasBinary(data: any): boolean;
         isBinary(data: any): boolean;
         toBlob(dataURI: string): Blob | string;
@@ -55,16 +62,16 @@ declare namespace hello {
     type HelloJSResponseCallback = (r: any, headers: any) => void;
 
     type HelloJSTokenResponseType =
-        "code"
-        | "code id_token"
-        | "code id_token token"
-        | "code token"
-        | "id_token"
-        | "id_token token"
-        | "none"
-        | "token";
+        | 'code'
+        | 'code id_token'
+        | 'code id_token token'
+        | 'code token'
+        | 'id_token'
+        | 'id_token token'
+        | 'none'
+        | 'token';
 
-    type HelloJSDisplayType = "popup" | "page" | "none";
+    type HelloJSDisplayType = 'popup' | 'page' | 'none';
 
     interface HelloJSLoginOptions {
         redirect_uri?: string;
@@ -125,11 +132,15 @@ declare namespace hello {
     }
 
     interface HelloJSStatic extends HelloJSEvent {
-        init(serviceAppIds: { [id: string]: string; }, options?: HelloJSLoginOptions): void;
-        init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
+        init(serviceAppIds: { [id: string]: string }, options?: HelloJSLoginOptions): void;
+        init(servicesDef: { [id: string]: HelloJSServiceDef }): void;
         login(callback: () => void): PromiseLike<HelloJSLoginEventArguement>;
         login(options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
-        login(network?: string, options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
+        login(
+            network?: string,
+            options?: HelloJSLoginOptions,
+            callback?: () => void,
+        ): PromiseLike<HelloJSLoginEventArguement>;
         logout(callback?: () => void): PromiseLike<any>;
         logout(options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
         logout(network?: string, options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
@@ -139,7 +150,14 @@ declare namespace hello {
         utils: HelloJSUtils;
         api(options: object): PromiseLike<any>;
         api(path?: string, method?: string, data?: object, callback?: (json: any) => void): PromiseLike<any>;
-        api(path?: string, query?: object, method?: string, data?: object, timeout?: number, callback?: (json: any) => void): PromiseLike<any>;
+        api(
+            path?: string,
+            query?: object,
+            method?: string,
+            data?: object,
+            timeout?: number,
+            callback?: (json: any) => void,
+        ): PromiseLike<any>;
     }
 
     interface HelloJSOAuthDef {
@@ -162,7 +180,7 @@ declare namespace hello {
     interface HelloJSServiceDef {
         name?: string;
         oauth: HelloJSOAuth2Def | HelloJSOAuth1Def;
-        scope?: { [id: string]: string; };
+        scope?: { [id: string]: string };
         scope_delim?: string;
         refresh?: boolean;
         base?: string;
@@ -172,7 +190,7 @@ declare namespace hello {
         del?: { [id: string]: string | HelloJSUrlMappingFunction };
         put?: { [id: string]: string | HelloJSUrlMappingFunction };
         patch?: { [id: string]: string | HelloJSUrlMappingFunction };
-        wrap?: { [id: string]: (r: any, headers: any, p: any) => void; };
+        wrap?: { [id: string]: (r: any, headers: any, p: any) => void };
         xhr?(p: any, query: any): void;
         jsonp?: ((p: any, query: any) => void) | boolean;
         form?: ((p: any, query: any) => void) | boolean;

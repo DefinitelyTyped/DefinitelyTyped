@@ -1,4 +1,4 @@
-import { Disposable, CompositeDisposable, Emitter } from "event-kit";
+import { Disposable, CompositeDisposable, Emitter } from 'event-kit';
 
 declare let bool: boolean;
 declare let subscription: Disposable;
@@ -15,13 +15,13 @@ class User {
     }
 
     onDidChangeName(callback: (value: string) => void) {
-        return this.emitter.on("did-change-name", callback);
+        return this.emitter.on('did-change-name', callback);
     }
 
     setName(name: string) {
         if (name !== this.name) {
             this.name = name;
-            this.emitter.emit("did-change-name", name);
+            this.emitter.emit('did-change-name', name);
         }
         return name;
     }
@@ -32,7 +32,7 @@ class User {
 }
 
 const user = new User();
-subscription = user.onDidChangeName(name => console.log("My name is #{name}"));
+subscription = user.onDidChangeName((name) => console.log('My name is #{name}'));
 subscription.dispose();
 
 // Disposable =================================================================
@@ -54,10 +54,7 @@ subscriptions.dispose();
 
 // Managing Disposables
 subscriptions.add(subscription);
-subscriptions.add(
-    subscription,
-    { dispose() {} }
-);
+subscriptions.add(subscription, { dispose() {} });
 
 subscriptions.remove(subscription);
 subscriptions.remove({ dispose() {} });
@@ -74,15 +71,15 @@ emitter.clear();
 emitter.dispose();
 
 // Event Subscription
-subscription = emitter.on("test-event", value => {});
-emitter.once("test-event", value => {});
-subscription = emitter.preempt("test-event", value => {});
+subscription = emitter.on('test-event', (value) => {});
+emitter.once('test-event', (value) => {});
+subscription = emitter.preempt('test-event', (value) => {});
 
 // Event Emission
-emitter.emit("test-event");
-emitter.emit("test-event", 42);
+emitter.emit('test-event');
+emitter.emit('test-event', 42);
 
 async function testEmitAsync() {
-    await emitter.emitAsync("test-event");
-    await emitter.emitAsync("test-event", 42);
+    await emitter.emitAsync('test-event');
+    await emitter.emitAsync('test-event', 42);
 }

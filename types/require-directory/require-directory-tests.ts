@@ -1,6 +1,6 @@
-import requireDirectory = require("require-directory");
-import { defaults } from "require-directory";
-import { CheckPathFn, RequireDirectoryOptions, RequireDirectoryResult } from "require-directory";
+import requireDirectory = require('require-directory');
+import { defaults } from 'require-directory';
+import { CheckPathFn, RequireDirectoryOptions, RequireDirectoryResult } from 'require-directory';
 
 const requiredModules1 = requireDirectory(module);
 const requiredModules2 = requireDirectory(module, 'subdirectory');
@@ -10,7 +10,7 @@ const requiredModules3 = requireDirectory(module, 'subdirectory', {
     extensions: ['js', 'json', 'ts'],
     recurse: true,
     rename: (name) => name,
-    visit: (obj: { foo: number, bar: number}) => obj.foo + obj.bar
+    visit: (obj: { foo: number; bar: number }) => obj.foo + obj.bar,
 });
 const someModule1 = requiredModules3['someModule'];
 if (typeof someModule1 === 'number') {
@@ -24,9 +24,7 @@ if (typeof someModule1 === 'number') {
 
 class TestClass {
     baz = 'baz';
-    constructor(
-        public foo: number,
-        public bar: number) { }
+    constructor(public foo: number, public bar: number) {}
 }
 const requiredModules4 = requireDirectory(module, {
     exclude: /foo/,
@@ -34,7 +32,7 @@ const requiredModules4 = requireDirectory(module, {
     extensions: ['js', 'json', 'ts'],
     recurse: false,
     rename: (name) => name,
-    visit: (obj: { foo: number, bar: number }) => new TestClass(obj.foo, obj.bar)
+    visit: (obj: { foo: number; bar: number }) => new TestClass(obj.foo, obj.bar),
 });
 const someModule2 = requiredModules4['someModule'];
 if (someModule2 instanceof TestClass) {

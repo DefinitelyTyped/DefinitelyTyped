@@ -10,13 +10,8 @@
 /// <reference types="tapable" />
 
 import fs = require('fs');
-import {
-    LoggingCallbackWrapper,
-    ResolverRequest,
-    ResolveContext,
-    AbstractInputFileSystem
-} from './lib/common-types'
-import { Dictionary } from './lib/concord'
+import { LoggingCallbackWrapper, ResolverRequest, ResolveContext, AbstractInputFileSystem } from './lib/common-types';
+import { Dictionary } from './lib/concord';
 import Resolver = require('./lib/Resolver');
 import Tapable = require('tapable');
 
@@ -40,16 +35,20 @@ declare namespace Resolve {
         function sync(context: ResolveContext, path: string, request: string): string;
     }
 
-    function create(options: ResolverFactory.ResolverOption): {
+    function create(
+        options: ResolverFactory.ResolverOption,
+    ): {
         (path: string, request: string, callback: LoggingCallbackWrapper): void;
         (context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): void;
-    }
+    };
 
     export namespace create {
-        function sync(options: ResolverFactory.ResolverOption): {
+        function sync(
+            options: ResolverFactory.ResolverOption,
+        ): {
             (path: string, request: string): string;
             (context: ResolveContext, path: string, request: string): string;
-        }
+        };
     }
 
     export namespace ResolverFactory {
@@ -84,21 +83,26 @@ declare namespace Resolve {
     class NodeJsInputFileSystem {
         stat(path: string, callback?: (err: NodeJS.ErrnoException, stats: fs.Stats) => any): void;
 
-        readdir(path: string, callback: (err: Error, files: string[]) => void): void
+        readdir(path: string, callback: (err: Error, files: string[]) => void): void;
         readFile(
-            filename: string, encoding: string,
-            callback: (err: NodeJS.ErrnoException, data: string) => void
+            filename: string,
+            encoding: string,
+            callback: (err: NodeJS.ErrnoException, data: string) => void,
         ): void;
         readFile(
-            filename: string, options: {
+            filename: string,
+            options: {
                 encoding: string;
                 flag?: string;
-            }, callback: (err: NodeJS.ErrnoException, data: string) => void
+            },
+            callback: (err: NodeJS.ErrnoException, data: string) => void,
         ): void;
         readFile(
-            filename: string, options: {
+            filename: string,
+            options: {
                 flag?: string;
-            }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+            },
+            callback: (err: NodeJS.ErrnoException, data: Buffer) => void,
         ): void;
         readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 
@@ -110,15 +114,17 @@ declare namespace Resolve {
 
         readFileSync(filename: string, encoding: string): string;
         readFileSync(
-            filename: string, options: {
+            filename: string,
+            options: {
                 encoding: string;
                 flag?: string;
-            }
+            },
         ): string;
         readFileSync(
-            filename: string, options?: {
+            filename: string,
+            options?: {
                 flag?: string;
-            }
+            },
         ): Buffer;
 
         readlinkSync(path: string | Buffer): string;
@@ -143,7 +149,7 @@ declare namespace Resolve {
 
         readdirSync?(path: string): string[];
 
-        readFileSync?(filename: string, options?: { flag?: string; }): Buffer;
+        readFileSync?(filename: string, options?: { flag?: string }): Buffer;
 
         readlinkSync?(path: string | Buffer): string;
 
@@ -158,7 +164,7 @@ declare function Resolve(
     context: ResolveContext,
     path: string,
     request: string,
-    callback: LoggingCallbackWrapper
+    callback: LoggingCallbackWrapper,
 ): void;
 
 export = Resolve;

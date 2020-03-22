@@ -11,7 +11,7 @@ export function create(description: string): Promise<string>;
 export namespace database {
     function connect(): Promise<{
         client: mongo.MongoClient;
-        db: mongo.Db & { close: mongo.MongoClient['close'] },
+        db: mongo.Db & { close: mongo.MongoClient['close'] };
     }>;
 }
 export namespace config {

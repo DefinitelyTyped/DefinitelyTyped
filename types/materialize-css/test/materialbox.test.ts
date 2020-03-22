@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -28,7 +28,7 @@ const materialbox = new materialize.Materialbox(elem, {
     onOpenStart(el) {
         // $ExpectType Element
         el;
-    }
+    },
 });
 
 // $ExpectType void
@@ -42,8 +42,8 @@ materialbox.el;
 // $ExpectType MaterialboxOptions
 materialbox.options;
 
-$(".whatever").materialbox();
-$(".whatever").materialbox({ inDuration: 2 });
-$(".whatever").materialbox("open");
-$(".whatever").materialbox("destroy");
-$(".whatever").materialbox("close");
+$('.whatever').materialbox();
+$('.whatever').materialbox({ inDuration: 2 });
+$('.whatever').materialbox('open');
+$('.whatever').materialbox('destroy');
+$('.whatever').materialbox('close');

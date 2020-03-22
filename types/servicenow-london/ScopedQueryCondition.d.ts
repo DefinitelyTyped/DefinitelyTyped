@@ -25,11 +25,7 @@ interface ScopedQueryCondition {
      * @param value The value to query on.
      * @returns A reference to a GlideQueryConditon that was added to the GlideRecord.
      */
-    addCondition(
-        name: string,
-        oper: QueryOperator,
-        value: object | string | number
-    ): ScopedQueryCondition;
+    addCondition(name: string, oper: QueryOperator, value: object | string | number): ScopedQueryCondition;
 
     /**
      * Appends a 2-or-3 parameter OR condition to an existing GlideQueryCondition.

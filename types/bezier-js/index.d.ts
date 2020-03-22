@@ -52,7 +52,7 @@ declare namespace BezierJs {
         e: number;
         r: number;
         s: number;
-        interval: { start: number; end: number; };
+        interval: { start: number; end: number };
     }
     interface Shape {
         startcap: BezierCap;
@@ -165,12 +165,27 @@ declare namespace BezierJs.utils {
     function closest(LUT: Point[], point: Point): Closest;
     function abcratio(t: number, n: number): number;
     function projectionratio(t: number, n: number): number;
-    function lli8(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number): Point;
+    function lli8(
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        x3: number,
+        y3: number,
+        x4: number,
+        y4: number,
+    ): Point;
     function lli4(p1: Point, p2: Point, p3: Point, p4: Point): Point;
     function lli(v1: Offset, v2: Offset): Point;
     function makeline(p1: Point, p2: Point): Bezier;
     function findbbox(sections: Bezier[]): BBox;
-    function shapeintersections(s1: Shape, bbox1: BBox, s2: Shape, bbox2: BBox, curveIntersectionThreshold?: number): string[][] | number[][];
+    function shapeintersections(
+        s1: Shape,
+        bbox1: BBox,
+        s2: Shape,
+        bbox2: BBox,
+        curveIntersectionThreshold?: number,
+    ): string[][] | number[][];
     function makeshape(forward: Bezier, back: Bezier, curveIntersectionThreshold?: number): Shape;
     function getminmax(curve: Bezier, d: string, list: number[]): MinMax;
     function align(points: Point[], line: Line): Point[];
@@ -203,6 +218,6 @@ declare namespace BezierJs {
     }
 }
 
-declare module "bezier-js" {
-  export = BezierJs.Bezier;
+declare module 'bezier-js' {
+    export = BezierJs.Bezier;
 }

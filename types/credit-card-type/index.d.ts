@@ -6,14 +6,14 @@
 
 declare namespace creditCardType {
     type CardBrand =
-        | "american-express"
-        | "diners-club"
-        | "discover"
-        | "jcb"
-        | "maestro"
-        | "mastercard"
-        | "unionpay"
-        | "visa";
+        | 'american-express'
+        | 'diners-club'
+        | 'discover'
+        | 'jcb'
+        | 'maestro'
+        | 'mastercard'
+        | 'unionpay'
+        | 'visa';
 
     interface CreditCardTypeInfo {
         niceType?: string;

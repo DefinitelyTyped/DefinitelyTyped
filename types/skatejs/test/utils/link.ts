@@ -8,27 +8,20 @@ declare const withLitHtml: () => any;
 
 // tslint:disable-next-line interface-over-type-literal
 type Props = {
-  state: State;
+    state: State;
 };
 // tslint:disable-next-line interface-over-type-literal
 type State = {
-  email: string;
+    email: string;
 };
 export default class extends withComponent<Props>(withLitHtml()) {
-  // this may look strange, but state is under the hood property of props :)
-  render({ state }: Props) {
-    return html`
-      <input
-        name="email"
-        on-change="${link(this)}"
-        type="email"
-        value="${state.email}"
-      >
-    `;
-  }
-  private otherLinkUsage() {
-    link(this, 'state.customName');
-    link(this, 'someProp');
-    link(this, 'props.someProp');
-  }
+    // this may look strange, but state is under the hood property of props :)
+    render({ state }: Props) {
+        return html` <input name="email" on-change="${link(this)}" type="email" value="${state.email}" /> `;
+    }
+    private otherLinkUsage() {
+        link(this, 'state.customName');
+        link(this, 'someProp');
+        link(this, 'props.someProp');
+    }
 }

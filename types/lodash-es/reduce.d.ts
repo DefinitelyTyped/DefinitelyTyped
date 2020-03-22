@@ -1,2 +1,2 @@
-import { reduce } from "lodash";
+import { reduce } from 'lodash';
 export default reduce;

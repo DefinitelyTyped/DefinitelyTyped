@@ -1,4 +1,4 @@
-import { Component, ReactNode, CSSProperties } from "react";
+import { Component, ReactNode, CSSProperties } from 'react';
 
 export interface LinePartProps {
     part: { text: string };

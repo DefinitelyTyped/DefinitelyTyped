@@ -24,20 +24,16 @@
 
 /// <reference types="node" />
 
-import Events = require("events");
-import stream = require("stream");
-import http = require("http");
-import https = require("https");
-import url = require("url");
-import zlib = require("zlib");
-import domain = require("domain");
+import Events = require('events');
+import stream = require('stream');
+import http = require('http');
+import https = require('https');
+import url = require('url');
+import zlib = require('zlib');
+import domain = require('domain');
 
 import * as Boom from 'boom';
-import {
-    ValidationOptions as JoiValidationOptions,
-    SchemaMap as JoiSchemaMap,
-    Schema as JoiSchema,
-} from 'joi';
+import { ValidationOptions as JoiValidationOptions, SchemaMap as JoiSchemaMap, Schema as JoiSchema } from 'joi';
 // TODO check JoiValidationObject is correct for "a Joi validation object"
 type JoiValidationObject = JoiSchema | JoiSchemaMap | (JoiSchema | JoiSchemaMap)[];
 
@@ -51,8 +47,7 @@ export interface Dictionary<T> {
 }
 
 /* tslint:disable-next-line:no-empty-interface */
-export interface ServerMethods extends Dictionary<ServerMethod> {
-}
+export interface ServerMethods extends Dictionary<ServerMethod> {}
 
 /**
  * Server
@@ -110,7 +105,7 @@ export class Server extends Podium {
      * Provides access to the server MIME database used for setting content-type information. The object must not be modified directly but only through the mime server setting.
      * [See docs](https://hapijs.com/api/16.1.1#servermime)
      */
-    readonly mime: {path(path: string): {type: string}};
+    readonly mime: { path(path: string): { type: string } };
     /**
      * An object containing the values exposed by each plugin registered where each key is a plugin name and the values are the exposed properties by each plugin using server.expose(). Plugins may set the value of the server.plugins[name] object directly or via the server.expose() method.
      * [See docs](https://hapijs.com/api/16.1.1#serverplugins)
@@ -184,7 +179,7 @@ export class Server extends Podium {
      * @param encoding  the decoder name string.
      * @param decoder  a function using the signature function(options) where options are the encoding specific options configured in the route payload.compression configuration option, and the return value is an object compatible with the output of node's zlib.createGunzip().
      */
-    decoder(encoding: string, decoder: ((options: CompressionDecoderSettings) => zlib.Gunzip)): void;
+    decoder(encoding: string, decoder: (options: CompressionDecoderSettings) => zlib.Gunzip): void;
     /**
      * Extends various framework interfaces with custom methods
      * Note that decorations apply to the entire server and all its connections regardless of current selection.
@@ -207,8 +202,8 @@ export class Server extends Podium {
      *      * apply - if true, the method function is invoked using the signature function(request) where request is the current request object and the returned value is assigned as the decoration.
      */
     decorate(type: 'request' | 'reply' | 'server', property: string, method: Function): void;
-    decorate(type: 'request', property: string, method: Function, options?: {apply: false}): void;
-    decorate(type: 'request', property: string, method: (request: Request) => Function, options: {apply: true}): void;
+    decorate(type: 'request', property: string, method: Function, options?: { apply: false }): void;
+    decorate(type: 'request', property: string, method: (request: Request) => Function, options: { apply: true }): void;
     /**
      * The server.decorate('server', ...) method can modify this prototype/interface.
      * Have disabled these typings as there is a better alternative, see example in: tests/server/decorate.ts
@@ -235,14 +230,18 @@ export class Server extends Podium {
      * @param data  the value emitted to the subscribers. If data is a function, the function signature is function() and it called once to generate (return value) the actual data emitted to the listeners. If no listeners match the event, the data function is not invoked.
      * @param callback  an optional callback method invoked when all subscribers have been notified using the signature function(). The callback is called only after all the listeners have been notified, including any event updates emitted earlier (the order of event updates are guaranteed to be in the order they were emitted).
      */
-    emit(criteria: string | {name: string, channel?: string, tags?: string | string[]}, data: any, callback?: () => void): void;
+    emit(
+        criteria: string | { name: string; channel?: string; tags?: string | string[] },
+        data: any,
+        callback?: () => void,
+    ): void;
     /**
      * Registers a custom content encoding compressor to extend the built-in support for 'gzip' and 'deflate'
      * [See docs](https://hapijs.com/api/16.1.1#serverencoderencoding-encoder)
      * @param encoding  the encoder name string.
      * @param encoder  a function using the signature function(options) where options are the encoding specific options configured in the route compression configuration option, and the return value is an object compatible with the output of node's zlib.createGzip().
      */
-    encoder(encoding: string, encoder: ((options: CompressionEncoderSettings) => zlib.Gzip)): void;
+    encoder(encoding: string, encoder: (options: CompressionEncoderSettings) => zlib.Gzip): void;
     /**
      * Register custom application events
      * [See docs](https://hapijs.com/api/16.1.1#servereventevents)
@@ -311,7 +310,7 @@ export class Server extends Podium {
      * @param callback  the callback function with signature function(res)
      */
     inject(options: string | InjectedRequestOptions, callback: (res: InjectedResponseObject) => void): void;
-    inject(options: string | InjectedRequestOptions, ): Promise<InjectedResponseObject>;
+    inject(options: string | InjectedRequestOptions): Promise<InjectedResponseObject>;
     /**
      * Logs server events that cannot be associated with a specific request. When called the server emits a 'log' event which can be used by other listeners or plugins to record the information or output to the console.
      * [See docs](https://hapijs.com/api/16.1.1#serverlogtags-data-timestamp)
@@ -375,7 +374,10 @@ export class Server extends Podium {
      * Same for 'response' | 'tail'.
      */
     on(criteria: 'request', listener: (request: Request, event: ServerEventObject, tags: Podium.Tags) => void): void;
-    on(criteria: 'request-internal', listener: (request: Request, event: ServerEventObject, tags: Podium.Tags) => void): void;
+    on(
+        criteria: 'request-internal',
+        listener: (request: Request, event: ServerEventObject, tags: Podium.Tags) => void,
+    ): void;
     /**
      * The 'request-error' event includes the request object and the causing error err object
      * [See docs](https://hapijs.com/api/16.1.1#server-events)
@@ -392,7 +394,10 @@ export class Server extends Podium {
      * The 'route' event includes the route public interface, the connection, and the server object used to add the route (e.g. the result of a plugin select operation)
      * [See docs](https://hapijs.com/api/16.1.1#server-events)
      */
-    on(criteria: 'route', listener: (route: RoutePublicInterface, connection: ServerConnection, server: Server) => void): void;
+    on(
+        criteria: 'route',
+        listener: (route: RoutePublicInterface, connection: ServerConnection, server: Server) => void,
+    ): void;
     /**
      * Same as calling server.on() with the count option set to 1.
      * TODO type this to copy the server.on specific types for 'route', 'tail', etc.
@@ -423,14 +428,38 @@ export class Server extends Podium {
      *     register(Plugin, {}, (err) => {// do more stuff})  or
      *     register(Plugin, (err: Error) => {// do more stuff})
      */
-    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, callback: (err: Error | null) => void): void;
-    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>): Promise<Error | null>;
-    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, callback: (err: Error | null) => void): void;
-    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>): Promise<Error | null>;
-    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, options: PluginRegistrationOptions, callback: (err: Error | null) => void): void;
-    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, options: PluginRegistrationOptions): Promise<Error | null>;
-    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, options: PluginRegistrationOptions, callback: (err: Error | null) => void): void;
-    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, options: PluginRegistrationOptions): Promise<Error | null>;
+    register<OptionsPassedToPlugin>(
+        plugins: Array<PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>>,
+        callback: (err: Error | null) => void,
+    ): void;
+    register<OptionsPassedToPlugin>(
+        plugins: Array<PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>>,
+    ): Promise<Error | null>;
+    register<OptionsPassedToPlugin>(
+        plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>,
+        callback: (err: Error | null) => void,
+    ): void;
+    register<OptionsPassedToPlugin>(
+        plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>,
+    ): Promise<Error | null>;
+    register<OptionsPassedToPlugin>(
+        plugins: Array<PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>>,
+        options: PluginRegistrationOptions,
+        callback: (err: Error | null) => void,
+    ): void;
+    register<OptionsPassedToPlugin>(
+        plugins: Array<PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>>,
+        options: PluginRegistrationOptions,
+    ): Promise<Error | null>;
+    register<OptionsPassedToPlugin>(
+        plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>,
+        options: PluginRegistrationOptions,
+        callback: (err: Error | null) => void,
+    ): void;
+    register<OptionsPassedToPlugin>(
+        plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>,
+        options: PluginRegistrationOptions,
+    ): Promise<Error | null>;
     /**
      * Adds a connection route
      * [See docs](https://hapijs.com/api/16.1.1#serverrouteoptions)
@@ -472,8 +501,8 @@ export class Server extends Podium {
      * @param callback  optional callback method which is called once all the connections have ended and it is safe to exit the process with signature function(err) where:
      *      * err - any termination error condition.
      */
-    stop(options: {timeout: number} | null, callback: (err?: Error) => void): void;
-    stop(options?: {timeout: number}): Promise<Error | null>;
+    stop(options: { timeout: number } | null, callback: (err?: Error) => void): void;
+    stop(options?: { timeout: number }): Promise<Error | null>;
     /**
      * Returns a copy of the routing table
      * Note that if the server has not been started and multiple connections use port 0, the table items will override each other and will produce an incomplete result.
@@ -504,12 +533,14 @@ export interface ServerOptions {
     /** sets the default connections configuration which can be overridden by each connection */
     connections?: ConnectionConfigurationServerDefaults;
     /** determines which logged events are sent to the console (this should only be used for development and does not affect which events are actually logged internally and recorded). Set to false to disable all console logging, or to an object with: */
-    debug?: false | {
-        /** a string array of server log tags to be displayed via console.error() when the events are logged via server.log() as well as internally generated server logs. For example, to display all errors, set the option to ['error']. To turn off all console debug messages set it to false. Defaults to uncaught errors thrown in external code (these errors are handled automatically and result in an Internal Server Error response) or runtime errors due to developer error. */
-        log?: string[] | false;
-        /** a string array of request log tags to be displayed via console.error() when the events are logged via request.log() as well as internally generated request logs. For example, to display all errors, set the option to ['error']. To turn off all console debug messages set it to false. Defaults to uncaught errors thrown in external code (these errors are handled automatically and result in an Internal Server Error response) or runtime errors due to developer error. */
-        request?: string[] | false;
-    };
+    debug?:
+        | false
+        | {
+              /** a string array of server log tags to be displayed via console.error() when the events are logged via server.log() as well as internally generated server logs. For example, to display all errors, set the option to ['error']. To turn off all console debug messages set it to false. Defaults to uncaught errors thrown in external code (these errors are handled automatically and result in an Internal Server Error response) or runtime errors due to developer error. */
+              log?: string[] | false;
+              /** a string array of request log tags to be displayed via console.error() when the events are logged via request.log() as well as internally generated request logs. For example, to display all errors, set the option to ['error']. To turn off all console debug messages set it to false. Defaults to uncaught errors thrown in external code (these errors are handled automatically and result in an Internal Server Error response) or runtime errors due to developer error. */
+              request?: string[] | false;
+          };
     /** process load monitoring */
     load?: {
         /** the frequency of sampling in milliseconds. Defaults to 0 (no sampling). */
@@ -562,7 +593,7 @@ export interface ServerEventCriteria {
      *  * tags - a tag string or array of tag strings.
      *  * all - if true, all tags must be present for the event update to match the subscription. Defaults to false (at least one matching tag).
      */
-    filter?: string | string[] | {tags: string | string[], all?: boolean};
+    filter?: string | string[] | { tags: string | string[]; all?: boolean };
     /** if true, and the data object passed to server.emit() is an array, the listener method is called with each array element passed as a separate argument. This should only be used when the emitted data structure is known and predictable. Defaults to the event registration option (which defaults to false). */
     spread?: boolean;
     /** if true and the criteria object passed to server.emit() includes tags, the tags are mapped to an object (where each tag string is the key and the value is true) which is appended to the arguments list at the end (but before the callback argument if block is set). Defaults to the event registration option (which defaults to false). */
@@ -855,22 +886,26 @@ export type RouteCacheOptions = {
     statuses?: number[];
     /** a string with the value of the 'Cache-Control' header when caching is disabled. Defaults to 'no-cache'. */
     otherwise?: string;
-} & ({
-    /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
-    expiresIn?: number;
-    /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
-    expiresAt?: undefined;
-} | {
-    /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
-    expiresIn?: undefined;
-    /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
-    expiresAt?: string;
-} | {
-    /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
-    expiresIn?: undefined;
-    /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
-    expiresAt?: undefined;
-});
+} & (
+    | {
+          /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
+          expiresIn?: number;
+          /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
+          expiresAt?: undefined;
+      }
+    | {
+          /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
+          expiresIn?: undefined;
+          /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
+          expiresAt?: string;
+      }
+    | {
+          /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
+          expiresIn?: undefined;
+          /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
+          expiresAt?: undefined;
+      }
+);
 
 /**
  * For context see RouteAdditionalConfigurationOptions > cors
@@ -918,7 +953,7 @@ export interface ServerRequestExtConfigurationObject {
     /**
      * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
      */
-    method: ServerExtRequestHandler | ServerExtRequestHandler[]
+    method: ServerExtRequestHandler | ServerExtRequestHandler[];
     options?: ServerExtOptions;
 }
 
@@ -973,7 +1008,13 @@ export type ServerStartExtPoints = 'onPreStart' | 'onPostStart' | 'onPreStop' | 
  * [See docs](https://hapijs.com/api/16.1.1#request-lifecycle)
  *  * The available extension points include the request extension points as well as the following server extension points:
  */
-export type ServerRequestExtPointsBase = 'onPreResponse' | 'onPreAuth' | 'onPostAuth' | 'onPreHandler' | 'onPostHandler' | 'onPreResponse';
+export type ServerRequestExtPointsBase =
+    | 'onPreResponse'
+    | 'onPreAuth'
+    | 'onPostAuth'
+    | 'onPreHandler'
+    | 'onPostHandler'
+    | 'onPreResponse';
 
 export type ServerRequestExtPoints = ServerRequestExtPointsBase | 'onRequest';
 
@@ -1019,9 +1060,11 @@ export interface RoutePayloadConfigurationObject {
      *              * filename - the part file name.
      *              * payload - the processed part payload.
      */
-    multipart?: false | {
-        output: PayLoadOutputOption | 'annotated';
-    };
+    multipart?:
+        | false
+        | {
+              output: PayLoadOutputOption | 'annotated';
+          };
     /** a string or an array of strings with the allowed mime types for the endpoint. Defaults to any of the supported mime types listed above. Note that allowing other mime types not listed will not enable them to be parsed, and that if parsing mode is 'parse', the request will result in an error response. */
     allow?: string | string[];
     /** a mime type string overriding the 'Content-Type' header value received. Defaults to no override. */
@@ -1344,7 +1387,10 @@ export interface RouteResponseConfigurationObject<ValidationOptions = JoiValidat
      *      * 'error' - the error returned from the validation schema.
      * TODO update type of source once PR to hapi is concluded.
      */
-    failAction?: 'error' | 'log' | ((request: Request, reply: ReplyWithContinue, source: string, error: Boom.BoomError) => void);
+    failAction?:
+        | 'error'
+        | 'log'
+        | ((request: Request, reply: ReplyWithContinue, source: string, error: Boom.BoomError) => void);
     /** if true, applies the validation rule changes to the response payload. Defaults to false. */
     modify?: boolean;
     /**
@@ -1376,7 +1422,10 @@ export interface RouteResponseConfigurationObject<ValidationOptions = JoiValidat
  * and
  * For context see RouteAdditionalConfigurationOptions > response > status
  */
-export type RouteResponseConfigurationScheme<ValidationOptions> = boolean | JoiValidationObject | ValidationFunctionForRouteResponse<ValidationOptions>;
+export type RouteResponseConfigurationScheme<ValidationOptions> =
+    | boolean
+    | JoiValidationObject
+    | ValidationFunctionForRouteResponse<ValidationOptions>;
 
 /**
  * see RouteResponseConfigurationScheme
@@ -1415,7 +1464,7 @@ export interface RouteResponseValidationContext {
             /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
             credentials: AuthenticatedCredentials;
         };
-    }
+    };
 }
 
 /**
@@ -1423,21 +1472,28 @@ export interface RouteResponseValidationContext {
  */
 export interface RouteSecurityConfigurationObject {
     /** controls the 'Strict-Transport-Security' header. If set to true the header will be set to max-age=15768000, if specified as a number the maxAge parameter will be set to that number. Defaults to true. You may also specify an object with the following fields: */
-    hsts?: boolean | number | {
-        /** the max-age portion of the header, as a number. Default is 15768000. */
-        maxAge?: number;
-        /** a boolean specifying whether to add the includeSubDomains flag to the header. */
-        includeSubdomains?: boolean;
-        /** a boolean specifying whether to add the 'preload' flag (used to submit domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list) to the header. */
-        preload?: boolean;
-    };
+    hsts?:
+        | boolean
+        | number
+        | {
+              /** the max-age portion of the header, as a number. Default is 15768000. */
+              maxAge?: number;
+              /** a boolean specifying whether to add the includeSubDomains flag to the header. */
+              includeSubdomains?: boolean;
+              /** a boolean specifying whether to add the 'preload' flag (used to submit domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list) to the header. */
+              preload?: boolean;
+          };
     /** controls the 'X-Frame-Options' header. When set to true the header will be set to DENY, you may also specify a string value of 'deny' or 'sameorigin'. Defaults to true. To use the 'allow-from' rule, you must set this to an object with the following fields: */
-    xframe?: true | 'deny' | 'sameorigin' | {
-        /** may also be 'deny' or 'sameorigin' but set directly as a string for xframe */
-        rule: 'allow-from';
-        /** when rule is 'allow-from' this is used to form the rest of the header, otherwise this field is ignored. If rule is 'allow-from' but source is unset, the rule will be automatically changed to 'sameorigin'. */
-        source: string;
-    };
+    xframe?:
+        | true
+        | 'deny'
+        | 'sameorigin'
+        | {
+              /** may also be 'deny' or 'sameorigin' but set directly as a string for xframe */
+              rule: 'allow-from';
+              /** when rule is 'allow-from' this is used to form the rest of the header, otherwise this field is ignored. If rule is 'allow-from' but source is unset, the rule will be automatically changed to 'sameorigin'. */
+              source: string;
+          };
     /** boolean that controls the 'X-XSS-PROTECTION' header for IE. Defaults to true which sets the header to equal '1; mode=block'. NOTE: This setting can create a security vulnerability in versions of IE below 8, as well as unpatched versions of IE8. See [here](https://hackademix.net/2009/11/21/ies-xss-filter-creates-xss-vulnerabilities/) and [here](https://technet.microsoft.com/library/security/ms10-002) for more information. If you actively support old versions of IE, it may be wise to explicitly set this flag to false. [Kept typing non optional to force this security related documentation to be read.] */
     xss: boolean;
     /** boolean controlling the 'X-Download-Options' header for IE, preventing downloads from executing in your context. Defaults to true setting the header to 'noopen'. */
@@ -1528,7 +1584,7 @@ export interface RouteInputValidationContext {
 
         /** The request authentication information */
         auth: RequestAuthenticationInformation;
-    }
+    };
 }
 
 /**
@@ -1586,13 +1642,13 @@ export interface ServerStateCookieConfiguationObject {
      *  * password - password used for HMAC key generation (must be at least 32 characters long).
      */
     sign?: {
-        integrity?: any;  // TODO make iron definitions and getting typing from iron
+        integrity?: any; // TODO make iron definitions and getting typing from iron
         password: string;
     };
     /** password used for 'iron' encoding (must be at least 32 characters long). */
     password?: string;
     /** options for 'iron' encoding. Defaults to require('iron').defaults. */
-    iron?: any;  // TODO make iron definitions and getting typing from iron
+    iron?: any; // TODO make iron definitions and getting typing from iron
     /** if true, errors are ignored and treated as missing cookies. */
     ignoreErrors?: boolean;
     /** if true, automatically instruct the client to remove invalid cookies. Defaults to false. */
@@ -1638,7 +1694,7 @@ export interface ServerConnection {
     info: ServerConnectionInfo;
     /** Described in server.inject [See docs](https://hapijs.com/api/16.1.1#serverinjectoptions-callback) */
     inject(options: string | InjectedRequestOptions, callback: (res: InjectedResponseObject) => void): void;
-    inject(options: string | InjectedRequestOptions, ): Promise<InjectedResponseObject>;
+    inject(options: string | InjectedRequestOptions): Promise<InjectedResponseObject>;
     /** Mentioned but not documented under server.connections [See docs](https://hapijs.com/api/16.1.1#serverconnections) */
     table(host?: string): Route[];
     /** Described in server.table [See docs](https://hapijs.com/api/16.1.1#serverlookupid) */
@@ -1693,12 +1749,12 @@ export interface ServerRealm {
             prefix: string;
             /** the route virtual host settings used by any calls to server.route() from the server. */
             vhost: string;
-        }
+        };
     };
     /** the active plugin name (empty string if at the server root). */
     plugin: string;
     /** the plugin options object passed at registration. */
-    pluginOptions: any;  // OptionsPassedToPlugin;
+    pluginOptions: any; // OptionsPassedToPlugin;
     /** plugin-specific state to be shared only among activities sharing the same active state. plugins is an object where each key is a plugin name and the value is the plugin state. */
     plugins: PluginsStates;
     /** settings overrides (from RouteAdditionalConfigurationOptions) */
@@ -1729,7 +1785,7 @@ export interface ServerRegisteredPlugin {
      * options used to register the plugin.
      * TODO update with outcome of: https://github.com/hapijs/hapi/pull/3479
      */
-    options: any;  // OptionsPassedToPlugin;
+    options: any; // OptionsPassedToPlugin;
     /** plugin registration attributes. */
     attributes: PluginAttributes;
 }
@@ -1779,7 +1835,11 @@ export interface ServerAuth {
      *      * err - the error if authentication failed.
      *      * credentials - the authentication credentials object if authentication was successful.
      */
-    test(strategy: string, request: Request, next: (err: Error | null, credentials: AuthenticatedCredentials) => void): void;
+    test(
+        strategy: string,
+        request: Request,
+        next: (err: Error | null, credentials: AuthenticatedCredentials) => void,
+    ): void;
 }
 
 export type Strategy = any;
@@ -1986,7 +2046,10 @@ export class Request extends Podium {
      * @param source  the object to set as the source of the reply interface.  TODO, submit a PR to clarify this doc, from the source code it's clear that "the object to set" refers to something of type `ReplyValue` i.e. that can be null, string, number, object, Stream, Promise, or Buffer.
      * @param options  options for the method, optional.  Not documented yet, perhaps not very important.
      */
-    generateResponse(source?: ReplyValue, options?: {marshal?: any; prepare?: any; close?: any; variety?: any}): Response;
+    generateResponse(
+        source?: ReplyValue,
+        options?: { marshal?: any; prepare?: any; close?: any; variety?: any },
+    ): Response;
     /**
      * request.log(tags, [data, [timestamp]])
      * Always available.
@@ -2019,7 +2082,7 @@ export class Request extends Podium {
      * [See docs](https://hapijs.com/api/16.1.1#requesttailname)
      * @param name  an optional tail name used for logging purposes.
      */
-    tail(name?: string): (() => void);
+    tail(name?: string): () => void;
     /**
      * The server.decorate('request', ...) method can modify this prototype/interface.
      * Have disabled these typings as there is a better alternative, see example in: tests/server/decorate.ts
@@ -2042,7 +2105,14 @@ export interface RequestAuthenticationInformation {
 }
 
 export type HTTP_METHODS_PARTIAL_lowercase = 'get' | 'post' | 'put' | 'patch' | 'delete' | 'options';
-export type HTTP_METHODS_PARTIAL = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS' | HTTP_METHODS_PARTIAL_lowercase;
+export type HTTP_METHODS_PARTIAL =
+    | 'GET'
+    | 'POST'
+    | 'PUT'
+    | 'PATCH'
+    | 'DELETE'
+    | 'OPTIONS'
+    | HTTP_METHODS_PARTIAL_lowercase;
 export type HTTP_METHODS = 'HEAD' | 'head' | HTTP_METHODS_PARTIAL;
 
 /**
@@ -2079,8 +2149,7 @@ export type RequestEventTypes = 'peek' | 'finish' | 'disconnect';
  *        interface RouteHandlerPlugins {
  *          proxy?: ...
  */
-export interface RouteHandlerPlugins {
-}
+export interface RouteHandlerPlugins {}
 /**
  * The route handler function uses the signature function(request, reply) (NOTE: do not use a fat arrow style function for route handlers as they do not allow context binding and will cause problems when used in conjunction with server.bind) where:
  *  * request - is the incoming request object (this is not the node.js request object).
@@ -2190,7 +2259,7 @@ export interface Base_Reply {
      *      * modified - the Last-Modified header value. Required if etag is not present. Defaults to no header.
      *      * vary - same as the response.etag() option. Defaults to true.
      */
-    entity(options: {etag?: string, modified?: string, vary?: boolean}): Response | null;
+    entity(options: { etag?: string; modified?: string; vary?: boolean }): Response | null;
     /**
      * reply.close([options])
      * Concludes the handler activity by returning control over to the router and informing the router that a response has already been sent back directly via request.raw.res and that no further response action is needed. Supports the following optional options:
@@ -2199,7 +2268,7 @@ export interface Base_Reply {
      * @param options  options object:
      *      * end - if false, the router will not call request.raw.res.end()) to ensure the response was ended. Defaults to true.
      */
-    close(options?: {end?: boolean}): void;
+    close(options?: { end?: boolean }): void;
     /**
      * reply.redirect(uri)
      * Redirects the client to the specified uri. Same as calling reply().redirect(uri).
@@ -2471,7 +2540,7 @@ export interface Response extends Podium {
      *      * weak - if true, the tag will be prefixed with the 'W/' weak signifier. Weak tags will fail to match identical tags for the purpose of determining 304 response status. Defaults to false.
      *      * vary - if true and content encoding is set or applied to the response (e.g 'gzip' or 'deflate'), the encoding name will be automatically added to the tag at transmission time (separated by a '-' character). Ignored when weak is true. Defaults to true.
      */
-    etag(tag: string, options?: {weak: boolean, vary: boolean}): Response;
+    etag(tag: string, options?: { weak: boolean; vary: boolean }): Response;
     /**
      * sets an HTTP header
      * @param name  the header name.
@@ -2679,7 +2748,7 @@ export interface PluginRegistrationObject<OptionsPassedToPlugin> extends PluginR
  */
 export interface PluginRegistrationOptions {
     once?: boolean;
-    routes?: {prefix?: string, vhost?: string | string[]};
+    routes?: { prefix?: string; vhost?: string | string[] };
     select?: string | string[];
 }
 

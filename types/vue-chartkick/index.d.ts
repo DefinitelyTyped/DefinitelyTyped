@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { PluginObject } from "vue";
+import { PluginObject } from 'vue';
 
 interface VueChartkickPlugin extends PluginObject<{ adapter: any }> {
     version: string;

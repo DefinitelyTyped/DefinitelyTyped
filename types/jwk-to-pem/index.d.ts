@@ -13,14 +13,14 @@ declare namespace jwkToBuffer {
     }
 
     interface EC {
-        kty: "EC";
+        kty: 'EC';
         crv: string;
         x: string;
         y: string;
     }
 
     interface ECPrivate {
-        kty: "EC";
+        kty: 'EC';
         crv: string;
         d: string;
         x?: string;
@@ -28,7 +28,7 @@ declare namespace jwkToBuffer {
     }
 
     interface RSA {
-        kty: "RSA";
+        kty: 'RSA';
         e: string;
         n: string;
         d?: string;

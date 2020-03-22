@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { ClientChannel, ExecOptions as ssh2ExecOptions, SFTPWrapper } from "ssh2";
-import { TransferOptions } from "ssh2-streams";
+import { ClientChannel, ExecOptions as ssh2ExecOptions, SFTPWrapper } from 'ssh2';
+import { TransferOptions } from 'ssh2-streams';
 
 declare namespace SSH {
     type Shell = ClientChannel;
@@ -61,15 +61,21 @@ declare class SSH {
 
     requestSFTP(): Promise<SSH.SFTP>;
 
-    mkdir(path: string, type: "exec"): Promise<void>;
+    mkdir(path: string, type: 'exec'): Promise<void>;
 
-    mkdir(path: string, type?: "sftp", givenSftp?: SSH.SFTP): Promise<void>;
+    mkdir(path: string, type?: 'sftp', givenSftp?: SSH.SFTP): Promise<void>;
 
-    exec(command: string, parameters?: ReadonlyArray<string>,
-        options?: SSH.ExecOptions & { stream?: "stdout"|"stderr" }): Promise<string>;
+    exec(
+        command: string,
+        parameters?: ReadonlyArray<string>,
+        options?: SSH.ExecOptions & { stream?: 'stdout' | 'stderr' },
+    ): Promise<string>;
 
-    exec(command: string, parameters?: ReadonlyArray<string>,
-        options?: SSH.ExecOptions & { stream: "both" }): Promise<SSH.ExecResult>;
+    exec(
+        command: string,
+        parameters?: ReadonlyArray<string>,
+        options?: SSH.ExecOptions & { stream: 'both' },
+    ): Promise<SSH.ExecResult>;
 
     execCommand(givenCommand: string, options?: SSH.ExecOptions): Promise<SSH.ExecResult>;
 
@@ -77,9 +83,13 @@ declare class SSH {
 
     putFile(localFile: string, remoteFile: string, givenSftp?: SSH.SFTP, givenOpts?: TransferOptions): Promise<void>;
 
-    putFiles(files: ReadonlyArray<{ local: string, remote: string }>, givenConfig?: SSH.PutFilesOptions): Promise<void>;
+    putFiles(files: ReadonlyArray<{ local: string; remote: string }>, givenConfig?: SSH.PutFilesOptions): Promise<void>;
 
-    putDirectory(localDirectory: string, remoteDirectory: string, givenConfig?: SSH.PutDirectoryOptions): Promise<boolean>;
+    putDirectory(
+        localDirectory: string,
+        remoteDirectory: string,
+        givenConfig?: SSH.PutDirectoryOptions,
+    ): Promise<boolean>;
 
     dispose(): void;
 }

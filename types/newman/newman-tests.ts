@@ -1,4 +1,4 @@
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 import {
     run,
     NewmanRun,
@@ -7,12 +7,9 @@ import {
     NewmanRunExecutionAssertionError,
     NewmanRunExecutionItem,
     NewmanRunFailure,
-    NewmanRunSummary
-} from "newman";
-import {
-    CollectionDefinition,
-    VariableScopeDefinition
-} from "postman-collection";
+    NewmanRunSummary,
+} from 'newman';
+import { CollectionDefinition, VariableScopeDefinition } from 'postman-collection';
 
 const collection: CollectionDefinition = {};
 const environment: VariableScopeDefinition = {};
@@ -31,12 +28,12 @@ run(
         folder,
         color,
         workingDir,
-        insecureFileRead
+        insecureFileRead,
     },
     (err, summary: NewmanRunSummary) => {
         summary.run; // $ExpectType NewmanRun
         summary.run.executions; // $ExpectType NewmanRunExecution[]
         summary.run.failures; // $ExpectType NewmanRunFailure[]
         summary.run.failures[0].source; // $ExpectType NewmanRunExecutionItem | undefined
-    }
+    },
 );

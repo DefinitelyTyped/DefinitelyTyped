@@ -5,22 +5,20 @@ import * as H from 'history';
 const getIsActive = (extraProp: string) => (match: match, location: H.Location) => !!extraProp;
 
 interface Props extends NavLinkProps {
-  extraProp: string;
+    extraProp: string;
 }
 
-export default function(props: Props) {
-  const {extraProp, ...rest} = props;
-  const isActive = getIsActive(extraProp);
-  return (
-    <NavLink {...rest} isActive={isActive}/>
-  );
+export default function (props: Props) {
+    const { extraProp, ...rest } = props;
+    const isActive = getIsActive(extraProp);
+    return <NavLink {...rest} isActive={isActive} />;
 }
 
 type OtherProps = RouteComponentProps<{
-  id: string;
+    id: string;
 }>;
 
-const Component: React.FC<OtherProps> = props => {
+const Component: React.FC<OtherProps> = (props) => {
     if (!props.match) {
         return null;
     }
@@ -31,13 +29,13 @@ const Component: React.FC<OtherProps> = props => {
 
 <Link to="/url" />;
 
-const MyLink: React.FC<LinkProps> = props => <Link style={{ color: 'red' }} {...props} />;
+const MyLink: React.FC<LinkProps> = (props) => <Link style={{ color: 'red' }} {...props} />;
 <Link to="/url" component={MyLink} />;
 
-<Link to={location => ({ ...location, pathname: '/pizza' })} />;
-<NavLink to={location => ({ ...location, pathname: '/pizza' })} />;
+<Link to={(location) => ({ ...location, pathname: '/pizza' })} />;
+<NavLink to={(location) => ({ ...location, pathname: '/pizza' })} />;
 
-const refCallback: React.Ref<HTMLAnchorElement> = node => {};
+const refCallback: React.Ref<HTMLAnchorElement> = (node) => {};
 <Link to="/url" replace={true} innerRef={refCallback} />;
 const ref = React.createRef<HTMLAnchorElement>();
 <Link to="/url" replace={true} innerRef={ref} />;

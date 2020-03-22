@@ -5,9 +5,7 @@
 
 /// <reference types="node" />
 
-
 declare namespace nodemon {
-
     interface Nodemon {
         (option?: Option): EventEmitter;
     }
@@ -19,7 +17,7 @@ declare namespace nodemon {
     // TODO: Properties may be insufficient
     // TODO: In future this interface should be moved to nodemon.d.ts
     interface _Option {
-        env?: { [key: string]: string | boolean | number; };
+        env?: { [key: string]: string | boolean | number };
         script?: string;
         /**
          * Extensions to look for, ie. js,jade,hbs.
@@ -66,8 +64,8 @@ declare namespace nodemon {
          * Exit on crash, allows use of nodemon with daemon tools like forever.js.
          */
         exitcrash?: boolean;
-        execMap?: { [key: string]: string | boolean | number; };
-        events?: { [key: string]: string; };
+        execMap?: { [key: string]: string | boolean | number };
+        events?: { [key: string]: string };
         restartable?: string;
         args?: string[];
         nodeArgs?: string[];

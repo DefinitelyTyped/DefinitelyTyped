@@ -10,5 +10,5 @@ export default class BoundsChangedReply extends Reply<'window', 'bounds-changed'
 export declare const enum BoundsChangeType {
     POSITION = 0,
     SIZE = 1,
-    POSITION_AND_SIZE = 2
+    POSITION_AND_SIZE = 2,
 }

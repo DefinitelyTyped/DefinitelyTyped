@@ -10,42 +10,84 @@
 
 /// <reference lib="dom" />
 
-declare module "pdfmake/build/vfs_fonts" {
+declare module 'pdfmake/build/vfs_fonts' {
     let pdfMake: {
         vfs: any;
         [name: string]: any;
     };
 }
 
-declare module "pdfmake/build/pdfmake" {
+declare module 'pdfmake/build/pdfmake' {
     let vfs: TFontFamily;
     let fonts: { [name: string]: TFontFamilyTypes };
     function createPdf(
         documentDefinitions: TDocumentDefinitions,
         tableLayouts?: any,
         fonts?: any,
-        vfs?: any
+        vfs?: any,
     ): TCreatedPdf;
 
     type PageSize =
-        "4A0"|"2A0"|"A0"|"A1"|"A2"|"A3"|"A4"|"A5"|"A6"|"A7"|"A8"|"A9"|"A10"|
-        "B0"|"B1"|"B2"|"B3"|"B4"|"B5"|"B6"|"B7"|"B8"|"B9"|"B10"|
-        "C0"|"C1"|"C2"|"C3"|"C4"|"C5"|"C6"|"C7"|"C8"|"C9"|"C10"|
-        "RA1"|"RA2"|"RA3"|"RA4"|
-        "SRA1"|"SRA2"|"SRA3"|"SRA4"|
-        "EXECUTIVE"|"FOLIO"|"LEGAL"|"LETTER"|"TABLOID";
+        | '4A0'
+        | '2A0'
+        | 'A0'
+        | 'A1'
+        | 'A2'
+        | 'A3'
+        | 'A4'
+        | 'A5'
+        | 'A6'
+        | 'A7'
+        | 'A8'
+        | 'A9'
+        | 'A10'
+        | 'B0'
+        | 'B1'
+        | 'B2'
+        | 'B3'
+        | 'B4'
+        | 'B5'
+        | 'B6'
+        | 'B7'
+        | 'B8'
+        | 'B9'
+        | 'B10'
+        | 'C0'
+        | 'C1'
+        | 'C2'
+        | 'C3'
+        | 'C4'
+        | 'C5'
+        | 'C6'
+        | 'C7'
+        | 'C8'
+        | 'C9'
+        | 'C10'
+        | 'RA1'
+        | 'RA2'
+        | 'RA3'
+        | 'RA4'
+        | 'SRA1'
+        | 'SRA2'
+        | 'SRA3'
+        | 'SRA4'
+        | 'EXECUTIVE'
+        | 'FOLIO'
+        | 'LEGAL'
+        | 'LETTER'
+        | 'TABLOID';
 
-    type PageOrientation = "portrait" | "landscape";
+    type PageOrientation = 'portrait' | 'landscape';
 
-    type Layout = "noBorders" | "headerLineOnly" | "lightHorizontalLines";
+    type Layout = 'noBorders' | 'headerLineOnly' | 'lightHorizontalLines';
 
-    type Alignment = "left" | "center" | "right";
+    type Alignment = 'left' | 'center' | 'right';
 
-    type Decoration = "underline" | "lineThrough" | "overline";
+    type Decoration = 'underline' | 'lineThrough' | 'overline';
 
-    type DecorationStyle = "dashed" | "dotted" | "double" | "wavy";
+    type DecorationStyle = 'dashed' | 'dotted' | 'double' | 'wavy';
 
-    type PageBreak = "before" | "after";
+    type PageBreak = 'before' | 'after';
 
     let pdfMake: pdfMakeStatic;
 
@@ -74,7 +116,7 @@ declare module "pdfmake/build/pdfmake" {
     type TDocumentHeaderFooterFunction = (
         currentPage: number,
         pageCount: number,
-        pageSize?: { width: number; height: number }
+        pageSize?: { width: number; height: number },
     ) => any;
 
     type Margins = number | [number, number] | [number, number, number, number];
@@ -191,7 +233,7 @@ declare module "pdfmake/build/pdfmake" {
             currentNode?: CurrentNode,
             followingNodesOnPage?: any,
             nodesOnNextPage?: any,
-            previousNodesOnPage?: any
+            previousNodesOnPage?: any,
         ) => boolean;
         pageMargins?: Margins;
         pageOrientation?: PageOrientation;
@@ -241,21 +283,11 @@ declare module "pdfmake/build/pdfmake" {
         autoPrint?: boolean;
     }
 
-    type CreatedPdfDownloadParams = (
-        defaultFileName?: string,
-        cb?: () => void,
-        options?: BufferOptions
-    ) => void;
+    type CreatedPdfDownloadParams = (defaultFileName?: string, cb?: () => void, options?: BufferOptions) => void;
 
-    type CreatedPdfOpenPrintParams = (
-        options?: BufferOptions,
-        win?: Window | null
-    ) => void;
+    type CreatedPdfOpenPrintParams = (options?: BufferOptions, win?: Window | null) => void;
 
-    type CreatedPdfBufferParams = (
-        cb: (result: any, pages: Page[]) => void,
-        options?: BufferOptions
-    ) => void;
+    type CreatedPdfBufferParams = (cb: (result: any, pages: Page[]) => void, options?: BufferOptions) => void;
 
     interface TCreatedPdf {
         download: CreatedPdfDownloadParams;

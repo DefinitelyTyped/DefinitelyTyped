@@ -1,10 +1,12 @@
 # TypeScript typings for Google Sheets API v4
+
 Reads and writes Google Sheets.
 For detailed description please check [documentation](https://developers.google.com/sheets/).
 
 ## Installing
 
 Install typings for Google Sheets API:
+
 ```
 npm install @types/gapi.client.sheets@v4 --save-dev
 ```
@@ -12,14 +14,16 @@ npm install @types/gapi.client.sheets@v4 --save-dev
 ## Usage
 
 You need to initialize Google API client in your code:
+
 ```typescript
-gapi.load("client", () => {
+gapi.load('client', () => {
     // now we can use gapi.client
     // ...
 });
 ```
 
 Then load api client wrapper:
+
 ```typescript
 gapi.client.load('sheets', 'v4', () => {
     // now we can use gapi.client.sheets
@@ -28,8 +32,8 @@ gapi.client.load('sheets', 'v4', () => {
 ```
 
 Don't forget to authenticate your client before sending any request to resources:
-```typescript
 
+```typescript
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [
@@ -51,7 +55,7 @@ var client_id = '',
     immediate = true;
 // ...
 
-gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
+gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, (authResult) => {
     if (authResult && !authResult.error) {
         /* handle successful authorization */
     } else {
@@ -63,7 +67,6 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 After that you can use Google Sheets API resources:
 
 ```typescript
-
 /*
 Applies one or more updates to the spreadsheet.
 
@@ -85,12 +88,12 @@ applied together atomically. Your changes may be altered with respect to
 collaborator changes. If there are no collaborators, the spreadsheet
 should reflect your changes.
 */
-await gapi.client.spreadsheets.batchUpdate({ spreadsheetId: "spreadsheetId",  });
+await gapi.client.spreadsheets.batchUpdate({ spreadsheetId: 'spreadsheetId' });
 
 /*
 Creates a spreadsheet, returning the newly created spreadsheet.
 */
-await gapi.client.spreadsheets.create({  });
+await gapi.client.spreadsheets.create({});
 
 /*
 Returns the spreadsheet at the given ID.
@@ -115,7 +118,7 @@ Multiple ranges can be specified.  Limiting the range will
 return only the portions of the spreadsheet that intersect the requested
 ranges. Ranges are specified using A1 notation.
 */
-await gapi.client.spreadsheets.get({ spreadsheetId: "spreadsheetId",  });
+await gapi.client.spreadsheets.get({ spreadsheetId: 'spreadsheetId' });
 
 /*
 Returns the spreadsheet at the given ID.
@@ -141,5 +144,5 @@ parameter is ignored
 For large spreadsheets, it is recommended to retrieve only the specific
 fields of the spreadsheet that you want.
 */
-await gapi.client.spreadsheets.getByDataFilter({ spreadsheetId: "spreadsheetId",  });
+await gapi.client.spreadsheets.getByDataFilter({ spreadsheetId: 'spreadsheetId' });
 ```

@@ -1,5 +1,5 @@
-import * as React from "react";
-import { IconGlyph } from "../Icon/Icon";
+import * as React from 'react';
+import { IconGlyph } from '../Icon/Icon';
 
 export type ListProps = {
     className?: string;

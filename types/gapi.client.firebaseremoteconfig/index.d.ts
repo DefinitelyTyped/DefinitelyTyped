@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Firebase Remote Config API v1 */
-    function load(name: "firebaseremoteconfig", version: "v1"): PromiseLike<void>;
-    function load(name: "firebaseremoteconfig", version: "v1", callback: () => any): void;
+    function load(name: 'firebaseremoteconfig', version: 'v1'): PromiseLike<void>;
+    function load(name: 'firebaseremoteconfig', version: 'v1', callback: () => any): void;
 
     const projects: firebaseremoteconfig.ProjectsResource;
 
@@ -98,7 +98,7 @@ declare namespace gapi.client {
              */
             getRemoteConfig(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -151,7 +151,7 @@ declare namespace gapi.client {
              */
             updateRemoteConfig(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

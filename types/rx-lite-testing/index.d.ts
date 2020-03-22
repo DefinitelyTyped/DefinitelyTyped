@@ -11,7 +11,12 @@ declare namespace Rx {
         createHotObservable<T>(...records: Recorded[]): Observable<T>;
         createObserver<T>(): MockObserver<T>;
 
-        startWithTiming<T>(create: () => Observable<T>, createdAt: number, subscribedAt: number, disposedAt: number): MockObserver<T>;
+        startWithTiming<T>(
+            create: () => Observable<T>,
+            createdAt: number,
+            subscribedAt: number,
+            disposedAt: number,
+        ): MockObserver<T>;
         startWithDispose<T>(create: () => Observable<T>, disposedAt: number): MockObserver<T>;
         startWithCreate<T>(create: () => Observable<T>): MockObserver<T>;
     }
@@ -56,6 +61,6 @@ declare namespace Rx {
     const MockObserver: MockObserverStatic;
 }
 
-declare module "rx-lite-testing" {
+declare module 'rx-lite-testing' {
     export = Rx;
 }

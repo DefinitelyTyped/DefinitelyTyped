@@ -3,20 +3,12 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     namespace xml {
-        namespace parser {
-        }
+        namespace parser {}
 
-        namespace Script {
-        }
+        namespace Script {}
 
-        namespace widgetParser {
-        }
-
+        namespace widgetParser {}
     }
-
-
 }

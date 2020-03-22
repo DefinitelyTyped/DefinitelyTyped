@@ -5,8 +5,8 @@ import { Flowable } from 'rsocket-flowable';
 import { Leases } from './RSocketLease';
 
 export interface TransportServer {
-  start: () => Flowable<DuplexConnection>;
-  stop: () => void;
+    start: () => Flowable<DuplexConnection>;
+    stop: () => void;
 }
 
 export interface ServerConfig<D, M> {
@@ -22,7 +22,7 @@ export interface ServerConfig<D, M> {
  * from peers via the given transport server.
  */
 export default class RSocketServer<D, M> {
-  constructor(config: ServerConfig<D, M>);
-  start(): void;
-  stop(): void;
+    constructor(config: ServerConfig<D, M>);
+    start(): void;
+    stop(): void;
 }

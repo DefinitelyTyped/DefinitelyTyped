@@ -1,7 +1,7 @@
-import * as workerThreads from "worker_threads";
-import assert = require("assert");
-import { createContext } from "vm";
-import { Readable } from "stream";
+import * as workerThreads from 'worker_threads';
+import assert = require('assert');
+import { createContext } from 'vm';
+import { Readable } from 'stream';
 
 {
     if (workerThreads.isMainThread) {
@@ -12,13 +12,12 @@ import { Readable } from "stream";
                         codeRangeSizeMb: 123,
                     },
                     argv: ['asd'],
-                    workerData: script
+                    workerData: script,
                 });
                 worker.on('message', resolve);
                 worker.on('error', reject);
                 worker.on('exit', (code) => {
-                    if (code !== 0)
-                        reject(new Error(`Worker stopped with exit code ${code}`));
+                    if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`));
                 });
             });
         };

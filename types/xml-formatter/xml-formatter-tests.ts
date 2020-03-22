@@ -1,4 +1,4 @@
-import format = require("xml-formatter");
+import format = require('xml-formatter');
 
 const testXml = '<text><test></test></text>';
 

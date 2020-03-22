@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as Koa from "koa";
-import * as busboy from "busboy";
+import * as Koa from 'koa';
+import * as busboy from 'busboy';
 
-declare module "koa" {
+declare module 'koa' {
     interface Request {
         body: any;
     }

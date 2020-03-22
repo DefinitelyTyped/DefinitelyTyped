@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     interface LoDashStatic {
         /**
          * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
@@ -142,8 +142,21 @@ declare module "../index" {
         <T1, R>(func: (t1: T1) => R, arity?: number): CurriedFunction1<T1, R>;
         <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number): CurriedFunction2<T1, T2, R>;
         <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number): CurriedFunction3<T1, T2, T3, R>;
-        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number): CurriedFunction4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number): CurriedFunction5<T1, T2, T3, T4, T5, R>;
+        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number): CurriedFunction4<
+            T1,
+            T2,
+            T3,
+            T4,
+            R
+        >;
+        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number): CurriedFunction5<
+            T1,
+            T2,
+            T3,
+            T4,
+            T5,
+            R
+        >;
         (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
         placeholder: __;
     }
@@ -298,32 +311,53 @@ declare module "../index" {
         /**
          * @see _.curry
          */
-        curry(arity?: number):
-            T extends (arg1: infer T1) => infer R ? Function<CurriedFunction1<T1, R>> :
-            T extends (arg1: infer T1, arg2: infer T2) => infer R ? Function<CurriedFunction2<T1, T2, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? Function<CurriedFunction3<T1, T2, T3, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? Function<CurriedFunction4<T1, T2, T3, T4, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? Function<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
-            Function<(...args: any[]) => any>;
+        curry(
+            arity?: number,
+        ): T extends (arg1: infer T1) => infer R
+            ? Function<CurriedFunction1<T1, R>>
+            : T extends (arg1: infer T1, arg2: infer T2) => infer R
+            ? Function<CurriedFunction2<T1, T2, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R
+            ? Function<CurriedFunction3<T1, T2, T3, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R
+            ? Function<CurriedFunction4<T1, T2, T3, T4, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R
+            ? Function<CurriedFunction5<T1, T2, T3, T4, T5, R>>
+            : Function<(...args: any[]) => any>;
     }
     interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.curry
          */
-        curry(arity?: number):
-            T extends (arg1: infer T1) => infer R ? FunctionChain<CurriedFunction1<T1, R>> :
-            T extends (arg1: infer T1, arg2: infer T2) => infer R ? FunctionChain<CurriedFunction2<T1, T2, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? FunctionChain<CurriedFunction3<T1, T2, T3, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? FunctionChain<CurriedFunction4<T1, T2, T3, T4, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? FunctionChain<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
-            FunctionChain<(...args: any[]) => any>;
+        curry(
+            arity?: number,
+        ): T extends (arg1: infer T1) => infer R
+            ? FunctionChain<CurriedFunction1<T1, R>>
+            : T extends (arg1: infer T1, arg2: infer T2) => infer R
+            ? FunctionChain<CurriedFunction2<T1, T2, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R
+            ? FunctionChain<CurriedFunction3<T1, T2, T3, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R
+            ? FunctionChain<CurriedFunction4<T1, T2, T3, T4, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R
+            ? FunctionChain<CurriedFunction5<T1, T2, T3, T4, T5, R>>
+            : FunctionChain<(...args: any[]) => any>;
     }
     interface CurryRight {
         <T1, R>(func: (t1: T1) => R, arity?: number): RightCurriedFunction1<T1, R>;
         <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number): RightCurriedFunction2<T1, T2, R>;
         <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number): RightCurriedFunction3<T1, T2, T3, R>;
-        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number): RightCurriedFunction4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number): RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
+        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number): RightCurriedFunction4<
+            T1,
+            T2,
+            T3,
+            T4,
+            R
+        >;
+        <T1, T2, T3, T4, T5, R>(
+            func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R,
+            arity?: number,
+        ): RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
         placeholder: __;
     }
@@ -334,25 +368,37 @@ declare module "../index" {
         /**
          * @see _.curryRight
          */
-        curryRight(arity?: number):
-            T extends (arg1: infer T1) => infer R ? Function<RightCurriedFunction1<T1, R>> :
-            T extends (arg1: infer T1, arg2: infer T2) => infer R ? Function<RightCurriedFunction2<T1, T2, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? Function<RightCurriedFunction3<T1, T2, T3, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? Function<RightCurriedFunction4<T1, T2, T3, T4, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? Function<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
-            Function<(...args: any[]) => any>;
+        curryRight(
+            arity?: number,
+        ): T extends (arg1: infer T1) => infer R
+            ? Function<RightCurriedFunction1<T1, R>>
+            : T extends (arg1: infer T1, arg2: infer T2) => infer R
+            ? Function<RightCurriedFunction2<T1, T2, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R
+            ? Function<RightCurriedFunction3<T1, T2, T3, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R
+            ? Function<RightCurriedFunction4<T1, T2, T3, T4, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R
+            ? Function<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>
+            : Function<(...args: any[]) => any>;
     }
     interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.curryRight
          */
-        curryRight(arity?: number):
-            T extends (arg1: infer T1) => infer R ? FunctionChain<RightCurriedFunction1<T1, R>> :
-            T extends (arg1: infer T1, arg2: infer T2) => infer R ? FunctionChain<RightCurriedFunction2<T1, T2, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? FunctionChain<RightCurriedFunction3<T1, T2, T3, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? FunctionChain<RightCurriedFunction4<T1, T2, T3, T4, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? FunctionChain<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
-            FunctionChain<(...args: any[]) => any>;
+        curryRight(
+            arity?: number,
+        ): T extends (arg1: infer T1) => infer R
+            ? FunctionChain<RightCurriedFunction1<T1, R>>
+            : T extends (arg1: infer T1, arg2: infer T2) => infer R
+            ? FunctionChain<RightCurriedFunction2<T1, T2, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R
+            ? FunctionChain<RightCurriedFunction3<T1, T2, T3, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R
+            ? FunctionChain<RightCurriedFunction4<T1, T2, T3, T4, R>>
+            : T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R
+            ? FunctionChain<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>
+            : FunctionChain<(...args: any[]) => any>;
     }
     interface DebounceSettings {
         /**
@@ -566,7 +612,10 @@ declare module "../index" {
          * of functions.
          * @return Returns the new function.
          */
-        overArgs(func: (...args: any[]) => any, ...transforms: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
+        overArgs(
+            func: (...args: any[]) => any,
+            ...transforms: Array<Many<(...args: any[]) => any>>
+        ): (...args: any[]) => any;
     }
     interface Function<T extends (...args: any) => any> {
         /**
@@ -582,12 +631,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-        * Creates a function that, when called, invokes func with any additional partial arguments
-        * prepended to those provided to the new function. This method is similar to _.bind except
-        * it does not alter the this binding.
-        * @param func The function to partially apply arguments to.
-        * @param args Arguments to be partially applied.
-        * @return The new partially applied function.
+         * Creates a function that, when called, invokes func with any additional partial arguments
+         * prepended to those provided to the new function. This method is similar to _.bind except
+         * it does not alter the this binding.
+         * @param func The function to partially apply arguments to.
+         * @param args Arguments to be partially applied.
+         * @return The new partially applied function.
          */
         partial: Partial;
     }
@@ -608,131 +657,202 @@ declare module "../index" {
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3): Function2<T2, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3): Function2<T1, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3): Function1<T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, plc3: __, arg4: T4): Function3<T1, T2, T3, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4): Function2<T2, T3, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, plc3: __, arg4: T4): Function2<T1, T3, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Function1<T3, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3, arg4: T4): Function2<T1, T2, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Function1<T2, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3, arg4: T4): Function1<T1, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, plc3: __, arg4: T4): Function3<
+            T1,
+            T2,
+            T3,
+            R
+        >;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4): Function2<
+            T2,
+            T3,
+            R
+        >;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, plc3: __, arg4: T4): Function2<
+            T1,
+            T3,
+            R
+        >;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Function1<
+            T3,
+            R
+        >;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3, arg4: T4): Function2<
+            T1,
+            T2,
+            R
+        >;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Function1<
+            T2,
+            R
+        >;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3, arg4: T4): Function1<
+            T1,
+            R
+        >;
         <TS extends any[], R>(func: (...ts: TS) => R): (...ts: TS) => R;
         <TS extends any[], T1, R>(func: (t1: T1, ...ts: TS) => R, arg1: T1): (...ts: TS) => R;
         <TS extends any[], T1, T2, R>(func: (t1: T1, t2: T2, ...ts: TS) => R, t1: T1, t2: T2): (...ts: TS) => R;
-        <TS extends any[], T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3, ...ts: TS) => R, t1: T1, t2: T2, t3: T3): (...ts: TS) => R;
-        <TS extends any[], T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: TS) => R, t1: T1, t2: T2, t3: T3, t4: T4): (...ts: TS) => R;
+        <TS extends any[], T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3, ...ts: TS) => R, t1: T1, t2: T2, t3: T3): (
+            ...ts: TS
+        ) => R;
+        <TS extends any[], T1, T2, T3, T4, R>(
+            func: (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: TS) => R,
+            t1: T1,
+            t2: T2,
+            t3: T3,
+            t4: T4,
+        ): (...ts: TS) => R;
         placeholder: __;
     }
     interface Function<T extends (...args: any) => any> {
         /**
          * @see _.partial
          */
-        partial<T2>(plc1: __, arg2: T2): Function<
-            T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> :
-            T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
-            T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
-            any
+        partial<T2>(
+            plc1: __,
+            arg2: T2,
+        ): Function<
+            T extends Function2<infer T1, T2, infer R>
+                ? Function1<T1, R>
+                : T extends Function3<infer T1, T2, infer T3, infer R>
+                ? Function2<T1, T3, R>
+                : T extends Function4<infer T1, T2, infer T3, infer T4, infer R>
+                ? Function3<T1, T3, T4, R>
+                : any
         >;
         /**
          * @see _.partial
          */
-        partial<T3>(plc1: __, plc2: __, arg3: T3): Function<
-            T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
-            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
-            any
+        partial<T3>(
+            plc1: __,
+            plc2: __,
+            arg3: T3,
+        ): Function<
+            T extends Function3<infer T1, infer T2, T3, infer R>
+                ? Function2<T1, T2, R>
+                : T extends Function4<infer T1, infer T2, T3, infer T4, infer R>
+                ? Function3<T1, T2, T4, R>
+                : any
         >;
         /**
          * @see _.partial
          */
-        partial<T1, T3>(arg1: T1, plc2: __, arg3: T3): Function<
-            T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
-            T extends Function4<T1, infer T2, T3, infer T4, infer R> ? Function2<T2, T4, R> :
-            any
+        partial<T1, T3>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+        ): Function<
+            T extends Function3<T1, infer T2, T3, infer R>
+                ? Function1<T2, R>
+                : T extends Function4<T1, infer T2, T3, infer T4, infer R>
+                ? Function2<T2, T4, R>
+                : any
         >;
         /**
          * @see _.partial
          */
-        partial<T2, T3>(plc1: __, arg2: T2, arg3: T3): Function<
-            T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
-            T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
-            any
+        partial<T2, T3>(
+            plc1: __,
+            arg2: T2,
+            arg3: T3,
+        ): Function<
+            T extends Function3<infer T1, T2, T3, infer R>
+                ? Function1<T1, R>
+                : T extends Function4<infer T1, T2, T3, infer T4, infer R>
+                ? Function2<T1, T4, R>
+                : any
         >;
         /**
          * @see _.partial
          */
-        partial<T3>(plc1: __, plc2: __, arg3: T3): Function<
-            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
-            any
-        >;
+        partial<T3>(
+            plc1: __,
+            plc2: __,
+            arg3: T3,
+        ): Function<T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> : any>;
         /**
          * @see _.partial
          */
-        partial<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): Function<
-            T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
-            any
-        >;
+        partial<T1, T4>(
+            arg1: T1,
+            plc2: __,
+            plc3: __,
+            arg4: T4,
+        ): Function<T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> : any>;
         /**
          * @see _.partial
          */
-        partial<T2, T4>(plc1: __, arg2: T2, plc3: __, arg4: T4): Function<
-            T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
-            any
-        >;
+        partial<T2, T4>(
+            plc1: __,
+            arg2: T2,
+            plc3: __,
+            arg4: T4,
+        ): Function<T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> : any>;
         /**
          * @see _.partial
          */
-        partial<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): Function<
-            T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
-            any
-        >;
+        partial<T1, T2, T4>(
+            arg1: T1,
+            arg2: T2,
+            plc3: __,
+            arg4: T4,
+        ): Function<T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> : any>;
         /**
          * @see _.partial
          */
-        partial<T3, T4>(plc1: __, plc2: __, arg3: T3, arg4: T4): Function<
-            T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
-            any
-        >;
+        partial<T3, T4>(
+            plc1: __,
+            plc2: __,
+            arg3: T3,
+            arg4: T4,
+        ): Function<T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> : any>;
         /**
          * @see _.partial
          */
-        partial<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): Function<
-            T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
-            any
-        >;
+        partial<T1, T3, T4>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+            arg4: T4,
+        ): Function<T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> : any>;
         /**
          * @see _.partial
          */
-        partial<T2, T3, T4>(plc1: __, arg2: T2, arg3: T3, arg4: T4): Function<
-            T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
-            any
-        >;
+        partial<T2, T3, T4>(
+            plc1: __,
+            arg2: T2,
+            arg3: T3,
+            arg4: T4,
+        ): Function<T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> : any>;
         /**
          * @see _.partial
          */
-        partial<T1, T2, T3, T4>(arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function<
-            T extends (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: infer TS) => infer R ? (...ts: TS) => R :
-            any
-            >;
+        partial<T1, T2, T3, T4>(
+            arg1: T1,
+            arg2: T2,
+            arg3: T3,
+            arg4: T4,
+        ): Function<T extends (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: infer TS) => infer R ? (...ts: TS) => R : any>;
         /**
          * @see _.partial
          */
-        partial<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3): Function<
-            T extends (t1: T1, t2: T2, t3: T3, ...ts: infer TS) => infer R ? (...ts: TS) => R :
-            any
-            >;
+        partial<T1, T2, T3>(
+            arg1: T1,
+            arg2: T2,
+            arg3: T3,
+        ): Function<T extends (t1: T1, t2: T2, t3: T3, ...ts: infer TS) => infer R ? (...ts: TS) => R : any>;
         /**
          * @see _.partial
          */
-        partial<T1, T2>(arg1: T1, arg2: T2): Function<
-            T extends (t1: T1, t2: T2, ...ts: infer TS) => infer R ? (...ts: TS) => R :
-            any
-            >;
+        partial<T1, T2>(
+            arg1: T1,
+            arg2: T2,
+        ): Function<T extends (t1: T1, t2: T2, ...ts: infer TS) => infer R ? (...ts: TS) => R : any>;
         /**
          * @see _.partial
          */
-        partial<T1>(arg1: T1): Function<
-            T extends (t1: T1, ...ts: infer TS) => infer R ? (...ts: TS) => R :
-            any
-            >;
+        partial<T1>(arg1: T1): Function<T extends (t1: T1, ...ts: infer TS) => infer R ? (...ts: TS) => R : any>;
         /**
          * @see _.partial
          */
@@ -742,113 +862,154 @@ declare module "../index" {
         /**
          * @see _.partial
          */
-        partial<T2>(plc1: __, arg2: T2): FunctionChain<
-            T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> :
-            T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
-            T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
-            any
+        partial<T2>(
+            plc1: __,
+            arg2: T2,
+        ): FunctionChain<
+            T extends Function2<infer T1, T2, infer R>
+                ? Function1<T1, R>
+                : T extends Function3<infer T1, T2, infer T3, infer R>
+                ? Function2<T1, T3, R>
+                : T extends Function4<infer T1, T2, infer T3, infer T4, infer R>
+                ? Function3<T1, T3, T4, R>
+                : any
         >;
         /**
          * @see _.partial
          */
-        partial<T3>(plc1: __, plc2: __, arg3: T3): FunctionChain<
-            T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
-            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
-            any
+        partial<T3>(
+            plc1: __,
+            plc2: __,
+            arg3: T3,
+        ): FunctionChain<
+            T extends Function3<infer T1, infer T2, T3, infer R>
+                ? Function2<T1, T2, R>
+                : T extends Function4<infer T1, infer T2, T3, infer T4, infer R>
+                ? Function3<T1, T2, T4, R>
+                : any
         >;
         /**
          * @see _.partial
          */
-        partial<T1, T3>(arg1: T1, plc2: __, arg3: T3): FunctionChain<
-            T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
-            T extends Function4<T1, infer T2, T3, infer T4, infer R> ? Function2<T2, T4, R> :
-            any
+        partial<T1, T3>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+        ): FunctionChain<
+            T extends Function3<T1, infer T2, T3, infer R>
+                ? Function1<T2, R>
+                : T extends Function4<T1, infer T2, T3, infer T4, infer R>
+                ? Function2<T2, T4, R>
+                : any
         >;
         /**
          * @see _.partial
          */
-        partial<T2, T3>(plc1: __, arg2: T2, arg3: T3): FunctionChain<
-            T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
-            T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
-            any
+        partial<T2, T3>(
+            plc1: __,
+            arg2: T2,
+            arg3: T3,
+        ): FunctionChain<
+            T extends Function3<infer T1, T2, T3, infer R>
+                ? Function1<T1, R>
+                : T extends Function4<infer T1, T2, T3, infer T4, infer R>
+                ? Function2<T1, T4, R>
+                : any
         >;
         /**
          * @see _.partial
          */
-        partial<T3>(plc1: __, plc2: __, arg3: T3): FunctionChain<
-            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
-            any
+        partial<T3>(
+            plc1: __,
+            plc2: __,
+            arg3: T3,
+        ): FunctionChain<
+            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> : any
         >;
         /**
          * @see _.partial
          */
-        partial<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): FunctionChain<
-            T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
-            any
+        partial<T1, T4>(
+            arg1: T1,
+            plc2: __,
+            plc3: __,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> : any>;
+        /**
+         * @see _.partial
+         */
+        partial<T2, T4>(
+            plc1: __,
+            arg2: T2,
+            plc3: __,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> : any>;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2, T4>(
+            arg1: T1,
+            arg2: T2,
+            plc3: __,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> : any>;
+        /**
+         * @see _.partial
+         */
+        partial<T3, T4>(
+            plc1: __,
+            plc2: __,
+            arg3: T3,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> : any>;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T3, T4>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> : any>;
+        /**
+         * @see _.partial
+         */
+        partial<T2, T3, T4>(
+            plc1: __,
+            arg2: T2,
+            arg3: T3,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> : any>;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2, T3, T4>(
+            arg1: T1,
+            arg2: T2,
+            arg3: T3,
+            arg4: T4,
+        ): FunctionChain<
+            T extends (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: infer TS) => infer R ? (...ts: TS) => R : any
         >;
         /**
          * @see _.partial
          */
-        partial<T2, T4>(plc1: __, arg2: T2, plc3: __, arg4: T4): FunctionChain<
-            T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
-            any
-        >;
+        partial<T1, T2, T3>(
+            arg1: T1,
+            arg2: T2,
+            arg3: T3,
+        ): FunctionChain<T extends (t1: T1, t2: T2, t3: T3, ...ts: infer TS) => infer R ? (...ts: TS) => R : any>;
         /**
          * @see _.partial
          */
-        partial<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): FunctionChain<
-            T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
-            any
-        >;
+        partial<T1, T2>(
+            arg1: T1,
+            arg2: T2,
+        ): FunctionChain<T extends (t1: T1, t2: T2, ...ts: infer TS) => infer R ? (...ts: TS) => R : any>;
         /**
          * @see _.partial
          */
-        partial<T3, T4>(plc1: __, plc2: __, arg3: T3, arg4: T4): FunctionChain<
-            T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
-            any
-        >;
-        /**
-         * @see _.partial
-         */
-        partial<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): FunctionChain<
-            T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
-            any
-        >;
-        /**
-         * @see _.partial
-         */
-        partial<T2, T3, T4>(plc1: __, arg2: T2, arg3: T3, arg4: T4): FunctionChain<
-            T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
-            any
-        >;
-        /**
-         * @see _.partial
-         */
-        partial<T1, T2, T3, T4>(arg1: T1, arg2: T2, arg3: T3, arg4: T4): FunctionChain<
-            T extends (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: infer TS) => infer R ? (...ts: TS) => R :
-            any
-            >;
-        /**
-         * @see _.partial
-         */
-        partial<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3): FunctionChain<
-            T extends (t1: T1, t2: T2, t3: T3, ...ts: infer TS) => infer R ? (...ts: TS) => R :
-            any
-            >;
-        /**
-         * @see _.partial
-         */
-        partial<T1, T2>(arg1: T1, arg2: T2): FunctionChain<
-            T extends (t1: T1, t2: T2, ...ts: infer TS) => infer R ? (...ts: TS) => R :
-            any
-            >;
-        /**
-         * @see _.partial
-         */
-        partial<T1>(arg1: T1): FunctionChain<
-            T extends (t1: T1, ...ts: infer TS) => infer R ? (...ts: TS) => R :
-            any
-            >;
+        partial<T1>(arg1: T1): FunctionChain<T extends (t1: T1, ...ts: infer TS) => infer R ? (...ts: TS) => R : any>;
         /**
          * @see _.partial
          */
@@ -856,11 +1017,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-        * This method is like _.partial except that partial arguments are appended to those provided
-        * to the new function.
-        * @param func The function to partially apply arguments to.
-        * @param args Arguments to be partially applied.
-        * @return The new partially applied function.
+         * This method is like _.partial except that partial arguments are appended to those provided
+         * to the new function.
+         * @param func The function to partially apply arguments to.
+         * @param args Arguments to be partially applied.
+         * @return The new partially applied function.
          */
         partialRight: PartialRight;
     }
@@ -881,19 +1042,45 @@ declare module "../index" {
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg2: T2, arg3: T3): Function1<T1, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): Function0<R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>): Function4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, plc4: __): Function3<T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, plc4: __): Function3<
+            T2,
+            T3,
+            T4,
+            R
+        >;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, plc3: __, plc4: __): Function3<T1, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, plc4: __): Function2<T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, plc4: __): Function2<
+            T3,
+            T4,
+            R
+        >;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg3: T3, plc4: __): Function3<T1, T2, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, plc4: __): Function2<T2, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, plc4: __): Function2<
+            T2,
+            T4,
+            R
+        >;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, arg3: T3, plc4: __): Function2<T1, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: __): Function1<T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: __): Function1<
+            T4,
+            R
+        >;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg4: T4): Function3<T1, T2, T3, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4): Function2<T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4): Function2<
+            T2,
+            T3,
+            R
+        >;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, plc3: __, arg4: T4): Function2<T1, T3, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Function1<T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Function1<
+            T3,
+            R
+        >;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg3: T3, arg4: T4): Function2<T1, T2, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Function1<T2, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Function1<
+            T2,
+            R
+        >;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, arg3: T3, arg4: T4): Function1<T1, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function0<R>;
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
@@ -903,156 +1090,173 @@ declare module "../index" {
         /**
          * @see _.partialRight
          */
-        partialRight<T1>(arg1: T1, plc2: __): Function<
-            T extends Function2<T1, infer T2, infer R> ? Function1<T2, R> :
-            any
-        >;
+        partialRight<T1>(
+            arg1: T1,
+            plc2: __,
+        ): Function<T extends Function2<T1, infer T2, infer R> ? Function1<T2, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T2>(arg2: T2): Function<
-            T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> : any
-            >;
+        partialRight<T2>(arg2: T2): Function<T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1>(arg1: T1, plc2: __, plc3: __): Function<
-            T extends Function3<T1, infer T2, infer T3, infer R> ? Function2<T2, T3, R> :
-            any
-        >;
+        partialRight<T1>(
+            arg1: T1,
+            plc2: __,
+            plc3: __,
+        ): Function<T extends Function3<T1, infer T2, infer T3, infer R> ? Function2<T2, T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T2>(arg2: T2, plc3: __): Function<
-            T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
-            any
-        >;
+        partialRight<T2>(
+            arg2: T2,
+            plc3: __,
+        ): Function<T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __): Function<
-            T extends Function3<T1, T2, infer T3, infer R> ? Function1<T3, R> :
-            any
-        >;
+        partialRight<T1, T2>(
+            arg1: T1,
+            arg2: T2,
+            plc3: __,
+        ): Function<T extends Function3<T1, T2, infer T3, infer R> ? Function1<T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T3>(arg3: T3): Function<
-            T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
-            any
-        >;
+        partialRight<T3>(
+            arg3: T3,
+        ): Function<T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3): Function<
-            T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
-            any
-        >;
+        partialRight<T1, T3>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+        ): Function<T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T2, T3>(arg2: T2, arg3: T3): Function<
-            T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
-            any
-        >;
+        partialRight<T2, T3>(
+            arg2: T2,
+            arg3: T3,
+        ): Function<T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1>(arg1: T1, plc2: __, plc3: __, plc4: __): Function<
-            T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function3<T2, T3, T4, R> :
-            any
-        >;
+        partialRight<T1>(
+            arg1: T1,
+            plc2: __,
+            plc3: __,
+            plc4: __,
+        ): Function<T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function3<T2, T3, T4, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T2>(arg2: T2, plc3: __, plc4: __): Function<
-            T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
-            any
-        >;
+        partialRight<T2>(
+            arg2: T2,
+            plc3: __,
+            plc4: __,
+        ): Function<T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __, plc4: __): Function<
-            T extends Function4<T1, T2, infer T3, infer T4, infer R> ? Function2<T3, T4, R> :
-            any
-        >;
+        partialRight<T1, T2>(
+            arg1: T1,
+            arg2: T2,
+            plc3: __,
+            plc4: __,
+        ): Function<T extends Function4<T1, T2, infer T3, infer T4, infer R> ? Function2<T3, T4, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T3>(arg3: T3, plc4: __): Function<
-            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
-            any
-        >;
+        partialRight<T3>(
+            arg3: T3,
+            plc4: __,
+        ): Function<T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3, plc4: __): Function<
-            T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function2<T2, T4, R> :
-            any
-        >;
+        partialRight<T1, T3>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+            plc4: __,
+        ): Function<T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function2<T2, T4, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T2, T3>(arg2: T2, arg3: T3, plc4: __): Function<
-            T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
-            any
-        >;
+        partialRight<T2, T3>(
+            arg2: T2,
+            arg3: T3,
+            plc4: __,
+        ): Function<T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3, plc4: __): Function<
-            T extends Function4<T1, T2, T3, infer T4, infer R> ? Function1<T4, R> :
-            any
-        >;
+        partialRight<T1, T2, T3>(
+            arg1: T1,
+            arg2: T2,
+            arg3: T3,
+            plc4: __,
+        ): Function<T extends Function4<T1, T2, T3, infer T4, infer R> ? Function1<T4, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T4>(arg4: T4): Function<
-            T extends Function4<infer T1, infer T2, infer T3, T4, infer R> ? Function3<T1, T2, T3, R> :
-            any
-        >;
+        partialRight<T4>(
+            arg4: T4,
+        ): Function<T extends Function4<infer T1, infer T2, infer T3, T4, infer R> ? Function3<T1, T2, T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): Function<
-            T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
-            any
-        >;
+        partialRight<T1, T4>(
+            arg1: T1,
+            plc2: __,
+            plc3: __,
+            arg4: T4,
+        ): Function<T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T2, T4>(arg2: T2, plc3: __, arg4: T4): Function<
-            T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
-            any
-        >;
+        partialRight<T2, T4>(
+            arg2: T2,
+            plc3: __,
+            arg4: T4,
+        ): Function<T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): Function<
-            T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
-            any
-        >;
+        partialRight<T1, T2, T4>(
+            arg1: T1,
+            arg2: T2,
+            plc3: __,
+            arg4: T4,
+        ): Function<T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T3, T4>(arg3: T3, arg4: T4): Function<
-            T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
-            any
-        >;
+        partialRight<T3, T4>(
+            arg3: T3,
+            arg4: T4,
+        ): Function<T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): Function<
-            T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
-            any
-        >;
+        partialRight<T1, T3, T4>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+            arg4: T4,
+        ): Function<T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T2, T3, T4>(arg2: T2, arg3: T3, arg4: T4): Function<
-            T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
-            any
-        >;
+        partialRight<T2, T3, T4>(
+            arg2: T2,
+            arg3: T3,
+            arg4: T4,
+        ): Function<T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> : any>;
         /**
          * @see _.partialRight
          */
@@ -1066,156 +1270,181 @@ declare module "../index" {
         /**
          * @see _.partialRight
          */
-        partialRight<T1>(arg1: T1, plc2: __): FunctionChain<
-            T extends Function2<T1, infer T2, infer R> ? Function1<T2, R> :
-            any
+        partialRight<T1>(
+            arg1: T1,
+            plc2: __,
+        ): FunctionChain<T extends Function2<T1, infer T2, infer R> ? Function1<T2, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2>(arg2: T2): FunctionChain<T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1>(
+            arg1: T1,
+            plc2: __,
+            plc3: __,
+        ): FunctionChain<T extends Function3<T1, infer T2, infer T3, infer R> ? Function2<T2, T3, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2>(
+            arg2: T2,
+            plc3: __,
+        ): FunctionChain<T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2>(
+            arg1: T1,
+            arg2: T2,
+            plc3: __,
+        ): FunctionChain<T extends Function3<T1, T2, infer T3, infer R> ? Function1<T3, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T3>(
+            arg3: T3,
+        ): FunctionChain<T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T3>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+        ): FunctionChain<T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T3>(
+            arg2: T2,
+            arg3: T3,
+        ): FunctionChain<T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1>(
+            arg1: T1,
+            plc2: __,
+            plc3: __,
+            plc4: __,
+        ): FunctionChain<
+            T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function3<T2, T3, T4, R> : any
         >;
         /**
          * @see _.partialRight
          */
-        partialRight<T2>(arg2: T2): FunctionChain<
-            T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> : any
-            >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T1>(arg1: T1, plc2: __, plc3: __): FunctionChain<
-            T extends Function3<T1, infer T2, infer T3, infer R> ? Function2<T2, T3, R> :
-            any
+        partialRight<T2>(
+            arg2: T2,
+            plc3: __,
+            plc4: __,
+        ): FunctionChain<
+            T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> : any
         >;
         /**
          * @see _.partialRight
          */
-        partialRight<T2>(arg2: T2, plc3: __): FunctionChain<
-            T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
-            any
+        partialRight<T1, T2>(
+            arg1: T1,
+            arg2: T2,
+            plc3: __,
+            plc4: __,
+        ): FunctionChain<T extends Function4<T1, T2, infer T3, infer T4, infer R> ? Function2<T3, T4, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T3>(
+            arg3: T3,
+            plc4: __,
+        ): FunctionChain<
+            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> : any
         >;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __): FunctionChain<
-            T extends Function3<T1, T2, infer T3, infer R> ? Function1<T3, R> :
-            any
+        partialRight<T1, T3>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+            plc4: __,
+        ): FunctionChain<T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function2<T2, T4, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T3>(
+            arg2: T2,
+            arg3: T3,
+            plc4: __,
+        ): FunctionChain<T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2, T3>(
+            arg1: T1,
+            arg2: T2,
+            arg3: T3,
+            plc4: __,
+        ): FunctionChain<T extends Function4<T1, T2, T3, infer T4, infer R> ? Function1<T4, R> : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T4>(
+            arg4: T4,
+        ): FunctionChain<
+            T extends Function4<infer T1, infer T2, infer T3, T4, infer R> ? Function3<T1, T2, T3, R> : any
         >;
         /**
          * @see _.partialRight
          */
-        partialRight<T3>(arg3: T3): FunctionChain<
-            T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
-            any
-        >;
+        partialRight<T1, T4>(
+            arg1: T1,
+            plc2: __,
+            plc3: __,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3): FunctionChain<
-            T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
-            any
-        >;
+        partialRight<T2, T4>(
+            arg2: T2,
+            plc3: __,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T2, T3>(arg2: T2, arg3: T3): FunctionChain<
-            T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
-            any
-        >;
+        partialRight<T1, T2, T4>(
+            arg1: T1,
+            arg2: T2,
+            plc3: __,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1>(arg1: T1, plc2: __, plc3: __, plc4: __): FunctionChain<
-            T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function3<T2, T3, T4, R> :
-            any
-        >;
+        partialRight<T3, T4>(
+            arg3: T3,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T2>(arg2: T2, plc3: __, plc4: __): FunctionChain<
-            T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
-            any
-        >;
+        partialRight<T1, T3, T4>(
+            arg1: T1,
+            plc2: __,
+            arg3: T3,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> : any>;
         /**
          * @see _.partialRight
          */
-        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __, plc4: __): FunctionChain<
-            T extends Function4<T1, T2, infer T3, infer T4, infer R> ? Function2<T3, T4, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T3>(arg3: T3, plc4: __): FunctionChain<
-            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3, plc4: __): FunctionChain<
-            T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function2<T2, T4, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T2, T3>(arg2: T2, arg3: T3, plc4: __): FunctionChain<
-            T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3, plc4: __): FunctionChain<
-            T extends Function4<T1, T2, T3, infer T4, infer R> ? Function1<T4, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T4>(arg4: T4): FunctionChain<
-            T extends Function4<infer T1, infer T2, infer T3, T4, infer R> ? Function3<T1, T2, T3, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): FunctionChain<
-            T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T2, T4>(arg2: T2, plc3: __, arg4: T4): FunctionChain<
-            T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): FunctionChain<
-            T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T3, T4>(arg3: T3, arg4: T4): FunctionChain<
-            T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): FunctionChain<
-            T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
-            any
-        >;
-        /**
-         * @see _.partialRight
-         */
-        partialRight<T2, T3, T4>(arg2: T2, arg3: T3, arg4: T4): FunctionChain<
-            T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
-            any
-        >;
+        partialRight<T2, T3, T4>(
+            arg2: T2,
+            arg3: T3,
+            arg4: T4,
+        ): FunctionChain<T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> : any>;
         /**
          * @see _.partialRight
          */
@@ -1375,18 +1604,25 @@ declare module "../index" {
          * @param wrapper The wrapper function.
          * @return Returns the new function.
          */
-        wrap<T, TArgs, TResult>(value: T, wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
+        wrap<T, TArgs, TResult>(
+            value: T,
+            wrapper: (value: T, ...args: TArgs[]) => TResult,
+        ): (...args: TArgs[]) => TResult;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.wrap
          */
-        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): Function<(...args: TArgs[]) => TResult>;
+        wrap<TArgs, TResult>(
+            wrapper: (value: TValue, ...args: TArgs[]) => TResult,
+        ): Function<(...args: TArgs[]) => TResult>;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.wrap
          */
-        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): FunctionChain<(...args: TArgs[]) => TResult>;
+        wrap<TArgs, TResult>(
+            wrapper: (value: TValue, ...args: TArgs[]) => TResult,
+        ): FunctionChain<(...args: TArgs[]) => TResult>;
     }
 }

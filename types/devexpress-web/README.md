@@ -1,5 +1,4 @@
-DevExpress ASP.NET/MVC TypeScript definitions
-=============================================
+# DevExpress ASP.NET/MVC TypeScript definitions
 
 You can use these TypeScript definitions for your web projects, which contain
 DevExpress ASP.NET or MVC controls.

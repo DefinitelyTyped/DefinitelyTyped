@@ -1,5 +1,5 @@
-declare module "zlib" {
-    import * as stream from "stream";
+declare module 'zlib' {
+    import * as stream from 'stream';
 
     interface ZlibOptions {
         flush?: number; // default: zlib.constants.Z_NO_FLUSH
@@ -29,13 +29,13 @@ declare module "zlib" {
         reset(): void;
     }
 
-    interface Gzip extends stream.Transform, Zlib { }
-    interface Gunzip extends stream.Transform, Zlib { }
-    interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
-    interface Inflate extends stream.Transform, Zlib, ZlibReset { }
-    interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
-    interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
-    interface Unzip extends stream.Transform, Zlib { }
+    interface Gzip extends stream.Transform, Zlib {}
+    interface Gunzip extends stream.Transform, Zlib {}
+    interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
+    interface Inflate extends stream.Transform, Zlib, ZlibReset {}
+    interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
+    interface InflateRaw extends stream.Transform, Zlib, ZlibReset {}
+    interface Unzip extends stream.Transform, Zlib {}
 
     function createGzip(options?: ZlibOptions): Gzip;
     function createGunzip(options?: ZlibOptions): Gunzip;
@@ -47,22 +47,42 @@ declare module "zlib" {
 
     type InputType = string | Buffer | DataView | ArrayBuffer | NodeJS.TypedArray;
     function deflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function deflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    function deflate(
+        buf: InputType,
+        options: ZlibOptions,
+        callback: (error: Error | null, result: Buffer) => void,
+    ): void;
     function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
     function deflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function deflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    function deflateRaw(
+        buf: InputType,
+        options: ZlibOptions,
+        callback: (error: Error | null, result: Buffer) => void,
+    ): void;
     function deflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
     function gzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
     function gzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     function gzipSync(buf: InputType, options?: ZlibOptions): Buffer;
     function gunzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function gunzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    function gunzip(
+        buf: InputType,
+        options: ZlibOptions,
+        callback: (error: Error | null, result: Buffer) => void,
+    ): void;
     function gunzipSync(buf: InputType, options?: ZlibOptions): Buffer;
     function inflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function inflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    function inflate(
+        buf: InputType,
+        options: ZlibOptions,
+        callback: (error: Error | null, result: Buffer) => void,
+    ): void;
     function inflateSync(buf: InputType, options?: ZlibOptions): Buffer;
     function inflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function inflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    function inflateRaw(
+        buf: InputType,
+        options: ZlibOptions,
+        callback: (error: Error | null, result: Buffer) => void,
+    ): void;
     function inflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
     function unzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
     function unzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;

@@ -1,2 +1,2 @@
-import { useWith } from "../fp";
+import { useWith } from '../fp';
 export = useWith;

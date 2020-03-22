@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ApolloLink } from "apollo-link";
-import { HttpOptions } from "apollo-link-http-common";
+import { ApolloLink } from 'apollo-link';
+import { HttpOptions } from 'apollo-link-http-common';
 
-export { ReactNativeFile } from "extract-files";
+export { ReactNativeFile } from 'extract-files';
 
 declare global {
     interface GlobalFetch {
-        fetch: WindowOrWorkerGlobalScope["fetch"];
+        fetch: WindowOrWorkerGlobalScope['fetch'];
     }
 }
 

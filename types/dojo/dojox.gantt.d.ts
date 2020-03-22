@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     namespace gantt {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/gantt/contextMenuTab.html
@@ -367,7 +365,16 @@ declare namespace dojox {
              * @param taskOwner
              * @param parentTaskId
              */
-            insertTask(id: any, name: any, startTime: any, duration: any, percentage: any, previousTaskId: any, taskOwner: any, parentTaskId: any): any;
+            insertTask(
+                id: any,
+                name: any,
+                startTime: any,
+                duration: any,
+                percentage: any,
+                previousTaskId: any,
+                taskOwner: any,
+                parentTaskId: any,
+            ): any;
             /**
              *
              */
@@ -1079,38 +1086,37 @@ declare namespace dojox {
             switchTeleMicroView(dip: any): void;
         }
     }
-
 }
 
-declare module "dojox/gantt/contextMenuTab" {
-    var exp: dojox.gantt.contextMenuTab
-    export=exp;
+declare module 'dojox/gantt/contextMenuTab' {
+    var exp: dojox.gantt.contextMenuTab;
+    export = exp;
 }
-declare module "dojox/gantt/GanttProjectControl" {
-    var exp: dojox.gantt.GanttProjectControl
-    export=exp;
+declare module 'dojox/gantt/GanttProjectControl' {
+    var exp: dojox.gantt.GanttProjectControl;
+    export = exp;
 }
-declare module "dojox/gantt/GanttProjectItem" {
-    var exp: dojox.gantt.GanttProjectItem
-    export=exp;
+declare module 'dojox/gantt/GanttProjectItem' {
+    var exp: dojox.gantt.GanttProjectItem;
+    export = exp;
 }
-declare module "dojox/gantt/GanttResourceItem" {
-    var exp: dojox.gantt.GanttResourceItem
-    export=exp;
+declare module 'dojox/gantt/GanttResourceItem' {
+    var exp: dojox.gantt.GanttResourceItem;
+    export = exp;
 }
-declare module "dojox/gantt/GanttChart" {
-    var exp: dojox.gantt.GanttChart
-    export=exp;
+declare module 'dojox/gantt/GanttChart' {
+    var exp: dojox.gantt.GanttChart;
+    export = exp;
 }
-declare module "dojox/gantt/GanttTaskControl" {
-    var exp: dojox.gantt.GanttTaskControl
-    export=exp;
+declare module 'dojox/gantt/GanttTaskControl' {
+    var exp: dojox.gantt.GanttTaskControl;
+    export = exp;
 }
-declare module "dojox/gantt/TabMenu" {
-    var exp: dojox.gantt.TabMenu
-    export=exp;
+declare module 'dojox/gantt/TabMenu' {
+    var exp: dojox.gantt.TabMenu;
+    export = exp;
 }
-declare module "dojox/gantt/GanttTaskItem" {
-    var exp: dojox.gantt.GanttTaskItem
-    export=exp;
+declare module 'dojox/gantt/GanttTaskItem' {
+    var exp: dojox.gantt.GanttTaskItem;
+    export = exp;
 }

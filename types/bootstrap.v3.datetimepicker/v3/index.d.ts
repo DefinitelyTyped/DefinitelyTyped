@@ -81,32 +81,60 @@ declare global {
         datetimepicker(): JQuery;
         datetimepicker(options: DatetimepickerOptions): JQuery;
 
-        off(events: "dp.change", selector?: string, handler?: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
-        off(events: "dp.change", handler: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
+        off(
+            events: 'dp.change',
+            selector?: string,
+            handler?: (eventobject: DatetimepickerChangeEventObject) => any,
+        ): JQuery;
+        off(events: 'dp.change', handler: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
 
-        on(events: "dp.change", selector: string, data: any, handler?: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
-        on(events: "dp.change", selector: string, handler: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
+        on(
+            events: 'dp.change',
+            selector: string,
+            data: any,
+            handler?: (eventobject: DatetimepickerChangeEventObject) => any,
+        ): JQuery;
+        on(
+            events: 'dp.change',
+            selector: string,
+            handler: (eventobject: DatetimepickerChangeEventObject) => any,
+        ): JQuery;
         on(events: 'dp.change', handler: (eventObject: DatetimepickerChangeEventObject) => any): JQuery;
 
-        off(events: "dp.show", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        off(events: "dp.show", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        off(events: 'dp.show', selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        off(events: 'dp.show', handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
 
-        on(events: "dp.show", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: "dp.show", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        on(
+            events: 'dp.show',
+            selector: string,
+            data: any,
+            handler?: (eventobject: DatetimepickerEventObject) => any,
+        ): JQuery;
+        on(events: 'dp.show', selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
         on(events: 'dp.show', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
 
-        off(events: "dp.hide", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        off(events: "dp.hide", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        off(events: 'dp.hide', selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        off(events: 'dp.hide', handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
 
-        on(events: "dp.hide", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: "dp.hide", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        on(
+            events: 'dp.hide',
+            selector: string,
+            data: any,
+            handler?: (eventobject: DatetimepickerEventObject) => any,
+        ): JQuery;
+        on(events: 'dp.hide', selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
         on(events: 'dp.hide', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
 
-        off(events: "dp.error", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        off(events: "dp.error", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        off(events: 'dp.error', selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        off(events: 'dp.error', handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
 
-        on(events: "dp.error", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: "dp.error", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        on(
+            events: 'dp.error',
+            selector: string,
+            data: any,
+            handler?: (eventobject: DatetimepickerEventObject) => any,
+        ): JQuery;
+        on(events: 'dp.error', selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
         on(events: 'dp.error', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
 
         data(key: 'DateTimePicker'): Datetimepicker;

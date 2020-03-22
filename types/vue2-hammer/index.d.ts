@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import { PluginObject } from "vue";
+import { PluginObject } from 'vue';
 
 export interface VueHammer extends PluginObject<any> {
-  config: any;
+    config: any;
 }
 export const VueHammer: VueHammer;

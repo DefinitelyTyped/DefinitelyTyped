@@ -1,4 +1,4 @@
-import hirestime = require("hirestime");
+import hirestime = require('hirestime');
 
 const getElapsed = hirestime();
 

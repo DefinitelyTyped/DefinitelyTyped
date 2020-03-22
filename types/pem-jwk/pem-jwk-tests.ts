@@ -1,4 +1,4 @@
-import { jwk2pem, pem2jwk, RSA_JWK } from "pem-jwk";
+import { jwk2pem, pem2jwk, RSA_JWK } from 'pem-jwk';
 
 const rsa_pem = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDh6RzHEsTFjD8NlB4echurwfV2
@@ -9,8 +9,9 @@ XBW58V4VlkypTaQTSQIDAQAB
 
 const rsa_jwk: RSA_JWK = {
     kty: 'RSA',
-    n: '4ekcxxLExYw_DZQeHnIbq8H1dma5XINJNiaD9Gd0AIFzzMCcp77Ni3gR2Gjhcxs410SrL2i8HOT4z9zXKnD9ypF-ctVQN9VayS3xW17YYtGvHP1AcMSQ_IuEt-Tiq-srot2yWrYGFq0kODE_ZLWktUz_ZVwVufFeFZZMqU2kE0k',
-    e: 'AQAB'
+    n:
+        '4ekcxxLExYw_DZQeHnIbq8H1dma5XINJNiaD9Gd0AIFzzMCcp77Ni3gR2Gjhcxs410SrL2i8HOT4z9zXKnD9ypF-ctVQN9VayS3xW17YYtGvHP1AcMSQ_IuEt-Tiq-srot2yWrYGFq0kODE_ZLWktUz_ZVwVufFeFZZMqU2kE0k',
+    e: 'AQAB',
 };
 
 jwk2pem(rsa_jwk); // $ExpectType string

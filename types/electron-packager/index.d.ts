@@ -47,7 +47,7 @@ declare namespace electronPackager {
         electronVersion: string,
         platform: string,
         arch: string,
-        callbackFn: () => void
+        callbackFn: () => void,
     ) => void;
     type arch = 'ia32' | 'x64' | 'armv7l' | 'arm64' | 'mips64el' | 'all';
     type platform = 'linux' | 'win32' | 'darwin' | 'mas' | 'all';

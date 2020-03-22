@@ -59,8 +59,8 @@ interface Array<T> {
     should: Chai.ArrayAssertion;
 }
 
-declare module "chai-things" {
+declare module 'chai-things' {
     const chaiThings: Chai.ChaiPlugin;
-    namespace chaiThings { }
+    namespace chaiThings {}
     export = chaiThings;
 }

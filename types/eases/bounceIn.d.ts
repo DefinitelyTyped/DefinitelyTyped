@@ -1,2 +1,2 @@
-import { bounceIn } from "./index";
+import { bounceIn } from './index';
 export = bounceIn;

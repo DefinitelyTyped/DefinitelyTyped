@@ -165,7 +165,7 @@ test = (
 );
 
 // VictoryArea test
-test = <VictoryArea data={commonData1} x={'amount'} y={data => data.yield + data.error} />;
+test = <VictoryArea data={commonData1} x={'amount'} y={(data) => data.yield + data.error} />;
 
 test = (
     <VictoryArea
@@ -266,9 +266,9 @@ test = (
     <VictoryAxis
         scale="time"
         style={{
-            grid: { strokeWidth: tick => tick.x },
-            ticks: { stroke: tick => tick.color },
-            tickLabels: { fontSize: tick => tick.y },
+            grid: { strokeWidth: (tick) => tick.x },
+            ticks: { stroke: (tick) => tick.color },
+            tickLabels: { fontSize: (tick) => tick.y },
         }}
         tickValues={[
             new Date(1980, 1, 1),
@@ -277,7 +277,7 @@ test = (
             new Date(2010, 1, 1),
             new Date(2020, 1, 1),
         ]}
-        tickFormat={x => x.getFullYear()}
+        tickFormat={(x) => x.getFullYear()}
     />
 );
 
@@ -297,7 +297,7 @@ test = <VictoryAxis axisValue="series1" />;
 // VictoryBar test
 test = <VictoryBar data={commonData2} />;
 
-test = <VictoryBar data={commonData1} x={'amount'} y={data => data.yield + data.error} />;
+test = <VictoryBar data={commonData1} x={'amount'} y={(data) => data.yield + data.error} />;
 
 test = (
     <VictoryBar
@@ -334,7 +334,7 @@ test = (
     />
 );
 
-const getOpacity: VictoryStringOrNumberCallback = arg1 => {
+const getOpacity: VictoryStringOrNumberCallback = (arg1) => {
     const { datum, horizontal, x, y, scale } = arg1;
     const newX = scale.x(1);
     const newY = scale.y(1);
@@ -365,7 +365,7 @@ test = (
                 target: 'data',
                 eventKey: 2,
                 eventHandlers: {
-                    onClick: evt => {
+                    onClick: (evt) => {
                         evt.stopPropagation();
                         return [
                             {
@@ -403,7 +403,7 @@ test = (
             onEnter: {
                 duration: 500,
                 before: () => ({ y: 0, label: ' ' }),
-                after: datum => ({ y: datum.y, label: 'NEW' }),
+                after: (datum) => ({ y: datum.y, label: 'NEW' }),
             },
         }}
         boxWidth={10}
@@ -420,7 +420,7 @@ test = (
                 target: 'data',
                 eventKey: 2,
                 eventHandlers: {
-                    onClick: evt => {
+                    onClick: (evt) => {
                         evt.stopPropagation();
                         return [
                             {
@@ -473,14 +473,17 @@ test = (
 // VictoryChart test
 test = (
     <VictoryChart animate minDomain={5} maxDomain={{ x: 5 }}>
-        <VictoryLine y={data => 0.5 * data.x * data.x} />
+        <VictoryLine y={(data) => 0.5 * data.x * data.x} />
     </VictoryChart>
 );
 
 test = (
     <VictoryChart>
-        <VictoryLine style={{ data: { stroke: 'red', strokeWidth: 4 } }} y={data => Math.sin(2 * Math.PI * data.x)} />
-        <VictoryLine style={{ data: { stroke: 'blue', strokeWidth: 4 } }} y={data => Math.cos(2 * Math.PI * data.x)} />
+        <VictoryLine style={{ data: { stroke: 'red', strokeWidth: 4 } }} y={(data) => Math.sin(2 * Math.PI * data.x)} />
+        <VictoryLine
+            style={{ data: { stroke: 'blue', strokeWidth: 4 } }}
+            y={(data) => Math.cos(2 * Math.PI * data.x)}
+        />
     </VictoryChart>
 );
 
@@ -530,7 +533,7 @@ test = (
         <VictoryAxis
             label="Decades"
             tickValues={[new Date(1980, 1, 1), new Date(2000, 1, 1), new Date(2020, 1, 1)]}
-            tickFormat={x => x.getFullYear()}
+            tickFormat={(x) => x.getFullYear()}
         />
         <VictoryLine
             data={[
@@ -556,7 +559,7 @@ test = (
                 { y: 6, x: 'B' },
                 { y: 7, x: 'C' },
             ]}
-            y0={d => d.y - 1}
+            y0={(d) => d.y - 1}
         />
     </VictoryChart>
 );
@@ -599,7 +602,7 @@ test = (
 // VictoryLine test
 test = <VictoryLine data={commonData2} />;
 
-test = <VictoryLine data={commonData1} x={'amount'} y={data => data.yield + data.error} />;
+test = <VictoryLine data={commonData1} x={'amount'} y={(data) => data.yield + data.error} />;
 
 test = (
     <VictoryLine
@@ -631,7 +634,7 @@ test = (
             },
         }}
         x={'amount'}
-        y={data => data.yield + data.error}
+        y={(data) => data.yield + data.error}
     />
 );
 
@@ -662,8 +665,8 @@ test = (
             { animal: 'Bird', pet: 15, wild: 40 },
         ]}
         x={'animal'}
-        innerRadius={(props: VictorySliceProps) => 2 }
-        y={data => data.pet + data.wild}
+        innerRadius={(props: VictorySliceProps) => 2}
+        y={(data) => data.pet + data.wild}
     />
 );
 
@@ -731,7 +734,7 @@ test = (
             onEnter: {
                 duration: 500,
                 before: () => ({ y: 0, label: ' ' }),
-                after: datum => ({ y: datum.y, label: 'NEW' }),
+                after: (datum) => ({ y: datum.y, label: 'NEW' }),
             },
         }}
         labelRadius={20}
@@ -774,7 +777,7 @@ test = (
                     onClick: () => [
                         {
                             eventKey: 'theOtherOne',
-                            mutation: props => ({
+                            mutation: (props) => ({
                                 style: { ...props.style, fill: 'orange' },
                             }),
                         },
@@ -965,20 +968,20 @@ const fullTheme: RecursiveRequired<Required<VictoryThemeDefinition>> = {
 
 // Slice.props
 const sliceProps: VictorySliceProps = {
-    cornerRadius: props => props.cornerRadius, // $ExpectError
+    cornerRadius: (props) => props.cornerRadius, // $ExpectError
     datum: { x: 'Cat', y: 62 },
-    innerRadius: props => props.innerRadius, // $ExpectError
-    padAngle: props => props.padAngle, // $ExpectError
-    pathFunction: sliceProps => 'M1,1',
-    radius: props => props.radius, // $ExpectError
+    innerRadius: (props) => props.innerRadius, // $ExpectError
+    padAngle: (props) => props.padAngle, // $ExpectError
+    pathFunction: (sliceProps) => 'M1,1',
+    radius: (props) => props.radius, // $ExpectError
     slice: {
         data: [],
         endAngle: 0,
         padAngle: 0,
         startAngle: 0,
     },
-    sliceEndAngle: props => props.sliceEndAngle, // $ExpectError
-    sliceStartAngle: props => props.slieStartAngle, // $ExpectError
+    sliceEndAngle: (props) => props.sliceEndAngle, // $ExpectError
+    sliceStartAngle: (props) => props.slieStartAngle, // $ExpectError
 };
 
 // singleQuadrantDomainPadding test

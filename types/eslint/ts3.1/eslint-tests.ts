@@ -11,7 +11,7 @@ const AST: AST.Program = {
     tokens: [],
     loc: {
         start: { line: 0, column: 0 },
-        end: { line: 0, column: 0 }
+        end: { line: 0, column: 0 },
     },
     range: [0, 0],
 };
@@ -21,9 +21,9 @@ const TOKEN: AST.Token = {
     value: 'foo',
     loc: {
         start: { line: 0, column: 0 },
-        end: { line: 0, column: 3 }
+        end: { line: 0, column: 3 },
     },
-    range: [0, 3]
+    range: [0, 3],
 };
 
 const COMMENT: Comment = {
@@ -31,7 +31,7 @@ const COMMENT: Comment = {
     value: 'foo',
     loc: {
         start: { line: 0, column: 0 },
-        end: { line: 0, column: 0 }
+        end: { line: 0, column: 0 },
     },
     range: [0, 0],
 };
@@ -74,130 +74,130 @@ sourceCode.getTokenByRangeStart(0, { includeComments: true });
 sourceCode.getFirstToken(AST);
 sourceCode.getFirstToken(AST, 0);
 sourceCode.getFirstToken(AST, { skip: 0 });
-sourceCode.getFirstToken(AST, t => t.type === 'Identifier');
-sourceCode.getFirstToken(AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getFirstToken(AST, { skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getFirstToken(AST, (t) => t.type === 'Identifier');
+sourceCode.getFirstToken(AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getFirstToken(AST, { skip: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getFirstToken(AST, { includeComments: true });
 sourceCode.getFirstToken(AST, { includeComments: true, skip: 0 });
-sourceCode.getFirstToken(AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getFirstToken(AST, { includeComments: true, skip: 0, filter: (t) => t.type === 'Identifier' });
 
 sourceCode.getFirstTokens(AST);
 sourceCode.getFirstTokens(AST, 0);
 sourceCode.getFirstTokens(AST, { count: 0 });
-sourceCode.getFirstTokens(AST, t => t.type === 'Identifier');
-sourceCode.getFirstTokens(AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getFirstTokens(AST, { count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getFirstTokens(AST, (t) => t.type === 'Identifier');
+sourceCode.getFirstTokens(AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getFirstTokens(AST, { count: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getFirstTokens(AST, { includeComments: true });
 sourceCode.getFirstTokens(AST, { includeComments: true, count: 0 });
-sourceCode.getFirstTokens(AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getFirstTokens(AST, { includeComments: true, count: 0, filter: (t) => t.type === 'Identifier' });
 
 sourceCode.getLastToken(AST);
 sourceCode.getLastToken(AST, 0);
 sourceCode.getLastToken(AST, { skip: 0 });
-sourceCode.getLastToken(AST, t => t.type === 'Identifier');
-sourceCode.getLastToken(AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getLastToken(AST, { skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getLastToken(AST, (t) => t.type === 'Identifier');
+sourceCode.getLastToken(AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getLastToken(AST, { skip: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getLastToken(AST, { includeComments: true });
 sourceCode.getLastToken(AST, { includeComments: true, skip: 0 });
-sourceCode.getLastToken(AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getLastToken(AST, { includeComments: true, skip: 0, filter: (t) => t.type === 'Identifier' });
 
 sourceCode.getLastTokens(AST);
 sourceCode.getLastTokens(AST, 0);
 sourceCode.getLastTokens(AST, { count: 0 });
-sourceCode.getLastTokens(AST, t => t.type === 'Identifier');
-sourceCode.getLastTokens(AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getLastTokens(AST, { count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getLastTokens(AST, (t) => t.type === 'Identifier');
+sourceCode.getLastTokens(AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getLastTokens(AST, { count: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getLastTokens(AST, { includeComments: true });
 sourceCode.getLastTokens(AST, { includeComments: true, count: 0 });
-sourceCode.getLastTokens(AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getLastTokens(AST, { includeComments: true, count: 0, filter: (t) => t.type === 'Identifier' });
 
 sourceCode.getTokenBefore(AST);
 sourceCode.getTokenBefore(AST, 0);
 sourceCode.getTokenBefore(AST, { skip: 0 });
-sourceCode.getTokenBefore(AST, t => t.type === 'Identifier');
-sourceCode.getTokenBefore(AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getTokenBefore(AST, { skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getTokenBefore(AST, (t) => t.type === 'Identifier');
+sourceCode.getTokenBefore(AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getTokenBefore(AST, { skip: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getTokenBefore(AST, { includeComments: true });
 sourceCode.getTokenBefore(AST, { includeComments: true, skip: 0 });
-sourceCode.getTokenBefore(AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getTokenBefore(AST, { includeComments: true, skip: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getTokenBefore(TOKEN, 0);
 sourceCode.getTokenBefore(COMMENT, 0);
 
 sourceCode.getTokensBefore(AST);
 sourceCode.getTokensBefore(AST, 0);
 sourceCode.getTokensBefore(AST, { count: 0 });
-sourceCode.getTokensBefore(AST, t => t.type === 'Identifier');
-sourceCode.getTokensBefore(AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getTokensBefore(AST, { count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getTokensBefore(AST, (t) => t.type === 'Identifier');
+sourceCode.getTokensBefore(AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getTokensBefore(AST, { count: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getTokensBefore(AST, { includeComments: true });
 sourceCode.getTokensBefore(AST, { includeComments: true, count: 0 });
-sourceCode.getTokensBefore(AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getTokensBefore(AST, { includeComments: true, count: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getTokensBefore(TOKEN, 0);
 sourceCode.getTokensBefore(COMMENT, 0);
 
 sourceCode.getTokenAfter(AST);
 sourceCode.getTokenAfter(AST, 0);
 sourceCode.getTokenAfter(AST, { skip: 0 });
-sourceCode.getTokenAfter(AST, t => t.type === 'Identifier');
-sourceCode.getTokenAfter(AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getTokenAfter(AST, { skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getTokenAfter(AST, (t) => t.type === 'Identifier');
+sourceCode.getTokenAfter(AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getTokenAfter(AST, { skip: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getTokenAfter(AST, { includeComments: true });
 sourceCode.getTokenAfter(AST, { includeComments: true, skip: 0 });
-sourceCode.getTokenAfter(AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getTokenAfter(AST, { includeComments: true, skip: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getTokenAfter(TOKEN, 0);
 sourceCode.getTokenAfter(COMMENT, 0);
 
 sourceCode.getTokensAfter(AST);
 sourceCode.getTokensAfter(AST, 0);
 sourceCode.getTokensAfter(AST, { count: 0 });
-sourceCode.getTokensAfter(AST, t => t.type === 'Identifier');
-sourceCode.getTokensAfter(AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getTokensAfter(AST, { count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getTokensAfter(AST, (t) => t.type === 'Identifier');
+sourceCode.getTokensAfter(AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getTokensAfter(AST, { count: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getTokensAfter(AST, { includeComments: true });
 sourceCode.getTokensAfter(AST, { includeComments: true, count: 0 });
-sourceCode.getTokensAfter(AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getTokensAfter(AST, { includeComments: true, count: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getTokensAfter(TOKEN, 0);
 sourceCode.getTokensAfter(COMMENT, 0);
 
 sourceCode.getFirstTokenBetween(AST, AST);
 sourceCode.getFirstTokenBetween(AST, AST, 0);
 sourceCode.getFirstTokenBetween(AST, AST, { skip: 0 });
-sourceCode.getFirstTokenBetween(AST, AST, t => t.type === 'Identifier');
-sourceCode.getFirstTokenBetween(AST, AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getFirstTokenBetween(AST, AST, { skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getFirstTokenBetween(AST, AST, (t) => t.type === 'Identifier');
+sourceCode.getFirstTokenBetween(AST, AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getFirstTokenBetween(AST, AST, { skip: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true });
 sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true, skip: 0 });
-sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true, skip: 0, filter: (t) => t.type === 'Identifier' });
 
 sourceCode.getFirstTokensBetween(AST, AST);
 sourceCode.getFirstTokensBetween(AST, AST, 0);
 sourceCode.getFirstTokensBetween(AST, AST, { count: 0 });
-sourceCode.getFirstTokensBetween(AST, AST, t => t.type === 'Identifier');
-sourceCode.getFirstTokensBetween(AST, AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getFirstTokensBetween(AST, AST, { count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getFirstTokensBetween(AST, AST, (t) => t.type === 'Identifier');
+sourceCode.getFirstTokensBetween(AST, AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getFirstTokensBetween(AST, AST, { count: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true });
 sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true, count: 0 });
-sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true, count: 0, filter: (t) => t.type === 'Identifier' });
 
 sourceCode.getLastTokenBetween(AST, AST);
 sourceCode.getLastTokenBetween(AST, AST, 0);
 sourceCode.getLastTokenBetween(AST, AST, { skip: 0 });
-sourceCode.getLastTokenBetween(AST, AST, t => t.type === 'Identifier');
-sourceCode.getLastTokenBetween(AST, AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getLastTokenBetween(AST, AST, { skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getLastTokenBetween(AST, AST, (t) => t.type === 'Identifier');
+sourceCode.getLastTokenBetween(AST, AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getLastTokenBetween(AST, AST, { skip: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getLastTokenBetween(AST, AST, { includeComments: true });
 sourceCode.getLastTokenBetween(AST, AST, { includeComments: true, skip: 0 });
-sourceCode.getLastTokenBetween(AST, AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getLastTokenBetween(AST, AST, { includeComments: true, skip: 0, filter: (t) => t.type === 'Identifier' });
 
 sourceCode.getLastTokensBetween(AST, AST);
 sourceCode.getLastTokensBetween(AST, AST, 0);
 sourceCode.getLastTokensBetween(AST, AST, { count: 0 });
-sourceCode.getLastTokensBetween(AST, AST, t => t.type === 'Identifier');
-sourceCode.getLastTokensBetween(AST, AST, { filter: t => t.type === 'Identifier' });
-sourceCode.getLastTokensBetween(AST, AST, { count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getLastTokensBetween(AST, AST, (t) => t.type === 'Identifier');
+sourceCode.getLastTokensBetween(AST, AST, { filter: (t) => t.type === 'Identifier' });
+sourceCode.getLastTokensBetween(AST, AST, { count: 0, filter: (t) => t.type === 'Identifier' });
 sourceCode.getLastTokensBetween(AST, AST, { includeComments: true });
 sourceCode.getLastTokensBetween(AST, AST, { includeComments: true, count: 0 });
-sourceCode.getLastTokensBetween(AST, AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
+sourceCode.getLastTokensBetween(AST, AST, { includeComments: true, count: 0, filter: (t) => t.type === 'Identifier' });
 
 sourceCode.getTokensBetween(AST, AST);
 sourceCode.getTokensBetween(AST, AST, 0);
@@ -205,10 +205,10 @@ sourceCode.getTokensBetween(AST, AST, 0);
 sourceCode.getTokens(AST);
 sourceCode.getTokens(AST, 0);
 sourceCode.getTokens(AST, 0, 0);
-sourceCode.getTokens(AST, t => t.type === 'Identifier');
-sourceCode.getTokens(AST, { filter: t => t.type === 'Identifier' });
+sourceCode.getTokens(AST, (t) => t.type === 'Identifier');
+sourceCode.getTokens(AST, { filter: (t) => t.type === 'Identifier' });
 sourceCode.getTokens(AST, { includeComments: true });
-sourceCode.getTokens(AST, { includeComments: true, filter: t => t.type === 'Identifier' });
+sourceCode.getTokens(AST, { includeComments: true, filter: (t) => t.type === 'Identifier' });
 
 sourceCode.commentsExistBetween(AST, AST);
 sourceCode.commentsExistBetween(TOKEN, TOKEN);
@@ -233,7 +233,7 @@ const scopeManager: Scope.ScopeManager = {
     },
     getDeclaredVariables() {
         return [];
-    }
+    },
 };
 
 const scope = scopeManager.scopes[0];
@@ -269,20 +269,54 @@ reference.isReadWrite();
 
 let rule: Rule.RuleModule;
 
-rule = { create(context) { return {}; } };
-rule = { create(context) { return {}; }, meta: {} };
-rule = { create(context) { return {}; }, meta: {
-    docs: {
-        description: 'disallow the use of `console`',
-        category: 'Possible Errors',
-        recommended: true,
-        url: 'https://eslint.org/docs/rules/no-console',
-    }
-}};
-rule = { create(context) { return {}; }, meta: { fixable: 'whitespace' }};
-rule = { create(context) { return {}; }, meta: { fixable: 'code' }};
-rule = { create(context) { return {}; }, meta: { schema: [{ enum: ['always', 'never'] }] }};
-rule = { create(context) { return {}; }, meta: { deprecated: true }};
+rule = {
+    create(context) {
+        return {};
+    },
+};
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: {},
+};
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: {
+        docs: {
+            description: 'disallow the use of `console`',
+            category: 'Possible Errors',
+            recommended: true,
+            url: 'https://eslint.org/docs/rules/no-console',
+        },
+    },
+};
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: { fixable: 'whitespace' },
+};
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: { fixable: 'code' },
+};
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: { schema: [{ enum: ['always', 'never'] }] },
+};
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: { deprecated: true },
+};
 rule = {
     create(context) {
         return {};
@@ -308,12 +342,12 @@ rule = {
         context.report({ message: 'foo', loc: { line: 0, column: 0 } });
         context.report({ message: 'foo', node: AST, data: { foo: 'bar' } });
         context.report({ message: 'foo', node: AST, fix: () => null });
-        context.report({ message: 'foo', node: AST, fix: ruleFixer => ruleFixer.replaceText(AST, 'foo') });
+        context.report({ message: 'foo', node: AST, fix: (ruleFixer) => ruleFixer.replaceText(AST, 'foo') });
 
         context.report({
             message: 'foo',
             node: AST,
-            fix: ruleFixer => {
+            fix: (ruleFixer) => {
                 ruleFixer.insertTextAfter(AST, 'foo');
                 ruleFixer.insertTextAfter(TOKEN, 'foo');
 
@@ -335,18 +369,15 @@ rule = {
                 ruleFixer.replaceTextRange([0, 0], 'foo');
 
                 return null;
-            }
+            },
         });
 
         context.report({
             message: 'foo',
             node: AST,
-            fix: ruleFixer => {
-                return [
-                    ruleFixer.insertTextAfter(AST, 'foo'),
-                    ruleFixer.insertTextAfter(TOKEN, 'foo')
-                ];
-            }
+            fix: (ruleFixer) => {
+                return [ruleFixer.insertTextAfter(AST, 'foo'), ruleFixer.insertTextAfter(TOKEN, 'foo')];
+            },
         });
 
         return {
@@ -377,12 +408,16 @@ linter.verify(SOURCE, {}, {});
 linter.verify(SOURCE, {}, { filename: 'test.js' });
 linter.verify(SOURCE, {}, { allowInlineConfig: false });
 linter.verify(SOURCE, {}, { reportUnusedDisableDirectives: true });
-linter.verify(SOURCE, {}, { preprocess: input => input.split(' ') });
-linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
+linter.verify(SOURCE, {}, { preprocess: (input) => input.split(' ') });
+linter.verify(SOURCE, {}, { postprocess: (problemList) => problemList[0] });
 
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6 } }, 'test.js');
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, 'test.js');
-linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { experimentalObjectRestSpread: true } } }, 'test.js');
+linter.verify(
+    SOURCE,
+    { parserOptions: { ecmaVersion: 6, ecmaFeatures: { experimentalObjectRestSpread: true } } },
+    'test.js',
+);
 linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
 linter.verify(SOURCE, { parser: 'custom-parser' }, 'test.js');
@@ -476,7 +511,7 @@ linter.defineParser('custom-parser', {
             parserServices: {},
             scopeManager,
         };
-    }
+    },
 });
 
 //#endregion
@@ -487,7 +522,7 @@ let cli: CLIEngine;
 
 cli = new CLIEngine({ allowInlineConfig: false });
 cli = new CLIEngine({ baseConfig: false });
-cli = new CLIEngine({ baseConfig: { extends: ['lynt'] }});
+cli = new CLIEngine({ baseConfig: { extends: ['lynt'] } });
 cli = new CLIEngine({ cache: true });
 cli = new CLIEngine({ cacheFile: 'foo' });
 cli = new CLIEngine({ configFile: 'foo' });
@@ -528,21 +563,21 @@ formatter = cli.getFormatter();
 
 let data: CLIEngine.LintResultData;
 const meta: Rule.RuleMetaData = {
-    type: "suggestion",
+    type: 'suggestion',
     docs: {
-        description: "disallow unnecessary semicolons",
-        category: "Possible Errors",
+        description: 'disallow unnecessary semicolons',
+        category: 'Possible Errors',
         recommended: true,
-        url: "https://eslint.org/docs/rules/no-extra-semi"
+        url: 'https://eslint.org/docs/rules/no-extra-semi',
     },
-    fixable: "code",
+    fixable: 'code',
     schema: [],
     messages: {
-        unexpected: "Unnecessary semicolon."
-    }
+        unexpected: 'Unnecessary semicolon.',
+    },
 };
 
-data = {rulesMeta: {"no-extra-semi": meta}};
+data = { rulesMeta: { 'no-extra-semi': meta } };
 
 formatter(cliReport.results);
 formatter(cliReport.results, data);
@@ -596,15 +631,11 @@ ruleTester.run('my-rule', rule, {
         { code: 'foo', errors: [{ message: 'foo', type: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', data: { foo: true } }] },
         { code: 'foo', errors: [{ message: 'foo', line: 0 }] },
-    ]
+    ],
 });
 
 ruleTester.run('simple-valid-test', rule, {
-    valid: [
-        'foo',
-        'bar',
-        { code: 'foo', options: [{ allowFoo: true }] },
-    ]
+    valid: ['foo', 'bar', { code: 'foo', options: [{ allowFoo: true }] }],
 });
 
 //#endregion

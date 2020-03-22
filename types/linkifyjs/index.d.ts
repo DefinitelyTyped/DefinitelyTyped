@@ -6,12 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export type LinkEntityType =
-    | 'url'
-    | 'email'
-    | 'hashtag'
-    | 'mention'
-    ;
+export type LinkEntityType = 'url' | 'email' | 'hashtag' | 'mention';
 
 export interface FindResultHash {
     /**
@@ -79,7 +74,10 @@ export interface Options {
      * Accepts an object where each key is the link type and each value is the
      * string or function to use for that type.
      */
-    className?: string | Partial<Record<LinkEntityType, string | ((href: string) => string)>> | ((href: string, type: LinkEntityType) => string);
+    className?:
+        | string
+        | Partial<Record<LinkEntityType, string | ((href: string) => string)>>
+        | ((href: string, type: LinkEntityType) => string);
 
     /**
      * Protocol that should be used in href attributes for URLs without a
@@ -97,7 +95,10 @@ export interface Options {
      *
      * @default null
      */
-    format?: ((value: string, type: LinkEntityType) => string) | Partial<Record<LinkEntityType, (value: string) => string>> | null;
+    format?:
+        | ((value: string, type: LinkEntityType) => string)
+        | Partial<Record<LinkEntityType, (value: string) => string>>
+        | null;
 
     /**
      * Similar to format, except the result of this function will be used as the
@@ -111,7 +112,10 @@ export interface Options {
      *
      * @default null
      */
-    formatHref?: ((href: string, type: LinkEntityType) => string) | Partial<Record<LinkEntityType, (href: string) => string>> | null;
+    formatHref?:
+        | ((href: string, type: LinkEntityType) => string)
+        | Partial<Record<LinkEntityType, (href: string) => string>>
+        | null;
 
     /**
      * If `true`, \n line breaks will automatically be converted to `<br>` tags.
@@ -164,5 +168,9 @@ export interface Options {
      *
      * @default null
      */
-    validate?: boolean | ((href: string, type: LinkEntityType) => boolean) | Partial<Record<LinkEntityType, ((href: string) => boolean)>> | null;
+    validate?:
+        | boolean
+        | ((href: string, type: LinkEntityType) => boolean)
+        | Partial<Record<LinkEntityType, (href: string) => boolean>>
+        | null;
 }

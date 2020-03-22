@@ -2,11 +2,11 @@ import { Tail } from 'tail';
 
 const tail = new Tail('test.txt');
 
-tail.on('line', data => {
+tail.on('line', (data) => {
     console.log(data);
 });
 
-tail.on('error', error => {
+tail.on('error', (error) => {
     console.log('ERROR: ', error);
 });
 

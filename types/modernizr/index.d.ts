@@ -37,7 +37,7 @@ interface InputTypesBoolean {
     color: boolean;
     date: boolean;
     datetime: boolean;
-    "datetime-local": boolean;
+    'datetime-local': boolean;
     email: boolean;
     month: boolean;
     number: boolean;
@@ -213,7 +213,7 @@ interface FeatureDetects {
     cssgrid: boolean;
     cssgridlegacy: boolean;
     cubicbezierrange: boolean;
-    "display-runin": boolean;
+    'display-runin': boolean;
     displaytable: boolean;
     ellipsis: boolean;
     cssescape: boolean;
@@ -273,7 +273,7 @@ interface FeatureDetects {
     wrapflow: boolean;
     classlist: boolean;
     createelementattrs: boolean;
-    "createelement-attrs": boolean;
+    'createelement-attrs': boolean;
     dataset: boolean;
     documentfragment: boolean;
     hidden: boolean;
@@ -337,7 +337,7 @@ interface FeatureDetects {
     webpalpha: boolean;
     webpanimation: boolean;
     webplossless: boolean;
-    "webp-lossless": boolean;
+    'webp-lossless': boolean;
     webp: false | WebpBoolean;
     inputformaction: boolean;
     inputformenctype: boolean;
@@ -395,14 +395,14 @@ interface FeatureDetects {
 
     // Undocumented - usually aliases or new features
 
-    "atob-btoa": boolean;
-    "battery-api": boolean;
-    "blob-constructor": boolean;
-    "display-table": boolean;
-    "input-formaction": boolean;
-    "input-formenctype": boolean;
-    "input-formtarget": boolean;
-    "object-fit": boolean;
+    'atob-btoa': boolean;
+    'battery-api': boolean;
+    'blob-constructor': boolean;
+    'display-table': boolean;
+    'input-formaction': boolean;
+    'input-formenctype': boolean;
+    'input-formtarget': boolean;
+    'object-fit': boolean;
     crypto: boolean;
     displayrunin: boolean;
     fileinputdirectory: boolean;
@@ -442,12 +442,17 @@ interface ModernizrAPI {
 
     testProp(prop: string, value?: string, useValue?: boolean): boolean;
 
-    testStyles(rule: string, callback: (elem: HTMLDivElement, rule: string) => void, nodes?: number, testnames?: string[]): boolean;
+    testStyles(
+        rule: string,
+        callback: (elem: HTMLDivElement, rule: string) => void,
+        nodes?: number,
+        testnames?: string[],
+    ): boolean;
 }
 
-interface ModernizrStatic extends ModernizrAPI, FeatureDetects { }
+interface ModernizrStatic extends ModernizrAPI, FeatureDetects {}
 
 declare var Modernizr: ModernizrStatic;
-declare module "modernizr" {
+declare module 'modernizr' {
     export = Modernizr;
 }

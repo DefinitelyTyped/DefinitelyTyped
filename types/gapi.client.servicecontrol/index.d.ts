@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Service Control API v1 */
-    function load(name: "servicecontrol", version: "v1"): PromiseLike<void>;
-    function load(name: "servicecontrol", version: "v1", callback: () => any): void;
+    function load(name: 'servicecontrol', version: 'v1'): PromiseLike<void>;
+    function load(name: 'servicecontrol', version: 'v1', callback: () => any): void;
 
     const services: servicecontrol.ServicesResource;
 
@@ -895,7 +895,7 @@ declare namespace gapi.client {
              */
             allocateQuota(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -945,7 +945,7 @@ declare namespace gapi.client {
              */
             check(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -990,7 +990,7 @@ declare namespace gapi.client {
              */
             endReconciliation(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1038,7 +1038,7 @@ declare namespace gapi.client {
              */
             releaseQuota(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1089,7 +1089,7 @@ declare namespace gapi.client {
              */
             report(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1153,7 +1153,7 @@ declare namespace gapi.client {
              */
             startReconciliation(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

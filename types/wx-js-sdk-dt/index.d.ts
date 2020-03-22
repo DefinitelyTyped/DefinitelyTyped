@@ -107,7 +107,7 @@ declare namespace wx {
          * 以键值对的形式返回，可用的 api 值 true，不可用为 false
          * 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
          */
-        success(res: { checkResult: { [methodName: string]: boolean }, errMsg: { msg: string } }): void;
+        success(res: { checkResult: { [methodName: string]: boolean }; errMsg: { msg: string } }): void;
     }
 
     /**
@@ -279,7 +279,7 @@ declare namespace wx {
         /**
          * 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
          */
-        success(res: { localIds: string[]}): void;
+        success(res: { localIds: string[] }): void;
     }
 
     /**
@@ -353,7 +353,7 @@ declare namespace wx {
         /**
          * 成功后的回调, localData是图片的base64数据，可以用img标签显示
          */
-        success(res: { localData: string}): void;
+        success(res: { localData: string }): void;
     }
 
     /**
@@ -369,7 +369,7 @@ declare namespace wx {
     /**
      * 停止录音
      */
-    function stopRecord(success: (res: {localId: string}) => void): void;
+    function stopRecord(success: (res: { localId: string }) => void): void;
 
     /**
      * 录音时间超过一分钟没有停止的时候会执行回调
@@ -397,9 +397,9 @@ declare namespace wx {
     function onVoicePlayEnd(success: (res: { localId: string }) => void): void;
 
     interface UploadVoiceConfig extends WxBaseRequestConfig {
-         localId: string;
-         isShowProgressTips?: number;
-         success(res: any): void;
+        localId: string;
+        isShowProgressTips?: number;
+        success(res: any): void;
     }
 
     /**
@@ -422,7 +422,7 @@ declare namespace wx {
          * 下载成功回调
          */
         success(res: any): void;
-     }
+    }
 
     function downloadVoice(config: DownloadVoiceConfig): void;
 

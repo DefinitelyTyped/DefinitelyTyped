@@ -1,2 +1,2 @@
-import { capitalize } from "lodash";
+import { capitalize } from 'lodash';
 export default capitalize;

@@ -1,5 +1,5 @@
-import { Component, CSSProperties } from "react";
-import { CustomPickerProps } from "../../..";
+import { Component, CSSProperties } from 'react';
+import { CustomPickerProps } from '../../..';
 
 export interface MaterialPickerDefaultStyles {
     material?: CSSProperties;

@@ -7,7 +7,7 @@ const opts: br.BrotliEncodeParams = {
     lgwin: 22,
     mode: 0,
     quality: 11,
-    size_hint: 0
+    size_hint: 0,
 };
 
 const onCompress = (err1: Error | null | undefined, compressed: Buffer) => {
@@ -20,28 +20,20 @@ br.compress(Buffer.from('foo', 'utf8'), onCompress);
 
 br.compress(Buffer.from('foo', 'utf8'), opts, onCompress);
 
-br
-    .compress(Buffer.from('foobar'))
-    .then(compressedData => {
-        br.decompress(compressedData).then(data => {
-            console.log(data.equals(Buffer.from('foobar')));
-        });
+br.compress(Buffer.from('foobar')).then((compressedData) => {
+    br.decompress(compressedData).then((data) => {
+        console.log(data.equals(Buffer.from('foobar')));
     });
+});
 
 const stream = br.compressStream();
 stream.flush();
 
-createReadStream(__filename)
-    .pipe(stream)
-    .pipe(createWriteStream('foo.ts'));
+createReadStream(__filename).pipe(stream).pipe(createWriteStream('foo.ts'));
 
-createReadStream(__dirname)
-    .pipe(br.compressStream(opts))
-    .pipe(createWriteStream('bar.ts'));
+createReadStream(__dirname).pipe(br.compressStream(opts)).pipe(createWriteStream('bar.ts'));
 
-createReadStream('bar.ts')
-    .pipe(br.decompressStream())
-    .pipe(createWriteStream('qux.ts'));
+createReadStream('bar.ts').pipe(br.decompressStream()).pipe(createWriteStream('qux.ts'));
 
 br.decompressSync(br.compressSync(Buffer.from('foo', 'utf8')));
 br.decompressSync(br.compressSync(Buffer.from('foo', 'utf8'), opts));

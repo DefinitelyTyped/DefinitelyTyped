@@ -2,8 +2,8 @@ import crossroads = require('crossroads');
 
 //String rule with param:
 //match '/news/123' passing "123" as param to handler
-var route1 = crossroads.addRoute('/news/{id}', function(id: any){
-  console.log(id);
+var route1 = crossroads.addRoute('/news/{id}', function (id: any) {
+    console.log(id);
 });
 
 //String rule with optional param:
@@ -16,8 +16,8 @@ route2.matched.add(console.log, console);
 //RegExp rule:
 //match '/lorem/ipsum' passing "ipsum" as param to handler
 //note the capturing group around segment
-var route3 = crossroads.addRoute(/^\/lorem\/([a-z]+)$/, function(id: any){
-  console.log(id);
+var route3 = crossroads.addRoute(/^\/lorem\/([a-z]+)$/, function (id: any) {
+    console.log(id);
 });
 
 //String rule with rest segments:
@@ -29,38 +29,37 @@ route4.matched.add(console.log, console);
 
 //Query String:
 //match 'foo.php?lorem=ipsum&dolor=amet'
-crossroads.addRoute('foo.php{?query}', function(query: any){
+crossroads.addRoute('foo.php{?query}', function (query: any) {
     // query strings are decoded into objects
-    console.log('lorem '+ query.lorem +' dolor sit '+ query.dolor);
+    console.log('lorem ' + query.lorem + ' dolor sit ' + query.dolor);
 });
 
 var sectionRoute = crossroads.addRoute('/{section}/{id}');
-function onSectionMatch(section: any, id: any){
-  console.log(section +' - '+ id);
+function onSectionMatch(section: any, id: any) {
+    console.log(section + ' - ' + id);
 }
 sectionRoute.matched.add(onSectionMatch);
 //will match `sectionRoute` passing "news" and `123` as param
 crossroads.parse('/news/123');
 
 //will match `sectionRoute` and pass "lorem" and "ipsum" as first arguments
-crossroads.parse('/news/123', ["lorem", "ipsum"]);
+crossroads.parse('/news/123', ['lorem', 'ipsum']);
 
 var route1 = crossroads.addRoute('/news/{id}');
-crossroads.bypassed.add(function(request: any){
+crossroads.bypassed.add(function (request: any) {
     console.log(request);
 });
 //won't match any route, triggering `bypassed` Signal
 crossroads.parse('/foo');
 
-
-crossroads.routed.add(function(request: any, data: any){
+crossroads.routed.add(function (request: any, data: any) {
     console.log(request);
-    console.log(data.route +' - '+ data.params +' - '+ data.isFirst);
+    console.log(data.route + ' - ' + data.params + ' - ' + data.isFirst);
 });
 crossroads.parse('/news/123'); //match `route1`, triggering `routed` Signal
 
 var otherRouter = crossroads.create();
-otherRouter.addRoute('/news/{id}', function(id: any){
+otherRouter.addRoute('/news/{id}', function (id: any) {
     console.log(id);
 });
 otherRouter.parse('/news/123');
@@ -70,36 +69,36 @@ crossroads.bypassed.add(otherRouter.parse, otherRouter);
 // same effect as calling: `crossroads.pipe(otherRouter)`
 
 crossroads.normalizeFn = crossroads.NORM_AS_OBJECT;
-crossroads.addRoute('/{foo}/{bar}', function(vals: any){
+crossroads.addRoute('/{foo}/{bar}', function (vals: any) {
     //can access captured values as object properties
-    console.log(vals.foo +' - '+ vals.bar);
+    console.log(vals.foo + ' - ' + vals.bar);
 });
 crossroads.parse('/lorem/ipsum');
 
 crossroads.normalizeFn = crossroads.NORM_AS_ARRAY;
-crossroads.addRoute('/{foo}/{bar}', function(vals: any){
+crossroads.addRoute('/{foo}/{bar}', function (vals: any) {
     //can access captured values as Array items
-    console.log(vals[0] +' - '+ vals[1]);
+    console.log(vals[0] + ' - ' + vals[1]);
 });
 crossroads.parse('/dolor/amet');
 
-crossroads.normalizeFn = function(request: any, vals: any){
+crossroads.normalizeFn = function (request: any, vals: any) {
     //make sure first argument is always "news"
     return ['news', vals.id];
 };
-crossroads.addRoute('/{cat}/{id}', function(cat: any, id: any){
-    console.log(cat +' - '+ id);
+crossroads.addRoute('/{cat}/{id}', function (cat: any, id: any) {
+    console.log(cat + ' - ' + id);
 });
 crossroads.parse('/article/123');
 
 crossroads.shouldTypecast = true; //default = false
-crossroads.addRoute('/news/{id}', function(id: any){
+crossroads.addRoute('/news/{id}', function (id: any) {
     console.log(id); // 12 (remove trailing zeroes since it's typecasted)
 });
 crossroads.parse('/news/00012');
 
 crossroads.shouldTypecast = false; //default = false
-crossroads.addRoute('/news/{id}', function(id: any){
+crossroads.addRoute('/news/{id}', function (id: any) {
     console.log(id); // "00012" (keep trailing zeroes)
 });
 crossroads.parse('/news/00012');
@@ -122,22 +121,21 @@ sectionRouter.unpipe(navRouter);
 sectionRouter.parse('bar');
 
 var route1 = crossroads.addRoute('/news/{id}');
-route1.matched.add(function(id: any){
-  console.log('handler 1: '+ id);
+route1.matched.add(function (id: any) {
+    console.log('handler 1: ' + id);
 });
-route1.matched.add(function(id: any){
-  console.log('handler 2: '+ id);
+route1.matched.add(function (id: any) {
+    console.log('handler 2: ' + id);
 });
 crossroads.parse('/news/123'); //will trigger both handlers of `route1`
 
 //note that `rules` keys have the same as route pattern segments
 route1.rules = {
-
     //match only values inside array
-    section : ['blog', 'news', '123'],
+    section: ['blog', 'news', '123'],
 
     //validate dates on the format "yyyy-mm-dd"
-    date : /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/,
+    date: /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/,
 
     /*
      * @param {string|number|boolean} value  Request segment value.
@@ -145,15 +143,15 @@ route1.rules = {
      * @param {object} valuesObj  Values of all pattern segments.
      * @return {boolean} If segment value is valid.
      */
-    id : function(value: any, request: string, valuesObj: any): boolean{
-        if(isNaN(value)){
+    id: function (value: any, request: string, valuesObj: any): boolean {
+        if (isNaN(value)) {
             return false;
-        }else{
-            if(+value < 100 && valuesObj.section == 'blog'){
+        } else {
+            if (+value < 100 && valuesObj.section == 'blog') {
                 return true;
-            }else if(valuesObj.section == 'news'){
+            } else if (valuesObj.section == 'news') {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
@@ -165,8 +163,8 @@ route1.rules = {
      * Note that request will be typecasted if value is a boolean
      * or number and crossroads.shouldTypecast = true (default = false).
      */
-    request_ : function(request: any){
-        return (request != '123');
+    request_: function (request: any) {
+        return request != '123';
     },
 
     /**
@@ -177,34 +175,32 @@ route1.rules = {
      *  also a property `request_`.
      * @return {array} Array containing parameters.
      */
-    normalize_ : function(request: any, vals: any): Array<any> {
+    normalize_: function (request: any, vals: any): Array<any> {
         //ignore "date" since it isn't important for the application
         return [vals.section, vals.id];
-    }
-
+    },
 };
 
-route1.match("/foo/2011-05-04/2"); //false. {section} isn't valid
-route1.match("/blog/20110504/2"); //false. {date} isn't valid
-route1.match("/blog/2011-05-04/999"); //false. {id} is too high
-route1.match("/blog/2011-05-04/2"); //true. all segments validate
-
+route1.match('/foo/2011-05-04/2'); //false. {section} isn't valid
+route1.match('/blog/20110504/2'); //false. {date} isn't valid
+route1.match('/blog/2011-05-04/999'); //false. {id} is too high
+route1.match('/blog/2011-05-04/2'); //true. all segments validate
 
 var route1 = crossroads.addRoute(/([\-\w]+)\/([\-\w]+)\/([\-\w]+)/);
 
 //note that `rules` keys represent capturing group index
 route1.rules = {
-  '0' : ['blog', 'news', '123'],
-  '1' : /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/,
-  '2' : function(value: any, request: any, valuesObj: any){
-          return ! isNaN(value);
-        }
+    '0': ['blog', 'news', '123'],
+    '1': /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/,
+    '2': function (value: any, request: any, valuesObj: any) {
+        return !isNaN(value);
+    },
 };
 
-route1.match("/foo/2011-05-04/2"); //false. {0} isn't valid
-route1.match("/blog/20110504/2"); //false. {1} isn't valid
-route1.match("/blog/2011-05-04/abc"); //false. {2} isn't numeric
-route1.match("/blog/2011-05-04/2"); //true. all segments validate
+route1.match('/foo/2011-05-04/2'); //false. {0} isn't valid
+route1.match('/blog/20110504/2'); //false. {1} isn't valid
+route1.match('/blog/2011-05-04/abc'); //false. {2} isn't numeric
+route1.match('/blog/2011-05-04/2'); //true. all segments validate
 
 var projectsRoute = crossroads.addRoute('/projects/:id:');
 projectsRoute.add(console.log, console);
@@ -223,5 +219,5 @@ route1.match('/foo/bar'); //false
 route1.match('/news/123'); //true
 route1.match('/news/foo-bar'); //true
 
-route1.interpolate({id: 123});   // "news/123"
-route1.interpolate({id: 'foo'}); // "news/foo"
+route1.interpolate({ id: 123 }); // "news/123"
+route1.interpolate({ id: 'foo' }); // "news/foo"

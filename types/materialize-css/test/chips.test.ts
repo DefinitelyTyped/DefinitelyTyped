@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -11,14 +11,14 @@ const els = M.Chips.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType Chips
 const chips = new materialize.Chips(elem, {
-    data: [{ tag: "tag" }],
-    onChipAdd() { },
-    onChipDelete() { },
-    onChipSelect() { }
+    data: [{ tag: 'tag' }],
+    onChipAdd() {},
+    onChipDelete() {},
+    onChipSelect() {},
 });
 
 // $ExpectType void
-chips.addChip({ tag: "tag" });
+chips.addChip({ tag: 'tag' });
 // $ExpectType void
 chips.deleteChip(1);
 // $ExpectType void
@@ -36,5 +36,5 @@ chips.hasAutocomplete;
 // $ExpectType ChipsOptions
 chips.options;
 
-$(".whatever").chips({ data: [{ tag: "tag" }] });
-$(".whatever").chips("destroy");
+$('.whatever').chips({ data: [{ tag: 'tag' }] });
+$('.whatever').chips('destroy');

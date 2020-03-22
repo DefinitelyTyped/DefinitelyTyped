@@ -13,7 +13,7 @@ export interface require {
      * Returns a `require` with the specified *aliases*.
      * `require.alias({"react": React, "react-dom": ReactDOM})`
      */
-    alias(aliases: {[k: string]: any}): require;
+    alias(aliases: { [k: string]: any }): require;
 
     /**
      * The resolver passed to `requireFrom`

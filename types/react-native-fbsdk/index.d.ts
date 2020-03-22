@@ -11,7 +11,8 @@ import { ViewStyle } from 'react-native';
 /**
  * Commonly used Facebook permissions
  */
-export type Permissions = 'public_profile'
+export type Permissions =
+    | 'public_profile'
     | 'user_friends'
     | 'email'
     | 'user_about_me'
@@ -62,9 +63,9 @@ export type Permissions = 'public_profile'
  */
 export type AppGroupPrivacy =
     // Anyone can see the group, who's in in and what members post.
-    'Open' |
+    | 'Open'
     // Anyone can see the group and who's in it, but only members can see posts.
-    'Closed';
+    | 'Closed';
 
 /**
  * A model for app groups.
@@ -118,17 +119,17 @@ export interface AppInviteContent {
 
 export type GameRequestActionType =
     // The user is sending an object to their friends.
-    'send' |
+    | 'send'
     // The user is asking for an object from friends.
-    'askfor' |
+    | 'askfor'
     // It is the turn of the friends to play against the user in a match.
-    'turn';
+    | 'turn';
 
 export type GameRequestFilters =
     // Friends using the app can be displayed.
-    'app_users' |
+    | 'app_users'
     // Friends not using the app can be displayed.
-    'app_non_users';
+    | 'app_non_users';
 
 /**
  * A model for a game request.
@@ -282,11 +283,7 @@ export interface OpenGraphValue {
     value: any;
 }
 
-export type OpenGraphValueType =
-    'number' |
-    'open-graph-object' |
-    'photo' |
-    'string';
+export type OpenGraphValueType = 'number' | 'open-graph-object' | 'photo' | 'string';
 
 export interface ShareOpenGraphValueContainer {
     /**
@@ -599,11 +596,11 @@ export type AppEventsFlushBehavior =
      * Flush automatically: periodically (every 15 seconds or after every 100 events), and
      * always at app reactivation. This is the default value.
      */
-    'auto' |
+    | 'auto'
     /**
      * Only flush when AppEventsLogger.flush() is explicitly invoked.
      */
-    'explicitly-only';
+    | 'explicitly-only';
 
 export interface Params {
     [key: string]: string | number;
@@ -818,11 +815,11 @@ export class LoginButton extends Component<LoginButtonProps, any> {
  */
 export type DefaultAudience =
     // Indicates that the user's friends are able to see posts made by the application.
-    'friends' |
+    | 'friends'
     // Indicates that all Facebook users are able to see posts made by the application.
-    'everyone' |
+    | 'everyone'
     // Indicates that only the user is able to see posts made by the application.
-    'only_me';
+    | 'only_me';
 
 export type LoginBehavior = LoginBehaviorIOS | LoginBehaviorAndroid;
 
@@ -831,11 +828,11 @@ export type LoginBehavior = LoginBehaviorIOS | LoginBehaviorAndroid;
  */
 export type LoginBehaviorAndroid =
     // Attempt login in using the Facebook App, and if that does not work fall back to web dialog auth.
-    'native_with_fallback'|
+    | 'native_with_fallback'
     // Only attempt to login using the Facebook App.
-    'native_only'|
+    | 'native_only'
     // Only the web dialog auth should be used.
-    'web_only';
+    | 'web_only';
 
 /**
  * Indicate how Facebook Login should be attempted on iOS.
@@ -956,32 +953,32 @@ export type ShareDialogModeAndroid =
     /**
      * The mode is determined automatically.
      */
-    'automatic'|
+    | 'automatic'
     /**
      * The native dialog is used.
      */
-    'native'|
+    | 'native'
     /**
      * The web dialog is used.
      */
-    'web'|
+    | 'web'
     /**
      * The feed dialog is used.
      */
-    'feed';
+    | 'feed';
 export type ShareDialogModeIOS =
     /*
-    * Acts with the most appropriate mode that is available.
-    */
-    'automatic'|
+     * Acts with the most appropriate mode that is available.
+     */
+    | 'automatic'
     /*
-    * Displays the dialog in Safari.
-    */
-    'browser'|
+     * Displays the dialog in Safari.
+     */
+    | 'browser'
     /*
-    * Displays the dialog in a UIWebView within the app.
-    */
-    'webview';
+     * Displays the dialog in a UIWebView within the app.
+     */
+    | 'webview';
 
 export namespace ShareDialog {
     /**

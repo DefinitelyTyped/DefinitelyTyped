@@ -10,5 +10,5 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class Badge<T = {[key: string]: any}> extends React.Component<BadgeProps> {}
+declare class Badge<T = { [key: string]: any }> extends React.Component<BadgeProps> {}
 export default Badge;

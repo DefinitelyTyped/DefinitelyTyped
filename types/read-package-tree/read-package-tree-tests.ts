@@ -1,11 +1,15 @@
-import readPackageTree = require("read-package-tree");
+import readPackageTree = require('read-package-tree');
 
-readPackageTree("../", (error, data) => {
+readPackageTree('../', (error, data) => {
     // done
 });
 
-readPackageTree("../", (node, kidName) => {
-    // filter
-}, (error, data) => {
-    // done
-});
+readPackageTree(
+    '../',
+    (node, kidName) => {
+        // filter
+    },
+    (error, data) => {
+        // done
+    },
+);

@@ -49,20 +49,20 @@ export declare class BrowserView extends WebContents<ViewEvents> {
     constructor(wire: Transport, identity: Identity);
     attach: (target: Identity) => Promise<void>;
     /**
-    * Destroys the current view
-    * @return {Promise.<void>}
-    * @tutorial BrowserView.destroy
-    */
+     * Destroys the current view
+     * @return {Promise.<void>}
+     * @tutorial BrowserView.destroy
+     */
     destroy: () => Promise<void>;
     show: () => Promise<void>;
     hide: () => Promise<void>;
     setBounds: (bounds: any) => Promise<void>;
     getInfo: () => Promise<any>;
     /**
-    * Retrieves the window the view is currently attached to.
-    * @experimental
-    * @return {Promise.<_Window>}
-    * @tutorial BrowserView.getCurrentWindow
-    */
+     * Retrieves the window the view is currently attached to.
+     * @experimental
+     * @return {Promise.<_Window>}
+     * @tutorial BrowserView.getCurrentWindow
+     */
     getCurrentWindow: () => Promise<_Window>;
 }

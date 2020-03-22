@@ -57,15 +57,19 @@ export interface Theme<TLength = TLengthStyledSystem> {
 
 export type RequiredTheme = Required<Theme>;
 
-export type ResponsiveValue<
-    T,
-    ThemeType extends Theme = RequiredTheme,
-    > = T | null | Array<T | null> | { [key in ThemeValue<'breakpoints', ThemeType> & string | number]?: T };
+export type ResponsiveValue<T, ThemeType extends Theme = RequiredTheme> =
+    | T
+    | null
+    | Array<T | null>
+    | { [key in (ThemeValue<'breakpoints', ThemeType> & string) | number]?: T };
 
-export type ThemeValue<K extends keyof ThemeType, ThemeType, TVal = any> =
-    ThemeType[K] extends TVal[] ? number :
-    ThemeType[K] extends Record<infer E, TVal> ? E :
-    ThemeType[K] extends ObjectOrArray<infer F> ? F : never;
+export type ThemeValue<K extends keyof ThemeType, ThemeType, TVal = any> = ThemeType[K] extends TVal[]
+    ? number
+    : ThemeType[K] extends Record<infer E, TVal>
+    ? E
+    : ThemeType[K] extends ObjectOrArray<infer F>
+    ? F
+    : never;
 
 export interface SpaceProps<ThemeType extends Theme = RequiredTheme, TVal = ThemeValue<'space', ThemeType>> {
     /** Margin on top, left, bottom and right */
@@ -181,11 +185,7 @@ export function createParser(config: ConfigStyle): styleFn;
 
 export function createStyleFunction(args: ConfigStyle): styleFn;
 
-export interface VariantArgs<
-    TStyle = object,
-    K extends string = string,
-    TPropName = string,
-    > {
+export interface VariantArgs<TStyle = object, K extends string = string, TPropName = string> {
     key?: string;
     /** Component prop, defaults to "variant" */
     prop?: TPropName;
@@ -197,14 +197,10 @@ export interface VariantArgs<
     };
 }
 
-export function variant<
-    TStyle = object,
-    K extends string = string,
-    TPropName = string,
-    >(
-        // tslint:disable-next-line no-unnecessary-generics
-        props: VariantArgs<TStyle, K, TPropName>
-    ): (...args: any[]) => any;
+export function variant<TStyle = object, K extends string = string, TPropName = string>(
+    // tslint:disable-next-line no-unnecessary-generics
+    props: VariantArgs<TStyle, K, TPropName>,
+): (...args: any[]) => any;
 /**
  * Converts shorthand or longhand margin and padding props to margin and padding CSS declarations
  *
@@ -218,34 +214,35 @@ export function variant<
 export const space: styleFn;
 
 export interface MarginProps<ThemeType extends Theme = RequiredTheme>
-    extends Pick<SpaceProps<ThemeType>,
-    | 'm'
-    | 'margin'
-    | 'mt'
-    | 'marginTop'
-    | 'mb'
-    | 'marginBottom'
-    | 'ml'
-    | 'marginLeft'
-    | 'mr'
-    | 'marginRight'
-    | 'my'
-    | 'marginY'
-    | 'mx'
-    | 'marginX'> {
-}
+    extends Pick<
+        SpaceProps<ThemeType>,
+        | 'm'
+        | 'margin'
+        | 'mt'
+        | 'marginTop'
+        | 'mb'
+        | 'marginBottom'
+        | 'ml'
+        | 'marginLeft'
+        | 'mr'
+        | 'marginRight'
+        | 'my'
+        | 'marginY'
+        | 'mx'
+        | 'marginX'
+    > {}
 
-export interface MarginTopProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'mt' | 'marginTop'> {
-}
+export interface MarginTopProps<ThemeType extends Theme = RequiredTheme>
+    extends Pick<SpaceProps<ThemeType>, 'mt' | 'marginTop'> {}
 
-export interface MarginBottomProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'mb' | 'marginBottom'> {
-}
+export interface MarginBottomProps<ThemeType extends Theme = RequiredTheme>
+    extends Pick<SpaceProps<ThemeType>, 'mb' | 'marginBottom'> {}
 
-export interface MarginLeftProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'ml' | 'marginLeft'> {
-}
+export interface MarginLeftProps<ThemeType extends Theme = RequiredTheme>
+    extends Pick<SpaceProps<ThemeType>, 'ml' | 'marginLeft'> {}
 
-export interface MarginRightProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'mr' | 'marginRight'> {
-}
+export interface MarginRightProps<ThemeType extends Theme = RequiredTheme>
+    extends Pick<SpaceProps<ThemeType>, 'mr' | 'marginRight'> {}
 
 export const margin: styleFn;
 export const marginTop: styleFn;
@@ -254,34 +251,35 @@ export const marginLeft: styleFn;
 export const marginRight: styleFn;
 
 export interface PaddingProps<ThemeType extends Theme = RequiredTheme>
-    extends Pick<SpaceProps<ThemeType>,
-    | 'p'
-    | 'padding'
-    | 'pt'
-    | 'paddingTop'
-    | 'pb'
-    | 'paddingBottom'
-    | 'pl'
-    | 'paddingLeft'
-    | 'pr'
-    | 'paddingRight'
-    | 'py'
-    | 'paddingY'
-    | 'px'
-    | 'paddingX'> {
-}
+    extends Pick<
+        SpaceProps<ThemeType>,
+        | 'p'
+        | 'padding'
+        | 'pt'
+        | 'paddingTop'
+        | 'pb'
+        | 'paddingBottom'
+        | 'pl'
+        | 'paddingLeft'
+        | 'pr'
+        | 'paddingRight'
+        | 'py'
+        | 'paddingY'
+        | 'px'
+        | 'paddingX'
+    > {}
 
-export interface PaddingTopProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'pt' | 'paddingTop'> {
-}
+export interface PaddingTopProps<ThemeType extends Theme = RequiredTheme>
+    extends Pick<SpaceProps<ThemeType>, 'pt' | 'paddingTop'> {}
 
-export interface PaddingBottomProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'pb' | 'paddingBottom'> {
-}
+export interface PaddingBottomProps<ThemeType extends Theme = RequiredTheme>
+    extends Pick<SpaceProps<ThemeType>, 'pb' | 'paddingBottom'> {}
 
-export interface PaddingLeftProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'pl' | 'paddingLeft'> {
-}
+export interface PaddingLeftProps<ThemeType extends Theme = RequiredTheme>
+    extends Pick<SpaceProps<ThemeType>, 'pl' | 'paddingLeft'> {}
 
-export interface PaddingRightProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'pr' | 'paddingRight'> {
-}
+export interface PaddingRightProps<ThemeType extends Theme = RequiredTheme>
+    extends Pick<SpaceProps<ThemeType>, 'pr' | 'paddingRight'> {}
 
 export const padding: styleFn;
 export const paddingTop: styleFn;
@@ -324,11 +322,10 @@ export interface BackgroundColorProps<ThemeType extends Theme = RequiredTheme, T
 
 export const backgroundColor: styleFn;
 
-export interface ColorProps<ThemeType extends Theme = RequiredTheme, TVal = ThemeValue<'colors', ThemeType>> extends
-    TextColorProps<ThemeType, TVal>,
-    BackgroundColorProps<ThemeType, TVal>,
-    OpacityProps {
-}
+export interface ColorProps<ThemeType extends Theme = RequiredTheme, TVal = ThemeValue<'colors', ThemeType>>
+    extends TextColorProps<ThemeType, TVal>,
+        BackgroundColorProps<ThemeType, TVal>,
+        OpacityProps {}
 
 export const color: styleFn;
 
@@ -409,7 +406,10 @@ export interface FontStyleProps<ThemeType extends Theme = RequiredTheme> {
 
 export const fontStyle: styleFn;
 
-export interface LetterSpacingProps<ThemeType extends Theme = RequiredTheme, TVal = ThemeValue<'letterSpacings', ThemeType>> {
+export interface LetterSpacingProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = ThemeValue<'letterSpacings', ThemeType>
+> {
     /**
      * The letter-spacing CSS property sets the spacing behavior between text characters.
      *
@@ -428,13 +428,12 @@ export const letterSpacing: styleFn;
  */
 export interface TypographyProps<ThemeType extends Theme = RequiredTheme>
     extends FontFamilyProps<ThemeType>,
-    FontSizeProps<ThemeType>,
-    FontWeightProps<ThemeType>,
-    LineHeightProps<ThemeType>,
-    LetterSpacingProps<ThemeType>,
-    FontStyleProps<ThemeType>,
-    TextAlignProps<ThemeType> {
-}
+        FontSizeProps<ThemeType>,
+        FontWeightProps<ThemeType>,
+        LineHeightProps<ThemeType>,
+        LetterSpacingProps<ThemeType>,
+        FontStyleProps<ThemeType>,
+        TextAlignProps<ThemeType> {}
 
 export const typography: styleFn;
 
@@ -469,7 +468,10 @@ export interface WidthProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.
 
 export const width: styleFn;
 
-export interface MaxWidthProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.MaxWidthProperty<TLengthStyledSystem>> {
+export interface MaxWidthProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.MaxWidthProperty<TLengthStyledSystem>
+> {
     /**
      * The max-width CSS property sets the maximum width of an element.
      * It prevents the used value of the width property from becoming larger than the value specified by max-width.
@@ -481,7 +483,10 @@ export interface MaxWidthProps<ThemeType extends Theme = RequiredTheme, TVal = C
 
 export const maxWidth: styleFn;
 
-export interface MinWidthProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.MinWidthProperty<TLengthStyledSystem>> {
+export interface MinWidthProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.MinWidthProperty<TLengthStyledSystem>
+> {
     /**
      * The min-width CSS property sets the minimum width of an element.
      * It prevents the used value of the width property from becoming smaller than the value specified for min-width.
@@ -505,7 +510,10 @@ export interface HeightProps<ThemeType extends Theme = RequiredTheme, TVal = CSS
 
 export const height: styleFn;
 
-export interface MaxHeightProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.MaxHeightProperty<TLengthStyledSystem>> {
+export interface MaxHeightProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.MaxHeightProperty<TLengthStyledSystem>
+> {
     /**
      * The max-height CSS property sets the maximum height of an element. It prevents the used value of the height
      * property from becoming larger than the value specified for max-height.
@@ -517,7 +525,10 @@ export interface MaxHeightProps<ThemeType extends Theme = RequiredTheme, TVal = 
 
 export const maxHeight: styleFn;
 
-export interface MinHeightProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.MinHeightProperty<TLengthStyledSystem>> {
+export interface MinHeightProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.MinHeightProperty<TLengthStyledSystem>
+> {
     /**
      * The min-height CSS property sets the minimum height of an element. It prevents the used value of the height
      * property from becoming smaller than the value specified for min-height.
@@ -535,7 +546,10 @@ export interface SizeProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.H
 
 export const size: styleFn;
 
-export interface VerticalAlignProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.VerticalAlignProperty<TLengthStyledSystem>> {
+export interface VerticalAlignProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.VerticalAlignProperty<TLengthStyledSystem>
+> {
     /**
      * The vertical-align CSS property specifies sets vertical alignment of an inline or table-cell box.
      *
@@ -612,7 +626,10 @@ export interface FlexWrapProps<ThemeType extends Theme = RequiredTheme> {
 
 export const flexWrap: styleFn;
 
-export interface FlexBasisProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.FlexBasisProperty<TLengthStyledSystem>> {
+export interface FlexBasisProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.FlexBasisProperty<TLengthStyledSystem>
+> {
     // TODO: The FlexBasisValue currently really only exists for documentation
     //       purposes, because flex-basis also accepts `Nem` and `Npx` strings.
     //       Not sure there’s a way to still have the union values show up as
@@ -716,19 +733,18 @@ export const flexShrink: styleFn;
  */
 export interface FlexboxProps<ThemeType extends Theme = RequiredTheme>
     extends AlignItemsProps<ThemeType>,
-    AlignContentProps<ThemeType>,
-    JustifyItemsProps<ThemeType>,
-    JustifyContentProps<ThemeType>,
-    FlexWrapProps<ThemeType>,
-    FlexDirectionProps<ThemeType>,
-    FlexProps<ThemeType>,
-    FlexGrowProps<ThemeType>,
-    FlexShrinkProps<ThemeType>,
-    FlexBasisProps<ThemeType>,
-    JustifySelfProps<ThemeType>,
-    AlignSelfProps<ThemeType>,
-    OrderProps<ThemeType> {
-}
+        AlignContentProps<ThemeType>,
+        JustifyItemsProps<ThemeType>,
+        JustifyContentProps<ThemeType>,
+        FlexWrapProps<ThemeType>,
+        FlexDirectionProps<ThemeType>,
+        FlexProps<ThemeType>,
+        FlexGrowProps<ThemeType>,
+        FlexShrinkProps<ThemeType>,
+        FlexBasisProps<ThemeType>,
+        JustifySelfProps<ThemeType>,
+        AlignSelfProps<ThemeType>,
+        OrderProps<ThemeType> {}
 
 export const flexbox: styleFn;
 
@@ -736,7 +752,10 @@ export const flexbox: styleFn;
  * Grid Layout
  */
 
-export interface GridGapProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.GridGapProperty<TLengthStyledSystem>> {
+export interface GridGapProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.GridGapProperty<TLengthStyledSystem>
+> {
     /**
      * The gap CSS property sets the gaps (gutters) between rows and columns. It is a shorthand for row-gap
      * and column-gap.
@@ -750,7 +769,10 @@ export interface GridGapProps<ThemeType extends Theme = RequiredTheme, TVal = CS
 
 export const gridGap: styleFn;
 
-export interface GridColumnGapProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.GridColumnGapProperty<TLengthStyledSystem>> {
+export interface GridColumnGapProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.GridColumnGapProperty<TLengthStyledSystem>
+> {
     /**
      * The column-gap CSS property sets the size of the gap (gutter) between an element's columns.
      *
@@ -763,7 +785,10 @@ export interface GridColumnGapProps<ThemeType extends Theme = RequiredTheme, TVa
 
 export const gridColumnGap: styleFn;
 
-export interface GridRowGapProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.GridRowGapProperty<TLengthStyledSystem>> {
+export interface GridRowGapProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.GridRowGapProperty<TLengthStyledSystem>
+> {
     /**
      * The row-gap CSS property sets the size of the gap (gutter) between an element's rows.
      *
@@ -814,7 +839,10 @@ export interface GridAutoFlowProps<ThemeType extends Theme = RequiredTheme> {
 
 export const gridAutoFlow: styleFn;
 
-export interface GridAutoColumnsProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.GridAutoColumnsProperty<TLengthStyledSystem>> {
+export interface GridAutoColumnsProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.GridAutoColumnsProperty<TLengthStyledSystem>
+> {
     /**
      * The grid-auto-columns CSS property specifies the size of an implicitly-created grid column track.
      *
@@ -825,7 +853,10 @@ export interface GridAutoColumnsProps<ThemeType extends Theme = RequiredTheme, T
 
 export const gridAutoColumns: styleFn;
 
-export interface GridAutoRowsProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.GridAutoRowsProperty<TLengthStyledSystem>> {
+export interface GridAutoRowsProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.GridAutoRowsProperty<TLengthStyledSystem>
+> {
     /**
      * The grid-auto-rows CSS property specifies the size of an implicitly-created grid row track.
      *
@@ -836,7 +867,10 @@ export interface GridAutoRowsProps<ThemeType extends Theme = RequiredTheme, TVal
 
 export const gridAutoRows: styleFn;
 
-export interface GridTemplateColumnsProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.GridTemplateColumnsProperty<TLengthStyledSystem>> {
+export interface GridTemplateColumnsProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.GridTemplateColumnsProperty<TLengthStyledSystem>
+> {
     /**
      * The grid-template-columns CSS property defines the line names and track sizing functions of the grid columns.
      *
@@ -847,7 +881,10 @@ export interface GridTemplateColumnsProps<ThemeType extends Theme = RequiredThem
 
 export const gridTemplateColumns: styleFn;
 
-export interface GridTemplateRowsProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.GridTemplateRowsProperty<TLengthStyledSystem>> {
+export interface GridTemplateRowsProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.GridTemplateRowsProperty<TLengthStyledSystem>
+> {
     /**
      * The grid-template-rows CSS property defines the line names and track sizing functions of the grid rows.
      *
@@ -890,18 +927,17 @@ export const gridArea: styleFn;
  */
 export interface GridProps<ThemeType extends Theme = RequiredTheme>
     extends GridGapProps<ThemeType>,
-    GridColumnGapProps<ThemeType>,
-    GridRowGapProps<ThemeType>,
-    GridColumnProps<ThemeType>,
-    GridRowProps<ThemeType>,
-    GridAutoFlowProps<ThemeType>,
-    GridAutoColumnsProps<ThemeType>,
-    GridAutoRowsProps<ThemeType>,
-    GridTemplateColumnsProps<ThemeType>,
-    GridTemplateRowsProps<ThemeType>,
-    GridTemplateAreasProps<ThemeType>,
-    GridAreaProps<ThemeType> {
-}
+        GridColumnGapProps<ThemeType>,
+        GridRowGapProps<ThemeType>,
+        GridColumnProps<ThemeType>,
+        GridRowProps<ThemeType>,
+        GridAutoFlowProps<ThemeType>,
+        GridAutoColumnsProps<ThemeType>,
+        GridAutoRowsProps<ThemeType>,
+        GridTemplateColumnsProps<ThemeType>,
+        GridTemplateRowsProps<ThemeType>,
+        GridTemplateAreasProps<ThemeType>,
+        GridAreaProps<ThemeType> {}
 
 export const grid: styleFn;
 
@@ -915,16 +951,15 @@ export const grid: styleFn;
  */
 export interface LayoutProps<ThemeType extends Theme = RequiredTheme>
     extends WidthProps<ThemeType>,
-    HeightProps<ThemeType>,
-    MinWidthProps<ThemeType>,
-    MinHeightProps<ThemeType>,
-    MaxWidthProps<ThemeType>,
-    MaxHeightProps<ThemeType>,
-    DisplayProps<ThemeType>,
-    VerticalAlignProps<ThemeType>,
-    SizeProps<ThemeType>,
-    OverflowProps<ThemeType> {
-}
+        HeightProps<ThemeType>,
+        MinWidthProps<ThemeType>,
+        MinHeightProps<ThemeType>,
+        MaxWidthProps<ThemeType>,
+        MaxHeightProps<ThemeType>,
+        DisplayProps<ThemeType>,
+        VerticalAlignProps<ThemeType>,
+        SizeProps<ThemeType>,
+        OverflowProps<ThemeType> {}
 
 export const layout: styleFn;
 
@@ -932,7 +967,10 @@ export const layout: styleFn;
  * Borders
  */
 
-export interface BorderWidthProps<ThemeType extends Theme = RequiredTheme, TVal = ThemeValue<'borderWidths', ThemeType>> {
+export interface BorderWidthProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = ThemeValue<'borderWidths', ThemeType>
+> {
     /**
      * The border-width shorthand CSS property sets the width of all sides of an element's border.
      *
@@ -1037,7 +1075,10 @@ export interface BorderColorProps<ThemeType extends Theme = RequiredTheme, TVal 
 
 export const borderColor: styleFn;
 
-export interface BorderTopProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.BorderTopProperty<TLengthStyledSystem>> {
+export interface BorderTopProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.BorderTopProperty<TLengthStyledSystem>
+> {
     /**
      * The border-top CSS property is a shorthand that sets the values of border-top-width, border-top-style,
      * and border-top-color. These properties describe an element's top border.
@@ -1049,7 +1090,10 @@ export interface BorderTopProps<ThemeType extends Theme = RequiredTheme, TVal = 
 
 export const borderTop: styleFn;
 
-export interface BorderRightProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.BorderRightProperty<TLengthStyledSystem>> {
+export interface BorderRightProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.BorderRightProperty<TLengthStyledSystem>
+> {
     /**
      * The border-right CSS property is a shorthand that sets border-right-width, border-right-style,
      * and border-right-color. These properties set an element's right border.
@@ -1061,7 +1105,10 @@ export interface BorderRightProps<ThemeType extends Theme = RequiredTheme, TVal 
 
 export const borderRight: styleFn;
 
-export interface BorderBottomProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.BorderBottomProperty<TLengthStyledSystem>> {
+export interface BorderBottomProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.BorderBottomProperty<TLengthStyledSystem>
+> {
     /**
      * The border-bottom CSS property sets an element's bottom border. It's a shorthand for
      * border-bottom-width, border-bottom-style and border-bottom-color.
@@ -1073,7 +1120,10 @@ export interface BorderBottomProps<ThemeType extends Theme = RequiredTheme, TVal
 
 export const borderBottom: styleFn;
 
-export interface BorderLeftProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.BorderLeftProperty<TLengthStyledSystem>> {
+export interface BorderLeftProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.BorderLeftProperty<TLengthStyledSystem>
+> {
     /**
      * The border-left CSS property is a shorthand that sets the values of border-left-width,
      * border-left-style, and border-left-color. These properties describe an element's left border.
@@ -1123,27 +1173,26 @@ export const borderRadius: styleFn;
 
 export interface BordersProps<ThemeType extends Theme = RequiredTheme>
     extends BorderProps<ThemeType>,
-    BorderTopProps<ThemeType>,
-    BorderRightProps<ThemeType>,
-    BorderBottomProps<ThemeType>,
-    BorderLeftProps<ThemeType>,
-    BorderWidthProps<ThemeType>,
-    BorderColorProps<ThemeType>,
-    BorderStyleProps<ThemeType>,
-    BorderRadiusProps<ThemeType> {
-}
+        BorderTopProps<ThemeType>,
+        BorderRightProps<ThemeType>,
+        BorderBottomProps<ThemeType>,
+        BorderLeftProps<ThemeType>,
+        BorderWidthProps<ThemeType>,
+        BorderColorProps<ThemeType>,
+        BorderStyleProps<ThemeType>,
+        BorderRadiusProps<ThemeType> {}
 
 export const borders: styleFn;
 
 export interface BorderProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.BorderProperty<TLengthStyledSystem>>
     extends BorderWidthProps<ThemeType>,
-    BorderStyleProps<ThemeType>,
-    BorderColorProps<ThemeType>,
-    BorderRadiusProps<ThemeType>,
-    BorderTopProps<ThemeType>,
-    BorderRightProps<ThemeType>,
-    BorderBottomProps<ThemeType>,
-    BorderLeftProps<ThemeType> {
+        BorderStyleProps<ThemeType>,
+        BorderColorProps<ThemeType>,
+        BorderRadiusProps<ThemeType>,
+        BorderTopProps<ThemeType>,
+        BorderRightProps<ThemeType>,
+        BorderBottomProps<ThemeType>,
+        BorderLeftProps<ThemeType> {
     /**
      * The border CSS property sets an element's border. It's a shorthand for border-width, border-style,
      * and border-color.
@@ -1182,8 +1231,9 @@ export interface TextShadowProps<ThemeType extends Theme = RequiredTheme> {
 
 export const textShadow: styleFn;
 
-export interface ShadowProps<ThemeType extends Theme = RequiredTheme> extends BoxShadowProps<ThemeType>, TextShadowProps<ThemeType> {
-}
+export interface ShadowProps<ThemeType extends Theme = RequiredTheme>
+    extends BoxShadowProps<ThemeType>,
+        TextShadowProps<ThemeType> {}
 
 export const shadow: styleFn;
 
@@ -1240,7 +1290,10 @@ export interface BackgroundImageProps<ThemeType extends Theme = RequiredTheme> {
 
 export const backgroundImage: styleFn;
 
-export interface BackgroundSizeProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.BackgroundSizeProperty<TLengthStyledSystem>> {
+export interface BackgroundSizeProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.BackgroundSizeProperty<TLengthStyledSystem>
+> {
     /**
      * The background-size CSS property sets the size of the element's background image. The
      * image can be left to its natural size, stretched, or constrained to fit the available space.
@@ -1252,7 +1305,10 @@ export interface BackgroundSizeProps<ThemeType extends Theme = RequiredTheme, TV
 
 export const backgroundSize: styleFn;
 
-export interface BackgroundPositionProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.BackgroundPositionProperty<TLengthStyledSystem>> {
+export interface BackgroundPositionProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.BackgroundPositionProperty<TLengthStyledSystem>
+> {
     /**
      * The background-position CSS property sets the initial position for each background image. The
      * position is relative to the position layer set by background-origin.
@@ -1276,11 +1332,14 @@ export interface BackgroundRepeatProps<ThemeType extends Theme = RequiredTheme> 
 
 export const backgroundRepeat: styleFn;
 
-export interface BackgroundProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.BackgroundProperty<TLengthStyledSystem>>
+export interface BackgroundProps<
+    ThemeType extends Theme = RequiredTheme,
+    TVal = CSS.BackgroundProperty<TLengthStyledSystem>
+>
     extends BackgroundImageProps<ThemeType>,
-    BackgroundSizeProps<ThemeType>,
-    BackgroundPositionProps<ThemeType>,
-    BackgroundRepeatProps<ThemeType> {
+        BackgroundSizeProps<ThemeType>,
+        BackgroundPositionProps<ThemeType>,
+        BackgroundRepeatProps<ThemeType> {
     /**
      * The background shorthand CSS property sets all background style properties at once,
      * such as color, image, origin and size, repeat method, and others.
@@ -1356,12 +1415,12 @@ export interface LeftProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.L
 
 export const left: styleFn;
 
-export interface PositionProps<ThemeType extends Theme = RequiredTheme> extends
-    ZIndexProps<ThemeType>,
-    TopProps<ThemeType>,
-    RightProps<ThemeType>,
-    BottomProps<ThemeType>,
-    LeftProps<ThemeType> {
+export interface PositionProps<ThemeType extends Theme = RequiredTheme>
+    extends ZIndexProps<ThemeType>,
+        TopProps<ThemeType>,
+        RightProps<ThemeType>,
+        BottomProps<ThemeType>,
+        LeftProps<ThemeType> {
     /**
      * The position CSS property specifies how an element is positioned in a document.
      * The top, right, bottom, and left properties determine the final location of positioned elements.

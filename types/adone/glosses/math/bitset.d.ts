@@ -93,7 +93,7 @@ declare namespace adone.math {
          * Faster than iterating over the entire bitset with a get().
          * If the callback returns `false` it stops iterating.
          */
-        forEach(callback: ((idx: number) => void | boolean)): void;
+        forEach(callback: (idx: number) => void | boolean): void;
 
         /**
          * Performs a circular shift bitset by an offset

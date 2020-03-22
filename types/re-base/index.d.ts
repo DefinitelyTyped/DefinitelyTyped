@@ -505,10 +505,7 @@ export interface Rebase {
      * which resolves when the write is complete and rejects if there is an
      * error.
      */
-    remove(
-        endpoint: string,
-        callback?: (result: Promise<any>) => void
-    ): Promise<any>;
+    remove(endpoint: string, callback?: (result: Promise<any>) => void): Promise<any>;
 
     /**
      * Bind a document to your component. When then document changes in
@@ -528,10 +525,7 @@ export interface Rebase {
      * @returns An object which you can pass to `removeBinding` if you want
      * to remove the listener while the component is still mounted.
      */
-    listenToDoc(
-        refOrPath: object | string,
-        options: listenToDocOptions
-    ): object;
+    listenToDoc(refOrPath: object | string, options: listenToDocOptions): object;
 
     /**
      * Bind a collection to a state property in your component. When then
@@ -542,10 +536,7 @@ export interface Rebase {
      * @returns An object which you can pass to `removeBinding` if you want
      * to remove the listener while the component is still mounted.
      */
-    bindCollection(
-        refOrPath: object | string,
-        options: bindCollectionOptions
-    ): RebaseBinding;
+    bindCollection(refOrPath: object | string, options: bindCollectionOptions): RebaseBinding;
 
     /**
      * Listen to a collection, when the data changes it will invoke a
@@ -555,10 +546,7 @@ export interface Rebase {
      * @returns An object which you can pass to `removeBinding` if you want
      * to remove the listener while the component is still mounted.
      */
-    listenToCollection(
-        refOrPath: object | string,
-        options: listenToCollectionOptions
-    ): RebaseBinding;
+    listenToCollection(refOrPath: object | string, options: listenToCollectionOptions): RebaseBinding;
 
     /**
      * Fetch either a Collection or Document.
@@ -568,10 +556,7 @@ export interface Rebase {
      * if the document/collection does not exist or there are any read
      * errors.
      */
-    get(
-        refOrPath: object | object | string,
-        options: listenToCollectionOptions
-    ): Promise<any>;
+    get(refOrPath: object | object | string, options: listenToCollectionOptions): Promise<any>;
 
     /**
      * Add a new Document to a Collection.
@@ -583,11 +568,7 @@ export interface Rebase {
      * if the document/collection does not exist or there are any read
      * errors.
      */
-    addToCollection(
-        refOrPath: object | string,
-        data: object,
-        id?: string
-    ): Promise<any>;
+    addToCollection(refOrPath: object | string, data: object, id?: string): Promise<any>;
 
     /**
      * Update an existing document.
@@ -619,10 +600,7 @@ export interface Rebase {
      * if the document/collection does not exist or there are any read
      * errors.
      */
-    removeFromCollection(
-        refOrPath: object | string,
-        options: removeFromCollectionOptions
-    ): Promise<any>;
+    removeFromCollection(refOrPath: object | string, options: removeFromCollectionOptions): Promise<any>;
 
     /**
      * Syncs a component's local state with a document in Firestore.

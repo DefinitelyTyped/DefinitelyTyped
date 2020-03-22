@@ -12,10 +12,10 @@ import * as Joi from 'joi';
 import * as KoaRouter from 'koa-router';
 import * as CoBody from 'co-body';
 
-declare module "koa" {
+declare module 'koa' {
     interface Request {
         body?: any;
-        params: {[key: string]: string};
+        params: { [key: string]: string };
     }
 }
 
@@ -29,38 +29,38 @@ declare namespace createRouter {
     interface NestedHandler extends ReadonlyArray<Handler> {}
     type Handler = FullHandler | NestedHandler;
 
-    type Method = (path: string|RegExp, handlerOrConfig: Handler | Config, ...handlers: Handler[]) => Router;
+    type Method = (path: string | RegExp, handlerOrConfig: Handler | Config, ...handlers: Handler[]) => Router;
 
     type OutputValidation = { body: Joi.SchemaLike } | { headers: Joi.SchemaLike };
 
     interface Config {
-      pre?: Handler;
-      validate?: {
-          header?: Joi.SchemaLike;
-          query?: Joi.SchemaLike;
-          params?: Joi.SchemaLike;
-          body?: Joi.SchemaLike;
-          maxBody?: number;
-          failure?: number;
-          type?: 'form'|'json'|'multipart';
-          formOptions?: CoBody.Options;
-          jsonOptions?: CoBody.Options;
-          multipartOptions?: CoBody.Options;
-          output?: {[status: string]: OutputValidation};
-          continueOnError?: boolean;
-      };
-      meta?: any;
+        pre?: Handler;
+        validate?: {
+            header?: Joi.SchemaLike;
+            query?: Joi.SchemaLike;
+            params?: Joi.SchemaLike;
+            body?: Joi.SchemaLike;
+            maxBody?: number;
+            failure?: number;
+            type?: 'form' | 'json' | 'multipart';
+            formOptions?: CoBody.Options;
+            jsonOptions?: CoBody.Options;
+            multipartOptions?: CoBody.Options;
+            output?: { [status: string]: OutputValidation };
+            continueOnError?: boolean;
+        };
+        meta?: any;
     }
 
     interface Spec extends Config {
-        method: string|string[];
-        path: string|RegExp;
+        method: string | string[];
+        path: string | RegExp;
         handler: Handler;
     }
 
     interface Router {
         routes: Spec[];
-        route(spec: Spec|Spec[]): Router;
+        route(spec: Spec | Spec[]): Router;
         middleware(): Koa.Middleware;
 
         prefix: KoaRouter['prefix'];

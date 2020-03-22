@@ -102,7 +102,11 @@ declare namespace ADOX {
         /**
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification
          */
-        GetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, ObjectTypeId: any): string;
+        GetObjectOwner(
+            ObjectName: string,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            ObjectTypeId: any,
+        ): string;
         GetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum): string;
         readonly Groups: Groups;
         readonly Procedures: Procedures;
@@ -111,7 +115,12 @@ declare namespace ADOX {
          * @param UserName Specifies the name of the **User** or **Group** to own the object
          * @param ObjectTypeId Specifies the GUID for a provider object type that is not defined by the OLE DB specification
          */
-        SetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, UserName: string, ObjectTypeId: any): void;
+        SetObjectOwner(
+            ObjectName: string,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            UserName: string,
+            ObjectTypeId: any,
+        ): void;
         SetObjectOwner(ObjectName: string, ObjectType: ObjectTypeEnum, UserName: string): void;
         readonly Tables: Tables;
         readonly Users: Users;
@@ -154,7 +163,11 @@ declare namespace ADOX {
          * @param Name Specifies the name of the object for which to set permissions. Pass `null` if you want to get the permissions for the object container.
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
          */
-        GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, ObjectTypeId: any): RightsEnum;
+        GetPermissions(
+            Name: string | null,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            ObjectTypeId: any,
+        ): RightsEnum;
         GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum): RightsEnum;
         Name: string;
         ParentCatalog: Catalog;
@@ -165,8 +178,21 @@ declare namespace ADOX {
          * @param Inherit [Inherit=0]
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
          */
-        SetPermissions(Name: string, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, Action: ActionEnum, Rights: RightsEnum, Inherit: InheritTypeEnum, ObjectTypeId: any): void;
-        SetPermissions(Name: string, ObjectType: ObjectTypeEnum, Action: ActionEnum, Rights: RightsEnum, Inherit?: InheritTypeEnum): void;
+        SetPermissions(
+            Name: string,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            Action: ActionEnum,
+            Rights: RightsEnum,
+            Inherit: InheritTypeEnum,
+            ObjectTypeId: any,
+        ): void;
+        SetPermissions(
+            Name: string,
+            ObjectType: ObjectTypeEnum,
+            Action: ActionEnum,
+            Rights: RightsEnum,
+            Inherit?: InheritTypeEnum,
+        ): void;
         readonly Users: Users;
     }
 
@@ -218,7 +244,13 @@ declare namespace ADOX {
          * @param RelatedTable [RelatedTable='']
          * @param RelatedColumn [RelatedColumn='']
          */
-        Append(Item: Key | string, Type?: KeyTypeEnum, Column?: string | SafeArray<string>, RelatedTable?: string, RelatedColumn?: string): void;
+        Append(
+            Item: Key | string,
+            Type?: KeyTypeEnum,
+            Column?: string | SafeArray<string>,
+            RelatedTable?: string,
+            RelatedColumn?: string,
+        ): void;
         readonly Count: number;
         Delete(Item: string | number): void;
         Item(Item: string | number): Key;
@@ -276,7 +308,11 @@ declare namespace ADOX {
          * @param Name Specifies the name of the object for which to set permissions. Pass `null` if you want to get the permissions for the object container.
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
          */
-        GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, ObjectTypeId: any): RightsEnum;
+        GetPermissions(
+            Name: string | null,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            ObjectTypeId: any,
+        ): RightsEnum;
         GetPermissions(Name: string | null, ObjectType: ObjectTypeEnum): RightsEnum;
         readonly Groups: Groups;
         Name: string;
@@ -288,8 +324,21 @@ declare namespace ADOX {
          * @param Inherit [Inherit=0]
          * @param ObjectTypeId Specifies the GUID for a provider object type not defined by the OLE DB specification.
          */
-        SetPermissions(Name: string, ObjectType: ObjectTypeEnum.adPermObjProviderSpecific, Action: ActionEnum, Rights: RightsEnum, Inherit: InheritTypeEnum, ObjectTypeId: any): void;
-        SetPermissions(Name: string, ObjectType: ObjectTypeEnum, Action: ActionEnum, Rights: RightsEnum, Inherit?: InheritTypeEnum): void;
+        SetPermissions(
+            Name: string,
+            ObjectType: ObjectTypeEnum.adPermObjProviderSpecific,
+            Action: ActionEnum,
+            Rights: RightsEnum,
+            Inherit: InheritTypeEnum,
+            ObjectTypeId: any,
+        ): void;
+        SetPermissions(
+            Name: string,
+            ObjectType: ObjectTypeEnum,
+            Action: ActionEnum,
+            Rights: RightsEnum,
+            Inherit?: InheritTypeEnum,
+        ): void;
     }
 
     interface Users {

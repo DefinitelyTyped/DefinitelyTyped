@@ -8,5 +8,5 @@ export interface CardTextProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
 }
 
-declare class CardText<T = {[key: string]: any}> extends React.Component<CardTextProps> {}
+declare class CardText<T = { [key: string]: any }> extends React.Component<CardTextProps> {}
 export default CardText;

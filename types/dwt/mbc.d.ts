@@ -3,12 +3,12 @@
 // tslint:disable:no-irregular-whitespace
 
 /*!
-* Product: Dynamsoft Web Twain
-* Web Site: http://www.dynamsoft.com
-*
-* Copyright 2020, Dynamsoft Corporation
-* Author: Dynamsoft Support Team
-*/
+ * Product: Dynamsoft Web Twain
+ * Web Site: http://www.dynamsoft.com
+ *
+ * Copyright 2020, Dynamsoft Corporation
+ * Author: Dynamsoft Support Team
+ */
 
 /** 
  
@@ -83,7 +83,7 @@ interface cornerPoints {
 }
 
 interface TaskQueue {
-	push(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
+    push(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
     unshift(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
     next(): void;
 }
@@ -269,7 +269,10 @@ painter.addImageAsync(image, function(bSuccess){
 });
 ```
      */
-    addImageAsync(imgData: Blob | HTMLCanvasElement | HTMLImageElement | string | string[], callback?: () => void): void;
+    addImageAsync(
+        imgData: Blob | HTMLCanvasElement | HTMLImageElement | string | string[],
+        callback?: () => void,
+    ): void;
 
     /**
     The image whose width or height larger than`addedImageMaxWH` would be compressed when adding.

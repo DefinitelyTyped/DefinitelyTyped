@@ -39,7 +39,9 @@ declare class Roll {
      * Parse a string into a roll object
      * @throws InvalidInputError
      */
-    parse(input: string): {
+    parse(
+        input: string,
+    ): {
         quantity: number;
         sides: number;
         transformations: RollTransformation[];

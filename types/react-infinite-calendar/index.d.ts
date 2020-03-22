@@ -11,7 +11,7 @@ export type DateType = Date | string | number;
 export enum EVENT_TYPE {
     START = 1,
     HOVER,
-    END
+    END,
 }
 
 export interface RangedSelection {
@@ -48,9 +48,9 @@ export interface ReactInfiniteCalendarProps {
     };
     locale?: {
         locale?: {
-            distanceInWords: (token: any, count: any, options: any) => any,
+            distanceInWords: (token: any, count: any, options: any) => any;
             format: () => any;
-        },
+        };
         blank?: string;
         headerFormat?: string;
         todayLabel?: {

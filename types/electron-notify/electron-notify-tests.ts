@@ -5,8 +5,8 @@ eNotify.setConfig({
     displayTime: 6000,
     defaultStyleText: {
         color: '#FF0000',
-        fontWeight: 'bold'
-    }
+        fontWeight: 'bold',
+    },
 });
 
 eNotify.notify({
@@ -19,6 +19,10 @@ eNotify.notify({
         console.log('onClick ' + event.id);
         event.closeNotification('onClick');
     },
-    onShowFunc: (event) => { console.log('onShow ' + event.id) },
-    onCloseFunc: (event) => { console.log('onClose ' + event.id) }
+    onShowFunc: (event) => {
+        console.log('onShow ' + event.id);
+    },
+    onCloseFunc: (event) => {
+        console.log('onClose ' + event.id);
+    },
 });

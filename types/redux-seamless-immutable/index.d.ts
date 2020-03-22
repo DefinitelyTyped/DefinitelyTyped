@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import { Reducer, Action } from "redux";
-import { Immutable } from "seamless-immutable";
+import { Reducer, Action } from 'redux';
+import { Immutable } from 'seamless-immutable';
 
 export interface SeamlessReducers {
     [reducerName: string]: Reducer<any, any>;

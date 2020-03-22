@@ -129,20 +129,20 @@ export default class ApplicationModule extends Base {
     wrapSync(identity: Identity): Application;
     private _create;
     /**
-    * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
-    * @param { ApplicationOption } appOptions
-    * @return {Promise.<Application>}
-    * @tutorial Application.create
-    * @ignore
-    */
+     * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
+     * @param { ApplicationOption } appOptions
+     * @return {Promise.<Application>}
+     * @tutorial Application.create
+     * @ignore
+     */
     create(appOptions: ApplicationOption): Promise<Application>;
     /**
-    * Creates and starts a new Application.
-    * @param { ApplicationOption } appOptions
-    * @return {Promise.<Application>}
-    * @tutorial Application.start
-    * @static
-    */
+     * Creates and starts a new Application.
+     * @param { ApplicationOption } appOptions
+     * @return {Promise.<Application>}
+     * @tutorial Application.start
+     * @static
+     */
     start(appOptions: ApplicationOption): Promise<Application>;
     /**
      * Asynchronously starts a batch of applications given an array of application identifiers and manifestUrls.
@@ -320,11 +320,11 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getShortcuts(): Promise<ShortCutConfig>;
     /**
-    * Retrieves current application's views.
-    * @experimental
-    * @return {Promise.Array.<View>}
-    * @tutorial Application.getViews
-    */
+     * Retrieves current application's views.
+     * @experimental
+     * @return {Promise.Array.<View>}
+     * @tutorial Application.getViews
+     */
     getViews(): Promise<Array<View>>;
     /**
      * Returns the current zoom level of the application.
@@ -339,12 +339,12 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getWindow(): Promise<_Window>;
     /**
-    * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
-    * @param { string } userName - username to be passed to the RVM.
-    * @param { string } appName - app name to be passed to the RVM.
-    * @return {Promise.<void>}
-    * @tutorial Application.registerUser
-    */
+     * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
+     * @param { string } userName - username to be passed to the RVM.
+     * @param { string } appName - app name to be passed to the RVM.
+     * @return {Promise.<void>}
+     * @tutorial Application.registerUser
+     */
     registerUser(userName: string, appName: string): Promise<void>;
     /**
      * Removes the application’s icon from the tray.

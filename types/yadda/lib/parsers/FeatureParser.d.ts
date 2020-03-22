@@ -1,4 +1,4 @@
-import Language = require("../localisation/Language");
+import Language = require('../localisation/Language');
 
 declare namespace FeatureParser {
     interface Options {

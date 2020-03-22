@@ -39,13 +39,13 @@ webpackDevMiddlewareInstance.close(() => {
     console.log('closed');
 });
 
-webpackDevMiddlewareInstance.invalidate(stats => {
+webpackDevMiddlewareInstance.invalidate((stats) => {
     if (stats) {
         console.log(stats.toJson());
     }
 });
 
-webpackDevMiddlewareInstance.waitUntilValid(stats => {
+webpackDevMiddlewareInstance.waitUntilValid((stats) => {
     if (stats) {
         console.log('Package is in a valid state:' + stats.toJson());
     }

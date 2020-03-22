@@ -1,6 +1,6 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
 import {
     StreamSource,
@@ -8,8 +8,8 @@ import {
     concatenate,
     concatenateToResponse,
     isSupported,
-    strategy
-} from "workbox-streams";
+    strategy,
+} from 'workbox-streams';
 
 //==============================================================================
 // WorkboxStreams.concatenate

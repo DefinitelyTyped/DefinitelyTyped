@@ -1,10 +1,4 @@
-import {
-    CompilerContext,
-    Fragment,
-    Root,
-    Printer as GraphQLIRPrinter,
-    Schema
-} from 'relay-compiler';
+import { CompilerContext, Fragment, Root, Printer as GraphQLIRPrinter, Schema } from 'relay-compiler';
 import * as InlineFragmentsTransform from 'relay-compiler/lib/transforms/InlineFragmentsTransform';
 import * as SkipRedundantNodesTransform from 'relay-compiler/lib/transforms/SkipRedundantNodesTransform';
 import * as ApplyFragmentArgumentTransform from 'relay-compiler/lib/transforms/ApplyFragmentArgumentTransform';
@@ -15,9 +9,12 @@ import { visit } from 'relay-compiler/lib/core/IRVisitor';
 
 const TestSchema: Schema = (undefined as any) as Schema;
 
-declare function parseGraphQLText(schema: Schema, text: string): {
-    definitions: ReadonlyArray<Fragment | Root>,
-    schema: Schema
+declare function parseGraphQLText(
+    schema: Schema,
+    text: string,
+): {
+    definitions: ReadonlyArray<Fragment | Root>;
+    schema: Schema;
 };
 
 const schema = TestSchema.extend([
@@ -44,14 +41,14 @@ const queryCompilerContext = new CompilerContext(extendedSchema)
         ConnectionTransform.transform,
     ]);
 
-queryCompilerContext.documents().map(doc => GraphQLIRPrinter.print(doc));
+queryCompilerContext.documents().map((doc) => GraphQLIRPrinter.print(doc));
 
 getLanguagePlugin(() => ({
     findGraphQLTags: (text, filePath) =>
         text
             .split(filePath)
-            .map(template => ({ template, keyName: filePath, sourceLocationOffset: { line: 24, column: 42 } })),
-    formatModule: options => options.docText || '',
+            .map((template) => ({ template, keyName: filePath, sourceLocationOffset: { line: 24, column: 42 } })),
+    formatModule: (options) => options.docText || '',
     inputExtensions: ['foo'],
     outputExtension: 'bar',
     typeGenerator: {

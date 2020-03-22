@@ -7,8 +7,8 @@ import * as React from 'react';
  * @returns an InstantSearch root
  */
 export function createInstantSearch(
-  defaultAlgoliaClient?: (appId: string, apiKey: string, options: { _useRequestCache: boolean }) => object
+    defaultAlgoliaClient?: (appId: string, apiKey: string, options: { _useRequestCache: boolean }) => object,
 ): {
-  InstantSearch: React.ComponentClass<any>;
-  findResultsState(App: React.ComponentType<any>, props: any): Promise<any>
+    InstantSearch: React.ComponentClass<any>;
+    findResultsState(App: React.ComponentType<any>, props: any): Promise<any>;
 };

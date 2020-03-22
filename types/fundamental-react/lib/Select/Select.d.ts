@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface SelectProps {
     className?: string;
@@ -15,7 +15,7 @@ export interface SelectProps {
 }
 
 declare const Select: React.FunctionComponent<SelectProps> & {
-    displayName: "Select";
+    displayName: 'Select';
 };
 
 export default Select;

@@ -1,6 +1,4 @@
-import {
-    LoadCallbackType
-} from '../types';
+import { LoadCallbackType } from '../types';
 import MediaFileReader from './MediaFileReader';
 import ChunkedFileData from './ChunkedFileData';
 

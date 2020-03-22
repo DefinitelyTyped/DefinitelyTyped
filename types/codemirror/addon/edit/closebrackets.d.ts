@@ -5,9 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_closebrackets
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface AutoCloseBrackets {
         /**
          * String containing pairs of matching characters.

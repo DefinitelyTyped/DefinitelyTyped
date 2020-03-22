@@ -23,6 +23,6 @@ export interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInpu
     onSelect?: (item: T) => void;
 }
 
-declare class SelectInput extends Component<SelectInputProps> { }
+declare class SelectInput extends Component<SelectInputProps> {}
 
 export default SelectInput;

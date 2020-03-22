@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type PanelProps = {
     className?: string;
@@ -34,13 +34,13 @@ export type PanelHeaderProps = {
 } & { [x: string]: any };
 
 declare const Panel: React.FunctionComponent<PanelProps> & {
-    displayName: "Panel";
-    Actions: React.FunctionComponent<PanelActionsProps> & {displayName: "Panel.Actions"};
-    Body: React.FunctionComponent<PanelBodyProps> & {displayName: "Panel.Body"};
-    Filters: React.FunctionComponent<PanelFiltersProps> & {displayName: "Panel.Filters"};
-    Footer: React.FunctionComponent<PanelFooterProps> & {displayName: "Panel.Footer"};
-    Head: React.FunctionComponent<PanelHeadProps> & {displayName: "Panel.Head"};
-    Header: React.FunctionComponent<PanelHeaderProps> & {displayName: "Panel.Header"};
+    displayName: 'Panel';
+    Actions: React.FunctionComponent<PanelActionsProps> & { displayName: 'Panel.Actions' };
+    Body: React.FunctionComponent<PanelBodyProps> & { displayName: 'Panel.Body' };
+    Filters: React.FunctionComponent<PanelFiltersProps> & { displayName: 'Panel.Filters' };
+    Footer: React.FunctionComponent<PanelFooterProps> & { displayName: 'Panel.Footer' };
+    Head: React.FunctionComponent<PanelHeadProps> & { displayName: 'Panel.Head' };
+    Header: React.FunctionComponent<PanelHeaderProps> & { displayName: 'Panel.Header' };
 };
 
 export default Panel;

@@ -10,7 +10,7 @@ function completeFunction(
     electronVersion: string,
     platform: string,
     arch: string,
-    callbackFn: () => void
+    callbackFn: () => void,
 ) {
     callbackFn();
 }

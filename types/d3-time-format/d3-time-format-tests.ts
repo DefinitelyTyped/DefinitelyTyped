@@ -14,7 +14,7 @@ import * as d3TimeFormat from 'd3-time-format';
 
 let formatFn: (n: Date) => string;
 
-let parseFn: (dateString: string) => (Date | null);
+let parseFn: (dateString: string) => Date | null;
 
 let localeDef: d3TimeFormat.TimeLocaleDefinition;
 
@@ -50,8 +50,21 @@ localeDef = {
     periods: ['Vormittag', 'Nachmittag'],
     days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Sonnabend'],
     shortDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-    months: ['Januar', 'Februar', 'Maerz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-    shortMonths: ['Jan', 'Feb', 'Mrz', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+    months: [
+        'Januar',
+        'Februar',
+        'Maerz',
+        'April',
+        'Mai',
+        'Juni',
+        'Juli',
+        'August',
+        'September',
+        'Oktober',
+        'November',
+        'Dezember',
+    ],
+    shortMonths: ['Jan', 'Feb', 'Mrz', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
 };
 
 const dateTimeSpecifier: string = localeDef.dateTime;
@@ -60,15 +73,17 @@ const timeSpecifier: string = localeDef.time;
 const periods: [string, string] = localeDef.periods;
 const days: [string, string, string, string, string, string, string] = localeDef.days;
 const shortDays: [string, string, string, string, string, string, string] = localeDef.shortDays;
-const months: [string, string, string, string, string, string, string, string, string, string, string, string] = localeDef.months;
-const shortMonths: [string, string, string, string, string, string, string, string, string, string, string, string] = localeDef.shortMonths;
+const months: [string, string, string, string, string, string, string, string, string, string, string, string] =
+    localeDef.months;
+const shortMonths: [string, string, string, string, string, string, string, string, string, string, string, string] =
+    localeDef.shortMonths;
 
 localeObj = d3TimeFormat.timeFormatLocale(localeDef);
 
 localeObj = d3TimeFormat.timeFormatDefaultLocale(localeDef);
 
-let formatFactory: (specifier: string) => ((date: Date) => string) = localeObj.format;
-let parseFactory: (specifier: string) => ((dateString: string) => Date | null) = localeObj.parse;
+let formatFactory: (specifier: string) => (date: Date) => string = localeObj.format;
+let parseFactory: (specifier: string) => (dateString: string) => Date | null = localeObj.parse;
 
 formatFactory = localeObj.utcFormat;
 parseFactory = localeObj.utcParse;

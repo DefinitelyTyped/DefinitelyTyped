@@ -37,6 +37,6 @@ const cfg = `foo {
 
 lexer.input(cfg);
 lexer.debug(true);
-lexer.tokens().forEach(token => {
+lexer.tokens().forEach((token) => {
     // ...
 });

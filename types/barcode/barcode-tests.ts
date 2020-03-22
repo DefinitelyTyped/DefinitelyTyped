@@ -1,9 +1,8 @@
-
 import barcode = require('barcode');
 import path = require('path');
 
 var code39 = barcode('code39', {
-    data: "it works",
+    data: 'it works',
     width: 400,
     height: 100,
 });

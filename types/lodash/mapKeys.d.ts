@@ -1,2 +1,2 @@
-import { mapKeys } from "./index";
+import { mapKeys } from './index';
 export = mapKeys;

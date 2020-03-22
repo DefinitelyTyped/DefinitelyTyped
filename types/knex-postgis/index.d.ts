@@ -115,7 +115,7 @@ declare namespace KnexPostgis {
          *
          * @see {@link https://postgis.net/docs/ST_GeomFromGeoJSON.html}
          */
-        geomFromGeoJSON(geojson: GeoJSON.GeoJsonObject|ColumnName): Knex.QueryBuilder;
+        geomFromGeoJSON(geojson: GeoJSON.GeoJsonObject | ColumnName): Knex.QueryBuilder;
 
         /**
          * Creates a rectangular Polygon formed from the given minimums and maximums. Input values

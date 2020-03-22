@@ -23,12 +23,12 @@ $('#timepicker').timepicker({
     onMinuteShow: onMinuteShow,
     hours: {
         starts: 0,
-        ends: 23
+        ends: 23,
     },
     minutes: {
         starts: 0,
         ends: 55,
-        interval: 5
+        interval: 5,
     },
     rows: 4,
     showHours: true,
@@ -38,7 +38,7 @@ $('#timepicker').timepicker({
     showNowButton: false,
     nowButtonText: 'Now',
     showDeselectButton: false,
-    deselectButtonText: 'Deselect'
+    deselectButtonText: 'Deselect',
 });
 
 $().timepicker('getTime');

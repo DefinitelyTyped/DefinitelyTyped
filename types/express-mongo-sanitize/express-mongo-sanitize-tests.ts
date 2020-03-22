@@ -5,22 +5,24 @@ const app: express.Express = express();
 
 app.use(mongoSanitize());
 
-app.use(mongoSanitize({
-	replaceWith: '_'
-}));
+app.use(
+    mongoSanitize({
+        replaceWith: '_',
+    }),
+);
 
 interface TestPayload {
-	foo: string;
+    foo: string;
 }
 
 const testPayload: TestPayload = {
-	foo: 'bar'
+    foo: 'bar',
 };
 
 const sanitize1: TestPayload = mongoSanitize.sanitize(testPayload);
 
 const sanitize2: TestPayload = mongoSanitize.sanitize(testPayload, {
-	replaceWith: '_'
+    replaceWith: '_',
 });
 
 const isCorrect: boolean = mongoSanitize.has(testPayload);

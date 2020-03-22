@@ -1,5 +1,5 @@
-import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
+import { Component, CSSProperties } from 'react';
+import { CustomPickerProps, ColorState } from '../../..';
 
 export interface CirclePickerDefaultStyles {
     card?: CSSProperties;

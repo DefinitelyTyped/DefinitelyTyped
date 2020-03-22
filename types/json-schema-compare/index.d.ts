@@ -10,14 +10,16 @@ export = compare;
 
 type JSONSchemaComparee = JSONSchema4 | JSONSchema6Definition | JSONSchema7Definition | undefined;
 type KnownKeys<T> = {
-    [K in keyof T]: string extends K ? never : K
-} extends { [_ in keyof T]: infer U } ? U : never;
+    [K in keyof T]: string extends K ? never : K;
+} extends { [_ in keyof T]: infer U }
+    ? U
+    : never;
 /**
  * The `string & {''?: never}` is a workaround for
  * [Microsoft/TypeScript#29729](https://github.com/Microsoft/TypeScript/issues/29729).
  * It will be removed as soon as it's not needed anymore.
  */
-type JSONSchemaKeys = KnownKeys<JSONSchema4> | keyof JSONSchema6 | keyof JSONSchema7 | string & {''?: never};
+type JSONSchemaKeys = KnownKeys<JSONSchema4> | keyof JSONSchema6 | keyof JSONSchema7 | (string & { ''?: never });
 interface Options {
     /**
      * Ignores certain keywords, useful to exclude meta keywords like title,

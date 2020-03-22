@@ -10,7 +10,7 @@ HelloSign.open({
             console.log('signed');
         }
     },
-    uxVersion: 2
+    uxVersion: 2,
 });
 
 // all options
@@ -32,8 +32,8 @@ HelloSign.open({
     uxVersion: 2,
     requester: 'hellosign@example.org',
     whiteLabelingOptions: {
-        "page_background_color": "#f7f8f9"
-    }
+        page_background_color: '#f7f8f9',
+    },
 });
 
 HelloSign.close();

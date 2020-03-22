@@ -21,7 +21,7 @@ const notdefGlyph = new opentype.Glyph({
     name: '.notdef',
     unicode: 0,
     advanceWidth: 650,
-    path: new opentype.Path()
+    path: new opentype.Path(),
 });
 
 const aPath = new opentype.Path();
@@ -30,7 +30,7 @@ const aGlyph = new opentype.Glyph({
     name: 'A',
     unicode: 65,
     advanceWidth: 650,
-    path: aPath
+    path: aPath,
 });
 
 const glyphs = [notdefGlyph, aGlyph];
@@ -41,7 +41,7 @@ const fontGenerated = new opentype.Font({
     ascender: 800,
     descender: -200,
 
-    glyphs
+    glyphs,
 });
 font.download();
 
@@ -60,16 +60,16 @@ const forEachWidth: number = font.forEachGlyph(
     y,
     fontSize,
     {
-        kerning: true
+        kerning: true,
     },
     (glyph: opentype.Glyph, x: number, y: number, fontSize: number) => {
         console.log({
             glyph,
             x,
             y,
-            fontSize
+            fontSize,
         });
-    }
+    },
 );
 const fontPath: opentype.Path = font.getPath('text', x, y, fontSize, {});
 const fontPaths: opentype.Path[] = font.getPaths('text', x, y, fontSize, {});
@@ -88,13 +88,7 @@ aGlyph.bindConstructorValues({ advanceWidth: 1 });
 aGlyph.addUnicode(42);
 const glyphBBox: opentype.BoundingBox = aGlyph.getBoundingBox();
 const glyphPathBasic: opentype.Path = aGlyph.getPath();
-const glyphPathFull: opentype.Path = aGlyph.getPath(
-    x,
-    y,
-    fontSize,
-    { xScale: 1, yScale: 2 },
-    font
-);
+const glyphPathFull: opentype.Path = aGlyph.getPath(x, y, fontSize, { xScale: 1, yScale: 2 }, font);
 const glyphContours: opentype.Contour = aGlyph.getContours();
 const glyphMetrics: opentype.Metrics = aGlyph.getMetrics();
 aGlyph.draw(ctx, x, y, fontSize, {});

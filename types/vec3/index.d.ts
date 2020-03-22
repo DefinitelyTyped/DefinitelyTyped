@@ -20,7 +20,7 @@ export declare class Vec3 {
     plus(other: Vec3): Vec3;
     minus(other: Vec3): Vec3;
     scaled(scalar: number): Vec3;
-    abs(): Vec3
+    abs(): Vec3;
     volume(): number;
     modulus(): Vec3;
     distanceTo(other: Vec3): number;

@@ -1,29 +1,27 @@
-
-
-describe("A suite", () => {
-    it("contains spec with an expectation", () => {
+describe('A suite', () => {
+    it('contains spec with an expectation', () => {
         expect(true).toBe(true);
     });
 });
 
-describe("A suite is just a function", () => {
+describe('A suite is just a function', () => {
     var a: boolean;
-    it("and so is a spec", () => {
+    it('and so is a spec', () => {
         a = true;
         expect(a).toBe(true);
     });
 });
 
 describe("The 'toBe' matcher compares with ===", () => {
-    it("and has a positive case ", () => {
+    it('and has a positive case ', () => {
         expect(true).toBe(true);
     });
-    it("and can have a negative case", () => {
+    it('and can have a negative case', () => {
         expect(false).not.toBe(true);
     });
 });
 
-describe("Included matchers:", () => {
+describe('Included matchers:', () => {
     it("The 'toBe' matcher compares with ===", () => {
         var a = 12;
         var b = a;
@@ -31,18 +29,18 @@ describe("Included matchers:", () => {
         expect(a).not.toBe(null);
     });
     describe("The 'toEqual' matcher", () => {
-        it("works for simple literals and variables", () => {
+        it('works for simple literals and variables', () => {
             var a = 12;
             expect(a).toEqual(12);
         });
-        it("should work for objects", () => {
+        it('should work for objects', () => {
             var foo = {
                 a: 12,
-                b: 34
+                b: 34,
             };
             var bar = {
                 a: 12,
-                b: 34
+                b: 34,
             };
             expect(foo).toEqual(bar);
         });
@@ -57,15 +55,15 @@ describe("Included matchers:", () => {
 
     it("The 'toBeDefined' matcher compares against `undefined`", () => {
         var a = {
-            foo: 'foo'
+            foo: 'foo',
         };
         expect(a.foo).toBeDefined();
         expect((a as any).bar).not.toBeDefined();
     });
 
-    it("The `toBeUndefined` matcher compares against `undefined`", () => {
+    it('The `toBeUndefined` matcher compares against `undefined`', () => {
         var a = {
-            foo: 'foo'
+            foo: 'foo',
         };
         expect(a.foo).not.toBeUndefined();
         expect((a as any).bar).toBeUndefined();
@@ -80,13 +78,15 @@ describe("Included matchers:", () => {
     });
 
     it("The 'toBeTruthy' matcher is for boolean casting testing", () => {
-      var a: string, foo = 'foo';
+        var a: string,
+            foo = 'foo';
         expect(foo).toBeTruthy();
         expect(a).not.toBeTruthy();
     });
 
     it("The 'toBeFalsy' matcher is for boolean casting testing", () => {
-      var a: string, foo = 'foo';
+        var a: string,
+            foo = 'foo';
         expect(a).toBeFalsy();
         expect(foo).not.toBeFalsy();
     });
@@ -98,19 +98,22 @@ describe("Included matchers:", () => {
     });
 
     it("The 'toBeLessThan' matcher is for mathematical comparisons", () => {
-      var pi = 3.1415926, e = 2.78;
+        var pi = 3.1415926,
+            e = 2.78;
         expect(e).toBeLessThan(pi);
         expect(pi).not.toBeLessThan(e);
     });
 
     it("The 'toBeGreaterThan' is for mathematical comparisons", () => {
-      var pi = 3.1415926, e = 2.78;
+        var pi = 3.1415926,
+            e = 2.78;
         expect(pi).toBeGreaterThan(e);
         expect(e).not.toBeGreaterThan(pi);
     });
 
     it("The 'toBeCloseTo' matcher is for precision math comparison", () => {
-      var pi = 3.1415926, e = 2.78;
+        var pi = 3.1415926,
+            e = 2.78;
         expect(pi).not.toBeCloseTo(e, 0.1);
         expect(pi).toBeCloseTo(e, 0);
     });
@@ -127,14 +130,14 @@ describe("Included matchers:", () => {
     });
 });
 
-describe("A spec", () => {
-    it("is just a function, so it can contain any code", () => {
+describe('A spec', () => {
+    it('is just a function, so it can contain any code', () => {
         var foo = 0;
         foo += 1;
         expect(foo).toEqual(1);
     });
 
-    it("can have more than one expectation", () => {
+    it('can have more than one expectation', () => {
         var foo = 0;
         foo += 1;
         expect(foo).toEqual(1);
@@ -142,7 +145,7 @@ describe("A spec", () => {
     });
 });
 
-describe("A spec (with setup and tear-down)", () => {
+describe('A spec (with setup and tear-down)', () => {
     var foo: number;
     beforeEach(() => {
         foo = 0;
@@ -151,16 +154,16 @@ describe("A spec (with setup and tear-down)", () => {
     afterEach(() => {
         foo = 0;
     });
-    it("is just a function, so it can contain any code", () => {
+    it('is just a function, so it can contain any code', () => {
         expect(foo).toEqual(1);
     });
-    it("can have more than one expectation", () => {
+    it('can have more than one expectation', () => {
         expect(foo).toEqual(1);
         expect(true).toEqual(true);
     });
 });
 
-describe("A spec", () => {
+describe('A spec', () => {
     var foo: number;
     beforeEach(() => {
         foo = 0;
@@ -169,70 +172,71 @@ describe("A spec", () => {
     afterEach(() => {
         foo = 0;
     });
-    it("is just a function, so it can contain any code", () => {
+    it('is just a function, so it can contain any code', () => {
         expect(foo).toEqual(1);
     });
-    it("can have more than one expectation", () => {
+    it('can have more than one expectation', () => {
         expect(foo).toEqual(1);
         expect(true).toEqual(true);
     });
-    describe("nested inside a second describe", () => {
+    describe('nested inside a second describe', () => {
         var bar: number;
         beforeEach(() => {
             bar = 1;
         });
-        it("can reference both scopes as needed ", () => {
+        it('can reference both scopes as needed ', () => {
             expect(foo).toEqual(bar);
         });
     });
 });
 
-xdescribe("A spec", () => {
+xdescribe('A spec', () => {
     var foo: number;
     beforeEach(() => {
         foo = 0;
         foo += 1;
     });
-    xit("is just a function, so it can contain any code", () => {
+    xit('is just a function, so it can contain any code', () => {
         expect(foo).toEqual(1);
     });
 });
 
-describe("A spy", () => {
-  var foo: any, bar: any = null;
+describe('A spy', () => {
+    var foo: any,
+        bar: any = null;
     beforeEach(() => {
         foo = {
             setBar: (value: any) => {
                 bar = value;
-            }
+            },
         };
         spyOn(foo, 'setBar');
         foo.setBar(123);
         foo.setBar(456, 'another param');
     });
-    it("tracks that the spy was called", () => {
+    it('tracks that the spy was called', () => {
         expect(foo.setBar).toHaveBeenCalled();
     });
-    it("tracks its number of calls", () => {
+    it('tracks its number of calls', () => {
         expect(foo.setBar.calls.length).toEqual(2);
     });
-    it("tracks all the arguments of its calls", () => {
+    it('tracks all the arguments of its calls', () => {
         expect(foo.setBar).toHaveBeenCalledWith(123);
         expect(foo.setBar).toHaveBeenCalledWith(456, 'another param');
     });
-    it("allows access to the most recent call", () => {
+    it('allows access to the most recent call', () => {
         expect(foo.setBar.mostRecentCall.args[0]).toEqual(456);
     });
-    it("allows access to other calls", () => {
+    it('allows access to other calls', () => {
         expect(foo.setBar.calls[0].args[0]).toEqual(123);
     });
-    it("stops all execution on a function", () => {
+    it('stops all execution on a function', () => {
         expect(bar).toBeNull();
     });
 });
 
-describe("A spy, when configured to call through", () => {
-  var foo: any, bar: any, fetchedBar: any;
+describe('A spy, when configured to call through', () => {
+    var foo: any, bar: any, fetchedBar: any;
     beforeEach(() => {
         foo = {
             setBar: (value: any) => {
@@ -240,25 +244,25 @@ describe("A spy, when configured to call through", () => {
             },
             getBar: () => {
                 return bar;
-            }
+            },
         };
         spyOn(foo, 'getBar').andCallThrough();
         foo.setBar(123);
         fetchedBar = foo.getBar();
     });
-    it("tracks that the spy was called", () => {
+    it('tracks that the spy was called', () => {
         expect(foo.getBar).toHaveBeenCalled();
     });
-    it("should not effect other functions", () => {
+    it('should not effect other functions', () => {
         expect(bar).toEqual(123);
     });
-    it("when called returns the requested value", () => {
+    it('when called returns the requested value', () => {
         expect(fetchedBar).toEqual(123);
     });
 });
 
-describe("A spy, when faking a return value", () => {
-  var foo: any, bar: any, fetchedBar: any;
+describe('A spy, when faking a return value', () => {
+    var foo: any, bar: any, fetchedBar: any;
     beforeEach(() => {
         foo = {
             setBar: (value: any) => {
@@ -266,25 +270,25 @@ describe("A spy, when faking a return value", () => {
             },
             getBar: () => {
                 return bar;
-            }
+            },
         };
         spyOn(foo, 'getBar').andReturn(745);
         foo.setBar(123);
         fetchedBar = foo.getBar();
     });
-    it("tracks that the spy was called", () => {
+    it('tracks that the spy was called', () => {
         expect(foo.getBar).toHaveBeenCalled();
     });
-    it("should not effect other functions", () => {
+    it('should not effect other functions', () => {
         expect(bar).toEqual(123);
     });
-    it("when called returns the requested value", () => {
+    it('when called returns the requested value', () => {
         expect(fetchedBar).toEqual(745);
     });
 });
 
-describe("A spy, when faking a return value", () => {
-  var foo: any, bar: any, fetchedBar: any;
+describe('A spy, when faking a return value', () => {
+    var foo: any, bar: any, fetchedBar: any;
     beforeEach(() => {
         foo = {
             setBar: (value: any) => {
@@ -292,7 +296,7 @@ describe("A spy, when faking a return value", () => {
             },
             getBar: () => {
                 return bar;
-            }
+            },
         };
         spyOn(foo, 'getBar').andCallFake(() => {
             return 1001;
@@ -300,42 +304,42 @@ describe("A spy, when faking a return value", () => {
         foo.setBar(123);
         fetchedBar = foo.getBar();
     });
-    it("tracks that the spy was called", () => {
+    it('tracks that the spy was called', () => {
         expect(foo.getBar).toHaveBeenCalled();
     });
-    it("should not effect other functions", () => {
+    it('should not effect other functions', () => {
         expect(bar).toEqual(123);
     });
-    it("when called returns the requested value", () => {
+    it('when called returns the requested value', () => {
         expect(fetchedBar).toEqual(1001);
     });
 });
 
-describe("A spy, when created manually", () => {
+describe('A spy, when created manually', () => {
     var whatAmI: any;
 
     beforeEach(() => {
         whatAmI = jasmine.createSpy('whatAmI');
-        whatAmI("I", "am", "a", "spy");
+        whatAmI('I', 'am', 'a', 'spy');
     });
-    it("is named, which helps in error reporting", () => {
+    it('is named, which helps in error reporting', () => {
         expect(whatAmI.identity).toEqual('whatAmI');
     });
-    it("tracks that the spy was called", () => {
+    it('tracks that the spy was called', () => {
         expect(whatAmI).toHaveBeenCalled();
     });
-    it("tracks its number of calls", () => {
+    it('tracks its number of calls', () => {
         expect(whatAmI.calls.length).toEqual(1);
     });
-    it("tracks all the arguments of its calls", () => {
-        expect(whatAmI).toHaveBeenCalledWith("I", "am", "a", "spy");
+    it('tracks all the arguments of its calls', () => {
+        expect(whatAmI).toHaveBeenCalledWith('I', 'am', 'a', 'spy');
     });
-    it("allows access to the most recent call", () => {
-        expect(whatAmI.mostRecentCall.args[0]).toEqual("I");
+    it('allows access to the most recent call', () => {
+        expect(whatAmI.mostRecentCall.args[0]).toEqual('I');
     });
 });
 
-describe("Multiple spies, when created manually", () => {
+describe('Multiple spies, when created manually', () => {
     var tape: any;
     beforeEach(() => {
         tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
@@ -343,30 +347,30 @@ describe("Multiple spies, when created manually", () => {
         tape.pause();
         tape.rewind(0);
     });
-    it("creates spies for each requested function", () => {
+    it('creates spies for each requested function', () => {
         expect(tape.play).toBeDefined();
         expect(tape.pause).toBeDefined();
         expect(tape.stop).toBeDefined();
         expect(tape.rewind).toBeDefined();
     });
-    it("tracks that the spies were called", () => {
+    it('tracks that the spies were called', () => {
         expect(tape.play).toHaveBeenCalled();
         expect(tape.pause).toHaveBeenCalled();
         expect(tape.rewind).toHaveBeenCalled();
         expect(tape.stop).not.toHaveBeenCalled();
     });
-    it("tracks all the arguments of its calls", () => {
+    it('tracks all the arguments of its calls', () => {
         expect(tape.rewind).toHaveBeenCalledWith(0);
     });
 });
 
-describe("jasmine.any", () => {
-    it("matches any value", () => {
+describe('jasmine.any', () => {
+    it('matches any value', () => {
         expect({}).toEqual(jasmine.any(Object));
         expect(12).toEqual(jasmine.any(Number));
     });
-    describe("when used with a spy", () => {
-        it("is useful for comparing arguments", () => {
+    describe('when used with a spy', () => {
+        it('is useful for comparing arguments', () => {
             var foo = jasmine.createSpy('foo');
             foo(12, () => {
                 return true;
@@ -376,13 +380,13 @@ describe("jasmine.any", () => {
     });
 });
 
-describe("Manually ticking the Jasmine Mock Clock", () => {
+describe('Manually ticking the Jasmine Mock Clock', () => {
     var timerCallback: any;
     beforeEach(() => {
         timerCallback = jasmine.createSpy('timerCallback');
         jasmine.Clock.useMock();
     });
-    it("causes a timeout to be called synchronously", () => {
+    it('causes a timeout to be called synchronously', () => {
         setTimeout(() => {
             timerCallback();
         }, 100);
@@ -391,7 +395,7 @@ describe("Manually ticking the Jasmine Mock Clock", () => {
         expect(timerCallback).toHaveBeenCalled();
     });
 
-    it("causes an interval to be called synchronously", () => {
+    it('causes an interval to be called synchronously', () => {
         setInterval(() => {
             timerCallback();
         }, 100);
@@ -405,9 +409,9 @@ describe("Manually ticking the Jasmine Mock Clock", () => {
     });
 });
 
-describe("Asynchronous specs", () => {
-  var value: number, flag: any;
-    it("should support async execution of test preparation and exepectations", () => {
+describe('Asynchronous specs', () => {
+    var value: number, flag: any;
+    it('should support async execution of test preparation and exepectations', () => {
         runs(() => {
             flag = false;
             value = 0;
@@ -415,10 +419,14 @@ describe("Asynchronous specs", () => {
                 flag = true;
             }, 500);
         });
-        waitsFor(() => {
-            value++;
-            return flag;
-        }, "The Value should be incremented", 750);
+        waitsFor(
+            () => {
+                value++;
+                return flag;
+            },
+            'The Value should be incremented',
+            750,
+        );
         runs(() => {
             expect(value).toBeGreaterThan(0);
         });

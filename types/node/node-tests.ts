@@ -1,13 +1,13 @@
-import * as fs from "fs";
-import * as url from "url";
-import * as util from "util";
-import * as http from "http";
-import * as https from "https";
-import * as console2 from "console";
-import * as timers from "timers";
-import * as dns from "dns";
-import * as inspector from "inspector";
-import * as trace_events from "trace_events";
+import * as fs from 'fs';
+import * as url from 'url';
+import * as util from 'util';
+import * as http from 'http';
+import * as https from 'https';
+import * as console2 from 'console';
+import * as timers from 'timers';
+import * as dns from 'dns';
+import * as inspector from 'inspector';
+import * as trace_events from 'trace_events';
 
 //////////////////////////////////////////////////////
 /// Https tests : http://nodejs.org/api/https.html ///
@@ -20,19 +20,19 @@ import * as trace_events from "trace_events";
         maxSockets: Infinity,
         maxFreeSockets: 256,
         maxCachedSessions: 100,
-        timeout: 15000
+        timeout: 15000,
     });
 
     agent = https.globalAgent;
 
     https.request({
-        agent: false
+        agent: false,
     });
     https.request({
-        agent
+        agent,
     });
     https.request({
-        agent: undefined
+        agent: undefined,
     });
 
     https.get('http://www.example.com/xyz');
@@ -48,7 +48,7 @@ import * as trace_events from "trace_events";
     https.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
 
     const opts: https.RequestOptions = {
-        path: '/some/path'
+        path: '/some/path',
     };
     https.get(new url.URL('http://www.example.com'), opts);
     https.request(new url.URL('http://www.example.com'), opts);
@@ -72,12 +72,15 @@ import * as trace_events from "trace_events";
 
         server = new https.Server();
         server = new https.Server(reqListener);
-        server = new https.Server({ IncomingMessage: MyIncomingMessage});
+        server = new https.Server({ IncomingMessage: MyIncomingMessage });
 
-        server = new https.Server({
-            IncomingMessage: MyIncomingMessage,
-            ServerResponse: MyServerResponse
-        }, reqListener);
+        server = new https.Server(
+            {
+                IncomingMessage: MyIncomingMessage,
+                ServerResponse: MyServerResponse,
+            },
+            reqListener,
+        );
 
         server = https.createServer();
         server = https.createServer(reqListener);
@@ -89,7 +92,11 @@ import * as trace_events from "trace_events";
         const keepAliveTimeout: number = server.keepAliveTimeout;
         const maxHeadersCount: number | null = server.maxHeadersCount;
         const headersTimeout: number = server.headersTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+        server
+            .setTimeout()
+            .setTimeout(1000)
+            .setTimeout(() => {})
+            .setTimeout(100, () => {});
     }
 }
 
@@ -136,11 +143,11 @@ import * as trace_events from "trace_events";
     }) {
         const setTimeout = util.promisify(timers.setTimeout);
         let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
-        let s: string = await setTimeout(100, "");
+        let s: string = await setTimeout(100, '');
 
         const setImmediate = util.promisify(timers.setImmediate);
         v = await setImmediate(); // tslint:disable-line no-void-expression
-        s = await setImmediate("");
+        s = await setImmediate('');
 
         // $ExpectType (foo: any) => Promise<string>
         const doSomethingPromise = util.promisify(doSomething);
@@ -169,14 +176,14 @@ import * as trace_events from "trace_events";
     {
         const frame: NodeJS.CallSite = null!;
         const frameThis: any = frame.getThis();
-        const typeName: string | null  = frame.getTypeName();
-        const func: Function | undefined  = frame.getFunction();
+        const typeName: string | null = frame.getTypeName();
+        const func: Function | undefined = frame.getFunction();
         const funcName: string | null = frame.getFunctionName();
-        const meth: string | null  = frame.getMethodName();
-        const fname: string | null  = frame.getFileName();
-        const lineno: number | null  = frame.getLineNumber();
-        const colno: number | null  = frame.getColumnNumber();
-        const evalOrigin: string | undefined  = frame.getEvalOrigin();
+        const meth: string | null = frame.getMethodName();
+        const fname: string | null = frame.getFileName();
+        const lineno: number | null = frame.getLineNumber();
+        const colno: number | null = frame.getColumnNumber();
+        const evalOrigin: string | undefined = frame.getEvalOrigin();
         const isTop: boolean = frame.isToplevel();
         const isEval: boolean = frame.isEval();
         const isNative: boolean = frame.isNative();
@@ -203,14 +210,14 @@ import * as trace_events from "trace_events";
             stdout: writeStream,
             stderr: writeStream,
             colorMode: 'auto',
-            ignoreErrors: true
+            ignoreErrors: true,
         });
         consoleInstance = new console.Console({
             stdout: writeStream,
-            colorMode: false
+            colorMode: false,
         });
         consoleInstance = new console.Console({
-            stdout: writeStream
+            stdout: writeStream,
         });
     }
     {
@@ -279,44 +286,44 @@ import * as trace_events from "trace_events";
 ///////////////////////////////////////////////////
 
 {
-    dns.lookup("nodejs.org", (err, address, family) => {
+    dns.lookup('nodejs.org', (err, address, family) => {
         const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
-    dns.lookup("nodejs.org", 4, (err, address, family) => {
+    dns.lookup('nodejs.org', 4, (err, address, family) => {
         const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
-    dns.lookup("nodejs.org", 6, (err, address, family) => {
+    dns.lookup('nodejs.org', 6, (err, address, family) => {
         const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
-    dns.lookup("nodejs.org", {}, (err, address, family) => {
+    dns.lookup('nodejs.org', {}, (err, address, family) => {
         const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup(
-        "nodejs.org",
+        'nodejs.org',
         {
             family: 4,
             hints: dns.ADDRCONFIG | dns.V4MAPPED,
-            all: false
+            all: false,
         },
         (err, address, family) => {
             const _err: NodeJS.ErrnoException | null = err;
             const _address: string = address;
             const _family: number = family;
-        }
+        },
     );
-    dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
+    dns.lookup('nodejs.org', { all: true }, (err, addresses) => {
         const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
-    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
+    dns.lookup('nodejs.org', { all: true, verbatim: true }, (err, addresses) => {
         const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
@@ -324,63 +331,63 @@ import * as trace_events from "trace_events";
     function trueOrFalse(): boolean {
         return Math.random() > 0.5 ? true : false;
     }
-    dns.lookup("nodejs.org", { all: trueOrFalse() }, (err, addresses, family) => {
+    dns.lookup('nodejs.org', { all: trueOrFalse() }, (err, addresses, family) => {
         const _err: NodeJS.ErrnoException | null = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
 
-    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+    dns.lookupService('127.0.0.1', 0, (err, hostname, service) => {
         const _err: NodeJS.ErrnoException | null = err;
         const _hostname: string = hostname;
         const _service: string = service;
     });
 
-    dns.resolve("nodejs.org", (err, addresses) => {
+    dns.resolve('nodejs.org', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve("nodejs.org", "A", (err, addresses) => {
+    dns.resolve('nodejs.org', 'A', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
+    dns.resolve('nodejs.org', 'AAAA', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve("nodejs.org", "ANY", (err, addresses) => {
+    dns.resolve('nodejs.org', 'ANY', (err, addresses) => {
         const _addresses: dns.AnyRecord[] = addresses;
     });
-    dns.resolve("nodejs.org", "MX", (err, addresses) => {
+    dns.resolve('nodejs.org', 'MX', (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
     });
 
-    dns.resolve4("nodejs.org", (err, addresses) => {
+    dns.resolve4('nodejs.org', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve4("nodejs.org", { ttl: true }, (err, addresses) => {
+    dns.resolve4('nodejs.org', { ttl: true }, (err, addresses) => {
         const _addresses: dns.RecordWithTtl[] = addresses;
     });
     {
         const ttl = false;
-        dns.resolve4("nodejs.org", { ttl }, (err, addresses) => {
+        dns.resolve4('nodejs.org', { ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
     }
 
-    dns.resolve6("nodejs.org", (err, addresses) => {
+    dns.resolve6('nodejs.org', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
+    dns.resolve6('nodejs.org', { ttl: true }, (err, addresses) => {
         const _addresses: dns.RecordWithTtl[] = addresses;
     });
     {
         const ttl = false;
-        dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
+        dns.resolve6('nodejs.org', { ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
     }
     {
         const resolver = new dns.Resolver();
-        resolver.setServers(["4.4.4.4"]);
-        resolver.resolve("nodejs.org", (err, addresses) => {
+        resolver.setServers(['4.4.4.4']);
+        resolver.resolve('nodejs.org', (err, addresses) => {
             const _addresses: string[] = addresses;
         });
         resolver.cancel();
@@ -399,7 +406,7 @@ import * as trace_events from "trace_events";
 
 {
     {
-        const b: inspector.Console.ConsoleMessage = {source: 'test', text: 'test', level: 'error' };
+        const b: inspector.Console.ConsoleMessage = { source: 'test', text: 'test', level: 'error' };
         inspector.open();
         inspector.open(0);
         inspector.open(0, 'localhost');
@@ -418,8 +425,11 @@ import * as trace_events from "trace_events";
         session.post('A.b');
         // Known post method
         const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
-        session.post('Runtime.evaluate', parameter,
-            (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {});
+        session.post(
+            'Runtime.evaluate',
+            parameter,
+            (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {},
+        );
         session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
             const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails!;
             const resultClassName: string = params.result.className!;
@@ -427,19 +437,25 @@ import * as trace_events from "trace_events";
         session.post('Runtime.evaluate');
 
         // General event
-        session.on('inspectorNotification', message => {
+        session.on('inspectorNotification', (message) => {
             message; // $ExpectType InspectorNotification<{}>
         });
         // Known events
-        session.on('Debugger.paused', (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
-            const method: string = message.method;
-            const pauseReason: string = message.params.reason;
-        });
+        session.on(
+            'Debugger.paused',
+            (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
+                const method: string = message.method;
+                const pauseReason: string = message.params.reason;
+            },
+        );
         session.on('Debugger.resumed', () => {});
         // Node Inspector events
-        session.on('NodeTracing.dataCollected', (message: inspector.InspectorNotification<inspector.NodeTracing.DataCollectedEventDataType>) => {
-          const value: Array<{}> = message.params.value;
-        });
+        session.on(
+            'NodeTracing.dataCollected',
+            (message: inspector.InspectorNotification<inspector.NodeTracing.DataCollectedEventDataType>) => {
+                const value: Array<{}> = message.params.value;
+            },
+        );
     }
 }
 

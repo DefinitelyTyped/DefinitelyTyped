@@ -16,15 +16,15 @@ TreePosition.CONTAINED_BY; // $ExpectType 16
 expectType<typeof TreePosition>(SymbolTree.TreePosition);
 
 interface Foo {
-	doStuff(): void;
+    doStuff(): void;
 }
 
 interface Bar extends Foo {
-	bar: boolean;
+    bar: boolean;
 }
 
 interface Baz extends Foo {
-	baz: number;
+    baz: number;
 }
 
 declare const foo: Foo;

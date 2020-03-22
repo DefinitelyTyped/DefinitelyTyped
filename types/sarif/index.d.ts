@@ -36,8 +36,7 @@ export interface Log {
 }
 
 export namespace Log {
-    type version =
-        "2.1.0";
+    type version = '2.1.0';
 }
 
 /**
@@ -170,29 +169,29 @@ export interface Artifact {
 
 export namespace Artifact {
     type roles =
-        "analysisTarget" |
-        "attachment" |
-        "responseFile" |
-        "resultFile" |
-        "standardStream" |
-        "tracedFile" |
-        "unmodified" |
-        "modified" |
-        "added" |
-        "deleted" |
-        "renamed" |
-        "uncontrolled" |
-        "driver" |
-        "extension" |
-        "translation" |
-        "taxonomy" |
-        "policy" |
-        "referencedOnCommandLine" |
-        "memoryContents" |
-        "directory" |
-        "userSpecifiedConfiguration" |
-        "toolSpecifiedConfiguration" |
-        "debugOutputFile";
+        | 'analysisTarget'
+        | 'attachment'
+        | 'responseFile'
+        | 'resultFile'
+        | 'standardStream'
+        | 'tracedFile'
+        | 'unmodified'
+        | 'modified'
+        | 'added'
+        | 'deleted'
+        | 'renamed'
+        | 'uncontrolled'
+        | 'driver'
+        | 'extension'
+        | 'translation'
+        | 'taxonomy'
+        | 'policy'
+        | 'referencedOnCommandLine'
+        | 'memoryContents'
+        | 'directory'
+        | 'userSpecifiedConfiguration'
+        | 'toolSpecifiedConfiguration'
+        | 'debugOutputFile';
 }
 
 /**
@@ -571,8 +570,7 @@ export interface ExternalProperties {
 }
 
 export namespace ExternalProperties {
-    type version =
-        "2.1.0";
+    type version = '2.1.0';
 }
 
 /**
@@ -1161,11 +1159,7 @@ export interface Notification {
 }
 
 export namespace Notification {
-    type level =
-        "none" |
-        "note" |
-        "warning" |
-        "error";
+    type level = 'none' | 'note' | 'warning' | 'error';
 }
 
 /**
@@ -1366,11 +1360,7 @@ export interface ReportingConfiguration {
 }
 
 export namespace ReportingConfiguration {
-    type level =
-        "none" |
-        "note" |
-        "warning" |
-        "error";
+    type level = 'none' | 'note' | 'warning' | 'error';
 }
 
 /**
@@ -1673,25 +1663,11 @@ export interface Result {
 }
 
 export namespace Result {
-    type kind =
-        "notApplicable" |
-        "pass" |
-        "fail" |
-        "review" |
-        "open" |
-        "informational";
+    type kind = 'notApplicable' | 'pass' | 'fail' | 'review' | 'open' | 'informational';
 
-    type level =
-        "none" |
-        "note" |
-        "warning" |
-        "error";
+    type level = 'none' | 'note' | 'warning' | 'error';
 
-    type baselineState =
-        "new" |
-        "unchanged" |
-        "updated" |
-        "absent";
+    type baselineState = 'new' | 'unchanged' | 'updated' | 'absent';
 }
 
 /**
@@ -1898,9 +1874,7 @@ export interface Run {
 }
 
 export namespace Run {
-    type columnKind =
-        "utf16CodeUnits" |
-        "unicodeCodePoints";
+    type columnKind = 'utf16CodeUnits' | 'unicodeCodePoints';
 }
 
 /**
@@ -2037,14 +2011,9 @@ export interface Suppression {
 }
 
 export namespace Suppression {
-    type kind =
-        "inSource" |
-        "external";
+    type kind = 'inSource' | 'external';
 
-    type state =
-        "accepted" |
-        "underReview" |
-        "rejected";
+    type state = 'accepted' | 'underReview' | 'rejected';
 }
 
 /**
@@ -2166,10 +2135,7 @@ export interface ThreadFlowLocation {
 }
 
 export namespace ThreadFlowLocation {
-    type importance =
-        "important" |
-        "essential" |
-        "unimportant";
+    type importance = 'important' | 'essential' | 'unimportant';
 }
 
 /**
@@ -2352,9 +2318,7 @@ export interface ToolComponent {
 }
 
 export namespace ToolComponent {
-    type contents =
-        "localizedData" |
-        "nonLocalizedData";
+    type contents = 'localizedData' | 'nonLocalizedData';
 }
 
 /**

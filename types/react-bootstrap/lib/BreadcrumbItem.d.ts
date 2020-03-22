@@ -8,5 +8,5 @@ declare namespace BreadcrumbItem {
         target?: string;
     }
 }
-declare class BreadcrumbItem extends React.Component<BreadcrumbItem.BreadcrumbItemProps> { }
+declare class BreadcrumbItem extends React.Component<BreadcrumbItem.BreadcrumbItemProps> {}
 export = BreadcrumbItem;

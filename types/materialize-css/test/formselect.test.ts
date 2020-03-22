@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -13,10 +13,10 @@ const els = M.FormSelect.init(document.querySelectorAll('.whatever'));
 new materialize.FormSelect(elem);
 // $ExpectType FormSelect
 const formSelect = new materialize.FormSelect(elem, {
-    classes: "whatever",
+    classes: 'whatever',
     dropdownOptions: {
-        alignment: "left"
-    }
+        alignment: 'left',
+    },
 });
 // $ExpectType string[]
 formSelect.getSelectedValues();
@@ -37,6 +37,6 @@ formSelect.isMultiple;
 // $ExpectType Element
 formSelect.wrapper;
 
-$(".whatever").formSelect();
-$(".whatever").formSelect({ classes: "whatever" });
-$(".whatever").formSelect("destroy");
+$('.whatever').formSelect();
+$('.whatever').formSelect({ classes: 'whatever' });
+$('.whatever').formSelect('destroy');

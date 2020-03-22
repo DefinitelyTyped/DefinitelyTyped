@@ -2,21 +2,20 @@
 $('.container').qrcode();
 
 $('.container').qrcode({
-    "size": 100,
-    "fill": "#3a3",
-    "text": "http://larsjung.de/qrcode"
+    size: 100,
+    fill: '#3a3',
+    text: 'http://larsjung.de/qrcode',
 });
 
 $('.container').qrcode({
-    "render": "div",
-    "size": 100,
-    "fill": "#3a3",
-    "text": "http://larsjung.de/qrcode"
+    render: 'div',
+    size: 100,
+    fill: '#3a3',
+    text: 'http://larsjung.de/qrcode',
 });
 
 // defaults
 $('.container').qrcode({
-
     // render method: `'canvas'`, `'image'` or `'div'`
     render: 'canvas',
 
@@ -65,6 +64,5 @@ $('.container').qrcode({
     fontname: 'sans',
     fontcolor: '#000',
 
-    image: null
+    image: null,
 });
-

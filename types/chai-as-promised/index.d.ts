@@ -21,7 +21,6 @@ declare module 'chai-as-promised' {
 }
 
 declare namespace Chai {
-
     // For BDD API
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         eventually: PromisedAssertion;
@@ -102,8 +101,7 @@ declare namespace Chai {
         oneOf(list: any[], message?: string): PromisedAssertion;
     }
 
-    interface PromisedAssertion extends Eventually, PromiseLike<any> {
-    }
+    interface PromisedAssertion extends Eventually, PromiseLike<any> {}
 
     interface PromisedLanguageChains {
         eventually: Eventually;
@@ -171,7 +169,7 @@ declare namespace Chai {
         include: PromisedInclude;
         property: PromisedProperty;
         members: PromisedMembers;
-        ordered: PromisedOrdered
+        ordered: PromisedOrdered;
     }
 
     interface PromisedOrdered {

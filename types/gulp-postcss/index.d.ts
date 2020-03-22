@@ -8,8 +8,9 @@
 import Vinyl = require('vinyl');
 
 declare function GulpPostCss(plugins?: any[], options?: GulpPostCss.Options): NodeJS.ReadWriteStream;
-declare function GulpPostCss(callback?: (file: Vinyl) => { plugins?: any[], options?: GulpPostCss.Options }):
-    NodeJS.ReadWriteStream;
+declare function GulpPostCss(
+    callback?: (file: Vinyl) => { plugins?: any[]; options?: GulpPostCss.Options },
+): NodeJS.ReadWriteStream;
 
 declare namespace GulpPostCss {
     interface Options {

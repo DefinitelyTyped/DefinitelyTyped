@@ -5,7 +5,7 @@ isProgressive.file('baseline.jpg'); // $ExpectType Promise<boolean>
 
 isProgressive.fileSync('progressive.jpg'); // $ExpectType boolean
 
-https.get('/', res => {
+https.get('/', (res) => {
     isProgressive.stream(res); // $ExpectType Promise<boolean>
 });
 

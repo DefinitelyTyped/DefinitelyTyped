@@ -52,7 +52,7 @@ function test_progress() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).progress({
@@ -62,7 +62,7 @@ function test_progress() {
         label: 'percent',
         random: {
             min: 2,
-            max: 5
+            max: 5,
         },
         precision: 1,
         total: 10,
@@ -98,31 +98,31 @@ function test_progress() {
             success: 'success',
             warning: 'warning',
             percent: 'percent',
-            ratio: 'ratio'
+            ratio: 'ratio',
         },
         regExp: {
-            variable: /{\$*[A-z0-9]+}/g
+            variable: /{\$*[A-z0-9]+}/g,
         },
         selector: {
             bar: 'bar',
             label: 'label',
-            progress: 'progress'
+            progress: 'progress',
         },
         metadata: {
             percent: 'percent',
             total: 'total',
-            value: 'value'
+            value: 'value',
         },
         className: {
             active: 'active',
             error: 'error',
             success: 'success',
-            warning: 'warning'
+            warning: 'warning',
         },
         error: {
             method: 'method',
-            nonNumeric: 'nonNumeric'
-        }
+            nonNumeric: 'nonNumeric',
+        },
     });
     $(selector).progress(); // $ExpectType JQuery<HTMLElement>
 

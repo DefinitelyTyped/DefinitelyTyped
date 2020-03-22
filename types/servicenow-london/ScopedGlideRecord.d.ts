@@ -109,11 +109,7 @@ interface ScopedGlideRecord {
      * gr.addJoinQuery('incident', 'opened_by', 'caller_id');
      * gr.query();
      */
-    addJoinQuery(
-        joinTable: string,
-        primaryField?: string,
-        joinTableField?: string
-    ): ScopedQueryCondition;
+    addJoinQuery(joinTable: string, primaryField?: string, joinTableField?: string): ScopedQueryCondition;
 
     /**
      * A filter that specifies records where the value of the field passed in the parameter is not

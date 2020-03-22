@@ -6,25 +6,24 @@
 /// <reference types="angular" />
 
 declare namespace ngCordova {
-
     export interface IGeoPositionError {
-      code:number;
-      message:string;
+        code: number;
+        message: string;
     }
 
     export interface IGeoCoordinates {
-      latitude?:number;
-      longitude?:number;
-      accuracy?:number;
-      altitude?:number;
-      heading?:number;
-      speed?:number;
-      altitudeAccuracy?:number;
+        latitude?: number;
+        longitude?: number;
+        accuracy?: number;
+        altitude?: number;
+        heading?: number;
+        speed?: number;
+        altitudeAccuracy?: number;
     }
 
     export interface IGeoPosition {
-      coords:IGeoCoordinates;
-      timestamp:Date;
+        coords: IGeoCoordinates;
+        timestamp: Date;
     }
 
     export interface IGeolocationOptions {
@@ -34,9 +33,8 @@ declare namespace ngCordova {
     }
 
     export interface IGeolocationService {
-        getCurrentPosition(options?: IGeolocationOptions) : ng.IPromise<IGeoPosition>;
-        watchPosition(options?: IGeolocationOptions)  : ng.IPromise<IGeoPosition>;
-        clearWatch(watchID: {[key: string]: any}) : void;
+        getCurrentPosition(options?: IGeolocationOptions): ng.IPromise<IGeoPosition>;
+        watchPosition(options?: IGeolocationOptions): ng.IPromise<IGeoPosition>;
+        clearWatch(watchID: { [key: string]: any }): void;
     }
-
 }

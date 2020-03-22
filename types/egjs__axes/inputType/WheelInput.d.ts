@@ -1,4 +1,4 @@
-import { IInputType, IInputTypeObserver } from "./InputType";
+import { IInputType, IInputTypeObserver } from './InputType';
 export interface WheelInputOption {
     scale?: number;
     throttle?: number;

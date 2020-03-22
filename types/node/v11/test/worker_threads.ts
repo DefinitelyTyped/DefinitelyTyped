@@ -1,20 +1,19 @@
-import * as workerThreads from "worker_threads";
-import assert = require("assert");
-import { worker } from "cluster";
-import { createContext } from "vm";
+import * as workerThreads from 'worker_threads';
+import assert = require('assert');
+import { worker } from 'cluster';
+import { createContext } from 'vm';
 
 {
     if (workerThreads.isMainThread) {
         module.exports = async function parseJSAsync(script: string) {
             return new Promise((resolve, reject) => {
                 const worker = new workerThreads.Worker(__filename, {
-                    workerData: script
+                    workerData: script,
                 });
                 worker.on('message', resolve);
                 worker.on('error', reject);
                 worker.on('exit', (code) => {
-                    if (code !== 0)
-                        reject(new Error(`Worker stopped with exit code ${code}`));
+                    if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`));
                 });
             });
         };

@@ -18,7 +18,7 @@
 declare module 'ember-test-helpers' {
     import Ember from 'ember';
     import { TemplateFactory } from 'htmlbars-inline-precompile';
-    import RSVP from "rsvp";
+    import RSVP from 'rsvp';
 
     interface ModuleCallbacks {
         integration?: boolean;
@@ -92,7 +92,7 @@ declare module 'ember-test-helpers' {
 }
 
 declare module 'ember-test-helpers/wait' {
-    import RSVP from "rsvp";
+    import RSVP from 'rsvp';
 
     interface WaitOptions {
         waitForTimers?: boolean;

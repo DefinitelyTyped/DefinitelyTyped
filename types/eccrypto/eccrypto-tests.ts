@@ -1,5 +1,5 @@
-import eccrypto = require("eccrypto");
-import expect = require("expect");
+import eccrypto = require('eccrypto');
+import expect = require('expect');
 const privKey = eccrypto.generatePrivate();
 const pubKey = eccrypto.getPublicCompressed(privKey);
 const msg = 'testing';

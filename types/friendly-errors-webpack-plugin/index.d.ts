@@ -16,14 +16,14 @@ declare class FriendlyErrorsWebpackPlugin extends Plugin {
 
 declare namespace FriendlyErrorsWebpackPlugin {
     enum Severity {
-        Error = "error",
-        Warning = "warning",
+        Error = 'error',
+        Warning = 'warning',
     }
 
     interface Options {
         compilationSuccessInfo?: {
-            messages: string[],
-            notes: string[],
+            messages: string[];
+            notes: string[];
         };
         onErrors?(severity: Severity, errors: string): void;
         clearConsole?: boolean;

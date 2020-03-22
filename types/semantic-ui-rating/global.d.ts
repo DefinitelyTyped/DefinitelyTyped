@@ -39,20 +39,22 @@ declare namespace SemanticUI {
     type RatingSettings = RatingSettings.Param;
 
     namespace RatingSettings {
-        type Param = (Pick<_Impl, 'initialRating'> |
-            Pick<_Impl, 'fireOnInit'> |
-            Pick<_Impl, 'clearable'> |
-            Pick<_Impl, 'interactive'> |
-            Pick<_Impl, 'onRate'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
+        type Param = (
+            | Pick<_Impl, 'initialRating'>
+            | Pick<_Impl, 'fireOnInit'>
+            | Pick<_Impl, 'clearable'>
+            | Pick<_Impl, 'interactive'>
+            | Pick<_Impl, 'onRate'>
+            | Pick<_Impl, 'selector'>
+            | Pick<_Impl, 'className'>
+            | Pick<_Impl, 'error'>
+            | Pick<_Impl, 'namespace'>
+            | Pick<_Impl, 'name'>
+            | Pick<_Impl, 'silent'>
+            | Pick<_Impl, 'debug'>
+            | Pick<_Impl, 'performance'>
+            | Pick<_Impl, 'verbose'>
+        ) &
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
@@ -151,8 +153,7 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'icon'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = Pick<_Impl, 'icon'> & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -165,9 +166,7 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'active'> |
-                Pick<_Impl, 'hover'> |
-                Pick<_Impl, 'loading'>) &
+            type Param = (Pick<_Impl, 'active'> | Pick<_Impl, 'hover'> | Pick<_Impl, 'loading'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -189,8 +188,7 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'action'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = Pick<_Impl, 'action'> & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

@@ -1,2 +1,2 @@
-import { debounce } from "./index";
+import { debounce } from './index';
 export = debounce;

@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
-export interface FileUploaderSkeletonProps { }
+export interface FileUploaderSkeletonProps {}
 
-declare class FileUploaderSkeleton extends React.Component<FileUploaderSkeletonProps> { }
+declare class FileUploaderSkeleton extends React.Component<FileUploaderSkeletonProps> {}
 
 export default FileUploaderSkeleton;

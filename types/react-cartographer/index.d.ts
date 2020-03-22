@@ -5,6 +5,4 @@
 // TypeScript Version: 2.8
 import Map from './lib/components/Map';
 
-export {
-     Map
-};
+export { Map };

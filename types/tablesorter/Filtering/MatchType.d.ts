@@ -5,9 +5,9 @@ export type MatchType =
     /**
      * Indicates an exact match.
      */
-    "exact" |
+    | 'exact'
 
     /**
      * Indicates a wildcard-match.
      */
-    "match";
+    | 'match';

@@ -15,7 +15,7 @@ import {
     RequestDetails,
     generateRequestDetails,
     SendResult,
-    sendNotification
+    sendNotification,
 } from 'web-push';
 
 declare const anything: any;
@@ -139,7 +139,7 @@ const pushSubscription: PushSubscription = {
     keys: {
         p256dh: 'p256dhString',
         auth: 'authString',
-    }
+    },
 };
 
 // ================
@@ -152,47 +152,47 @@ requestOptions = {};
 
 requestOptions = {
     headers: {
-        someHeader: 'value'
-    }
+        someHeader: 'value',
+    },
 };
 
 requestOptions = {
-    gcmAPIKey: 'key'
+    gcmAPIKey: 'key',
 };
 
 requestOptions = {
     vapidDetails: {
         privateKey: 'private',
         publicKey: 'public',
-        subject: 'subject'
-    }
+        subject: 'subject',
+    },
 };
 
 requestOptions = {
-    TTL: 100
+    TTL: 100,
 };
 
 requestOptions = {
-    contentEncoding: supportedContentEncodings.AES_128_GCM
+    contentEncoding: supportedContentEncodings.AES_128_GCM,
 };
 
 requestOptions = {
-    proxy: 'http://proxy'
+    proxy: 'http://proxy',
 };
 
 requestOptions = {
     headers: {
-        someHeader: 'value'
+        someHeader: 'value',
     },
     gcmAPIKey: 'key',
     vapidDetails: {
         privateKey: 'private',
         publicKey: 'public',
-        subject: 'subject'
+        subject: 'subject',
     },
     TTL: 100,
     contentEncoding: supportedContentEncodings.AES_GCM,
-    proxy: 'http://proxy'
+    proxy: 'http://proxy',
 };
 
 // ==========================
@@ -299,5 +299,4 @@ sendResult.then((result) => {
     // $ExpectType Headers
     result.headers;
 });
-sendResult.catch((error: WebPushError) => {
-});
+sendResult.catch((error: WebPushError) => {});

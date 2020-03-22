@@ -1,4 +1,4 @@
-declare module "events" {
+declare module 'events' {
     interface EventEmitterOptions {
         /**
          * Enables automatic capturing of promise rejection.
@@ -35,8 +35,7 @@ declare module "events" {
          */
         let captureRejections: boolean;
 
-        interface EventEmitter extends NodeJS.EventEmitter {
-        }
+        interface EventEmitter extends NodeJS.EventEmitter {}
 
         class EventEmitter {
             constructor(options?: EventEmitterOptions);

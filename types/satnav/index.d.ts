@@ -6,16 +6,16 @@
 declare type Callback = () => void;
 
 interface ISatnavOptions {
-    html5?: boolean,
-    force?: boolean,
-    poll?: number,
-    matchAll?: boolean
+    html5?: boolean;
+    force?: boolean;
+    poll?: number;
+    matchAll?: boolean;
 }
 
 interface INavigationOptions {
-    path?: string,
-    directions?: (params : any) => any,
-    title?: string | Callback
+    path?: string;
+    directions?: (params: any) => any;
+    title?: string | Callback;
 }
 
 interface ISatnav {

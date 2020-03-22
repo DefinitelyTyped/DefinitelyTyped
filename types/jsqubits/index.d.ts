@@ -19,59 +19,82 @@ declare namespace jsqubits {
             add(qState: QState): QState;
             subtract(qState: QState): QState;
             tensorProduct(qState: QState): QState;
-            kron: QState["tensorProduct"];
+            kron: QState['tensorProduct'];
 
             controlledHadamard(
                 controlBits: undefined | SingleQubitOperatorTargetQubits,
-                targetBits: SingleQubitOperatorTargetQubits
+                targetBits: SingleQubitOperatorTargetQubits,
             ): QState;
             hadamard(targetBits: SingleQubitOperatorTargetQubits): QState;
 
             controlledXRotation(
                 controlBits: undefined | SingleQubitOperatorTargetQubits,
-                targetBits: SingleQubitOperatorTargetQubits, angle: number
+                targetBits: SingleQubitOperatorTargetQubits,
+                angle: number,
             ): QState;
             rotateX(targetBits: SingleQubitOperatorTargetQubits, angle: number): QState;
             controlledYRotation(
                 controlBits: undefined | SingleQubitOperatorTargetQubits,
-                targetBits: SingleQubitOperatorTargetQubits, angle: number
+                targetBits: SingleQubitOperatorTargetQubits,
+                angle: number,
             ): QState;
             rotateY(targetBits: SingleQubitOperatorTargetQubits, angle: number): QState;
             controlledZRotation(
                 controlBits: undefined | SingleQubitOperatorTargetQubits,
-                targetBits: SingleQubitOperatorTargetQubits, angle: number
+                targetBits: SingleQubitOperatorTargetQubits,
+                angle: number,
             ): QState;
             rotateZ(targetBits: SingleQubitOperatorTargetQubits, angle: number): QState;
             controlledR(
                 controlBits: undefined | SingleQubitOperatorTargetQubits,
-                targetBits: SingleQubitOperatorTargetQubits, angle: number
+                targetBits: SingleQubitOperatorTargetQubits,
+                angle: number,
             ): QState;
             r(targetBits: SingleQubitOperatorTargetQubits, angle: number): QState;
-            R: QState["r"];
+            R: QState['r'];
 
-            controlledX(controlBits: undefined | SingleQubitOperatorTargetQubits, targetBits: SingleQubitOperatorTargetQubits): QState;
-            cnot: QState["controlledX"];
+            controlledX(
+                controlBits: undefined | SingleQubitOperatorTargetQubits,
+                targetBits: SingleQubitOperatorTargetQubits,
+            ): QState;
+            cnot: QState['controlledX'];
             x(targetBits: SingleQubitOperatorTargetQubits): QState;
-            X: QState["x"];
-            not: QState["x"];
+            X: QState['x'];
+            not: QState['x'];
 
-            controlledY(controlBits: undefined | SingleQubitOperatorTargetQubits, targetBits: SingleQubitOperatorTargetQubits): QState;
+            controlledY(
+                controlBits: undefined | SingleQubitOperatorTargetQubits,
+                targetBits: SingleQubitOperatorTargetQubits,
+            ): QState;
             y(targetBits: SingleQubitOperatorTargetQubits): QState;
-            Y: QState["y"];
+            Y: QState['y'];
 
-            controlledZ(controlBits: undefined | SingleQubitOperatorTargetQubits, targetBits: SingleQubitOperatorTargetQubits): QState;
+            controlledZ(
+                controlBits: undefined | SingleQubitOperatorTargetQubits,
+                targetBits: SingleQubitOperatorTargetQubits,
+            ): QState;
             z(targetBits: SingleQubitOperatorTargetQubits): QState;
-            Z: QState["z"];
+            Z: QState['z'];
 
-            controlledS(controlBits: undefined | SingleQubitOperatorTargetQubits, targetBits: SingleQubitOperatorTargetQubits): QState;
+            controlledS(
+                controlBits: undefined | SingleQubitOperatorTargetQubits,
+                targetBits: SingleQubitOperatorTargetQubits,
+            ): QState;
             s(targetBits: SingleQubitOperatorTargetQubits): QState;
-            S: QState["s"];
+            S: QState['s'];
 
-            controlledT(controlBits: undefined | SingleQubitOperatorTargetQubits, targetBits: SingleQubitOperatorTargetQubits): QState;
+            controlledT(
+                controlBits: undefined | SingleQubitOperatorTargetQubits,
+                targetBits: SingleQubitOperatorTargetQubits,
+            ): QState;
             t(targetBits: SingleQubitOperatorTargetQubits): QState;
-            T: QState["t"];
+            T: QState['t'];
 
-            controlledSwap(controlBits: undefined | SingleQubitOperatorTargetQubits, targetBit1: number, targetBit2: number): QState;
+            controlledSwap(
+                controlBits: undefined | SingleQubitOperatorTargetQubits,
+                targetBit1: number,
+                targetBit2: number,
+            ): QState;
             swap(targetBit1: number, targetBit2: number): QState;
 
             /**
@@ -85,16 +108,16 @@ declare namespace jsqubits {
             controlledApplicationOfqBitOperator(
                 controlBits: undefined | SingleQubitOperatorTargetQubits,
                 targetBits: SingleQubitOperatorTargetQubits,
-                operatorMatrix: Complex[][]
+                operatorMatrix: Complex[][],
             ): QState;
 
             applyFunction(
                 inputBits: SingleQubitOperatorTargetQubits,
                 targetBits: SingleQubitOperatorTargetQubits,
-                functionToApply: (input: number) => number
+                functionToApply: (input: number) => number,
             ): QState;
 
-            random: Math["random"];
+            random: Math['random'];
             normalize(): QState;
             measure(bits: SingleQubitOperatorTargetQubits): Measurement;
             qft(targetBits: SingleQubitOperatorTargetQubits): QState;
@@ -149,9 +172,9 @@ interface JSQubitsStatic {
     StateWithAmplitude: StateWithAmplitudeStatic;
     real: (real: number) => jsqubits.jsqubits.Complex;
     complex: (real: number, imaginary: number) => jsqubits.jsqubits.Complex;
-    ZERO: ComplexStatic["ZERO"];
+    ZERO: ComplexStatic['ZERO'];
     ONE: jsqubits.jsqubits.Complex;
-    ALL: "ALL";
+    ALL: 'ALL';
     roundToZero: 0.0000001;
     QMath: JsqubitsmathStatic;
 }
@@ -178,12 +201,12 @@ interface QStateStatic {
         controlBits: number[],
         targetBit: number,
         operatorMatrix: jsqubits.jsqubits.Complex[][],
-        qState: jsqubits.jsqubits.QState
+        qState: jsqubits.jsqubits.QState,
     ): jsqubits.jsqubits.QState;
     applyOperatorMatrix(
-            matrix: jsqubits.jsqubits.Complex[][],
-            bitValue: number,
-            amplitude: jsqubits.jsqubits.Complex
+        matrix: jsqubits.jsqubits.Complex[][],
+        bitValue: number,
+        amplitude: jsqubits.jsqubits.Complex,
     ): jsqubits.jsqubits.Complex[];
 }
 
@@ -208,4 +231,4 @@ interface BitsRange {
     to: number;
 }
 
-type SingleQubitOperatorTargetQubits = number | number[] | JSQubitsStatic["ALL"] | BitsRange;
+type SingleQubitOperatorTargetQubits = number | number[] | JSQubitsStatic['ALL'] | BitsRange;

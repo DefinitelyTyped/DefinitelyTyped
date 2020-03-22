@@ -10,22 +10,22 @@ export = JapanPostalCode;
 declare const JapanPostalCode: JapanPostalCode.API;
 
 declare namespace JapanPostalCode {
-  interface API {
-    get: FetchPostalCodeMethod;
-  }
+    interface API {
+        get: FetchPostalCodeMethod;
+    }
 
-  interface FetchPostalCodeMethod {
-    (stringifiedPostalCode: string, callback: Callback): void;
-  }
+    interface FetchPostalCodeMethod {
+        (stringifiedPostalCode: string, callback: Callback): void;
+    }
 
-  interface Callback {
-    (addressData: AddressData): void;
-  }
+    interface Callback {
+        (addressData: AddressData): void;
+    }
 
-  interface AddressData {
-    prefecture: string;
-    city: string;
-    area: string;
-    street: string;
-  }
+    interface AddressData {
+        prefecture: string;
+        city: string;
+        area: string;
+        street: string;
+    }
 }

@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { CustomPickerProps } from "../../..";
+import { Component } from 'react';
+import { CustomPickerProps } from '../../..';
 
 export type SaturationProps = CustomPickerProps<Saturation>;
 

@@ -3,6 +3,11 @@
 // Definitions by: Gary King <https://github.com/garyking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function truncateMiddle(text: string | null, frontLength?: number, backLength?: number, ellipsis?: string): string;
+declare function truncateMiddle(
+    text: string | null,
+    frontLength?: number,
+    backLength?: number,
+    ellipsis?: string,
+): string;
 
 export = truncateMiddle;

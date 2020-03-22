@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Container, Rule } from "postcss";
+import { Container, Rule } from 'postcss';
 
 export interface Replacements {
     [key: string]: string;

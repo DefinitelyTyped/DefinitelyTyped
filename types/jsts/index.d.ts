@@ -29,35 +29,30 @@ declare namespace jsts {
     }
 
     namespace geom {
-
-
-
         /**
          * Specifies the precision model of the Coordinates in a Geometry. In other words, specifies the grid of allowable points for all Geometrys.
          * The makePrecise method allows rounding a coordinate to a "precise" value; that is, one whose precision is known exactly.
          *
          * Coordinates are assumed to be precise in geometries. That is, the coordinates are assumed to be rounded to the precision model given for the geometry. JTS input routines automatically round coordinates to the precision model before creating Geometries. All internal operations assume that coordinates are rounded to the precision model. Constructive methods (such as boolean operations) always round computed coordinates to the appropriate precision model.
-         * 
+         *
          * Currently one type of precision model are supported:
          *
          * FLOATING - represents full double precision floating point.
          * Coordinates are represented internally as Java double-precision values. Since Java uses the IEEE-754 floating point standard, this provides 53 bits of precision.
-         * 
+         *
          * JSTS methods currently do not handle inputs with different precision models.
          *
          */
         export class PrecisionModel {
-
-
             static FIXED: string;
             static FLOATING: string;
             static FLOATING_SINGLE: string;
 
             /**
-             * 
+             *
              * @param modelType
              */
-            constructor(modelType?: number|string);
+            constructor(modelType?: number | string);
         }
 
         /**
@@ -71,12 +66,10 @@ declare namespace jsts {
          * It is assumed that input Coordinates meet the given precision.
          */
         export class GeometryFactory {
-
             /**
              * Constructs a GeometryFactory that generates Geometries having a floating PrecisionModel and a spatial-reference ID of 0.
              */
             constructor(precisionModel?: PrecisionModel);
-
 
             /**
              * Creates a LineString using the given Coordinates; a null or empty array will
@@ -98,27 +91,25 @@ declare namespace jsts {
              */
             createPoint(coordinates: Coordinate): Point;
             /**
-            * Creates a LinearRing using the given Coordinates; a null or empty array
-            * will create an empty LinearRing. Consecutive points must not be equal.
-            *
-            * @param {Coordinate[]}
-            *          coordinates an array without null elements, or an empty array,
-            * or null.
-            * @return {LineString} A new LinearRing.
-            */
+             * Creates a LinearRing using the given Coordinates; a null or empty array
+             * will create an empty LinearRing. Consecutive points must not be equal.
+             *
+             * @param {Coordinate[]}
+             *          coordinates an array without null elements, or an empty array,
+             * or null.
+             * @return {LineString} A new LinearRing.
+             */
             createLinearRing(coordinates: Array<Coordinate>): LinearRing;
             /**
-            * Creates a Polygon using the given LinearRing.
-            *
-            * @param {LinearRing} A LinearRing constructed by coordinates.
-            * @return {Polygon} A new Polygon.
-            */
-            createPolygon(shell: LinearRing, holes: Array<LinearRing>): Polygon;            
-
+             * Creates a Polygon using the given LinearRing.
+             *
+             * @param {LinearRing} A LinearRing constructed by coordinates.
+             * @return {Polygon} A new Polygon.
+             */
+            createPolygon(shell: LinearRing, holes: Array<LinearRing>): Polygon;
         }
 
         export class GeometryCollection extends jsts.geom.Geometry {
-
             constructor(geometries?: Array<Geometry>, factory?: GeometryFactory);
         }
 
@@ -639,8 +630,8 @@ declare namespace jsts {
             constructor(factory?: any);
 
             /**
-            * The bounding box of this <code>Geometry</code>.
-            */
+             * The bounding box of this <code>Geometry</code>.
+             */
             envelope: Envelope;
 
             /**
@@ -1601,15 +1592,9 @@ declare namespace jsts {
         }
 
         export class IntersectionMatrix {
-            static matches(
-                actualDimensionValue: number,
-                requiredDimensionSymbol: string
-            ): boolean;
+            static matches(actualDimensionValue: number, requiredDimensionSymbol: string): boolean;
 
-            static matches(
-                actualDimensionSymbols: string,
-                requiredDimensionSymbols: string
-            ): boolean;
+            static matches(actualDimensionSymbols: string, requiredDimensionSymbols: string): boolean;
 
             static isTrue(actualDimensionValue: number): boolean;
 
@@ -1629,28 +1614,15 @@ declare namespace jsts {
 
             setAtLeast(row: number, col: number, dimensionValue: number): void;
 
-            setAtLeastIfValid(
-                row: number,
-                col: number,
-                minimumDimensionValue: number
-            ): void;
+            setAtLeastIfValid(row: number, col: number, minimumDimensionValue: number): void;
 
             isWithin(): boolean;
 
-            isTouches(
-                dimensionOfGeometryA: number,
-                dimensionOfGeometryB: number
-            ): boolean;
+            isTouches(dimensionOfGeometryA: number, dimensionOfGeometryB: number): boolean;
 
-            isOverlaps(
-                dimensionOfGeometryA: number,
-                dimensionOfGeometryB: number
-            ): boolean;
+            isOverlaps(dimensionOfGeometryA: number, dimensionOfGeometryB: number): boolean;
 
-            isEquals(
-                dimensionOfGeometryA: number,
-                dimensionOfGeometryB: number
-            ): boolean;
+            isEquals(dimensionOfGeometryA: number, dimensionOfGeometryB: number): boolean;
 
             toString(): string;
 
@@ -1661,27 +1633,14 @@ declare namespace jsts {
             transpose(): IntersectionMatrix;
 
             matches(
-                requiredDimensionSymbols: [
-                    string,
-                    string,
-                    string,
-                    string,
-                    string,
-                    string,
-                    string,
-                    string,
-                    string
-                ]
+                requiredDimensionSymbols: [string, string, string, string, string, string, string, string, string],
             ): boolean;
 
             add(im: IntersectionMatrix): void;
 
             isDisjoint(): boolean;
 
-            isCrosses(
-                dimensionOfGeometryA: number,
-                dimensionOfGeometryB: number
-            ): boolean;
+            isCrosses(dimensionOfGeometryA: number, dimensionOfGeometryB: number): boolean;
 
             constructor(elements?: string[]);
 
@@ -1698,8 +1657,7 @@ declare namespace jsts {
          * must be equal (in 2D). If these conditions are not met, the constructors
          * throw an {@link IllegalArgumentException}
          */
-        export class LinearRing extends LineString {
-        }
+        export class LinearRing extends LineString {}
 
         export class LineString extends Geometry {
             /**
@@ -1813,51 +1771,21 @@ declare namespace jsts {
             export class AffineTransformation {
                 static translationInstance(x: number, y: number): AffineTransformation;
 
-                static shearInstance(
-                    xShear: number,
-                    yShear: number
-                ): AffineTransformation;
+                static shearInstance(xShear: number, yShear: number): AffineTransformation;
 
-                static reflectionInstance(
-                    x0: number,
-                    y0: number,
-                    x1?: number,
-                    y1?: number
-                ): AffineTransformation;
+                static reflectionInstance(x0: number, y0: number, x1?: number, y1?: number): AffineTransformation;
 
                 static rotationInstance(theta: number): AffineTransformation;
 
-                static rotationInstance(
-                    sinTheta: number,
-                    cosTheta: number
-                ): AffineTransformation;
+                static rotationInstance(sinTheta: number, cosTheta: number): AffineTransformation;
 
-                static rotationInstance(
-                    theta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                static rotationInstance(theta: number, x: number, y: number): AffineTransformation;
 
-                static rotationInstance(
-                    sinTheta: number,
-                    cosTheta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                static rotationInstance(sinTheta: number, cosTheta: number, x: number, y: number): AffineTransformation;
 
-                static scaleInstance(
-                    xScale: number,
-                    yScale: number,
-                    x?: number,
-                    y?: number
-                ): AffineTransformation;
+                static scaleInstance(xScale: number, yScale: number, x?: number, y?: number): AffineTransformation;
 
-                setToReflectionBasic(
-                    x0: number,
-                    y0: number,
-                    x1: number,
-                    y1: number
-                ): AffineTransformation;
+                setToReflectionBasic(x0: number, y0: number, x1: number, y1: number): AffineTransformation;
 
                 getInverse(): AffineTransformation;
 
@@ -1883,25 +1811,16 @@ declare namespace jsts {
                     m02: number,
                     m10: number,
                     m11: number,
-                    m12: number
+                    m12: number,
                 ): AffineTransformation;
 
                 setToRotation(theta: number): AffineTransformation;
 
                 setToRotation(sinTheta: number, cosTheta: number): AffineTransformation;
 
-                setToRotation(
-                    theta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                setToRotation(theta: number, x: number, y: number): AffineTransformation;
 
-                setToRotation(
-                    sinTheta: number,
-                    cosTheta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                setToRotation(sinTheta: number, cosTheta: number, x: number, y: number): AffineTransformation;
 
                 getMatrixEntries(): [number, number, number, number, number, number];
 
@@ -1913,12 +1832,7 @@ declare namespace jsts {
 
                 rotate(theta: number, x: number, y: number): AffineTransformation;
 
-                rotate(
-                    sinTheta: number,
-                    cosTheta: number,
-                    x: number,
-                    y: number
-                ): AffineTransformation;
+                rotate(sinTheta: number, cosTheta: number, x: number, y: number): AffineTransformation;
 
                 getDeterminant(): number;
 
@@ -1934,12 +1848,7 @@ declare namespace jsts {
 
                 setToReflection(x: number, y: number): AffineTransformation;
 
-                setToReflection(
-                    x0: number,
-                    y0: number,
-                    x1: number,
-                    y1: number
-                ): AffineTransformation;
+                setToReflection(x0: number, y0: number, x1: number, y1: number): AffineTransformation;
 
                 toString(): string;
 
@@ -1953,23 +1862,11 @@ declare namespace jsts {
 
                 transform(seq: CoordinateSequence, i: number): void;
 
-                reflect(
-                    x0: number,
-                    y0: number,
-                    x1?: number,
-                    y1?: number
-                ): AffineTransformation;
+                reflect(x0: number, y0: number, x1?: number, y1?: number): AffineTransformation;
 
                 constructor(trans?: AffineTransformation);
 
-                constructor(
-                    m00: number,
-                    m01: number,
-                    m02: number,
-                    m10: number,
-                    m11: number,
-                    m12: number
-                );
+                constructor(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number);
 
                 constructor(
                     src0: Coordinate,
@@ -1977,15 +1874,13 @@ declare namespace jsts {
                     src2: Coordinate,
                     dest0: Coordinate,
                     dest1: Coordinate,
-                    dest2: Coordinate
+                    dest2: Coordinate,
                 );
             }
         }
     }
 
     namespace io {
-
-
         /**
          * OpenLayers 3 Geometry parser and writer
          */
@@ -2068,14 +1963,11 @@ declare namespace jsts {
             reducePrecision(geometry: geom.Geometry): void;
         }
 
-
-
         export class WKTWriter {
             /**
              * @constructor
              */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
-            
         }
     }
 
@@ -2091,11 +1983,7 @@ declare namespace jsts {
 
             constructor(g0: Geometry, g1?: Geometry);
 
-            constructor(
-                g0: Geometry,
-                g1: Geometry,
-                boundaryNodeRule: BoundaryNodeRule
-            );
+            constructor(g0: Geometry, g1: Geometry, boundaryNodeRule: BoundaryNodeRule);
         }
 
         namespace relate {
@@ -2111,11 +1999,7 @@ declare namespace jsts {
 
                 static equalsTopo(g1: Geometry, g2: Geometry): boolean;
 
-                static relate(
-                    g1: Geometry,
-                    g2: Geometry,
-                    boundaryNodeRule?: BoundaryNodeRule
-                ): IntersectionMatrix;
+                static relate(g1: Geometry, g2: Geometry, boundaryNodeRule?: BoundaryNodeRule): IntersectionMatrix;
 
                 static overlaps(g1: Geometry, g2: Geometry): boolean;
 
@@ -2125,16 +2009,12 @@ declare namespace jsts {
 
                 getIntersectionMatrix(): IntersectionMatrix;
 
-                constructor(
-                    g1: Geometry,
-                    g2: Geometry,
-                    boundaryNodeRule?: BoundaryNodeRule
-                );
+                constructor(g1: Geometry, g2: Geometry, boundaryNodeRule?: BoundaryNodeRule);
             }
         }
     }
 }
 
-declare module "jsts" {
+declare module 'jsts' {
     export = jsts;
 }

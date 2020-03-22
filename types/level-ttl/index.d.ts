@@ -60,5 +60,8 @@ declare namespace ttl {
  * @param opts
  * @see {@link https://github.com/level/level-ttl#usage level-ttl Usage}
  */
-declare function ttl<K = any, V = any>(db: LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>>, opts?: ttl.LevelTTLOptions): ttl.LevelTTL<K, V>;
+declare function ttl<K = any, V = any>(
+    db: LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>>,
+    opts?: ttl.LevelTTLOptions,
+): ttl.LevelTTL<K, V>;
 export = ttl;

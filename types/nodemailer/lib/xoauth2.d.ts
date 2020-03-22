@@ -23,13 +23,17 @@ declare namespace XOAuth2 {
         /** An existing valid accessToken */
         accessToken?: string;
         /** Private key for JSW */
-        privateKey?: string | { key: string; passphrase: string; };
+        privateKey?: string | { key: string; passphrase: string };
         /** Optional Access Token expire time in ms */
         expires?: ms;
         /** Optional TTL for Access Token in seconds */
         timeout?: s;
         /** Function to run when a new access token is required */
-        provisionCallback?(user: string, renew: boolean, callback: (err: Error | null, accessToken: string, expires: number) => void): void;
+        provisionCallback?(
+            user: string,
+            renew: boolean,
+            callback: (err: Error | null, accessToken: string, expires: number) => void,
+        ): void;
         serviceClient?: string;
     }
 
@@ -76,7 +80,7 @@ declare class XOAuth2 extends Stream {
         url: string,
         payload: string | Buffer | Readable | { [key: string]: string },
         params: XOAuth2.RequestParams,
-        callback: (err: Error | null, buf: Buffer) => void
+        callback: (err: Error | null, buf: Buffer) => void,
     ): void;
 
     /** Encodes a buffer or a string into Base64url format */

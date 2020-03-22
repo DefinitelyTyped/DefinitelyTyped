@@ -11,25 +11,24 @@ prompt = promptSync();
 prompt = promptSync({
     history: history,
     sigint: false,
-    autocomplete: (input:string) => [input]
+    autocomplete: (input: string) => [input],
 });
 
 // with empty config
 prompt = promptSync({});
 
-let name:string = prompt('Enter name: ');
-let nickname:string = prompt({ask: 'Enter nickname: ', value: 'N/A'});
-let gender:string = prompt('Enter gender: ', { autocomplete: complete(['male', 'female']) });
-let age:string = prompt('Enter age: ', '18', { echo: '*' });
-let password:string = prompt.hide('Enter password: ');
-let anotherPassword:string = prompt('Enter another password: ', { echo: '', value: '*password*'});
+let name: string = prompt('Enter name: ');
+let nickname: string = prompt({ ask: 'Enter nickname: ', value: 'N/A' });
+let gender: string = prompt('Enter gender: ', { autocomplete: complete(['male', 'female']) });
+let age: string = prompt('Enter age: ', '18', { echo: '*' });
+let password: string = prompt.hide('Enter password: ');
+let anotherPassword: string = prompt('Enter another password: ', { echo: '', value: '*password*' });
 
 function complete(commands: string[]) {
     return function (str: string) {
-        const ret:string[] = [];
-        for (let i=0; i< commands.length; i++) {
-            if (commands[i].indexOf(str) == 0)
-                ret.push(commands[i]);
+        const ret: string[] = [];
+        for (let i = 0; i < commands.length; i++) {
+            if (commands[i].indexOf(str) == 0) ret.push(commands[i]);
         }
         return ret;
     };

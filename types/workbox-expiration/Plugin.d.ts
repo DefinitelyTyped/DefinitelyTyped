@@ -2,7 +2,7 @@ import {
     CacheDidUpdateCallback,
     CachedResponseWillBeUsedCallback,
     WorkboxPlugin,
-} from "workbox-core/types/WorkboxPlugin";
+} from 'workbox-core/types/WorkboxPlugin';
 
 export class Plugin implements WorkboxPlugin {
     constructor(config?: ExpirationPluginConfig);

@@ -18,4 +18,3 @@ hash = murmur2('string with seed', 1337);
 
 hash = murmur3('string');
 hash = murmur3('string with seed', 1337);
-

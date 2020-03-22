@@ -10,7 +10,7 @@ declare namespace proxy {
     type RequestOptionFunc = (request: Koa.Request, opts: any) => any;
 
     interface IndexedObject {
-        [ key: string ]: string;
+        [key: string]: string;
     }
 
     type MapFunction = (path: string) => string;

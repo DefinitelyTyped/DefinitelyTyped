@@ -8,7 +8,7 @@ import Display from './lib/display';
 import { Keyboard, Mouse } from './lib/input/devices';
 
 export default class RFB {
-	constructor(defaults?: NvRFBDefaults);
+    constructor(defaults?: NvRFBDefaults);
     get_target(): HTMLCanvasElement;
     set_target(target: HTMLCanvasElement): void;
     get_focusContainer(): HTMLElement;
@@ -33,8 +33,15 @@ export default class RFB {
     set_viewportDrag(viewportDrag: boolean): void;
     get_onUpdateState(): (rfb: this, state: NvConnectionState, oldstate: NvConnectionState) => void;
     set_onUpdateState(handler: (rfb: this, state: NvConnectionState, oldstate: NvConnectionState) => void): void;
-    get_onNotification(): (rfb: this, msg: string, level: 'normal' | 'warn' | 'error', options?: { [key: string]: any }) => void;
-    set_onNotification(handler: (rfb: this, msg: string, level: 'normal' | 'warn' | 'error', options?: { [key: string]: any }) => void): void;
+    get_onNotification(): (
+        rfb: this,
+        msg: string,
+        level: 'normal' | 'warn' | 'error',
+        options?: { [key: string]: any },
+    ) => void;
+    set_onNotification(
+        handler: (rfb: this, msg: string, level: 'normal' | 'warn' | 'error', options?: { [key: string]: any }) => void,
+    ): void;
     get_onDisconnected(): (rfb: this, reason?: string) => void;
     set_onDisconnected(handler: (rfb: this, reason?: string) => void): void;
     get_onPasswordRequired(): (rfb: this, msg?: string) => void;
@@ -53,19 +60,19 @@ export default class RFB {
     set_onDesktopName(handler: (rfb: this, name: string) => void): void;
     get_onXvpInit(): (version: number) => void;
     set_onXvpInit(handler: (rfb: this, name: string) => void): void;
-	get_display(): Display;
-	get_keyboard(): Keyboard;
-	get_mouse(): Mouse;
-	connect(host: string, port: number, password?: string, path?: string): boolean;
-	disconnect(): void;
-	sendPassword(passwd: string): void;
-	sendCtrlAltDel(): boolean;
+    get_display(): Display;
+    get_keyboard(): Keyboard;
+    get_mouse(): Mouse;
+    connect(host: string, port: number, password?: string, path?: string): boolean;
+    disconnect(): void;
+    sendPassword(passwd: string): void;
+    sendCtrlAltDel(): boolean;
     xvpOp(version: number, op: NvXvpOperation): boolean;
     xvpShutdown(): boolean;
     xvpReboot(): boolean;
     xvpReset(): boolean;
-	sendKey(keysym: number, code: string, down?: boolean): boolean;
-	clipboardPasteFrom(text: string): void;
+    sendKey(keysym: number, code: string, down?: boolean): boolean;
+    clipboardPasteFrom(text: string): void;
     requestDesktopSize(width: number, height: number): boolean;
 }
 
@@ -82,7 +89,7 @@ export interface NvRFBDefaults {
     repeaterID?: string;
     viewportDrag?: boolean;
     onUpdateState?(rfb: RFB, state: NvConnectionState, oldstate: NvConnectionState): void;
-    onNotification?(rfb: RFB, msg: string, level: 'normal' | 'warn' | 'error', options?: {[key: string]: any}): void;
+    onNotification?(rfb: RFB, msg: string, level: 'normal' | 'warn' | 'error', options?: { [key: string]: any }): void;
     onDisconnected?(rfb: RFB, reason?: string): void;
     onPasswordRequired?(rfb: RFB, msg?: string): void;
     onClipboard?(rfb: RFB, text: string): void;

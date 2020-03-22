@@ -28,7 +28,7 @@ declare namespace Siesta {
 
         listenters: {
             [key: string]: (event: Event, ...args: any[]) => void;
-        }
+        };
 
         maxThreads: number;
 
@@ -159,7 +159,7 @@ declare namespace Siesta {
 
             runCore: string;
 
-            transparentEx: boolean
+            transparentEx: boolean;
         }
 
         interface IBrowserSingleton extends IBrowser {
@@ -171,8 +171,7 @@ declare namespace Siesta {
         /**
          * @singleton
          */
-        interface IHarnessNodeJS extends IHarness {
-        }
+        interface IHarnessNodeJS extends IHarness {}
 
         var Browser: IBrowserSingleton;
 
@@ -284,8 +283,7 @@ declare namespace Siesta {
             /**
              * @class
              */
-            interface DoubleTap extends IAction, Role.IHasTarget {
-            }
+            interface DoubleTap extends IAction, Role.IHasTarget {}
 
             /**
              * @class
@@ -312,8 +310,7 @@ declare namespace Siesta {
             /**
              * @class
              */
-            interface LongPress extends IAction, Role.IHasTarget {
-            }
+            interface LongPress extends IAction, Role.IHasTarget {}
 
             /**
              * @class
@@ -341,8 +338,7 @@ declare namespace Siesta {
             /**
              * @class
              */
-            interface MoveCursorTo extends IAction, Role.IHasTarget {
-            }
+            interface MoveCursorTo extends IAction, Role.IHasTarget {}
 
             /**
              * @class
@@ -370,8 +366,7 @@ declare namespace Siesta {
             /**
              * @class
              */
-            interface Type extends IAction, Role.IHasTarget {
-            }
+            interface Type extends IAction, Role.IHasTarget {}
 
             /**
              * @class
@@ -476,7 +471,13 @@ declare namespace Siesta {
 
             waitForCQVisible(query: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForComponent(component: string, rendered: boolean, callback: Function, scope?: any, timeout?: number): void;
+            waitForComponent(
+                component: string,
+                rendered: boolean,
+                callback: Function,
+                scope?: any,
+                timeout?: number,
+            ): void;
 
             waitForComponentNotVisible(component: any, callback: Function, scope?: any, timeout?: number): void;
 
@@ -484,13 +485,31 @@ declare namespace Siesta {
             waitForComponentQuery(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
             waitForComponentQueryNotFound(query: string, callback: Function, scope?: any, timeout?: number): void;
-            waitForComponentQueryNotFound(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
+            waitForComponentQueryNotFound(
+                query: string,
+                root: any,
+                callback: Function,
+                scope?: any,
+                timeout?: number,
+            ): void;
 
             waitForComponentQueryNotVisible(query: string, callback: Function, scope?: any, timeout?: number): void;
-            waitForComponentQueryNotVisible(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
+            waitForComponentQueryNotVisible(
+                query: string,
+                root: any,
+                callback: Function,
+                scope?: any,
+                timeout?: number,
+            ): void;
 
             waitForComponentQueryVisible(query: string, callback: Function, scope?: any, timeout?: number): void;
-            waitForComponentQueryVisible(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
+            waitForComponentQueryVisible(
+                query: string,
+                root: any,
+                callback: Function,
+                scope?: any,
+                timeout?: number,
+            ): void;
 
             waitForComponentVisible(component: any, callback: Function, scope?: any, timeout?: number): void;
 
@@ -498,7 +517,13 @@ declare namespace Siesta {
             waitForCompositeQuery(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
 
             waitForCompositeQueryNotFound(query: string, callback: Function, scope?: any, timeout?: number): void;
-            waitForCompositeQueryNotFound(query: string, root: any, callback: Function, scope?: any, timeout?: number): void;
+            waitForCompositeQueryNotFound(
+                query: string,
+                root: any,
+                callback: Function,
+                scope?: any,
+                timeout?: number,
+            ): void;
 
             waitForXType(xtype: string, callback: Function, scope?: any, timeout?: number): void;
             waitForXType(xtype: string, root: any, callback: Function, scope?: any, timeout?: number): void;
@@ -580,7 +605,17 @@ declare namespace Siesta {
         /**
          * @class
          */
-        interface ExtJS extends Browser, IExtJSAjax, IExtJSComponent, IExtJSDataView, IExtJSElement, IExtJSFormField, IExtJSGrid, IExtJSObservable, IExtJSStore, IExtJSCore {
+        interface ExtJS
+            extends Browser,
+                IExtJSAjax,
+                IExtJSComponent,
+                IExtJSDataView,
+                IExtJSElement,
+                IExtJSFormField,
+                IExtJSGrid,
+                IExtJSObservable,
+                IExtJSStore,
+                IExtJSCore {
             assertMaxNumberOfGlobalExtOverrides(maxNumber: number, description?): void;
 
             assertNoGlobalExtOverrides(description?: string): void;
@@ -614,36 +649,36 @@ declare namespace Siesta {
             // NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/3135
             var KeyCodes: {
                 '\b': number; // = 8,
-                'BACKSPACE': number; // = 8,
+                BACKSPACE: number; // = 8,
 
                 '\t': number; // = 9,
-                'TAB': number; // = 9,
+                TAB: number; // = 9,
 
                 '\r': number; // = 13,
-                'RETURN': number; // = 13,
-                'ENTER': number; // = 13,
+                RETURN: number; // = 13,
+                ENTER: number; // = 13,
 
-                'SHIFT': number; // = 16,
-                'CTRL': number; // = 17,
-                'ALT': number; // = 18,
+                SHIFT: number; // = 16,
+                CTRL: number; // = 17,
+                ALT: number; // = 18,
 
                 'PAUSE-BREAK': number; // = 19,
-                'CAPS': number; // = 20,
-                'ESCAPE': number; // = 27,
+                CAPS: number; // = 20,
+                ESCAPE: number; // = 27,
                 'NUM-LOCK': number; // = 144,
                 'SCROLL-LOCK': number; // = 145,
-                'PRINT': number; // = 44,
+                PRINT: number; // = 44,
 
                 'PAGE-UP': number; // = 33,
                 'PAGE-DOWN': number; // = 34,
-                'END': number; // = 35,
-                'HOME': number; // = 36,
-                'LEFT': number; // = 37,
-                'UP': number; // = 38,
-                'RIGHT': number; // = 39,
-                'DOWN': number; // = 40,
-                'INSERT': number; // = 45,
-                'DELETE': number; // = 46,
+                END: number; // = 35,
+                HOME: number; // = 36,
+                LEFT: number; // = 37,
+                UP: number; // = 38,
+                RIGHT: number; // = 39,
+                DOWN: number; // = 40,
+                INSERT: number; // = 45,
+                DELETE: number; // = 46,
 
                 ' ': number; // = 32,
                 '0': number; // = 48,
@@ -656,43 +691,43 @@ declare namespace Siesta {
                 '7': number; // = 55,
                 '8': number; // = 56,
                 '9': number; // = 57,
-                'A': number; // = 65,
-                'B': number; // = 66,
-                'C': number; // = 67,
-                'D': number; // = 68,
-                'E': number; // = 69,
-                'F': number; // = 70,
-                'G': number; // = 71,
-                'H': number; // = 72,
-                'I': number; // = 73,
-                'J': number; // = 74,
-                'K': number; // = 75,
-                'L': number; // = 76,
-                'M': number; // = 77,
-                'N': number; // = 78,
-                'O': number; // = 79,
-                'P': number; // = 80,
-                'Q': number; // = 81,
-                'R': number; // = 82,
-                'S': number; // = 83,
-                'T': number; // = 84,
-                'U': number; // = 85,
-                'V': number; // = 86,
-                'W': number; // = 87,
-                'X': number; // = 88,
-                'Y': number; // = 89,
-                'Z': number; // = 90,
+                A: number; // = 65,
+                B: number; // = 66,
+                C: number; // = 67,
+                D: number; // = 68,
+                E: number; // = 69,
+                F: number; // = 70,
+                G: number; // = 71,
+                H: number; // = 72,
+                I: number; // = 73,
+                J: number; // = 74,
+                K: number; // = 75,
+                L: number; // = 76,
+                M: number; // = 77,
+                N: number; // = 78,
+                O: number; // = 79,
+                P: number; // = 80,
+                Q: number; // = 81,
+                R: number; // = 82,
+                S: number; // = 83,
+                T: number; // = 84,
+                U: number; // = 85,
+                V: number; // = 86,
+                W: number; // = 87,
+                X: number; // = 88,
+                Y: number; // = 89,
+                Z: number; // = 90,
 
-                'NUM0': number; // = 96,
-                'NUM1': number; // = 97,
-                'NUM2': number; // = 98,
-                'NUM3': number; // = 99,
-                'NUM4': number; // = 100,
-                'NUM5': number; // = 101,
-                'NUM6': number; // = 102,
-                'NUM7': number; // = 103,
-                'NUM8': number; // = 104,
-                'NUM9': number; // = 105,
+                NUM0: number; // = 96,
+                NUM1: number; // = 97,
+                NUM2: number; // = 98,
+                NUM3: number; // = 99,
+                NUM4: number; // = 100,
+                NUM5: number; // = 101,
+                NUM6: number; // = 102,
+                NUM7: number; // = 103,
+                NUM8: number; // = 104,
+                NUM9: number; // = 105,
                 'NUM*': number; // = 106,
                 'NUM+': number; // = 107,
                 //'NUM-' = 109,
@@ -709,20 +744,20 @@ declare namespace Siesta {
                 '[': number; // = 219,
                 '\\': number; // = 220,
                 ']': number; // = 221,
-                '\'': number; // = 222,
+                "'": number; // = 222,
 
-                'F1': number; // = 112,
-                'F2': number; // = 113,
-                'F3': number; // = 114,
-                'F4': number; // = 115,
-                'F5': number; // = 116,
-                'F6': number; // = 117,
-                'F7': number; // = 118,
-                'F8': number; // = 119,
-                'F9': number; // = 120,
-                'F10': number; // = 121,
-                'F11': number; // = 122,
-                'F12': number; // = 123
+                F1: number; // = 112,
+                F2: number; // = 113,
+                F3: number; // = 114,
+                F4: number; // = 115,
+                F5: number; // = 116,
+                F6: number; // = 117,
+                F7: number; // = 118,
+                F8: number; // = 119,
+                F9: number; // = 120,
+                F10: number; // = 121,
+                F11: number; // = 122,
+                F12: number; // = 123
             };
 
             /**
@@ -741,11 +776,32 @@ declare namespace Siesta {
                 doubleClick(el?: any, callback?: Function, scope?: any, options?: any): void;
                 doubleClick(callback?: Function, scope?: any, options?: any): void;
 
-                drag(source: any, target?: any, delta?: number[], callback?: Function, scope?: any, options?: any): void;
+                drag(
+                    source: any,
+                    target?: any,
+                    delta?: number[],
+                    callback?: Function,
+                    scope?: any,
+                    options?: any,
+                ): void;
 
-                dragBy(source: any, delta: number[], callback?: Function, scope?: any, options?: any, dragOnly?: boolean): void;
+                dragBy(
+                    source: any,
+                    delta: number[],
+                    callback?: Function,
+                    scope?: any,
+                    options?: any,
+                    dragOnly?: boolean,
+                ): void;
 
-                dragTo(source: any, target: any, callback?: Function, scope?: any, options?: any, dragOnly?: boolean): void;
+                dragTo(
+                    source: any,
+                    target: any,
+                    callback?: Function,
+                    scope?: any,
+                    options?: any,
+                    dragOnly?: boolean,
+                ): void;
 
                 mouseDown(el: any, options: any): void;
 
@@ -771,7 +827,13 @@ declare namespace Siesta {
         /**
          * @class
          */
-        interface Browser extends ITest, Simulate.IEvent, Simulate.IKeyboard, Simulate.IMouse, IElement, ITextSelection {
+        interface Browser
+            extends ITest,
+                Simulate.IEvent,
+                Simulate.IKeyboard,
+                Simulate.IMouse,
+                IElement,
+                ITextSelection {
             clearTimeout(timeoutId: number): void;
 
             elementFromPoint(x: number, y: number, shallow?: boolean): HTMLElement;
@@ -881,10 +943,22 @@ declare namespace Siesta {
 
             waitForSelectorAt(xy: number[], selector: string, callback: Function, scope?: any, timeout?: number): void;
 
-            waitForSelectorAtCursor(xy: number[], selector: string, callback: Function, scope?: any, timeout?: number): void;
+            waitForSelectorAtCursor(
+                xy: number[],
+                selector: string,
+                callback: Function,
+                scope?: any,
+                timeout?: number,
+            ): void;
 
             waitForSelectorNotFound(selector: string, callback: Function, scope?: any, timeout?: number): void;
-            waitForSelectorNotFound(selector: string, root: any, callback: Function, scope?: any, timeout?: number): void;
+            waitForSelectorNotFound(
+                selector: string,
+                root: any,
+                callback: Function,
+                scope?: any,
+                timeout?: number,
+            ): void;
 
             waitForSelectors(selectors: string[], callback: Function, scope?: any, timeout?: number): void;
             waitForSelectors(selectors: string[], root: any, callback: Function, scope?: any, timeout?: number): void;
@@ -967,7 +1041,7 @@ declare namespace Siesta {
         }
 
         interface IWaitForReturn {
-            force: Function
+            force: Function;
         }
 
         /**
@@ -1028,7 +1102,13 @@ declare namespace Siesta {
             verifyGlobals(...names: string[]): void;
 
             waitFor(wait: number, callback: Function, scope?: any, timeout?: number, interval?: number): IWaitForReturn;
-            waitFor(method: Function, callback: Function, scope?: any, timeout?: number, interval?: number): IWaitForReturn;
+            waitFor(
+                method: Function,
+                callback: Function,
+                scope?: any,
+                timeout?: number,
+                interval?: number,
+            ): IWaitForReturn;
             waitFor(config: IWaitForConfig): IWaitForReturn;
         }
 
@@ -1041,7 +1121,14 @@ declare namespace Siesta {
         /**
          * @class
          */
-        interface SenchaTouch extends Browser, IExtJSComponent, IExtJSElement, IExtJSFormField, IExtJSObservable, IExtJSStore, IExtJSCore {
+        interface SenchaTouch
+            extends Browser,
+                IExtJSComponent,
+                IExtJSElement,
+                IExtJSFormField,
+                IExtJSObservable,
+                IExtJSStore,
+                IExtJSCore {
             doubleTap(target: any, callback?: Function, scope?: any, offset?: number[]): void;
 
             longpress(target: any, callback?: Function, scope?: any, offset?: number[]): void;
@@ -1050,13 +1137,25 @@ declare namespace Siesta {
 
             moveFingerTo(target: any, callback?: Function, scope?: any, offset?: number[]): void;
 
-            scrollUntilElementVisible(scrollable: any, direction: string, actionTarget: any, callback: Function, scope: any): void;
+            scrollUntilElementVisible(
+                scrollable: any,
+                direction: string,
+                actionTarget: any,
+                callback: Function,
+                scope: any,
+            ): void;
 
             swipe(target: any, direction: string, callback?: Function, scope?: any): void;
 
             tap(target: any, callback?: Function, scope?: any): void;
 
-            waitForScrollerPosition(scroller: any, position: IPositionConfig, callback: Function, scope?: any, timeout?: number): void;
+            waitForScrollerPosition(
+                scroller: any,
+                position: IPositionConfig,
+                callback: Function,
+                scope?: any,
+                timeout?: number,
+            ): void;
         }
 
         /**

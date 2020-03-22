@@ -20,19 +20,57 @@ declare module 'angular' {
 
         interface IAnimateCallbackObject {
             eventFn?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
-            beforeSetClass?: (element: JQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            setClass?: (element: JQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            beforeAddClass?: (element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            addClass?: (element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            beforeRemoveClass?: (element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            removeClass?: (element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+            beforeSetClass?: (
+                element: JQuery,
+                addedClasses: string,
+                removedClasses: string,
+                doneFunction: Function,
+                options: IAnimationOptions,
+            ) => any;
+            setClass?: (
+                element: JQuery,
+                addedClasses: string,
+                removedClasses: string,
+                doneFunction: Function,
+                options: IAnimationOptions,
+            ) => any;
+            beforeAddClass?: (
+                element: JQuery,
+                addedClasses: string,
+                doneFunction: Function,
+                options: IAnimationOptions,
+            ) => any;
+            addClass?: (
+                element: JQuery,
+                addedClasses: string,
+                doneFunction: Function,
+                options: IAnimationOptions,
+            ) => any;
+            beforeRemoveClass?: (
+                element: JQuery,
+                removedClasses: string,
+                doneFunction: Function,
+                options: IAnimationOptions,
+            ) => any;
+            removeClass?: (
+                element: JQuery,
+                removedClasses: string,
+                doneFunction: Function,
+                options: IAnimationOptions,
+            ) => any;
             enter?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
             leave?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
             move?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
-            animate?: (element: JQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;
+            animate?: (
+                element: JQuery,
+                fromStyles: string,
+                toStyles: string,
+                doneFunction: Function,
+                options: IAnimationOptions,
+            ) => any;
         }
 
-        interface IAnimationPromise extends IPromise<void> { }
+        interface IAnimationPromise extends IPromise<void> {}
 
         /**
          * AnimateService
@@ -66,12 +104,12 @@ declare module 'angular' {
             pin(element: JQuery, parentElement: JQuery): void;
 
             /**
-            * Globally enables / disables animations.
-            *
-            * @param element If provided then the element will be used to represent the enable/disable operation.
-            * @param value If provided then set the animation on or off.
-            * @returns current animation state
-            */
+             * Globally enables / disables animations.
+             *
+             * @param element If provided then the element will be used to represent the enable/disable operation.
+             * @param value If provided then set the animation on or off.
+             * @returns current animation state
+             */
             enabled(element: JQuery, value?: boolean): boolean;
             enabled(value?: boolean): boolean;
 
@@ -90,7 +128,13 @@ declare module 'angular' {
              * @param options an optional collection of styles that will be picked up by the CSS transition/animation
              * @returns the animation callback promise
              */
-            animate(element: JQuery, from: any, to: any, className?: string, options?: IAnimationOptions): IAnimationPromise;
+            animate(
+                element: JQuery,
+                from: any,
+                to: any,
+                className?: string,
+                options?: IAnimationOptions,
+            ): IAnimationPromise;
 
             /**
              * Appends the element to the parentElement element that resides in the document and then runs the enter animation.
@@ -101,7 +145,12 @@ declare module 'angular' {
              * @param options an optional collection of styles that will be picked up by the CSS transition/animation
              * @returns the animation callback promise
              */
-            enter(element: JQuery, parentElement: JQuery, afterElement?: JQuery, options?: IAnimationOptions): IAnimationPromise;
+            enter(
+                element: JQuery,
+                parentElement: JQuery,
+                afterElement?: JQuery,
+                options?: IAnimationOptions,
+            ): IAnimationPromise;
 
             /**
              * Runs the leave animation operation and, upon completion, removes the element from the DOM.
@@ -194,14 +243,14 @@ declare module 'angular' {
             event?: string;
 
             /**
-         * Indicates that the ng-prefix will be added to the event class. Setting to false or
-         * omitting will turn ng-EVENT and ng-EVENT-active in EVENT and EVENT-active. Unused if event is omitted.
-         */
+             * Indicates that the ng-prefix will be added to the event class. Setting to false or
+             * omitting will turn ng-EVENT and ng-EVENT-active in EVENT and EVENT-active. Unused if event is omitted.
+             */
             structural?: boolean;
 
             /**
-                 * The CSS easing value that will be applied to the transition or keyframe animation (or both).
-                 */
+             * The CSS easing value that will be applied to the transition or keyframe animation (or both).
+             */
             easing?: string;
 
             /**
@@ -259,7 +308,7 @@ declare module 'angular' {
             /**
              * The numeric index representing the stagger item (e.g. a value of 5 is equal to the sixth item
              * in the stagger; therefore when a stagger option value of 0.1 is used then there will be a stagger delay of 600ms)
-         *
+             *
              */
             staggerIndex?: number;
 

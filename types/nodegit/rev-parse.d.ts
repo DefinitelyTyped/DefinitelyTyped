@@ -6,7 +6,7 @@ export namespace Revparse {
     const enum MODE {
         SINGLE = 1,
         RANGE = 2,
-        MERGE_BASE = 4
+        MERGE_BASE = 4,
     }
 }
 

@@ -57,12 +57,8 @@ udpAddrBuf2.toString(); // $ExpectType string
 udpAddrBuf2.decapsulate('/udp').toString(); // $ExpectType string
 udpAddrBuf2.decapsulate('/ip4').toString(); // '/'
 
-multiaddr('/')
-    .encapsulate(udpAddr)
-    .toString();
-multiaddr('/')
-    .decapsulate('/')
-    .toString(); // '/'
+multiaddr('/').encapsulate(udpAddr).toString();
+multiaddr('/').decapsulate('/').toString(); // '/'
 
 // IPFS
 
@@ -71,12 +67,7 @@ const ip6Addr = multiaddr('/ip6/2001:8a0:7ac5:4201:3ac9:86ff:fe31:7095');
 const tcpAddr = multiaddr('/tcp/8000');
 const webAddr = multiaddr('/ws');
 
-multiaddr('/')
-    .encapsulate(ip6Addr)
-    .encapsulate(tcpAddr)
-    .encapsulate(webAddr)
-    .encapsulate(ipfsAddr)
-    .toString();
+multiaddr('/').encapsulate(ip6Addr).encapsulate(tcpAddr).encapsulate(webAddr).encapsulate(ipfsAddr).toString();
 
 let str = '/ip4/127.0.0.1';
 let addr = multiaddr(str);
@@ -124,8 +115,8 @@ const addresses: Map<string, string> = new Map([
     ['ip6', '2001:8a0:7ac5:4201:3ac9:86ff:fe31:7095'],
 ]);
 
-families.forEach(family => {
-    transports.forEach(transport => {
+families.forEach((family) => {
+    transports.forEach((transport) => {
         multiaddr(`/${family}/${addresses.get(family)}/${transport}/1234`);
     });
 });

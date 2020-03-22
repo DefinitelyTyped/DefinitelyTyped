@@ -373,12 +373,7 @@ export class Statement {
      * @param object The statement's object
      * @param graph The graph the contains this statement
      */
-    constructor(
-        subject: ValueType,
-        predicate: ValueType,
-        object: ValueType,
-        graph: ValueType
-    );
+    constructor(subject: ValueType, predicate: ValueType, object: ValueType, graph: ValueType);
     /**
      * Gets whether two statements are the same
      * @param other The other statement
@@ -408,19 +403,13 @@ export namespace convert {
      * @param n3String The n3 string
      * @param jsonCallback Callback when the operation terminated
      */
-    function convertToJson(
-        n3String: string,
-        jsonCallback: (err: string, jsonString: string) => void
-    ): void;
+    function convertToJson(n3String: string, jsonCallback: (err: string, jsonString: string) => void): void;
     /**
      * Converts an n3 string to n-quads
      * @param n3String The n3 string
      * @param nquadCallback Callback when the operation terminated
      */
-    function convertToNQuads(
-        n3String: string,
-        nquadCallback: (err: string, nquadString: string) => void
-    ): void;
+    function convertToNQuads(n3String: string, nquadCallback: (err: string, nquadString: string) => void): void;
 }
 /**
  * A formula, or store of RDF statements
@@ -443,7 +432,7 @@ export class Formula extends Node {
         initBindings: {
             [id: string]: Node;
         },
-        optional: ReadonlyArray<any>
+        optional: ReadonlyArray<any>,
     );
     /**
      * Adds a statement to this formula
@@ -475,12 +464,7 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    any(
-        s?: Node | null,
-        p?: Node | null,
-        o?: Node | null,
-        g?: Node | null
-    ): Node | null;
+    any(s?: Node | null, p?: Node | null, o?: Node | null, g?: Node | null): Node | null;
     /**
      * Gets the value of a node that matches the specified pattern
      * @param s The subject
@@ -488,12 +472,7 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    anyValue(
-        s?: Node | null,
-        p?: Node | null,
-        o?: Node | null,
-        g?: Node | null
-    ): string;
+    anyValue(s?: Node | null, p?: Node | null, o?: Node | null, g?: Node | null): string;
     /**
      * Gets the first JavaScript object equivalent to a node based on the specified pattern
      * @param s The subject
@@ -501,12 +480,7 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    anyJS(
-        s?: Node | null,
-        p?: Node | null,
-        o?: Node | null,
-        g?: Node | null
-    ): any;
+    anyJS(s?: Node | null, p?: Node | null, o?: Node | null, g?: Node | null): any;
     /**
      * Gets the first statement that matches the specified pattern
      * @param subj The subject
@@ -514,12 +488,7 @@ export class Formula extends Node {
      * @param obj The object
      * @param why The graph that contains the statement
      */
-    anyStatementMatching(
-        subj?: Node | null,
-        pred?: Node | null,
-        obj?: Node | null,
-        why?: Node | null
-    ): Statement;
+    anyStatementMatching(subj?: Node | null, pred?: Node | null, obj?: Node | null, why?: Node | null): Statement;
     /**
      * Gets the statements matching the specified pattern
      * @param subj The subject
@@ -533,7 +502,7 @@ export class Formula extends Node {
         pred?: Node | null,
         obj?: Node | null,
         why?: Node | null,
-        justOne?: boolean
+        justOne?: boolean,
     ): Statement[];
     /**
      * Finds the types in the list which have no *stored* subtypes
@@ -558,12 +527,7 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    each(
-        s?: Node | null,
-        p?: Node | null,
-        o?: Node | null,
-        g?: Node | null
-    ): Node[];
+    each(s?: Node | null, p?: Node | null, o?: Node | null, g?: Node | null): Node[];
     /**
      * Gets whether this formula is equals to the other one
      * @param other The other formula
@@ -579,7 +543,7 @@ export class Formula extends Node {
      * @param thisClass A named node
      */
     findMembersNT(
-        thisClass: Node
+        thisClass: Node,
     ): {
         [uri: string]: Statement;
     };
@@ -593,7 +557,7 @@ export class Formula extends Node {
      * @param subject A named node
      */
     findMemberURIs(
-        subject: Node
+        subject: Node,
     ): {
         [uri: string]: Statement;
     };
@@ -606,7 +570,7 @@ export class Formula extends Node {
      * @param subject A subject node
      */
     findSubClassesNT(
-        subject: Node
+        subject: Node,
     ): {
         [uri: string]: boolean;
     };
@@ -619,7 +583,7 @@ export class Formula extends Node {
      * @param subject A subject node
      */
     findSuperClassesNT(
-        subject: Node
+        subject: Node,
     ): {
         [uri: string]: boolean;
     };
@@ -634,7 +598,7 @@ export class Formula extends Node {
      * @param subject A subject node
      */
     findTypesNT(
-        subject: Node
+        subject: Node,
     ): {
         [uri: string]: boolean;
     };
@@ -649,7 +613,7 @@ export class Formula extends Node {
      * @param subject A subject node
      */
     findTypeURIs(
-        subject: Node
+        subject: Node,
     ): {
         [uri: string]: boolean;
     };
@@ -661,11 +625,7 @@ export class Formula extends Node {
      * @param doc A document (the graph that contains statements)
      * @param excludePredicateURIs The predicate URIs to exclude
      */
-    connectedStatements(
-        subject: Node,
-        doc: ValueType,
-        excludePredicateURIs: ReadonlyArray<string>
-    ): Statement[];
+    connectedStatements(subject: Node, doc: ValueType, excludePredicateURIs: ReadonlyArray<string>): Statement[];
     /**
      * Creates a new empty formula - features not applicable, but necessary for typing to pass
      */
@@ -685,12 +645,7 @@ export class Formula extends Node {
      * @param o An object
      * @param g A containing graph
      */
-    holds(
-        s?: Node | null,
-        p?: Node | null,
-        o?: Node | null,
-        g?: Node | null
-    ): boolean;
+    holds(s?: Node | null, p?: Node | null, o?: Node | null, g?: Node | null): boolean;
     /**
      * Gets whether this formula holds the specified statement
      * @param st A statement
@@ -742,12 +697,7 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    the(
-        s?: Node | null,
-        p?: Node | null,
-        o?: Node | null,
-        g?: Node | null
-    ): Node;
+    the(s?: Node | null, p?: Node | null, o?: Node | null, g?: Node | null): Node;
     /**
      * RDFS Inference
      * These are hand-written implementations of a backward-chaining reasoner
@@ -761,7 +711,7 @@ export class Formula extends Node {
             [uri: string]: boolean;
         },
         predicate: Node,
-        inverse: Node
+        inverse: Node,
     ): {
         [uri: string]: boolean;
     };
@@ -783,12 +733,7 @@ export class Formula extends Node {
      * @param o The object
      * @param g The graph that contains the statement
      */
-    whether(
-        s?: Node | null,
-        p?: Node | null,
-        o?: Node | null,
-        g?: Node | null
-    ): number;
+    whether(s?: Node | null, p?: Node | null, o?: Node | null, g?: Node | null): number;
     /**
      * Serializes this formulat to a string
      */
@@ -807,11 +752,11 @@ export class Formula extends Node {
 }
 
 export class Query {
-           pat: IndexedFormula;
-           name: string;
-           id?: string;
-           constructor(name: string, id?: any);
-       }
+    pat: IndexedFormula;
+    name: string;
+    id?: string;
+    constructor(name: string, id?: any);
+}
 
 /**
  * A formula (set of triples) which indexes by predicate, subject and object.
@@ -832,7 +777,7 @@ export class IndexedFormula extends Formula {
     /**
      * Dictionary of namespace prefixes
      */
-    namespaces: {[key: string]: string};
+    namespaces: { [key: string]: string };
     /**
      * Gets the URI of the default graph
      */
@@ -852,11 +797,11 @@ export class IndexedFormula extends Formula {
      */
     applyPatch(
         patch: {
-            delete?: ReadonlyArray<Statement>,
-            patch?: ReadonlyArray<Statement>
+            delete?: ReadonlyArray<Statement>;
+            patch?: ReadonlyArray<Statement>;
         },
         target: NamedNode,
-        patchCallback: () => void
+        patchCallback: () => void,
     ): void;
 
     /**
@@ -869,7 +814,7 @@ export class IndexedFormula extends Formula {
     /**
      * @param features
      */
-    initPropertyActions(features: Array<('sameAs' | 'InverseFunctionalProperty' | 'FunctionalProperty')>): boolean;
+    initPropertyActions(features: Array<'sameAs' | 'InverseFunctionalProperty' | 'FunctionalProperty'>): boolean;
     /**
      * Returns the symbol with canonical URI as smushed
      * @param term A RDF node
@@ -897,11 +842,7 @@ export class IndexedFormula extends Formula {
      * @param flags Whether or not to do a two-directional copy and/or delete triples
      *
      */
-    copyTo(
-        template: Node,
-        target: Node,
-        flags?: Array<('two-direction' | 'delete')>
-    ): void;
+    copyTo(template: Node, target: Node, flags?: Array<'two-direction' | 'delete'>): void;
     /**
      * Simplify graph in store when we realize two identifiers are equivalent
      * We replace the bigger with the smaller.
@@ -928,12 +869,7 @@ export class IndexedFormula extends Formula {
      * @param object The object
      * @param graph The graph that contains the statement
      */
-    match(
-        subject: ValueType,
-        predicate: ValueType,
-        object: ValueType,
-        graph: ValueType
-    ): Statement[];
+    match(subject: ValueType, predicate: ValueType, object: ValueType, graph: ValueType): Statement[];
     /**
      * Find out whether a given URI is used as symbol in the formula
      * @param uri The URI to look for
@@ -950,7 +886,10 @@ export class IndexedFormula extends Formula {
      * @param pred the predicate that the function should be triggered on
      * @param action the function that should trigger
      */
-    newPropertyAction(pred: Node, action: (store: IndexedFormula, subject: NamedNode, object: NamedNode) => boolean): boolean;
+    newPropertyAction(
+        pred: Node,
+        action: (store: IndexedFormula, subject: NamedNode, object: NamedNode) => boolean,
+    ): boolean;
     /**
      * Creates a new universal node
      * Universals are Variables
@@ -972,12 +911,7 @@ export class IndexedFormula extends Formula {
      * @param dummy OBSOLETE - do not use this
      * @param onDone OBSOLETE - do not use this
      */
-    query(
-        myQuery: Query,
-        callback: (bindings: Bindings) => void,
-        dummy?: null,
-        onDone?: () => void
-    ): void;
+    query(myQuery: Query, callback: (bindings: Bindings) => void, dummy?: null, onDone?: () => void): void;
     /**
      * Query this store synchronously and return bindings
      *
@@ -1002,13 +936,7 @@ export class IndexedFormula extends Formula {
      * @param why The graph that contains the statement
      * @param limit The number of statements to remove
      */
-    removeMany(
-        subj?: Node | null,
-        pred?: Node | null,
-        obj?: Node | null,
-        why?: Node | null,
-        limit?: number
-    ): void;
+    removeMany(subj?: Node | null, pred?: Node | null, obj?: Node | null, why?: Node | null, limit?: number): void;
     /**
      * Remove all matching statements
      * @param subject The subject
@@ -1016,12 +944,7 @@ export class IndexedFormula extends Formula {
      * @param object The object
      * @param graph The graph that contains the statement
      */
-    removeMatches(
-        subject?: Node | null,
-        predicate?: Node | null,
-        object?: Node | null,
-        graph?: Node | null
-    ): void;
+    removeMatches(subject?: Node | null, predicate?: Node | null, object?: Node | null, graph?: Node | null): void;
     /**
      * Removes a statement
      * @param st The statement to remove
@@ -1086,10 +1009,7 @@ export namespace DataFactory {
      * @param value The lexical value
      * @param languageOrDatatype Either the language or the datatype
      */
-    function literal(
-        value: string,
-        languageOrDatatype?: string | NamedNode
-    ): Literal;
+    function literal(value: string, languageOrDatatype?: string | NamedNode): Literal;
     /**
      * Creates a new named node
      * @param value The new named node
@@ -1102,12 +1022,7 @@ export namespace DataFactory {
      * @param object The object
      * @param graph The containing graph
      */
-    function quad(
-        subject: Node,
-        predicate: Node,
-        object: Node,
-        graph: Node
-    ): Statement;
+    function quad(subject: Node, predicate: Node, object: Node, graph: Node): Statement;
     /**
      * Creates a new statement
      * @param subject The subject
@@ -1115,12 +1030,7 @@ export namespace DataFactory {
      * @param object The object
      * @param graph The containing graph
      */
-    function st(
-        subject: Node,
-        predicate: Node,
-        object: Node,
-        graph: Node
-    ): Statement;
+    function st(subject: Node, predicate: Node, object: Node, graph: Node): Statement;
     /**
      * Creates a new statement
      * @param subject The subject
@@ -1152,11 +1062,7 @@ export namespace Util {
      * @param p A property
      * @param requestedBy
      */
-    function AJAR_handleNewTerm(
-        kb: Formula,
-        p: NamedNode,
-        requestedBy: string
-    ): Promise<any>;
+    function AJAR_handleNewTerm(kb: Formula, p: NamedNode, requestedBy: string): Promise<any>;
 }
 /**
  * A datatype-specific handler for fetching data
@@ -1233,7 +1139,10 @@ export class Fetcher {
      * Loads a web resource or resources into the store.
      * @param uri Resource to load, provided either as a NamedNode object or a plain URL. If multiple resources are passed as an array, they will be fetched in parallel.
      */
-    load: (uri: ReadonlyArray<NamedNode> | ReadonlyArray<string> | NamedNode | string, options?: FetchOptions) => Promise<Response>;
+    load: (
+        uri: ReadonlyArray<NamedNode> | ReadonlyArray<string> | NamedNode | string,
+        options?: FetchOptions,
+    ) => Promise<Response>;
 }
 /**
  * Gets a node for the specified input
@@ -1281,7 +1190,7 @@ export function st(
     subject: Node | Date | string,
     predicate: Node,
     object: Node | Date | string,
-    graph: Node
+    graph: Node,
 ): Statement;
 /**
  * Creates a new named node
@@ -1307,10 +1216,7 @@ export function defaultGraph(): DefaultGraph;
  * @param value The lexical value
  * @param languageOrDatatype Either the language or the datatype
  */
-export function literal(
-    value: string,
-    languageOrDatatype: string | NamedNode
-): Literal;
+export function literal(value: string, languageOrDatatype: string | NamedNode): Literal;
 /**
  * Creates a new named node
  * @param value The new named node
@@ -1323,12 +1229,7 @@ export function namedNode(value: string): NamedNode;
  * @param object The object
  * @param graph The containing graph
  */
-export function quad(
-    subject: Node,
-    predicate: Node,
-    object: Node,
-    graph: Node
-): Statement;
+export function quad(subject: Node, predicate: Node, object: Node, graph: Node): Statement;
 /**
  * Creates a new statement
  * @param subject The subject
@@ -1352,7 +1253,7 @@ export function parse(
     kb: Formula,
     base: string,
     contentType: string,
-    callback: (error: any, kb: Formula) => void
+    callback: (error: any, kb: Formula) => void,
 ): void;
 /**
  * Get the next available unique identifier
@@ -1368,7 +1269,7 @@ export class UpdateManager {
     /**
      * @param store The quadstore to store data and metadata. Created if not passed.
      */
-    constructor(store?: IndexedFormula)
+    constructor(store?: IndexedFormula);
 
     /**
      * This is suitable for an initial creation of a document.
@@ -1395,6 +1296,6 @@ export class UpdateManager {
     update(
         statementsToDelete: ReadonlyArray<Statement>,
         statementsToAdd: ReadonlyArray<Statement>,
-        callback: (uri: string | undefined, success: boolean, errorBody?: string) => void
+        callback: (uri: string | undefined, success: boolean, errorBody?: string) => void,
     ): void;
 }

@@ -9,8 +9,8 @@ import {
     AsyncParallelBailHook,
     AsyncSeriesHook,
     AsyncSeriesBailHook,
-    AsyncSeriesWaterfallHook
-} from "tapable";
+    AsyncSeriesWaterfallHook,
+} from 'tapable';
 
 class DllPlugin {
     apply(compiler: Compiler) {
@@ -26,15 +26,13 @@ class DllPlugin {
 
 class Compiler extends Tapable {
     constructor() {
-        super()
+        super();
     }
 }
 
 const compiler = new Compiler();
 
-let callback: Tapable.CallbackFunction = function () {
-
-};
+let callback: Tapable.CallbackFunction = function () {};
 
 compiler.apply(new DllPlugin());
 
@@ -75,18 +73,18 @@ const isBoolean = (val: boolean) => val;
         asyncSeriesHook: new AsyncSeriesHook(['arg1']),
         asyncSeriesBailHook: new AsyncSeriesBailHook(['arg1']),
         asyncSeriesWaterfallHook: new AsyncSeriesWaterfallHook(['arg1']),
-    }
+    };
 
     // Without generics we won't get any information
     // for the tap interface:
-    hooks.syncHook.tap('AHook', () => ('ReturnValue'));
-    hooks.syncBailHook.tap('AHook', () => ('ReturnValue'));
-    hooks.syncWaterfallHook.tap('AHook', () => ('ReturnValue'));
-    hooks.asyncParallelHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncParallelBailHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncSeriesHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncSeriesBailHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncSeriesWaterfallHook.tapPromise('AHook', async () => ('ReturnValue'));
+    hooks.syncHook.tap('AHook', () => 'ReturnValue');
+    hooks.syncBailHook.tap('AHook', () => 'ReturnValue');
+    hooks.syncWaterfallHook.tap('AHook', () => 'ReturnValue');
+    hooks.asyncParallelHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncParallelBailHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncSeriesHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncSeriesBailHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncSeriesWaterfallHook.tapPromise('AHook', async () => 'ReturnValue');
 
     async function getHookResults() {
         return {
@@ -99,7 +97,7 @@ const isBoolean = (val: boolean) => val;
             asyncSeriesHook: await hooks.asyncSeriesHook.promise({ name: 'sue', age: 34 }),
             asyncSeriesBailHook: await hooks.asyncSeriesBailHook.promise({ name: 'sue', age: 34 }),
             asyncSeriesWaterfallHook: await hooks.asyncSeriesWaterfallHook.promise({ name: 'sue', age: 34 }),
-        }
+        };
     }
 
     getHookResults().then((result) => {
@@ -129,7 +127,7 @@ const isBoolean = (val: boolean) => val;
 
 // With generics
 (() => {
-    type Person = { name: string, age: number };
+    type Person = { name: string; age: number };
     const hooks = {
         syncHook: new SyncHook<Person, undefined, undefined>(['arg1']),
         syncBailHook: new SyncBailHook<Person, undefined, undefined, number>(['arg1']),
@@ -140,15 +138,15 @@ const isBoolean = (val: boolean) => val;
         asyncSeriesHook: new AsyncSeriesHook<Person, undefined, undefined>(['arg1']),
         asyncSeriesBailHook: new AsyncSeriesBailHook<Person, undefined, undefined, number>(['arg1']),
         asyncSeriesWaterfallHook: new AsyncSeriesWaterfallHook<Person, undefined, undefined>(['arg1']),
-    }
+    };
 
     // Without generics we will get information
-    hooks.syncHook.tap('AHook', () => ('Any Return Value'));
+    hooks.syncHook.tap('AHook', () => 'Any Return Value');
     hooks.syncBailHook.tap('AHook', (person) => person.age);
     hooks.syncWaterfallHook.tap('AHook', (person) => ({ name: 'sue', age: person.age + 1 }));
-    hooks.asyncParallelHook.tapPromise('AHook', async () => ('ReturnValue'));
+    hooks.asyncParallelHook.tapPromise('AHook', async () => 'ReturnValue');
     hooks.asyncParallelBailHook.tapPromise('AHook', async (person) => person.age);
-    hooks.asyncSeriesHook.tapPromise('AHook', async () => ('ReturnValue'));
+    hooks.asyncSeriesHook.tapPromise('AHook', async () => 'ReturnValue');
     hooks.asyncSeriesBailHook.tapPromise('AHook', async (person) => person.age);
     hooks.asyncSeriesWaterfallHook.tapPromise('AHook', async (person) => ({ name: 'sue', age: person.age + 1 }));
 
@@ -163,7 +161,7 @@ const isBoolean = (val: boolean) => val;
             asyncSeriesHook: await hooks.asyncSeriesHook.promise({ name: 'sue', age: 34 }),
             asyncSeriesBailHook: await hooks.asyncSeriesBailHook.promise({ name: 'sue', age: 34 }),
             asyncSeriesWaterfallHook: await hooks.asyncSeriesWaterfallHook.promise({ name: 'sue', age: 34 }),
-        }
+        };
     }
 
     getHookResults().then((result) => {

@@ -1,21 +1,16 @@
 import * as React from 'react';
-import {
-    SelectValidator,
-    TextValidator,
-    ValidatorComponent,
-    ValidatorForm
-} from 'react-material-ui-form-validator';
+import { SelectValidator, TextValidator, ValidatorComponent, ValidatorForm } from 'react-material-ui-form-validator';
 import { MenuItem } from 'material-ui';
 
 class Test extends React.Component {
     onSubmitted = (event: React.FormEvent) => {
         event.preventDefault(); // Actually preventDefault() is called by ValidatorForm
-    }
+    };
     onError = (errors: any[]) => {};
     onValidate = (isValid: boolean) => {};
 
     componentDidMount() {
-        ValidatorForm.addValidationRule('isTruthy', value => value);
+        ValidatorForm.addValidationRule('isTruthy', (value) => value);
     }
 
     componentWillUnmount() {
@@ -24,12 +19,7 @@ class Test extends React.Component {
 
     render() {
         return (
-            <ValidatorForm
-                instantValidate={true}
-                debounceTime={10}
-                onSubmit={this.onSubmitted}
-                onError={this.onError}
-            >
+            <ValidatorForm instantValidate={true} debounceTime={10} onSubmit={this.onSubmitted} onError={this.onError}>
                 <ValidatorComponent
                     errorMessages={['Field is required']}
                     validators={['required']}

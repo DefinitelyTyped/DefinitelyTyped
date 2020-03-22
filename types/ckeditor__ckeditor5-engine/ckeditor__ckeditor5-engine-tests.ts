@@ -1,59 +1,59 @@
-import * as engine from "ckeditor__ckeditor5-engine";
+import * as engine from 'ckeditor__ckeditor5-engine';
 
 declare let pattern: engine.view.MatcherPattern;
 
-pattern = {name: /^p/};
+pattern = { name: /^p/ };
 
 pattern = {
     attributes: {
-        title: "foobar",
+        title: 'foobar',
         foo: /^\w+/,
         bar: true,
-    }
-};
-
-pattern = {
-    classes: "foobar"
-};
-
-pattern = {
-    classes: /foo.../
-};
-
-pattern = {
-    classes: ["baz", "bar", /foo.../]
-};
-
-pattern = {
-    styles: {
-        position: "absolute",
-        color: /^\w*blue$/
-    }
-};
-
-pattern = {
-    name: "span",
-    styles: {
-        "font-weight": "bold"
     },
-    classes: "highlighted"
+};
+
+pattern = {
+    classes: 'foobar',
+};
+
+pattern = {
+    classes: /foo.../,
+};
+
+pattern = {
+    classes: ['baz', 'bar', /foo.../],
+};
+
+pattern = {
+    styles: {
+        position: 'absolute',
+        color: /^\w*blue$/,
+    },
+};
+
+pattern = {
+    name: 'span',
+    styles: {
+        'font-weight': 'bold',
+    },
+    classes: 'highlighted',
 };
 
 pattern = (element: engine.view.Element) => {
-    if (element.name === "div" && element.childCount > 0) {
-        return {name: true};
+    if (element.name === 'div' && element.childCount > 0) {
+        return { name: true };
     }
 
     return null;
 };
 
 pattern = (element: engine.view.Element) => {
-    if (element.name === "p") {
-        const fontSize = element.getStyle("font-size")!;
+    if (element.name === 'p') {
+        const fontSize = element.getStyle('font-size')!;
         const size = fontSize.match(/(\d+)/px);
 
         if (size && Number(size[1]) > 26) {
-            return {name: true, attribute: ["font-size"]};
+            return { name: true, attribute: ['font-size'] };
         }
     }
 
@@ -62,20 +62,20 @@ pattern = (element: engine.view.Element) => {
 
 declare let viewDefinition: engine.view.ElementDefinition;
 
-viewDefinition = "p";
+viewDefinition = 'p';
 
 viewDefinition = {
-    name: "h1",
-    classes: ["foo", "bar"],
+    name: 'h1',
+    classes: ['foo', 'bar'],
 };
 
 viewDefinition = {
-    name: "span",
+    name: 'span',
     styles: {
-        "font-size": "12px",
-        "font-weight": "bold",
+        'font-size': '12px',
+        'font-weight': 'bold',
     },
     attributes: {
-        "data-id": "123",
-    }
+        'data-id': '123',
+    },
 };

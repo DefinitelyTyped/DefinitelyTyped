@@ -1,4 +1,3 @@
-
 /// <reference types="express-session" />
 
 import express = require('express');
@@ -9,16 +8,18 @@ import easySession = require('easy-session'); // Require the module : line 1
 var app = express();
 
 app.use(cookieParser('secreet'));
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-}));
+app.use(
+    session({
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: true,
+    }),
+);
 app.use(easySession.main(session));
 
 app.get('/login', function (req, res, next) {
-    req.session.login('user', {email: 'email'}, function (err) {
-        if(err) {
+    req.session.login('user', { email: 'email' }, function (err) {
+        if (err) {
             res.send(500);
             return;
         }
@@ -28,7 +29,7 @@ app.get('/login', function (req, res, next) {
 
 app.post('/logout', function (req, res, next) {
     req.session.logout(function (err) {
-        if(err) {
+        if (err) {
             res.send(500);
             return;
         }

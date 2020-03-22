@@ -1,6 +1,3 @@
-
-
-
 declare const ngProgress: NgProgress.INgProgress;
 
 ngProgress.start();
@@ -11,4 +8,3 @@ ngProgress.stop();
 ngProgress.set(50);
 ngProgress.reset();
 ngProgress.complete();
-

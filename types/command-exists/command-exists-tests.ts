@@ -5,7 +5,7 @@ commandExists('ls', (err, commandExists) => {
     commandExists;
 });
 
-commandExists('ls').then(command => {
+commandExists('ls').then((command) => {
     // $ExpectType string
     command;
 });

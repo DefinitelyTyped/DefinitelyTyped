@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import express = require("express");
-import mongoose = require("mongoose");
+import express = require('express');
+import mongoose = require('mongoose');
 
 export = resourcejs;
 
@@ -13,7 +13,8 @@ declare function resourcejs(
     app: express.Application,
     route: string,
     modelName: string,
-    model: mongoose.Model<mongoose.Document>): resourcejs.ResourceEndpoint;
+    model: mongoose.Model<mongoose.Document>,
+): resourcejs.ResourceEndpoint;
 
 declare namespace resourcejs {
     type HttpHandler = (req: Request, res: Response, next: express.NextFunction) => void;
@@ -60,7 +61,8 @@ declare namespace resourcejs {
             path: string,
             callback: (...args: any[]) => any,
             last: (...args: any[]) => any,
-            options: object) => any;
+            options: object,
+        ) => any;
 
         respond: HttpHandler;
         setResponse: HttpHandler;

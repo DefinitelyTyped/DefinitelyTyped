@@ -1,7 +1,7 @@
-import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { EmbeddedIconProps, ReactDivAttr } from '../../../typings/shared';
 
-interface InheritedProps extends ReactDivAttr, EmbeddedIconProps { }
+interface InheritedProps extends ReactDivAttr, EmbeddedIconProps {}
 
 export type InlineLoadingStatus = 'active' | 'error' | 'finished' | 'inactive';
 export interface InlineLoadingProps extends InheritedProps {

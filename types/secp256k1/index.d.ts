@@ -8,8 +8,13 @@
 /** Options for the `sign` function */
 export interface SignOptions {
     /** Nonce generator. By default it is rfc6979 */
-    noncefn?: (message: Uint8Array, privateKey: Uint8Array, algo: Uint8Array | null,
-               data: Uint8Array | null, attempt: number) => Uint8Array;
+    noncefn?: (
+        message: Uint8Array,
+        privateKey: Uint8Array,
+        algo: Uint8Array | null,
+        data: Uint8Array | null,
+        attempt: number,
+    ) => Uint8Array;
 
     /**
      * Additional data for noncefn (RFC 6979 3.6) (32 bytes).
@@ -115,7 +120,11 @@ export function signatureImport(signature: Uint8Array): Uint8Array;
  * - Compose 32-byte scalar `s = k^-1 * (r * d + m)`. Reject nonce if `s` is zero.
  * - The signature is `(r, s)`.
  */
-export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?: SignOptions): {signature: Uint8Array, recovery: number};
+export function ecdsaSign(
+    message: Uint8Array,
+    privateKey: Uint8Array,
+    options?: SignOptions,
+): { signature: Uint8Array; recovery: number };
 
 /**
  * Verify an ECDSA signature.
@@ -133,7 +142,12 @@ export function ecdsaVerify(signature: Uint8Array, message: Uint8Array, publicKe
 /**
  * Recover an ECDSA public key from a signature.
  */
-export function ecdsaRecover(signature: Uint8Array, recovery: number, message: Uint8Array, compressed?: boolean): Uint8Array;
+export function ecdsaRecover(
+    signature: Uint8Array,
+    recovery: number,
+    message: Uint8Array,
+    compressed?: boolean,
+): Uint8Array;
 
 /**
  * Compute an EC Diffie-Hellman secret and applied sha256 to compressed public key.

@@ -57,50 +57,94 @@ export interface ExponentialOptions extends Options {
  * @param callback: function's callback accepting an error as its first argument
  *
  */
-export function call<R1, R2, R3, E>(wrappedFunction: (cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
-                                    callback: (error: E, r1: R1, r2: R2, r3: R3) => void): TypedFunctionCall<undefined[], E, R1, R2, R3>;
-export function call<R1, R2, E>(wrappedFunction: (cb: (err: E, r1: R1, r2: R2) => void) => void,
-                                callback: (error: E, r1: R1, r2: R2) => void): TypedFunctionCall<undefined[], E, R1, R2>;
-export function call<R1, E>(wrappedFunction: (cb: (err: E, r1: R1) => void) => void,
-                            callback: (error: E, r1: R1) => void): TypedFunctionCall<undefined[], E, R1>;
-export function call<E>(wrappedFunction: (cb: (err: E) => void) => void,
-                        callback: (err: E) => void): TypedFunctionCall<undefined[], E>;
-export function call<T1, R1, R2, R3, E>(wrappedFunction: (t1: T1, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
-                                        t1: T1,
-                                        callback: (error: E, r1: R1, r2: R2, r3: R3) => void): TypedFunctionCall<[T1], E, R1, R2, R3>;
-export function call<T1, R1, R2, E>(wrappedFunction: (t1: T1, cb: (err: E, r1: R1, r2: R2) => void) => void,
-                                    t1: T1,
-                                    callback: (error: E, r1: R1, r2: R2) => void): TypedFunctionCall<[T1], E, R1, R2>;
-export function call<T1, R1, E>(wrappedFunction: (t1: T1, cb: (err: E, r1: R1) => void) => void,
-                                t1: T1,
-                                callback: (error: E, r1: R1) => void): TypedFunctionCall<[T1], E, R1>;
-export function call<T1, E>(wrappedFunction: (t1: T1, cb: (err: E) => void) => void,
-                            t1: T1,
-                            callback: (err: E) => void): TypedFunctionCall<[T1], E>;
-export function call<T1, T2, R1, R2, R3, E>(wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
-                                            t1: T1, t2: T2,
-                                            callback: (error: E, r1: R1, r2: R2, r3: R3) => void): TypedFunctionCall<[T1, T2], E, R1, R2, R3>;
-export function call<T1, T2, R1, R2, E>(wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1, r2: R2) => void) => void,
-                                        t1: T1, t2: T2,
-                                        callback: (error: E, r1: R1, r2: R2) => void): TypedFunctionCall<[T1, T2], E, R1, R2>;
-export function call<T1, T2, R1, E>(wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1) => void) => void,
-                                    t1: T1, t2: T2,
-                                    callback: (error: E, r1: R1) => void): TypedFunctionCall<[T1, T2], E, R1>;
-export function call<T1, T2, E>(wrappedFunction: (t1: T1, t2: T2, cb: (err: E) => void) => void,
-                                t1: T1, t2: T2,
-                                callback: (err: E) => void): TypedFunctionCall<[T1, T2], E>;
-export function call<T1, T2, T3, R1, R2, R3, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
-                                                t1: T1, t2: T2, t3: T3,
-                                                callback: (error: E, r1: R1, r2: R2, r3: R3) => void): TypedFunctionCall<[T1, T2, T3], E, R1, R2, R3>;
-export function call<T1, T2, T3, R1, R2, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1, r2: R2) => void) => void,
-                                            t1: T1, t2: T2, t3: T3,
-                                            callback: (error: E, r1: R1, r2: R2) => void): TypedFunctionCall<[T1, T2, T3], E, R1, R2>;
-export function call<T1, T2, T3, R1, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1) => void) => void,
-                                        t1: T1, t2: T2, t3: T3,
-                                        callback: (error: E, r1: R1) => void): TypedFunctionCall<[T1, T2, T3], E, R1>;
-export function call<T1, T2, T3, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E) => void) => void,
-                                    t1: T1, t2: T2, t3: T3,
-                                    callback: (err: E) => void): TypedFunctionCall<[T1, T2, T3], E>;
+export function call<R1, R2, R3, E>(
+    wrappedFunction: (cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
+    callback: (error: E, r1: R1, r2: R2, r3: R3) => void,
+): TypedFunctionCall<undefined[], E, R1, R2, R3>;
+export function call<R1, R2, E>(
+    wrappedFunction: (cb: (err: E, r1: R1, r2: R2) => void) => void,
+    callback: (error: E, r1: R1, r2: R2) => void,
+): TypedFunctionCall<undefined[], E, R1, R2>;
+export function call<R1, E>(
+    wrappedFunction: (cb: (err: E, r1: R1) => void) => void,
+    callback: (error: E, r1: R1) => void,
+): TypedFunctionCall<undefined[], E, R1>;
+export function call<E>(
+    wrappedFunction: (cb: (err: E) => void) => void,
+    callback: (err: E) => void,
+): TypedFunctionCall<undefined[], E>;
+export function call<T1, R1, R2, R3, E>(
+    wrappedFunction: (t1: T1, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
+    t1: T1,
+    callback: (error: E, r1: R1, r2: R2, r3: R3) => void,
+): TypedFunctionCall<[T1], E, R1, R2, R3>;
+export function call<T1, R1, R2, E>(
+    wrappedFunction: (t1: T1, cb: (err: E, r1: R1, r2: R2) => void) => void,
+    t1: T1,
+    callback: (error: E, r1: R1, r2: R2) => void,
+): TypedFunctionCall<[T1], E, R1, R2>;
+export function call<T1, R1, E>(
+    wrappedFunction: (t1: T1, cb: (err: E, r1: R1) => void) => void,
+    t1: T1,
+    callback: (error: E, r1: R1) => void,
+): TypedFunctionCall<[T1], E, R1>;
+export function call<T1, E>(
+    wrappedFunction: (t1: T1, cb: (err: E) => void) => void,
+    t1: T1,
+    callback: (err: E) => void,
+): TypedFunctionCall<[T1], E>;
+export function call<T1, T2, R1, R2, R3, E>(
+    wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
+    t1: T1,
+    t2: T2,
+    callback: (error: E, r1: R1, r2: R2, r3: R3) => void,
+): TypedFunctionCall<[T1, T2], E, R1, R2, R3>;
+export function call<T1, T2, R1, R2, E>(
+    wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1, r2: R2) => void) => void,
+    t1: T1,
+    t2: T2,
+    callback: (error: E, r1: R1, r2: R2) => void,
+): TypedFunctionCall<[T1, T2], E, R1, R2>;
+export function call<T1, T2, R1, E>(
+    wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1) => void) => void,
+    t1: T1,
+    t2: T2,
+    callback: (error: E, r1: R1) => void,
+): TypedFunctionCall<[T1, T2], E, R1>;
+export function call<T1, T2, E>(
+    wrappedFunction: (t1: T1, t2: T2, cb: (err: E) => void) => void,
+    t1: T1,
+    t2: T2,
+    callback: (err: E) => void,
+): TypedFunctionCall<[T1, T2], E>;
+export function call<T1, T2, T3, R1, R2, R3, E>(
+    wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
+    t1: T1,
+    t2: T2,
+    t3: T3,
+    callback: (error: E, r1: R1, r2: R2, r3: R3) => void,
+): TypedFunctionCall<[T1, T2, T3], E, R1, R2, R3>;
+export function call<T1, T2, T3, R1, R2, E>(
+    wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1, r2: R2) => void) => void,
+    t1: T1,
+    t2: T2,
+    t3: T3,
+    callback: (error: E, r1: R1, r2: R2) => void,
+): TypedFunctionCall<[T1, T2, T3], E, R1, R2>;
+export function call<T1, T2, T3, R1, E>(
+    wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1) => void) => void,
+    t1: T1,
+    t2: T2,
+    t3: T3,
+    callback: (error: E, r1: R1) => void,
+): TypedFunctionCall<[T1, T2, T3], E, R1>;
+export function call<T1, T2, T3, E>(
+    wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E) => void) => void,
+    t1: T1,
+    t2: T2,
+    t3: T3,
+    callback: (err: E) => void,
+): TypedFunctionCall<[T1, T2, T3], E>;
 export function call(wrappedFunction: (...args: any[]) => void, ...args: any[]): FunctionCallAny;
 
 export class Backoff extends EventEmitter {
@@ -283,64 +327,99 @@ export const FunctionCall: FunctionCallConstructor;
  * @param callback: fn's callback
  */
 export interface FunctionCallConstructor {
-    new <R1, R2, R3, E>(wrappedFunction: (cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
-                        args: undefined[],
-                        callback: (error: E, r1: R1, r2: R2, r3: R3) => void): TypedFunctionCall<undefined[], E, R1, R2, R3>;
-    new <R1, R2, E>(wrappedFunction: (cb: (err: E, r1: R1, r2: R2) => void) => void,
-                    args: undefined[],
-                    callback: (error: E, r1: R1, r2: R2) => void): TypedFunctionCall<undefined[], E, R1, R2>;
-    new <R1, E>(wrappedFunction: (cb: (err: E, r1: R1) => void) => void,
-                args: undefined[],
-                callback: (error: E, r1: R1) => void): TypedFunctionCall<undefined[], E, R1>;
-    new <E>(wrappedFunction: (cb: (err: E) => void) => void,
-            args: undefined[],
-            callback: (err: E) => void): TypedFunctionCall<undefined[], E>;
+    new <R1, R2, R3, E>(
+        wrappedFunction: (cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
+        args: undefined[],
+        callback: (error: E, r1: R1, r2: R2, r3: R3) => void,
+    ): TypedFunctionCall<undefined[], E, R1, R2, R3>;
+    new <R1, R2, E>(
+        wrappedFunction: (cb: (err: E, r1: R1, r2: R2) => void) => void,
+        args: undefined[],
+        callback: (error: E, r1: R1, r2: R2) => void,
+    ): TypedFunctionCall<undefined[], E, R1, R2>;
+    new <R1, E>(
+        wrappedFunction: (cb: (err: E, r1: R1) => void) => void,
+        args: undefined[],
+        callback: (error: E, r1: R1) => void,
+    ): TypedFunctionCall<undefined[], E, R1>;
+    new <E>(
+        wrappedFunction: (cb: (err: E) => void) => void,
+        args: undefined[],
+        callback: (err: E) => void,
+    ): TypedFunctionCall<undefined[], E>;
 
-    new <T1, R1, R2, R3, E>(wrappedFunction: (t1: T1, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
-                            args: [T1],
-                            callback: (error: E, r1: R1, r2: R2, r3: R3) => void): TypedFunctionCall<[T1], E, R1, R2, R3>;
-    new <T1, R1, R2, E>(wrappedFunction: (t1: T1, cb: (err: E, r1: R1, r2: R2) => void) => void,
-                        args: [T1],
-                        callback: (error: E, r1: R1, r2: R2) => void): TypedFunctionCall<[T1], E, R1, R2>;
-    new <T1, R1, E>(wrappedFunction: (t1: T1, cb: (err: E, r1: R1) => void) => void,
-                    args: [T1],
-                    callback: (error: E, r1: R1) => void): TypedFunctionCall<[T1], E, R1>;
-    new <T1, E>(wrappedFunction: (t1: T1, cb: (err: E) => void) => void,
-                args: [T1],
-                callback: (err: E) => void): TypedFunctionCall<[T1], E>;
+    new <T1, R1, R2, R3, E>(
+        wrappedFunction: (t1: T1, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
+        args: [T1],
+        callback: (error: E, r1: R1, r2: R2, r3: R3) => void,
+    ): TypedFunctionCall<[T1], E, R1, R2, R3>;
+    new <T1, R1, R2, E>(
+        wrappedFunction: (t1: T1, cb: (err: E, r1: R1, r2: R2) => void) => void,
+        args: [T1],
+        callback: (error: E, r1: R1, r2: R2) => void,
+    ): TypedFunctionCall<[T1], E, R1, R2>;
+    new <T1, R1, E>(
+        wrappedFunction: (t1: T1, cb: (err: E, r1: R1) => void) => void,
+        args: [T1],
+        callback: (error: E, r1: R1) => void,
+    ): TypedFunctionCall<[T1], E, R1>;
+    new <T1, E>(
+        wrappedFunction: (t1: T1, cb: (err: E) => void) => void,
+        args: [T1],
+        callback: (err: E) => void,
+    ): TypedFunctionCall<[T1], E>;
 
-    new <T1, T2, R1, R2, R3, E>(wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
-                                args: [T1, T2],
-                                callback: (error: E, r1: R1, r2: R2, r3: R3) => void): TypedFunctionCall<[T1, T2], E, R1, R2, R3>;
-    new <T1, T2, R1, R2, E>(wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1, r2: R2) => void) => void,
-                            args: [T1, T2],
-                            callback: (error: E, r1: R1, r2: R2) => void): TypedFunctionCall<[T1, T2], E, R1, R2>;
-    new <T1, T2, R1, E>(wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1) => void) => void,
-                        args: [T1, T2],
-                        callback: (error: E, r1: R1) => void): TypedFunctionCall<[T1, T2], E, R1>;
-    new <T1, T2, E>(wrappedFunction: (t1: T1, t2: T2, cb: (err: E) => void) => void,
-                    args: [T1, T2],
-                    callback: (err: E) => void): TypedFunctionCall<[T1, T2], E>;
+    new <T1, T2, R1, R2, R3, E>(
+        wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
+        args: [T1, T2],
+        callback: (error: E, r1: R1, r2: R2, r3: R3) => void,
+    ): TypedFunctionCall<[T1, T2], E, R1, R2, R3>;
+    new <T1, T2, R1, R2, E>(
+        wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1, r2: R2) => void) => void,
+        args: [T1, T2],
+        callback: (error: E, r1: R1, r2: R2) => void,
+    ): TypedFunctionCall<[T1, T2], E, R1, R2>;
+    new <T1, T2, R1, E>(
+        wrappedFunction: (t1: T1, t2: T2, cb: (err: E, r1: R1) => void) => void,
+        args: [T1, T2],
+        callback: (error: E, r1: R1) => void,
+    ): TypedFunctionCall<[T1, T2], E, R1>;
+    new <T1, T2, E>(
+        wrappedFunction: (t1: T1, t2: T2, cb: (err: E) => void) => void,
+        args: [T1, T2],
+        callback: (err: E) => void,
+    ): TypedFunctionCall<[T1, T2], E>;
 
-    new <T1, T2, T3, R1, R2, R3, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
-                                    args: [T1, T2, T3],
-                                    callback: (error: E, r1: R1, r2: R2, r3: R3) => void): TypedFunctionCall<[T1, T2, T3], E, R1, R2, R3>;
-    new <T1, T2, T3, R1, R2, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1, r2: R2) => void) => void,
-                                args: [T1, T2, T3],
-                                callback: (error: E, r1: R1, r2: R2) => void): TypedFunctionCall<[T1, T2, T3], E, R1, R2>;
-    new <T1, T2, T3, R1, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1) => void) => void,
-                            args: [T1, T2, T3],
-                            callback: (error: E, r1: R1) => void): TypedFunctionCall<[T1, T2, T3], E, R1>;
-    new <T1, T2, T3, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E) => void) => void,
-                        args: [T1, T2, T3],
-                        callback: (err: E) => void): TypedFunctionCall<[T1, T2, T3], E>;
+    new <T1, T2, T3, R1, R2, R3, E>(
+        wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1, r2: R2, r3: R3) => void) => void,
+        args: [T1, T2, T3],
+        callback: (error: E, r1: R1, r2: R2, r3: R3) => void,
+    ): TypedFunctionCall<[T1, T2, T3], E, R1, R2, R3>;
+    new <T1, T2, T3, R1, R2, E>(
+        wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1, r2: R2) => void) => void,
+        args: [T1, T2, T3],
+        callback: (error: E, r1: R1, r2: R2) => void,
+    ): TypedFunctionCall<[T1, T2, T3], E, R1, R2>;
+    new <T1, T2, T3, R1, E>(
+        wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E, r1: R1) => void) => void,
+        args: [T1, T2, T3],
+        callback: (error: E, r1: R1) => void,
+    ): TypedFunctionCall<[T1, T2, T3], E, R1>;
+    new <T1, T2, T3, E>(
+        wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E) => void) => void,
+        args: [T1, T2, T3],
+        callback: (err: E) => void,
+    ): TypedFunctionCall<[T1, T2, T3], E>;
 
-    new (wrappedFunction: (...args: any[]) => void,
-         args: any[],
-         callback: (error: any, ...resArgs: any[]) => void): FunctionCallAny;
+    new (
+        wrappedFunction: (...args: any[]) => void,
+        args: any[],
+        callback: (error: any, ...resArgs: any[]) => void,
+    ): FunctionCallAny;
 }
 
-export type TypedFunctionCall<T, E, R1 = undefined, R2 = undefined, R3 = undefined> = FunctionCall<T> & FunctionCallArgs<E, R1, R2, R3>;
+export type TypedFunctionCall<T, E, R1 = undefined, R2 = undefined, R3 = undefined> = FunctionCall<T> &
+    FunctionCallArgs<E, R1, R2, R3>;
 export type FunctionCallAny = FunctionCall<any[]> & FunctionCallArgsAny;
 
 export interface FunctionCall<T> extends EventEmitter {

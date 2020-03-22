@@ -6,11 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import {
-    Action as ReduxAction,
-    Middleware,
-    Reducer
-} from 'redux';
+import { Action as ReduxAction, Middleware, Reducer } from 'redux';
 
 export const KEY: {
     readonly LIFECYCLE: 'redux-pack/LIFECYCLE';
@@ -60,8 +56,17 @@ export interface ActionMeta<TFullState = {}, TSuccessPayload = {}, TErrorPayload
     ['redux-pack/TRANSACTION']?: string;
 }
 
-export interface PackError { error: boolean; payload: any; }
-export interface Action<TFullState = {}, TSuccessPayload = {}, TErrorPayload = PackError, TStartPayload = {}, TMetaPayload = {}> extends ReduxAction {
+export interface PackError {
+    error: boolean;
+    payload: any;
+}
+export interface Action<
+    TFullState = {},
+    TSuccessPayload = {},
+    TErrorPayload = PackError,
+    TStartPayload = {},
+    TMetaPayload = {}
+> extends ReduxAction {
     promise?: Promise<TSuccessPayload>;
     payload?: TSuccessPayload | TErrorPayload | TStartPayload;
     meta?: ActionMeta<TFullState, TSuccessPayload, TErrorPayload, TStartPayload> & TMetaPayload;
@@ -70,7 +75,9 @@ export interface Action<TFullState = {}, TSuccessPayload = {}, TErrorPayload = P
     error?: boolean | null;
 }
 
-export interface TFullState { [key: string]: any; }
+export interface TFullState {
+    [key: string]: any;
+}
 export function handle<TState, TSuccessPayload, TErrorPayload, TStartPayload, TMetaPayload>(
     state: TState,
     action: Action<TFullState, TSuccessPayload, TErrorPayload, TStartPayload, TMetaPayload>,

@@ -6,7 +6,7 @@
 
 /// <reference types="jquery"/>
 
-interface TruncateOptions{
+interface TruncateOptions {
     length?: number;
     stripTags?: boolean;
     words?: boolean;
@@ -14,10 +14,10 @@ interface TruncateOptions{
     ellipsis?: string;
 }
 
-interface JQuery{
-    truncate(options: TruncateOptions) : JQuery;
+interface JQuery {
+    truncate(options: TruncateOptions): JQuery;
 }
 
 interface JQueryStatic {
-    truncate(html: string, options: TruncateOptions) : string;
+    truncate(html: string, options: TruncateOptions): string;
 }

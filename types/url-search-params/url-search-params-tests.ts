@@ -1,22 +1,22 @@
-import URLSearchParams = require("url-search-params");
+import URLSearchParams = require('url-search-params');
 
-new URLSearchParams([["1", "2"]]);
-new URLSearchParams({ x: "y" });
+new URLSearchParams([['1', '2']]);
+new URLSearchParams({ x: 'y' });
 new URLSearchParams();
 new URLSearchParams(new URLSearchParams());
 
-const params = new URLSearchParams("a=1&b=2");
+const params = new URLSearchParams('a=1&b=2');
 
-params.append("b", "3");
-params.delete("a");
-params.delete("c");
-params.get("b");
-params.get("d");
-params.getAll("b");
-params.has("b");
+params.append('b', '3');
+params.delete('a');
+params.delete('c');
+params.get('b');
+params.get('d');
+params.getAll('b');
+params.has('b');
 params.keys();
-params.set("b", "4");
-params.set("c", "5");
+params.set('b', '4');
+params.set('c', '5');
 params.toString();
 params.values();
 

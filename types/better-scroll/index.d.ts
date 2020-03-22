@@ -44,21 +44,21 @@ export interface PullUpOption {
 }
 
 export interface MouseWheelOption {
-  speed: number;
-  invert: boolean;
-  easeTime: number;
+    speed: number;
+    invert: boolean;
+    easeTime: number;
 }
 
 export interface ZoomOption {
-  start: number;
-  min: number;
-  max: number;
+    start: number;
+    min: number;
+    max: number;
 }
 
 export interface InfinityOption {
-  fetch: (count: number) => void;
-  render: (item: any, div: Element) => Element;
-  createTombstone: () => Element;
+    fetch: (count: number) => void;
+    render: (item: any, div: Element) => Element;
+    createTombstone: () => Element;
 }
 
 export interface BounceObjectOption {
@@ -69,7 +69,7 @@ export interface BounceObjectOption {
 }
 
 export interface DoubleClick {
-  delay: number;
+    delay: number;
 }
 
 export interface EaseOption {
@@ -214,7 +214,13 @@ export default class BScroll {
 
     scrollTo(x: number, y: number, time?: number, easing?: object): void;
 
-    scrollToElement(el: HTMLElement | string, time?: number, offsetX?: number | boolean, offsetY?: number | boolean, easing?: object): void;
+    scrollToElement(
+        el: HTMLElement | string,
+        time?: number,
+        offsetX?: number | boolean,
+        offsetY?: number | boolean,
+        easing?: object,
+    ): void;
 
     stop(): void;
 
@@ -238,41 +244,35 @@ export default class BScroll {
 
     on(
         type:
-            'beforeScrollStart' |
-            'scrollStart' |
-            'scrollCancel' |
-            'beforeScrollStart' |
-            'flick' |
-            'refresh' |
-            'destroy' |
-            'pullingDown' |
-            'pullingUp',
-        fn: () => any
+            | 'beforeScrollStart'
+            | 'scrollStart'
+            | 'scrollCancel'
+            | 'beforeScrollStart'
+            | 'flick'
+            | 'refresh'
+            | 'destroy'
+            | 'pullingDown'
+            | 'pullingUp',
+        fn: () => any,
     ): void;
 
-    on(
-        type:
-            'scroll' |
-            'scrollEnd' |
-            'touchEnd',
-        fn: (pos: Position) => any
-    ): void;
+    on(type: 'scroll' | 'scrollEnd' | 'touchEnd', fn: (pos: Position) => any): void;
 
     off(
         type:
-            'beforeScrollStart' |
-            'scrollStart' |
-            'scroll' |
-            'scrollCancel' |
-            'beforeScrollStart' |
-            'scrollEnd' |
-            'touchEnd' |
-            'flick' |
-            'refresh' |
-            'destroy' |
-            'pullingDown' |
-            'pullingUp',
-        fn: (...args: any[]) => void
+            | 'beforeScrollStart'
+            | 'scrollStart'
+            | 'scroll'
+            | 'scrollCancel'
+            | 'beforeScrollStart'
+            | 'scrollEnd'
+            | 'touchEnd'
+            | 'flick'
+            | 'refresh'
+            | 'destroy'
+            | 'pullingDown'
+            | 'pullingUp',
+        fn: (...args: any[]) => void,
     ): void;
 
     trigger(type: string): void;

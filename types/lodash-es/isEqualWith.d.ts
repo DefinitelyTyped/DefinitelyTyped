@@ -1,2 +1,2 @@
-import { isEqualWith } from "lodash";
+import { isEqualWith } from 'lodash';
 export default isEqualWith;

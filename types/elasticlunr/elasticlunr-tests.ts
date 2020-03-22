@@ -11,13 +11,13 @@ interface TestDocument {
 
 elasticlunr<TestDocument>();
 
-elasticlunr<TestDocument>(function() {
+elasticlunr<TestDocument>(function () {
     this.addField('field');
     this.setRef('id');
     this.saveDocument(true);
 });
 
-const index = elasticlunr<TestDocument>(ctx => {
+const index = elasticlunr<TestDocument>((ctx) => {
     ctx.addField('field');
     ctx.setRef('id');
     ctx.saveDocument(true);
@@ -96,9 +96,15 @@ elasticlunr.Index.load<TestDocument>({
 
 index.pipeline.add(() => '');
 
-index.pipeline.after(() => '', () => '');
+index.pipeline.after(
+    () => '',
+    () => '',
+);
 
-index.pipeline.before(() => '', () => '');
+index.pipeline.before(
+    () => '',
+    () => '',
+);
 
 assertType<elasticlunr.PipelineFunction[]>(index.pipeline.get());
 

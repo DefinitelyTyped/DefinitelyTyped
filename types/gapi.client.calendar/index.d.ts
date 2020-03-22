@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Calendar API v3 */
-    function load(name: "calendar", version: "v3"): PromiseLike<void>;
-    function load(name: "calendar", version: "v3", callback: () => any): void;
+    function load(name: 'calendar', version: 'v3'): PromiseLike<void>;
+    function load(name: 'calendar', version: 'v3', callback: () => any): void;
 
     const acl: calendar.AclResource;
 

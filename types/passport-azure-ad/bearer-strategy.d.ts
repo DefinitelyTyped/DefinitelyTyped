@@ -1,14 +1,10 @@
-import * as passport from "passport";
-import { Request } from "express";
-import { IBaseStrategyOption, ITokenPayload, VerifyCallback } from "./common";
+import * as passport from 'passport';
+import { Request } from 'express';
+import { IBaseStrategyOption, ITokenPayload, VerifyCallback } from './common';
 
 export type VerifyBearerFunction = (token: ITokenPayload, done: VerifyCallback) => void;
 
-export type VerifyBearerFunctionWithReq = (
-    req: Request,
-    token: ITokenPayload,
-    done: VerifyCallback
-) => void;
+export type VerifyBearerFunctionWithReq = (req: Request, token: ITokenPayload, done: VerifyCallback) => void;
 
 export interface IBearerStrategyOption extends IBaseStrategyOption {
     audience?: string | string[];
@@ -22,10 +18,7 @@ export interface IBearerStrategyOptionWithRequest extends IBearerStrategyOption 
 }
 
 export class BearerStrategy implements passport.Strategy {
-    constructor(
-        options: IBearerStrategyOptionWithRequest,
-        verify: VerifyBearerFunctionWithReq
-    );
+    constructor(options: IBearerStrategyOptionWithRequest, verify: VerifyBearerFunctionWithReq);
     constructor(options: IBearerStrategyOption, verify: VerifyBearerFunction);
 
     name: string;

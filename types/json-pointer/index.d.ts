@@ -3,7 +3,6 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare function JSON_Pointer(object: Object): JSON_Pointer.JSON_PointerWrap;
 
 declare namespace JSON_Pointer {

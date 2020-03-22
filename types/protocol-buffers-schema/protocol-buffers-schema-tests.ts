@@ -1,4 +1,4 @@
-import schema from "protocol-buffers-schema";
+import schema from 'protocol-buffers-schema';
 
 const proto = `syntax = "proto2";
 

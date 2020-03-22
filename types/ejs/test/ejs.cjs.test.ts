@@ -15,16 +15,16 @@ let asyncResult: Promise<string>;
 let ejsAsyncFunction: ejs.AsyncTemplateFunction;
 
 const SimpleCallback = (err: any, html: string) => {
-	if (err) {
-		return null!;
-	}
-	return html;
+    if (err) {
+        return null!;
+    }
+    return html;
 };
 
 result = ejs.render(template);
 result = ejs.render(template, data);
 result = ejs.render(template, data, options);
-ejs.render('<% echo(\'foo\'); %>', {}, { outputFunctionName: 'echo' });
+ejs.render("<% echo('foo'); %>", {}, { outputFunctionName: 'echo' });
 
 result = ejs.renderFile(fileName, SimpleCallback);
 result = ejs.renderFile(fileName, data, SimpleCallback);

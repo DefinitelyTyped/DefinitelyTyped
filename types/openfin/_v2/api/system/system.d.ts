@@ -12,7 +12,13 @@ import { RVMInfo } from './rvm';
 import { RuntimeInfo } from './runtime-info';
 import { Entity, EntityInfo } from './entity';
 import { HostSpecs } from './host-specs';
-import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo, ServiceConfiguration } from './external-process';
+import {
+    ExternalProcessRequestType,
+    TerminateExternalRequestType,
+    ExternalConnection,
+    ExternalProcessInfo,
+    ServiceConfiguration,
+} from './external-process';
 import Transport from '../../transport/transport';
 import { CookieInfo, CookieOption } from './cookie';
 import { RegistryInfo } from './registry-info';
@@ -76,12 +82,12 @@ interface ServiceIdentifier {
  * @property { Time } times The numbers of milliseconds the CPU has spent in different modes.
  */
 /**
-* CrashReporterOption interface
-* @typedef { object } CrashReporterOption
-* @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
-*  the OpenFin reporting service on runtime shutdown
-* @property { boolean } isRunning check if it's running
-*/
+ * CrashReporterOption interface
+ * @typedef { object } CrashReporterOption
+ * @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
+ *  the OpenFin reporting service on runtime shutdown
+ * @property { boolean } isRunning check if it's running
+ */
 /**
  * DipRect interface
  * @typedef { object } DipRect
@@ -185,11 +191,11 @@ interface ServiceIdentifier {
  * @property { string } date The unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)"
  */
 /**
-* ManifestInfo interface
-* @typedef { object } ManifestInfo
-* @property { string } uuid The uuid of the application
-* @property { string } manifestUrl The runtime manifest URL
-*/
+ * ManifestInfo interface
+ * @typedef { object } ManifestInfo
+ * @property { string } uuid The uuid of the application
+ * @property { string } manifestUrl The runtime manifest URL
+ */
 /**
  * MonitorDetails interface
  * @typedef { object } MonitorDetails
@@ -326,16 +332,16 @@ interface ServiceIdentifier {
  * @property { object } [userAppConfigArgs] The user app configuration args
  */
 /**
-* ServiceIdentifier interface
-* @typedef { object } ServiceIdentifier
-* @property { string } name The name of the service
-*/
+ * ServiceIdentifier interface
+ * @typedef { object } ServiceIdentifier
+ * @property { string } name The name of the service
+ */
 /**
-* ServiceConfiguration interface
-* @typedef { object } ServiceConfiguration
-* @property { object } config The service configuration
-* @property { string } name The name of the service
-*/
+ * ServiceConfiguration interface
+ * @typedef { object } ServiceConfiguration
+ * @property { object } config The service configuration
+ * @property { string } name The name of the service
+ */
 /**
  * ShortCutConfig interface
  * @typedef { object } ShortCutConfig
@@ -744,19 +750,22 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     downloadAsset(appAsset: AppAssetInfo, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
     /**
-    * Downloads a version of the runtime.
-    * @param { RuntimeDownloadOptions } options - Download options.
-    * @param {Function} [progressListener] - called as the runtime is downloaded with progress information.
-    * @return {Promise.<void>}
-    * @tutorial System.downloadRuntime
-    */
-    downloadRuntime(options: RuntimeDownloadOptions, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
+     * Downloads a version of the runtime.
+     * @param { RuntimeDownloadOptions } options - Download options.
+     * @param {Function} [progressListener] - called as the runtime is downloaded with progress information.
+     * @return {Promise.<void>}
+     * @tutorial System.downloadRuntime
+     */
+    downloadRuntime(
+        options: RuntimeDownloadOptions,
+        progressListener: (progress: RuntimeDownloadProgress) => void,
+    ): Promise<void>;
     /**
-    * Download preload scripts from given URLs
-    * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.
-    * @return {Promise.Array<DownloadPreloadInfo>}
-    * @tutorial System.downloadPreloadScripts
-    */
+     * Download preload scripts from given URLs
+     * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.
+     * @return {Promise.Array<DownloadPreloadInfo>}
+     * @tutorial System.downloadPreloadScripts
+     */
     downloadPreloadScripts(scripts: Array<DownloadPreloadOption>): Promise<Array<DownloadPreloadInfo>>;
     /**
      * Retrieves an array of data (name, ids, bounds) for all application windows.

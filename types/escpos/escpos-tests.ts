@@ -1,9 +1,9 @@
 import { command, USB, Serial, Network, Console, Image, Printer, Screen, Server, Printer2 } from 'escpos';
 
-const usb  = new USB();
+const usb = new USB();
 const serial = new Serial(0, { baudRate: 9600, autoOpen: false });
-const network  = new Network('192.168.1.109', 8080);
-const consl  = new Console();
+const network = new Network('192.168.1.109', 8080);
+const consl = new Console();
 
 const image = new Image([]);
 
@@ -19,7 +19,7 @@ const screen = new Screen(serial, { encoding: 'GB18030' });
 
 usb.open((error: any) => {
     printer
-        .align("LT")
+        .align('LT')
         .barcode('1234567', 'EAN8')
         .beep(1, 10)
         .cashdraw(2)
@@ -92,7 +92,7 @@ usb.open(() => {
 });
 
 async function print() {
-    const device  = await USB.getDevice();
+    const device = await USB.getDevice();
     const printer = await Printer.create(device);
 
     printer.text('hello');

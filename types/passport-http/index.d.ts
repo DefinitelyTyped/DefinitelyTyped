@@ -7,8 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import passport = require("passport");
-import express = require("express");
+import passport = require('passport');
+import express = require('express');
 
 export interface BasicStrategyOptions<req extends boolean = boolean> {
     realm?: string;
@@ -30,11 +30,7 @@ export interface DigestValidateOptions {
     opaque: string;
 }
 
-export type BasicVerifyFunction = (
-    username: string,
-    password: string,
-    done: (error: any, user?: any) => void,
-) => any;
+export type BasicVerifyFunction = (username: string, password: string, done: (error: any, user?: any) => void) => any;
 
 export type BasicVerifyFunctionWithRequest = (
     req: express.Request,
@@ -43,15 +39,9 @@ export type BasicVerifyFunctionWithRequest = (
     done: (error: any, user?: any) => void,
 ) => any;
 
-export type DigestSecretFunction = (
-    username: string,
-    done: (error: any, user?: any, password?: any) => void,
-) => any;
+export type DigestSecretFunction = (username: string, done: (error: any, user?: any, password?: any) => void) => any;
 
-export type DigestValidateFunction = (
-    params: DigestValidateOptions,
-    done: (error: any, valid: boolean) => void,
-) => any;
+export type DigestValidateFunction = (params: DigestValidateOptions, done: (error: any, valid: boolean) => void) => any;
 
 export class BasicStrategy implements passport.Strategy {
     constructor(verify: BasicVerifyFunction);

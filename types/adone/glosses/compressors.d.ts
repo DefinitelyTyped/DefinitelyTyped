@@ -5,11 +5,16 @@ declare namespace adone {
     namespace compressor {
         namespace I {
             namespace zlib {
-                type TypedArray = Int8Array | Uint8Array
+                type TypedArray =
+                    | Int8Array
+                    | Uint8Array
                     | Uint8ClampedArray
-                    | Int16Array | Uint16Array
-                    | Int32Array | Uint32Array
-                    | Float32Array | Float64Array;
+                    | Int16Array
+                    | Uint16Array
+                    | Int32Array
+                    | Uint32Array
+                    | Float32Array
+                    | Float64Array;
 
                 interface CommonOptions {
                     flush?: number;
@@ -95,7 +100,10 @@ declare namespace adone {
             /**
              * Compresses the given string or buffer
              */
-            function compress(buf: string | Buffer, options: I.zlib.CompressOptions & { info: true }): Promise<I.zlib.GzipInfo>;
+            function compress(
+                buf: string | Buffer,
+                options: I.zlib.CompressOptions & { info: true },
+            ): Promise<I.zlib.GzipInfo>;
 
             /**
              * Compresses the given string or buffer
@@ -105,7 +113,10 @@ declare namespace adone {
             /**
              * Synchronously compreses the given string or buffer
              */
-            function compressSync(buf: string | Buffer, options: I.zlib.CompressOptions & { info: true }): I.zlib.GzipInfo;
+            function compressSync(
+                buf: string | Buffer,
+                options: I.zlib.CompressOptions & { info: true },
+            ): I.zlib.GzipInfo;
 
             /**
              * Synchronously compreses the given string or buffer
@@ -120,7 +131,10 @@ declare namespace adone {
             /**
              * Decompresses the given string or buffer
              */
-            function decompress(buf: string | Buffer, options: I.zlib.DecompressOptions & { info: true }): Promise<I.zlib.GunzipInfo>;
+            function decompress(
+                buf: string | Buffer,
+                options: I.zlib.DecompressOptions & { info: true },
+            ): Promise<I.zlib.GunzipInfo>;
 
             /**
              * Decompresses the given string or buffer
@@ -130,7 +144,10 @@ declare namespace adone {
             /**
              * Synchronously decompresses the given string or buffer
              */
-            function decompressSync(buf: string | Buffer, options: I.zlib.DecompressOptions & { info: true }): I.zlib.GunzipInfo;
+            function decompressSync(
+                buf: string | Buffer,
+                options: I.zlib.DecompressOptions & { info: true },
+            ): I.zlib.GunzipInfo;
 
             /**
              * Synchronously decompresses the given string or buffer
@@ -211,7 +228,10 @@ declare namespace adone {
             /**
              * Compresses the given string or buffer
              */
-            function compress(buf: string | Buffer, options: I.CompressOptions & { info: true }): Promise<I.DeflateInfo>;
+            function compress(
+                buf: string | Buffer,
+                options: I.CompressOptions & { info: true },
+            ): Promise<I.DeflateInfo>;
 
             /**
              * Compresses the given string or buffer
@@ -236,7 +256,10 @@ declare namespace adone {
             /**
              * Compresses data using deflate, and does not append a zlib header
              */
-            function rawCompress(buf: string | Buffer, options: I.CompressOptions & { info: true }): Promise<I.DeflateRawInfo>;
+            function rawCompress(
+                buf: string | Buffer,
+                options: I.CompressOptions & { info: true },
+            ): Promise<I.DeflateRawInfo>;
 
             /**
              * Compresses data using deflate, and does not append a zlib header
@@ -246,7 +269,10 @@ declare namespace adone {
             /**
              * Synchronously compresses data using deflate, and does not append a zlib header
              */
-            function rawCompressSync(buf: string | Buffer, options: I.CompressOptions & { info: true }): I.DeflateRawInfo;
+            function rawCompressSync(
+                buf: string | Buffer,
+                options: I.CompressOptions & { info: true },
+            ): I.DeflateRawInfo;
 
             /**
              * Synchronously compresses data using deflate, and does not append a zlib header
@@ -261,7 +287,10 @@ declare namespace adone {
             /**
              * Decomrpesses the given string of buffer
              */
-            function decompress(buf: string | Buffer, options: I.DecompressOptions & { info: true }): Promise<I.InflateInfo>;
+            function decompress(
+                buf: string | Buffer,
+                options: I.DecompressOptions & { info: true },
+            ): Promise<I.InflateInfo>;
 
             /**
              * Decomrpesses the given string of buffer
@@ -286,7 +315,10 @@ declare namespace adone {
             /**
              * Decompresses raw compressed data
              */
-            function rawDecompress(buf: string | Buffer, options: I.DecompressOptions & { info: true }): Promise<I.InflateRawInfo>;
+            function rawDecompress(
+                buf: string | Buffer,
+                options: I.DecompressOptions & { info: true },
+            ): Promise<I.InflateRawInfo>;
 
             /**
              * Decompresses raw compressed data
@@ -296,7 +328,10 @@ declare namespace adone {
             /**
              * Synchronously decompresses raw compressed data
              */
-            function rawDecompressSync(buf: string | Buffer, options: I.DecompressOptions & { info: true }): I.InflateRawInfo;
+            function rawDecompressSync(
+                buf: string | Buffer,
+                options: I.DecompressOptions & { info: true },
+            ): I.InflateRawInfo;
 
             /**
              * Synchronously decompresses raw compressed data
@@ -485,24 +520,25 @@ declare namespace adone {
 
         namespace I.lzma {
             interface Filter {
-                id: "LZMA_FILTERS_MAX"
-                | "LZMA_FILTER_ARM"
-                | "LZMA_FILTER_ARMTHUMB"
-                | "LZMA_FILTER_IA64"
-                | "LZMA_FILTER_POWERPC"
-                | "LZMA_FILTER_SPARC"
-                | "LZMA_FILTER_X86"
-                | "LZMA_FILTER_LZMA1"
-                | "LZMA_FILTER_LZMA2";
+                id:
+                    | 'LZMA_FILTERS_MAX'
+                    | 'LZMA_FILTER_ARM'
+                    | 'LZMA_FILTER_ARMTHUMB'
+                    | 'LZMA_FILTER_IA64'
+                    | 'LZMA_FILTER_POWERPC'
+                    | 'LZMA_FILTER_SPARC'
+                    | 'LZMA_FILTER_X86'
+                    | 'LZMA_FILTER_LZMA1'
+                    | 'LZMA_FILTER_LZMA2';
             }
 
             interface DeltaFilter {
-                id: "LZMA_FILTER_DELTA";
+                id: 'LZMA_FILTER_DELTA';
                 dist?: number;
             }
 
             interface LZMAFilter {
-                id: "LZMA_FILTER_LZMA1" | "LZMA_FILTER_LZMA2";
+                id: 'LZMA_FILTER_LZMA1' | 'LZMA_FILTER_LZMA2';
 
                 /**
                  * Dictionary size indicates how many bytes of the recently processed
@@ -585,14 +621,15 @@ declare namespace adone {
 
             type Filters = Array<Filter | DeltaFilter | LZMAFilter>;
 
-            type Coder = "easyEncoder"
-                | "autoDecoder"
-                | "aloneEncoder"
-                | "aloneDecoder"
-                | "rawEncoder"
-                | "rawDecoder"
-                | "streamEncoder"
-                | "streamDecoder";
+            type Coder =
+                | 'easyEncoder'
+                | 'autoDecoder'
+                | 'aloneEncoder'
+                | 'aloneDecoder'
+                | 'rawEncoder'
+                | 'rawDecoder'
+                | 'streamEncoder'
+                | 'streamDecoder';
 
             interface AloneEncoderOptions {
                 /**
@@ -835,46 +872,46 @@ declare namespace adone {
              *
              * @param options preset or options
              */
-            function createStream(coder: "easyEncoder", options?: number | I.lzma.EasyEncoderOptions): I.lzma.Stream;
+            function createStream(coder: 'easyEncoder', options?: number | I.lzma.EasyEncoderOptions): I.lzma.Stream;
 
             /**
              * Returns a standard LZMA 1/2 (bith .xz and .lzma) decoder with auto detection of file format
              *
              * @param options preset or options
              */
-            function createStream(coder: "autoDecoder", options?: I.lzma.AutoDecoderOptions): I.lzma.Stream;
+            function createStream(coder: 'autoDecoder', options?: I.lzma.AutoDecoderOptions): I.lzma.Stream;
 
             /**
              * Returns a standard LZMA encoder
              *
              * @param options preset or options
              */
-            function createStream(coder: "aloneEncoder", options?: number | I.lzma.AloneEncoderOptions): I.lzma.Stream;
+            function createStream(coder: 'aloneEncoder', options?: number | I.lzma.AloneEncoderOptions): I.lzma.Stream;
 
             /**
              * Returns a standard LZMA decoder
              */
-            function createStream(coder: "aloneDecoder", options?: I.lzma.AloneDecoderOptions): I.lzma.Stream;
+            function createStream(coder: 'aloneDecoder', options?: I.lzma.AloneDecoderOptions): I.lzma.Stream;
 
             /**
              * Returns a custom encoder corresponding to lzma_raw_encoder
              */
-            function createStream(coder: "rawEncoder", options?: I.lzma.RawEncoderOptions): I.lzma.Stream;
+            function createStream(coder: 'rawEncoder', options?: I.lzma.RawEncoderOptions): I.lzma.Stream;
 
             /**
              * Returns a custom decoder corresponding to lzma_raw_decoder
              */
-            function createStream(coder: "rawDecoder", options?: I.lzma.RawDecoderOptions): I.lzma.Stream;
+            function createStream(coder: 'rawDecoder', options?: I.lzma.RawDecoderOptions): I.lzma.Stream;
 
             /**
              * Returns a custom encoder corresponding to lzma_stream_encoder
              */
-            function createStream(coder: "streamEncoder", options?: I.lzma.StreamEncoderOptions): I.lzma.Stream;
+            function createStream(coder: 'streamEncoder', options?: I.lzma.StreamEncoderOptions): I.lzma.Stream;
 
             /**
              * Returns a custom decoder corresponding to lzma_stream_decoder
              */
-            function createStream(coder: "streamDecoder", options?: I.lzma.StreamDecoderOptions): I.lzma.Stream;
+            function createStream(coder: 'streamDecoder', options?: I.lzma.StreamDecoderOptions): I.lzma.Stream;
 
             /**
              * Encodes the given string or buffer using the given stream
@@ -883,7 +920,7 @@ declare namespace adone {
                 stream: I.lzma.Stream,
                 string: string | Buffer,
                 onFinish?: (err: any, data: Buffer) => void,
-                onProgress?: (progress: number) => void
+                onProgress?: (progress: number) => void,
             ): Promise<Buffer>;
 
             const CHECK_CRC32: number;
@@ -1022,44 +1059,44 @@ declare namespace adone {
              *
              * @param options preset or options
              */
-            function createStream(coder: "easyEncoder", options?: number | I.lzma.EasyEncoderOptions): I.lzma.Stream;
+            function createStream(coder: 'easyEncoder', options?: number | I.lzma.EasyEncoderOptions): I.lzma.Stream;
 
             /**
              * Returns a standard LZMA 1/2 (bith .xz and .lzma) decoder with auto detection of file format
              */
-            function createStream(coder: "autoDecoder", options?: I.lzma.AutoDecoderOptions): I.lzma.Stream;
+            function createStream(coder: 'autoDecoder', options?: I.lzma.AutoDecoderOptions): I.lzma.Stream;
 
             /**
              * Returns a standard LZMA encoder
              *
              * @param options preset or options
              */
-            function createStream(coder: "aloneEncoder", options?: number | I.lzma.AloneEncoderOptions): I.lzma.Stream;
+            function createStream(coder: 'aloneEncoder', options?: number | I.lzma.AloneEncoderOptions): I.lzma.Stream;
 
             /**
              * Returns a standard LZMA decoder
              */
-            function createStream(coder: "aloneDecoder", options?: I.lzma.AloneDecoderOptions): I.lzma.Stream;
+            function createStream(coder: 'aloneDecoder', options?: I.lzma.AloneDecoderOptions): I.lzma.Stream;
 
             /**
              * Returns a custom encoder corresponding to lzma_raw_encoder
              */
-            function createStream(coder: "rawEncoder", options?: I.lzma.RawEncoderOptions): I.lzma.Stream;
+            function createStream(coder: 'rawEncoder', options?: I.lzma.RawEncoderOptions): I.lzma.Stream;
 
             /**
              * Returns a custom decoder corresponding to lzma_raw_decoder
              */
-            function createStream(coder: "rawDecoder", options?: I.lzma.RawDecoderOptions): I.lzma.Stream;
+            function createStream(coder: 'rawDecoder', options?: I.lzma.RawDecoderOptions): I.lzma.Stream;
 
             /**
              * Returns a custom encoder corresponding to lzma_stream_encoder
              */
-            function createStream(coder: "streamEncoder", options?: I.lzma.StreamEncoderOptions): I.lzma.Stream;
+            function createStream(coder: 'streamEncoder', options?: I.lzma.StreamEncoderOptions): I.lzma.Stream;
 
             /**
              * Returns a custom decoder corresponding to lzma_stream_decoder
              */
-            function createStream(coder: "streamDecoder", options?: I.lzma.StreamDecoderOptions): I.lzma.Stream;
+            function createStream(coder: 'streamDecoder', options?: I.lzma.StreamDecoderOptions): I.lzma.Stream;
 
             /**
              * Encodes the given string or buffer using the given stream
@@ -1068,7 +1105,7 @@ declare namespace adone {
                 stream: I.lzma.Stream,
                 string: string | Buffer,
                 onFinish?: (err: any, data: Buffer) => void,
-                onProgress?: (progress: number) => void
+                onProgress?: (progress: number) => void,
             ): Promise<Buffer>;
 
             const CHECK_CRC32: number;

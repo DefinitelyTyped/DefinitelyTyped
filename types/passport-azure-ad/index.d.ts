@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-export { ITokenPayload, VerifyCallback } from "./common";
+export { ITokenPayload, VerifyCallback } from './common';
 export {
     BearerStrategy,
     IBearerStrategyOption,
     IBearerStrategyOptionWithRequest,
     VerifyBearerFunction,
-    VerifyBearerFunctionWithReq
-} from "./bearer-strategy";
+    VerifyBearerFunctionWithReq,
+} from './bearer-strategy';
 export {
     OIDCStrategy,
     IOIDCStrategyOption,
@@ -19,5 +19,5 @@ export {
     IOIDCStrategyOptionWithoutRequest,
     IProfile,
     VerifyOIDCFunction,
-    VerifyOIDCFunctionWithReq
-} from "./oidc-strategy";
+    VerifyOIDCFunctionWithReq,
+} from './oidc-strategy';

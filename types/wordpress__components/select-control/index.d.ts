@@ -32,7 +32,7 @@ declare namespace SelectControl {
 }
 declare function SelectControl<T extends string | readonly string[]>(
     // tslint:disable-next-line:no-unnecessary-generics
-    props: SelectControl.Props<T>
+    props: SelectControl.Props<T>,
 ): JSX.Element;
 
 export default SelectControl;

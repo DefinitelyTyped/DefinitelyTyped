@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     namespace editor {
         namespace plugins {
             /**
@@ -18,7 +16,7 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "lang": string;
+                'lang': string;
                 /**
                  * Get the indices of the words. They are in one-to-one correspondence
                  *
@@ -48,34 +46,34 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -198,34 +196,34 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node icon.
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -343,51 +341,51 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix
                  * and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * The interval to perform the save action.
                  *
                  */
-                "interval": number;
+                'interval': number;
                 /**
                  * Boolean flag to indicate that the default action for save and
                  * error handlers is to just log to console.  Default is true.
                  *
                  */
-                "logResults": boolean;
+                'logResults': boolean;
                 /**
                  * The URL to POST the content back to.  Used by the save function.
                  *
                  */
-                "url": string;
+                'url': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -520,17 +518,21 @@ declare namespace dojox {
                  * @param params Hash of initialization parameters for widget, including scalar values (like title, duration etc.)and functions, typically callbacks like onClick.The hash can contain any of the widget's properties, excluding read-only properties.
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree
                  */
-                class _AutoSaveSettingDialog extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
+                class _AutoSaveSettingDialog extends dijit._Widget
+                    implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
                     constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -573,40 +575,55 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "btnCancel": string;
-                    set(property:"btnCancel", value: string): void;
-                    get(property:"btnCancel"): string;
-                    watch(property:"btnCancel", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'btnCancel': string;
+                    set(property: 'btnCancel', value: string): void;
+                    get(property: 'btnCancel'): string;
+                    watch(
+                        property: 'btnCancel',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "btnOk": string;
-                    set(property:"btnOk", value: string): void;
-                    get(property:"btnOk"): string;
-                    watch(property:"btnOk", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'btnOk': string;
+                    set(property: 'btnOk', value: string): void;
+                    get(property: 'btnOk'): string;
+                    watch(
+                        property: 'btnOk',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -630,43 +647,58 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Used to provide a context require to the dojo/parser in order to be
                      * able to use relative MIDs (e.g. ./Widget) in the widget's template.
                      *
                      */
-                    "contextRequire": Function;
-                    set(property:"contextRequire", value: Function): void;
-                    get(property:"contextRequire"): Function;
-                    watch(property:"contextRequire", callback:{(property?:string, oldValue?:Function, newValue?: Function):void}) :{unwatch():void}
+                    'contextRequire': Function;
+                    set(property: 'contextRequire', value: Function): void;
+                    get(property: 'contextRequire'): Function;
+                    watch(
+                        property: 'contextRequire',
+                        callback: { (property?: string, oldValue?: Function, newValue?: Function): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "dialogDescription": string;
-                    set(property:"dialogDescription", value: string): void;
-                    get(property:"dialogDescription"): string;
-                    watch(property:"dialogDescription", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dialogDescription': string;
+                    set(property: 'dialogDescription', value: string): void;
+                    get(property: 'dialogDescription'): string;
+                    watch(
+                        property: 'dialogDescription',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "dialogTitle": string;
-                    set(property:"dialogTitle", value: string): void;
-                    get(property:"dialogTitle"): string;
-                    watch(property:"dialogTitle", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dialogTitle': string;
+                    set(property: 'dialogTitle', value: string): void;
+                    get(property: 'dialogTitle'): string;
+                    watch(
+                        property: 'dialogTitle',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -674,19 +706,25 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -694,10 +732,13 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -705,72 +746,99 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "paramLabel": string;
-                    set(property:"paramLabel", value: string): void;
-                    get(property:"paramLabel"): string;
-                    watch(property:"paramLabel", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'paramLabel': string;
+                    set(property: 'paramLabel', value: string): void;
+                    get(property: 'paramLabel'): string;
+                    watch(
+                        property: 'paramLabel',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "paramName": string;
-                    set(property:"paramName", value: string): void;
-                    get(property:"paramName"): string;
-                    watch(property:"paramName", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'paramName': string;
+                    set(property: 'paramName', value: string): void;
+                    get(property: 'paramName'): string;
+                    watch(
+                        property: 'paramName',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -782,26 +850,35 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "widgetsInTemplate": boolean;
-                    set(property:"widgetsInTemplate", value: boolean): void;
-                    get(property:"widgetsInTemplate"): boolean;
-                    watch(property:"widgetsInTemplate", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'widgetsInTemplate': boolean;
+                    set(property: 'widgetsInTemplate', value: boolean): void;
+                    get(property: 'widgetsInTemplate'): boolean;
+                    watch(
+                        property: 'widgetsInTemplate',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -1257,7 +1334,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -1405,41 +1485,41 @@ declare namespace dojox {
                  * The toolbar containing the breadcrumb.
                  *
                  */
-                "breadcrumbBar": Object;
+                'breadcrumbBar': Object;
                 /**
                  * Pointer to dijit/form/Button or other widget (ex: dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -1556,10 +1636,13 @@ declare namespace dojox {
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -1602,26 +1685,35 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -1645,20 +1737,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -1666,19 +1764,25 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -1686,10 +1790,13 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -1697,65 +1804,89 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "menuTitle": string;
-                    set(property:"menuTitle", value: string): void;
-                    get(property:"menuTitle"): string;
-                    watch(property:"menuTitle", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'menuTitle': string;
+                    set(property: 'menuTitle', value: string): void;
+                    get(property: 'menuTitle'): string;
+                    watch(
+                        property: 'menuTitle',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -1767,19 +1898,25 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -2247,7 +2384,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -2388,34 +2528,34 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -2540,10 +2680,13 @@ declare namespace dojox {
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -2586,33 +2729,45 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "buttonClass": string;
-                    set(property:"buttonClass", value: string): void;
-                    get(property:"buttonClass"): string;
-                    watch(property:"buttonClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'buttonClass': string;
+                    set(property: 'buttonClass', value: string): void;
+                    get(property: 'buttonClass'): string;
+                    watch(
+                        property: 'buttonClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -2636,20 +2791,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -2657,19 +2818,25 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -2677,10 +2844,13 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -2688,88 +2858,121 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "text": string;
-                    set(property:"text", value: string): void;
-                    get(property:"text"): string;
-                    watch(property:"text", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'text': string;
+                    set(property: 'text', value: string): void;
+                    get(property: 'text'): string;
+                    watch(
+                        property: 'text',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "textClass": string;
-                    set(property:"textClass", value: string): void;
-                    get(property:"textClass"): string;
-                    watch(property:"textClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'textClass': string;
+                    set(property: 'textClass', value: string): void;
+                    get(property: 'textClass'): string;
+                    watch(
+                        property: 'textClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -3218,7 +3421,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -3358,19 +3564,25 @@ declare namespace dojox {
                  * True if mouse was pressed while over this widget, and hasn't been released yet
                  *
                  */
-                "active": boolean;
-                set(property:"active", value: boolean): void;
-                get(property:"active"): boolean;
-                watch(property:"active", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'active': boolean;
+                set(property: 'active', value: boolean): void;
+                get(property: 'active'): boolean;
+                watch(
+                    property: 'active',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
                  *
                  */
-                "attachScope": Object;
-                set(property:"attachScope", value: Object): void;
-                get(property:"attachScope"): Object;
-                watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attachScope': Object;
+                set(property: 'attachScope', value: Object): void;
+                get(property: 'attachScope'): Object;
+                watch(
+                    property: 'attachScope',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                  * for each XXX attribute to be mapped to the DOM.
@@ -3413,32 +3625,44 @@ declare namespace dojox {
                  * "" --> { node: "domNode", type: "attribute" }
                  *
                  */
-                "attributeMap": Object;
-                set(property:"attributeMap", value: Object): void;
-                get(property:"attributeMap"): Object;
-                watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attributeMap': Object;
+                set(property: 'attributeMap', value: Object): void;
+                get(property: 'attributeMap'): Object;
+                watch(
+                    property: 'attributeMap',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "baseClass": string;
-                set(property:"baseClass", value: string): void;
-                get(property:"baseClass"): string;
-                watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'baseClass': string;
+                set(property: 'baseClass', value: string): void;
+                get(property: 'baseClass'): string;
+                watch(
+                    property: 'baseClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * CSS class applied to each cell in the palette
                  *
                  */
-                "cellClass": string;
-                set(property:"cellClass", value: string): void;
-                get(property:"cellClass"): string;
-                watch(property:"cellClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'cellClass': string;
+                set(property: 'cellClass', value: string): void;
+                get(property: 'cellClass'): string;
+                watch(
+                    property: 'cellClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "class": string;
-                set(property:"class", value: string): void;
-                get(property:"class"): string;
-                watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'class': string;
+                set(property: 'class', value: string): void;
+                get(property: 'class'): string;
+                watch(
+                    property: 'class',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Designates where children of the source DOM node will be placed.
                  * "Children" in this case refers to both DOM nodes and widgets.
@@ -3462,10 +3686,13 @@ declare namespace dojox {
                  * is null for widgets that don't, like TextBox.
                  *
                  */
-                "containerNode": HTMLElement;
-                set(property:"containerNode", value: HTMLElement): void;
-                get(property:"containerNode"): HTMLElement;
-                watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'containerNode': HTMLElement;
+                set(property: 'containerNode', value: HTMLElement): void;
+                get(property: 'containerNode'): HTMLElement;
+                watch(
+                    property: 'containerNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * Subclasses may define a cssStateNodes property that lists sub-nodes within the widget that
                  * need CSS classes applied on mouse hover/press and focus.
@@ -3482,28 +3709,37 @@ declare namespace dojox {
                  * is hovered, etc.
                  *
                  */
-                "cssStateNodes": Object;
-                set(property:"cssStateNodes", value: Object): void;
-                get(property:"cssStateNodes"): Object;
-                watch(property:"cssStateNodes", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'cssStateNodes': Object;
+                set(property: 'cssStateNodes', value: Object): void;
+                get(property: 'cssStateNodes'): Object;
+                watch(
+                    property: 'cssStateNodes',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Number of milliseconds before a held key or button becomes typematic
                  *
                  */
-                "defaultTimeout": number;
-                set(property:"defaultTimeout", value: number): void;
-                get(property:"defaultTimeout"): number;
-                watch(property:"defaultTimeout", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                'defaultTimeout': number;
+                set(property: 'defaultTimeout', value: number): void;
+                get(property: 'defaultTimeout'): number;
+                watch(
+                    property: 'defaultTimeout',
+                    callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                ): { unwatch(): void };
                 /**
                  * Bi-directional support, as defined by the HTML DIR
                  * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                  * default direction.
                  *
                  */
-                "dir": string;
-                set(property:"dir", value: string): void;
-                get(property:"dir"): string;
-                watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'dir': string;
+                set(property: 'dir', value: string): void;
+                get(property: 'dir'): string;
+                watch(
+                    property: 'dir',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This is our visible representation of the widget! Other DOM
                  * Nodes may by assigned to other properties, usually through the
@@ -3511,27 +3747,36 @@ declare namespace dojox {
                  * property is the canonical "top level" node in widget UI.
                  *
                  */
-                "domNode": HTMLElement;
-                set(property:"domNode", value: HTMLElement): void;
-                get(property:"domNode"): HTMLElement;
-                watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'domNode': HTMLElement;
+                set(property: 'domNode', value: HTMLElement): void;
+                get(property: 'domNode'): HTMLElement;
+                watch(
+                    property: 'domNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * This widget or a widget it contains has focus, or is "active" because
                  * it was recently clicked.
                  *
                  */
-                "focused": boolean;
-                set(property:"focused", value: boolean): void;
-                get(property:"focused"): boolean;
-                watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'focused': boolean;
+                set(property: 'focused', value: boolean): void;
+                get(property: 'focused'): boolean;
+                watch(
+                    property: 'focused',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * True if cursor is over this widget
                  *
                  */
-                "hovering": boolean;
-                set(property:"hovering", value: boolean): void;
-                get(property:"hovering"): boolean;
-                watch(property:"hovering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'hovering': boolean;
+                set(property: 'hovering', value: boolean): void;
+                get(property: 'hovering'): boolean;
+                watch(
+                    property: 'hovering',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * A unique, opaque ID string that can be assigned by users or by the
                  * system. If the developer passes an ID which is known not to be
@@ -3539,10 +3784,13 @@ declare namespace dojox {
                  * used instead.
                  *
                  */
-                "id": string;
-                set(property:"id", value: string): void;
-                get(property:"id"): string;
-                watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'id': string;
+                set(property: 'id', value: string): void;
+                get(property: 'id'): string;
+                watch(
+                    property: 'id',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Rarely used.  Overrides the default Dojo locale used to render this widget,
                  * as defined by the HTML LANG attribute.
@@ -3550,77 +3798,104 @@ declare namespace dojox {
                  * formatted according to RFC 3066 (like en-us).
                  *
                  */
-                "lang": string;
-                set(property:"lang", value: string): void;
-                get(property:"lang"): string;
-                watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'lang': string;
+                set(property: 'lang', value: string): void;
+                get(property: 'lang'): string;
+                watch(
+                    property: 'lang',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * The document this widget belongs to.  If not specified to constructor, will default to
                  * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                  *
                  */
-                "ownerDocument": Object;
-                set(property:"ownerDocument", value: Object): void;
-                get(property:"ownerDocument"): Object;
-                watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'ownerDocument': Object;
+                set(property: 'ownerDocument', value: Object): void;
+                get(property: 'ownerDocument'): Object;
+                watch(
+                    property: 'ownerDocument',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "searchContainerNode": boolean;
-                set(property:"searchContainerNode", value: boolean): void;
-                get(property:"searchContainerNode"): boolean;
-                watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'searchContainerNode': boolean;
+                set(property: 'searchContainerNode', value: boolean): void;
+                get(property: 'searchContainerNode'): boolean;
+                watch(
+                    property: 'searchContainerNode',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * pointer to original DOM node
                  *
                  */
-                "srcNodeRef": HTMLElement;
-                set(property:"srcNodeRef", value: HTMLElement): void;
-                get(property:"srcNodeRef"): HTMLElement;
-                watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'srcNodeRef': HTMLElement;
+                set(property: 'srcNodeRef', value: HTMLElement): void;
+                get(property: 'srcNodeRef'): HTMLElement;
+                watch(
+                    property: 'srcNodeRef',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * HTML style attributes as cssText string or name/value hash
                  *
                  */
-                "style": string;
-                set(property:"style", value: string): void;
-                get(property:"style"): string;
-                watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'style': string;
+                set(property: 'style', value: string): void;
+                get(property: 'style'): string;
+                watch(
+                    property: 'style',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Widget tab index.
                  *
                  */
-                "tabIndex": string;
-                set(property:"tabIndex", value: string): void;
-                get(property:"tabIndex"): string;
-                watch(property:"tabIndex", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tabIndex': string;
+                set(property: 'tabIndex', value: string): void;
+                get(property: 'tabIndex'): string;
+                watch(
+                    property: 'tabIndex',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                  * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                  *
                  */
-                "templatePath": string;
-                set(property:"templatePath", value: string): void;
-                get(property:"templatePath"): string;
-                watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'templatePath': string;
+                set(property: 'templatePath', value: string): void;
+                get(property: 'templatePath'): string;
+                watch(
+                    property: 'templatePath',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * The template of this widget.
                  *
                  */
-                "templateString": string;
-                set(property:"templateString", value: string): void;
-                get(property:"templateString"): string;
-                watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'templateString': string;
+                set(property: 'templateString', value: string): void;
+                get(property: 'templateString'): string;
+                watch(
+                    property: 'templateString',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Fraction of time used to change the typematic timer between events
                  * 1.0 means that each typematic event fires at defaultTimeout intervals
                  * Less than 1.0 means that each typematic event fires at an increasing faster rate
                  *
                  */
-                "timeoutChangeRate": number;
-                set(property:"timeoutChangeRate", value: number): void;
-                get(property:"timeoutChangeRate"): number;
-                watch(property:"timeoutChangeRate", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                'timeoutChangeRate': number;
+                set(property: 'timeoutChangeRate', value: number): void;
+                get(property: 'timeoutChangeRate'): number;
+                watch(
+                    property: 'timeoutChangeRate',
+                    callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                ): { unwatch(): void };
                 /**
                  * HTML title attribute.
                  *
@@ -3632,27 +3907,36 @@ declare namespace dojox {
                  * interpreted as HTML.
                  *
                  */
-                "title": string;
-                set(property:"title", value: string): void;
-                get(property:"title"): string;
-                watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'title': string;
+                set(property: 'title', value: string): void;
+                get(property: 'title'): string;
+                watch(
+                    property: 'title',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                  * this specifies the tooltip to appear when the mouse is hovered over that text.
                  *
                  */
-                "tooltip": string;
-                set(property:"tooltip", value: string): void;
-                get(property:"tooltip"): string;
-                watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tooltip': string;
+                set(property: 'tooltip', value: string): void;
+                get(property: 'tooltip'): string;
+                watch(
+                    property: 'tooltip',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Currently selected color/emoticon/etc.
                  *
                  */
-                "value": string;
-                set(property:"value", value: string): void;
-                get(property:"value"): string;
-                watch(property:"value", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'value': string;
+                set(property: 'value', value: string): void;
+                get(property: 'value'): string;
+                watch(
+                    property: 'value',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This method is deprecated, use get() or set() directly.
                  *
@@ -4112,7 +4396,10 @@ declare namespace dojox {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(
+                    property: string,
+                    callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                ): { unwatch(): void };
                 /**
                  * Static method to get a template based on the templatePath or
                  * templateString key
@@ -4253,7 +4540,7 @@ declare namespace dojox {
                     /**
                      *
                      */
-                    "ascii": Object;
+                    'ascii': Object;
                     /**
                      *
                      * @param cell
@@ -4295,7 +4582,7 @@ declare namespace dojox {
                  * The toggle button
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * Define the class of button the editor uses.
                  *
@@ -4307,28 +4594,28 @@ declare namespace dojox {
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * The editor this plugin belongs to
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Deprecated.  Use this.own() with dojo/on or dojo/aspect.instead.
                  *
@@ -4437,17 +4724,21 @@ declare namespace dojox {
                  * @param params Hash of initialization parameters for widget, including scalar values (like title, duration etc.)and functions, typically callbacks like onClick.The hash can contain any of the widget's properties, excluding read-only properties.
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree
                  */
-                class _FindReplaceCheckBox extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
+                class _FindReplaceCheckBox extends dijit._Widget
+                    implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
                     constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -4490,34 +4781,46 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The id of the enhanced checkbox
                      *
                      */
-                    "checkId": string;
-                    set(property:"checkId", value: string): void;
-                    get(property:"checkId"): string;
-                    watch(property:"checkId", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'checkId': string;
+                    set(property: 'checkId', value: string): void;
+                    get(property: 'checkId'): string;
+                    watch(
+                        property: 'checkId',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -4541,29 +4844,38 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Used to provide a context require to the dojo/parser in order to be
                      * able to use relative MIDs (e.g. ./Widget) in the widget's template.
                      *
                      */
-                    "contextRequire": Function;
-                    set(property:"contextRequire", value: Function): void;
-                    get(property:"contextRequire"): Function;
-                    watch(property:"contextRequire", callback:{(property?:string, oldValue?:Function, newValue?: Function):void}) :{unwatch():void}
+                    'contextRequire': Function;
+                    set(property: 'contextRequire', value: Function): void;
+                    get(property: 'contextRequire'): Function;
+                    watch(
+                        property: 'contextRequire',
+                        callback: { (property?: string, oldValue?: Function, newValue?: Function): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -4571,19 +4883,25 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -4591,18 +4909,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The label of the enhanced checkbox
                      *
                      */
-                    "label": string;
-                    set(property:"label", value: string): void;
-                    get(property:"label"): string;
-                    watch(property:"label", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'label': string;
+                    set(property: 'label', value: string): void;
+                    get(property: 'label'): string;
+                    watch(
+                        property: 'label',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -4610,58 +4934,79 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -4673,32 +5018,44 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The tooltip of the enhanced checkbox when the mouse is hovering it
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "widget": Object;
-                    set(property:"widget", value: Object): void;
-                    get(property:"widget"): Object;
-                    watch(property:"widget", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'widget': Object;
+                    set(property: 'widget', value: Object): void;
+                    get(property: 'widget'): Object;
+                    watch(
+                        property: 'widget',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "widgetsInTemplate": boolean;
-                    set(property:"widgetsInTemplate", value: boolean): void;
-                    get(property:"widgetsInTemplate"): boolean;
-                    watch(property:"widgetsInTemplate", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'widgetsInTemplate': boolean;
+                    set(property: 'widgetsInTemplate', value: boolean): void;
+                    get(property: 'widgetsInTemplate'): boolean;
+                    watch(
+                        property: 'widgetsInTemplate',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -5143,7 +5500,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -5274,17 +5634,21 @@ declare namespace dojox {
                  * @param params Hash of initialization parameters for widget, including scalar values (like title, duration etc.)and functions, typically callbacks like onClick.The hash can contain any of the widget's properties, excluding read-only properties.
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree
                  */
-                class _FindReplaceCloseBox extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
+                class _FindReplaceCloseBox extends dijit._Widget
+                    implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
                     constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -5327,33 +5691,45 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "btnId": string;
-                    set(property:"btnId", value: string): void;
-                    get(property:"btnId"): string;
-                    watch(property:"btnId", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'btnId': string;
+                    set(property: 'btnId', value: string): void;
+                    get(property: 'btnId'): string;
+                    watch(
+                        property: 'btnId',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -5377,29 +5753,38 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Used to provide a context require to the dojo/parser in order to be
                      * able to use relative MIDs (e.g. ./Widget) in the widget's template.
                      *
                      */
-                    "contextRequire": Function;
-                    set(property:"contextRequire", value: Function): void;
-                    get(property:"contextRequire"): Function;
-                    watch(property:"contextRequire", callback:{(property?:string, oldValue?:Function, newValue?: Function):void}) :{unwatch():void}
+                    'contextRequire': Function;
+                    set(property: 'contextRequire', value: Function): void;
+                    get(property: 'contextRequire'): Function;
+                    watch(
+                        property: 'contextRequire',
+                        callback: { (property?: string, oldValue?: Function, newValue?: Function): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -5407,19 +5792,25 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -5427,10 +5818,13 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -5438,58 +5832,79 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -5501,33 +5916,45 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "widget": Object;
-                    set(property:"widget", value: Object): void;
-                    get(property:"widget"): Object;
-                    watch(property:"widget", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'widget': Object;
+                    set(property: 'widget', value: Object): void;
+                    get(property: 'widget'): Object;
+                    watch(
+                        property: 'widget',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "widgetsInTemplate": boolean;
-                    set(property:"widgetsInTemplate", value: boolean): void;
-                    get(property:"widgetsInTemplate"): boolean;
-                    watch(property:"widgetsInTemplate", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'widgetsInTemplate': boolean;
+                    set(property: 'widgetsInTemplate', value: boolean): void;
+                    get(property: 'widgetsInTemplate'): boolean;
+                    watch(
+                        property: 'widgetsInTemplate',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -5964,7 +6391,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -6094,17 +6524,21 @@ declare namespace dojox {
                  * @param params Hash of initialization parameters for widget, including scalar values (like title, duration etc.)and functions, typically callbacks like onClick.The hash can contain any of the widget's properties, excluding read-only properties.
                  * @param srcNodeRef       OptionalIf a srcNodeRef (DOM node) is specified:use srcNodeRef.innerHTML as my contentsif this is a behavioral widget then apply behavior to that srcNodeRefotherwise, replace srcNodeRef with my generated DOM tree
                  */
-                class _FindReplaceTextBox extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
+                class _FindReplaceTextBox extends dijit._Widget
+                    implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
                     constructor(params?: Object, srcNodeRef?: HTMLElement);
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -6147,26 +6581,35 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -6190,29 +6633,38 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Used to provide a context require to the dojo/parser in order to be
                      * able to use relative MIDs (e.g. ./Widget) in the widget's template.
                      *
                      */
-                    "contextRequire": Function;
-                    set(property:"contextRequire", value: Function): void;
-                    get(property:"contextRequire"): Function;
-                    watch(property:"contextRequire", callback:{(property?:string, oldValue?:Function, newValue?: Function):void}) :{unwatch():void}
+                    'contextRequire': Function;
+                    set(property: 'contextRequire', value: Function): void;
+                    get(property: 'contextRequire'): Function;
+                    watch(
+                        property: 'contextRequire',
+                        callback: { (property?: string, oldValue?: Function, newValue?: Function): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -6220,19 +6672,25 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -6240,18 +6698,24 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The label of the enhanced textbox
                      *
                      */
-                    "label": string;
-                    set(property:"label", value: string): void;
-                    get(property:"label"): string;
-                    watch(property:"label", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'label': string;
+                    set(property: 'label', value: string): void;
+                    get(property: 'label'): string;
+                    watch(
+                        property: 'label',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -6259,66 +6723,90 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The id of the enhanced textbox
                      *
                      */
-                    "textId": string;
-                    set(property:"textId", value: string): void;
-                    get(property:"textId"): string;
-                    watch(property:"textId", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'textId': string;
+                    set(property: 'textId', value: string): void;
+                    get(property: 'textId'): string;
+                    watch(
+                        property: 'textId',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -6330,40 +6818,55 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "toolTip": string;
-                    set(property:"toolTip", value: string): void;
-                    get(property:"toolTip"): string;
-                    watch(property:"toolTip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'toolTip': string;
+                    set(property: 'toolTip', value: string): void;
+                    get(property: 'toolTip'): string;
+                    watch(
+                        property: 'toolTip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "widget": Object;
-                    set(property:"widget", value: Object): void;
-                    get(property:"widget"): Object;
-                    watch(property:"widget", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'widget': Object;
+                    set(property: 'widget', value: Object): void;
+                    get(property: 'widget'): Object;
+                    watch(
+                        property: 'widget',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "widgetsInTemplate": boolean;
-                    set(property:"widgetsInTemplate", value: boolean): void;
-                    get(property:"widgetsInTemplate"): boolean;
-                    watch(property:"widgetsInTemplate", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'widgetsInTemplate': boolean;
+                    set(property: 'widgetsInTemplate', value: boolean): void;
+                    get(property: 'widgetsInTemplate'): boolean;
+                    watch(
+                        property: 'widgetsInTemplate',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -6812,7 +7315,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -6957,10 +7463,13 @@ declare namespace dojox {
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -7003,24 +7512,33 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -7044,20 +7562,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -7065,27 +7589,36 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * The currently focused child widget, or null if there isn't one
                      *
                      */
-                    "focusedChild": Object;
-                    set(property:"focusedChild", value: Object): void;
-                    get(property:"focusedChild"): Object;
-                    watch(property:"focusedChild", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'focusedChild': Object;
+                    set(property: 'focusedChild', value: Object): void;
+                    get(property: 'focusedChild'): Object;
+                    watch(
+                        property: 'focusedChild',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -7093,10 +7626,13 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -7104,10 +7640,13 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * If multiple characters are typed where each keystroke happens within
                      * multiCharSearchDuration of the previous keystroke,
@@ -7117,68 +7656,92 @@ declare namespace dojox {
                      * "ab" unless the delay between "a" and "b" is greater than multiCharSearchDuration.
                      *
                      */
-                    "multiCharSearchDuration": number;
-                    set(property:"multiCharSearchDuration", value: number): void;
-                    get(property:"multiCharSearchDuration"): number;
-                    watch(property:"multiCharSearchDuration", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                    'multiCharSearchDuration': number;
+                    set(property: 'multiCharSearchDuration', value: number): void;
+                    get(property: 'multiCharSearchDuration'): number;
+                    watch(
+                        property: 'multiCharSearchDuration',
+                        callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Tab index of the container; same as HTML tabIndex attribute.
                      * Note then when user tabs into the container, focus is immediately
                      * moved to the first item in the container.
                      *
                      */
-                    "tabIndex": string;
-                    set(property:"tabIndex", value: string): void;
-                    get(property:"tabIndex"): string;
-                    watch(property:"tabIndex", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tabIndex': string;
+                    set(property: 'tabIndex', value: string): void;
+                    get(property: 'tabIndex'): string;
+                    watch(
+                        property: 'tabIndex',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -7190,19 +7753,25 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Add a child to our _Container and prevent the default
                      * arrow key navigation function. This function may bring in
@@ -7738,7 +8307,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -7799,7 +8371,12 @@ declare namespace dojox {
                      * @param searchString
                      * @param numMatches
                      */
-                    onKeyboardSearch(item: dijit._WidgetBase, evt: Event, searchString: String, numMatches: number): void;
+                    onKeyboardSearch(
+                        item: dijit._WidgetBase,
+                        evt: Event,
+                        searchString: String,
+                        numMatches: number,
+                    ): void;
                     /**
                      * Connect to this function to receive notifications of keys being pressed down.
                      *
@@ -7892,34 +8469,34 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -8037,39 +8614,39 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * String used for templating the HTML to insert at the desired point.
                  *
                  */
-                "htmlTemplate": string;
+                'htmlTemplate': string;
                 /**
                  * The CSS class name for the button node icon.
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -8191,47 +8768,47 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * The amount to indent by.  Valid values are 1+.  This is combined with
                  * the indentUnits parameter to determine how much to indent or outdent
                  * by for regular text.  It does not affect lists.
                  *
                  */
-                "indentBy": number;
+                'indentBy': number;
                 /**
                  * The units to apply to the indent amount.  Usually 'px', but can also
                  * be em.
                  *
                  */
-                "indentUnits": string;
+                'indentUnits': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -8369,86 +8946,86 @@ declare namespace dojox {
                  * The complete URL of the image file is images/upload/test.jpg
                  *
                  */
-                "baseImageUrl": string;
+                'baseImageUrl': string;
                 /**
                  * Pointer to dijit/form/Button or other widget (ex: dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * Used for validating input as correct email address.  Taken from dojox.validate
                  *
                  */
-                "emailRegExp": string;
+                'emailRegExp': string;
                 /**
                  * Specify the types of images that are allowed to be uploaded.
                  * Note that the type checking on server is also very important!
                  *
                  */
-                "fileMask": string;
+                'fileMask': string;
                 /**
                  *
                  */
-                "htmlFieldName": string;
+                'htmlFieldName': string;
                 /**
                  * String used for templating the <img> HTML to insert at the desired point.
                  *
                  */
-                "htmlTemplate": string;
+                'htmlTemplate': string;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * Over-ride for template since this is an enhanced image dialog.
                  *
                  */
-                "linkDialogTemplate": string;
+                'linkDialogTemplate': string;
                 /**
                  * Tag used for the link type (img).
                  *
                  */
-                "tag": string;
+                'tag': string;
                 /**
                  * Indicate whether the user can upload a local image file onto the server.
                  * If it is set to true, the Browse button will be available.
                  *
                  */
-                "uploadable": boolean;
+                'uploadable': boolean;
                 /**
                  * The url targeted for uploading. Both absolute and relative URLs are OK.
                  *
                  */
-                "uploadUrl": string;
+                'uploadUrl': string;
                 /**
                  * Used to validate if the input is a valid image URL.
                  *
                  */
-                "urlRegExp": string;
+                'urlRegExp': string;
                 /**
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  *
                  */
@@ -8572,47 +9149,47 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * A boolean variable indicating if it should try to condense
                  * 'span''span''span' styles  when in css mode
                  * The default is true, it will try to combine where it can.
                  *
                  */
-                "condenseSpans": boolean;
+                'condenseSpans': boolean;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * A String variable indicating if it should use semantic tags 'b', 'i', etc, or
                  * CSS styling.  The default is semantic.
                  *
                  */
-                "mode": string;
+                'mode': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -8735,40 +9312,40 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  *
                  */
-                "entityMap": Object;
+                'entityMap': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * The indentBy property configures if the plugin should use a
                  * set number of spaces for indent (between 1-5), or just tab.
                  * The default value is -1, which means tab.
                  *
                  */
-                "indentBy": number;
+                'indentBy': number;
                 /**
                  * The lineLength property configures if the plugin should break up long
                  * text lines into N lines of 'lineLength' length.  This parameter does not
@@ -8776,11 +9353,11 @@ declare namespace dojox {
                  * which means unlimited line length.
                  *
                  */
-                "lineLength": number;
+                'lineLength': number;
                 /**
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -8907,45 +9484,45 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The height to use for the rich text area in the copy/pate dialog, in px.  Default is 300px.
                  *
                  */
-                "height": string;
+                'height': string;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix
                  * and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * The width to use for the rich text area in the copy/pate dialog, in px.  Default is 400px.
                  *
                  */
-                "width": string;
+                'width': string;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -9060,19 +9637,25 @@ declare namespace dojox {
                  * True if mouse was pressed while over this widget, and hasn't been released yet
                  *
                  */
-                "active": boolean;
-                set(property:"active", value: boolean): void;
-                get(property:"active"): boolean;
-                watch(property:"active", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'active': boolean;
+                set(property: 'active', value: boolean): void;
+                get(property: 'active'): boolean;
+                watch(
+                    property: 'active',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * Object to which attach points and events will be scoped.  Defaults
                  * to 'this'.
                  *
                  */
-                "attachScope": Object;
-                set(property:"attachScope", value: Object): void;
-                get(property:"attachScope"): Object;
-                watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attachScope': Object;
+                set(property: 'attachScope', value: Object): void;
+                get(property: 'attachScope'): Object;
+                watch(
+                    property: 'attachScope',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                  * for each XXX attribute to be mapped to the DOM.
@@ -9115,31 +9698,43 @@ declare namespace dojox {
                  * "" --> { node: "domNode", type: "attribute" }
                  *
                  */
-                "attributeMap": Object;
-                set(property:"attributeMap", value: Object): void;
-                get(property:"attributeMap"): Object;
-                watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attributeMap': Object;
+                set(property: 'attributeMap', value: Object): void;
+                get(property: 'attributeMap'): Object;
+                watch(
+                    property: 'attributeMap',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "baseClass": string;
-                set(property:"baseClass", value: string): void;
-                get(property:"baseClass"): string;
-                watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'baseClass': string;
+                set(property: 'baseClass', value: string): void;
+                get(property: 'baseClass'): string;
+                watch(
+                    property: 'baseClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "cellClass": string;
-                set(property:"cellClass", value: string): void;
-                get(property:"cellClass"): string;
-                watch(property:"cellClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'cellClass': string;
+                set(property: 'cellClass', value: string): void;
+                get(property: 'cellClass'): string;
+                watch(
+                    property: 'cellClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "class": string;
-                set(property:"class", value: string): void;
-                get(property:"class"): string;
-                watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'class': string;
+                set(property: 'class', value: string): void;
+                get(property: 'class'): string;
+                watch(
+                    property: 'class',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Designates where children of the source DOM node will be placed.
                  * "Children" in this case refers to both DOM nodes and widgets.
@@ -9163,10 +9758,13 @@ declare namespace dojox {
                  * is null for widgets that don't, like TextBox.
                  *
                  */
-                "containerNode": HTMLElement;
-                set(property:"containerNode", value: HTMLElement): void;
-                get(property:"containerNode"): HTMLElement;
-                watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'containerNode': HTMLElement;
+                set(property: 'containerNode', value: HTMLElement): void;
+                get(property: 'containerNode'): HTMLElement;
+                watch(
+                    property: 'containerNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * Subclasses may define a cssStateNodes property that lists sub-nodes within the widget that
                  * need CSS classes applied on mouse hover/press and focus.
@@ -9183,28 +9781,37 @@ declare namespace dojox {
                  * is hovered, etc.
                  *
                  */
-                "cssStateNodes": Object;
-                set(property:"cssStateNodes", value: Object): void;
-                get(property:"cssStateNodes"): Object;
-                watch(property:"cssStateNodes", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'cssStateNodes': Object;
+                set(property: 'cssStateNodes', value: Object): void;
+                get(property: 'cssStateNodes'): Object;
+                watch(
+                    property: 'cssStateNodes',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Number of milliseconds before a held key or button becomes typematic
                  *
                  */
-                "defaultTimeout": number;
-                set(property:"defaultTimeout", value: number): void;
-                get(property:"defaultTimeout"): number;
-                watch(property:"defaultTimeout", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                'defaultTimeout': number;
+                set(property: 'defaultTimeout', value: number): void;
+                get(property: 'defaultTimeout'): number;
+                watch(
+                    property: 'defaultTimeout',
+                    callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                ): { unwatch(): void };
                 /**
                  * Bi-directional support, as defined by the HTML DIR
                  * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                  * default direction.
                  *
                  */
-                "dir": string;
-                set(property:"dir", value: string): void;
-                get(property:"dir"): string;
-                watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'dir': string;
+                set(property: 'dir', value: string): void;
+                get(property: 'dir'): string;
+                watch(
+                    property: 'dir',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This is our visible representation of the widget! Other DOM
                  * Nodes may by assigned to other properties, usually through the
@@ -9212,34 +9819,46 @@ declare namespace dojox {
                  * property is the canonical "top level" node in widget UI.
                  *
                  */
-                "domNode": HTMLElement;
-                set(property:"domNode", value: HTMLElement): void;
-                get(property:"domNode"): HTMLElement;
-                watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'domNode': HTMLElement;
+                set(property: 'domNode', value: HTMLElement): void;
+                get(property: 'domNode'): HTMLElement;
+                watch(
+                    property: 'domNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "dyeClass": string;
-                set(property:"dyeClass", value: string): void;
-                get(property:"dyeClass"): string;
-                watch(property:"dyeClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'dyeClass': string;
+                set(property: 'dyeClass', value: string): void;
+                get(property: 'dyeClass'): string;
+                watch(
+                    property: 'dyeClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This widget or a widget it contains has focus, or is "active" because
                  * it was recently clicked.
                  *
                  */
-                "focused": boolean;
-                set(property:"focused", value: boolean): void;
-                get(property:"focused"): boolean;
-                watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'focused': boolean;
+                set(property: 'focused', value: boolean): void;
+                get(property: 'focused'): boolean;
+                watch(
+                    property: 'focused',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * True if cursor is over this widget
                  *
                  */
-                "hovering": boolean;
-                set(property:"hovering", value: boolean): void;
-                get(property:"hovering"): boolean;
-                watch(property:"hovering", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'hovering': boolean;
+                set(property: 'hovering', value: boolean): void;
+                get(property: 'hovering'): boolean;
+                watch(
+                    property: 'hovering',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * A unique, opaque ID string that can be assigned by users or by the
                  * system. If the developer passes an ID which is known not to be
@@ -9247,10 +9866,13 @@ declare namespace dojox {
                  * used instead.
                  *
                  */
-                "id": string;
-                set(property:"id", value: string): void;
-                get(property:"id"): string;
-                watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'id': string;
+                set(property: 'id', value: string): void;
+                get(property: 'id'): string;
+                watch(
+                    property: 'id',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Rarely used.  Overrides the default Dojo locale used to render this widget,
                  * as defined by the HTML LANG attribute.
@@ -9258,117 +9880,159 @@ declare namespace dojox {
                  * formatted according to RFC 3066 (like en-us).
                  *
                  */
-                "lang": string;
-                set(property:"lang", value: string): void;
-                get(property:"lang"): string;
-                watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'lang': string;
+                set(property: 'lang', value: string): void;
+                get(property: 'lang'): string;
+                watch(
+                    property: 'lang',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * The document this widget belongs to.  If not specified to constructor, will default to
                  * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                  *
                  */
-                "ownerDocument": Object;
-                set(property:"ownerDocument", value: Object): void;
-                get(property:"ownerDocument"): Object;
-                watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'ownerDocument': Object;
+                set(property: 'ownerDocument', value: Object): void;
+                get(property: 'ownerDocument'): Object;
+                watch(
+                    property: 'ownerDocument',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * The symbol pallete to display.  The only current one is 'latin'.
                  *
                  */
-                "palette": string;
-                set(property:"palette", value: string): void;
-                get(property:"palette"): string;
-                watch(property:"palette", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'palette': string;
+                set(property: 'palette', value: string): void;
+                get(property: 'palette'): string;
+                watch(
+                    property: 'palette',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "paletteClass": string;
-                set(property:"paletteClass", value: string): void;
-                get(property:"paletteClass"): string;
-                watch(property:"paletteClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'paletteClass': string;
+                set(property: 'paletteClass', value: string): void;
+                get(property: 'paletteClass'): string;
+                watch(
+                    property: 'paletteClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "searchContainerNode": boolean;
-                set(property:"searchContainerNode", value: boolean): void;
-                get(property:"searchContainerNode"): boolean;
-                watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'searchContainerNode': boolean;
+                set(property: 'searchContainerNode', value: boolean): void;
+                get(property: 'searchContainerNode'): boolean;
+                watch(
+                    property: 'searchContainerNode',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * Show the character code for the entity.
                  *
                  */
-                "showCode": boolean;
-                set(property:"showCode", value: boolean): void;
-                get(property:"showCode"): boolean;
-                watch(property:"showCode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'showCode': boolean;
+                set(property: 'showCode', value: boolean): void;
+                get(property: 'showCode'): boolean;
+                watch(
+                    property: 'showCode',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * Show the entity name for the entity.
                  *
                  */
-                "showEntityName": boolean;
-                set(property:"showEntityName", value: boolean): void;
-                get(property:"showEntityName"): boolean;
-                watch(property:"showEntityName", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'showEntityName': boolean;
+                set(property: 'showEntityName', value: boolean): void;
+                get(property: 'showEntityName'): boolean;
+                watch(
+                    property: 'showEntityName',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * Whether the preview pane will be displayed, to show details about the selected entity.
                  *
                  */
-                "showPreview": boolean;
-                set(property:"showPreview", value: boolean): void;
-                get(property:"showPreview"): boolean;
-                watch(property:"showPreview", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'showPreview': boolean;
+                set(property: 'showPreview', value: boolean): void;
+                get(property: 'showPreview'): boolean;
+                watch(
+                    property: 'showPreview',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * pointer to original DOM node
                  *
                  */
-                "srcNodeRef": HTMLElement;
-                set(property:"srcNodeRef", value: HTMLElement): void;
-                get(property:"srcNodeRef"): HTMLElement;
-                watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'srcNodeRef': HTMLElement;
+                set(property: 'srcNodeRef', value: HTMLElement): void;
+                get(property: 'srcNodeRef'): HTMLElement;
+                watch(
+                    property: 'srcNodeRef',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * HTML style attributes as cssText string or name/value hash
                  *
                  */
-                "style": string;
-                set(property:"style", value: string): void;
-                get(property:"style"): string;
-                watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'style': string;
+                set(property: 'style', value: string): void;
+                get(property: 'style'): string;
+                watch(
+                    property: 'style',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Widget tab index.
                  *
                  */
-                "tabIndex": string;
-                set(property:"tabIndex", value: string): void;
-                get(property:"tabIndex"): string;
-                watch(property:"tabIndex", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tabIndex': string;
+                set(property: 'tabIndex', value: string): void;
+                get(property: 'tabIndex'): string;
+                watch(
+                    property: 'tabIndex',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                  * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                  *
                  */
-                "templatePath": string;
-                set(property:"templatePath", value: string): void;
-                get(property:"templatePath"): string;
-                watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'templatePath': string;
+                set(property: 'templatePath', value: string): void;
+                get(property: 'templatePath'): string;
+                watch(
+                    property: 'templatePath',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * The basic template used to render the palette.
                  * Should generally be over-ridden to define different classes.
                  *
                  */
-                "templateString": string;
-                set(property:"templateString", value: string): void;
-                get(property:"templateString"): string;
-                watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'templateString': string;
+                set(property: 'templateString', value: string): void;
+                get(property: 'templateString'): string;
+                watch(
+                    property: 'templateString',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Fraction of time used to change the typematic timer between events
                  * 1.0 means that each typematic event fires at defaultTimeout intervals
                  * Less than 1.0 means that each typematic event fires at an increasing faster rate
                  *
                  */
-                "timeoutChangeRate": number;
-                set(property:"timeoutChangeRate", value: number): void;
-                get(property:"timeoutChangeRate"): number;
-                watch(property:"timeoutChangeRate", callback:{(property?:string, oldValue?:number, newValue?: number):void}) :{unwatch():void}
+                'timeoutChangeRate': number;
+                set(property: 'timeoutChangeRate', value: number): void;
+                get(property: 'timeoutChangeRate'): number;
+                watch(
+                    property: 'timeoutChangeRate',
+                    callback: { (property?: string, oldValue?: number, newValue?: number): void },
+                ): { unwatch(): void };
                 /**
                  * HTML title attribute.
                  *
@@ -9380,27 +10044,36 @@ declare namespace dojox {
                  * interpreted as HTML.
                  *
                  */
-                "title": string;
-                set(property:"title", value: string): void;
-                get(property:"title"): string;
-                watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'title': string;
+                set(property: 'title', value: string): void;
+                get(property: 'title'): string;
+                watch(
+                    property: 'title',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                  * this specifies the tooltip to appear when the mouse is hovered over that text.
                  *
                  */
-                "tooltip": string;
-                set(property:"tooltip", value: string): void;
-                get(property:"tooltip"): string;
-                watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tooltip': string;
+                set(property: 'tooltip', value: string): void;
+                get(property: 'tooltip'): string;
+                watch(
+                    property: 'tooltip',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Currently selected color/emoticon/etc.
                  *
                  */
-                "value": string;
-                set(property:"value", value: string): void;
-                get(property:"value"): string;
-                watch(property:"value", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'value': string;
+                set(property: 'value', value: string): void;
+                get(property: 'value'): string;
+                watch(
+                    property: 'value',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This method is deprecated, use get() or set() directly.
                  *
@@ -9854,7 +10527,10 @@ declare namespace dojox {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(
+                    property: string,
+                    callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                ): { unwatch(): void };
                 /**
                  * Static method to get a template based on the templatePath or
                  * templateString key
@@ -10025,34 +10701,34 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from
                  * iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -10168,43 +10844,43 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node icon.
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * A string of CSS styles to apply to the previewed content, if any.
                  *
                  */
-                "styles": string;
+                'styles': string;
                 /**
                  * An array of stylesheets to import into the preview, if any.
                  *
                  */
-                "stylesheets": any[];
+                'stylesheets': any[];
                 /**
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -10313,51 +10989,51 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "alwaysAvailable": boolean;
+                'alwaysAvailable': boolean;
                 /**
                  * Pointer to dijit/form/Button or other widget (ex: dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  *
                  */
-                "commandName": string;
+                'commandName': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  *
                  */
-                "undoEnabled": boolean;
+                'undoEnabled': boolean;
                 /**
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  *
                  */
@@ -10524,33 +11200,33 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -10673,46 +11349,46 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix
                  * and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * Boolean flag to indicate that the default action for save and
                  * error handlers is to just log to console.  Default is true.
                  *
                  */
-                "logResults": boolean;
+                'logResults': boolean;
                 /**
                  * The URL to POST the content back to.  Used by the save function.
                  *
                  */
-                "url": string;
+                'url': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -10855,45 +11531,45 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The height to use for the rich text area in the copy/pate dialog, in px.  Default is 300px.
                  *
                  */
-                "height": string;
+                'height': string;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix
                  * and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * The width to use for the rich text area in the copy/pate dialog, in px.  Default is 400px.
                  *
                  */
-                "width": string;
+                'width': string;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -11011,28 +11687,28 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  *
                  */
-                "emoticonImageClass": string;
+                'emoticonImageClass': string;
                 /**
                  * a marker for emoticon wrap like [:-)] for regexp convienent
                  * when a message which contains an emoticon stored in a database or view source, this marker include also
@@ -11040,17 +11716,17 @@ declare namespace dojox {
                  * also emoticon definition character set can not contains this marker
                  *
                  */
-                "emoticonMarker": string;
+                'emoticonMarker': string;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -11162,54 +11838,54 @@ declare namespace dojox {
                  * text into pieces so that the server-side piece can hold.
                  *
                  */
-                "bufferLength": number;
+                'bufferLength': number;
                 /**
                  * The button displayed on the editor's toolbar
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * Indicate if the interactive spelling check is enabled
                  *
                  */
-                "interactive": boolean;
+                'interactive': boolean;
                 /**
                  * The minutes to waiting for the response. The default value is 30 seconds.
                  *
                  */
-                "timeout": number;
+                'timeout': number;
                 /**
                  * The url of the spelling check service
                  *
                  */
-                "url": string;
+                'url': string;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -11331,31 +12007,31 @@ declare namespace dojox {
                     /**
                      *
                      */
-                    "ACTION_QUERY": string;
+                    'ACTION_QUERY': string;
                     /**
                      *
                      */
-                    "ACTION_UPDATE": string;
+                    'ACTION_UPDATE': string;
                     /**
                      *
                      */
-                    "callbackHandle": string;
+                    'callbackHandle': string;
                     /**
                      *
                      */
-                    "delimiter": string;
+                    'delimiter': string;
                     /**
                      *
                      */
-                    "label": string;
+                    'label': string;
                     /**
                      *
                      */
-                    "maxBufferLength": number;
+                    'maxBufferLength': number;
                     /**
                      *
                      */
-                    "SEC": number;
+                    'SEC': number;
                     /**
                      * Send the content to the service port with the specified action
                      *
@@ -11387,10 +12063,13 @@ declare namespace dojox {
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -11433,26 +12112,35 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -11476,29 +12164,38 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Used to provide a context require to the dojo/parser in order to be
                      * able to use relative MIDs (e.g. ./Widget) in the widget's template.
                      *
                      */
-                    "contextRequire": Function;
-                    set(property:"contextRequire", value: Function): void;
-                    get(property:"contextRequire"): Function;
-                    watch(property:"contextRequire", callback:{(property?:string, oldValue?:Function, newValue?: Function):void}) :{unwatch():void}
+                    'contextRequire': Function;
+                    set(property: 'contextRequire', value: Function): void;
+                    get(property: 'contextRequire'): Function;
+                    watch(
+                        property: 'contextRequire',
+                        callback: { (property?: string, oldValue?: Function, newValue?: Function): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -11506,19 +12203,25 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -11526,10 +12229,13 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -11537,58 +12243,79 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -11600,26 +12327,35 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "widgetsInTemplate": boolean;
-                    set(property:"widgetsInTemplate", value: boolean): void;
-                    get(property:"widgetsInTemplate"): boolean;
-                    watch(property:"widgetsInTemplate", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'widgetsInTemplate': boolean;
+                    set(property: 'widgetsInTemplate', value: boolean): void;
+                    get(property: 'widgetsInTemplate'): boolean;
+                    watch(
+                        property: 'widgetsInTemplate',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -12069,7 +12805,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -12239,46 +12978,46 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  * Flag indicating that a resizer should be shown or not.  Default is true.
                  * There are cases (such as using center pane border container to autoresize the editor
                  * That a resizer is not valued.
                  *
                  */
-                "resizer": boolean;
+                'resizer': boolean;
                 /**
                  * The status bar and resizer.
                  *
                  */
-                "statusBar": Object;
+                'statusBar': Object;
                 /**
                  * If true, this plugin executes by calling Editor.execCommand() with the argument specified in command.
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -12363,10 +13102,13 @@ declare namespace dojox {
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -12409,26 +13151,35 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -12452,20 +13203,26 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -12473,19 +13230,25 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -12493,10 +13256,13 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -12504,60 +13270,81 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Template for the widget.  Currently using table to get the alignment behavior and
                      * bordering I wanted.  Would prefer not to use table, though.
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -12569,19 +13356,25 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -13030,7 +13823,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -13173,7 +13969,7 @@ declare namespace dojox {
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  *
                  */
@@ -13184,27 +13980,27 @@ declare namespace dojox {
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  * The CSS class name for the button node is formed from iconClassPrefix and command
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Deprecated.  Use this.own() with dojo/on or dojo/aspect.instead.
                  *
@@ -13306,17 +14102,21 @@ declare namespace dojox {
                  * passthroughs to the value of the color picker and convenient hook points.
                  *
                  */
-                class _TextColorDropDown extends dijit._Widget implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
+                class _TextColorDropDown extends dijit._Widget
+                    implements dijit._TemplatedMixin, dijit._WidgetsInTemplateMixin {
                     constructor();
                     /**
                      * Object to which attach points and events will be scoped.  Defaults
                      * to 'this'.
                      *
                      */
-                    "attachScope": Object;
-                    set(property:"attachScope", value: Object): void;
-                    get(property:"attachScope"): Object;
-                    watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attachScope': Object;
+                    set(property: 'attachScope', value: Object): void;
+                    get(property: 'attachScope'): Object;
+                    watch(
+                        property: 'attachScope',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                      * for each XXX attribute to be mapped to the DOM.
@@ -13359,26 +14159,35 @@ declare namespace dojox {
                      * "" --> { node: "domNode", type: "attribute" }
                      *
                      */
-                    "attributeMap": Object;
-                    set(property:"attributeMap", value: Object): void;
-                    get(property:"attributeMap"): Object;
-                    watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'attributeMap': Object;
+                    set(property: 'attributeMap', value: Object): void;
+                    get(property: 'attributeMap'): Object;
+                    watch(
+                        property: 'attributeMap',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                      * widget state.
                      *
                      */
-                    "baseClass": string;
-                    set(property:"baseClass", value: string): void;
-                    get(property:"baseClass"): string;
-                    watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'baseClass': string;
+                    set(property: 'baseClass', value: string): void;
+                    get(property: 'baseClass'): string;
+                    watch(
+                        property: 'baseClass',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "class": string;
-                    set(property:"class", value: string): void;
-                    get(property:"class"): string;
-                    watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'class': string;
+                    set(property: 'class', value: string): void;
+                    get(property: 'class'): string;
+                    watch(
+                        property: 'class',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Designates where children of the source DOM node will be placed.
                      * "Children" in this case refers to both DOM nodes and widgets.
@@ -13402,29 +14211,38 @@ declare namespace dojox {
                      * is null for widgets that don't, like TextBox.
                      *
                      */
-                    "containerNode": HTMLElement;
-                    set(property:"containerNode", value: HTMLElement): void;
-                    get(property:"containerNode"): HTMLElement;
-                    watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'containerNode': HTMLElement;
+                    set(property: 'containerNode', value: HTMLElement): void;
+                    get(property: 'containerNode'): HTMLElement;
+                    watch(
+                        property: 'containerNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * Used to provide a context require to the dojo/parser in order to be
                      * able to use relative MIDs (e.g. ./Widget) in the widget's template.
                      *
                      */
-                    "contextRequire": Function;
-                    set(property:"contextRequire", value: Function): void;
-                    get(property:"contextRequire"): Function;
-                    watch(property:"contextRequire", callback:{(property?:string, oldValue?:Function, newValue?: Function):void}) :{unwatch():void}
+                    'contextRequire': Function;
+                    set(property: 'contextRequire', value: Function): void;
+                    get(property: 'contextRequire'): Function;
+                    watch(
+                        property: 'contextRequire',
+                        callback: { (property?: string, oldValue?: Function, newValue?: Function): void },
+                    ): { unwatch(): void };
                     /**
                      * Bi-directional support, as defined by the HTML DIR
                      * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                      * default direction.
                      *
                      */
-                    "dir": string;
-                    set(property:"dir", value: string): void;
-                    get(property:"dir"): string;
-                    watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'dir': string;
+                    set(property: 'dir', value: string): void;
+                    get(property: 'dir'): string;
+                    watch(
+                        property: 'dir',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * This is our visible representation of the widget! Other DOM
                      * Nodes may by assigned to other properties, usually through the
@@ -13432,19 +14250,25 @@ declare namespace dojox {
                      * property is the canonical "top level" node in widget UI.
                      *
                      */
-                    "domNode": HTMLElement;
-                    set(property:"domNode", value: HTMLElement): void;
-                    get(property:"domNode"): HTMLElement;
-                    watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'domNode': HTMLElement;
+                    set(property: 'domNode', value: HTMLElement): void;
+                    get(property: 'domNode'): HTMLElement;
+                    watch(
+                        property: 'domNode',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * This widget or a widget it contains has focus, or is "active" because
                      * it was recently clicked.
                      *
                      */
-                    "focused": boolean;
-                    set(property:"focused", value: boolean): void;
-                    get(property:"focused"): boolean;
-                    watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'focused': boolean;
+                    set(property: 'focused', value: boolean): void;
+                    get(property: 'focused'): boolean;
+                    watch(
+                        property: 'focused',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * A unique, opaque ID string that can be assigned by users or by the
                      * system. If the developer passes an ID which is known not to be
@@ -13452,10 +14276,13 @@ declare namespace dojox {
                      * used instead.
                      *
                      */
-                    "id": string;
-                    set(property:"id", value: string): void;
-                    get(property:"id"): string;
-                    watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'id': string;
+                    set(property: 'id', value: string): void;
+                    get(property: 'id'): string;
+                    watch(
+                        property: 'id',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Rarely used.  Overrides the default Dojo locale used to render this widget,
                      * as defined by the HTML LANG attribute.
@@ -13463,59 +14290,80 @@ declare namespace dojox {
                      * formatted according to RFC 3066 (like en-us).
                      *
                      */
-                    "lang": string;
-                    set(property:"lang", value: string): void;
-                    get(property:"lang"): string;
-                    watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'lang': string;
+                    set(property: 'lang', value: string): void;
+                    get(property: 'lang'): string;
+                    watch(
+                        property: 'lang',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The document this widget belongs to.  If not specified to constructor, will default to
                      * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                      *
                      */
-                    "ownerDocument": Object;
-                    set(property:"ownerDocument", value: Object): void;
-                    get(property:"ownerDocument"): Object;
-                    watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                    'ownerDocument': Object;
+                    set(property: 'ownerDocument', value: Object): void;
+                    get(property: 'ownerDocument'): Object;
+                    watch(
+                        property: 'ownerDocument',
+                        callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                    ): { unwatch(): void };
                     /**
                      *
                      */
-                    "searchContainerNode": boolean;
-                    set(property:"searchContainerNode", value: boolean): void;
-                    get(property:"searchContainerNode"): boolean;
-                    watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'searchContainerNode': boolean;
+                    set(property: 'searchContainerNode', value: boolean): void;
+                    get(property: 'searchContainerNode'): boolean;
+                    watch(
+                        property: 'searchContainerNode',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * pointer to original DOM node
                      *
                      */
-                    "srcNodeRef": HTMLElement;
-                    set(property:"srcNodeRef", value: HTMLElement): void;
-                    get(property:"srcNodeRef"): HTMLElement;
-                    watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                    'srcNodeRef': HTMLElement;
+                    set(property: 'srcNodeRef', value: HTMLElement): void;
+                    get(property: 'srcNodeRef'): HTMLElement;
+                    watch(
+                        property: 'srcNodeRef',
+                        callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML style attributes as cssText string or name/value hash
                      *
                      */
-                    "style": string;
-                    set(property:"style", value: string): void;
-                    get(property:"style"): string;
-                    watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'style': string;
+                    set(property: 'style', value: string): void;
+                    get(property: 'style'): string;
+                    watch(
+                        property: 'style',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                      * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                      *
                      */
-                    "templatePath": string;
-                    set(property:"templatePath", value: string): void;
-                    get(property:"templatePath"): string;
-                    watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templatePath': string;
+                    set(property: 'templatePath', value: string): void;
+                    get(property: 'templatePath'): string;
+                    watch(
+                        property: 'templatePath',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * The template used to create the ColorPicker.
                      *
                      */
-                    "templateString": string;
-                    set(property:"templateString", value: string): void;
-                    get(property:"templateString"): string;
-                    watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'templateString': string;
+                    set(property: 'templateString', value: string): void;
+                    get(property: 'templateString'): string;
+                    watch(
+                        property: 'templateString',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * HTML title attribute.
                      *
@@ -13527,27 +14375,36 @@ declare namespace dojox {
                      * interpreted as HTML.
                      *
                      */
-                    "title": string;
-                    set(property:"title", value: string): void;
-                    get(property:"title"): string;
-                    watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'title': string;
+                    set(property: 'title', value: string): void;
+                    get(property: 'title'): string;
+                    watch(
+                        property: 'title',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                      * this specifies the tooltip to appear when the mouse is hovered over that text.
                      *
                      */
-                    "tooltip": string;
-                    set(property:"tooltip", value: string): void;
-                    get(property:"tooltip"): string;
-                    watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                    'tooltip': string;
+                    set(property: 'tooltip', value: string): void;
+                    get(property: 'tooltip'): string;
+                    watch(
+                        property: 'tooltip',
+                        callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                    ): { unwatch(): void };
                     /**
                      * Flag denoting widgets are contained in the template.
                      *
                      */
-                    "widgetsInTemplate": boolean;
-                    set(property:"widgetsInTemplate", value: boolean): void;
-                    get(property:"widgetsInTemplate"): boolean;
-                    watch(property:"widgetsInTemplate", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                    'widgetsInTemplate': boolean;
+                    set(property: 'widgetsInTemplate', value: boolean): void;
+                    get(property: 'widgetsInTemplate'): boolean;
+                    watch(
+                        property: 'widgetsInTemplate',
+                        callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                    ): { unwatch(): void };
                     /**
                      * This method is deprecated, use get() or set() directly.
                      *
@@ -13989,7 +14846,10 @@ declare namespace dojox {
                      * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                      * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                      */
-                    watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                    watch(
+                        property: string,
+                        callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                    ): { unwatch(): void };
                     /**
                      * Static method to get a template based on the templatePath or
                      * templateString key
@@ -14138,44 +14998,44 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  *
                  */
-                "tempImageUrl": string;
+                'tempImageUrl': string;
                 /**
                  *
                  */
-                "uploadUrl": string;
+                'uploadUrl': string;
                 /**
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  * Class of widget (ex: dijit.form.Button or dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
@@ -14305,51 +15165,51 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "alwaysAvailable": boolean;
+                'alwaysAvailable': boolean;
                 /**
                  * Pointer to dijit/form/Button or other widget (ex: dijit/form/FilteringSelect)
                  * that is added to the toolbar to control this plugin.
                  * If not specified, will be created on initialization according to buttonClass
                  *
                  */
-                "button": Object;
+                'button': Object;
                 /**
                  * String like "insertUnorderedList", "outdent", "justifyCenter", etc. that represents an editor command.
                  * Passed to editor.execCommand() if useDefaultCommand is true.
                  *
                  */
-                "command": string;
+                'command': string;
                 /**
                  *
                  */
-                "commandName": string;
+                'commandName': string;
                 /**
                  * Flag to indicate if this plugin has been disabled and should do nothing
                  * helps control button state, among other things.  Set via the setter api.
                  *
                  */
-                "disabled": boolean;
+                'disabled': boolean;
                 /**
                  * Points to the parent editor
                  *
                  */
-                "editor": Object;
+                'editor': Object;
                 /**
                  *
                  */
-                "iconClassPrefix": string;
+                'iconClassPrefix': string;
                 /**
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  *
                  */
-                "undoEnabled": boolean;
+                'undoEnabled': boolean;
                 /**
                  *
                  */
-                "useDefaultCommand": boolean;
+                'useDefaultCommand': boolean;
                 /**
                  *
                  */
@@ -14512,10 +15372,13 @@ declare namespace dojox {
                  * to 'this'.
                  *
                  */
-                "attachScope": Object;
-                set(property:"attachScope", value: Object): void;
-                get(property:"attachScope"): Object;
-                watch(property:"attachScope", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attachScope': Object;
+                set(property: 'attachScope', value: Object): void;
+                get(property: 'attachScope'): Object;
+                watch(
+                    property: 'attachScope',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
                  * for each XXX attribute to be mapped to the DOM.
@@ -14558,26 +15421,35 @@ declare namespace dojox {
                  * "" --> { node: "domNode", type: "attribute" }
                  *
                  */
-                "attributeMap": Object;
-                set(property:"attributeMap", value: Object): void;
-                get(property:"attributeMap"): Object;
-                watch(property:"attributeMap", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'attributeMap': Object;
+                set(property: 'attributeMap', value: Object): void;
+                get(property: 'attributeMap'): Object;
+                watch(
+                    property: 'attributeMap',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  * Root CSS class of the widget (ex: dijitTextBox), used to construct CSS classes to indicate
                  * widget state.
                  *
                  */
-                "baseClass": string;
-                set(property:"baseClass", value: string): void;
-                get(property:"baseClass"): string;
-                watch(property:"baseClass", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'baseClass': string;
+                set(property: 'baseClass', value: string): void;
+                get(property: 'baseClass'): string;
+                watch(
+                    property: 'baseClass',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "class": string;
-                set(property:"class", value: string): void;
-                get(property:"class"): string;
-                watch(property:"class", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'class': string;
+                set(property: 'class', value: string): void;
+                get(property: 'class'): string;
+                watch(
+                    property: 'class',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Designates where children of the source DOM node will be placed.
                  * "Children" in this case refers to both DOM nodes and widgets.
@@ -14601,20 +15473,26 @@ declare namespace dojox {
                  * is null for widgets that don't, like TextBox.
                  *
                  */
-                "containerNode": HTMLElement;
-                set(property:"containerNode", value: HTMLElement): void;
-                get(property:"containerNode"): HTMLElement;
-                watch(property:"containerNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'containerNode': HTMLElement;
+                set(property: 'containerNode', value: HTMLElement): void;
+                get(property: 'containerNode'): HTMLElement;
+                watch(
+                    property: 'containerNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * Bi-directional support, as defined by the HTML DIR
                  * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
                  * default direction.
                  *
                  */
-                "dir": string;
-                set(property:"dir", value: string): void;
-                get(property:"dir"): string;
-                watch(property:"dir", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'dir': string;
+                set(property: 'dir', value: string): void;
+                get(property: 'dir'): string;
+                watch(
+                    property: 'dir',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This is our visible representation of the widget! Other DOM
                  * Nodes may by assigned to other properties, usually through the
@@ -14622,19 +15500,25 @@ declare namespace dojox {
                  * property is the canonical "top level" node in widget UI.
                  *
                  */
-                "domNode": HTMLElement;
-                set(property:"domNode", value: HTMLElement): void;
-                get(property:"domNode"): HTMLElement;
-                watch(property:"domNode", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'domNode': HTMLElement;
+                set(property: 'domNode', value: HTMLElement): void;
+                get(property: 'domNode'): HTMLElement;
+                watch(
+                    property: 'domNode',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * This widget or a widget it contains has focus, or is "active" because
                  * it was recently clicked.
                  *
                  */
-                "focused": boolean;
-                set(property:"focused", value: boolean): void;
-                get(property:"focused"): boolean;
-                watch(property:"focused", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'focused': boolean;
+                set(property: 'focused', value: boolean): void;
+                get(property: 'focused'): boolean;
+                watch(
+                    property: 'focused',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * A unique, opaque ID string that can be assigned by users or by the
                  * system. If the developer passes an ID which is known not to be
@@ -14642,10 +15526,13 @@ declare namespace dojox {
                  * used instead.
                  *
                  */
-                "id": string;
-                set(property:"id", value: string): void;
-                get(property:"id"): string;
-                watch(property:"id", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'id': string;
+                set(property: 'id', value: string): void;
+                get(property: 'id'): string;
+                watch(
+                    property: 'id',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Rarely used.  Overrides the default Dojo locale used to render this widget,
                  * as defined by the HTML LANG attribute.
@@ -14653,58 +15540,79 @@ declare namespace dojox {
                  * formatted according to RFC 3066 (like en-us).
                  *
                  */
-                "lang": string;
-                set(property:"lang", value: string): void;
-                get(property:"lang"): string;
-                watch(property:"lang", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'lang': string;
+                set(property: 'lang', value: string): void;
+                get(property: 'lang'): string;
+                watch(
+                    property: 'lang',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * The document this widget belongs to.  If not specified to constructor, will default to
                  * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
                  *
                  */
-                "ownerDocument": Object;
-                set(property:"ownerDocument", value: Object): void;
-                get(property:"ownerDocument"): Object;
-                watch(property:"ownerDocument", callback:{(property?:string, oldValue?:Object, newValue?: Object):void}) :{unwatch():void}
+                'ownerDocument': Object;
+                set(property: 'ownerDocument', value: Object): void;
+                get(property: 'ownerDocument'): Object;
+                watch(
+                    property: 'ownerDocument',
+                    callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "searchContainerNode": boolean;
-                set(property:"searchContainerNode", value: boolean): void;
-                get(property:"searchContainerNode"): boolean;
-                watch(property:"searchContainerNode", callback:{(property?:string, oldValue?:boolean, newValue?: boolean):void}) :{unwatch():void}
+                'searchContainerNode': boolean;
+                set(property: 'searchContainerNode', value: boolean): void;
+                get(property: 'searchContainerNode'): boolean;
+                watch(
+                    property: 'searchContainerNode',
+                    callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+                ): { unwatch(): void };
                 /**
                  * pointer to original DOM node
                  *
                  */
-                "srcNodeRef": HTMLElement;
-                set(property:"srcNodeRef", value: HTMLElement): void;
-                get(property:"srcNodeRef"): HTMLElement;
-                watch(property:"srcNodeRef", callback:{(property?:string, oldValue?:HTMLElement, newValue?: HTMLElement):void}) :{unwatch():void}
+                'srcNodeRef': HTMLElement;
+                set(property: 'srcNodeRef', value: HTMLElement): void;
+                get(property: 'srcNodeRef'): HTMLElement;
+                watch(
+                    property: 'srcNodeRef',
+                    callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+                ): { unwatch(): void };
                 /**
                  * HTML style attributes as cssText string or name/value hash
                  *
                  */
-                "style": string;
-                set(property:"style", value: string): void;
-                get(property:"style"): string;
-                watch(property:"style", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'style': string;
+                set(property: 'style', value: string): void;
+                get(property: 'style'): string;
+                watch(
+                    property: 'style',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * Path to template (HTML file) for this widget relative to dojo.baseUrl.
                  * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
                  *
                  */
-                "templatePath": string;
-                set(property:"templatePath", value: string): void;
-                get(property:"templatePath"): string;
-                watch(property:"templatePath", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'templatePath': string;
+                set(property: 'templatePath', value: string): void;
+                get(property: 'templatePath'): string;
+                watch(
+                    property: 'templatePath',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  *
                  */
-                "templateString": string;
-                set(property:"templateString", value: string): void;
-                get(property:"templateString"): string;
-                watch(property:"templateString", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'templateString': string;
+                set(property: 'templateString', value: string): void;
+                get(property: 'templateString'): string;
+                watch(
+                    property: 'templateString',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * HTML title attribute.
                  *
@@ -14716,19 +15624,25 @@ declare namespace dojox {
                  * interpreted as HTML.
                  *
                  */
-                "title": string;
-                set(property:"title", value: string): void;
-                get(property:"title"): string;
-                watch(property:"title", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'title': string;
+                set(property: 'title', value: string): void;
+                get(property: 'title'): string;
+                watch(
+                    property: 'title',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
                  * this specifies the tooltip to appear when the mouse is hovered over that text.
                  *
                  */
-                "tooltip": string;
-                set(property:"tooltip", value: string): void;
-                get(property:"tooltip"): string;
-                watch(property:"tooltip", callback:{(property?:string, oldValue?:string, newValue?: string):void}) :{unwatch():void}
+                'tooltip': string;
+                set(property: 'tooltip', value: string): void;
+                get(property: 'tooltip'): string;
+                watch(
+                    property: 'tooltip',
+                    callback: { (property?: string, oldValue?: string, newValue?: string): void },
+                ): { unwatch(): void };
                 /**
                  * This method is deprecated, use get() or set() directly.
                  *
@@ -15176,7 +16090,10 @@ declare namespace dojox {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(
+                    property: string,
+                    callback: { (property?: string, oldValue?: any, newValue?: any): void },
+                ): { unwatch(): void };
                 /**
                  * Static method to get a template based on the templatePath or
                  * templateString key
@@ -15299,176 +16216,174 @@ declare namespace dojox {
                 onShow(): void;
             }
         }
-
     }
-
 }
 
-declare module "dojox/editor/plugins/_SpellCheckParser" {
-    var exp: dojox.editor.plugins._SpellCheckParser
-    export=exp;
+declare module 'dojox/editor/plugins/_SpellCheckParser' {
+    var exp: dojox.editor.plugins._SpellCheckParser;
+    export = exp;
 }
-declare module "dojox/editor/plugins/AutoSave" {
-    var exp: dojox.editor.plugins.AutoSave
-    export=exp;
+declare module 'dojox/editor/plugins/AutoSave' {
+    var exp: dojox.editor.plugins.AutoSave;
+    export = exp;
 }
-declare module "dojox/editor/plugins/AutoSave._AutoSaveSettingDialog" {
-    var exp: dojox.editor.plugins.AutoSave._AutoSaveSettingDialog
-    export=exp;
+declare module 'dojox/editor/plugins/AutoSave._AutoSaveSettingDialog' {
+    var exp: dojox.editor.plugins.AutoSave._AutoSaveSettingDialog;
+    export = exp;
 }
-declare module "dojox/editor/plugins/Blockquote" {
-    var exp: dojox.editor.plugins.Blockquote
-    export=exp;
+declare module 'dojox/editor/plugins/Blockquote' {
+    var exp: dojox.editor.plugins.Blockquote;
+    export = exp;
 }
-declare module "dojox/editor/plugins/AutoUrlLink" {
-    var exp: dojox.editor.plugins.AutoUrlLink
-    export=exp;
+declare module 'dojox/editor/plugins/AutoUrlLink' {
+    var exp: dojox.editor.plugins.AutoUrlLink;
+    export = exp;
 }
-declare module "dojox/editor/plugins/Breadcrumb" {
-    var exp: dojox.editor.plugins.Breadcrumb
-    export=exp;
+declare module 'dojox/editor/plugins/Breadcrumb' {
+    var exp: dojox.editor.plugins.Breadcrumb;
+    export = exp;
 }
-declare module "dojox/editor/plugins/Breadcrumb._BreadcrumbMenuTitle" {
-    var exp: dojox.editor.plugins.Breadcrumb._BreadcrumbMenuTitle
-    export=exp;
+declare module 'dojox/editor/plugins/Breadcrumb._BreadcrumbMenuTitle' {
+    var exp: dojox.editor.plugins.Breadcrumb._BreadcrumbMenuTitle;
+    export = exp;
 }
-declare module "dojox/editor/plugins/CollapsibleToolbar" {
-    var exp: dojox.editor.plugins.CollapsibleToolbar
-    export=exp;
+declare module 'dojox/editor/plugins/CollapsibleToolbar' {
+    var exp: dojox.editor.plugins.CollapsibleToolbar;
+    export = exp;
 }
-declare module "dojox/editor/plugins/CollapsibleToolbar._CollapsibleToolbarButton" {
-    var exp: dojox.editor.plugins.CollapsibleToolbar._CollapsibleToolbarButton
-    export=exp;
+declare module 'dojox/editor/plugins/CollapsibleToolbar._CollapsibleToolbarButton' {
+    var exp: dojox.editor.plugins.CollapsibleToolbar._CollapsibleToolbarButton;
+    export = exp;
 }
-declare module "dojox/editor/plugins/_SmileyPalette" {
-    var exp: dojox.editor.plugins._SmileyPalette
-    export=exp;
+declare module 'dojox/editor/plugins/_SmileyPalette' {
+    var exp: dojox.editor.plugins._SmileyPalette;
+    export = exp;
 }
-declare module "dojox/editor/plugins/_SmileyPalette.Emoticon" {
-    var exp: dojox.editor.plugins._SmileyPalette.Emoticon
-    export=exp;
+declare module 'dojox/editor/plugins/_SmileyPalette.Emoticon' {
+    var exp: dojox.editor.plugins._SmileyPalette.Emoticon;
+    export = exp;
 }
-declare module "dojox/editor/plugins/InsertAnchor" {
-    var exp: dojox.editor.plugins.InsertAnchor
-    export=exp;
+declare module 'dojox/editor/plugins/InsertAnchor' {
+    var exp: dojox.editor.plugins.InsertAnchor;
+    export = exp;
 }
-declare module "dojox/editor/plugins/NormalizeIndentOutdent" {
-    var exp: dojox.editor.plugins.NormalizeIndentOutdent
-    export=exp;
+declare module 'dojox/editor/plugins/NormalizeIndentOutdent' {
+    var exp: dojox.editor.plugins.NormalizeIndentOutdent;
+    export = exp;
 }
-declare module "dojox/editor/plugins/FindReplace" {
-    var exp: dojox.editor.plugins.FindReplace
-    export=exp;
+declare module 'dojox/editor/plugins/FindReplace' {
+    var exp: dojox.editor.plugins.FindReplace;
+    export = exp;
 }
-declare module "dojox/editor/plugins/FindReplace._FindReplaceCloseBox" {
-    var exp: dojox.editor.plugins.FindReplace._FindReplaceCloseBox
-    export=exp;
+declare module 'dojox/editor/plugins/FindReplace._FindReplaceCloseBox' {
+    var exp: dojox.editor.plugins.FindReplace._FindReplaceCloseBox;
+    export = exp;
 }
-declare module "dojox/editor/plugins/FindReplace._FindReplaceCheckBox" {
-    var exp: dojox.editor.plugins.FindReplace._FindReplaceCheckBox
-    export=exp;
+declare module 'dojox/editor/plugins/FindReplace._FindReplaceCheckBox' {
+    var exp: dojox.editor.plugins.FindReplace._FindReplaceCheckBox;
+    export = exp;
 }
-declare module "dojox/editor/plugins/FindReplace._FindReplaceTextBox" {
-    var exp: dojox.editor.plugins.FindReplace._FindReplaceTextBox
-    export=exp;
+declare module 'dojox/editor/plugins/FindReplace._FindReplaceTextBox' {
+    var exp: dojox.editor.plugins.FindReplace._FindReplaceTextBox;
+    export = exp;
 }
-declare module "dojox/editor/plugins/FindReplace._FindReplaceToolbar" {
-    var exp: dojox.editor.plugins.FindReplace._FindReplaceToolbar
-    export=exp;
+declare module 'dojox/editor/plugins/FindReplace._FindReplaceToolbar' {
+    var exp: dojox.editor.plugins.FindReplace._FindReplaceToolbar;
+    export = exp;
 }
-declare module "dojox/editor/plugins/InsertEntity" {
-    var exp: dojox.editor.plugins.InsertEntity
-    export=exp;
+declare module 'dojox/editor/plugins/InsertEntity' {
+    var exp: dojox.editor.plugins.InsertEntity;
+    export = exp;
 }
-declare module "dojox/editor/plugins/PasteFromWord" {
-    var exp: dojox.editor.plugins.PasteFromWord
-    export=exp;
+declare module 'dojox/editor/plugins/PasteFromWord' {
+    var exp: dojox.editor.plugins.PasteFromWord;
+    export = exp;
 }
-declare module "dojox/editor/plugins/PageBreak" {
-    var exp: dojox.editor.plugins.PageBreak
-    export=exp;
+declare module 'dojox/editor/plugins/PageBreak' {
+    var exp: dojox.editor.plugins.PageBreak;
+    export = exp;
 }
-declare module "dojox/editor/plugins/Preview" {
-    var exp: dojox.editor.plugins.Preview
-    export=exp;
+declare module 'dojox/editor/plugins/Preview' {
+    var exp: dojox.editor.plugins.Preview;
+    export = exp;
 }
-declare module "dojox/editor/plugins/PrettyPrint" {
-    var exp: dojox.editor.plugins.PrettyPrint
-    export=exp;
+declare module 'dojox/editor/plugins/PrettyPrint' {
+    var exp: dojox.editor.plugins.PrettyPrint;
+    export = exp;
 }
-declare module "dojox/editor/plugins/ResizeTableColumn" {
-    var exp: dojox.editor.plugins.ResizeTableColumn
-    export=exp;
+declare module 'dojox/editor/plugins/ResizeTableColumn' {
+    var exp: dojox.editor.plugins.ResizeTableColumn;
+    export = exp;
 }
-declare module "dojox/editor/plugins/NormalizeStyle" {
-    var exp: dojox.editor.plugins.NormalizeStyle
-    export=exp;
+declare module 'dojox/editor/plugins/NormalizeStyle' {
+    var exp: dojox.editor.plugins.NormalizeStyle;
+    export = exp;
 }
-declare module "dojox/editor/plugins/EntityPalette" {
-    var exp: dojox.editor.plugins.EntityPalette
-    export=exp;
+declare module 'dojox/editor/plugins/EntityPalette' {
+    var exp: dojox.editor.plugins.EntityPalette;
+    export = exp;
 }
-declare module "dojox/editor/plugins/EntityPalette.LatinEntity" {
-    var exp: dojox.editor.plugins.EntityPalette.LatinEntity
-    export=exp;
+declare module 'dojox/editor/plugins/EntityPalette.LatinEntity' {
+    var exp: dojox.editor.plugins.EntityPalette.LatinEntity;
+    export = exp;
 }
-declare module "dojox/editor/plugins/Save" {
-    var exp: dojox.editor.plugins.Save
-    export=exp;
+declare module 'dojox/editor/plugins/Save' {
+    var exp: dojox.editor.plugins.Save;
+    export = exp;
 }
-declare module "dojox/editor/plugins/SafePaste" {
-    var exp: dojox.editor.plugins.SafePaste
-    export=exp;
+declare module 'dojox/editor/plugins/SafePaste' {
+    var exp: dojox.editor.plugins.SafePaste;
+    export = exp;
 }
-declare module "dojox/editor/plugins/ShowBlockNodes" {
-    var exp: dojox.editor.plugins.ShowBlockNodes
-    export=exp;
+declare module 'dojox/editor/plugins/ShowBlockNodes' {
+    var exp: dojox.editor.plugins.ShowBlockNodes;
+    export = exp;
 }
-declare module "dojox/editor/plugins/LocalImage" {
-    var exp: dojox.editor.plugins.LocalImage
-    export=exp;
+declare module 'dojox/editor/plugins/LocalImage' {
+    var exp: dojox.editor.plugins.LocalImage;
+    export = exp;
 }
-declare module "dojox/editor/plugins/Smiley" {
-    var exp: dojox.editor.plugins.Smiley
-    export=exp;
+declare module 'dojox/editor/plugins/Smiley' {
+    var exp: dojox.editor.plugins.Smiley;
+    export = exp;
 }
-declare module "dojox/editor/plugins/TextColor" {
-    var exp: dojox.editor.plugins.TextColor
-    export=exp;
+declare module 'dojox/editor/plugins/TextColor' {
+    var exp: dojox.editor.plugins.TextColor;
+    export = exp;
 }
-declare module "dojox/editor/plugins/TextColor._TextColorDropDown" {
-    var exp: dojox.editor.plugins.TextColor._TextColorDropDown
-    export=exp;
+declare module 'dojox/editor/plugins/TextColor._TextColorDropDown' {
+    var exp: dojox.editor.plugins.TextColor._TextColorDropDown;
+    export = exp;
 }
-declare module "dojox/editor/plugins/StatusBar" {
-    var exp: dojox.editor.plugins.StatusBar
-    export=exp;
+declare module 'dojox/editor/plugins/StatusBar' {
+    var exp: dojox.editor.plugins.StatusBar;
+    export = exp;
 }
-declare module "dojox/editor/plugins/StatusBar._StatusBar" {
-    var exp: dojox.editor.plugins.StatusBar._StatusBar
-    export=exp;
+declare module 'dojox/editor/plugins/StatusBar._StatusBar' {
+    var exp: dojox.editor.plugins.StatusBar._StatusBar;
+    export = exp;
 }
-declare module "dojox/editor/plugins/SpellCheck" {
-    var exp: dojox.editor.plugins.SpellCheck
-    export=exp;
+declare module 'dojox/editor/plugins/SpellCheck' {
+    var exp: dojox.editor.plugins.SpellCheck;
+    export = exp;
 }
-declare module "dojox/editor/plugins/SpellCheck._SpellCheckScriptMultiPart" {
-    var exp: dojox.editor.plugins.SpellCheck._SpellCheckScriptMultiPart
-    export=exp;
+declare module 'dojox/editor/plugins/SpellCheck._SpellCheckScriptMultiPart' {
+    var exp: dojox.editor.plugins.SpellCheck._SpellCheckScriptMultiPart;
+    export = exp;
 }
-declare module "dojox/editor/plugins/SpellCheck._SpellCheckControl" {
-    var exp: dojox.editor.plugins.SpellCheck._SpellCheckControl
-    export=exp;
+declare module 'dojox/editor/plugins/SpellCheck._SpellCheckControl' {
+    var exp: dojox.editor.plugins.SpellCheck._SpellCheckControl;
+    export = exp;
 }
-declare module "dojox/editor/plugins/TablePlugins" {
-    var exp: dojox.editor.plugins.TablePlugins
-    export=exp;
+declare module 'dojox/editor/plugins/TablePlugins' {
+    var exp: dojox.editor.plugins.TablePlugins;
+    export = exp;
 }
-declare module "dojox/editor/plugins/UploadImage" {
-    var exp: dojox.editor.plugins.UploadImage
-    export=exp;
+declare module 'dojox/editor/plugins/UploadImage' {
+    var exp: dojox.editor.plugins.UploadImage;
+    export = exp;
 }
-declare module "dojox/editor/plugins/ToolbarLineBreak" {
-    var exp: dojox.editor.plugins.ToolbarLineBreak
-    export=exp;
+declare module 'dojox/editor/plugins/ToolbarLineBreak' {
+    var exp: dojox.editor.plugins.ToolbarLineBreak;
+    export = exp;
 }

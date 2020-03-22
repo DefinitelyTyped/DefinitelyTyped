@@ -32,7 +32,7 @@ declare namespace SESTransport {
             /**
              * The raw data of the message. This data needs to base64-encoded if you are accessing Amazon SES directly through the HTTPS interface. If you are accessing Amazon SES using an AWS SDK, the SDK takes care of the base 64-encoding for you. In all cases, the client must ensure that the message format complies with Internet email standards regarding email header fields, MIME types, and MIME encoding. The To:, CC:, and BCC: headers in the raw message can contain a group list. If you are using SendRawEmail with sending authorization, you can include X-headers in the raw message to specify the "Source," "From," and "Return-Path" addresses. For more information, see the documentation for SendRawEmail.   Do not include these X-headers in the DKIM signature, because they are removed by Amazon SES before sending the email.  For more information, go to the Amazon SES Developer Guide.
              */
-            Data: Buffer|Uint8Array|{}|string;
+            Data: Buffer | Uint8Array | {} | string;
         };
         /**
          * This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to specify a particular "From" address in the header of the raw email. Instead of using this parameter, you can use the X-header X-SES-FROM-ARN in the raw message of the email. If you use both the FromArn parameter and the corresponding X-header, Amazon SES uses the value of the FromArn parameter.  For information about when to use this parameter, see the description of SendRawEmail in this guide, or see the Amazon SES Developer Guide.
@@ -99,8 +99,8 @@ declare class SESTransport extends EventEmitter implements Transport {
     sendingRate: number;
     sendingRateTTL: number | null;
     rateInterval: number;
-    rateMessages: Array<{ ts: number, pending: boolean }>;
-    pending: Array<{ mail: Mail; callback(err: Error | null, info: SESTransport.SentMessageInfo): void; }>;
+    rateMessages: Array<{ ts: number; pending: boolean }>;
+    pending: Array<{ mail: Mail; callback(err: Error | null, info: SESTransport.SentMessageInfo): void }>;
     idling: boolean;
 
     constructor(options: SESTransport.Options);

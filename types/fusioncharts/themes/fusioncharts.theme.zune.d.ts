@@ -1,4 +1,4 @@
-import { FusionChartStatic } from "..";
+import { FusionChartStatic } from '..';
 
 declare function zune(H: FusionChartStatic): FusionChartStatic;
 export = zune;

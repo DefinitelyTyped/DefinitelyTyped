@@ -6,8 +6,8 @@
 import NesClient = require('@hapi/nes/lib/client');
 
 const options: NesClient.Client.ClientConnectOptions = {
-    delay: 3
-}
+    delay: 3,
+};
 
 const client: NesClient.Client = new NesClient.Client('ws://localhost', options);
-client.onDisconnect = (willReconnect) => {}
+client.onDisconnect = (willReconnect) => {};

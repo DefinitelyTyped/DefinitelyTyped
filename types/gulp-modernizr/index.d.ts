@@ -31,9 +31,9 @@ declare namespace GulpModernizr {
          * Based on default settings on http://modernizr.com/download/
          */
         options?: {
-          classPrefix: string;
-          enableJSClass: boolean;
-          enableClasses: boolean;
+            classPrefix: string;
+            enableJSClass: boolean;
+            enableClasses: boolean;
         };
 
         /**

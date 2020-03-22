@@ -1,2 +1,2 @@
-import { intersectionBy } from "lodash";
+import { intersectionBy } from 'lodash';
 export default intersectionBy;

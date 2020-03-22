@@ -4,17 +4,17 @@ import * as fs from 'fs';
 const buffer: Buffer = fs.readFileSync('somehugefile.jpg');
 const b64String = 'aGkgbXVt...';
 
-b64.encode(buffer).then(b64String => {
+b64.encode(buffer).then((b64String) => {
     b64String; // $ExpectType string
 });
-b64.encode(buffer, { chunkSize: 10 }).then(b64String => {
+b64.encode(buffer, { chunkSize: 10 }).then((b64String) => {
     b64String; // $ExpectType string
 });
 
-b64.decode(b64String).then(buffer => {
+b64.decode(b64String).then((buffer) => {
     buffer; // $ExpectType Buffer
 });
-b64.decode(b64String, { chunkSize: 10 }).then(buffer => {
+b64.decode(b64String, { chunkSize: 10 }).then((buffer) => {
     buffer; // $ExpectType Buffer
 });
 

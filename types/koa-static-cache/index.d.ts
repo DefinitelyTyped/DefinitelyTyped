@@ -34,7 +34,7 @@ declare namespace staticCache {
 declare function staticCache(
     dir: string | staticCache.Options,
     options?: staticCache.Options | staticCache.Files,
-    files?: staticCache.Files
+    files?: staticCache.Files,
 ): Middleware;
 
 export = staticCache;

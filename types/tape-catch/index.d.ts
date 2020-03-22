@@ -3,5 +3,5 @@
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import tape = require("tape");
+import tape = require('tape');
 export = tape;

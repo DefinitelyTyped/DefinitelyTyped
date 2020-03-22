@@ -31,7 +31,12 @@ declare class Zopfli extends Transform {
     static zlib(input: Buffer, cb: (err: Error, out: Buffer) => void): void;
     static zlib(input: Buffer, options?: Zopfli.Options): Promise<Buffer>;
 
-    static compress(input: Buffer, format: Zopfli.Format, options: Zopfli.Options, cb: (err: Error, out: Buffer) => void): void;
+    static compress(
+        input: Buffer,
+        format: Zopfli.Format,
+        options: Zopfli.Options,
+        cb: (err: Error, out: Buffer) => void,
+    ): void;
     static compress(input: Buffer, format: Zopfli.Format, cb: (err: Error, out: Buffer) => void): void;
     static compress(input: Buffer, format: Zopfli.Format, options?: Zopfli.Options): Promise<Buffer>;
 }

@@ -8,250 +8,233 @@
 /// <reference types="gapi" />
 
 declare namespace gapi.client.people {
-  export namespace people {
+    export namespace people {
+        interface GetParameters {
+            resourceName: string;
 
-    interface GetParameters {
-      resourceName: string;
+            // Query parameters
+            personFields: string;
+        }
 
-      // Query parameters
-      personFields: string;
+        function get(parameters: GetParameters): HttpRequest<Person>;
+
+        interface GetBatchGetParameters {
+            // Query parameters
+            resourcesName?: string;
+            personFields: string;
+        }
+
+        function getBatchGet(parameters: GetBatchGetParameters): HttpRequest<BatchGetResponse>;
+
+        interface BatchGetResponse {
+            responses: PersonResponse[];
+        }
+
+        interface PersonResponse {
+            httpStatusCode: number;
+            person: Person;
+            requestedResourceName: string;
+        }
+
+        namespace connections {
+            function list(parameters: ListParameters): HttpRequest<Response>;
+
+            type SortOrder = 'LAST_MODIFIED_ASCENDING' | 'FIRST_NAME_ASCENDING' | 'LAST_NAME_ASCENDING';
+
+            interface ListParameters {
+                resourceName: string;
+
+                // Query parameters
+                pageToken?: string;
+                pageSize?: number;
+                sortOrder?: SortOrder;
+                syncToken?: string;
+                personFields: string;
+            }
+
+            interface Response {
+                connections: Person[];
+                nextPageToken: string;
+                nextSyncToken: string;
+            }
+        }
     }
 
-    function get(parameters: GetParameters): HttpRequest<Person>;
+    type SourceType = 'SOURCE_TYPE_UNSPECIFIED' | 'ACCOUNT' | 'PROFILE' | 'DOMAIN_PROFILE' | 'CONTACT';
 
-    interface GetBatchGetParameters {
-      // Query parameters
-      resourcesName?: string;
-      personFields: string;
-    }
-
-    function getBatchGet(parameters: GetBatchGetParameters): HttpRequest<BatchGetResponse>;
-
-    interface BatchGetResponse {
-      responses: PersonResponse[];
-    }
-
-    interface PersonResponse {
-      httpStatusCode: number;
-      person: Person;
-      requestedResourceName: string;
-    }
-
-    namespace connections {
-      function list(parameters: ListParameters): HttpRequest<Response>;
-
-      type SortOrder = 'LAST_MODIFIED_ASCENDING' | 'FIRST_NAME_ASCENDING' | 'LAST_NAME_ASCENDING';
-
-      interface ListParameters {
+    interface Source {
+        type: SourceType;
+        id: string;
+        etag: string;
         resourceName: string;
-
-        // Query parameters
-        pageToken?: string;
-        pageSize?: number;
-        sortOrder?: SortOrder;
-        syncToken?: string;
-        personFields: string;
-      }
-
-      interface Response {
-        connections: Person[];
-        nextPageToken: string;
-        nextSyncToken: string;
-      }
     }
-  }
 
-  type SourceType = 'SOURCE_TYPE_UNSPECIFIED' | 'ACCOUNT' | 'PROFILE' | 'DOMAIN_PROFILE' | 'CONTACT';
+    type ObjectType = 'OBJECT_TYPE_UNSPECIFIED' | 'PERSON' | 'PAGE';
 
-  interface Source {
-    type: SourceType;
-    id: string;
-    etag: string;
-    resourceName: string;
-  }
+    interface PersonMetadata {
+        sources: Source[];
+        previousResourceNames: string[];
+        linkedPeopleResourceNames: string[];
+        deleted: boolean;
+        objectType: ObjectType;
+    }
 
-  type ObjectType = 'OBJECT_TYPE_UNSPECIFIED' | 'PERSON' | 'PAGE';
+    interface FieldMetadata {
+        primary: boolean;
+        verified: boolean;
+        source: Source;
+    }
 
-  interface PersonMetadata {
-    sources: Source[];
-    previousResourceNames: string[];
-    linkedPeopleResourceNames: string[];
-    deleted: boolean;
-    objectType: ObjectType;
-  }
+    interface Locale {
+        metadata: FieldMetadata;
+        value: string;
+    }
 
-  interface FieldMetadata {
-    primary: boolean;
-    verified: boolean;
-    source: Source;
-  }
+    interface Name {
+        metadata: FieldMetadata;
+        displayName: string;
+        displayNameLastFirst: string;
+        familyName: string;
+        givenName: string;
+        middleName: string;
+        honorificPrefix: string;
+        honorificSuffix: string;
+        phoneticFullName: string;
+        phoneticFamilyName: string;
+        phoneticGivenName: string;
+        phoneticMiddleName: string;
+        phoneticHonorificPrefix: string;
+        phoneticHonorificSuffix: string;
+    }
 
-  interface Locale {
-    metadata: FieldMetadata;
-    value: string;
-  }
+    type NicknameType = 'DEFAULT' | 'MAIDEN_NAME' | 'INITIALS' | 'GPLUS' | 'OTHER_NAME';
 
-  interface Name {
-    metadata: FieldMetadata;
-    displayName: string;
-    displayNameLastFirst: string;
-    familyName: string;
-    givenName: string;
-    middleName: string;
-    honorificPrefix: string;
-    honorificSuffix: string;
-    phoneticFullName: string;
-    phoneticFamilyName: string;
-    phoneticGivenName: string;
-    phoneticMiddleName: string;
-    phoneticHonorificPrefix: string;
-    phoneticHonorificSuffix: string;
-  }
+    interface Nickname {
+        metadata: FieldMetadata;
+        value: string;
+        type: NicknameType;
+    }
 
-  type NicknameType = 'DEFAULT' | 'MAIDEN_NAME' | 'INITIALS' | 'GPLUS' | 'OTHER_NAME';
+    interface CoverPhoto {
+        metadata: FieldMetadata;
+        url: string;
+    }
 
-  interface Nickname {
-    metadata: FieldMetadata;
-    value: string;
-    type: NicknameType;
-  }
+    interface Photo {
+        metadata: FieldMetadata;
+        url: string;
+    }
 
-  interface CoverPhoto {
-    metadata: FieldMetadata;
-    url: string;
-  }
+    interface Gender {}
 
-  interface Photo {
-    metadata: FieldMetadata;
-    url: string;
-  }
+    interface AgeRange {}
 
-  interface Gender {
-  }
+    interface Birthday {
+        metadata: FieldMetadata;
+        date: Date;
+        text: string;
+    }
 
-  interface AgeRange {
-  }
+    interface Date {
+        day: number;
+        month: number;
+        year: number;
+    }
 
-  interface Birthday {
-    metadata: FieldMetadata;
-    date: Date;
-    text: string;
-  }
+    interface Event {}
 
-  interface Date {
-    day: number;
-    month: number;
-    year: number;
-  }
+    interface Address {
+        metadata: FieldMetadata;
+        formattedValue: string;
+        type: string;
+        formattedType: string;
+        poBox: string;
+        streetAddress: string;
+        extendedAddress: string;
+        city: string;
+        region: string;
+        postalCode: string;
+        country: string;
+        countryCode: string;
+    }
 
-  interface Event {
-  }
+    interface Residence {
+        metadata: FieldMetadata;
+        value: string;
+        current: boolean;
+    }
 
-  interface Address {
-    metadata: FieldMetadata;
-    formattedValue: string;
-    type: string;
-    formattedType: string;
-    poBox: string;
-    streetAddress: string;
-    extendedAddress: string;
-    city: string;
-    region: string;
-    postalCode: string;
-    country: string;
-    countryCode: string;
-  }
+    interface EmailAddress {
+        metadata: FieldMetadata;
+        value: string;
+        type: string;
+        formattedType: string;
+        displayName: string;
+    }
 
-  interface Residence {
-    metadata: FieldMetadata;
-    value: string;
-    current: boolean;
-  }
+    interface PhoneNumber {
+        metadata: FieldMetadata;
+        value: string;
+        canonicalForm: string;
+        type: string;
+        formattedType: string;
+    }
 
-  interface EmailAddress {
-    metadata: FieldMetadata;
-    value: string;
-    type: string;
-    formattedType: string;
-    displayName: string;
-  }
+    interface ImClient {}
 
-  interface PhoneNumber {
-    metadata: FieldMetadata;
-    value: string;
-    canonicalForm: string;
-    type: string;
-    formattedType: string;
-  }
+    interface Tagline {}
 
-  interface ImClient {
-  }
+    interface Biography {}
 
-  interface Tagline {
-  }
+    interface Url {}
 
-  interface Biography {
-  }
+    interface Organization {}
 
-  interface Url {
-  }
+    interface Occupation {}
 
-  interface Organization {
-  }
+    interface Interest {}
 
-  interface Occupation {
-  }
+    interface Skill {}
 
-  interface Interest {
-  }
+    interface BraggingRights {}
 
-  interface Skill {
-  }
+    interface Relation {}
 
-  interface BraggingRights {
-  }
+    interface RelationshipInterest {}
 
-  interface Relation {
-  }
+    interface RelationshipStatus {}
 
-  interface RelationshipInterest {
-  }
+    interface Membership {}
 
-  interface RelationshipStatus {
-  }
-
-  interface Membership {
-  }
-
-  interface Person {
-    resourceName: string;
-    etag: string;
-    metadata: PersonMetadata;
-    locales: Locale[];
-    names: Name[];
-    nicknames?: Nickname[];
-    coverPhotos: CoverPhoto[];
-    photos?: Photo[];
-    genders?: Gender[];
-    ageRange?: AgeRange;
-    birthdays?: Birthday[];
-    events?: Event[];
-    addresses?: Address[];
-    residences?: Residence[];
-    emailAddresses?: EmailAddress[];
-    phoneNumbers?: PhoneNumber[];
-    imClients?: ImClient[];
-    taglines?: Tagline[];
-    biographies?: Biography[];
-    urls?: Url[];
-    organizations?: Organization[];
-    occupations?: Occupation[];
-    interests?: Interest[];
-    skills?: Skill[];
-    BraggingRights?: BraggingRights[];
-    relations?: Relation[];
-    relationshipInterests?: RelationshipInterest[];
-    relationshipStatuses?: RelationshipStatus[];
-    memberships?: Membership[];
-  }
+    interface Person {
+        resourceName: string;
+        etag: string;
+        metadata: PersonMetadata;
+        locales: Locale[];
+        names: Name[];
+        nicknames?: Nickname[];
+        coverPhotos: CoverPhoto[];
+        photos?: Photo[];
+        genders?: Gender[];
+        ageRange?: AgeRange;
+        birthdays?: Birthday[];
+        events?: Event[];
+        addresses?: Address[];
+        residences?: Residence[];
+        emailAddresses?: EmailAddress[];
+        phoneNumbers?: PhoneNumber[];
+        imClients?: ImClient[];
+        taglines?: Tagline[];
+        biographies?: Biography[];
+        urls?: Url[];
+        organizations?: Organization[];
+        occupations?: Occupation[];
+        interests?: Interest[];
+        skills?: Skill[];
+        BraggingRights?: BraggingRights[];
+        relations?: Relation[];
+        relationshipInterests?: RelationshipInterest[];
+        relationshipStatuses?: RelationshipStatus[];
+        memberships?: Membership[];
+    }
 }

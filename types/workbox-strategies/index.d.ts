@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export * from "./CacheFirst";
-export * from "./CacheOnly";
-export * from "./NetworkFirst";
-export * from "./NetworkOnly";
-export * from "./StaleWhileRevalidate";
+export * from './CacheFirst';
+export * from './CacheOnly';
+export * from './NetworkFirst';
+export * from './NetworkOnly';
+export * from './StaleWhileRevalidate';
 
-export * from "./types/MakeRequestCallback";
+export * from './types/MakeRequestCallback';

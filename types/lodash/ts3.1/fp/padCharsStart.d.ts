@@ -1,2 +1,2 @@
-import { padCharsStart } from "../fp";
+import { padCharsStart } from '../fp';
 export = padCharsStart;

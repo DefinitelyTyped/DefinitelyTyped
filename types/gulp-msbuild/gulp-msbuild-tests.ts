@@ -1,4 +1,4 @@
-import msbuild = require("gulp-msbuild");
+import msbuild = require('gulp-msbuild');
 
 const stream = msbuild({
     stdout: false,
@@ -17,5 +17,5 @@ const stream = msbuild({
     fileLoggerParameters: 'LogFile=Build.log;Append;Verbosity=diagnostic',
     consoleLoggerParameters: '',
     loggerParameters: 'XMLLogger,./MyLogger.dll;OutputAsHTML',
-    emitEndEvent: false
+    emitEndEvent: false,
 });

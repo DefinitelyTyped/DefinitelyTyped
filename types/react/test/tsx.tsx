@@ -1,5 +1,5 @@
-import PropTypes = require("prop-types");
-import React = require("react");
+import PropTypes = require('prop-types');
+import React = require('react');
 
 interface SCProps {
     foo?: number;
@@ -7,18 +7,23 @@ interface SCProps {
 const FunctionComponent: React.FunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
 };
-FunctionComponent.displayName = "FunctionComponent3";
+FunctionComponent.displayName = 'FunctionComponent3';
 FunctionComponent.defaultProps = {
-    foo: 42
+    foo: 42,
 };
 <FunctionComponent />;
 
 const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
-    return <div>{foo}{children}</div>;
+    return (
+        <div>
+            {foo}
+            {children}
+        </div>
+    );
 };
-FunctionComponent2.displayName = "FunctionComponent4";
+FunctionComponent2.displayName = 'FunctionComponent4';
 FunctionComponent2.defaultProps = {
-    foo: 42
+    foo: 42,
 };
 <FunctionComponent2>24</FunctionComponent2>;
 
@@ -38,23 +43,12 @@ FunctionComponent2.defaultProps = {
 </svg>;
 
 // React-specific Attributes
-<div
-    defaultChecked
-    defaultValue="some value"
-    contentEditable
-    suppressContentEditableWarning
-    suppressHydrationWarning
->
+<div defaultChecked defaultValue="some value" contentEditable suppressContentEditableWarning suppressHydrationWarning>
     <b>foo</b>
 </div>;
 
 // WAI-ARIA 1.1 Attributes
-<div
-    aria-atomic={false}
-    aria-checked='true'
-    aria-colcount={7}
-    aria-label='test'
->
+<div aria-atomic={false} aria-checked="true" aria-colcount={7} aria-label="test">
     <b>bar</b>
 </div>;
 
@@ -63,7 +57,7 @@ FunctionComponent2.defaultProps = {
 <button type="reset">foo</button>;
 <button type="button">foo</button>;
 <button type="botton">foo</button>; // $ExpectError
-<button type={"botton" as string}>foo</button>; // $ExpectError
+<button type={'botton' as string}>foo</button>; // $ExpectError
 
 interface Props {
     hello: string;
@@ -71,16 +65,13 @@ interface Props {
 interface State {
     foobar: string;
 }
-class ComponentWithPropsAndState extends React.Component<Props, State> {
-}
+class ComponentWithPropsAndState extends React.Component<Props, State> {}
 <ComponentWithPropsAndState hello="TypeScript" />;
 
-class ComponentWithoutState extends React.Component<Props> {
-}
+class ComponentWithoutState extends React.Component<Props> {}
 <ComponentWithoutState hello="TypeScript" />;
 
-class ComponentWithoutPropsAndState extends React.Component {
-}
+class ComponentWithoutPropsAndState extends React.Component {}
 <ComponentWithoutPropsAndState />;
 
 const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
@@ -113,30 +104,30 @@ const ContextWithRenderProps = React.createContext('defaultValue');
 </div>;
 
 // Below tests that setState() works properly for both regular and callback modes
-class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
+class SetStateTest extends React.Component<{}, { foo: boolean; bar: boolean }> {
     handleSomething = () => {
-      this.setState({ foo: '' }); // $ExpectError
-      this.setState({ foo: true });
-      this.setState({ foo: true, bar: true });
-      this.setState({});
-      this.setState(null);
-      this.setState({ foo: true, foo2: true }); // $ExpectError
-      this.setState(() => ({ foo: '' })); // $ExpectError
-      this.setState(() => ({ foo: true }));
-      this.setState(() => ({ foo: true, bar: true }));
-      this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
-      this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
-      this.setState(() => ({ })); // ok!
-      this.setState({ foo: true, bar: undefined}); // $ExpectError
-      this.setState(prevState => (prevState.bar ? { bar: false } : null));
-    }
+        this.setState({ foo: '' }); // $ExpectError
+        this.setState({ foo: true });
+        this.setState({ foo: true, bar: true });
+        this.setState({});
+        this.setState(null);
+        this.setState({ foo: true, foo2: true }); // $ExpectError
+        this.setState(() => ({ foo: '' })); // $ExpectError
+        this.setState(() => ({ foo: true }));
+        this.setState(() => ({ foo: true, bar: true }));
+        this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
+        this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
+        this.setState(() => ({})); // ok!
+        this.setState({ foo: true, bar: undefined }); // $ExpectError
+        this.setState((prevState) => (prevState.bar ? { bar: false } : null));
+    };
 }
 
 // Below tests that extended types for state work
 export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
+    foo() {
+        this.setState({ baseProp: 'foobar' });
+    }
 }
 
 // Below tests that & generic still works
@@ -147,16 +138,20 @@ export abstract class SetStateTestForExtendsState<P, S extends { baseProp: strin
 // 	   }
 // }
 
-interface NewProps { foo: string; }
-interface NewState { bar: string; }
+interface NewProps {
+    foo: string;
+}
+interface NewState {
+    bar: string;
+}
 
 class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { baz: string }> {
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
         return { bar: `${nextProps.foo}bar` };
-    }
+    };
 
     state = {
-        bar: 'foo'
+        bar: 'foo',
     };
 
     getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
@@ -176,10 +171,10 @@ class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { b
 class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewState, { baz: string }> {
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
         return { bar: `${nextProps.foo}bar` };
-    }
+    };
 
     state = {
-        bar: 'foo'
+        bar: 'foo',
     };
 
     getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
@@ -196,48 +191,60 @@ class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewSt
 }
 <PureComponentWithNewLifecycles foo="bar" />;
 
-class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', string>> {
-    static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a'|'b'|'c', string>> = () => {
+class ComponentWithLargeState extends React.Component<{}, Record<'a' | 'b' | 'c', string>> {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a' | 'b' | 'c', string>> = () => {
         return { a: 'a' };
-    }
+    };
 }
 const AssignedComponentWithLargeState: React.ComponentClass = ComponentWithLargeState;
 
 const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {})({});
-componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
+componentWithBadLifecycle.getSnapshotBeforeUpdate = () => {
+    // $ExpectError
     return 'number';
 };
-componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
+componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => {
+    // $ExpectError
     return;
 };
 
-const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
-<Memoized1 foo='string'/>;
+const Memoized1 = React.memo(function Foo(props: { foo: string }) {
+    return null;
+});
+<Memoized1 foo="string" />;
 
 const Memoized2 = React.memo(
-    function Bar(props: { bar: string }) { return null; },
-    (prevProps, nextProps) => prevProps.bar === nextProps.bar
+    function Bar(props: { bar: string }) {
+        return null;
+    },
+    (prevProps, nextProps) => prevProps.bar === nextProps.bar,
 );
-<Memoized2 bar='string'/>;
+<Memoized2 bar="string" />;
 
 const Memoized3 = React.memo(class Test extends React.Component<{ x?: string }> {});
-<Memoized3 ref={ref => { if (ref) { ref.props.x; } }}/>;
+<Memoized3
+    ref={(ref) => {
+        if (ref) {
+            ref.props.x;
+        }
+    }}
+/>;
 
 const memoized4Ref = React.createRef<HTMLDivElement>();
-const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref}/>));
-<Memoized4 ref={memoized4Ref}/>;
+const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref} />));
+<Memoized4 ref={memoized4Ref} />;
 
 const Memoized5 = React.memo<{ test: boolean }>(
-    prop => <>{prop.test && prop.children}</>,
-    (prevProps, nextProps) => nextProps.test ? prevProps.children === nextProps.children : prevProps.test
+    (prop) => <>{prop.test && prop.children}</>,
+    (prevProps, nextProps) => (nextProps.test ? prevProps.children === nextProps.children : prevProps.test),
 );
 
-<Memoized5 test/>;
+<Memoized5 test />;
 
-const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
-<Memoized6/>;
+const Memoized6: React.NamedExoticComponent<object> = React.memo((props) => null);
+<Memoized6 />;
 // $ExpectError
-<Memoized6 foo/>;
+<Memoized6 foo />;
 
 // NOTE: this test _requires_ TypeScript 3.1
 // It is passing, for what it's worth.
@@ -255,16 +262,29 @@ const LazyClassComponent = React.lazy(async () => ({ default: ComponentWithProps
 const LazyMemoized3 = React.lazy(async () => ({ default: Memoized3 }));
 const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 
-<React.Suspense fallback={<Memoized1 foo='string' />}>
-    <LazyClassComponent hello='test'/>
-    <LazyClassComponent ref={ref => { if (ref) { ref.props.hello; } }} hello='test'/>
-    <LazyMemoized3 ref={ref => { if (ref) { ref.props.x; } }}/>
-    <LazyRefForwarding ref={memoized4Ref}/>
+<React.Suspense fallback={<Memoized1 foo="string" />}>
+    <LazyClassComponent hello="test" />
+    <LazyClassComponent
+        ref={(ref) => {
+            if (ref) {
+                ref.props.hello;
+            }
+        }}
+        hello="test"
+    />
+    <LazyMemoized3
+        ref={(ref) => {
+            if (ref) {
+                ref.props.x;
+            }
+        }}
+    />
+    <LazyRefForwarding ref={memoized4Ref} />
 </React.Suspense>;
 
-<React.Suspense fallback={null}/>;
+<React.Suspense fallback={null} />;
 // $ExpectError
-<React.Suspense/>;
+<React.Suspense />;
 
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
@@ -289,7 +309,7 @@ class LegacyContextAnnotated extends React.Component {
 
 class NewContext extends React.Component {
     static contextType = ContextWithRenderProps;
-    context: React.ContextType<typeof ContextWithRenderProps> = "";
+    context: React.ContextType<typeof ContextWithRenderProps> = '';
 
     render() {
         // $ExpectType string
@@ -298,33 +318,43 @@ class NewContext extends React.Component {
     }
 }
 
-const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}/>);
-const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
-const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
+const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => (
+    <div {...props} ref={ref} />
+));
+const ForwardRef2 = React.forwardRef(
+    (props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => (
+        <ForwardRef {...props} ref={ref} />
+    ),
+);
+const divFnRef = (ref: HTMLDivElement | null) => {
+    /* empty */
+};
 const divRef = React.createRef<HTMLDivElement>();
 
-<ForwardRef ref={divFnRef}/>;
-<ForwardRef ref={divRef}/>;
-<ForwardRef ref='string'/>; // $ExpectError
-<ForwardRef2 ref={divFnRef}/>;
-<ForwardRef2 ref={divRef}/>;
-<ForwardRef2 ref='string'/>; // $ExpectError
+<ForwardRef ref={divFnRef} />;
+<ForwardRef ref={divRef} />;
+<ForwardRef ref="string" />; // $ExpectError
+<ForwardRef2 ref={divFnRef} />;
+<ForwardRef2 ref={divRef} />;
+<ForwardRef2 ref="string" />; // $ExpectError
 
 const newContextRef = React.createRef<NewContext>();
-<NewContext ref={newContextRef}/>;
-<NewContext ref='string'/>;
+<NewContext ref={newContextRef} />;
+<NewContext ref="string" />;
 
-const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref}/>);
-<ForwardNewContext ref={newContextRef}/>;
-<ForwardNewContext ref='string'/>; // $ExpectError
+const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref} />);
+<ForwardNewContext ref={newContextRef} />;
+<ForwardNewContext ref="string" />; // $ExpectError
 
 const ForwardRef3 = React.forwardRef(
-    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
-        <div {...props} ref={ref}/>
+    (
+        props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} }, 'ref' | 'theme'>,
+        ref?: React.Ref<HTMLDivElement>,
+    ) => <div {...props} ref={ref} />,
 );
 
-<ForwardRef3 ref={divFnRef}/>;
-<ForwardRef3 ref={divRef}/>;
+<ForwardRef3 ref={divFnRef} />;
+<ForwardRef3 ref={divRef} />;
 
 const { Profiler } = React;
 
@@ -336,29 +366,21 @@ const { Profiler } = React;
 <Profiler id={2} />; // $ExpectError
 
 <Profiler
-  id="test"
-  onRender={(
-    id,
-    phase,
-    actualDuration,
-    baseDuration,
-    startTime,
-    commitTime,
-    interactions
-  ) => {
-    const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
+    id="test"
+    onRender={(id, phase, actualDuration, baseDuration, startTime, commitTime, interactions) => {
+        const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
 
-    const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
+        const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
 
-    const interactionsSummary = Array.from(interactions)
-      .map(interaction => {
-        return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
-      })
-      .join("\n");
-    const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
-  }}
+        const interactionsSummary = Array.from(interactions)
+            .map((interaction) => {
+                return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
+            })
+            .join('\n');
+        const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
+    }}
 >
-  <div />
+    <div />
 </Profiler>;
 
 type ImgProps = React.ComponentProps<'img'>;
@@ -414,7 +436,7 @@ interface TestPropTypesProps3 {
     foo?: string | null;
 }
 const testPropTypes = {
-    foo: PropTypes.string
+    foo: PropTypes.string,
 };
 type DeclaredPropTypes<P> = Required<Exclude<React.FunctionComponent<P>['propTypes'], undefined>>;
 // $ExpectType false

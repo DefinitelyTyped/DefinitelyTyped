@@ -30,7 +30,7 @@ PullToRefresh.init({
     onRefresh: () => {
         location.reload();
     },
-    resistanceFunction: t => {
+    resistanceFunction: (t) => {
         return Math.min(1, t / 2.5);
     },
     shouldPullToRefresh: () => {
@@ -46,7 +46,7 @@ PullToRefresh.init({
 });
 
 PullToRefresh.init({
-    resistanceFunction: x => Math.sqrt(x),
+    resistanceFunction: (x) => Math.sqrt(x),
 });
 
 PullToRefresh.init({

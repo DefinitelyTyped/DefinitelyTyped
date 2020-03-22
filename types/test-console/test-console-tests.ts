@@ -3,19 +3,19 @@ import { stdout, stderr } from 'test-console';
 // $ExpectType Inspector
 stdout.inspect();
 // $ExpectType Inspector
-stdout.inspect({isTTY: true});
+stdout.inspect({ isTTY: true });
 
 // $ExpectError
 stdout.inspectSync();
 // $ExpectError
 stdout.inspectSync({});
 // $ExpectType ReadonlyArray<string> || Output
-stdout.inspectSync({isTTY: false}, (output) => output);
+stdout.inspectSync({ isTTY: false }, (output) => output);
 
 // $ExpectType Restore
 stdout.ignore();
 // $ExpectType Restore
-stdout.ignore({isTTY: false});
+stdout.ignore({ isTTY: false });
 
 // $ExpectError
 stdout.ignoreSync();
@@ -29,19 +29,19 @@ stdout.ignoreSync({}, () => {});
 // $ExpectType Inspector
 stderr.inspect();
 // $ExpectType Inspector
-stderr.inspect({isTTY: true});
+stderr.inspect({ isTTY: true });
 
 // $ExpectError
 stderr.inspectSync();
 // $ExpectError
 stderr.inspectSync({});
 // $ExpectType ReadonlyArray<string> || Output
-stderr.inspectSync({isTTY: false}, (output) => output);
+stderr.inspectSync({ isTTY: false }, (output) => output);
 
 // $ExpectType Restore
 stderr.ignore();
 // $ExpectType Restore
-stderr.ignore({isTTY: false});
+stderr.ignore({ isTTY: false });
 
 // $ExpectError
 stderr.ignoreSync();

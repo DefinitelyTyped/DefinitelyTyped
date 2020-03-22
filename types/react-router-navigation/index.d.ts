@@ -5,13 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode, ReactElement, ComponentClass } from "react";
-import { StyleProp, ViewProps, ViewStyle, TextStyle } from "react-native";
-import { RouteProps } from "react-router-navigation-core";
-import {
-    NavigationTransitionProps,
-    NavigationTransitionSpec
-} from "react-navigation";
+import { Component, ReactNode, ReactElement, ComponentClass } from 'react';
+import { StyleProp, ViewProps, ViewStyle, TextStyle } from 'react-native';
+import { RouteProps } from 'react-router-navigation-core';
+import { NavigationTransitionProps, NavigationTransitionSpec } from 'react-navigation';
 
 /**
  * Navigation
@@ -47,7 +44,7 @@ export interface NavigationProps extends NavBarProps {
     cardStyle?: StyleProp<ViewStyle>;
     configureTransition?: (
         transitionProps: NavigationTransitionProps,
-        prevTransitionProps?: NavigationTransitionProps
+        prevTransitionProps?: NavigationTransitionProps,
     ) => NavigationTransitionSpec;
     onTransitionStart?: (...args: any[]) => void;
     onTransitionEnd?: (...args: any[]) => void;
@@ -80,7 +77,7 @@ export interface TabBarProps {
     // <BottomNavigation /> only:
     renderTabIcon?: (props: TabSubViewProps) => ReactNode;
     // <Tabs /> only:
-    tabBarPosition?: "top" | "bottom";
+    tabBarPosition?: 'top' | 'bottom';
     tabBarIndicatorStyle?: StyleProp<ViewStyle>;
 }
 
@@ -89,7 +86,7 @@ export interface TabsProps extends TabBarProps {
     initialLayout?: { width?: number; height?: number };
     configureTransition?: (
         transitionProps: NavigationTransitionProps,
-        prevTransitionProps?: NavigationTransitionProps
+        prevTransitionProps?: NavigationTransitionProps,
     ) => NavigationTransitionSpec;
 }
 
@@ -121,10 +118,7 @@ export class BottomNavigation extends Component<
 
     renderPager: (sceneProps: TabSubViewProps) => ReactNode;
 
-    renderNavigationBar: (
-        sceneProps: TabSubViewProps,
-        props: TabSubViewProps
-    ) => ReactNode;
+    renderNavigationBar: (sceneProps: TabSubViewProps, props: TabSubViewProps) => ReactNode;
 
     renderSceneView: (sceneProps: TabSubViewProps) => ReactNode;
 
@@ -150,14 +144,9 @@ export interface NavigationComponentProps extends NavigationProps {
 export class Navigation extends Component<NavigationComponentProps> {
     props: NavigationComponentProps;
 
-    renderHeader: (
-        sceneProps: CardSubViewProps,
-        props: CardSubViewProps
-    ) => ReactNode;
+    renderHeader: (sceneProps: CardSubViewProps, props: CardSubViewProps) => ReactNode;
 
-    renderSceneComponent: (
-        sceneProps: CardSubViewProps
-    ) => ComponentClass<any> | undefined;
+    renderSceneComponent: (sceneProps: CardSubViewProps) => ComponentClass<any> | undefined;
 }
 
 export function Tab(props: TabProps): ReactElement<{}>;
@@ -178,10 +167,7 @@ export class Tabs extends Component<
 
     renderFooter: (sceneProps: TabSubViewProps) => ReactElement | null;
 
-    renderTabBar: (
-        sceneProps: TabSubViewProps,
-        props: TabSubViewProps
-    ) => ReactElement | null;
+    renderTabBar: (sceneProps: TabSubViewProps, props: TabSubViewProps) => ReactElement | null;
 
     renderScene: (sceneProps: TabSubViewProps) => ReactElement | null;
 }

@@ -1,6 +1,6 @@
-import MutableArray from "@ember/array/mutable";
-import EmberObject from "@ember/object";
-import NativeArray from "@ember/array/-private/native-array";
+import MutableArray from '@ember/array/mutable';
+import EmberObject from '@ember/object';
+import NativeArray from '@ember/array/-private/native-array';
 
 /**
  * An ArrayProxy wraps any other object that implements Ember.Array and/or Ember.MutableArray,

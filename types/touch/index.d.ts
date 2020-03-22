@@ -8,7 +8,11 @@
 /// <reference types="node" />
 
 declare function touch<T = void>(filename: string, cb?: (err?: NodeJS.ErrnoException) => T): Promise<T>;
-declare function touch<T = void>(filename: string, options?: touch.Options, cb?: (err?: NodeJS.ErrnoException) => T): Promise<T>;
+declare function touch<T = void>(
+    filename: string,
+    options?: touch.Options,
+    cb?: (err?: NodeJS.ErrnoException) => T,
+): Promise<T>;
 
 declare namespace touch {
     interface Options {

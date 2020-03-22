@@ -15,5 +15,5 @@ interface InputEvent extends UIEvent {
 }
 declare var InputEvent: {
     prototype: InputEvent;
-    new(type: string, eventInitDict?: InputEventInit): InputEvent;
+    new (type: string, eventInitDict?: InputEventInit): InputEvent;
 };

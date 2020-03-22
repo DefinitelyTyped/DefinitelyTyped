@@ -161,9 +161,7 @@ export const TemplateTag: {
  * @param  [side=''] The side of the string to trim. Can be 'start' or 'end' (alternatively 'left' or 'right')
  * @return a TemplateTag transformer
  */
-export function trimResultTransformer(
-    side?: 'start' | 'end' | 'left' | 'right' | ''
-): TemplateTransformer;
+export function trimResultTransformer(side?: 'start' | 'end' | 'left' | 'right' | ''): TemplateTransformer;
 
 /**
  * strips indentation from a template literal
@@ -180,7 +178,7 @@ export function stripIndentTransformer(type?: 'initial' | 'all'): TemplateTransf
  */
 export function replaceResultTransformer(
     replaceWhat: string | RegExp,
-    replaceWith: string | ((substring: string, ...args: any[]) => string)
+    replaceWith: string | ((substring: string, ...args: any[]) => string),
 ): TemplateTransformer;
 
 /**
@@ -189,7 +187,7 @@ export function replaceResultTransformer(
  */
 export function replaceSubstitutionTransformer(
     replaceWhat: string | RegExp,
-    replaceWith: string | ((substring: string, ...args: any[]) => string)
+    replaceWith: string | ((substring: string, ...args: any[]) => string),
 ): TemplateTransformer;
 
 /**
@@ -198,7 +196,7 @@ export function replaceSubstitutionTransformer(
  */
 export function replaceStringTransformer(
     replaceWhat: string | RegExp,
-    replaceWith: string | ((substring: string, ...args: any[]) => string)
+    replaceWith: string | ((substring: string, ...args: any[]) => string),
 ): TemplateTransformer;
 
 /**

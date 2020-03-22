@@ -7,7 +7,7 @@ api.onEvent((req: any) => req);
 api.onSchedule((req: any) => req);
 
 const testReponse = {
-    statusCode: 200
+    statusCode: 200,
 };
 
 api.head('/v1/test', () => testReponse);

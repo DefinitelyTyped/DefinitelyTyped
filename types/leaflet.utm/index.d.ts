@@ -34,10 +34,7 @@ declare module 'leaflet' {
         }
 
         function setDefaultOptions(
-            params:
-                | ToStringOptions
-                | ((opts: ToStringOptions, defaultOpts: ToStringOptions) => ToStringOptions)
-                | null
+            params: ToStringOptions | ((opts: ToStringOptions, defaultOpts: ToStringOptions) => ToStringOptions) | null,
         ): void;
     }
 

@@ -1,5 +1,4 @@
-
-import domReady = require("requirejs-domready");
+import domReady = require('requirejs-domready');
 
 domReady(() => {
     return domReady.version;

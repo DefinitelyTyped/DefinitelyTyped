@@ -11,12 +11,12 @@ const optionsFull: DotenvWebpackPlugin.Options = {
     systemvars: true,
     silent: true,
     expand: true,
-    defaults: true
+    defaults: true,
 };
 
 const optionsStrings: DotenvWebpackPlugin.Options = {
     safe: './some.other.env.example',
-    defaults: './some.other.env.defaults'
+    defaults: './some.other.env.defaults',
 };
 
 const config: webpack.Configuration = {
@@ -24,6 +24,6 @@ const config: webpack.Configuration = {
         new DotenvWebpackPlugin(),
         new DotenvWebpackPlugin(optionsEmpty),
         new DotenvWebpackPlugin(optionsFull),
-        new DotenvWebpackPlugin(optionsStrings)
-    ]
+        new DotenvWebpackPlugin(optionsStrings),
+    ],
 };

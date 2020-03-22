@@ -48,8 +48,8 @@ export class Gpio extends EventEmitter {
             /**
              * boolean specifying whether or not alert events are emitted when the GPIO changes state (optional, default false)
              */
-            alert?: boolean
-        }
+            alert?: boolean;
+        },
     );
 
     /**
@@ -355,7 +355,7 @@ export class Notifier {
          * If a bit is set, the corresponding GPIO will be monitored for state changes. (optional, no default)
          */
         bits: number;
-    })
+    });
 
     /**
      * Starts notifications for the GPIOs specified in the bit mask.

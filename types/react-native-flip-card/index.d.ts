@@ -4,41 +4,35 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode, ComponentClass } from "react";
-import {
-    ViewProps,
-    TextProps,
-    StyleProp,
-    TextInputProps,
-    ViewStyle
-} from "react-native";
+import { Component, ReactNode, ComponentClass } from 'react';
+import { ViewProps, TextProps, StyleProp, TextInputProps, ViewStyle } from 'react-native';
 
 // FlipCard
 export interface FlipCardProps {
-  style?: StyleProp<ViewStyle>;
-  flip?: boolean;
-  friction?: number;
-  perspective?: number;
-  flipHorizontal?: boolean;
-  flipVertical?: boolean;
-  clickable?: boolean;
-  onFlipEnd?: () => void;
-  onFlipStart?: () => void;
-  alignHeight?: boolean;
-  alignWidth?: boolean;
-  useNativeDriver?: boolean;
+    style?: StyleProp<ViewStyle>;
+    flip?: boolean;
+    friction?: number;
+    perspective?: number;
+    flipHorizontal?: boolean;
+    flipVertical?: boolean;
+    clickable?: boolean;
+    onFlipEnd?: () => void;
+    onFlipStart?: () => void;
+    alignHeight?: boolean;
+    alignWidth?: boolean;
+    useNativeDriver?: boolean;
 }
 // Face
 export interface FaceProps {
-  chilren: JSX.Element[];
+    chilren: JSX.Element[];
 }
 
 // Back
 export interface BackProps {
-  flipHorizontal: boolean;
-  flipVertical: boolean;
-  perspective: number;
-  chilren: JSX.Element[];
+    flipHorizontal: boolean;
+    flipVertical: boolean;
+    perspective: number;
+    chilren: JSX.Element[];
 }
 
 export const Face: ComponentClass<FaceProps>;

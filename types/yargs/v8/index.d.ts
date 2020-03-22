@@ -89,8 +89,18 @@ declare namespace yargs {
         command(command: string | string[], description: string): Argv;
         command(command: string | string[], description: string, builder: (args: Argv) => Argv): Argv;
         command(command: string | string[], description: string, builder: { [optionName: string]: Options }): Argv;
-        command(command: string | string[], description: string, builder: { [optionName: string]: Options }, handler: (args: Arguments) => void): Argv;
-        command(command: string | string[], description: string, builder: (args: Argv) => Argv, handler: (args: Arguments) => void): Argv;
+        command(
+            command: string | string[],
+            description: string,
+            builder: { [optionName: string]: Options },
+            handler: (args: Arguments) => void,
+        ): Argv;
+        command(
+            command: string | string[],
+            description: string,
+            builder: (args: Argv) => Argv,
+            handler: (args: Arguments) => void,
+        ): Argv;
         command(command: string | string[], description: string, module: CommandModule): Argv;
         command(module: CommandModule): Argv;
 
@@ -173,7 +183,7 @@ declare namespace yargs {
         fail(func: (msg: string, err: Error, yargs: Argv) => any): Argv;
 
         coerce<T, U>(key: string | string[], func: (arg: T) => U): Argv;
-        coerce<T, U>(opts: { [key: string]: (arg: T) => U; }): Argv;
+        coerce<T, U>(opts: { [key: string]: (arg: T) => U }): Argv;
 
         getCompletion(args: string[], done: (completions: string[]) => void): Argv;
 
@@ -199,7 +209,7 @@ declare namespace yargs {
         $0: string;
 
         /** All remaining options */
-        [ argName: string ]: any;
+        [argName: string]: any;
     }
 
     interface RequireDirectoryOptions {
@@ -239,7 +249,7 @@ declare namespace yargs {
         requiresArg?: boolean | string;
         skipValidation?: boolean;
         string?: boolean;
-        type?: "array" | "boolean" | "count" | "number" | "string";
+        type?: 'array' | 'boolean' | 'count' | 'number' | 'string';
     }
 
     interface CommandModule {

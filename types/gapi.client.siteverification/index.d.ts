@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Site Verification API v1 */
-    function load(name: "siteverification", version: "v1"): PromiseLike<void>;
-    function load(name: "siteverification", version: "v1", callback: () => any): void;
+    function load(name: 'siteverification', version: 'v1'): PromiseLike<void>;
+    function load(name: 'siteverification', version: 'v1', callback: () => any): void;
 
     const webResource: siteverification.WebResourceResource;
 

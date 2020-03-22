@@ -111,7 +111,7 @@ declare module '../../index' {
             gridDivisions?: number,
             xOff?: number,
             yOff?: number,
-            zOff?: number
+            zOff?: number,
         ): void;
 
         /**
@@ -178,7 +178,7 @@ declare module '../../index' {
             axesSize?: number,
             axesXOff?: number,
             axesYOff?: number,
-            axesZOff?: number
+            axesZOff?: number,
         ): void;
 
         /**

@@ -13,7 +13,7 @@ import {
     slugize,
     spawn,
     truncate,
-    wordWrap
+    wordWrap,
 } from 'hexo-util';
 
 import { expect } from 'chai';
@@ -23,7 +23,7 @@ import { createHash } from 'crypto';
 import { join } from 'path';
 
 let buffer = Buffer.alloc(0);
-let directory: { [x: string]: any; } = {};
+let directory: { [x: string]: any } = {};
 let string = '';
 
 const cacheStream = new CacheStream();
@@ -56,10 +56,14 @@ hash(string).equals(sha1(string));
 
 sha1(string).equals(hashStream.read());
 
-const testString = JSON.stringify({
-    foo: 1,
-    bar: 2
-}, null, '  ');
+const testString = JSON.stringify(
+    {
+        foo: 1,
+        bar: 2,
+    },
+    null,
+    '  ',
+);
 
 string = highlight(testString);
 string = highlight(testString, { gutter: false });
@@ -70,44 +74,22 @@ string = highlight(testString, { autoDetect: true });
 string = highlight('test', { lang: 'jrowiejrowi' });
 string = highlight(testString, { caption: 'hello world' });
 
-string = highlight([
-    'function fib(i){',
-    '\tif (i <= 1) return i;',
-    '\treturn fib(i - 1) + fib(i - 2);',
-    '}'
-].join('\n'), { tab: '  ', lang: 'js' });
+string = highlight(
+    ['function fib(i){', '\tif (i <= 1) return i;', '\treturn fib(i - 1) + fib(i - 2);', '}'].join('\n'),
+    { tab: '  ', lang: 'js' },
+);
 
-string = highlight([
-    'const string = `',
-    '  Multi',
-    '  line',
-    '  string',
-    '`'
-].join('\n'), { lang: 'js' });
+string = highlight(['const string = `', '  Multi', '  line', '  string', '`'].join('\n'), { lang: 'js' });
 
-string = highlight([
-    'const string = `',
-    '  Multi',
-    '',
-    '  string',
-    '`'
-].join('\n'), { lang: 'js' });
+string = highlight(['const string = `', '  Multi', '', '  string', '`'].join('\n'), { lang: 'js' });
 
-string = highlight([
-    '"use strict";',
-    'const string = `',
-    '  Multi',
-    '',
-    '  string',
-    '`'
-].join('\n'), { autoDetect: true });
+string = highlight(['"use strict";', 'const string = `', '  Multi', '', '  string', '`'].join('\n'), {
+    autoDetect: true,
+});
 
-string = highlight([
-    'roses are red',
-    'violets are blue',
-    'sugar is sweet',
-    'and so are you'
-].join('\n'), { mark: [1, 3, 5] });
+string = highlight(['roses are red', 'violets are blue', 'sugar is sweet', 'and so are you'].join('\n'), {
+    mark: [1, 3, 5],
+});
 
 string.includes('class="line marked">roses');
 string.includes('class="line">violets');
@@ -117,26 +99,21 @@ string.includes('class="line">and');
 const gutterStart = '<td class="gutter"><pre>';
 const codeStart = '<td class="code"><pre>';
 
-string = highlight([
-    'a => {',
-    '    if (a > 3)',
-    '        return true;',
-    '    return false;',
-    '}'
-].join('\n'), { hljs: true, lang: 'javascript' });
+string = highlight(['a => {', '    if (a > 3)', '        return true;', '    return false;', '}'].join('\n'), {
+    hljs: true,
+    lang: 'javascript',
+});
 
 string.includes(gutterStart);
 string.includes(codeStart);
 string.includes('code class="hljs javascript"');
 string.includes('class="hljs-function"');
 
-string = highlight([
-    'a => {',
-    '    if (a > 3)',
-    '        return true;',
-    '    return false;',
-    '}'
-].join('\n'), { hljs: true, gutter: false, lang: 'javascript' });
+string = highlight(['a => {', '    if (a > 3)', '        return true;', '    return false;', '}'].join('\n'), {
+    hljs: true,
+    gutter: false,
+    lang: 'javascript',
+});
 
 !string.includes(gutterStart);
 !string.includes(codeStart);
@@ -148,7 +125,7 @@ string = htmlTag('img', { src: 'http://placekitten.com/200/300' });
 string = htmlTag('img', {
     src: 'http://placekitten.com/200/300',
     width: 200,
-    height: 300
+    height: 300,
 });
 string = htmlTag('a', { href: 'http://zespia.tw' }, 'My blog');
 
@@ -196,7 +173,7 @@ string = htmlTag('a', { href: 'http://zespia.tw' }, 'My blog');
 }
 
 {
-    const pattern = new Pattern(str => {
+    const pattern = new Pattern((str) => {
         str === 'foo';
         return {};
     });
@@ -214,8 +191,8 @@ permalink = new Permalink(':year/:month/:day/:title', {
     segments: {
         year: /(\d{4})/,
         month: /(\d{2})/,
-        day: /(\d{2})/
-    }
+        day: /(\d{2})/,
+    },
 });
 
 permalink.rule === ':year/:month/:day/:title';
@@ -228,14 +205,14 @@ expect(permalink.parse('2014/01/31/test')).eql({
     year: '2014',
     month: '01',
     day: '31',
-    title: 'test'
+    title: 'test',
 });
 
 permalink.stringify({
     year: '2014',
     month: '01',
     day: '31',
-    title: 'test'
+    title: 'test',
 }) === '2014/01/31/test';
 
 slugize('Hello World') === 'Hello-World';
@@ -273,6 +250,8 @@ string = truncate('Once upon a time in a world far far away', { length: 17, sepa
 string = truncate('And they found that many people were sleeping better.', { length: 25, omission: '... (continued)' });
 
 string = wordWrap('Once upon a time');
-string = wordWrap('Once upon a time, in a kingdom called Far Far Away, a king fell ill, and finding a successor to the throne turned out to be more trouble than anyone could have imagined...');
+string = wordWrap(
+    'Once upon a time, in a kingdom called Far Far Away, a king fell ill, and finding a successor to the throne turned out to be more trouble than anyone could have imagined...',
+);
 string = wordWrap('Once upon a time', { width: 8 });
 string = wordWrap('Once upon a time', { width: 1 });

@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type SearchInputProps = {
     className?: string;
@@ -14,19 +14,19 @@ export type SearchInputProps = {
     popoverProps?: any;
     searchBtnProps?: any;
     searchList?: Array<{
-      text: string,
-      callback?: (...args: any[]) => any
+        text: string;
+        callback?: (...args: any[]) => any;
     }>;
     validationState?: {
-      state?: any,
-      text?: string
+        state?: any;
+        text?: string;
     };
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onEnter?: (value?: string | number | string[]) => void;
 } & { [x: string]: any };
 
 declare class SearchInput extends React.Component<SearchInputProps> {
-    static displayName: "SearchInput";
+    static displayName: 'SearchInput';
 }
 
 export default SearchInput;

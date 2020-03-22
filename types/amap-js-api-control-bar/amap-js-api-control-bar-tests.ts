@@ -8,10 +8,10 @@ const controlBar = new AMap.ControlBar({
         left: 'left',
         right: 'right',
         top: 'top',
-        bottom: 'bottom'
+        bottom: 'bottom',
     },
     showZoomBar: true,
-    showControlButton: true
+    showControlButton: true,
 });
 
 // $ExpectType void

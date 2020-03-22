@@ -5,6 +5,8 @@ import { OptionTypeBase } from '../types';
 
 export type AnimatedValueContainerProps<OptionType extends OptionTypeBase> = ValueContainerProps<OptionType>;
 
-export function AnimatedValueContainer<OptionType extends OptionTypeBase>(WrappedComponent: ComponentType<ValueContainerProps<OptionType>>): ComponentType<AnimatedValueContainerProps<OptionType>>;
+export function AnimatedValueContainer<OptionType extends OptionTypeBase>(
+    WrappedComponent: ComponentType<ValueContainerProps<OptionType>>,
+): ComponentType<AnimatedValueContainerProps<OptionType>>;
 
 export default AnimatedValueContainer;

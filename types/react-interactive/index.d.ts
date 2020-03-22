@@ -10,73 +10,78 @@ export {};
 
 export type IState = 'normal' | 'hover' | 'hoverActive' | 'touchActive' | 'keyActive';
 export type Focus = false | 'tab' | 'mouse' | 'touch';
-export type ClickType = "mouseClick" | "tapClick" | "keyClick";
+export type ClickType = 'mouseClick' | 'tapClick' | 'keyClick';
 
-export type State = {focus: Focus, iState: IState};
+export type State = { focus: Focus; iState: IState };
 
-type ActiveProps = {
-    active?: CSSProperties;
-} | {
-    hoverActive?: CSSProperties;
-    touchActive?: CSSProperties;
-    keyActive?: CSSProperties;
-};
+type ActiveProps =
+    | {
+          active?: CSSProperties;
+      }
+    | {
+          hoverActive?: CSSProperties;
+          touchActive?: CSSProperties;
+          keyActive?: CSSProperties;
+      };
 
-type FocusProps = {
-    focus?: CSSProperties;
-} | {
-    focusFromTab?: CSSProperties;
-    focusFromMouse?: CSSProperties;
-    focusFromTouch?: CSSProperties;
-};
+type FocusProps =
+    | {
+          focus?: CSSProperties;
+      }
+    | {
+          focusFromTab?: CSSProperties;
+          focusFromMouse?: CSSProperties;
+          focusFromTouch?: CSSProperties;
+      };
 
-export type InteractiveProps = FocusProps & ActiveProps & {
-    // as: string | Component | ReactElement;
-    as: any;
+export type InteractiveProps = FocusProps &
+    ActiveProps & {
+        // as: string | Component | ReactElement;
+        as: any;
 
-    hover?: CSSProperties;
+        hover?: CSSProperties;
 
-    style?: CSSProperties;
+        style?: CSSProperties;
 
-    className?: string;
+        className?: string;
 
-    onStateChange?: (arg0: {prevState: State, nextState: State, event: SyntheticEvent}) => void;
+        onStateChange?: (arg0: { prevState: State; nextState: State; event: SyntheticEvent }) => void;
 
-    setStateCallback?: (arg0: {prevState: State, nextState: State}) => void;
+        setStateCallback?: (arg0: { prevState: State; nextState: State }) => void;
 
-    onClick?: (event: SyntheticEvent, clickType: ClickType) => void;
+        onClick?: (event: SyntheticEvent, clickType: ClickType) => void;
 
-    onTapTwo?: (event: Event) => void;
-    onTapThree?: (event: Event) => void;
-    onTapFour?: (event: Event) => void;
+        onTapTwo?: (event: Event) => void;
+        onTapThree?: (event: Event) => void;
+        onTapFour?: (event: Event) => void;
 
-    tapTimeCutoff?: number;
+        tapTimeCutoff?: number;
 
-    onLongPress?: (event: Event) => void;
+        onLongPress?: (event: Event) => void;
 
-    touchActiveTapOnly?: boolean;
+        touchActiveTapOnly?: boolean;
 
-    extraTouchNoTap?: boolean;
+        extraTouchNoTap?: boolean;
 
-    nonContainedChild?: boolean;
+        nonContainedChild?: boolean;
 
-    initialState?: State;
+        initialState?: State;
 
-    forceState?: State;
+        forceState?: State;
 
-    styleProperty?: object;
+        styleProperty?: object;
 
-    refDOMNode?: (node: any) => any; // Not sure about this type
+        refDOMNode?: (node: any) => any; // Not sure about this type
 
-    focusToggleOff?: boolean;
+        focusToggleOff?: boolean;
 
-    mutableProps?: boolean;
+        mutableProps?: boolean;
 
-    interactiveChild?: boolean;
+        interactiveChild?: boolean;
 
-    wrapperStyle?: CSSProperties;
+        wrapperStyle?: CSSProperties;
 
-    wrapperClassName?: string;
-};
+        wrapperClassName?: string;
+    };
 
 export default class Interactive extends Component<InteractiveProps> {}

@@ -32,5 +32,5 @@ const customArgv = rc(
             cooked: ['--no-option', '--envOption', '24'],
             original: ['--no-option', '--envOption=24'],
         },
-    }
+    },
 );

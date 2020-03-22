@@ -34,7 +34,10 @@ declare global {
             on(event: 'deprecation', listener: (deprecationError: depd.DeprecationError) => void): this;
             once(event: 'deprecation', listener: (deprecationError: depd.DeprecationError) => void): this;
             prependListener(event: 'deprecation', listener: (deprecationError: depd.DeprecationError) => void): this;
-            prependOnceListener(event: 'deprecation', listener: (deprecationError: depd.DeprecationError) => void): this;
+            prependOnceListener(
+                event: 'deprecation',
+                listener: (deprecationError: depd.DeprecationError) => void,
+            ): this;
             listeners(event: 'deprecation'): depd.DeprecationError[];
         }
     }

@@ -8,10 +8,12 @@ declare class MainFieldPlugin {
     target: string;
 
     constructor(
-        source: string, options: {
+        source: string,
+        options: {
             name: string;
             forceRelative: boolean;
-        }, target: string
+        },
+        target: string,
     );
 
     apply(resolver: Resolver): void;

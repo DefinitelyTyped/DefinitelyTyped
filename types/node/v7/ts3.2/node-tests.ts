@@ -20,37 +20,37 @@
 // tslint:disable:semicolon
 // tslint:disable:typedef-whitespace
 // tslint:disable:whitespace
-import assert = require("assert");
-import * as fs from "fs";
-import * as events from "events";
-import events2 = require("events");
-import * as zlib from "zlib";
-import * as url from "url";
-import * as util from "util";
-import * as crypto from "crypto";
-import * as tls from "tls";
-import * as http from "http";
-import * as https from "https";
-import * as net from "net";
-import * as tty from "tty";
-import * as dgram from "dgram";
-import * as querystring from "querystring";
-import * as path from "path";
-import * as readline from "readline";
-import * as childProcess from "child_process";
-import * as cluster from "cluster";
-import * as os from "os";
-import * as vm from "vm";
-import * as console2 from "console";
-import * as string_decoder from "string_decoder";
-import * as stream from "stream";
-import * as timers from "timers";
-import * as repl from "repl";
-import * as v8 from "v8";
-import * as dns from "dns";
+import assert = require('assert');
+import * as fs from 'fs';
+import * as events from 'events';
+import events2 = require('events');
+import * as zlib from 'zlib';
+import * as url from 'url';
+import * as util from 'util';
+import * as crypto from 'crypto';
+import * as tls from 'tls';
+import * as http from 'http';
+import * as https from 'https';
+import * as net from 'net';
+import * as tty from 'tty';
+import * as dgram from 'dgram';
+import * as querystring from 'querystring';
+import * as path from 'path';
+import * as readline from 'readline';
+import * as childProcess from 'child_process';
+import * as cluster from 'cluster';
+import * as os from 'os';
+import * as vm from 'vm';
+import * as console2 from 'console';
+import * as string_decoder from 'string_decoder';
+import * as stream from 'stream';
+import * as timers from 'timers';
+import * as repl from 'repl';
+import * as v8 from 'v8';
+import * as dns from 'dns';
 
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, TranscodeEncoding } from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, TranscodeEncoding } from 'buffer';
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -73,35 +73,47 @@ namespace assert_tests {
     {
         assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
-        assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
+        assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, 'DEEP WENT DERP');
 
-        assert.deepStrictEqual({ a: 1 }, { a: 1 }, "uses === comparator");
+        assert.deepStrictEqual({ a: 1 }, { a: 1 }, 'uses === comparator');
 
-        assert.doesNotThrow(() => {
-            const b = false;
-            if (b) { throw "a hammer at your face"; }
-        }, undefined, "What the...*crunch*");
+        assert.doesNotThrow(
+            () => {
+                const b = false;
+                if (b) {
+                    throw 'a hammer at your face';
+                }
+            },
+            undefined,
+            'What the...*crunch*',
+        );
 
-        assert.equal(3, "3", "uses == comparator");
+        assert.equal(3, '3', 'uses == comparator');
 
-        assert.fail("actual", "expected", "message");
+        assert.fail('actual', 'expected', 'message');
 
         assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
 
-        assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses !== comparator");
+        assert.notDeepStrictEqual({ x: { y: '3' } }, { x: { y: 3 } }, 'uses !== comparator');
 
-        assert.notEqual(1, 2, "uses != comparator");
+        assert.notEqual(1, 2, 'uses != comparator');
 
-        assert.notStrictEqual(2, "2", "uses === comparator");
+        assert.notStrictEqual(2, '2', 'uses === comparator');
 
         assert.ok(true);
         assert.ok(1);
 
-        assert.strictEqual(1, 1,  "uses === comparator");
+        assert.strictEqual(1, 1, 'uses === comparator');
 
-        assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
+        assert.throws(
+            () => {
+                throw 'a hammer at your face';
+            },
+            undefined,
+            'DODGED IT',
+        );
     }
 }
 
@@ -165,7 +177,7 @@ namespace events_tests {
             constructor() {
                 super();
 
-                this.emit("mingling");
+                this.emit('mingling');
             }
         }
     }
@@ -181,30 +193,30 @@ namespace events_tests {
 
 namespace fs_tests {
     {
-        fs.writeFile("thebible.txt",
-            "Do unto others as you would have them do unto you.",
-            assert.ifError);
+        fs.writeFile('thebible.txt', 'Do unto others as you would have them do unto you.', assert.ifError);
 
-        fs.write(1234, "test");
+        fs.write(1234, 'test');
 
-        fs.writeFile("Harry Potter",
-            "\"You be wizzing, Harry,\" jived Dumbledore.",
+        fs.writeFile(
+            'Harry Potter',
+            '"You be wizzing, Harry," jived Dumbledore.',
             {
-                encoding: "ascii"
+                encoding: 'ascii',
             },
-            assert.ifError);
+            assert.ifError,
+        );
 
-        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+        fs.writeFile('testfile', 'content', 'utf8', assert.ifError);
 
-        fs.writeFileSync("testfile", "content", "utf8");
-        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+        fs.writeFileSync('testfile', 'content', 'utf8');
+        fs.writeFileSync('testfile', 'content', { encoding: 'utf8' });
     }
 
     {
-        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
-        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
-        fs.appendFileSync("testfile", "foobar", "utf8");
-        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
+        fs.appendFile('testfile', 'foobar', 'utf8', assert.ifError);
+        fs.appendFile('testfile', 'foobar', { encoding: 'utf8' }, assert.ifError);
+        fs.appendFileSync('testfile', 'foobar', 'utf8');
+        fs.appendFileSync('testfile', 'foobar', { encoding: 'utf8' });
     }
 
     {
@@ -227,18 +239,18 @@ namespace fs_tests {
 
         buffer = fs.readFileSync('testfile', { flag: 'r' });
 
-        fs.readFile('testfile', 'utf8', (err, data) => content = data);
-        fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
-        fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
-        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', 'utf8', (err, data) => (content = data));
+        fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => (content = data));
+        fs.readFile('testfile', stringEncoding, (err, data) => (stringOrBuffer = data));
+        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => (stringOrBuffer = data));
 
-        fs.readFile('testfile', (err, data) => buffer = data);
-        fs.readFile('testfile', null, (err, data) => buffer = data);
-        fs.readFile('testfile', { encoding: null }, (err, data) => buffer = data);
-        fs.readFile('testfile', nullEncoding, (err, data) => stringOrBuffer = data);
-        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', (err, data) => (buffer = data));
+        fs.readFile('testfile', null, (err, data) => (buffer = data));
+        fs.readFile('testfile', { encoding: null }, (err, data) => (buffer = data));
+        fs.readFile('testfile', nullEncoding, (err, data) => (stringOrBuffer = data));
+        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => (stringOrBuffer = data));
 
-        fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
+        fs.readFile('testfile', { flag: 'r' }, (err, data) => (buffer = data));
     }
 
     {
@@ -264,30 +276,34 @@ namespace fs_tests {
 
     {
         fs.watch('/tmp/foo-', (event, filename) => {
-          console.log(event, filename);
+            console.log(event, filename);
         });
 
         fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
-          console.log(event, filename);
+            console.log(event, filename);
         });
 
-        fs.watch('/tmp/foo-', {
-          recursive: true,
-          persistent: true,
-          encoding: 'utf8'
-        }, (event, filename) => {
-          console.log(event, filename);
-        });
+        fs.watch(
+            '/tmp/foo-',
+            {
+                recursive: true,
+                persistent: true,
+                encoding: 'utf8',
+            },
+            (event, filename) => {
+                console.log(event, filename);
+            },
+        );
     }
 
     {
-        fs.access('/path/to/folder', (err) => { });
+        fs.access('/path/to/folder', (err) => {});
 
-        fs.access(Buffer.from(''), (err) => { });
+        fs.access(Buffer.from(''), (err) => {});
 
-        fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => { });
+        fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => {});
 
-        fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => { });
+        fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => {});
 
         fs.accessSync('/path/to/folder');
 
@@ -393,9 +409,9 @@ function bufferTests() {
     {
         let buffer = new Buffer('123');
         let index: number;
-        index = buffer.indexOf("23");
-        index = buffer.indexOf("23", 1);
-        index = buffer.indexOf("23", 1, "utf8");
+        index = buffer.indexOf('23');
+        index = buffer.indexOf('23', 1);
+        index = buffer.indexOf('23', 1, 'utf8');
         index = buffer.indexOf(23);
         index = buffer.indexOf(buffer);
     }
@@ -403,9 +419,9 @@ function bufferTests() {
     {
         let buffer = new Buffer('123');
         let index: number;
-        index = buffer.lastIndexOf("23");
-        index = buffer.lastIndexOf("23", 1);
-        index = buffer.lastIndexOf("23", 1, "utf8");
+        index = buffer.lastIndexOf('23');
+        index = buffer.lastIndexOf('23', 1);
+        index = buffer.lastIndexOf('23', 1, 'utf8');
         index = buffer.lastIndexOf(23);
         index = buffer.lastIndexOf(buffer);
     }
@@ -424,15 +440,15 @@ function bufferTests() {
     {
         let buffer = new Buffer('123');
         let includes: boolean;
-        includes = buffer.includes("23");
-        includes = buffer.includes("23", 1);
-        includes = buffer.includes("23", 1, "utf8");
+        includes = buffer.includes('23');
+        includes = buffer.includes('23', 1);
+        includes = buffer.includes('23', 1, 'utf8');
         includes = buffer.includes(23);
         includes = buffer.includes(23, 1);
-        includes = buffer.includes(23, 1, "utf8");
+        includes = buffer.includes(23, 1, 'utf8');
         includes = buffer.includes(buffer);
         includes = buffer.includes(buffer, 1);
-        includes = buffer.includes(buffer, 1, "utf8");
+        includes = buffer.includes(buffer, 1, 'utf8');
     }
 
     {
@@ -467,8 +483,8 @@ function bufferTests() {
 
     // Buffer has Uint8Array's buffer field (an ArrayBuffer).
     {
-      let buffer = new Buffer('123');
-      let octets = new Uint8Array(buffer.buffer);
+        let buffer = new Buffer('123');
+        let octets = new Uint8Array(buffer.buffer);
     }
 
     // Buffer module, transcode function
@@ -480,7 +496,6 @@ function bufferTests() {
         transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
     }
 }
-
 
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
@@ -495,9 +510,9 @@ namespace url_tests {
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
-            host: "google.com",
+            host: 'google.com',
             pathname: 'search',
-            query: { q: "you're a lizard, gary" }
+            query: { q: "you're a lizard, gary" },
         });
 
         const myURL = new url.URL('https://a:b@你好你好?abc#foo');
@@ -505,7 +520,7 @@ namespace url_tests {
     }
 
     {
-        var helloUrl = url.parse('http://example.com/?hello=world', true)
+        var helloUrl = url.parse('http://example.com/?hello=world', true);
         assert.equal(helloUrl.query.hello, 'world');
     }
 
@@ -524,9 +539,9 @@ namespace url_tests {
         assert.equal(myURL.password, 'thepwd');
         assert.equal(myURL.username, 'theuser');
         assert.equal(myURL.pathname, '/foo/path');
-        assert.equal(myURL.port, "81");
-        assert.equal(myURL.protocol, "https:");
-        assert.equal(myURL.search, "?query=string");
+        assert.equal(myURL.port, '81');
+        assert.equal(myURL.protocol, 'https:');
+        assert.equal(myURL.search, '?query=string');
         assert.equal(myURL.toString(), 'https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
         assert(myURL.searchParams instanceof url.URLSearchParams);
 
@@ -534,12 +549,12 @@ namespace url_tests {
         myURL.hostname = 'example.com';
         myURL.href = 'http://other.com';
         myURL.hash = 'baz';
-        myURL.password = "otherpwd";
-        myURL.username = "otheruser";
-        myURL.pathname = "/otherPath";
-        myURL.port = "82";
-        myURL.protocol = "http";
-        myURL.search = "a=b";
+        myURL.password = 'otherpwd';
+        myURL.username = 'otheruser';
+        myURL.pathname = '/otherPath';
+        myURL.port = '82';
+        myURL.protocol = 'http';
+        myURL.search = 'a=b';
         assert.equal(myURL.href, 'http://otheruser:otherpwd@other.com:82/otherPath?a=b#baz');
 
         myURL = new url.URL('/foo', 'https://example.org/');
@@ -564,19 +579,19 @@ namespace url_tests {
         assert.deepEqual(searchParams.getAll('abc'), ['123', 'xyz']);
 
         const entries = searchParams.entries();
-        assert.deepEqual(entries.next(), { value: ["abc", "123"], done: false});
-        assert.deepEqual(entries.next(), { value: ["abc", "xyz"], done: false});
-        assert.deepEqual(entries.next(), { value: undefined, done: true});
+        assert.deepEqual(entries.next(), { value: ['abc', '123'], done: false });
+        assert.deepEqual(entries.next(), { value: ['abc', 'xyz'], done: false });
+        assert.deepEqual(entries.next(), { value: undefined, done: true });
 
         const keys = searchParams.keys();
-        assert.deepEqual(keys.next(), { value: "abc", done: false});
-        assert.deepEqual(keys.next(), { value: "abc", done: false});
-        assert.deepEqual(keys.next(), { value: undefined, done: true});
+        assert.deepEqual(keys.next(), { value: 'abc', done: false });
+        assert.deepEqual(keys.next(), { value: 'abc', done: false });
+        assert.deepEqual(keys.next(), { value: undefined, done: true });
 
         const values = searchParams.values();
-        assert.deepEqual(values.next(), { value: "123", done: false});
-        assert.deepEqual(values.next(), { value: "xyz", done: false});
-        assert.deepEqual(values.next(), { value: undefined, done: true});
+        assert.deepEqual(values.next(), { value: '123', done: false });
+        assert.deepEqual(values.next(), { value: 'xyz', done: false });
+        assert.deepEqual(values.next(), { value: undefined, done: true });
 
         searchParams.set('abc', 'b');
         assert.deepEqual(searchParams.getAll('abc'), ['b']);
@@ -591,7 +606,7 @@ namespace url_tests {
     {
         const searchParams = new url.URLSearchParams({
             user: 'abc',
-            query: ['first', 'second']
+            query: ['first', 'second'],
         });
 
         assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
@@ -603,7 +618,7 @@ namespace url_tests {
         let params = new url.URLSearchParams([
             ['user', 'abc'],
             ['query', 'first'],
-            ['query', 'second']
+            ['query', 'second'],
         ]);
         assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
@@ -616,23 +631,23 @@ namespace url_tests {
 namespace util_tests {
     {
         // Old and new util.inspect APIs
-        util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], false, null);
-        util.inspect(["This is nice"], {
-          colors: true,
-          depth: 5,
-          customInspect: false,
-          showProxy: true,
-          maxArrayLength: 10,
-          breakLength: 20
+        util.inspect(['This is nice'], false, 5);
+        util.inspect(['This is nice'], false, null);
+        util.inspect(['This is nice'], {
+            colors: true,
+            depth: 5,
+            customInspect: false,
+            showProxy: true,
+            maxArrayLength: 10,
+            breakLength: 20,
         });
-        util.inspect(["This is nice"], {
-          colors: true,
-          depth: null,
-          customInspect: false,
-          showProxy: true,
-          maxArrayLength: null,
-          breakLength: Infinity
+        util.inspect(['This is nice'], {
+            colors: true,
+            depth: null,
+            customInspect: false,
+            showProxy: true,
+            maxArrayLength: null,
+            breakLength: Infinity,
         });
         // util.deprecate
         const foo = () => {};
@@ -665,25 +680,41 @@ function stream_readable_pipe_test() {
 }
 
 // helpers
-const compressMe = new Buffer("some data");
-const compressMeString = "compress me!";
+const compressMe = new Buffer('some data');
+const compressMeString = 'compress me!';
 
 zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) =>
+    zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result),
+);
+zlib.deflate(compressMeString, (err: Error, result: Buffer) =>
+    zlib.inflate(result, (err: Error, result: Buffer) => result),
+);
+zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) =>
+    zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result),
+);
 const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
 const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
 
-zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMe, (err: Error, result: Buffer) =>
+    zlib.inflateRaw(result, (err: Error, result: Buffer) => result),
+);
+zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) =>
+    zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result),
+);
+zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) =>
+    zlib.inflateRaw(result, (err: Error, result: Buffer) => result),
+);
+zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) =>
+    zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result),
+);
 const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
 const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
 
 zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
-zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) =>
+    zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result),
+);
 const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
 
 zlib.unzip(compressMe, (err: Error, result: Buffer) => result);
@@ -693,68 +724,68 @@ const unzipped: Buffer = zlib.unzipSync(compressMe);
 // Simplified constructors
 function simplified_stream_ctor_test() {
     new stream.Readable({
-        read: function(size) {
+        read: function (size) {
             size.toFixed();
-        }
+        },
     });
 
     new stream.Writable({
-        write: function(chunk, enc, cb) {
+        write: function (chunk, enc, cb) {
             chunk.slice(1);
             enc.charAt(0);
-            cb()
+            cb();
         },
-        writev: function(chunks, cb) {
+        writev: function (chunks, cb) {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
-        }
+        },
     });
 
     new stream.Duplex({
-        read: function(size) {
+        read: function (size) {
             size.toFixed();
         },
-        write: function(chunk, enc, cb) {
+        write: function (chunk, enc, cb) {
             chunk.slice(1);
             enc.charAt(0);
-            cb()
+            cb();
         },
-        writev: function(chunks, cb) {
+        writev: function (chunks, cb) {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
         },
         readableObjectMode: true,
-        writableObjectMode: true
+        writableObjectMode: true,
     });
 
     new stream.Transform({
-        transform: function(chunk, enc, cb) {
+        transform: function (chunk, enc, cb) {
             chunk.slice(1);
             enc.charAt(0);
             cb();
         },
-        flush: function(cb) {
-            cb()
+        flush: function (cb) {
+            cb();
         },
-        read: function(size) {
+        read: function (size) {
             size.toFixed();
         },
-        write: function(chunk, enc, cb) {
+        write: function (chunk, enc, cb) {
             chunk.slice(1);
             enc.charAt(0);
-            cb()
+            cb();
         },
-        writev: function(chunks, cb) {
+        writev: function (chunks, cb) {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
         },
         allowHalfOpen: true,
         readableObjectMode: true,
-        writableObjectMode: true
-    })
+        writableObjectMode: true,
+    });
 }
 
 ////////////////////////////////////////////////////////
@@ -776,14 +807,14 @@ namespace crypto_tests {
     {
         //crypto_cipher_decipher_string_test
         let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-        let clearText: string = "This is the clear text.";
-        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-        let cipherText: string = cipher.update(clearText, "utf8", "hex");
-        cipherText += cipher.final("hex");
+        let clearText: string = 'This is the clear text.';
+        let cipher: crypto.Cipher = crypto.createCipher('aes-128-ecb', key);
+        let cipherText: string = cipher.update(clearText, 'utf8', 'hex');
+        cipherText += cipher.final('hex');
 
-        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-        let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-        clearText2 += decipher.final("utf8");
+        let decipher: crypto.Decipher = crypto.createDecipher('aes-128-ecb', key);
+        let clearText2: string = decipher.update(cipherText, 'hex', 'utf8');
+        clearText2 += decipher.final('utf8');
 
         assert.equal(clearText2, clearText);
     }
@@ -792,14 +823,14 @@ namespace crypto_tests {
         //crypto_cipher_decipher_buffer_test
         let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
         let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
-        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let cipher: crypto.Cipher = crypto.createCipher('aes-128-ecb', key);
         let cipherBuffers: Buffer[] = [];
         cipherBuffers.push(cipher.update(clearText));
         cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
 
-        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let decipher: crypto.Decipher = crypto.createDecipher('aes-128-ecb', key);
         let decipherBuffers: Buffer[] = [];
         decipherBuffers.push(decipher.update(cipherText));
         decipherBuffers.push(decipher.final());
@@ -810,12 +841,12 @@ namespace crypto_tests {
     }
 
     {
-      let buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
-      let buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
-      let buffer3: Buffer = new Buffer([5, 4, 3, 2, 1]);
+        let buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
+        let buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
+        let buffer3: Buffer = new Buffer([5, 4, 3, 2, 1]);
 
-      assert(crypto.timingSafeEqual(buffer1, buffer2))
-      assert(!crypto.timingSafeEqual(buffer1, buffer3))
+        assert(crypto.timingSafeEqual(buffer1, buffer2));
+        assert(!crypto.timingSafeEqual(buffer1, buffer3));
     }
 
     {
@@ -846,14 +877,14 @@ namespace crypto_tests {
 namespace tls_tests {
     {
         var ctx: tls.SecureContext = tls.createSecureContext({
-            key: "NOT REALLY A KEY",
-            cert: "SOME CERTIFICATE",
+            key: 'NOT REALLY A KEY',
+            cert: 'SOME CERTIFICATE',
         });
         var blah = ctx.context;
 
         var connOpts: tls.ConnectionOptions = {
-            host: "127.0.0.1",
-            port: 55
+            host: '127.0.0.1',
+            port: 55,
         };
         var tlsSocket = tls.connect(connOpts);
     }
@@ -861,8 +892,8 @@ namespace tls_tests {
     {
         let _server: tls.Server;
         let _boolean: boolean;
-        let _func1 = function(err: Error, resp: Buffer){};
-        let _func2 = function(err: Error, sessionData: any){};
+        let _func1 = function (err: Error, resp: Buffer) {};
+        let _func2 = function (err: Error, sessionData: any) {};
         /**
          * events.EventEmitter
          * 1. tlsClientError
@@ -872,126 +903,126 @@ namespace tls_tests {
          * 5. secureConnection
          **/
 
-        _server = _server.addListener("tlsClientError", (err, tlsSocket) => {
+        _server = _server.addListener('tlsClientError', (err, tlsSocket) => {
             let _err: Error = err;
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
-        _server = _server.addListener("newSession", (sessionId, sessionData, callback) => {
+        });
+        _server = _server.addListener('newSession', (sessionId, sessionData, callback) => {
             let _sessionId: any = sessionId;
             let _sessionData: any = sessionData;
             let _func1 = callback;
-        })
-        _server = _server.addListener("OCSPRequest", (certificate, issuer, callback) => {
+        });
+        _server = _server.addListener('OCSPRequest', (certificate, issuer, callback) => {
             let _certificate: Buffer = certificate;
             let _issuer: Buffer = issuer;
             let _callback: Function = callback;
-        })
-        _server = _server.addListener("resumeSession", (sessionId, callback) => {
+        });
+        _server = _server.addListener('resumeSession', (sessionId, callback) => {
             let _sessionId: any = sessionId;
             let _func2 = callback;
-        })
-        _server = _server.addListener("secureConnection", (tlsSocket) => {
+        });
+        _server = _server.addListener('secureConnection', (tlsSocket) => {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
+        });
 
         let _err: Error;
         let _tlsSocket: tls.TLSSocket;
         let _any: any;
         let _func: Function;
         let _buffer: Buffer;
-        _boolean = _server.emit("tlsClientError", _err, _tlsSocket);
-        _boolean = _server.emit("newSession", _any, _any, _func1);
-        _boolean = _server.emit("OCSPRequest", _buffer, _buffer, _func);
-        _boolean = _server.emit("resumeSession", _any, _func2);
-        _boolean = _server.emit("secureConnection", _tlsSocket);
+        _boolean = _server.emit('tlsClientError', _err, _tlsSocket);
+        _boolean = _server.emit('newSession', _any, _any, _func1);
+        _boolean = _server.emit('OCSPRequest', _buffer, _buffer, _func);
+        _boolean = _server.emit('resumeSession', _any, _func2);
+        _boolean = _server.emit('secureConnection', _tlsSocket);
 
-        _server = _server.on("tlsClientError", (err, tlsSocket) => {
+        _server = _server.on('tlsClientError', (err, tlsSocket) => {
             let _err: Error = err;
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
-        _server = _server.on("newSession", (sessionId, sessionData, callback) => {
+        });
+        _server = _server.on('newSession', (sessionId, sessionData, callback) => {
             let _sessionId: any = sessionId;
             let _sessionData: any = sessionData;
             let _func1 = callback;
-        })
-        _server = _server.on("OCSPRequest", (certificate, issuer, callback) => {
+        });
+        _server = _server.on('OCSPRequest', (certificate, issuer, callback) => {
             let _certificate: Buffer = certificate;
             let _issuer: Buffer = issuer;
             let _callback: Function = callback;
-        })
-        _server = _server.on("resumeSession", (sessionId, callback) => {
+        });
+        _server = _server.on('resumeSession', (sessionId, callback) => {
             let _sessionId: any = sessionId;
             let _func2 = callback;
-        })
-        _server = _server.on("secureConnection", (tlsSocket) => {
+        });
+        _server = _server.on('secureConnection', (tlsSocket) => {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
+        });
 
-        _server = _server.once("tlsClientError", (err, tlsSocket) => {
+        _server = _server.once('tlsClientError', (err, tlsSocket) => {
             let _err: Error = err;
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
-        _server = _server.once("newSession", (sessionId, sessionData, callback) => {
+        });
+        _server = _server.once('newSession', (sessionId, sessionData, callback) => {
             let _sessionId: any = sessionId;
             let _sessionData: any = sessionData;
             let _func1 = callback;
-        })
-        _server = _server.once("OCSPRequest", (certificate, issuer, callback) => {
+        });
+        _server = _server.once('OCSPRequest', (certificate, issuer, callback) => {
             let _certificate: Buffer = certificate;
             let _issuer: Buffer = issuer;
             let _callback: Function = callback;
-        })
-        _server = _server.once("resumeSession", (sessionId, callback) => {
+        });
+        _server = _server.once('resumeSession', (sessionId, callback) => {
             let _sessionId: any = sessionId;
             let _func2 = callback;
-        })
-        _server = _server.once("secureConnection", (tlsSocket) => {
+        });
+        _server = _server.once('secureConnection', (tlsSocket) => {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
+        });
 
-        _server = _server.prependListener("tlsClientError", (err, tlsSocket) => {
+        _server = _server.prependListener('tlsClientError', (err, tlsSocket) => {
             let _err: Error = err;
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
-        _server = _server.prependListener("newSession", (sessionId, sessionData, callback) => {
+        });
+        _server = _server.prependListener('newSession', (sessionId, sessionData, callback) => {
             let _sessionId: any = sessionId;
             let _sessionData: any = sessionData;
             let _func1 = callback;
-        })
-        _server = _server.prependListener("OCSPRequest", (certificate, issuer, callback) => {
+        });
+        _server = _server.prependListener('OCSPRequest', (certificate, issuer, callback) => {
             let _certificate: Buffer = certificate;
             let _issuer: Buffer = issuer;
             let _callback: Function = callback;
-        })
-        _server = _server.prependListener("resumeSession", (sessionId, callback) => {
+        });
+        _server = _server.prependListener('resumeSession', (sessionId, callback) => {
             let _sessionId: any = sessionId;
             let _func2 = callback;
-        })
-        _server = _server.prependListener("secureConnection", (tlsSocket) => {
+        });
+        _server = _server.prependListener('secureConnection', (tlsSocket) => {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
+        });
 
-        _server = _server.prependOnceListener("tlsClientError", (err, tlsSocket) => {
+        _server = _server.prependOnceListener('tlsClientError', (err, tlsSocket) => {
             let _err: Error = err;
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
-        _server = _server.prependOnceListener("newSession", (sessionId, sessionData, callback) => {
+        });
+        _server = _server.prependOnceListener('newSession', (sessionId, sessionData, callback) => {
             let _sessionId: any = sessionId;
             let _sessionData: any = sessionData;
             let _func1 = callback;
-        })
-        _server = _server.prependOnceListener("OCSPRequest", (certificate, issuer, callback) => {
+        });
+        _server = _server.prependOnceListener('OCSPRequest', (certificate, issuer, callback) => {
             let _certificate: Buffer = certificate;
             let _issuer: Buffer = issuer;
             let _callback: Function = callback;
-        })
-        _server = _server.prependOnceListener("resumeSession", (sessionId, callback) => {
+        });
+        _server = _server.prependOnceListener('resumeSession', (sessionId, callback) => {
             let _sessionId: any = sessionId;
             let _func2 = callback;
-        })
-        _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
+        });
+        _server = _server.prependOnceListener('secureConnection', (tlsSocket) => {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
-        })
+        });
 
         // close callback parameter is optional
         _server = _server.close();
@@ -999,7 +1030,7 @@ namespace tls_tests {
         // close callback parameter doesn't specify any arguments, so any
         // function is acceptable
         _server = _server.close(() => {});
-        _server = _server.close((...args:any[]) => {});
+        _server = _server.close((...args: any[]) => {});
     }
 
     {
@@ -1013,34 +1044,34 @@ namespace tls_tests {
          * 4. message
          **/
 
-        _TLSSocket = _TLSSocket.addListener("OCSPResponse", (response) => {
+        _TLSSocket = _TLSSocket.addListener('OCSPResponse', (response) => {
             let _response: Buffer = response;
-        })
-        _TLSSocket = _TLSSocket.addListener("secureConnect", () => { });
+        });
+        _TLSSocket = _TLSSocket.addListener('secureConnect', () => {});
 
         let _buffer: Buffer;
-        _boolean = _TLSSocket.emit("OCSPResponse", _buffer);
-        _boolean = _TLSSocket.emit("secureConnect");
+        _boolean = _TLSSocket.emit('OCSPResponse', _buffer);
+        _boolean = _TLSSocket.emit('secureConnect');
 
-        _TLSSocket = _TLSSocket.on("OCSPResponse", (response) => {
+        _TLSSocket = _TLSSocket.on('OCSPResponse', (response) => {
             let _response: Buffer = response;
-        })
-        _TLSSocket = _TLSSocket.on("secureConnect", () => { });
+        });
+        _TLSSocket = _TLSSocket.on('secureConnect', () => {});
 
-        _TLSSocket = _TLSSocket.once("OCSPResponse", (response) => {
+        _TLSSocket = _TLSSocket.once('OCSPResponse', (response) => {
             let _response: Buffer = response;
-        })
-        _TLSSocket = _TLSSocket.once("secureConnect", () => { });
+        });
+        _TLSSocket = _TLSSocket.once('secureConnect', () => {});
 
-        _TLSSocket = _TLSSocket.prependListener("OCSPResponse", (response) => {
+        _TLSSocket = _TLSSocket.prependListener('OCSPResponse', (response) => {
             let _response: Buffer = response;
-        })
-        _TLSSocket = _TLSSocket.prependListener("secureConnect", () => { });
+        });
+        _TLSSocket = _TLSSocket.prependListener('secureConnect', () => {});
 
-        _TLSSocket = _TLSSocket.prependOnceListener("OCSPResponse", (response) => {
+        _TLSSocket = _TLSSocket.prependOnceListener('OCSPResponse', (response) => {
             let _response: Buffer = response;
-        })
-        _TLSSocket = _TLSSocket.prependOnceListener("secureConnect", () => { });
+        });
+        _TLSSocket = _TLSSocket.prependOnceListener('secureConnect', () => {});
     }
 }
 
@@ -1050,20 +1081,20 @@ namespace tls_tests {
 
 namespace http_tests {
     {
-    // Status codes
-    var codeMessage = http.STATUS_CODES['400'];
-    var codeMessage = http.STATUS_CODES[400];
+        // Status codes
+        var codeMessage = http.STATUS_CODES['400'];
+        var codeMessage = http.STATUS_CODES[400];
     }
 
     {
-    var agent: http.Agent = new http.Agent({
-        keepAlive: true,
-        keepAliveMsecs: 10000,
-        maxSockets: Infinity,
-        maxFreeSockets: 256
-    });
+        var agent: http.Agent = new http.Agent({
+            keepAlive: true,
+            keepAliveMsecs: 10000,
+            maxSockets: Infinity,
+            maxFreeSockets: 256,
+        });
 
-    var agent: http.Agent = http.globalAgent;
+        var agent: http.Agent = http.globalAgent;
 
         http.request({ agent: false });
         http.request({ agent: agent });
@@ -1082,7 +1113,7 @@ namespace http_tests {
 
     {
         var request = http.request({ path: 'http://0.0.0.0' });
-        request.once('error', function() { });
+        request.once('error', function () {});
         request.setNoDelay(true);
         request.abort();
     }
@@ -1090,11 +1121,11 @@ namespace http_tests {
     // http request options
     {
         const requestOpts: http.RequestOptions = {
-            timeout: 30000
+            timeout: 30000,
         };
 
         const clientArgs: http.ClientRequestArgs = {
-            timeout: 30000
+            timeout: 30000,
         };
     }
 
@@ -1102,7 +1133,7 @@ namespace http_tests {
     {
         const headers: http.IncomingHttpHeaders = {
             'content-type': 'application/json',
-            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+            'set-cookie': ['type=ninja', 'language=javascript'],
         };
     }
 }
@@ -1117,19 +1148,19 @@ namespace https_tests {
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
         maxFreeSockets: 256,
-        maxCachedSessions: 100
+        maxCachedSessions: 100,
     });
 
     var agent: https.Agent = https.globalAgent;
 
     https.request({
-        agent: false
+        agent: false,
     });
     https.request({
-        agent: agent
+        agent: agent,
     });
     https.request({
-        agent: undefined
+        agent: undefined,
     });
 
     https.request('http://www.example.com/xyz');
@@ -1160,14 +1191,12 @@ namespace tty_tests {
 
 namespace dgram_tests {
     {
-    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-    });
-    ds.bind();
-    ds.bind(41234);
-    var ai: dgram.AddressInfo = ds.address();
-    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-    });
-    ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+        var ds: dgram.Socket = dgram.createSocket('udp4', (msg: Buffer, rinfo: dgram.RemoteInfo): void => {});
+        ds.bind();
+        ds.bind(41234);
+        var ai: dgram.AddressInfo = ds.address();
+        ds.send(new Buffer('hello'), 0, 5, 5000, '127.0.0.1', (error: Error, bytes: number): void => {});
+        ds.send(new Buffer('hello'), 5000, '127.0.0.1');
     }
 
     {
@@ -1184,60 +1213,60 @@ namespace dgram_tests {
          * 4. message
          **/
 
-        _socket = _socket.addListener("close", () => {});
-        _socket = _socket.addListener("error", (err) => {
+        _socket = _socket.addListener('close', () => {});
+        _socket = _socket.addListener('error', (err) => {
             let _err: Error = err;
-        })
-        _socket = _socket.addListener("listening", () => {});
-        _socket = _socket.addListener("message", (msg, rinfo) => {
+        });
+        _socket = _socket.addListener('listening', () => {});
+        _socket = _socket.addListener('message', (msg, rinfo) => {
             let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
-        })
+        });
 
-        _boolean = _socket.emit("close")
-        _boolean = _socket.emit("error", _err);
-        _boolean = _socket.emit("listening");
-        _boolean = _socket.emit("message", _str, _rinfo);
+        _boolean = _socket.emit('close');
+        _boolean = _socket.emit('error', _err);
+        _boolean = _socket.emit('listening');
+        _boolean = _socket.emit('message', _str, _rinfo);
 
-        _socket = _socket.on("close", () => {});
-        _socket = _socket.on("error", (err) => {
+        _socket = _socket.on('close', () => {});
+        _socket = _socket.on('error', (err) => {
             let _err: Error = err;
-        })
-        _socket = _socket.on("listening", () => {});
-        _socket = _socket.on("message", (msg, rinfo) => {
+        });
+        _socket = _socket.on('listening', () => {});
+        _socket = _socket.on('message', (msg, rinfo) => {
             let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
-        })
+        });
 
-        _socket = _socket.once("close", () => {});
-        _socket = _socket.once("error", (err) => {
+        _socket = _socket.once('close', () => {});
+        _socket = _socket.once('error', (err) => {
             let _err: Error = err;
-        })
-        _socket = _socket.once("listening", () => {});
-        _socket = _socket.once("message", (msg, rinfo) => {
+        });
+        _socket = _socket.once('listening', () => {});
+        _socket = _socket.once('message', (msg, rinfo) => {
             let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
-        })
+        });
 
-        _socket = _socket.prependListener("close", () => {});
-        _socket = _socket.prependListener("error", (err) => {
+        _socket = _socket.prependListener('close', () => {});
+        _socket = _socket.prependListener('error', (err) => {
             let _err: Error = err;
-        })
-        _socket = _socket.prependListener("listening", () => {});
-        _socket = _socket.prependListener("message", (msg, rinfo) => {
+        });
+        _socket = _socket.prependListener('listening', () => {});
+        _socket = _socket.prependListener('message', (msg, rinfo) => {
             let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
-        })
+        });
 
-        _socket = _socket.prependOnceListener("close", () => {});
-        _socket = _socket.prependOnceListener("error", (err) => {
+        _socket = _socket.prependOnceListener('close', () => {});
+        _socket = _socket.prependOnceListener('error', (err) => {
             let _err: Error = err;
-        })
-        _socket = _socket.prependOnceListener("listening", () => {});
-        _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
+        });
+        _socket = _socket.prependOnceListener('listening', () => {});
+        _socket = _socket.prependOnceListener('message', (msg, rinfo) => {
             let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
-        })
+        });
     }
 }
 
@@ -1246,7 +1275,7 @@ namespace dgram_tests {
 ////////////////////////////////////////////////////
 
 namespace querystring_tests {
-    type SampleObject = { a: string; b: number; }
+    type SampleObject = { a: string; b: number };
 
     {
         let obj: SampleObject;
@@ -1289,7 +1318,6 @@ namespace querystring_tests {
 ////////////////////////////////////////////////////
 
 namespace path_tests {
-
     path.normalize('/foo/bar//baz/asdf/quux/..');
 
     path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
@@ -1298,10 +1326,7 @@ namespace path_tests {
 
     try {
         path.join('foo', 'bar');
-    }
-    catch (error) {
-
-    }
+    } catch (error) {}
 
     path.resolve('foo/bar', '/tmp/file/', '..', 'a/../subfile');
     //Is similar to:
@@ -1312,75 +1337,75 @@ namespace path_tests {
     //    cd a/../subfile
     //pwd
 
-    path.resolve('/foo/bar', './baz')
+    path.resolve('/foo/bar', './baz');
     // returns
     //    '/foo/bar/baz'
 
-    path.resolve('/foo/bar', '/tmp/file/')
+    path.resolve('/foo/bar', '/tmp/file/');
     // returns
     //    '/tmp/file'
 
-    path.resolve('wwwroot', 'static_files/png/', '../gif/image.gif')
+    path.resolve('wwwroot', 'static_files/png/', '../gif/image.gif');
     // if currently in /home/myself/node, it returns
     //    '/home/myself/node/wwwroot/static_files/gif/image.gif'
 
-    path.isAbsolute('/foo/bar') // true
-    path.isAbsolute('/baz/..')  // true
-    path.isAbsolute('qux/')     // false
-    path.isAbsolute('.')        // false
+    path.isAbsolute('/foo/bar'); // true
+    path.isAbsolute('/baz/..'); // true
+    path.isAbsolute('qux/'); // false
+    path.isAbsolute('.'); // false
 
-    path.isAbsolute('//server')  // true
-    path.isAbsolute('C:/foo/..') // true
-    path.isAbsolute('bar\\baz')   // false
-    path.isAbsolute('.')         // false
+    path.isAbsolute('//server'); // true
+    path.isAbsolute('C:/foo/..'); // true
+    path.isAbsolute('bar\\baz'); // false
+    path.isAbsolute('.'); // false
 
-    path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb')
+    path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb');
     // returns
     //    '..\\..\\impl\\bbb'
 
-    path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
+    path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb');
     // returns
     //    '../../impl/bbb'
 
-    path.dirname('/foo/bar/baz/asdf/quux')
+    path.dirname('/foo/bar/baz/asdf/quux');
     // returns
     //    '/foo/bar/baz/asdf'
 
-    path.basename('/foo/bar/baz/asdf/quux.html')
+    path.basename('/foo/bar/baz/asdf/quux.html');
     // returns
     //    'quux.html'
 
-    path.basename('/foo/bar/baz/asdf/quux.html', '.html')
+    path.basename('/foo/bar/baz/asdf/quux.html', '.html');
     // returns
     //    'quux'
 
-    path.extname('index.html')
+    path.extname('index.html');
     // returns
     //    '.html'
 
-    path.extname('index.coffee.md')
+    path.extname('index.coffee.md');
     // returns
     //    '.md'
 
-    path.extname('index.')
+    path.extname('index.');
     // returns
     //    '.'
 
-    path.extname('index')
+    path.extname('index');
     // returns
     //    ''
 
-    'foo/bar/baz'.split(path.sep)
+    'foo/bar/baz'.split(path.sep);
     // returns
     //        ['foo', 'bar', 'baz']
 
-    'foo\\bar\\baz'.split(path.sep)
+    'foo\\bar\\baz'.split(path.sep);
     // returns
     //        ['foo', 'bar', 'baz']
 
-    process.env["PATH"]; // $ExpectType string
+    process.env['PATH']; // $ExpectType string
 
-    path.parse('/home/user/dir/file.txt')
+    path.parse('/home/user/dir/file.txt');
     // returns
     //    {
     //        root : "/",
@@ -1390,7 +1415,7 @@ namespace path_tests {
     //        name : "file"
     //    }
 
-    path.parse('C:\\path\\dir\\index.html')
+    path.parse('C:\\path\\dir\\index.html');
     // returns
     //    {
     //        root : "C:\",
@@ -1401,51 +1426,51 @@ namespace path_tests {
     //    }
 
     path.format({
-        root: "/",
-        dir: "/home/user/dir",
-        base: "file.txt",
-        ext: ".txt",
-        name: "file"
+        root: '/',
+        dir: '/home/user/dir',
+        base: 'file.txt',
+        ext: '.txt',
+        name: 'file',
     });
     // returns
     //    '/home/user/dir/file.txt'
 
     path.format({
-        dir: "/home/user/dir",
-        base: "file.txt"
+        dir: '/home/user/dir',
+        base: 'file.txt',
     });
     // returns
     //    '/home/user/dir/file.txt'
 
     path.posix.format({
-        root: "/",
-        dir: "/home/user/dir",
-        base: "file.txt",
-        ext: ".txt",
-        name: "file"
+        root: '/',
+        dir: '/home/user/dir',
+        base: 'file.txt',
+        ext: '.txt',
+        name: 'file',
     });
     // returns
     //    '/home/user/dir/file.txt'
 
     path.posix.format({
-        dir: "/home/user/dir",
-        base: "file.txt"
+        dir: '/home/user/dir',
+        base: 'file.txt',
     });
     // returns
     //    '/home/user/dir/file.txt'
 
     path.win32.format({
-        root: "C:\\",
-        dir: "C:\\home\\user\\dir",
-        ext: ".txt",
-        name: "file"
+        root: 'C:\\',
+        dir: 'C:\\home\\user\\dir',
+        ext: '.txt',
+        name: 'file',
     });
     // returns
     //    'C:\home\user\dir\file.txt'
 
     path.win32.format({
-        dir: "C:\\home\\user\\dir",
-        base: "file.txt"
+        dir: 'C:\\home\\user\\dir',
+        base: 'file.txt',
     });
     // returns
     //    'C:\home\user\dir\file.txt'
@@ -1474,15 +1499,15 @@ namespace readline_tests {
         result = readline.createInterface(input, output, completer, terminal);
         result = readline.createInterface({
             input: input,
-            completer: function(str: string): readline.CompleterResult {
+            completer: function (str: string): readline.CompleterResult {
                 return [['test'], 'test'];
-            }
+            },
         });
         result = readline.createInterface({
             input: input,
-            completer: function(str: string, callback: (err: any, result: readline.CompleterResult) => void): any {
+            completer: function (str: string, callback: (err: any, result: readline.CompleterResult) => void): any {
                 callback(null, [['test'], 'test']);
-            }
+            },
         });
     }
 
@@ -1563,63 +1588,63 @@ namespace readline_tests {
         let _rl: readline.ReadLine;
         let _boolean: boolean;
 
-        _rl = _rl.addListener("close", () => { });
-        _rl = _rl.addListener("line", (input) => {
+        _rl = _rl.addListener('close', () => {});
+        _rl = _rl.addListener('line', (input) => {
             let _input: any = input;
-        })
-        _rl = _rl.addListener("pause", () => { });
-        _rl = _rl.addListener("resume", () => { });
-        _rl = _rl.addListener("SIGCONT", () => { });
-        _rl = _rl.addListener("SIGINT", () => { });
-        _rl = _rl.addListener("SIGTSTP", () => { });
+        });
+        _rl = _rl.addListener('pause', () => {});
+        _rl = _rl.addListener('resume', () => {});
+        _rl = _rl.addListener('SIGCONT', () => {});
+        _rl = _rl.addListener('SIGINT', () => {});
+        _rl = _rl.addListener('SIGTSTP', () => {});
 
-        _boolean = _rl.emit("close", () => { });
-        _boolean = _rl.emit("line", () => { });
-        _boolean = _rl.emit("pause", () => { });
-        _boolean = _rl.emit("resume", () => { });
-        _boolean = _rl.emit("SIGCONT", () => { });
-        _boolean = _rl.emit("SIGINT", () => { });
-        _boolean = _rl.emit("SIGTSTP", () => { });
+        _boolean = _rl.emit('close', () => {});
+        _boolean = _rl.emit('line', () => {});
+        _boolean = _rl.emit('pause', () => {});
+        _boolean = _rl.emit('resume', () => {});
+        _boolean = _rl.emit('SIGCONT', () => {});
+        _boolean = _rl.emit('SIGINT', () => {});
+        _boolean = _rl.emit('SIGTSTP', () => {});
 
-        _rl = _rl.on("close", () => { });
-        _rl = _rl.on("line", (input) => {
+        _rl = _rl.on('close', () => {});
+        _rl = _rl.on('line', (input) => {
             let _input: any = input;
-        })
-        _rl = _rl.on("pause", () => { });
-        _rl = _rl.on("resume", () => { });
-        _rl = _rl.on("SIGCONT", () => { });
-        _rl = _rl.on("SIGINT", () => { });
-        _rl = _rl.on("SIGTSTP", () => { });
+        });
+        _rl = _rl.on('pause', () => {});
+        _rl = _rl.on('resume', () => {});
+        _rl = _rl.on('SIGCONT', () => {});
+        _rl = _rl.on('SIGINT', () => {});
+        _rl = _rl.on('SIGTSTP', () => {});
 
-        _rl = _rl.once("close", () => { });
-        _rl = _rl.once("line", (input) => {
+        _rl = _rl.once('close', () => {});
+        _rl = _rl.once('line', (input) => {
             let _input: any = input;
-        })
-        _rl = _rl.once("pause", () => { });
-        _rl = _rl.once("resume", () => { });
-        _rl = _rl.once("SIGCONT", () => { });
-        _rl = _rl.once("SIGINT", () => { });
-        _rl = _rl.once("SIGTSTP", () => { });
+        });
+        _rl = _rl.once('pause', () => {});
+        _rl = _rl.once('resume', () => {});
+        _rl = _rl.once('SIGCONT', () => {});
+        _rl = _rl.once('SIGINT', () => {});
+        _rl = _rl.once('SIGTSTP', () => {});
 
-        _rl = _rl.prependListener("close", () => { });
-        _rl = _rl.prependListener("line", (input) => {
+        _rl = _rl.prependListener('close', () => {});
+        _rl = _rl.prependListener('line', (input) => {
             let _input: any = input;
-        })
-        _rl = _rl.prependListener("pause", () => { });
-        _rl = _rl.prependListener("resume", () => { });
-        _rl = _rl.prependListener("SIGCONT", () => { });
-        _rl = _rl.prependListener("SIGINT", () => { });
-        _rl = _rl.prependListener("SIGTSTP", () => { });
+        });
+        _rl = _rl.prependListener('pause', () => {});
+        _rl = _rl.prependListener('resume', () => {});
+        _rl = _rl.prependListener('SIGCONT', () => {});
+        _rl = _rl.prependListener('SIGINT', () => {});
+        _rl = _rl.prependListener('SIGTSTP', () => {});
 
-        _rl = _rl.prependOnceListener("close", () => { });
-        _rl = _rl.prependOnceListener("line", (input) => {
+        _rl = _rl.prependOnceListener('close', () => {});
+        _rl = _rl.prependOnceListener('line', (input) => {
             let _input: any = input;
-        })
-        _rl = _rl.prependOnceListener("pause", () => { });
-        _rl = _rl.prependOnceListener("resume", () => { });
-        _rl = _rl.prependOnceListener("SIGCONT", () => { });
-        _rl = _rl.prependOnceListener("SIGINT", () => { });
-        _rl = _rl.prependOnceListener("SIGTSTP", () => { });
+        });
+        _rl = _rl.prependOnceListener('pause', () => {});
+        _rl = _rl.prependOnceListener('resume', () => {});
+        _rl = _rl.prependOnceListener('SIGCONT', () => {});
+        _rl = _rl.prependOnceListener('SIGINT', () => {});
+        _rl = _rl.prependOnceListener('SIGTSTP', () => {});
     }
 }
 
@@ -1644,104 +1669,104 @@ namespace string_decoder_tests {
 
 namespace child_process_tests {
     {
-        childProcess.exec("echo test");
-        childProcess.spawnSync("echo test");
+        childProcess.exec('echo test');
+        childProcess.spawnSync('echo test');
     }
 
     {
         let _cp: childProcess.ChildProcess;
         let _boolean: boolean;
 
-        _cp = _cp.addListener("close", (code, signal) => {
+        _cp = _cp.addListener('close', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.addListener("disconnect", () => { });
-        _cp = _cp.addListener("error", (err) => {
+        });
+        _cp = _cp.addListener('disconnect', () => {});
+        _cp = _cp.addListener('error', (err) => {
             let _err: Error = err;
-        })
-        _cp = _cp.addListener("exit", (code, signal) => {
+        });
+        _cp = _cp.addListener('exit', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.addListener("message", (message, sendHandle) => {
+        });
+        _cp = _cp.addListener('message', (message, sendHandle) => {
             let _message: any = message;
             let _sendHandle: net.Socket | net.Server = sendHandle;
-        })
+        });
 
-        _boolean = _cp.emit("close", () => { });
-        _boolean = _cp.emit("disconnect", () => { });
-        _boolean = _cp.emit("error", () => { });
-        _boolean = _cp.emit("exit", () => { });
-        _boolean = _cp.emit("message", () => { });
+        _boolean = _cp.emit('close', () => {});
+        _boolean = _cp.emit('disconnect', () => {});
+        _boolean = _cp.emit('error', () => {});
+        _boolean = _cp.emit('exit', () => {});
+        _boolean = _cp.emit('message', () => {});
 
-        _cp = _cp.on("close", (code, signal) => {
+        _cp = _cp.on('close', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.on("disconnect", () => { });
-        _cp = _cp.on("error", (err) => {
+        });
+        _cp = _cp.on('disconnect', () => {});
+        _cp = _cp.on('error', (err) => {
             let _err: Error = err;
-        })
-        _cp = _cp.on("exit", (code, signal) => {
+        });
+        _cp = _cp.on('exit', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.on("message", (message, sendHandle) => {
+        });
+        _cp = _cp.on('message', (message, sendHandle) => {
             let _message: any = message;
             let _sendHandle: net.Socket | net.Server = sendHandle;
-        })
+        });
 
-        _cp = _cp.once("close", (code, signal) => {
+        _cp = _cp.once('close', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.once("disconnect", () => { });
-        _cp = _cp.once("error", (err) => {
+        });
+        _cp = _cp.once('disconnect', () => {});
+        _cp = _cp.once('error', (err) => {
             let _err: Error = err;
-        })
-        _cp = _cp.once("exit", (code, signal) => {
+        });
+        _cp = _cp.once('exit', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.once("message", (message, sendHandle) => {
+        });
+        _cp = _cp.once('message', (message, sendHandle) => {
             let _message: any = message;
             let _sendHandle: net.Socket | net.Server = sendHandle;
-        })
+        });
 
-        _cp = _cp.prependListener("close", (code, signal) => {
+        _cp = _cp.prependListener('close', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.prependListener("disconnect", () => { });
-        _cp = _cp.prependListener("error", (err) => {
+        });
+        _cp = _cp.prependListener('disconnect', () => {});
+        _cp = _cp.prependListener('error', (err) => {
             let _err: Error = err;
-        })
-        _cp = _cp.prependListener("exit", (code, signal) => {
+        });
+        _cp = _cp.prependListener('exit', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.prependListener("message", (message, sendHandle) => {
+        });
+        _cp = _cp.prependListener('message', (message, sendHandle) => {
             let _message: any = message;
             let _sendHandle: net.Socket | net.Server = sendHandle;
-        })
+        });
 
-        _cp = _cp.prependOnceListener("close", (code, signal) => {
+        _cp = _cp.prependOnceListener('close', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.prependOnceListener("disconnect", () => { });
-        _cp = _cp.prependOnceListener("error", (err) => {
+        });
+        _cp = _cp.prependOnceListener('disconnect', () => {});
+        _cp = _cp.prependOnceListener('error', (err) => {
             let _err: Error = err;
-        })
-        _cp = _cp.prependOnceListener("exit", (code, signal) => {
+        });
+        _cp = _cp.prependOnceListener('exit', (code, signal) => {
             let _code: number = code;
             let _signal: string = signal;
-        })
-        _cp = _cp.prependOnceListener("message", (message, sendHandle) => {
+        });
+        _cp = _cp.prependOnceListener('message', (message, sendHandle) => {
             let _message: any = message;
             let _sendHandle: net.Socket | net.Server = sendHandle;
-        })
+        });
     }
 }
 
@@ -1752,7 +1777,7 @@ namespace child_process_tests {
 namespace cluster_tests {
     {
         cluster.fork();
-        Object.keys(cluster.workers).forEach(key => {
+        Object.keys(cluster.workers).forEach((key) => {
             const worker = cluster.workers[key];
             if (worker.isDead()) {
                 console.log('worker %d is dead', worker.process.pid);
@@ -1937,7 +1962,7 @@ namespace vm_tests {
     {
         const sandbox = {
             animal: 'cat',
-            count: 2
+            count: 2,
         };
 
         const context = vm.createContext(sandbox);
@@ -1974,7 +1999,9 @@ namespace vm_tests {
 
     {
         const Debug = vm.runInDebugContext('Debug');
-        Debug.scripts().forEach(function(script: any) { console.log(script.name); });
+        Debug.scripts().forEach(function (script: any) {
+            console.log(script.name);
+        });
     }
 }
 
@@ -1984,19 +2011,25 @@ namespace vm_tests {
 
 namespace timers_tests {
     {
-        let immediateId = timers.setImmediate(function() { console.log("immediate"); });
+        let immediateId = timers.setImmediate(function () {
+            console.log('immediate');
+        });
         timers.clearImmediate(immediateId);
     }
     {
         let counter = 0;
-        let timeout = timers.setInterval(function() { console.log("interval"); }, 20);
+        let timeout = timers.setInterval(function () {
+            console.log('interval');
+        }, 20);
         timeout.unref();
         timeout.ref();
         timers.clearInterval(timeout);
     }
     {
         let counter = 0;
-        let timeout = timers.setTimeout(function() { console.log("timeout"); }, 20);
+        let timeout = timers.setTimeout(function () {
+            console.log('timeout');
+        }, 20);
         timeout.unref();
         timeout.ref();
         timers.clearTimeout(timeout);
@@ -2041,11 +2074,11 @@ namespace errors_tests {
 /// Process Tests : https://nodejs.org/api/process.html ///
 ///////////////////////////////////////////////////////////
 
-import * as p from "process";
+import * as p from 'process';
 namespace process_tests {
     {
         var eventEmitter: events.EventEmitter;
-        eventEmitter = process;                // Test that process implements EventEmitter...
+        eventEmitter = process; // Test that process implements EventEmitter...
 
         var _p: NodeJS.Process = process;
         _p = p;
@@ -2063,16 +2096,15 @@ namespace process_tests {
 /// Console Tests : https://nodejs.org/api/console.html ///
 ///////////////////////////////////////////////////////////
 
-import * as c from "console";
+import * as c from 'console';
 namespace console_tests {
     {
         var _c: Console = console;
         _c = c;
     }
     {
-        var writeStream     = fs.createWriteStream('./index.d.ts');
-        var consoleInstance = new console.Console(writeStream)
-
+        var writeStream = fs.createWriteStream('./index.d.ts');
+        var consoleInstance = new console.Console(writeStream);
     }
 }
 
@@ -2084,10 +2116,7 @@ namespace net_tests {
     {
         let server = net.createServer();
         // Check methods which return server instances by chaining calls
-        server = server.listen(0)
-                .close()
-                .ref()
-                .unref();
+        server = server.listen(0).close().ref().unref();
 
         // close has an optional callback function. No callback parameters are
         // specified, so any callback function is permissible.
@@ -2096,8 +2125,8 @@ namespace net_tests {
         // test the types of the address object fields
         let address = server.address();
         address.port = 1234;
-        address.family = "ipv4";
-        address.address = "127.0.0.1";
+        address.family = 'ipv4';
+        address.address = '127.0.0.1';
     }
 
     {
@@ -2116,7 +2145,7 @@ namespace net_tests {
             fd: 1,
             allowHalfOpen: false,
             readable: false,
-            writable: false
+            writable: false,
         });
 
         let bool: boolean;
@@ -2127,19 +2156,19 @@ namespace net_tests {
 
         /// addListener
 
-        _socket = _socket.addListener("close", had_error => {
+        _socket = _socket.addListener('close', (had_error) => {
             bool = had_error;
-        })
-        _socket = _socket.addListener("connect", () => { })
-        _socket = _socket.addListener("data", data => {
+        });
+        _socket = _socket.addListener('connect', () => {});
+        _socket = _socket.addListener('data', (data) => {
             buffer = data;
-        })
-        _socket = _socket.addListener("drain", () => { })
-        _socket = _socket.addListener("end", () => { })
-        _socket = _socket.addListener("error", err => {
+        });
+        _socket = _socket.addListener('drain', () => {});
+        _socket = _socket.addListener('end', () => {});
+        _socket = _socket.addListener('error', (err) => {
             error = err;
-        })
-        _socket = _socket.addListener("lookup", (err, address, family, host) => {
+        });
+        _socket = _socket.addListener('lookup', (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -2149,34 +2178,34 @@ namespace net_tests {
             }
 
             str = host;
-        })
-        _socket = _socket.addListener("timeout", () => { })
+        });
+        _socket = _socket.addListener('timeout', () => {});
 
         /// emit
-        bool = _socket.emit("close", bool);
-        bool = _socket.emit("connect");
-        bool = _socket.emit("data", buffer);
-        bool = _socket.emit("drain");
-        bool = _socket.emit("end");
-        bool = _socket.emit("error", error);
-        bool = _socket.emit("lookup", error, str, str, str);
-        bool = _socket.emit("lookup", error, str, num, str);
-        bool = _socket.emit("timeout");
+        bool = _socket.emit('close', bool);
+        bool = _socket.emit('connect');
+        bool = _socket.emit('data', buffer);
+        bool = _socket.emit('drain');
+        bool = _socket.emit('end');
+        bool = _socket.emit('error', error);
+        bool = _socket.emit('lookup', error, str, str, str);
+        bool = _socket.emit('lookup', error, str, num, str);
+        bool = _socket.emit('timeout');
 
         /// on
-        _socket = _socket.on("close", had_error => {
+        _socket = _socket.on('close', (had_error) => {
             bool = had_error;
-        })
-        _socket = _socket.on("connect", () => { })
-        _socket = _socket.on("data", data => {
+        });
+        _socket = _socket.on('connect', () => {});
+        _socket = _socket.on('data', (data) => {
             buffer = data;
-        })
-        _socket = _socket.on("drain", () => { })
-        _socket = _socket.on("end", () => { })
-        _socket = _socket.on("error", err => {
+        });
+        _socket = _socket.on('drain', () => {});
+        _socket = _socket.on('end', () => {});
+        _socket = _socket.on('error', (err) => {
             error = err;
-        })
-        _socket = _socket.on("lookup", (err, address, family, host) => {
+        });
+        _socket = _socket.on('lookup', (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -2186,23 +2215,23 @@ namespace net_tests {
             }
 
             str = host;
-        })
-        _socket = _socket.on("timeout", () => { })
+        });
+        _socket = _socket.on('timeout', () => {});
 
         /// once
-        _socket = _socket.once("close", had_error => {
+        _socket = _socket.once('close', (had_error) => {
             bool = had_error;
-        })
-        _socket = _socket.once("connect", () => { })
-        _socket = _socket.once("data", data => {
+        });
+        _socket = _socket.once('connect', () => {});
+        _socket = _socket.once('data', (data) => {
             buffer = data;
-        })
-        _socket = _socket.once("drain", () => { })
-        _socket = _socket.once("end", () => { })
-        _socket = _socket.once("error", err => {
+        });
+        _socket = _socket.once('drain', () => {});
+        _socket = _socket.once('end', () => {});
+        _socket = _socket.once('error', (err) => {
             error = err;
-        })
-        _socket = _socket.once("lookup", (err, address, family, host) => {
+        });
+        _socket = _socket.once('lookup', (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -2212,23 +2241,23 @@ namespace net_tests {
             }
 
             str = host;
-        })
-        _socket = _socket.once("timeout", () => { })
+        });
+        _socket = _socket.once('timeout', () => {});
 
         /// prependListener
-        _socket = _socket.prependListener("close", had_error => {
+        _socket = _socket.prependListener('close', (had_error) => {
             bool = had_error;
-        })
-        _socket = _socket.prependListener("connect", () => { })
-        _socket = _socket.prependListener("data", data => {
+        });
+        _socket = _socket.prependListener('connect', () => {});
+        _socket = _socket.prependListener('data', (data) => {
             buffer = data;
-        })
-        _socket = _socket.prependListener("drain", () => { })
-        _socket = _socket.prependListener("end", () => { })
-        _socket = _socket.prependListener("error", err => {
+        });
+        _socket = _socket.prependListener('drain', () => {});
+        _socket = _socket.prependListener('end', () => {});
+        _socket = _socket.prependListener('error', (err) => {
             error = err;
-        })
-        _socket = _socket.prependListener("lookup", (err, address, family, host) => {
+        });
+        _socket = _socket.prependListener('lookup', (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -2238,23 +2267,23 @@ namespace net_tests {
             }
 
             str = host;
-        })
-        _socket = _socket.prependListener("timeout", () => { })
+        });
+        _socket = _socket.prependListener('timeout', () => {});
 
         /// prependOnceListener
-        _socket = _socket.prependOnceListener("close", had_error => {
+        _socket = _socket.prependOnceListener('close', (had_error) => {
             bool = had_error;
-        })
-        _socket = _socket.prependOnceListener("connect", () => { })
-        _socket = _socket.prependOnceListener("data", data => {
+        });
+        _socket = _socket.prependOnceListener('connect', () => {});
+        _socket = _socket.prependOnceListener('data', (data) => {
             buffer = data;
-        })
-        _socket = _socket.prependOnceListener("drain", () => { })
-        _socket = _socket.prependOnceListener("end", () => { })
-        _socket = _socket.prependOnceListener("error", err => {
+        });
+        _socket = _socket.prependOnceListener('drain', () => {});
+        _socket = _socket.prependOnceListener('end', () => {});
+        _socket = _socket.prependOnceListener('error', (err) => {
             error = err;
-        })
-        _socket = _socket.prependOnceListener("lookup", (err, address, family, host) => {
+        });
+        _socket = _socket.prependOnceListener('lookup', (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -2264,8 +2293,8 @@ namespace net_tests {
             }
 
             str = host;
-        })
-        _socket = _socket.prependOnceListener("timeout", () => { })
+        });
+        _socket = _socket.prependOnceListener('timeout', () => {});
 
         bool = _socket.connecting;
         bool = _socket.destroyed;
@@ -2287,53 +2316,51 @@ namespace net_tests {
         let error: Error;
 
         /// addListener
-        _server = _server.addListener("close", () => { })
-        _server = _server.addListener("connection", socket => {
-            _socket = socket
-        })
-        _server = _server.addListener("error", err => {
+        _server = _server.addListener('close', () => {});
+        _server = _server.addListener('connection', (socket) => {
+            _socket = socket;
+        });
+        _server = _server.addListener('error', (err) => {
             error = err;
-        })
-        _server = _server.addListener("listening", () => { })
+        });
+        _server = _server.addListener('listening', () => {});
 
         /// emit
-        bool = _server.emit("close")
-        bool = _server.emit("connection", _socket)
-        bool = _server.emit("error", error)
-        bool = _server.emit("listening")
+        bool = _server.emit('close');
+        bool = _server.emit('connection', _socket);
+        bool = _server.emit('error', error);
+        bool = _server.emit('listening');
 
         /// once
-        _server = _server.once("close", () => { })
-        _server = _server.once("connection", socket => {
-            _socket = socket
-        })
-        _server = _server.once("error", err => {
+        _server = _server.once('close', () => {});
+        _server = _server.once('connection', (socket) => {
+            _socket = socket;
+        });
+        _server = _server.once('error', (err) => {
             error = err;
-        })
-        _server = _server.once("listening", () => { })
+        });
+        _server = _server.once('listening', () => {});
 
         /// prependListener
-        _server = _server.prependListener("close", () => { })
-        _server = _server.prependListener("connection", socket => {
-            _socket = socket
-        })
-        _server = _server.prependListener("error", err => {
+        _server = _server.prependListener('close', () => {});
+        _server = _server.prependListener('connection', (socket) => {
+            _socket = socket;
+        });
+        _server = _server.prependListener('error', (err) => {
             error = err;
-        })
-        _server = _server.prependListener("listening", () => { })
+        });
+        _server = _server.prependListener('listening', () => {});
 
         /// prependOnceListener
-        _server = _server.prependOnceListener("close", () => { })
-        _server = _server.prependOnceListener("connection", socket => {
-            _socket = socket
-        })
-        _server = _server.prependOnceListener("error", err => {
+        _server = _server.prependOnceListener('close', () => {});
+        _server = _server.prependOnceListener('connection', (socket) => {
+            _socket = socket;
+        });
+        _server = _server.prependOnceListener('error', (err) => {
             error = err;
-        })
-        _server = _server.prependOnceListener("listening", () => { })
-
+        });
+        _server = _server.prependOnceListener('listening', () => {});
     }
-
 }
 
 /////////////////////////////////////////////////////
@@ -2346,23 +2373,23 @@ namespace repl_tests {
         let _boolean: boolean;
         let _ctx: any;
 
-        _server = _server.addListener("exit", () => { });
-        _server = _server.addListener("reset", () => { });
+        _server = _server.addListener('exit', () => {});
+        _server = _server.addListener('reset', () => {});
 
-        _boolean = _server.emit("exit", () => { });
-        _boolean = _server.emit("reset", _ctx);
+        _boolean = _server.emit('exit', () => {});
+        _boolean = _server.emit('reset', _ctx);
 
-        _server = _server.on("exit", () => { });
-        _server = _server.on("reset", () => { });
+        _server = _server.on('exit', () => {});
+        _server = _server.on('reset', () => {});
 
-        _server = _server.once("exit", () => { });
-        _server = _server.once("reset", () => { });
+        _server = _server.once('exit', () => {});
+        _server = _server.once('reset', () => {});
 
-        _server = _server.prependListener("exit", () => { });
-        _server = _server.prependListener("reset", () => { });
+        _server = _server.prependListener('exit', () => {});
+        _server = _server.prependListener('reset', () => {});
 
-        _server = _server.prependOnceListener("exit", () => { });
-        _server = _server.prependOnceListener("reset", () => { });
+        _server = _server.prependOnceListener('exit', () => {});
+        _server = _server.prependOnceListener('reset', () => {});
     }
 }
 
@@ -2371,40 +2398,40 @@ namespace repl_tests {
 ///////////////////////////////////////////////////
 
 namespace dns_tests {
-    dns.lookup("nodejs.org", (err, address, family) => {
+    dns.lookup('nodejs.org', (err, address, family) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: string = address;
         const _family: number = family;
     });
-    dns.lookup("nodejs.org", 4, (err, address, family) => {
+    dns.lookup('nodejs.org', 4, (err, address, family) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: string = address;
         const _family: number = family;
     });
-    dns.lookup("nodejs.org", 6, (err, address, family) => {
+    dns.lookup('nodejs.org', 6, (err, address, family) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: string = address;
         const _family: number = family;
     });
-    dns.lookup("nodejs.org", {}, (err, address, family) => {
+    dns.lookup('nodejs.org', {}, (err, address, family) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup(
-        "nodejs.org",
+        'nodejs.org',
         {
             family: 4,
             hints: dns.ADDRCONFIG | dns.V4MAPPED,
-            all: false
+            all: false,
         },
         (err, address, family) => {
             const _err: NodeJS.ErrnoException = err;
             const _address: string = address;
             const _family: number = family;
-        }
+        },
     );
-    dns.lookup("nodejs.org", {all: true}, (err, addresses) => {
+    dns.lookup('nodejs.org', { all: true }, (err, addresses) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: dns.LookupAddress[] = addresses;
     });
@@ -2412,53 +2439,53 @@ namespace dns_tests {
     function trueOrFalse(): boolean {
         return Math.random() > 0.5 ? true : false;
     }
-    dns.lookup("nodejs.org", {all: trueOrFalse()}, (err, addresses, family) => {
+    dns.lookup('nodejs.org', { all: trueOrFalse() }, (err, addresses, family) => {
         const _err: NodeJS.ErrnoException = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
 
-    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+    dns.lookupService('127.0.0.1', 0, (err, hostname, service) => {
         const _err: NodeJS.ErrnoException = err;
         const _hostname: string = hostname;
         const _service: string = service;
     });
 
-    dns.resolve("nodejs.org", (err, addresses) => {
+    dns.resolve('nodejs.org', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve("nodejs.org", "A", (err, addresses) => {
+    dns.resolve('nodejs.org', 'A', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
+    dns.resolve('nodejs.org', 'AAAA', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve("nodejs.org", "MX", (err, addresses) => {
+    dns.resolve('nodejs.org', 'MX', (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
     });
 
-    dns.resolve4("nodejs.org", (err, addresses) => {
+    dns.resolve4('nodejs.org', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve4("nodejs.org", {ttl: true}, (err, addresses) => {
+    dns.resolve4('nodejs.org', { ttl: true }, (err, addresses) => {
         const _addresses: dns.RecordWithTtl[] = addresses;
     });
     {
         const ttl = false;
-        dns.resolve4("nodejs.org", {ttl: ttl}, (err, addresses) => {
+        dns.resolve4('nodejs.org', { ttl: ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
     }
 
-    dns.resolve6("nodejs.org", (err, addresses) => {
+    dns.resolve6('nodejs.org', (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve6("nodejs.org", {ttl: true}, (err, addresses) => {
+    dns.resolve6('nodejs.org', { ttl: true }, (err, addresses) => {
         const _addresses: dns.RecordWithTtl[] = addresses;
     });
     {
         const ttl = false;
-        dns.resolve6("nodejs.org", {ttl: ttl}, (err, addresses) => {
+        dns.resolve6('nodejs.org', { ttl: ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
     }
@@ -2478,151 +2505,149 @@ import * as constants from 'constants';
 namespace constants_tests {
     var str: string;
     var num: number;
-    num = constants.SIGHUP
-    num = constants.SIGINT
-    num = constants.SIGQUIT
-    num = constants.SIGILL
-    num = constants.SIGTRAP
-    num = constants.SIGABRT
-    num = constants.SIGIOT
-    num = constants.SIGBUS
-    num = constants.SIGFPE
-    num = constants.SIGKILL
-    num = constants.SIGUSR1
-    num = constants.SIGSEGV
-    num = constants.SIGUSR2
-    num = constants.SIGPIPE
-    num = constants.SIGALRM
-    num = constants.SIGTERM
-    num = constants.SIGCHLD
-    num = constants.SIGSTKFLT
-    num = constants.SIGCONT
-    num = constants.SIGSTOP
-    num = constants.SIGTSTP
-    num = constants.SIGTTIN
-    num = constants.SIGTTOU
-    num = constants.SIGURG
-    num = constants.SIGXCPU
-    num = constants.SIGXFSZ
-    num = constants.SIGVTALRM
-    num = constants.SIGPROF
-    num = constants.SIGWINCH
-    num = constants.SIGIO
-    num = constants.SIGPOLL
-    num = constants.SIGPWR
-    num = constants.SIGSYS
-    num = constants.SIGUNUSED
-    num = constants.O_RDONLY
-    num = constants.O_WRONLY
-    num = constants.O_RDWR
-    num = constants.S_IFMT
-    num = constants.S_IFREG
-    num = constants.S_IFDIR
-    num = constants.S_IFCHR
-    num = constants.S_IFBLK
-    num = constants.S_IFIFO
-    num = constants.S_IFLNK
-    num = constants.S_IFSOCK
-    num = constants.O_CREAT
-    num = constants.O_EXCL
-    num = constants.O_NOCTTY
-    num = constants.O_TRUNC
-    num = constants.O_APPEND
-    num = constants.O_DIRECTORY
-    num = constants.O_NOATIME
-    num = constants.O_NOFOLLOW
-    num = constants.O_SYNC
-    num = constants.O_DIRECT
-    num = constants.O_NONBLOCK
-    num = constants.S_IRWXU
-    num = constants.S_IRUSR
-    num = constants.S_IWUSR
-    num = constants.S_IXUSR
-    num = constants.S_IRWXG
-    num = constants.S_IRGRP
-    num = constants.S_IWGRP
-    num = constants.S_IXGRP
-    num = constants.S_IRWXO
-    num = constants.S_IROTH
-    num = constants.S_IWOTH
-    num = constants.S_IXOTH
-    num = constants.F_OK
-    num = constants.R_OK
-    num = constants.W_OK
-    num = constants.X_OK
-    num = constants.SSL_OP_ALL
-    num = constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION
-    num = constants.SSL_OP_CIPHER_SERVER_PREFERENCE
-    num = constants.SSL_OP_CISCO_ANYCONNECT
-    num = constants.SSL_OP_COOKIE_EXCHANGE
-    num = constants.SSL_OP_CRYPTOPRO_TLSEXT_BUG
-    num = constants.SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS
-    num = constants.SSL_OP_EPHEMERAL_RSA
-    num = constants.SSL_OP_LEGACY_SERVER_CONNECT
-    num = constants.SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER
-    num = constants.SSL_OP_MICROSOFT_SESS_ID_BUG
-    num = constants.SSL_OP_MSIE_SSLV2_RSA_PADDING
-    num = constants.SSL_OP_NETSCAPE_CA_DN_BUG
-    num = constants.SSL_OP_NETSCAPE_CHALLENGE_BUG
-    num = constants.SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG
-    num = constants.SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG
-    num = constants.SSL_OP_NO_COMPRESSION
-    num = constants.SSL_OP_NO_QUERY_MTU
-    num = constants.SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION
-    num = constants.SSL_OP_NO_SSLv2
-    num = constants.SSL_OP_NO_SSLv3
-    num = constants.SSL_OP_NO_TICKET
-    num = constants.SSL_OP_NO_TLSv1
-    num = constants.SSL_OP_NO_TLSv1_1
-    num = constants.SSL_OP_NO_TLSv1_2
-    num = constants.SSL_OP_PKCS1_CHECK_1
-    num = constants.SSL_OP_PKCS1_CHECK_2
-    num = constants.SSL_OP_SINGLE_DH_USE
-    num = constants.SSL_OP_SINGLE_ECDH_USE
-    num = constants.SSL_OP_SSLEAY_080_CLIENT_DH_BUG
-    num = constants.SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG
-    num = constants.SSL_OP_TLS_BLOCK_PADDING_BUG
-    num = constants.SSL_OP_TLS_D5_BUG
-    num = constants.SSL_OP_TLS_ROLLBACK_BUG
-    num = constants.ENGINE_METHOD_RSA
-    num = constants.ENGINE_METHOD_DSA
-    num = constants.ENGINE_METHOD_DH
-    num = constants.ENGINE_METHOD_RAND
-    num = constants.ENGINE_METHOD_ECDH
-    num = constants.ENGINE_METHOD_ECDSA
-    num = constants.ENGINE_METHOD_CIPHERS
-    num = constants.ENGINE_METHOD_DIGESTS
-    num = constants.ENGINE_METHOD_STORE
-    num = constants.ENGINE_METHOD_PKEY_METHS
-    num = constants.ENGINE_METHOD_PKEY_ASN1_METHS
-    num = constants.ENGINE_METHOD_ALL
-    num = constants.ENGINE_METHOD_NONE
-    num = constants.DH_CHECK_P_NOT_SAFE_PRIME
-    num = constants.DH_CHECK_P_NOT_PRIME
-    num = constants.DH_UNABLE_TO_CHECK_GENERATOR
-    num = constants.DH_NOT_SUITABLE_GENERATOR
-    num = constants.NPN_ENABLED
-    num = constants.ALPN_ENABLED
-    num = constants.RSA_PKCS1_PADDING
-    num = constants.RSA_SSLV23_PADDING
-    num = constants.RSA_NO_PADDING
-    num = constants.RSA_PKCS1_OAEP_PADDING
-    num = constants.RSA_X931_PADDING
-    num = constants.RSA_PKCS1_PSS_PADDING
-    num = constants.POINT_CONVERSION_COMPRESSED
-    num = constants.POINT_CONVERSION_UNCOMPRESSED
-    num = constants.POINT_CONVERSION_HYBRID
-    str = constants.defaultCoreCipherList
-    str = constants.defaultCipherList
+    num = constants.SIGHUP;
+    num = constants.SIGINT;
+    num = constants.SIGQUIT;
+    num = constants.SIGILL;
+    num = constants.SIGTRAP;
+    num = constants.SIGABRT;
+    num = constants.SIGIOT;
+    num = constants.SIGBUS;
+    num = constants.SIGFPE;
+    num = constants.SIGKILL;
+    num = constants.SIGUSR1;
+    num = constants.SIGSEGV;
+    num = constants.SIGUSR2;
+    num = constants.SIGPIPE;
+    num = constants.SIGALRM;
+    num = constants.SIGTERM;
+    num = constants.SIGCHLD;
+    num = constants.SIGSTKFLT;
+    num = constants.SIGCONT;
+    num = constants.SIGSTOP;
+    num = constants.SIGTSTP;
+    num = constants.SIGTTIN;
+    num = constants.SIGTTOU;
+    num = constants.SIGURG;
+    num = constants.SIGXCPU;
+    num = constants.SIGXFSZ;
+    num = constants.SIGVTALRM;
+    num = constants.SIGPROF;
+    num = constants.SIGWINCH;
+    num = constants.SIGIO;
+    num = constants.SIGPOLL;
+    num = constants.SIGPWR;
+    num = constants.SIGSYS;
+    num = constants.SIGUNUSED;
+    num = constants.O_RDONLY;
+    num = constants.O_WRONLY;
+    num = constants.O_RDWR;
+    num = constants.S_IFMT;
+    num = constants.S_IFREG;
+    num = constants.S_IFDIR;
+    num = constants.S_IFCHR;
+    num = constants.S_IFBLK;
+    num = constants.S_IFIFO;
+    num = constants.S_IFLNK;
+    num = constants.S_IFSOCK;
+    num = constants.O_CREAT;
+    num = constants.O_EXCL;
+    num = constants.O_NOCTTY;
+    num = constants.O_TRUNC;
+    num = constants.O_APPEND;
+    num = constants.O_DIRECTORY;
+    num = constants.O_NOATIME;
+    num = constants.O_NOFOLLOW;
+    num = constants.O_SYNC;
+    num = constants.O_DIRECT;
+    num = constants.O_NONBLOCK;
+    num = constants.S_IRWXU;
+    num = constants.S_IRUSR;
+    num = constants.S_IWUSR;
+    num = constants.S_IXUSR;
+    num = constants.S_IRWXG;
+    num = constants.S_IRGRP;
+    num = constants.S_IWGRP;
+    num = constants.S_IXGRP;
+    num = constants.S_IRWXO;
+    num = constants.S_IROTH;
+    num = constants.S_IWOTH;
+    num = constants.S_IXOTH;
+    num = constants.F_OK;
+    num = constants.R_OK;
+    num = constants.W_OK;
+    num = constants.X_OK;
+    num = constants.SSL_OP_ALL;
+    num = constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION;
+    num = constants.SSL_OP_CIPHER_SERVER_PREFERENCE;
+    num = constants.SSL_OP_CISCO_ANYCONNECT;
+    num = constants.SSL_OP_COOKIE_EXCHANGE;
+    num = constants.SSL_OP_CRYPTOPRO_TLSEXT_BUG;
+    num = constants.SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
+    num = constants.SSL_OP_EPHEMERAL_RSA;
+    num = constants.SSL_OP_LEGACY_SERVER_CONNECT;
+    num = constants.SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER;
+    num = constants.SSL_OP_MICROSOFT_SESS_ID_BUG;
+    num = constants.SSL_OP_MSIE_SSLV2_RSA_PADDING;
+    num = constants.SSL_OP_NETSCAPE_CA_DN_BUG;
+    num = constants.SSL_OP_NETSCAPE_CHALLENGE_BUG;
+    num = constants.SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG;
+    num = constants.SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG;
+    num = constants.SSL_OP_NO_COMPRESSION;
+    num = constants.SSL_OP_NO_QUERY_MTU;
+    num = constants.SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION;
+    num = constants.SSL_OP_NO_SSLv2;
+    num = constants.SSL_OP_NO_SSLv3;
+    num = constants.SSL_OP_NO_TICKET;
+    num = constants.SSL_OP_NO_TLSv1;
+    num = constants.SSL_OP_NO_TLSv1_1;
+    num = constants.SSL_OP_NO_TLSv1_2;
+    num = constants.SSL_OP_PKCS1_CHECK_1;
+    num = constants.SSL_OP_PKCS1_CHECK_2;
+    num = constants.SSL_OP_SINGLE_DH_USE;
+    num = constants.SSL_OP_SINGLE_ECDH_USE;
+    num = constants.SSL_OP_SSLEAY_080_CLIENT_DH_BUG;
+    num = constants.SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG;
+    num = constants.SSL_OP_TLS_BLOCK_PADDING_BUG;
+    num = constants.SSL_OP_TLS_D5_BUG;
+    num = constants.SSL_OP_TLS_ROLLBACK_BUG;
+    num = constants.ENGINE_METHOD_RSA;
+    num = constants.ENGINE_METHOD_DSA;
+    num = constants.ENGINE_METHOD_DH;
+    num = constants.ENGINE_METHOD_RAND;
+    num = constants.ENGINE_METHOD_ECDH;
+    num = constants.ENGINE_METHOD_ECDSA;
+    num = constants.ENGINE_METHOD_CIPHERS;
+    num = constants.ENGINE_METHOD_DIGESTS;
+    num = constants.ENGINE_METHOD_STORE;
+    num = constants.ENGINE_METHOD_PKEY_METHS;
+    num = constants.ENGINE_METHOD_PKEY_ASN1_METHS;
+    num = constants.ENGINE_METHOD_ALL;
+    num = constants.ENGINE_METHOD_NONE;
+    num = constants.DH_CHECK_P_NOT_SAFE_PRIME;
+    num = constants.DH_CHECK_P_NOT_PRIME;
+    num = constants.DH_UNABLE_TO_CHECK_GENERATOR;
+    num = constants.DH_NOT_SUITABLE_GENERATOR;
+    num = constants.NPN_ENABLED;
+    num = constants.ALPN_ENABLED;
+    num = constants.RSA_PKCS1_PADDING;
+    num = constants.RSA_SSLV23_PADDING;
+    num = constants.RSA_NO_PADDING;
+    num = constants.RSA_PKCS1_OAEP_PADDING;
+    num = constants.RSA_X931_PADDING;
+    num = constants.RSA_PKCS1_PSS_PADDING;
+    num = constants.POINT_CONVERSION_COMPRESSED;
+    num = constants.POINT_CONVERSION_UNCOMPRESSED;
+    num = constants.POINT_CONVERSION_HYBRID;
+    str = constants.defaultCoreCipherList;
+    str = constants.defaultCipherList;
 }
-
 
 ////////////////////////////////////////////////////
 /// v8 tests : https://nodejs.org/api/v8.html
 ////////////////////////////////////////////////////
 
 namespace v8_tests {
-
     const heapStats = v8.getHeapStatistics();
     const heapSpaceStats = v8.getHeapSpaceStatistics();
 
@@ -2635,14 +2660,12 @@ namespace v8_tests {
 /// Debugger Tests                                      ///
 ///////////////////////////////////////////////////////////
 
-import { Client } from  "_debugger";
+import { Client } from '_debugger';
 
 var client = new Client();
 
 client.connect(8888, 'localhost');
-client.listbreakpoints((err, body, packet) => {
-
-});
+client.listbreakpoints((err, body, packet) => {});
 
 ////////////////////////////////////////////////////
 /// zlib tests : http://nodejs.org/api/zlib.html ///

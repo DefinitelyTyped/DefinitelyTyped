@@ -1,30 +1,30 @@
 /// <reference types="jqueryui" />
 
 // Default options copied from the source
-var colorpicker = $("<input type=\"text\"/>").colorpicker({
-    alpha: false,                // Show alpha controls and mode
-    altAlpha: true,                // change opacity of altField as well?
-    altField: '',                        // selector for DOM elements which change background color on change.
-    altOnChange: true,                // true to update on each change, false to update only on close.
-    altProperties: 'background-color',        // comma separated list of any of 'background-color', 'color', 'border-color', 'outline-color'
-    autoOpen: false,                // Open dialog automatically upon creation
-    buttonClass: null,                // If set, the button will get this/these classname(s).
+var colorpicker = $('<input type="text"/>').colorpicker({
+    alpha: false, // Show alpha controls and mode
+    altAlpha: true, // change opacity of altField as well?
+    altField: '', // selector for DOM elements which change background color on change.
+    altOnChange: true, // true to update on each change, false to update only on close.
+    altProperties: 'background-color', // comma separated list of any of 'background-color', 'color', 'border-color', 'outline-color'
+    autoOpen: false, // Open dialog automatically upon creation
+    buttonClass: null, // If set, the button will get this/these classname(s).
     buttonColorize: false,
     buttonImage: 'images/ui-colorpicker.png',
     buttonImageOnly: false,
-    buttonText: null,                // Text on the button and/or title of button image.
-    closeOnEscape: true,                // Close the dialog when the escape key is pressed.
-    closeOnOutside: true,                // Close the dialog when clicking outside the dialog (not for inline)
-    color: '#00FF00',        // Initial color (for inline only)
-    colorFormat: 'HEX',                // Format string for output color format
+    buttonText: null, // Text on the button and/or title of button image.
+    closeOnEscape: true, // Close the dialog when the escape key is pressed.
+    closeOnOutside: true, // Close the dialog when clicking outside the dialog (not for inline)
+    color: '#00FF00', // Initial color (for inline only)
+    colorFormat: 'HEX', // Format string for output color format
     disabled: false,
-    draggable: true,                // Make popup dialog draggable if header is visible.
+    draggable: true, // Make popup dialog draggable if header is visible.
     duration: 'fast',
-    hsv: true,                // Show HSV controls and modes
-    inline: true,                // Show any divs as inline by default
-    inlineFrame: true,                // Show a border and background when inline.
+    hsv: true, // Show HSV controls and modes
+    inline: true, // Show any divs as inline by default
+    inlineFrame: true, // Show a border and background when inline.
     layout: {
-        map: [0, 0, 1, 5],        // Left, Top, Width, Height (in table cells).
+        map: [0, 0, 1, 5], // Left, Top, Width, Height (in table cells).
         bar: [1, 0, 1, 5],
         preview: [2, 0, 1, 1],
         hsv: [2, 1, 1, 1],
@@ -33,49 +33,49 @@ var colorpicker = $("<input type=\"text\"/>").colorpicker({
         hex: [2, 4, 1, 1],
         lab: [3, 1, 1, 1],
         cmyk: [3, 2, 1, 2],
-        swatches: [4, 0, 1, 5]
+        swatches: [4, 0, 1, 5],
     },
-    limit: '',                        // Limit color "resolution": '', 'websafe', 'nibble', 'binary', 'name'
-    modal: false,                // Modal dialog?
-    mode: 'h',                // Initial editing mode, h, s, v, r, g, b or a
-    okOnEnter: false,                // Close (with OK) when pressing the enter key
-    parts: '',                        // leave empty for automatic selection
+    limit: '', // Limit color "resolution": '', 'websafe', 'nibble', 'binary', 'name'
+    modal: false, // Modal dialog?
+    mode: 'h', // Initial editing mode, h, s, v, r, g, b or a
+    okOnEnter: false, // Close (with OK) when pressing the enter key
+    parts: '', // leave empty for automatic selection
     part: {
         map: { size: 256 },
-        bar: { size: 256 }
-    },                        // options per part
+        bar: { size: 256 },
+    }, // options per part
     regional: '',
-    revert: false,                // Revert color upon non
-    rgb: true,                // Show RGB controls and modes
+    revert: false, // Revert color upon non
+    rgb: true, // Show RGB controls and modes
     showAnim: 'fadeIn',
     showCancelButton: true,
     showNoneButton: false,
     showCloseButton: true,
-    showOn: 'focus click alt',                // 'focus', 'click', 'button', 'alt', 'both'
+    showOn: 'focus click alt', // 'focus', 'click', 'button', 'alt', 'both'
     showOptions: {},
-    swatches: null,                // null for default or kv-object or names swatches set
-    swatchesWidth: 84,                        // width (in number of pixels) of swatches box.
+    swatches: null, // null for default or kv-object or names swatches set
+    swatchesWidth: 84, // width (in number of pixels) of swatches box.
     title: null,
     cancel: null,
     close: null,
     init: null,
     select: null,
     ok: null,
-    open: null
+    open: null,
 });
 
-colorpicker.colorpicker("open");
-colorpicker.colorpicker("close");
-colorpicker.colorpicker("destroy");
-colorpicker.colorpicker("setColor", "#deadbeef");
-colorpicker.colorpicker("option", "disabled", true);
+colorpicker.colorpicker('open');
+colorpicker.colorpicker('close');
+colorpicker.colorpicker('destroy');
+colorpicker.colorpicker('setColor', '#deadbeef');
+colorpicker.colorpicker('option', 'disabled', true);
 
 // check if all options are optional
-let defaultColorpicker = $("<input type=\"text\"/>").colorpicker({});
+let defaultColorpicker = $('<input type="text"/>').colorpicker({});
 
 // example plugins provided
 
-$.colorpicker.parts["memory"] = function (inst) {
+$.colorpicker.parts['memory'] = function (inst) {
     var that = this,
         container,
         selectNode = function (node) {
@@ -87,20 +87,22 @@ $.colorpicker.parts["memory"] = function (inst) {
         },
         addNode = function (color) {
             var $node = $('<div/>').addClass('ui-colorpicker-swatch').css('backgroundColor', color);
-            $node.mousedown(function (e) {
-                e.stopPropagation();
-                switch (e.which) {
-                    case 1:
-                        selectNode(this);
-                        break;
-                    case 3:
-                        deleteNode($node);
-                        setMemory();
-                        break;
-                }
-            }).bind('contextmenu', function (e) {
-                e.preventDefault();
-            });
+            $node
+                .mousedown(function (e) {
+                    e.stopPropagation();
+                    switch (e.which) {
+                        case 1:
+                            selectNode(this);
+                            break;
+                        case 3:
+                            deleteNode($node);
+                            setMemory();
+                            break;
+                    }
+                })
+                .bind('contextmenu', function (e) {
+                    e.preventDefault();
+                });
 
             container.append($node);
         },
@@ -113,8 +115,8 @@ $.colorpicker.parts["memory"] = function (inst) {
                 colors.push(encodeURIComponent($(this).css('backgroundColor')));
             });
             var expdate = new Date();
-            expdate.setDate(expdate.getDate() + (365 * 10));
-            document.cookie = 'colorpicker-memory=' + colors.join() + ";expires=" + expdate.toUTCString();
+            expdate.setDate(expdate.getDate() + 365 * 10);
+            document.cookie = 'colorpicker-memory=' + colors.join() + ';expires=' + expdate.toUTCString();
         };
 
     this.init = function () {
@@ -123,7 +125,7 @@ $.colorpicker.parts["memory"] = function (inst) {
             .css({
                 width: 84,
                 height: 84,
-                cursor: 'crosshair'
+                cursor: 'crosshair',
             })
             .appendTo($('.ui-colorpicker-memory-container', inst.dialog));
 
@@ -140,16 +142,17 @@ $.colorpicker.parts["memory"] = function (inst) {
 
 declare function setGradient(element, startColor, endColor): void;
 
-$.colorpicker.parts["rgbslider"] = function (inst) {
+$.colorpicker.parts['rgbslider'] = function (inst) {
     var that = this,
         sliders = {
             r: $('<div class="ui-colorpicker-slider"/>'),
             g: $('<div class="ui-colorpicker-slider"/>'),
-            b: $('<div class="ui-colorpicker-slider"/>')
+            b: $('<div class="ui-colorpicker-slider"/>'),
         };
 
     this.init = function () {
-        $('<div class="ui-colorpicker-rgbslider"/>').append(sliders.r, sliders.g, sliders.b)
+        $('<div class="ui-colorpicker-rgbslider"/>')
+            .append(sliders.r, sliders.g, sliders.b)
             .appendTo($('.ui-colorpicker-rgbslider-container', inst.dialog));
 
         function refresh() {
@@ -173,7 +176,7 @@ $.colorpicker.parts["rgbslider"] = function (inst) {
             max: 255,
             step: 1,
             slide: refresh,
-            change: refresh
+            change: refresh,
         });
     };
 
@@ -195,30 +198,28 @@ $.colorpicker.parts["rgbslider"] = function (inst) {
 $.colorpicker.parsers['CMYK'] = function (color) {
     var m = /^cmyk\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/.exec(color);
     if (m) {
-        return (new $.colorpicker.Color()).setCMYK(
+        return new $.colorpicker.Color().setCMYK(
             parseInt(m[1], 10) / 255,
             parseInt(m[2], 10) / 255,
             parseInt(m[3], 10) / 255,
-            parseInt(m[4], 10) / 255
+            parseInt(m[4], 10) / 255,
         );
     }
 };
 
-$.colorpicker.parsers["#HEX8"] = function (color) {
+$.colorpicker.parsers['#HEX8'] = function (color) {
     var m = /^\s*#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})\s*$/i.exec(color);
     if (m) {
-        return (new (<any>$).colorpicker.Color()).setRGB(
-            parseInt(m[2], 16) / 255,
-            parseInt(m[3], 16) / 255,
-            parseInt(m[4], 16) / 255
-        ).setAlpha(parseInt(m[1], 16) / 255);
+        return new (<any>$).colorpicker.Color()
+            .setRGB(parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255, parseInt(m[4], 16) / 255)
+            .setAlpha(parseInt(m[1], 16) / 255);
     }
 };
 
-$.colorpicker.writers["#HEX8"] = function (color, that) {
-    return that._formatColor("#axrxgxbx", color);
+$.colorpicker.writers['#HEX8'] = function (color, that) {
+    return that._formatColor('#axrxgxbx', color);
 };
 
 $.colorpicker.swatches['pantone'] = {
-    '100': { r: 0.956862745098039, g: 0.929411764705882, b: 0.486274509803922 }
+    '100': { r: 0.956862745098039, g: 0.929411764705882, b: 0.486274509803922 },
 };

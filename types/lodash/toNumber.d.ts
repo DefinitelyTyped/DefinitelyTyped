@@ -1,2 +1,2 @@
-import { toNumber } from "./index";
+import { toNumber } from './index';
 export = toNumber;

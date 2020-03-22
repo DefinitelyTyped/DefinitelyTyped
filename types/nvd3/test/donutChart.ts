@@ -1,13 +1,12 @@
-
 namespace nvd3_test_donutChart {
     var testdata = [
-        { key: "One", y: 5 },
-        { key: "Two", y: 2 },
-        { key: "Three", y: 9 },
-        { key: "Four", y: 7 },
-        { key: "Five", y: 4 },
-        { key: "Six", y: 3 },
-        { key: "Seven", y: 0.5 }
+        { key: 'One', y: 5 },
+        { key: 'Two', y: 2 },
+        { key: 'Three', y: 9 },
+        { key: 'Four', y: 7 },
+        { key: 'Five', y: 4 },
+        { key: 'Six', y: 3 },
+        { key: 'Seven', y: 0.5 },
     ];
 
     var height = 350;
@@ -15,23 +14,25 @@ namespace nvd3_test_donutChart {
 
     var chart1;
     nv.addGraph(function () {
-        var chart1 = nv.models.pieChart()
-            .x(function (d) { return d.key })
-            .y(function (d) { return d.y })
+        var chart1 = nv.models
+            .pieChart()
+            .x(function (d) {
+                return d.key;
+            })
+            .y(function (d) {
+                return d.y;
+            })
             .donut(true)
             .width(width)
             .height(height)
-            .padAngle(.08)
+            .padAngle(0.08)
             .cornerRadius(5)
             .id('donut1'); // allow custom CSS for this one svg
 
-        chart1.title("100%");
+        chart1.title('100%');
         chart1.pie.donutLabelsOutside(true).donut(true);
 
-        d3.select("#test1")
-            .datum(testdata)
-            .transition().duration(1200)
-            .call(chart1);
+        d3.select('#test1').datum(testdata).transition().duration(1200).call(chart1);
 
         // LISTEN TO WINDOW RESIZE
         // nv.utils.windowResize(chart1.update);
@@ -59,14 +60,18 @@ namespace nvd3_test_donutChart {
         // @see nv.models.pie
 
         return chart1;
-
     });
 
     var chart2;
     nv.addGraph(function () {
-        var chart2 = nv.models.pieChart()
-            .x(function (d) { return d.key })
-            .y(function (d) { return d.y })
+        var chart2 = nv.models
+            .pieChart()
+            .x(function (d) {
+                return d.key;
+            })
+            .y(function (d) {
+                return d.y;
+            })
             //.labelThreshold(.08)
             //.showLabels(false)
             .color(d3.scale.category20().range().slice(10))
@@ -75,17 +80,22 @@ namespace nvd3_test_donutChart {
             .donut(true)
             .id('donut2')
             .titleOffset(-30)
-            .title("woot");
+            .title('woot');
 
         // MAKES IT HALF CIRCLE
         chart2.pie
-            .startAngle(function (d) { return d.startAngle / 2 - Math.PI / 2 })
-            .endAngle(function (d) { return d.endAngle / 2 - Math.PI / 2 });
+            .startAngle(function (d) {
+                return d.startAngle / 2 - Math.PI / 2;
+            })
+            .endAngle(function (d) {
+                return d.endAngle / 2 - Math.PI / 2;
+            });
 
-        d3.select("#test2")
+        d3.select('#test2')
             //.datum(historicalBarChart)
             .datum(testdata)
-            .transition().duration(1200)
+            .transition()
+            .duration(1200)
             .call(chart2);
 
         return chart2;

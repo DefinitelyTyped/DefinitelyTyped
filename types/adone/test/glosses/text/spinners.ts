@@ -1,13 +1,11 @@
 namespace adoneTests.text.spinners {
     const {
-        text: {
-            spinner
-        }
+        text: { spinner },
     } = adone;
 
     let sp: {
         interval: number;
-        frames: string[]
+        frames: string[];
     };
 
     sp = spinner.dots;

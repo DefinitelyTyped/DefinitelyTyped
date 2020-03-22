@@ -32,7 +32,7 @@ export default class VectorImageTile extends Tile {
         projection: Projection,
         tileClass: VectorTile,
         handleTileChange: (this: VectorTile_1, p0: Event) => void,
-        zoom: number
+        zoom: number,
     );
     getContext(layer: Layer): CanvasRenderingContext2D;
     getImage(layer: Layer): HTMLCanvasElement;

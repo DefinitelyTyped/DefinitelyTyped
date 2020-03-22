@@ -39,11 +39,7 @@ keystone.createAuthStrategy({
 
         // Called when there's no existing user for the given googleId
         // Default: resolveCreateData: () => ({})
-        resolveCreateData: (
-            { createData, actions: { pauseAuthentication } }: any,
-            req: any,
-            res: any
-        ) => {
+        resolveCreateData: ({ createData, actions: { pauseAuthentication } }: any, req: any, res: any) => {
             // If we don't have the right data to continue with a creation
             if (!createData.name) {
                 // then we pause the flow

@@ -4,20 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import { h, Component, VNode, ComponentChild, ComponentChildren } from "preact";
+import { h, Component, VNode, ComponentChild, ComponentChildren } from 'preact';
 
 export class TextComponent extends Component<{
-    id: string
-    fields?: {}
-    plural?: number
+    id: string;
+    fields?: {};
+    plural?: number;
 }> {
     render(): TextComponent;
 }
 
 export class IntlProvider extends Component<{
-    scope?: any
-    mark?: boolean
-    definition?: {}
+    scope?: any;
+    mark?: boolean;
+    definition?: {};
 }> {
     render(): IntlProvider;
 }
@@ -28,9 +28,8 @@ export class Localizer extends Component<{ children: ComponentChildren }> {
 }
 
 // tslint:disable-next-line:no-unnecessary-generics
-export function withText<Props, Context = any>(mapping: {}): (Child: ComponentChild) => new (props?: Props, context?: Context) => any;
+export function withText<Props, Context = any>(mapping: {}): (
+    Child: ComponentChild,
+) => new (props?: Props, context?: Context) => any;
 
-export default function intl(
-    Child: Component,
-    options?: { scope?: any; definition?: {} }
-): VNode;
+export default function intl(Child: Component, options?: { scope?: any; definition?: {} }): VNode;

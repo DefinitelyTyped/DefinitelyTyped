@@ -1,8 +1,8 @@
 declare function describe(desc: string, fn: () => void): void;
 declare function it(desc: string, fn: () => void): void;
 
-describe("Stripe", () => {
-    it("should excercise Stripe API", () => {
+describe('Stripe', () => {
+    it('should excercise Stripe API', () => {
         function success(card: stripe.StripeCard) {
             console.log(card.brand && card.brand.toString());
         }
@@ -15,7 +15,7 @@ describe("Stripe", () => {
                 number: cardNumber,
                 exp_month: 1,
                 exp_year: 2100,
-                cvc: '111'
+                cvc: '111',
             };
             Stripe.card.createToken(tokenData, (status, response) => {
                 if (response.error) {

@@ -6,8 +6,7 @@
 /// <reference types="angular" />
 
 declare namespace ngCordova {
-
-  export interface IEmailComposerOptions {
+    export interface IEmailComposerOptions {
         to: string | Array<string>;
         cc?: string | Array<string>;
         bcc?: string | Array<string>;
@@ -17,12 +16,9 @@ declare namespace ngCordova {
         isHtml?: boolean;
     }
 
-  export interface IEmailComposerService {
-
-    isAvailable(): ng.IPromise<boolean>;
-    open(properties: IEmailComposerOptions) : ng.IPromise<any>;
-    addAlias(app: string, schema: string) : void;
-
-  }
-
+    export interface IEmailComposerService {
+        isAvailable(): ng.IPromise<boolean>;
+        open(properties: IEmailComposerOptions): ng.IPromise<any>;
+        addAlias(app: string, schema: string): void;
+    }
 }

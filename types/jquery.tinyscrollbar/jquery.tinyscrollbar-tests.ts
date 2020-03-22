@@ -1,5 +1,3 @@
-
-
 $('#scrollbar1').tinyscrollbar();
 $('#scrollbar2').tinyscrollbar({ axis: 'x' });
 $('#scrollbar3').tinyscrollbar({ size: 100 });

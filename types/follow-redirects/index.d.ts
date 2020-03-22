@@ -24,7 +24,7 @@ export interface WrappableRequest {
 export interface WrappableResponse {
     statusCode?: number;
     headers: {
-        location?: string
+        location?: string;
     };
     destroy(): any;
 }
@@ -44,38 +44,38 @@ export interface RedirectableRequest<Request extends WrappableRequest, Response>
     setTimeout: Request['setTimeout'];
 
     addListener(event: string, listener: (...args: any[]) => void): this;
-    addListener(event: "response", listener: (response: Response) => void): this;
-    addListener(event: "error", listener: (err: Error) => void): this;
+    addListener(event: 'response', listener: (response: Response) => void): this;
+    addListener(event: 'error', listener: (err: Error) => void): this;
 
     emit(event: string | symbol, ...args: any[]): boolean;
-    emit(event: "response", response: Response): boolean;
-    emit(event: "error", err: Error): boolean;
+    emit(event: 'response', response: Response): boolean;
+    emit(event: 'error', err: Error): boolean;
 
     on(event: string, listener: (...args: any[]) => void): this;
-    on(event: "response", listener: (response: Response) => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
+    on(event: 'response', listener: (response: Response) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
 
     once(event: string, listener: (...args: any[]) => void): this;
-    once(event: "response", listener: (response: Response) => void): this;
-    once(event: "error", listener: (err: Error) => void): this;
+    once(event: 'response', listener: (response: Response) => void): this;
+    once(event: 'error', listener: (err: Error) => void): this;
 
     prependListener(event: string, listener: (...args: any[]) => void): this;
-    prependListener(event: "response", listener: (response: Response) => void): this;
-    prependListener(event: "error", listener: (err: Error) => void): this;
+    prependListener(event: 'response', listener: (response: Response) => void): this;
+    prependListener(event: 'error', listener: (err: Error) => void): this;
 
     prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-    prependOnceListener(event: "response", listener: (response: Response) => void): this;
-    prependOnceListener(event: "error", listener: (err: Error) => void): this;
+    prependOnceListener(event: 'response', listener: (response: Response) => void): this;
+    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
 }
 
 export interface RedirectScheme<Options, Request extends WrappableRequest, Response> {
     request(
-        options: string | Options & FollowOptions<Options>,
-        callback?: (res: Response & FollowResponse) => void
+        options: string | (Options & FollowOptions<Options>),
+        callback?: (res: Response & FollowResponse) => void,
     ): RedirectableRequest<Request, Response>;
     get(
-        options: string | Options & FollowOptions<Options>,
-        callback?: (res: Response & FollowResponse) => void
+        options: string | (Options & FollowOptions<Options>),
+        callback?: (res: Response & FollowResponse) => void,
     ): RedirectableRequest<Request, Response>;
 }
 
@@ -103,23 +103,26 @@ export interface Redirect {
     statusCode: number;
 }
 
-export const http: Override<typeof coreHttp, RedirectScheme<
-    coreHttp.RequestOptions,
-    coreHttp.ClientRequest,
-    coreHttp.IncomingMessage
->>;
-export const https: Override<typeof coreHttps, RedirectScheme<
-    coreHttps.RequestOptions,
-    coreHttp.ClientRequest,
-    coreHttp.IncomingMessage
->>;
+export const http: Override<
+    typeof coreHttp,
+    RedirectScheme<coreHttp.RequestOptions, coreHttp.ClientRequest, coreHttp.IncomingMessage>
+>;
+export const https: Override<
+    typeof coreHttps,
+    RedirectScheme<coreHttps.RequestOptions, coreHttp.ClientRequest, coreHttp.IncomingMessage>
+>;
 
-export type WrappedScheme<T extends Scheme<any, any, any>> = Override<T, RedirectScheme<
-    T extends Scheme<infer Options, any, any> ? Options : never,
-    T extends Scheme<any, infer Request, any> ? Request : never,
-    T extends Scheme<any, any, infer Response> ? Response : never
->>;
+export type WrappedScheme<T extends Scheme<any, any, any>> = Override<
+    T,
+    RedirectScheme<
+        T extends Scheme<infer Options, any, any> ? Options : never,
+        T extends Scheme<any, infer Request, any> ? Request : never,
+        T extends Scheme<any, any, infer Response> ? Response : never
+    >
+>;
 
-export function wrap<T extends {[key: string]: Scheme<any, any, any>}>(protocols: T): {
-    [K in keyof T]: WrappedScheme<T[K]>
+export function wrap<T extends { [key: string]: Scheme<any, any, any> }>(
+    protocols: T,
+): {
+    [K in keyof T]: WrappedScheme<T[K]>;
 };

@@ -9,8 +9,8 @@ import * as express from 'express';
 
 declare namespace PassportFacebookToken {
     interface StrategyStatic {
-        new(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest): StrategyInstance;
-        new(options: StrategyOptions, verify: VerifyFunction): StrategyInstance;
+        new (options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest): StrategyInstance;
+        new (options: StrategyOptions, verify: VerifyFunction): StrategyInstance;
     }
 
     interface StrategyInstance {
@@ -53,9 +53,20 @@ declare namespace PassportFacebookToken {
         passReqToCallback: true;
     }
 
-    type VerifyFunction = (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
+    type VerifyFunction = (
+        accessToken: string,
+        refreshToken: string,
+        profile: Profile,
+        done: (error: any, user?: any, info?: any) => void,
+    ) => void;
 
-    type VerifyFunctionWithRequest = (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
+    type VerifyFunctionWithRequest = (
+        req: express.Request,
+        accessToken: string,
+        refreshToken: string,
+        profile: Profile,
+        done: (error: any, user?: any, info?: any) => void,
+    ) => void;
 }
 
 declare const PassportFacebookToken: PassportFacebookToken.StrategyStatic;

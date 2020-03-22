@@ -1,27 +1,26 @@
-import * as fs from "fs";
-import * as Undertaker from "undertaker";
-import globWatcher = require("glob-watcher");
+import * as fs from 'fs';
+import * as Undertaker from 'undertaker';
+import globWatcher = require('glob-watcher');
 
 function test() {
-    const path = "";
-    const globs = ["", ""];
+    const path = '';
+    const globs = ['', ''];
 
-    const opts1 = {
-    };
+    const opts1 = {};
 
     const opts2 = {
         delay: 500,
-        events: ["add", "change", "unlink"],
-        depth: 1
+        events: ['add', 'change', 'unlink'],
+        depth: 1,
     };
 
     optionsTypeTest(opts1);
     optionsTypeTest(opts2);
 
-    const taskFunc: Undertaker.TaskFunction = () => "";
+    const taskFunc: Undertaker.TaskFunction = () => '';
 
     const cb = () => {
-        console.log("watch change!");
+        console.log('watch change!');
     };
 
     let cnt = 0;
@@ -48,7 +47,7 @@ function test() {
         globWatcher(globs, opts1, taskFunc),
     ];
 
-    return res.map(s => {
+    return res.map((s) => {
         const ee: fs.FSWatcher = s;
         ee.close();
         return ee.eventNames();

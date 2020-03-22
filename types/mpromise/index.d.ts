@@ -23,7 +23,10 @@ declare class Promise<F, R> {
     onReject(callback: (err: R) => void): Promise<F, R>;
     onResolve(callback: IResolveFunction<F, R>): Promise<F, R>;
 
-    then<TRes>(onFulfilled: (...values: F[]) => TRes | PromiseLike<TRes>, onRejected?: (err: R) => TRes | PromiseLike<TRes>): Promise<TRes, R>;
+    then<TRes>(
+        onFulfilled: (...values: F[]) => TRes | PromiseLike<TRes>,
+        onRejected?: (err: R) => TRes | PromiseLike<TRes>,
+    ): Promise<TRes, R>;
     end(): void;
 
     chain(promise: Promise<F, R>): Promise<F, R>;

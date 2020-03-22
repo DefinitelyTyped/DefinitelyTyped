@@ -1,4 +1,4 @@
-declare module "os" {
+declare module 'os' {
     interface CpuInfo {
         model: string;
         speed: number;
@@ -20,11 +20,11 @@ declare module "os" {
     }
 
     interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
-        family: "IPv4";
+        family: 'IPv4';
     }
 
     interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
-        family: "IPv6";
+        family: 'IPv6';
         scopeid: number;
     }
 
@@ -238,13 +238,13 @@ declare module "os" {
             PRIORITY_ABOVE_NORMAL: number;
             PRIORITY_HIGH: number;
             PRIORITY_HIGHEST: number;
-        }
+        };
     };
     function arch(): string;
     function platform(): NodeJS.Platform;
     function tmpdir(): string;
     const EOL: string;
-    function endianness(): "BE" | "LE";
+    function endianness(): 'BE' | 'LE';
     /**
      * Gets the priority of a process.
      * Defaults to current process.

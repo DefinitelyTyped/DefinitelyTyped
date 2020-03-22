@@ -1,7 +1,7 @@
 import Sitemap = require('sitemap2');
 
 const sitemap = new Sitemap({
-    hostName: ('https://example.com/'),
+    hostName: 'https://example.com/',
     fileName: 'sitemap.xml',
     limit: 50000,
     cacheTime: 1000,
@@ -20,7 +20,7 @@ sitemap.addUrl({
         title: 'title',
         description: 'description',
         content_loc: 'content_loc',
-        thumbnail_loc: 'thumbnail_loc'
+        thumbnail_loc: 'thumbnail_loc',
     },
 });
 sitemap.addUrl([
@@ -35,12 +35,12 @@ sitemap.addUrl([
             title: 'title',
             description: 'description',
             content_loc: 'content_loc',
-            thumbnail_loc: 'thumbnail_loc'
+            thumbnail_loc: 'thumbnail_loc',
         },
     },
     {
-        url: 'http://example.com/'
-    }
+        url: 'http://example.com/',
+    },
 ]);
 
 const sitemap2 = new Sitemap();

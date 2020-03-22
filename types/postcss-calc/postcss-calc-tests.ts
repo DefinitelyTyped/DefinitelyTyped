@@ -1,4 +1,4 @@
-import calc = require("postcss-calc");
+import calc = require('postcss-calc');
 import { Transformer } from 'postcss';
 
 const ap1: Transformer = calc();
@@ -8,5 +8,5 @@ const ap2: Transformer = calc({
     preserve: false,
     warnWhenCannotResolve: false,
     mediaQueries: false,
-    selectors: false
+    selectors: false,
 });

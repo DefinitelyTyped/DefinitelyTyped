@@ -80,7 +80,7 @@ export interface DecodeOptions {
 
 export type VerifyCallback = (
     err: JsonWebTokenError | NotBeforeError | TokenExpiredError,
-    decoded: object | string
+    decoded: object | string,
 ) => void;
 
 export type SignCallback = (err: Error, encoded: string) => void;
@@ -94,11 +94,7 @@ export type Secret = string | Buffer | { key: string; passphrase: string };
  * @param [options] - Options for the signature
  * @returns The JSON Web Token string
  */
-export function sign(
-    payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
-    options?: SignOptions,
-): string;
+export function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, options?: SignOptions): string;
 
 /**
  * Sign the given payload into a JSON Web Token string
@@ -107,11 +103,7 @@ export function sign(
  * @param options - Options for the signature
  * @param callback - Callback to get the encoded token on
  */
-export function sign(
-    payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
-    callback: SignCallback,
-): void;
+export function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, callback: SignCallback): void;
 export function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
@@ -129,7 +121,7 @@ export function sign(
 export function signAsync(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
-    options?: SignOptions
+    options?: SignOptions,
 ): Promise<string>;
 
 /**
@@ -139,11 +131,7 @@ export function signAsync(
  * @param [options] - Options for the verification
  * @returns The decoded token.
  */
-export function verify(
-    token: string,
-    secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions,
-): object | string;
+export function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions): object | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -152,16 +140,12 @@ export function verify(
  * @param options - Options for the verification
  * @param callback - Callback to get the decoded token on
  */
-export function verify(
-    token: string,
-    secretOrPublicKey: string | Buffer,
-    callback?: VerifyCallback
-): void;
+export function verify(token: string, secretOrPublicKey: string | Buffer, callback?: VerifyCallback): void;
 export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
     options: VerifyOptions,
-    callback?: VerifyCallback
+    callback?: VerifyCallback,
 ): void;
 
 /**
@@ -173,8 +157,8 @@ export function verify(
 export function verifyAsync(
     token: string,
     secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions
-): Promise<object|string>;
+    options?: VerifyOptions,
+): Promise<object | string>;
 
 /**
  * Returns the decoded payload without verifying if the signature is valid.
@@ -182,7 +166,4 @@ export function verifyAsync(
  * @param [options] - Options for decoding
  * @returns The decoded Token
  */
-export function decode(
-    token: string,
-    options?: DecodeOptions,
-): null | { [key: string]: any } | string;
+export function decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;

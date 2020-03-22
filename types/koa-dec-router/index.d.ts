@@ -30,4 +30,4 @@ export function del(...args: any[]): any;
 
 export function all(...args: any[]): any;
 
-export default function(opts: any): any;
+export default function (opts: any): any;

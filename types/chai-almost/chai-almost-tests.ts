@@ -17,8 +17,8 @@ expect(1.0001).not.almost.equals(1);
 // Use deep equality checks to compare values inside of arrays and objects.
 expect([1]).to.not.be.almost([1]);
 
-const arrA = [1, [{ num: 2, name: "Douglas" }, 3]];
-const arrB = [1.0000001, [{ num: 1.9999999, name: "Douglas" }, 2.9999996]];
+const arrA = [1, [{ num: 2, name: 'Douglas' }, 3]];
+const arrB = [1.0000001, [{ num: 1.9999999, name: 'Douglas' }, 2.9999996]];
 
 expect(arrA).to.deep.almost.equal(arrB);
 expect(arrA).to.be.deep.almost(arrB);

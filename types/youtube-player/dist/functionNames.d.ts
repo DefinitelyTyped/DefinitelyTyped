@@ -40,7 +40,7 @@ declare const FUNCTION_NAMES: [
     'addEventListener',
     'destroy',
     'setSize',
-    'getIframe'
+    'getIframe',
 ];
 
 export default FUNCTION_NAMES;

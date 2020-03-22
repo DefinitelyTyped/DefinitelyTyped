@@ -6,8 +6,8 @@
 
 /// <reference types="node"/>
 
-import * as Request from "request";
-import * as Http from "http";
+import * as Request from 'request';
+import * as Http from 'http';
 
 declare class SparkPost {
     /** Specifying an inbound domain enables you to customize the address to which inbound messages are sent. */
@@ -66,7 +66,10 @@ declare class SparkPost {
          * @param parameters Query parameters
          * @param callback The request callback with MessageEvent results array
          */
-        search(parameters: SparkPost.MessageEventParameters, callback: SparkPost.ResultsCallback<SparkPost.MessageEvent[]>): void;
+        search(
+            parameters: SparkPost.MessageEventParameters,
+            callback: SparkPost.ResultsCallback<SparkPost.MessageEvent[]>,
+        ): void;
         /**
          * Retrieves list of message events according to given params
          * @param parameters Query parameters
@@ -98,7 +101,11 @@ declare class SparkPost {
          *
          * @param specifies whether to retrieve the recipients. Defaults to false
          */
-        get(id: string, options: { show_recipients?: boolean }, callback: SparkPost.Callback<SparkPost.RecipientListWithRecipients>): void;
+        get(
+            id: string,
+            options: { show_recipients?: boolean },
+            callback: SparkPost.Callback<SparkPost.RecipientListWithRecipients>,
+        ): void;
         /**
          * Retrieve details about a specified recipient list by specifying its id in the URI path.
          * To retrieve the recipients contained in a list, the show_recipients parameter must be set to true.
@@ -111,7 +118,10 @@ declare class SparkPost {
          *
          * @param [options] specifies whether to retrieve the recipients. Defaults to false
          */
-        get(id: string, options?: { show_recipients?: boolean }): SparkPost.ResultsPromise<SparkPost.RecipientListWithRecipients>;
+        get(
+            id: string,
+            options?: { show_recipients?: boolean },
+        ): SparkPost.ResultsPromise<SparkPost.RecipientListWithRecipients>;
         /**
          * Create a recipient list by providing a recipient list object as the POST request body.
          * At a minimum, the “recipients” array is required, which must contain a valid “address”.
@@ -120,7 +130,10 @@ declare class SparkPost {
          * @param options The create options
          * @param callback The request callback with metadata results
          */
-        create(options: SparkPost.CreateRecipientList, callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>): void;
+        create(
+            options: SparkPost.CreateRecipientList,
+            callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>,
+        ): void;
         /**
          * Create a recipient list by providing a recipient list object as the POST request body.
          * At a minimum, the “recipients” array is required, which must contain a valid “address”.
@@ -138,14 +151,21 @@ declare class SparkPost {
          * @param options The update options
          * @param callback The request callback with metadata results
          */
-        update(id: string, options: SparkPost.UpdateRecipientList, callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>): void;
+        update(
+            id: string,
+            options: SparkPost.UpdateRecipientList,
+            callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>,
+        ): void;
         /**
          * Update an existing recipient list by specifying its ID in the URI path and use a recipient list object as the PUT request body.
          * Use the num_rcpt_errors parameter to limit the number of recipient errors returned.
          *
          * @param id Identifier of the recipient list
          */
-        update(id: string, options: SparkPost.UpdateRecipientList): SparkPost.ResultsPromise<SparkPost.RecipientListMetadata>;
+        update(
+            id: string,
+            options: SparkPost.UpdateRecipientList,
+        ): SparkPost.ResultsPromise<SparkPost.RecipientListMetadata>;
         /**
          * Permanently delete the specified recipient list.
          *
@@ -202,7 +222,11 @@ declare class SparkPost {
          * @param options The update options
          * @param callback The request callback with webhook id results
          */
-        update(id: string, options: SparkPost.UpdateRelayWebhook, callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        update(
+            id: string,
+            options: SparkPost.UpdateRelayWebhook,
+            callback: SparkPost.ResultsCallback<{ id: string }>,
+        ): void;
         /**
          * Update a relay webhook by specifying the webhook ID in the URI path.
          * @param options The update options
@@ -252,21 +276,28 @@ declare class SparkPost {
          * @param options The create options
          * @param callback The request callback with basic info results
          */
-        create(options: SparkPost.CreateSendingDomain, callback: SparkPost.ResultsCallback<{ message: string, domain: string }>): void;
+        create(
+            options: SparkPost.CreateSendingDomain,
+            callback: SparkPost.ResultsCallback<{ message: string; domain: string }>,
+        ): void;
         /**
          * Create a sending domain by providing a sending domain object as the POST request body.
          *
          * @param options The create options
          * @returns Promise The basic info results
          */
-        create(options: SparkPost.CreateSendingDomain): SparkPost.ResultsPromise<{ message: string, domain: string }>;
+        create(options: SparkPost.CreateSendingDomain): SparkPost.ResultsPromise<{ message: string; domain: string }>;
         /**
          * Update the attributes of an existing sending domain by specifying its domain name in the URI path and use a sending domain object as the PUT request body.
          * @param domain The domain
          * @param updateOpts The update options
          * @param callback The request callback with basic info results
          */
-        update(domain: string, updateOpts: SparkPost.UpdateSendingDomain, callback: SparkPost.ResultsCallback<{ message: string, domain: string }>): void;
+        update(
+            domain: string,
+            updateOpts: SparkPost.UpdateSendingDomain,
+            callback: SparkPost.ResultsCallback<{ message: string; domain: string }>,
+        ): void;
         /**
          * Update the attributes of an existing sending domain by specifying its domain name in the URI path and use a sending domain object as the PUT request body.
          *
@@ -274,7 +305,10 @@ declare class SparkPost {
          * @param updateOpts The update options
          * @returns Promise The basic info results
          */
-        update(domain: string, updateOpts: SparkPost.UpdateSendingDomain): SparkPost.ResultsPromise<{ message: string, domain: string }>;
+        update(
+            domain: string,
+            updateOpts: SparkPost.UpdateSendingDomain,
+        ): SparkPost.ResultsPromise<{ message: string; domain: string }>;
         /**
          * Delete an existing sending domain.
          * @param domain The domain
@@ -294,7 +328,11 @@ declare class SparkPost {
          * @param options a hash of [verify attributes]{@link https://developers.sparkpost.com/api/sending-domains#header-verify-attributes}
          * @param callback The request callback with verify results
          */
-        verify(domain: string, options: SparkPost.VerifyOptions, callback: SparkPost.ResultsCallback<SparkPost.VerifyResults>): void;
+        verify(
+            domain: string,
+            options: SparkPost.VerifyOptions,
+            callback: SparkPost.ResultsCallback<SparkPost.VerifyResults>,
+        ): void;
         /**
          * Verify a Sending Domain
          *
@@ -337,7 +375,10 @@ declare class SparkPost {
          * @param subaccount The create options
          * @param callback The request callback with basic subaccount information results
          */
-        create(subaccount: SparkPost.CreateSubaccount, callback: SparkPost.ResultsCallback<SparkPost.CreateSubaccountResponse>): void;
+        create(
+            subaccount: SparkPost.CreateSubaccount,
+            callback: SparkPost.ResultsCallback<SparkPost.CreateSubaccountResponse>,
+        ): void;
         /**
          * Provisions a new subaccount and an initial subaccount API key.
          *
@@ -352,7 +393,11 @@ declare class SparkPost {
          * @param subaccount an object of [updatable subaccount attributes]{@link https://developers.sparkpost.com/api/subaccounts#header-request-body-attributes-1}
          * @param callback The request callback with webhook id results
          */
-        update(id: string, subaccount: SparkPost.UpdateSubaccount, callback: SparkPost.ResultsCallback<{ message: string }>): void;
+        update(
+            id: string,
+            subaccount: SparkPost.UpdateSubaccount,
+            callback: SparkPost.ResultsCallback<{ message: string }>,
+        ): void;
         /**
          * Update an existing subaccount’s information.
          *
@@ -375,14 +420,19 @@ declare class SparkPost {
          * @param parameters an object of [search parameters]{@link https://developers.sparkpost.com/api/suppression-list#suppression-list-search-get}
          * @param callback The request callback with supression lists.
          */
-        list(parameters: SparkPost.SupressionSearchParameters, callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>): void;
+        list(
+            parameters: SparkPost.SupressionSearchParameters,
+            callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>,
+        ): void;
         /**
          * List all entries in your suppression list, filtered by an optional set of search parameters.
          *
          * @param [parameters] an object of [search parameters]{@link https://developers.sparkpost.com/api/suppression-list#suppression-list-search-get}
          * @returns Promise The supression lists
          */
-        list(parameters?: SparkPost.SupressionSearchParameters): SparkPost.ResultsPromise<SparkPost.SupressionListEntry[]>;
+        list(
+            parameters?: SparkPost.SupressionSearchParameters,
+        ): SparkPost.ResultsPromise<SparkPost.SupressionListEntry[]>;
         /**
          * Retrieve an entry by recipient email.
          *
@@ -416,13 +466,18 @@ declare class SparkPost {
          * @param listEntries The suppression entry list
          * @param callback The request callback
          */
-        upsert(listEntries: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[], callback: SparkPost.ResultsCallback<{ message: string }>): void;
+        upsert(
+            listEntries: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[],
+            callback: SparkPost.ResultsCallback<{ message: string }>,
+        ): void;
         /**
          * Insert or update one or many entries.
          *
          * @param listEntries The suppression entry list
          */
-        upsert(listEntries: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[]): SparkPost.ResultsPromise<{ message: string }>;
+        upsert(
+            listEntries: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[],
+        ): SparkPost.ResultsPromise<{ message: string }>;
     };
     templates: {
         /**
@@ -485,7 +540,8 @@ declare class SparkPost {
             id: string,
             template: SparkPost.UpdateTemplate,
             options: { update_published?: boolean },
-            callback: SparkPost.ResultsCallback<{ id: string }>): void;
+            callback: SparkPost.ResultsCallback<{ id: string }>,
+        ): void;
         /**
          * Update an existing template
          *
@@ -496,7 +552,8 @@ declare class SparkPost {
         update(
             id: string,
             template: SparkPost.UpdateTemplate,
-            callback: SparkPost.ResultsCallback<{ id: string }>): void;
+            callback: SparkPost.ResultsCallback<{ id: string }>,
+        ): void;
         /**
          * Update an existing template
          *
@@ -505,9 +562,13 @@ declare class SparkPost {
          * @param options If true, directly overwrite the existing published template. If false, create a new draft
          * @returns The template id results
          */
-        update(id: string, template: SparkPost.UpdateTemplate, options?: {
-            update_published?: boolean;
-        }): SparkPost.ResultsPromise<{ id: string }>;
+        update(
+            id: string,
+            template: SparkPost.UpdateTemplate,
+            options?: {
+                update_published?: boolean;
+            },
+        ): SparkPost.ResultsPromise<{ id: string }>;
         /**
          * Delete an existing template
          * @param id The template id
@@ -528,7 +589,11 @@ declare class SparkPost {
          * @param options The preview options
          * @param callback The request callback with webhook id results
          */
-        preview(id: string, options: { substitution_data?: any, draft?: boolean }, callback: SparkPost.ResultsCallback<SparkPost.TemplateContent>): void;
+        preview(
+            id: string,
+            options: { substitution_data?: any; draft?: boolean },
+            callback: SparkPost.ResultsCallback<SparkPost.TemplateContent>,
+        ): void;
         /**
          * Preview the most recent version of an existing template by id
          *
@@ -542,7 +607,10 @@ declare class SparkPost {
          * @param id the id of the template you want to look up
          * @returns The webhook id results
          */
-        preview(id: string, options?: { substitution_data?: any, draft?: boolean }): SparkPost.ResultsPromise<SparkPost.TemplateContent>;
+        preview(
+            id: string,
+            options?: { substitution_data?: any; draft?: boolean },
+        ): SparkPost.ResultsPromise<SparkPost.TemplateContent>;
     };
     transmissions: {
         /**
@@ -556,13 +624,19 @@ declare class SparkPost {
          *
          * @param callback The request callback with Transmission results array
          */
-        list(options: { campaign_id?: string, template_id?: string }, callback: SparkPost.ResultsCallback<SparkPost.TransmissionSummary[]>): void;
+        list(
+            options: { campaign_id?: string; template_id?: string },
+            callback: SparkPost.ResultsCallback<SparkPost.TransmissionSummary[]>,
+        ): void;
         /**
          * List an overview of all transmissions in the account
          *
          * @returns The Transmission results array
          */
-        list(options?: { campaign_id?: string, template_id?: string }): SparkPost.ResultsPromise<SparkPost.TransmissionSummary[]>;
+        list(options?: {
+            campaign_id?: string;
+            template_id?: string;
+        }): SparkPost.ResultsPromise<SparkPost.TransmissionSummary[]>;
         /**
          * Retrieve the details about a transmission by its ID
          *
@@ -584,22 +658,29 @@ declare class SparkPost {
          * @param options The create options. Specify maximum number of recipient errors returned
          * @param callback The request callback with metadata and id results
          */
-        send(transmission: SparkPost.CreateTransmission, options: { num_rcpt_errors?: number }, callback: SparkPost.ResultsCallback<{
-            total_rejected_recipients: number;
-            total_accepted_recipients: number;
-            id: string;
-        }>): void;
+        send(
+            transmission: SparkPost.CreateTransmission,
+            options: { num_rcpt_errors?: number },
+            callback: SparkPost.ResultsCallback<{
+                total_rejected_recipients: number;
+                total_accepted_recipients: number;
+                id: string;
+            }>,
+        ): void;
         /**
          *
          *
          * @param transmission an object of [transmission attributes]{@link https://developers.sparkpost.com/api/transmissions#header-transmission-attributes}
          * @param callback The request callback with metadata and id results
          */
-        send(transmission: SparkPost.CreateTransmission, callback: SparkPost.ResultsCallback<{
-            total_rejected_recipients: number;
-            total_accepted_recipients: number;
-            id: string;
-        }>): void;
+        send(
+            transmission: SparkPost.CreateTransmission,
+            callback: SparkPost.ResultsCallback<{
+                total_rejected_recipients: number;
+                total_accepted_recipients: number;
+                id: string;
+            }>,
+        ): void;
         /**
          * Sends a message by creating a new transmission
          *
@@ -607,7 +688,10 @@ declare class SparkPost {
          * @param [options] specify maximum number of recipient errors returned
          * @returns The metadata and id results
          */
-        send(transmission: SparkPost.CreateTransmission, options?: { num_rcpt_errors?: number }): SparkPost.ResultsPromise<{
+        send(
+            transmission: SparkPost.CreateTransmission,
+            options?: { num_rcpt_errors?: number },
+        ): SparkPost.ResultsPromise<{
             total_rejected_recipients: number;
             total_accepted_recipients: number;
             id: string;
@@ -624,12 +708,17 @@ declare class SparkPost {
          * @param options Object containing optional timezone
          * @param callback The request callback with RelayWebhook results array
          */
-        list(options: { timezone?: string }, callback: SparkPost.ResultsCallback<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>): void;
+        list(
+            options: { timezone?: string },
+            callback: SparkPost.ResultsCallback<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>,
+        ): void;
         /**
          * List currently existing webhooks.the timezone to use for the last_successful and last_failure properties | Default: UTC
          *
          */
-        list(options?: { timezone?: string }): SparkPost.ResultsPromise<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>;
+        list(options?: {
+            timezone?: string;
+        }): SparkPost.ResultsPromise<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>;
         /**
          * Retrieve details about a specified webhook by its id
          *
@@ -637,7 +726,11 @@ declare class SparkPost {
          * @param options Object containing id and optional timezone
          * @param callback The request callback with RelayWebhook results
          */
-        get(id: string, options: { timezone?: string }, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & SparkPost.Webhook>): void;
+        get(
+            id: string,
+            options: { timezone?: string },
+            callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & SparkPost.Webhook>,
+        ): void;
         /**
          * Retrieve details about a specified webhook by its id
          *
@@ -652,14 +745,20 @@ declare class SparkPost {
          * @param [options] the timezone to use for the last_successful and last_failure properties
          * @returns The RelayWebhook results
          */
-        get(id: string, options?: { timezone?: string }): SparkPost.ResultsPromise<SparkPost.WebhookLinks & SparkPost.Webhook>;
+        get(
+            id: string,
+            options?: { timezone?: string },
+        ): SparkPost.ResultsPromise<SparkPost.WebhookLinks & SparkPost.Webhook>;
         /**
          * Create a new webhook
          *
          * @param options a hash of [webhook attributes]{@link https://developers.sparkpost.com/api/webhooks#header-webhooks-object-properties}
          * @param callback The request callback with webhook id results
          */
-        create(options: SparkPost.Webhook, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>): void;
+        create(
+            options: SparkPost.Webhook,
+            callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>,
+        ): void;
         /**
          * Create a new webhook
          *
@@ -673,12 +772,19 @@ declare class SparkPost {
          * @param options A hash of [webhook attribues]{@link https://developers.sparkpost.com/api/webhooks#header-webhooks-object-properties}
          * @param callback The request callback with webhook id results
          */
-        update(id: string, options: SparkPost.UpdateWebhook, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>): void;
+        update(
+            id: string,
+            options: SparkPost.UpdateWebhook,
+            callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>,
+        ): void;
         /**
          * Update an existing webhook
          *
          */
-        update(id: string, options: SparkPost.UpdateWebhook): SparkPost.ResultsPromise<SparkPost.WebhookLinks & { id: string }>;
+        update(
+            id: string,
+            options: SparkPost.UpdateWebhook,
+        ): SparkPost.ResultsPromise<SparkPost.WebhookLinks & { id: string }>;
         /**
          * Delete an existing webhook
          * @param id The webhook id
@@ -698,14 +804,18 @@ declare class SparkPost {
          * @param options the message (payload) to send to the webhook consumer
          * @param callback The request callback with validation results
          */
-        validate(id: string, options: { message: any }, callback: SparkPost.ResultsCallback<{
-            msg: string;
-            response: {
-                status: number;
-                headers: any;
-                body: string;
-            }
-        }>): void;
+        validate(
+            id: string,
+            options: { message: any },
+            callback: SparkPost.ResultsCallback<{
+                msg: string;
+                response: {
+                    status: number;
+                    headers: any;
+                    body: string;
+                };
+            }>,
+        ): void;
         /**
          * Sends an example message event batch from the Webhook API to the target URL.
          *
@@ -713,13 +823,16 @@ declare class SparkPost {
          * @param options The message (payload) to send to the webhook consumer
          * @returns The validation results
          */
-        validate(id: string, options: { message: any }): SparkPost.ResultsPromise<{
+        validate(
+            id: string,
+            options: { message: any },
+        ): SparkPost.ResultsPromise<{
             msg: string;
             response: {
                 status: number;
                 headers: any;
                 body: string;
-            }
+            };
         }>;
         /**
          * Gets recent status information about a webhook.
@@ -728,24 +841,35 @@ declare class SparkPost {
          * @param options  An optional limit that specifies the maximum number of results to return. Defaults to 1000
          * @param callback The request callback with status results
          */
-        getBatchStatus(id: string, options: { limit?: number }, callback: SparkPost.ResultsCallback<Array<{
-            batch_id: string;
-            ts: string;
-            attempts: number;
-            response_code: number;
-        }>>): void;
+        getBatchStatus(
+            id: string,
+            options: { limit?: number },
+            callback: SparkPost.ResultsCallback<
+                Array<{
+                    batch_id: string;
+                    ts: string;
+                    attempts: number;
+                    response_code: number;
+                }>
+            >,
+        ): void;
         /**
          * Gets recent status information about a webhook.
          *
          * @param id The id of the webhook
          * @param callback The request callback with status results
          */
-        getBatchStatus(id: string, callback: SparkPost.ResultsCallback<Array<{
-            batch_id: string;
-            ts: string;
-            attempts: number;
-            response_code: number;
-        }>>): void;
+        getBatchStatus(
+            id: string,
+            callback: SparkPost.ResultsCallback<
+                Array<{
+                    batch_id: string;
+                    ts: string;
+                    attempts: number;
+                    response_code: number;
+                }>
+            >,
+        ): void;
         /**
          * Gets recent status information about a webhook.
          *
@@ -753,12 +877,17 @@ declare class SparkPost {
          * @param Maximum number of results to return. Defaults to 1000
          * @returns The status results
          */
-        getBatchStatus(id: string, options: { limit?: number }): SparkPost.ResultsPromise<Array<{
-            batch_id: string;
-            ts: string;
-            attempts: number;
-            response_code: number;
-        }>>;
+        getBatchStatus(
+            id: string,
+            options: { limit?: number },
+        ): SparkPost.ResultsPromise<
+            Array<{
+                batch_id: string;
+                ts: string;
+                attempts: number;
+                response_code: number;
+            }>
+        >;
         /**
          * Lists descriptions of the events, event types, and event fields that could be included in a Webhooks post to your target URL.
          * @param callback The request callback containing documentation results
@@ -821,7 +950,7 @@ declare namespace SparkPost {
         value: string | null;
     }
     interface SparkPostError extends Error {
-        name: "SparkPostError";
+        name: 'SparkPostError';
         errors: ErrorWithDescription[] | ErrorWithParam[];
         statusCode: number;
     }
@@ -1130,19 +1259,19 @@ declare namespace SparkPost {
         /** Whether domain ownership has been verified */
         ownership_verified: boolean;
         /** Verification status of SPF configuration */
-        spf_status: "valid" | "invalid" | "unverified" | "pending";
+        spf_status: 'valid' | 'invalid' | 'unverified' | 'pending';
         /** Compliance status */
-        compliance_status: "valid" | "pending" | "blocked";
+        compliance_status: 'valid' | 'pending' | 'blocked';
         /** Verification status of DKIM configuration */
-        dkim_status: "valid" | "invalid" | "unverified" | "pending";
+        dkim_status: 'valid' | 'invalid' | 'unverified' | 'pending';
         /** Verification status of abuse@ mailbox */
-        abuse_at_status: "valid" | "invalid" | "unverified" | "pending";
+        abuse_at_status: 'valid' | 'invalid' | 'unverified' | 'pending';
         /** Verification status of postmaster@ mailbox */
-        postmaster_at_status: "valid" | "invalid" | "unverified" | "pending";
+        postmaster_at_status: 'valid' | 'invalid' | 'unverified' | 'pending';
         /** Verification status of CNAME configuration */
-        cname_status: "valid" | "invalid" | "unverified" | "pending";
+        cname_status: 'valid' | 'invalid' | 'unverified' | 'pending';
         /** Verification status of MX configuration */
-        mx_status: "valid" | "invalid" | "unverified" | "pending";
+        mx_status: 'valid' | 'invalid' | 'unverified' | 'pending';
     }
 
     interface VerifyOptions {
@@ -1225,7 +1354,7 @@ declare namespace SparkPost {
         /** User friendly identifier for a specific subaccount */
         name: string;
         /** Status of the account */
-        status: "active" | "suspended" | "terminated";
+        status: 'active' | 'suspended' | 'terminated';
         /** The ID of the default IP Pool assigned to this subaccount’s transmissions */
         ip_pool?: string;
         compliance_status: string;
@@ -1241,7 +1370,7 @@ declare namespace SparkPost {
          * Type of suppression record
          *
          */
-        type?: "transactional" | "non_transactional";
+        type?: 'transactional' | 'non_transactional';
         /**
          * Whether the recipient requested to not receive any non-transactional messages
          * Not required if a valid type is passed
@@ -1261,7 +1390,13 @@ declare namespace SparkPost {
          * no - entries created by the user are marked as Manually Added
          *
          */
-        readonly source?: "Spam Complaint" | "List Unsubscribe" | "Bounce Rule" | "Unsubscribe Link" | "Manually Added" | "Compliance";
+        readonly source?:
+            | 'Spam Complaint'
+            | 'List Unsubscribe'
+            | 'Bounce Rule'
+            | 'Unsubscribe Link'
+            | 'Manually Added'
+            | 'Compliance';
         /** Short explanation of the suppression */
         description?: string;
     }
@@ -1287,14 +1422,20 @@ declare namespace SparkPost {
          */
         non_transactional?: boolean;
         /** Type of suppression record: transactional or non_transactional */
-        type?: "transactional" | "non_transactional";
+        type?: 'transactional' | 'non_transactional';
         /**
          * Source responsible for inserting the list entry
          *
          * no - entries created by the user are marked as Manually Added
          *
          */
-        source?: "Spam Complaint" | "List Unsubscribe" | "Bounce Rule" | "Unsubscribe Link" | "Manually Added" | "Compliance";
+        source?:
+            | 'Spam Complaint'
+            | 'List Unsubscribe'
+            | 'Bounce Rule'
+            | 'Unsubscribe Link'
+            | 'Manually Added'
+            | 'Compliance';
         /** Short explanation of the suppression */
         description?: string;
         created: string;
@@ -1500,14 +1641,14 @@ declare namespace SparkPost {
         /** SparkPost Enterprise API only: email to use for envelope FROM */
         return_path?: string;
         /** Content that will be used to construct a message */
-        content: InlineContent | { template_id: string, use_draft_template?: boolean } | { email_rfc822: string };
+        content: InlineContent | { template_id: string; use_draft_template?: boolean } | { email_rfc822: string };
     }
 
     interface TransmissionSummary {
         /** ID of the transmission */
         id: string;
         /** State of the transmission */
-        state: "submitted" | "Generating" | "Success" | "Canceled";
+        state: 'submitted' | 'Generating' | 'Success' | 'Canceled';
         /** Description of the transmission */
         description: string;
         /** Name of the campaign */
@@ -1520,7 +1661,7 @@ declare namespace SparkPost {
         /** ID of the transmission */
         id: string;
         /** State of the transmission */
-        state: "submitted" | "Generating" | "Success" | "Canceled";
+        state: 'submitted' | 'Generating' | 'Success' | 'Canceled';
         /** JSON object in which transmission options are defined */
         options: TransmissionOptions;
         /** Name of the campaign */
@@ -1532,7 +1673,7 @@ declare namespace SparkPost {
         /** Key/value pairs that are provided to the substitution engine */
         substitution_data: any;
         /** Content that will be used to construct a message */
-        content: InlineContent | { template_id: string, use_draft_template?: boolean } | { email_rfc822: string };
+        content: InlineContent | { template_id: string; use_draft_template?: boolean } | { email_rfc822: string };
         /** Computed total number of messages generated */
         num_generated: number;
         /** Computed total number of failed messages */
@@ -1572,7 +1713,7 @@ declare namespace SparkPost {
         /** Email subject line  required for email transmissions  Expected in the UTF-8 charset without RFC2047 encoding. Substitution syntax is supported. */
         subject?: string;
         /** "deals@company.com" or JSON object composed of the “name” and “email” fields “from” : { “name” : “My Company”, “email” : "deals@company.com" } used to compose the email’s “From” header */
-        from?: string | { email: string, name: string };
+        from?: string | { email: string; name: string };
         /** Email address used to compose the email’s “Reply-To” header */
         reply_to?: string;
         /** JSON dictionary containing headers other than “Subject”, “From”, “To”, and “Reply-To” */

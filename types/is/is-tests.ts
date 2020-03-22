@@ -1,5 +1,3 @@
-
-
 //#region Type checks
 
 var getArguments = function () {
@@ -402,8 +400,8 @@ is.all.infinite([Infinity, -Infinity, 42.5]);
 
 //#region Object checks
 
-is.propertyCount({ this: 'is', 'sample': {} }, 2);
-is.propertyCount({ this: 'is', 'sample': {} }, 3);
+is.propertyCount({ this: 'is', sample: {} }, 2);
+is.propertyCount({ this: 'is', sample: {} }, 3);
 is.not.propertyCount({}, 2);
 
 is.propertyDefined({ yeap: 'yeap' }, 'yeap');
@@ -439,7 +437,10 @@ is.sorted([1, 2, 4, 3]);
 is.not.sorted([5, 4, 3]);
 is.all.sorted([1, 2], [3, 4]);
 is.any.sorted([1, 2], [5, 4]);
-is.all.sorted([[1, 2], [5, 4]]);
+is.all.sorted([
+    [1, 2],
+    [5, 4],
+]);
 
 //#endregion
 
@@ -565,7 +566,7 @@ var sunday = new Date('01/25/2015');
 var saturday = new Date('01/24/2015');
 
 is.today(today);
-is.today(yesterday)
+is.today(yesterday);
 is.not.today(yesterday);
 is.all.today(today, today);
 is.any.today(today, yesterday);

@@ -17,7 +17,7 @@ declare namespace IWshRuntimeLibrary {
         YesNoCancel,
         YesNo,
         RetryCancel,
-        CancelTryagainContinue
+        CancelTryagainContinue,
     }
 
     const enum EventType {
@@ -26,7 +26,7 @@ declare namespace IWshRuntimeLibrary {
         Error = 1,
         Information = 3,
         Success = 0,
-        Warning = 2
+        Warning = 2,
     }
 
     const enum IconType {
@@ -202,7 +202,13 @@ declare namespace IWshRuntimeLibrary {
          *
          * If you are mapping a remote printer using the profile of someone other than current user, you can specify _UserName_ and _Password_.
          */
-        AddPrinterConnection(LocalName: string, RemoteName: string, UpdateProfile?: boolean, UserName?: string, Password?: string): void;
+        AddPrinterConnection(
+            LocalName: string,
+            RemoteName: string,
+            UpdateProfile?: boolean,
+            UserName?: string,
+            Password?: string,
+        ): void;
 
         /**
          * @param string Path to printer connection
@@ -224,7 +230,13 @@ declare namespace IWshRuntimeLibrary {
          *
          * If you are mapping a network drive using the profile of someone other than current user, you can specify _UserName_ and _Password_.
          */
-        MapNetworkDrive(LocalName: string, RemoteName: string, UpdateProfile?: boolean, UserName?: string, Password?: string): void;
+        MapNetworkDrive(
+            LocalName: string,
+            RemoteName: string,
+            UpdateProfile?: boolean,
+            UserName?: string,
+            Password?: string,
+        ): void;
         readonly Organization: string;
 
         /**
@@ -302,7 +314,12 @@ declare namespace IWshRuntimeLibrary {
 
         /** @param string [Target=''] Name of the computer system where the event should be logged; default is the local computer system */
         LogEvent(Type: EventType, Message: string, Target?: string): boolean;
-        Popup(Text: string, SecondsToWait?: number, Title?: string, Type?: ButtonType | IconType | PopupType): PopupSelection;
+        Popup(
+            Text: string,
+            SecondsToWait?: number,
+            Title?: string,
+            Type?: ButtonType | IconType | PopupType,
+        ): PopupSelection;
         RegDelete(Name: string): void;
 
         /**
@@ -426,7 +443,7 @@ declare namespace ScriptSigner {
 }
 
 interface ActiveXObjectNameMap {
-    'WSHController': WSHControllerLibrary.WSHController;
+    WSHController: WSHControllerLibrary.WSHController;
     'Scripting.Signer': ScriptSigner.Signer;
     'WScript.Network': IWshRuntimeLibrary.WshNetwork;
     'WScript.Shell': IWshRuntimeLibrary.WshShell;

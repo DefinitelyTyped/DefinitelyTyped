@@ -3,7 +3,6 @@
 // Definitions by: CheCoxshall <https://github.com/CheCoxshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 interface BoundingBox {
     x: number;
     y: number;
@@ -19,15 +18,22 @@ interface RaphaelAnimation {
 }
 
 interface RaphaelFont {
-    w:number;
-    face:any;
-    glyphs:any;
+    w: number;
+    face: any;
+    glyphs: any;
 }
 
 interface RaphaelElement {
-    animate(params: { [key: string]: any; }, ms: number, easing?: string, callback?: Function): RaphaelElement;
+    animate(params: { [key: string]: any }, ms: number, easing?: string, callback?: Function): RaphaelElement;
     animate(animation: RaphaelAnimation): RaphaelElement;
-    animateWith(el: RaphaelElement, anim: RaphaelAnimation, params: any, ms: number, easing?: string, callback?: Function): RaphaelElement;
+    animateWith(
+        el: RaphaelElement,
+        anim: RaphaelAnimation,
+        params: any,
+        ms: number,
+        easing?: string,
+        callback?: Function,
+    ): RaphaelElement;
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, animation: RaphaelAnimation): RaphaelElement;
     attr(attrName: string, value: any): RaphaelElement;
     attr(attrName: string): any;
@@ -38,9 +44,23 @@ interface RaphaelElement {
     data(key: string): any;
     data(key: string, value: any): RaphaelElement;
     dblclick(handler: Function): RaphaelElement;
-    drag(onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) =>{ }, onstart: (x: number, y: number, event: DragEvent) =>{ }, onend: (DragEvent: any) =>{ }, mcontext?: any, scontext?: any, econtext?: any): RaphaelElement;
+    drag(
+        onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) => {},
+        onstart: (x: number, y: number, event: DragEvent) => {},
+        onend: (DragEvent: any) => {},
+        mcontext?: any,
+        scontext?: any,
+        econtext?: any,
+    ): RaphaelElement;
     getBBox(isWithoutTransform?: boolean): BoundingBox;
-    glow(glow?: { width?: number; fill?: boolean; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RaphaelSet;
+    glow(glow?: {
+        width?: number;
+        fill?: boolean;
+        opacity?: number;
+        offsetx?: number;
+        offsety?: number;
+        color?: string;
+    }): RaphaelSet;
     hide(): RaphaelElement;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelElement;
     id: string;
@@ -68,7 +88,7 @@ interface RaphaelElement {
     setTime(anim: RaphaelAnimation): void;
     setTime(anim: RaphaelAnimation, value: number): RaphaelElement;
     show(): RaphaelElement;
-    status(): { anim: RaphaelAnimation; status: number; }[];
+    status(): { anim: RaphaelAnimation; status: number }[];
     status(anim: RaphaelAnimation): number;
     status(anim: RaphaelAnimation, value: number): RaphaelElement;
     stop(anim?: RaphaelAnimation): RaphaelElement;
@@ -90,14 +110,14 @@ interface RaphaelElement {
     unmouseout(handler: Function): RaphaelElement;
     unmouseover(handler: Function): RaphaelElement;
     unmouseup(handler: Function): RaphaelElement;
-    untouchcancel(handler: Function ): RaphaelElement;
+    untouchcancel(handler: Function): RaphaelElement;
     untouchend(handler: Function): RaphaelElement;
     untouchmove(handler: Function): RaphaelElement;
     untouchstart(handler: Function): RaphaelElement;
 }
 
 interface RaphaelPath extends RaphaelElement {
-    getPointAtLength(length: number): { x: number; y: number; alpha: number; };
+    getPointAtLength(length: number): { x: number; y: number; alpha: number };
     getSubpath(from: number, to: number): string;
     getTotalLength(): number;
 }
@@ -113,12 +133,19 @@ interface RaphaelSet {
     length: number;
 
     [key: number]: RaphaelElement;
-    animate(params: { [key: string]: any; }, ms: number, easing?: string, callback?: Function): RaphaelSet;
+    animate(params: { [key: string]: any }, ms: number, easing?: string, callback?: Function): RaphaelSet;
     animate(animation: RaphaelAnimation): RaphaelSet;
-    animateWith(el: RaphaelElement, anim: RaphaelAnimation, params: any, ms: number, easing?: string, callback?: Function): RaphaelSet;
+    animateWith(
+        el: RaphaelElement,
+        anim: RaphaelAnimation,
+        params: any,
+        ms: number,
+        easing?: string,
+        callback?: Function,
+    ): RaphaelSet;
     animateWith(el: RaphaelElement, anim: RaphaelAnimation, animation: RaphaelAnimation): RaphaelSet;
     attr(attrName: string, value: any): RaphaelSet;
-    attr(params: { [key: string]: any; }): RaphaelSet;
+    attr(params: { [key: string]: any }): RaphaelSet;
     attr(attrName: string): any;
     attr(attrNames: string[]): any[];
     click(handler: Function): RaphaelSet;
@@ -126,9 +153,23 @@ interface RaphaelSet {
     data(key: string): any;
     data(key: string, value: any): RaphaelSet;
     dblclick(handler: Function): RaphaelSet;
-    drag(onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) =>{ }, onstart: (x: number, y: number, event: DragEvent) =>{ }, onend: (DragEvent: any) =>{ }, mcontext?: any, scontext?: any, econtext?: any): RaphaelSet;
+    drag(
+        onmove: (dx: number, dy: number, x: number, y: number, event: DragEvent) => {},
+        onstart: (x: number, y: number, event: DragEvent) => {},
+        onend: (DragEvent: any) => {},
+        mcontext?: any,
+        scontext?: any,
+        econtext?: any,
+    ): RaphaelSet;
     getBBox(isWithoutTransform?: boolean): BoundingBox;
-    glow(glow?: { width?: number; fill?: boolean; opacity?: number; offsetx?: number; offsety?: number; color?: string; }): RaphaelSet;
+    glow(glow?: {
+        width?: number;
+        fill?: boolean;
+        opacity?: number;
+        offsetx?: number;
+        offsety?: number;
+        color?: string;
+    }): RaphaelSet;
     hide(): RaphaelSet;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelSet;
     id: string;
@@ -154,7 +195,7 @@ interface RaphaelSet {
     setTime(anim: RaphaelAnimation): void;
     setTime(anim: RaphaelAnimation, value: number): RaphaelSet;
     show(): RaphaelSet;
-    status(): { anim: RaphaelAnimation; status: number; }[];
+    status(): { anim: RaphaelAnimation; status: number }[];
     status(anim: RaphaelAnimation): number;
     status(anim: RaphaelAnimation, value: number): RaphaelSet;
     stop(anim?: RaphaelAnimation): RaphaelSet;
@@ -188,7 +229,15 @@ interface RaphaelMatrix {
     invert(): RaphaelMatrix;
     rotate(a: number, x: number, y: number): void;
     scale(x: number, y?: number, cx?: number, cy?: number): void;
-    split(): { dx: number; dy: number; scalex: number; scaley: number; shear: number; rotate: number; isSimple: boolean; };
+    split(): {
+        dx: number;
+        dy: number;
+        scalex: number;
+        scaley: number;
+        shear: number;
+        rotate: number;
+        isSimple: boolean;
+    };
     toTransformString(): string;
     translate(x: number, y: number): void;
     x(x: number, y: number): number;
@@ -212,7 +261,15 @@ interface RaphaelPaper {
     height: number;
     image(src: string, x: number, y: number, width: number, height: number): RaphaelElement;
     path(pathString?: string | (string | number)[]): RaphaelPath;
-    print(x: number, y: number, str: string, font: RaphaelFont, size?: number, origin?: string, letter_spacing?: number): RaphaelPath;
+    print(
+        x: number,
+        y: number,
+        str: string,
+        font: RaphaelFont,
+        size?: number,
+        origin?: string,
+        letter_spacing?: number,
+    ): RaphaelPath;
     rect(x: number, y: number, width: number, height: number, r?: number): RaphaelElement;
     remove(): void;
     renderfix(): void;
@@ -236,29 +293,58 @@ interface RaphaelStatic {
 
     angle(x1: number, y1: number, x2: number, y2: number, x3?: number, y3?: number): number;
     animation(params: any, ms: number, easing?: string, callback?: Function): RaphaelAnimation;
-    bezierBBox(p1x: number, p1y: number, c1x: number, c1y: number, c2x: number, c2y: number, p2x: number, p2y: number): { min: { x: number; y: number; }; max: { x: number; y: number; }; };
-    bezierBBox(bez: any[]): { min: { x: number; y: number; }; max: { x: number; y: number; }; };
-    color(clr: string): { r: number; g: number; b: number; hex: string; error: boolean; h: number; s: number; v: number; l: number; };
+    bezierBBox(
+        p1x: number,
+        p1y: number,
+        c1x: number,
+        c1y: number,
+        c2x: number,
+        c2y: number,
+        p2x: number,
+        p2y: number,
+    ): { min: { x: number; y: number }; max: { x: number; y: number } };
+    bezierBBox(bez: any[]): { min: { x: number; y: number }; max: { x: number; y: number } };
+    color(
+        clr: string,
+    ): { r: number; g: number; b: number; hex: string; error: boolean; h: number; s: number; v: number; l: number };
     createUUID(): string;
     deg(deg: number): number;
     easing_formulas: any;
     el: any;
-    findDotsAtSegment(p1x: number, p1y: number, c1x: number, c1y: number, c2x: number, c2y: number, p2x: number, p2y: number, t: number): { x: number; y: number; m: { x: number; y: number; }; n: { x: number; y: number; }; start: { x: number; y: number; }; end: { x: number; y: number; }; alpha: number; };
+    findDotsAtSegment(
+        p1x: number,
+        p1y: number,
+        c1x: number,
+        c1y: number,
+        c2x: number,
+        c2y: number,
+        p2x: number,
+        p2y: number,
+        t: number,
+    ): {
+        x: number;
+        y: number;
+        m: { x: number; y: number };
+        n: { x: number; y: number };
+        start: { x: number; y: number };
+        end: { x: number; y: number };
+        alpha: number;
+    };
     fn: any;
     format(token: string, ...parameters: any[]): string;
     fullfill(token: string, json: JSON): string;
-    getColor:{
+    getColor: {
         (value?: number): string;
         reset(): void;
     };
-    getPointAtLength(path: string, length: number): { x: number; y: number; alpha: number; };
-    getRGB(colour: string): { r: number; g: number; b: number; hex: string; error: boolean; };
+    getPointAtLength(path: string, length: number): { x: number; y: number; alpha: number };
+    getRGB(colour: string): { r: number; g: number; b: number; hex: string; error: boolean };
     getSubpath(path: string, from: number, to: number): string;
     getTotalLength(path: string): number;
     hsb(h: number, s: number, b: number): string;
-    hsb2rgb(h: number, s: number, v: number): { r: number; g: number; b: number; hex: string; };
+    hsb2rgb(h: number, s: number, v: number): { r: number; g: number; b: number; hex: string };
     hsl(h: number, s: number, l: number): string;
-    hsl2rgb(h: number, s: number, l: number): { r: number; g: number; b: number; hex: string; };
+    hsl2rgb(h: number, s: number, l: number): { r: number; g: number; b: number; hex: string };
     is(o: any, type: string): boolean;
     isBBoxIntersect(bbox1: string, bbox2: string): boolean;
     isPointInsideBBox(bbox: string, x: number, y: number): boolean;
@@ -272,14 +358,17 @@ interface RaphaelStatic {
     path2curve(pathString: string): string[];
     path2curve(pathString: string[]): string[];
     pathBBox(path: string): BoundingBox;
-    pathIntersection(path1: string, path2: string): { x: number; y: number; t1: number; t2: number; segment1: number; segment2: number; bez1: any[]; bez2: any[]; }[];
+    pathIntersection(
+        path1: string,
+        path2: string,
+    ): { x: number; y: number; t1: number; t2: number; segment1: number; segment2: number; bez1: any[]; bez2: any[] }[];
     pathToRelative(pathString: string): string[];
     pathToRelative(pathString: string[]): string[];
     rad(deg: number): number;
     registerFont(font: RaphaelFont): RaphaelFont;
     rgb(r: number, g: number, b: number): string;
-    rgb2hsb(r: number, g: number, b: number): { h: number; s: number; b: number; };
-    rgb2hsl(r: number, g: number, b: number): { h: number; s: number; l: number; };
+    rgb2hsb(r: number, g: number, b: number): { h: number; s: number; b: number };
+    rgb2hsl(r: number, g: number, b: number): { h: number; s: number; l: number };
     setWindow(newwin: Window): void;
     snapTo(values: number, value: number, tolerance?: number): number;
     snapTo(values: number[], value: number, tolerance?: number): number;
@@ -294,6 +383,6 @@ interface RaphaelStatic {
 }
 
 declare var Raphael: RaphaelStatic;
-declare module "raphael" {
+declare module 'raphael' {
     export = Raphael;
 }

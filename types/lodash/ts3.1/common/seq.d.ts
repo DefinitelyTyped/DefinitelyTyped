@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     // chain
     interface LoDashStatic {
         /**
@@ -8,7 +8,9 @@ declare module "../index" {
          * @param value The value to wrap.
          * @return Returns the new lodash wrapper instance.
          */
-        chain<TrapAny extends { __lodashAnyHack: any }>(value: TrapAny): CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain;
+        chain<TrapAny extends { __lodashAnyHack: any }>(
+            value: TrapAny,
+        ): CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain;
         /**
          * @see _.chain
          */

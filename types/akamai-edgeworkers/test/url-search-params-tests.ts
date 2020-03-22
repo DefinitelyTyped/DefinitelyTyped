@@ -3,8 +3,8 @@ import URLSearchParams from 'url-search-params';
 export function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
     const params = new URLSearchParams(request.query);
 
-    params.append("from-script", "from-value");
-    params.delete("to-delete");
+    params.append('from-script', 'from-value');
+    params.delete('to-delete');
 
     let gotten = params.get('m i s s i n g');
     if (gotten != null) {
@@ -14,7 +14,7 @@ export function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) 
 
     gotten = params.get('from-script');
     if (gotten !== 'from-value') {
-        request.respondWith(404, {}, 'didn\'t get() value');
+        request.respondWith(404, {}, "didn't get() value");
         return;
     }
 
@@ -24,7 +24,7 @@ export function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) 
     }
 
     if (!params.has('from-script')) {
-        request.respondWith(404, {}, 'has() didn\'t find an expected value');
+        request.respondWith(404, {}, "has() didn't find an expected value");
         return;
     }
 
@@ -51,13 +51,13 @@ export function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) 
     }
 
     if (entriesCount !== keysCount || keysCount !== valuesCount) {
-        request.respondWith(404, {}, 'iteration counts didn\'t add up');
+        request.respondWith(404, {}, "iteration counts didn't add up");
         return;
     }
 
-    params.set("setted", "value-setted");
+    params.set('setted', 'value-setted');
 
-    request.setHeader("foo", params.toString());
+    request.setHeader('foo', params.toString());
 
     request.respondWith(282, {}, 'succeeded');
 }

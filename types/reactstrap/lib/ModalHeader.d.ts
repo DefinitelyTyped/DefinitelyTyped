@@ -10,5 +10,5 @@ export interface ModalHeaderProps extends React.HTMLAttributes<HTMLElement> {
     toggle?: React.MouseEventHandler<any>;
 }
 
-declare class ModalHeader<T = {[key: string]: any}> extends React.Component<ModalHeaderProps> {}
+declare class ModalHeader<T = { [key: string]: any }> extends React.Component<ModalHeaderProps> {}
 export default ModalHeader;

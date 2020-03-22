@@ -34,21 +34,17 @@ class Test extends React.Component<any> {
     render() {
         return (
             <View>
-                <Button
-                    onPress={() => this.showPopupDialog(this.fadingPopupDialog)}
-                    title="Show Fading Dialog" />
-                <Button
-                    onPress={() => this.showPopupDialog(this.scalingPopupDialog)}
-                    title="Show Scaling Dialog" />
-                <Button
-                    onPress={() => this.showPopupDialog(this.slidingPopupDialog)}
-                    title="Show Sliding Dialog" />
+                <Button onPress={() => this.showPopupDialog(this.fadingPopupDialog)} title="Show Fading Dialog" />
+                <Button onPress={() => this.showPopupDialog(this.scalingPopupDialog)} title="Show Scaling Dialog" />
+                <Button onPress={() => this.showPopupDialog(this.slidingPopupDialog)} title="Show Sliding Dialog" />
 
-                <Dialog ref={(popupDialog) => this.fadingPopupDialog = popupDialog}
+                <Dialog
+                    ref={(popupDialog) => (this.fadingPopupDialog = popupDialog)}
                     dialogTitle={<DialogTitle title="Popup Dialog - Fade Animation" />}
                     dialogAnimation={fadeAnimation}
                 />
-                <Dialog ref={(popupDialog) => this.scalingPopupDialog = popupDialog}
+                <Dialog
+                    ref={(popupDialog) => (this.scalingPopupDialog = popupDialog)}
                     dialogTitle={<DialogTitle title="Popup Dialog - Scale Animation" />}
                     dialogAnimation={scaleAnimation}
                     footer={
@@ -56,19 +52,16 @@ class Test extends React.Component<any> {
                             <DialogButton
                                 text="CLOSE"
                                 onPress={(event) => this.dismissPopupDialog(this.scalingPopupDialog)}
-                                textStyle={{ color: "red" }}
+                                textStyle={{ color: 'red' }}
                                 bordered
                                 key="button-1"
                             />
-                            <DialogButton
-                                text="OK"
-                                onPress={() => {}}
-                                key="button-2"
-                            />
+                            <DialogButton text="OK" onPress={() => {}} key="button-2" />
                         </DialogFooter>
                     }
                 />
-                <Dialog ref={(popupDialog) => this.slidingPopupDialog = popupDialog}
+                <Dialog
+                    ref={(popupDialog) => (this.slidingPopupDialog = popupDialog)}
                     dialogTitle={<DialogTitle title="Popup Dialog - Slide Animation" />}
                     width={300}
                     height={300}
@@ -76,26 +69,31 @@ class Test extends React.Component<any> {
                     containerStyle={styles.testStyle}
                     dialogStyle={styles.testStyle}
                     animationDuration={150}
-                    overlayPointerEvents='auto'
-                    overlayBackgroundColor='white'
+                    overlayPointerEvents="auto"
+                    overlayBackgroundColor="white"
                     overlayOpacity={0.5}
                     hasOverlay={true}
                     visible={true}
-                    onShow={() => { console.log('onShow'); }}
-                    onDismiss={() => { console.log('onDismiss'); }}
-                    onTouchOutside={() => { console.log('onTouchOutside'); }}
-                    onHardwareBackPress={() => true }
+                    onShow={() => {
+                        console.log('onShow');
+                    }}
+                    onDismiss={() => {
+                        console.log('onDismiss');
+                    }}
+                    onTouchOutside={() => {
+                        console.log('onTouchOutside');
+                    }}
+                    onHardwareBackPress={() => true}
                 >
-                <DialogContent>
-
-                </DialogContent>
+                    <DialogContent></DialogContent>
                 </Dialog>
-            </View>);
+            </View>
+        );
     }
 }
 
 const styles = StyleSheet.create({
     testStyle: {
         paddingTop: 10,
-    }
+    },
 });

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Speech API v1 */
-    function load(name: "speech", version: "v1"): PromiseLike<void>;
-    function load(name: "speech", version: "v1", callback: () => any): void;
+    function load(name: 'speech', version: 'v1'): PromiseLike<void>;
+    function load(name: 'speech', version: 'v1', callback: () => any): void;
 
     const operations: speech.OperationsResource;
 
@@ -235,7 +235,7 @@ declare namespace gapi.client {
              */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -271,7 +271,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -306,7 +306,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -348,7 +348,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -392,7 +392,7 @@ declare namespace gapi.client {
              */
             longrunningrecognize(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -424,7 +424,7 @@ declare namespace gapi.client {
              */
             recognize(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

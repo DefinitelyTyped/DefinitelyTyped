@@ -3,7 +3,6 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export interface Action {
     type: string;
 }

@@ -15,11 +15,11 @@ interface PurifyOptions {
     minimize?: boolean;
     paths?: object | string[];
     purifyOptions?: {
-        minify?: boolean,
-        output?: string | boolean,
-        info?: boolean,
-        rejected?: boolean,
-        whitelist?: string[]
+        minify?: boolean;
+        output?: string | boolean;
+        info?: boolean;
+        rejected?: boolean;
+        whitelist?: string[];
     };
     verbose?: boolean;
 }

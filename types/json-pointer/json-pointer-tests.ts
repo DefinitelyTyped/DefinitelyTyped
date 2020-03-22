@@ -1,4 +1,3 @@
-
 import JsonPointer = require('json-pointer');
 
 var value: any;
@@ -6,7 +5,7 @@ var str: string;
 var strArr: string[];
 var pointer: string;
 var bool: any;
-var object:Object;
+var object: Object;
 
 bool = JsonPointer.has(object, pointer);
 value = JsonPointer.get(object, pointer);
@@ -15,9 +14,7 @@ JsonPointer.remove(object, pointer);
 
 object = JsonPointer.dict(object);
 
-JsonPointer.walk(object, (elem) => {
-
-});
+JsonPointer.walk(object, (elem) => {});
 
 str = JsonPointer.escape(str);
 str = JsonPointer.unescape(str);
@@ -35,6 +32,6 @@ wrap.remove(pointer);
 object = wrap.dict();
 
 wrap.walk((elem, key) => {
-	value = elem;
-	str = key;
+    value = elem;
+    str = key;
 });

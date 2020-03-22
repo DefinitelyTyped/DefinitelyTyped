@@ -1,2 +1,2 @@
-import { upperFirst } from "../fp";
+import { upperFirst } from '../fp';
 export = upperFirst;

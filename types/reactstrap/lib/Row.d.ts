@@ -17,5 +17,5 @@ export interface RowProps extends Omit<React.HTMLProps<HTMLElement>, 'form'> {
     xl?: number | string;
 }
 
-declare class Row<T = {[key: string]: any}> extends React.Component<RowProps> {}
+declare class Row<T = { [key: string]: any }> extends React.Component<RowProps> {}
 export default Row;

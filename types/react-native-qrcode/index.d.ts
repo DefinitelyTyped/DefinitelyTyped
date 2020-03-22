@@ -6,11 +6,11 @@
 
 import * as React from 'react';
 
-export default class QRCode extends React.Component<QRCodeProperties> { }
+export default class QRCode extends React.Component<QRCodeProperties> {}
 
 export interface QRCodeProperties {
-  value?: string;
-  size?: number;
-  bgColor?: string;
-  fgColor?: string;
+    value?: string;
+    size?: number;
+    bgColor?: string;
+    fgColor?: string;
 }

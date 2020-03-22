@@ -8,8 +8,8 @@
 
 /// <reference types="node" />
 
-import { CoreOptions, RequestResponse } from "request";
-import { ReadStream } from "fs";
+import { CoreOptions, RequestResponse } from 'request';
+import { ReadStream } from 'fs';
 
 declare class JiraApi {
     private protocol: string;
@@ -29,7 +29,7 @@ declare class JiraApi {
         expand?: string,
         fields?: string,
         properties?: string,
-        fieldsByKeys?: boolean
+        fieldsByKeys?: boolean,
     ): Promise<JiraApi.JsonResponse>;
 
     getUnresolvedIssueCount(version: string): Promise<number>;
@@ -63,7 +63,7 @@ declare class JiraApi {
     deleteVersion(
         versionId: string,
         moveFixIssuesToId: string,
-        moveAffectedIssuesToId: string
+        moveAffectedIssuesToId: string,
     ): Promise<JiraApi.JsonResponse>;
 
     searchJira(searchString: string, optional?: JiraApi.SearchQuery): Promise<JiraApi.JsonResponse>;
@@ -82,7 +82,11 @@ declare class JiraApi {
 
     deleteIssue(issueId: string): Promise<JiraApi.JsonResponse>;
 
-    updateIssue(issueId: string, issueUpdate: JiraApi.IssueObject, query?: JiraApi.Query): Promise<JiraApi.JsonResponse>;
+    updateIssue(
+        issueId: string,
+        issueUpdate: JiraApi.IssueObject,
+        query?: JiraApi.Query,
+    ): Promise<JiraApi.JsonResponse>;
 
     listComponents(project: string): Promise<JiraApi.JsonResponse>;
 
@@ -101,7 +105,7 @@ declare class JiraApi {
     upsertFieldOption(
         fieldKey: string,
         optionId: string,
-        option: JiraApi.FieldOptionObject
+        option: JiraApi.FieldOptionObject,
     ): Promise<JiraApi.JsonResponse>;
 
     getFieldOption(fieldKey: string, optionId: string): Promise<JiraApi.JsonResponse>;
@@ -125,7 +129,7 @@ declare class JiraApi {
     addWorklog(
         issueId: string,
         worklog: JiraApi.WorklogObject,
-        newEstimate?: JiraApi.EstimateObject
+        newEstimate?: JiraApi.EstimateObject,
     ): Promise<JiraApi.JsonResponse>;
 
     deleteWorklog(issueId: string, worklogId: string): Promise<JiraApi.JsonResponse>;
@@ -163,7 +167,7 @@ declare class JiraApi {
         maxResults?: number,
         type?: string,
         name?: string,
-        projectKeyOrId?: string
+        projectKeyOrId?: string,
     ): Promise<JiraApi.JsonResponse>;
 
     createBoard(boardBody: JiraApi.BoardObject): Promise<JiraApi.JsonResponse>;
@@ -178,7 +182,7 @@ declare class JiraApi {
         maxResults?: number,
         jql?: string,
         validateQuery?: boolean,
-        fields?: string
+        fields?: string,
     ): Promise<JiraApi.JsonResponse>;
 
     getConfiguration(boardId: string): Promise<JiraApi.JsonResponse>;
@@ -189,14 +193,14 @@ declare class JiraApi {
         maxResults?: number,
         jql?: string,
         validateQuery?: boolean,
-        fields?: string
+        fields?: string,
     ): Promise<JiraApi.JsonResponse>;
 
     getEpics(
         boardId: string,
         startAt?: number,
         maxResults?: number,
-        done?: "true" | "false"
+        done?: 'true' | 'false',
     ): Promise<JiraApi.JsonResponse>;
 
     getBoardIssuesForEpic(
@@ -206,7 +210,7 @@ declare class JiraApi {
         maxResults?: number,
         jql?: string,
         validateQuery?: boolean,
-        fields?: string
+        fields?: string,
     ): Promise<JiraApi.JsonResponse>;
 
     getProjects(boardId: string, startAt?: number, maxResults?: number): Promise<JiraApi.JsonResponse>;
@@ -225,7 +229,7 @@ declare class JiraApi {
         boardId: string,
         startAt?: number,
         maxResults?: number,
-        state?: "future" | "active" | "closed"
+        state?: 'future' | 'active' | 'closed',
     ): Promise<JiraApi.JsonResponse>;
 
     getBoardIssuesForSprint(
@@ -235,14 +239,14 @@ declare class JiraApi {
         maxResults?: number,
         jql?: string,
         validateQuery?: boolean,
-        fields?: string
+        fields?: string,
     ): Promise<JiraApi.JsonResponse>;
 
     getAllVersions(
         boardId: string,
         startAt?: number,
         maxResults?: number,
-        released?: "true" | "false"
+        released?: 'true' | 'false',
     ): Promise<JiraApi.JsonResponse>;
 
     private makeRequestHeader(uri: string, options?: JiraApi.UriOptions);
@@ -364,4 +368,4 @@ declare namespace JiraApi {
         intermediatePath?: string;
     }
 }
- export = JiraApi;
+export = JiraApi;

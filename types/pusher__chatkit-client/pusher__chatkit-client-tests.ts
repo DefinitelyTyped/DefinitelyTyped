@@ -12,23 +12,23 @@ const chatManager = new ChatManager({
     instanceLocator: 'abc123',
     userId: 'abc123',
     tokenProvider: new TokenProvider({
-        url: 'https://myurl'
+        url: 'https://myurl',
     }),
 });
 
 async function test_connecting() {
     // Connect with all hooks defined
     await chatManager.connect({
-        onAddedToRoom: (room: PusherRoom) => { },
-        onRemovedFromRoom: (room: PusherRoom) => { },
-        onRoomUpdated: (room: PusherRoom) => { },
-        onRoomDeleted: (room: PusherRoom) => { },
-        onUserStartedTyping: (room: PusherRoom, user: PusherUser) => { },
-        onUserStoppedTyping: (room: PusherRoom, user: PusherUser) => { },
-        onUserJoinedRoom: (room: PusherRoom, user: PusherUser) => { },
-        onUserLeftRoom: (room: PusherRoom, user: PusherUser) => { },
-        onPresenceChanged: (state: UserPresenceState, user: PusherUser) => { },
-        onNewReadCursor: (room: PusherRoom, user: PusherUser) => { },
+        onAddedToRoom: (room: PusherRoom) => {},
+        onRemovedFromRoom: (room: PusherRoom) => {},
+        onRoomUpdated: (room: PusherRoom) => {},
+        onRoomDeleted: (room: PusherRoom) => {},
+        onUserStartedTyping: (room: PusherRoom, user: PusherUser) => {},
+        onUserStoppedTyping: (room: PusherRoom, user: PusherUser) => {},
+        onUserJoinedRoom: (room: PusherRoom, user: PusherUser) => {},
+        onUserLeftRoom: (room: PusherRoom, user: PusherUser) => {},
+        onPresenceChanged: (state: UserPresenceState, user: PusherUser) => {},
+        onNewReadCursor: (room: PusherRoom, user: PusherUser) => {},
     });
 
     const currentUser = await chatManager.connect();
@@ -57,7 +57,7 @@ async function test_connecting() {
         disableCursors: true,
         roomId: room.id,
         hooks: {
-            onMessage: (message: PusherMessage) => { },
+            onMessage: (message: PusherMessage) => {},
         },
     });
 
@@ -65,14 +65,14 @@ async function test_connecting() {
     await currentUser.subscribeToRoomMultipart({
         roomId: room.id,
         hooks: {
-            onMessage: (message: PusherMessage) => { },
-            onMessageDeleted: (messageId: number) => { },
-            onUserStartedTyping: (user: PusherUser) => { },
-            onUserStoppedTyping: (user: PusherUser) => { },
-            onUserJoined: (user: PusherUser) => { },
-            onUserLeft: (user: PusherUser) => { },
-            onPresenceChanged: (state: UserPresenceState, user: PusherUser) => { },
-            onNewReadCursor: (cursor: PusherReadCursor) => { },
+            onMessage: (message: PusherMessage) => {},
+            onMessageDeleted: (messageId: number) => {},
+            onUserStartedTyping: (user: PusherUser) => {},
+            onUserStoppedTyping: (user: PusherUser) => {},
+            onUserJoined: (user: PusherUser) => {},
+            onUserLeft: (user: PusherUser) => {},
+            onPresenceChanged: (state: UserPresenceState, user: PusherUser) => {},
+            onNewReadCursor: (cursor: PusherReadCursor) => {},
         },
         messageLimit: 10,
     });
@@ -85,16 +85,16 @@ async function test_connecting() {
     await currentUser.sendMultipartMessage({
         roomId: room.id,
         parts: [
-            { type: "text/plain", content: "🐷😍" },
+            { type: 'text/plain', content: '🐷😍' },
             {
-              type: "image/gif",
-              url: "https://gfycat.com/failingforkedheterodontosaurus",
+                type: 'image/gif',
+                url: 'https://gfycat.com/failingforkedheterodontosaurus',
             },
             {
-              file: new Blob(),
-              customData: { metadata: 42 },
-            }
-          ],
+                file: new Blob(),
+                customData: { metadata: 42 },
+            },
+        ],
     });
 
     currentUser.roomSubscriptions[room.id].disableCursors = false;
@@ -107,5 +107,5 @@ async function test_connecting() {
     await currentUser.isTypingIn({ roomId: room.id });
     await currentUser.deleteRoom({ roomId: room.id });
 
-    subscribedRoom.users.forEach(user => user.name);
+    subscribedRoom.users.forEach((user) => user.name);
 }

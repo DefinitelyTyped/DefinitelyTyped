@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
-interface InheritedProps { }
+interface InheritedProps {}
 
 export interface StructuredListSkeletonProps extends InheritedProps {
-    border?: boolean,
-    rowCount?: number,
+    border?: boolean;
+    rowCount?: number;
 }
 
 declare const StructuredListSkeleton: React.FC<StructuredListSkeletonProps>;

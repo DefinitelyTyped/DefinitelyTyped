@@ -1,2 +1,2 @@
-import { forOwn } from "lodash";
+import { forOwn } from 'lodash';
 export default forOwn;

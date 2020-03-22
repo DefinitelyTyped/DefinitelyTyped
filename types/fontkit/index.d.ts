@@ -82,7 +82,7 @@ export interface Font {
         features?: string[] | Record<string, boolean>,
         script?: string,
         language?: string,
-        direction?: string
+        direction?: string,
     ): GlyphRun;
 }
 

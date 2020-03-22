@@ -29,7 +29,7 @@ function test_visibility() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).visibility({
@@ -107,8 +107,8 @@ function test_visibility() {
             fixed: 'fixed',
         },
         error: {
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).visibility(); // $ExpectType JQuery<HTMLElement>
 

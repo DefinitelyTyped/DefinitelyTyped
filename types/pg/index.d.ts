@@ -10,7 +10,7 @@ import events = require('events');
 import stream = require('stream');
 import pgTypes = require('pg-types');
 
-import { ConnectionOptions } from "tls";
+import { ConnectionOptions } from 'tls';
 
 export interface ClientConfig {
     user?: string;

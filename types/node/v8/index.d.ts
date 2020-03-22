@@ -44,22 +44,22 @@
 // TypeScript 2.1-specific augmentations:
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
-interface MapConstructor { }
-interface WeakMapConstructor { }
-interface SetConstructor { }
-interface WeakSetConstructor { }
-interface IteratorResult<T> { }
-interface Iterable<T> { }
+interface MapConstructor {}
+interface WeakMapConstructor {}
+interface SetConstructor {}
+interface WeakSetConstructor {}
+interface IteratorResult<T> {}
+interface Iterable<T> {}
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
-interface IterableIterator<T> { }
+interface IterableIterator<T> {}
 interface SymbolConstructor {
     readonly iterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
 
-declare module "util" {
+declare module 'util' {
     namespace inspect {
         const custom: symbol;
     }

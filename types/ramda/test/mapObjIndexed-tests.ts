@@ -1,13 +1,13 @@
 import * as R from 'ramda';
 
 () => {
-  const values = { x: 1, y: 2, z: 3 };
+    const values = { x: 1, y: 2, z: 3 };
 
-  function prependKeyAndDouble(num: number, key: string, obj: any) {
-    return key + num * 2;
-  }
+    function prependKeyAndDouble(num: number, key: string, obj: any) {
+        return key + num * 2;
+    }
 
-  R.mapObjIndexed(prependKeyAndDouble, values); // => { x: 'x2', y: 'y4', z: 'z6' }
+    R.mapObjIndexed(prependKeyAndDouble, values); // => { x: 'x2', y: 'y4', z: 'z6' }
 };
 
 () => {

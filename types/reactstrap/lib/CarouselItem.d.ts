@@ -15,5 +15,5 @@ export interface CarouselItemProps extends React.HTMLProps<HTMLElement> {
     onExited?: () => void;
 }
 
-declare class CarouselItem<T = {[key: string]: any}> extends React.Component<CarouselItemProps> {}
+declare class CarouselItem<T = { [key: string]: any }> extends React.Component<CarouselItemProps> {}
 export default CarouselItem;

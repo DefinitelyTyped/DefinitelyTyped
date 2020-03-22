@@ -5,7 +5,7 @@ import TabPane = require('./TabPane');
 import TabContent = require('./TabContent');
 
 declare namespace Tab {
-    export interface TabProps extends TransitionCallbacks, Omit<React.HTMLProps<Tab>, "title"> {
+    export interface TabProps extends TransitionCallbacks, Omit<React.HTMLProps<Tab>, 'title'> {
         animation?: boolean;
         'aria-labelledby'?: string;
         bsClass?: string;

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Manufacturer Center API v1 */
-    function load(name: "manufacturers", version: "v1"): PromiseLike<void>;
-    function load(name: "manufacturers", version: "v1", callback: () => any): void;
+    function load(name: 'manufacturers', version: 'v1'): PromiseLike<void>;
+    function load(name: 'manufacturers', version: 'v1', callback: () => any): void;
 
     const accounts: manufacturers.AccountsResource;
 
@@ -338,7 +338,7 @@ declare namespace gapi.client {
             /** Deletes the product from a Manufacturer Center account. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -394,7 +394,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -442,7 +442,7 @@ declare namespace gapi.client {
             /** Lists all the products in a Manufacturer Center account. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -497,7 +497,7 @@ declare namespace gapi.client {
              */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

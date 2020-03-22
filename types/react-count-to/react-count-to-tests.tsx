@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as CountTo from "react-count-to";
+import * as React from 'react';
+import * as CountTo from 'react-count-to';
 
 export class Test extends React.Component<any> {
     render() {
@@ -9,7 +9,7 @@ export class Test extends React.Component<any> {
             <div>
                 <CountTo to={100} speed={1000} />
                 <CountTo to={100} speed={1000} delay={50} easing={easing}>
-                {(value) => <strong>{value}</strong>}
+                    {(value) => <strong>{value}</strong>}
                 </CountTo>
             </div>
         );

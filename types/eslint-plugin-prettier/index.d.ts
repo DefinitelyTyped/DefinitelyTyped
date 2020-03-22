@@ -14,10 +14,7 @@ export function showInvisibles(str: string): string;
  * @param source The original source.
  * @param formatted The formatted source.
  */
-export function generateDifferences(
-    source: string,
-    formatted: string,
-): Difference[];
+export function generateDifferences(source: string, formatted: string): Difference[];
 
 export interface Difference {
     operation: 'insert' | 'delete' | 'replace';

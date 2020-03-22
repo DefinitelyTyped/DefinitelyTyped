@@ -33,7 +33,7 @@ selection = selection.attrs({
 });
 
 // Function that returns a map
-selection = selection.attrs(function(d, i, g): {} | { id: string } {
+selection = selection.attrs(function (d, i, g): {} | { id: string } {
     const that: HTMLAnchorElement = this;
     const index: number = i;
     const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
@@ -49,28 +49,34 @@ selection = selection.styles({
     color: 'red',
 });
 
-selection = selection.styles({
-    top: 0,
-    color: 'red',
-}, 'important');
+selection = selection.styles(
+    {
+        top: 0,
+        color: 'red',
+    },
+    'important',
+);
 
 // Function values
 selection = selection.styles({
     top: (d, i) => i + 'px',
-    color: d => d,
+    color: (d) => d,
 });
 
-selection = selection.styles({
-    top: (d, i) => i + 'px',
-    color: d => d,
-}, 'important');
+selection = selection.styles(
+    {
+        top: (d, i) => i + 'px',
+        color: (d) => d,
+    },
+    'important',
+);
 
 // Functions that return a map
-selection.styles(function(d) {
+selection.styles(function (d) {
     return this.id ? { color: 'red' } : { color: d };
 });
 
-selection = selection.styles(function(d) {
+selection = selection.styles(function (d) {
     return this.id ? { color: 'red' } : { color: d };
 }, 'important');
 
@@ -84,18 +90,20 @@ selection = selection.properties({
 // Function values
 selection = selection.properties({
     foo: (d, i) => i,
-    bar: d => d,
+    bar: (d) => d,
 });
 
 // Function that returns an object
-selection = selection.properties(function(d, i, g): {} | { href: string } {
+selection = selection.properties(function (d, i, g): {} | { href: string } {
     const that: HTMLAnchorElement = this;
     const index: number = i;
     const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
     return that.href ? {} : { href: d };
 });
 
-let transition: Transition<HTMLAnchorElement, string, HTMLElement, undefined> = selectAll<HTMLAnchorElement, string>('a').transition();
+let transition: Transition<HTMLAnchorElement, string, HTMLElement, undefined> = selectAll<HTMLAnchorElement, string>(
+    'a',
+).transition();
 
 // Transition.attrs
 
@@ -117,7 +125,7 @@ transition = transition.attrs({
 });
 
 // Function that returns a map
-transition = transition.attrs(function(d, i, g): {} | { id: string } {
+transition = transition.attrs(function (d, i, g): {} | { id: string } {
     const that: HTMLAnchorElement = this;
     const index: number = i;
     const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
@@ -133,28 +141,34 @@ transition = transition.styles({
     color: 'red',
 });
 
-transition = transition.styles({
-    top: 0,
-    color: 'red',
-}, 'important');
+transition = transition.styles(
+    {
+        top: 0,
+        color: 'red',
+    },
+    'important',
+);
 
 // Function values
 transition = transition.styles({
     top: (d, i) => i + 'px',
-    color: d => d,
+    color: (d) => d,
 });
 
-transition = transition.styles({
-    top: (d, i) => i + 'px',
-    color: d => d,
-}, 'important');
+transition = transition.styles(
+    {
+        top: (d, i) => i + 'px',
+        color: (d) => d,
+    },
+    'important',
+);
 
 // Function that returns a map
-transition = transition.styles(function(d) {
+transition = transition.styles(function (d) {
     return this.id ? { color: 'red' } : { color: d };
 });
 
-transition = transition.styles(function(d) {
+transition = transition.styles(function (d) {
     return this.id ? { color: 'red' } : { color: d };
 }, 'important');
 
@@ -190,7 +204,7 @@ valueMap = {
         const index: number = i;
         const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
         return d.filled;
-    }
+    },
 };
 
 // valueMap = { // fails, as an array is not a permissible value type

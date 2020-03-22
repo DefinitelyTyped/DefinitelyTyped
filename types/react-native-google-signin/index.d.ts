@@ -25,12 +25,12 @@ export namespace GoogleSigninButton {
     enum Size {
         Standard,
         Wide,
-        Icon
+        Icon,
     }
 
     enum Color {
         Light,
-        Dark
+        Dark,
     }
 }
 

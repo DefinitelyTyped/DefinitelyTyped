@@ -1,5 +1,5 @@
-import stringStripHtml = require("string-strip-html");
+import stringStripHtml = require('string-strip-html');
 
-stringStripHtml("");
-stringStripHtml("", {});
-stringStripHtml("", { dumpLinkHrefsNearby: {} });
+stringStripHtml('');
+stringStripHtml('', {});
+stringStripHtml('', { dumpLinkHrefsNearby: {} });

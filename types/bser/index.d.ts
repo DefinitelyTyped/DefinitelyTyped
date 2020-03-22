@@ -6,16 +6,10 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
-import Int64 = require("node-int64");
+import { EventEmitter } from 'events';
+import Int64 = require('node-int64');
 
-export type InputWrapper =
-    | Buffer
-    | string
-    | NodeJS.TypedArray
-    | DataView
-    | ArrayBuffer
-    | SharedArrayBuffer;
+export type InputWrapper = Buffer | string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer;
 export type IntWrapper = number | Int64;
 export type AnyWrapper = boolean | IntWrapper | null | string | object;
 
@@ -66,10 +60,7 @@ export class BunserBuf extends EventEmitter {
 
     constructor();
 
-    append(
-        buf: InputWrapper,
-        synchronous?: false
-    ): AnyWrapper | AnyWrapper[] | undefined;
+    append(buf: InputWrapper, synchronous?: false): AnyWrapper | AnyWrapper[] | undefined;
     append(buf: InputWrapper, synchronous: true): void;
 
     decodeAny(): AnyWrapper | AnyWrapper[];

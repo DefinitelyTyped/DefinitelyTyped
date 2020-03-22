@@ -69,5 +69,5 @@ export function unregisterPlugin(name: string): Plugin | undefined;
  * A Higher Order Component used to inject Plugin context to the wrapped component.
  */
 export function withPluginContext<CP = {}, OP = {}>(
-    mapContextToProps: (context: PluginContext, props: OP) => CP
+    mapContextToProps: (context: PluginContext, props: OP) => CP,
 ): (Component: ComponentType<CP & OP>) => ComponentType<OP>;

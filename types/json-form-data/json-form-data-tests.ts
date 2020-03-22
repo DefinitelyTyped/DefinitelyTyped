@@ -33,6 +33,6 @@ asFormData(json);
 asFormData(json, {
     includeNullValues: true,
     initialFormData: new FormData(),
-    mapping: value => (Boolean(value) ? 'true' : 'false'),
+    mapping: (value) => (Boolean(value) ? 'true' : 'false'),
     showLeafArrayIndexes: false,
 });

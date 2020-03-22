@@ -4,20 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface NodeDimensions {
-  width: number;
-  height: number;
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
+    width: number;
+    height: number;
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
 }
 
 interface NodeDimensionsOptions {
-  margin?: boolean;
-  clone?: boolean;
-  display?: string;
-  width?: string;
-  height?: string;
+    margin?: boolean;
+    clone?: boolean;
+    display?: string;
+    width?: string;
+    height?: string;
 }
 
 declare function getNodeDimensions(element: HTMLElement, options?: NodeDimensionsOptions): NodeDimensions;

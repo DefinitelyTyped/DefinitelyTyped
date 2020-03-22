@@ -1,8 +1,8 @@
 /// <reference lib="DOM" />
 
-import EventSource = require("eventsource");
+import EventSource = require('eventsource');
 
-const eventSource = new EventSource("http://foobar");
+const eventSource = new EventSource('http://foobar');
 let readyState: number = eventSource.readyState;
 let closedState: number = eventSource.CLOSED;
 closedState = EventSource.CLOSED;
@@ -20,9 +20,9 @@ eventSource.dispatchEvent = (event: Event) => true;
 eventSource.removeEventListener = (type: string, listener: EventListener) => {};
 eventSource.close();
 
-import EventSourcePolyfill = require("eventsource/lib/eventsource-polyfill");
+import EventSourcePolyfill = require('eventsource/lib/eventsource-polyfill');
 
-const eventSourcePolyfill = new EventSourcePolyfill("http://foobar");
+const eventSourcePolyfill = new EventSourcePolyfill('http://foobar');
 readyState = eventSourcePolyfill.readyState;
 closedState = eventSource.CLOSED;
 closedState = EventSource.CLOSED;

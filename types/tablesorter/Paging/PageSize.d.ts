@@ -1,4 +1,4 @@
 /**
  * Represents a page-size.
  */
-export type PageSize = number | "all";
+export type PageSize = number | 'all';

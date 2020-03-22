@@ -24,7 +24,7 @@ declare module 'history' {
 declare function qhistory(
     history: History,
     stringify: (query: object) => string,
-    parse: (search: string) => object
+    parse: (search: string) => object,
 ): History;
 
 export default qhistory;

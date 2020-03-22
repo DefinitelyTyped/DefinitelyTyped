@@ -43,7 +43,7 @@ declare namespace FTP {
 }
 
 declare class FTP {
-    constructor(options: FTP.FTPOptions)
+    constructor(options: FTP.FTPOptions);
 
     raw(cmd: string): FTP;
     ls(): FTP;

@@ -1,2 +1,2 @@
-import { eachRight } from "../fp";
+import { eachRight } from '../fp';
 export = eachRight;

@@ -1,6 +1,6 @@
-import stdout = require("stdout-stream");
+import stdout = require('stdout-stream');
 
-stdout.write("hello");
+stdout.write('hello');
 stdout.end();
 
 // $ExpectType true

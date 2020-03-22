@@ -30,21 +30,21 @@ import * as util from './util';
 import createFocusTrap, { FocusTrap } from './focus-trap';
 
 export class MDCDrawer extends MDCComponent<MDCDrawer, MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation> {
-  constructor(...args: any[]);
-  static attachTo(root: Element): MDCDrawer;
+    constructor(...args: any[]);
+    static attachTo(root: Element): MDCDrawer;
 
-  /**
-   * Returns true if drawer is in the open position.
-   */
-  open: boolean;
+    /**
+     * Returns true if drawer is in the open position.
+     */
+    open: boolean;
 
-  initialize(focusTrapFactory: FocusTrap, listFactory: MDCList): void;
+    initialize(focusTrapFactory: FocusTrap, listFactory: MDCList): void;
 
-  initialSyncWithDOM(): void;
+    initialSyncWithDOM(): void;
 
-  destroy(): void;
+    destroy(): void;
 
-  getDefaultFoundation(): MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation;
+    getDefaultFoundation(): MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation;
 }
 
 export { MDCDismissibleDrawerFoundation, MDCModalDrawerFoundation, util };

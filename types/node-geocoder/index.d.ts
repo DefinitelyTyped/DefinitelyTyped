@@ -7,11 +7,18 @@
 
 declare namespace node_geocoder {
     type Providers =
-        'freegeoip' | 'datasciencetoolkit' |
-        'locationiq' | 'mapquest' | 'openmapquest' |
-        'tomtom' | 'nominatimmapquest' |
-        'opencage' | 'geocodio' |
-        'yandex' | 'teleport' | 'pickpoint';
+        | 'freegeoip'
+        | 'datasciencetoolkit'
+        | 'locationiq'
+        | 'mapquest'
+        | 'openmapquest'
+        | 'tomtom'
+        | 'nominatimmapquest'
+        | 'opencage'
+        | 'geocodio'
+        | 'yandex'
+        | 'teleport'
+        | 'pickpoint';
 
     interface BaseOptions {
         provider: string;
@@ -76,7 +83,16 @@ declare namespace node_geocoder {
         host?: string;
     }
 
-    type Options = BaseOptions & (GenericOptions | HereOptions | OpenStreetMapOptions | OpenDataFranceOptions | AgolOptions | SmartyStreetsOptions | GoogleOptions);
+    type Options = BaseOptions &
+        (
+            | GenericOptions
+            | HereOptions
+            | OpenStreetMapOptions
+            | OpenDataFranceOptions
+            | AgolOptions
+            | SmartyStreetsOptions
+            | GoogleOptions
+        );
 
     interface Location {
         lat: number;

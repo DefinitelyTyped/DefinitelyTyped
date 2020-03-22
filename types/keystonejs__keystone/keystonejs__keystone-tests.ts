@@ -123,7 +123,7 @@ const apps: BaseApp[] = [
     }),
 ];
 
-apps.map(app =>
+apps.map((app) =>
     app.build({
         distDir: '.',
         keystone,

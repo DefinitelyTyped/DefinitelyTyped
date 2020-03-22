@@ -4,18 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface LeState {
-    set(newValue: {}): [{
-        id: number;
-        state: {};
-    }];
+    set(newValue: {}): [
+        {
+            id: number;
+            state: {};
+        },
+    ];
     get(): any;
     insert(newValue: {}): void;
     getDescription(): {};
-    createListener(options: {
-        id: number;
-        selector(state: any): {};
-        force?: boolean;
-    }): void;
+    createListener(options: { id: number; selector(state: any): {}; force?: boolean }): void;
 }
 
 export function createState(props?: { initialState: {} }): LeState;

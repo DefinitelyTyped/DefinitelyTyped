@@ -3,8 +3,6 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace dojox {
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/sketch.html
@@ -13,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface sketch {
-    }
+    interface sketch {}
     namespace sketch {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/sketch/_Plugin.html
@@ -29,31 +26,31 @@ declare namespace dojox {
             /**
              *
              */
-            "button": Object;
+            'button': Object;
             /**
              *
              */
-            "figure": Object;
+            'figure': Object;
             /**
              *
              */
-            "iconClassPrefix": string;
+            'iconClassPrefix': string;
             /**
              *
              */
-            "itemGroup": string;
+            'itemGroup': string;
             /**
              *
              */
-            "queryCommand": Object;
+            'queryCommand': Object;
             /**
              *
              */
-            "shape": string;
+            'shape': string;
             /**
              *
              */
-            "useDefaultCommand": boolean;
+            'useDefaultCommand': boolean;
             /**
              *
              * @param e               Optional
@@ -122,31 +119,31 @@ declare namespace dojox {
             /**
              *
              */
-            "button": Object;
+            'button': Object;
             /**
              *
              */
-            "figure": Object;
+            'figure': Object;
             /**
              *
              */
-            "iconClassPrefix": string;
+            'iconClassPrefix': string;
             /**
              *
              */
-            "itemGroup": string;
+            'itemGroup': string;
             /**
              *
              */
-            "queryCommand": Object;
+            'queryCommand': Object;
             /**
              *
              */
-            "shape": string;
+            'shape': string;
             /**
              *
              */
-            "useDefaultCommand": boolean;
+            'useDefaultCommand': boolean;
             /**
              *
              * @param e               Optional
@@ -257,10 +254,13 @@ declare namespace dojox {
              * to 'this'.
              *
              */
-            "attachScope": Object;
-            set(property: "attachScope", value: Object): void;
-            get(property: "attachScope"): Object;
-            watch(property: "attachScope", callback: { (property?: string, oldValue?: Object, newValue?: Object): void }): { unwatch(): void }
+            'attachScope': Object;
+            set(property: 'attachScope', value: Object): void;
+            get(property: 'attachScope'): Object;
+            watch(
+                property: 'attachScope',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * Deprecated. Instead of attributeMap, widget should have a _setXXXAttr attribute
              * for each XXX attribute to be mapped to the DOM.
@@ -303,24 +303,33 @@ declare namespace dojox {
              * "" --> { node: "domNode", type: "attribute" }
              *
              */
-            "attributeMap": Object;
-            set(property: "attributeMap", value: Object): void;
-            get(property: "attributeMap"): Object;
-            watch(property: "attributeMap", callback: { (property?: string, oldValue?: Object, newValue?: Object): void }): { unwatch(): void }
+            'attributeMap': Object;
+            set(property: 'attributeMap', value: Object): void;
+            get(property: 'attributeMap'): Object;
+            watch(
+                property: 'attributeMap',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "baseClass": string;
-            set(property: "baseClass", value: string): void;
-            get(property: "baseClass"): string;
-            watch(property: "baseClass", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'baseClass': string;
+            set(property: 'baseClass', value: string): void;
+            get(property: 'baseClass'): string;
+            watch(
+                property: 'baseClass',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "class": string;
-            set(property: "class", value: string): void;
-            get(property: "class"): string;
-            watch(property: "class", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'class': string;
+            set(property: 'class', value: string): void;
+            get(property: 'class'): string;
+            watch(
+                property: 'class',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Designates where children of the source DOM node will be placed.
              * "Children" in this case refers to both DOM nodes and widgets.
@@ -344,20 +353,26 @@ declare namespace dojox {
              * is null for widgets that don't, like TextBox.
              *
              */
-            "containerNode": HTMLElement;
-            set(property: "containerNode", value: HTMLElement): void;
-            get(property: "containerNode"): HTMLElement;
-            watch(property: "containerNode", callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void }): { unwatch(): void }
+            'containerNode': HTMLElement;
+            set(property: 'containerNode', value: HTMLElement): void;
+            get(property: 'containerNode'): HTMLElement;
+            watch(
+                property: 'containerNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * Bi-directional support, as defined by the HTML DIR
              * attribute. Either left-to-right "ltr" or right-to-left "rtl".  If undefined, widgets renders in page's
              * default direction.
              *
              */
-            "dir": string;
-            set(property: "dir", value: string): void;
-            get(property: "dir"): string;
-            watch(property: "dir", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'dir': string;
+            set(property: 'dir', value: string): void;
+            get(property: 'dir'): string;
+            watch(
+                property: 'dir',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * This is our visible representation of the widget! Other DOM
              * Nodes may by assigned to other properties, usually through the
@@ -365,34 +380,46 @@ declare namespace dojox {
              * property is the canonical "top level" node in widget UI.
              *
              */
-            "domNode": HTMLElement;
-            set(property: "domNode", value: HTMLElement): void;
-            get(property: "domNode"): HTMLElement;
-            watch(property: "domNode", callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void }): { unwatch(): void }
+            'domNode': HTMLElement;
+            set(property: 'domNode', value: HTMLElement): void;
+            get(property: 'domNode'): HTMLElement;
+            watch(
+                property: 'domNode',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "figure": Object;
-            set(property: "figure", value: Object): void;
-            get(property: "figure"): Object;
-            watch(property: "figure", callback: { (property?: string, oldValue?: Object, newValue?: Object): void }): { unwatch(): void }
+            'figure': Object;
+            set(property: 'figure', value: Object): void;
+            get(property: 'figure'): Object;
+            watch(
+                property: 'figure',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * This widget or a widget it contains has focus, or is "active" because
              * it was recently clicked.
              *
              */
-            "focused": boolean;
-            set(property: "focused", value: boolean): void;
-            get(property: "focused"): boolean;
-            watch(property: "focused", callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void }): { unwatch(): void }
+            'focused': boolean;
+            set(property: 'focused', value: boolean): void;
+            get(property: 'focused'): boolean;
+            watch(
+                property: 'focused',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * The currently focused child widget, or null if there isn't one
              *
              */
-            "focusedChild": Object;
-            set(property: "focusedChild", value: Object): void;
-            get(property: "focusedChild"): Object;
-            watch(property: "focusedChild", callback: { (property?: string, oldValue?: Object, newValue?: Object): void }): { unwatch(): void }
+            'focusedChild': Object;
+            set(property: 'focusedChild', value: Object): void;
+            get(property: 'focusedChild'): Object;
+            watch(
+                property: 'focusedChild',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              * A unique, opaque ID string that can be assigned by users or by the
              * system. If the developer passes an ID which is known not to be
@@ -400,10 +427,13 @@ declare namespace dojox {
              * used instead.
              *
              */
-            "id": string;
-            set(property: "id", value: string): void;
-            get(property: "id"): string;
-            watch(property: "id", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'id': string;
+            set(property: 'id', value: string): void;
+            get(property: 'id'): string;
+            watch(
+                property: 'id',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Rarely used.  Overrides the default Dojo locale used to render this widget,
              * as defined by the HTML LANG attribute.
@@ -411,10 +441,13 @@ declare namespace dojox {
              * formatted according to RFC 3066 (like en-us).
              *
              */
-            "lang": string;
-            set(property: "lang", value: string): void;
-            get(property: "lang"): string;
-            watch(property: "lang", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'lang': string;
+            set(property: 'lang', value: string): void;
+            get(property: 'lang'): string;
+            watch(
+                property: 'lang',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * If multiple characters are typed where each keystroke happens within
              * multiCharSearchDuration of the previous keystroke,
@@ -424,75 +457,102 @@ declare namespace dojox {
              * "ab" unless the delay between "a" and "b" is greater than multiCharSearchDuration.
              *
              */
-            "multiCharSearchDuration": number;
-            set(property: "multiCharSearchDuration", value: number): void;
-            get(property: "multiCharSearchDuration"): number;
-            watch(property: "multiCharSearchDuration", callback: { (property?: string, oldValue?: number, newValue?: number): void }): { unwatch(): void }
+            'multiCharSearchDuration': number;
+            set(property: 'multiCharSearchDuration', value: number): void;
+            get(property: 'multiCharSearchDuration'): number;
+            watch(
+                property: 'multiCharSearchDuration',
+                callback: { (property?: string, oldValue?: number, newValue?: number): void },
+            ): { unwatch(): void };
             /**
              * The document this widget belongs to.  If not specified to constructor, will default to
              * srcNodeRef.ownerDocument, or if no sourceRef specified, then to the document global
              *
              */
-            "ownerDocument": Object;
-            set(property: "ownerDocument", value: Object): void;
-            get(property: "ownerDocument"): Object;
-            watch(property: "ownerDocument", callback: { (property?: string, oldValue?: Object, newValue?: Object): void }): { unwatch(): void }
+            'ownerDocument': Object;
+            set(property: 'ownerDocument', value: Object): void;
+            get(property: 'ownerDocument'): Object;
+            watch(
+                property: 'ownerDocument',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "plugins": Object;
-            set(property: "plugins", value: Object): void;
-            get(property: "plugins"): Object;
-            watch(property: "plugins", callback: { (property?: string, oldValue?: Object, newValue?: Object): void }): { unwatch(): void }
+            'plugins': Object;
+            set(property: 'plugins', value: Object): void;
+            get(property: 'plugins'): Object;
+            watch(
+                property: 'plugins',
+                callback: { (property?: string, oldValue?: Object, newValue?: Object): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "searchContainerNode": boolean;
-            set(property: "searchContainerNode", value: boolean): void;
-            get(property: "searchContainerNode"): boolean;
-            watch(property: "searchContainerNode", callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void }): { unwatch(): void }
+            'searchContainerNode': boolean;
+            set(property: 'searchContainerNode', value: boolean): void;
+            get(property: 'searchContainerNode'): boolean;
+            watch(
+                property: 'searchContainerNode',
+                callback: { (property?: string, oldValue?: boolean, newValue?: boolean): void },
+            ): { unwatch(): void };
             /**
              * pointer to original DOM node
              *
              */
-            "srcNodeRef": HTMLElement;
-            set(property: "srcNodeRef", value: HTMLElement): void;
-            get(property: "srcNodeRef"): HTMLElement;
-            watch(property: "srcNodeRef", callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void }): { unwatch(): void }
+            'srcNodeRef': HTMLElement;
+            set(property: 'srcNodeRef', value: HTMLElement): void;
+            get(property: 'srcNodeRef'): HTMLElement;
+            watch(
+                property: 'srcNodeRef',
+                callback: { (property?: string, oldValue?: HTMLElement, newValue?: HTMLElement): void },
+            ): { unwatch(): void };
             /**
              * HTML style attributes as cssText string or name/value hash
              *
              */
-            "style": string;
-            set(property: "style", value: string): void;
-            get(property: "style"): string;
-            watch(property: "style", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'style': string;
+            set(property: 'style', value: string): void;
+            get(property: 'style'): string;
+            watch(
+                property: 'style',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Tab index of the container; same as HTML tabIndex attribute.
              * Note then when user tabs into the container, focus is immediately
              * moved to the first item in the container.
              *
              */
-            "tabIndex": string;
-            set(property: "tabIndex", value: string): void;
-            get(property: "tabIndex"): string;
-            watch(property: "tabIndex", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'tabIndex': string;
+            set(property: 'tabIndex', value: string): void;
+            get(property: 'tabIndex'): string;
+            watch(
+                property: 'tabIndex',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * Path to template (HTML file) for this widget relative to dojo.baseUrl.
              * Deprecated: use templateString with require([... "dojo/text!..."], ...) instead
              *
              */
-            "templatePath": string;
-            set(property: "templatePath", value: string): void;
-            get(property: "templatePath"): string;
-            watch(property: "templatePath", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'templatePath': string;
+            set(property: 'templatePath', value: string): void;
+            get(property: 'templatePath'): string;
+            watch(
+                property: 'templatePath',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              */
-            "templateString": string;
-            set(property: "templateString", value: string): void;
-            get(property: "templateString"): string;
-            watch(property: "templateString", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'templateString': string;
+            set(property: 'templateString', value: string): void;
+            get(property: 'templateString'): string;
+            watch(
+                property: 'templateString',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * HTML title attribute.
              *
@@ -504,19 +564,25 @@ declare namespace dojox {
              * interpreted as HTML.
              *
              */
-            "title": string;
-            set(property: "title", value: string): void;
-            get(property: "title"): string;
-            watch(property: "title", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'title': string;
+            set(property: 'title', value: string): void;
+            get(property: 'title'): string;
+            watch(
+                property: 'title',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              * When this widget's title attribute is used to for a tab label, accordion pane title, etc.,
              * this specifies the tooltip to appear when the mouse is hovered over that text.
              *
              */
-            "tooltip": string;
-            set(property: "tooltip", value: string): void;
-            get(property: "tooltip"): string;
-            watch(property: "tooltip", callback: { (property?: string, oldValue?: string, newValue?: string): void }): { unwatch(): void }
+            'tooltip': string;
+            set(property: 'tooltip', value: string): void;
+            get(property: 'tooltip'): string;
+            watch(
+                property: 'tooltip',
+                callback: { (property?: string, oldValue?: string, newValue?: string): void },
+            ): { unwatch(): void };
             /**
              *
              * @param widget
@@ -1054,7 +1120,10 @@ declare namespace dojox {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback: { (property?: string, oldValue?: any, newValue?: any): void }): { unwatch(): void };
+            watch(
+                property: string,
+                callback: { (property?: string, oldValue?: any, newValue?: any): void },
+            ): { unwatch(): void };
             /**
              * Static method to get a template based on the templatePath or
              * templateString key
@@ -1194,12 +1263,14 @@ declare namespace dojox {
          * @param id
          * @param isControl
          */
-        interface Anchor { (an: any, id: any, isControl: any): void }
+        interface Anchor {
+            (an: any, id: any, isControl: any): void;
+        }
         namespace Anchor {
             /**
              *
              */
-            var count: number
+            var count: number;
         }
 
         /**
@@ -1209,103 +1280,143 @@ declare namespace dojox {
          * @param figure
          * @param id
          */
-        interface Annotation { (figure: any, id: any): void }
+        interface Annotation {
+            (figure: any, id: any): void;
+        }
         namespace Annotation {
             /**
              *
              */
-            var calculate: Object
+            var calculate: Object;
             /**
              *
              */
-            var Modes: Object
+            var Modes: Object;
             /**
              *
              * @param obj
              */
-            interface apply { (obj: any): void }
+            interface apply {
+                (obj: any): void;
+            }
             /**
              *
              * @param type
              */
-            interface beginEdit { (type: any): void }
+            interface beginEdit {
+                (type: any): void;
+            }
             /**
              *
              */
-            interface destroy { (): void }
+            interface destroy {
+                (): void;
+            }
             /**
              *
              */
-            interface draw { (): void }
+            interface draw {
+                (): void;
+            }
             /**
              *
              */
-            interface drawBBox { (): void }
+            interface drawBBox {
+                (): void;
+            }
             /**
              *
              */
-            interface endEdit { (): void }
+            interface endEdit {
+                (): void;
+            }
             /**
              *
              */
-            interface getBBox { (): void }
+            interface getBBox {
+                (): void;
+            }
             /**
              *
              * @param zoomfactor
              */
-            interface getTextBox { (zoomfactor: any): void }
+            interface getTextBox {
+                (zoomfactor: any): void;
+            }
             /**
              *
              */
-            interface getType { (): void }
+            interface getType {
+                (): void;
+            }
             /**
              *
              */
-            interface initialize { (): void }
+            interface initialize {
+                (): void;
+            }
             /**
              *
              * @param name
              * @param value               Optional
              */
-            interface property { (name: any, value: any): void }
+            interface property {
+                (name: any, value: any): void;
+            }
             /**
              *
              * @param obj
              */
-            interface readCommonAttrs { (obj: any): void }
+            interface readCommonAttrs {
+                (obj: any): void;
+            }
             /**
              *
              * @param name
              * @param toolclass
              */
-            interface register { (name: any, toolclass: any): void }
+            interface register {
+                (name: any, toolclass: any): void;
+            }
             /**
              *
              */
-            interface serialize { (): void }
+            interface serialize {
+                (): void;
+            }
             /**
              *
              * @param pt
              */
-            interface setBinding { (pt: any): void }
+            interface setBinding {
+                (pt: any): void;
+            }
             /**
              *
              * @param m
              */
-            interface setMode { (m: any): void }
+            interface setMode {
+                (m: any): void;
+            }
             /**
              *
              */
-            interface type { (): void }
+            interface type {
+                (): void;
+            }
             /**
              *
              */
-            interface writeCommonAttrs { (): void }
+            interface writeCommonAttrs {
+                (): void;
+            }
             /**
              *
              * @param pct
              */
-            interface zoom { (pct: any): void }
+            interface zoom {
+                (pct: any): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/sketch/Annotation.Modes.html
              *
@@ -1330,116 +1441,136 @@ declare namespace dojox {
          * @param figure
          * @param id
          */
-        interface DoubleArrowAnnotation { (figure: any, id: any): void }
+        interface DoubleArrowAnnotation {
+            (figure: any, id: any): void;
+        }
         namespace DoubleArrowAnnotation {
             /**
              *
              */
-            var anchors: Object
+            var anchors: Object;
             /**
              *
              */
-            var control: Object
+            var control: Object;
             /**
              *
              */
-            var end: Object
+            var end: Object;
             /**
              *
              */
-            var endArrow: Object
+            var endArrow: Object;
             /**
              *
              */
-            var endArrowGroup: Object
+            var endArrowGroup: Object;
             /**
              *
              */
-            var endRotation: number
+            var endRotation: number;
             /**
              *
              */
-            var labelShape: Object
+            var labelShape: Object;
             /**
              *
              */
-            var pathShape: Object
+            var pathShape: Object;
             /**
              *
              */
-            var start: Object
+            var start: Object;
             /**
              *
              */
-            var startArrow: Object
+            var startArrow: Object;
             /**
              *
              */
-            var startArrowGroup: Object
+            var startArrowGroup: Object;
             /**
              *
              */
-            var startRotation: number
+            var startRotation: number;
             /**
              *
              */
-            var textAlign: string
+            var textAlign: string;
             /**
              *
              */
-            var textOffset: number
+            var textOffset: number;
             /**
              *
              */
-            var textPosition: Object
+            var textPosition: Object;
             /**
              *
              */
-            var textYOffset: number
+            var textYOffset: number;
             /**
              *
              */
-            var transform: Object
-            /**
-             *
-             * @param obj
-             */
-            interface apply { (obj: any): void }
-            /**
-             *
-             */
-            interface destroy { (): void }
+            var transform: Object;
             /**
              *
              * @param obj
              */
-            interface draw { (obj: any): void }
+            interface apply {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface getBBox { (): void }
-            /**
-             *
-             */
-            interface getType { (): void }
+            interface destroy {
+                (): void;
+            }
             /**
              *
              * @param obj
              */
-            interface initialize { (obj: any): void }
+            interface draw {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface serialize { (): void }
+            interface getBBox {
+                (): void;
+            }
             /**
              *
              */
-            interface type { (): void }
+            interface getType {
+                (): void;
+            }
+            /**
+             *
+             * @param obj
+             */
+            interface initialize {
+                (obj: any): void;
+            }
+            /**
+             *
+             */
+            interface serialize {
+                (): void;
+            }
+            /**
+             *
+             */
+            interface type {
+                (): void;
+            }
             /**
              *
              * @param pct
              */
-            interface zoom { (pct: any): void }
+            interface zoom {
+                (pct: any): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/sketch/DoubleArrowAnnotation.control.html
              *
@@ -1523,100 +1654,140 @@ declare namespace dojox {
          *
          * @param mixin
          */
-        interface Figure { (mixin: any): void }
+        interface Figure {
+            (mixin: any): void;
+        }
         namespace Figure {
             /**
              *
              */
-            var gridSize: number
+            var gridSize: number;
             /**
              *
              * @param annotation
              */
-            interface add { (annotation: any): void }
+            interface add {
+                (annotation: any): void;
+            }
             /**
              *
              * @param ann
              * @param t
              */
-            interface convert { (ann: any, t: any): void }
+            interface convert {
+                (ann: any, t: any): void;
+            }
             /**
              *
              * @param isLoading
              */
-            interface destroy { (isLoading: any): void }
+            interface destroy {
+                (isLoading: any): void;
+            }
             /**
              *
              */
-            interface draw { (): void }
+            interface draw {
+                (): void;
+            }
             /**
              *
              * @param id
              */
-            interface getAnnotator { (id: any): void }
+            interface getAnnotator {
+                (id: any): void;
+            }
             /**
              *
              */
-            interface getFit { (): void }
+            interface getFit {
+                (): void;
+            }
             /**
              *
              */
-            interface getValue { (): void }
+            interface getValue {
+                (): void;
+            }
             /**
              *
              * @param node
              */
-            interface initialize { (node: any): void }
+            interface initialize {
+                (node: any): void;
+            }
             /**
              *
              */
-            interface initUndoStack { (): void }
+            interface initUndoStack {
+                (): void;
+            }
             /**
              *
              * @param obj
              * @param n
              */
-            interface load { (obj: any, n: any): void }
+            interface load {
+                (obj: any, n: any): void;
+            }
             /**
              *
              */
-            interface nextKey { (): void }
+            interface nextKey {
+                (): void;
+            }
             /**
              *
              */
-            interface redo { (): void }
+            interface redo {
+                (): void;
+            }
             /**
              *
              * @param annotation
              */
-            interface remove { (annotation: any): void }
+            interface remove {
+                (annotation: any): void;
+            }
             /**
              *
              */
-            interface serialize { (): void }
+            interface serialize {
+                (): void;
+            }
             /**
              *
              * @param t
              */
-            interface setTool { (t: dojox.sketch._Plugin): void }
+            interface setTool {
+                (t: dojox.sketch._Plugin): void;
+            }
             /**
              *
              * @param text
              */
-            interface setValue { (text: any): void }
+            interface setValue {
+                (text: any): void;
+            }
             /**
              *
              */
-            interface undo { (): void }
+            interface undo {
+                (): void;
+            }
             /**
              *
              */
-            interface unzoom { (): void }
+            interface unzoom {
+                (): void;
+            }
             /**
              *
              * @param pct
              */
-            interface zoom { (pct: any): void }
+            interface zoom {
+                (pct: any): void;
+            }
         }
 
         /**
@@ -1626,43 +1797,61 @@ declare namespace dojox {
          * @param figure
          * @param id
          */
-        interface LeadAnnotation { (figure: any, id: any): void }
+        interface LeadAnnotation {
+            (figure: any, id: any): void;
+        }
         namespace LeadAnnotation {
             /**
              *
              * @param obj
              */
-            interface apply { (obj: any): void }
+            interface apply {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface destroy { (): void }
-            /**
-             *
-             * @param obj
-             */
-            interface draw { (obj: any): void }
-            /**
-             *
-             */
-            interface getBBox { (): void }
-            /**
-             *
-             */
-            interface getType { (): void }
+            interface destroy {
+                (): void;
+            }
             /**
              *
              * @param obj
              */
-            interface initialize { (obj: any): void }
+            interface draw {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface serialize { (): void }
+            interface getBBox {
+                (): void;
+            }
             /**
              *
              */
-            interface type { (): void }
+            interface getType {
+                (): void;
+            }
+            /**
+             *
+             * @param obj
+             */
+            interface initialize {
+                (obj: any): void;
+            }
+            /**
+             *
+             */
+            interface serialize {
+                (): void;
+            }
+            /**
+             *
+             */
+            interface type {
+                (): void;
+            }
         }
 
         /**
@@ -1672,48 +1861,68 @@ declare namespace dojox {
          * @param figure
          * @param id
          */
-        interface PreexistingAnnotation { (figure: any, id: any): void }
+        interface PreexistingAnnotation {
+            (figure: any, id: any): void;
+        }
         namespace PreexistingAnnotation {
             /**
              *
              * @param obj
              */
-            interface apply { (obj: any): void }
+            interface apply {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface destroy { (): void }
-            /**
-             *
-             * @param obj
-             */
-            interface draw { (obj: any): void }
-            /**
-             *
-             */
-            interface getBBox { (): void }
-            /**
-             *
-             */
-            interface getType { (): void }
+            interface destroy {
+                (): void;
+            }
             /**
              *
              * @param obj
              */
-            interface initialize { (obj: any): void }
+            interface draw {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface serialize { (): void }
+            interface getBBox {
+                (): void;
+            }
             /**
              *
              */
-            interface type { (): void }
+            interface getType {
+                (): void;
+            }
+            /**
+             *
+             * @param obj
+             */
+            interface initialize {
+                (obj: any): void;
+            }
+            /**
+             *
+             */
+            interface serialize {
+                (): void;
+            }
+            /**
+             *
+             */
+            interface type {
+                (): void;
+            }
             /**
              *
              * @param pct
              */
-            interface zoom { (pct: any): void }
+            interface zoom {
+                (pct: any): void;
+            }
         }
 
         /**
@@ -1723,48 +1932,68 @@ declare namespace dojox {
          * @param figure
          * @param id
          */
-        interface SingleArrowAnnotation { (figure: any, id: any): void }
+        interface SingleArrowAnnotation {
+            (figure: any, id: any): void;
+        }
         namespace SingleArrowAnnotation {
             /**
              *
              * @param obj
              */
-            interface apply { (obj: any): void }
+            interface apply {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface destroy { (): void }
-            /**
-             *
-             * @param obj
-             */
-            interface draw { (obj: any): void }
-            /**
-             *
-             */
-            interface getBBox { (): void }
-            /**
-             *
-             */
-            interface getType { (): void }
+            interface destroy {
+                (): void;
+            }
             /**
              *
              * @param obj
              */
-            interface initialize { (obj: any): void }
+            interface draw {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface serialize { (): void }
+            interface getBBox {
+                (): void;
+            }
             /**
              *
              */
-            interface type { (): void }
+            interface getType {
+                (): void;
+            }
+            /**
+             *
+             * @param obj
+             */
+            interface initialize {
+                (obj: any): void;
+            }
+            /**
+             *
+             */
+            interface serialize {
+                (): void;
+            }
+            /**
+             *
+             */
+            interface type {
+                (): void;
+            }
             /**
              *
              * @param pct
              */
-            interface zoom { (pct: any): void }
+            interface zoom {
+                (pct: any): void;
+            }
         }
 
         /**
@@ -1774,127 +2003,145 @@ declare namespace dojox {
          * @param figure
          * @param id
          */
-        interface UnderlineAnnotation { (figure: any, id: any): void }
+        interface UnderlineAnnotation {
+            (figure: any, id: any): void;
+        }
         namespace UnderlineAnnotation {
             /**
              *
              * @param obj
              */
-            interface apply { (obj: any): void }
+            interface apply {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface destroy { (): void }
-            /**
-             *
-             * @param obj
-             */
-            interface draw { (obj: any): void }
-            /**
-             *
-             */
-            interface getBBox { (): void }
-            /**
-             *
-             */
-            interface getType { (): void }
+            interface destroy {
+                (): void;
+            }
             /**
              *
              * @param obj
              */
-            interface initialize { (obj: any): void }
+            interface draw {
+                (obj: any): void;
+            }
             /**
              *
              */
-            interface serialize { (): void }
+            interface getBBox {
+                (): void;
+            }
             /**
              *
              */
-            interface type { (): void }
+            interface getType {
+                (): void;
+            }
+            /**
+             *
+             * @param obj
+             */
+            interface initialize {
+                (obj: any): void;
+            }
+            /**
+             *
+             */
+            interface serialize {
+                (): void;
+            }
+            /**
+             *
+             */
+            interface type {
+                (): void;
+            }
             /**
              *
              * @param pct
              */
-            interface zoom { (pct: any): void }
+            interface zoom {
+                (pct: any): void;
+            }
         }
-
     }
-
 }
 
-declare module "dojox/sketch" {
-    var exp: dojox.sketch
-    export=exp;
+declare module 'dojox/sketch' {
+    var exp: dojox.sketch;
+    export = exp;
 }
-declare module "dojox/sketch/_Plugin" {
-    var exp: dojox.sketch._Plugin
-    export=exp;
+declare module 'dojox/sketch/_Plugin' {
+    var exp: dojox.sketch._Plugin;
+    export = exp;
 }
-declare module "dojox/sketch/Slider" {
-    var exp: dojox.sketch.Slider
-    export=exp;
+declare module 'dojox/sketch/Slider' {
+    var exp: dojox.sketch.Slider;
+    export = exp;
 }
-declare module "dojox/sketch/UndoStack" {
-    var exp: dojox.sketch.UndoStack
-    export=exp;
+declare module 'dojox/sketch/UndoStack' {
+    var exp: dojox.sketch.UndoStack;
+    export = exp;
 }
-declare module "dojox/sketch/Toolbar" {
-    var exp: dojox.sketch.Toolbar
-    export=exp;
+declare module 'dojox/sketch/Toolbar' {
+    var exp: dojox.sketch.Toolbar;
+    export = exp;
 }
-declare module "dojox/sketch/Anchor" {
-    var exp: dojox.sketch.Anchor
-    export=exp;
+declare module 'dojox/sketch/Anchor' {
+    var exp: dojox.sketch.Anchor;
+    export = exp;
 }
-declare module "dojox/sketch/Annotation" {
-    var exp: dojox.sketch.Annotation
-    export=exp;
+declare module 'dojox/sketch/Annotation' {
+    var exp: dojox.sketch.Annotation;
+    export = exp;
 }
-declare module "dojox/sketch/Annotation.Modes" {
-    var exp: dojox.sketch.Annotation.Modes
-    export=exp;
+declare module 'dojox/sketch/Annotation.Modes' {
+    var exp: dojox.sketch.Annotation.Modes;
+    export = exp;
 }
-declare module "dojox/sketch/DoubleArrowAnnotation" {
-    var exp: dojox.sketch.DoubleArrowAnnotation
-    export=exp;
+declare module 'dojox/sketch/DoubleArrowAnnotation' {
+    var exp: dojox.sketch.DoubleArrowAnnotation;
+    export = exp;
 }
-declare module "dojox/sketch/DoubleArrowAnnotation.control" {
-    var exp: dojox.sketch.DoubleArrowAnnotation.control
-    export=exp;
+declare module 'dojox/sketch/DoubleArrowAnnotation.control' {
+    var exp: dojox.sketch.DoubleArrowAnnotation.control;
+    export = exp;
 }
-declare module "dojox/sketch/DoubleArrowAnnotation.start" {
-    var exp: dojox.sketch.DoubleArrowAnnotation.start
-    export=exp;
+declare module 'dojox/sketch/DoubleArrowAnnotation.start' {
+    var exp: dojox.sketch.DoubleArrowAnnotation.start;
+    export = exp;
 }
-declare module "dojox/sketch/DoubleArrowAnnotation.textPosition" {
-    var exp: dojox.sketch.DoubleArrowAnnotation.textPosition
-    export=exp;
+declare module 'dojox/sketch/DoubleArrowAnnotation.textPosition' {
+    var exp: dojox.sketch.DoubleArrowAnnotation.textPosition;
+    export = exp;
 }
-declare module "dojox/sketch/DoubleArrowAnnotation.transform" {
-    var exp: dojox.sketch.DoubleArrowAnnotation.transform
-    export=exp;
+declare module 'dojox/sketch/DoubleArrowAnnotation.transform' {
+    var exp: dojox.sketch.DoubleArrowAnnotation.transform;
+    export = exp;
 }
-declare module "dojox/sketch/DoubleArrowAnnotation.end" {
-    var exp: dojox.sketch.DoubleArrowAnnotation.end
-    export=exp;
+declare module 'dojox/sketch/DoubleArrowAnnotation.end' {
+    var exp: dojox.sketch.DoubleArrowAnnotation.end;
+    export = exp;
 }
-declare module "dojox/sketch/Figure" {
-    var exp: dojox.sketch.Figure
-    export=exp;
+declare module 'dojox/sketch/Figure' {
+    var exp: dojox.sketch.Figure;
+    export = exp;
 }
-declare module "dojox/sketch/PreexistingAnnotation" {
-    var exp: dojox.sketch.PreexistingAnnotation
-    export=exp;
+declare module 'dojox/sketch/PreexistingAnnotation' {
+    var exp: dojox.sketch.PreexistingAnnotation;
+    export = exp;
 }
-declare module "dojox/sketch/LeadAnnotation" {
-    var exp: dojox.sketch.LeadAnnotation
-    export=exp;
+declare module 'dojox/sketch/LeadAnnotation' {
+    var exp: dojox.sketch.LeadAnnotation;
+    export = exp;
 }
-declare module "dojox/sketch/SingleArrowAnnotation" {
-    var exp: dojox.sketch.SingleArrowAnnotation
-    export=exp;
+declare module 'dojox/sketch/SingleArrowAnnotation' {
+    var exp: dojox.sketch.SingleArrowAnnotation;
+    export = exp;
 }
-declare module "dojox/sketch/UnderlineAnnotation" {
-    var exp: dojox.sketch.UnderlineAnnotation
-    export=exp;
+declare module 'dojox/sketch/UnderlineAnnotation' {
+    var exp: dojox.sketch.UnderlineAnnotation;
+    export = exp;
 }

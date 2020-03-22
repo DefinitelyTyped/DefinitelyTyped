@@ -1,10 +1,10 @@
 /// tests originate from https://github.com/planttheidea/hash-it
 
-import hash from "hash-it";
+import hash from 'hash-it';
 
-const foo = { foo: "bar"};
-const alsoFoo = {foo: "bar"};
-const stillFoo = { foo: "bar"};
+const foo = { foo: 'bar' };
+const alsoFoo = { foo: 'bar' };
+const stillFoo = { foo: 'bar' };
 
 hash(foo);
 
@@ -21,7 +21,7 @@ const isAllFoo = hash.is.all(foo);
 isAllFoo(alsoFoo, stillFoo);
 
 const nopeBar = {
-    bar: "baz"
+    bar: 'baz',
 };
 
 hash.is.any(foo, alsoFoo);

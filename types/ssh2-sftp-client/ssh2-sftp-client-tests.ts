@@ -3,12 +3,14 @@ import * as fs from 'fs';
 
 const client = new Client();
 
-client.connect({
-    host: 'asdb',
-    port: 1234,
-    privateKey: 'my private key rsa in openssh format',
-    readyTimeout: 1000,
-}).then(() => null);
+client
+    .connect({
+        host: 'asdb',
+        port: 1234,
+        privateKey: 'my private key rsa in openssh format',
+        readyTimeout: 1000,
+    })
+    .then(() => null);
 
 client.list('/remote/path').then(() => null);
 

@@ -1,10 +1,9 @@
-import needle = require("needle");
+import needle = require('needle');
 
 function Usage() {
     // using callback
     needle.get('http://ifconfig.me/all.json', function (error, response) {
-        if (!error)
-            console.log(response.body.ip_addr); // JSON decoding magic. :)
+        if (!error) console.log(response.body.ip_addr); // JSON decoding magic. :)
     });
 
     // using streams
@@ -21,7 +20,7 @@ function ResponsePipeline() {
     var options = {
         compressed: true,
         follow: 5,
-        rejectUnauthorized: true
+        rejectUnauthorized: true,
     };
 
     // in this case, we'll ask Needle to follow redirects (disabled by default),
@@ -30,7 +29,7 @@ function ResponsePipeline() {
 
     stream.on('readable', function () {
         var data: any;
-        while (data = stream.read()) {
+        while ((data = stream.read())) {
             console.log(data.toString());
         }
     });
@@ -38,14 +37,13 @@ function ResponsePipeline() {
 
 function API_head() {
     var options = {
-        timeout: 5000 // if we don't get a response in 5 seconds, boom.
+        timeout: 5000, // if we don't get a response in 5 seconds, boom.
     };
 
     needle.head('https://my.backend.server.com', function (err, resp) {
         if (err) {
             console.log('Shoot! Something is wrong: ' + err.message);
-        }
-        else {
+        } else {
             console.log('Yup, still alive.');
         }
     });
@@ -59,7 +57,7 @@ function API_get() {
 
 function API_post() {
     var options = {
-        headers: { 'X-Custom-Header': 'Bumbaway atuna' }
+        headers: { 'X-Custom-Header': 'Bumbaway atuna' },
     };
 
     needle.post('https://my.app.com/endpoint', 'foo=bar', options, function (err, resp) {
@@ -71,20 +69,20 @@ function API_put() {
     var nested = {
         params: {
             are: {
-                also: 'supported'
-            }
-        }
+                also: 'supported',
+            },
+        },
     };
 
     needle.put('https://api.app.com/v2', nested, function (err, resp) {
-        console.log('Got ' + resp.bytes + ' bytes.') // another nice treat from this handsome fella.
+        console.log('Got ' + resp.bytes + ' bytes.'); // another nice treat from this handsome fella.
     });
 }
 
 function API_delete() {
     var options = {
         username: 'fidelio',
-        password: 'x'
+        password: 'x',
     };
 
     needle.delete('https://api.app.com/messages/123', null, options, function (err, resp) {
@@ -96,11 +94,10 @@ function API_request() {
     var data = {
         q: 'a very smart query',
         page: 2,
-        format: 'json'
+        format: 'json',
     };
 
     needle.request('get', 'forum.com/search', data, function (err, resp) {
-        if (!err && resp.statusCode == 200)
-            console.log(resp.body); // here you go, mister.
+        if (!err && resp.statusCode == 200) console.log(resp.body); // here you go, mister.
     });
 }

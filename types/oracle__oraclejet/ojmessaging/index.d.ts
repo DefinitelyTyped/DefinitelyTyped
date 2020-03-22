@@ -10,6 +10,6 @@ declare class Message {
 }
 declare namespace Message {
     type SEVERITY_LEVEL = 5 | 4 | 3 | 2 | 1;
-    type SEVERITY_TYPE = "confirmation" | "info" | "warning" | "error" | "fatal";
+    type SEVERITY_TYPE = 'confirmation' | 'info' | 'warning' | 'error' | 'fatal';
 }
 export = Message;

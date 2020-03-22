@@ -10,11 +10,11 @@
 
 When a new function has been published by ramda
 
-- Add the function type to `index.d.ts`
-- Add documentation for it, copied from ramda's website
-- Add your entry import/re-export in `es` & `src` folders
-- Add `es/<function>` & `src/<function>` to `OTHER_FILES.txt`
-- Write some tests by following the instructions below
+-   Add the function type to `index.d.ts`
+-   Add documentation for it, copied from ramda's website
+-   Add your entry import/re-export in `es` & `src` folders
+-   Add `es/<function>` & `src/<function>` to `OTHER_FILES.txt`
+-   Write some tests by following the instructions below
 
 ### Tests
 
@@ -25,11 +25,7 @@ As a rule, the goal of each test file is to prove that the corresponding functio
 For instance, the following:
 
 ```ts
-R.pipe(
-  R.add(2),
-  R.add(3),
-  R.add(4),
-);
+R.pipe(R.add(2), R.add(3), R.add(4));
 ```
 
 tests `R.pipe`, _not_ `R.add`. So it belongs in `test/pipe-tests.ts` rather than `test/map-tests.ts`.

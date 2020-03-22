@@ -1,5 +1,5 @@
-import * as fs from "fs";
-import * as profiler from "v8-profiler";
+import * as fs from 'fs';
+import * as profiler from 'v8-profiler';
 
 {
     var snapshot1 = profiler.takeSnapshot('1');
@@ -28,9 +28,7 @@ import * as profiler from "v8-profiler";
     });
 
     // Export snapshot to file stream
-    snapshot2.export()
-        .pipe(fs.createWriteStream('snapshot2.json'))
-        .on('finish', snapshot2.delete);
+    snapshot2.export().pipe(fs.createWriteStream('snapshot2.json')).on('finish', snapshot2.delete);
 }
 {
     profiler.startProfiling('1', true);
@@ -45,7 +43,8 @@ import * as profiler from "v8-profiler";
         profile1.delete();
     });
 
-    profile2.export()
+    profile2
+        .export()
         .pipe(fs.createWriteStream('profile2.json'))
         .on('finish', function () {
             profile2.delete();

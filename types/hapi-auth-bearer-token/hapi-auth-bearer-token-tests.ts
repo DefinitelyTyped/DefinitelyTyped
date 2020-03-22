@@ -9,7 +9,7 @@ const start = async () => {
     await server.register(AuthBearer);
 
     server.auth.strategy('simple', 'bearer-access-token', {
-        allowQueryToken: true,              // optional, false by default
+        allowQueryToken: true, // optional, false by default
         validate: (async (request, token, h) => {
             // here is where you validate your token
             // comparing with token from your database for example
@@ -19,7 +19,7 @@ const start = async () => {
             const artifacts = { test: 'info' };
 
             return { isValid, credentials, artifacts };
-        }) as AuthBearer.Validate
+        }) as AuthBearer.Validate,
     });
 
     server.auth.default('simple');
@@ -29,7 +29,7 @@ const start = async () => {
         path: '/',
         handler: async (request, h) => {
             return { info: 'success!' };
-        }
+        },
     });
 
     await server.start();
@@ -39,7 +39,7 @@ const start = async () => {
 
 start()
     .then((server) => console.log(`Server listening on ${server.info.uri}`))
-    .catch(err => {
+    .catch((err) => {
         console.error(err);
         process.exit(1);
     });

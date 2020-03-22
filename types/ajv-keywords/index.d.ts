@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import { Ajv } from "ajv";
+import { Ajv } from 'ajv';
 
-export { };
+export {};
 
 /**
  * Defines one or several keywords in ajv instance

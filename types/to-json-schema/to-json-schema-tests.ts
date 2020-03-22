@@ -74,7 +74,10 @@ import toJsonSchema = require('to-json-schema');
     */
 }
 {
-    const arr = [{ name: 'john', grades: [1, 2, 3] }, { name: 'david', grades: ['a', 'b', 'c'] }];
+    const arr = [
+        { name: 'john', grades: [1, 2, 3] },
+        { name: 'david', grades: ['a', 'b', 'c'] },
+    ];
     // $ExpectType JSONSchema3or4
     toJsonSchema(arr, { arrays: { mode: 'all' } });
     /*

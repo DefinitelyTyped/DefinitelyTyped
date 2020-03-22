@@ -1,4 +1,4 @@
-import * as EventEmitter from "micro-events";
+import * as EventEmitter from 'micro-events';
 
 const myEventEmitter = new EventEmitter();
 

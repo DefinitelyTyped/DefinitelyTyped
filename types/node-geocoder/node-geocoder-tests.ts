@@ -7,13 +7,16 @@ const geocoder = NodeGeocoder({
 
 let results: NodeGeocoder.Entry[] | undefined;
 
-geocoder.geocode('Poland').then((entries) => {
-    results = entries;
-}).then(() => {
-    if (results) {
-        console.log(JSON.stringify(results, null, 2));
-    }
-});
+geocoder
+    .geocode('Poland')
+    .then((entries) => {
+        results = entries;
+    })
+    .then(() => {
+        if (results) {
+            console.log(JSON.stringify(results, null, 2));
+        }
+    });
 
 geocoder.geocode('Poland', (err: any, entries: NodeGeocoder.Entry[]) => {
     console.log(JSON.stringify(entries, null, 2));
@@ -33,7 +36,7 @@ geocoder.geocode('Austin, TX, USA', (err: any, entries: NodeGeocoder.Entry[]) =>
     console.log(JSON.stringify(entries, null, 2));
 });
 
-geocoder.batchGeocode([ 'Kraków', 'Warszawa' ]).then((entries) => {
+geocoder.batchGeocode(['Kraków', 'Warszawa']).then((entries) => {
     if (entries.length !== 2) {
         return;
     }

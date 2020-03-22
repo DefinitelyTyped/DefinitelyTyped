@@ -93,6 +93,6 @@ declare namespace M {
 }
 
 interface JQuery {
-    materialbox(method: keyof Pick<M.Materialbox, "destroy" | "open" | "close">): JQuery;
+    materialbox(method: keyof Pick<M.Materialbox, 'destroy' | 'open' | 'close'>): JQuery;
     materialbox(options?: Partial<M.MaterialboxOptions>): JQuery;
 }

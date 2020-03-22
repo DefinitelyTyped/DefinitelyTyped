@@ -5,7 +5,7 @@ function withTemplateUrl() {
     btfModal({
         controller: 'SomeController',
         controllerAs: 'vm',
-        templateUrl: 'some-template.html'
+        templateUrl: 'some-template.html',
     });
 }
 
@@ -14,7 +14,7 @@ function withTemplate() {
     btfModal({
         controller: 'SomeController',
         controllerAs: 'vm',
-        template: '<div></div>'
+        template: '<div></div>',
     });
 }
 
@@ -22,18 +22,18 @@ function withTemplate() {
 function withControllerAsFunction() {
     btfModal({
         controller: function () {},
-        template: '<div></div>'
-    })
+        template: '<div></div>',
+    });
 }
 
 // Using constructor function
 function withControllerClass() {
     class TestController {
-        constructor(dependency1:any, dependency2:any) {}
+        constructor(dependency1: any, dependency2: any) {}
     }
     btfModal({
         controller: TestController,
-        template: '<div></div>'
+        template: '<div></div>',
     });
 }
 
@@ -41,7 +41,7 @@ function withControllerClass() {
 function withContainerAsString() {
     btfModal({
         template: '<div></div>',
-        container: '.container'
+        container: '.container',
     });
 }
 
@@ -50,7 +50,7 @@ function withContainerAsJquery() {
     var container: JQuery = angular.element('body');
     btfModal({
         template: '<div></div>',
-        container: container
+        container: container,
     });
 }
 
@@ -59,7 +59,7 @@ function withContainerAsDom() {
     var container: Element = document.getElementById('container');
     btfModal({
         template: '<div></div>',
-        container: container
+        container: container,
     });
 }
 
@@ -68,7 +68,7 @@ function withContainerAsDomArray() {
     var container: Element[] = [document.getElementById('container'), document.getElementById('container2')];
     btfModal({
         template: '<div></div>',
-        container: container
+        container: container,
     });
 }
 
@@ -76,7 +76,7 @@ function withContainerAsDomArray() {
 function withContainerAsFunction() {
     btfModal({
         template: '<div></div>',
-        container: function() {}
+        container: function () {},
     });
 }
 
@@ -84,21 +84,34 @@ function withContainerAsFunction() {
 function withContainerAsArray() {
     btfModal({
         template: '<div></div>',
-        container: ['1', 2]
+        container: ['1', 2],
     });
 }
 
 // Calling return values
 function callingValues() {
     var modal: angularModal.AngularModal = btfModal({
-        template: '<div></div>'
+        template: '<div></div>',
     });
-    modal.activate().then(() => {}, () => {});
+    modal.activate().then(
+        () => {},
+        () => {},
+    );
     // activating with random locals
-    modal.activate({name: 'TestName'}).then(() => {}, () => {});
+    modal.activate({ name: 'TestName' }).then(
+        () => {},
+        () => {},
+    );
     // activating with genericly typed locals
-    modal.activate<{name: string}>({name: 'TestName'}).then(() => {}, () => {});
-    modal.deactivate().then(() => {}, () => {});
+    modal
+        .activate<{ name: string }>({ name: 'TestName' })
+        .then(
+            () => {},
+            () => {},
+        );
+    modal.deactivate().then(
+        () => {},
+        () => {},
+    );
     var isActive: boolean = modal.active();
 }
-

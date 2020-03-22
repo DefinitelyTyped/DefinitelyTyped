@@ -8,12 +8,12 @@
 /// <reference types="node" />
 
 /**
-* TODO
-*/
+ * TODO
+ */
 
-import events = require("events");
-import stream = require("stream");
-import url = require("url");
+import events = require('events');
+import stream = require('stream');
+import url = require('url');
 
 //#region Services
 export declare class TableService extends BatchServiceClient {
@@ -25,33 +25,33 @@ export declare class TableService extends BatchServiceClient {
     //#region Constructors
 
     /**
-    * Creates a new TableService object.
-    * Uses the AZURE_STORAGE_ACCOUNT and AZURE_STORAGE_ACCESS_KEY environment variables.
-    *
-    * @constructor
-    * @extends {ServiceClient}
-    */
+     * Creates a new TableService object.
+     * Uses the AZURE_STORAGE_ACCOUNT and AZURE_STORAGE_ACCESS_KEY environment variables.
+     *
+     * @constructor
+     * @extends {ServiceClient}
+     */
     constructor();
     /**
-    * Creates a new TableService object.
-    * Uses a connectionString to connect
-    *
-    * @constructor
-    * @extends {ServiceClient}
-    * @param {string} connectionString The connection string.
-    */
+     * Creates a new TableService object.
+     * Uses a connectionString to connect
+     *
+     * @constructor
+     * @extends {ServiceClient}
+     * @param {string} connectionString The connection string.
+     */
     constructor(connectionString: string);
     /**
-    * Creates a new TableService object.
-    * Uses a storage account and an access key.
-    *
-    * @constructor
-    * @extends {ServiceClient}
-    * @param {string} storageAccount                    The storage account or the connection string.
-    * @param {string} storageAccessKey                  The storage access key.
-    * @param {string} host                              The host address.
-    * @param {object} authenticationProvider            The authentication provider.
-    */
+     * Creates a new TableService object.
+     * Uses a storage account and an access key.
+     *
+     * @constructor
+     * @extends {ServiceClient}
+     * @param {string} storageAccount                    The storage account or the connection string.
+     * @param {string} storageAccessKey                  The storage access key.
+     * @param {string} host                              The host address.
+     * @param {object} authenticationProvider            The authentication provider.
+     */
     constructor(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string);
 
     //#endregion
@@ -62,7 +62,11 @@ export declare class TableService extends BatchServiceClient {
     getServiceProperties(options: TimeoutIntervalOptions, callback: StorageServicePropertiesCallback): void;
 
     setServiceProperties(serviceProperties: StorageServiceProperties, callback: StorageCallbackVoid): void;
-    setServiceProperties(serviceProperties: StorageServiceProperties, options: TimeoutIntervalOptions, callback: StorageCallbackVoid): void;
+    setServiceProperties(
+        serviceProperties: StorageServiceProperties,
+        options: TimeoutIntervalOptions,
+        callback: StorageCallbackVoid,
+    ): void;
 
     //#endregion
 
@@ -75,7 +79,11 @@ export declare class TableService extends BatchServiceClient {
     createTable(table: string, options: TimeoutIntervalOptions, callback?: TableRequestCallback): void;
 
     createTableIfNotExists(table: string, callback?: CreateTableIfNotExistsCallback): void;
-    createTableIfNotExists(table: string, options: TimeoutIntervalOptions, callback?: CreateTableIfNotExistsCallback): void;
+    createTableIfNotExists(
+        table: string,
+        options: TimeoutIntervalOptions,
+        callback?: CreateTableIfNotExistsCallback,
+    ): void;
 
     deleteTable(table: string, callback?: DeleteTableCallback): void;
     deleteTable(table: string, options: TimeoutIntervalOptions, callback?: DeleteTableCallback): void;
@@ -88,28 +96,64 @@ export declare class TableService extends BatchServiceClient {
     //#region Entities Methods
 
     queryEntity(table: string, partitionKey: string, rowKey: string, callback?: QueryEntityCallback): void;
-    queryEntity(table: string, partitionKey: string, rowKey: string, options: TimeoutIntervalOptions, callback?: QueryEntityCallback): void;
+    queryEntity(
+        table: string,
+        partitionKey: string,
+        rowKey: string,
+        options: TimeoutIntervalOptions,
+        callback?: QueryEntityCallback,
+    ): void;
 
     queryEntities(tableQuery: TableQuery, callback?: QueryEntitiesCallback): void;
     queryEntities(tableQuery: TableQuery, options: TimeoutIntervalOptions, callback?: QueryEntitiesCallback): void;
 
     insertEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
-    insertEntity(tableName: string, entityDescriptor: Entity, options: TimeoutIntervalOptions, callback?: ModifyEntityCallback): void;
+    insertEntity(
+        tableName: string,
+        entityDescriptor: Entity,
+        options: TimeoutIntervalOptions,
+        callback?: ModifyEntityCallback,
+    ): void;
 
     insertOrReplaceEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
-    insertOrReplaceEntity(tableName: string, entityDescriptor: Entity, options: TimeoutIntervalOptions, callback?: ModifyEntityCallback): void;
+    insertOrReplaceEntity(
+        tableName: string,
+        entityDescriptor: Entity,
+        options: TimeoutIntervalOptions,
+        callback?: ModifyEntityCallback,
+    ): void;
 
     updateEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
-    updateEntity(tableName: string, entityDescriptor: Entity, options: UpdateEntityOptions, callback?: ModifyEntityCallback): void;
+    updateEntity(
+        tableName: string,
+        entityDescriptor: Entity,
+        options: UpdateEntityOptions,
+        callback?: ModifyEntityCallback,
+    ): void;
 
     mergeEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
-    mergeEntity(tableName: string, entityDescriptor: Entity, options: UpdateEntityOptions, callback?: ModifyEntityCallback): void;
+    mergeEntity(
+        tableName: string,
+        entityDescriptor: Entity,
+        options: UpdateEntityOptions,
+        callback?: ModifyEntityCallback,
+    ): void;
 
     insertOrMergeEntity(tableName: string, entityDescriptor: Entity, callback?: ModifyEntityCallback): void;
-    insertOrMergeEntity(tableName: string, entityDescriptor: Entity, options: UpdateEntityOptions, callback?: ModifyEntityCallback): void;
+    insertOrMergeEntity(
+        tableName: string,
+        entityDescriptor: Entity,
+        options: UpdateEntityOptions,
+        callback?: ModifyEntityCallback,
+    ): void;
 
     deleteEntity(tableName: string, entityDescriptor: Entity, callback?: DeleteEntityCallback): void;
-    deleteEntity(tableName: string, entityDescriptor: Entity, options: UpdateEntityOptions, callback?: DeleteEntityCallback): void;
+    deleteEntity(
+        tableName: string,
+        entityDescriptor: Entity,
+        options: UpdateEntityOptions,
+        callback?: DeleteEntityCallback,
+    ): void;
 
     //#endregion
 }
@@ -123,35 +167,35 @@ export declare class BlobService extends StorageServiceClient {
     //#region Constructors
 
     /**
-    * Creates a new BlobService object.
-    * Uses the AZURE_STORAGE_ACCOUNT and AZURE_STORAGE_ACCESS_KEY environment variables.
-    *
-    * @constructor
-    * @extends {StorageServiceClient}
-    */
+     * Creates a new BlobService object.
+     * Uses the AZURE_STORAGE_ACCOUNT and AZURE_STORAGE_ACCESS_KEY environment variables.
+     *
+     * @constructor
+     * @extends {StorageServiceClient}
+     */
     constructor();
 
     /**
-    * Creates a new BlobService object.
-    * Uses a connectionString to connect
-    *
-    * @constructor
-    * @extends {StorageServiceClient}
-    * @param {string} connectionString The connection string.
-    */
+     * Creates a new BlobService object.
+     * Uses a connectionString to connect
+     *
+     * @constructor
+     * @extends {StorageServiceClient}
+     * @param {string} connectionString The connection string.
+     */
     constructor(connectionString: string);
 
     /**
-    * Creates a new BlobService object.
-    * Uses a storage account and an access key.
-    *
-    * @constructor
-    * @extends {StorageServiceClient}
-    * @param {string} storageAccount                    The storage account or the connection string.
-    * @param {string} storageAccessKey                  The storage access key.
-    * @param {string} host                              The host address.
-    * @param {object} sasToken                          The Shared Access Signature token.
-    */
+     * Creates a new BlobService object.
+     * Uses a storage account and an access key.
+     *
+     * @constructor
+     * @extends {StorageServiceClient}
+     * @param {string} storageAccount                    The storage account or the connection string.
+     * @param {string} storageAccessKey                  The storage access key.
+     * @param {string} host                              The host address.
+     * @param {object} sasToken                          The Shared Access Signature token.
+     */
     constructor(storageAccount: string, storageAccessKey: string, host?: string, sasToken?: string);
 
     //#endregion
@@ -159,25 +203,29 @@ export declare class BlobService extends StorageServiceClient {
     //#region Service Methods
 
     /**
-    * Gets the properties of a storage account's Blob service, including Azure Storage Analytics.
-    */
+     * Gets the properties of a storage account's Blob service, including Azure Storage Analytics.
+     */
     getServiceProperties(callback: StorageServicePropertiesCallback): void;
     getServiceProperties(options: TimeoutIntervalOptions, callback: StorageServicePropertiesCallback): void;
 
     /**
-    * Sets the properties of a storage account's Blob service, including Azure Storage Analytics.
-    * You can also use this operation to set the default request version for all incoming requests that do not have a version specified.
-    */
+     * Sets the properties of a storage account's Blob service, including Azure Storage Analytics.
+     * You can also use this operation to set the default request version for all incoming requests that do not have a version specified.
+     */
     setServiceProperties(serviceProperties: StorageServiceProperties, callback: StorageCallbackVoid): void;
-    setServiceProperties(serviceProperties: StorageServiceProperties, options: TimeoutIntervalOptions, callback: StorageCallbackVoid): void;
+    setServiceProperties(
+        serviceProperties: StorageServiceProperties,
+        options: TimeoutIntervalOptions,
+        callback: StorageCallbackVoid,
+    ): void;
 
     //#endregion
 
     //#region Containers Methods
 
     /**
-    * Lists a segment containing a collection of container items under the specified account.
-    */
+     * Lists a segment containing a collection of container items under the specified account.
+     */
     listContainers(callback: ListContainersCallback): void;
     listContainers(options: ListContainersOptions, callback: ListContainersCallback): void;
 
@@ -186,43 +234,77 @@ export declare class BlobService extends StorageServiceClient {
      * If a container with the same name already exists, the operation fails.
      */
     createContainer(container: string, callback: StorageCallback<ContainerResult>): void;
-    createContainer(container: string, options: CreateContainerOptions, callback: StorageCallback<ContainerResult>): void;
+    createContainer(
+        container: string,
+        options: CreateContainerOptions,
+        callback: StorageCallback<ContainerResult>,
+    ): void;
 
     /**
      * Creates a new container under the specified account if the container does not exists.
      */
     createContainerIfNotExists(container: string, callback: StorageCallback<boolean>): void;
-    createContainerIfNotExists(container: string, options: CreateContainerOptions, callback: StorageCallback<boolean>): void;
+    createContainerIfNotExists(
+        container: string,
+        options: CreateContainerOptions,
+        callback: StorageCallback<boolean>,
+    ): void;
 
     /**
      * Retrieves a container and its properties from a specified account.
      */
     getContainerProperties(container: string, callback: StorageCallback<ContainerResult>): void;
-    getContainerProperties(container: string, options: GetContainerPropertiesOptions, callback: StorageCallback<ContainerResult>): void;
+    getContainerProperties(
+        container: string,
+        options: GetContainerPropertiesOptions,
+        callback: StorageCallback<ContainerResult>,
+    ): void;
 
     /**
      * Returns all user-defined metadata for the container.
      */
     getContainerMetadata(container: string, callback: StorageCallback<ContainerResult>): void;
-    getContainerMetadata(container: string, options: GetContainerPropertiesOptions, callback: StorageCallback<ContainerResult>): void;
+    getContainerMetadata(
+        container: string,
+        options: GetContainerPropertiesOptions,
+        callback: StorageCallback<ContainerResult>,
+    ): void;
 
     /**
      * Sets the container's metadata.
      */
-    setContainerMetadata(container: string, metadata: StorageMetadata, callback: StorageCallback<ContainerResult>): void;
-    setContainerMetadata(container: string, metadata: StorageMetadata, options: AccessConditionsOptions, callback: StorageCallback<ContainerResult>): void;
+    setContainerMetadata(
+        container: string,
+        metadata: StorageMetadata,
+        callback: StorageCallback<ContainerResult>,
+    ): void;
+    setContainerMetadata(
+        container: string,
+        metadata: StorageMetadata,
+        options: AccessConditionsOptions,
+        callback: StorageCallback<ContainerResult>,
+    ): void;
 
     /**
      * Gets the container's ACL.
      */
     getContainerAcl(container: string, callback: StorageCallback<ContainerResult>): void;
-    getContainerAcl(container: string, options: GetContainerPropertiesOptions, callback: StorageCallback<ContainerResult>): void;
+    getContainerAcl(
+        container: string,
+        options: GetContainerPropertiesOptions,
+        callback: StorageCallback<ContainerResult>,
+    ): void;
 
     /**
      * Updates the container's ACL.
      */
     setContainerAcl(container: string, publicAccessLevel: string, callback: StorageCallback<ContainerResult>): void;
-    setContainerAcl(container: string, publicAccessLevel: string, options: StorageAclOptions, callback: StorageCallback<ContainerResult>): void;
+    setContainerAcl(
+        container: string,
+        publicAccessLevel: string,
+        options: StorageAclOptions,
+        callback: StorageCallback<ContainerResult>,
+    ): void;
 
     /**
      * Marks the specified container for deletion.
@@ -236,8 +318,8 @@ export declare class BlobService extends StorageServiceClient {
     //#region Blob Methods
 
     /**
-    * Lists all of the blobs in the given container.
-    */
+     * Lists all of the blobs in the given container.
+     */
     listBlobs(container: string, callback: ListBlobsCallback): void;
     listBlobs(container: string, options: ListBlobsOptions, callback: ListBlobsCallback): void;
 
@@ -246,39 +328,82 @@ export declare class BlobService extends StorageServiceClient {
      * It does not return or modify the content of the blob.
      */
     getBlobProperties(container: string, blob: string, callback: StorageCallback<BlobResult>): void;
-    getBlobProperties(container: string, blob: string, options: GetBlobPropertiesOptions, callback: StorageCallback<BlobResult>): void;
+    getBlobProperties(
+        container: string,
+        blob: string,
+        options: GetBlobPropertiesOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     /**
      * Sets user-defined properties for the specified blob or snapshot.
      * It does not return or modify the content of the blob.
      */
     setBlobProperties(container: string, blob: string, callback: StorageCallback<BlobResult>): void;
-    setBlobProperties(container: string, blob: string, options: SetBlobPropertiesOptions, callback: StorageCallback<BlobResult>): void;
+    setBlobProperties(
+        container: string,
+        blob: string,
+        options: SetBlobPropertiesOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     /**
      * Sets user-defined metadata for the specified blob or snapshot as one or more name-value pairs
      * It does not return or modify the content of the blob.
      */
-    setBlobMetadata(container: string, blob: string, metadata: StorageMetadata, callback: StorageCallback<BlobResult>): void;
-    setBlobMetadata(container: string, blob: string, metadata: StorageMetadata, options: GetBlobPropertiesOptions, callback: StorageCallback<BlobResult>): void;
+    setBlobMetadata(
+        container: string,
+        blob: string,
+        metadata: StorageMetadata,
+        callback: StorageCallback<BlobResult>,
+    ): void;
+    setBlobMetadata(
+        container: string,
+        blob: string,
+        metadata: StorageMetadata,
+        options: GetBlobPropertiesOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     /**
      * Provides a stream to read from a blob.
      */
     getBlob(container: string, blob: string, callback: StorageCallback<BlobResult>): stream.Readable;
-    getBlob(container: string, blob: string, options: ReadBlobOptions, callback: StorageCallback<BlobResult>): stream.Readable;
+    getBlob(
+        container: string,
+        blob: string,
+        options: ReadBlobOptions,
+        callback: StorageCallback<BlobResult>,
+    ): stream.Readable;
 
     /**
      * Downloads a blob into a file.
      */
     getBlobToFile(container: string, blob: string, localFileName: string, callback: StorageCallback<BlobResult>): void;
-    getBlobToFile(container: string, blob: string, localFileName: string, options: ReadBlobOptions, callback: StorageCallback<BlobResult>): void;
+    getBlobToFile(
+        container: string,
+        blob: string,
+        localFileName: string,
+        options: ReadBlobOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     /**
      * Downloads a blob into a stream.
      */
-    getBlobToStream(container: string, blob: string, stream: stream.Writable, callback: StorageCallback<BlobResult>): void;
-    getBlobToStream(container: string, blob: string, stream: stream.Writable, options: ReadBlobOptions, callback: StorageCallback<BlobResult>): void;
+    getBlobToStream(
+        container: string,
+        blob: string,
+        stream: stream.Writable,
+        callback: StorageCallback<BlobResult>,
+    ): void;
+    getBlobToStream(
+        container: string,
+        blob: string,
+        stream: stream.Writable,
+        options: ReadBlobOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     /**
      * Downloads a blob into a text string.
@@ -300,24 +425,50 @@ export declare class BlobService extends StorageServiceClient {
      * Creates a read-only snapshot of a blob.
      */
     createBlobSnapshot(container: string, blob: string, callback: StorageCallback<string>): void;
-    createBlobSnapshot(container: string, blob: string, options: BlobSnapshotOptions, callback: StorageCallback<string>): void;
+    createBlobSnapshot(
+        container: string,
+        blob: string,
+        options: BlobSnapshotOptions,
+        callback: StorageCallback<string>,
+    ): void;
 
     /**
      * Starts to copy a blob to a destination within the storage account. The Copy Blob operation copies the entire committed blob.
      */
-    copyBlob(sourceUri: string, targetContainer: string, targetBlob: string, callback: StorageCallback<BlobResult>): void;
-    copyBlob(sourceUri: string, targetContainer: string, targetBlob: string, options: CopyBlobOptions, callback: StorageCallback<BlobResult>): void;
+    copyBlob(
+        sourceUri: string,
+        targetContainer: string,
+        targetBlob: string,
+        callback: StorageCallback<BlobResult>,
+    ): void;
+    copyBlob(
+        sourceUri: string,
+        targetContainer: string,
+        targetBlob: string,
+        options: CopyBlobOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     /**
      * Creates a read-only snapshot of a blob.
      */
     abortCopyBlob(container: string, blob: string, copyId: string, callback: StorageCallbackVoid): void;
-    abortCopyBlob(container: string, blob: string, copyId: string, options: LeaseIdOptions, callback: StorageCallbackVoid): void;
+    abortCopyBlob(
+        container: string,
+        blob: string,
+        copyId: string,
+        options: LeaseIdOptions,
+        callback: StorageCallbackVoid,
+    ): void;
 
     /**
      * Retrieves a shared access signature token.
      */
-    generateSharedAccessSignature(container: string, blob: string, sharedAccessPolicy: SharedAccessPolicy): SharedAccessSignatureResult;
+    generateSharedAccessSignature(
+        container: string,
+        blob: string,
+        sharedAccessPolicy: SharedAccessPolicy,
+    ): SharedAccessSignatureResult;
 
     /**
      * Retrieves a blob or container URL.
@@ -330,7 +481,13 @@ export declare class BlobService extends StorageServiceClient {
      * Uploads a blob.
      */
     createBlob(container: string, blob: string, blobType: string, callback: StorageCallback<string>): stream.Writable;
-    createBlob(container: string, blob: string, blobType: string, options: UploadBlockBlobOptions, callback: StorageCallback<string>): stream.Writable;
+    createBlob(
+        container: string,
+        blob: string,
+        blobType: string,
+        options: UploadBlockBlobOptions,
+        callback: StorageCallback<string>,
+    ): stream.Writable;
 
     //#endregion
 
@@ -340,44 +497,117 @@ export declare class BlobService extends StorageServiceClient {
      * Creates a page blob of the specified length.
      */
     createPageBlob(container: string, blob: string, length: number, callback: StorageCallbackVoid): void;
-    createPageBlob(container: string, blob: string, length: number, options: SetBlobPropertiesOptions, callback: StorageCallbackVoid): void;
+    createPageBlob(
+        container: string,
+        blob: string,
+        length: number,
+        options: SetBlobPropertiesOptions,
+        callback: StorageCallbackVoid,
+    ): void;
 
     /**
      * Updates a page blob from a stream.
      */
-    createBlobPagesFromStream(container: string, blob: string, readStream: stream.Readable, rangeStart: number, rangeEnd: number, callback: StorageCallback<BlobResult>): void;
-    createBlobPagesFromStream(container: string, blob: string, readStream: stream.Readable, rangeStart: number, rangeEnd: number, options: CreatePagesOptions, callback: StorageCallback<BlobResult>): void;
+    createBlobPagesFromStream(
+        container: string,
+        blob: string,
+        readStream: stream.Readable,
+        rangeStart: number,
+        rangeEnd: number,
+        callback: StorageCallback<BlobResult>,
+    ): void;
+    createBlobPagesFromStream(
+        container: string,
+        blob: string,
+        readStream: stream.Readable,
+        rangeStart: number,
+        rangeEnd: number,
+        options: CreatePagesOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     /**
      * Updates a page blob from a text string.
      */
-    createBlobPagesFromText(container: string, blob: string, text: string, rangeStart: number, rangeEnd: number, callback: StorageCallback<BlobResult>): void;
-    createBlobPagesFromText(container: string, blob: string, text: string, rangeStart: number, rangeEnd: number, options: CreatePagesOptions, callback: StorageCallback<BlobResult>): void;
+    createBlobPagesFromText(
+        container: string,
+        blob: string,
+        text: string,
+        rangeStart: number,
+        rangeEnd: number,
+        callback: StorageCallback<BlobResult>,
+    ): void;
+    createBlobPagesFromText(
+        container: string,
+        blob: string,
+        text: string,
+        rangeStart: number,
+        rangeEnd: number,
+        options: CreatePagesOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     /**
      * Lists page ranges.
      * Lists all of the page ranges by default, or only the page ranges over a specific range of bytes if rangeStart and rangeEnd are specified.
      */
     listBlobRegions(container: string, blob: string, callback: StorageCallback<PageRange[]>): void;
-    listBlobRegions(container: string, blob: string, options: PageRangeOptions, callback: StorageCallback<PageRange[]>): void;
+    listBlobRegions(
+        container: string,
+        blob: string,
+        options: PageRangeOptions,
+        callback: StorageCallback<PageRange[]>,
+    ): void;
 
     /**
      * Clears a range of pages.
      */
-    clearBlobPages(container: string, blob: string, rangeStart: number, rangeEnd: number, callback: StorageCallbackVoid): void;
-    clearBlobPages(container: string, blob: string, rangeStart: number, rangeEnd: number, options: LeaseAccessConditionsOptions, callback: StorageCallbackVoid): void;
+    clearBlobPages(
+        container: string,
+        blob: string,
+        rangeStart: number,
+        rangeEnd: number,
+        callback: StorageCallbackVoid,
+    ): void;
+    clearBlobPages(
+        container: string,
+        blob: string,
+        rangeStart: number,
+        rangeEnd: number,
+        options: LeaseAccessConditionsOptions,
+        callback: StorageCallbackVoid,
+    ): void;
 
     /**
      * Resizes a page blob.
      */
     resizePageBlob(container: string, blob: string, size: number, callback: StorageCallback<BlobResult>): void;
-    resizePageBlob(container: string, blob: string, size: number, options: LeaseAccessConditionsOptions, callback: StorageCallback<BlobResult>): void;
+    resizePageBlob(
+        container: string,
+        blob: string,
+        size: number,
+        options: LeaseAccessConditionsOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     /**
      * Sets the page blob's sequence number.
      */
-    setPageBlobSequenceNumber(container: string, blob: string, sequenceNumberAction: string, sequenceNumber: string, callback: StorageCallback<BlobResult>): void;
-    setPageBlobSequenceNumber(container: string, blob: string, sequenceNumberAction: string, sequenceNumber: string, options: AccessConditionsOptions, callback: StorageCallback<BlobResult>): void;
+    setPageBlobSequenceNumber(
+        container: string,
+        blob: string,
+        sequenceNumberAction: string,
+        sequenceNumber: string,
+        callback: StorageCallback<BlobResult>,
+    ): void;
+    setPageBlobSequenceNumber(
+        container: string,
+        blob: string,
+        sequenceNumberAction: string,
+        sequenceNumber: string,
+        options: AccessConditionsOptions,
+        callback: StorageCallback<BlobResult>,
+    ): void;
 
     //#endregion
 
@@ -386,36 +616,123 @@ export declare class BlobService extends StorageServiceClient {
     /**
      * Uploads a block blob from file.
      */
-    putBlockBlobFromFile(container: string, blob: string, localFileName: string, callback: StorageCallback<BlobResult>): SpeedSummary;
-    putBlockBlobFromFile(container: string, blob: string, localFileName: string, options: UploadBlockBlobOptions, callback: StorageCallback<BlobResult>): SpeedSummary;
-    createBlockBlobFromFile(container: string, blob: string, localFileName: string, callback: StorageCallback<BlobResult>): SpeedSummary;
-    createBlockBlobFromFile(container: string, blob: string, localFileName: string, options: UploadBlockBlobOptions, callback: StorageCallback<BlobResult>): SpeedSummary;
+    putBlockBlobFromFile(
+        container: string,
+        blob: string,
+        localFileName: string,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
+    putBlockBlobFromFile(
+        container: string,
+        blob: string,
+        localFileName: string,
+        options: UploadBlockBlobOptions,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
+    createBlockBlobFromFile(
+        container: string,
+        blob: string,
+        localFileName: string,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
+    createBlockBlobFromFile(
+        container: string,
+        blob: string,
+        localFileName: string,
+        options: UploadBlockBlobOptions,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
 
     /**
      * Uploads a block blob from a stream.
      */
-    putBlockBlobFromStream(container: string, blob: string, stream: stream.Stream, streamLength: number, callback: StorageCallback<BlobResult>): SpeedSummary;
-    putBlockBlobFromStream(container: string, blob: string, stream: stream.Stream, streamLength: number, options: UploadBlockBlobOptions, callback: StorageCallback<BlobResult>): SpeedSummary;
-    createBlockBlobFromStream(container: string, blob: string, stream: stream.Stream, streamLength: number, callback: StorageCallback<BlobResult>): SpeedSummary;
-    createBlockBlobFromStream(container: string, blob: string, stream: stream.Stream, streamLength: number, options: UploadBlockBlobOptions, callback: StorageCallback<BlobResult>): SpeedSummary;
+    putBlockBlobFromStream(
+        container: string,
+        blob: string,
+        stream: stream.Stream,
+        streamLength: number,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
+    putBlockBlobFromStream(
+        container: string,
+        blob: string,
+        stream: stream.Stream,
+        streamLength: number,
+        options: UploadBlockBlobOptions,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
+    createBlockBlobFromStream(
+        container: string,
+        blob: string,
+        stream: stream.Stream,
+        streamLength: number,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
+    createBlockBlobFromStream(
+        container: string,
+        blob: string,
+        stream: stream.Stream,
+        streamLength: number,
+        options: UploadBlockBlobOptions,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
 
     /**
      * Uploads a block blob from a text string.
      */
-    createBlockBlobFromText(container: string, blob: string, text: string, callback: StorageCallback<BlobResult>): SpeedSummary;
-    createBlockBlobFromText(container: string, blob: string, text: string, options: UploadBlockBlobOptions, callback: StorageCallback<BlobResult>): SpeedSummary;
+    createBlockBlobFromText(
+        container: string,
+        blob: string,
+        text: string,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
+    createBlockBlobFromText(
+        container: string,
+        blob: string,
+        text: string,
+        options: UploadBlockBlobOptions,
+        callback: StorageCallback<BlobResult>,
+    ): SpeedSummary;
 
     /**
      * Creates a new block to be committed as part of a blob.
      */
-    createBlobBlockFromStream(blockId: string, container: string, blob: string, readStream: stream.Stream, streamLength: number, callback: StorageCallbackVoid): void;
-    createBlobBlockFromStream(blockId: string, container: string, blob: string, readStream: stream.Stream, streamLength: number, options: CreateBlockOptions, callback: StorageCallbackVoid): void;
+    createBlobBlockFromStream(
+        blockId: string,
+        container: string,
+        blob: string,
+        readStream: stream.Stream,
+        streamLength: number,
+        callback: StorageCallbackVoid,
+    ): void;
+    createBlobBlockFromStream(
+        blockId: string,
+        container: string,
+        blob: string,
+        readStream: stream.Stream,
+        streamLength: number,
+        options: CreateBlockOptions,
+        callback: StorageCallbackVoid,
+    ): void;
 
     /**
      * Creates a new block to be committed as part of a blob.
      */
-    createBlobBlockFromText(blockId: string, container: string, blob: string, text: string, callback: StorageCallbackVoid): void;
-    createBlobBlockFromText(blockId: string, container: string, blob: string, text: string, options: CreateBlockOptions, callback: StorageCallbackVoid): void;
+    createBlobBlockFromText(
+        blockId: string,
+        container: string,
+        blob: string,
+        text: string,
+        callback: StorageCallbackVoid,
+    ): void;
+    createBlobBlockFromText(
+        blockId: string,
+        container: string,
+        blob: string,
+        text: string,
+        options: CreateBlockOptions,
+        callback: StorageCallbackVoid,
+    ): void;
 
     /**
      * Writes a blob by specifying the list of block IDs that make up the blob.
@@ -423,13 +740,25 @@ export declare class BlobService extends StorageServiceClient {
      * createBlock operation.
      */
     commitBlobBlocks(container: string, blob: string, blockList: BlockList, callback: StorageCallback<BlockList>): void;
-    commitBlobBlocks(container: string, blob: string, blockList: BlockList, options: CreateBlockOptions, callback: StorageCallback<BlockList>): void;
+    commitBlobBlocks(
+        container: string,
+        blob: string,
+        blockList: BlockList,
+        options: CreateBlockOptions,
+        callback: StorageCallback<BlockList>,
+    ): void;
 
     /**
      * Retrieves the list of blocks that have been uploaded as part of a block blob.
      */
     listBlobBlocks(container: string, blob: string, blockListType: string, callback: StorageCallback<BlockList>): void;
-    listBlobBlocks(container: string, blob: string, blockListType: string, options: GetBlobPropertiesOptions, callback: StorageCallback<BlockList>): void;
+    listBlobBlocks(
+        container: string,
+        blob: string,
+        blockListType: string,
+        options: GetBlobPropertiesOptions,
+        callback: StorageCallback<BlockList>,
+    ): void;
 
     /**
      * Generate a random block id prefix.
@@ -458,7 +787,13 @@ export declare class BlobService extends StorageServiceClient {
      * Otherwise, if only container is specified and blob is null, renews the container lease.
      */
     renewLease(container: string, blob: string, leaseId: string, callback: StorageCallback<LeaseResult>): void;
-    renewLease(container: string, blob: string, leaseId: string, options: AccessConditionsOptions, callback: StorageCallback<LeaseResult>): void;
+    renewLease(
+        container: string,
+        blob: string,
+        leaseId: string,
+        options: AccessConditionsOptions,
+        callback: StorageCallback<LeaseResult>,
+    ): void;
 
     /**
      * Releases the lease.
@@ -466,7 +801,13 @@ export declare class BlobService extends StorageServiceClient {
      * Otherwise, if only container is specified and blob is null, releases the container lease.
      */
     releaseLease(container: string, blob: string, leaseId: string, callback: StorageCallback<LeaseResult>): void;
-    releaseLease(container: string, blob: string, leaseId: string, options: AccessConditionsOptions, callback: StorageCallback<LeaseResult>): void;
+    releaseLease(
+        container: string,
+        blob: string,
+        leaseId: string,
+        options: AccessConditionsOptions,
+        callback: StorageCallback<LeaseResult>,
+    ): void;
 
     /**
      * Breaks the lease but ensures that another client cannot acquire a new lease until the current lease period has expired.
@@ -474,7 +815,13 @@ export declare class BlobService extends StorageServiceClient {
      * Otherwise, if only container is specified and blob is null, breaks the container lease.
      */
     breakLease(container: string, blob: string, leaseId: string, callback: StorageCallback<LeaseResult>): void;
-    breakLease(container: string, blob: string, leaseId: string, options: BreakLeaseOptions, callback: StorageCallback<LeaseResult>): void;
+    breakLease(
+        container: string,
+        blob: string,
+        leaseId: string,
+        options: BreakLeaseOptions,
+        callback: StorageCallback<LeaseResult>,
+    ): void;
 
     //#endregion
 }
@@ -485,35 +832,35 @@ export declare class QueueService extends StorageServiceClient {
     //#region Constructors
 
     /**
-    * Creates a new BlobService object.
-    * Uses the AZURE_STORAGE_ACCOUNT and AZURE_STORAGE_ACCESS_KEY environment variables.
-    *
-    * @constructor
-    * @extends {StorageServiceClient}
-    */
+     * Creates a new BlobService object.
+     * Uses the AZURE_STORAGE_ACCOUNT and AZURE_STORAGE_ACCESS_KEY environment variables.
+     *
+     * @constructor
+     * @extends {StorageServiceClient}
+     */
     constructor();
 
     /**
-    * Creates a new BlobService object.
-    * Uses a connectionString to connect
-    *
-    * @constructor
-    * @extends {StorageServiceClient}
-    * @param {string} connectionString The connection string.
-    */
+     * Creates a new BlobService object.
+     * Uses a connectionString to connect
+     *
+     * @constructor
+     * @extends {StorageServiceClient}
+     * @param {string} connectionString The connection string.
+     */
     constructor(connectionString: string);
 
     /**
-    * Creates a new BlobService object.
-    * Uses a storage account and an access key.
-    *
-    * @constructor
-    * @extends {StorageServiceClient}
-    * @param {string} storageAccount                    The storage account or the connection string.
-    * @param {string} storageAccessKey                  The storage access key.
-    * @param {string} host                              The host address.
-    * @param {object} sasToken                          The Shared Access Signature token.
-    */
+     * Creates a new BlobService object.
+     * Uses a storage account and an access key.
+     *
+     * @constructor
+     * @extends {StorageServiceClient}
+     * @param {string} storageAccount                    The storage account or the connection string.
+     * @param {string} storageAccessKey                  The storage access key.
+     * @param {string} host                              The host address.
+     * @param {object} sasToken                          The Shared Access Signature token.
+     */
     constructor(storageAccount: string, storageAccessKey: string, host?: string, sasToken?: string);
 
     //#endregion
@@ -521,17 +868,21 @@ export declare class QueueService extends StorageServiceClient {
     //#region Service Methods
 
     /**
-    * Gets the properties of a storage account's Blob service, including Azure Storage Analytics.
-    */
+     * Gets the properties of a storage account's Blob service, including Azure Storage Analytics.
+     */
     getServiceProperties(callback: StorageServicePropertiesCallback): void;
     getServiceProperties(options: TimeoutIntervalOptions, callback: StorageServicePropertiesCallback): void;
 
     /**
-    * Sets the properties of a storage account's Blob service, including Azure Storage Analytics.
-    * You can also use this operation to set the default request version for all incoming requests that do not have a version specified.
-    */
+     * Sets the properties of a storage account's Blob service, including Azure Storage Analytics.
+     * You can also use this operation to set the default request version for all incoming requests that do not have a version specified.
+     */
     setServiceProperties(serviceProperties: StorageServiceProperties, callback: StorageCallbackVoid): void;
-    setServiceProperties(serviceProperties: StorageServiceProperties, options: TimeoutIntervalOptions, callback: StorageCallbackVoid): void;
+    setServiceProperties(
+        serviceProperties: StorageServiceProperties,
+        options: TimeoutIntervalOptions,
+        callback: StorageCallbackVoid,
+    ): void;
 
     //#endregion
 
@@ -571,7 +922,12 @@ export declare class QueueService extends StorageServiceClient {
      * Sets user-defined metadata on the specified queue. Metadata is associated with the queue as name-value pairs.
      */
     setQueueMetadata(queue: string, metadata: StorageMetadata, callback: StorageCallback<QueueResult>): void;
-    setQueueMetadata(queue: string, metadata: StorageMetadata, options: TimeoutIntervalOptions, callback: StorageCallback<QueueResult>): void;
+    setQueueMetadata(
+        queue: string,
+        metadata: StorageMetadata,
+        options: TimeoutIntervalOptions,
+        callback: StorageCallback<QueueResult>,
+    ): void;
 
     //#endregion
 
@@ -583,8 +939,13 @@ export declare class QueueService extends StorageServiceClient {
      * with UTF-8 encoding. The encoded message can be up to 64KB in size for versions 2011-08-18 and newer, or 8KB in size
      * for previous versions.
      */
-    createMessage(queue: string, messageText: string, callback: StorageCallback<QueueMessageResult>): void
-    createMessage(queue: string, messageText: string, options: CreateQueueMessageOptions, callback: StorageCallback<QueueMessageResult>): void
+    createMessage(queue: string, messageText: string, callback: StorageCallback<QueueMessageResult>): void;
+    createMessage(
+        queue: string,
+        messageText: string,
+        options: CreateQueueMessageOptions,
+        callback: StorageCallback<QueueMessageResult>,
+    ): void;
 
     /**
      * Retrieves a message from the queue and makes it invisible to other consumers.
@@ -596,13 +957,23 @@ export declare class QueueService extends StorageServiceClient {
      * Retrieves a message from the front of the queue, without changing the message visibility.
      */
     peekMessages(queue: string, callback: StorageCallback<QueueMessageResult[]>): void;
-    peekMessages(queue: string, options: PeekQueueMessagesOptions, callback: StorageCallback<QueueMessageResult[]>): void;
+    peekMessages(
+        queue: string,
+        options: PeekQueueMessagesOptions,
+        callback: StorageCallback<QueueMessageResult[]>,
+    ): void;
 
     /**
      * Deletes a specified message from the queue.
      */
-    deleteMessage(queue: string, messageId: string, popreceipt: string, callback: StorageCallback<boolean>): void
-    deleteMessage(queue: string, messageId: string, popreceipt: string, options: TimeoutIntervalOptions, callback: StorageCallback<boolean>): void
+    deleteMessage(queue: string, messageId: string, popreceipt: string, callback: StorageCallback<boolean>): void;
+    deleteMessage(
+        queue: string,
+        messageId: string,
+        popreceipt: string,
+        options: TimeoutIntervalOptions,
+        callback: StorageCallback<boolean>,
+    ): void;
 
     /**
      * Clears all messages from the queue.
@@ -613,50 +984,93 @@ export declare class QueueService extends StorageServiceClient {
     /**
      * Deletes a specified message from the queue.
      */
-    updateMessage(queue: string, messageId: string, popreceipt: string, visibilitytimeout: number, callback: StorageCallback<QueueMessageResult>): void
-    updateMessage(queue: string, messageId: string, popreceipt: string, visibilitytimeout: number, options: UpdateQueueMessagesOptions, callback: StorageCallback<QueueMessageResult>): void
+    updateMessage(
+        queue: string,
+        messageId: string,
+        popreceipt: string,
+        visibilitytimeout: number,
+        callback: StorageCallback<QueueMessageResult>,
+    ): void;
+    updateMessage(
+        queue: string,
+        messageId: string,
+        popreceipt: string,
+        visibilitytimeout: number,
+        options: UpdateQueueMessagesOptions,
+        callback: StorageCallback<QueueMessageResult>,
+    ): void;
 
     //#endregion
 }
 
-export declare class ServiceBusService {
+export declare class ServiceBusService {}
 
-}
+export declare class SqlService {}
 
-export declare class SqlService {
+export declare class ServiceManagementService {}
 
-}
-
-export declare class ServiceManagementService {
-
-}
-
-export declare class SqlManagementService {
-}
+export declare class SqlManagementService {}
 //#endregion
 
 //#region Service Creators
 export declare function createTableService(): TableService;
 export declare function createTableService(connectionString: string): TableService;
-export declare function createTableService(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string): TableService;
+export declare function createTableService(
+    storageAccount: string,
+    storageAccessKey: string,
+    host?: string,
+    authenticationProvider?: string,
+): TableService;
 
 export declare function createBlobService(): BlobService;
 export declare function createBlobService(connectionString: string): BlobService;
-export declare function createBlobService(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string): BlobService;
+export declare function createBlobService(
+    storageAccount: string,
+    storageAccessKey: string,
+    host?: string,
+    authenticationProvider?: string,
+): BlobService;
 
 export declare function createQueueService(): QueueService;
 export declare function createQueueService(connectionString: string): QueueService;
-export declare function createQueueService(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string): QueueService;
+export declare function createQueueService(
+    storageAccount: string,
+    storageAccessKey: string,
+    host?: string,
+    authenticationProvider?: string,
+): QueueService;
 
 export declare function createServiceBusService(): ServiceBusService;
 export declare function createServiceBusService(connectionString: string): ServiceBusService;
-export declare function createServiceBusService(namespace: string, accessKey?: string, issuer?: string, acsNamespace?: string, host?: string, authenticationProvider?: string): ServiceBusService;
+export declare function createServiceBusService(
+    namespace: string,
+    accessKey?: string,
+    issuer?: string,
+    acsNamespace?: string,
+    host?: string,
+    authenticationProvider?: string,
+): ServiceBusService;
 
-export declare function createSqlService(serverName: string, administratorLogin: string, administratorLoginPassword: string, host?: string, acsHost?: string, authenticationProvider?: string): SqlService;
+export declare function createSqlService(
+    serverName: string,
+    administratorLogin: string,
+    administratorLoginPassword: string,
+    host?: string,
+    acsHost?: string,
+    authenticationProvider?: string,
+): SqlService;
 
-export declare function createServiceManagementService(subscriptionId: string, authentication: string, hostOptions: string): ServiceManagementService;
+export declare function createServiceManagementService(
+    subscriptionId: string,
+    authentication: string,
+    hostOptions: string,
+): ServiceManagementService;
 
-export declare function createSqlManagementService(subscriptionId: string, authentication: string, hostOptions: string): SqlManagementService;
+export declare function createSqlManagementService(
+    subscriptionId: string,
+    authentication: string,
+    hostOptions: string,
+): SqlManagementService;
 //#endregion
 
 //#region RoleEnvironment
@@ -800,7 +1214,13 @@ export declare class ServiceClient extends events.EventEmitter {
     setHost(host: string): void;
     performRequest(webResource: WebResource, outputData: string, options: any, callback: Function): void;
     performRequestOutputStream(webResource: WebResource, outputStream: any, options: any, callback: Function): void;
-    performRequestInputStream(webResource: WebResource, outputData: string, inputStream: any, options: any, callback: Function): void;
+    performRequestInputStream(
+        webResource: WebResource,
+        outputData: string,
+        inputStream: any,
+        options: any,
+        callback: Function,
+    ): void;
     withFilter(newFilter: Filter): ServiceClient;
     parseMetadataHeaders(headers: any): any;
     isEmulated(): boolean;
@@ -810,7 +1230,13 @@ export declare class ServiceClient extends events.EventEmitter {
 export declare class BatchServiceClient extends StorageServiceClient {
     operations: any[];
 
-    constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: boolean, authenticationProvider: any);
+    constructor(
+        storageAccount: string,
+        storageAccessKey: string,
+        host: string,
+        usePathstyleUri: boolean,
+        authenticationProvider: any,
+    );
     beginBatch(): void;
     isInBatch(): boolean;
     rollback(): void;
@@ -822,9 +1248,7 @@ export declare class BatchServiceClient extends StorageServiceClient {
     processOperation(webResource: WebResource, rawResponse: string): any;
 }
 
-export declare class ServiceManagementClient {
-
-}
+export declare class ServiceManagementClient {}
 
 export declare class TableQuery {
     static select(...fields: string[]): TableQuery;
@@ -1022,9 +1446,7 @@ export declare class SpeedSummary {
     getCompleteSize(humanReadable: boolean): number;
 }
 
-export declare module Constants {
-
-}
+export declare module Constants {}
 
 export interface Filter {
     handle(requestOptions: any, next: Function): void;
@@ -1046,9 +1468,7 @@ export declare class ExponentialRetryPolicyFilter implements Filter {
     handle(requestOptions: any, next: Function): void;
 }
 
-export declare class HmacSha256Sign {
-
-}
+export declare class HmacSha256Sign {}
 
 export declare class SharedAccessSignature {
     storageAccount: string;
@@ -1056,12 +1476,17 @@ export declare class SharedAccessSignature {
     permissionSet: string[];
     signer: HmacSha256Sign;
 
-    constructor(storageAccount: string, storageAccessKey: string, permissionSet: string[])
+    constructor(storageAccount: string, storageAccessKey: string, permissionSet: string[]);
 
     /**
      * Generates the query string for a shared access signature signing.
      */
-    generateSignedQueryString(path: string, queryString: Dictionary<string>, resourceType: string, sharedAccessPolicy: SharedAccessPolicy): Dictionary<string>;
+    generateSignedQueryString(
+        path: string,
+        queryString: Dictionary<string>,
+        resourceType: string,
+        sharedAccessPolicy: SharedAccessPolicy,
+    ): Dictionary<string>;
 
     /**
      * Signs a request with the signature header.
@@ -1076,7 +1501,12 @@ export declare class SharedAccessSignature {
     /**
      * Generates the query string for a shared access signature signing.
      */
-    _permissionMatchesRequest(sharedAccessSignature: string, webResource: WebResource, resourceType: string, requiredPermissions: string[]): string;
+    _permissionMatchesRequest(
+        sharedAccessSignature: string,
+        webResource: WebResource,
+        resourceType: string,
+        requiredPermissions: string[],
+    ): string;
 }
 
 export declare class SharedKey {
@@ -1280,7 +1710,11 @@ export declare module ServiceSettings {
     /**
      * Creates an anonymous function that acts as predicate to perform a validation.
      */
-    export function getValidator(requirements: Dictionary<Requirement>, isRequired: boolean, atLeastOne: boolean): ValidatorFunction;
+    export function getValidator(
+        requirements: Dictionary<Requirement>,
+        isRequired: boolean,
+        atLeastOne: boolean,
+    ): ValidatorFunction;
 
     /**
      * Creates a setting value condition that validates it is one of the passed valid values.
@@ -1326,7 +1760,14 @@ export declare class StorageServiceSettings {
     _tableEndpointUri: string;
     _usePathStyleUri: boolean;
 
-    constructor(name: string, key: string, blobEndpointUri: string, queueEndpointUri: string, tableEndpointUri: string, usePathStyleUri: boolean);
+    constructor(
+        name: string,
+        key: string,
+        blobEndpointUri: string,
+        queueEndpointUri: string,
+        tableEndpointUri: string,
+        usePathStyleUri: boolean,
+    );
 
     /**
      * Returns a StorageServiceSettings with development storage credentials using
@@ -1350,7 +1791,12 @@ export declare class StorageServiceSettings {
     /**
      * Creates StorageServiceSettings object given endpoints uri.
      */
-    static _createStorageServiceSettings(settings: Dictionary<string>, blobEndpointUri: string, queueEndpointUri: string, tableEndpointUri: string): StorageServiceSettings;
+    static _createStorageServiceSettings(
+        settings: Dictionary<string>,
+        blobEndpointUri: string,
+        queueEndpointUri: string,
+        tableEndpointUri: string,
+    ): StorageServiceSettings;
 
     /**
      * Creates a ServiceBusSettings object from a set of settings.
@@ -1362,7 +1808,11 @@ export declare class StorageServiceSettings {
      */
     static createFromConnectionString(connectionString: string): StorageServiceSettings;
 
-    static createExplicitlyOrFromEnvironment(storageAccount: string, storageAccessKey: string, host: string): StorageServiceSettings;
+    static createExplicitlyOrFromEnvironment(
+        storageAccount: string,
+        storageAccessKey: string,
+        host: string,
+    ): StorageServiceSettings;
 
     static isDevelopmentStorage(storageAccount: string, storageAccessKey: string, parsedHost: string): boolean;
 
@@ -1371,13 +1821,9 @@ export declare class StorageServiceSettings {
     static customizeConfig(config: any): void;
 }
 
-export declare class ServiceBusSettings {
+export declare class ServiceBusSettings {}
 
-}
-
-export declare class ServiceManagementSettinsg {
-
-}
+export declare class ServiceManagementSettinsg {}
 
 export declare module Validate {
     /**
@@ -1389,7 +1835,10 @@ export declare module Validate {
      * Validates that a clusterCreationObject is properly formed.
      */
     export function isValidHDInsightCreationObject(clusterCreationObject: ClusterCreationOptions): void;
-    export function isValidHDInsightCreationObject(clusterCreationObject: ClusterCreationOptions, callback: ErrorCallback): void;
+    export function isValidHDInsightCreationObject(
+        clusterCreationObject: ClusterCreationOptions,
+        callback: ErrorCallback,
+    ): void;
 
     export function isValidUuid(uuid: string): void;
     export function isValidUuid(uuid: string, callback: ErrorCallback): void;
@@ -1436,7 +1885,12 @@ export declare module Validate {
     export function queueNameIsValid(queueName: string, callback: ErrorCallback): boolean;
 
     export function pageRangesAreValid(rangeStart: number, rangeEnd: number, writeBlockSizeInBytes: number): boolean;
-    export function pageRangesAreValid(rangeStart: number, rangeEnd: number, writeBlockSizeInBytes: number, callback: ErrorCallback): boolean;
+    export function pageRangesAreValid(
+        rangeStart: number,
+        rangeEnd: number,
+        writeBlockSizeInBytes: number,
+        callback: ErrorCallback,
+    ): boolean;
 
     export function validateArgs(functionName: string, validationRules: Function): boolean;
 }
@@ -1498,8 +1952,8 @@ export interface StorageCallbackVoid {
 export interface StorageCallback<T> {
     (err: Error, result: T, response: WebResponse): void;
 }
-export interface StorageServiceStatsCallback extends StorageCallback<StorageServiceStats> { }
-export interface StorageServicePropertiesCallback extends StorageCallback<StorageServiceProperties> { }
+export interface StorageServiceStatsCallback extends StorageCallback<StorageServiceStats> {}
+export interface StorageServicePropertiesCallback extends StorageCallback<StorageServiceProperties> {}
 
 export interface TimeoutIntervalOptions {
     locationMode?: string;
@@ -1511,7 +1965,7 @@ export interface MetadataOptions extends TimeoutIntervalOptions {
 }
 export interface StorageAclOptions extends TimeoutIntervalOptions {
     leaseId?: string;
-    signedIdentifiers: SignedIdentifier[]
+    signedIdentifiers: SignedIdentifier[];
 }
 
 export interface Dictionary<T> {
@@ -1543,7 +1997,7 @@ export interface StorageServiceStats {
     GeoReplication: {
         Status: string;
         LastSyncTime: Date;
-    }
+    };
 }
 export interface SignedIdentifier {
     Id: string;
@@ -1562,12 +2016,12 @@ export interface SharedAccessPolicy {
         Start?: Date;
         Expiry: Date;
         Permission?: string;
-    }
+    };
 }
 //#endregion
 //#region TableService Interfaces
 export interface TableRequestCallback {
-    (error: Error, tableResult: { TableName: string; }, response: WebResponse): void;
+    (error: Error, tableResult: { TableName: string }, response: WebResponse): void;
 }
 
 export interface CreateTableIfNotExistsCallback {
@@ -1579,7 +2033,12 @@ export interface DeleteTableCallback {
 }
 
 export interface QueryTablesCallback {
-    (error: Error, queryTablesResult: TableResult[], resultsContinuation: QueryResultContinuation, response: WebResponse): void;
+    (
+        error: Error,
+        queryTablesResult: TableResult[],
+        resultsContinuation: QueryResultContinuation,
+        response: WebResponse,
+    ): void;
 }
 
 export interface QueryResultContinuation {
@@ -1599,7 +2058,12 @@ export interface QueryEntityCallback {
 }
 
 export interface QueryEntitiesCallback {
-    (error: Error, entities: Entity[], resultContinuation: QueryEntitiesResultContinuation, response: WebResponse): void;
+    (
+        error: Error,
+        entities: Entity[],
+        resultContinuation: QueryEntitiesResultContinuation,
+        response: WebResponse,
+    ): void;
 }
 
 export interface QueryEntitiesResultContinuation extends QueryResultContinuation {
@@ -1761,10 +2225,10 @@ export interface BlockList {
     UncommittedBlocks: string[];
 }
 export interface StorageAccessCondition {
-    "If-Modified-Since": Date;
-    "If-Unmodified-Since": Date;
-    "If-Match": string;
-    "If-None-Match": string;
+    'If-Modified-Since': Date;
+    'If-Unmodified-Since': Date;
+    'If-Match': string;
+    'If-None-Match': string;
 }
 //#endregion
 //#region QueueService Interfaces
@@ -1806,7 +2270,7 @@ export interface RoleInstance {
     faultDomain: string;
     updateDomain: string;
     endpoints: {
-        [endpoint: string]: RoleInstanceEndpoint
+        [endpoint: string]: RoleInstanceEndpoint;
     };
 }
 export interface RoleInstanceEndpoint {
@@ -1869,12 +2333,22 @@ declare class StorageServiceClient extends ServiceClient {
     static incorrectStorageAccountErr: string;
     static incorrectStorageAccessKeyErr: string;
     static getStorageSettings(connectionString: string): StorageServiceSettings;
-    static getStorageSettings(storageAccount?: string, storageAccessKey?: string, host?: string): StorageServiceSettings;
+    static getStorageSettings(
+        storageAccount?: string,
+        storageAccessKey?: string,
+        host?: string,
+    ): StorageServiceSettings;
 
     apiVersion: string;
     usePathStyleUri: string;
 
-    constructor(storageAccount: string, storageAccessKey: string, host: string, usePathStyleUri: boolean, authenticationProvider: any);
+    constructor(
+        storageAccount: string,
+        storageAccessKey: string,
+        host: string,
+        usePathStyleUri: boolean,
+        authenticationProvider: any,
+    );
 }
 //#endregion
 

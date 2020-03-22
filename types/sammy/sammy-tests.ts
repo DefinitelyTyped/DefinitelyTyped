@@ -1,15 +1,11 @@
-
-
 function test_general() {
-    // Example from homepage 
+    // Example from homepage
     var app = Sammy('#main', function () {
         var _this: Sammy.Application = this;
         _this.use('Mustache');
         _this.get('#/', function () {
             var _this: Sammy.RenderContext;
-            _this.load('posts.json')
-                .renderEach('post.mustache')
-                .swap();
+            _this.load('posts.json').renderEach('post.mustache').swap();
         });
     });
 
@@ -18,12 +14,11 @@ function test_general() {
     var _this: Sammy.Application;
     _this.get('#/', function (context) {
         var _this: Sammy.RenderContext;
-        _this.load('data/items.json')
-            .then(function (items) {
-                $.each(items, function (i, item) {
-                    context.log(item.title, '-', item.artist);
-                });
+        _this.load('data/items.json').then(function (items) {
+            $.each(items, function (i, item) {
+                context.log(item.title, '-', item.artist);
             });
+        });
     });
 }
 
@@ -32,7 +27,6 @@ function test_app() {
     s.toHTML();
 
     var app = $.sammy(function () {
-
         var current_user: any = false;
         function checkLoggedIn(callback) {
             var _this: Sammy.EventContext;
@@ -49,19 +43,19 @@ function test_app() {
             } else {
                 callback();
             }
-        };
+        }
         var _this: Sammy.Application;
         _this.around(checkLoggedIn);
     });
 
     var app = $.sammy(function () {
         var _this: Sammy.Application;
-        _this.before('#/route', function () { });
+        _this.before('#/route', function () {});
         _this.before({ except: { path: '#/route' } }, function () {
             _this.log('not before #/route');
         });
-        _this.get('#/', function () { });
-        _this.get('#/route', function () { });
+        _this.get('#/', function () {});
+        _this.get('#/route', function () {});
     });
 
     var app = $.sammy(),
@@ -93,8 +87,7 @@ function test_app() {
                 _this.log("I'm helper number " + num);
             });
         });
-        _this.get('#/', function () {
-        });
+        _this.get('#/', function () {});
     });
 
     var app = $.sammy(function () {
@@ -102,7 +95,7 @@ function test_app() {
         var better = _this.helpers({
             upcase: function (text) {
                 return text.toString().toUpperCase();
-            }
+            },
         });
         better.get('#/', function () {
             $('#main').html(better.upcase($('#main').text()));
@@ -112,13 +105,13 @@ function test_app() {
     var app = $.sammy(function () {
         var _this: Sammy.Application;
         _this.mapRoutes([
-            ['get', '#/', function () { }],
+            ['get', '#/', function () {}],
             ['post', '#/create', 'addUser'],
-            [/dowhatever/, function () { }]
+            [/dowhatever/, function () {}],
         ]);
     });
 
-    var app = $.sammy(function () { });
+    var app = $.sammy(function () {});
     $(function () {
         app.run();
     });
@@ -147,15 +140,14 @@ function test_app() {
         var _this: Sammy.Application;
         _this.helpers({
             myhelper: function (text) {
-                alert(prepend + " " + text);
-            }
+                alert(prepend + ' ' + text);
+            },
         });
     };
     var app = $.sammy(function () {
         var _this: Sammy.Application;
         _this.use(MyPlugin, '_this is my plugin');
-        _this.get('#/', function () {
-        });
+        _this.get('#/', function () {});
     });
 
     $.sammy(function () {
@@ -182,7 +174,7 @@ function test_misc() {
             if (_evt.params['name'] == 'sammy') {
                 _evt.partial('name.html.erb', { name: 'Sammy' });
             } else {
-                _evt.redirect('#/somewhere-else')
+                _evt.redirect('#/somewhere-else');
             }
         });
     });
@@ -191,16 +183,15 @@ function test_misc() {
         var _this: Sammy.EventContext;
         _this.redirect('#/other/route');
         _this.redirect('#', 'other', 'route');
-        _this.render('mytemplate.mustache', { name: 'quirkey' })
-            .appendTo('ul');
+        _this.render('mytemplate.mustache', { name: 'quirkey' }).appendTo('ul');
         _this.renderEach('mytemplate.mustache', [{ name: 'quirkey' }, { name: 'endor' }]);
 
         var item = {
             name: 'My Item',
             price: '$25.50',
             meta: {
-                id: '123'
-            }
+                id: '123',
+            },
         };
         var form = new Sammy.FormBuilder('item', item);
         form.text('name');
@@ -208,14 +199,14 @@ function test_misc() {
         var options = [
             ['Small', 's'],
             ['Medium', 'm'],
-            ['Large', 'l']
+            ['Large', 'l'],
         ];
         form.select('size', options);
 
         $.sammy(function () {
             var _this: Sammy.Application;
-            _this.use('GoogleAnalytics')
-        _this.get('#/dont/track/me', function () {
+            _this.use('GoogleAnalytics');
+            _this.get('#/dont/track/me', function () {
                 var evt: Sammy.GoogleAnalytics = this;
                 evt.noTrack();
             });
@@ -231,15 +222,15 @@ function test_misc() {
                 evt.partial('mytemplate.haml');
             });
         });
-        app.run()
+        app.run();
 
-    var app = $.sammy(function () {
+        var app = $.sammy(function () {
             var _this: Sammy.Application;
             _this.use('Handlebars', 'hb');
             _this.get('#/hello/:name', function () {
                 var evt: Sammy.Handlebars = this;
-                evt.title = 'Hello!'
-            evt.name = evt.params.name;
+                evt.title = 'Hello!';
+                evt.name = evt.params.name;
                 evt.partial('mytemplate.hb');
             });
         });
@@ -248,14 +239,13 @@ function test_misc() {
             var _this: Sammy.Application;
             _this.use('Handlebars', 'hb');
             _this.get('#/hello/:name/to/:friend', function (context: Sammy.Handlebars) {
-                context.load('mypartial.hb')
-                    .then(function (partial) {
-                        context.partials = { hello_friend: partial };
-                        context.name = context.params.name;
-                        // dynamically add a property to the context
-                        (<any>context).friend = context.params.friend;
-                        context.partial('mytemplate.hb');
-                    });
+                context.load('mypartial.hb').then(function (partial) {
+                    context.partials = { hello_friend: partial };
+                    context.name = context.params.name;
+                    // dynamically add a property to the context
+                    (<any>context).friend = context.params.friend;
+                    context.partial('mytemplate.hb');
+                });
             });
         });
 
@@ -264,8 +254,8 @@ function test_misc() {
             _this.use('Hogan', 'hg');
             _this.get('#/hello/:name', function () {
                 var evt: Sammy.Hogan = this;
-                evt.title = 'Hello!'
-            evt.name = evt.params.name;
+                evt.title = 'Hello!';
+                evt.name = evt.params.name;
                 evt.partial('mytemplate.hg');
             });
         });
@@ -274,13 +264,12 @@ function test_misc() {
             var _this: Sammy.Application;
             _this.use('Hogan', 'hg');
             _this.get('#/hello/:name/to/:friend', function (context) {
-                context.load('mypartial.hg')
-                    .then(function (partial) {
-                        context.partials = { hello_friend: partial };
-                        context.name = context.params.name;
-                        context.friend = context.params.friend;
-                        context.partial('mytemplate.hg');
-                    });
+                context.load('mypartial.hg').then(function (partial) {
+                    context.partials = { hello_friend: partial };
+                    context.name = context.params.name;
+                    context.friend = context.params.friend;
+                    context.partial('mytemplate.hg');
+                });
             });
         });
 
@@ -290,18 +279,18 @@ function test_misc() {
             _this.get('#/', function () {
                 var evt: Sammy.JSON = this;
                 evt.json({ user_id: 123 });
-                evt.json("{\"user_id\":\"123\"}");
-                evt.json("{\"user_id\":\"123\"}").user_id;
+                evt.json('{"user_id":"123"}');
+                evt.json('{"user_id":"123"}').user_id;
             });
-        })
+        });
 
-    var app = $.sammy(function () {
+        var app = $.sammy(function () {
             var _this: Sammy.Application;
             _this.use('Mustache', 'ms');
             _this.get('#/hello/:name', function () {
                 var evt: Sammy.Mustache = this;
-                evt.title = 'Hello!'
-            evt.name = evt.params.name;
+                evt.title = 'Hello!';
+                evt.name = evt.params.name;
                 evt.partial('mytemplate.ms');
             });
         });
@@ -310,13 +299,12 @@ function test_misc() {
             var _this: Sammy.Application;
             _this.use('Mustache', 'ms');
             _this.get('#/hello/:name/to/:friend', function (context: Sammy.Mustache) {
-                context.load('mypartial.ms')
-                    .then(function (partial) {
-                        context.partials = { hello_friend: partial };
-                        context.name = context.params.name;
-                        (<any>context).friend = context.params.friend;
-                        context.partial('mytemplate.ms');
-                    });
+                context.load('mypartial.ms').then(function (partial) {
+                    context.partials = { hello_friend: partial };
+                    context.name = context.params.name;
+                    (<any>context).friend = context.params.friend;
+                    context.partial('mytemplate.ms');
+                });
             });
         });
 
@@ -327,48 +315,51 @@ function test_misc() {
                 $.log(context.params);
             });
         });
-    };
+    }
 
     var _this: Sammy.Application;
     _this.use('Storage');
     _this.use('OAuth2');
-    _this.oauthorize = "/oauth/authorize";
+    _this.oauthorize = '/oauth/authorize';
     _this.requireOAuth();
-    _this.requireOAuth("/private");
-    _this.before(function (context) { return context.requireOAuth(); })
-    _this.get("/private", function (context) {
-        _this.requireOAuth(function () { });
+    _this.requireOAuth('/private');
+    _this.before(function (context) {
+        return context.requireOAuth();
     });
-    _this.bind("oauth.connected", function () { $("#signin").hide() });
-    _this.bind("oauth.disconnected", function () { $("#signin").show() });
-    _this.bind("oauth.denied", function (evt, error) {
-        evt.partial("admin/views/no_access.tmpl", { error: error.message });
+    _this.get('/private', function (context) {
+        _this.requireOAuth(function () {});
     });
-    _this.get("#/signout", function (context) {
+    _this.bind('oauth.connected', function () {
+        $('#signin').hide();
+    });
+    _this.bind('oauth.disconnected', function () {
+        $('#signin').show();
+    });
+    _this.bind('oauth.denied', function (evt, error) {
+        evt.partial('admin/views/no_access.tmpl', { error: error.message });
+    });
+    _this.get('#/signout', function (context) {
         context.loseAccessToken();
-        context.redirect("#/");
+        context.redirect('#/');
     });
 
     _this.get('#/', function () {
         this.render('mytemplate.template', { name: 'test' });
     });
 
-    _this.send($.getJSON, '/app.json')
-        .then(function (json) {
-            $('#message').text(json['message']);
-        }
-        );
-
-    _this.get('#/', function () {
-        var evt: Sammy.EventContext = this;
-        evt.load('myfile.txt')
-            .then(function (content) {
-                $('#main').html(content);
-            });
+    _this.send($.getJSON, '/app.json').then(function (json) {
+        $('#message').text(json['message']);
     });
 
     _this.get('#/', function () {
-        var evt: Sammy.EventContext = this; 
+        var evt: Sammy.EventContext = this;
+        evt.load('myfile.txt').then(function (content) {
+            $('#main').html(content);
+        });
+    });
+
+    _this.get('#/', function () {
+        var evt: Sammy.EventContext = this;
         evt.load('mytext.json')
             .then(function (content) {
                 var context = this,
@@ -397,7 +388,7 @@ function test_misc() {
     store.each(function (key, value) {
         Sammy.log('key', key, 'value', value);
     });
-    
+
     store = new Sammy.Store();
     store.exists('foo');
     store.fetch('foo', function () {
@@ -418,7 +409,7 @@ function test_misc() {
 
     var store = new Sammy.Store();
     store.load('mytemplate', '/mytemplate.tpl', function () {
-        store.get('mytemplate')
+        store.get('mytemplate');
     });
 
     store = new Sammy.Store({ name: 'kvo' });
@@ -430,11 +421,11 @@ function test_misc() {
     $.sammy(function () {
         _this.use('Template');
         _this.get('#/', function () {
-            var evt: Sammy.EventContext = this; 
-            // Adding a dynamic property 
+            var evt: Sammy.EventContext = this;
+            // Adding a dynamic property
             (<any>evt).user = { name: 'Aaron Quint' };
             evt.partial('user.template');
-        })
+        });
     });
 
     _this.use(Sammy.Template, 'tpl');
@@ -442,20 +433,18 @@ function test_misc() {
         this.partial('myfile.tpl');
     });
     _this.get('#/', function () {
-        this.template('myform.tpl', { form: "<form></form>" }, { escape_html: false });
+        this.template('myform.tpl', { form: '<form></form>' }, { escape_html: false });
     });
 }
 
 function test_routes() {
     var _this: Sammy.Application;
 
-    _this.route('get', '#/', function () {
-    });
+    _this.route('get', '#/', function () {});
     _this.put('#/post/form', function () {
         return false;
     });
-    _this.get('/test/123', function () {
-    });
+    _this.get('/test/123', function () {});
 
     _this.get('#/by_name/:name', function () {
         alert(this.params['name']);
@@ -505,8 +494,8 @@ function test_plugins() {
         var _this: Sammy.Application;
         _this.helpers({
             alert: function (message) {
-                _this.log("ALERT! " + message);
-            }
+                _this.log('ALERT! ' + message);
+            },
         });
     };
     var app1 = $.sammy(function () {
@@ -522,7 +511,7 @@ function test_plugins() {
         _this.helpers({
             alert: function (message) {
                 _this.log(prefix, message, suffix);
-            }
+            },
         });
     };
 
@@ -540,8 +529,7 @@ function test_plugins() {
             this.record = this.app.db[this.app.element_selector];
             this.app.swap(this.record.toHTML());
         });
-        _this.bind('run', function () {
-        });
+        _this.bind('run', function () {});
     };
 
     var app1 = Sammy('#div_1', function () {

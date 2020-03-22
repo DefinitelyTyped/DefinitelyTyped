@@ -1,6 +1,5 @@
 // Test file for Google Maps JavaScript API Definition file
 
-
 componentHandler.upgradeDom();
 componentHandler.upgradeDom('MaterialButton');
 componentHandler.upgradeDom('MaterialButton', 'mdl-button');
@@ -15,24 +14,24 @@ componentHandler.upgradeElements(document.querySelectorAll('div.mdl-button'));
 
 componentHandler.upgradeAllRegistered();
 
-componentHandler.registerUpgradedCallback('MaterialButton', function(element : HTMLElement) {});
+componentHandler.registerUpgradedCallback('MaterialButton', function (element: HTMLElement) {});
 
 componentHandler.register({
-    constructor: function(element: HTMLElement) {},
+    constructor: function (element: HTMLElement) {},
     classAsString: 'MaterialCheese',
-    cssClass: 'mdl-cheese'
+    cssClass: 'mdl-cheese',
 });
 componentHandler.register({
-    constructor: function(element: HTMLElement) {},
+    constructor: function (element: HTMLElement) {},
     classAsString: 'MaterialFoo',
     cssClass: 'mdl-foo',
-    widget: true
+    widget: true,
 });
 componentHandler.register({
-    constructor: function(element: HTMLElement) {},
+    constructor: function (element: HTMLElement) {},
     classAsString: 'MaterialFoo',
     cssClass: 'mdl-foo',
-    widget: 'FooBar'
+    widget: 'FooBar',
 });
 
 componentHandler.downgradeElements(document.querySelectorAll('div'));

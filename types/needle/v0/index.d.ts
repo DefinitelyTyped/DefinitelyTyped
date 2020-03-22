@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-declare module "needle" {
+declare module 'needle' {
     import * as http from 'http';
     import * as Buffer from 'buffer';
     namespace Needle {
@@ -32,7 +32,7 @@ declare module "needle" {
 
             // These properties are overwritten by those in the 'headers' field
             compressed?: boolean;
-            cookies?: { [name: string]: any; };
+            cookies?: { [name: string]: any };
             // Overwritten if present in the URI
             username?: string;
             password?: string;
@@ -74,7 +74,13 @@ declare module "needle" {
             delete(url: string, data: any, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
 
             request(method: string, url: string, data: any, callback?: NeedleCallback): ReadableStream;
-            request(method: string, url: string, data: any, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
+            request(
+                method: string,
+                url: string,
+                data: any,
+                options?: RequestOptions,
+                callback?: NeedleCallback,
+            ): ReadableStream;
         }
     }
 

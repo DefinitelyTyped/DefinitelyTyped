@@ -6,21 +6,21 @@
 
 /// <reference types="bunyan"/>
 
-declare module "bunyan-config" {
-    import * as bunyan from "bunyan";
+declare module 'bunyan-config' {
+    import * as bunyan from 'bunyan';
     interface StreamConfiguration {
-        name: string,
+        name: string;
         params?: {
-            host: string,
-            port: number
-        }
+            host: string;
+            port: number;
+        };
     }
 
     interface Stream {
         type?: string;
         level?: bunyan.LogLevel;
         path?: string;
-        stream?: string | StreamConfiguration
+        stream?: string | StreamConfiguration;
         closeOnExit?: boolean;
         period?: string;
         count?: number;

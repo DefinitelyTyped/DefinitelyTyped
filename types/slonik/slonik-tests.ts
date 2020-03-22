@@ -38,7 +38,7 @@ const VALUE = 'foo';
 const pool = createPool('postgres://localhost');
 
 // $ExpectType Promise<{ connectResult: string; }>
-pool.connect(async connection => {
+pool.connect(async (connection) => {
     const result = await connection.query(sql`SELECT 1`);
     // $ExpectType QueryResultType<QueryResultRowType<string>>
     result;
@@ -66,27 +66,27 @@ pool.connect(async connection => {
     await connection.query(`SELECT foo`);
 
     // $ExpectType { transactionResult: string; }
-    await connection.transaction(async transactionConnection => {
+    await connection.transaction(async (transactionConnection) => {
         await transactionConnection.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
         await transactionConnection.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
         return { transactionResult: 'foo' };
     });
 
     // $ExpectType QueryResultType<QueryResultRowType<string>>
-    await connection.transaction(async t1 => {
+    await connection.transaction(async (t1) => {
         await t1.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
 
-        return t1.transaction(t2 => {
+        return t1.transaction((t2) => {
             return t2.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
         });
     });
 
     // $ExpectType void
-    await connection.transaction(async t1 => {
+    await connection.transaction(async (t1) => {
         await t1.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
 
         try {
-            await t1.transaction(async t2 => {
+            await t1.transaction(async (t2) => {
                 await t2.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
 
                 return Promise.reject(new Error('foo'));
@@ -171,7 +171,7 @@ const interceptors: InterceptorType[] = [
         format: 'CAMEL_CASE',
     }),
     {
-        afterQueryExecution: queryContext => {
+        afterQueryExecution: (queryContext) => {
             // $ExpectType QueryContextType
             queryContext;
 
@@ -202,7 +202,7 @@ connection.any(sql`
 // ----------------------------------------------------------------------
 const typeParser: TypeParserType<number> = {
     name: 'int8',
-    parse: value => {
+    parse: (value) => {
         // $ExpectType string
         value;
         return parseInt(value, 10);
@@ -247,9 +247,9 @@ createTimestampWithTimeZoneTypeParser();
     let placeholderIndex = 1;
 
     const whereConditionSql = uniquePairs
-        .map(needleColumns => {
+        .map((needleColumns) => {
             return needleColumns
-                .map(column => {
+                .map((column) => {
                     return `${column} = $${placeholderIndex++}`;
                 })
                 .join(' AND ');
@@ -341,11 +341,7 @@ createTimestampWithTimeZoneTypeParser();
 
     let normalizeIdentifier: IdentifierNormalizerType;
 
-    normalizeIdentifier = (input: string) =>
-        input
-            .split('')
-            .reverse()
-            .join('');
+    normalizeIdentifier = (input: string) => input.split('').reverse().join('');
 
     sql = createSqlTag({
         normalizeIdentifier,

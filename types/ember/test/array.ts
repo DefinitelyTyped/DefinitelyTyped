@@ -4,7 +4,7 @@ import { assertType } from './lib/assert';
 type Person = typeof Person.prototype;
 const Person = Ember.Object.extend({
     name: '',
-    isHappy: false
+    isHappy: false,
 });
 
 const people = Ember.A([

@@ -34,21 +34,24 @@ export class TransformationAlgorithm {
 }
 
 export class SignedXml {
-    static CanonicalizationAlgorithms: {[uri: string]: new () => TransformationAlgorithm };
-    static HashAlgorithms: {[uri: string]: new () => HashAlgorithm};
-    static SignatureAlgorithms: {[uri: string]: new () => SignatureAlgorithm};
+    static CanonicalizationAlgorithms: { [uri: string]: new () => TransformationAlgorithm };
+    static HashAlgorithms: { [uri: string]: new () => HashAlgorithm };
+    static SignatureAlgorithms: { [uri: string]: new () => SignatureAlgorithm };
     canonicalizationAlgorithm: string;
     keyInfoProvider: FileKeyInfo;
     references: Reference[];
     signatureAlgorithm: string;
     signingKey: Buffer | string;
     validationErrors: string[];
-    constructor(idMode?: string | null, options?: {
-        canonicalizationAlgorithm?: string
-        idAttribute?: string
-        implicitTransforms?: ReadonlyArray<string>
-        signatureAlgorithm?: string
-    })
+    constructor(
+        idMode?: string | null,
+        options?: {
+            canonicalizationAlgorithm?: string;
+            idAttribute?: string;
+            implicitTransforms?: ReadonlyArray<string>;
+            signatureAlgorithm?: string;
+        },
+    );
     addReference(
         xpath: string,
         transforms?: ReadonlyArray<string>,
@@ -56,20 +59,20 @@ export class SignedXml {
         uri?: string,
         digestValue?: string,
         inclusiveNamespacesPrefixList?: string,
-        isEmptyUri?: boolean
+        isEmptyUri?: boolean,
     ): void;
     checkSignature(xml: string): boolean;
     computeSignature(
         xml: string,
         opts?: {
-            prefix?: string,
-            attrs?: {[key: string]: any},
+            prefix?: string;
+            attrs?: { [key: string]: any };
             location?: {
-                reference: string,
-                action: 'append' | 'prepend' | 'before' |  'after'
-            },
-            existingPrefixes?: {[prefix: string]: string}
-        }
+                reference: string;
+                action: 'append' | 'prepend' | 'before' | 'after';
+            };
+            existingPrefixes?: { [prefix: string]: string };
+        },
     ): void;
     getOriginalXmlWithIds(): string;
     getSignatureXml(): string;

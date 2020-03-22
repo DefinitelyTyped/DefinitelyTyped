@@ -61,7 +61,7 @@ export class ResponderLeaseHandler implements LeaseHandler {
     constructor(
         leaseSender: (leaseStats?: LeaseStats) => Flowable<Lease>,
         stats?: LeaseStats,
-        errorConsumer?: (e: Error) => void
+        errorConsumer?: (e: Error) => void,
     );
 
     use(): boolean;

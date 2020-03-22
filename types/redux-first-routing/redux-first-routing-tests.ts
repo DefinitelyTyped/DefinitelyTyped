@@ -6,7 +6,7 @@ const history = createBrowserHistory();
 
 // Add the reducer, which adds location state to the store
 const rootReducer = combineReducers({
-    router: routerReducer // Convention is to use the "router" property
+    router: routerReducer, // Convention is to use the "router" property
 });
 
 // Build the middleware, which intercepts navigation actions and calls the corresponding history method

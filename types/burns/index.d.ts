@@ -9,7 +9,7 @@ declare const _Burns: Burns;
 /**
  * Function type for handling events
  */
-type HandlerFn = (payload ?: any) => any;
+type HandlerFn = (payload?: any) => any;
 
 /**
  * This Type is an alias to the multiple

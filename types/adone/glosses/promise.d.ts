@@ -51,10 +51,18 @@ declare namespace adone {
          * @returns the original promise
          */
         export function callbackify<R>(fn: () => Promise<R>): (callback: (err?: any, result?: R) => void) => Promise<R>;
-        export function callbackify<T, R>(fn: (a: T) => Promise<R>): (a: T, callback: (err?: any, result?: R) => void) => Promise<R>;
-        export function callbackify<T1, T2, R>(fn: (a: T1, b: T2) => Promise<R>): (a: T1, b: T2, callback: (err?: any, result?: R) => void) => Promise<R>;
-        export function callbackify<T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => Promise<R>): (a: T1, b: T2, c: T3, callback: (err?: any, result?: R) => void) => Promise<R>;
-        export function callbackify<T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => Promise<R>): (a: T1, b: T2, c: T3, d: T4, callback: (err?: any, result?: R) => void) => Promise<R>;
+        export function callbackify<T, R>(
+            fn: (a: T) => Promise<R>,
+        ): (a: T, callback: (err?: any, result?: R) => void) => Promise<R>;
+        export function callbackify<T1, T2, R>(
+            fn: (a: T1, b: T2) => Promise<R>,
+        ): (a: T1, b: T2, callback: (err?: any, result?: R) => void) => Promise<R>;
+        export function callbackify<T1, T2, T3, R>(
+            fn: (a: T1, b: T2, c: T3) => Promise<R>,
+        ): (a: T1, b: T2, c: T3, callback: (err?: any, result?: R) => void) => Promise<R>;
+        export function callbackify<T1, T2, T3, T4, R>(
+            fn: (a: T1, b: T2, c: T3, d: T4) => Promise<R>,
+        ): (a: T1, b: T2, c: T3, d: T4, callback: (err?: any, result?: R) => void) => Promise<R>;
         export function callbackify<R>(fn: (...args: any[]) => Promise<R>): (...args: any[]) => Promise<R>;
 
         namespace I {
@@ -69,30 +77,54 @@ declare namespace adone {
         /**
          * Converts a callback function to a promise-based function
          */
-        export function promisify<R>(fn: (callback: (err?: any, result?: R) => void) => void, options?: I.PromisifyOptions): () => Promise<R>;
-        export function promisify<T, R>(fn: (a: T, callback: (err?: any, result?: R) => void) => void, options?: I.PromisifyOptions): (a: T) => Promise<R>;
-        export function promisify<T>(fn: (a: T, callback: (err?: any) => void) => void, options?: I.PromisifyOptions): (a: T) => Promise<void>;
-        export function promisify<T1, T2, R>(fn: (a: T1, b: T2, callback: (err?: any, result?: R) => void) => void, options?: I.PromisifyOptions): (a: T1, b: T2) => Promise<R>;
-        export function promisify<T1, T2>(fn: (a: T1, b: T2, callback: (err?: any) => void) => void, options?: I.PromisifyOptions): (a: T1, b: T2) => Promise<void>;
-        export function promisify<T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3, callback: (err?: any, result?: R) => void) => void, options?: I.PromisifyOptions): (a: T1, b: T2, c: T3) => Promise<R>;
-        export function promisify<T1, T2, T3>(fn: (a: T1, b: T2, c: T3, callback: (err?: any) => void) => void, options?: I.PromisifyOptions): (a: T1, b: T2, c: T3) => Promise<void>;
+        export function promisify<R>(
+            fn: (callback: (err?: any, result?: R) => void) => void,
+            options?: I.PromisifyOptions,
+        ): () => Promise<R>;
+        export function promisify<T, R>(
+            fn: (a: T, callback: (err?: any, result?: R) => void) => void,
+            options?: I.PromisifyOptions,
+        ): (a: T) => Promise<R>;
+        export function promisify<T>(
+            fn: (a: T, callback: (err?: any) => void) => void,
+            options?: I.PromisifyOptions,
+        ): (a: T) => Promise<void>;
+        export function promisify<T1, T2, R>(
+            fn: (a: T1, b: T2, callback: (err?: any, result?: R) => void) => void,
+            options?: I.PromisifyOptions,
+        ): (a: T1, b: T2) => Promise<R>;
+        export function promisify<T1, T2>(
+            fn: (a: T1, b: T2, callback: (err?: any) => void) => void,
+            options?: I.PromisifyOptions,
+        ): (a: T1, b: T2) => Promise<void>;
+        export function promisify<T1, T2, T3, R>(
+            fn: (a: T1, b: T2, c: T3, callback: (err?: any, result?: R) => void) => void,
+            options?: I.PromisifyOptions,
+        ): (a: T1, b: T2, c: T3) => Promise<R>;
+        export function promisify<T1, T2, T3>(
+            fn: (a: T1, b: T2, c: T3, callback: (err?: any) => void) => void,
+            options?: I.PromisifyOptions,
+        ): (a: T1, b: T2, c: T3) => Promise<void>;
         export function promisify<T1, T2, T3, T4, R>(
             fn: (a: T1, b: T2, c: T3, d: T4, callback: (err?: any, result?: R) => void) => void,
-            options?: I.PromisifyOptions
+            options?: I.PromisifyOptions,
         ): (a: T1, b: T2, c: T3, d: T4) => Promise<R>;
         export function promisify<T1, T2, T3, T4>(
             fn: (a: T1, b: T2, c: T3, d: T4, callback: (err?: any) => void) => void,
-            options?: I.PromisifyOptions
+            options?: I.PromisifyOptions,
         ): (a: T1, b: T2, c: T3, d: T4) => Promise<void>;
         export function promisify<T1, T2, T3, T4, T5, R>(
             fn: (a: T1, b: T2, c: T3, d: T4, e: T5, callback: (err?: any, result?: R) => void) => void,
-            options?: I.PromisifyOptions
+            options?: I.PromisifyOptions,
         ): (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>;
         export function promisify<T1, T2, T3, T4, T5>(
             fn: (a: T1, b: T2, c: T3, d: T4, e: T5, callback: (err?: any) => void) => void,
-            options?: I.PromisifyOptions
+            options?: I.PromisifyOptions,
         ): (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<void>;
-        export function promisify(fn: (...args: any[]) => void, options?: I.PromisifyOptions): (...args: any[]) => Promise<any>;
+        export function promisify(
+            fn: (...args: any[]) => void,
+            options?: I.PromisifyOptions,
+        ): (...args: any[]) => Promise<any>;
 
         namespace I {
             interface PromisifyAllOptions {
@@ -127,7 +159,7 @@ declare namespace adone {
         export { _finally as finally };
 
         namespace I {
-            type ResolvableProps<T> = object & {[K in keyof T]: PromiseLike<T[K]> | T[K]};
+            type ResolvableProps<T> = object & { [K in keyof T]: PromiseLike<T[K]> | T[K] };
         }
 
         /**
@@ -155,6 +187,9 @@ declare namespace adone {
             type RetryOptions = Partial<_RetryOptions>;
         }
 
-        export function retry<T>(fn: (info: { current: number }) => PromiseLike<T> | T, options?: number | I.RetryOptions): Promise<T>;
+        export function retry<T>(
+            fn: (info: { current: number }) => PromiseLike<T> | T,
+            options?: number | I.RetryOptions,
+        ): Promise<T>;
     }
 }

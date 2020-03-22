@@ -4,13 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import {
-    Server as HttpServer,
-    IncomingMessage,
-    ServerResponse,
-    IncomingHttpHeaders,
-    OutgoingHttpHeaders,
-} from 'http';
+import { Server as HttpServer, IncomingMessage, ServerResponse, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import { Server as HttpsServer } from 'https';
 import { EventEmitter } from 'events';
 
@@ -25,7 +19,7 @@ export = requestStats;
  */
 declare function requestStats(
     server: HttpServer | HttpsServer,
-    statsCallback?: requestStats.StatsCallback
+    statsCallback?: requestStats.StatsCallback,
 ): requestStats.StatsEmitter;
 
 /**
@@ -39,7 +33,7 @@ declare function requestStats(
 declare function requestStats(
     req: IncomingMessage,
     res: ServerResponse,
-    statsCallback?: requestStats.StatsCallback
+    statsCallback?: requestStats.StatsCallback,
 ): requestStats.StatsEmitter;
 
 declare namespace requestStats {

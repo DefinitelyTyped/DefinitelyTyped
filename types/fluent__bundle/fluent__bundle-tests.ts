@@ -11,8 +11,8 @@ bundle.addResource(resource, { allowOverrides: true });
 const msg = bundle.getMessage('test');
 if (msg && msg.value) {
     const args = {
-        $arg1: "#1",
-        $arg2: "#2"
+        $arg1: '#1',
+        $arg2: '#2',
     };
     const errors: Error[] = [];
     const formatted: string = bundle.formatPattern(msg.value, args, errors);
@@ -29,8 +29,7 @@ class DummyScope implements Scope {
     cloneForTermReference(args: object): Scope {
         return this;
     }
-    reportError(error: string): void {
-    }
+    reportError(error: string): void {}
     memoizeIntlObject<OptsType, ObjectType>(
         ctor: new (locales: string[], opts: OptsType) => ObjectType,
         opts: OptsType,

@@ -1,4 +1,4 @@
-import { AxesOption } from "./Axes";
+import { AxesOption } from './Axes';
 export interface Axis {
     [key: string]: number;
 }
@@ -15,7 +15,9 @@ export declare class AxisManager {
     constructor(axis: any, options: AxesOption);
     getDelta(depaPos: Axis, destPos: Axis): Axis;
     get(axes?: string[] | Axis): Axis;
-    moveTo(pos: Axis): {
+    moveTo(
+        pos: Axis,
+    ): {
         [key: string]: Axis;
     };
     set(pos: Axis): void;

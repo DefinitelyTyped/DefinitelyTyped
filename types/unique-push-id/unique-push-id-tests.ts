@@ -1,3 +1,3 @@
-import pushId from "unique-push-id";
+import pushId from 'unique-push-id';
 
 pushId(); // $ExpectType string

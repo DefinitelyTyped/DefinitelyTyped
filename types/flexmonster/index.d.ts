@@ -14,7 +14,7 @@ declare const Flexmonster: FlexmonsterConstructor;
 export = Flexmonster;
 
 interface FlexmonsterConstructor {
-    new(params: Flexmonster.Params): Flexmonster.Pivot;
+    new (params: Flexmonster.Params): Flexmonster.Pivot;
     (params: Flexmonster.Params): Flexmonster.Pivot;
 }
 
@@ -29,7 +29,11 @@ declare namespace Flexmonster {
         report?: Report | string;
         global?: Report;
         customizeCell?: (cell: CellBuilder, data: CellData) => void;
-        customizeContextMenu?: (items: ContextMenuItem[], data: CellData | ChartData, viewType: string) => ContextMenuItem[];
+        customizeContextMenu?: (
+            items: ContextMenuItem[],
+            data: CellData | ChartData,
+            viewType: string,
+        ) => ContextMenuItem[];
         // events
         afterchartdraw?: () => void;
         aftergriddraw?: (param: object) => void;
@@ -77,48 +81,104 @@ declare namespace Flexmonster {
         addCalculatedMeasure(measure: Measure): void;
         addCondition(condition: ConditionalFormat): void;
         addJSON(json: object[]): void;
-        alert(options: { title?: string; message?: string; type?: string; buttons?: Array<{ label: string; handler?: () => void; }>; blocking?: boolean; }): void;
+        alert(options: {
+            title?: string;
+            message?: string;
+            type?: string;
+            buttons?: Array<{ label: string; handler?: () => void }>;
+            blocking?: boolean;
+        }): void;
         clear(): void;
         clearFilter(hierarchyName: string): void;
-        clearXMLACache(proxyUrl: string, databaseId: string, callbackHandler: ((reponse: object) => void) | string, cubeId: string, measuresGroupId: string,
-            username?: string, password?: string): void;
+        clearXMLACache(
+            proxyUrl: string,
+            databaseId: string,
+            callbackHandler: ((reponse: object) => void) | string,
+            cubeId: string,
+            measuresGroupId: string,
+            username?: string,
+            password?: string,
+        ): void;
         closeFieldsList(): void;
         collapseAllData(): void;
         collapseData(hierarchyName: string): void;
         connectTo(object: DataSource): void;
         customizeCell(customizeCellFunction: (cell: CellBuilder, data: CellData) => void): void;
-        customizeContextMenu(customizeFunction: (items: ContextMenuItem[], data: CellData | ChartData, viewType: string) => ContextMenuItem[]): void;
+        customizeContextMenu(
+            customizeFunction: (
+                items: ContextMenuItem[],
+                data: CellData | ChartData,
+                viewType: string,
+            ) => ContextMenuItem[],
+        ): void;
         dispose(): void;
         expandAllData(withAllChildren?: boolean): void;
         expandData(hierarchyName: string): void;
-        exportTo(type: string, exportOptions?: ExportOptions, callbackHandler?: ((result: object) => void) | string): void;
+        exportTo(
+            type: string,
+            exportOptions?: ExportOptions,
+            callbackHandler?: ((result: object) => void) | string,
+        ): void;
         getAllConditions(): ConditionalFormat[];
         getAllHierarchies(): Hierarchy[];
         getAllMeasures(): Measure[];
         getCell(rowIdx: number, colIdx: number): CellData;
         getColumns(): Hierarchy[];
         getCondition(id: string): ConditionalFormat;
-        getData(options: { slice?: Slice }, callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
-            updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
+        getData(
+            options: { slice?: Slice },
+            callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+            updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+        ): void;
         getFilter(hierarchyName: string): Filter;
         getFormat(measureName: string): Format;
         getMeasures(): Measure[];
-        getMembers(hierarchyName: string, memberName: string, callbackHandler: ((members: Member[]) => void) | string): Member[];
+        getMembers(
+            hierarchyName: string,
+            memberName: string,
+            callbackHandler: ((members: Member[]) => void) | string,
+        ): Member[];
         getOptions(): Options;
         getReport(format?: string): Report | string;
         getReportFilters(): Hierarchy[];
         getRows(): Hierarchy[];
         getSelectedCell(): CellData | CellData[];
         getSort(hierarchyName: string): string;
-        getXMLACatalogs(proxyURL: string, dataSource: string, callbackHandler: ((response: any) => void) | string, username?: string, password?: string): void;
-        getXMLACubes(proxyURL: string, dataSource: string, catalog: string, callbackHandler: ((response: any) => void) | string, username?: string, password?: string): void;
-        getXMLADataSources(proxyURL: string, callbackHandler: ((response: any) => void) | string, username?: string, password?: string): void;
-        getXMLAProviderName(proxyURL: string, callbackHandler: ((response: any) => void) | string, username?: string, password?: string): string;
+        getXMLACatalogs(
+            proxyURL: string,
+            dataSource: string,
+            callbackHandler: ((response: any) => void) | string,
+            username?: string,
+            password?: string,
+        ): void;
+        getXMLACubes(
+            proxyURL: string,
+            dataSource: string,
+            catalog: string,
+            callbackHandler: ((response: any) => void) | string,
+            username?: string,
+            password?: string,
+        ): void;
+        getXMLADataSources(
+            proxyURL: string,
+            callbackHandler: ((response: any) => void) | string,
+            username?: string,
+            password?: string,
+        ): void;
+        getXMLAProviderName(
+            proxyURL: string,
+            callbackHandler: ((response: any) => void) | string,
+            username?: string,
+            password?: string,
+        ): string;
         load(url: string, componentFolder?: string): void;
         off(eventType: string, handler?: ((...args: any[]) => any) | string): void;
         on(eventType: string, handler: ((...args: any[]) => any) | string): void;
         open(): void;
-        openCalculatedValueEditor(uniqueName?: string, callbackHandler?: ((response: { uniqueName: string, isRemoved: boolean }) => void) | string): void;
+        openCalculatedValueEditor(
+            uniqueName?: string,
+            callbackHandler?: ((response: { uniqueName: string; isRemoved: boolean }) => void) | string,
+        ): void;
         openFieldsList(): void;
         openFilter(hierarchyName: string): void;
         print(options?: PrintOptions): void;
@@ -129,7 +189,13 @@ declare namespace Flexmonster {
         removeCondition(id: string): void;
         removeSelection(): void;
         runQuery(slice: Slice): void;
-        save(filename: string, destination: string, callbackHandler?: (() => void) | string, url?: string, embedData?: boolean): string;
+        save(
+            filename: string,
+            destination: string,
+            callbackHandler?: (() => void) | string,
+            url?: string,
+            embedData?: boolean,
+        ): string;
         setFilter(hierarchyName: string, filter: Filter): void;
         setFormat(format: Format, measureName: string): void;
         setOptions(options: Options): void;
@@ -141,25 +207,41 @@ declare namespace Flexmonster {
         sortingMethod(hierarchyName: string, compareFunction: (a: string, b: string) => number): void;
         sortValues(axisName: string, type: string, tuple: number[], measure: MeasureObject): void;
         toolbar: Toolbar;
-        updateData(object: DataSource | object[], options?: {ignoreScroll?: boolean, ignoreSorting?: boolean, partial?: boolean}): void;
+        updateData(
+            object: DataSource | object[],
+            options?: { ignoreScroll?: boolean; ignoreSorting?: boolean; partial?: boolean },
+        ): void;
         version: string;
         fusioncharts?: {
-            getData(options: { type: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any },
+            getData(
+                options: { type: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
-                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
+                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+            ): void;
             getNumberFormat(format: object): object;
         };
         googlecharts?: {
-            getData(options: { type?: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any },
+            getData(
+                options: { type?: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
-                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
+                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+            ): void;
             getNumberFormat(format: object): object;
             getNumberFormatPattern(format: object): string;
         };
         highcharts?: {
-            getData(options: { type?: string; slice?: Slice; xAxisType?: string; valuesOnly?: boolean, withDrilldown?: boolean, prepareDataFunction?: (rawData: any) => any },
+            getData(
+                options: {
+                    type?: string;
+                    slice?: Slice;
+                    xAxisType?: string;
+                    valuesOnly?: boolean;
+                    withDrilldown?: boolean;
+                    prepareDataFunction?: (rawData: any) => any;
+                },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
-                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
+                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+            ): void;
             getAxisFormat(format: object): string;
             getPointXFormat(format: object): string;
             getPointYFormat(format: object): string;
@@ -219,17 +301,17 @@ declare namespace Flexmonster {
         rows?: Hierarchy[];
         drills?: {
             drillAll?: boolean;
-            columns?: Array<{ tuple: string[]; measure?: MeasureObject; }>;
-            rows?: Array<{ tuple: string[]; measure?: MeasureObject; }>;
+            columns?: Array<{ tuple: string[]; measure?: MeasureObject }>;
+            rows?: Array<{ tuple: string[]; measure?: MeasureObject }>;
         };
         expands?: {
             expandAll?: boolean;
-            columns?: Array<{ tuple: string[]; measure?: MeasureObject; }>;
-            rows?: Array<{ tuple: string[]; measure?: MeasureObject; }>;
+            columns?: Array<{ tuple: string[]; measure?: MeasureObject }>;
+            rows?: Array<{ tuple: string[]; measure?: MeasureObject }>;
         };
         sorting?: {
-            column?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }>;
-            row?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }>;
+            column?: Array<{ type: string; tuple: string[]; measure: MeasureObject }>;
+            row?: Array<{ type: string; tuple: string[]; measure: MeasureObject }>;
         };
         drillThrough?: string[];
         flatOrder?: string[];
@@ -597,37 +679,37 @@ declare namespace Flexmonster {
         // Fullscreen tab
         fullscreenHandler: () => void;
         icons: {
-            connect: string,
-            connect_csv: string,
-            connect_csv_remote: string,
-            connect_json_remote: string,
-            connect_olap: string,
-            open: string,
-            open_local: string,
-            open_remote: string,
-            save: string,
-            export: string,
-            export_print: string,
-            export_html: string,
-            export_csv: string,
-            export_excel: string,
-            export_image: string,
-            export_pdf: string,
-            grid: string,
-            charts: string,
-            charts_bar: string,
-            charts_line: string,
-            charts_scatter: string,
-            charts_pie: string,
-            charts_stacked_column: string,
-            charts_column_line: string,
-            format: string,
-            format_number: string,
-            format_conditional: string,
-            options: string,
-            fields: string,
-            fullscreen: string,
-            minimize: string
+            connect: string;
+            connect_csv: string;
+            connect_csv_remote: string;
+            connect_json_remote: string;
+            connect_olap: string;
+            open: string;
+            open_local: string;
+            open_remote: string;
+            save: string;
+            export: string;
+            export_print: string;
+            export_html: string;
+            export_csv: string;
+            export_excel: string;
+            export_image: string;
+            export_pdf: string;
+            grid: string;
+            charts: string;
+            charts_bar: string;
+            charts_line: string;
+            charts_scatter: string;
+            charts_pie: string;
+            charts_stacked_column: string;
+            charts_column_line: string;
+            format: string;
+            format_number: string;
+            format_conditional: string;
+            options: string;
+            fields: string;
+            fullscreen: string;
+            minimize: string;
         };
     }
 

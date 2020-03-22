@@ -16,7 +16,7 @@ declare namespace tableau {
         TEXT = 'text',
         IMAGE = 'image',
         WEB_PAGE = 'webPage',
-        ADDIN = 'addIn'
+        ADDIN = 'addIn',
     }
 
     enum FieldAggregationType {
@@ -58,11 +58,13 @@ declare namespace tableau {
         SKEWNESS,
         KURTOSIS,
         INOUT,
-        USER
+        USER,
     }
 
     enum FieldRoleType {
-        DIMENSION, MEASURE, UKNOWN
+        DIMENSION,
+        MEASURE,
+        UKNOWN,
     }
 
     enum SheetType {
@@ -83,7 +85,7 @@ declare namespace tableau {
         STRING = 'string',
         BOOLEAN = 'boolean',
         DATE = 'date',
-        DATETIME = 'datetime'
+        DATETIME = 'datetime',
     }
 
     //#region Error Classes
@@ -201,8 +203,13 @@ declare namespace tableau {
 
         addEventListener(event: TableauEventName.FILTER_CHANGE, f: ListenerFunction<FilterEvent>): void;
         addEventListener(
-            event: TableauEventName.CUSTOM_VIEW_LOAD | TableauEventName.CUSTOM_VIEW_REMOVE | TableauEventName.CUSTOM_VIEW_SAVE | TableauEventName.CUSTOM_VIEW_SET_DEFAULT,
-            f: ListenerFunction<CustomViewEvent>): void;
+            event:
+                | TableauEventName.CUSTOM_VIEW_LOAD
+                | TableauEventName.CUSTOM_VIEW_REMOVE
+                | TableauEventName.CUSTOM_VIEW_SAVE
+                | TableauEventName.CUSTOM_VIEW_SET_DEFAULT,
+            f: ListenerFunction<CustomViewEvent>,
+        ): void;
         addEventListener(event: TableauEventName.MARKS_SELECTION, f: ListenerFunction<MarksEvent>): void;
         addEventListener(event: TableauEventName.PARAMETER_VALUE_CHANGE, f: ListenerFunction<ParameterEvent>): void;
         addEventListener(event: TableauEventName.STORY_POINT_SWITCH, f: ListenerFunction<StoryPointSwitchEvent>): void;
@@ -564,7 +571,12 @@ declare namespace tableau {
          * See the filtering examples for more details on these functions.
          * Returns the fieldName that was filtered.
          */
-        applyFilterAsync(fieldName: string, values: object[] | object, updateType: FilterUpdateType, options?: FilterOptions): Promise<string>;
+        applyFilterAsync(
+            fieldName: string,
+            values: object[] | object,
+            updateType: FilterUpdateType,
+            options?: FilterOptions,
+        ): Promise<string>;
         /**
          * Applies a quantitative filter to a field or to a date.
          * If a range is specified that is outside of the domain min/max values, no error is raised and the command is allowed.
@@ -952,12 +964,12 @@ declare namespace tableau {
     }
 
     enum DateRangeType {
-        LAST = 'last', /** Refers to the last day, week, month, etc. of the date period. */
-        LASTN = 'lastn', /** Refers to the last N days, weeks, months, etc. of the date period. */
-        NEXT = 'next', /** Refers to the next day, week, month, etc. of the date period. */
-        NEXTN = 'nextn', /** Refers to the next N days, weeks, months, etc. of the date period. */
-        CURRENT = 'current', /** Refers to the current day, week, month, etc. of the date period. */
-        TODATE = 'todate', /** Refers to everything up to and including the current day, week, month, etc. of the date period. */
+        LAST = 'last' /** Refers to the last day, week, month, etc. of the date period. */,
+        LASTN = 'lastn' /** Refers to the last N days, weeks, months, etc. of the date period. */,
+        NEXT = 'next' /** Refers to the next day, week, month, etc. of the date period. */,
+        NEXTN = 'nextn' /** Refers to the next N days, weeks, months, etc. of the date period. */,
+        CURRENT = 'current' /** Refers to the current day, week, month, etc. of the date period. */,
+        TODATE = 'todate' /** Refers to everything up to and including the current day, week, month, etc. of the date period. */,
     }
     //#endregion
 

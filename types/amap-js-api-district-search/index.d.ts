@@ -9,7 +9,7 @@
 declare namespace AMap {
     namespace DistrictSearch {
         interface EventMap {
-            error: Event<'error', { info: string; }>;
+            error: Event<'error', { info: string }>;
             complete: Event<'complete', SearchResult>;
         }
         type Level = 'country' | 'province' | 'city' | 'district' | 'biz_area';
@@ -90,7 +90,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: DistrictSearch.SearchStatus, result: DistrictSearch.SearchResult | string) => void
+            callback: (status: DistrictSearch.SearchStatus, result: DistrictSearch.SearchResult | string) => void,
         ): void;
         /**
          * 设置关键字对应的行政区级别或商圈

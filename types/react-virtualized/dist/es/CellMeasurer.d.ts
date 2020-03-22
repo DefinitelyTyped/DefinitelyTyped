@@ -47,9 +47,9 @@ export type MeasuredCellParent = {
 };
 
 export type CellMeasurerChildProps = {
-    measure: () => void,
-    registerChild?: (element: Element) => void
-}
+    measure: () => void;
+    registerChild?: (element: Element) => void;
+};
 
 export type CellMeasurerProps = {
     cache: CellMeasurerCacheInterface;

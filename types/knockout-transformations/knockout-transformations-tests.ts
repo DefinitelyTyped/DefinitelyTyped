@@ -1,7 +1,11 @@
 // Test map
 var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);
-var squares: KnockoutObservableArray<number> = sourceItems.map(function (x) { return x * x; });
-var squaresAsStrings: KnockoutObservableArray<string> = sourceItems.map(function (x) { return (x * x).toString(); });
+var squares: KnockoutObservableArray<number> = sourceItems.map(function (x) {
+    return x * x;
+});
+var squaresAsStrings: KnockoutObservableArray<string> = sourceItems.map(function (x) {
+    return (x * x).toString();
+});
 
 sourceItems.push(6);
 // 'squares' has automatically updated and now contains [1, 4, 9, 16, 25, 36]
@@ -13,7 +17,9 @@ sourceItems.reverse();
 
 // Test Filtering
 
-var evenSquares: KnockoutObservableArray<number> = squares.filter(function (x) { return x % 2 === 0; });
+var evenSquares: KnockoutObservableArray<number> = squares.filter(function (x) {
+    return x % 2 === 0;
+});
 // evenSquares is now an observable containing [36, 16, 4]
 
 sourceItems.push(9);
@@ -38,17 +44,17 @@ class Person {
 }
 
 var persons: KnockoutObservableArray<Person> = ko.observableArray([
-    new Person("Marilyn Monroe", 1926),
-    new Person("Abraham Lincoln", 1809),
-    new Person("Mother Teresa", 1910),
-    new Person("John F. Kennedy", 1917),
-    new Person("Martin Luther King", 1929),
-    new Person("Nelson Mandela", 1918),
-    new Person("Winston Churchill", 1874),
-    new Person("Bill Gates", 1955),
-    new Person("Muhammad Ali", 1942),
-    new Person("Mahatma Gandhi", 1869),
-    new Person("Queen Elizabeth II", 1926)
+    new Person('Marilyn Monroe', 1926),
+    new Person('Abraham Lincoln', 1809),
+    new Person('Mother Teresa', 1910),
+    new Person('John F. Kennedy', 1917),
+    new Person('Martin Luther King', 1929),
+    new Person('Nelson Mandela', 1918),
+    new Person('Winston Churchill', 1874),
+    new Person('Bill Gates', 1955),
+    new Person('Muhammad Ali', 1942),
+    new Person('Mahatma Gandhi', 1869),
+    new Person('Queen Elizabeth II', 1926),
 ]);
 
 // Persons sorted by name
@@ -159,45 +165,43 @@ var indexedTexts: KnockoutObservable<{ [suffixOrPrefix: string]: string[] }> = t
 //     x: ['qux', 'quux']
 // }
 
+() => {
+    var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);
+    var asString: KnockoutObservableArray<string>;
 
-(() => {
-	var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);
-	var asString: KnockoutObservableArray<string>;
+    asString = sourceItems.map((x: number) => x.toString());
 
-	asString = sourceItems.map((x: number) => x.toString());
+    asString = sourceItems.map<string>({
+        mapping: (x: number) => x.toString(),
+    });
 
-	asString = sourceItems.map<string>({
-		mapping: (x: number) => x.toString(),
-	});
+    asString = sourceItems.map<string>({
+        mapping: (x: number) => x.toString(),
+        disposeItem: (x: string) => console.log('disposing map to', x),
+    });
 
-	asString = sourceItems.map<string>({
-		mapping: (x: number) => x.toString(),
-		disposeItem: (x: string) => console.log('disposing map to', x),
-	});
+    asString = sourceItems.map<string>({
+        mappingWithDisposeCallback: (x: number) => ({
+            mappedValue: x.toString(),
+            dispose: () => console.log('disposing map from', x),
+        }),
+    });
 
-	asString = sourceItems.map<string>({
-		mappingWithDisposeCallback: (x: number) => ({
-			mappedValue: x.toString(),
-			dispose: () => console.log('disposing map from', x),
-		}),
-	});
+    asString = sourceItems.map((x) => x.toString());
 
-	asString = sourceItems.map(x => x.toString());
+    asString = sourceItems.map({
+        mapping: (x) => x.toString(),
+    });
 
-	asString = sourceItems.map({
-		mapping: x => x.toString(),
-	});
+    asString = sourceItems.map<string>({
+        mapping: (x) => x.toString(),
+        disposeItem: (x) => console.log('disposing map to', x),
+    });
 
-	asString = sourceItems.map<string>({
-		mapping: x => x.toString(),
-		disposeItem: x => console.log('disposing map to', x),
-	});
-
-	asString = sourceItems.map({
-		mappingWithDisposeCallback: x => ({
-			mappedValue: x.toString(),
-			dispose: () => console.log('disposing map from', x),
-		}),
-	});
-
-});
+    asString = sourceItems.map({
+        mappingWithDisposeCallback: (x) => ({
+            mappedValue: x.toString(),
+            dispose: () => console.log('disposing map from', x),
+        }),
+    });
+};

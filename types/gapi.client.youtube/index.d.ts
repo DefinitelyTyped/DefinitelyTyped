@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load YouTube Data API v3 */
-    function load(name: "youtube", version: "v3"): PromiseLike<void>;
-    function load(name: "youtube", version: "v3", callback: () => any): void;
+    function load(name: 'youtube', version: 'v3'): PromiseLike<void>;
+    function load(name: 'youtube', version: 'v3', callback: () => any): void;
 
     const activities: youtube.ActivitiesResource;
 

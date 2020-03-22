@@ -11,7 +11,11 @@ declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.
 declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform): P.Logger;
 
 declare namespace P {
-    function pretty(opts?: { timeTransOnly?: boolean, levelFirst?: boolean, formatter?(log: IPinoLog): string }): stream.Transform;
+    function pretty(opts?: {
+        timeTransOnly?: boolean;
+        levelFirst?: boolean;
+        formatter?(log: IPinoLog): string;
+    }): stream.Transform;
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent';
     interface Headers {
@@ -67,8 +71,8 @@ declare namespace P {
         (optionsOrStream?: LoggerOptions | stream.Writable | stream.Duplex): Logger;
         (options: LoggerOptions, stream: stream.Writable | stream.Duplex): Logger;
         levels: {
-            values: LevelLabelsToValues
-            labels: LevelValuesToLabels
+            values: LevelLabelsToValues;
+            labels: LevelValuesToLabels;
         };
         LOG_VERSION: number;
     }
@@ -94,8 +98,8 @@ declare namespace P {
         trace(msg: string, ...args: any[]): void;
         trace(obj: {}, msg?: string, ...args: any[]): void;
         levels: {
-            values: LevelLabelsToValues
-            labels: LevelValuesToLabels
+            values: LevelLabelsToValues;
+            labels: LevelValuesToLabels;
         };
         LOG_VERSION: number;
         stdSerializers: Serializers;

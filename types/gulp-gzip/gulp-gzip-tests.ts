@@ -17,8 +17,6 @@ gzip({ gzipOptions: { level: 9 } });
 
 gzip({ gzipOptions: { memLevel: 1 } });
 
-gulp.task('compress', function() {
-    gulp.src('./dev/scripts/*.js')
-        .pipe(gzip())
-        .pipe(gulp.dest('./public/scripts'));
+gulp.task('compress', function () {
+    gulp.src('./dev/scripts/*.js').pipe(gzip()).pipe(gulp.dest('./public/scripts'));
 });

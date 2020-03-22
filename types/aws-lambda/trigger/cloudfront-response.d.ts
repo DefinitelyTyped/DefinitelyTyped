@@ -1,5 +1,5 @@
-import { CloudFrontEvent, CloudFrontRequest, CloudFrontResponse, CloudFrontResultResponse } from "../common/cloudfront";
-import { Callback, Handler } from "../handler";
+import { CloudFrontEvent, CloudFrontRequest, CloudFrontResponse, CloudFrontResultResponse } from '../common/cloudfront';
+import { Callback, Handler } from '../handler';
 
 export type CloudFrontResponseHandler = Handler<CloudFrontResponseEvent, CloudFrontResponseResult>;
 export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;

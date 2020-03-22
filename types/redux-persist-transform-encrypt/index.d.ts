@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import { Transform } from "redux-persist";
+import { Transform } from 'redux-persist';
 
 export interface EncryptorConfig {
     secretKey: string;

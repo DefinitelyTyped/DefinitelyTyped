@@ -5,7 +5,7 @@ import { EventEmitter } from 'events';
 
 const formats: {
     parsers: SinkMap<EventEmitter, Stream>;
-} = <any> {};
+} = <any>{};
 
 async function fetchString(): Promise<string> {
     const response = await fetch('http://example.com', { formats });
@@ -24,7 +24,7 @@ interface QuadExt extends Quad {
 interface DatasetX extends Dataset<QuadExt> {
     toCanonical(): string;
 }
-const factory: DatasetCoreFactory<QuadExt, QuadExt, DatasetX> = <any> {};
+const factory: DatasetCoreFactory<QuadExt, QuadExt, DatasetX> = <any>{};
 
 async function fetchDataset(): Promise<DatasetX> {
     const response = await fetch('http://example.com', { formats, factory });

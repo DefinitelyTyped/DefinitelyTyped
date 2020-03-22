@@ -1,4 +1,4 @@
-import invariant = require("invariant");
+import invariant = require('invariant');
 
 // will throw in dev mode (process.env.NODE_ENV !== 'production')
 invariant(true);
@@ -22,4 +22,4 @@ invariant('', 'Some other error');
 invariant(true, 'Error, error, read all about it', 37, {}, 'hello');
 
 // $ExpectType {}
-({} as {} | undefined) || invariant(false, 'a is undefined');
+(({} as {} | undefined) || invariant(false, 'a is undefined'));

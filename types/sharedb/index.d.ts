@@ -23,14 +23,14 @@ export = sharedb;
 declare class sharedb {
     db: sharedb.DB;
     pubsub: sharedb.PubSub;
-    extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
+    extraDbs: { [extraDbName: string]: sharedb.ExtraDB };
 
     constructor(options?: {
-        db?: any,
-        pubsub?: sharedb.PubSub,
-        extraDbs?: {[extraDbName: string]: sharedb.ExtraDB},
-        disableDocAction?: boolean,
-        disableSpaceDelimitedActions?: boolean
+        db?: any;
+        pubsub?: sharedb.PubSub;
+        extraDbs?: { [extraDbName: string]: sharedb.ExtraDB };
+        disableDocAction?: boolean;
+        disableSpaceDelimitedActions?: boolean;
     });
     connect: (connection?: any, req?: any) => sharedb.Connection;
     /**
@@ -54,7 +54,7 @@ declare class sharedb {
         fn: (context: sharedb.middleware.ActionContextMap[A], callback: (err?: any) => void) => void,
     ): void;
     static types: {
-        register: (type: { name?: string, uri?: string, [key: string]: any}) => void;
+        register: (type: { name?: string; uri?: string; [key: string]: any }) => void;
     };
 }
 
@@ -63,13 +63,47 @@ declare namespace sharedb {
         projectsSnapshots: boolean;
         disableSubscribe: boolean;
         close(callback?: BasicCallback): void;
-        commit(collection: string, id: string, op: Op, snapshot: any, options: any, callback: (...args: any[]) => any): void;
+        commit(
+            collection: string,
+            id: string,
+            op: Op,
+            snapshot: any,
+            options: any,
+            callback: (...args: any[]) => any,
+        ): void;
         getSnapshot(collection: string, id: string, fields: any, options: any, callback: (...args: any[]) => any): void;
-        getSnapshotBulk(collection: string, ids: string, fields: any, options: any, callback: (...args: any[]) => any): void;
-        getOps(collection: string, id: string, from: number | null, to: number | null, options: any, callback: (...args: any[]) => any): void;
-        getOpsToSnapshot(collection: string, id: string, from: number | null, snapshot: number, options: any, callback: (...args: any[]) => any): void;
+        getSnapshotBulk(
+            collection: string,
+            ids: string,
+            fields: any,
+            options: any,
+            callback: (...args: any[]) => any,
+        ): void;
+        getOps(
+            collection: string,
+            id: string,
+            from: number | null,
+            to: number | null,
+            options: any,
+            callback: (...args: any[]) => any,
+        ): void;
+        getOpsToSnapshot(
+            collection: string,
+            id: string,
+            from: number | null,
+            snapshot: number,
+            options: any,
+            callback: (...args: any[]) => any,
+        ): void;
         getOpsBulk(collection: string, fromMap: any, toMap: any, options: any, callback: (...args: any[]) => any): void;
-        getCommittedOpVersion(collection: string, id: string, snapshot: any, op: any, options: any, callback: (...args: any[]) => any): void;
+        getCommittedOpVersion(
+            collection: string,
+            id: string,
+            snapshot: any,
+            op: any,
+            options: any,
+            callback: (...args: any[]) => any,
+        ): void;
         query: DBQueryMethod;
         queryPoll(collection: string, query: any, options: any, callback: (...args: any[]) => any): void;
         queryPollDoc(collection: string, id: string, query: any, options: any, callback: (...args: any[]) => any): void;
@@ -77,7 +111,7 @@ declare namespace sharedb {
         skipPoll(): boolean;
     }
 
-    class MemoryDB extends DB { }
+    class MemoryDB extends DB {}
 
     // The DBs in `extraDbs` are only ever used for queries, so they don't need the other DB methods.
     interface ExtraDB {
@@ -85,7 +119,13 @@ declare namespace sharedb {
         close(callback?: BasicCallback): void;
     }
 
-    type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields | undefined, options: any, callback: DBQueryCallback) => void;
+    type DBQueryMethod = (
+        collection: string,
+        query: any,
+        fields: ProjectionFields | undefined,
+        options: any,
+        callback: DBQueryCallback,
+    ) => void;
     type DBQueryCallback = (err: Error | null, snapshots: ShareDB.Snapshot[], extra?: any) => void;
 
     abstract class PubSub {
@@ -100,13 +140,13 @@ declare namespace sharedb {
             [channel: string]: boolean;
         };
         protected constructor(options?: PubSubOptions);
-        close(callback?: (err: Error|null) => void): void;
-        publish(channels: string[], data: {[k: string]: any}, callback: (err: Error | null) => void): void;
+        close(callback?: (err: Error | null) => void): void;
+        publish(channels: string[], data: { [k: string]: any }, callback: (err: Error | null) => void): void;
         subscribe(channel: string, callback: (err: Error | null, stream?: Stream) => void): void;
         protected abstract _subscribe(channel: string, callback: (err: Error | null) => void): void;
         protected abstract _unsubscribe(channel: string, callback: (err: Error | null) => void): void;
         protected abstract _publish(channels: string[], data: any, callback: (err: Error | null) => void): void;
-        protected _emit(channel: string, data: {[k: string]: any}): void;
+        protected _emit(channel: string, data: { [k: string]: any }): void;
         private _createStream(channel): void;
         private _removeStream(channel, stream): void;
     }
@@ -114,8 +154,18 @@ declare namespace sharedb {
     class Connection {
         constructor(ws: WebSocket);
         get(collectionName: string, documentID: string): ShareDB.Doc;
-        createFetchQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
-        createSubscribeQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
+        createFetchQuery(
+            collectionName: string,
+            query: string,
+            options: { results?: ShareDB.Query[] },
+            callback: (err: Error, results: any) => any,
+        ): ShareDB.Query;
+        createSubscribeQuery(
+            collectionName: string,
+            query: string,
+            options: { results?: ShareDB.Query[] },
+            callback: (err: Error, results: any) => any,
+        ): ShareDB.Query;
     }
     type Doc = ShareDB.Doc;
     type Query = ShareDB.Query;
@@ -142,7 +192,7 @@ declare namespace sharedb {
             apply: ApplyContext;
             commit: CommitContext;
             connect: ConnectContext;
-            doc: DocContext;  // Deprecated, use 'readSnapshots' instead.
+            doc: DocContext; // Deprecated, use 'readSnapshots' instead.
             op: OpContext;
             query: QueryContext;
             readSnapshots: ReadSnapshotsContext;
@@ -157,15 +207,13 @@ declare namespace sharedb {
             backend: sharedb;
         }
 
-        interface ApplyContext extends BaseContext, SubmitRequest {
-        }
+        interface ApplyContext extends BaseContext, SubmitRequest {}
 
-        interface CommitContext extends BaseContext, SubmitRequest {
-        }
+        interface CommitContext extends BaseContext, SubmitRequest {}
 
         interface ConnectContext extends BaseContext {
             stream: any;
-            req: any;  // Property always exists, value may be undefined
+            req: any; // Property always exists, value may be undefined
         }
 
         interface DocContext extends BaseContext {
@@ -187,7 +235,7 @@ declare namespace sharedb {
             fields: ProjectionFields | undefined;
             channel: string;
             query: any;
-            options?: {[key: string]: any};
+            options?: { [key: string]: any };
             db: DB | null;
             snapshotProjection: Projection | null;
         }
@@ -199,18 +247,17 @@ declare namespace sharedb {
         }
 
         interface ReceiveContext extends BaseContext {
-            data: {[key: string]: any};  // ClientRequest, but before any validation
+            data: { [key: string]: any }; // ClientRequest, but before any validation
         }
 
         interface ReplyContext extends BaseContext {
             request: ShareDB.ClientRequest;
-            reply: {[key: string]: any};
+            reply: { [key: string]: any };
         }
 
         type SnapshotType = 'current' | 'byVersion' | 'byTimestamp';
 
-        interface SubmitContext extends BaseContext, SubmitRequest {
-        }
+        interface SubmitContext extends BaseContext, SubmitRequest {}
     }
 }
 

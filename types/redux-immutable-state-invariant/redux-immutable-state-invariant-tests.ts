@@ -1,5 +1,5 @@
-import { applyMiddleware } from "redux";
-import immutableStateInvariantMiddleware from "redux-immutable-state-invariant";
+import { applyMiddleware } from 'redux';
+import immutableStateInvariantMiddleware from 'redux-immutable-state-invariant';
 
 // without options
 applyMiddleware(immutableStateInvariantMiddleware());
@@ -8,23 +8,23 @@ applyMiddleware(immutableStateInvariantMiddleware());
 applyMiddleware(immutableStateInvariantMiddleware({}));
 
 // with isImmutable option
-applyMiddleware(immutableStateInvariantMiddleware({
-    isImmutable: (val) => val === 'something'
-}));
+applyMiddleware(
+    immutableStateInvariantMiddleware({
+        isImmutable: (val) => val === 'something',
+    }),
+);
 
 // with ignore option
-applyMiddleware(immutableStateInvariantMiddleware({
-    ignore: [
-        'foo',
-        'bar.thingsToIgnore'
-    ]
-}));
+applyMiddleware(
+    immutableStateInvariantMiddleware({
+        ignore: ['foo', 'bar.thingsToIgnore'],
+    }),
+);
 
 // with all options
-applyMiddleware(immutableStateInvariantMiddleware({
-    isImmutable: (val) => val === 'something',
-    ignore: [
-        'foo',
-        'bar.thingsToIgnore'
-    ]
-}));
+applyMiddleware(
+    immutableStateInvariantMiddleware({
+        isImmutable: (val) => val === 'something',
+        ignore: ['foo', 'bar.thingsToIgnore'],
+    }),
+);

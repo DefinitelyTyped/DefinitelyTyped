@@ -36,5 +36,5 @@ export class BazController {
 }
 
 const decRouter = DecRouter({
-    controllersDir: './'
+    controllersDir: './',
 });

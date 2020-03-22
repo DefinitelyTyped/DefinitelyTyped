@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
-
-
 import * as express from 'express';
 import * as fs from 'fs';
 

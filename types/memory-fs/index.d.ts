@@ -15,7 +15,9 @@ declare class MemoryFileSystem {
 
     existsSync(_path: string): boolean;
 
-    statSync(_path: string): {
+    statSync(
+        _path: string,
+    ): {
         isFile: () => boolean;
         isDirectory: () => boolean;
         isBlockDevice: () => boolean;
@@ -33,7 +35,7 @@ declare class MemoryFileSystem {
 
     mkdirSync(_path: string): void;
 
-    _remove(_path: string, name: string, testFn: ((part: string) => boolean)): void;
+    _remove(_path: string, name: string, testFn: (part: string) => boolean): void;
 
     rmdirSync(_path: string): void;
 
@@ -44,10 +46,11 @@ declare class MemoryFileSystem {
     writeFileSync(_path: string, content: string | Buffer, encoding?: string): void;
 
     createReadStream(
-        path: string, options?: {
+        path: string,
+        options?: {
             start: number;
             end: number;
-        }
+        },
     ): any;
 
     createWriteStream(path: string, options?: any): any;
@@ -56,7 +59,12 @@ declare class MemoryFileSystem {
 
     writeFile(path: string, content: string | Buffer, callback: (err: Error | undefined) => void): void;
 
-    writeFile(path: string, content: string | Buffer, encoding: string, callback: (err: Error | undefined) => void): void;
+    writeFile(
+        path: string,
+        content: string | Buffer,
+        encoding: string,
+        callback: (err: Error | undefined) => void,
+    ): void;
 
     join(path: string, request: string): string;
 

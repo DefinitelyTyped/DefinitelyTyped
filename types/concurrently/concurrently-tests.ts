@@ -22,8 +22,8 @@ concurrently(['npm:watch-*', { command: 'nodemon', name: 'server' }], {
     killOthers: ['failure', 'success'],
     restartTries: 3,
 }).then(
-    results => {},
-    reason => {},
+    (results) => {},
+    (reason) => {},
 );
 
 concurrently('foo'); // $ExpectError

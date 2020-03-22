@@ -6,7 +6,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
 
     state = {
         isTourOpen: false,
-        update: '13213'
+        update: '13213',
     };
 
     printTourStateForSomeReason = () => {
@@ -27,7 +27,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                 right,
                 top,
                 w,
-                width
+                width,
             } = this.ref.current.state;
 
             console.log(
@@ -46,10 +46,10 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                 right,
                 top,
                 w,
-                width
+                width,
             );
         }
-    }
+    };
 
     render() {
         return (
@@ -62,7 +62,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     isOpen={this.state.isTourOpen}
                     steps={[
                         {
-                            content: <div>Example</div>
+                            content: <div>Example</div>,
                         },
                         {
                             content: ({ close, goTo, inDOM, step }) => (
@@ -79,13 +79,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                                         <Arrow disabled onClick={() => console.log('do nothing')} />
                                     </Controls>
                                     <Navigation className="im-a-div">
-                                        <Dot
-                                            disabled
-                                            current={1}
-                                            index={0}
-                                            showNumber
-                                            accentColor="#000"
-                                        />
+                                        <Dot disabled current={1} index={0} showNumber accentColor="#000" />
                                     </Navigation>
                                     {inDOM ? 'Is in DOM' : 'Not in DOM'}, step: {step}
                                 </div>
@@ -94,13 +88,13 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                             position: 'center',
                             stepInteraction: false,
                             style: {
-                                display: 'flex'
+                                display: 'flex',
                             },
-                            action: (node: HTMLElement) => node.focus()
+                            action: (node: HTMLElement) => node.focus(),
                         },
                         {
-                            content: 'Last step'
-                        }
+                            content: 'Last step',
+                        },
                     ]}
                     onRequestClose={() => this.setState({ isTourOpen: false })}
                     accentColor="#f0123d"
@@ -114,7 +108,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     disableDotsNavigation={false}
                     disableInteraction
                     disableKeyboardNavigation={['esc']}
-                    getCurrentStep={currentStep => console.log(currentStep)}
+                    getCurrentStep={(currentStep) => console.log(currentStep)}
                     goToStep={4}
                     highlightedMaskClassName="mask-hi"
                     inViewThreshold={10}
@@ -123,8 +117,8 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     maskSpace={10}
                     nextButton="Next"
                     nextStep={() => console.log('this would probably break something')}
-                    onAfterOpen={target => target.focus()}
-                    onBeforeClose={target => target.blur()}
+                    onAfterOpen={(target) => target.focus()}
+                    onBeforeClose={(target) => target.blur()}
                     prevButton="Prev"
                     prevStep={() => console.log("this would too but it's fine")}
                     rounded={3}

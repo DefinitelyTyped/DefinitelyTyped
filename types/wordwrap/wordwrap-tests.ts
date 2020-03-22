@@ -1,19 +1,19 @@
-import wordwrap = require("wordwrap");
+import wordwrap = require('wordwrap');
 
 // $ExpectType Wrap
 wordwrap(80);
 
 // $ExpectType string
-wordwrap(80)("");
+wordwrap(80)('');
 
 // $ExpectType string
-wordwrap(20, 80)("");
+wordwrap(20, 80)('');
 
 // $ExpectType string
-wordwrap({ start: 20, stop: 80 })("");
+wordwrap({ start: 20, stop: 80 })('');
 
 // $ExpectType string
-wordwrap(80, { mode: "hard" })("");
+wordwrap(80, { mode: 'hard' })('');
 
 // $ExpectType string
-wordwrap.hard(80)("");
+wordwrap.hard(80)('');

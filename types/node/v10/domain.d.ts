@@ -1,5 +1,5 @@
-declare module "domain" {
-    import * as events from "events";
+declare module 'domain' {
+    import * as events from 'events';
 
     class Domain extends events.EventEmitter implements NodeJS.Domain {
         run(fn: Function): void;

@@ -1,5 +1,5 @@
-import { ComponentClass } from "react";
-import { NavLinkProps } from "react-router-dom";
+import { ComponentClass } from 'react';
+import { NavLinkProps } from 'react-router-dom';
 
 //IndexLink is removed in react-router, but continues there in react-router-bootstrap for backwards compatibility.
 //Better use <LinkContainer exact/>

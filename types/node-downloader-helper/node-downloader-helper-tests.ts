@@ -7,8 +7,8 @@ dl.on('start', () => {
     console.log('Download started');
 
     if (!paused) {
-      paused = true;
-      dl.pause();
+        paused = true;
+        dl.pause();
     }
 });
 dl.on('download', () => {
@@ -38,4 +38,4 @@ dl.on('stateChanged', (state) => {
     console.log(`State changed: ${state}`);
 });
 
-dl.start().catch(e => console.error(e));
+dl.start().catch((e) => console.error(e));

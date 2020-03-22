@@ -1,8 +1,8 @@
-import pick = require("just-pick");
+import pick = require('just-pick');
 
-const a = "a";
-const b = "b";
-const c = "c";
+const a = 'a';
+const b = 'b';
+const c = 'c';
 const obj = { a, b };
 
 pick(obj, []); // $ExpectType Pick<{ a: string; b: string; }, never>

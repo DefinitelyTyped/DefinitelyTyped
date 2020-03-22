@@ -7,15 +7,9 @@ import * as fs from 'fs';
 import pixelmatch = require('pixelmatch');
 import { PNG } from 'pngjs';
 
-const img1 = fs
-    .createReadStream('img1.png')
-    .pipe(new PNG())
-    .on('parsed', doneReading);
+const img1 = fs.createReadStream('img1.png').pipe(new PNG()).on('parsed', doneReading);
 
-const img2 = fs
-    .createReadStream('img2.png')
-    .pipe(new PNG())
-    .on('parsed', doneReading);
+const img2 = fs.createReadStream('img2.png').pipe(new PNG()).on('parsed', doneReading);
 
 let filesRead = 0;
 

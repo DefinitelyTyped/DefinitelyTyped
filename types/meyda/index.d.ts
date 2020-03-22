@@ -91,7 +91,7 @@ export const bufferSize: number;
 export const sampleRate: number;
 export const melBands: number;
 export const chromaBands: number;
-export const callback: ((features: Partial<MeydaFeaturesObject>) => void | null);
+export const callback: (features: Partial<MeydaFeaturesObject>) => void | null;
 export const windowingFunction: MeydaWindowingFunction;
 export const featureExtractors: any;
 export const EXTRACTION_STARTED: boolean;

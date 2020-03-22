@@ -126,7 +126,10 @@ declare class Crawler extends EventEmitter {
     on(event: 'crawlstart' | 'complete', listener: () => void): this;
     on(event: 'discoverycomplete', listener: (queueItem: QueueItem, resources: string[]) => void): this;
     on(event: 'invaliddomain' | 'fetchdisallowed' | 'queueduplicate', listener: (queueItem: QueueItem) => void): this;
-    on(event: 'fetchconditionerror' | 'downloadconditionerror', listener: (queueItem: QueueItem, error: any) => void): this;
+    on(
+        event: 'fetchconditionerror' | 'downloadconditionerror',
+        listener: (queueItem: QueueItem, error: any) => void,
+    ): this;
     on(event: 'fetchprevented', listener: (queueItem: QueueItem, fetchCondition: () => boolean) => void): this;
     on(event: 'queueerror', listener: (error?: QueueItem, queueItem?: QueueItem) => void): this;
     on(event: 'queueadd', listener: (queueItem?: QueueItem, referrer?: QueueItem) => void): this;
@@ -134,10 +137,22 @@ declare class Crawler extends EventEmitter {
     on(event: 'fetchclienterror', listener: (queueItem: QueueItem, error?: object) => void): this;
     on(event: 'fetchstart', listener: (queueItem: QueueItem, requestOptions: RequestOptions) => void): this;
     on(event: 'cookieerror', listener: (queueItem: QueueItem, error: Error, cookie: string) => void): this;
-    on(event: 'fetchheaders' | 'downloadprevented' | 'fetch404' | 'fetch410' | 'fetcherror' | 'fetchdataerror', listener: (queueItem: QueueItem, response: IncomingMessage) => void): this;
-    on(event: 'notmodified', listener: (queueItem: QueueItem, response: IncomingMessage, cacheObject: Cache) => void): this;
-    on(event: 'fetchredirect', listener: (queueItem: QueueItem, redirectQueueItem: QueueItem, response: IncomingMessage) => void): this;
-    on(event: 'fetchcomplete' | 'gziperror', listener: (queueItem: QueueItem, responseBody: string | Buffer, response: IncomingMessage) => void): this;
+    on(
+        event: 'fetchheaders' | 'downloadprevented' | 'fetch404' | 'fetch410' | 'fetcherror' | 'fetchdataerror',
+        listener: (queueItem: QueueItem, response: IncomingMessage) => void,
+    ): this;
+    on(
+        event: 'notmodified',
+        listener: (queueItem: QueueItem, response: IncomingMessage, cacheObject: Cache) => void,
+    ): this;
+    on(
+        event: 'fetchredirect',
+        listener: (queueItem: QueueItem, redirectQueueItem: QueueItem, response: IncomingMessage) => void,
+    ): this;
+    on(
+        event: 'fetchcomplete' | 'gziperror',
+        listener: (queueItem: QueueItem, responseBody: string | Buffer, response: IncomingMessage) => void,
+    ): this;
     on(event: 'robotstxterror', listener: (error: Error) => void): this;
 }
 

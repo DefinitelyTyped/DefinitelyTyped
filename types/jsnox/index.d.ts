@@ -5,14 +5,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 /*
  * JSnoX requires an object with a createElement method.
  * This will normally be the React object but could be something else
  */
 interface ReactLikeObject {
-    createElement<P>(type: React.ComponentClass<P> | string, props: P, children: React.ReactNode): React.ReactElement<P>;
+    createElement<P>(
+        type: React.ComponentClass<P> | string,
+        props: P,
+        children: React.ReactNode,
+    ): React.ReactElement<P>;
 }
 
 type Module = (reactObj: ReactLikeObject) => CreateElement;

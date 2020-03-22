@@ -3,10 +3,10 @@ import EmberResolver from 'ember-resolver';
 
 const MyResolver = EmberResolver.extend({
     pluralizedTypes: {
-        sheep: 'sheep'
-    }
+        sheep: 'sheep',
+    },
 });
 
 const App = Ember.Application.extend({
-    Resolver: MyResolver
+    Resolver: MyResolver,
 });

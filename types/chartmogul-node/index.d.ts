@@ -209,7 +209,7 @@ export namespace Invoice {
         result?: string;
         type?: string;
     }
-    interface ListInvoicesParams  extends CursorParams {
+    interface ListInvoicesParams extends CursorParams {
         data_source_uuid?: string;
         customer_uuid?: string;
         external_id?: string;
@@ -219,9 +219,13 @@ export namespace Invoice {
         invoices: Invoice[];
     }
 
-    function create(config: Config, uuid: string, data: {
-        invoices: Invoice[]
-    }): Promise<Invoice>;
+    function create(
+        config: Config,
+        uuid: string,
+        data: {
+            invoices: Invoice[];
+        },
+    ): Promise<Invoice>;
     function retrieve(config: Config, uuid: string): Promise<Invoice>;
     function destroy(config: Config, uuid: string): Promise<{}>;
     function all(config: Config, uuid: string, params?: ListInvoicesParams): Promise<Invoices>;
@@ -281,17 +285,29 @@ export namespace CustomAttribute {
     interface CustomAttributes {
         custom: Map;
     }
-    function add(config: Config, uuid: string, data: {
-        email: string;
-        custom: NewCustomAttributes[];
-    }): Promise<Entries<Customer.Customer>>;
-    function add(config: Config, uuid: string, data: {
-        custom: NewCustomAttributes[];
-    }): Promise<CustomAttributes>;
+    function add(
+        config: Config,
+        uuid: string,
+        data: {
+            email: string;
+            custom: NewCustomAttributes[];
+        },
+    ): Promise<Entries<Customer.Customer>>;
+    function add(
+        config: Config,
+        uuid: string,
+        data: {
+            custom: NewCustomAttributes[];
+        },
+    ): Promise<CustomAttributes>;
     function update(config: Config, uuid: string, data: CustomAttributes): Promise<CustomAttributes>;
-    function remove(config: Config, uuid: string, data: {
-        custom: Strings;
-    }): Promise<CustomAttributes>;
+    function remove(
+        config: Config,
+        uuid: string,
+        data: {
+            custom: Strings;
+        },
+    ): Promise<CustomAttributes>;
 }
 
 export namespace Metrics {
@@ -394,7 +410,11 @@ export namespace Metrics {
             type: string;
         }
 
-        function subscriptions(config: Config, uuid: string, params?: CursorParams): Promise<Entries<MetricsSubscription>>;
+        function subscriptions(
+            config: Config,
+            uuid: string,
+            params?: CursorParams,
+        ): Promise<Entries<MetricsSubscription>>;
         function activities(config: Config, uuid: string, params?: CursorParams): Promise<Entries<MetricsActivity>>;
     }
 }

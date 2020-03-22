@@ -14,10 +14,12 @@
     function checkAuth() {
         gapi.auth.authorize(
             {
-                'client_id': CLIENT_ID,
-                'scope': SCOPES.join(' '),
-                'immediate': true
-            }, handleAuthResult);
+                client_id: CLIENT_ID,
+                scope: SCOPES.join(' '),
+                immediate: true,
+            },
+            handleAuthResult,
+        );
     }
 
     /**
@@ -44,12 +46,9 @@
      * @param {Event} event Button click event.
      */
     function handleAuthClick(event: MouseEvent) {
-        gapi.auth.authorize(
-            {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-            handleAuthResult);
+        gapi.auth.authorize({ client_id: CLIENT_ID, scope: SCOPES, immediate: false }, handleAuthResult);
         return false;
     }
-
 
     /**
      * Load Google Drive client library.
@@ -74,19 +73,21 @@
      * Print files.
      */
     function listFiles() {
-        gapi.client.drive.files.list({
-            'maxResults': 10
-        }).then(function(response: any) {
-            appendPre('Files:');
-            var files = response.result.items;
-            if (files && files.length > 0) {
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    appendPre(file.title + ' (' + file.id + ')');
+        gapi.client.drive.files
+            .list({
+                maxResults: 10,
+            })
+            .then(function (response: any) {
+                appendPre('Files:');
+                var files = response.result.items;
+                if (files && files.length > 0) {
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        appendPre(file.title + ' (' + file.id + ')');
+                    }
+                } else {
+                    appendPre('No files found.');
                 }
-            } else {
-                appendPre('No files found.');
-            }
-        });
+            });
     }
 }

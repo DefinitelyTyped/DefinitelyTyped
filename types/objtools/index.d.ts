@@ -40,12 +40,7 @@ export interface OnFieldHook {
      * @returns Usually void, if boolean `false` is returned will stop traversal
      *   in the case of an `onField` hook.
      */
-    (
-        field: string,
-        toVal: any,
-        fromVal: any,
-        parentObj: Record<string, any>,
-    ): any;
+    (field: string, toVal: any, fromVal: any, parentObj: Record<string, any>): any;
 }
 
 export interface SyncObjectOptions {
@@ -110,7 +105,7 @@ export class ObjectMask {
      *   `true` if either of the masks is `true` or an ObjectMask wrapping
      *   `true`.
      */
-    static addMasks(...masks: Array<ObjectMask|Mask>): ObjectMask|true;
+    static addMasks(...masks: Array<ObjectMask | Mask>): ObjectMask | true;
 
     /**
      * Combines two or more masks such that the result mask matches fields
@@ -119,10 +114,7 @@ export class ObjectMask {
      * @param sub - the subtrahend
      * @returns The result of subtracting the second mask from the first
      */
-    static subtractMasks(
-        min: ObjectMask|Mask,
-        sub: ObjectMask|Mask,
-    ): ObjectMask;
+    static subtractMasks(min: ObjectMask | Mask, sub: ObjectMask | Mask): ObjectMask;
 
     /**
      * Inverts a mask. The resulting mask disallows all fields previously
@@ -130,14 +122,14 @@ export class ObjectMask {
      * @param - the mask to invert
      * @returns the inverted mask
      */
-    static invertMask(mask: ObjectMask|Mask): ObjectMask;
+    static invertMask(mask: ObjectMask | Mask): ObjectMask;
 
     /**
      * Check if an object is an ObjectMask
      * @param obj - the object to determine if is an ObjectMask
      * @returns true if obj is an ObjectMask, false otherwise
      */
-    static isObjectMask(mask: ObjectMask|Mask): boolean;
+    static isObjectMask(mask: ObjectMask | Mask): boolean;
 
     /**
      * Adds a set of masks together, but using a logical AND instead of a
@@ -147,14 +139,14 @@ export class ObjectMask {
      * @returns The result of ANDing together the component masks. Will be
      *   `false` if the result would be an empty mask.
      */
-    static andMasks(...masks: Array<ObjectMask|Mask>): ObjectMask|false;
+    static andMasks(...masks: Array<ObjectMask | Mask>): ObjectMask | false;
 
     /**
      * Subtracts a mask.
      * @param mask - the mask to subtract
      * @returns the new mask
      */
-    subtractMask(mask: ObjectMask|Mask): ObjectMask;
+    subtractMask(mask: ObjectMask | Mask): ObjectMask;
 
     /**
      * Adds a field to a filter. If the filter already matches, the method is a
@@ -184,10 +176,7 @@ export class ObjectMask {
      * @param maskedOutHook - Function to call for fields disallowed
      * by the mask
      */
-    filterObject(
-        obj: Record<string, any>,
-        maskedOutHook?: MaskedOutHook,
-    ): Record<string, any>;
+    filterObject(obj: Record<string, any>, maskedOutHook?: MaskedOutHook): Record<string, any>;
 
     /**
      * Returns a subsection of a mask given a dot-separated path to the
@@ -239,10 +228,7 @@ export class ObjectMask {
      * @param maskedOutHook - Function to call for removed fields
      * @returns The result
      */
-    filterDottedObject(
-        dottedObj: Record<string, any>,
-        maskedOutHook?: MaskedOutHook,
-    ): Record<string, any>;
+    filterDottedObject(dottedObj: Record<string, any>, maskedOutHook?: MaskedOutHook): Record<string, any>;
 
     /**
      * Returns an array of fields in the given object which are restricted by
@@ -355,10 +341,7 @@ export function collapseToDotted(
  * @param query - A one-layer-deep set of key/values to check doc for
  * @returns Whether or not the doc matches
  */
-export function matchDottedObject(
-    doc: Record<string, any>,
-    query: Record<string, any>,
-): boolean;
+export function matchDottedObject(doc: Record<string, any>, query: Record<string, any>): boolean;
 
 /**
  * Same as matchDottedObject, but for non-dotted objects and queries.
@@ -368,10 +351,7 @@ export function matchDottedObject(
  * @param query - Set of fields (in structed form) to match
  * @returns Whether or not the object matches
  */
-export function matchObject(
-    doc: Record<string, any>,
-    query: Record<string, any>,
-): boolean;
+export function matchObject(doc: Record<string, any>, query: Record<string, any>): boolean;
 
 /**
  * Synchronizes one object to another object, in-place.  Updates to the existing
@@ -395,11 +375,7 @@ export function syncObject(
  * @param value - Value to set
  * @returns The same object
  */
-export function setPath(
-    obj: Record<string, any>,
-    path: string,
-    value: any,
-): Record<string, any>;
+export function setPath(obj: Record<string, any>, path: string, value: any): Record<string, any>;
 
 /**
  * Deletes the value at a given path in an object.
@@ -408,10 +384,7 @@ export function setPath(
  * @returns The object that was passed in
  */
 
-export function deletePath(
-    obj: Record<string, any>,
-    path: string,
-): Record<string, any>;
+export function deletePath(obj: Record<string, any>, path: string): Record<string, any>;
 
 /**
  * Gets the value at a given path in an object.
@@ -422,11 +395,7 @@ export function deletePath(
  * element of the array is used.
  * @return The value at the path
  */
-export function getPath(
-    obj: Record<string, any>,
-    path: string,
-    allowSkipArrays?: boolean,
-): any;
+export function getPath(obj: Record<string, any>, path: string, allowSkipArrays?: boolean): any;
 
 /**
  * This is the "light", more performant version of `merge()`.  It does not
@@ -435,10 +404,7 @@ export function getPath(
  * @param sources - the source object
  * @returns the merged object
  */
-export function mergeLight<TTarget, TSource>(
-    target: TTarget,
-    source: TSource,
-): TTarget & TSource;
+export function mergeLight<TTarget, TSource>(target: TTarget, source: TSource): TTarget & TSource;
 
 /**
  * @see objtools.mergeLight
@@ -485,12 +451,9 @@ export function mergeLight(...args: any[]): any;
  * @returns The merged value. If `undefined`, merging will be handled by the
  *   invoked method instead.
  */
-export type MergeCustomizer = { bivariantHack(
-    objectValue: any,
-    sourceValue: any,
-    key: string,
-    object: any,
-): any }['bivariantHack'];
+export type MergeCustomizer = {
+    bivariantHack(objectValue: any, sourceValue: any, key: string, object: any): any;
+}['bivariantHack'];
 
 /**
  * Merges n objects together.
@@ -618,9 +581,7 @@ export function getDuplicates(arr: any[]): any[];
  *   arrays will contain objects only if they contain no overlapping keys. See
  *   README.md for usage examples.
  */
-export function diffObjects(
-    ...objects: Array<Record<string, any>>,
-): Record<string, any>;
+export function diffObjects(...objects: Array<Record<string, any>>): Record<string, any>;
 
 /**
  * @see objtools.diffObjects
@@ -650,7 +611,7 @@ export function objectHash(obj: any): string;
  * @param value - the value to convert
  * @returns the converted Date instance
  */
-export function sanitizeDate(value: any): Date|null;
+export function sanitizeDate(value: any): Date | null;
 
 /**
  * Checks if value is a plain object, that is, an object created by the Object

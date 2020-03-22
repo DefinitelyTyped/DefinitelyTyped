@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface Column {
     property?: string;
@@ -37,32 +37,44 @@ export interface Renderers {
     };
 }
 
-export type ColumnTransform = (label: string | JSX.Element | React.ReactInstance, props: {
-    column: Column,
-    columnIndex: number,
-    property: string
-}) => any;
+export type ColumnTransform = (
+    label: string | JSX.Element | React.ReactInstance,
+    props: {
+        column: Column;
+        columnIndex: number;
+        property: string;
+    },
+) => any;
 
-export type CellTransform = (value: any, props: {
-    column: Column,
-    columnIndex: number,
-    rowData: any,
-    rowIndex: number,
-    property: string
-}) => any;
+export type CellTransform = (
+    value: any,
+    props: {
+        column: Column;
+        columnIndex: number;
+        rowData: any;
+        rowIndex: number;
+        property: string;
+    },
+) => any;
 
-export type ColumnFormatter = (label: string | JSX.Element, props: {
-    rowData: any,
-    column: Column,
-    columnIndex: number,
-}) => string | JSX.Element;
+export type ColumnFormatter = (
+    label: string | JSX.Element,
+    props: {
+        rowData: any;
+        column: Column;
+        columnIndex: number;
+    },
+) => string | JSX.Element;
 
-export type CellFormatter = (value: any, props: {
-    column: Column,
-    columnIndex: number,
-    rowData: any,
-    rowIndex: number,
-}) => string | JSX.Element;
+export type CellFormatter = (
+    value: any,
+    props: {
+        column: Column;
+        columnIndex: number;
+        rowData: any;
+        rowIndex: number;
+    },
+) => string | JSX.Element;
 
 export interface ProviderProps {
     columns: Column[];
@@ -71,8 +83,7 @@ export interface ProviderProps {
     style?: Partial<CSSStyleDeclaration>;
 }
 
-export class Provider extends React.Component<ProviderProps> {
-}
+export class Provider extends React.Component<ProviderProps> {}
 
 export interface HeaderProps {
     style?: Partial<CSSStyleDeclaration>;
@@ -80,8 +91,7 @@ export interface HeaderProps {
     headerRows?: Column[];
 }
 
-export class Header extends React.Component<HeaderProps> {
-}
+export class Header extends React.Component<HeaderProps> {}
 
 export interface BodyProps {
     rows: any[];
@@ -91,5 +101,4 @@ export interface BodyProps {
     className?: string;
 }
 
-export class Body extends React.Component<BodyProps> {
-}
+export class Body extends React.Component<BodyProps> {}

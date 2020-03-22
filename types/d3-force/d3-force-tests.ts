@@ -35,14 +35,14 @@ const graph: Graph = {
         { id: 'Napoleon', group: 1, r: 10 },
         { id: 'Mlle.Baptistine', group: 1, r: 5 },
         { id: 'Mme.Magloire', group: 1, r: 10 },
-        { id: 'CountessdeLo', group: 1, r: 5 }
+        { id: 'CountessdeLo', group: 1, r: 5 },
     ],
     links: [
         { source: 'Napoleon', target: 'Myriel', value: 1, d: 60, s: 0.95 },
         { source: 'Mlle.Baptistine', target: 'Myriel', value: 8, d: 100, s: 0.85 },
         { source: 'Mme.Magloire', target: 'Myriel', value: 10, d: 80, s: 0.85 },
-        { source: 'Mme.Magloire', target: 'Mlle.Baptistine', value: 6, d: 60, s: 0.95 }
-    ]
+        { source: 'Mme.Magloire', target: 'Mlle.Baptistine', value: 6, d: 60, s: 0.95 },
+    ],
 };
 
 let simNode: SimNode | undefined;
@@ -166,8 +166,8 @@ simLinks = forceLink.links();
 
 simLink = simLinks[0];
 
-simNode = (typeof simLink.source !== 'number' && typeof simLink.source !== 'string') ? simLink.source : undefined;
-simNode = (typeof simLink.target !== 'number' && typeof simLink.target !== 'string') ? simLink.target : undefined;
+simNode = typeof simLink.source !== 'number' && typeof simLink.source !== 'string' ? simLink.source : undefined;
+simNode = typeof simLink.target !== 'number' && typeof simLink.target !== 'string' ? simLink.target : undefined;
 
 const maybeNum: number | undefined = simLink.index; // Ex-ante type before initialization of links
 num = simLink.index!; // Ex-post after link initialization, use ! non-null assertion operator to narrow to number
@@ -394,7 +394,7 @@ forceRadial = d3Force.forceRadial<SimNode>(
         const i: number = index;
         const ns: SimNode[] = nodes;
         return 10 * n.group;
-    } // center-x
+    }, // center-x
 );
 
 // Radius and center set
@@ -407,7 +407,7 @@ forceRadial = d3Force.forceRadial<SimNode>(
         const i: number = index;
         const ns: SimNode[] = nodes;
         return 10 * n.group;
-    } // center-y
+    }, // center-y
 );
 
 forceRadial = d3Force.forceRadial<SimNode>(
@@ -428,7 +428,7 @@ forceRadial = d3Force.forceRadial<SimNode>(
         const i: number = index;
         const ns: SimNode[] = nodes;
         return 10 * n.group;
-    } // center-y
+    }, // center-y
 );
 // Configure ForceRadial force -----------------------------------------------------------
 
@@ -594,9 +594,7 @@ nodeSimulation = nodeSimulation.force('posx', null);
 
 nodeLinkSimulation = nodeLinkSimulation.force('link', forceLink);
 
-nodeLinkSimulation
-    .force('charge', forceCharge)
-    .force('center', forceCenter);
+nodeLinkSimulation.force('charge', forceCharge).force('center', forceCenter);
 
 let maybeF: d3Force.Force<SimNode, SimLink> | undefined;
 let f: d3Force.Force<SimNode, SimLink>;
@@ -632,8 +630,8 @@ simLinks = nodeLinkSimulation.force<d3Force.ForceLink<SimNode, SimLink>>('link')
 function drawLink(d: SimLink) {
     let source: SimNode | undefined;
     let target: SimNode | undefined;
-    source = (typeof d.source !== 'string' && typeof d.source !== 'number') ? d.source : undefined;
-    target = (typeof d.target !== 'string' && typeof d.target !== 'number') ? d.target : undefined;
+    source = typeof d.source !== 'string' && typeof d.source !== 'number' ? d.source : undefined;
+    target = typeof d.target !== 'string' && typeof d.target !== 'number' ? d.target : undefined;
     if (context && source && source.x && source.y && target && target.x && target.y) {
         context.moveTo(source.x, source.y);
         context.lineTo(target.x, target.y);

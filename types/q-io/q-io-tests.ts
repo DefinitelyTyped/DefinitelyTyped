@@ -1,39 +1,38 @@
-var fs:typeof QioFS = require('q-io/fs');
-var http:typeof QioHTTP = require('q-io/http');
+var fs: typeof QioFS = require('q-io/fs');
+var http: typeof QioHTTP = require('q-io/http');
 
-var bool:boolean;
-var num:number;
-var x:any;
-var path:string;
-var buffer:Buffer;
-var str:string;
-var strArr:string[];
-var source:string;
-var target:string;
-var type:string;
+var bool: boolean;
+var num: number;
+var x: any;
+var path: string;
+var buffer: Buffer;
+var str: string;
+var strArr: string[];
+var source: string;
+var target: string;
+var type: string;
 
-var options:any;
-var strArrQ:Q.Promise<string[]>;
-var voidQ:Q.Promise<void>;
-var anyQ:Q.Promise<any>;
-var strQ:Q.Promise<string>;
-var boolQ:Q.Promise<boolean>;
-var dateQ:Q.Promise<Date>;
-var bufferQ:Q.Promise<Buffer>;
+var options: any;
+var strArrQ: Q.Promise<string[]>;
+var voidQ: Q.Promise<void>;
+var anyQ: Q.Promise<any>;
+var strQ: Q.Promise<string>;
+var boolQ: Q.Promise<boolean>;
+var dateQ: Q.Promise<Date>;
+var bufferQ: Q.Promise<Buffer>;
 
-var statsQ:Q.Promise<QioFS.Stats>;
-var readQ:Q.Promise<Qio.Reader>;
-var writeQ:Q.Promise<Qio.Writer>;
+var statsQ: Q.Promise<QioFS.Stats>;
+var readQ: Q.Promise<Qio.Reader>;
+var writeQ: Q.Promise<Qio.Writer>;
 
-var headers:QioHTTP.Headers;
-var reader:Qio.Reader;
-var writer:Qio.Writer;
-var stream:Qio.Stream;
+var headers: QioHTTP.Headers;
+var reader: Qio.Reader;
+var writer: Qio.Writer;
+var stream: Qio.Stream;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-fs.open(path, options).then((x) => {
-});
+fs.open(path, options).then((x) => {});
 //fs.open(path, options):Q.Promise<Qio.Reader>;
 //fs.open(path, options):Q.Promise<Qio.Writer>;
 //fs.open(path, options):Q.Promise<Buffer>;
@@ -78,7 +77,7 @@ voidQ = fs.chown(path, num, num);
 voidQ = fs.chmod(path, str);
 voidQ = fs.chmod(path, num);
 
-statsQ = fs.stat(path)
+statsQ = fs.stat(path);
 statsQ = fs.statLink(path);
 statsQ = fs.statFd(num);
 
@@ -125,8 +124,8 @@ x = fs.toObject(str);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var request:QioHTTP.Request;
-var headers:QioHTTP.Headers;
+var request: QioHTTP.Request;
+var headers: QioHTTP.Headers;
 
 str = request.url;
 str = request.path;
@@ -148,8 +147,8 @@ x = request.node;
 
 str = headers['foo'];
 
-var response:QioHTTP.Response;
-var responseQ:Q.Promise<QioHTTP.Response>;
+var response: QioHTTP.Response;
+var responseQ: Q.Promise<QioHTTP.Response>;
 
 responseQ = http.request(request);
 responseQ = http.request(str);
@@ -164,9 +163,7 @@ response = http.normalizeResponse(response);
 num = response.status;
 headers = response.headers;
 reader = response.body;
-response.onclose = () => {
-
-};
+response.onclose = () => {};
 x = response.node;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -175,7 +172,7 @@ strQ = reader.read(str);
 bufferQ = reader.read();
 reader.close();
 x = reader.node;
-voidQ = reader.forEach((chunk:any) => {
+voidQ = reader.forEach((chunk: any) => {
     return anyQ;
 });
 
@@ -192,6 +189,6 @@ stream.write(buffer);
 stream.flush();
 stream.close();
 x = stream.node;
-voidQ = reader.forEach((chunk:any) => {
+voidQ = reader.forEach((chunk: any) => {
     return anyQ;
 });

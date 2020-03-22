@@ -9,23 +9,25 @@ import { Options } from 'graphql/utilities/schemaPrinter';
 export function downloadSchema(
     url: string,
     outputPath: string,
-    additionalHeaders: { [name: string]: string; },
+    additionalHeaders: { [name: string]: string },
     insecure: boolean,
-    method: string
+    method: string,
 ): Promise<void>;
 
-export function introspectSchema(
-    schemaPath: string,
-    outputPath: string
-): Promise<void>;
+export function introspectSchema(schemaPath: string, outputPath: string): Promise<void>;
 
-export function printSchema(
-    schemaPath: string,
-    outputPath: string,
-    options?: Options
-): Promise<void>;
+export function printSchema(schemaPath: string, outputPath: string, options?: Options): Promise<void>;
 
-export type TargetType = 'json' | 'swift' | 'ts-legacy' | 'typescript-legacy' | 'flow-legacy' | 'scala' | 'flow' | 'typescript' | 'ts';
+export type TargetType =
+    | 'json'
+    | 'swift'
+    | 'ts-legacy'
+    | 'typescript-legacy'
+    | 'flow-legacy'
+    | 'scala'
+    | 'flow'
+    | 'typescript'
+    | 'ts';
 
 export function generate(
     inputPaths: string[],
@@ -45,5 +47,5 @@ export function generate(
         mergeInFieldsFromFragmentSpreads?: boolean;
         useFlowExactObjects?: boolean;
         useFlowReadOnlyTypes?: boolean;
-    }
+    },
 ): void;

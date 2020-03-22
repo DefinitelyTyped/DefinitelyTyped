@@ -3,9 +3,6 @@
 // Definitions by: Ivan Zverev <https://github.com/1cheese>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function nanoEqual(
-    a: any,
-    b: any,
-): boolean;
+declare function nanoEqual(a: any, b: any): boolean;
 
 export = nanoEqual;

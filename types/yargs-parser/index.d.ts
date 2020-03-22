@@ -68,7 +68,7 @@ declare namespace yargsParser {
          * Indicate that keys should be parsed as an array and coerced to booleans / numbers:
          * { array: [ { key: 'foo', boolean: true }, {key: 'bar', number: true} ] }`.
          */
-        array?: string[] | Array<{ key: string; boolean?: boolean, number?: boolean }>;
+        array?: string[] | Array<{ key: string; boolean?: boolean; number?: boolean }>;
         /** Arguments should be parsed as booleans: `{ boolean: ['x', 'y'] }`. */
         boolean?: string[];
         /** Indicate a key that represents a path to a configuration file (this file will be loaded and parsed). */

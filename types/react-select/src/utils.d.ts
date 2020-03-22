@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  ClassNamesState,
-  InputActionMeta,
-  OptionsType,
-  OptionTypeBase,
-  ValueType,
-} from './types';
+import { ClassNamesState, InputActionMeta, OptionsType, OptionTypeBase, ValueType } from './types';
 
 // ==============================
 // NO OP
@@ -19,10 +13,10 @@ export function emptyString(): string;
 // ==============================
 
 export function classNames(
-  prefix?: string | null,
-  cssKey?: string | null,
-  state?: ClassNamesState,
-  className?: string,
+    prefix?: string | null,
+    cssKey?: string | null,
+    state?: ClassNamesState,
+    className?: string,
 ): string;
 
 // ==============================
@@ -36,9 +30,9 @@ export function cleanValue<OptionType extends OptionTypeBase>(value: ValueType<O
 // ==============================
 
 export function handleInputChange(
-  inputValue: string,
-  actionMeta: InputActionMeta,
-  onInputChange?: (inputValue: string, actionMeta: InputActionMeta) => string | void
+    inputValue: string,
+    actionMeta: InputActionMeta,
+    onInputChange?: (inputValue: string, actionMeta: InputActionMeta) => string | void,
 ): string;
 
 // ==============================
@@ -68,39 +62,38 @@ export function getScrollParent(element: React.Ref<any>): Element;
 // ------------------------------
 
 export function animatedScrollTo(
-  element: Element,
-  to: number,
-  duration: number,
-  callback: (element: Element) => void
+    element: Element,
+    to: number,
+    duration: number,
+    callback: (element: Element) => void,
 ): void;
 
 // Scroll Into View
 // ------------------------------
 
-export function scrollIntoView(
-  menuEl: HTMLElement,
-  focusedEl: HTMLElement
-): void;
+export function scrollIntoView(menuEl: HTMLElement, focusedEl: HTMLElement): void;
 
 // ==============================
 // Get bounding client object
 // ==============================
 
 // cannot get keys using array notation with DOMRect
-export function getBoundingClientObj(element: HTMLElement): {
-  bottom: number;
-  height: number;
-  left: number;
-  right: number;
-  top: number;
-  width: number;
+export function getBoundingClientObj(
+    element: HTMLElement,
+): {
+    bottom: number;
+    height: number;
+    left: number;
+    right: number;
+    top: number;
+    width: number;
 };
 export interface RectType {
-  left: number;
-  right: number;
-  bottom: number;
-  height: number;
-  width: number;
+    left: number;
+    right: number;
+    bottom: number;
+    height: number;
+    width: number;
 }
 
 // ==============================

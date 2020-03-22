@@ -1,12 +1,12 @@
-import bodyParser = require("body-parser");
-import csurf = require("csurf");
-import express = require("express");
-import formidable = require("formidable");
-import helmet = require("helmet");
-import http = require("http");
-import session = require("express-session");
+import bodyParser = require('body-parser');
+import csurf = require('csurf');
+import express = require('express');
+import formidable = require('formidable');
+import helmet = require('helmet');
+import http = require('http');
+import session = require('express-session');
 
-import { LogLevel } from "./common";
+import { LogLevel } from './common';
 
 // Extracted from formidable
 export interface DataParserOptions {
@@ -26,11 +26,7 @@ export interface DataParserOptions {
     handlePart(part: formidable.Part): void;
     parse(
         req: http.IncomingMessage,
-        callback?: (
-            err: any,
-            fields: formidable.Fields,
-            files: formidable.Files
-        ) => any
+        callback?: (err: any, fields: formidable.Fields, files: formidable.Files) => any,
     ): void;
 }
 
@@ -60,9 +56,9 @@ export interface Options {
     session?: session.SessionOptions;
     security?:
         | false
-        | helmet.IHelmetConfiguration & {
+        | (helmet.IHelmetConfiguration & {
               csurf?: false | CsurfOptions;
-          };
+          });
     log?:
         | LogLevel
         | {

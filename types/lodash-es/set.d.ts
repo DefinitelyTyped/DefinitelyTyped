@@ -1,2 +1,2 @@
-import { set } from "lodash";
+import { set } from 'lodash';
 export default set;

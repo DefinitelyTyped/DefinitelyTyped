@@ -21,7 +21,7 @@ import { Selection } from './html';
 export function del<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -34,7 +34,7 @@ export function del<RT extends ResponseType | undefined>(
  */
 export function get<RT extends ResponseType | undefined>(
     url: string,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -49,7 +49,7 @@ export function get<RT extends ResponseType | undefined>(
 export function options<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -64,7 +64,7 @@ export function options<RT extends ResponseType | undefined>(
 export function patch<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -79,7 +79,7 @@ export function patch<RT extends ResponseType | undefined>(
 export function post<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -94,7 +94,7 @@ export function post<RT extends ResponseType | undefined>(
 export function put<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -111,7 +111,7 @@ export function request<RT extends ResponseType | undefined>(
     method: string,
     url: string,
     body?: RequestBody | null,
-    params?: RefinedParams<RT> | null
+    params?: RefinedParams<RT> | null,
 ): RefinedResponse<RT>;
 
 /**
@@ -305,7 +305,7 @@ export type BatchRequest = string | ArrayBatchRequest | ObjectBatchRequest;
  * Array form batch request specification.
  * @public
  */
-export type ArrayBatchRequest = [ string, string, (RequestBody | null)?, (Params | null)? ];
+export type ArrayBatchRequest = [string, string, (RequestBody | null)?, (Params | null)?];
 
 /**
  * Object form batch request specification.
@@ -352,7 +352,7 @@ export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
     string,
     string,
     (RequestBody | null)?,
-    (RefinedParams<RT> | null)?
+    (RefinedParams<RT> | null)?,
 ];
 
 /**

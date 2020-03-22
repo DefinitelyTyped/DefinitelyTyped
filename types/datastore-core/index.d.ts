@@ -48,16 +48,16 @@ export namespace shard {
     const PREFIX = '/repo/flatfs/shard/';
     const readme: string;
     class Shard {
-        constructor(length: number)
+        constructor(length: number);
         name: string;
         param: number;
         _padding: string;
         fun(str: string): string;
         toString(): string;
     }
-    class Prefix extends Shard { }
-    class Suffix extends Shard { }
-    class NextToLast extends Shard { }
+    class Prefix extends Shard {}
+    class Suffix extends Shard {}
+    class NextToLast extends Shard {}
     function readShardFun(path: string, store: Datastore): Promise<Shard>;
     function parseShardFun(str: string): Shard;
 }
@@ -87,7 +87,7 @@ export interface MountDatastore extends Datastore<any> {
 }
 
 export interface MountDatastoreConstructor {
-    new(mounts: Array<Mount<any>>): MountDatastore;
+    new (mounts: Array<Mount<any>>): MountDatastore;
 }
 
 export const MountDatastore: MountDatastoreConstructor;
@@ -106,7 +106,7 @@ export interface NamespaceDatastore<Value = Buffer> extends KeytransformDatastor
 }
 
 export interface NamespaceDatastoreConstructor {
-    new(child: Datastore<any>, prefix: Key): NamespaceDatastore;
+    new (child: Datastore<any>, prefix: Key): NamespaceDatastore;
 }
 
 export const NamespaceDatastore: NamespaceDatastoreConstructor;
@@ -123,7 +123,7 @@ export interface TieredDatastore extends Datastore<any> {
 }
 
 export interface TieredDatastoreConstructor {
-    new(stores: Array<Datastore<any>>): TieredDatastore;
+    new (stores: Array<Datastore<any>>): TieredDatastore;
 }
 
 export const TieredDatastore: TieredDatastoreConstructor;

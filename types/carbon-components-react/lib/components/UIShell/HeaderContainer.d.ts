@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
-interface InheritedProps { }
+interface InheritedProps {}
 
 export interface HeaderContainerProps extends InheritedProps {
-    isSideNavExpanded?: boolean,
-    render: React.ComponentType,
+    isSideNavExpanded?: boolean;
+    render: React.ComponentType;
 }
 
 declare const HeaderContainer: React.FC<HeaderContainerProps>;

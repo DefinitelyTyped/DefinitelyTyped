@@ -83,43 +83,60 @@ export interface Parser<O extends object | undefined = undefined> {
 
     buffer<N extends string>(name: N, options: Parser.BufferOptions): Parser.Next<O, N, Buffer>;
 
-    array<N extends string, Q extends Parser.ArrayOptions>(name: N, options: Q): Parser.Next<O, N,
+    array<N extends string, Q extends Parser.ArrayOptions>(
+        name: N,
+        options: Q,
+    ): Parser.Next<
+        O,
+        N,
         Q extends { type: infer T }
             ? T extends Parser<infer O>
-                ? O extends undefined ? Array<{}> : O[]
+                ? O extends undefined
+                    ? Array<{}>
+                    : O[]
                 : T extends string
-                    ? number[]
-                    : never
+                ? number[]
+                : never
             : never
     >;
 
-    choice<N extends string, Q extends Parser.ChoiceOptions>(name: N, options: Q): Parser.Next<O, N,
+    choice<N extends string, Q extends Parser.ChoiceOptions>(
+        name: N,
+        options: Q,
+    ): Parser.Next<
+        O,
+        N,
         Q extends {
-            choices: infer C
+            choices: infer C;
         }
             ? C extends {
-                [key in keyof C]: infer T
-            }
+                  [key in keyof C]: infer T;
+              }
                 ? T extends Parser<infer O>
-                    ? O extends undefined ? {} : O
-                    : T extends string ? any : never
+                    ? O extends undefined
+                        ? {}
+                        : O
+                    : T extends string
+                    ? any
+                    : never
                 : never
             : never
     >;
 
-    nest<N extends string, Q extends Parser.NestOptions>(name: N, options: Q): Parser.Next<O, N,
-        Q extends { type: infer T }
-            ? T extends Parser<infer O>
-                ? O extends undefined ? {} : O
-                : never
-            : never
+    nest<N extends string, Q extends Parser.NestOptions>(
+        name: N,
+        options: Q,
+    ): Parser.Next<
+        O,
+        N,
+        Q extends { type: infer T } ? (T extends Parser<infer O> ? (O extends undefined ? {} : O) : never) : never
     >;
 
     skip(length: number): Parser<O>;
 
     seek(length: number): Parser<O>;
 
-    endianess(endianess: Parser.Endianness): Parser<O>;   /* [sic] */
+    endianess(endianess: Parser.Endianness): Parser<O> /* [sic] */;
 
     namely(alias: string): Parser<O>;
 
@@ -129,7 +146,7 @@ export interface Parser<O extends object | undefined = undefined> {
 }
 
 export interface ParserConstructor {
-    new(): Parser;
+    new (): Parser;
 }
 
 export const Parser: ParserConstructor;
@@ -139,7 +156,7 @@ export namespace Parser {
     type Parsed<O extends object | undefined> = O extends undefined ? {} : O;
 
     interface Options {
-        formatter?: ((value: Data) => any);
+        formatter?: (value: Data) => any;
         assert?: string | number | ((value: Data) => boolean);
     }
 
@@ -174,13 +191,9 @@ export namespace Parser {
         type: Parser<any>;
     }
 
-    type Endianness =
-        'little' |
-        'big';
+    type Endianness = 'little' | 'big';
 
-    type Valid<O extends object | undefined, P extends object> =
-        O extends undefined ? P : O & P;
+    type Valid<O extends object | undefined, P extends object> = O extends undefined ? P : O & P;
 
-    type Next<O extends object | undefined, N extends string, T extends any> =
-        Parser<Valid<O, { [name in N]: T }>>;
+    type Next<O extends object | undefined, N extends string, T extends any> = Parser<Valid<O, { [name in N]: T }>>;
 }

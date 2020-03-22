@@ -1,2 +1,2 @@
-import { runInContext } from "../fp";
+import { runInContext } from '../fp';
 export = runInContext;

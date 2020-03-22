@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import * as http from "http";
+import * as http from 'http';
 
-declare module "http" {
+declare module 'http' {
     interface Server {
         destroy(callback?: () => void): void;
     }

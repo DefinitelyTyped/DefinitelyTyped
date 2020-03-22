@@ -1,9 +1,9 @@
-import * as SwaggerExpress from "swagger-express-mw";
-import express = require("express");
+import * as SwaggerExpress from 'swagger-express-mw';
+import express = require('express');
 
 const app = express();
 const config: SwaggerExpress.Config = {
-    appRoot: __dirname
+    appRoot: __dirname,
 };
 
 SwaggerExpress.create(config, (err, middleware) => {
@@ -22,16 +22,16 @@ const swaggerSecurityHandlerCb = (err: Error) => {
 
 const configComplex: SwaggerExpress.Config = {
     appRoot: __dirname,
-    configDir: "some/directory",
-    controllersDirs: ["some/directory"],
-    fittingsDirs: ["some/directory"],
+    configDir: 'some/directory',
+    controllersDirs: ['some/directory'],
+    fittingsDirs: ['some/directory'],
     mockMode: true,
     swaggerControllerPipe: 'swagger_controllers',
     swaggerSecurityHandlers: {
         // did not manage to research the typings of first 3 arguments
         someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
             // do nothing
-        }
+        },
     },
-    validateResponse: true
+    validateResponse: true,
 };

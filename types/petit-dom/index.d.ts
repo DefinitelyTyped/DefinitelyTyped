@@ -108,7 +108,7 @@ export namespace PetitDom {
         newProps: P,
         oldProps: P,
         newContent: ReadonlyArray<VNode>,
-        oldContent: ReadonlyArray<VNode>
+        oldContent: ReadonlyArray<VNode>,
     ) => boolean;
 
     interface FunctionComponent<P extends ComponentProps> {
@@ -117,12 +117,18 @@ export namespace PetitDom {
     }
 
     interface ComponentClass<P extends ComponentProps> {
-        new(props: P, content: ReadonlyArray<Content>): Component<P>;
+        new (props: P, content: ReadonlyArray<Content>): Component<P>;
     }
 
     interface Component<P extends ComponentProps> {
         mount(props: P, content: ReadonlyArray<VNode>): Element;
-        patch(element: Element, newProps: P, oldProps: P, newContent: ReadonlyArray<VNode>, oldContent: ReadonlyArray<VNode>): Element;
+        patch(
+            element: Element,
+            newProps: P,
+            oldProps: P,
+            newContent: ReadonlyArray<VNode>,
+            oldContent: ReadonlyArray<VNode>,
+        ): Element;
         unmount(element: Element): void;
     }
 
@@ -154,33 +160,37 @@ export namespace PetitDom {
         readonly props: P & IntrinsicProps;
     }
 
-    interface DomElements extends HTMLElementTagNameMap, Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, "a" | "script" | "style" | "title">> {
-        "main": HTMLElement;
+    interface DomElements
+        extends HTMLElementTagNameMap,
+            Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, 'a' | 'script' | 'style' | 'title'>> {
+        main: HTMLElement;
     }
 }
 
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
-        interface Element extends PetitDom.VNode { }
+        interface Element extends PetitDom.VNode {}
 
         // tslint:disable-next-line:no-empty-interface
-        interface ElementClass extends PetitDom.Component<PetitDom.ComponentProps> { }
+        interface ElementClass extends PetitDom.Component<PetitDom.ComponentProps> {}
 
         // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicClassAttributes<T> extends PetitDom.Props { }
+        interface IntrinsicClassAttributes<T> extends PetitDom.Props {}
 
         // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicAttributes extends PetitDom.IntrinsicProps { }
+        interface IntrinsicAttributes extends PetitDom.IntrinsicProps {}
 
-        interface ElementAttributesProperty { props: PetitDom.Props; }
+        interface ElementAttributesProperty {
+            props: PetitDom.Props;
+        }
 
-        interface ElementChildrenAttribute { content: PetitDom.VNode[]; }
+        interface ElementChildrenAttribute {
+            content: PetitDom.VNode[];
+        }
 
         type IntrinsicElements = {
-            [P in keyof PetitDom.DomElements]:
-            PetitDom.Props<PetitDom.DomElements[P]> &
-            {
+            [P in keyof PetitDom.DomElements]: PetitDom.Props<PetitDom.DomElements[P]> & {
                 content?: PetitDom.Content | ReadonlyArray<PetitDom.Content>;
             };
         };

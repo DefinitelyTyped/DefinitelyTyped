@@ -16,7 +16,7 @@ module.exports = (config: karma.Config) => {
             transform: ['reactify', 'coffeeify', 'brfs'],
             extensions: ['.js', '.jsx', '.coffee'],
             plugin: ['stringify'],
-            configure: bundle => {
+            configure: (bundle) => {
                 bundle.on('prebundle', () => {
                     bundle.external('foobar');
                 });

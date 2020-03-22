@@ -178,7 +178,7 @@ declare module 'gl-matrix' {
          * @param {vec2} a vector to floor
          * @returns {vec2} out
          */
-        public static floor (out: vec2, a: vec2 | number[]): vec2;
+        public static floor(out: vec2, a: vec2 | number[]): vec2;
 
         /**
          * Returns the minimum of two vec2's
@@ -208,7 +208,6 @@ declare module 'gl-matrix' {
          * @returns {vec2} out
          */
         public static round(out: vec2, a: vec2 | number[]): vec2;
-
 
         /**
          * Scales a vec2 by a scalar number
@@ -439,8 +438,14 @@ declare module 'gl-matrix' {
          * @param arg additional argument to pass to fn
          * @returns a
          */
-        public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                              fn: (a: vec2 | number[], b: vec2 | number[], arg: any) => void, arg: any): Float32Array;
+        public static forEach(
+            a: Float32Array,
+            stride: number,
+            offset: number,
+            count: number,
+            fn: (a: vec2 | number[], b: vec2 | number[], arg: any) => void,
+            arg: any,
+        ): Float32Array;
 
         /**
          * Get the angle between two 2D vectors
@@ -460,8 +465,13 @@ declare module 'gl-matrix' {
          * @param fn Function to call for each vector in the array
          * @returns a
          */
-        public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                              fn: (a: vec2 | number[], b: vec2 | number[]) => void): Float32Array;
+        public static forEach(
+            a: Float32Array,
+            stride: number,
+            offset: number,
+            count: number,
+            fn: (a: vec2 | number[], b: vec2 | number[]) => void,
+        ): Float32Array;
 
         /**
          * Returns a string representation of a vector
@@ -478,7 +488,7 @@ declare module 'gl-matrix' {
          * @param {vec2} b The second vector.
          * @returns {boolean} True if the vectors are equal, false otherwise.
          */
-        public static exactEquals (a: vec2 | number[], b: vec2 | number[]): boolean;
+        public static exactEquals(a: vec2 | number[], b: vec2 | number[]): boolean;
 
         /**
          * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -487,7 +497,7 @@ declare module 'gl-matrix' {
          * @param {vec2} b The second vector.
          * @returns {boolean} True if the vectors are equal, false otherwise.
          */
-        public static equals (a: vec2 | number[], b: vec2 | number[]): boolean;
+        public static equals(a: vec2 | number[], b: vec2 | number[]): boolean;
     }
 
     // vec3
@@ -567,7 +577,7 @@ declare module 'gl-matrix' {
          * @param b the second operand
          * @returns out
          */
-        public static sub(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3
+        public static sub(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
         /**
          * Multiplies two vec3's
@@ -616,7 +626,7 @@ declare module 'gl-matrix' {
          * @param {vec3} a vector to ceil
          * @returns {vec3} out
          */
-        public static ceil (out: vec3, a: vec3 | number[]): vec3;
+        public static ceil(out: vec3, a: vec3 | number[]): vec3;
 
         /**
          * Math.floor the components of a vec3
@@ -625,7 +635,7 @@ declare module 'gl-matrix' {
          * @param {vec3} a vector to floor
          * @returns {vec3} out
          */
-        public static floor (out: vec3, a: vec3 | number[]): vec3;
+        public static floor(out: vec3, a: vec3 | number[]): vec3;
 
         /**
          * Returns the minimum of two vec3's
@@ -654,7 +664,7 @@ declare module 'gl-matrix' {
          * @param {vec3} a vector to round
          * @returns {vec3} out
          */
-        public static round (out: vec3, a: vec3 | number[]): vec3
+        public static round(out: vec3, a: vec3 | number[]): vec3;
 
         /**
          * Scales a vec3 by a scalar number
@@ -813,7 +823,14 @@ declare module 'gl-matrix' {
          * @param {number} t interpolation amount between the two inputs
          * @returns {vec3} out
          */
-        public static hermite (out: vec3, a: vec3 | number[], b: vec3 | number[], c: vec3 | number[], d: vec3 | number[], t: number): vec3;
+        public static hermite(
+            out: vec3,
+            a: vec3 | number[],
+            b: vec3 | number[],
+            c: vec3 | number[],
+            d: vec3 | number[],
+            t: number,
+        ): vec3;
 
         /**
          * Performs a bezier interpolation with two control points
@@ -826,7 +843,14 @@ declare module 'gl-matrix' {
          * @param {number} t interpolation amount between the two inputs
          * @returns {vec3} out
          */
-        public static bezier (out: vec3, a: vec3 | number[], b: vec3 | number[], c: vec3 | number[], d: vec3 | number[], t: number): vec3;
+        public static bezier(
+            out: vec3,
+            a: vec3 | number[],
+            b: vec3 | number[],
+            c: vec3 | number[],
+            d: vec3 | number[],
+            t: number,
+        ): vec3;
 
         /**
          * Generates a random unit vector
@@ -866,7 +890,7 @@ declare module 'gl-matrix' {
          */
         public static transformMat4(out: vec3, a: vec3 | number[], m: mat4): vec3;
 
-         /**
+        /**
          * Transforms the vec3 with a quat
          *
          * @param out the receiving vector
@@ -875,7 +899,6 @@ declare module 'gl-matrix' {
          * @returns out
          */
         public static transformQuat(out: vec3, a: vec3 | number[], q: quat): vec3;
-
 
         /**
          * Rotate a 3D vector around the x-axis
@@ -919,8 +942,14 @@ declare module 'gl-matrix' {
          * @returns a
          * @function
          */
-        public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                              fn: (a: vec3 | number[], b: vec3 | number[], arg: any) => void, arg: any): Float32Array;
+        public static forEach(
+            a: Float32Array,
+            stride: number,
+            offset: number,
+            count: number,
+            fn: (a: vec3 | number[], b: vec3 | number[], arg: any) => void,
+            arg: any,
+        ): Float32Array;
 
         /**
          * Perform some operation over an array of vec3s.
@@ -933,8 +962,13 @@ declare module 'gl-matrix' {
          * @returns a
          * @function
          */
-        public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                              fn: (a: vec3 | number[], b: vec3 | number[]) => void): Float32Array;
+        public static forEach(
+            a: Float32Array,
+            stride: number,
+            offset: number,
+            count: number,
+            fn: (a: vec3 | number[], b: vec3 | number[]) => void,
+        ): Float32Array;
 
         /**
          * Get the angle between two 3D vectors
@@ -959,7 +993,7 @@ declare module 'gl-matrix' {
          * @param {vec3} b The second vector.
          * @returns {boolean} True if the vectors are equal, false otherwise.
          */
-        public static exactEquals (a: vec3 | number[], b: vec3 | number[]): boolean
+        public static exactEquals(a: vec3 | number[], b: vec3 | number[]): boolean;
 
         /**
          * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -968,7 +1002,7 @@ declare module 'gl-matrix' {
          * @param {vec3} b The second vector.
          * @returns {boolean} True if the vectors are equal, false otherwise.
          */
-        public static equals (a: vec3 | number[], b: vec3 | number[]): boolean
+        public static equals(a: vec3 | number[], b: vec3 | number[]): boolean;
     }
 
     // vec4
@@ -1099,7 +1133,7 @@ declare module 'gl-matrix' {
          * @param {vec4} a vector to ceil
          * @returns {vec4} out
          */
-        public static ceil (out: vec4, a: vec4 | number[]): vec4;
+        public static ceil(out: vec4, a: vec4 | number[]): vec4;
 
         /**
          * Math.floor the components of a vec4
@@ -1108,7 +1142,7 @@ declare module 'gl-matrix' {
          * @param {vec4} a vector to floor
          * @returns {vec4} out
          */
-        public static floor (out: vec4, a: vec4 | number[]): vec4;
+        public static floor(out: vec4, a: vec4 | number[]): vec4;
 
         /**
          * Returns the minimum of two vec4's
@@ -1137,7 +1171,7 @@ declare module 'gl-matrix' {
          * @param {vec4} a vector to round
          * @returns {vec4} out
          */
-        public static round (out: vec4, a: vec4 | number[]): vec4;
+        public static round(out: vec4, a: vec4 | number[]): vec4;
 
         /**
          * Scales a vec4 by a scalar number
@@ -1325,8 +1359,14 @@ declare module 'gl-matrix' {
          * @returns a
          * @function
          */
-        public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                              fn: (a: vec4 | number[], b: vec4 | number[], arg: any) => void, arg: any): Float32Array;
+        public static forEach(
+            a: Float32Array,
+            stride: number,
+            offset: number,
+            count: number,
+            fn: (a: vec4 | number[], b: vec4 | number[], arg: any) => void,
+            arg: any,
+        ): Float32Array;
 
         /**
          * Perform some operation over an array of vec4s.
@@ -1339,8 +1379,13 @@ declare module 'gl-matrix' {
          * @returns a
          * @function
          */
-        public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                              fn: (a: vec4 | number[], b: vec4 | number[]) => void): Float32Array;
+        public static forEach(
+            a: Float32Array,
+            stride: number,
+            offset: number,
+            count: number,
+            fn: (a: vec4 | number[], b: vec4 | number[]) => void,
+        ): Float32Array;
 
         /**
          * Returns a string representation of a vector
@@ -1357,7 +1402,7 @@ declare module 'gl-matrix' {
          * @param {vec4} b The second vector.
          * @returns {boolean} True if the vectors are equal, false otherwise.
          */
-        public static exactEquals (a: vec4 | number[], b: vec4 | number[]): boolean;
+        public static exactEquals(a: vec4 | number[], b: vec4 | number[]): boolean;
 
         /**
          * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -1366,7 +1411,7 @@ declare module 'gl-matrix' {
          * @param {vec4} b The second vector.
          * @returns {boolean} True if the vectors are equal, false otherwise.
          */
-        public static equals (a: vec4 | number[], b: vec4 | number[]): boolean;
+        public static equals(a: vec4 | number[], b: vec4 | number[]): boolean;
     }
 
     // mat2
@@ -1572,7 +1617,7 @@ declare module 'gl-matrix' {
          * @param {mat2} b the second operand
          * @returns {mat2} out
          */
-        public static subtract (out: mat2, a: mat2, b: mat2): mat2;
+        public static subtract(out: mat2, a: mat2, b: mat2): mat2;
 
         /**
          * Subtracts matrix b from matrix a
@@ -1582,7 +1627,7 @@ declare module 'gl-matrix' {
          * @param {mat2} b the second operand
          * @returns {mat2} out
          */
-        public static sub (out: mat2, a: mat2, b: mat2): mat2;
+        public static sub(out: mat2, a: mat2, b: mat2): mat2;
 
         /**
          * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -1591,7 +1636,7 @@ declare module 'gl-matrix' {
          * @param {mat2} b The second matrix.
          * @returns {boolean} True if the matrices are equal, false otherwise.
          */
-        public static exactEquals (a: mat2, b: mat2): boolean;
+        public static exactEquals(a: mat2, b: mat2): boolean;
 
         /**
          * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -1600,7 +1645,7 @@ declare module 'gl-matrix' {
          * @param {mat2} b The second matrix.
          * @returns {boolean} True if the matrices are equal, false otherwise.
          */
-        public static equals (a: mat2, b: mat2): boolean;
+        public static equals(a: mat2, b: mat2): boolean;
 
         /**
          * Multiply each element of the matrix by a scalar.
@@ -1610,7 +1655,7 @@ declare module 'gl-matrix' {
          * @param {number} b amount to scale the matrix's elements by
          * @returns {mat2} out
          */
-        public static multiplyScalar (out: mat2, a: mat2, b: number): mat2
+        public static multiplyScalar(out: mat2, a: mat2, b: number): mat2;
 
         /**
          * Adds two mat2's after multiplying each element of the second operand by a scalar value.
@@ -1621,10 +1666,7 @@ declare module 'gl-matrix' {
          * @param {number} scale the amount to scale b's elements by before adding
          * @returns {mat2} out
          */
-        public static multiplyScalarAndAdd (out: mat2, a: mat2, b: mat2, scale: number): mat2
-
-
-
+        public static multiplyScalarAndAdd(out: mat2, a: mat2, b: mat2, scale: number): mat2;
     }
 
     // mat2d
@@ -1674,8 +1716,7 @@ declare module 'gl-matrix' {
          * @param {number} ty Component TY (index 5)
          * @returns {mat2d} A new mat2d
          */
-        public static fromValues (a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d
-
+        public static fromValues(a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d;
 
         /**
          * Set the components of a mat2d to the given values
@@ -1689,7 +1730,7 @@ declare module 'gl-matrix' {
          * @param {number} ty Component TY (index 5)
          * @returns {mat2d} out
          */
-        public static set (out: mat2d, a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d
+        public static set(out: mat2d, a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d;
 
         /**
          * Inverts a mat2d
@@ -1769,7 +1810,7 @@ declare module 'gl-matrix' {
          * @param {number} rad the angle to rotate the matrix by
          * @returns {mat2d} out
          */
-        public static fromRotation (out: mat2d, rad: number): mat2d;
+        public static fromRotation(out: mat2d, rad: number): mat2d;
 
         /**
          * Creates a matrix from a vector scaling
@@ -1782,7 +1823,7 @@ declare module 'gl-matrix' {
          * @param {vec2} v Scaling vector
          * @returns {mat2d} out
          */
-        public static fromScaling (out: mat2d, v: vec2 | number[]): mat2d;
+        public static fromScaling(out: mat2d, v: vec2 | number[]): mat2d;
 
         /**
          * Creates a matrix from a vector translation
@@ -1795,7 +1836,7 @@ declare module 'gl-matrix' {
          * @param {vec2} v Translation vector
          * @returns {mat2d} out
          */
-        public static fromTranslation (out: mat2d, v: vec2 | number[]): mat2d
+        public static fromTranslation(out: mat2d, v: vec2 | number[]): mat2d;
 
         /**
          * Returns a string representation of a mat2d
@@ -1821,7 +1862,7 @@ declare module 'gl-matrix' {
          * @param {mat2d} b the second operand
          * @returns {mat2d} out
          */
-        public static add (out: mat2d, a: mat2d, b: mat2d): mat2d
+        public static add(out: mat2d, a: mat2d, b: mat2d): mat2d;
 
         /**
          * Subtracts matrix b from matrix a
@@ -1831,7 +1872,7 @@ declare module 'gl-matrix' {
          * @param {mat2d} b the second operand
          * @returns {mat2d} out
          */
-        public static subtract(out: mat2d, a: mat2d, b: mat2d): mat2d
+        public static subtract(out: mat2d, a: mat2d, b: mat2d): mat2d;
 
         /**
          * Subtracts matrix b from matrix a
@@ -1841,7 +1882,7 @@ declare module 'gl-matrix' {
          * @param {mat2d} b the second operand
          * @returns {mat2d} out
          */
-        public static sub(out: mat2d, a: mat2d, b: mat2d): mat2d
+        public static sub(out: mat2d, a: mat2d, b: mat2d): mat2d;
 
         /**
          * Multiply each element of the matrix by a scalar.
@@ -1851,7 +1892,7 @@ declare module 'gl-matrix' {
          * @param {number} b amount to scale the matrix's elements by
          * @returns {mat2d} out
          */
-        public static multiplyScalar (out: mat2d, a: mat2d, b: number): mat2d;
+        public static multiplyScalar(out: mat2d, a: mat2d, b: number): mat2d;
 
         /**
          * Adds two mat2d's after multiplying each element of the second operand by a scalar value.
@@ -1862,7 +1903,7 @@ declare module 'gl-matrix' {
          * @param {number} scale the amount to scale b's elements by before adding
          * @returns {mat2d} out
          */
-        public static multiplyScalarAndAdd (out: mat2d, a: mat2d, b: mat2d, scale: number): mat2d
+        public static multiplyScalarAndAdd(out: mat2d, a: mat2d, b: mat2d, scale: number): mat2d;
 
         /**
          * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -1871,7 +1912,7 @@ declare module 'gl-matrix' {
          * @param {mat2d} b The second matrix.
          * @returns {boolean} True if the matrices are equal, false otherwise.
          */
-        public static exactEquals (a: mat2d, b: mat2d): boolean;
+        public static exactEquals(a: mat2d, b: mat2d): boolean;
 
         /**
          * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -1880,7 +1921,7 @@ declare module 'gl-matrix' {
          * @param {mat2d} b The second matrix.
          * @returns {boolean} True if the matrices are equal, false otherwise.
          */
-        public static equals (a: mat2d, b: mat2d): boolean
+        public static equals(a: mat2d, b: mat2d): boolean;
     }
 
     // mat3
@@ -1901,7 +1942,7 @@ declare module 'gl-matrix' {
          * @param {mat4} a   the source 4x4 matrix
          * @returns {mat3} out
          */
-        public static fromMat4(out: mat3, a: mat4): mat3
+        public static fromMat4(out: mat3, a: mat4): mat3;
 
         /**
          * Creates a new mat3 initialized with values from an existing matrix
@@ -1934,8 +1975,17 @@ declare module 'gl-matrix' {
          * @param {number} m22 Component in column 2, row 2 position (index 8)
          * @returns {mat3} A new mat3
          */
-        public static fromValues(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): mat3;
-
+        public static fromValues(
+            m00: number,
+            m01: number,
+            m02: number,
+            m10: number,
+            m11: number,
+            m12: number,
+            m20: number,
+            m21: number,
+            m22: number,
+        ): mat3;
 
         /**
          * Set the components of a mat3 to the given values
@@ -1952,7 +2002,18 @@ declare module 'gl-matrix' {
          * @param {number} m22 Component in column 2, row 2 position (index 8)
          * @returns {mat3} out
          */
-        public static set(out: mat3, m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): mat3
+        public static set(
+            out: mat3,
+            m00: number,
+            m01: number,
+            m02: number,
+            m10: number,
+            m11: number,
+            m12: number,
+            m20: number,
+            m21: number,
+            m22: number,
+        ): mat3;
 
         /**
          * Set a mat3 to the identity matrix
@@ -1971,7 +2032,7 @@ declare module 'gl-matrix' {
          */
         public static transpose(out: mat3, a: mat3): mat3;
 
-         /**
+        /**
          * Generates a 2D projection matrix with the given bounds
          *
          * @param out the receiving matrix
@@ -2027,7 +2088,6 @@ declare module 'gl-matrix' {
          */
         public static mul(out: mat3, a: mat3, b: mat3): mat3;
 
-
         /**
          * Translate a mat3 by the given vector
          *
@@ -2069,7 +2129,7 @@ declare module 'gl-matrix' {
          * @param {vec2} v Translation vector
          * @returns {mat3} out
          */
-        public static fromTranslation(out: mat3, v: vec2 | number[]): mat3
+        public static fromTranslation(out: mat3, v: vec2 | number[]): mat3;
 
         /**
          * Creates a matrix from a given angle
@@ -2082,7 +2142,7 @@ declare module 'gl-matrix' {
          * @param {number} rad the angle to rotate the matrix by
          * @returns {mat3} out
          */
-        public static fromRotation(out: mat3, rad: number): mat3
+        public static fromRotation(out: mat3, rad: number): mat3;
 
         /**
          * Creates a matrix from a vector scaling
@@ -2095,7 +2155,7 @@ declare module 'gl-matrix' {
          * @param {vec2} v Scaling vector
          * @returns {mat3} out
          */
-        public static fromScaling(out: mat3, v: vec2 | number[]): mat3
+        public static fromScaling(out: mat3, v: vec2 | number[]): mat3;
 
         /**
          * Copies the values from a mat2d into a mat3
@@ -2150,7 +2210,7 @@ declare module 'gl-matrix' {
          * @param {mat3} b the second operand
          * @returns {mat3} out
          */
-        public static add(out: mat3, a: mat3, b: mat3): mat3
+        public static add(out: mat3, a: mat3, b: mat3): mat3;
 
         /**
          * Subtracts matrix b from matrix a
@@ -2160,7 +2220,7 @@ declare module 'gl-matrix' {
          * @param {mat3} b the second operand
          * @returns {mat3} out
          */
-        public static subtract(out: mat3, a: mat3, b: mat3): mat3
+        public static subtract(out: mat3, a: mat3, b: mat3): mat3;
 
         /**
          * Subtracts matrix b from matrix a
@@ -2170,7 +2230,7 @@ declare module 'gl-matrix' {
          * @param {mat3} b the second operand
          * @returns {mat3} out
          */
-        public static sub(out: mat3, a: mat3, b: mat3): mat3
+        public static sub(out: mat3, a: mat3, b: mat3): mat3;
 
         /**
          * Multiply each element of the matrix by a scalar.
@@ -2180,7 +2240,7 @@ declare module 'gl-matrix' {
          * @param {number} b amount to scale the matrix's elements by
          * @returns {mat3} out
          */
-        public static multiplyScalar(out: mat3, a: mat3, b: number): mat3
+        public static multiplyScalar(out: mat3, a: mat3, b: number): mat3;
 
         /**
          * Adds two mat3's after multiplying each element of the second operand by a scalar value.
@@ -2191,7 +2251,7 @@ declare module 'gl-matrix' {
          * @param {number} scale the amount to scale b's elements by before adding
          * @returns {mat3} out
          */
-        public static multiplyScalarAndAdd(out: mat3, a: mat3, b: mat3, scale: number): mat3
+        public static multiplyScalarAndAdd(out: mat3, a: mat3, b: mat3, scale: number): mat3;
 
         /**
          * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -2209,7 +2269,7 @@ declare module 'gl-matrix' {
          * @param {mat3} b The second matrix.
          * @returns {boolean} True if the matrices are equal, false otherwise.
          */
-        public static equals(a: mat3, b: mat3): boolean
+        public static equals(a: mat3, b: mat3): boolean;
     }
 
     // mat4
@@ -2240,7 +2300,6 @@ declare module 'gl-matrix' {
          */
         public static copy(out: mat4, a: mat4): mat4;
 
-
         /**
          * Create a new mat4 with the given values
          *
@@ -2262,7 +2321,24 @@ declare module 'gl-matrix' {
          * @param {number} m33 Component in column 3, row 3 position (index 15)
          * @returns {mat4} A new mat4
          */
-        public static fromValues(m00: number, m01: number, m02: number, m03: number, m10: number, m11: number, m12: number, m13: number, m20: number, m21: number, m22: number, m23: number, m30: number, m31: number, m32: number, m33: number): mat4;
+        public static fromValues(
+            m00: number,
+            m01: number,
+            m02: number,
+            m03: number,
+            m10: number,
+            m11: number,
+            m12: number,
+            m13: number,
+            m20: number,
+            m21: number,
+            m22: number,
+            m23: number,
+            m30: number,
+            m31: number,
+            m32: number,
+            m33: number,
+        ): mat4;
 
         /**
          * Set the components of a mat4 to the given values
@@ -2286,7 +2362,25 @@ declare module 'gl-matrix' {
          * @param {number} m33 Component in column 3, row 3 position (index 15)
          * @returns {mat4} out
          */
-        public static set(out: mat4, m00: number, m01: number, m02: number, m03: number, m10: number, m11: number, m12: number, m13: number, m20: number, m21: number, m22: number, m23: number, m30: number, m31: number, m32: number, m33: number): mat4;
+        public static set(
+            out: mat4,
+            m00: number,
+            m01: number,
+            m02: number,
+            m03: number,
+            m10: number,
+            m11: number,
+            m12: number,
+            m13: number,
+            m20: number,
+            m21: number,
+            m22: number,
+            m23: number,
+            m30: number,
+            m31: number,
+            m32: number,
+            m33: number,
+        ): mat4;
 
         /**
          * Set a mat4 to the identity matrix
@@ -2423,7 +2517,7 @@ declare module 'gl-matrix' {
          * @param {vec3} v Translation vector
          * @returns {mat4} out
          */
-        public static fromTranslation(out: mat4, v: vec3 | number[]): mat4
+        public static fromTranslation(out: mat4, v: vec3 | number[]): mat4;
 
         /**
          * Creates a matrix from a vector scaling
@@ -2436,7 +2530,7 @@ declare module 'gl-matrix' {
          * @param {vec3} v Scaling vector
          * @returns {mat4} out
          */
-        public static fromScaling(out: mat4, v: vec3 | number[]): mat4
+        public static fromScaling(out: mat4, v: vec3 | number[]): mat4;
 
         /**
          * Creates a matrix from a given angle around a given axis
@@ -2450,7 +2544,7 @@ declare module 'gl-matrix' {
          * @param {vec3} axis the axis to rotate around
          * @returns {mat4} out
          */
-        public static fromRotation(out: mat4, rad: number, axis: vec3 | number[]): mat4
+        public static fromRotation(out: mat4, rad: number, axis: vec3 | number[]): mat4;
 
         /**
          * Creates a matrix from the given angle around the X axis
@@ -2463,7 +2557,7 @@ declare module 'gl-matrix' {
          * @param {number} rad the angle to rotate the matrix by
          * @returns {mat4} out
          */
-        public static fromXRotation(out: mat4, rad: number): mat4
+        public static fromXRotation(out: mat4, rad: number): mat4;
 
         /**
          * Creates a matrix from the given angle around the Y axis
@@ -2476,8 +2570,7 @@ declare module 'gl-matrix' {
          * @param {number} rad the angle to rotate the matrix by
          * @returns {mat4} out
          */
-        public static fromYRotation(out: mat4, rad: number): mat4
-
+        public static fromYRotation(out: mat4, rad: number): mat4;
 
         /**
          * Creates a matrix from the given angle around the Z axis
@@ -2490,7 +2583,7 @@ declare module 'gl-matrix' {
          * @param {number} rad the angle to rotate the matrix by
          * @returns {mat4} out
          */
-        public static fromZRotation(out: mat4, rad: number): mat4
+        public static fromZRotation(out: mat4, rad: number): mat4;
 
         /**
          * Creates a matrix from a quaternion rotation and vector translation
@@ -2581,7 +2674,13 @@ declare module 'gl-matrix' {
          * @param {vec3} o The origin vector around which to scale and rotate
          * @returns {mat4} out
          */
-        public static fromRotationTranslationScaleOrigin(out: mat4, q: quat, v: vec3 | number[], s: vec3 | number[], o: vec3 | number[]): mat4
+        public static fromRotationTranslationScaleOrigin(
+            out: mat4,
+            q: quat,
+            v: vec3 | number[],
+            s: vec3 | number[],
+            o: vec3 | number[],
+        ): mat4;
 
         /**
          * Calculates a 4x4 matrix from the given quaternion
@@ -2591,7 +2690,7 @@ declare module 'gl-matrix' {
          *
          * @returns {mat4} out
          */
-        public static fromQuat(out: mat4, q: quat): mat4
+        public static fromQuat(out: mat4, q: quat): mat4;
 
         /**
          * Generates a frustum matrix with the given bounds
@@ -2605,8 +2704,15 @@ declare module 'gl-matrix' {
          * @param far Far bound of the frustum
          * @returns out
          */
-        public static frustum(out: mat4, left: number, right: number,
-                              bottom: number, top: number, near: number, far: number): mat4;
+        public static frustum(
+            out: mat4,
+            left: number,
+            right: number,
+            bottom: number,
+            top: number,
+            near: number,
+            far: number,
+        ): mat4;
 
         /**
          * Generates a perspective projection matrix with the given bounds
@@ -2618,8 +2724,7 @@ declare module 'gl-matrix' {
          * @param far Far bound of the frustum
          * @returns out
          */
-        public static perspective(out: mat4, fovy: number, aspect: number,
-                                  near: number, far: number): mat4;
+        public static perspective(out: mat4, fovy: number, aspect: number, near: number, far: number): mat4;
 
         /**
          * Generates a perspective projection matrix with the given field of view.
@@ -2632,9 +2737,12 @@ declare module 'gl-matrix' {
          * @param {number} far Far bound of the frustum
          * @returns {mat4} out
          */
-        public static perspectiveFromFieldOfView(out: mat4,
-                                                 fov:{upDegrees: number, downDegrees: number, leftDegrees: number, rightDegrees: number},
-                                                 near: number, far: number): mat4
+        public static perspectiveFromFieldOfView(
+            out: mat4,
+            fov: { upDegrees: number; downDegrees: number; leftDegrees: number; rightDegrees: number },
+            near: number,
+            far: number,
+        ): mat4;
 
         /**
          * Generates a orthogonal projection matrix with the given bounds
@@ -2648,8 +2756,15 @@ declare module 'gl-matrix' {
          * @param far Far bound of the frustum
          * @returns out
          */
-        public static ortho(out: mat4, left: number, right: number,
-                            bottom: number, top: number, near: number, far: number): mat4;
+        public static ortho(
+            out: mat4,
+            left: number,
+            right: number,
+            bottom: number,
+            top: number,
+            near: number,
+            far: number,
+        ): mat4;
 
         /**
          * Generates a look-at matrix with the given eye position, focal point, and up axis
@@ -2697,7 +2812,7 @@ declare module 'gl-matrix' {
          * @param {mat4} b the second operand
          * @returns {mat4} out
          */
-        public static add(out: mat4, a: mat4, b: mat4): mat4
+        public static add(out: mat4, a: mat4, b: mat4): mat4;
 
         /**
          * Subtracts matrix b from matrix a
@@ -2707,7 +2822,7 @@ declare module 'gl-matrix' {
          * @param {mat4} b the second operand
          * @returns {mat4} out
          */
-        public static subtract(out: mat4, a: mat4, b: mat4): mat4
+        public static subtract(out: mat4, a: mat4, b: mat4): mat4;
 
         /**
          * Subtracts matrix b from matrix a
@@ -2717,7 +2832,7 @@ declare module 'gl-matrix' {
          * @param {mat4} b the second operand
          * @returns {mat4} out
          */
-        public static sub(out: mat4, a: mat4, b: mat4): mat4
+        public static sub(out: mat4, a: mat4, b: mat4): mat4;
 
         /**
          * Multiply each element of the matrix by a scalar.
@@ -2727,7 +2842,7 @@ declare module 'gl-matrix' {
          * @param {number} b amount to scale the matrix's elements by
          * @returns {mat4} out
          */
-        public static multiplyScalar(out: mat4, a: mat4, b: number): mat4
+        public static multiplyScalar(out: mat4, a: mat4, b: number): mat4;
 
         /**
          * Adds two mat4's after multiplying each element of the second operand by a scalar value.
@@ -2738,7 +2853,7 @@ declare module 'gl-matrix' {
          * @param {number} scale the amount to scale b's elements by before adding
          * @returns {mat4} out
          */
-        public static multiplyScalarAndAdd (out: mat4, a: mat4, b: mat4, scale: number): mat4
+        public static multiplyScalarAndAdd(out: mat4, a: mat4, b: mat4, scale: number): mat4;
 
         /**
          * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -2747,7 +2862,7 @@ declare module 'gl-matrix' {
          * @param {mat4} b The second matrix.
          * @returns {boolean} True if the matrices are equal, false otherwise.
          */
-        public static exactEquals (a: mat4, b: mat4): boolean
+        public static exactEquals(a: mat4, b: mat4): boolean;
 
         /**
          * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -2756,8 +2871,7 @@ declare module 'gl-matrix' {
          * @param {mat4} b The second matrix.
          * @returns {boolean} True if the matrices are equal, false otherwise.
          */
-        public static equals (a: mat4, b: mat4): boolean
-
+        public static equals(a: mat4, b: mat4): boolean;
     }
 
     // quat
@@ -2834,7 +2948,7 @@ declare module 'gl-matrix' {
          * @param {vec3} b the destination vector
          * @returns {quat} out
          */
-        public static rotationTo (out: quat, a: vec3 | number[], b: vec3 | number[]): quat;
+        public static rotationTo(out: quat, a: vec3 | number[], b: vec3 | number[]): quat;
 
         /**
          * Sets the specified quaternion with values corresponding to the given
@@ -2846,9 +2960,7 @@ declare module 'gl-matrix' {
          * @param {vec3} up    the vector representing the local "up" direction
          * @returns {quat} out
          */
-        public static setAxes (out: quat, view: vec3 | number[], right: vec3 | number[], up: vec3 | number[]): quat
-
-
+        public static setAxes(out: quat, view: vec3 | number[], right: vec3 | number[], up: vec3 | number[]): quat;
 
         /**
          * Sets a quat from the given angle and rotation axis,
@@ -2874,7 +2986,7 @@ declare module 'gl-matrix' {
          * @param  {quat} q     Quaternion to be decomposed
          * @return {number}     Angle, in radians, of the rotation
          */
-        public static getAxisAngle (out_axis: vec3 | number[], q: quat): number
+        public static getAxisAngle(out_axis: vec3 | number[], q: quat): number;
 
         /**
          * Adds two quat's
@@ -3135,7 +3247,7 @@ declare module 'gl-matrix' {
          * @param {quat} b The second vector.
          * @returns {boolean} True if the quaternions are equal, false otherwise.
          */
-        public static exactEquals (a: quat, b: quat): boolean;
+        public static exactEquals(a: quat, b: quat): boolean;
 
         /**
          * Returns whether or not the quaternions have approximately the same elements in the same position.
@@ -3144,7 +3256,7 @@ declare module 'gl-matrix' {
          * @param {quat} b The second vector.
          * @returns {boolean} True if the quaternions are equal, false otherwise.
          */
-        public static equals (a: quat, b: quat): boolean;
+        public static equals(a: quat, b: quat): boolean;
     }
 }
 

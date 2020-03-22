@@ -21,4 +21,4 @@ declare namespace clone {
     function clonePrototype<T>(obj: T): T;
 }
 
-export = clone
+export = clone;

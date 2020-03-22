@@ -20,7 +20,10 @@ declare namespace M {
     /**
      * Returns a function that tests its supplied argument, suitable for use with Array.filter
      */
-    function filter(pattern: string, options?: IOptions): (element: string, indexed: number, array: ReadonlyArray<string>) => boolean;
+    function filter(
+        pattern: string,
+        options?: IOptions,
+    ): (element: string, indexed: number, array: ReadonlyArray<string>) => boolean;
 
     /**
      * Make a regular expression object from the pattern.
@@ -115,7 +118,7 @@ declare namespace M {
     }
 
     interface IMinimatchStatic {
-        new(pattern: string, options?: IOptions): IMinimatch;
+        new (pattern: string, options?: IOptions): IMinimatch;
         prototype: IMinimatch;
     }
 

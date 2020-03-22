@@ -52,10 +52,10 @@ const a: NodeJS.TypedArray = new Buffer(123);
 }
 
 {
-  const obj = {
-    valueOf() {
-      return 'hello';
-    }
-  };
-  Buffer.from(obj);
+    const obj = {
+        valueOf() {
+            return 'hello';
+        },
+    };
+    Buffer.from(obj);
 }

@@ -22,7 +22,7 @@ declare namespace from2 {
     type ObjectModeOptions = { objectMode: true } & stream.ReadableOptions;
     type Options = { objectMode?: false } & stream.ReadableOptions;
 
-    type From2Ctor<R extends ReadInput | ReadObjectInput> = new(read: R) => NodeJS.ReadableStream;
+    type From2Ctor<R extends ReadInput | ReadObjectInput> = new (read: R) => NodeJS.ReadableStream;
 
     type ReadObjectInput = ReadCallback<NextObjectCallback> | any[];
     type ReadInput = ReadCallback<NextCallback> | Chunk[];

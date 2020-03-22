@@ -11,11 +11,28 @@ declare namespace create {
         build: {
             get(name: string, n: number, callback: (err: Error, data: any) => void): void;
             log(name: string, callback: (err: Error, data: any) => void): void;
-            log(name: string, n: number,  callback: (err: Error, data: any) => void): void;
+            log(name: string, n: number, callback: (err: Error, data: any) => void): void;
             log(name: string, n: number, start: number, callback: (err: Error, data: any) => void): void;
-            log(name: string, n: number, start: number, type: 'text' | 'html', callback: (err: Error, data: any) => void): void;
-            log(name: string, n: number, start: number, type: 'text' | 'html', meta: boolean, callback: (err: Error, data: any) => void): void;
-            logStream(name: string, n: number, options?: { type?: 'text' | 'html', delay?: number }): NodeJS.ReadableStream;
+            log(
+                name: string,
+                n: number,
+                start: number,
+                type: 'text' | 'html',
+                callback: (err: Error, data: any) => void,
+            ): void;
+            log(
+                name: string,
+                n: number,
+                start: number,
+                type: 'text' | 'html',
+                meta: boolean,
+                callback: (err: Error, data: any) => void,
+            ): void;
+            logStream(
+                name: string,
+                n: number,
+                options?: { type?: 'text' | 'html'; delay?: number },
+            ): NodeJS.ReadableStream;
             stop(name: string, n: number, callback: (err: Error) => void): void;
             term(name: string, n: number, callback: (err: Error) => void): void;
         };
@@ -131,15 +148,15 @@ declare namespace create {
 }
 
 declare function create(opts?: {
-        baseUrl?: string;
-        crumbIssuer?: boolean;
-        headers?: any;
-        promisify?: false;
-    }): create.JenkinsAPI;
+    baseUrl?: string;
+    crumbIssuer?: boolean;
+    headers?: any;
+    promisify?: false;
+}): create.JenkinsAPI;
 declare function create(opts: {
-        baseUrl?: string;
-        crumbIssuer?: boolean;
-        headers?: any;
-        promisify: true;
-    }): create.JenkinsPromisifiedAPI;
+    baseUrl?: string;
+    crumbIssuer?: boolean;
+    headers?: any;
+    promisify: true;
+}): create.JenkinsPromisifiedAPI;
 export = create;

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Tasks API v1 */
-    function load(name: "tasks", version: "v1"): PromiseLike<void>;
-    function load(name: "tasks", version: "v1", callback: () => any): void;
+    function load(name: 'tasks', version: 'v1'): PromiseLike<void>;
+    function load(name: 'tasks', version: 'v1', callback: () => any): void;
 
     namespace tasks {
         interface Task {
@@ -161,23 +161,25 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: TaskList;
             }): Request<TaskList>;
-            insert(request: {
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
-                quotaUser?: string;
-                /** Deprecated. Please use quotaUser instead. */
-                userIp?: string;
-            },
-            body: TaskList): Request<TaskList>;
+            insert(
+                request: {
+                    /** Data format for the response. */
+                    alt?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Deprecated. Please use quotaUser instead. */
+                    userIp?: string;
+                },
+                body: TaskList,
+            ): Request<TaskList>;
             /** Returns all the authenticated user's task lists. */
             list(request: {
                 /** Data format for the response. */
@@ -220,25 +222,27 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: TaskList;
             }): Request<TaskList>;
-            patch(request: {
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
-                quotaUser?: string;
-                /** Task list identifier. */
-                tasklist: string;
-                /** Deprecated. Please use quotaUser instead. */
-                userIp?: string;
-            },
-            body: TaskList): Request<TaskList>;
+            patch(
+                request: {
+                    /** Data format for the response. */
+                    alt?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Task list identifier. */
+                    tasklist: string;
+                    /** Deprecated. Please use quotaUser instead. */
+                    userIp?: string;
+                },
+                body: TaskList,
+            ): Request<TaskList>;
             /** Updates the authenticated user's specified task list. */
             update(request: {
                 /** Data format for the response. */
@@ -260,25 +264,27 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: TaskList;
             }): Request<TaskList>;
-            update(request: {
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
-                quotaUser?: string;
-                /** Task list identifier. */
-                tasklist: string;
-                /** Deprecated. Please use quotaUser instead. */
-                userIp?: string;
-            },
-            body: TaskList): Request<TaskList>;
+            update(
+                request: {
+                    /** Data format for the response. */
+                    alt?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Task list identifier. */
+                    tasklist: string;
+                    /** Deprecated. Please use quotaUser instead. */
+                    userIp?: string;
+                },
+                body: TaskList,
+            ): Request<TaskList>;
         }
         interface TasksResource {
             /**
@@ -370,29 +376,31 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Task;
             }): Request<Task>;
-            insert(request: {
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Parent task identifier. If the task is created at the top level, this parameter is omitted. Optional. */
-                parent?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Previous sibling task identifier. If the task is created at the first position among its siblings, this parameter is omitted. Optional. */
-                previous?: string;
-                /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
-                quotaUser?: string;
-                /** Task list identifier. */
-                tasklist: string;
-                /** Deprecated. Please use quotaUser instead. */
-                userIp?: string;
-            },
-            body: Task): Request<Task>;
+            insert(
+                request: {
+                    /** Data format for the response. */
+                    alt?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Parent task identifier. If the task is created at the top level, this parameter is omitted. Optional. */
+                    parent?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** Previous sibling task identifier. If the task is created at the first position among its siblings, this parameter is omitted. Optional. */
+                    previous?: string;
+                    /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Task list identifier. */
+                    tasklist: string;
+                    /** Deprecated. Please use quotaUser instead. */
+                    userIp?: string;
+                },
+                body: Task,
+            ): Request<Task>;
             /** Returns all tasks in the specified task list. */
             list(request: {
                 /** Data format for the response. */
@@ -486,27 +494,29 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Task;
             }): Request<Task>;
-            patch(request: {
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
-                quotaUser?: string;
-                /** Task identifier. */
-                task: string;
-                /** Task list identifier. */
-                tasklist: string;
-                /** Deprecated. Please use quotaUser instead. */
-                userIp?: string;
-            },
-            body: Task): Request<Task>;
+            patch(
+                request: {
+                    /** Data format for the response. */
+                    alt?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Task identifier. */
+                    task: string;
+                    /** Task list identifier. */
+                    tasklist: string;
+                    /** Deprecated. Please use quotaUser instead. */
+                    userIp?: string;
+                },
+                body: Task,
+            ): Request<Task>;
             /** Updates the specified task. */
             update(request: {
                 /** Data format for the response. */
@@ -530,27 +540,29 @@ declare namespace gapi.client {
                 /** Request body */
                 resource: Task;
             }): Request<Task>;
-            update(request: {
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
-                quotaUser?: string;
-                /** Task identifier. */
-                task: string;
-                /** Task list identifier. */
-                tasklist: string;
-                /** Deprecated. Please use quotaUser instead. */
-                userIp?: string;
-            },
-            body: Task): Request<Task>;
+            update(
+                request: {
+                    /** Data format for the response. */
+                    alt?: string;
+                    /** Selector specifying which fields to include in a partial response. */
+                    fields?: string;
+                    /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                    key?: string;
+                    /** OAuth 2.0 token for the current user. */
+                    oauth_token?: string;
+                    /** Returns response with indentations and line breaks. */
+                    prettyPrint?: boolean;
+                    /** An opaque string that represents a user for quota purposes. Must not exceed 40 characters. */
+                    quotaUser?: string;
+                    /** Task identifier. */
+                    task: string;
+                    /** Task list identifier. */
+                    tasklist: string;
+                    /** Deprecated. Please use quotaUser instead. */
+                    userIp?: string;
+                },
+                body: Task,
+            ): Request<Task>;
         }
 
         const tasklists: TasklistsResource;

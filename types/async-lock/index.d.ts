@@ -18,17 +18,21 @@ interface AsyncLockOptions {
 declare class AsyncLock {
     constructor(options?: AsyncLockOptions);
 
-    acquire<T>(key: string | string[],
-               fn: (() => T | PromiseLike<T>) | ((done: AsyncLockDoneCallback<T>) => any),
-               opts?: AsyncLockOptions): Promise<T>;
-    acquire<T>(key: string | string[],
-               fn: (done: AsyncLockDoneCallback<T>) => any,
-               cb: AsyncLockDoneCallback<T>,
-               opts?: AsyncLockOptions): void;
+    acquire<T>(
+        key: string | string[],
+        fn: (() => T | PromiseLike<T>) | ((done: AsyncLockDoneCallback<T>) => any),
+        opts?: AsyncLockOptions,
+    ): Promise<T>;
+    acquire<T>(
+        key: string | string[],
+        fn: (done: AsyncLockDoneCallback<T>) => any,
+        cb: AsyncLockDoneCallback<T>,
+        opts?: AsyncLockOptions,
+    ): void;
 
     isBusy(key?: string): boolean;
 }
 
-declare namespace AsyncLock { }
+declare namespace AsyncLock {}
 
 export = AsyncLock;

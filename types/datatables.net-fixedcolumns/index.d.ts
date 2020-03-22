@@ -37,37 +37,37 @@ declare namespace DataTables {
 
     interface Api {
         /*
-        * Get FixedColumns Api
-        */
+         * Get FixedColumns Api
+         */
         fixedColumns(): FixedColumnsMethods;
     }
 
     interface FixedColumnsMethods extends Api {
         /*
-        * Update the data shown in the FixedColumns
-        */
+         * Update the data shown in the FixedColumns
+         */
         update(): Api;
 
         /*
-        * Redraw the fixed columns based on new table size
-        */
+         * Redraw the fixed columns based on new table size
+         */
         relayout(): Api;
 
         /*
-        * @Deprecated(use dt.row(this).index())
-        * Get the row index of a row in a fixed column
-        */
+         * @Deprecated(use dt.row(this).index())
+         * Get the row index of a row in a fixed column
+         */
         rowIndex(): number;
 
         /*
-        * @Deprecated(use dt.cell(this).index())
-        * Get the cell index of a cell in a fixed column
-        */
+         * @Deprecated(use dt.cell(this).index())
+         * Get the cell index of a cell in a fixed column
+         */
         cellIndex(): CellIndex;
     }
 
     /*
-    */
+     */
     interface CellIndex {
         row: number;
         column: number;

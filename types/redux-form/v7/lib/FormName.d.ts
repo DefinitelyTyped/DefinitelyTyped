@@ -1,4 +1,4 @@
-import { ReactNode, StatelessComponent } from "react";
+import { ReactNode, StatelessComponent } from 'react';
 
 export interface FormNameProps {
     children: (props: { form: string }) => ReactNode;

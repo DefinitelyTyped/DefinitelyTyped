@@ -1,2 +1,2 @@
-export * from "./TooltipIcon";
-export { default } from "./TooltipIcon";
+export * from './TooltipIcon';
+export { default } from './TooltipIcon';

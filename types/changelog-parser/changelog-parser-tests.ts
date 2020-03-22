@@ -2,12 +2,12 @@ import parseChangelog = require('changelog-parser');
 
 const options = {
     filePath: 'path/to/CHANGELOG.md',
-    removeMarkdown: false
+    removeMarkdown: false,
 };
 
 const fn = (obj: object): void => {};
 
-parseChangelog({filePath: 'path/to/CHANGELOG.md'}, (error, result) => {
+parseChangelog({ filePath: 'path/to/CHANGELOG.md' }, (error, result) => {
     if (error) {
         throw error;
     }
@@ -17,7 +17,7 @@ parseChangelog({filePath: 'path/to/CHANGELOG.md'}, (error, result) => {
 
 parseChangelog(options, (error, result) => {});
 
-parseChangelog({filePath: 'path/to/CHANGELOG.md'}, (error) => {});
+parseChangelog({ filePath: 'path/to/CHANGELOG.md' }, (error) => {});
 
 parseChangelog(options).then((result) => {});
 

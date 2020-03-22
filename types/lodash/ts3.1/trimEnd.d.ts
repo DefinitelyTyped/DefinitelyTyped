@@ -1,2 +1,2 @@
-import { trimEnd } from "./index";
+import { trimEnd } from './index';
 export = trimEnd;

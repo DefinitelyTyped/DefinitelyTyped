@@ -1,15 +1,16 @@
-import "jquery";
-import { PagerConfigurationStore } from "../Paging/PagerConfigurationStore";
-import { Parser } from "../Parsing/Parser";
-import { TableSorting } from "../Sorting/TableSorting";
-import { WidgetOptionStore } from "../Widgets/WidgetOptionStore";
-import { TablesorterCache } from "./TablesorterCache";
-import { TablesorterConfiguration } from "./TablesorterConfiguration";
+import 'jquery';
+import { PagerConfigurationStore } from '../Paging/PagerConfigurationStore';
+import { Parser } from '../Parsing/Parser';
+import { TableSorting } from '../Sorting/TableSorting';
+import { WidgetOptionStore } from '../Widgets/WidgetOptionStore';
+import { TablesorterCache } from './TablesorterCache';
+import { TablesorterConfiguration } from './TablesorterConfiguration';
 
 /**
  * Represents the configuration-store of the `tablesorter`.
  */
-export interface TablesorterConfigurationStore<TElement = HTMLElement> extends Required<TablesorterConfiguration<TElement>> {
+export interface TablesorterConfigurationStore<TElement = HTMLElement>
+    extends Required<TablesorterConfiguration<TElement>> {
     /**
      * A jQuery-object containing all headers of the table.
      */

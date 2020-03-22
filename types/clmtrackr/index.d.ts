@@ -47,7 +47,7 @@ declare namespace _default {
 
         draw(canvas: HTMLCanvasElement): void;
 
-        setResponseMode(type: "single" | "cycle" | "blend", list: Array<"raw" | "sobel" | "lbp">): void;
+        setResponseMode(type: 'single' | 'cycle' | 'blend', list: Array<'raw' | 'sobel' | 'lbp'>): void;
     }
     const version: string;
 }

@@ -1,4 +1,4 @@
-import { CanvasKitInitResult } from "../index";
+import { CanvasKitInitResult } from '../index';
 
 declare function CanvasKitInit(): CanvasKitInitResult;
 

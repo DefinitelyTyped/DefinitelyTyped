@@ -7,8 +7,7 @@
 // For answers, fixes and cutting edge version please see development repository.
 
 declare namespace BigInt {
-    export interface BigInt extends Array<number> {
-    }
+    export interface BigInt extends Array<number> {}
 
     export interface IRandom {
         (): number;

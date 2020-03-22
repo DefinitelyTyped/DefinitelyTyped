@@ -134,13 +134,13 @@ declare namespace adone {
         }
 
         namespace date {
-            function past(years?: number, refDate?: string|Date): Date;
-            function future(years?: number, refDate?: string|Date): Date;
-            function between(from: string|number|Date, to: string|Date): Date;
+            function past(years?: number, refDate?: string | Date): Date;
+            function future(years?: number, refDate?: string | Date): Date;
+            function between(from: string | number | Date, to: string | Date): Date;
             function recent(days?: number): Date;
             function soon(days?: number): Date;
-            function month(options?: { abbr?: boolean, context?: boolean }): string;
-            function weekday(options?: { abbr?: boolean, context?: boolean }): string;
+            function month(options?: { abbr?: boolean; context?: boolean }): string;
+            function weekday(options?: { abbr?: boolean; context?: boolean }): string;
         }
 
         function fake(str: string): string;
@@ -177,7 +177,10 @@ declare namespace adone {
             function replaceSymbols(string?: string): string;
             function shuffle<T>(o: T[]): T[];
             function shuffle(): string[];
-            function mustache(str: string, data: { [key: string]: string|((substring: string, ...args: any[]) => string) }): string;
+            function mustache(
+                str: string,
+                data: { [key: string]: string | ((substring: string, ...args: any[]) => string) },
+            ): string;
             function createCard(): I.Card;
             function contextualCard(): I.ContextualCard;
             function userCard(): I.UserCard;
@@ -219,7 +222,7 @@ declare namespace adone {
             function userAgent(): string;
             function color(baseRed255?: number, baseGreen255?: number, baseBlue255?: number): string;
             function mac(): string;
-            function password(len?: number, memorable?: boolean, pattern?: string|RegExp, prefix?: string): string;
+            function password(len?: number, memorable?: boolean, pattern?: string | RegExp, prefix?: string): string;
         }
 
         namespace lorem {
@@ -255,10 +258,10 @@ declare namespace adone {
 
         namespace random {
             function number(max: number): number;
-            function number(options?: { min?: number, max?: number, precision?: number }): number;
+            function number(options?: { min?: number; max?: number; precision?: number }): number;
             function arrayElement(): string;
             function arrayElement<T>(array: T[]): T;
-            function objectElement(object?: { [key: string]: any }, field?: "key"): string;
+            function objectElement(object?: { [key: string]: any }, field?: 'key'): string;
             function objectElement<T>(object?: { [key: string]: T }, field?: any): T;
             function uuid(): string;
             function boolean(): boolean;
@@ -287,47 +290,47 @@ declare namespace adone {
 
         namespace I {
             type Locale =
-                | "az"
-                | "cz"
-                | "de"
-                | "de_AT"
-                | "de_CH"
-                | "el"
-                | "en"
-                | "en_AU"
-                | "en_BORK"
-                | "en_CA"
-                | "en_GB"
-                | "en_IE"
-                | "en_IND"
-                | "en_US"
-                | "en_au_ocker"
-                | "es"
-                | "es_MX"
-                | "fa"
-                | "fr"
-                | "fr_CA"
-                | "ge"
-                | "id_ID"
-                | "it"
-                | "ja"
-                | "ko"
-                | "lv"
-                | "nb_NO"
-                | "nep"
-                | "nl"
-                | "nl_BE"
-                | "pl"
-                | "pt_BR"
-                | "ro"
-                | "ru"
-                | "sk"
-                | "sv"
-                | "tr"
-                | "uk"
-                | "vi"
-                | "zh_CN"
-                | "zh_TW";
+                | 'az'
+                | 'cz'
+                | 'de'
+                | 'de_AT'
+                | 'de_CH'
+                | 'el'
+                | 'en'
+                | 'en_AU'
+                | 'en_BORK'
+                | 'en_CA'
+                | 'en_GB'
+                | 'en_IE'
+                | 'en_IND'
+                | 'en_US'
+                | 'en_au_ocker'
+                | 'es'
+                | 'es_MX'
+                | 'fa'
+                | 'fr'
+                | 'fr_CA'
+                | 'ge'
+                | 'id_ID'
+                | 'it'
+                | 'ja'
+                | 'ko'
+                | 'lv'
+                | 'nb_NO'
+                | 'nep'
+                | 'nl'
+                | 'nl_BE'
+                | 'pl'
+                | 'pt_BR'
+                | 'ro'
+                | 'ru'
+                | 'sk'
+                | 'sv'
+                | 'tr'
+                | 'uk'
+                | 'vi'
+                | 'zh_CN'
+                | 'zh_TW';
         }
 
         function getLocale(): I.Locale;

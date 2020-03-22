@@ -1,2 +1,2 @@
-import { stubString } from "../fp";
+import { stubString } from '../fp';
 export = stubString;

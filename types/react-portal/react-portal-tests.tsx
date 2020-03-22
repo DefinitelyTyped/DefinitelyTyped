@@ -14,7 +14,7 @@ export default class App extends React.Component<{}, AppState> {
 
         this.state = {
             isPortalOneActive: false,
-            isPortalTwoActive: false
+            isPortalTwoActive: false,
         };
     }
 
@@ -23,17 +23,17 @@ export default class App extends React.Component<{}, AppState> {
             <div>
                 <h1>React Portal Examples</h1>
                 <p>
-                    <a href="https://github.com/tajo/react-portal">
-                        https://github.com/tajo/react-portal
-                    </a>
+                    <a href="https://github.com/tajo/react-portal">https://github.com/tajo/react-portal</a>
                 </p>
 
                 <h2>Portal (stateless)</h2>
                 <button
                     onClick={() =>
-                        this.setState(prevState => ({
-                            isPortalOneActive: !prevState.isPortalOneActive
-                        }))}>
+                        this.setState((prevState) => ({
+                            isPortalOneActive: !prevState.isPortalOneActive,
+                        }))
+                    }
+                >
                     Toggle
                 </button>
                 {this.state.isPortalOneActive && (
@@ -45,9 +45,11 @@ export default class App extends React.Component<{}, AppState> {
                 <h2>Portal (stateless, custom node)</h2>
                 <button
                     onClick={() =>
-                        this.setState(prevState => ({
-                            isPortalTwoActive: !prevState.isPortalTwoActive
-                        }))}>
+                        this.setState((prevState) => ({
+                            isPortalTwoActive: !prevState.isPortalTwoActive,
+                        }))
+                    }
+                >
                     Toggle
                 </button>
                 {this.state.isPortalTwoActive && (
@@ -65,10 +67,9 @@ export default class App extends React.Component<{}, AppState> {
                         portal(
                             <p>
                                 This is more advanced Portal. It handles its own state.{' '}
-                                <button onClick={closePortal}>Close me!</button>, hit ESC or
-                                click outside of me.
-                            </p>
-                        )
+                                <button onClick={closePortal}>Close me!</button>, hit ESC or click outside of me.
+                            </p>,
+                        ),
                     ]}
                 </PortalWithState>
             </div>

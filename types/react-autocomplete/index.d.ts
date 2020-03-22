@@ -75,11 +75,7 @@ declare namespace Autocomplete {
          * { top, left, minWidth } which are the coordinates of the top-left corner
          * and the width of the dropdown menu.
          */
-        renderMenu?: (
-            items: ReactNode[],
-            value: string,
-            styles: CSSProperties,
-        ) => ReactNode;
+        renderMenu?: (items: ReactNode[], value: string, styles: CSSProperties) => ReactNode;
         /**
          * Styles that are applied to the dropdown menu in the default `renderMenu`
          * implementation. If you override `renderMenu` and you want to use
@@ -145,22 +141,22 @@ declare namespace Autocomplete {
     }
 
     interface State {
-      /**
-       * True when the menu is visible. Provided to `onMenuVisibilityChange`.
-       */
-      isOpen: boolean;
+        /**
+         * True when the menu is visible. Provided to `onMenuVisibilityChange`.
+         */
+        isOpen: boolean;
 
-      /**
-       * Index of the highlighted item, `null` if none currently is.
-       */
-      highlightedIndex: number | null;
+        /**
+         * Index of the highlighted item, `null` if none currently is.
+         */
+        highlightedIndex: number | null;
 
-      /**
-       * These three `menu___` values are used in CSS to layout the menu.
-       */
-      menuLeft?: number;
-      menuTop?: number;
-      menuWidth?: number;
+        /**
+         * These three `menu___` values are used in CSS to layout the menu.
+         */
+        menuLeft?: number;
+        menuTop?: number;
+        menuWidth?: number;
     }
 }
 declare class Autocomplete extends Component<Autocomplete.Props, Autocomplete.State> {

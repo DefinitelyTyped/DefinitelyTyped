@@ -11,15 +11,7 @@ export = Popover;
 declare class Popover extends React.Component<Popover.PopoverProps> {}
 
 declare namespace Popover {
-    type PopoverPlace =
-        | 'above'
-        | 'right'
-        | 'below'
-        | 'left'
-        | 'row'
-        | 'column'
-        | 'start'
-        | 'end';
+    type PopoverPlace = 'above' | 'right' | 'below' | 'left' | 'row' | 'column' | 'start' | 'end';
 
     interface PopoverProps {
         body: React.ReactNode;

@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 declare class SecurePassword {
-    constructor(opts?: { memlimit?: number; opslimit?: number; });
+    constructor(opts?: { memlimit?: number; opslimit?: number });
 
     memlimit: number;
 

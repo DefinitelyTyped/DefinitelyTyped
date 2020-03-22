@@ -14,19 +14,17 @@
 
  =============================================== */
 
-import {
-    Middleware,
-} from "koa";
+import { Middleware } from 'koa';
 
-import * as passport from "passport";
+import * as passport from 'passport';
 
-declare module "koa" {
+declare module 'koa' {
     interface Context {
         login(user: any, options?: any): Promise<void>;
-        logIn: Context["login"];
+        logIn: Context['login'];
 
         logout(): void;
-        logOut: Context["logout"];
+        logOut: Context['logout'];
 
         isAuthenticated(): boolean;
         isUnauthenticated(): boolean;
@@ -39,23 +37,27 @@ declare namespace KoaPassport {
         use(name: string, strategy: passport.Strategy): this;
         unuse(name: string): this;
         framework(fw: passport.Framework): this;
-        initialize(options?: { userProperty: string; }): Middleware;
-        session(options?: { pauseStream: boolean; }): Middleware;
+        initialize(options?: { userProperty: string }): Middleware;
+        session(options?: { pauseStream: boolean }): Middleware;
 
         authenticate(strategy: string | string[], callback?: (...args: any[]) => any): Middleware;
-        authenticate(strategy: string | string[], options: passport.AuthenticateOptions | object, callback?: (...args: any[]) => any): Middleware;
+        authenticate(
+            strategy: string | string[],
+            options: passport.AuthenticateOptions | object,
+            callback?: (...args: any[]) => any,
+        ): Middleware;
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): Middleware;
         authorize(strategy: string | string[], options: any, callback?: (...args: any[]) => any): Middleware;
 
-        serializeUser: passport.Authenticator["serializeUser"];
-        deserializeUser: passport.Authenticator["deserializeUser"];
-        transformAuthInfo: passport.Authenticator["transformAuthInfo"];
+        serializeUser: passport.Authenticator['serializeUser'];
+        deserializeUser: passport.Authenticator['deserializeUser'];
+        transformAuthInfo: passport.Authenticator['transformAuthInfo'];
     }
 
     interface Static extends KoaPassport {
         KoaPassport: typeof KoaPassport;
         Passport: typeof passport.Passport;
-        Authenticator: Static["Passport"];
+        Authenticator: Static['Passport'];
     }
 }
 

@@ -1,5 +1,5 @@
-import "jquery";
-import { Select2Options } from "./Options/Select2Options";
+import 'jquery';
+import { Select2Options } from './Options/Select2Options';
 
 /**
  * Provides the functionality to generate select2-controls.

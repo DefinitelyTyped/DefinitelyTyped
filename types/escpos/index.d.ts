@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import * as net from "net";
+import * as net from 'net';
 
 export type FEED_CONTROL_TYPE = 'LF' | 'GLF' | 'FF' | 'CR' | 'HT' | 'VT';
 export type BITMAP_FORMAT_TYPE = 'S8' | 'D8' | 'S24' | 'D24';
@@ -337,7 +337,7 @@ export class Image {
     size(): { width: number; height: number; colors: number };
 
     toBitmap(
-        density?: number
+        density?: number,
     ): {
         data: any;
         density: number;
@@ -351,7 +351,7 @@ export class Image {
 }
 
 export class Printer {
-    constructor(adapter: Adapter, options?: {  encoding?: string  });
+    constructor(adapter: Adapter, options?: { encoding?: string });
 
     static create(device: Adapter): Promise<Printer>;
 
@@ -400,16 +400,18 @@ export class Printer {
     table(data: string[], encoding?: string): Printer;
 
     tableCustom(
-        data: {
-            text: string,
-            width: number,
-            align: 'LEFT' | 'CENTER' | 'RIGHT'
-        } | {
-            text: string,
-            cols: number,
-            align: 'LEFT' | 'CENTER' | 'RIGHT'
-        },
-        encoding?: string
+        data:
+            | {
+                  text: string;
+                  width: number;
+                  align: 'LEFT' | 'CENTER' | 'RIGHT';
+              }
+            | {
+                  text: string;
+                  cols: number;
+                  align: 'LEFT' | 'CENTER' | 'RIGHT';
+              },
+        encoding?: string,
     ): Printer;
 
     /**
@@ -476,19 +478,18 @@ export class Printer {
              */
             position: 'OFF' | 'ABV' | 'BLW' | 'BTH';
             font: 'A' | 'B';
-            includeParity: boolean
+            includeParity: boolean;
         },
     ): Printer;
 
-    qrcode(
-        code: string,
-        version: number,
-        level: QRCODE_LEVEL,
-        size: number
-    ): Printer;
+    qrcode(code: string, version: number, level: QRCODE_LEVEL, size: number): Printer;
 
     qrimage(content: string, callback?: (error: Error | null, printer?: Printer) => void): Printer;
-    qrimage(content: string, options?: { type: string; mode: string }, callback?: (error: Error | null, printer?: Printer) => void): Printer;
+    qrimage(
+        content: string,
+        options?: { type: string; mode: string },
+        callback?: (error: Error | null, printer?: Printer) => void,
+    ): Printer;
 
     image(image: Image, density: BITMAP_FORMAT_TYPE): Printer;
 
@@ -531,7 +532,7 @@ export class Printer {
 }
 
 export class Screen {
-    constructor(adapter: Adapter, options?: {  encoding?: string  });
+    constructor(adapter: Adapter, options?: { encoding?: string });
 
     static create(device: Adapter): Promise<Screen>;
 

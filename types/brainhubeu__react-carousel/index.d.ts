@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export type ImgProps = React.ReactComponentElement<'img'>;
 
@@ -15,8 +15,7 @@ export interface DotsProps {
     onChange?(value: number): void;
 }
 
-export class Dots extends React.Component<DotsProps> {
-}
+export class Dots extends React.Component<DotsProps> {}
 
 export interface CarouselProps {
     value?: number;
@@ -42,5 +41,4 @@ export interface CarouselProps {
     breakpoints?: any;
 }
 
-export default class extends React.Component<CarouselProps> {
-}
+export default class extends React.Component<CarouselProps> {}

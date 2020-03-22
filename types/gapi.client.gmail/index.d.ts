@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Gmail API v1 */
-    function load(name: "gmail", version: "v1"): PromiseLike<void>;
-    function load(name: "gmail", version: "v1", callback: () => any): void;
+    function load(name: 'gmail', version: 'v1'): PromiseLike<void>;
+    function load(name: 'gmail', version: 'v1', callback: () => any): void;
 
     const users: gmail.UsersResource;
 

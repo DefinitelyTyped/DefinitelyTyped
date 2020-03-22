@@ -97,7 +97,7 @@ declare module 'angular' {
              */
             ngfValidateForce?: boolean;
         }
-        
+
         interface ResizeIfFunction {
             (width: number, height: number): boolean;
         }

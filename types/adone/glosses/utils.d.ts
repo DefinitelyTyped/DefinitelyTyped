@@ -37,7 +37,12 @@ declare namespace adone {
 
         function zip<T1, T2>(a: Iterable<T1>, b: Iterable<T2>): IterableIterator<[T1, T2]>;
         function zip<T1, T2, T3>(a: Iterable<T1>, b: Iterable<T2>, c: Iterable<T3>): IterableIterator<[T1, T2, T3]>;
-        function zip<T1, T2, T3, T4>(a: Iterable<T1>, b: Iterable<T2>, c: Iterable<T3>, d: Iterable<T4>): IterableIterator<[T1, T2, T3, T4]>;
+        function zip<T1, T2, T3, T4>(
+            a: Iterable<T1>,
+            b: Iterable<T2>,
+            c: Iterable<T3>,
+            d: Iterable<T4>,
+        ): IterableIterator<[T1, T2, T3, T4]>;
         function zip(...iterables: Array<Iterable<any>>): IterableIterator<any[]>;
 
         namespace I {
@@ -129,7 +134,11 @@ declare namespace adone {
 
         function asyncIter<T>(array: T[], iter: (elem: T, index: number, cb: () => void) => any, cb: () => void): void;
 
-        function asyncFor<T>(obj: { [key: string]: T }, iter: (key: string, value: T, index: number, length: number, next: () => void) => void, cb: () => void): void;
+        function asyncFor<T>(
+            obj: { [key: string]: T },
+            iter: (key: string, value: T, index: number, length: number, next: () => void) => void,
+            cb: () => void,
+        ): void;
 
         namespace I {
             interface OnceOptions {
@@ -141,7 +150,10 @@ declare namespace adone {
         namespace I {
             type WaterFallTask = (...args: any[]) => void;
         }
-        function asyncWaterfall<T>(tasks: I.WaterFallTask[], callback?: (err?: Error | null, ...args: any[]) => void): void;
+        function asyncWaterfall<T>(
+            tasks: I.WaterFallTask[],
+            callback?: (err?: Error | null, ...args: any[]) => void,
+        ): void;
 
         function xrange(start?: number, stop?: number, step?: number): IterableIterator<number>;
 
@@ -159,7 +171,10 @@ declare namespace adone {
                 dot?: boolean;
             }
         }
-        function matchPath(criteria: any, options?: I.MatchPathOptions): (value: any, options?: I.MatchPathOptions) => number | boolean;
+        function matchPath(
+            criteria: any,
+            options?: I.MatchPathOptions,
+        ): (value: any, options?: I.MatchPathOptions) => number | boolean;
         function matchPath(criteria: any, value: any, options?: I.MatchPathOptions): number | boolean;
 
         namespace I {
@@ -202,11 +217,41 @@ declare namespace adone {
         function jsesc(argument: any, options?: I.JSEscOptions): string;
 
         namespace memcpy {
-            function utou(target: Buffer, targetOffset: number, source: Buffer, sourceStart: number, sourceEnd: number): number;
-            function atoa(target: ArrayBuffer, targetOffset: number, source: ArrayBuffer, sourceStart: number, sourceEnd: number): number;
-            function atou(target: Buffer, targetOffset: number, source: ArrayBuffer, sourceStart: number, sourceEnd: number): number;
-            function utoa(target: ArrayBuffer, targetOffset: number, source: Buffer, sourceStart: number, sourceEnd: number): number;
-            function copy(target: Buffer | ArrayBuffer, targetOffset: number, source: Buffer | ArrayBuffer, sourceStart: number, sourceEnd: number): number;
+            function utou(
+                target: Buffer,
+                targetOffset: number,
+                source: Buffer,
+                sourceStart: number,
+                sourceEnd: number,
+            ): number;
+            function atoa(
+                target: ArrayBuffer,
+                targetOffset: number,
+                source: ArrayBuffer,
+                sourceStart: number,
+                sourceEnd: number,
+            ): number;
+            function atou(
+                target: Buffer,
+                targetOffset: number,
+                source: ArrayBuffer,
+                sourceStart: number,
+                sourceEnd: number,
+            ): number;
+            function utoa(
+                target: ArrayBuffer,
+                targetOffset: number,
+                source: Buffer,
+                sourceStart: number,
+                sourceEnd: number,
+            ): number;
+            function copy(
+                target: Buffer | ArrayBuffer,
+                targetOffset: number,
+                source: Buffer | ArrayBuffer,
+                sourceStart: number,
+                sourceEnd: number,
+            ): number;
         }
 
         namespace uuid {
@@ -243,217 +288,191 @@ declare namespace adone {
         namespace iconv {
             namespace I {
                 namespace encoding {
-                    type Native = "UTF-8"
-                        | "UCS-2"
-                        | "UTF-16LE"
-                        | "ASCII"
-                        | "Binary"
-                        | "Base64"
-                        | "Hex";
+                    type Native = 'UTF-8' | 'UCS-2' | 'UTF-16LE' | 'ASCII' | 'Binary' | 'Base64' | 'Hex';
 
-                    type Unicode = "UTF-16BE" | "UTF-16";
+                    type Unicode = 'UTF-16BE' | 'UTF-16';
 
-                    type Windows = "874"
-                        | "1250"
-                        | "1251"
-                        | "1252"
-                        | "1253"
-                        | "1254"
-                        | "1255"
-                        | "1256"
-                        | "1257"
-                        | "1258"
-                        | "CP874"
-                        | "CP1251"
-                        | "CP1252"
-                        | "CP1253"
-                        | "CP1254"
-                        | "CP1255"
-                        | "CP1256"
-                        | "CP1257"
-                        | "CP1258"
-                        | "Win-1251"
-                        | "Win-1252"
-                        | "Win-1253"
-                        | "Win-1254"
-                        | "Win-1255"
-                        | "Win-1256"
-                        | "Win-1257"
-                        | "Win-1258"
-                        | "Windows-1251"
-                        | "Windows-1252"
-                        | "Windows-1253"
-                        | "Windows-1254"
-                        | "Windows-1255"
-                        | "Windows-1256"
-                        | "Windows-1257"
-                        | "Windows-1258";
+                    type Windows =
+                        | '874'
+                        | '1250'
+                        | '1251'
+                        | '1252'
+                        | '1253'
+                        | '1254'
+                        | '1255'
+                        | '1256'
+                        | '1257'
+                        | '1258'
+                        | 'CP874'
+                        | 'CP1251'
+                        | 'CP1252'
+                        | 'CP1253'
+                        | 'CP1254'
+                        | 'CP1255'
+                        | 'CP1256'
+                        | 'CP1257'
+                        | 'CP1258'
+                        | 'Win-1251'
+                        | 'Win-1252'
+                        | 'Win-1253'
+                        | 'Win-1254'
+                        | 'Win-1255'
+                        | 'Win-1256'
+                        | 'Win-1257'
+                        | 'Win-1258'
+                        | 'Windows-1251'
+                        | 'Windows-1252'
+                        | 'Windows-1253'
+                        | 'Windows-1254'
+                        | 'Windows-1255'
+                        | 'Windows-1256'
+                        | 'Windows-1257'
+                        | 'Windows-1258';
 
-                    type ISO = "ISO-8829-1"
-                        | "ISO-8859-2"
-                        | "ISO-8859-3"
-                        | "ISO-8859-4"
-                        | "ISO-8859-5"
-                        | "ISO-8859-6"
-                        | "ISO-8859-7"
-                        | "ISO-8859-8"
-                        | "ISO-8859-9"
-                        | "ISO-8859-10"
-                        | "ISO-8859-11"
-                        | "ISO-8859-12"
-                        | "ISO-8859-13"
-                        | "ISO-8859-14"
-                        | "ISO-8859-15"
-                        | "ISO-8859-16";
+                    type ISO =
+                        | 'ISO-8829-1'
+                        | 'ISO-8859-2'
+                        | 'ISO-8859-3'
+                        | 'ISO-8859-4'
+                        | 'ISO-8859-5'
+                        | 'ISO-8859-6'
+                        | 'ISO-8859-7'
+                        | 'ISO-8859-8'
+                        | 'ISO-8859-9'
+                        | 'ISO-8859-10'
+                        | 'ISO-8859-11'
+                        | 'ISO-8859-12'
+                        | 'ISO-8859-13'
+                        | 'ISO-8859-14'
+                        | 'ISO-8859-15'
+                        | 'ISO-8859-16';
 
-                    type IBM = "437"
-                        | "737"
-                        | "775"
-                        | "808"
-                        | "850"
-                        | "852"
-                        | "855"
-                        | "856"
-                        | "857"
-                        | "858"
-                        | "860"
-                        | "861"
-                        | "862"
-                        | "863"
-                        | "864"
-                        | "865"
-                        | "866"
-                        | "869"
-                        | "922"
-                        | "1046"
-                        | "1124"
-                        | "1125"
-                        | "1129"
-                        | "1133"
-                        | "1161"
-                        | "1163"
-                        | "CP437"
-                        | "CP737"
-                        | "CP775"
-                        | "CP808"
-                        | "CP850"
-                        | "CP852"
-                        | "CP855"
-                        | "CP856"
-                        | "CP857"
-                        | "CP858"
-                        | "CP860"
-                        | "CP861"
-                        | "CP862"
-                        | "CP863"
-                        | "CP864"
-                        | "CP865"
-                        | "CP866"
-                        | "CP869"
-                        | "CP922"
-                        | "CP1046"
-                        | "CP1124"
-                        | "CP1125"
-                        | "CP1129"
-                        | "CP1133"
-                        | "CP1161"
-                        | "CP1163"
-                        | "IBM437"
-                        | "IBM737"
-                        | "IBM775"
-                        | "IBM808"
-                        | "IBM850"
-                        | "IBM852"
-                        | "IBM855"
-                        | "IBM856"
-                        | "IBM857"
-                        | "IBM858"
-                        | "IBM860"
-                        | "IBM861"
-                        | "IBM862"
-                        | "IBM863"
-                        | "IBM864"
-                        | "IBM865"
-                        | "IBM866"
-                        | "IBM869"
-                        | "IBM922"
-                        | "IBM1046"
-                        | "IBM1124"
-                        | "IBM1125"
-                        | "IBM1129"
-                        | "IBM1133"
-                        | "IBM1161"
-                        | "IBM1163";
+                    type IBM =
+                        | '437'
+                        | '737'
+                        | '775'
+                        | '808'
+                        | '850'
+                        | '852'
+                        | '855'
+                        | '856'
+                        | '857'
+                        | '858'
+                        | '860'
+                        | '861'
+                        | '862'
+                        | '863'
+                        | '864'
+                        | '865'
+                        | '866'
+                        | '869'
+                        | '922'
+                        | '1046'
+                        | '1124'
+                        | '1125'
+                        | '1129'
+                        | '1133'
+                        | '1161'
+                        | '1163'
+                        | 'CP437'
+                        | 'CP737'
+                        | 'CP775'
+                        | 'CP808'
+                        | 'CP850'
+                        | 'CP852'
+                        | 'CP855'
+                        | 'CP856'
+                        | 'CP857'
+                        | 'CP858'
+                        | 'CP860'
+                        | 'CP861'
+                        | 'CP862'
+                        | 'CP863'
+                        | 'CP864'
+                        | 'CP865'
+                        | 'CP866'
+                        | 'CP869'
+                        | 'CP922'
+                        | 'CP1046'
+                        | 'CP1124'
+                        | 'CP1125'
+                        | 'CP1129'
+                        | 'CP1133'
+                        | 'CP1161'
+                        | 'CP1163'
+                        | 'IBM437'
+                        | 'IBM737'
+                        | 'IBM775'
+                        | 'IBM808'
+                        | 'IBM850'
+                        | 'IBM852'
+                        | 'IBM855'
+                        | 'IBM856'
+                        | 'IBM857'
+                        | 'IBM858'
+                        | 'IBM860'
+                        | 'IBM861'
+                        | 'IBM862'
+                        | 'IBM863'
+                        | 'IBM864'
+                        | 'IBM865'
+                        | 'IBM866'
+                        | 'IBM869'
+                        | 'IBM922'
+                        | 'IBM1046'
+                        | 'IBM1124'
+                        | 'IBM1125'
+                        | 'IBM1129'
+                        | 'IBM1133'
+                        | 'IBM1161'
+                        | 'IBM1163';
 
-                    type Mac = "MacCroatian"
-                        | "MacCyrillic"
-                        | "MacGreek"
-                        | "MacIceland"
-                        | "MacRoman"
-                        | "MacThai"
-                        | "MacTurkish"
-                        | "MacUkraine"
-                        | "MacCentEuro"
-                        | "Macintosh";
+                    type Mac =
+                        | 'MacCroatian'
+                        | 'MacCyrillic'
+                        | 'MacGreek'
+                        | 'MacIceland'
+                        | 'MacRoman'
+                        | 'MacThai'
+                        | 'MacTurkish'
+                        | 'MacUkraine'
+                        | 'MacCentEuro'
+                        | 'Macintosh';
 
-                    type KOI8 = "KOI8-R"
-                        | "KOI8-U"
-                        | "KOI8-RU"
-                        | "KOI8-T";
+                    type KOI8 = 'KOI8-R' | 'KOI8-U' | 'KOI8-RU' | 'KOI8-T';
 
-                    type Misc = "ArmSCII8"
-                        | "RK1048"
-                        | "TCVN"
-                        | "GEORGIAN-ACADEMY"
-                        | "GEORGIAN-PS"
-                        | "PT154"
-                        | "VISCII"
-                        | "ISO-646-CN"
-                        | "ISO-646-JP"
-                        | "HP Roman-8"
-                        | "TIS-620";
+                    type Misc =
+                        | 'ArmSCII8'
+                        | 'RK1048'
+                        | 'TCVN'
+                        | 'GEORGIAN-ACADEMY'
+                        | 'GEORGIAN-PS'
+                        | 'PT154'
+                        | 'VISCII'
+                        | 'ISO-646-CN'
+                        | 'ISO-646-JP'
+                        | 'HP Roman-8'
+                        | 'TIS-620';
 
-                    type Singlebyte = Windows
-                        | ISO
-                        | IBM
-                        | Mac
-                        | KOI8
-                        | Misc;
+                    type Singlebyte = Windows | ISO | IBM | Mac | KOI8 | Misc;
 
-                    type Japanese = "Shift_JIS"
-                        | "Windows-31J"
-                        | "windows-932"
-                        | "EUC-JP";
+                    type Japanese = 'Shift_JIS' | 'Windows-31J' | 'windows-932' | 'EUC-JP';
 
-                    type Chinese = "GB2312"
-                        | "GBK"
-                        | "GB18030"
-                        | "Windows-936"
-                        | "EUC-CN";
+                    type Chinese = 'GB2312' | 'GBK' | 'GB18030' | 'Windows-936' | 'EUC-CN';
 
-                    type Korean = "KS_C_5601"
-                        | "Windows-949"
-                        | "EUC-KR";
+                    type Korean = 'KS_C_5601' | 'Windows-949' | 'EUC-KR';
 
-                    type TaiwanHongKong = "Big5"
-                        | "Big5-HKSCS"
-                        | "Windows-950";
+                    type TaiwanHongKong = 'Big5' | 'Big5-HKSCS' | 'Windows-950';
 
-                    type Multibyte = Japanese
-                        | Chinese
-                        | Korean
-                        | TaiwanHongKong;
+                    type Multibyte = Japanese | Chinese | Korean | TaiwanHongKong;
                 }
 
-                type SupportedEncoding = encoding.Native
-                    | encoding.Unicode
-                    | encoding.Singlebyte
-                    | encoding.Multibyte;
+                type SupportedEncoding = encoding.Native | encoding.Unicode | encoding.Singlebyte | encoding.Multibyte;
             }
 
             const defaultCharUnicode: string;
 
-            const defaultCharSingleByte: "?";
+            const defaultCharSingleByte: '?';
 
             function encodingExists(encoding: string): boolean;
 
@@ -493,7 +512,14 @@ declare namespace adone {
 
         namespace I {
             interface BinarySearchFunction {
-                <T>(aHaystack: T[], aNeedle: number, aLow?: number, aHigh?: number, aCompare?: (a: T, b: T) => number, aBias?: number): T;
+                <T>(
+                    aHaystack: T[],
+                    aNeedle: number,
+                    aLow?: number,
+                    aHigh?: number,
+                    aCompare?: (a: T, b: T) => number,
+                    aBias?: number,
+                ): T;
                 GREATEST_LOWER_BOUND: number;
                 LEAST_UPPER_BOUND: number;
             }
@@ -558,11 +584,31 @@ declare namespace adone {
                     <T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => Promise<R>, a: T1, b: T2, c: T3): Promise<R>;
                     <T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => R, a: T1, b: T2, c: T3): Promise<R>;
 
-                    <T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => Promise<R>, a: T1, b: T2, c: T3, d: T4): Promise<R>;
+                    <T1, T2, T3, T4, R>(
+                        fn: (a: T1, b: T2, c: T3, d: T4) => Promise<R>,
+                        a: T1,
+                        b: T2,
+                        c: T3,
+                        d: T4,
+                    ): Promise<R>;
                     <T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => R, a: T1, b: T2, c: T3, d: T4): Promise<R>;
 
-                    <T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>, a: T1, b: T2, c: T3, d: T4, e: T5): Promise<R>;
-                    <T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, a: T1, b: T2, c: T3, d: T4, e: T5): Promise<R>;
+                    <T1, T2, T3, T4, T5, R>(
+                        fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>,
+                        a: T1,
+                        b: T2,
+                        c: T3,
+                        d: T4,
+                        e: T5,
+                    ): Promise<R>;
+                    <T1, T2, T3, T4, T5, R>(
+                        fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R,
+                        a: T1,
+                        b: T2,
+                        c: T3,
+                        d: T4,
+                        e: T5,
+                    ): Promise<R>;
 
                     <R>(fn: (...args: any[]) => Promise<R>, ...args: any[]): Promise<R>;
                     <R>(fn: (...args: any[]) => R, ...args: any[]): Promise<R>;
@@ -572,9 +618,18 @@ declare namespace adone {
             function create<R>(fn: () => R, options?: I.Options): () => Promise<R>;
             function create<T1, R>(fn: (a: T1) => R, options?: I.Options): (a: T1) => Promise<R>;
             function create<T1, T2, R>(fn: (a: T1, b: T2) => R, options?: I.Options): (a: T1, b: T2) => Promise<R>;
-            function create<T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => R, options?: I.Options): (a: T1, b: T2, c: T3) => Promise<R>;
-            function create<T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => R, options?: I.Options): (a: T1, b: T2, c: T3, d: T4) => Promise<R>;
-            function create<T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, options?: I.Options): (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>;
+            function create<T1, T2, T3, R>(
+                fn: (a: T1, b: T2, c: T3) => R,
+                options?: I.Options,
+            ): (a: T1, b: T2, c: T3) => Promise<R>;
+            function create<T1, T2, T3, T4, R>(
+                fn: (a: T1, b: T2, c: T3, d: T4) => R,
+                options?: I.Options,
+            ): (a: T1, b: T2, c: T3, d: T4) => Promise<R>;
+            function create<T1, T2, T3, T4, T5, R>(
+                fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R,
+                options?: I.Options,
+            ): (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>;
             function create<R>(fn: (...args: any[]) => R, options?: I.Options): (...args: any[]) => Promise<R>;
 
             class RateLimiter {
@@ -669,7 +724,7 @@ declare namespace adone {
                 _range: object,
                 map?: (value: T, isUpperBound: boolean) => R,
                 lowerBound?: T,
-                upperBound?: T
+                upperBound?: T,
             ): I.Range<R>;
 
             function endInclusive(range: I.Range): boolean;
@@ -712,24 +767,27 @@ declare namespace adone {
             /**
              * @param target filepath
              */
-            constructor(target: string, options?: {
-                /**
-                 * rotator reads file's stats with this delay
-                 */
-                checkInterval?: number | string,
-                /**
-                 * maximum size of the file that triggers rotation
-                 */
-                maxSize?: number | string,
-                /**
-                 * number of files at time
-                 */
-                maxFiles?: number,
-                /**
-                 * compress old log files with gz
-                 */
-                compress?: boolean
-            });
+            constructor(
+                target: string,
+                options?: {
+                    /**
+                     * rotator reads file's stats with this delay
+                     */
+                    checkInterval?: number | string;
+                    /**
+                     * maximum size of the file that triggers rotation
+                     */
+                    maxSize?: number | string;
+                    /**
+                     * number of files at time
+                     */
+                    maxFiles?: number;
+                    /**
+                     * compress old log files with gz
+                     */
+                    compress?: boolean;
+                },
+            );
 
             /**
              * Completes a rotate iteration
@@ -767,11 +825,31 @@ declare namespace adone {
          */
         function debounce<R>(fn: () => R, timeout: number, options?: I.DebounceOptions): () => R;
         function debounce<T1, R>(fn: (a: T1) => R, timeout: number, options?: I.DebounceOptions): (a: T1) => R;
-        function debounce<T1, T2, R>(fn: (a: T1, b: T2) => R, timeout: number, options?: I.DebounceOptions): (a: T1, b: T2) => R;
-        function debounce<T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => R, timeout: number, options?: I.DebounceOptions): (a: T1, b: T2, c: T3) => R;
-        function debounce<T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => R, timeout: number, options?: I.DebounceOptions): (a: T1, b: T2, c: T3, d: T4) => R;
-        function debounce<T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, timeout: number, options?: I.DebounceOptions): (a: T1, b: T2, c: T3, d: T4, e: T5) => R;
-        function debounce<R>(fn: (...args: any[]) => R, timeout: number, options?: I.DebounceOptions): (...args: any[]) => R;
+        function debounce<T1, T2, R>(
+            fn: (a: T1, b: T2) => R,
+            timeout: number,
+            options?: I.DebounceOptions,
+        ): (a: T1, b: T2) => R;
+        function debounce<T1, T2, T3, R>(
+            fn: (a: T1, b: T2, c: T3) => R,
+            timeout: number,
+            options?: I.DebounceOptions,
+        ): (a: T1, b: T2, c: T3) => R;
+        function debounce<T1, T2, T3, T4, R>(
+            fn: (a: T1, b: T2, c: T3, d: T4) => R,
+            timeout: number,
+            options?: I.DebounceOptions,
+        ): (a: T1, b: T2, c: T3, d: T4) => R;
+        function debounce<T1, T2, T3, T4, T5, R>(
+            fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R,
+            timeout: number,
+            options?: I.DebounceOptions,
+        ): (a: T1, b: T2, c: T3, d: T4, e: T5) => R;
+        function debounce<R>(
+            fn: (...args: any[]) => R,
+            timeout: number,
+            options?: I.DebounceOptions,
+        ): (...args: any[]) => R;
 
         /**
          * Finds difference between the given arrays
@@ -826,8 +904,16 @@ declare namespace adone {
         function fillRange(from: string, to: string, options: I.FillRangeOptions & { toRegex: true }): string;
         function fillRange(from: string, to: string, options?: I.FillRangeOptions): string[];
 
-        function fillRange(from: string | number, to: string | number, options: I.FillRangeOptions & { toRegex: true }): string;
-        function fillRange(from: string | number, to: string | number, options?: I.FillRangeOptions): Array<string | number>;
+        function fillRange(
+            from: string | number,
+            to: string | number,
+            options: I.FillRangeOptions & { toRegex: true },
+        ): string;
+        function fillRange(
+            from: string | number,
+            to: string | number,
+            options?: I.FillRangeOptions,
+        ): Array<string | number>;
 
         namespace inflection {
             function singularizeWord(str: string, singular?: string): string;
@@ -859,13 +945,13 @@ declare namespace adone {
             function escape(str: string): string;
 
             const formats: {
-                RFC1738: "RFC1738"
-                RFC3986: "RFC3986",
-                default: string,
+                RFC1738: 'RFC1738';
+                RFC3986: 'RFC3986';
+                default: string;
                 formatters: {
-                    RFC1738(val: string): string,
-                    RFC3986(val: string): string
-                }
+                    RFC1738(val: string): string;
+                    RFC3986(val: string): string;
+                };
             };
 
             namespace I {
@@ -890,11 +976,11 @@ declare namespace adone {
                     encode?: boolean;
                     encoder?: (str: string) => any;
                     filter?: Array<string | number> | ((prefix: string, value: any) => any);
-                    arrayFormat?: "indices" | "brackets" | "repeat";
+                    arrayFormat?: 'indices' | 'brackets' | 'repeat';
                     indices?: boolean;
                     sort?: (a: any, b: any) => number;
                     serializeDate?: (d: Date) => string;
-                    format?: "RFC1738" | "RFC3986";
+                    format?: 'RFC1738' | 'RFC3986';
                     encodeValuesOnly?: boolean;
                     addQueryPrefix?: boolean;
                     allowDots?: boolean;
@@ -925,12 +1011,7 @@ declare namespace adone {
         function splitBuffer(buf: string | Buffer, splitBuf: string | Buffer, includeDelim?: boolean): Buffer[];
 
         namespace I {
-            type SplitStringSplitFunction = (token: {
-                val: string;
-                idx: number;
-                arr: string[];
-                str: string;
-            }) => void;
+            type SplitStringSplitFunction = (token: { val: string; idx: number; arr: string[]; str: string }) => void;
 
             interface SplitStringOptions {
                 braces?: object | boolean;
@@ -946,7 +1027,11 @@ declare namespace adone {
         function splitString(str: string): string[];
         function splitString(str: string, options: I.SplitStringOptions): string[];
         function splitString(str: string, splitter: I.SplitStringSplitFunction): string[];
-        function splitString(str: string, options: I.SplitStringOptions, splitter: I.SplitStringSplitFunction): string[];
+        function splitString(
+            str: string,
+            options: I.SplitStringOptions,
+            splitter: I.SplitStringSplitFunction,
+        ): string[];
 
         // terraformer: TODO
 

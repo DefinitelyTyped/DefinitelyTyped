@@ -35,7 +35,7 @@ export {
     Select,
     Tab,
     Tabs,
-    Textarea
+    Textarea,
 };
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -102,8 +102,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
     floatingLabel?: boolean;
 }
 
-export interface OptionProps extends React.OptionHTMLAttributes<HTMLOptionElement> {
-}
+export interface OptionProps extends React.OptionHTMLAttributes<HTMLOptionElement> {}
 
 export type PanelProps = DivProps;
 export type RadioProps = CheckboxProps;

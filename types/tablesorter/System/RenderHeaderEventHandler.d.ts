@@ -1,5 +1,5 @@
-import "jquery";
-import { TablesorterConfigurationStore } from "./TablesorterConfigurationStore";
+import 'jquery';
+import { TablesorterConfigurationStore } from './TablesorterConfigurationStore';
 
 /**
  * Provides the functionality to handle the `RenderHeader`-event.

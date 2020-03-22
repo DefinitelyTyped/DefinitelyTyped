@@ -4,7 +4,7 @@ const keystore = jose.JWK.createKeyStore();
 const output = keystore.toJSON();
 keystore.toJSON(true);
 
-jose.JWK.asKeyStore('input').then(result => {});
+jose.JWK.asKeyStore('input').then((result) => {});
 
 let key = keystore.get('kid');
 
@@ -39,13 +39,13 @@ everything = keystore.all({ alg: 'RSA-OAEP' });
 // filter by 'kid' + 'kty' + 'alg'
 everything = keystore.all({ kid: 'kid', kty: 'RSA', alg: 'RSA-OAEP' });
 
-keystore.add('input').then(result => {});
+keystore.add('input').then((result) => {});
 
-keystore.add('input', 'json').then(result => {
+keystore.add('input', 'json').then((result) => {
     // {result} is a jose.JWK.Key
 });
 
-keystore.generate('oct', 256).then(result => {
+keystore.generate('oct', 256).then((result) => {
     // {result} is a jose.JWK.Key
 });
 
@@ -53,178 +53,178 @@ keystore.generate('oct', 256).then(result => {
 const props = {
     kid: 'gBdaS-G8RLax2qgObTD94w',
     alg: 'A256GCM',
-    use: 'enc'
+    use: 'enc',
 };
 
 let key2: jose.JWK.Key;
-keystore.generate('oct', 256, props).then(result => {
+keystore.generate('oct', 256, props).then((result) => {
     key2 = result;
     keystore.remove(key2);
 
-    jose.JWK.asKey(key2).then(result => {});
+    jose.JWK.asKey(key2).then((result) => {});
 
-    jose.JWK.asKey('input', 'json').then(result => {});
+    jose.JWK.asKey('input', 'json').then((result) => {});
 });
 
-jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
+jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then((result) => {
     const output4 = result.toJSON(true);
-    result.thumbprint('hash').then(print => {});
+    result.thumbprint('hash').then((print) => {});
 
     const key = result;
 
     jose.JWS.createSign(key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // {result} is a JSON object -- JWS using the JSON General Serialization
         });
 
     jose.JWS.createSign({ format: 'flattened' }, key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // {result} is a JSON object -- JWS using the JSON Flattened Serialization
         });
 
     jose.JWS.createSign({ format: 'compact' }, key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // {result} is a String -- JWS using the Compact Serialization
         });
 
     jose.JWS.createSign({ alg: 'PS256' }, key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // ....
         });
 
     jose.JWS.createSign({ fields: { cty: 'jwk+json' } }, key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // ....
         });
 
     jose.JWS.createSign(key)
         .update('input', 'utf8')
         .final()
-        .then(result => {
+        .then((result) => {
             // ....
         });
 
     let opts = {
-        algorithms: ['PS*']
+        algorithms: ['PS*'],
     };
     jose.JWS.createVerify(key, opts)
         .verify('input')
-        .then(result => {
+        .then((result) => {
             // ...
         });
 
     opts = {
-        algorithms: ['*', '!HS*']
+        algorithms: ['*', '!HS*'],
     };
     jose.JWS.createVerify(key, opts)
         .verify('input')
-        .then(result => {
+        .then((result) => {
             // ...
         });
 
     const opts2 = {
         handlers: {
-            exp: true
-        }
+            exp: true,
+        },
     };
 
     jose.JWS.createVerify(key, opts2)
         .verify('input')
-        .then(result => {
+        .then((result) => {
             // ...
         });
 
     jose.JWE.createEncrypt(key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // {result} is a JSON Object -- JWE using the JSON General Serialization
         });
 
     jose.JWE.createEncrypt({ format: 'compact' }, key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // {result} is a String -- JWE using the Compact Serialization
         });
 
     jose.JWE.createEncrypt({ format: 'flattened' }, key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // {result} is a JSON Object -- JWE using the JSON Flattened Serialization
         });
 
     jose.JWE.createEncrypt({ zip: true }, key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // ....
         });
 
     jose.JWE.createEncrypt({ fields: { cty: 'jwk+json' } }, key)
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // ....
         });
 
     jose.JWE.createEncrypt([key, key])
         .update('input')
         .final()
-        .then(result => {
+        .then((result) => {
             // ....
         });
 
     jose.JWE.createDecrypt(key)
         .decrypt('input')
-        .then(result => {
+        .then((result) => {
             // ....
         });
 
     const opts3 = {
-        algorithms: ['dir', 'A*GCM']
+        algorithms: ['dir', 'A*GCM'],
     };
     jose.JWE.createDecrypt(key, opts3)
         .decrypt('input')
-        .then(result => {
+        .then((result) => {
             // ...
         });
 
     const opts4 = {
-        algorithms: ['*', '!RSA*']
+        algorithms: ['*', '!RSA*'],
     };
     jose.JWS.createVerify(key, opts4)
         .verify('input')
-        .then(result => {
+        .then((result) => {
             // ...
         });
 
     const opts5 = {
         handlers: {
-            exp: true
-        }
+            exp: true,
+        },
     };
     jose.JWE.createDecrypt(key, opts5)
         .decrypt('input')
-        .then(result => {
+        .then((result) => {
             // ...
         });
 });
 
 jose.JWS.createVerify(keystore)
     .verify('input')
-    .then(result => {
+    .then((result) => {
         // {result} is a Object with:
         // *  header: the combined 'protected' and 'unprotected' header members
         // *  payload: Buffer of the signed content
@@ -237,25 +237,25 @@ jose.JWS.createVerify(keystore)
 // *  JSON object representing a JWK
 jose.JWS.createVerify(key)
     .verify('input')
-    .then(result => {
+    .then((result) => {
         // ...
     });
 
 jose.JWS.createVerify()
     .verify('input', { allowEmbeddedKey: true })
-    .then(result => {
+    .then((result) => {
         // ...
     });
 
 const verifier = jose.JWS.createVerify({ allowEmbeddedKey: true });
 
-verifier.verify('input').then(result => {
+verifier.verify('input').then((result) => {
     // ...
 });
 
 jose.JWE.createDecrypt(keystore)
     .decrypt('input')
-    .then(result => {
+    .then((result) => {
         // {result} is a Object with:
         // *  header: the combined 'protected' and 'unprotected' header members
         // *  protected: an array of the member names from the "protected" member

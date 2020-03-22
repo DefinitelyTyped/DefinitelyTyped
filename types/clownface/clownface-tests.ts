@@ -2,15 +2,15 @@ import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph }
 import Clownface = require('clownface/lib/Clownface');
 import clownface = require('clownface');
 
-const node: NamedNode = <any> {};
-const blankNode: BlankNode = <any> {};
-const predicate: NamedNode = <any> {};
-const literal: Literal = <any> {};
-let term: Term = <any> {};
+const node: NamedNode = <any>{};
+const blankNode: BlankNode = <any>{};
+const predicate: NamedNode = <any>{};
+const literal: Literal = <any>{};
+let term: Term = <any>{};
 
 // .ctor
-const dataset: Dataset = <any> {};
-const graph: NamedNode = <any> {};
+const dataset: Dataset = <any>{};
+const graph: NamedNode = <any>{};
 
 let cf: Clownface<Dataset> = new Clownface({ dataset });
 cf = new Clownface({ dataset, graph });
@@ -23,12 +23,12 @@ cf = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
 // .addIn
 cf = cf.addIn(node);
 cf = cf.addIn(node, node);
-cf = cf.addIn([ node, node ], node);
-cf = cf.addIn(node, [ node, node ]);
-cf = cf.addIn([ node, node ], [ node, node ], child => {
+cf = cf.addIn([node, node], node);
+cf = cf.addIn(node, [node, node]);
+cf = cf.addIn([node, node], [node, node], (child) => {
     const values: string[] = child.values;
 });
-cf = cf.addIn(node, child => {
+cf = cf.addIn(node, (child) => {
     cf = child;
 });
 cf = cf.addIn(cf.node(node), cf.node(node));
@@ -42,10 +42,10 @@ cf = cf.addOut(predicate);
 cf = cf.addOut(predicate, ['', 0]);
 cf = cf.addOut([predicate, predicate], node);
 cf = cf.addOut(predicate, [node, node]);
-cf = cf.addOut([predicate, predicate], [node, node], child => {
+cf = cf.addOut([predicate, predicate], [node, node], (child) => {
     const values: string[] = child.values;
 });
-cf = cf.addOut(predicate, child => {
+cf = cf.addOut(predicate, (child) => {
     const values: string[] = child.values;
 });
 cf = cf.addOut(cf.node(predicate), cf.node(node));
@@ -54,7 +54,7 @@ cf = cf.addOut(cf.node(predicate), cf.node(node));
 let blankContext: Clownface;
 blankContext = cf.blankNode();
 blankContext = cf.blankNode('label');
-blankContext = cf.blankNode([ 'b1', 'b2' ]);
+blankContext = cf.blankNode(['b1', 'b2']);
 
 // .deleteIn
 cf = cf.deleteIn();
@@ -76,7 +76,7 @@ const singleFromValue: clownface.SingleContextClownface = clownface({ dataset, v
 
 const termContext: clownface.SingleContextClownface = clownface({
     dataset,
-    term
+    term,
 });
 
 const namedContext: clownface.SingleContextClownface<DatasetCore, NamedNode> = clownface({
@@ -94,13 +94,13 @@ const mutlipleValues: clownface.SafeClownface = clownface({
     value: ['foo', 'bar'],
 });
 
-const maybeNamed: BlankNode | NamedNode = <any> {};
+const maybeNamed: BlankNode | NamedNode = <any>{};
 const altContext: clownface.SingleContextClownface<DatasetCore, BlankNode | NamedNode> = clownface({
     dataset,
     term: maybeNamed,
 });
 
-const literalContext: clownface.SingleContextClownface<Dataset, Literal> = <any> {};
+const literalContext: clownface.SingleContextClownface<Dataset, Literal> = <any>{};
 const deriveContextFromOtherGraph: clownface.SingleContextClownface<Dataset, Literal> = clownface(literalContext);
 
 // .filter
@@ -175,7 +175,7 @@ if (cf.value) {
 // .values
 const values: string[] = cf.values;
 
-const safeCf: clownface.SafeClownface<Dataset> = <any> {};
+const safeCf: clownface.SafeClownface<Dataset> = <any>{};
 
 let singleBlank: clownface.SingleContextClownface<Dataset, BlankNode> = safeCf.blankNode();
 singleBlank = clownface({ dataset }).blankNode();
@@ -190,20 +190,25 @@ let singleLiteral: clownface.SingleContextClownface<Dataset, Literal> = clownfac
 singleLiteral = safeCf.literal('a');
 singleLiteral = clownface({ dataset }).node('b');
 
-const fromSingleArrayBLank: clownface.SingleContextClownface<Dataset, BlankNode> = safeCf.blankNode([ 'b1' ]);
-const fromSingleArrayNamed: clownface.SingleContextClownface<Dataset, NamedNode> = safeCf.namedNode([ 'http://example.com/a' ]);
-const fromSingleArrayLiteral: clownface.SingleContextClownface<Dataset, Literal> = safeCf.literal([ 'a' ]);
+const fromSingleArrayBLank: clownface.SingleContextClownface<Dataset, BlankNode> = safeCf.blankNode(['b1']);
+const fromSingleArrayNamed: clownface.SingleContextClownface<Dataset, NamedNode> = safeCf.namedNode([
+    'http://example.com/a',
+]);
+const fromSingleArrayLiteral: clownface.SingleContextClownface<Dataset, Literal> = safeCf.literal(['a']);
 
-let multipleBlanks: clownface.SafeClownface<Dataset, BlankNode> = safeCf.blankNode([ 'b1', 'b2' ]);
-multipleBlanks = clownface({ dataset }).node([ null, null ]);
+let multipleBlanks: clownface.SafeClownface<Dataset, BlankNode> = safeCf.blankNode(['b1', 'b2']);
+multipleBlanks = clownface({ dataset }).node([null, null]);
 
-let multipleNamed: clownface.SafeClownface<Dataset, NamedNode> = safeCf.namedNode([ 'http://example.com/a', 'http://example.com/b' ]);
-multipleNamed = clownface({ dataset }).node([ node, node ]);
+let multipleNamed: clownface.SafeClownface<Dataset, NamedNode> = safeCf.namedNode([
+    'http://example.com/a',
+    'http://example.com/b',
+]);
+multipleNamed = clownface({ dataset }).node([node, node]);
 
-let multipleLiterals: clownface.SafeClownface<Dataset, Literal> = safeCf.literal([ 'a', 'b' ]);
-multipleLiterals = clownface({ dataset }).node([ 'a', 10, false ]);
+let multipleLiterals: clownface.SafeClownface<Dataset, Literal> = safeCf.literal(['a', 'b']);
+multipleLiterals = clownface({ dataset }).node(['a', 10, false]);
 
-const multipleMixedTerms: clownface.SafeClownface<Dataset> = clownface({ dataset }).node([ 'a', node, null ]);
+const multipleMixedTerms: clownface.SafeClownface<Dataset> = clownface({ dataset }).node(['a', node, null]);
 
 // .context
 const ctxTerm: Literal = fromSingleArrayLiteral._context[0].term;

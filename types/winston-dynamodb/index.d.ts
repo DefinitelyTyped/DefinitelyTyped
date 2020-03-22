@@ -29,7 +29,7 @@ export declare class DynamoDB extends winston.Transport implements DynamoDBTrans
     constructor(options?: DynamoDBTransportOptions);
     log(level: any, msg: any, meta: any, callback: any): any;
 }
-declare module "winston" {
+declare module 'winston' {
     interface Transports {
         DynamoDB: DynamoDB;
     }

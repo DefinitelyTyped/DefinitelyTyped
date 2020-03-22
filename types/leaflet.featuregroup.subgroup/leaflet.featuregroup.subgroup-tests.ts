@@ -3,7 +3,7 @@ import 'leaflet.featuregroup.subgroup';
 
 // Setup
 interface MyProperties {
-	testProperty: string;
+    testProperty: string;
 }
 const parentGroup1: L.LayerGroup = L.layerGroup();
 const latLng: L.LatLng = L.latLng(10, 10);
@@ -27,8 +27,4 @@ subGroup.setParentGroupSafe(parentGroup2);
 const parentGroup3 = subGroup.getParentGroup();
 
 // Calling methods inherited from FeatureGroup
-const bounds: L.LatLngBounds = subGroup
-   .setStyle({})
-   .bringToFront()
-   .bringToBack()
-   .getBounds();
+const bounds: L.LatLngBounds = subGroup.setStyle({}).bringToFront().bringToBack().getBounds();

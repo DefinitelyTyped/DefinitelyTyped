@@ -5,5 +5,7 @@ export interface InputGroupButtonDropdownProps extends DropdownProps {
     addonType: 'prepend' | 'append';
 }
 
-declare class InputGroupButtonDropdown<T = {[key: string]: any}> extends React.Component<InputGroupButtonDropdownProps> {}
+declare class InputGroupButtonDropdown<T = { [key: string]: any }> extends React.Component<
+    InputGroupButtonDropdownProps
+> {}
 export default InputGroupButtonDropdown;

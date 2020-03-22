@@ -10,12 +10,12 @@ interface CharMap {
 }
 
 interface Mode {
-    charmap?: CharMap| null;
-    lower?: boolean| null;
-    multicharmap?: CharMap| null;
-    remove?: RegExp| null;
+    charmap?: CharMap | null;
+    lower?: boolean | null;
+    multicharmap?: CharMap | null;
+    remove?: RegExp | null;
     replacement?: string | null;
-    symbols?: boolean| null;
+    symbols?: boolean | null;
 }
 
 declare function slug(string: string, opts?: Mode | string): string;

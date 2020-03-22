@@ -9,7 +9,7 @@ TypeScript type definitions for [TextBuffer](https://github.com/atom/text-buffer
 This module has a single entity as its export: the [TextBuffer](https://github.com/atom/text-buffer/blob/master/src/text-buffer.coffee) class. The require syntax is typically used to import modules like this.
 
 ```ts
-import TextBuffer = require("text-buffer");
+import TextBuffer = require('text-buffer');
 ```
 
 #### Point and Range
@@ -17,7 +17,7 @@ import TextBuffer = require("text-buffer");
 Both the Point class and the Range class are anchored onto the TextBuffer class as static properties, allowing construction of both despite TextBuffer being the singular export.
 
 ```ts
-import TextBuffer = require("text-buffer");
+import TextBuffer = require('text-buffer');
 let point = new TextBuffer.Point(0, 0);
 let range = new TextBuffer.Range([0, 0], [1, 4]);
 ```
@@ -32,15 +32,15 @@ function example(marker: TextBuffer.Marker) {}
 
 ### Exposing Private Methods and Properties
 
-[Declaration Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) can be used to augment any of the types used within Text Buffer. As an example, if we wanted to reveal the private ```emitDidStopChangingEvent``` method within the TextBuffer class, then we would create a file with the following contents:
+[Declaration Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) can be used to augment any of the types used within Text Buffer. As an example, if we wanted to reveal the private `emitDidStopChangingEvent` method within the TextBuffer class, then we would create a file with the following contents:
 
 ```ts
 // <<filename>>.d.ts
 
 declare namespace TextBuffer {
-  interface TextBuffer {
-    emitDidStopChangingEvent(): void;
-  }
+    interface TextBuffer {
+        emitDidStopChangingEvent(): void;
+    }
 }
 ```
 

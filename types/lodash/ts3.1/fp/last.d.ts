@@ -1,2 +1,2 @@
-import { last } from "../fp";
+import { last } from '../fp';
 export = last;

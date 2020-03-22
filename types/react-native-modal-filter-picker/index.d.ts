@@ -8,13 +8,13 @@
 
 import * as React from 'react';
 import {
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  KeyboardAvoidingView,
-  ModalProps,
-  ListViewProps,
-  FlatListProps,
+    StyleProp,
+    ViewStyle,
+    TextStyle,
+    KeyboardAvoidingView,
+    ModalProps,
+    ListViewProps,
+    FlatListProps,
 } from 'react-native';
 
 export interface ModalFilterPickerOption {
@@ -56,8 +56,6 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     selectedOptionTextStyle?: StyleProp<TextStyle>;
 }
 
-declare class ModalFilterPicker<T extends ModalFilterPickerOption> extends React.Component<
-ModalFilterPickerProps<T>
-> {}
+declare class ModalFilterPicker<T extends ModalFilterPickerOption> extends React.Component<ModalFilterPickerProps<T>> {}
 
 export default ModalFilterPicker;

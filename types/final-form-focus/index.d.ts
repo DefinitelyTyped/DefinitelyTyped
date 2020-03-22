@@ -7,8 +7,8 @@
 import { Decorator } from 'final-form';
 
 export interface FocusableInput {
-  name: string;
-  focus: () => void;
+    name: string;
+    focus: () => void;
 }
 
 export type GetInputs = () => FocusableInput[];
@@ -17,8 +17,8 @@ export type FindInput = (inputs: FocusableInput[], errors: object) => FocusableI
 
 // tslint:disable:no-unnecessary-generics
 export default function createDecorator<FormValues = object>(
-  getInputs?: GetInputs,
-  findInput?: FindInput,
+    getInputs?: GetInputs,
+    findInput?: FindInput,
 ): Decorator<FormValues>;
 // tslint:enable:no-unnecessary-generics
 

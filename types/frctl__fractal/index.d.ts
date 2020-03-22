@@ -33,11 +33,16 @@ export namespace fractal {
             interface EntitySource<T extends Entity, TConfig = any> extends mixins.Source<T, TConfig> {
                 entities(): T[];
 
-                engine<TEngine = any>(adapterFactory?: string | {
-                    register(source: EntitySource<T>, app: any): Adapter<TEngine>;
-                } | (() => ({
-                    register(source: EntitySource<T>, app: any): Adapter<TEngine>;
-                }))): Adapter<TEngine>;
+                engine<TEngine = any>(
+                    adapterFactory?:
+                        | string
+                        | {
+                              register(source: EntitySource<T>, app: any): Adapter<TEngine>;
+                          }
+                        | (() => {
+                              register(source: EntitySource<T>, app: any): Adapter<TEngine>;
+                          }),
+                ): Adapter<TEngine>;
 
                 getProp(key: string): string | {};
                 statusInfo(handle: string): StatusInfo | null;
@@ -59,8 +64,8 @@ export namespace fractal {
             /**
              * Combined EventEmitter and Configurable mixins
              */
-            abstract class ConfigurableEmitter<T = any> extends EventEmitter { }
-            interface ConfigurableEmitter<T = any> extends Configurable<T> { }
+            abstract class ConfigurableEmitter<T = any> extends EventEmitter {}
+            interface ConfigurableEmitter<T = any> extends Configurable<T> {}
             interface Collection<T = any> {
                 readonly isAsset: undefined;
                 readonly isComponent: undefined;
@@ -173,7 +178,12 @@ export namespace fractal {
 
         namespace components {
             class Component extends core.entities.Entity {
-                constructor(config: {}, files: files.FileCollection, resources: assets.AssetCollection, parent: core.entities.Entity);
+                constructor(
+                    config: {},
+                    files: files.FileCollection,
+                    resources: assets.AssetCollection,
+                    parent: core.entities.Entity,
+                );
                 readonly isAsset: undefined;
                 readonly isComponent: true;
                 readonly isCollection: undefined;
@@ -204,13 +214,18 @@ export namespace fractal {
                 flatten(): variants.VariantCollection;
                 component(): this;
                 variants(): variants.VariantCollection;
-                static create(config: {}, files: files.FileCollection, resources: assets.AssetCollection, parent: core.entities.Entity): IterableIterator<{} | variants.VariantCollection | Component>;
+                static create(
+                    config: {},
+                    files: files.FileCollection,
+                    resources: assets.AssetCollection,
+                    parent: core.entities.Entity,
+                ): IterableIterator<{} | variants.VariantCollection | Component>;
             }
             interface ComponentCollection extends core.entities.EntityCollection<Component> {
                 components(): this;
                 variants(): this;
             }
-            type Collator = (markup: string, item: { handle: string; }) => string;
+            type Collator = (markup: string, item: { handle: string }) => string;
             interface ComponentDefaultConfig {
                 collated?: boolean;
                 collator?: Collator;
@@ -241,7 +256,7 @@ export namespace fractal {
             interface ComponentSource extends core.entities.EntitySource<Component, ComponentConfig> {
                 resources(): files.FileCollection;
                 components(): Component[];
-                getReferencesOf(target: { id: string; handle: string; alias: string; }): any[];
+                getReferencesOf(target: { id: string; handle: string; alias: string }): any[];
                 variants(): this;
                 find(): any;
                 findFile(filePath: string): files.File | undefined;
@@ -393,7 +408,12 @@ export namespace fractal {
                 resourcesJSON(): {};
                 getContent(): Promise<string>;
                 getContentSync(): string;
-                static create(config: {}, view: any, resources: assets.AssetCollection, parent: components.Component): Variant;
+                static create(
+                    config: {},
+                    view: any,
+                    resources: assets.AssetCollection,
+                    parent: components.Component,
+                ): Variant;
             }
             interface VariantCollection extends core.entities.EntityCollection<Variant> {
                 default(): Variant;
@@ -415,10 +435,14 @@ export namespace fractal {
             isInteractive(): boolean;
             command(
                 commandString: string,
-                callback: (this: Cli & { fractal: Fractal }, args: any, done: () => void) => void, opts?: string | {
-                    description?: string;
-                    options?: string[][];
-                }): void;
+                callback: (this: Cli & { fractal: Fractal }, args: any, done: () => void) => void,
+                opts?:
+                    | string
+                    | {
+                          description?: string;
+                          options?: string[][];
+                      },
+            ): void;
             exec(command: string): void;
             log(message: string): void;
             error(message: string): void;
@@ -445,15 +469,8 @@ export namespace fractal {
             debugMode(status: boolean): void;
         }
         class Notifier {
-            updateAvailable(details: {
-                current: string;
-                latest: string;
-                name: string;
-            }): void;
-            versionMismatch(details: {
-                cli: string;
-                local: string;
-            }): void;
+            updateAvailable(details: { current: string; latest: string; name: string }): void;
+            versionMismatch(details: { cli: string; local: string }): void;
         }
     }
 
@@ -462,8 +479,8 @@ export namespace fractal {
             /**
              * @deprecated Use start() instead.
              */
-            build(): Promise<{ errorCount: number; }>;
-            start(): Promise<{ errorCount: number; }>;
+            build(): Promise<{ errorCount: number }>;
+            start(): Promise<{ errorCount: number }>;
             stop(): void;
             use(): void;
         }
@@ -628,20 +645,28 @@ export class WebTheme extends fractal.core.mixins.ConfigurableEmitter<WebThemeOp
     setRedirectView(view: string): void;
     redirectView(): string;
     addStatic(path: string, mount: string): void;
-    static(): Array<{ path: string; mount: string; }>;
-    addRoute(path: string, opts: {
-        handle?: string;
-    }, resolver?: any): this;
+    static(): Array<{ path: string; mount: string }>;
+    addRoute(
+        path: string,
+        opts: {
+            handle?: string;
+        },
+        resolver?: any,
+    ): this;
     addResolver(handle: string, resolvers: any): this;
     routes(): any[];
     resolvers(): any;
-    matchRoute(urlPath: string): {
-        route: {
-            handle: string;
-            view: string;
-        };
-        params: any;
-    } | false;
+    matchRoute(
+        urlPath: string,
+    ):
+        | {
+              route: {
+                  handle: string;
+                  view: string;
+              };
+              params: any;
+          }
+        | false;
     urlFromRoute(handle: string, params: any, noRedirect?: boolean): string | null;
 }
 
@@ -665,11 +690,13 @@ export abstract class Adapter<TEngine> extends EventEmitter {
 }
 
 export namespace utils {
-    function lang(filePath: string): {
-        name: string,
-        mode: string,
-        scope: string | null,
-        color: string | null,
+    function lang(
+        filePath: string,
+    ): {
+        name: string;
+        mode: string;
+        scope: string | null;
+        color: string | null;
     };
     function titlize(str: string): string;
     function slugify(str: string): string;

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import fs = require("fs");
-import readlines = require("gen-readlines");
+import fs = require('fs');
+import readlines = require('gen-readlines');
 
 const fd = fs.openSync('./somefile.txt', 'r');
 const stats = fs.fstatSync(fd);

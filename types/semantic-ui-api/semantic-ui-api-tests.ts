@@ -28,7 +28,7 @@ function test_api() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).api({
@@ -104,19 +104,19 @@ function test_api() {
         },
         regExp: {
             required: /{\$*[A-z0-9]+}/g,
-            optional: /{\/\$*[A-z0-9]+}/g
+            optional: /{\/\$*[A-z0-9]+}/g,
         },
         selector: {
             disabled: '.disabled',
-            form: 'form'
+            form: 'form',
         },
         className: {
             loading: 'loading',
-            error: 'error'
+            error: 'error',
         },
         metadata: {
             action: 'action',
-            url: 'url'
+            url: 'url',
         },
         error: {
             beforeSend: 'beforeSend',
@@ -131,8 +131,8 @@ function test_api() {
             parseError: 'parseError',
             requiredParameter: 'requiredParameter',
             statusMessage: 'statusMessage',
-            timeout: 'timeout'
-        }
+            timeout: 'timeout',
+        },
     });
     $(selector).api(); // $ExpectType JQuery<HTMLElement>
 
@@ -162,15 +162,14 @@ function creating_an_api() {
             'create user': '/create',
             'add user': '/add/{id}',
             'follow user': '/follow/{id}',
-            search: '/search/?query={value}'
+            search: '/search/?query={value}',
         };
     }
 
     function using_urls() {
-        $('.search.button')
-            .api({
-                url: 'http://www.google.com?q={value}'
-            });
+        $('.search.button').api({
+            url: 'http://www.google.com?q={value}',
+        });
     }
 }
 

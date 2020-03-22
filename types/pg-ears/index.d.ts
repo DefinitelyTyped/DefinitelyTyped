@@ -4,13 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ClientConfig } from "pg";
+import { ClientConfig } from 'pg';
 
 interface PgEars {
-    listen(
-        channel: string,
-        cb: (err: Error | null, payload?: string) => void
-    ): null;
+    listen(channel: string, cb: (err: Error | null, payload?: string) => void): null;
     notify(channel: string, payload: any, cb?: (err: Error) => void): void;
 }
 
@@ -19,7 +16,7 @@ declare function pg_ears(
         maxAttempts?: number;
         // Interval between connection retries, in milliseconds.
         checkInterval?: number;
-    }
+    },
 ): PgEars;
 
 export = pg_ears;

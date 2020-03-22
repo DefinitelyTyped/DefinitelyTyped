@@ -2,9 +2,9 @@
 
 import * as Hapi from 'hapi';
 
-var handler: Hapi.RouteHandler = function(request, reply) {
+var handler: Hapi.RouteHandler = function (request, reply) {
     reply('success');
-}
-var strictHandler: Hapi.RouteHandler = function(request, reply) {
+};
+var strictHandler: Hapi.RouteHandler = function (request, reply) {
     reply(123);
-}
+};

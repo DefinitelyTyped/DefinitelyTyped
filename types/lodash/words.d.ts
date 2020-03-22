@@ -1,2 +1,2 @@
-import { words } from "./index";
+import { words } from './index';
 export = words;

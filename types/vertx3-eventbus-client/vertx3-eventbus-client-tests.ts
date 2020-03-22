@@ -1,3 +1,3 @@
-import EventBus = require("vertx3-eventbus-client");
+import EventBus = require('vertx3-eventbus-client');
 
-const eb = new EventBus("http://localhost:9999");
+const eb = new EventBus('http://localhost:9999');

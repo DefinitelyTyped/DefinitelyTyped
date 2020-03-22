@@ -38,7 +38,7 @@ declare namespace adone {
                 proxyExcludedKeys: string[];
             }
 
-            type PossibleTypes = meta.I.PossibleTypes | "array";
+            type PossibleTypes = meta.I.PossibleTypes | 'array';
 
             type UseFunction = (fn: () => void) => assertion;
 
@@ -407,17 +407,37 @@ declare namespace adone {
                  * Asserts that a function or an async functions throws an error
                  */
                 throws(fn: () => void, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): any;
-                throws(fn: () => Promise<void>, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): Promise<any>;
+                throws(
+                    fn: () => Promise<void>,
+                    errorLike?: object,
+                    errMsgMatcher?: string | RegExp,
+                    message?: string,
+                ): Promise<any>;
                 /**
                  * Asserts that a function or an async functions throws an error
                  */
                 throw(fn: () => void, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): any;
-                throw(fn: () => Promise<void>, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): Promise<any>;
+                throw(
+                    fn: () => Promise<void>,
+                    errorLike?: object,
+                    errMsgMatcher?: string | RegExp,
+                    message?: string,
+                ): Promise<any>;
                 /**
                  * Asserts that a function or an async function does not throw an error
                  */
-                doesNotThrow(fn: () => Promise<void>, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): Promise<any>;
-                doesNotThrow(fn: () => void, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): any;
+                doesNotThrow(
+                    fn: () => Promise<void>,
+                    errorLike?: object,
+                    errMsgMatcher?: string | RegExp,
+                    message?: string,
+                ): Promise<any>;
+                doesNotThrow(
+                    fn: () => void,
+                    errorLike?: object,
+                    errMsgMatcher?: string | RegExp,
+                    message?: string,
+                ): any;
                 /**
                  * Compares two values using operator
                  */
@@ -513,7 +533,13 @@ declare namespace adone {
                 /**
                  * Asserts that a function does not change the value of a property or of a function’s return value by delta
                  */
-                changesButNotBy(fn: () => void, object: object, property: string, delta: number, message?: string): void;
+                changesButNotBy(
+                    fn: () => void,
+                    object: object,
+                    property: string,
+                    delta: number,
+                    message?: string,
+                ): void;
                 /**
                  * Asserts that a function increases a numeric object property
                  */
@@ -529,7 +555,13 @@ declare namespace adone {
                 /**
                  * Asserts that a function does not increase a numeric object property or function’s return value by delta
                  */
-                increasesButNotBy(fn: () => void, object: object, property: string, delta: number, message?: string): void;
+                increasesButNotBy(
+                    fn: () => void,
+                    object: object,
+                    property: string,
+                    delta: number,
+                    message?: string,
+                ): void;
                 /**
                  * Asserts that a function decreases the value of a property
                  */
@@ -545,11 +577,23 @@ declare namespace adone {
                 /**
                  * Asserts that a function does not decrease the value of a property or a function's return value by delta
                  */
-                doesNotDecreaseBy(fn: () => void, object: object, property: string, delta: number, message?: string): void;
+                doesNotDecreaseBy(
+                    fn: () => void,
+                    object: object,
+                    property: string,
+                    delta: number,
+                    message?: string,
+                ): void;
                 /**
                  * Asserts that a function does not decreases a numeric object property or a function’s return value by delta
                  */
-                decreasesButNotBy(fn: () => void, object: object, property: string, delta: number, message?: string): void;
+                decreasesButNotBy(
+                    fn: () => void,
+                    object: object,
+                    property: string,
+                    delta: number,
+                    message?: string,
+                ): void;
                 /**
                  * Throws an error if value is truthy
                  */
@@ -1020,7 +1064,7 @@ declare namespace adone {
         }
 
         class AssertionError extends error.Exception {
-            constructor(message?: string, props?: object, ssf?: object)
+            constructor(message?: string, props?: object, ssf?: object);
         }
 
         const config: I.Config;

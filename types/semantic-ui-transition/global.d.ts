@@ -95,7 +95,11 @@ declare namespace SemanticUI {
          */
         (behavior: 'is supported'): boolean;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof TransitionSettings>(behavior: 'setting', name: K, value?: undefined): TransitionSettings._Impl[K];
+        <K extends keyof TransitionSettings>(
+            behavior: 'setting',
+            name: K,
+            value?: undefined,
+        ): TransitionSettings._Impl[K];
         <K extends keyof TransitionSettings>(behavior: 'setting', name: K, value: TransitionSettings._Impl[K]): JQuery;
         (behavior: 'setting', value: TransitionSettings): JQuery;
         (transition: string): JQuery;
@@ -108,26 +112,28 @@ declare namespace SemanticUI {
     type TransitionSettings = TransitionSettings.Param;
 
     namespace TransitionSettings {
-        type Param = (Pick<_Impl, 'animation'> |
-            Pick<_Impl, 'interval'> |
-            Pick<_Impl, 'reverse'> |
-            Pick<_Impl, 'displayType'> |
-            Pick<_Impl, 'duration'> |
-            Pick<_Impl, 'useFailSafe'> |
-            Pick<_Impl, 'allowRepeats'> |
-            Pick<_Impl, 'queue'> |
-            Pick<_Impl, 'onShow'> |
-            Pick<_Impl, 'onHide'> |
-            Pick<_Impl, 'onStart'> |
-            Pick<_Impl, 'onComplete'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
+        type Param = (
+            | Pick<_Impl, 'animation'>
+            | Pick<_Impl, 'interval'>
+            | Pick<_Impl, 'reverse'>
+            | Pick<_Impl, 'displayType'>
+            | Pick<_Impl, 'duration'>
+            | Pick<_Impl, 'useFailSafe'>
+            | Pick<_Impl, 'allowRepeats'>
+            | Pick<_Impl, 'queue'>
+            | Pick<_Impl, 'onShow'>
+            | Pick<_Impl, 'onHide'>
+            | Pick<_Impl, 'onStart'>
+            | Pick<_Impl, 'onComplete'>
+            | Pick<_Impl, 'className'>
+            | Pick<_Impl, 'error'>
+            | Pick<_Impl, 'namespace'>
+            | Pick<_Impl, 'name'>
+            | Pick<_Impl, 'silent'>
+            | Pick<_Impl, 'debug'>
+            | Pick<_Impl, 'performance'>
+            | Pick<_Impl, 'verbose'>
+        ) &
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
@@ -258,15 +264,17 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'animating'> |
-                Pick<_Impl, 'disabled'> |
-                Pick<_Impl, 'hidden'> |
-                Pick<_Impl, 'inward'> |
-                Pick<_Impl, 'loading'> |
-                Pick<_Impl, 'looping'> |
-                Pick<_Impl, 'outward'> |
-                Pick<_Impl, 'transition'> |
-                Pick<_Impl, 'visible'>) &
+            type Param = (
+                | Pick<_Impl, 'animating'>
+                | Pick<_Impl, 'disabled'>
+                | Pick<_Impl, 'hidden'>
+                | Pick<_Impl, 'inward'>
+                | Pick<_Impl, 'loading'>
+                | Pick<_Impl, 'looping'>
+                | Pick<_Impl, 'outward'>
+                | Pick<_Impl, 'transition'>
+                | Pick<_Impl, 'visible'>
+            ) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -312,9 +320,7 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'noAnimation'> |
-                Pick<_Impl, 'method'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = (Pick<_Impl, 'noAnimation'> | Pick<_Impl, 'method'>) & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

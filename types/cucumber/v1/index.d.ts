@@ -29,7 +29,10 @@ export interface TableDefinition {
 
 export type StepDefinitionParam = string | CallbackStepDefinition | TableDefinition;
 
-export type StepDefinitionCode = (this: { [key: string]: any }, ...stepArgs: StepDefinitionParam[]) => PromiseLike<any> | any | void;
+export type StepDefinitionCode = (
+    this: { [key: string]: any },
+    ...stepArgs: StepDefinitionParam[]
+) => PromiseLike<any> | any | void;
 
 export interface StepDefinitionOptions {
     timeout?: number;
@@ -62,7 +65,11 @@ export interface HookScenario {
     isSkipped(): boolean;
 }
 
-export type HookCode = (this: { [key: string]: any }, scenario: HookScenario, callback?: CallbackStepDefinition) => void;
+export type HookCode = (
+    this: { [key: string]: any },
+    scenario: HookScenario,
+    callback?: CallbackStepDefinition,
+) => void;
 
 // tslint:disable-next-line ban-types
 export type AroundCode = (scenario: HookScenario, runScenario?: (error: string, callback?: Function) => void) => void;
@@ -101,11 +108,10 @@ export namespace events {
     }
 
     // tslint:disable-next-line no-empty-interface
-    interface EventPayload {
-    }
+    interface EventPayload {}
 
     interface FeaturesPayload extends EventPayload {
-        getFeatures(): any[];                   // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/runtime.js#L34
+        getFeatures(): any[]; // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/runtime.js#L34
     }
 
     interface FeaturesResultPayload extends EventPayload {

@@ -131,7 +131,7 @@ class App extends React.Component {
             description: '新的节点',
         });
         this.setState({ steps: newSteps });
-    }
+    };
 
     render() {
         const { steps } = this.state;
@@ -170,7 +170,7 @@ class Demo extends React.Component {
 
     onChange = (current: number) => {
         this.setState({ current });
-    }
+    };
 
     render() {
         const { current } = this.state;
@@ -232,7 +232,7 @@ class MyForm extends React.Component {
         this.setState({
             currentStep: s,
         });
-    }
+    };
 
     render() {
         const { currentStep: cs } = this.state;

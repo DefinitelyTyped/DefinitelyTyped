@@ -1,4 +1,4 @@
-import NamedRegExp = require("named-regexp-groups");
+import NamedRegExp = require('named-regexp-groups');
 
 // $ExpectType NamedRegExp
 new NamedRegExp('aaa', 'gi');

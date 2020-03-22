@@ -126,13 +126,13 @@ interface FullPageJsOptions {
      */
     scrollHorizontally?: boolean;
 
-    /** 
-     * (default false) Extension of fullpage.js. Determines whether moving one horizontal slider will force the sliding of sliders in other section in the same direction. Possible values are true, false or an array with the interlocked sections. For example [1,3,5] starting by 1. Requires fullpage.js >= 2.8.3. 
+    /**
+     * (default false) Extension of fullpage.js. Determines whether moving one horizontal slider will force the sliding of sliders in other section in the same direction. Possible values are true, false or an array with the interlocked sections. For example [1,3,5] starting by 1. Requires fullpage.js >= 2.8.3.
      */
     interlockedSlides?: boolean | number[];
 
     /**
-     * Enables or disables the dragging and flicking of sections and slides by using mouse or fingers. Requires fullpage.js >= 2.8.9. Possible values are: 
+     * Enables or disables the dragging and flicking of sections and slides by using mouse or fingers. Requires fullpage.js >= 2.8.9. Possible values are:
      * true: enables the feature.
      * false: disables the feature.
      * vertical: enables the feature only vertically.
@@ -147,7 +147,7 @@ interface FullPageJsOptions {
      */
     offsetSections?: boolean;
 
-    /** 
+    /**
      * (default false). Extension of fullpage.js. Defines whether or not to reset every slider after leaving its section. Requires fullpage.js >= 2.8.3.
      */
     resetSliders?: boolean;
@@ -220,13 +220,12 @@ interface FullPageJsOptions {
      */
     verticalCentered?: boolean;
 
-
-    resize ?: boolean;
+    resize?: boolean;
 
     /**
      * (default none) Define the CSS background-color property for each section
      */
-    sectionsColor ?: string[];
+    sectionsColor?: string[];
 
     /**
      * (default 0) Defines the top padding for each section with a numerical value and its measure (paddingTop: '10px', paddingTop: '10em'...) Useful in case of using a fixed header.
@@ -253,9 +252,10 @@ interface FullPageJsOptions {
      */
     responsiveHeight?: number;
 
-    /** 
+    /**
      * When set to true slides will be turned into vertical sections when responsive mode is fired. (by using the responsiveWidth or responsiveHeight options detailed above). Requires fullpage.js >= 2.8.5.
-     */ 
+     */
+
     responsiveSlides?: boolean;
 
     /**
@@ -265,16 +265,18 @@ interface FullPageJsOptions {
 
     /**
      * Allows to configure the parameters for the parallax backgrounds effect when using the option parallax:true.
-     */ 
+     */
+
     parallaxOptions?: {
-        type?: 'cover' | 'reveal',
-        percentage?: number,
-        property?: string,
+        type?: 'cover' | 'reveal';
+        percentage?: number;
+        property?: string;
     };
 
     /**
      * Lazy loading is active by default which means it will lazy load any media element containing the attribute data-src as detailed in the Lazy Loading docs . If you want to use any other lazy loading library you can disable this fullpage.js feature.
-     */ 
+     */
+
     lazyLoading?: boolean;
 
     // Custom selectors
@@ -343,7 +345,13 @@ interface FullPageJsOptions {
      * @param direction takes the values right or left depending on the scrolling direction.
      * @param nextSlideIndex index of the destination slide. Starting from 0.
      */
-    onSlideLeave?: (anchorLink: string, index: number, slideIndex: number, direction: string, nextSlideIndex: number) => void;
+    onSlideLeave?: (
+        anchorLink: string,
+        index: number,
+        slideIndex: number,
+        direction: string,
+        nextSlideIndex: number,
+    ) => void;
 }
 
 interface FullPageJSGlobalOptions {
@@ -499,7 +507,7 @@ interface FullPageJsMethods {
          * vertical sections) into horizontal slides again.
          */
         toSlides(): void;
-    }
+    };
 }
 
 interface FullPageJs extends FullPageJSGlobalOptions, FullPageJsMethods {}

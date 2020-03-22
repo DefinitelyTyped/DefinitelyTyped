@@ -4,10 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Context, Middleware, Next } from "koa";
+import { Context, Middleware, Next } from 'koa';
 
-declare function convert(
-    mw: (context: Context, next: Next) => Generator
-): Middleware;
+declare function convert(mw: (context: Context, next: Next) => Generator): Middleware;
 
 export = convert;

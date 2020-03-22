@@ -5,18 +5,14 @@
 
 // graphviz.d.ts
 
-
-
 export interface HasAttributes {
     set(name: string, value: any): void;
     get(name: string): any;
 }
 
-export interface Node extends HasAttributes {
-}
+export interface Node extends HasAttributes {}
 
-export interface Edge extends HasAttributes {
-}
+export interface Edge extends HasAttributes {}
 
 export interface OutputCallback {
     (data: string): void;
@@ -27,16 +23,15 @@ export interface ErrorCallback {
 }
 
 export interface RenderOptions {
-    type: string;  // output file type (png, jpeg, ps, ...)
-    use: string;  // Graphviz command to use (dot, neato, ...)
-    path: string;  // GraphViz path
-    G: any;  // graph options
-    N: any;  // node options
-    E: any;  // edge options
+    type: string; // output file type (png, jpeg, ps, ...)
+    use: string; // Graphviz command to use (dot, neato, ...)
+    path: string; // GraphViz path
+    G: any; // graph options
+    N: any; // node options
+    E: any; // edge options
 }
 
 export interface Graph extends HasAttributes {
-
     addNode(id: string, attrs?: any): Node;
     nodeCount(): number;
 

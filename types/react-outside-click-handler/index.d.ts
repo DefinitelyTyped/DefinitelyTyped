@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface DefaultProps {
     disabled: boolean;
     useCapture: boolean;
-    display: "block" | "flex" | "inline" | "inline-block" | "contents";
+    display: 'block' | 'flex' | 'inline' | 'inline-block' | 'contents';
 }
 
 // TODO: Remove partial once DT support TS 3.0, so skipping mandatory listed in default props won't result in compile error

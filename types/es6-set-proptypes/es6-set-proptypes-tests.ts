@@ -1,5 +1,5 @@
 import * as setType from 'es6-set-proptypes';
-import * as PropTypes from "prop-types";
+import * as PropTypes from 'prop-types';
 
 interface SetProps {
     names: Set<string>;

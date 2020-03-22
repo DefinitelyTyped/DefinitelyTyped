@@ -6,11 +6,18 @@
 
 /// <reference types="node" />
 
-
 import stream = require('stream');
 
 declare class BufferList extends stream.Duplex {
-    constructor(callbackOrData?: ((err: Error, buffer: Buffer) => void) | Buffer | Buffer[] | BufferList | BufferList[] | string);
+    constructor(
+        callbackOrData?:
+            | ((err: Error, buffer: Buffer) => void)
+            | Buffer
+            | Buffer[]
+            | BufferList
+            | BufferList[]
+            | string,
+    );
 
     length: number;
     append(buffer: Buffer | Buffer[] | BufferList | BufferList[] | string): void;

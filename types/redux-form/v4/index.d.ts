@@ -273,10 +273,9 @@ export interface ReduxFormProps<T> {
     values?: FormData;
 }
 
-declare class ElementClass extends React.Component<any> {
-}
+declare class ElementClass extends React.Component<any> {}
 interface ClassDecorator {
-    <T extends (typeof ElementClass)>(component: T): T;
+    <T extends typeof ElementClass>(component: T): T;
 }
 
 interface MapStateToProps {
@@ -291,9 +290,11 @@ interface MapDispatchToPropsObject {
     [name: string]: ActionCreator<any>;
 }
 
-export declare function reduxForm(config: ReduxFormConfig,
+export declare function reduxForm(
+    config: ReduxFormConfig,
     mapStateToProps?: MapStateToProps,
-    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject): ClassDecorator;
+    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject,
+): ClassDecorator;
 
 export interface ReduxFormConfig {
     /**
@@ -446,9 +447,12 @@ export interface ReduxFormConfig {
  * @param previousAllValues All the values of the form before the current
  * change. Useful to change one field based on a change in another.
  */
-export type Normalizer =
-    (value: FieldValue, previousValue: FieldValue,
-        allValues: FormData, previousAllValues: FormData) => any;
+export type Normalizer = (
+    value: FieldValue,
+    previousValue: FieldValue,
+    allValues: FormData,
+    previousAllValues: FormData,
+) => any;
 
 export declare const reducer: {
     (state: any, action: any): any;
@@ -462,8 +466,8 @@ export declare const reducer: {
      */
     normalize(normalizers: {
         [formName: string]: {
-            [fieldName: string]: Normalizer
-        }
+            [fieldName: string]: Normalizer;
+        };
     }): Reducer<any>;
 
     /**

@@ -97,7 +97,8 @@ class RedirectRoute extends Route {
 }
 
 class InvalidRedirect extends Route {
-    redirect(model: {}, a: Transition, anOddArg: any) { // $ExpectError
+    redirect(model: {}, a: Transition, anOddArg: any) {
+        // $ExpectError
         if (!model) {
             this.transitionTo('there');
         }
@@ -174,9 +175,9 @@ class RouteUsingClass extends Route.extend({
         this.intermediateTransitionTo('some-route');
     }
     intermediateTransitionWithModel() {
-        this.intermediateTransitionTo('some.other.route', { });
+        this.intermediateTransitionTo('some.other.route', {});
     }
     intermediateTransitionWithMultiModel() {
-        this.intermediateTransitionTo('some.other.route', 1, 2, { });
+        this.intermediateTransitionTo('some.other.route', 1, 2, {});
     }
 }

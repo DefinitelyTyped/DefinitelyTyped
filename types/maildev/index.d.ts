@@ -124,8 +124,8 @@ interface Mail {
     envelope?: Object;
 }
 
-declare module "maildev" {
-    import fs = require("fs");
+declare module 'maildev' {
+    import fs = require('fs');
 
     /**
      * Interface for {@link MailDev}.

@@ -1,6 +1,6 @@
 import I18n, { getLanguages } from 'react-native-i18n';
 
-getLanguages().then(languages => languages[0]);
+getLanguages().then((languages) => languages[0]);
 
 I18n.defaultLocale = 'en';
 I18n.fallbacks = true;

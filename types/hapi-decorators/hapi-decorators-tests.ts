@@ -8,13 +8,13 @@ class TestController implements Controller {
 
     @get('/')
     @config({
-        auth: false
+        auth: false,
     })
     @cache({
-        expiresIn: 42000
+        expiresIn: 42000,
     })
     @validate({
-        payload: false
+        payload: false,
     })
     getHandler(request: hapi.Request, reply: hapi.ReplyNoContinue) {
         reply({ success: true });
@@ -42,7 +42,6 @@ server.route(new TestController().routes());
 
 @controller('/test')
 class SimpleTestController implements Controller {
-
     foo: string;
 
     constructor(foo: string) {

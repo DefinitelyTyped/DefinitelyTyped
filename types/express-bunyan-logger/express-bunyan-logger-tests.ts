@@ -7,27 +7,27 @@ const middleware2 = expressBunyan.errorLogger({});
 
 // format accepts both string and function
 const middleware3 = expressBunyan({
-    format: ':name'
+    format: ':name',
 });
 const middleware4 = expressBunyan({
     format(meta: any) {
         return 'foo';
-    }
+    },
 });
 
 // works when provided a bunyan logger
 const logger = Bunyan.createLogger({
-    name: 'myLogger'
+    name: 'myLogger',
 });
 const middleware5 = expressBunyan({
-    logger
+    logger,
 });
 
 expressBunyan({
-    format: () => "some format",
-    genReqId: req => req.header("foo") || "other",
-    name: "foo_app",
+    format: () => 'some format',
+    genReqId: (req) => req.header('foo') || 'other',
+    name: 'foo_app',
     parseUA: false,
     serializers: Bunyan.stdSerializers,
-    streams: [{ level: 'info', stream: process.stdout }]
+    streams: [{ level: 'info', stream: process.stdout }],
 });

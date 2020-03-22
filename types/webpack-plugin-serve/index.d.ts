@@ -8,10 +8,7 @@
 import { Url } from 'url';
 import { Config as HttpProxyMiddlewareConfig, Proxy } from 'http-proxy-middleware';
 import * as Koa from 'koa';
-import {
-    ServerOptions as Http2ServerOptions,
-    SecureServerOptions as Http2SecureServerOptions,
-} from 'http2';
+import { ServerOptions as Http2ServerOptions, SecureServerOptions as Http2SecureServerOptions } from 'http2';
 import { ServerOptions as HttpsServerOptions } from 'https';
 import { ZlibOptions } from 'zlib';
 import { Compiler } from 'webpack';
@@ -53,11 +50,11 @@ export interface WebpackPluginServeOptions {
     };
     middleware?: (app: Koa, builtins: Builtins) => void;
     open?:
-    | boolean
-    | {
-        wait?: boolean;
-        app?: string | ReadonlyArray<string>;
-    };
+        | boolean
+        | {
+              wait?: boolean;
+              app?: string | ReadonlyArray<string>;
+          };
     port?: number | Promise<number>;
     progress?: boolean | 'minimal';
     static?: string | string[] | StaticObject;

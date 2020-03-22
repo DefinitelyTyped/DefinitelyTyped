@@ -9,16 +9,18 @@ namespace ngCordova {
             targetWidth: 100,
             targetHeight: 100,
             saveToPhotoAlbum: false,
-            correctOrientation: true
+            correctOrientation: true,
         };
 
-        $cordovaCamera.getPicture(options).then((imageData) => {
-            console.log(imageData.trim());
-        }).finally(() => {
-            $cordovaCamera.cleanup()
-                .then(() => {
+        $cordovaCamera
+            .getPicture(options)
+            .then((imageData) => {
+                console.log(imageData.trim());
+            })
+            .finally(() => {
+                $cordovaCamera.cleanup().then(() => {
                     console.log('cleaned up.');
                 });
-        });
-    };
+            });
+    }
 }

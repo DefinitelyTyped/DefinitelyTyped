@@ -6,7 +6,5 @@ const app = express();
 app.use(express.static(kueUiClient.getDistPath(), { index: false }));
 
 app.get('index.html', (req, res) => {
-    res.contentType('html')
-        .send(kueUiClient.getIndexFile())
-        .end();
+    res.contentType('html').send(kueUiClient.getIndexFile()).end();
 });

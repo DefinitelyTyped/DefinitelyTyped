@@ -1,4 +1,4 @@
-import { WorkboxEvent } from "../types/WorkboxEvent";
+import { WorkboxEvent } from '../types/WorkboxEvent';
 
 export class EventTargetShim {
     addEventListener(type: string, listener: EventListenerShim): void;

@@ -18,7 +18,7 @@ tpu.check({
     host: '127.0.0.1',
     status: false,
     retryTimeMs: 2000,
-    timeOutMs: 2000
+    timeOutMs: 2000,
 }).then((isUsed: boolean) => {
     // $ExpectedType boolean
     isUsed;
@@ -28,7 +28,7 @@ tpu.check({
 tpu.check();
 
 // $Expected promise void
-tpu.waitForStatus(20000, '127.0.0.1', true, 1000, 2000).then(() => { });
+tpu.waitForStatus(20000, '127.0.0.1', true, 1000, 2000).then(() => {});
 
 // $Expected promise void
 tpu.waitForStatus({
@@ -36,8 +36,8 @@ tpu.waitForStatus({
     host: '127.0.0.1',
     status: true,
     retryTimeMs: 2000,
-    timeOutMs: 2000
-}).then(() => { });
+    timeOutMs: 2000,
+}).then(() => {});
 
 // $ExpectError
 tpu.waitForStatus();
@@ -51,14 +51,14 @@ tpu.waitUntilFree({
     host: '127.0.0.1',
     status: true,
     retryTimeMs: 2000,
-    timeOutMs: 2000
-}).then(() => { });
+    timeOutMs: 2000,
+}).then(() => {});
 
 // $ExpectError
 tpu.waitUntilFree();
 
 // $Expected promise void
-tpu.waitUntilFreeOnHost(20000, '127.0.0.1', 1000, 2000).then(() => { });
+tpu.waitUntilFreeOnHost(20000, '127.0.0.1', 1000, 2000).then(() => {});
 
 // $Expected promise void
 tpu.waitUntilFreeOnHost({
@@ -66,14 +66,14 @@ tpu.waitUntilFreeOnHost({
     host: '127.0.0.1',
     status: true,
     retryTimeMs: 2000,
-    timeOutMs: 2000
-}).then(() => { });
+    timeOutMs: 2000,
+}).then(() => {});
 
 // $ExpectError
 tpu.waitUntilFreeOnHost();
 
 // $Expected promise void
-tpu.waitUntilUsed(20000, 1000, 2000).then(() => { });
+tpu.waitUntilUsed(20000, 1000, 2000).then(() => {});
 
 // $Expected promise void
 tpu.waitUntilUsed({
@@ -81,14 +81,14 @@ tpu.waitUntilUsed({
     host: '127.0.0.1',
     status: true,
     retryTimeMs: 2000,
-    timeOutMs: 2000
-}).then(() => { });
+    timeOutMs: 2000,
+}).then(() => {});
 
 // $ExpectError
 tpu.waitUntilUsed();
 
 // $Expected promise void
-tpu.waitUntilUsedOnHost(20000, '127.0.0.1', 1000, 2000).then(() => { });
+tpu.waitUntilUsedOnHost(20000, '127.0.0.1', 1000, 2000).then(() => {});
 
 // $Expected promise void
 tpu.waitUntilUsedOnHost({
@@ -96,8 +96,8 @@ tpu.waitUntilUsedOnHost({
     host: '127.0.0.1',
     status: true,
     retryTimeMs: 2000,
-    timeOutMs: 2000
-}).then(() => { });
+    timeOutMs: 2000,
+}).then(() => {});
 
 // $ExpectError
 tpu.waitUntilUsedOnHost();

@@ -1,46 +1,18 @@
-import { Middleware, Middlewares, Context } from "./typings/common";
+import { Middleware, Middlewares, Context } from './typings/common';
 
-export type getType = (
-    path: string,
-    middlewares: Middleware | Middlewares,
-    ...all: Middlewares
-) => Middleware;
+export type getType = (path: string, middlewares: Middleware | Middlewares, ...all: Middlewares) => Middleware;
 
-export type postType = (
-    path: string,
-    middlewares: Middleware | Middlewares,
-    ...all: Middlewares
-) => Middleware;
+export type postType = (path: string, middlewares: Middleware | Middlewares, ...all: Middlewares) => Middleware;
 
-export type putType = (
-    path: string,
-    middlewares: Middleware | Middlewares,
-    ...all: Middlewares
-) => Middleware;
+export type putType = (path: string, middlewares: Middleware | Middlewares, ...all: Middlewares) => Middleware;
 
-export type delType = (
-    path: string,
-    middlewares: Middleware | Middlewares,
-    ...all: Middlewares
-) => Middleware;
+export type delType = (path: string, middlewares: Middleware | Middlewares, ...all: Middlewares) => Middleware;
 
-export type errorType = (
-    name: string,
-    middlewares: Middleware | Middlewares,
-    ...all: Middlewares
-) => Middleware;
+export type errorType = (name: string, middlewares: Middleware | Middlewares, ...all: Middlewares) => Middleware;
 
-export type subType = (
-    subdomain: string,
-    middlewares: Middleware | Middlewares,
-    ...all: Middlewares
-) => Middleware;
+export type subType = (subdomain: string, middlewares: Middleware | Middlewares, ...all: Middlewares) => Middleware;
 
-export type socketType = (
-    name: string,
-    middlewares: Middleware | Middlewares,
-    ...all: Middlewares
-) => Middleware;
+export type socketType = (name: string, middlewares: Middleware | Middlewares, ...all: Middlewares) => Middleware;
 
 export const get: getType;
 export const post: postType;

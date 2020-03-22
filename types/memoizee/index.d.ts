@@ -4,23 +4,23 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace memoizee {
-  interface Options {
-    length?: number | false;
-    maxAge?: number;
-    max?: number;
-    preFetch?: number | true;
-    promise?: boolean;
-    dispose?(value: any): void;
-    async?: boolean;
-    primitive?: boolean;
-    normalizer?(args: any[]): string;
-    resolvers?: Array<(arg: any) => any>;
-  }
+    interface Options {
+        length?: number | false;
+        maxAge?: number;
+        max?: number;
+        preFetch?: number | true;
+        promise?: boolean;
+        dispose?(value: any): void;
+        async?: boolean;
+        primitive?: boolean;
+        normalizer?(args: any[]): string;
+        resolvers?: Array<(arg: any) => any>;
+    }
 
-  interface Memoized<F> {
-    delete: F;
-    clear: F & (() => void);
-  }
+    interface Memoized<F> {
+        delete: F;
+        clear: F & (() => void);
+    }
 }
 
 // tslint:disable-next-line ban-types

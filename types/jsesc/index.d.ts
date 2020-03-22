@@ -4,8 +4,6 @@
 //                 Lyanbin <https://github.com/Lyanbin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare function jsesc(str: string, opts?: any): string;
 
 declare namespace jsesc {

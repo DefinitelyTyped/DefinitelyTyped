@@ -7,7 +7,7 @@ import {
     MinKey as MongodbMinKey,
     MongoClientOptions,
     ObjectId as MongodbObjectId,
-    Timestamp as MongodbTimestamp
+    Timestamp as MongodbTimestamp,
 } from 'mongodb';
 import {
     Action,
@@ -31,7 +31,7 @@ import {
     RemovedAction,
     State,
     Timestamp,
-    UpdatedAction
+    UpdatedAction,
 } from 'mongorito';
 
 const URL = `192.168.99.100:27017`;
@@ -75,7 +75,7 @@ function expectToBeAQuery(obj: Query) {
 
 function expectToBeAAction(obj: Action) {
     expect(obj).toBeInstanceOf(Object);
-    expect(typeof obj.type).toBe("string");
+    expect(typeof obj.type).toBe('string');
 }
 
 function expectToBeACreatedAction(obj: CreatedAction | UpdatedAction) {
@@ -103,21 +103,27 @@ function expectToBeARemovedAction(obj: RemovedAction) {
 
 function expectToBeACollection(obj: Collection) {
     // expect(obj).toBeInstanceOf(Object);
-    expect(typeof obj.collectionName).toBe("string");
-    expect(typeof obj.namespace).toBe("string");
+    expect(typeof obj.collectionName).toBe('string');
+    expect(typeof obj.namespace).toBe('string');
     // expect(obj).toHaveProperty("writeConcern");
     // expect(obj).toHaveProperty("readConcern");
     // expect(obj).toHaveProperty("hint");
 }
 
 describe('mongorito', () => {
-    const plugin1: Plugin = (modelClass: ModelClass) => (store: PluginStore) => (next: PluginNext) => (action: Action) => {
+    const plugin1: Plugin = (modelClass: ModelClass) => (store: PluginStore) => (next: PluginNext) => (
+        action: Action,
+    ) => {
         // next(action);
     };
-    const plugin2: Plugin = (modelClass: ModelClass) => (store: PluginStore) => (next: PluginNext) => (action: Action) => {
+    const plugin2: Plugin = (modelClass: ModelClass) => (store: PluginStore) => (next: PluginNext) => (
+        action: Action,
+    ) => {
         // next(action);
     };
-    const plugin3: Plugin = (modelClass: ModelClass) => (store: PluginStore) => (next: PluginNext) => (action: Action) => {
+    const plugin3: Plugin = (modelClass: ModelClass) => (store: PluginStore) => (next: PluginNext) => (
+        action: Action,
+    ) => {
         // next(action);
     };
 
@@ -139,12 +145,11 @@ describe('mongorito', () => {
         const database = new Database(URL);
         await database.connect();
 
-        class PluggedModel extends Model {
-        }
+        class PluggedModel extends Model {}
 
         database.register(PluggedModel);
         PluggedModel.use(plugin);
-        const obj: Model = new PluggedModel({attr: 42});
+        const obj: Model = new PluggedModel({ attr: 42 });
         await obj.save();
     });
 
@@ -259,20 +264,20 @@ describe('mongorito', () => {
             Sample.modifyReducer(reducer); // $ExpectType void
 
             // ----- query -----
-            await new Sample({attr: 'first'}).save();
-            await new Sample({attr: 'second'}).save();
+            await new Sample({ attr: 'first' }).save();
+            await new Sample({ attr: 'second' }).save();
 
             const method = 'find';
             const query: Array<[string, any]> = [
-                ['where', {attr: {$exists: true}}],
-                ['limit', 5]
+                ['where', { attr: { $exists: true } }],
+                ['limit', 5],
             ];
             const queryResultPromise: Promise<object[]> = Sample.query(method, query);
             expect(queryResultPromise).toBeInstanceOf(Promise);
             const queryResult: object[] = await queryResultPromise;
             expect(Array.isArray(queryResult)).toBe(true);
             expect(queryResult.length).toBeGreaterThan(0);
-            queryResult.forEach(x => expect(x).toBeInstanceOf(Object));
+            queryResult.forEach((x) => expect(x).toBeInstanceOf(Object));
 
             // ----- listIndexes -----
 
@@ -280,7 +285,7 @@ describe('mongorito', () => {
             expect(listIndexesResultPromise).toBeInstanceOf(Promise);
             const listIndexesResult: any[] = await listIndexesResultPromise;
             expect(Array.isArray(listIndexesResult)).toBe(true);
-            listIndexesResult.forEach(x => expect(x).not.toBeUndefined());
+            listIndexesResult.forEach((x) => expect(x).not.toBeUndefined());
 
             // ----- createIndex -----
 
@@ -297,8 +302,7 @@ describe('mongorito', () => {
             expect(dropIndexResult).not.toBeUndefined();
 
             // ----- embeds -----
-            class EmbeddedModel extends Model {
-            }
+            class EmbeddedModel extends Model {}
 
             const key = 'any';
             const model: ModelClass = EmbeddedModel;
@@ -320,7 +324,7 @@ describe('mongorito', () => {
 
             // ----- constructor -----
 
-            const fields: object = {views: 5, comments: 2};
+            const fields: object = { views: 5, comments: 2 };
             const model = new Sample(fields);
 
             new Sample();
@@ -352,7 +356,7 @@ describe('mongorito', () => {
             // expect(model.set(key, 'val')).toBeUndefined();
             model.set(key, 'val'); // $ExpectType void
             // expect(model.set({key2: 'val1', key3: 'val2'})).toBeUndefined();
-            model.set({key2: 'val1', key3: 'val2'}); // $ExpectType void
+            model.set({ key2: 'val1', key3: 'val2' }); // $ExpectType void
 
             // ----- get -----
 
@@ -405,7 +409,7 @@ describe('mongorito', () => {
             const incrementResult2: any = await incrementResultPromise2;
             expectToBeARefreshedAction(incrementResult2);
 
-            const incrementResultPromise3: Promise<any> = model.increment({views: 10, comments: 3});
+            const incrementResultPromise3: Promise<any> = model.increment({ views: 10, comments: 3 });
             expect(incrementResultPromise3).toBeInstanceOf(Promise);
             const incrementResult3: any = await incrementResultPromise3;
             expectToBeARefreshedAction(incrementResult3);
@@ -441,7 +445,7 @@ describe('mongorito', () => {
             await cas.save();
             const ID = cas.get('_id');
 
-            const query: object = {_id: ID};
+            const query: object = { _id: ID };
 
             // ----- find -----
 
@@ -492,7 +496,7 @@ describe('mongorito', () => {
             const sortResult1: Query = Sample.sort('field-test');
             expectToBeAQuery(sortResult1);
 
-            const sortResult2: Query = Sample.sort({field: 1, test: -1});
+            const sortResult2: Query = Sample.sort({ field: 1, test: -1 });
             expectToBeAQuery(sortResult2);
 
             // ----- include -----
@@ -500,7 +504,7 @@ describe('mongorito', () => {
             const includeResult1: Query = Sample.include('field-test');
             expectToBeAQuery(includeResult1);
 
-            const includeResult2: Query = Sample.include({field: 1, test: -1});
+            const includeResult2: Query = Sample.include({ field: 1, test: -1 });
             expectToBeAQuery(includeResult2);
 
             // ----- exclude -----
@@ -508,7 +512,7 @@ describe('mongorito', () => {
             const excludeResult1: Query = Sample.exclude('field-test');
             expectToBeAQuery(excludeResult1);
 
-            const excludeResult2: Query = Sample.exclude({field: 1, test: -1});
+            const excludeResult2: Query = Sample.exclude({ field: 1, test: -1 });
             expectToBeAQuery(excludeResult2);
 
             // ----- remove -----

@@ -15,5 +15,5 @@ export interface AlertProps extends UncontrolledAlertProps {
     toggle?: React.MouseEventHandler<any>;
 }
 
-declare class Alert<T = {[key: string]: any}> extends React.Component<AlertProps> {}
+declare class Alert<T = { [key: string]: any }> extends React.Component<AlertProps> {}
 export default Alert;

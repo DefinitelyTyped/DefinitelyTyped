@@ -7,9 +7,7 @@ export interface NodeJSAndCommonJS extends Linter.RulesRecord {
      * @since 1.0.0-rc-1
      * @see https://eslint.org/docs/rules/callback-return
      */
-    'callback-return': Linter.RuleEntry<[
-        string[]
-    ]>;
+    'callback-return': Linter.RuleEntry<[string[]]>;
 
     /**
      * Rule to require `require()` calls to be placed at top-level module scope.
@@ -25,9 +23,7 @@ export interface NodeJSAndCommonJS extends Linter.RulesRecord {
      * @since 0.4.5
      * @see https://eslint.org/docs/rules/handle-callback-err
      */
-    'handle-callback-err': Linter.RuleEntry<[
-        string
-    ]>;
+    'handle-callback-err': Linter.RuleEntry<[string]>;
 
     /**
      * Rule to disallow use of the `Buffer()` constructor.
@@ -43,18 +39,20 @@ export interface NodeJSAndCommonJS extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-mixed-requires
      */
-    'no-mixed-requires': Linter.RuleEntry<[
-        Partial<{
-            /**
-             * @default false
-             */
-            grouping: boolean;
-            /**
-             * @default false
-             */
-            allowCall: boolean;
-        }>
-    ]>;
+    'no-mixed-requires': Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                grouping: boolean;
+                /**
+                 * @default false
+                 */
+                allowCall: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow `new` operators with calls to `require`.
@@ -94,18 +92,27 @@ export interface NodeJSAndCommonJS extends Linter.RulesRecord {
      * @since 0.6.0
      * @see https://eslint.org/docs/rules/no-restricted-modules
      */
-    'no-restricted-modules': Linter.RuleEntry<[
-        ...Array<string | {
-            name: string;
-            message?: string;
-        } | Partial<{
-            paths: Array<string | {
-                name: string;
-                message?: string;
-            }>;
-            patterns: string[];
-        }>>
-    ]>;
+    'no-restricted-modules': Linter.RuleEntry<
+        [
+            ...Array<
+                | string
+                | {
+                      name: string;
+                      message?: string;
+                  }
+                | Partial<{
+                      paths: Array<
+                          | string
+                          | {
+                                name: string;
+                                message?: string;
+                            }
+                      >;
+                      patterns: string[];
+                  }>
+            >
+        ]
+    >;
 
     /**
      * Rule to disallow synchronous methods.
@@ -113,12 +120,14 @@ export interface NodeJSAndCommonJS extends Linter.RulesRecord {
      * @since 0.0.9
      * @see https://eslint.org/docs/rules/no-sync
      */
-    'no-sync': Linter.RuleEntry<[
-        {
-            /**
-             * @default false
-             */
-            allowAtRootLevel: boolean;
-        }
-    ]>;
+    'no-sync': Linter.RuleEntry<
+        [
+            {
+                /**
+                 * @default false
+                 */
+                allowAtRootLevel: boolean;
+            },
+        ]
+    >;
 }

@@ -16,5 +16,5 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
     expand?: boolean | string;
 }
 
-declare class Navbar<T = {[key: string]: any}> extends React.Component<NavbarProps> {}
+declare class Navbar<T = { [key: string]: any }> extends React.Component<NavbarProps> {}
 export default Navbar;

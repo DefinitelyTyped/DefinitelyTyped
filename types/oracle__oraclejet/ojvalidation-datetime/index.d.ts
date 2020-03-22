@@ -19,7 +19,7 @@ export namespace DateRestrictionValidator {
     };
     // tslint:disable-next-line interface-over-type-literal
     type ValidatorOptions = {
-        dayFormatter?: ((param0: DayFormatterInput) => DayFormatterOutput | null | 'all');
+        dayFormatter?: (param0: DayFormatterInput) => DayFormatterOutput | null | 'all';
         messageSummary?: string;
         messageDetail?: string;
     };
@@ -81,13 +81,16 @@ export class IntlDateTimeConverter extends DateTimeConverter {
     calculateWeek(value: string): number;
     compareISODates(isoStr: string, isoStr2: string): number;
     format(value: string): string | null;
-    formatRelative(value: string, relativeOptions?: {
-        formatUsing?: string;
-        dateField?: string;
-        relativeTime?: string;
-        dateOnly?: boolean;
-        timeZone?: string;
-    }): string | null;
+    formatRelative(
+        value: string,
+        relativeOptions?: {
+            formatUsing?: string;
+            dateField?: string;
+            relativeTime?: string;
+            dateOnly?: boolean;
+            timeZone?: string;
+        },
+    ): string | null;
     getAvailableTimeZones(): any[];
     getHint(): null;
     getOptions(): IntlDateTimeConverter.ConverterOptions;

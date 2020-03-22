@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { ParserOptions } from "@babel/parser";
-import { Expression, File, Program, Statement } from "@babel/types";
+import { ParserOptions } from '@babel/parser';
+import { Expression, File, Program, Statement } from '@babel/types';
 
 export interface TemplateBuilderOptions extends ParserOptions {
     /**
@@ -50,7 +50,7 @@ export interface TemplateBuilder<T> {
     };
 }
 
-export type PublicReplacements = { [index: string]: any; } | any[];
+export type PublicReplacements = { [index: string]: any } | any[];
 
 export const smart: TemplateBuilder<Statement | Statement[]>;
 export const statement: TemplateBuilder<Statement>;

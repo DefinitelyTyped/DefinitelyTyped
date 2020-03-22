@@ -11,5 +11,5 @@ declare namespace ButtonToolbar {
         vertical?: boolean;
     }
 }
-declare class ButtonToolbar extends React.Component<ButtonToolbar.ButtonToolbarProps> { }
+declare class ButtonToolbar extends React.Component<ButtonToolbar.ButtonToolbarProps> {}
 export = ButtonToolbar;

@@ -10,11 +10,7 @@ export function dissoc<T>(collection: T, key: number | string): T;
 export function dissocIn<T>(collection: T, path: ReadonlyArray<number | string>): T;
 export function assocIn<T>(collection: T, path: ReadonlyArray<number | string>, value: any): T;
 export function getIn(collection: any, path: ReadonlyArray<number | string>): any;
-export function updateIn<T>(
-    collection: T,
-    path: ReadonlyArray<number | string>,
-    callback: (value: any) => any,
-): T;
+export function updateIn<T>(collection: T, path: ReadonlyArray<number | string>, callback: (value: any) => any): T;
 
 export { assoc as set };
 export { assocIn as setIn };

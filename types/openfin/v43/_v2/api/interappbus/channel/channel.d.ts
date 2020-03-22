@@ -6,7 +6,11 @@ export interface ProviderIdentity extends Identity {
     channelName: string;
 }
 export declare type Action = (() => any) | ((payload: any) => any) | ((payload: any, id: ProviderIdentity) => any);
-export declare type Middleware = (() => any) | ((action: string) => any) | ((action: string, payload: any) => any) | ((action: string, payload: any, id: ProviderIdentity) => any);
+export declare type Middleware =
+    | (() => any)
+    | ((action: string) => any)
+    | ((action: string, payload: any) => any)
+    | ((action: string, payload: any, id: ProviderIdentity) => any);
 export interface ChannelMessagePayload extends Identity {
     action: string;
     payload: any;

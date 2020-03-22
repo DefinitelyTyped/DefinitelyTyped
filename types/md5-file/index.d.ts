@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var md5: {
-	(filename: string, cb: (err: Error, hash: string) => void): void;
-	sync: (filename: string) => string;
+    (filename: string, cb: (err: Error, hash: string) => void): void;
+    sync: (filename: string) => string;
 };
 
 export = md5;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Leaflet from "leaflet";
+import * as Leaflet from 'leaflet';
 
 declare module 'leaflet' {
     namespace AwesomeMarkers {
@@ -24,7 +24,16 @@ declare module 'leaflet' {
             /**
              * Color of the marker
              */
-            markerColor?: 'red' | 'darkred' | 'orange' | 'green' | 'darkgreen' | 'blue' | 'purple' | 'darkpurple' | 'cadetblue';
+            markerColor?:
+                | 'red'
+                | 'darkred'
+                | 'orange'
+                | 'green'
+                | 'darkgreen'
+                | 'blue'
+                | 'purple'
+                | 'darkpurple'
+                | 'cadetblue';
 
             /**
              * Color of the icon. 'white', 'black' or css code (hex, rgba etc).

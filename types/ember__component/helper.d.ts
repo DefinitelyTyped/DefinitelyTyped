@@ -1,4 +1,4 @@
-import EmberObject from "@ember/object";
+import EmberObject from '@ember/object';
 
 /**
  * Ember Helpers are functions that can compute values, and are used in templates.

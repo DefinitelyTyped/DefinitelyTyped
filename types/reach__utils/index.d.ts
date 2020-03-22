@@ -8,7 +8,7 @@ import * as React from 'react';
 
 export function checkStyles(pkg: string): () => void;
 export function wrapEvent(
-  handler: React.ReactEventHandler | undefined,
-  cb: React.ReactEventHandler
+    handler: React.ReactEventHandler | undefined,
+    cb: React.ReactEventHandler,
 ): React.ReactEventHandler;
 export function assignRef(ref?: React.Ref<any>, value?: React.ReactNode): void;

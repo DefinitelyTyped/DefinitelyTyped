@@ -39,5 +39,5 @@ declare var SharedWorker: {
      * @param {string|SharedWorkerOptions} [options]      Name of the worker to execute
      *                                                    or an object containing option properties
      */
-    new(stringUrl: string, options?: string | SharedWorkerOptions): SharedWorker.SharedWorker;
+    new (stringUrl: string, options?: string | SharedWorkerOptions): SharedWorker.SharedWorker;
 };

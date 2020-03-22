@@ -61,7 +61,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<void>}
      * @experimental
      * @tutorial Window.close
-    */
+     */
     close(): Promise<void>;
     /**
      * Prevents a user from changing an external window's size/position
@@ -99,7 +99,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<Bounds>}
      * @experimental
      * @tutorial Window.getBounds
-    */
+     */
     getBounds(): Promise<Bounds>;
     /**
      * Retrieves an array containing wrapped external windows that are grouped

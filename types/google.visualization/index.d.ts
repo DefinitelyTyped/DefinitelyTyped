@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
-
     function load(visualization: string, version: string, packages: any): void;
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
@@ -17,10 +16,9 @@ declare namespace google {
 
     // https://developers.google.com/chart/interactive/docs/reference
     namespace visualization {
-
         export function dataTableToCsv(data: DataTable | DataView): string;
         export function arrayToDataTable(data: any[], firstRowIsData?: boolean): DataTable;
-        
+
         export interface ChartSpecs {
             chartType: string;
             container?: HTMLElement;
@@ -46,7 +44,7 @@ declare namespace google {
             constructor(spec?: ChartSpecs);
             draw(container_ref?: HTMLElement): void;
             toJSON(): string;
-            clone():ChartWrapper;
+            clone(): ChartWrapper;
             getDataSourceUrl(): string;
             getDataTable(): DataTable;
             getChartType(): string;
@@ -70,7 +68,7 @@ declare namespace google {
             setView(view_spec: string): void;
         }
         //#endregion
-        
+
         //#region data
         // https://developers.google.com/chart/interactive/docs/reference#google_visualization_data_group
         export interface GroupKeyOptions {
@@ -88,11 +86,11 @@ declare namespace google {
             label?: string;
             id?: string;
         }
-        
+
         export class data {
             // https://developers.google.com/chart/interactive/docs/reference#data_modifier_functions
             static month(value: Date): number;
-            
+
             // https://developers.google.com/chart/interactive/docs/reference#group
             static sum(values: number[] | string[] | Date[]): number;
             static avg(values: number[] | string[] | Date[]): number;
@@ -100,13 +98,24 @@ declare namespace google {
             static max(values: number[] | string[] | Date[]): number | string | Date;
             static count(values: any[]): number;
 
-            static group(data: DataTable | DataView, keys: (number | GroupKeyOptions)[], columns?: GroupColumnOptions[]): DataTable;
-                        
+            static group(
+                data: DataTable | DataView,
+                keys: (number | GroupKeyOptions)[],
+                columns?: GroupColumnOptions[],
+            ): DataTable;
+
             // https://developers.google.com/chart/interactive/docs/reference#join
-            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
+            static join(
+                dataA: DataTable | DataView,
+                dataB: DataTable | DataView,
+                joinMethod: 'full' | 'inner' | 'left' | 'right',
+                keys: number[][],
+                columnsA: number[],
+                columnsB: number[],
+            ): DataTable;
         }
         //#endregion
-        
+
         //#region DataTable
         // https://developers.google.com/chart/interactive/docs/reference#DataTable
         export class DataTable {
@@ -151,7 +160,13 @@ declare namespace google {
             removeColumns(columnIndex: number, numberOfColumns: number): void;
             removeRow(rowIndex: number): void;
             removeRows(rowIndex: number, numberOfRows: number): void;
-            setCell(rowIndex: number, columnIndex: number, value?: any, formattedValue?: string, properties?: Properties): void;
+            setCell(
+                rowIndex: number,
+                columnIndex: number,
+                value?: any,
+                formattedValue?: string,
+                properties?: Properties,
+            ): void;
             setColumnLabel(columnIndex: number, label: string): void;
             setColumnProperty(columnIndex: number, name: string, value: any): void;
             setColumnProperties(columnIndex: number, properties: Properties): void;
@@ -171,7 +186,7 @@ declare namespace google {
         }
 
         export interface Properties {
-            [property: string]: any
+            [property: string]: any;
         }
 
         export interface SortByColumn {
@@ -241,14 +256,14 @@ declare namespace google {
 
             setRefreshInterval(intervalSeconds: number): void;
             setTimeout(timeoutSeconds: number): void;
-            setQuery(queryString:string): void;
+            setQuery(queryString: string): void;
 
             send(callback: (response: QueryResponse) => void): void;
         }
 
         export interface QueryOptions {
-            sendMethod?: string,
-            makeRequestParams?: Object
+            sendMethod?: string;
+            makeRequestParams?: Object;
         }
         //#endregion
         //#region QueryResponse
@@ -362,7 +377,7 @@ declare namespace google {
         }
 
         //#endregion
-        //#region Common        
+        //#region Common
         export interface ChartAnnotations {
             boxStyle?: ChartBoxStyle;
             textStyle?: ChartTextStyle;
@@ -400,7 +415,7 @@ declare namespace google {
                 x2: string;
                 y2: string;
                 useObjectBoundingBoxUnits?: boolean;
-            }
+            };
         }
 
         export interface ChartTextStyle {
@@ -418,13 +433,13 @@ declare namespace google {
             focused?: {
                 color?: string;
                 opacity?: number;
-            }
+            };
             opacity?: number;
             orientation?: ChartOrientation;
             selected?: {
                 color?: string;
                 opacity?: number;
-            }
+            };
             trigger?: string;
         }
 
@@ -455,9 +470,9 @@ declare namespace google {
 
         export type ChartOrientation = 'vertical' | 'horizontal';
         export type ChartAxisTitlesPosition = 'in' | 'out' | 'none';
-        
+
         export type ChartSelectionMode = 'single' | 'multiple';
-        
+
         export type ChartLegendPosition = 'bottom' | 'left' | 'in' | 'none' | 'right' | 'top';
         export type ChartLegendAlignment = 'start' | 'center' | 'end';
         export interface ChartLegend {
@@ -533,9 +548,9 @@ declare namespace google {
             colors?: string[];
             legend?: ChartLegend;
         }
-        
+
         export type ChartPointShape = 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
-        
+
         export interface ChartLayoutInterface {
             getBoundingBox(id: string): ChartBoundingBox;
             getChartAreaBoundingBox(): ChartBoundingBox;
@@ -559,11 +574,11 @@ declare namespace google {
             fallingColor?: ChartStrokeFill;
             risingColor?: ChartStrokeFill;
         }
-        
+
         export interface ChartSeriesOptionsBase {
             color?: string;
         }
-        
+
         // https://developers.google.com/chart/interactive/docs/gallery/trendlines
         export interface ChartTrendlineOptions {
             type?: 'linear' | 'exponential' | 'polynomial';
@@ -575,7 +590,7 @@ declare namespace google {
             pointsVisible?: boolean;
             labelInLegend?: string;
             visibleInLegend?: boolean;
-            showR2?: boolean
+            showR2?: boolean;
         }
 
         export interface ChartAction {
@@ -647,7 +662,7 @@ declare namespace google {
             selectionMode?: ChartSelectionMode;
             series?: any;
             theme?: string;
-            trendlines?: { [key: number]: ChartTrendlineOptions; };
+            trendlines?: { [key: number]: ChartTrendlineOptions };
             title?: string;
             titlePosition?: string;
             titleTextStyle?: ChartTextStyle;
@@ -703,7 +718,7 @@ declare namespace google {
         export class LineChart extends CoreChartBase {
             draw(data: DataTable | DataView, options: LineChartOptions): void;
         }
-       
+
         export interface LineChartSeriesOptions extends ChartSeriesOptionsBase {
             annotations?: ChartAnnotations;
             curveType?: 'none' | 'function';
@@ -716,7 +731,7 @@ declare namespace google {
             labelInLegend?: string;
             targetAxisIndex?: number;
         }
-        
+
         // https://developers.google.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
             aggregationTarget?: string;
@@ -743,9 +758,9 @@ declare namespace google {
             orientation?: ChartOrientation;
             reverseCategories?: boolean;
             selectionMode?: ChartSelectionMode;
-            series?: LineChartSeriesOptions[] | { [key: number]: LineChartSeriesOptions; };
+            series?: LineChartSeriesOptions[] | { [key: number]: LineChartSeriesOptions };
             domainAxis?: { type: string };
-            trendlines?: { [key: number]: ChartTrendlineOptions; };
+            trendlines?: { [key: number]: ChartTrendlineOptions };
             pointShape?: ChartPointShape;
             pointSize?: number;
             pointsVisible?: boolean;
@@ -900,14 +915,13 @@ declare namespace google {
         export class AnnotationChart extends ChartBaseClearable {
             draw(data: DataTable | DataView, options: AnnotationChartOptions, state?: any): void;
             setVisibleChartRange(start: Date, end: Date): void;
-            getVisibleChartRange(): {start: Date; end: Date };
+            getVisibleChartRange(): { start: Date; end: Date };
             hideDataColumns(columnIndexes: number | number[]): void;
             showDataColumns(columnIndexes: number | number[]): void;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/annotationchart#Configuration_Options
-        export interface AnnotationChartOptions
-        {
+        export interface AnnotationChartOptions {
             allowHtml?: boolean;
             allValuesSuffix?: string;
             annotationsWidth?: number;
@@ -1168,7 +1182,7 @@ declare namespace google {
                 rowLabelStyle?: LabelStyle;
                 showRowLabels?: boolean;
                 singleColor?: string;
-            }
+            };
             width?: number;
         }
 
@@ -1276,17 +1290,20 @@ declare namespace google {
         // https://developers.google.com/chart/interactive/docs/gallery/controls#dashboard
         export class Dashboard {
             constructor(containerRef: HTMLElement);
-            bind(controls: ControlWrapper | ControlWrapper[], charts: ChartWrapper | ChartWrapper[]): google.visualization.Dashboard;
+            bind(
+                controls: ControlWrapper | ControlWrapper[],
+                charts: ChartWrapper | ChartWrapper[],
+            ): google.visualization.Dashboard;
             draw(data: DataTable | DataView): void;
             getSelection(): Object[];
         }
 
         //#endregion
         //#region ControlWrapper
-        
+
         // https://developers.google.com/chart/interactive/docs/gallery/controls#controlwrapperobject
         export class ControlWrapper {
-            constructor(opt_spec?: ControlWrapperOptions)
+            constructor(opt_spec?: ControlWrapperOptions);
             draw(): void;
             toJSON(): string;
             clone(): ControlWrapper;
@@ -1305,7 +1322,7 @@ declare namespace google {
             setState(state_obj: Object): void;
         }
 
-        export interface ControlWrapperOptions {        
+        export interface ControlWrapperOptions {
             controlType: string;
             containerId: string;
             options?: Object;
@@ -1369,7 +1386,7 @@ declare namespace google {
                 mapTypeId: {
                     name?: string;
                     styles?: any[];
-                }
+                };
             };
             mapType?: string;
             mapTypeIds?: any[];
@@ -1380,7 +1397,7 @@ declare namespace google {
             zoomLevel?: number;
         }
 
-        //#endregion         
+        //#endregion
         //#region Events
 
         namespace events {

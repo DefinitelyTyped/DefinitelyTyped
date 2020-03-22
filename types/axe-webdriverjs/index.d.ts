@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Result, RunOptions, Spec } from "axe-core";
-import { WebDriver } from "selenium-webdriver";
+import { Result, RunOptions, Spec } from 'axe-core';
+import { WebDriver } from 'selenium-webdriver';
 
 export interface AxeAnalysis {
     inapplicable: Result[];
@@ -78,9 +78,7 @@ export interface AxeBuilder {
      * Perform analysis and retrieve results.
      * @param callback   Function to execute when analysis completes.
      */
-    analyze(
-        callback?: AnalyzeCallback | DeprecatedAnalyzeCallback
-    ): Promise<AxeAnalysis>;
+    analyze(callback?: AnalyzeCallback | DeprecatedAnalyzeCallback): Promise<AxeAnalysis>;
 }
 
 export const AxeBuilder: {

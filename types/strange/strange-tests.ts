@@ -35,7 +35,7 @@ import * as RangeTree from 'strange/tree';
     new Range(0, 5).compareEnd(null); // => -1
 
     new Range().isEmpty(); // => true
-    new Range(5, 5, "[)").isEmpty(); // => true
+    new Range(5, 5, '[)').isEmpty(); // => true
     new Range(1, 10).isEmpty(); // => false
 
     new Range().isBounded(); // => true
@@ -64,17 +64,17 @@ import * as RangeTree from 'strange/tree';
 
     new Range<number>(0, 10).contains(5); // => true
     new Range(0, 10).contains(10); // => true
-    new Range(0, 10, "[)").contains(10); // => false
+    new Range(0, 10, '[)').contains(10); // => false
 
     new Range<number>(0, 10).intersects(new Range(5, 7)); // => true
     new Range<number>(0, 10).intersects(new Range(10, 20)); // => true
-    new Range<number>(0, 10, "[)").intersects(new Range(10, 20)); // => false
+    new Range<number>(0, 10, '[)').intersects(new Range(10, 20)); // => false
     new Range<number>(0, 10).intersects(new Range(20, 30)); // => false
 
-    new Range(1, 10, "[)").valueOf(); // => [1, 10, "[)"]
+    new Range(1, 10, '[)').valueOf(); // => [1, 10, "[)"]
 
     new Range(1, 5).toString(); // => "[1,5]"
-    new Range(1, 10, "[)").toString(); // => "[1,10)"
+    new Range(1, 10, '[)').toString(); // => "[1,10)"
 
     JSON.stringify(new Range(1, 10)); // "\"[1,10]\""
     new Range(1, 10).toJSON(); // "\"[1,10]\""
@@ -82,7 +82,7 @@ import * as RangeTree from 'strange/tree';
 
     Range.compareBeginToBegin(new Range(0, 10), new Range(5, 15)); // => -1
     Range.compareBeginToBegin(new Range(0, 10), new Range(0, 15)); // => 0
-    Range.compareBeginToBegin(new Range(0, 10), new Range(0, 15, "()")); // => 1
+    Range.compareBeginToBegin(new Range(0, 10), new Range(0, 15, '()')); // => 1
 
     Range.compareBeginToEnd(new Range(0, 10), new Range(0, 5)); // => -1
     Range.compareBeginToEnd(new Range(0, 10), new Range(-10, 0)); // => 0
@@ -90,17 +90,17 @@ import * as RangeTree from 'strange/tree';
 
     Range.compareEndToEnd(new Range(0, 10), new Range(5, 15)); // => -1
     Range.compareEndToEnd(new Range(0, 10), new Range(5, 10)); // => 0
-    Range.compareEndToEnd(new Range(0, 10), new Range(5, 10, "()")); // => 1
+    Range.compareEndToEnd(new Range(0, 10), new Range(5, 10, '()')); // => 1
 
-    Range.parse("[a,z)"); // => new Range("a", "z", "[)")
-    Range.parse("[42,69]", Number); // => new Range(42, 69)
-    Range.parse("[15,]", Number); // => new Range(15, Infinity)
-    Range.parse("(,3.14]", Number); // => new Range(-Infinity, 3.14, "(]")
+    Range.parse('[a,z)'); // => new Range("a", "z", "[)")
+    Range.parse('[42,69]', Number); // => new Range(42, 69)
+    Range.parse('[15,]', Number); // => new Range(15, Infinity)
+    Range.parse('(,3.14]', Number); // => new Range(-Infinity, 3.14, "(]")
 
     Range.union(new Range(0, 5), new Range(5, 10)); // => new Range(0, 10)
     Range.union(new Range(0, 10), new Range(5, 15)); // => new Range(0, 15)
 
-    const a = new Range(-5, 0, "()");
+    const a = new Range(-5, 0, '()');
     const b = new Range(5, 10);
     Range.union(a, b); // => new Range(-5, 10, "(]")
 }

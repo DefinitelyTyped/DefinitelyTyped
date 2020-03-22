@@ -8,23 +8,20 @@ export function fromTime(time: number): Date;
 export function add(
     unit: 'milliseconds' | 'seconds' | 'minutes' | 'hours' | 'days' | 'months' | 'years',
     value: number,
-    date: Date
+    date: Date,
 ): Date;
 export function clone(date: Date): Date;
-export function convertTo(
-    unit: 'milliseconds' | 'seconds' | 'minutes' | 'hours' | 'days',
-    date: Date
-): number;
+export function convertTo(unit: 'milliseconds' | 'seconds' | 'minutes' | 'hours' | 'days', date: Date): number;
 export function diff(
     unit: 'milliseconds' | 'seconds' | 'minutes' | 'hours' | 'days' | 'months' | 'years',
     a: Date,
-    b: Date
+    b: Date,
 ): number;
 export function equals(a: Date, b: Date): boolean;
 export function format(format: string, date: Date): string;
 export function get(
     property: 'milliseconds' | 'seconds' | 'minutes' | 'hours' | 'date' | 'day' | 'week' | 'month' | 'year',
-    date: Date
+    date: Date,
 ): number;
 export function isLeapYear(date: Date): boolean;
 export function isValid(date: Date): boolean;
@@ -34,11 +31,11 @@ export function parse(format: string, date: string): Date;
 export function set(
     property: 'milliseconds' | 'seconds' | 'minutes' | 'hours' | 'date' | 'week' | 'month' | 'year',
     value: number,
-    date: Date
+    date: Date,
 ): Date;
 export function sub(
     unit: 'milliseconds' | 'seconds' | 'minutes' | 'hours' | 'days' | 'months' | 'years',
     value: number,
-    date: Date
+    date: Date,
 ): Date;
 export function unixTime(date: Date): number;

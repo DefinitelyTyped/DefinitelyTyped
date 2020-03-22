@@ -3,15 +3,14 @@
 // Definitions by: yevt <https://github.com/yevt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /**
  * Internal structure of a vertex
  */
 interface VertexStructure {
     level: number;
-    edge: Array<Vertex>,
-    data: VertexData,
-    parent: Vertex
+    edge: Array<Vertex>;
+    data: VertexData;
+    parent: Vertex;
 }
 
 /**
@@ -45,7 +44,6 @@ interface VertexConstructor {
  * Represents one node of a graph.
  */
 interface Vertex {
-
     /**
      * Initial vertex data.
      */
